@@ -1,10 +1,61 @@
 <!doctype html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quest for Bugs</title>
+    <style>
+      body {
+        font-family: "Hiragino Maru Gothic ProN", "BIZ UDGothic", sans-serif;
+        background: #fdf6e3;
+        margin: 0;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+      h1 {
+        color: #5b4636;
+        font-size: 2rem;
+      }
+      .games {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+      .game-card {
+        display: block;
+        width: 220px;
+        padding: 2rem 1rem;
+        border-radius: 16px;
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        transition: transform 0.1s;
+      }
+      .game-card:active {
+        transform: scale(0.97);
+      }
+      .math { background: #e76f51; }
+      .kanji { background: #2a9d8f; }
+      .english { background: #457b9d; }
+      .icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    </style>
   </head>
   <body>
     <h1>Quest for Bugs</h1>
+    <nav class="games">
+      <a class="game-card math" href="games/math/">
+        <span class="icon">🔢</span>けいさん
+      </a>
+      <a class="game-card kanji" href="games/kanji/">
+        <span class="icon">✏️</span>かんじ
+      </a>
+      <a class="game-card english" href="games/english/">
+        <span class="icon">🔤</span>えいご
+      </a>
+    </nav>
   </body>
 </html>
