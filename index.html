@@ -1,61 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quest for Bugs</title>
-    <style>
-      body {
-        font-family: "Hiragino Maru Gothic ProN", "BIZ UDGothic", sans-serif;
-        background: #fdf6e3;
-        margin: 0;
-        padding: 2rem 1rem;
-        text-align: center;
-      }
-      h1 {
-        color: #5b4636;
-        font-size: 2rem;
-      }
-      .games {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-        margin-top: 2rem;
-      }
-      .game-card {
-        display: block;
-        width: 220px;
-        padding: 2rem 1rem;
-        border-radius: 16px;
-        text-decoration: none;
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        transition: transform 0.1s;
-      }
-      .game-card:active {
-        transform: scale(0.97);
-      }
-      .math { background: #e76f51; }
-      .kanji { background: #2a9d8f; }
-      .english { background: #457b9d; }
-      .icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
-    </style>
-  </head>
-  <body>
-    <h1>Quest for Bugs</h1>
-    <nav class="games">
-      <a class="game-card math" href="games/math/">
-        <span class="icon">🔢</span>けいさん
-      </a>
-      <a class="game-card kanji" href="games/kanji/">
-        <span class="icon">✏️</span>かんじ
-      </a>
-      <a class="game-card english" href="games/english/">
-        <span class="icon">🔤</span>えいご
-      </a>
-    </nav>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Quest4Bugs">
+<meta name="theme-color" content="#3E7C3F">
+<title>Quest4Bugs ポータル</title>
+<style>
+:root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
+--green:#3E7C3F;--green-d:#2C5F2D;--amber:#F2A33C;--amber-d:#CF7F14;--sky:#D8EEF8;--green-l:#E2EFCB;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;
+font-family:"Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","BIZ UDPGothic",system-ui,sans-serif;}
+#w{max-width:620px;margin:0 auto;padding:14px 14px 60px;}
+.hero{background:linear-gradient(180deg,var(--sky) 0%,#EAF6E0 70%,var(--green-l) 100%);
+border:2px solid var(--line);border-radius:18px;padding:20px 16px 16px;position:relative;overflow:hidden;margin-bottom:16px;}
+.hero .sun{position:absolute;top:12px;right:16px;width:42px;height:42px;border-radius:50%;
+background:radial-gradient(circle,#FFE48A,#F2C53C);box-shadow:0 0 18px #f2c53c88;}
+.hero .grass{position:absolute;left:0;right:0;bottom:0;height:10px;
+background:repeating-linear-gradient(-45deg,var(--green) 0 6px,#5B9A4C 6px 12px);}
+h1{font-size:24px;margin:.2em 0;}
+h3{font-size:18px;margin:.2em 0;}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;}
+a.btn,button.btn{display:block;width:100%;text-align:center;text-decoration:none;border:none;border-radius:16px;
+padding:16px;font-size:20px;font-weight:800;font-family:inherit;color:#fff;background:var(--green);
+box-shadow:0 4px 0 var(--green-d);margin:10px 0;cursor:pointer;}
+a.btn:active,button.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--green-d);}
+.btn.dis{background:#B9C4A8;box-shadow:0 4px 0 #97A488;pointer-events:none;}
+.btn.sm{font-size:15px;padding:10px;background:var(--panel);color:var(--ink);
+border:2px solid var(--line);box-shadow:0 3px 0 var(--line);}
+.btn.amber{background:var(--amber);box-shadow:0 4px 0 var(--amber-d);}
+.note{font-size:13px;color:var(--sub);}
+textarea{width:100%;height:110px;font-size:12px;border:2px solid var(--line);border-radius:10px;
+padding:8px;font-family:monospace;-webkit-user-select:text;user-select:text;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+</style>
+</head>
+<body>
+<div id="w">
+  <div class="hero"><div class="sun"></div>
+    <h1>🧺 Quest4Bugs</h1>
+    <p style="margin:2px 0 8px">きょうは どれで あそぶ？</p>
+    <div class="grass"></div>
+  </div>
+
+  <a class="btn" href="./keisan/">🪲 けいさん昆虫ハンター</a>
+  <a class="btn dis">✏️ かんじ（じゅんびちゅう）</a>
+  <a class="btn dis">🔤 えいたんご（じゅんびちゅう）</a>
+
+  <div class="card">
+    <h3>💾 全ゲーム まとめてバックアップ</h3>
+    <p class="note">このサイト（shtshbt.github.io）に保存されている全ゲームの記録（キーが q4b_ で始まるもの）を1つの文字列に書き出します．iPadの故障・買い替えにそなえて，ときどき保存しておくと安心です．</p>
+    <button class="btn sm" onclick="exp()">書き出す</button>
+    <div id="expA"></div>
+    <button class="btn sm" onclick="impUI()">読み込む（復元）</button>
+    <div id="impA"></div>
+  </div>
+  <p class="note">※ ゲームの記録はこの端末のブラウザ内にのみ保存され，外部には送信されません．</p>
+</div>
+<script>
+"use strict";
+function $(i){return document.getElementById(i);}
+function pad2(n){return (n<10?"0":"")+n;}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+function allData(){
+  var o={},i,k;
+  try{
+    for(i=0;i<localStorage.length;i++){
+      k=localStorage.key(i);
+      if(k&&k.indexOf("q4b_")===0)o[k]=localStorage.getItem(k);
+    }
+  }catch(e){}
+  return o;
+}
+function exp(){
+  var o=allData(), n=Object.keys(o).length;
+  if(!n){$("expA").innerHTML='<p class="note" style="color:#E05A48">まだ保存された記録がありません（ゲームをあそんでから書き出してください）</p>';return;}
+  var s=JSON.stringify(o);
+  $("expA").innerHTML='<p class="note">'+n+'件のゲーム記録を書き出しました</p>'
+    +'<textarea id="expT" readonly>'+s.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea>'
+    +'<div class="g2"><button class="btn sm" onclick="cp()">コピー</button>'
+    +'<button class="btn sm" onclick="dl()">ファイル保存</button></div>';
+}
+function cp(){
+  var t=$("expT"); t.focus(); t.select();
+  var ok=false;
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value);ok=true;}
+  else{try{ok=document.execCommand("copy");}catch(e){}}
+  alert(ok?"コピーしました":"長押しで全選択してコピーしてください");
+}
+function dl(){
+  var blob=new Blob([$("expT").value],{type:"application/json"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="quest4bugs_backup_"+today()+".json";
+  document.body.appendChild(a);a.click();a.remove();
+}
+function impUI(){
+  $("impA").innerHTML='<textarea id="impT" placeholder="書き出した文字列をここに貼り付け"></textarea>'
+    +'<button class="btn sm amber" style="color:#fff" onclick="doImp()">復元する（同じゲームの記録は上書き）</button>';
+}
+function doImp(){
+  try{
+    var o=JSON.parse($("impT").value), n=0, k;
+    for(k in o){ if(k.indexOf("q4b_")===0&&typeof o[k]==="string"){localStorage.setItem(k,o[k]);n++;} }
+    if(!n)throw 0;
+    alert(n+"件のゲーム記録を復元しました");
+  }catch(e){alert("読み込めませんでした．文字列を確認してください");}
+}
+</script>
+</body>
 </html>
