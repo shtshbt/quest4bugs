@@ -1,0 +1,10 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local-only data (personal data must never be committed to this public repo)
+/data/
+*.local.json
+*.local.js
