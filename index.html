@@ -220,7 +220,9 @@ function pickProf(id){QuestSave.setCurrentProfile(id);renderProfiles();}
 /* ---- 全ゲーム横断の プロフィール ダッシュボード ---- */
 function pad2d(n){return (n<10?"0":"")+n;}
 function ymd(d){return d.getFullYear()+"-"+pad2d(d.getMonth()+1)+"-"+pad2d(d.getDate());}
-function sumDaily(map,src,key,g){var d,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c){if(!map[d])map[d]={k:0,j:0,e:0};map[d][g]+=c;}}}
+/* 日付キーの正規化: えいたんごは数値 YYYYMMDD、けいさん/かんじは YYYY-MM-DD で保存しているため揃える */
+function ndk(k){k=String(k);return /^\d{8}$/.test(k)?(k.slice(0,4)+"-"+k.slice(4,6)+"-"+k.slice(6,8)):k;}
+function sumDaily(map,src,key,g){var d,nd,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c){nd=ndk(d);if(!map[nd])map[nd]={k:0,j:0,e:0};map[nd][g]+=c;}}}
 function renderDashboard(pid,name){
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
