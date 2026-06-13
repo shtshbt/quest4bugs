@@ -61,12 +61,20 @@
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
   var SHINY_CHANCE = 0.03;
   var TIER_WEIGHT = [70, 22, 6, 1.6, 0.4]; // N / R / SR / SSR / SS
+  var REVIEW_BOOST = 3;  // 復習チャレンジ時の「珍しい虫が出やすい」係数
+  /* boost>1 で SR以上(tier>=2)のティア重みを倍化（復習チャレンジ用のレアブースト） */
+  function weightsWith(boost){
+    if(!boost || boost<=1) return TIER_WEIGHT;
+    return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
+  }
   /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先し、
-     コンプ到達を現実的にする（レア度の特別感はティア重みで維持）。 */
-  function rollFromPool(p, caught){
+     コンプ到達を現実的にする（レア度の特別感はティア重みで維持）。
+     boost: レアブースト係数（省略時1=通常）。 */
+  function rollFromPool(p, caught, boost){
     if(!p || !p.length) return null;
+    var TW = weightsWith(boost);
     var byTier = [0,1,2,3,4].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
-    var w = byTier.map(function(a,t){ return a.length ? TIER_WEIGHT[t] : 0; });
+    var w = byTier.map(function(a,t){ return a.length ? TW[t] : 0; });
     var tot = w.reduce(function(a,b){return a+b;},0);
     if(tot<=0) return null;
     var r = Math.random()*tot, tier = 0, i;
@@ -105,22 +113,22 @@
 
   /* called on each correct answer. returns a catch result, or null if the
      gauge is not full yet. `need` lets a game tune the cadence. */
-  function onCorrect(coll, game, need){
+  function onCorrect(coll, game, need, boost){
     if(!coll.catches) coll.catches = {};
     coll.amber = (coll.amber||0) + AMBER_PER_CORRECT;
     coll.gauge = (coll.gauge||0) + 1;
     var threshold = need || NEED_DEFAULT;
     if(coll.gauge < threshold) return null;
     coll.gauge -= threshold;
-    var sp = rollFromPool(pool(game), coll.catches);
+    var sp = rollFromPool(pool(game), coll.catches, boost);
     if(!sp) return null;
     return record(coll, sp);
   }
 
-  /* guaranteed single catch (for set-completion / bonus gacha, no gauge) */
-  function award(coll, game){
+  /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional. */
+  function award(coll, game, boost){
     if(!coll.catches) coll.catches = {};
-    var sp = rollFromPool(pool(game), coll.catches);
+    var sp = rollFromPool(pool(game), coll.catches, boost);
     return sp ? record(coll, sp) : null;
   }
 
@@ -146,6 +154,7 @@
     spendForCatch: spendForCatch,
     amberOf: amberOf,
     AMBER_CATCH_COST: AMBER_CATCH_COST,
+    REVIEW_BOOST: REVIEW_BOOST,
     record: record,
     collectedCount: collectedCount,
     rank: rank,
