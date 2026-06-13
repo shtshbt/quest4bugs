@@ -3511,7 +3511,7 @@ function renderStart(){
   <div class="card center">
     <div class="small">${info}</div>
     <div class="small" style="margin-top:6px">🐛採集ゲージ ${P.pool}/${Reward.NEED} (せいかいで たまる)</div>
-    <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${KIDS?10:20}もん)</button>
+    <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${SESSION_N}もん)</button>
     ${(hasNushi&&!P.nushi[GFID])?`<button class="btn amber" onclick="startNushi()">👑 ヌシに ちょうせん (${KIDS?'10もん中9もん':'20もん中18もん'}せいかい)</button>`:''}
     <button class="btn sub" ${extraLeft<=0||P.amber<30?'disabled':''} onclick="doExtra()">🟡30で ついか採集 (きょう あと${Math.max(0,extraLeft)}回)</button>
   </div>`;
@@ -3525,7 +3525,9 @@ function doExtra(){
 }
 
 /* ---------- question queue ---------- */
+const SESSION_N=5;
 function buildMain(){
+  const N=SESSION_N;
   if(KIDS){
     const pool=GWORDS.map(w=>{
       const k=P.kids[w.key]||[0,0,0];
@@ -3534,7 +3536,7 @@ function buildMain(){
     });
     const q=[];
     let bag=[...pool];
-    for(let i=0;i<10&&bag.length;i++){
+    for(let i=0;i<N&&bag.length;i++){
       let tot=bag.reduce((a,x)=>a+x.wt,0), r=Math.random()*tot, pick=bag[0], idx=0;
       for(let j=0;j<bag.length;j++){ if(r<bag[j].wt){pick=bag[j];idx=j;break;} r-=bag[j].wt; }
       bag.splice(idx,1);
@@ -3542,16 +3544,24 @@ function buildMain(){
     }
     return q;
   }
-  let due=Engine.shuffle(SRS.dueList(P,GWORDS)).slice(0,20);
+  /* 復習(due)優先 → 新規(1日予算内) → 不足分は既習で補充して つねに N問にそろえる */
+  let due=Engine.shuffle(SRS.dueList(P,GWORDS)).slice(0,N);
   let q=due.map(w=>({w,type:srsType(w)}));
-  if(q.length<20){
-    const budget=Math.min(SRS.newBudget(P),20-q.length);
+  if(q.length<N){
+    const budget=Math.min(SRS.newBudget(P),N-q.length);
     const fresh=Engine.shuffle(SRS.newList(P,GWORDS)).slice(0,budget);
     SRS.useNew(P,fresh.length);
     q=q.concat(fresh.map(w=>({w,type:srsType(w)})));
   }
-  if(!q.length){
-    q=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key])).slice(0,20).map(w=>({w,type:srsType(w)}));
+  if(q.length<N){
+    const have=new Set(q.map(x=>x.w.key));
+    const seen=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&!have.has(w.key)));
+    for(let i=0;i<seen.length&&q.length<N;i++)q.push({w:seen[i],type:srsType(seen[i])});
+  }
+  if(q.length<N){
+    const have2=new Set(q.map(x=>x.w.key));
+    const any=Engine.shuffle(GWORDS.filter(w=>!have2.has(w.key)));
+    for(let i=0;i<any.length&&q.length<N;i++)q.push({w:any[i],type:srsType(any[i])});
   }
   return q;
 }
