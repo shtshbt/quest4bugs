@@ -100,6 +100,13 @@
     return record(coll, sp);
   }
 
+  /* guaranteed single catch (for set-completion / bonus gacha, no gauge) */
+  function award(coll, game){
+    if(!coll.catches) coll.catches = {};
+    var sp = rollFromPool(pool(game));
+    return sp ? record(coll, sp) : null;
+  }
+
   /* ---- collection stats / rank ---- */
   function collectedCount(coll){ return coll && coll.catches ? Object.keys(coll.catches).length : 0; }
   var RANKS = [[0,"かけだし虫とり"],[20,"みならい虫とり"],[60,"いちにんまえの虫とり"],
@@ -118,6 +125,7 @@
     TIERNAME: TIERNAME,
     sizeRange: sizeRange,
     onCorrect: onCorrect,
+    award: award,
     record: record,
     collectedCount: collectedCount,
     rank: rank,

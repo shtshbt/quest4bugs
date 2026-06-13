@@ -148,6 +148,9 @@ input[type=range]{width:100%}
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
 <script src="../shared/storage.js"></script>
+<script src="../shared/bugs.js"></script>
+<script src="../shared/render.js"></script>
+<script src="../shared/reward.js"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -870,7 +873,7 @@ var BUGS=[
 {id:'kabuto',n:'カブトムシ',hn:'かぶとむし',r:3},
 {id:'nokogiri',n:'ノコギリクワガタ',hn:'のこぎりくわがた',r:3},
 {id:'niji',n:'ニジイロクワガタ',hn:'にじいろくわがた',r:4}];
-var BMAP={}; BUGS.forEach(function(b){BMAP[b.id]=b});
+var BMAP={}; BUGS.forEach(function(b){BMAP[b.id]=b}); // BMAP: ことばつくり用 bugSVG 参照のみ（採集報酬は Q4BReward が担当）;
 var GID=0;
 function bugSVG(id,sz){
  var b='';
@@ -899,7 +902,7 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
 var DEF_CFG={tts:1,rate:0.9,newS:3,newB:8,all:0};
-function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:[],pp:0,un:null,re:null}}
+function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
 function unOK(part){ return CFG.all ? true : !!ST.un[part] }
 function saveST(){ QuestSave.save('kanji',CUR.id,ST) }
@@ -1026,7 +1029,8 @@ var TESTS={
 function passed(id){ return ST.tests.some(function(x){return x.t===id&&x.sc>=80}) }
 function goldOf(id){ return ST.tests.some(function(x){return x.t===id&&x.sc>=95}) }
 function bestOf(id){ var m=-1; ST.tests.forEach(function(x){ if(x.t===id&&x.sc>m)m=x.sc }); return m }
-function grantBug(id){ if(ST.coll.indexOf(id)<0){ ST.coll.push(id); return [id] } return [] }
+// grantBug: 旧採集エンジン用（Q4BReward 移行後は不使用）
+function grantBug(id){ return [] }
 function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲') }
 
 /* ================= プロフィール ================= */
@@ -1045,7 +1049,9 @@ function ensureMode(p){
  return QuestSave.saveProfiles(PROFILES); }
 function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
  ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); }).then(function(d){ ST=d||newState();
-  if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[]; if(!ST.coll)ST.coll=[];
+  if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
+  // 後方互換: 旧 coll (配列) を新形式に移行
+  if(!ST.coll||Array.isArray(ST.coll))ST.coll={gauge:0,total:0,catches:{}};
   initUn(); head(); renderHome() }) }
 
 /* ================= ホーム ================= */
@@ -1092,10 +1098,36 @@ function answered(ok){ var p=SES.q[SES.i];
  applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'));
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
- if(ok){ SES.ok++ } else { SES.wrongs.push(p);
+ if(ok){ SES.ok++;
+  // 採集ゲージ: learn/practice のみ（test は finishTest で別途処理）
+  if(SES.mode!=='test'&&window.Q4BReward){
+   var got=Q4BReward.onCorrect(ST.coll,'kanji');
+   if(got){ saveST(); setTimeout(function(){ showCatchModal(got) },850); }
+  }
+ } else { SES.wrongs.push(p);
   if(SES.mode==='learn'&&!p.rq){ var c=Object.assign({},p); c.rq=1; SES.q.push(c) } }
  saveST();
  if(ok){ SES.i++; setTimeout(nextQ,800) } else { setTimeout(function(){ showCorrect(p) },650) } }
+
+function showCatchModal(got){
+ if(!window.Q4BReward)return;
+ var sp=got.sp;
+ var svgHtml=Q4BReward.svg(sp);
+ var badges='';
+ if(got.isNew)badges+='<span style="background:#e8f5e9;color:#2e7d32;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ NEW！</span>';
+ if(got.isRecord&&!got.isNew)badges+='<span style="background:#fff8e1;color:#f57f17;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">🏆 じこベスト！</span>';
+ if(got.shiny)badges+='<span style="background:#f3e5f5;color:#7b1fa2;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ いろちがい！</span>';
+ var h='<div class="center">'
+  +'<div style="font-size:18px;font-weight:bold;margin-bottom:8px">🧺 むしを つかまえた！</div>'
+  +'<div style="width:80px;height:80px;margin:0 auto 6px">'+svgHtml+'</div>'
+  +'<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>'
+  +'<div style="font-size:13px;color:#56714e;margin:2px 0">'+got.size+'mm　'+Q4BReward.TIERNAME[got.tier]+'</div>'
+  +(badges?'<div style="margin:4px 0">'+badges+'</div>':'')
+  +'<div style="font-size:12px;color:#888;margin-top:4px">'+Q4BReward.collectedCount(ST.coll)+' / '+Q4BReward.poolCount("kanji")+' しゅ</div>'
+  +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やった！</button>'
+  +'</div>';
+ modal(h);
+}
 function answerInfo(p){ if(p.key[0]==='h'){ var c=p.key.slice(2); return {disp:c,say:c} }
  var x=KMAP[p.key.slice(2)];
  if(p.sk==='y')return {disp:x.main,say:x.main};
@@ -1254,22 +1286,36 @@ function finishTest(){ var id=SES.test; var total=SES.res.length;
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
  ST.tests.unshift({d:t,t:id,sc:sc,n:total,w:SES.wrongs.map(function(p){return p.key})});
  if(ST.tests.length>40)ST.tests.length=40;
- var pass=(sc>=80), gold=(sc>=95), gained=[];
+ var pass=(sc>=80), gold=(sc>=95), gainedCatches=[];
  if(pass){ ST.pp=(ST.pp||0)+1; if(ST.re&&ST.re.t===id)ST.re=null;
   if(id==='t_hira')ST.un.u1=1; if(id==='t_u1')ST.un.u2=1;
-  gained=gained.concat(grantBug(TESTS[id].reward));
-  if(gold){ var rare=['abura','tonosama','hotaru','kabuto','nokogiri'].filter(function(b){return ST.coll.indexOf(b)<0});
-   if(rare.length)gained=gained.concat(grantBug(rare[0])) }
-  if(goldOf('t_hira')&&goldOf('t_u1')&&goldOf('t_u2')&&goldOf('t_all'))gained=gained.concat(grantBug('niji'));
+  // 新エンジン: テスト合格 → ゲージ強制充填で1匹確定ゲット
+  if(window.Q4BReward){
+   var pool2=Q4BReward.pool('kanji');
+   if(pool2&&pool2.length){
+    var sp1=pool2[Math.floor(Math.random()*pool2.length)];
+    gainedCatches.push(Q4BReward.record(ST.coll,sp1));
+    if(gold){
+     // きん合格ボーナス: もう1匹（レア以上から優先）
+     var rares=pool2.filter(function(s){return Q4BReward.tierOf(s)>=1});
+     var sp2=(rares.length?rares:pool2)[Math.floor(Math.random()*(rares.length||pool2.length))];
+     gainedCatches.push(Q4BReward.record(ST.coll,sp2));
+    }
+   }
+  }
  } else { ST.re={d:addDays(t,3),t:id} }
  saveST();
  var s=$('scr-result'); var h='<div class="card center">';
  if(pass){ h+='<div class="result-big">'+(gold?'🥇':'🎉')+'</div><div style="font-weight:bold;font-size:22px;color:var(--forest)">ごうかく！'+(gold?'（きん）':'')+'</div>' }
  else { h+='<div class="result-big">🍂</div><div style="font-weight:bold;font-size:20px">あと すこし！</div>' }
  h+='<div class="qmid">'+sc+' てん（⭕'+SES.ok+'／'+total+'）</div>';
- if(gained.length){ h+='<div class="small">つかまえた！</div><div class="bugs" style="margin:8px 0">';
-  gained.forEach(function(g){ var b=BMAP[g];
-   h+='<div class="bug">'+bugSVG(g,64)+'<div class="nm">'+b.n+'</div><div class="rar">'+'★★★★'.slice(0,b.r)+'</div></div>' });
+ if(gainedCatches.length&&window.Q4BReward){ h+='<div class="small">🧺 つかまえた！</div><div class="bugs" style="margin:8px 0">';
+  gainedCatches.forEach(function(got){
+   if(!got)return;
+   var sp=got.sp;
+   var shinyB=got.shiny?'✨':'';
+   var newB=got.isNew?'<span style="font-size:10px;color:#2e7d32">NEW</span>':'';
+   h+='<div class="bug">'+Q4BReward.svg(sp)+'<div class="nm">'+(sp.jaName||sp.id)+shinyB+newB+'</div><div class="rar">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp)]+'</div></div>' });
   h+='</div>' }
  if(!pass){ h+='<div class="small">3にち ごに さいチャレンジが とどくよ</div>';
   if(SES.wrongs.length)h+='<button class="btn soil" id="bRev" style="margin-top:10px">まちがえた もじを れんしゅう</button>' }
@@ -1386,15 +1432,72 @@ function zDetail(key){ if(isLocked(key)){ lockMsg(); return }
 }
 
 /* ================= むしかご ================= */
-function renderBugs(){ var s=$('scr-bugs');
+function renderBugs(){
+ if(!window.Q4BReward){ _renderBugsFallback(); return; }
+ var s=$('scr-bugs');
+ var pool=Q4BReward.pool('kanji');
+ // rarity 順（tier降順、同tier内はid昇順）でソート
+ var sorted=pool.slice().sort(function(a,b){
+  var ta=Q4BReward.tierOf(a), tb=Q4BReward.tierOf(b);
+  return ta!==tb ? tb-ta : a.id<b.id?-1:1;
+ });
+ var cnt=Q4BReward.collectedCount(ST.coll);
+ var total=Q4BReward.poolCount('kanji');
+ var rankName=Q4BReward.rank(ST.coll.total||0);
  var h='<button class="btn sub mini" id="bBk4">← ホーム</button>'
- +'<div class="card center"><div class="partner" style="font-size:54px">'+partnerFace()+'</div><div style="font-weight:bold">あいぼう</div><div class="small">'+((ST.pp||0)<=0?'テストに ごうかくすると たまごが かえるよ':((ST.pp||0)<3?'テストに ごうかくするたび そだつよ':'りっぱな せいちゅうに なった！'))+'</div></div>'
- +'<div class="card"><div style="font-weight:bold;margin-bottom:10px">🧺 つかまえた むし　'+ST.coll.length+'／'+BUGS.length+'</div><div class="bugs">';
- BUGS.forEach(function(b){ var own=ST.coll.indexOf(b.id)>=0;
-  h+= own ? '<div class="bug">'+bugSVG(b.id,64)+'<div class="nm">'+b.n+'</div><div class="rar">'+'★★★★'.slice(0,b.r)+'</div></div>'
-   : '<div class="bug no"><div style="font-size:44px;line-height:64px">❓</div><div class="nm">？？？</div><div class="rar">'+'★★★★'.slice(0,b.r)+'</div></div>' });
+  +'<div class="card center"><div class="partner" style="font-size:54px">'+partnerFace()+'</div><div style="font-weight:bold">あいぼう</div><div class="small">'+((ST.pp||0)<=0?'テストに ごうかくすると たまごが かえるよ':((ST.pp||0)<3?'テストに ごうかくするたび そだつよ':'りっぱな せいちゅうに なった！'))+'</div></div>'
+  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしかご</div>'
+  +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
+  +'<div class="bugs">';
+ sorted.forEach(function(sp){
+  var entry=ST.coll.catches[sp.id];
+  var tierLabel=Q4BReward.TIERNAME[Q4BReward.tierOf(sp)];
+  if(entry){
+   var shinyBadge=entry.shiny?'<span style="font-size:10px">✨</span>':'';
+   h+='<div class="bug" data-spid="'+sp.id+'">'
+    +Q4BReward.svg(sp)
+    +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'
+    +'<div class="rar">'+tierLabel+'</div>'
+    +'<div style="font-size:10px;color:#888">'+entry.max+'mm</div>'
+    +'</div>';
+  } else {
+   h+='<div class="bug no" data-spid="'+sp.id+'">'
+    +'<div style="font-size:44px;line-height:64px">❓</div>'
+    +'<div class="nm">？？？</div>'
+    +'<div class="rar">'+tierLabel+'</div>'
+    +'</div>';
+  }
+ });
  h+='</div></div>';
- s.innerHTML=h; $('bBk4').addEventListener('click',renderHome); showScr('bugs') }
+ s.innerHTML=h;
+ // タップで詳細モーダル
+ s.querySelectorAll('.bug[data-spid]').forEach(function(el){
+  el.style.cursor='pointer';
+  el.addEventListener('click',function(){
+   var id=el.getAttribute('data-spid');
+   var sp2=null; for(var i=0;i<pool.length;i++)if(pool[i].id===id){sp2=pool[i];break;}
+   if(!sp2)return;
+   var entry2=ST.coll.catches[id];
+   if(!entry2){ modal('<div class="center"><div style="font-size:40px">❓</div><div style="font-weight:bold;margin:6px 0">まだ つかまえて いない むし</div><div class="small">まちがえずに こたえると ゲージが たまって むしが でるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return; }
+   var shinyBadge=entry2.shiny?'✨':' ';
+   var mh='<div class="center">'
+    +'<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2)+'</div>'
+    +'<div style="font-weight:bold;font-size:16px">'+(sp2.name_ja||sp2.id)+shinyBadge+'</div>'
+    +(sp2.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+sp2.scientificName+'</div>':'')
+    +(sp2.familyJa?'<div style="font-size:12px;color:#56714e">'+sp2.familyJa+'</div>':'')
+    +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　さいだい '+entry2.max+'mm　×'+entry2.n+'かい</div>'
+    +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
+    +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'
+    +'</div>';
+   modal(mh);
+  });
+ });
+ $('bBk4').addEventListener('click',renderHome); showScr('bugs');
+}
+function _renderBugsFallback(){ var s=$('scr-bugs');
+ s.innerHTML='<button class="btn sub mini" id="bBk4">← ホーム</button><div class="card center"><div class="small">むしかご（shared/reward.js が よみこまれていません）</div></div>';
+ $('bBk4').addEventListener('click',renderHome); showScr('bugs');
+}
 
 /* ================= 親画面 ================= */
 function parentGate(){ var a=2+Math.floor(Math.random()*8), b=2+Math.floor(Math.random()*8);

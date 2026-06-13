@@ -229,6 +229,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/storage.js"></script>
 <script src="../shared/bugs.js"></script>
 <script src="../shared/render.js"></script>
+<script src="../shared/reward.js"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2707,15 +2708,33 @@ function sizeRange(b){
   return [min, Math.max(max,min+3)];
 }
 
-/* deterministic field assignment: most N/R go to garden(1), rare/overseas
-   to jungle(6). Stable by rarity + id hash (never random per day). */
+/* deterministic field assignment: spread eitango species (108) across f1-f7.
+   Rarity tier maps to field band; hash spreads within band.
+   tier0 N  -> f1/f2/f3 (ratio 2:1:1)
+   tier1 R  -> f2/f3/f4/f5/f6 (ratio 1:2:2:2:1)
+   tier2 SR/SSR -> f5/f6/f7 (ratio 1:2:2)  */
 function fieldFor(b){
-  const overseas=(b.origin==='overseas')||((b.tags||[]).indexOf('overseas')>=0);
   const tier=rarityToTier(b.rarity);
-  if(overseas)return 6;                 /* exotic -> jungle */
-  if(tier>=2)return 6;                  /* SR/SSR/SS -> jungle */
-  if(tier===1){ return (hashStr(b.id)%3===0)?6:1; } /* some R into jungle */
-  return 1;                             /* N -> garden */
+  const h=hashStr(b.id);
+  if(tier===0){
+    const pick=h%4;
+    if(pick<=1)return 1;
+    if(pick===2)return 2;
+    return 3;
+  }
+  if(tier===1){
+    const pick=h%8;
+    if(pick===0)return 2;
+    if(pick<=2)return 3;
+    if(pick<=4)return 4;
+    if(pick<=6)return 5;
+    return 6;
+  }
+  /* tier2 SR/SSR */
+  const pick=h%5;
+  if(pick===0)return 5;
+  if(pick<=2)return 6;
+  return 7;
 }
 
 /* night flag 0/2 = either, 1 = night */
@@ -2731,7 +2750,11 @@ function nightFor(b){
 let SPECIES=[], NUSHI=[], ALLSP=[];
 const SPECIES_SRC={}; /* id -> bugs.js object (for SVG renderer) */
 function buildSpecies(){
-  const bugs=window.Q4B_BUGS||[];
+  /* restrict to eitango-assigned species (Q4BReward.gameFor === 'eitango') */
+  const allBugs=window.Q4B_BUGS||[];
+  const bugs=window.Q4BReward
+    ? allBugs.filter(b=>Q4BReward.gameFor(b)==='eitango')
+    : allBugs;
   SPECIES=[]; NUSHI=[];
   /* pick field nushi: highest-rarity exotic per field. */
   for(const b of bugs){

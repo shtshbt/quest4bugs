@@ -177,6 +177,8 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <div id="app"></div>
 <script src="../shared/storage.js"></script>
 <script src="../shared/bugs.js"></script>
+<script src="../shared/render.js"></script>
+<script src="../shared/reward.js"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -350,8 +352,10 @@ function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
     best5:{}, daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{},
-    hsLevel:1, hsRun:0, hkLevel:1, hkRun:0, hissanInput:"app", speech:(type==="k5")};
+    hsLevel:1, hsRun:0, hkLevel:1, hkRun:0, hissanInput:"app", speech:(type==="k5"),
+    coll:{gauge:0, total:0, catches:{}}};
 }
+function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}}; }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act) return DB.profiles[i]; return null; }
 
 /* ---------- labels ---------- */
@@ -370,7 +374,12 @@ function topBar(backFn,extra){
     +(p&&!backFn?'<button class="chip" onclick="showProfiles()"><span class="av">'+bugSVG(av(p))+'</span>'+esc(p.name)+'</button>':'')
     +'<span class="sp"></span>'+(extra||"")+'</div>';
 }
-function kagoChip(){var p=P(); return '<button class="chip kago" onclick="showZukan()">🧺 '+capCount(p)+'/'+BUGS.length+'</button>';}
+function kagoChip(){
+  var p=P(); ensureColl(p);
+  var cnt=(window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p));
+  var tot=(window.Q4BReward?Q4BReward.poolCount('keisan'):BUGS.length);
+  return '<button class="chip kago" onclick="showZukan()">🧺 '+cnt+'/'+tot+'</button>';
+}
 function fireChip(){var p=P(); return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
 function capCount(p){var c=0; for(var k in p.caps) c++; return c;}
 
@@ -384,7 +393,7 @@ function showProfiles(){
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
       +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
-      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　🧺'+capCount(p)+'匹</span></span></button>';
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　🧺'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -473,21 +482,77 @@ function showHome(){
 
 /* ---------- zukan ---------- */
 function showZukan(){
-  var p=P(), h='<div class="scr">'+topBar("showHome()");
-  h+='<div class="card"><h3>📖 昆虫ずかん　<span style="color:var(--amber-d)">'+capCount(p)+' / '+BUGS.length+'</span></h3>'
-    +'<div class="pbar"><i style="width:'+Math.round(capCount(p)/BUGS.length*100)+'%"></i></div></div>';
+  var p=P();
+  ensureColl(p);
+  var pool=window.Q4BReward?Q4BReward.pool('keisan'):[];
+  var cnt=window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p);
+  var tot=pool.length||BUGS.length;
+  var rankLabel=window.Q4BReward?Q4BReward.rank(p.coll.total):"";
+  var h='<div class="scr">'+topBar("showHome()");
+  h+='<div class="card"><h3>📖 昆虫ずかん　<span style="color:var(--amber-d)">'+cnt+' / '+tot+'</span></h3>'
+    +'<div class="pbar"><i style="width:'+(tot?Math.round(cnt/tot*100):0)+'%"></i></div>'
+    +(rankLabel?'<p style="margin:6px 0 0;font-size:13px;color:var(--sub)">称号：<b style="color:var(--ink)">'+esc(rankLabel)+'</b></p>':"")
+    +'</div>';
+  if(!window.Q4BReward||!pool.length){
+    /* fallback: old BUGS array */
+    h+='<div class="zgrid">';
+    BUGS.forEach(function(b,i){
+      var c=p.caps[i];
+      h+='<div class="zc r'+b.r+(c?"":" ")+'" onclick="openBugLegacy('+i+')">'
+        +(c>1?'<span class="cnt">×'+c+'</span>':"")
+        +'<div class="bs'+(c?"":" sil")+'">'+bugSVG(b)+'</div>'
+        +'<div class="nm">'+(c?esc(b.n):"？？？")+'</div></div>';
+    });
+    h+='</div></div>'; render(h); return;
+  }
+  /* Q4BReward ベース: tierOf 降順ソート */
+  var sorted=pool.slice().sort(function(a,b){ return Q4BReward.tierOf(b)-Q4BReward.tierOf(a)||(a.jaName<b.jaName?-1:1); });
   h+='<div class="zgrid">';
-  BUGS.forEach(function(b,i){
-    var c=p.caps[i];
-    h+='<div class="zc r'+b.r+(c?"":" ")+'" onclick="openBug('+i+')">'
-      +(c>1?'<span class="cnt">×'+c+'</span>':"")
-      +'<div class="bs'+(c?"":" sil")+'">'+bugSVG(b)+'</div>'
-      +'<div class="nm">'+(c?esc(b.n):"？？？")+'</div></div>';
+  sorted.forEach(function(sp){
+    var rec=p.coll.catches[sp.id];
+    var tier=Q4BReward.tierOf(sp);
+    h+='<div class="zc r'+tier+(rec?"":" ")+'" onclick="openBugNew(\''+sp.id+'\')">';
+    if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
+    if(rec){
+      h+='<div class="bs">'+Q4BReward.svg(sp)+'</div>';
+      h+='<div class="nm">'+esc(sp.jaName)+(rec.shiny?'✨':"")+'</div>';
+    }else{
+      h+='<div class="bs sil">'+Q4BReward.svg(sp)+'</div>';
+      h+='<div class="nm">？？？</div>';
+    }
+    h+='</div>';
   });
   h+='</div></div>';
   render(h);
 }
-function openBug(i){
+function openBugNew(spId){
+  var p=P(); ensureColl(p);
+  if(!window.Q4BReward)return;
+  var pool=Q4BReward.pool('keisan');
+  var sp=null; for(var i=0;i<pool.length;i++){if(pool[i].id===spId){sp=pool[i];break;}}
+  if(!sp)return;
+  var rec=p.coll.catches[sp.id];
+  var tier=Q4BReward.tierOf(sp);
+  var inner;
+  if(!rec){
+    inner='<div style="width:140px;height:140px;margin:0 auto" class="sil">'+Q4BReward.svg(sp)+'</div>'
+      +'<h3>？？？</h3><p class="note">まだ つかまえていない…<br>もんだいを といて さがそう！</p>'
+      +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span></p>';
+  }else{
+    var sz=Q4BReward.sizeRange(sp);
+    inner='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp)+'</div>'
+      +'<h3>'+esc(sp.jaName)+(rec.shiny?'　✨':"")+'</h3>'
+      +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>　×'+rec.n+'</p>'
+      +'<p style="font-size:14px;color:var(--sub)">最大 <b>'+rec.max+'mm</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
+      +(sp.scientificName?'<p class="note"><i>'+esc(sp.scientificName)+'</i></p>':"")
+      +'<p class="note">'+esc([sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
+      +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
+      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"");
+  }
+  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
+    +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');
+}
+function openBugLegacy(i){
   var p=P(), b=BUGS[i], c=p.caps[i];
   var inner;
   if(!c){ inner='<div style="width:140px;height:140px;margin:0 auto" class="sil">'+bugSVG(b)+'</div>'
@@ -518,7 +583,30 @@ function gachaPull(p){
 }
 function addCapture(p,i){ p.caps[i]=(p.caps[i]||0)+1; save(); return p.caps[i]; }
 function showCapture(i,extraMsg){
-  var p=P(), b=BUGS[i], cnt=addCapture(p,i);
+  var p=P(); ensureColl(p);
+  if(window.Q4BReward){
+    var got=Q4BReward.award(p.coll,'keisan'); save();
+    if(got){
+      var sp=got.sp, tier=got.tier, rec=p.coll.catches[sp.id];
+      var tag=got.isNew?'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！ ずかんに とうろく</span>'
+        :'<span class="note">×'+rec.n+'匹め'+(got.isRecord?'・じこベスト こうしん!':'')+'</span>';
+      var h='<div class="scr">'+topBar();
+      h+='<div class="card center"><h2>つかまえた！</h2>'+(extraMsg?'<p style="color:var(--amber-d);font-weight:700">'+extraMsg+'</p>':"")
+        +'<div class="flipwrap"><div class="flip">'
+        +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp)+'</div>'
+        +'<div class="bn">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>'
+        +'<span class="note">'+got.size+'mm</span>'+tag+'</div>'
+        +'<div class="face back"><span style="font-size:50px">🧺</span></div>'
+        +'</div></div>'
+        +'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note||"")+'</p>'
+        +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
+        +'<button class="btn ghost sm" onclick="showHome()">ホームへ</button></div></div>';
+      render(h); return;
+    }
+  }
+  /* legacy fallback (shared scripts not loaded) */
+  if(i==null)i=0;
+  var b=BUGS[i], cnt=addCapture(p,i);
   var h='<div class="scr">'+topBar();
   h+='<div class="card center"><h2>つかまえた！</h2>'+(extraMsg?'<p style="color:var(--amber-d);font-weight:700">'+extraMsg+'</p>':"")
     +'<div class="flipwrap"><div class="flip">'
@@ -1104,6 +1192,12 @@ function afterJudge(ok,q,o){
     else{p.hkRun=(p.hkRun<=0)?p.hkRun-1:-1;
       if(p.hkRun<=-3&&p.hkLevel>1){p.hkLevel--;p.hkRun=0;}}
   }
+  /* 正解時に採集エンジンを進める（タイムアタック中は行わない） */
+  if(ok && window.Q4BReward){
+    ensureColl(p);
+    var got=Q4BReward.onCorrect(p.coll,'keisan');
+    if(got) o.capture=got;
+  }
   save();
   showFB(ok,q,o,ms);
 }
@@ -1119,6 +1213,20 @@ function showFB(ok,q,o,ms){
   if(q.hint)h+='<div class="fbhint">💡 '+q.hint+'</div>';
   if(o.warn)h+='<div class="fbhint">'+o.warn+'</div>';
   if(o.lvup)h+='<p style="font-weight:800;color:var(--green)">'+o.lvup+'</p>';
+  if(o.capture&&window.Q4BReward){
+    var got=o.capture, sp=got.sp;
+    var tags=[];
+    if(got.isNew)tags.push('<span style="color:var(--amber-d);font-weight:800">✨ NEW！ずかん登録</span>');
+    else if(got.isRecord)tags.push('<span style="color:var(--green);font-weight:800">📏 じこベスト更新</span>');
+    if(got.shiny&&!got.isNew)tags.push('<span style="color:var(--amber-d)">✨いろちがい</span>');
+    h+='<div style="background:var(--green-l);border-radius:14px;padding:10px 8px;margin:8px 0;text-align:center">'
+      +'<div style="font-size:13px;font-weight:800;color:var(--green-d);margin-bottom:4px">🧺 むし ゲット！</div>'
+      +'<div style="width:72px;height:72px;margin:0 auto">'+Q4BReward.svg(sp)+'</div>'
+      +'<div style="font-weight:800;font-size:15px;margin-top:4px">'+esc(sp.jaName)+'</div>'
+      +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
+      +(tags.length?'<div style="margin-top:4px">'+tags.join('　')+'</div>':"")
+      +'</div>';
+  }
   if(p.type==="k10")h+='<p class="note">⏱ '+(ms/1000).toFixed(1)+'秒</p>';
   h+='<button class="btn amber" onclick="fbNext()">つぎへ ▶</button></div></div>';
   app.insertAdjacentHTML("beforeend",h);
