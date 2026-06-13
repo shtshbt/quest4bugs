@@ -232,7 +232,7 @@ function renderDashboard(pid,name){
     var book=r[0],ks=r[1],es=r[2],kp=null,i;
     if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
     var amber=0;
-    if(kp&&kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; amber+=kp.coll.amber||0; sumDaily(day,kp.daily,"n","k");}
+    if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
     if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; amber+=(ks.coll&&ks.coll.amber)||0; sumDaily(day,ks.log,"a","j");}
     if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
     var total=keisanN+kanjiN+eitangoN;
