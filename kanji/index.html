@@ -2023,7 +2023,10 @@ QuestSave.onStatus(function(st){ var c=$('hSync'); c.style.display='';
   return QuestSave.profiles();
  }).then(function(ps){
   PROFILES=(ps&&ps.length)?ps:[];
-  renderProfileSel();
+  /* ポータルで選んだ子のホームへ直行（再選択はヘッダのプロフィールから） */
+  var cur=QuestSave.currentProfile(), p=null, i;
+  for(i=0;i<PROFILES.length;i++)if(PROFILES[i].id===cur)p=PROFILES[i];
+  if(p)selectProfile(p); else renderProfileSel();
  });
 })();
 //JS-END

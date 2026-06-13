@@ -1418,9 +1418,11 @@ function boot(){
       if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
         if(DB.act)QuestSave.setCurrentProfile(DB.act); }
       if(book!==DB&&DB.profiles.length)save(); // persist migrated/reconciled book once
+      /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
       if(!DB.profiles.length)showNewProfile();
-      else if(P()&&!P().type)showProfiles();
-      else showProfiles();
+      else if(!P())showProfiles();
+      else if(!P().type)chooseCourse(P());
+      else showHome();
     });
 }
 boot();
