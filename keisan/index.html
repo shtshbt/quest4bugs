@@ -364,7 +364,7 @@ function newProfile(name,type){
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
     best5:{}, daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{},
     hsLevel:1, hsRun:0, hsMax:1, hkLevel:1, hkRun:0, hkMax:1, hissanInput:"app", speech:(type==="k5"),
-    coll:{gauge:0, total:0, catches:{}}};
+    coll:{gauge:0, total:0, catches:{}}, progressSummary:""};
 }
 function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}}; }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act) return DB.profiles[i]; return null; }
@@ -484,9 +484,20 @@ function showHome(){
                 :'<span class="note">直近20問で19問正解で解放（いま '+okn+'/'+n+'）</span>')+'</div>';
   });
   h+='<div class="card"><h3>⏱ タイムアタック</h3>'+th+'</div>';
+  // 復習ボタン（抜き打ち + 常設小ボタン）
+  var revLearned=(p.type==="k5"?K5CATS:K10CATS).filter(function(c){return p.stats[c]&&p.stats[c].n>0;});
+  var showRevBanner=(revLearned.length>=2||dueMissed(p).length>=1)&&Math.random()<0.25;
+  if(showRevBanner){
+    h+='<div class="card" style="border-color:var(--amber);background:#FFF8ED">'
+      +'<p style="font-weight:800;color:var(--amber-d);margin:0 0 6px">📣 ふくしゅうチャンス！いつもより めずらしい虫が 出やすいよ！</p>'
+      +'<button class="btn amber" onclick="startReview()">ふくしゅうチャレンジ</button></div>';
+  }
   h+='<div class="grid2">'
     +'<button class="btn ghost" onclick="showZukan()">📖 昆虫ずかん</button>'
     +'<button class="btn ghost" onclick="showStats()">📊 きろく</button></div>'
+    +'<div class="grid2" style="margin-top:0">'
+    +'<button class="btn sm ghost" onclick="showProgress()">📊 できたこと</button>'
+    +'<button class="btn sm ghost" onclick="startReview()">🔁 ふくしゅう</button></div>'
     +'<button class="btn sm ghost" onclick="showSettings()">⚙ せってい・データ</button>';
   h+='</div>';
   render(h);
@@ -706,6 +717,68 @@ function showStats(){
       +'<p style="font-size:26px;font-weight:800;margin:4px 0">'+p.carryMiss+' 回</p>'
       +'<p class="note">筆算で，くりあがりを書かずに答え合わせしようとした回数．へっていけばOK！</p></div>';
   }
+  h+='</div>';
+  render(h);
+}
+
+/* ---------- progress ---------- */
+function buildProgressSummary(p){
+  var parts=[];
+  if(p.type==="k5"){
+    var hsMx=p.hsMax||1, hkMx=p.hkMax||1;
+    parts.push("たし算Lv"+(hsMx));
+    parts.push("ひき算Lv"+(hkMx));
+    var kukuN=p.kukuIdx||0;
+    if(kukuN>=ORDER.length) parts.push("九九ぜんだん");
+    else if(kukuN>0) parts.push("九九"+kukuN+"段");
+  }
+  var cats=(p.type==="k5")?K5CATS:K10CATS;
+  cats.forEach(function(c){
+    if(c==="sougou")return;
+    var s=p.stats[c]; if(!s||!s.n)return;
+    var pc=Math.round(s.ok/s.n*100);
+    parts.push(CATL[c]+" "+pc+"%");
+  });
+  return "けいさん "+(parts.length?parts.join("・"):"はじめたばかり");
+}
+function updateProgressSummary(p){
+  p.progressSummary=buildProgressSummary(p);
+}
+function showProgress(){
+  var p=P(), h='<div class="scr">'+topBar("showHome()");
+  var cats=(p.type==="k5")?K5CATS:K10CATS;
+  // 総括
+  var summary=buildProgressSummary(p);
+  h+='<div class="card"><h3>📊 できたこと</h3>'
+    +'<p style="font-weight:800;font-size:18px;color:var(--green-d)">'+esc(summary)+'</p></div>';
+  // 筆算バー（k5のみ）
+  if(p.type==="k5"){
+    var hsMx=p.hsMax||1, hkMx=p.hkMax||1;
+    h+='<div class="card"><h3>✏️ ひっさんレベル</h3>'
+      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+Math.round(hsMx/4*100)+'%"></span></span>'
+      +'<span class="bv">レベル'+hsMx+' / 4</span></div>'
+      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+Math.round(hkMx/4*100)+'%"></span></span>'
+      +'<span class="bv">レベル'+hkMx+' / 4</span></div></div>';
+    // 九九バー
+    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length;
+    h+='<div class="card"><h3>🔢 九九マスター</h3>'
+      +'<div class="brow"><span class="bl">マスター段数</span><span class="bt"><span class="bf" style="width:'+Math.round(kukuN/kukuTotal*100)+'%"></span></span>'
+      +'<span class="bv">'+kukuN+' / '+kukuTotal+'段</span></div>'
+      +(kukuN>=kukuTotal?'<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>'
+        :(kukuN>0?'<p class="note">つぎ：'+ORDER[kukuN]+'の段</p>':""))
+      +'</div>';
+  }
+  // 各カテゴリせいかいりつバー
+  var bars="";
+  cats.forEach(function(c){
+    if(c==="sougou")return;
+    var s=p.stats[c]; if(!s||!s.n)return;
+    var pc=Math.round(s.ok/s.n*100);
+    bars+='<div class="brow"><span class="bl">'+CATL[c]+'</span><span class="bt"><span class="bf" style="width:'+pc+'%"></span></span>'
+      +'<span class="bv">'+pc+'%<br>'+s.n+'問</span></div>';
+  });
+  h+='<div class="card"><h3>🎯 カテゴリ せいかいりつ</h3>'
+    +(bars||'<p class="note">まだデータがないよ。ミッションをやってみよう！</p>')+'</div>';
   h+='</div>';
   render(h);
 }
@@ -952,6 +1025,30 @@ function startMission(){
 }
 function startPractice(cat,lv){
   Q={mode:"practice",cat:cat,lv:lv||null,list:buildPractice(cat,P(),lv),i:0,ok:0,ms:0};
+  nextQ();
+}
+function startReview(){
+  var p=P();
+  var cats=(p.type==="k5")?K5CATS:K10CATS;
+  // 既習カテゴリ（stats[cat].n > 0）
+  var learned=cats.filter(function(c){ return p.stats[c]&&p.stats[c].n>0; });
+  // missed から優先的に1〜2問
+  var list=[], i, due=dueMissed(p);
+  // missed優先（最大2問、ただし5問の範囲内）
+  var missSlots=Math.min(due.length, learned.length>=2?2:1, 5);
+  var missUsed=shuffle(due).slice(0,missSlots);
+  missUsed.forEach(function(m){ list.push(fromMissed(m)); });
+  // 残りを既習カテゴリからランダムに埋める
+  var remain=5-list.length;
+  if(learned.length===0){
+    // 既習なしの場合は通常ミッション相当
+    for(i=0;i<remain;i++) list.push(genBy(pick(cats),p));
+  } else {
+    var pool=[];
+    for(i=0;i<remain;i++) pool.push(pick(learned));
+    pool.forEach(function(c){ list.push(genBy(c,p)); });
+  }
+  Q={mode:"review", list:shuffle(list), i:0, ok:0, ms:0, review:true};
   nextQ();
 }
 /* 筆算のレベル選択（クリア順に解放・易しいレベルへ戻って反復可） */
@@ -1281,7 +1378,9 @@ function afterJudge(ok,q,o){
   /* 正解時に採集エンジンを進める（タイムアタック中は行わない） */
   if(ok && window.Q4BReward){
     ensureColl(p);
-    var got=Q4BReward.onCorrect(p.coll,'keisan');
+    var got=(Q&&Q.review)
+      ? Q4BReward.onCorrect(p.coll,'keisan', 8, Q4BReward.REVIEW_BOOST)
+      : Q4BReward.onCorrect(p.coll,'keisan');
     if(got) o.capture=got;
   }
   save();
@@ -1346,6 +1445,14 @@ function finishSet(){
   var p=P(), t=todayStr(), N=Q.list.length;
   var scoreLine="せいかい "+Q.ok+"／"+N+"　⏱ "+Math.round(Q.ms/1000)+"秒";
   var best5Line=updateBest5(p,Q,N);
+  if(Q.mode==="review"){
+    updateProgressSummary(p);
+    save();
+    var win=(Q.ok>=Math.ceil(N*0.8))&&(Math.random()<0.3);
+    if(win){showCapture(gachaPull(p),"ふくしゅう！ "+scoreLine);return;}
+    showSetResult("ふくしゅうおわり！",[scoreLine,"8わり正解で めずらしい虫が でやすいよ！"],"startReview()");
+    return;
+  }
   if(Q.mode==="kuku"){
     var pass=(Q.ok>=8), dan=Q.dan, msg;
     if(pass){
@@ -1353,10 +1460,12 @@ function finishSet(){
         p.kukuClear[dan]=1; p.kukuIdx++;
         msg=dan+"の段 クリア！"+(p.kukuIdx<ORDER.length?" つぎは "+ORDER[p.kukuIdx]+"の段！":" 🏆ぜんだんマスター！");
       }else msg=dan+"の段 ばっちり！";
+      updateProgressSummary(p);
       save();
       if(Math.random()<0.3){showCapture(gachaPull(p),msg);return;}
       showSetResult("クリア！",[msg,scoreLine],"showKuku()");
     }else{
+      updateProgressSummary(p);
       save();
       showSetResult("もうすこし！",[dan+"の段　"+scoreLine,"9問中8問で クリアだよ"],"kukuChallenge("+dan+")");
     }
@@ -1368,6 +1477,7 @@ function finishSet(){
     if(p.streak.last===dShift(t,-1))p.streak.n++;
     else if(p.streak.last!==t)p.streak.n=1;
     p.streak.last=t;
+    updateProgressSummary(p);
     save();
     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
     return;
@@ -1376,6 +1486,7 @@ function finishSet(){
   if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
     var cleared=(Q.ok>=4), key=(Q.cat==="hikizan")?"hkMax":"hsMax", unlocked=false;
     if(cleared&&Q.lv>=(p[key]||1)&&Q.lv<4){ p[key]=Q.lv+1; unlocked=true; }
+    updateProgressSummary(p);
     save();
     var msgs=[scoreLine];
     if(unlocked)msgs.push("🎉 レベル"+(Q.lv+1)+"が ひらいたよ！");
@@ -1383,6 +1494,7 @@ function finishSet(){
     showSetResult(cleared?("レベル"+Q.lv+" クリア！"):"もうすこし！",msgs,"showLevels('"+Q.cat+"')");
     return;
   }
+  updateProgressSummary(p);
   save();
   var win=(Q.ok>=Math.ceil(N*0.8))&&(Math.random()<0.3);
   if(win){showCapture(gachaPull(p),"やったね！ "+scoreLine+(best5Line?"　"+best5Line:""));return;}
