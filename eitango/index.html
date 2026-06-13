@@ -3194,12 +3194,31 @@ function showSpec(id){
 /* ---------------- STATS ---------------- */
 function scrStats(){
   const meta=profMeta(CURID);
-  const wp1=WordDB.byField(6), wb=WordDB.byField(1);
-  const box=SRS.countBox(P,wp1);
-  const mastered=SRS.mastered(P,wp1);
-  const learnedKids=wb.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
+
+  /* --- 全フィールド横断で学習済み・しゅうとく数を集計 --- */
+  const openFields=FIELDS.filter(f=>f.open);
+  let totalLearned=0, totalMastered=0, totalWords=0;
+  const fieldStats=openFields.map(f=>{
+    const words=WordDB.byField(f.id);
+    let learned=0, mastered=0;
+    if(f.kids){
+      learned=words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
+      mastered=learned; /* kidsは2回正解をしゅうとく扱い */
+    } else {
+      learned=words.filter(w=>{const s=P.srs[w.key];return s&&s[2]>0;}).length; /* seen>0 */
+      mastered=SRS.mastered(P,words);
+    }
+    totalLearned+=learned;
+    totalMastered+=mastered;
+    totalWords+=words.length;
+    return {f, words, learned, mastered};
+  });
+
+  /* --- ずかん採集数 (全フィールド) --- */
   const caught=ALLSP.filter(s=>P.catches[s[0]]).length;
   let q=0,c=0; Object.values(P.cal).forEach(v=>{q+=v.q;c+=v.c;});
+
+  /* --- 7日間バーグラフ --- */
   let bars='';
   for(let i=6;i>=0;i--){
     const k=Engine.addDays(Engine.todayKey(),-i);
@@ -3208,6 +3227,8 @@ function scrStats(){
     const hq=Math.round(v.q/max*100), hc=v.q?Math.round(v.c/v.q*hq):0;
     bars+=`<div class="b"><div class="bw"><i class="t" style="height:${hq-hc}%"></i><i class="c" style="height:${hc}%"></i></div><span>${String(k).slice(6)}日</span></div>`;
   }
+
+  /* --- カレンダー --- */
   const now=new Date(), y=now.getFullYear(), m=now.getMonth();
   const first=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
   let cal='<div class="cal">'+['日','月','火','水','木','金','土'].map(d=>`<div>${d}</div>`).join('');
@@ -3218,6 +3239,40 @@ function scrStats(){
     cal+=`<div class="${cls}">${d}</div>`;
   }
   cal+='</div>';
+
+  /* --- フィールド別一覧HTML --- */
+  let fieldRows='';
+  for(const {f,words,learned,mastered} of fieldStats){
+    const pct=words.length?Math.round(learned/words.length*100):0;
+    if(f.kids){
+      fieldRows+=`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.06)">
+        <span style="font-size:20px">${f.emoji}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:13px">${Engine.esc(f.name)}</div>
+          <div style="font-size:11px;color:var(--sub)">${f.sub}</div>
+        </div>
+        <div style="text-align:right;white-space:nowrap">
+          <b>${learned}</b><span style="font-size:11px;color:var(--sub)">/${words.length}語</span>
+          <span style="font-size:11px;color:var(--sub);margin-left:4px">おぼえた</span>
+        </div>
+      </div>`;
+    } else {
+      fieldRows+=`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.06)">
+        <span style="font-size:20px">${f.emoji}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:13px">${Engine.esc(f.name)}</div>
+          <div style="font-size:11px;color:var(--sub)">${f.sub}</div>
+        </div>
+        <div style="text-align:right;white-space:nowrap">
+          <b>${learned}</b><span style="font-size:11px;color:var(--sub)">/${words.length}語 学習済</span>
+          <span style="font-size:12px;color:var(--good);margin-left:6px">✓${mastered}</span>
+        </div>
+      </div>`;
+    }
+  }
+  /* 最後のborder-bottomを消す */
+  fieldRows=fieldRows.replace(/border-bottom:[^"]+"\s*>(\s*<\/div>\s*$)/, 'border-bottom:none">$1');
+
   return `<div class="topbar"><span class="ttl">📊 ${Engine.esc(meta.name)}の きろく</span></div>
   <div class="statgrid">
     <div class="stat"><div class="sv">🔥 ${P.streak.n}日</div><div class="sl">れんぞく学習 (さいこう ${P.streak.best}日)</div></div>
@@ -3227,18 +3282,14 @@ function scrStats(){
   </div>
   <div class="h2">この7日間 (こい色=せいかい)</div>
   <div class="card"><div class="bars">${bars}</div></div>
-  <div class="h2">英検準1級 (ジャングル)</div>
+  <div class="h2">ことばの がくしゅう きろく</div>
   <div class="card">
-    <b style="font-size:22px">${mastered}</b> <span class="small">/ ${wp1.length}語 しゅうとく (ボックス4いじょう)</span>
-    <div class="boxrow">
-      <div class="bx"><b>${box[0]}</b><span>みがくしゅう</span></div>
-      <div class="bx"><b>${box[1]+box[2]}</b><span>がくしゅうちゅう</span></div>
-      <div class="bx"><b>${box[3]}</b><span>もうすこし</span></div>
-      <div class="bx"><b>${box[4]+box[5]}</b><span>しゅうとく</span></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+      <div><b style="font-size:28px">${totalLearned}</b> <span class="small">/ ${totalWords}語 学習済み</span></div>
+      <div style="margin-left:auto;text-align:right"><span style="color:var(--good);font-weight:800;font-size:16px">✓ ${totalMastered}</span><div class="small">しゅうとく</div></div>
     </div>
+    ${fieldRows}
   </div>
-  <div class="h2">きそ英単語 (にわ)</div>
-  <div class="card"><b style="font-size:22px">${learnedKids}</b> <span class="small">/ ${wb.length}語 おぼえた (2回いじょう せいかい)</span></div>
   <div class="h2">こんげつの カレンダー</div>
   <div class="card">${cal}</div>`;
 }
