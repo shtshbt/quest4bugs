@@ -1377,7 +1377,7 @@ function nameOf(id){ for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)re
 function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textContent=CUR.emoji+' '+CUR.name;
  $('hStreak').style.display=''; $('hStreak').textContent='🔥'+streak() }
 function isLocked(key){ if(key[0]==='h')return !unOK('hira'); var u=KMAP[key.slice(2)].u; return !unOK('u'+u) }
-function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">テストに ごうかくすると ひらくよ</span><br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>') }
+function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">🏆チャレンジ(にんていテスト)に ごうかくすると ひらくよ！</span><br><button class="btn gold" style="margin-top:10px" onclick="closeModal();renderTests()">🏆 チャレンジへ いく</button><button class="btn sub" style="margin-top:6px" onclick="closeModal()">とじる</button></div>') }
 function stEmoji(s){ return ['🥚','🐛','🐛','🟤','🟤','🪲'][Math.max(0,Math.min(5,s))] }
 
 /* ================= テスト定義 ================= */
@@ -1878,15 +1878,20 @@ function renderRange(){ var s=$('scr-range');
  var h='<button class="btn sub mini" id="bBk1">← ホーム</button>'
  +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">はんいを えらんで れんしゅう</div><div class="small" style="margin-bottom:10px">れんしゅうでは ステージは あがらない（まちがえると さがる）</div>';
  if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ</button>';
+ var _anyLock=false;
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
-  h+='<button class="btn" id="rU'+g+'">かんじ '+g+'ねんせい</button>';
+  var _op=unOK('u'+g); if(!_op)_anyLock=true;
+  h+='<button class="btn'+(_op?'':' soil')+'" id="rU'+g+'"'+(_op?'':' style="opacity:.5"')+'>'+(_op?'':'🔒 ')+'かんじ '+g+'ねんせい'+(_op?'':'')+'</button>';
  });
- h+='<button class="btn soil" id="rWeak">にがてだけ</button>';
+ if(_anyLock)h+='<div class="banner" style="margin-top:8px">🏆 チャレンジ(にんていテスト)に ごうかくすると あたらしい学年が ひらくよ！</div>'
+   +'<button class="btn gold" id="rChal">🏆 チャレンジで はんいを ひろげよう！</button>';
+ h+='<button class="btn soil" id="rWeak" style="margin-top:8px">にがてだけ</button>';
  if(unOK('hira'))h+='<button class="btn gold" id="rKot">🐝 ことばつくり</button>';
  h+='</div>'
  +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">えらんで とっくん</div><div class="small" style="margin-bottom:8px">かんじを タップして えらんでね</div><div class="zgrid" id="selGrid"></div><button class="btn" id="rSel" style="margin-top:12px" disabled>えらんだ もじで はじめる（0）</button></div>';
  s.innerHTML=h;
  $('bBk1').addEventListener('click',renderHome);
+ if($('rChal'))$('rChal').addEventListener('click',renderTests);
  if($('rHira'))$('rHira').addEventListener('click',function(){ startPractice(pairsFor(HIRA.map(function(c){return 'h:'+c})),'ひらがな') });
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
   (function(grade){ var btn=$('rU'+grade);
