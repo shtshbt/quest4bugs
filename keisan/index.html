@@ -754,11 +754,14 @@ function showProgress(){
   // 筆算バー（k5のみ）
   if(p.type==="k5"){
     var hsMx=p.hsMax||1, hkMx=p.hkMax||1;
+    /* レベル＋次レベルまでの進み(run/5)で連続表示し、練習のたび動くように */
+    function hsBar(mx,run){ if(mx>=4)return 100; return Math.round(((mx-1)*5+Math.max(0,Math.min(5,run||0)))/20*100); }
     h+='<div class="card"><h3>✏️ ひっさんレベル</h3>'
-      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+Math.round(hsMx/4*100)+'%"></span></span>'
+      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+hsBar(hsMx,p.hsRun)+'%"></span></span>'
       +'<span class="bv">レベル'+hsMx+' / 4</span></div>'
-      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+Math.round(hkMx/4*100)+'%"></span></span>'
-      +'<span class="bv">レベル'+hkMx+' / 4</span></div></div>';
+      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+hsBar(hkMx,p.hkRun)+'%"></span></span>'
+      +'<span class="bv">レベル'+hkMx+' / 4</span></div>'
+      +'<p class="note">ミッション/おまかせ練習で 5問せいかいするごとに レベルアップ！</p></div>';
     // 九九バー
     var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length;
     h+='<div class="card"><h3>🔢 九九マスター</h3>'
