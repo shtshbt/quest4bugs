@@ -29,9 +29,9 @@
   function pool(game){ return POOLS[game] || BUGS; }
   function poolCount(game){ return pool(game).length; }
 
-  /* ---- rarity (5 levels) -> reward tier (4) ---- */
-  var TIER = { N:0, R:1, SR:2, SSR:2, SS:3 };
-  var TIERNAME = ["ノーマル", "レア", "スーパーレア", "でんせつ"];
+  /* ---- rarity tier (5 levels, matches bugs.js RARITY_LEVEL) ---- */
+  var TIER = { N:0, R:1, SR:2, SSR:3, SS:4 };
+  var TIERNAME = ["ノーマル", "レア", "スーパーレア", "ウルトラレア", "でんせつ"];
   function tierOf(sp){ var t = TIER[sp.rarity]; return t == null ? 0 : t; }
 
   /* ---- deterministic size range (mm) from look/rarity ---- */
@@ -60,15 +60,15 @@
   /* ---- catch roll ---- */
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
   var SHINY_CHANCE = 0.03;
-  var TIER_WEIGHT = [70, 24, 6.5, 1.4]; // normal / rare / super / legend
+  var TIER_WEIGHT = [70, 22, 6, 1.6, 0.4]; // N / R / SR / SSR / SS
   function rollFromPool(p){
     if(!p || !p.length) return null;
-    var byTier = [0,1,2,3].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
+    var byTier = [0,1,2,3,4].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
     var w = byTier.map(function(a,t){ return a.length ? TIER_WEIGHT[t] : 0; });
     var tot = w.reduce(function(a,b){return a+b;},0);
     if(tot<=0) return null;
     var r = Math.random()*tot, tier = 0, i;
-    for(i=0;i<4;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
+    for(i=0;i<5;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
     var cand = byTier[tier];
     return cand[Math.floor(Math.random()*cand.length)];
   }

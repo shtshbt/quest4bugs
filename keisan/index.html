@@ -382,12 +382,12 @@ function topBar(backFn,extra){
     +'<span class="sp"></span>'+(extra||"")+'</div>';
 }
 function kagoChip(){
-  var p=P(); ensureColl(p);
+  var p=P(); if(!p)return ''; ensureColl(p);
   var cnt=(window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p));
   var tot=(window.Q4BReward?Q4BReward.poolCount('keisan'):BUGS.length);
   return '<button class="chip kago" onclick="showZukan()">🧺 '+cnt+'/'+tot+'</button>';
 }
-function fireChip(){var p=P(); return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
+function fireChip(){var p=P(); if(!p)return ''; return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
 function capCount(p){var c=0; for(var k in p.caps) c++; return c;}
 
 /* ---------- profile screens ---------- */

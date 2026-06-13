@@ -157,6 +157,8 @@ if(!window.QuestSave){(function(g){var m={};g.QuestSave={
  load:function(a,b){var s=m[a+':'+b];return Promise.resolve(s?JSON.parse(s).data:null)},
  save:function(a,b,d){m[a+':'+b]=JSON.stringify({v:1,updated:new Date().toISOString(),data:d});return Promise.resolve()},
  profiles:function(){return g.QuestSave.load('_meta','profiles').then(function(d){return d||[]})},
+ addProfile:function(name,icon){var p={id:'p'+Date.now().toString(36)+Math.floor(Math.random()*999),name:name,icon:icon||'🪲',created:Date.now()};m._c=p.id;return g.QuestSave.load('_meta','profiles').then(function(l){l=l||[];l.push(p);return g.QuestSave.save('_meta','profiles',l)}),p},
+ deleteProfile:function(){},
  saveProfiles:function(l){return g.QuestSave.save('_meta','profiles',l)},
  currentProfile:function(){return m._c||null},
  setCurrentProfile:function(i){m._c=i},

@@ -3054,7 +3054,7 @@ function go(s){ screen=s; render(); window.scrollTo(0,0); }
 
 function render(){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===screen));
-  if(!CURID||!P){ $('#app').innerHTML=scrChooseProfile(true); return; }
+  if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(screen==='home') $('#app').innerHTML=scrHome();
   if(screen==='zukan') $('#app').innerHTML=scrZukan();
   if(screen==='stats') $('#app').innerHTML=scrStats();
