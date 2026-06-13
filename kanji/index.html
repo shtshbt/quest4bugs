@@ -114,6 +114,14 @@ canvas.trace{touch-action:none;border-radius:11px}
 .skillrow span{font-size:12px;padding:4px 8px;border-radius:8px;background:var(--egg)}
 .skillrow span.s12{background:var(--larva)}.skillrow span.s34{background:var(--pupa);color:#fff}.skillrow span.s5{background:var(--adult)}
 
+/* ---- 進捗 ---- */
+.pgbar-wrap{background:#e0edcc;border-radius:10px;height:18px;overflow:hidden;margin:4px 0 2px}
+.pgbar-fill{height:100%;border-radius:10px;background:var(--leaf);transition:width .4s ease}
+.pgbar-row{margin-bottom:12px}
+.pgbar-label{display:flex;justify-content:space-between;font-size:14px;font-weight:bold;color:var(--forest);margin-bottom:2px}
+.pgbar-sub{font-size:12px;color:#56714e;margin-top:2px}
+.review-banner{background:#e8f5e9;border:2px solid var(--leaf);border-radius:var(--r);padding:10px 14px;margin-bottom:12px;font-size:14px;color:#2e5d28}
+
 /* ---- 親 ---- */
 table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
 td,th{border-bottom:1px solid #dde8d0;padding:6px 4px;text-align:left}
@@ -144,6 +152,7 @@ input[type=range]{width:100%}
   <div id="scr-bugs" class="screen"></div>
   <div id="scr-parent" class="screen"></div>
   <div id="scr-result" class="screen"></div>
+  <div id="scr-progress" class="screen"></div>
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
@@ -1444,15 +1453,24 @@ function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
   initUn(); head(); renderHome() }) }
 
 /* ================= ホーム ================= */
+function countIntroduced(){ var n=0; itemPool().forEach(function(key){ if(introduced(key))n++ }); return n }
 function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr();
  var h='<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  if(ST.re&&ST.re.d<=t&&TESTS[ST.re.t])h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[ST.re.t].label+'」に もういちど ちょうせんしよう</div>';
+ // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
+ var introCount=countIntroduced();
+ var showReviewBanner=(introCount>=20&&Math.random()<0.25);
+ if(showReviewBanner){
+  h+='<div class="review-banner">📣 ふくしゅうチャンス！いつもより めずらしい虫が でやすいよ！<br><button class="btn" id="bReviewBanner" style="margin-top:8px;margin-bottom:0">ふくしゅうチャレンジ</button></div>';
+ }
  h+='<button class="btn" id="bLearn">🌿 きょうの がくしゅう</button>'
  +'<div class="tiles">'
  +'<button class="tile" id="bRange"><div class="ic">🔁</div><div class="lb">はんいを えらぶ</div></button>'
  +'<button class="tile" id="bTest"><div class="ic">🏆</div><div class="lb">チャレンジ</div></button>'
  +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">ずかん</div></button>'
  +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしかご</div></button>'
+ +'<button class="tile" id="bProgress"><div class="ic">📊</div><div class="lb">できたこと</div></button>'
+ +(introCount>0?'<button class="tile" id="bReviewSmall"><div class="ic">🔁</div><div class="lb">ふくしゅう</div></button>':'')
  +'</div>'
  +'<button class="btn sub" id="bMode" style="margin-top:10px">'+(CUR.mode==='small'?'🐛 いまは ひらがなコース':'🪲 いまは かんじコース')+'　タップで きりかえ</button>'
  +'<button class="btn sub" id="bParent" style="margin-top:8px">👪 おやの がめん</button>';
@@ -1462,8 +1480,11 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  $('bTest').addEventListener('click',renderTests);
  $('bZukan').addEventListener('click',function(){ renderZukan(CUR.mode==='small'?'h':'k') });
  $('bBugs').addEventListener('click',renderBugs);
+ $('bProgress').addEventListener('click',renderProgress);
  $('bMode').addEventListener('click',switchMode);
  $('bParent').addEventListener('click',parentGate);
+ if($('bReviewBanner'))$('bReviewBanner').addEventListener('click',startReview);
+ if($('bReviewSmall'))$('bReviewSmall').addEventListener('click',startReview);
  head(); showScr('home') }
 /* コースはいつでも切替可能。解放状態(ST.un)は両コースぶん保持されるので進捗は消えない */
 function switchMode(){
@@ -1498,9 +1519,11 @@ function answered(ok){ var p=SES.q[SES.i];
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  if(ok){ SES.ok++;
-  // 採集ゲージ: learn/practice のみ（test は finishTest で別途処理）
+  // 採集ゲージ: learn/practice/review のみ（test は finishTest で別途処理）
   if(SES.mode!=='test'&&window.Q4BReward){
-   var got=Q4BReward.onCorrect(ST.coll,'kanji');
+   var got=(SES.mode==='review')
+    ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST)
+    : Q4BReward.onCorrect(ST.coll,'kanji');
    if(got){ saveST(); setTimeout(function(){ showCatchModal(got) },850); }
   }
  } else { SES.wrongs.push(p);
@@ -1668,9 +1691,12 @@ function nextKot(){ if(SES.i>=SES.q.length){ endSession(); return }
 /* ================= セッション終了 ================= */
 function endSession(){
  if(SES.mode==='test'){ finishTest(); return }
+ updateProgressSummary();
  var s=$('scr-result'); var total=SES.res.length;
- var h='<div class="card center"><div class="result-big">'+(SES.mode==='kotoba'?'🐝':'🌿')+'</div>'
+ var modeIc=(SES.mode==='kotoba'?'🐝':(SES.mode==='review'?'🔁':'🌿'));
+ var h='<div class="card center"><div class="result-big">'+modeIc+'</div>'
  +'<div style="font-weight:bold;font-size:20px">おつかれさま！</div>'
+ +(SES.mode==='review'?'<div class="small" style="color:var(--forest);margin-bottom:4px">ふくしゅうチャレンジ 🔁</div>':'')
  +'<div class="qmid">⭕ '+SES.ok+' ／ '+total+'</div>';
  if(SES.mode==='learn'){ var gl=''; var seen={};
   SES.res.forEach(function(r2){ if(!r2.ok)return; var kk=r2.key+'|'+r2.sk; if(seen[kk])return; seen[kk]=1;
@@ -1683,7 +1709,7 @@ function endSession(){
  s.innerHTML=h; $('bHome').addEventListener('click',function(){ SES=null; renderHome() });
  head(); showScr('result') }
 
-function finishTest(){ var id=SES.test; var total=SES.res.length;
+function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.res.length;
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
  ST.tests.unshift({d:t,t:id,sc:sc,n:total,w:SES.wrongs.map(function(p){return p.key})});
  if(ST.tests.length>40)ST.tests.length=40;
@@ -1752,6 +1778,93 @@ function finishTest(){ var id=SES.test; var total=SES.res.length;
   $('bRev').addEventListener('click',function(){ startPractice(pw,'まちがえた もじ') }) }
  $('bHome2').addEventListener('click',function(){ SES=null; renderHome() });
  head(); showScr('result') }
+/* ================= ふくしゅうチャレンジ ================= */
+function startReview(){
+ // 既習（introduced済み）の項目から復習問題を最大5問組む
+ var pool=itemPool().filter(function(key){ return introduced(key) });
+ if(!pool.length){ modal('<div class="center">まだ ふくしゅうできる もじが ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
+ var pairs=[];
+ shuffle(pool).forEach(function(key){
+  var sks=shuffle(gatedSkills(key));
+  if(sks.length){ pairs.push({key:key,sk:sks[0]}) }
+ });
+ pairs=pairs.slice(0,5);
+ if(!pairs.length){ modal('<div class="center">ふくしゅうできる もじが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
+ closeModal();
+ SES={mode:'review',q:pairs,i:0,ok:0,res:[],wrongs:[],label:'ふくしゅう'};
+ nextQ();
+}
+
+/* ================= 進捗バー ================= */
+function calcMastered(keys){
+ // マスター = 全 gatedSkills が stage >= 4
+ var total=keys.length, mastered=0;
+ keys.forEach(function(key){
+  var sks=gatedSkills(key);
+  var done=sks.every(function(sk){ return rec(key,sk).s>=4 });
+  if(done)mastered++;
+ });
+ return {mastered:mastered,total:total}
+}
+
+function updateProgressSummary(){
+ if(!ST)return;
+ // 最も進んでいる学年 = 習得率50%以上の最大学年
+ var bestGrade=0;
+ var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
+ grades.forEach(function(g){
+  var keys=UNITS[g].map(function(c){return 'k:'+c});
+  var r=calcMastered(keys);
+  if(r.total>0&&(r.mastered/r.total)>=0.5) bestGrade=g;
+ });
+ var hiraKeys=HIRA.map(function(c){return 'h:'+c});
+ var hr=calcMastered(hiraKeys);
+ var hiraPct=hr.total>0?Math.round(100*hr.mastered/hr.total):0;
+ var summary='';
+ if(bestGrade>0){
+  summary='かんじ '+bestGrade+'ねんせいまで がんばってるね！ひらがな '+hiraPct+'%';
+ } else if(hr.mastered>0){
+  summary='ひらがな '+hiraPct+'% マスター中！';
+ } else {
+  summary='がくしゅう スタート！';
+ }
+ ST.progressSummary=summary;
+ saveST();
+}
+
+function renderProgress(){
+ updateProgressSummary();
+ var s=$('scr-progress');
+ var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
+ var h='<button class="btn sub mini" id="bBkPg">← ホーム</button>'
+ +'<div class="card"><div style="font-weight:bold;font-size:18px;margin-bottom:6px">📊 できたこと</div>'
+ +'<div class="small" style="margin-bottom:12px">'+(ST.progressSummary||'')+'</div>';
+ // ひらがな行
+ var hiraKeys=HIRA.map(function(c){return 'h:'+c});
+ var hr=calcMastered(hiraKeys);
+ var hPct=hr.total>0?Math.round(100*hr.mastered/hr.total):0;
+ h+='<div class="pgbar-row">'
+  +'<div class="pgbar-label"><span>ひらがな</span><span>'+hr.mastered+'/'+hr.total+'じ（'+hPct+'%）</span></div>'
+  +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
+  +'</div>';
+ // 学年ごと
+ grades.forEach(function(g){
+  var keys=UNITS[g].map(function(c){return 'k:'+c});
+  var r=calcMastered(keys);
+  var pct=r.total>0?Math.round(100*r.mastered/r.total):0;
+  var locked=!unOK('u'+g);
+  h+='<div class="pgbar-row"'+(locked?' style="opacity:.5"':'')+'>'
+   +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>'+r.mastered+'/'+r.total+'じ（'+pct+'%）</span></div>'
+   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+pct+'%"></div></div>'
+   +'</div>';
+ });
+ h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上</div>'
+ +'</div>';
+ s.innerHTML=h;
+ $('bBkPg').addEventListener('click',renderHome);
+ head(); showScr('progress');
+}
+
 //JS-MID2
 /* ================= はんいを えらぶ ================= */
 function pairsFor(keys){ var out=[];
