@@ -1455,7 +1455,7 @@ function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
 /* ================= ホーム ================= */
 function countIntroduced(){ var n=0; itemPool().forEach(function(key){ if(introduced(key))n++ }); return n }
 function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr();
- var h='<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  if(ST.re&&ST.re.d<=t&&TESTS[ST.re.t])h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[ST.re.t].label+'」に もういちど ちょうせんしよう</div>';
  // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
  var introCount=countIntroduced();
@@ -2127,8 +2127,10 @@ function renderParent(){ var s=$('scr-parent');
  showScr('parent') }
 
 /* ================= 起動 ================= */
-QuestSave.onStatus(function(st){ var c=$('hSync'); c.style.display='';
- c.textContent=(st==='synced')?'☁✓':((st==='syncing')?'☁…':((st==='error')?'☁!':'💾'));
+QuestSave.onStatus(function(st){ var c=$('hSync');
+ /* クラウド同期インジケータ。未接続(local)時は表示しない（自動保存は常時行われるため紛れない） */
+ if(st==='local'){ c.style.display='none'; }
+ else { c.style.display=''; c.textContent=(st==='synced')?'☁✓':((st==='syncing')?'☁…':'☁!'); }
  var sy=document.getElementById('syTx'); if(sy)sy.textContent=st });
 (function boot(){
  QuestSave.autoConnect().catch(function(){return null}).then(function(){

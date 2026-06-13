@@ -3135,13 +3135,15 @@ function closeModal(){ $('#modal').classList.remove('show'); $('#modal').innerHT
 function scrHome(){
   const meta=profMeta(CURID);
   const night=Engine.isNight();
+  const caughtN=Object.keys(P.catches).length;
+  const totN=Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0);
+  const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:Q4BReward.poolCount('eitango'),amber:P.amber,streak:P.streak.n,total:totN}):'';
   let h=`<div class="topbar">
     <button class="chip" onclick="showProfiles()">${profIcon(meta)} ${Engine.esc(meta.name)} <small>▼</small></button>
     <span class="sp"></span>
-    <span class="chip">🔥<small>れんぞく</small>${P.streak.n}</span>
-    <span class="chip">🟡${P.amber}</span>
   </div>
-  <div class="small" style="padding:0 4px">${Reward.rank(P.amberTotal)} ／ 🐛採集ゲージ ${P.pool}/${Reward.NEED}</div>
+  ${statusBar}
+  <div class="small" style="padding:0 4px">🐛採集ゲージ ${P.pool}/${Reward.NEED}</div>
   ${night?'<div class="nightbadge">🌙 よるは よるの虫が でやすいよ</div>':''}`;
   for(const f of FIELDS){
     const zk=Reward.zukanFor(f.id);

@@ -462,7 +462,9 @@ function showHome(){
   var p=P(); if(!p){showProfiles();return;}
   var t=todayStr(), d=p.daily[t], done=d&&d.md;
   var due=dueMissed(p).length;
-  var h='<div class="scr">'+topBar(null,fireChip()+kagoChip());
+  ensureColl(p);
+  var h='<div class="scr">'+topBar(null);
+  if(window.Q4BReward)h+=Q4BReward.statusHTML({caught:Q4BReward.collectedCount(p.coll),pool:Q4BReward.poolCount('keisan'),amber:Q4BReward.amberOf(p.coll),streak:p.streak.n,total:p.coll.total});
   h+='<div class="hero"><div class="sun"></div><h2>'+(done?"きょうのミッション クリア！":"きょうの むしとりミッション")+'</h2>'
     +'<p style="margin:2px 0 12px">'+(done?"れんしゅうで もっと つかまえよう":"クリアすると 昆虫を 1匹 ゲット！")+(due?'<br>🦋 にがした虫が '+due+'匹 まってるよ':"")+'</p>'
     +'<button class="btn big amber" onclick="startMission()">'+(done?"もういちど ちょうせん":"ミッション スタート！")+'</button>'

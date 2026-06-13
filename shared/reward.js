@@ -141,6 +141,19 @@
   /* ---- rendering helper (uses shared/render.js if present) ---- */
   function svg(sp){ return (global.Q4BRender ? global.Q4BRender.species(sp) : ""); }
 
+  /* 全ゲーム共通のステータスバー（図鑑数・こはく・連続日数・称号）。
+     各ゲームが自分のデータから値を渡す: {caught, pool, amber, streak, total} */
+  function statusHTML(v){
+    v = v || {};
+    function chip(t){ return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.9);border:1.5px solid #CFDDB2;border-radius:999px;padding:2px 9px;font-size:13px;font-weight:800;color:#2A3D2C;white-space:nowrap">'+t+'</span>'; }
+    return '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px">'
+      + chip('🧺 '+(v.caught||0)+'/'+(v.pool||0))
+      + chip('🍯 '+(v.amber||0))
+      + chip('🔥 '+(v.streak||0)+'日')
+      + chip('🏅 '+rank(v.total||0))
+      + '</div>';
+  }
+
   global.Q4BReward = {
     bugs: BUGS,
     gameFor: gameFor,
@@ -159,6 +172,7 @@
     collectedCount: collectedCount,
     rank: rank,
     svg: svg,
+    statusHTML: statusHTML,
     NEED_DEFAULT: NEED_DEFAULT
   };
 })(window);
