@@ -1424,10 +1424,18 @@ function addProfileKanji(){
  QuestSave.profiles().then(function(ps){ PROFILES=ps||[]; renderProfileSel(); }); }
 function ensureMode(p){
  if(p.mode)return Promise.resolve();
- var big=confirm(p.name+' の コースを えらんでね\n\nOK ＝ 10さいコース（漢字）\nキャンセル ＝ 5さいコース（ひらがな）');
- p.mode=big?'big':'small';
- if(!p.emoji)p.emoji=p.icon||'🪲';
- return QuestSave.saveProfiles(PROFILES); }
+ return new Promise(function(resolve){
+  var s=$('scr-profile');
+  s.innerHTML='<div class="card center"><div style="font-size:34px">'+(p.emoji||p.icon||'🪲')+'</div>'
+   +'<div style="font-weight:bold;font-size:18px;margin:6px 0 2px">'+esc(p.name)+' の コース</div>'
+   +'<div class="small" style="margin-bottom:8px">どちらで べんきょうする？</div></div>'
+   +'<button class="card prof" id="cBig" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🪲</div><div style="font-weight:bold;font-size:20px">10さい コース</div><div class="small">かんじ（1〜6年生）</div></button>'
+   +'<button class="card prof" id="cSmall" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🐛</div><div style="font-weight:bold;font-size:20px">5さい コース</div><div class="small">ひらがな</div></button>';
+  showScr('profile');
+  function pick(m){ p.mode=m; if(!p.emoji)p.emoji=p.icon||'🪲'; QuestSave.saveProfiles(PROFILES).then(function(){ resolve(); }); }
+  $('cBig').addEventListener('click',function(){ pick('big'); });
+  $('cSmall').addEventListener('click',function(){ pick('small'); });
+ }); }
 function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
  ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); }).then(function(d){ ST=d||newState();
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
