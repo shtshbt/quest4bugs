@@ -220,7 +220,7 @@ function pickProf(id){QuestSave.setCurrentProfile(id);renderProfiles();}
 /* ---- 全ゲーム横断の プロフィール ダッシュボード ---- */
 function pad2d(n){return (n<10?"0":"")+n;}
 function ymd(d){return d.getFullYear()+"-"+pad2d(d.getMonth()+1)+"-"+pad2d(d.getDate());}
-function sumDaily(map,src,key){var d,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c)map[d]=(map[d]||0)+c;}}
+function sumDaily(map,src,key,g){var d,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c){if(!map[d])map[d]={k:0,j:0,e:0};map[d][g]+=c;}}}
 function renderDashboard(pid,name){
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
@@ -232,27 +232,32 @@ function renderDashboard(pid,name){
     var book=r[0],ks=r[1],es=r[2],kp=null,i;
     if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
     var amber=0;
-    if(kp&&kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; amber+=kp.coll.amber||0; sumDaily(day,kp.daily,"n");}
-    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; amber+=(ks.coll&&ks.coll.amber)||0; sumDaily(day,ks.log,"a");}
-    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; amber+=es.amber||0; sumDaily(day,es.cal,"q");}
+    if(kp&&kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; amber+=kp.coll.amber||0; sumDaily(day,kp.daily,"n","k");}
+    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; amber+=(ks.coll&&ks.coll.amber)||0; sumDaily(day,ks.log,"a","j");}
+    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
     var total=keisanN+kanjiN+eitangoN;
     var pool=window.Q4BReward?(Q4BReward.poolCount("kanji")+Q4BReward.poolCount("keisan")+Q4BReward.poolCount("eitango")):547;
     /* combined streak: consecutive days up to today with any activity */
     var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
     while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}
-    /* daily bars: last 14 days */
+    /* daily stacked bars (last 14 days, ゲーム別色分け) */
+    var COL={k:"#3E7C3F",j:"#E8902E",e:"#4F9DD6"};
     var bars="",max=1,vals=[],k;
-    for(k=13;k>=0;k--){var dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-k);var c=day[ymd(dd)]||0;vals.push(c);if(c>max)max=c;}
-    vals.forEach(function(c){var hpx=Math.round(6+(c/max)*40);
-      bars+='<div title="'+c+'もん" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:'+hpx+'px;background:'+(c?"var(--green)":"var(--line)")+';border-radius:3px 3px 0 0"></div></div>';});
-    var totalQ=vals.reduce(function(a,b){return a+b;},0);
+    for(k=13;k>=0;k--){var dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-k);var o=day[ymd(dd)]||{k:0,j:0,e:0};var tot=o.k+o.j+o.e;vals.push(o);if(tot>max)max=tot;}
+    function seg(c,col){return c?'<div style="height:'+Math.max(2,Math.round((c/max)*42))+'px;background:'+col+'"></div>':"";}
+    vals.forEach(function(o){var tot=o.k+o.j+o.e;
+      var inner=tot?(seg(o.e,COL.e)+seg(o.j,COL.j)+seg(o.k,COL.k)):'<div style="height:3px;background:var(--line)"></div>';
+      bars+='<div title="けいさん'+o.k+'・かんじ'+o.j+'・えいご'+o.e+'" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;border-radius:3px 3px 0 0;overflow:hidden">'+inner+'</div>';});
+    var totalQ=vals.reduce(function(a,o){return a+o.k+o.j+o.e;},0);
+    function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
+    var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.round(total/pool*100);
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">🧺</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+'　🍯こはく '+amber+'　🔥れんぞく '+streak+'にち</div></div></div>'
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（14日・'+totalQ+'もん）</div>'
-      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>';
+      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>'+legend;
     $("dashCard").innerHTML=h;
     $("dashCard").style.display="";
   }).catch(function(){$("dashCard").style.display="none";});
