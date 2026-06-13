@@ -1453,15 +1453,25 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  +'<button class="tile" id="bTest"><div class="ic">🏆</div><div class="lb">チャレンジ</div></button>'
  +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">ずかん</div></button>'
  +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしかご</div></button>'
- +'</div><button class="btn sub" id="bParent" style="margin-top:12px">👪 おやの がめん</button>';
+ +'</div>'
+ +'<button class="btn sub" id="bMode" style="margin-top:10px">'+(CUR.mode==='small'?'🐛 いまは 5さいコース（ひらがな）':'🪲 いまは 10さいコース（かんじ）')+'　タップで きりかえ</button>'
+ +'<button class="btn sub" id="bParent" style="margin-top:8px">👪 おやの がめん</button>';
  s.innerHTML=h;
  $('bLearn').addEventListener('click',startLearn);
  $('bRange').addEventListener('click',renderRange);
  $('bTest').addEventListener('click',renderTests);
  $('bZukan').addEventListener('click',function(){ renderZukan(CUR.mode==='small'?'h':'k') });
  $('bBugs').addEventListener('click',renderBugs);
+ $('bMode').addEventListener('click',switchMode);
  $('bParent').addEventListener('click',parentGate);
  head(); showScr('home') }
+/* コースはいつでも切替可能。解放状態(ST.un)は両コースぶん保持されるので進捗は消えない */
+function switchMode(){
+ CUR.mode=(CUR.mode==='small')?'big':'small';
+ if(CUR.mode==='small'){ if(!ST.un)ST.un={}; if(!ST.un.hira)ST.un.hira=1; }
+ else { if(!ST.un)ST.un={}; if(!ST.un.u1)ST.un.u1=1; }
+ QuestSave.saveProfiles(PROFILES); saveST();
+ renderHome(); }
 
 /* ================= セッション ================= */
 var SES=null;
