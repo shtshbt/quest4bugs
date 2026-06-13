@@ -2607,7 +2607,7 @@ const Engine = {
 };
 
 /* ---------------- Speech (reads rate from CFG, set after load) -------- */
-const CFG = { rate: 0.9 };
+const CFG = { rate: 0.9, showMeaning: true };
 const Speech = {
   voice: null,
   init() {
@@ -3014,7 +3014,8 @@ function touchP(){
   P.updated=Date.now();
   QuestSave.save(NS, CURID, P);
 }
-function saveSettings(){ QuestSave.save(NS,'_settings',{rate:CFG.rate}); }
+function saveSettings(){ QuestSave.save(NS,'_settings',{rate:CFG.rate, showMeaning:CFG.showMeaning}); }
+function setMeaning(on){ CFG.showMeaning=!!on; saveSettings(); }
 function saveCustom(){ QuestSave.save(NS,'_custom',CUSTOM); }
 
 /* profile meta helpers (shared registry shape) */
@@ -3031,6 +3032,7 @@ async function boot(){
   /* settings */
   const cfg=await QuestSave.load(NS,'_settings');
   if(cfg&&typeof cfg.rate==='number') CFG.rate=cfg.rate;
+  if(cfg&&typeof cfg.showMeaning==='boolean') CFG.showMeaning=cfg.showMeaning;
   /* custom words */
   const cust=await QuestSave.load(NS,'_custom');
   CUSTOM=Array.isArray(cust)?cust:[];
@@ -3350,6 +3352,15 @@ function scrSet(){
     <button class="btn sub" onclick="Speech.say('Hello! Let\\'s catch some bugs!')">テスト再生 🔊</button>
   </div>
 
+  <div class="h2">がくしゅう</div>
+  <div class="card">
+    <label class="small" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" ${CFG.showMeaning?'checked':''} onchange="setMeaning(this.checked)" style="width:20px;height:20px">
+      まちがえたとき、えらんだ ことばの いみも みせる
+    </label>
+    <div class="small" style="opacity:.7;margin-top:4px">英単語をえらぶもんだいで、まちがえた語の意味を答え合わせに表示します。</div>
+  </div>
+
   <div class="h2">プロフィール</div>
   <div class="card">
     ${PROFILES.map(x=>`<div class="row" style="margin-top:8px"><span style="font-size:24px">${profIcon(x)}</span><b>${Engine.esc(x.name)}</b><span class="sp" style="flex:1"></span><button class="chip" onclick="doDelProf('${x.id}','${Engine.esc(x.name)}')">けす</button></div>`).join('')}
@@ -3394,6 +3405,7 @@ async function doImport(){
     PROFILES=await QuestSave.profiles();
     const cust=await QuestSave.load(NS,'_custom'); CUSTOM=Array.isArray(cust)?cust:CUSTOM;
     const cfg=await QuestSave.load(NS,'_settings'); if(cfg&&typeof cfg.rate==='number')CFG.rate=cfg.rate;
+    if(cfg&&typeof cfg.showMeaning==='boolean')CFG.showMeaning=cfg.showMeaning;
     if(!CURID||!profMeta(CURID)) CURID=PROFILES.length?PROFILES[0].id:null;
     if(CURID){ QuestSave.setCurrentProfile(CURID); P=normState(await QuestSave.load(NS,CURID)); }
     UI.toast('読みこみ完了 ('+n+'件)'); render();
@@ -3624,9 +3636,16 @@ function ansSRS(i){
   $('#op'+i).classList.add(ok?'ok':'ng');
   if(!ok){ const ci=S.cards.findIndex(c=>c.key===w.key); $('#op'+ci).classList.add('ok'); }
   const exB=w.ex?w.ex.replace(new RegExp('(\\b'+stem(w.en)+'[a-z]*)','i'),'<b>$1</b>'):'';
+  /* 不正解＋英単語選択肢(j2e/cloze)のとき、選んだ語の意味も見せる（任意設定・上位レベルの学習補助） */
+  let pickInfo='';
+  if(!ok && item.type!=='e2j' && CFG.showMeaning){
+    const picked=S.cards[i];
+    if(picked && picked.key!==w.key && picked.en && picked.ja)
+      pickInfo=`<div class="small" style="margin-top:6px;opacity:.85">えらんだ <b>${picked.en}</b> は『${picked.ja}』</div>`;
+  }
   afterAnswer(item,ok,
     ok?'せいかい!':'おしい!',
-    `<b>${w.en}</b> ${w.pos?'['+w.pos+']':''} ＝ ${w.ja}${exB?'<br>'+exB:''}`);
+    `<b>${w.en}</b> ${w.pos?'['+w.pos+']':''} ＝ ${w.ja}${exB?'<br>'+exB:''}${pickInfo}`);
   if(item.type!=='e2j') Speech.say(w.en);
 }
 
