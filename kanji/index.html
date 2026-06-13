@@ -1410,7 +1410,7 @@ function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲')
 function renderProfileSel(){ var s=$('scr-profile');
  var h='<div class="card center"><div style="font-size:40px">🪲🌿</div><div style="font-weight:bold;font-size:18px;margin-top:6px">だれが あそぶ？</div></div>';
  if(!PROFILES.length){ h+='<div class="card center"><div class="small">まだ だれも いないよ。「＋ あたらしいこ」で つくってね。<br>（ポータルでも つくれます）</div></div>'; }
- PROFILES.forEach(function(p,i){ h+='<button class="card prof" data-i="'+i+'" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">'+(p.emoji||p.icon||'🪲')+'</div><div style="font-weight:bold;font-size:20px">'+esc(p.name)+'</div><div class="small">'+(p.mode?(p.mode==='small'?'5さい コース':'10さい コース'):'コースを えらぶ')+'</div></button>' });
+ PROFILES.forEach(function(p,i){ h+='<button class="card prof" data-i="'+i+'" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">'+(p.emoji||p.icon||'🪲')+'</div><div style="font-weight:bold;font-size:20px">'+esc(p.name)+'</div><div class="small">'+(p.mode?(p.mode==='small'?'ひらがなコース':'かんじコース'):'コースを えらぶ')+'</div></button>' });
  h+='<button class="btn sub" id="bAddProf" style="margin-top:10px">＋ あたらしいこ</button>';
  s.innerHTML=h;
  var bs=s.querySelectorAll('button.prof');
@@ -1429,8 +1429,8 @@ function ensureMode(p){
   s.innerHTML='<div class="card center"><div style="font-size:34px">'+(p.emoji||p.icon||'🪲')+'</div>'
    +'<div style="font-weight:bold;font-size:18px;margin:6px 0 2px">'+esc(p.name)+' の コース</div>'
    +'<div class="small" style="margin-bottom:8px">どちらで べんきょうする？</div></div>'
-   +'<button class="card prof" id="cBig" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🪲</div><div style="font-weight:bold;font-size:20px">10さい コース</div><div class="small">かんじ（1〜6年生）</div></button>'
-   +'<button class="card prof" id="cSmall" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🐛</div><div style="font-weight:bold;font-size:20px">5さい コース</div><div class="small">ひらがな</div></button>';
+   +'<button class="card prof" id="cBig" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🪲</div><div style="font-weight:bold;font-size:20px">かんじ コース</div><div class="small">1〜6年生の かんじ</div></button>'
+   +'<button class="card prof" id="cSmall" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🐛</div><div style="font-weight:bold;font-size:20px">ひらがな コース</div><div class="small">ひらがな 46もじ</div></button>';
   showScr('profile');
   function pick(m){ p.mode=m; if(!p.emoji)p.emoji=p.icon||'🪲'; QuestSave.saveProfiles(PROFILES).then(function(){ resolve(); }); }
   $('cBig').addEventListener('click',function(){ pick('big'); });
@@ -1454,7 +1454,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">ずかん</div></button>'
  +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしかご</div></button>'
  +'</div>'
- +'<button class="btn sub" id="bMode" style="margin-top:10px">'+(CUR.mode==='small'?'🐛 いまは 5さいコース（ひらがな）':'🪲 いまは 10さいコース（かんじ）')+'　タップで きりかえ</button>'
+ +'<button class="btn sub" id="bMode" style="margin-top:10px">'+(CUR.mode==='small'?'🐛 いまは ひらがなコース':'🪲 いまは かんじコース')+'　タップで きりかえ</button>'
  +'<button class="btn sub" id="bParent" style="margin-top:8px">👪 おやの がめん</button>';
  s.innerHTML=h;
  $('bLearn').addEventListener('click',startLearn);
@@ -1952,8 +1952,8 @@ function renderParent(){ var s=$('scr-parent');
  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">設定</div>'
  +'<div class="setline"><span>音声読み上げ</span><input type="checkbox" id="cTts" '+(CFG.tts?'checked':'')+' style="width:24px;height:24px"></div>'
  +'<div class="setline"><span>読み上げ速度</span><span>'+CFG.rate+'</span></div><input type="range" id="cRate" min="0.6" max="1.2" step="0.05" value="'+CFG.rate+'">'
- +'<div class="setline"><span>新規導入／日（5歳コース）</span><input type="number" id="cNewS" value="'+CFG.newS+'" min="0" max="20"></div>'
- +'<div class="setline"><span>新規導入／日（10歳コース）</span><input type="number" id="cNewB" value="'+CFG.newB+'" min="0" max="30"></div>'
+ +'<div class="setline"><span>新規導入／日（ひらがな）</span><input type="number" id="cNewS" value="'+CFG.newS+'" min="0" max="20"></div>'
+ +'<div class="setline"><span>新規導入／日（かんじ）</span><input type="number" id="cNewB" value="'+CFG.newB+'" min="0" max="30"></div>'
  +'<div class="setline"><span>全ユニット解放（動作確認用）</span><input type="checkbox" id="cAll" '+(CFG.all?'checked':'')+' style="width:24px;height:24px"></div>'
  +'<div class="row" style="margin-top:8px"><button class="btn sub" id="cN1">名前変更：'+esc(nameOf('p1'))+'</button><button class="btn sub" id="cN2">名前変更：'+esc(nameOf('p2'))+'</button></div></div>'
  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">クラウド同期（GitHub方式）</div>'
