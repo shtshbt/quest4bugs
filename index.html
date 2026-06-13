@@ -57,6 +57,8 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
     </div>
   </div>
 
+  <div class="card" id="dashCard" style="display:none"></div>
+
   <a class="btn" href="./keisan/index.html">🪲 けいさん昆虫ハンター</a>
   <a class="btn" href="./kanji/index.html">✏️ かんじ昆虫ハンター</a>
   <a class="btn" href="./eitango/index.html">🔤 えいたんご昆虫ハンター</a>
@@ -93,6 +95,9 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
 <script src="./shared/storage.js"></script>
+<script src="./shared/bugs.js"></script>
+<script src="./shared/render.js"></script>
+<script src="./shared/reward.js"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
@@ -194,6 +199,7 @@ function renderProfiles(){
     var cur=QuestSave.currentProfile();
     if(!ps.length){
       $("profList").innerHTML='<p class="note">まだ だれも いません。「＋ あたらしい こ」で つくってね。</p>';
+      $("dashCard").style.display="none";
       return;
     }
     if(!cur||!ps.some(function(p){return p.id===cur;})){QuestSave.setCurrentProfile(ps[0].id);cur=ps[0].id;}
@@ -206,9 +212,50 @@ function renderProfiles(){
         +'<button class="btn sm" onclick="editProf(\''+p.id+'\')">…</button></div>';
     });
     $("profList").innerHTML=h;
+    var curName=""; ps.forEach(function(p){if(p.id===cur)curName=p.name;});
+    renderDashboard(cur,curName);
   });
 }
 function pickProf(id){QuestSave.setCurrentProfile(id);renderProfiles();}
+/* ---- 全ゲーム横断の プロフィール ダッシュボード ---- */
+function pad2d(n){return (n<10?"0":"")+n;}
+function ymd(d){return d.getFullYear()+"-"+pad2d(d.getMonth()+1)+"-"+pad2d(d.getDate());}
+function sumDaily(map,src,key){var d,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c)map[d]=(map[d]||0)+c;}}
+function renderDashboard(pid,name){
+  if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
+  var keisanN=0,kanjiN=0,eitangoN=0,day={};
+  Promise.all([
+    QuestSave.load("keisan","_book"),
+    QuestSave.load("kanji",pid),
+    QuestSave.load("eitango",pid)
+  ]).then(function(r){
+    var book=r[0],ks=r[1],es=r[2],kp=null,i;
+    if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
+    if(kp&&kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; sumDaily(day,kp.daily,"n");}
+    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; sumDaily(day,ks.log,"a");}
+    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; sumDaily(day,es.cal,"q");}
+    var total=keisanN+kanjiN+eitangoN;
+    var pool=window.Q4BReward?(Q4BReward.poolCount("kanji")+Q4BReward.poolCount("keisan")+Q4BReward.poolCount("eitango")):547;
+    /* combined streak: consecutive days up to today with any activity */
+    var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+    while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}
+    /* daily bars: last 14 days */
+    var bars="",max=1,vals=[],k;
+    for(k=13;k>=0;k--){var dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-k);var c=day[ymd(dd)]||0;vals.push(c);if(c>max)max=c;}
+    vals.forEach(function(c){var hpx=Math.round(6+(c/max)*40);
+      bars+='<div title="'+c+'もん" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:'+hpx+'px;background:'+(c?"var(--green)":"var(--line)")+';border-radius:3px 3px 0 0"></div></div>';});
+    var totalQ=vals.reduce(function(a,b){return a+b;},0);
+    var pct=Math.round(total/pool*100);
+    var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
+      +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
+      +'<div style="font-size:30px">🧺</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
+      +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（14日・'+totalQ+'もん）</div>'
+      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>';
+    $("dashCard").innerHTML=h;
+    $("dashCard").style.display="";
+  }).catch(function(){$("dashCard").style.display="none";});
+}
 function addProf(){
   var nm=prompt("なまえを いれてね");
   if(!nm||!nm.trim())return;
