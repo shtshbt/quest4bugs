@@ -34,6 +34,8 @@ border:2px solid var(--line);box-shadow:0 3px 0 var(--line);}
 .note{font-size:13px;color:var(--sub);}
 textarea{width:100%;height:110px;font-size:12px;border:2px solid var(--line);border-radius:10px;
 padding:8px;font-family:monospace;-webkit-user-select:text;user-select:text;}
+input{width:100%;font-size:15px;border:2px solid var(--line);border-radius:10px;
+padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;user-select:text;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 </style>
 </head>
@@ -45,9 +47,19 @@ padding:8px;font-family:monospace;-webkit-user-select:text;user-select:text;}
     <div class="grass"></div>
   </div>
 
+  <div class="card" id="profCard">
+    <h3>👤 だれが あそぶ？</h3>
+    <p class="note">なまえを えらぶと、ぜんぶの ゲームで おなじ きろくに なります。</p>
+    <div id="profList"></div>
+    <div class="g2">
+      <button class="btn sm" onclick="addProf()">＋ あたらしい こ</button>
+      <button class="btn sm" onclick="renderProfiles()">こうしん</button>
+    </div>
+  </div>
+
   <a class="btn" href="./keisan/">🪲 けいさん昆虫ハンター</a>
-  <a class="btn dis">✏️ かんじ（じゅんびちゅう）</a>
-  <a class="btn dis">🔤 えいたんご（じゅんびちゅう）</a>
+  <a class="btn" href="./kanji/">✏️ かんじ昆虫ハンター</a>
+  <a class="btn" href="./eitango/">🔤 えいたんご昆虫ハンター</a>
 
   <div class="card">
     <h3>💾 全ゲーム まとめてバックアップ</h3>
@@ -57,27 +69,42 @@ padding:8px;font-family:monospace;-webkit-user-select:text;user-select:text;}
     <button class="btn sm" onclick="impUI()">読み込む（復元）</button>
     <div id="impA"></div>
   </div>
-  <p class="note">※ ゲームの記録はこの端末のブラウザ内にのみ保存され，外部には送信されません．</p>
+
+  <div class="card">
+    <h3>📓 Fieldnote クラウド同期</h3>
+    <p class="note">private repo <b>quest4bugs_fieldnote</b> に学習記録を保存します．GitHub token はこの端末内だけに保存され，この公開repoには入りません．</p>
+    <label class="note">Owner</label>
+    <input id="ghOwner" autocomplete="off">
+    <label class="note">Repo</label>
+    <input id="ghRepo" autocomplete="off">
+    <label class="note">Branch</label>
+    <input id="ghBranch" autocomplete="off">
+    <label class="note">Fine-grained PAT</label>
+    <input id="ghToken" type="password" autocomplete="off" placeholder="Contents: read/write の token">
+    <button class="btn sm amber" style="color:#fff" onclick="saveCloud()">接続設定を保存</button>
+    <div class="g2">
+      <button class="btn sm" onclick="syncCloud()">今すぐ同期</button>
+      <button class="btn sm" onclick="pullCloud()">Fieldnoteから復元</button>
+    </div>
+    <button class="btn sm" onclick="clearCloud()">接続設定を消す</button>
+    <div id="cloudA" class="note"></div>
+  </div>
+
+  <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
+<script src="./shared/storage.js"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
 function pad2(n){return (n<10?"0":"")+n;}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
-function allData(){
-  var o={},i,k;
-  try{
-    for(i=0;i<localStorage.length;i++){
-      k=localStorage.key(i);
-      if(k&&k.indexOf("q4b_")===0)o[k]=localStorage.getItem(k);
-    }
-  }catch(e){}
-  return o;
-}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function exp(){
-  var o=allData(), n=Object.keys(o).length;
+  if(!window.QuestSave){$("expA").innerHTML='<p class="note" style="color:#E05A48">保存層が読み込めませんでした</p>';return;}
+  var s=QuestSave.exportAll(), o={};
+  try{o=JSON.parse(s);}catch(e){}
+  var n=o.kv?Object.keys(o.kv).length:0;
   if(!n){$("expA").innerHTML='<p class="note" style="color:#E05A48">まだ保存された記録がありません（ゲームをあそんでから書き出してください）</p>';return;}
-  var s=JSON.stringify(o);
   $("expA").innerHTML='<p class="note">'+n+'件のゲーム記録を書き出しました</p>'
     +'<textarea id="expT" readonly>'+s.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea>'
     +'<div class="g2"><button class="btn sm" onclick="cp()">コピー</button>'
@@ -101,13 +128,112 @@ function impUI(){
     +'<button class="btn sm amber" style="color:#fff" onclick="doImp()">復元する（同じゲームの記録は上書き）</button>';
 }
 function doImp(){
-  try{
-    var o=JSON.parse($("impT").value), n=0, k;
-    for(k in o){ if(k.indexOf("q4b_")===0&&typeof o[k]==="string"){localStorage.setItem(k,o[k]);n++;} }
-    if(!n)throw 0;
+  QuestSave.importAll($("impT").value).then(function(n){
     alert(n+"件のゲーム記録を復元しました");
-  }catch(e){alert("読み込めませんでした．文字列を確認してください");}
+    renderProfiles();
+  }).catch(function(){alert("読み込めませんでした．文字列を確認してください");});
 }
+function loadCloudUI(){
+  var c=QuestSave.getConfig();
+  $("ghOwner").value=c.owner||"shtshbt";
+  $("ghRepo").value=c.repo||"quest4bugs_fieldnote";
+  $("ghBranch").value=c.branch||"main";
+  $("cloudA").innerHTML=c.enabled?"接続設定あり：自動同期が有効です":"未接続：まず接続設定を保存してください";
+}
+function readCloudForm(){
+  var old=QuestSave.getConfig(), token=$("ghToken").value.trim();
+  return {
+    owner:$("ghOwner").value.trim(),
+    repo:$("ghRepo").value.trim(),
+    branch:$("ghBranch").value.trim(),
+    basePath:"q4b",
+    token:token||old.token||"",
+    enabled:true
+  };
+}
+function saveCloud(){
+  var c=readCloudForm();
+  if(!c.owner||!c.repo||!c.branch||!c.token){
+    alert("Owner / Repo / Branch / token を入力してください");
+    return;
+  }
+  QuestSave.saveConfig(c);
+  $("ghToken").value="";
+  $("cloudA").innerHTML="接続設定を保存しました．次回のゲーム保存から自動同期します";
+}
+async function syncCloud(){
+  try{
+    if(!QuestSave.getConfig().enabled){alert("先に Fieldnote 接続設定を保存してください");return;}
+    $("cloudA").innerHTML="同期中...";
+    var r=await QuestSave.pushAll();
+    $("cloudA").innerHTML=r.length+"件を Fieldnote に同期しました";
+  }catch(e){
+    $("cloudA").innerHTML="同期できませんでした: "+esc(e.message||e);
+  }
+}
+async function pullCloud(){
+  if(!confirm("Fieldnote の内容でこの端末の記録を上書き復元しますか？"))return;
+  try{
+    $("cloudA").innerHTML="復元中...";
+    var n=await QuestSave.pullAll();
+    $("cloudA").innerHTML=n+"件を Fieldnote から復元しました";
+  }catch(e){
+    $("cloudA").innerHTML="復元できませんでした: "+esc(e.message||e);
+  }
+}
+function clearCloud(){
+  if(!confirm("この端末の Fieldnote 接続設定を消しますか？ゲーム記録は消えません"))return;
+  QuestSave.clearConfig();
+  $("ghToken").value="";
+  loadCloudUI();
+}
+var ICONS=["🪲","🐛","🦋","🐝","🐞","🦗","🐜","🦂"];
+function renderProfiles(){
+  if(!window.QuestSave){$("profList").innerHTML='<p class="note">保存層が読み込めませんでした</p>';return;}
+  QuestSave.profiles().then(function(ps){
+    var cur=QuestSave.currentProfile();
+    if(!ps.length){
+      $("profList").innerHTML='<p class="note">まだ だれも いません。「＋ あたらしい こ」で つくってね。</p>';
+      return;
+    }
+    if(!cur||!ps.some(function(p){return p.id===cur;})){QuestSave.setCurrentProfile(ps[0].id);cur=ps[0].id;}
+    var h="";
+    ps.forEach(function(p){
+      var on=p.id===cur;
+      h+='<div class="g2" style="grid-template-columns:1fr auto;margin:6px 0">'
+        +'<button class="btn sm" style="text-align:left;'+(on?"background:var(--green);color:#fff;box-shadow:0 3px 0 var(--green-d)":"")+'" onclick="pickProf(\''+p.id+'\')">'
+        +(on?"✓ ":"")+(p.icon||"🪲")+" "+esc(p.name)+'</button>'
+        +'<button class="btn sm" onclick="editProf(\''+p.id+'\')">…</button></div>';
+    });
+    $("profList").innerHTML=h;
+  });
+}
+function pickProf(id){QuestSave.setCurrentProfile(id);renderProfiles();}
+function addProf(){
+  var nm=prompt("なまえを いれてね");
+  if(!nm||!nm.trim())return;
+  var ic=ICONS[Math.floor(Math.random()*ICONS.length)];
+  QuestSave.addProfile(nm.trim(),ic);
+  renderProfiles();
+}
+function editProf(id){
+  QuestSave.profiles().then(function(ps){
+    var p=null,i;for(i=0;i<ps.length;i++)if(ps[i].id===id)p=ps[i];
+    if(!p)return;
+    var act=prompt(p.name+" を どうする？\n1=なまえ へんこう\n2=アイコン へんこう\n3=さくじょ","1");
+    if(act==="1"){
+      var nm=prompt("あたらしい なまえ",p.name);
+      if(nm&&nm.trim()){p.name=nm.trim();QuestSave.saveProfiles(ps).then(renderProfiles);}
+    }else if(act==="2"){
+      var ic=prompt("アイコン（"+ICONS.join("")+" から1つ）",p.icon||"🪲");
+      if(ic){p.icon=ic.trim()||p.icon;QuestSave.saveProfiles(ps).then(renderProfiles);}
+    }else if(act==="3"){
+      if(confirm(p.name+" の きろくを けします。よいですか？")){QuestSave.deleteProfile(id);renderProfiles();}
+    }
+  });
+}
+loadCloudUI();
+renderProfiles();
 </script>
 </body>
 </html>
