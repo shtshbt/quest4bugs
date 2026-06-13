@@ -8,3 +8,9 @@ Thumbs.db
 /data/
 *.local.json
 *.local.js
+
+# Local import artifacts (not part of the published site)
+*.zip
+
+# Workflow-generated content staging (merged into game files, then removed)
+_gen/
