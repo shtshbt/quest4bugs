@@ -714,7 +714,8 @@ function showStats(){
 function showSettings(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
   h+='<div class="card"><h3>⚙ せってい（'+esc(p.name)+'）</h3>'
-    +'<div class="row"><span>なまえ</span><span class="sp"></span><button class="backbtn" onclick="renameP()">変更</button></div>';
+    +'<div class="row"><span>なまえ</span><span class="sp"></span><button class="backbtn" onclick="renameP()">変更</button></div>'
+    +'<div class="row"><span>コース</span><span class="sp"></span><span class="note" style="margin-right:8px">'+(p.type==="k5"?"ビギナー":"受験チャレンジ")+'</span><button class="backbtn" onclick="chooseCourse(P())">かえる</button></div>';
   if(p.type==="k5"){
     h+='<div class="row"><span>筆算のとき方</span><span class="sp"></span>'
       +'<button class="backbtn" onclick="toggHissan()">'+(p.hissanInput==="app"?"アプリで1桁ずつ":"紙で解いて答えのみ")+'</button></div>';
