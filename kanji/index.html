@@ -1875,8 +1875,15 @@ function renderBugs(){
  var cnt=Q4BReward.collectedCount(ST.coll);
  var total=Q4BReward.poolCount('kanji');
  var rankName=Q4BReward.rank(ST.coll.total||0);
+ var amberNow=Q4BReward.amberOf(ST.coll);
+ var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);
  var h='<button class="btn sub mini" id="bBk4">← ホーム</button>'
   +'<div class="card center"><div class="partner" style="font-size:54px">'+partnerFace()+'</div><div style="font-weight:bold">あいぼう</div><div class="small">'+((ST.pp||0)<=0?'テストに ごうかくすると たまごが かえるよ':((ST.pp||0)<3?'テストに ごうかくするたび そだつよ':'りっぱな せいちゅうに なった！'))+'</div></div>'
+  +'<div class="card" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px">'
+  +'<span style="font-size:15px;font-weight:700">🍯 こはく：<b>'+amberNow+'</b></span>'
+  +'<button id="kanji-amber-btn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto"'
+  +(canSpend?'':' disabled')
+  +'>🍯 こはくで よぶ（30）</button></div>'
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしかご</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
   +'<div class="bugs">';
@@ -1922,6 +1929,14 @@ function renderBugs(){
     +'</div>';
    modal(mh);
   });
+ });
+ var ab=$('kanji-amber-btn');
+ if(ab) ab.addEventListener('click',function(){
+  var got=Q4BReward.spendForCatch(ST.coll,'kanji');
+  if(!got){ modal('<div class="center"><div style="font-size:32px">🍯</div><div style="font-weight:bold;margin:8px 0">こはくが たりないよ</div><div class="small">30こ いるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return; }
+  saveST();
+  showCatchModal(got);
+  renderBugs();
  });
  $('bBk4').addEventListener('click',renderHome); showScr('bugs');
 }

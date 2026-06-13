@@ -512,6 +512,14 @@ function showZukan(){
     });
     h+='</div></div>'; render(h); return;
   }
+  /* こはく表示＋ボタン */
+  var amberNow=Q4BReward.amberOf(p.coll);
+  var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);
+  h+='<div class="card" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+    +'<span style="font-size:15px;font-weight:700">🍯 こはく：<b>'+amberNow+'</b></span>'
+    +'<button id="amberCatchBtn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto'+(canSpend?'':'opacity:.45;pointer-events:none')+'"'
+    +(canSpend?'':' disabled')
+    +' onclick="keisanAmberCatch()">🍯 こはくで よぶ（30）</button></div>';
   /* Q4BReward ベース: tierOf 降順ソート */
   var sorted=pool.slice().sort(function(a,b){ return Q4BReward.tierOf(b)-Q4BReward.tierOf(a)||(a.jaName<b.jaName?-1:1); });
   h+='<div class="zgrid">';
@@ -589,10 +597,19 @@ function gachaPull(p){
   return i;
 }
 function addCapture(p,i){ p.caps[i]=(p.caps[i]||0)+1; save(); return p.caps[i]; }
-function showCapture(i,extraMsg){
+function keisanAmberCatch(){
+  var p=P(); ensureColl(p);
+  if(!window.Q4BReward)return;
+  var got=Q4BReward.spendForCatch(p.coll,'keisan');
+  if(!got){ alert('🍯こはくが たりないよ（30こ いるよ）'); return; }
+  save();
+  showCapture(null,'🍯こはく30こで つかまえた！',got);
+}
+function showCapture(i,extraMsg,presetGot){
   var p=P(); ensureColl(p);
   if(window.Q4BReward){
-    var got=Q4BReward.award(p.coll,'keisan'); save();
+    var got=presetGot||null;
+    if(!got){ got=Q4BReward.award(p.coll,'keisan'); save(); }
     if(got){
       var sp=got.sp, tier=got.tier, rec=p.coll.catches[sp.id];
       var tag=got.isNew?'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！ ずかんに とうろく</span>'

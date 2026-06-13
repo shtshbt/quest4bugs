@@ -3172,8 +3172,14 @@ function scrZukan(){
   if(!tabs.find(f=>f.id===zTab)) zTab=tabs[0].id;
   const zk=Reward.zukanFor(zTab);
   const caught=zk.filter(s=>P.catches[s[0]]).length;
+  const amberNow=P.amber||0;
+  const canSpend=amberNow>=30;
   return `<div class="topbar"><span class="ttl">📖 むしずかん</span><span class="sp"></span>
     <span class="chip">${caught}/${zk.length}</span></div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 2px">
+    <span style="font-size:15px;font-weight:700">🍯 こはく：<b>${amberNow}</b></span>
+    <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🍯 こはくで よぶ（30）</button>
+  </div>
   <div class="ztabs">${tabs.map(f=>`<button class="${f.id===zTab?'on':''}" onclick="zTab=${f.id};render()">${f.emoji} ${f.name}</button>`).join('')}</div>
   <div class="zgrid">${zk.map(s=>{
     const c=P.catches[s[0]];
@@ -3182,6 +3188,28 @@ function scrZukan(){
       <span class="ze">${spSVG(s,36)}</span><span class="zn">${s[1]}</span><span class="zs">${c.max}mm ×${c.n}</span></button>`;
   }).join('')}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
+}
+function eitangoAmberCatch(){
+  if(!P) return;
+  if((P.amber||0) < 30){ UI.toast('🍯こはくが たりないよ（30こ いるよ）'); return; }
+  /* Q4BReward.spendForCatch に一時 coll を渡す（catches は同一参照で更新される）*/
+  var tmp={amber:30, catches:P.catches};
+  var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango') : null;
+  if(!got){ UI.toast('🍯 むしが みつからなかった…'); return; }
+  P.amber -= 30;
+  touchP();
+  /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して UI.specCard に渡す */
+  var spRow=ALLSP.find(function(s){return s[0]===got.sp.id;});
+  if(!spRow){
+    /* フォールバック: 簡易表示 */
+    UI.toast('🍯 ' + (got.sp.jaName||got.sp.id) + ' を つかまえた！');
+    render(); return;
+  }
+  var spRes={sp:spRow, size:got.size, shiny:got.shiny, isNew:got.isNew, isRecord:got.isRecord};
+  $('#modal').innerHTML='<div class="mcard"><div class="center"><div style="font-size:16px;font-weight:bold;margin-bottom:8px">🍯 こはく30こで つかまえた！</div>'
+    +UI.specCard(spRes)
+    +'<button class="btn sub" style="margin-top:12px" onclick="closeModal();render()">ずかんで みる</button></div></div>';
+  $('#modal').classList.add('show');
 }
 function showSpec(id){
   const s=specById(id);
