@@ -61,7 +61,9 @@
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
   var SHINY_CHANCE = 0.03;
   var TIER_WEIGHT = [70, 22, 6, 1.6, 0.4]; // N / R / SR / SSR / SS
-  function rollFromPool(p){
+  /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先し、
+     コンプ到達を現実的にする（レア度の特別感はティア重みで維持）。 */
+  function rollFromPool(p, caught){
     if(!p || !p.length) return null;
     var byTier = [0,1,2,3,4].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
     var w = byTier.map(function(a,t){ return a.length ? TIER_WEIGHT[t] : 0; });
@@ -70,6 +72,7 @@
     var r = Math.random()*tot, tier = 0, i;
     for(i=0;i<5;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
     var cand = byTier[tier];
+    if(caught){ var fresh = cand.filter(function(s){ return !caught[s.id]; }); if(fresh.length) cand = fresh; }
     return cand[Math.floor(Math.random()*cand.length)];
   }
   function record(coll, sp){
@@ -96,7 +99,7 @@
     if(!coll.catches) coll.catches = {};
     if((coll.amber||0) < AMBER_CATCH_COST) return null;
     coll.amber -= AMBER_CATCH_COST;
-    var sp = rollFromPool(pool(game));
+    var sp = rollFromPool(pool(game), coll.catches);
     return sp ? record(coll, sp) : null;
   }
 
@@ -109,7 +112,7 @@
     var threshold = need || NEED_DEFAULT;
     if(coll.gauge < threshold) return null;
     coll.gauge -= threshold;
-    var sp = rollFromPool(pool(game));
+    var sp = rollFromPool(pool(game), coll.catches);
     if(!sp) return null;
     return record(coll, sp);
   }
@@ -117,7 +120,7 @@
   /* guaranteed single catch (for set-completion / bonus gacha, no gauge) */
   function award(coll, game){
     if(!coll.catches) coll.catches = {};
-    var sp = rollFromPool(pool(game));
+    var sp = rollFromPool(pool(game), coll.catches);
     return sp ? record(coll, sp) : null;
   }
 
