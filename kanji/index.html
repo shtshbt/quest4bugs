@@ -1301,7 +1301,7 @@ function buildDaily(){
  var q=dues.slice(0,10), i;
  for(i=0;i<news2.length&&q.length<10;i++) q.push(news2[i]);
  for(i=0;i<newsChar.length&&q.length<10&&allow>0;i++){ q.push(newsChar[i]); allow--; }
- return q;
+ return shuffle(q);
 }
 function dueCounts(){ var t=todayStr(), due=0, hun=0;
  itemPool().forEach(function(key){ gatedSkills(key).forEach(function(sk){
@@ -1538,11 +1538,13 @@ function showCorrect(p){ var a=answerInfo(p); var s=$('scr-quiz');
  s.appendChild(d); T.say(a.say);
  $('bNext').addEventListener('click',function(){ SES.i++; nextQ() }) }
 
-function dotsHtml(){ var h='<div class="dots">';
+function dotsHtml(){
+ var h='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="btn sub mini" onclick="quitSession()" style="flex:none">← やめる</button><div class="dots" style="flex:1">';
  for(var i=0;i<SES.q.length;i++){ var cls='';
   if(i<SES.i){ cls=(SES.res[i]&&SES.res[i].ok)?'ok':'ng' } else if(i===SES.i){ cls='now' }
   h+='<div class="dot '+cls+'"></div>' }
- return h+'</div>' }
+ return h+'</div></div>' }
+function quitSession(){ if(SES&&SES.mode==='test'){ if(!confirm('テストを やめて ホームに もどる？')) return; } SES=null; renderHome(); }
 function choiceHtml(list,glyph){ var h='<div class="choices">';
  list.forEach(function(c){ h+='<button class="btn'+(glyph?' glyph':'')+'" data-v="'+esc(c)+'">'+esc(c)+'</button>' });
  return h+'</div>' }
