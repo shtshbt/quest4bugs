@@ -3346,6 +3346,7 @@ function scrProgress(){
     <div class="h2" style="margin-top:0">きゅうレベルごとの しゅうとく率</div>
     ${barsHtml}
   </div>
+  ${window.Q4BReward?`<div class="card"><div class="h2" style="margin-top:0">🏅 しょうごう</div>${Q4BReward.rankListHTML(Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0))}</div>`:''}
   <button class="btn sub" style="margin-top:12px" onclick="startReview()">🔁 ふくしゅうチャレンジ</button>`;
 }
 

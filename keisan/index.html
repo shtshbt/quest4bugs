@@ -784,6 +784,8 @@ function showProgress(){
   });
   h+='<div class="card"><h3>🎯 カテゴリ せいかいりつ</h3>'
     +(bars||'<p class="note">まだデータがないよ。ミッションをやってみよう！</p>')+'</div>';
+  if(window.Q4BReward){ ensureColl(p);
+    h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(p.coll.total)+'</div>'; }
   h+='</div>';
   render(h);
 }

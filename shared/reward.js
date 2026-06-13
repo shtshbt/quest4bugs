@@ -137,6 +137,20 @@
   var RANKS = [[0,"かけだし虫とり"],[20,"みならい虫とり"],[60,"いちにんまえの虫とり"],
     [140,"ベテラン虫とり"],[300,"虫とりのたつじん"],[600,"でんせつの虫はかせ"]];
   function rank(total){ var r=RANKS[0][1]; for(var i=0;i<RANKS.length;i++){ if((total||0)>=RANKS[i][0]) r=RANKS[i][1]; } return r; }
+  /* 称号一覧: 獲得済み(過去＋現在)を表示。未来の名前は伏せ、つぎまでの匹数だけ示す。 */
+  function rankListHTML(total){
+    total = total||0;
+    var cur=0, i;
+    for(i=0;i<RANKS.length;i++){ if(total>=RANKS[i][0]) cur=i; }
+    var rows='';
+    for(i=0;i<=cur;i++){
+      var on=(i===cur);
+      rows+='<div style="display:flex;align-items:center;gap:8px;padding:4px 2px;'+(on?'font-weight:800;color:#2C5F2D':'color:#6B7A5E')+'">'
+        +'<span>'+(on?'🏅':'✓')+'</span><span>'+RANKS[i][1]+'</span>'+(on?'<span style="margin-left:auto;font-size:12px;color:#CF7F14">いま ここ</span>':'')+'</div>';
+    }
+    if(cur+1<RANKS.length){ rows+='<div style="display:flex;align-items:center;gap:8px;padding:4px 2px;color:#B9C4A8"><span>🔒</span><span>？？？</span><span style="margin-left:auto;font-size:12px">あと '+(RANKS[cur+1][0]-total)+' 匹</span></div>'; }
+    return rows;
+  }
 
   /* ---- rendering helper (uses shared/render.js if present) ---- */
   function svg(sp){ return (global.Q4BRender ? global.Q4BRender.species(sp) : ""); }
@@ -171,6 +185,7 @@
     record: record,
     collectedCount: collectedCount,
     rank: rank,
+    rankListHTML: rankListHTML,
     svg: svg,
     statusHTML: statusHTML,
     NEED_DEFAULT: NEED_DEFAULT

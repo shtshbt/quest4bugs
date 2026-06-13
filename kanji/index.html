@@ -1375,7 +1375,7 @@ $('modal').addEventListener('click',function(e){ if(e.target.id==='modal')closeM
 
 function nameOf(id){ for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)return PROFILES[i].name; return id }
 function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textContent=CUR.emoji+' '+CUR.name;
- $('hStreak').style.display=''; $('hStreak').textContent='🔥'+streak() }
+ $('hStreak').style.display='none'; /* 連続日数は統一ステータスバーに表示するため、ヘッダの重複を解消 */ }
 function isLocked(key){ if(key[0]==='h')return !unOK('hira'); var u=KMAP[key.slice(2)].u; return !unOK('u'+u) }
 function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">🏆チャレンジ(にんていテスト)に ごうかくすると ひらくよ！</span><br><button class="btn gold" style="margin-top:10px" onclick="closeModal();renderTests()">🏆 チャレンジへ いく</button><button class="btn sub" style="margin-top:6px" onclick="closeModal()">とじる</button></div>') }
 function stEmoji(s){ return ['🥚','🐛','🐛','🟤','🟤','🪲'][Math.max(0,Math.min(5,s))] }
@@ -1860,6 +1860,7 @@ function renderProgress(){
  });
  h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上</div>'
  +'</div>';
+ if(window.Q4BReward&&ST.coll)h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(ST.coll.total)+'</div>';
  s.innerHTML=h;
  $('bBkPg').addEventListener('click',renderHome);
  head(); showScr('progress');
