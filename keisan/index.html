@@ -335,18 +335,25 @@ function profIcon(type){ return type==="k5"?"🐞":(type==="k10"?"🪲":"🐛");
 /* type未設定（他ゲームで作られた子）でもアバター描画が壊れないようフォールバック */
 function av(p){ return (p&&AV[p.type])||{n:"",t:"tentou",c1:"#9DB17C",c2:"#5B6B45"}; }
 /* 共有レジストリと keisan の profiles を双方向にそろえる */
+/* 共有レジストリ(reg)を「正」とする。
+   - reg が空のときだけ、旧 keisan の profiles で初回シードする（レガシー移行）。
+   - それ以外は reg を権威とし、reg に無い（＝他で削除された）keisan プロフィールは落とす。
+   これにより「削除しても keisan が再登録して復活する」二重登録/削除不能バグを解消。 */
 function reconcile(reg){
   reg=reg||[];
-  var regById={}, keiById={}, changed=false, i;
+  var regById={}, i, migrated=false;
   for(i=0;i<reg.length;i++)regById[reg[i].id]=reg[i];
-  for(i=0;i<DB.profiles.length;i++)keiById[DB.profiles[i].id]=DB.profiles[i];
-  DB.profiles.forEach(function(p){
-    if(!regById[p.id]){ reg.push({id:p.id,name:p.name,icon:profIcon(p.type)}); changed=true; }
-  });
+  if(reg.length===0){
+    DB.profiles.forEach(function(p){ reg.push({id:p.id,name:p.name,icon:profIcon(p.type)}); });
+    if(reg.length){ migrated=true; for(i=0;i<reg.length;i++)regById[reg[i].id]=reg[i]; }
+  }
+  /* registry を権威に: 削除済み(reg に無い)プロフィールは keisan からも除去 */
+  DB.profiles=DB.profiles.filter(function(p){ return regById[p.id]; });
+  var keiById={}; for(i=0;i<DB.profiles.length;i++)keiById[DB.profiles[i].id]=DB.profiles[i];
   reg.forEach(function(rp){
     if(!keiById[rp.id]){ var p=newProfile(rp.name,null); p.id=rp.id; p.type=null; DB.profiles.push(p); }
   });
-  if(changed&&window.QuestSave)QuestSave.saveProfiles(reg);
+  if(migrated&&window.QuestSave)QuestSave.saveProfiles(reg);
 }
 function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,

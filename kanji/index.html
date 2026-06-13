@@ -1057,11 +1057,19 @@ function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲')
 /* ================= プロフィール ================= */
 function renderProfileSel(){ var s=$('scr-profile');
  var h='<div class="card center"><div style="font-size:40px">🪲🌿</div><div style="font-weight:bold;font-size:18px;margin-top:6px">だれが あそぶ？</div></div>';
+ if(!PROFILES.length){ h+='<div class="card center"><div class="small">まだ だれも いないよ。「＋ あたらしいこ」で つくってね。<br>（ポータルでも つくれます）</div></div>'; }
  PROFILES.forEach(function(p,i){ h+='<button class="card prof" data-i="'+i+'" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">'+(p.emoji||p.icon||'🪲')+'</div><div style="font-weight:bold;font-size:20px">'+esc(p.name)+'</div><div class="small">'+(p.mode?(p.mode==='small'?'5さい コース':'10さい コース'):'コースを えらぶ')+'</div></button>' });
+ h+='<button class="btn sub" id="bAddProf" style="margin-top:10px">＋ あたらしいこ</button>';
  s.innerHTML=h;
  var bs=s.querySelectorAll('button.prof');
  for(var i=0;i<bs.length;i++){ (function(b){ b.addEventListener('click',function(){ selectProfile(PROFILES[+b.getAttribute('data-i')]) }) })(bs[i]) }
+ var ab=$('bAddProf'); if(ab)ab.addEventListener('click',addProfileKanji);
  showScr('profile') }
+function addProfileKanji(){
+ var nm=prompt('なまえを いれてね'); if(!nm||!nm.trim())return;
+ var icons=['🪲','🐛','🦋','🐝','🐞']; var ic=icons[Math.floor(Math.random()*icons.length)];
+ QuestSave.addProfile(nm.trim(),ic);
+ QuestSave.profiles().then(function(ps){ PROFILES=ps||[]; renderProfileSel(); }); }
 function ensureMode(p){
  if(p.mode)return Promise.resolve();
  var big=confirm(p.name+' の コースを えらんでね\n\nOK ＝ 10さいコース（漢字）\nキャンセル ＝ 5さいコース（ひらがな）');
@@ -1629,9 +1637,7 @@ QuestSave.onStatus(function(st){ var c=$('hSync'); c.style.display='';
   CFG=Object.assign({},DEF_CFG,cf||{});
   return QuestSave.profiles();
  }).then(function(ps){
-  if(ps&&ps.length){ PROFILES=ps }
-  else { PROFILES=[{id:'p1',name:'おにいちゃん',emoji:'🪲',mode:'big'},{id:'p2',name:'おとうと',emoji:'🐛',mode:'small'}];
-   QuestSave.saveProfiles(PROFILES) }
+  PROFILES=(ps&&ps.length)?ps:[];
   renderProfileSel();
  });
 })();
