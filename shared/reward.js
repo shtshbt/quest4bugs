@@ -87,10 +87,24 @@
     return { sp:sp, size:size, shiny:shiny, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
   }
 
+  /* 🍯 こはく(amber): a soft currency earned per correct answer, spendable on
+     an extra catch. Gives "save up & spend" agency + a collection pity path. */
+  var AMBER_PER_CORRECT = 1;
+  var AMBER_CATCH_COST = 30;
+  function amberOf(coll){ return (coll && coll.amber) || 0; }
+  function spendForCatch(coll, game){
+    if(!coll.catches) coll.catches = {};
+    if((coll.amber||0) < AMBER_CATCH_COST) return null;
+    coll.amber -= AMBER_CATCH_COST;
+    var sp = rollFromPool(pool(game));
+    return sp ? record(coll, sp) : null;
+  }
+
   /* called on each correct answer. returns a catch result, or null if the
      gauge is not full yet. `need` lets a game tune the cadence. */
   function onCorrect(coll, game, need){
     if(!coll.catches) coll.catches = {};
+    coll.amber = (coll.amber||0) + AMBER_PER_CORRECT;
     coll.gauge = (coll.gauge||0) + 1;
     var threshold = need || NEED_DEFAULT;
     if(coll.gauge < threshold) return null;
@@ -126,6 +140,9 @@
     sizeRange: sizeRange,
     onCorrect: onCorrect,
     award: award,
+    spendForCatch: spendForCatch,
+    amberOf: amberOf,
+    AMBER_CATCH_COST: AMBER_CATCH_COST,
     record: record,
     collectedCount: collectedCount,
     rank: rank,
