@@ -8,14 +8,22 @@
   /* refine the butterfly/moth silhouette from family so 200+ Lepidoptera are not all one shape */
   function refineRenderer(o){
     var rd=o.renderer||"other";
-    if(o.order!=="Lepidoptera"||(rd!=="chou"&&rd!=="other"&&o.renderer))return rd;
     var fam=o.family||"";
-    if(fam==="Papilionidae")return "ageha";
-    if(fam==="Nymphalidae")return "tateha";
-    if(fam==="Lycaenidae"||fam==="Riodinidae")return "shijimi";
-    if(fam==="Hesperiidae")return "seseri";
-    if(LEP_MOTH_FAMS[fam])return "ga";
-    return "chou";
+    if(o.order==="Lepidoptera"&&(rd==="chou"||rd==="other"||!o.renderer)){
+      if(fam==="Papilionidae")return "ageha";
+      if(fam==="Nymphalidae")return "tateha";
+      if(fam==="Lycaenidae"||fam==="Riodinidae")return "shijimi";
+      if(fam==="Hesperiidae")return "seseri";
+      if(LEP_MOTH_FAMS[fam])return "ga";
+      return "chou";
+    }
+    if(o.order==="Coleoptera"&&rd==="other"){
+      if(fam==="Cerambycidae")return "kamikiri";
+      if(fam==="Buprestidae")return "tamamushi";
+      if(fam==="Carabidae"||fam==="Cicindelidae")return "osamushi";
+      if(fam==="Scarabaeidae"||fam==="Rutelidae"||fam==="Cetoniidae"||fam==="Melolonthidae"||fam==="Dynastidae")return "kogane";
+    }
+    return rd;
   }
   function bug(o){
     var rarity=o.rarity||"N";

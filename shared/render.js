@@ -147,6 +147,38 @@
     +'<path d="M30 47 A40 40 0 0 0 30 68 M44 39 A60 60 0 0 0 42 68 M58 39 A60 60 0 0 1 60 68 M70 47 A40 40 0 0 1 70 68" fill="none" stroke="'+c2+'" stroke-width="3"/>'
     +'<circle cx="24" cy="62" r="2.6" fill="'+K+'"/>'
     +'<path d="M20 52 l-6 -6 M26 48 l-3 -8 M28 72 l0 5 M40 74 l0 5 M52 74 l0 5 M64 74 l0 5 M74 72 l0 5" '+leg+'/>';
+  }else if(b.t==="kamikiri"){ /* longhorn beetle: elongate body + very long antennae */
+    inner='<path d="M37 70 l-12 9 M50 76 l0 13 M63 70 l12 9 M36 54 l-14 1 M64 54 l14 1" '+leg+'/>'
+    +'<ellipse cx="50" cy="60" rx="14" ry="30" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M50 32 L50 88" stroke="'+K+'" stroke-width="2.5"/>'
+    +'<ellipse cx="44" cy="52" rx="4" ry="9" fill="'+c2+'" opacity=".7"/>'
+    +'<ellipse cx="50" cy="30" rx="9" ry="9" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M46 25 C40 12 50 6 40 -2 M54 25 C60 12 50 6 60 -2" fill="none" stroke="'+c2+'" stroke-width="3" stroke-linecap="round"/>'
+    +'<circle cx="46" cy="29" r="2" fill="#fff"/><circle cx="54" cy="29" r="2" fill="#fff"/>';
+  }else if(b.t==="kogane"){ /* scarab / chafer: round domed body */
+    inner='<path d="M30 74 l-9 8 M50 80 l0 10 M70 74 l9 8 M28 60 l-11 -1 M72 60 l11 -1" '+leg+'/>'
+    +'<ellipse cx="50" cy="56" rx="26" ry="23" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M50 35 L50 79" stroke="'+K+'" stroke-width="2"/>'
+    +'<path d="M30 44 A26 23 0 0 1 30 70" fill="none" stroke="'+c2+'" stroke-width="2" opacity=".5"/>'
+    +'<ellipse cx="50" cy="32" rx="13" ry="8" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M42 28 l-4 -5 M58 28 l4 -5" '+leg+'/>'
+    +'<circle cx="45" cy="32" r="2" fill="#fff"/><circle cx="55" cy="32" r="2" fill="#fff"/>';
+  }else if(b.t==="tamamushi"){ /* jewel beetle: teardrop body with metallic stripes */
+    inner='<path d="M40 70 l-10 9 M50 78 l0 11 M60 70 l10 9 M38 54 l-13 1 M62 54 l13 1" '+leg+'/>'
+    +'<path d="M50 26 C67 36 64 72 50 88 C36 72 33 36 50 26 Z" fill="'+c1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+    +'<path d="M50 30 L50 84" stroke="'+c2+'" stroke-width="2.5" opacity=".85"/>'
+    +'<path d="M43 40 C41 56 43 72 47 82 M57 40 C59 56 57 72 53 82" fill="none" stroke="'+c2+'" stroke-width="2.5" opacity=".85"/>'
+    +'<ellipse cx="50" cy="27" rx="8" ry="6" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M46 22 l-4 -6 M54 22 l4 -6" '+leg+'/>';
+  }else if(b.t==="osamushi"){ /* ground beetle: elongate, pinched pronotum, mandibles */
+    inner='<path d="M37 70 l-12 10 M50 78 l0 12 M63 70 l12 10 M36 56 l-13 3 M64 56 l13 3" '+leg+'/>'
+    +'<ellipse cx="50" cy="64" rx="15" ry="24" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M50 42 L50 86" stroke="'+K+'" stroke-width="2"/>'
+    +'<path d="M42 42 Q50 34 58 42 Q57 51 50 52 Q43 51 42 42 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+    +'<ellipse cx="50" cy="33" rx="7" ry="7" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M46 29 l-5 -5 M54 29 l5 -5" '+leg+'/>'
+    +'<path d="M45 27 C40 19 36 16 33 18 M55 27 C60 19 64 16 67 18" '+leg+'/>'
+    +'<circle cx="47" cy="33" r="1.8" fill="#fff"/><circle cx="53" cy="33" r="1.8" fill="#fff"/>';
   }else{ /* other: generic beetle */
     inner='<path d="M34 72 l-9 10 M50 78 l0 11 M66 72 l9 10 M33 56 l-12 2 M67 56 l12 2" '+leg+'/>'
     +'<ellipse cx="50" cy="58" rx="22" ry="26" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
