@@ -90,6 +90,15 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
   <div class="card">
     <h3>📓 Fieldnote クラウド同期</h3>
     <p class="note">private repo <b>quest4bugs_fieldnote</b> に学習記録を保存します．GitHub token はこの端末内だけに保存され，この公開repoには入りません．</p>
+    <details class="note" style="background:#F5F8EE;border:1px solid #DDE6C9;border-radius:10px;padding:8px 10px;margin:6px 0">
+      <summary style="cursor:pointer;font-weight:700">📱 複数端末で記録を共有する手順</summary>
+      <ol style="margin:6px 0 0;padding-left:1.2em;line-height:1.7">
+        <li><b>すべての端末で同じ token</b>（同じ <b>quest4bugs_fieldnote</b> repo）を入れて「接続設定を保存」。保存時に自動で取り込み＆アップロードします。</li>
+        <li>あとは各端末でいつも通り遊ぶだけ。保存のたびに自動でクラウドにマージされます。</li>
+        <li>他端末の最新を今すぐ取り込みたいときは「Fieldnoteから復元」。</li>
+      </ol>
+      <p style="margin:6px 0 0">兄弟で別々の端末でも大丈夫：プロフィールごとに記録が分かれ、<b>同時に遊んでもどちらの記録も消えません</b>（衝突は自動マージ）。同じ子を2台で使う場合は、新しく解いた方（より新しい記録）が残ります。</p>
+    </details>
     <label class="note">Owner</label>
     <input id="ghOwner" autocomplete="off">
     <label class="note">Repo</label>
@@ -109,10 +118,10 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
-<script src="./shared/storage.js?v=0.2.12"></script>
-<script src="./shared/bugs.js?v=0.2.12"></script>
-<script src="./shared/render.js?v=0.2.12"></script>
-<script src="./shared/reward.js?v=0.2.12"></script>
+<script src="./shared/storage.js?v=0.2.13"></script>
+<script src="./shared/bugs.js?v=0.2.13"></script>
+<script src="./shared/render.js?v=0.2.13"></script>
+<script src="./shared/reward.js?v=0.2.13"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
@@ -171,7 +180,7 @@ function readCloudForm(){
     enabled:true
   };
 }
-function saveCloud(){
+async function saveCloud(){
   var c=readCloudForm();
   if(!c.owner||!c.repo||!c.branch||!c.token){
     alert("Owner / Repo / Branch / token を入力してください");
@@ -179,7 +188,15 @@ function saveCloud(){
   }
   QuestSave.saveConfig(c);
   $("ghToken").value="";
-  $("cloudA").innerHTML="接続設定を保存しました．次回のゲーム保存から自動同期します";
+  $("cloudA").innerHTML="接続を確認して同期しています…";
+  try{
+    await QuestSave.pullAll();   // 既存のクラウド記録を取り込む（新しい方を残してマージ）
+    await QuestSave.pushAll();   // この端末の記録をアップロード（クラウド側へマージ）
+    $("cloudA").innerHTML="✅ 接続＆同期できました。以後は自動でマージ保存されます";
+    renderProfiles();            // 取り込んだ他端末のプロフィールを反映
+  }catch(e){
+    $("cloudA").innerHTML="接続は保存しましたが同期に失敗："+esc(e.message||e)+"（『今すぐ同期』で再試行できます）";
+  }
 }
 async function syncCloud(){
   try{
@@ -192,13 +209,14 @@ async function syncCloud(){
   }
 }
 async function pullCloud(){
-  if(!confirm("Fieldnote の内容でこの端末の記録を上書き復元しますか？"))return;
+  if(!confirm("Fieldnote の記録をこの端末に取り込みます。\n（同じ記録は新しい方を残してマージ。古い内容で上書きはしません）"))return;
   try{
-    $("cloudA").innerHTML="復元中...";
+    $("cloudA").innerHTML="取り込み中...";
     var n=await QuestSave.pullAll();
-    $("cloudA").innerHTML=n+"件を Fieldnote から復元しました";
+    $("cloudA").innerHTML=n+"件を Fieldnote から取り込みました（マージ）";
+    renderProfiles();
   }catch(e){
-    $("cloudA").innerHTML="復元できませんでした: "+esc(e.message||e);
+    $("cloudA").innerHTML="取り込めませんでした: "+esc(e.message||e);
   }
 }
 function clearCloud(){
