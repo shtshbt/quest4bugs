@@ -90,6 +90,10 @@ h2{font-size:22px;} h3{font-size:18px;}
 .hs .carry{width:56px; height:36px; font-size:20px; border-radius:8px; background:#F2F7E6; border:2px dashed #B9CC92; color:var(--amber-d);}
 .hs .carry.on{border:3px solid var(--amber); background:#FFF7E8;}
 .hs .rule{grid-column:1/-1; height:4px; background:var(--ink); border-radius:2px;}
+.hs .struck{position:relative; color:var(--sub);}
+.hs .struck::after{content:""; position:absolute; left:8px; right:8px; top:50%; height:3px; background:var(--red); transform:rotate(-18deg);}
+.hs .ten1{font-size:18px; font-weight:800; color:var(--red); margin-right:1px; align-self:flex-start;}
+.hs .bor{width:56px; height:36px; font-size:20px; border-radius:8px; background:#FBEFEF; border:2px dashed #E0A6A6; color:var(--red); font-weight:800;}
 
 /* fraction */
 .frwrap{display:flex; align-items:center; justify-content:center; gap:10px; margin:10px 0;}
@@ -1028,8 +1032,8 @@ function renderQ(q){
   }else if(q.kind==="hissan"){
     var sub=(q.cat==="hikizan");
     var cs=sub?borrowsOf(q.a,q.b):carriesOf(q.a,q.b);
-    HS={op:sub?"sub":"add",a:q.a,b:q.b,sum:sub?(q.a-q.b):(q.a+q.b),cols:cs.cols,need:cs.need,carries:[],ans:[],act:{t:"a",i:0},counted:false};
-    for(var i=0;i<HS.cols;i++){HS.carries.push("");HS.ans.push("");}
+    HS={op:sub?"sub":"add",a:q.a,b:q.b,sum:sub?(q.a-q.b):(q.a+q.b),cols:cs.cols,need:cs.need,carries:[],bor:[],ans:[],act:{t:"a",i:0},counted:false};
+    for(var i=0;i<HS.cols;i++){HS.carries.push("");HS.bor.push("");HS.ans.push("");}
     h+='<div class="qcard"><div id="hsbox">'+hsGridHTML()+'</div>'
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
       +padHTML(false,"hsSubmit()","hsPad")+'</div>';
@@ -1068,7 +1072,9 @@ function submitNum(){
   var ok=Math.abs(u-q.ans)<1e-6;
   afterJudge(ok,q,{ansHTML:(q.dot?fmtDec(q.ans):String(q.ans))});
 }
-function hsGridHTML(){
+function digAt(v,c){return Math.floor(v/Math.pow(10,c))%10;}
+function hsGridHTML(){ return HS.op==="sub"?hsGridSubHTML():hsGridAddHTML(); }
+function hsGridAddHTML(){
   var aS=String(HS.a), bS=String(HS.b), n=HS.cols, c, d, on;
   var h='<div class="hs" style="grid-template-columns:repeat('+(n+1)+',auto)">';
   h+='<span class="cell" style="height:36px"></span>';
@@ -1079,7 +1085,38 @@ function hsGridHTML(){
   }
   h+='<span class="cell"></span>';
   for(c=n-1;c>=0;c--){d=(c<aS.length)?aS[aS.length-1-c]:""; h+='<span class="cell fix">'+d+'</span>';}
-  h+='<span class="cell op">'+(HS.op==="sub"?"−":"＋")+'</span>';
+  h+='<span class="cell op">＋</span>';
+  for(c=n-1;c>=0;c--){d=(c<bS.length)?bS[bS.length-1-c]:""; h+='<span class="cell fix">'+d+'</span>';}
+  h+='<div class="rule"></div>';
+  h+='<span class="cell"></span>';
+  for(c=n-1;c>=0;c--){on=(HS.act&&HS.act.t==="a"&&HS.act.i===c)?" on":"";
+    h+='<button class="cell inp'+on+'" onclick="hsTap(\'a\','+c+')">'+HS.ans[c]+'</button>';}
+  h+='</div>';
+  return h;
+}
+/* ひき算の筆算: 上の桁(c≧1)をタップ＝「その桁から下に1かす」。
+   桁cがかすと c は1へり、c-1 は10ふえる(11のように)。チェーンも正しく計算。 */
+function hsBorrowedInto(c){ return (c+1<HS.cols)&&!!HS.bor[c+1]; } /* c+1 が c にかした */
+function hsWork(c){ return digAt(HS.a,c) - (HS.bor[c]?1:0) + (hsBorrowedInto(c)?10:0); }
+function hsSubModified(c){ return !!HS.bor[c] || hsBorrowedInto(c); }
+function hsGridSubHTML(){
+  var bS=String(HS.b), aLen=String(HS.a).length, n=HS.cols, c, d, on;
+  var h='<div class="hs" style="grid-template-columns:repeat('+(n+1)+',auto)">';
+  /* くり下がりメモ行: その桁の「いまの値」(かりた/かした後)を表示。c≧1 はタップで切替 */
+  h+='<span class="cell" style="height:36px"></span>';
+  for(c=n-1;c>=0;c--){
+    var show=hsSubModified(c)?String(hsWork(c)):"";
+    if(c>=1) h+='<button class="cell bor" onclick="hsTap(\'b\','+c+')">'+show+'</button>';
+    else h+='<span class="cell bor" style="border-style:solid">'+show+'</span>';
+  }
+  /* 被減数の行: 値がかわった桁は斜線 */
+  h+='<span class="cell"></span>';
+  for(c=n-1;c>=0;c--){
+    d=(c<aLen)?String(HS.a)[aLen-1-c]:"";
+    var cls="cell fix"+(d!==""&&hsSubModified(c)?" struck":"");
+    h+='<span class="'+cls+'">'+d+'</span>';
+  }
+  h+='<span class="cell op">−</span>';
   for(c=n-1;c>=0;c--){d=(c<bS.length)?bS[bS.length-1-c]:""; h+='<span class="cell fix">'+d+'</span>';}
   h+='<div class="rule"></div>';
   h+='<span class="cell"></span>';
@@ -1089,7 +1126,10 @@ function hsGridHTML(){
   return h;
 }
 function hsRefresh(){var el=$("hsbox"); if(el)el.innerHTML=hsGridHTML();}
-function hsTap(t,i){HS.act={t:t,i:i}; hsRefresh();}
+function hsTap(t,i){
+  if(t==="b"){ HS.bor[i]=HS.bor[i]?"":"1"; hsRefresh(); return; }
+  HS.act={t:t,i:i}; hsRefresh();
+}
 function hsPad(d){
   if(JLOCK||!HS.act)return;
   if(HS.act.t==="c"){
@@ -1104,14 +1144,15 @@ function hsPad(d){
 }
 function hsSubmit(){
   if(JLOCK)return;
-  var q=curQ(), p=P(), i, miss=false, extra=false;
+  var q=curQ(), p=P(), i, miss=false, extra=false, sub=(HS.op==="sub");
   for(i=1;i<HS.cols;i++){
-    if(HS.need[i]&&HS.carries[i]==="")miss=true;
-    if(!HS.need[i]&&HS.carries[i]!=="")extra=true;
+    var mark=sub?HS.bor[i]:HS.carries[i];
+    if(HS.need[i]&&!mark)miss=true;
+    if(!HS.need[i]&&mark)extra=true;
   }
   if(miss){
     if(!HS.counted){p.carryMiss++;HS.counted=true;save();}
-    flashMsg("✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"を かいてから こたえあわせ！");
+    flashMsg(sub?"✏️ うえの けたを タップして くりさがりしてね！":"✏️ くりあがりを かいてから こたえあわせ！");
     return;
   }
   for(i=0;i<HS.cols;i++)if(HS.ans[i]===""){flashMsg("こたえの けたを ぜんぶ いれてね");return;}
