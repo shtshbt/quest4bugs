@@ -223,7 +223,8 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <div id="nav">
   <button data-s="home"><span class="ic">🗺️</span>マップ</button>
   <button data-s="zukan"><span class="ic">📖</span>ずかん</button>
-  <button data-s="stats"><span class="ic">📊</span>きろく</button>
+  <button data-s="progress"><span class="ic">📈</span>できたこと</button>
+  <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
 <script src="../shared/storage.js"></script>
@@ -2994,7 +2995,9 @@ function blankState(){
     catches:{}, nushi:{},
     streak:{n:0,best:0,last:0},
     cal:{}, srs:{}, kids:{}, newday:{date:0,count:0},
-    updated:0
+    updated:0,
+    reviewGauge:0,
+    progressSummary:''
   };
 }
 function normState(s){
@@ -3006,6 +3009,8 @@ function normState(s){
   s.newday=s.newday||{date:0,count:0};
   s.catches=s.catches||{}; s.nushi=s.nushi||{};
   s.cal=s.cal||{}; s.srs=s.srs||{}; s.kids=s.kids||{};
+  if(typeof s.reviewGauge==='undefined') s.reviewGauge=0;
+  if(typeof s.progressSummary==='undefined') s.progressSummary='';
   return s;
 }
 /* persist current profile state (debounced cloud handled by QuestSave) */
@@ -3059,6 +3064,7 @@ function render(){
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(screen==='home') $('#app').innerHTML=scrHome();
   if(screen==='zukan') $('#app').innerHTML=scrZukan();
+  if(screen==='progress') $('#app').innerHTML=scrProgress();
   if(screen==='stats') $('#app').innerHTML=scrStats();
   if(screen==='set') $('#app').innerHTML=scrSet();
 }
@@ -3161,7 +3167,26 @@ function scrHome(){
           <span class="fe">${f.emoji}</span></button>`
       : `<div class="field lock ${f.cls}"><div class="fn">${f.name}</div><div class="fs">🔒 ${f.sub}</div><span class="fe">${f.emoji}</span></div>`;
   }
-  h+=`<p class="small center" style="margin-top:16px">フィールドを タップして たんけんに しゅっぱつ!</p>`;
+  /* --- ふくしゅうチャレンジ導線 --- */
+  const reviewWords=FIELDS.filter(f=>f.open).flatMap(f=>{
+    const ws=WordDB.byField(f.id);
+    if(f.kids) return ws.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=1;});
+    return ws.filter(w=>{const s=P.srs[w.key];return s&&(s[0]>0||s[2]>0);});
+  });
+  const reviewCount=reviewWords.length;
+  const REVIEW_MIN=20;
+  const showSurprise=reviewCount>=REVIEW_MIN && Math.random()<0.25;
+  if(showSurprise){
+    h+=`<div class="card" style="background:#fff8dc;border:2px solid var(--amber)">
+      <div style="font-weight:800;font-size:15px">📣 ふくしゅうチャンス！めずらしい虫が 出やすいよ！</div>
+      <button class="btn amber" style="margin-top:8px" onclick="startReview()">ふくしゅうチャレンジ ▶</button>
+    </div>`;
+  }
+  h+=`<div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
+    <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="startReview()" ${reviewCount<5?'disabled':''}>🔁 ふくしゅう</button>
+    <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="go('progress')">📈 できたこと</button>
+  </div>`;
+  h+=`<p class="small center" style="margin-top:12px">フィールドを タップして たんけんに しゅっぱつ!</p>`;
   return h;
 }
 function enterField(id){ P.field=id; touchP(); startSession(id); }
@@ -3219,6 +3244,107 @@ function showSpec(id){
     <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
+}
+
+/* ---------------- PROGRESS (できたこと) ---------------- */
+function calcProgressSummary(){
+  /* しゅうとく率50%以上の最上位フィールドを見つける */
+  let topLabel='';
+  const openFields=FIELDS.filter(f=>f.open);
+  for(let i=openFields.length-1;i>=0;i--){
+    const f=openFields[i];
+    const words=WordDB.byField(f.id);
+    if(!words.length) continue;
+    let mastered=0;
+    if(f.kids){
+      mastered=words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
+    } else {
+      mastered=SRS.mastered(P,words);
+    }
+    if(mastered/words.length>=0.5){ topLabel=f.sub; break; }
+  }
+  if(topLabel) return '英単語 '+topLabel+'相当';
+  /* 全体のしゅうとく数で最低限のラベル */
+  let total=0, totalMastered=0;
+  for(const f of openFields){
+    const words=WordDB.byField(f.id);
+    totalMastered+=f.kids
+      ? words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length
+      : SRS.mastered(P,words);
+    total+=words.length;
+  }
+  if(totalMastered>=10) return '英単語 '+totalMastered+'語 しゅうとく';
+  return '';
+}
+
+function scrProgress(){
+  const openFields=FIELDS.filter(f=>f.open);
+  /* 各フィールドのしゅうとく率を計算 */
+  const rows=openFields.map(f=>{
+    const words=WordDB.byField(f.id);
+    const total=words.length;
+    let mastered=0;
+    if(f.kids){
+      mastered=words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
+    } else {
+      mastered=SRS.mastered(P,words);
+    }
+    const pct=total?Math.round(mastered/total*100):0;
+    return {f,mastered,total,pct};
+  });
+
+  /* 総括ラベル: しゅうとく率50%以上の最上位 */
+  let topLabel='';
+  for(let i=rows.length-1;i>=0;i--){
+    if(rows[i].pct>=50){ topLabel=rows[i].f.sub; break; }
+  }
+  let summaryHtml='';
+  if(topLabel){
+    summaryHtml=`<div class="card center" style="background:#e3f2dd;border:2px solid var(--good);margin-bottom:4px">
+      <div style="font-size:28px">🌟</div>
+      <div style="font-weight:800;font-size:16px;margin-top:4px">${Engine.esc(topLabel)}まで がんばってるね！</div>
+    </div>`;
+  } else {
+    const totalM=rows.reduce((a,r)=>a+r.mastered,0);
+    summaryHtml=`<div class="card center" style="margin-bottom:4px">
+      <div style="font-size:28px">🌱</div>
+      <div style="font-weight:800;font-size:16px;margin-top:4px">いま ${totalM}語 しゅうとく中！</div>
+    </div>`;
+  }
+
+  /* progressSummaryを更新・保存 */
+  const newSummary=calcProgressSummary();
+  if(P.progressSummary!==newSummary){ P.progressSummary=newSummary; touchP(); }
+
+  /* バーのHTML */
+  let barsHtml='';
+  for(const {f,mastered,total,pct} of rows){
+    const barPct=Math.min(100,pct);
+    const barColor=pct>=80?'var(--good)':pct>=50?'var(--amber)':'var(--sub)';
+    barsHtml+=`<div style="margin-top:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span style="font-size:18px">${f.emoji}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:800;font-size:14px">${Engine.esc(f.name)}</div>
+          <div style="font-size:11px;color:var(--sub)">${Engine.esc(f.sub)}</div>
+        </div>
+        <div style="text-align:right;font-size:13px;font-weight:800;white-space:nowrap">
+          ${mastered}/${total}語 <span style="color:${barColor}">${pct}%</span>
+        </div>
+      </div>
+      <div style="height:10px;background:rgba(0,0,0,.08);border-radius:999px;overflow:hidden">
+        <div style="height:100%;width:${barPct}%;background:${barColor};border-radius:999px;transition:width .4s"></div>
+      </div>
+    </div>`;
+  }
+
+  return `<div class="topbar"><span class="ttl">📈 できたこと</span></div>
+  ${summaryHtml}
+  <div class="card">
+    <div class="h2" style="margin-top:0">きゅうレベルごとの しゅうとく率</div>
+    ${barsHtml}
+  </div>
+  <button class="btn sub" style="margin-top:12px" onclick="startReview()">🔁 ふくしゅうチャレンジ</button>`;
 }
 
 /* ---------------- STATS ---------------- */
@@ -3574,6 +3700,43 @@ function srsType(w){
 function stem(en){ const f=en.split(' ')[0]; return f.slice(0,Math.max(3,f.length-2)).replace(/[^a-zA-Z]/g,''); }
 
 function startMain(){ S={mode:'main',queue:buildMain(),i:0,correct:0,answered:0,caught:[],retried:{}}; if(!S.queue.length){UI.toast('ことばが ないよ');return;} nextQ(true); }
+
+function startReview(){
+  /* 全開放フィールド横断で既習語を収集 */
+  const allLearned=[];
+  for(const f of FIELDS){
+    if(!f.open) continue;
+    const ws=WordDB.byField(f.id);
+    if(f.kids){
+      ws.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=1;}).forEach(w=>allLearned.push({w,fid:f.id,kids:true}));
+    } else {
+      ws.filter(w=>{const s=P.srs[w.key];return s&&(s[0]>0||s[2]>0);}).forEach(w=>allLearned.push({w,fid:f.id,kids:false}));
+    }
+  }
+  if(allLearned.length<1){ UI.toast('まだ おぼえたことばが ないよ'); return; }
+  const picked=Engine.shuffle(allLearned).slice(0,SESSION_N);
+  const queue=picked.map(x=>({w:x.w, type:x.kids?'kids':srsType(x.w), fid:x.fid}));
+  /* GFID/GFIELD/KIDS/GWORDS: opts4で使うため全フィールドのワードを結合して設定 */
+  GFID=queue[0].fid; GFIELD=fieldById(GFID)||FIELDS[0]; KIDS=false;
+  GWORDS=FIELDS.filter(f=>f.open).flatMap(f=>WordDB.byField(f.id));
+  S={mode:'review',queue,i:0,correct:0,answered:0,caught:[],retried:{}};
+  /* review開始画面 */
+  screen=''; /* navのハイライトを外す */
+  $('#app').innerHTML=`
+  <div class="topbar">
+    <button class="chip" onclick="exitToMap()">← マップ</button>
+    <span class="sp"></span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🟡${P.amber}</span>
+  </div>
+  <div class="card center" style="background:#fff8dc;border:2px solid var(--amber)">
+    <div style="font-size:32px">🔁</div>
+    <div style="font-weight:800;font-size:20px;margin-top:4px">ふくしゅうチャレンジ</div>
+    <p class="small" style="margin-top:6px">これまで おぼえた ことばから ${queue.length}もん出るよ！<br>🌟 めずらしい虫が 出やすいよ！</p>
+    <button class="btn amber" onclick="nextQ(true)" style="margin-top:12px">▶ スタート!</button>
+    <button class="btn ghost" onclick="exitToMap()">やめる</button>
+  </div>`;
+}
+
 function startNushi(){
   const nu=NUSHI.find(x=>x[3]===GFID);
   if(!nu){ UI.toast('このフィールドに ヌシは いないよ'); return; }
@@ -3597,14 +3760,18 @@ function nextQ(first){
 }
 function header(){
   const pct=Math.round(S.i/S.queue.length*100);
+  const gaugeChip=S.mode==='review'
+    ? `<span class="chip">🌟${P.reviewGauge||0}/8</span>`
+    : `<span class="chip">🐛${P.pool}/${Reward.NEED}</span>`;
+  const modeLabel=S.mode==='nushi'?'👑ヌシ戦 ':S.mode==='review'?'🔁ふくしゅう ':'';
   return `<div class="topbar">
     <button class="chip" onclick="quit()">✕ やめる</button><span class="sp"></span>
-    <span class="chip">🐛${P.pool}/${Reward.NEED}</span><span class="chip">🟡${P.amber}</span>
+    ${gaugeChip}<span class="chip">🟡${P.amber}</span>
   </div>
   <div class="qbar"><i style="width:${pct}%"></i></div>
-  <div class="small" style="padding:0 4px">${S.mode==='nushi'?'👑ヌシ戦 ':''}${S.i+1} / ${S.queue.length}もん ${S.mode==='nushi'?`(せいかい ${S.correct})`:''}</div>`;
+  <div class="small" style="padding:0 4px">${modeLabel}${S.i+1} / ${S.queue.length}もん ${S.mode==='nushi'?`(せいかい ${S.correct})`:''}</div>`;
 }
-function quit(){ if(confirm('とちゅうで やめる?')){ touchP(); renderStart(); } }
+function quit(){ if(confirm('とちゅうで やめる?')){ touchP(); if(S&&S.mode==='review') exitToMap(); else renderStart(); } }
 
 function opts4(item){
   const w=item.w;
@@ -3700,7 +3867,28 @@ function afterAnswer(item,ok,title,detail){
       SRS.grade(P,item.w.key,ok);
     }
   }
-  const res=Reward.onAnswer(P,ok,GFID);
+  let res=null;
+  if(S&&S.mode==='review'){
+    /* 復習モード: Q4BReward レアブーストで採集。二重採集なし */
+    if(ok&&window.Q4BReward){
+      const coll={gauge:P.reviewGauge||0, total:0, amber:P.amber, catches:P.catches};
+      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.REVIEW_BOOST);
+      P.reviewGauge=coll.gauge;
+      P.amber=coll.amber; /* amberはQ4BRewardが+1してくれる */
+      P.amberTotal=(P.amberTotal||0)+1;
+      if(raw){
+        /* rawのsp はオブジェクト形式 → ALLSP配列行に変換 */
+        var spRow=ALLSP.find(function(s){return s[0]===raw.sp.id;});
+        if(spRow){
+          res={sp:spRow,size:raw.size,shiny:raw.shiny,isNew:raw.isNew,isRecord:raw.isRecord};
+        }
+      }
+    }
+    const tc=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
+    tc.q++; if(ok){tc.c++;} Engine.touchStreak(P);
+  } else {
+    res=Reward.onAnswer(P,ok,GFID);
+  }
   if(res){ S.caught.push(res); pendingCatch=res; }
   if(!ok&&!item.retry&&S.mode==='main'&&!S.retried[item.w.key]){
     S.retried[item.w.key]=1;
@@ -3755,6 +3943,9 @@ function endSession(){
       nushiHtml=`<div class="card"><b>ヌシは にげていった…</b><p class="small">せいかい ${S.correct}/${S.queue.length}．${S.need}もん いじょうで ゲット．また ちょうせんしよう!</p></div>`;
     }
   }
+  /* progressSummaryを更新 */
+  const newSumm=calcProgressSummary();
+  if(P.progressSummary!==newSumm) P.progressSummary=newSumm;
   touchP();
   const pct=S.answered?Math.round(S.correct/S.answered*100):0;
   const stars=pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':'⭐';
