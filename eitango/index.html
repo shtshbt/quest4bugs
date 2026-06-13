@@ -227,10 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.14"></script>
-<script src="../shared/bugs.js?v=0.2.14"></script>
-<script src="../shared/render.js?v=0.2.14"></script>
-<script src="../shared/reward.js?v=0.2.14"></script>
+<script src="../shared/storage.js?v=0.2.15"></script>
+<script src="../shared/bugs.js?v=0.2.15"></script>
+<script src="../shared/render.js?v=0.2.15"></script>
+<script src="../shared/reward.js?v=0.2.15"></script>
+<script src="../shared/furigana.js?v=0.2.15"></script>
+<script src="../shared/yomi.js?v=0.2.15"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3795,7 +3797,7 @@ function renderKids(item){
   </button>
   <div class="kgrid">${cards.map((c,i)=>`
     <button class="kcard" id="kc${i}" onclick="ansKids(${i},'${c.key.replace(/'/g,"\\'")}')">
-      <span class="ke">${c.emoji}</span><span class="kj">${c.ja}</span>
+      <span class="ke">${c.emoji}</span><span class="kj">${furi(c.ja)}</span>
     </button>`).join('')}
   </div>`;
   S.cards=cards;
@@ -3807,8 +3809,8 @@ function ansKids(i,key){
   $('#kc'+i).classList.add(ok?'ok':'ng');
   if(!ok){ const ci=S.cards.findIndex(c=>c.key===w.key); $('#kc'+ci).classList.add('ok'); }
   afterAnswer(item,ok,
-    ok?`せいかい! ${w.emoji} ${w.en}`:`${w.emoji} ${w.ja} は…`,
-    ok?`${w.ja}`:`<b style="font-size:22px">${w.en}</b> だよ．もういちど きいてみよう 🔊`);
+    ok?`せいかい! ${w.emoji} ${w.en}`:`${w.emoji} ${furi(w.ja)} は…`,
+    ok?`${furi(w.ja)}`:`<b style="font-size:22px">${w.en}</b> だよ．もういちど きいてみよう 🔊`);
   if(ok) Speech.say(pickPraise()); else Speech.say(w.en,0.8);
 }
 const PRAISE=['Great job!','Excellent!','Perfect!','You got it!','Awesome!','Nice!'];
@@ -3824,16 +3826,16 @@ function renderSRS(item){
     qhtml=`<div class="qword"><div class="w">${w.en}</div>
       <div class="pos"><span class="tag">${w.pos||''}</span></div>
       <button class="spk" onclick="Speech.say('${w.en.replace(/'/g,"\\'")}')">🔊</button></div>
-      <div>${cards.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansSRS(${i})">${c.ja}</button>`).join('')}</div>`;
+      <div>${cards.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansSRS(${i})">${furi(c.ja)}</button>`).join('')}</div>`;
     Speech.say(w.en);
   } else if(t==='j2e'){
-    qhtml=`<div class="qword"><div class="w jp">${w.ja}</div>
+    qhtml=`<div class="qword"><div class="w jp">${furi(w.ja)}</div>
       <div class="pos"><span class="tag">${w.pos||''}</span> <span class="small">英語では?</span></div></div>
       <div>${cards.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansSRS(${i})">${c.en}</button>`).join('')}</div>`;
   } else {
     const blank=w.ex.replace(new RegExp('\\b'+stem(w.en)+'[a-z]*','i'),'＿＿＿');
     qhtml=`<div class="qword"><div class="ex" style="font-size:19px;color:var(--ink)">${blank}</div>
-      <div class="small" style="margin-top:8px">ヒント: ${w.ja}</div></div>
+      <div class="small" style="margin-top:8px">ヒント: ${furi(w.ja)}</div></div>
       <div>${cards.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansSRS(${i})">${c.en}</button>`).join('')}</div>`;
   }
   $('#app').innerHTML=header()+qhtml;
@@ -3849,11 +3851,11 @@ function ansSRS(i){
   if(!ok && item.type!=='e2j' && CFG.showMeaning){
     const picked=S.cards[i];
     if(picked && picked.key!==w.key && picked.en && picked.ja)
-      pickInfo=`<div class="small" style="margin-top:6px;opacity:.85">えらんだ <b>${picked.en}</b> は『${picked.ja}』</div>`;
+      pickInfo=`<div class="small" style="margin-top:6px;opacity:.85">えらんだ <b>${picked.en}</b> は『${furi(picked.ja)}』</div>`;
   }
   afterAnswer(item,ok,
     ok?'せいかい!':'おしい!',
-    `<b>${w.en}</b> ${w.pos?'['+w.pos+']':''} ＝ ${w.ja}${exB?'<br>'+exB:''}${pickInfo}`);
+    `<b>${w.en}</b> ${w.pos?'['+w.pos+']':''} ＝ ${furi(w.ja)}${exB?'<br>'+exB:''}${pickInfo}`);
   if(item.type!=='e2j') Speech.say(w.en);
 }
 
