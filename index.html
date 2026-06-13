@@ -254,10 +254,16 @@ function renderDashboard(pid,name){
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.round(total/pool*100);
+    var ps=[];
+    if(ks&&ks.progressSummary)ps.push(esc(ks.progressSummary));
+    if(kp&&kp.progressSummary)ps.push(esc(kp.progressSummary));
+    if(es&&es.progressSummary)ps.push(esc(es.progressSummary));
+    var psLine=ps.length?'<div class="note" style="background:var(--green-l);border-radius:10px;padding:6px 8px;margin:0 0 8px">📊 '+ps.join('　/　')+'</div>':'';
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">🧺</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+'　🍯こはく '+amber+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +psLine
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（14日・'+totalQ+'もん）</div>'
       +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>'+legend;
     $("dashCard").innerHTML=h;
