@@ -13,7 +13,7 @@
   --bg:#E9F2D9; --panel:#FFFDF4; --ink:#2A3D2C; --sub:#6B7A5E;
   --line:#CFDDB2; --green:#3E7C3F; --green-d:#2C5F2D; --green-l:#E2EFCB;
   --amber:#F2A33C; --amber-d:#CF7F14; --red:#E05A48; --sky:#D8EEF8;
-  --rN:#8FA98F; --rR:#4F8FD9; --rSR:#9B5FD0; --rSSR:#E8B33C;
+  --rN:#8FA98F; --rR:#4F8FD9; --rSR:#9B5FD0; --rSSR:#E8B33C; --rSS:#E05A48;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent; touch-action:manipulation;}
 html,body{margin:0; padding:0; background:var(--bg);}
@@ -125,10 +125,11 @@ h2{font-size:22px;} h3{font-size:18px;}
 .zc .nm{font-size:11px; font-weight:700; margin-top:2px; line-height:1.2; min-height:26px;}
 .zc.r1{border-color:var(--rR);} .zc.r2{border-color:var(--rSR);}
 .zc.r3{border-color:var(--rSSR); box-shadow:0 0 10px #e8b33c66;}
+.zc.r4{border-color:var(--rSS); box-shadow:0 0 12px #e05a4866;}
 .zc .cnt{position:absolute; top:4px; right:6px; font-size:11px; font-weight:800; color:var(--amber-d);}
 .sil svg{filter:grayscale(1) brightness(.3); opacity:.45;}
 .rtag{display:inline-block; font-size:12px; font-weight:800; color:#fff; border-radius:999px; padding:2px 12px;}
-.rtag.r0{background:var(--rN);} .rtag.r1{background:var(--rR);} .rtag.r2{background:var(--rSR);} .rtag.r3{background:var(--rSSR);}
+.rtag.r0{background:var(--rN);} .rtag.r1{background:var(--rR);} .rtag.r2{background:var(--rSR);} .rtag.r3{background:var(--rSSR);} .rtag.r4{background:var(--rSS);}
 
 /* result flip */
 .flipwrap{perspective:900px; width:230px; margin:14px auto;}
@@ -139,6 +140,7 @@ h2{font-size:22px;} h3{font-size:18px;}
 .face.front{background:var(--panel); border:4px solid var(--line);}
 .face.front.r1{border-color:var(--rR);} .face.front.r2{border-color:var(--rSR); box-shadow:0 0 22px #9b5fd066;}
 .face.front.r3{border-color:var(--rSSR); box-shadow:0 0 30px #e8b33caa;}
+.face.front.r4{border-color:var(--rSS); box-shadow:0 0 34px #e05a48aa;}
 .face .bs{width:130px; height:130px;}
 .face .bn{font-size:17px; font-weight:800; text-align:center; margin-top:6px;}
 
@@ -172,63 +174,13 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 </head>
 <body>
 <div id="app"></div>
+<script src="../shared/storage.js"></script>
+<script src="../shared/bugs.js"></script>
 <script>
 "use strict";
-var KEY="q4b_keisan_v1", MEM=null, DB=null;
+var DB={v:1, act:null, profiles:[]};
 
-/* ---------- insect data ---------- */
-var RAR=["ノーマル","レア","スーパーレア","ウルトラレア"];
-var BUGS=[
- {n:"ヘラクレスオオカブト",t:"kabuto",r:3,c1:"#D9C36A",c2:"#4A3B2A",q:"世界さいだいきゅうのカブトムシ．180mmをこえることも！"},
- {n:"ニジイロクワガタ",t:"kuwagata",r:3,c1:"#3DBE8B",c2:"#9B5FD0",q:"にじ色にかがやく，世界一うつくしいといわれるクワガタ"},
- {n:"アレクサンドラトリバネアゲハ",t:"chou",r:3,c1:"#2FA86B",c2:"#173E2C",q:"世界さいだいのチョウ．はねを広げると28cm！"},
- {n:"テイオウゼミ",t:"semi",r:3,c1:"#6B4A2F",c2:"#C9A063",q:"世界さいだいのセミ．はねを広げると約20cm"},
- {n:"ゴライアスオオツノハナムグリ",t:"other",r:3,c1:"#E8E3D2",c2:"#2A3D2C",q:"世界でいちばん重い昆虫のひとつ"},
- {n:"オオクワガタ",t:"kuwagata",r:2,c1:"#33302B",c2:"#565046",q:"日本のクワガタの王さま．7年いきることもある長生き"},
- {n:"コーカサスオオカブト",t:"kabuto",r:2,c1:"#33302B",c2:"#5A554C",q:"3本のツノをもつ，アジアさいきょうのカブトムシ"},
- {n:"ギラファノコギリクワガタ",t:"kuwagata",r:2,c1:"#3A322A",c2:"#6B5B45",q:"世界でいちばん長いクワガタ．キバがキリンの首みたい"},
- {n:"モルフォチョウ",t:"chou",r:2,c1:"#3FA9F5",c2:"#1C6DD0",q:"南米の宝石．青いはねは光のまほうでかがやく"},
- {n:"タガメ",t:"mizu",r:2,c1:"#5A4632",c2:"#7A6045",q:"日本さいだいの水生昆虫．魚やカエルもつかまえる"},
- {n:"オオムラサキ",t:"chou",r:2,c1:"#7A5FD0",c2:"#3E2F73",q:"日本の国チョウ．オスのはねはむらさき色にかがやく"},
- {n:"ゲンゴロウ",t:"mizu",r:2,c1:"#2F4A2E",c2:"#8FB04A",q:"泳ぎの天才．うしろあしがオールのかたち"},
- {n:"ハンミョウ",t:"other",r:2,c1:"#C0392B",c2:"#2E86C1",q:"「みちおしえ」とよばれる，にじ色のハンター"},
- {n:"カブトムシ",t:"kabuto",r:1,c1:"#6B4226",c2:"#4A2E1A",q:"日本の夏の王さま．体の20ばいの重さを引っぱる力もち"},
- {n:"ノコギリクワガタ",t:"kuwagata",r:1,c1:"#7A3B1E",c2:"#4A2412",q:"ノコギリのようなキバ．夏のクヌギの木にあつまる"},
- {n:"ミヤマクワガタ",t:"kuwagata",r:1,c1:"#5C4A2F",c2:"#8A7350",q:"頭のでっぱりがかっこいい，山にすむクワガタ"},
- {n:"ヤマトタマムシ",t:"other",r:1,c1:"#2FA86B",c2:"#C9A02F",q:"玉虫色のかがやき．法隆寺の玉虫厨子でも有名"},
- {n:"オニヤンマ",t:"tombo",r:1,c1:"#2A3D2C",c2:"#F2D43C",q:"日本さいだいのトンボ．時速70kmで飛ぶ"},
- {n:"ギンヤンマ",t:"tombo",r:1,c1:"#3DBE8B",c2:"#6FCF97",q:"池の上をパトロールする，飛ぶのが上手なトンボ"},
- {n:"ゲンジボタル",t:"hotaru",r:1,c1:"#33302B",c2:"#C0392B",q:"初夏の夜に光る．きれいな川にしかすめない"},
- {n:"スズムシ",t:"batta",r:1,c1:"#3A322A",c2:"#565046",q:"リーンリーン．秋の夜のえんそう家"},
- {n:"オオカマキリ",t:"kamakiri",r:1,c1:"#4F8F3E",c2:"#6FB052",q:"草むらのハンター．カマで一発！"},
- {n:"クマゼミ",t:"semi",r:1,c1:"#33302B",c2:"#565046",q:"シャワシャワ！夏の朝にうたう大きなセミ"},
- {n:"クマバチ",t:"hachi",r:1,c1:"#F2C53C",c2:"#33302B",q:"ブーンと大きいけど，とてもおとなしいハチ"},
- {n:"ミズカマキリ",t:"mizu",r:1,c1:"#6B5B3A",c2:"#8A7A55",q:"水の中のカマキリ？じつはカメムシのなかま"},
- {n:"モンシロチョウ",t:"chou",r:0,c1:"#F5F2E8",c2:"#D8D2C0",q:"キャベツ畑のおなじみさん．春いちばんに飛ぶ"},
- {n:"アゲハチョウ",t:"chou",r:0,c1:"#F2D43C",c2:"#2A3D2C",q:"しまもようの大きなチョウ．ミカンの木がすき"},
- {n:"アオスジアゲハ",t:"chou",r:0,c1:"#2A3D2C",c2:"#3FC4D9",q:"黒いはねに青いスジ．飛ぶのがとても速い"},
- {n:"モンキチョウ",t:"chou",r:0,c1:"#F2E27A",c2:"#D9C23C",q:"黄色いはねの春のチョウ"},
- {n:"ベニシジミ",t:"chou",r:0,c1:"#E86A3C",c2:"#8A4A2A",q:"小さくてもあざやか，べに色のチョウ"},
- {n:"ナナホシテントウ",t:"tentou",r:0,c1:"#E03C2E",c2:"#2A1A14",q:"ななつの星をせおった「太陽の虫」"},
- {n:"ナミテントウ",t:"tentou",r:0,c1:"#33302B",c2:"#E03C2E",q:"もようが100しゅるい以上ある，へんしん名人"},
- {n:"クロオオアリ",t:"ari",r:0,c1:"#33302B",c2:"#565046",q:"日本さいだいきゅうのアリ．力もちのはたらきもの"},
- {n:"ニホンミツバチ",t:"hachi",r:0,c1:"#D9A03C",c2:"#4A3B2A",q:"はちみつ作りの名人．なかまとダンスで会話する"},
- {n:"アブラゼミ",t:"semi",r:0,c1:"#6B4A2F",c2:"#8A6A45",q:"ジリジリジリ…．はねが油紙みたいだから「アブラ」"},
- {n:"ミンミンゼミ",t:"semi",r:0,c1:"#4F8F3E",c2:"#2A3D2C",q:"ミーンミンミン！夏休みの音"},
- {n:"ヒグラシ",t:"semi",r:0,c1:"#8A6A45",c2:"#C9A063",q:"カナカナカナ…．夕ぐれにひびく声"},
- {n:"ツクツクボウシ",t:"semi",r:0,c1:"#5C4A2F",c2:"#3A322A",q:"ツクツクボーシ！夏のおわりを知らせるセミ"},
- {n:"シオカラトンボ",t:"tombo",r:0,c1:"#7FA8C9",c2:"#C9D8E8",q:"水色のからだ．オスは塩をふいたように見える"},
- {n:"アキアカネ",t:"tombo",r:0,c1:"#D9503C",c2:"#E8927A",q:"秋の空をまう赤とんぼ"},
- {n:"トノサマバッタ",t:"batta",r:0,c1:"#4F8F3E",c2:"#8FB04A",q:"バッタの殿さま．10m近くジャンプする"},
- {n:"ショウリョウバッタ",t:"batta",r:0,c1:"#8FB04A",c2:"#C9D86A",q:"キチキチと飛ぶ，ほそ長いバッタ"},
- {n:"エンマコオロギ",t:"batta",r:0,c1:"#33302B",c2:"#565046",q:"コロコロリー．秋の夜の歌い手"},
- {n:"キリギリス",t:"batta",r:0,c1:"#6FB052",c2:"#4F8F3E",q:"ギーッチョン！草むらのバイオリンひき"},
- {n:"カナブン",t:"other",r:0,c1:"#7A6B3A",c2:"#A89045",q:"ブーンと飛んでくる，金ぴかのこうちゅう"},
- {n:"アメンボ",t:"mizu",r:0,c1:"#5C5C5C",c2:"#8A8A8A",q:"あめのようなにおいがするから「アメンボ」"},
- {n:"カイコ",t:"kemushi",r:0,c1:"#F5F2E8",c2:"#D8D2C0",q:"人がそだてた昆虫．野生では生きられない"},
- {n:"ダンゴムシ",t:"dango",r:0,c1:"#6B6B6B",c2:"#8A8A8A",q:"まるまる人気もの．じつは昆虫じゃなくてエビのなかま！"}
-];
-
+/* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
 function bugSVG(b){
   var c1=b.c1,c2=b.c2,K="#2A3D2C",inner="";
@@ -373,27 +325,38 @@ function say(t){
   }catch(e){}
 }
 
-/* ---------- storage (claude.aiプレビューではメモリ動作にフォールバック) ---------- */
-function rawGet(){try{return localStorage.getItem(KEY);}catch(e){return MEM;}}
-function rawSet(v){try{localStorage.setItem(KEY,v);}catch(e){} MEM=v;}
-function save(){rawSet(JSON.stringify(DB));}
-function load(){
-  var raw=rawGet();
-  if(raw){try{DB=JSON.parse(raw);}catch(e){DB=null;}}
-  if(!DB||!DB.profiles){DB={v:1, act:null, profiles:[]};}
+/* ---------- storage: keisanの本体は1つの「book」に保持し、
+   プロフィール一覧は全ゲーム共通の共有レジストリ(QuestSave.profiles)と同期する ---------- */
+function save(){ if(window.QuestSave) QuestSave.save("keisan","_book",DB); }
+function profIcon(type){ return type==="k5"?"🐞":(type==="k10"?"🪲":"🐛"); }
+/* type未設定（他ゲームで作られた子）でもアバター描画が壊れないようフォールバック */
+function av(p){ return (p&&AV[p.type])||{n:"",t:"tentou",c1:"#9DB17C",c2:"#5B6B45"}; }
+/* 共有レジストリと keisan の profiles を双方向にそろえる */
+function reconcile(reg){
+  reg=reg||[];
+  var regById={}, keiById={}, changed=false, i;
+  for(i=0;i<reg.length;i++)regById[reg[i].id]=reg[i];
+  for(i=0;i<DB.profiles.length;i++)keiById[DB.profiles[i].id]=DB.profiles[i];
+  DB.profiles.forEach(function(p){
+    if(!regById[p.id]){ reg.push({id:p.id,name:p.name,icon:profIcon(p.type)}); changed=true; }
+  });
+  reg.forEach(function(rp){
+    if(!keiById[rp.id]){ var p=newProfile(rp.name,null); p.id=rp.id; p.type=null; DB.profiles.push(p); }
+  });
+  if(changed&&window.QuestSave)QuestSave.saveProfiles(reg);
 }
 function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
-    daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{},
-    hsLevel:1, hsRun:0, hissanInput:"app", speech:(type==="k5")};
+    best5:{}, daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{},
+    hsLevel:1, hsRun:0, hkLevel:1, hkRun:0, hissanInput:"app", speech:(type==="k5")};
 }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act) return DB.profiles[i]; return null; }
 
 /* ---------- labels ---------- */
-var CATL={hissan:"ひっさん", kuku:"九九", anzan:"あんざん",
+var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
   mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合"};
-var K5CATS=["hissan","kuku","anzan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
+var K5CATS=["hissan","hikizan","kuku","anzan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
 
@@ -403,7 +366,7 @@ function topBar(backFn,extra){
   var p=P();
   return '<div class="top">'
     +(backFn?'<button class="backbtn" onclick="'+backFn+'">◀ もどる</button>':'')
-    +(p&&!backFn?'<button class="chip" onclick="showProfiles()"><span class="av">'+bugSVG(AV[p.type])+'</span>'+esc(p.name)+'</button>':'')
+    +(p&&!backFn?'<button class="chip" onclick="showProfiles()"><span class="av">'+bugSVG(av(p))+'</span>'+esc(p.name)+'</button>':'')
     +'<span class="sp"></span>'+(extra||"")+'</div>';
 }
 function kagoChip(){var p=P(); return '<button class="chip kago" onclick="showZukan()">🧺 '+capCount(p)+'/'+BUGS.length+'</button>';}
@@ -419,8 +382,8 @@ function showProfiles(){
   }
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
-      +'<span style="width:52px;height:52px;flex:none">'+bugSVG(AV[p.type])+'</span>'
-      +'<span>'+esc(p.name)+'<br><span class="note">'+(p.type==="k5"?"ビギナーコース":"受験チャレンジコース")+'　🔥'+p.streak.n+'日　🧺'+capCount(p)+'匹</span></span></button>';
+      +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　🧺'+capCount(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -442,9 +405,35 @@ function makeProfile(){
   if(!name){alert("なまえを いれてね");return;}
   if(!window._ptype){alert("コースを えらんでね");return;}
   var p=newProfile(name,window._ptype);
-  DB.profiles.push(p); DB.act=p.id; save(); showHome();
+  if(window.QuestSave){ var sp=QuestSave.addProfile(name,profIcon(window._ptype)); p.id=sp.id; }
+  DB.profiles.push(p); DB.act=p.id;
+  if(window.QuestSave)QuestSave.setCurrentProfile(p.id);
+  save(); showHome();
 }
-function selProfile(id){DB.act=id; save(); showHome();}
+function selProfile(id){
+  DB.act=id; if(window.QuestSave)QuestSave.setCurrentProfile(id);
+  var p=P();
+  if(p&&!p.type){ chooseCourse(p); return; }
+  save(); showHome();
+}
+/* 他ゲームで作られた（コース未設定の）子が初めて遊ぶときコースを決める */
+function chooseCourse(p){
+  render('<div class="scr">'+topBar("showProfiles()")
+    +'<div class="card"><h3>'+esc(p.name)+' の コース</h3>'
+    +'<button class="btn ghost" onclick="setCourse(\''+p.id+'\',\'k5\')">🐞 ビギナーコース<br><span class="note">たしざん・ひきざんの筆算・九九・あんざん</span></button>'
+    +'<button class="btn ghost" onclick="setCourse(\''+p.id+'\',\'k10\')">🪲 受験チャレンジコース<br><span class="note">四則混合・工夫計算・小数・分数</span></button>'
+    +'</div></div>');
+}
+function setCourse(id,t){
+  var p=null,i; for(i=0;i<DB.profiles.length;i++)if(DB.profiles[i].id===id)p=DB.profiles[i];
+  if(!p)return;
+  p.type=t; p.speech=(t==="k5"); save();
+  if(window.QuestSave)QuestSave.profiles().then(function(reg){
+    var r=null,j; for(j=0;j<reg.length;j++)if(reg[j].id===id)r=reg[j];
+    if(r){ r.icon=profIcon(t); QuestSave.saveProfiles(reg); }
+  });
+  showHome();
+}
 
 /* ---------- home ---------- */
 function dueMissed(p){var t=todayStr(); return p.missed.filter(function(m){return m.due<=t;});}
@@ -505,6 +494,9 @@ function openBug(i){
     +'<p><span class="rtag r'+b.r+'">'+RAR[b.r]+'</span></p>'; }
   else{ inner='<div style="width:140px;height:140px;margin:0 auto">'+bugSVG(b)+'</div>'
     +'<h3>'+esc(b.n)+'</h3><p><span class="rtag r'+b.r+'">'+RAR[b.r]+'</span>　×'+c+'</p>'
+    +(b.scientificName?'<p class="note"><i>'+esc(b.scientificName)+'</i></p>':"")
+    +'<p class="note">'+esc([b.familyJa,b.groupJa].filter(Boolean).join(' / '))+'</p>'
+    +(b.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(b.caution)+'</p>':"")
     +'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(b.q)+'</p>'; }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');
@@ -514,11 +506,12 @@ function closeMd(ev){ if(ev&&ev.target.id!=="md"&&ev.type==="click"&&ev.currentT
 /* ---------- gacha ---------- */
 function gachaPull(p){
   var s=Math.min(p.streak.n,7);
-  var r3=0.03+0.005*s, r2=0.10+0.01*s, r1=0.27+0.005*s;
+  var r4=0.006+0.001*s, r3=0.025+0.004*s, r2=0.10+0.01*s, r1=0.27+0.005*s;
   var x=Math.random(), r;
-  if(x<r3)r=3; else if(x<r3+r2)r=2; else if(x<r3+r2+r1)r=1; else r=0;
+  if(x<r4)r=4; else if(x<r4+r3)r=3; else if(x<r4+r3+r2)r=2; else if(x<r4+r3+r2+r1)r=1; else r=0;
   var pool=[], newOnly=[];
   BUGS.forEach(function(b,i){ if(b.r===r){pool.push(i); if(!p.caps[i])newOnly.push(i);} });
+  if(!pool.length)return ri(0,BUGS.length-1);
   var i=(newOnly.length&&Math.random()<0.7)?pick(newOnly):pick(pool);
   return i;
 }
@@ -563,6 +556,33 @@ function showStats(){
       +'<span class="bv">'+pc+'%・'+s.n+'問<br>平均'+av+'秒</span></div>';
   });
   h+='<div class="card"><h3>🎯 せいかいりつ</h3>'+(bars||'<p class="note">まだデータがないよ．ミッションをやってみよう！</p>')+'</div>';
+  /* answer-time trend (mean per day) */
+  var tdays=[];
+  for(var tk=20;tk>=0;tk--){var dd=dShift(t,-tk),rec=p.daily[dd];
+    if(rec&&rec.n&&rec.ms!=null)tdays.push({d:dd,sec:rec.ms/rec.n/1000});}
+  if(tdays.length>=2){
+    var W=300,GH=120,pad=24,maxS=0,minS=1e9;
+    tdays.forEach(function(o){maxS=Math.max(maxS,o.sec);minS=Math.min(minS,o.sec);});
+    if(maxS-minS<0.5)maxS=minS+0.5;
+    var pts=tdays.map(function(o,i){
+      return {x:pad+(W-2*pad)*(tdays.length<2?0:i/(tdays.length-1)),
+        y:pad+(GH-2*pad)*(1-(o.sec-minS)/(maxS-minS))};});
+    var poly=pts.map(function(pt){return pt.x.toFixed(1)+","+pt.y.toFixed(1);}).join(" ");
+    var dots=pts.map(function(pt){return '<circle cx="'+pt.x.toFixed(1)+'" cy="'+pt.y.toFixed(1)+'" r="3" fill="var(--green-d)"/>';}).join("");
+    var svg='<svg viewBox="0 0 '+W+' '+GH+'" width="100%" style="max-width:320px">'
+      +'<polyline points="'+poly+'" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round"/>'+dots
+      +'<text x="2" y="14" font-size="10" fill="var(--sub)">'+maxS.toFixed(1)+'秒</text>'
+      +'<text x="2" y="'+(GH-6)+'" font-size="10" fill="var(--sub)">'+minS.toFixed(1)+'秒</text></svg>';
+    h+='<div class="card"><h3>⏱ かいとう時間の すいい（平均）</h3>'+svg
+      +'<p class="note">1問あたりの 平均かいとう時間（みじかいほど 速い）。直近'+tdays.length+'日</p></div>';
+  }
+  var best5="", key, label;
+  p.best5=p.best5||{};
+  for(key in p.best5){
+    label=key.indexOf("mission_")===0?"ミッション":(CATL[key]||key);
+    best5+='<div class="row"><span>'+esc(label)+'</span><span class="sp"></span><b>'+fmtSec(p.best5[key])+'</b></div>';
+  }
+  if(best5)h+='<div class="card"><h3>🏁 5問タイム</h3>'+best5+'<p class="note">5問ぜんぶ正解したときだけ記録されます</p></div>';
   if(p.type==="k5"){
     h+='<div class="card"><h3>✏️ くりあがりメモの かきわすれ</h3>'
       +'<p style="font-size:26px;font-weight:800;margin:4px 0">'+p.carryMiss+' 回</p>'
@@ -623,7 +643,9 @@ function doImp(){
   try{
     var d=JSON.parse($("impT").value);
     if(!d||!d.profiles||!Array.isArray(d.profiles)) throw 0;
-    DB=d; save(); alert("復元しました"); showProfiles();
+    DB=d; if(!DB.profiles)DB.profiles=[];
+    if(window.QuestSave){ QuestSave.profiles().then(function(reg){ reconcile(reg); save(); alert("復元しました"); showProfiles(); }); }
+    else { save(); alert("復元しました"); showProfiles(); }
   }catch(e){alert("読み込めませんでした．文字列を確認してください");}
 }
 function resetAll(){
@@ -660,6 +682,30 @@ function gHissan(p){
   }
   return {cat:"hissan", kind:(p.hissanInput==="app"?"hissan":"num"), a:a, b:b,
     text:a+"＋"+b, say:a+" たす "+b+" は？", ans:a+b};
+}
+/* くり下がり: 桁iで借りたら桁i+1のメモ(need[i+1])を立てる（たし算のくり上がりと同じセル位置） */
+function borrowsOf(a,b){
+  var cols=Math.max(String(a).length,String(b).length), need=[], i, br=0;
+  for(i=0;i<cols;i++)need.push(0);
+  for(i=0;i<cols;i++){
+    var top=Math.floor(a/Math.pow(10,i))%10 - br;
+    var bot=Math.floor(b/Math.pow(10,i))%10;
+    if(top<bot){ br=1; if(i+1<cols)need[i+1]=1; } else { br=0; }
+  }
+  return {cols:cols, need:need};
+}
+function gHikizan(p){
+  var lv=p.hkLevel||1, a=0,b=0,good=false,t=0;
+  while(!good&&t<400){ t++;
+    if(lv===1){ a=ri(11,99); b=ri(1, a%10); }          /* 2桁−1桁・くり下がりなし */
+    else if(lv===2){ a=ri(21,99); b=ri(11,a-1); }      /* 2桁−2桁 */
+    else if(lv===3){ a=ri(100,899); b=ri(11,99); }     /* 3桁−2桁 */
+    else { a=ri(120,999); b=ri(101,a-1); }             /* 3桁−3桁 */
+    if(lv===1){ good=(a-b>=0)&&((a%10)>=(b%10)); }
+    else{ var bs=borrowsOf(a,b),any=false,i; for(i=1;i<bs.cols;i++)if(bs.need[i])any=true; good=(a>=b)&&any; }
+  }
+  return {cat:"hikizan", kind:(p.hissanInput==="app"?"hissan":"num"), a:a, b:b,
+    text:a+"−"+b, say:a+" ひく "+b+" は？", ans:a-b};
 }
 function gKuku(p,dan){
   var unlocked=ORDER.slice(0, Math.max(1,Math.min(p.kukuIdx+1, ORDER.length)));
@@ -749,6 +795,7 @@ function gMachi(){
 }
 function genBy(cat,p){
   if(cat==="hissan")return gHissan(p);
+  if(cat==="hikizan")return gHikizan(p);
   if(cat==="kuku")return gKuku(p);
   if(cat==="anzan")return gAnzan();
   if(cat==="mix")return gMix();
@@ -762,10 +809,10 @@ function genBy(cat,p){
 /* ---------- set building ---------- */
 function fromMissed(m){var q=JSON.parse(JSON.stringify(m.pay)); q._mid=m.id; return q;}
 function buildMission(p){
-  var list=[], due=dueMissed(p), cap=(p.type==="k5")?3:4, total=(p.type==="k5")?8:10;
+  var list=[], due=dueMissed(p), cap=(p.type==="k5")?2:2, total=5;
   due.slice(0,cap).forEach(function(m){list.push(fromMissed(m));});
   var r=total-list.length, cats;
-  if(p.type==="k5"){cats=["hissan","hissan","hissan","kuku","kuku","kuku","anzan","anzan"].slice(0,r);}
+  if(p.type==="k5"){cats=shuffle(["hissan","hikizan","kuku","kuku","anzan"]).slice(0,r);}
   else{cats=["mix","kufuu","deci","frac","machigai"];
     while(cats.length<r)cats.push(pick(["mix","kufuu","deci","frac"]));
     cats=cats.slice(0,r);}
@@ -773,7 +820,7 @@ function buildMission(p){
   return list;
 }
 function buildPractice(cat,p){
-  var n=(cat==="machigai")?5:10, list=[], i;
+  var n=5, list=[], i;
   for(i=0;i<n;i++)list.push(genBy(cat,p));
   return list;
 }
@@ -798,7 +845,7 @@ function showKuku(){
   h+='</div>';
   if(p.kukuIdx>=ORDER.length)h+='<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>';
   else h+='<p>いまの目標：<b>'+ORDER[p.kukuIdx]+'の段</b>（9問中8問せいかいで つぎの段へ！）</p>';
-  if(p.kukuIdx>=3)h+='<button class="btn sm amber" onclick="startPractice(\'kuku\')">ミックスれんしゅう（10問）</button>';
+  if(p.kukuIdx>=3)h+='<button class="btn sm amber" onclick="startPractice(\'kuku\')">ミックスれんしゅう（5問）</button>';
   h+='<p class="note">段のボタンをおすと 9問チャレンジが はじまるよ</p></div></div>';
   render(h);
 }
@@ -866,8 +913,9 @@ function renderQ(q){
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
       +padHTML(!!q.dot,"submitNum()")+'</div>';
   }else if(q.kind==="hissan"){
-    var cs=carriesOf(q.a,q.b);
-    HS={a:q.a,b:q.b,sum:q.a+q.b,cols:cs.cols,need:cs.need,carries:[],ans:[],act:{t:"a",i:0},counted:false};
+    var sub=(q.cat==="hikizan");
+    var cs=sub?borrowsOf(q.a,q.b):carriesOf(q.a,q.b);
+    HS={op:sub?"sub":"add",a:q.a,b:q.b,sum:sub?(q.a-q.b):(q.a+q.b),cols:cs.cols,need:cs.need,carries:[],ans:[],act:{t:"a",i:0},counted:false};
     for(var i=0;i<HS.cols;i++){HS.carries.push("");HS.ans.push("");}
     h+='<div class="qcard"><div id="hsbox">'+hsGridHTML()+'</div>'
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
@@ -918,7 +966,7 @@ function hsGridHTML(){
   }
   h+='<span class="cell"></span>';
   for(c=n-1;c>=0;c--){d=(c<aS.length)?aS[aS.length-1-c]:""; h+='<span class="cell fix">'+d+'</span>';}
-  h+='<span class="cell op">＋</span>';
+  h+='<span class="cell op">'+(HS.op==="sub"?"−":"＋")+'</span>';
   for(c=n-1;c>=0;c--){d=(c<bS.length)?bS[bS.length-1-c]:""; h+='<span class="cell fix">'+d+'</span>';}
   h+='<div class="rule"></div>';
   h+='<span class="cell"></span>';
@@ -934,7 +982,7 @@ function hsPad(d){
   if(HS.act.t==="c"){
     if(d==="⌫")HS.carries[HS.act.i]="";
     else if(d==="1")HS.carries[HS.act.i]="1";
-    else{flashMsg("くりあがりメモは 1 だよ");return;}
+    else{flashMsg((HS.op==="sub"?"くりさがり":"くりあがり")+"メモは 1 だよ");return;}
   }else{
     if(d==="⌫")HS.ans[HS.act.i]="";
     else{HS.ans[HS.act.i]=d; if(HS.act.i+1<HS.cols)HS.act={t:"a",i:HS.act.i+1};}
@@ -950,14 +998,14 @@ function hsSubmit(){
   }
   if(miss){
     if(!HS.counted){p.carryMiss++;HS.counted=true;save();}
-    flashMsg("✏️ くりあがりを かいてから こたえあわせ！");
+    flashMsg("✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"を かいてから こたえあわせ！");
     return;
   }
   for(i=0;i<HS.cols;i++)if(HS.ans[i]===""){flashMsg("こたえの けたを ぜんぶ いれてね");return;}
   var s="";
   for(i=HS.cols-1;i>=0;i--)s+=HS.ans[i];
   var ok=(s===String(HS.sum)), warn=null;
-  if(extra){warn="✏️ くりあがりが ない けたに メモが あるよ"; if(!HS.counted){p.carryMiss++;HS.counted=true;}}
+  if(extra){warn="✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"が ない けたに メモが あるよ"; if(!HS.counted){p.carryMiss++;HS.counted=true;}}
   afterJudge(ok,q,{ansHTML:String(HS.sum),warn:warn});
 }
 function frBoxesHTML(){
@@ -1008,7 +1056,7 @@ function recordStat(cat,ok,ms){
   var r=p.recent[cat]||(p.recent[cat]=[]);
   r.push(ok?1:0); while(r.length>20)r.shift();
   var d=p.daily[t]||(p.daily[t]={n:0,ok:0});
-  d.n++; if(ok)d.ok++;
+  d.n++; if(ok)d.ok++; d.ms=(d.ms||0)+ms;
 }
 function handleMissed(q,ok,o){
   var p=P(), t=todayStr(), i;
@@ -1044,9 +1092,16 @@ function afterJudge(ok,q,o){
   handleMissed(q,ok,o);
   if(q.cat==="hissan"&&p.type==="k5"){
     if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
-      if(p.hsRun>=5&&p.hsLevel<4){p.hsLevel++;p.hsRun=0;o.lvup="📈 ひっさん レベル"+p.hsLevel+"に アップ！";}}
+      if(p.hsRun>=5&&p.hsLevel<4){p.hsLevel++;p.hsRun=0;o.lvup="📈 たし算ひっさん レベル"+p.hsLevel+"に アップ！";}}
     else{p.hsRun=(p.hsRun<=0)?p.hsRun-1:-1;
       if(p.hsRun<=-3&&p.hsLevel>1){p.hsLevel--;p.hsRun=0;}}
+  }
+  if(q.cat==="hikizan"&&p.type==="k5"){
+    if(p.hkLevel==null){p.hkLevel=1;} if(p.hkRun==null){p.hkRun=0;}
+    if(ok){p.hkRun=(p.hkRun>=0)?p.hkRun+1:1;
+      if(p.hkRun>=5&&p.hkLevel<4){p.hkLevel++;p.hkRun=0;o.lvup="📈 ひき算ひっさん レベル"+p.hkLevel+"に アップ！";}}
+    else{p.hkRun=(p.hkRun<=0)?p.hkRun-1:-1;
+      if(p.hkRun<=-3&&p.hkLevel>1){p.hkLevel--;p.hkRun=0;}}
   }
   save();
   showFB(ok,q,o,ms);
@@ -1073,9 +1128,29 @@ function fbNext(){
 }
 
 /* ---------- finish ---------- */
+function fmtSec(ms){return (Math.round(ms/100)/10).toFixed(1)+"秒";}
+function best5Key(q,p){
+  if(q.mode==="practice")return q.cat;
+  if(q.mode==="mission")return "mission_"+p.type;
+  return null;
+}
+function updateBest5(p,q,N){
+  var key, old;
+  if(N!==5||q.ok!==N)return "";
+  key=best5Key(q,p);
+  if(!key)return "";
+  p.best5=p.best5||{};
+  old=p.best5[key];
+  if(!old||q.ms<old){
+    p.best5[key]=q.ms;
+    return "🏁 5問ぜんぶ正解！自己ベスト "+fmtSec(q.ms);
+  }
+  return "🏁 5問ぜんぶ正解！自己ベスト "+fmtSec(old);
+}
 function finishSet(){
   var p=P(), t=todayStr(), N=Q.list.length;
   var scoreLine="せいかい "+Q.ok+"／"+N+"　⏱ "+Math.round(Q.ms/1000)+"秒";
+  var best5Line=updateBest5(p,Q,N);
   if(Q.mode==="kuku"){
     var pass=(Q.ok>=8), dan=Q.dan, msg;
     if(pass){
@@ -1099,14 +1174,14 @@ function finishSet(){
     else if(p.streak.last!==t)p.streak.n=1;
     p.streak.last=t;
     save();
-    showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine);
+    showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
     return;
   }
   save();
   var win=(Q.ok>=Math.ceil(N*0.8))&&(Math.random()<0.3);
-  if(win){showCapture(gachaPull(p),"やったね！ "+scoreLine);return;}
+  if(win){showCapture(gachaPull(p),"やったね！ "+scoreLine+(best5Line?"　"+best5Line:""));return;}
   var retry=(Q.mode==="mission")?"startMission()":"startPractice('"+Q.cat+"')";
-  showSetResult("おつかれさま！",[scoreLine,"むしの けはい… にげられたみたい．","8わり正解で 30%のかくりつで つかまるよ"],retry);
+  showSetResult("おつかれさま！",[scoreLine].concat(best5Line?[best5Line]:[]).concat(["むしの けはい… にげられたみたい．","8わり正解で 30%のかくりつで つかまるよ"]),retry);
 }
 function showSetResult(title,lines,retryCall){
   var h='<div class="scr">'+topBar();
@@ -1127,9 +1202,21 @@ function finishTimed(){
 /* ---------- boot ---------- */
 function boot(){
   app=$("app");
-  load();
-  if(!DB.profiles.length)showNewProfile();
-  else showProfiles();
+  if(!window.QuestSave){ DB={v:1,act:null,profiles:[]}; showNewProfile(); return; }
+  Promise.all([QuestSave.load("keisan","_book"),QuestSave.load("keisan","_legacy"),QuestSave.profiles()])
+    .then(function(r){
+      var book=r[0], legacy=r[1], reg=r[2]||[];
+      DB=book||legacy||{v:1,act:null,profiles:[]};
+      if(!DB.profiles)DB.profiles=[];
+      reconcile(reg);
+      DB.act=QuestSave.currentProfile();
+      if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
+        if(DB.act)QuestSave.setCurrentProfile(DB.act); }
+      if(book!==DB&&DB.profiles.length)save(); // persist migrated/reconciled book once
+      if(!DB.profiles.length)showNewProfile();
+      else if(P()&&!P().type)showProfiles();
+      else showProfiles();
+    });
 }
 boot();
 </script>
