@@ -363,7 +363,7 @@ function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
     best5:{}, daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{},
-    hsLevel:1, hsRun:0, hkLevel:1, hkRun:0, hissanInput:"app", speech:(type==="k5"),
+    hsLevel:1, hsRun:0, hsMax:1, hkLevel:1, hkRun:0, hkMax:1, hissanInput:"app", speech:(type==="k5"),
     coll:{gauge:0, total:0, catches:{}}};
 }
 function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}}; }
@@ -470,7 +470,8 @@ function showHome(){
   h+='<div class="card"><h3>じぶんで れんしゅう</h3><div class="grid2">';
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   cats.forEach(function(c){
-    h+='<button class="btn sm ghost" onclick="'+(c==="kuku"?"showKuku()":"startPractice('"+c+"')")+'">'+CATL[c]+'</button>';
+    var act=(c==="kuku")?"showKuku()":((c==="hissan"||c==="hikizan")?"showLevels('"+c+"')":"startPractice('"+c+"')");
+    h+='<button class="btn sm ghost" onclick="'+act+'">'+CATL[c]+'</button>';
   });
   h+='</div></div>';
   /* timed */
@@ -787,8 +788,8 @@ function carriesOf(a,b){
   }
   return {cols:cols, need:need};
 }
-function gHissan(p){
-  var lv=p.hsLevel||1, a=0,b=0,good=false,t=0;
+function gHissan(p,lvOv){
+  var lv=lvOv||p.hsLevel||1, a=0,b=0,good=false,t=0;
   while(!good&&t<300){ t++;
     if(lv===1){var a1=ri(2,9),b1=ri(10-a1,9),a2=ri(1,7),b2=ri(1,8-a2); a=a2*10+a1; b=b2*10+b1;}
     else if(lv===2){a=ri(15,99);b=ri(15,99);}
@@ -811,8 +812,8 @@ function borrowsOf(a,b){
   }
   return {cols:cols, need:need};
 }
-function gHikizan(p){
-  var lv=p.hkLevel||1, a=0,b=0,good=false,t=0;
+function gHikizan(p,lvOv){
+  var lv=lvOv||p.hkLevel||1, a=0,b=0,good=false,t=0;
   while(!good&&t<400){ t++;
     if(lv===1){ a=ri(11,99); b=ri(1, a%10); }          /* 2桁−1桁・くり下がりなし */
     else if(lv===2){ a=ri(21,99); b=ri(11,a-1); }      /* 2桁−2桁 */
@@ -910,9 +911,9 @@ function gMachi(){
   return {cat:"machigai",kind:"choice",text:expr,say:null,ans:kk,lines:lines,
     fixmsg:"ほんとうは "+["①","②","③"][kk]+" ＝ "+fix};
 }
-function genBy(cat,p){
-  if(cat==="hissan")return gHissan(p);
-  if(cat==="hikizan")return gHikizan(p);
+function genBy(cat,p,lv){
+  if(cat==="hissan")return gHissan(p,lv);
+  if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p);
   if(cat==="anzan")return gAnzan();
   if(cat==="mix")return gMix();
@@ -936,9 +937,9 @@ function buildMission(p){
   shuffle(cats).forEach(function(c){list.push(genBy(c,p));});
   return list;
 }
-function buildPractice(cat,p){
+function buildPractice(cat,p,lv){
   var n=5, list=[], i;
-  for(i=0;i<n;i++)list.push(genBy(cat,p));
+  for(i=0;i<n;i++)list.push(genBy(cat,p,lv));
   return list;
 }
 
@@ -948,9 +949,27 @@ function startMission(){
   Q={mode:"mission",first:first,list:buildMission(p),i:0,ok:0,ms:0};
   nextQ();
 }
-function startPractice(cat){
-  Q={mode:"practice",cat:cat,list:buildPractice(cat,P()),i:0,ok:0,ms:0};
+function startPractice(cat,lv){
+  Q={mode:"practice",cat:cat,lv:lv||null,list:buildPractice(cat,P(),lv),i:0,ok:0,ms:0};
   nextQ();
+}
+/* 筆算のレベル選択（クリア順に解放・易しいレベルへ戻って反復可） */
+function hsMaxOf(p,cat){ return cat==="hikizan"?(p.hkMax||p.hkLevel||1):(p.hsMax||p.hsLevel||1); }
+function showLevels(cat){
+  var p=P(), mx=hsMaxOf(p,cat), label=CATL[cat];
+  var desc={1:"2けたの かんたん",2:"2けた どうし",3:"3けた−2けた／＋2けた",4:"3けた どうし"};
+  var dadd={1:"くりあがり なし",2:"くりあがり あり",3:"3けた",4:"3けた どうし"};
+  var d=(cat==="hikizan")?desc:dadd;
+  var h='<div class="scr">'+topBar("showHome()");
+  h+='<div class="card"><h3>'+label+'：レベルを えらぶ</h3>'
+    +'<p class="note">クリアすると つぎの レベルが ひらくよ。やさしい レベルで なんども れんしゅうも できる！</p><div class="tagrow">';
+  for(var L=1;L<=4;L++){
+    var locked=(L>mx+1), next=(L===mx+1);
+    var cls="dan"+(L<=mx?" cl":(locked?" lk":""));
+    h+='<button class="'+cls+'" '+(locked?"disabled":"")+' onclick="startPractice(\''+cat+'\','+L+')">レベル'+L+(next?" ✨":"")+'<br><span style="font-size:11px;font-weight:600">'+(d[L]||"")+'</span></button>';
+  }
+  h+='</div><p class="note">✨ ＝ つぎの ちょうせん。5問中4問で つぎが ひらくよ</p></div></div>';
+  render(h);
 }
 function showKuku(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
@@ -1244,16 +1263,17 @@ function afterJudge(ok,q,o){
   if(ok)Q.ok++;
   recordStat(q.cat,ok,ms);
   handleMissed(q,ok,o);
-  if(q.cat==="hissan"&&p.type==="k5"){
+  /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習 Q.lv では行わない） */
+  if(q.cat==="hissan"&&p.type==="k5"&&!(Q&&Q.lv)){
     if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
-      if(p.hsRun>=5&&p.hsLevel<4){p.hsLevel++;p.hsRun=0;o.lvup="📈 たし算ひっさん レベル"+p.hsLevel+"に アップ！";}}
+      if(p.hsRun>=5&&p.hsLevel<4){p.hsLevel++;p.hsRun=0;p.hsMax=Math.max(p.hsMax||1,p.hsLevel);o.lvup="📈 たし算ひっさん レベル"+p.hsLevel+"に アップ！";}}
     else{p.hsRun=(p.hsRun<=0)?p.hsRun-1:-1;
       if(p.hsRun<=-3&&p.hsLevel>1){p.hsLevel--;p.hsRun=0;}}
   }
-  if(q.cat==="hikizan"&&p.type==="k5"){
+  if(q.cat==="hikizan"&&p.type==="k5"&&!(Q&&Q.lv)){
     if(p.hkLevel==null){p.hkLevel=1;} if(p.hkRun==null){p.hkRun=0;}
     if(ok){p.hkRun=(p.hkRun>=0)?p.hkRun+1:1;
-      if(p.hkRun>=5&&p.hkLevel<4){p.hkLevel++;p.hkRun=0;o.lvup="📈 ひき算ひっさん レベル"+p.hkLevel+"に アップ！";}}
+      if(p.hkRun>=5&&p.hkLevel<4){p.hkLevel++;p.hkRun=0;p.hkMax=Math.max(p.hkMax||1,p.hkLevel);o.lvup="📈 ひき算ひっさん レベル"+p.hkLevel+"に アップ！";}}
     else{p.hkRun=(p.hkRun<=0)?p.hkRun-1:-1;
       if(p.hkRun<=-3&&p.hkLevel>1){p.hkLevel--;p.hkRun=0;}}
   }
@@ -1349,6 +1369,17 @@ function finishSet(){
     p.streak.last=t;
     save();
     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
+    return;
+  }
+  /* レベル選択練習: クリア(4/5以上)で つぎのレベルを解放。再挑戦は同レベル */
+  if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
+    var cleared=(Q.ok>=4), key=(Q.cat==="hikizan")?"hkMax":"hsMax", unlocked=false;
+    if(cleared&&Q.lv>=(p[key]||1)&&Q.lv<4){ p[key]=Q.lv+1; unlocked=true; }
+    save();
+    var msgs=[scoreLine];
+    if(unlocked)msgs.push("🎉 レベル"+(Q.lv+1)+"が ひらいたよ！");
+    else if(!cleared)msgs.push("5問中4問で つぎが ひらくよ。もういちど！");
+    showSetResult(cleared?("レベル"+Q.lv+" クリア！"):"もうすこし！",msgs,"showLevels('"+Q.cat+"')");
     return;
   }
   save();
