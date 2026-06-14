@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.34"></script>
-<script src="../shared/bugs.js?v=0.2.34"></script>
-<script src="../shared/render.js?v=0.2.34"></script>
-<script src="../shared/reward.js?v=0.2.34"></script>
-<script src="../shared/furigana.js?v=0.2.34"></script>
-<script src="../shared/yomi.js?v=0.2.34"></script>
+<script src="../shared/storage.js?v=0.2.35"></script>
+<script src="../shared/bugs.js?v=0.2.35"></script>
+<script src="../shared/render.js?v=0.2.35"></script>
+<script src="../shared/reward.js?v=0.2.35"></script>
+<script src="../shared/furigana.js?v=0.2.35"></script>
+<script src="../shared/yomi.js?v=0.2.35"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3371,12 +3371,12 @@ function scrHome(){
       if(f.kids){
         let started=0,frac=0,learned=0;
         words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; frac+=Math.min(2,k[1])/2; if(k[1]>=2)learned++;});
-        prog=started?frac/started:0;  /* バー=はじめた語の学習度（1問ごとに動く） */
+        prog=words.length?learned/words.length:0; /* 単純な習得率 */
         progTxt=`はじめた ${started}/${words.length}・おぼえた ${learned}`;
       } else {
         let started=0,frac=0,m=0;
         words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; frac+=Math.min(3,s[0])/3; if(s[0]>=3)m++;});
-        prog=started?frac/started:0;
+        prog=words.length?m/words.length:0; /* 単純な習得率 */
         progTxt=`はじめた ${started}/${words.length}・しゅうとく ${m}`;
       }
     }
@@ -3510,7 +3510,7 @@ function scrProgress(){
       words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; const st=Math.min(3,s[0]); frac+=st/3; if(s[0]>=3)mastered++;});
     }
     /* バーは「はじめた語の習得度」で1問ごとに動く（分母を全語にすると拡充で動かないため） */
-    const pct=started?Math.round(100*frac/started):0;
+    const pct=total?Math.round(100*mastered/total):0; /* 単純な習得率(全体数のうち) */
     return {f,mastered,started,total,pct};
   });
 

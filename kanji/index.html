@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.34"></script>
-<script src="../shared/bugs.js?v=0.2.34"></script>
-<script src="../shared/render.js?v=0.2.34"></script>
-<script src="../shared/reward.js?v=0.2.34"></script>
-<script src="../shared/furigana.js?v=0.2.34"></script>
-<script src="../shared/yomi.js?v=0.2.34"></script>
+<script src="../shared/storage.js?v=0.2.35"></script>
+<script src="../shared/bugs.js?v=0.2.35"></script>
+<script src="../shared/render.js?v=0.2.35"></script>
+<script src="../shared/reward.js?v=0.2.35"></script>
+<script src="../shared/furigana.js?v=0.2.35"></script>
+<script src="../shared/yomi.js?v=0.2.35"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1279,8 +1279,9 @@ function stageOfItem(key){ var m=99; skillsOf(key).forEach(function(s){ m=Math.m
 function gatedSkills(key){ var ry=rec(key,'y'); var out=['y'];
  if(key[0]==='h'){ if(ry.s>=1) out.push('w'); return out }
  var sks=skillsOf(key);
- if(ry.s>=1){ sks.forEach(function(s){ if(s!=='y'&&s!=='w') out.push(s) }) }
- if(ry.s>=2) out.push('w');
+ /* よみを1回 正解したら 他の形式(えらぶ・かき・じゅくご・おくりがな)を解放し、
+    おまかせが よみ偏重にならず バランス良く混ざるようにする */
+ if(ry.s>=1){ sks.forEach(function(s){ if(s!=='y') out.push(s) }) }
  return out }
 function introduced(key){ return skillsOf(key).some(function(s){ return rec(key,s).s>0 }) }
 function applyAnswer(key,sk,ok,mode){
@@ -1380,7 +1381,7 @@ function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textCon
  $('hStreak').style.display='none'; /* 連続日数は統一ステータスバーに表示するため、ヘッダの重複を解消 */ }
 function isLocked(key){ if(key[0]==='h')return !unOK('hira'); var u=KMAP[key.slice(2)].u; return !unOK('u'+u) }
 function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">🏆チャレンジ(にんていテスト)に ごうかくすると ひらくよ！</span><br><button class="btn gold" style="margin-top:10px" onclick="closeModal();renderTests()">🏆 チャレンジへ いく</button><button class="btn sub" style="margin-top:6px" onclick="closeModal()">とじる</button></div>') }
-function stEmoji(s){ return ['🥚','🐛','🐛','🟤','🟤','🪲'][Math.max(0,Math.min(5,s))] }
+function stEmoji(s){ return ['🥚','🐛','🟤','🪲','🪲','🪲'][Math.max(0,Math.min(5,s))] }  /* 卵→幼虫→蛹→成虫(box>=3=しゅうとく) */
 
 /* ================= テスト定義 ================= */
 // 解放チェーン: hira → u1 → u2 → u4 → u5 → u6 (UNITSの学年昇順)
@@ -1811,15 +1812,13 @@ function startReview(){
 
 /* ================= 進捗バー ================= */
 function calcMastered(keys){
- // マスター = 全 gatedSkills が stage >= 4。pct は部分進捗（平均ステージ率, 1問ごとに動く）
- var total=keys.length, mastered=0, frac=0;
+ // しゅうとく = その字の 全スキルが 成虫(box>=3)。pct は 単純な習得率(全体数のうち)。
+ var total=keys.length, mastered=0;
  keys.forEach(function(key){
-  var sks=gatedSkills(key), sum=0;
-  sks.forEach(function(sk){ var st=Math.max(0,Math.min(4,rec(key,sk).s)); sum+=st/4; });
-  frac += sks.length ? sum/sks.length : 0;
-  if(sks.every(function(sk){ return rec(key,sk).s>=4 }))mastered++;
+  var sks=skillsOf(key);  // 解放ゲートとは独立に、全スキルで判定
+  if(sks.every(function(sk){ return rec(key,sk).s>=3 }))mastered++;
  });
- return {mastered:mastered,total:total,pct: total?Math.round(100*frac/total):0}
+ return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
 
 function updateProgressSummary(){
@@ -1859,7 +1858,7 @@ function renderProgress(){
  var hr=calcMastered(hiraKeys);
  var hPct=hr.pct;
  h+='<div class="pgbar-row">'
-  +'<div class="pgbar-label"><span>ひらがな</span><span>すすみ '+hPct+'%</span></div>'
+  +'<div class="pgbar-label"><span>ひらがな</span><span>しゅうとく '+hPct+'%</span></div>'
   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
   +'<div class="pgbar-sub">マスター '+hr.mastered+'/'+hr.total+'じ</div>'
   +'</div>';
@@ -1870,7 +1869,7 @@ function renderProgress(){
   var pct=r.pct;
   var locked=!unOK('u'+g);
   h+='<div class="pgbar-row"'+(locked?' style="opacity:.5"':'')+'>'
-   +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>すすみ '+pct+'%</span></div>'
+   +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>しゅうとく '+pct+'%</span></div>'
    +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+pct+'%"></div></div>'
    +'<div class="pgbar-sub">マスター '+r.mastered+'/'+r.total+'じ</div>'
    +'</div>';
