@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.27"></script>
-<script src="../shared/bugs.js?v=0.2.27"></script>
-<script src="../shared/render.js?v=0.2.27"></script>
-<script src="../shared/reward.js?v=0.2.27"></script>
-<script src="../shared/furigana.js?v=0.2.27"></script>
-<script src="../shared/yomi.js?v=0.2.27"></script>
+<script src="../shared/storage.js?v=0.2.28"></script>
+<script src="../shared/bugs.js?v=0.2.28"></script>
+<script src="../shared/render.js?v=0.2.28"></script>
+<script src="../shared/reward.js?v=0.2.28"></script>
+<script src="../shared/furigana.js?v=0.2.28"></script>
+<script src="../shared/yomi.js?v=0.2.28"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2848,7 +2848,7 @@ const WordDB = {
 /* ---------------- SRS (Leitner) ---------------- */
 const SRS = {
   IV: [0, 1, 3, 7, 14, 30],
-  NEW_PER_DAY: 20,
+  NEW_PER_DAY: 25,
   grade(p, key, ok) {
     const s = p.srs[key] || [0, 0, 0, 0];
     let [box, due, seen, wrong] = s;
@@ -3650,7 +3650,8 @@ function renderStart(){
   } else {
     const due=SRS.dueList(P,GWORDS).length;
     const nb=Math.min(SRS.newBudget(P), SRS.newList(P,GWORDS).length);
-    info=`ふくしゅう <b>${due}</b>語 ／ きょうの新しい語 のこり <b>${nb}</b>語<br>しゅうとく ${SRS.mastered(P,GWORDS)} / ${GWORDS.length}語`;
+    const newLine = nb>0 ? `きょうの あたらしい語 のこり <b>${nb}</b>語` : `きょうの あたらしい語は おしまい！<b>ふくしゅうで つよくしよう💪</b>`;
+    info=`ふくしゅう <b>${due}</b>語 ／ ${newLine}<br>しゅうとく ${SRS.mastered(P,GWORDS)} / ${GWORDS.length}語`;
   }
   const hasNushi=NUSHI.some(x=>x[3]===GFID);
   $('#app').innerHTML=`
@@ -3704,7 +3705,9 @@ function buildMain(){
   }
   if(q.length<N){
     const have=new Set(q.map(x=>x.w.key));
-    const seen=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&!have.has(w.key)));
+    /* 補充は「あと一歩(box2-3)」を優先。周回がマスターに変わるようにする（マスター済みは最後） */
+    const fillPri=w=>{const b=(P.srs[w.key]||[0])[0]||0; return b>=4?-1:b;};
+    const seen=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&!have.has(w.key))).sort((a,b)=>fillPri(b)-fillPri(a));
     for(let i=0;i<seen.length&&q.length<N;i++)q.push({w:seen[i],type:srsType(seen[i])});
   }
   if(q.length<N){
