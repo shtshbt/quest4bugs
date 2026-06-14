@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.30"></script>
-<script src="../shared/bugs.js?v=0.2.30"></script>
-<script src="../shared/render.js?v=0.2.30"></script>
-<script src="../shared/reward.js?v=0.2.30"></script>
-<script src="../shared/furigana.js?v=0.2.30"></script>
-<script src="../shared/yomi.js?v=0.2.30"></script>
+<script src="../shared/storage.js?v=0.2.31"></script>
+<script src="../shared/bugs.js?v=0.2.31"></script>
+<script src="../shared/render.js?v=0.2.31"></script>
+<script src="../shared/reward.js?v=0.2.31"></script>
+<script src="../shared/furigana.js?v=0.2.31"></script>
+<script src="../shared/yomi.js?v=0.2.31"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1540,7 +1540,7 @@ function answered(ok){ var p=SES.q[SES.i];
    var got=(SES.mode==='review')
     ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST,iid)
     : Q4BReward.onCorrect(ST.coll,'kanji',8,1,iid);
-   if(got){ saveST(); setTimeout(function(){ showCatchModal(got) },850); }
+   if(got){ saveST(); setTimeout(function(){ Q4BReward.netSwing(function(){ showCatchModal(got) }) },650); }
   }
  } else { SES.wrongs.push(p);
   if(SES.mode==='learn'&&!p.rq){ var c=Object.assign({},p); c.rq=1; SES.q.push(c) } }
@@ -2085,8 +2085,8 @@ function renderBugs(){
   var got=Q4BReward.spendForCatch(ST.coll,'kanji');
   if(!got){ modal('<div class="center"><div style="font-size:32px">🍯</div><div style="font-weight:bold;margin:8px 0">こはくが たりないよ</div><div class="small">30こ いるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return; }
   saveST();
-  showCatchModal(got);
   renderBugs();
+  Q4BReward.netSwing(function(){ showCatchModal(got); });
  });
  $('bBk4').addEventListener('click',renderHome); showScr('bugs');
 }

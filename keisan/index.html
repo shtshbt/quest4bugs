@@ -179,12 +179,12 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.30"></script>
-<script src="../shared/bugs.js?v=0.2.30"></script>
-<script src="../shared/render.js?v=0.2.30"></script>
-<script src="../shared/reward.js?v=0.2.30"></script>
-<script src="../shared/furigana.js?v=0.2.30"></script>
-<script src="../shared/yomi.js?v=0.2.30"></script>
+<script src="../shared/storage.js?v=0.2.31"></script>
+<script src="../shared/bugs.js?v=0.2.31"></script>
+<script src="../shared/render.js?v=0.2.31"></script>
+<script src="../shared/reward.js?v=0.2.31"></script>
+<script src="../shared/furigana.js?v=0.2.31"></script>
+<script src="../shared/yomi.js?v=0.2.31"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -1438,27 +1438,37 @@ function showFB(ok,q,o,ms){
   if(o.warn)h+='<div class="fbhint">'+o.warn+'</div>';
   if(o.lvup)h+='<p style="font-weight:800;color:var(--green)">'+o.lvup+'</p>';
   if(o.capture&&window.Q4BReward){
-    var got=o.capture, sp=got.sp;
-    var tags=[];
-    if(got.isNew)tags.push('<span style="color:var(--amber-d);font-weight:800">✨ NEW！ずかん登録</span>');
-    else if(got.isRecord)tags.push('<span style="color:var(--green);font-weight:800">📏 じこベスト更新</span>');
-    if(got.shiny&&!got.isNew)tags.push('<span style="color:var(--amber-d)">✨いろちがい</span>');
-    h+='<div style="background:var(--green-l);border-radius:14px;padding:10px 8px;margin:8px 0;text-align:center">'
-      +'<div style="font-size:13px;font-weight:800;color:var(--green-d);margin-bottom:4px">🧺 むし ゲット！</div>'
-      +'<div style="width:72px;height:72px;margin:0 auto">'+Q4BReward.svg(sp)+'</div>'
-      +'<div style="font-weight:800;font-size:15px;margin-top:4px">'+esc(sp.jaName)+'</div>'
-      +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
-      +(tags.length?'<div style="margin-top:4px">'+tags.join('　')+'</div>':"")
-      +'</div>';
+    /* 捕獲は「つぎへ」後に あみ振り演出 → リビール（ワクワクのワンクッション） */
+    __keiCatch=o.capture;
+    h+='<div style="background:var(--green-l);border-radius:14px;padding:10px;margin:8px 0;text-align:center;font-weight:800;color:var(--green-d)">🍃 あみに なにか かかった…!<br><span class="note" style="color:var(--sub)">「つぎへ」で あみを ふろう</span></div>';
   }
   if(p.type==="k10")h+='<p class="note">⏱ '+(ms/1000).toFixed(1)+'秒</p>';
   h+='<button class="btn amber" onclick="fbNext()">つぎへ ▶</button></div></div>';
   app.insertAdjacentHTML("beforeend",h);
 }
+var __keiCatch=null;
 function fbNext(){
   var f=document.querySelector(".fb"); if(f)f.remove();
+  if(__keiCatch&&window.Q4BReward){
+    var got=__keiCatch; __keiCatch=null;
+    Q4BReward.netSwing(function(){ showKeiCatch(got); });
+    return; /* keiCatchDone() が つぎへ すすむ */
+  }
   JLOCK=false; Q.i++; nextQ();
 }
+function showKeiCatch(got){
+  var sp=got.sp, tags=[];
+  if(got.isNew)tags.push('✨ NEW！ずかん登録'); else if(got.isRecord)tags.push('📏 じこベスト更新');
+  if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
+  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md"><div class="mcard" style="text-align:center">'
+    +'<div style="font-weight:800;font-size:18px">🧺 つかまえた！</div>'
+    +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
+    +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
+    +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
+    +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"")
+    +'<button class="btn" style="margin-top:12px" onclick="keiCatchDone()">つづける ▶</button></div></div>');
+}
+function keiCatchDone(){ var m=$("md"); if(m)m.remove(); JLOCK=false; Q.i++; nextQ(); }
 
 /* ---------- finish ---------- */
 function fmtSec(ms){return (Math.round(ms/100)/10).toFixed(1)+"秒";}

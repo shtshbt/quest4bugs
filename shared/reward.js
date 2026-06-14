@@ -184,6 +184,29 @@
     return rows;
   }
 
+  /* 🥅 「なにか いる！→ あみを ふる」ワンクッション演出（全ゲーム共通・自己完結）。
+     onSwing: あみを振った後に呼ばれる（各ゲームが自分の捕獲表示を出す）。 */
+  function netSwing(onSwing){
+    var doc = global.document;
+    if(!doc || !doc.body){ if(onSwing)onSwing(); return; }
+    if(!doc.getElementById('q4b-net-css')){
+      var st=doc.createElement('style'); st.id='q4b-net-css';
+      st.textContent='@keyframes q4bwob{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}#q4b-net-ov .q4bnetbtn:active{transform:translateY(3px)}';
+      (doc.head||doc.body).appendChild(st);
+    }
+    var ov=doc.createElement('div');
+    ov.id='q4b-net-ov';
+    ov.style.cssText='position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(20,32,20,.55);padding:16px';
+    ov.innerHTML='<div style="background:#FFFDF4;border-radius:20px;padding:26px 22px;text-align:center;max-width:330px;width:88%;box-shadow:0 12px 34px rgba(0,0,0,.32)">'
+      +'<div style="font-weight:800;font-size:20px;margin-bottom:4px;color:#2A3D2C">🍃 なにか いるぞ…!</div>'
+      +'<div style="font-size:58px;margin:8px 0;display:inline-block;animation:q4bwob 1s ease-in-out infinite">🌿</div>'
+      +'<button class="q4bnetbtn" style="display:block;width:100%;border:none;border-radius:16px;padding:15px;font-size:19px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 4px 0 #CF7F14;cursor:pointer">あみを ふる! 🥅</button>'
+      +'</div>';
+    doc.body.appendChild(ov);
+    var done=false;
+    ov.querySelector('.q4bnetbtn').onclick=function(){ if(done)return; done=true; ov.remove(); if(onSwing)onSwing(); };
+  }
+
   /* ---- rendering helper (uses shared/render.js if present) ---- */
   function svg(sp){ return (global.Q4BRender ? global.Q4BRender.species(sp) : ""); }
 
@@ -220,6 +243,7 @@
     rank: rank,
     rankListHTML: rankListHTML,
     svg: svg,
+    netSwing: netSwing,
     statusHTML: statusHTML,
     NEED_DEFAULT: NEED_DEFAULT
   };
