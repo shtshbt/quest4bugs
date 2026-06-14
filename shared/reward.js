@@ -90,10 +90,16 @@
     var shiny = Math.random() < SHINY_CHANCE;
     var isNew = !prev;
     var isRecord = !isNew && size > prev.max;
+    /* min/normal を追加: サイズ範囲(min〜max)の表示と、色違い/通常の両方所持の判定に使う。
+       既存データは min 欠落→max で代用、normal 欠落→1(通常も捕獲済みと見なす。色違いは3%と稀なため安全) */
+    var prevMin = prev ? (prev.min!=null ? prev.min : prev.max) : size;
+    var prevNormal = prev ? (prev.normal!=null ? prev.normal : 1) : 0;
     coll.catches[sp.id] = {
       n: (prev?prev.n:0) + 1,
       max: Math.max(size, prev?prev.max:0),
-      shiny: (prev && prev.shiny) || shiny ? 1 : 0
+      min: Math.min(size, prevMin),
+      shiny: ((prev && prev.shiny) || shiny) ? 1 : 0,
+      normal: (prevNormal || (shiny?0:1)) ? 1 : 0
     };
     coll.total = (coll.total||0) + 1;
     return { sp:sp, size:size, shiny:shiny, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };

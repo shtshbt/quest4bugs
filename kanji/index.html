@@ -156,13 +156,13 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.53"></script>
-<script src="../shared/bugs.js?v=0.2.53"></script>
-<script src="../shared/render.js?v=0.2.53"></script>
-<script src="../shared/bespoke.js?v=0.2.53"></script>
-<script src="../shared/reward.js?v=0.2.53"></script>
-<script src="../shared/furigana.js?v=0.2.53"></script>
-<script src="../shared/yomi.js?v=0.2.53"></script>
+<script src="../shared/storage.js?v=0.2.54"></script>
+<script src="../shared/bugs.js?v=0.2.54"></script>
+<script src="../shared/render.js?v=0.2.54"></script>
+<script src="../shared/bespoke.js?v=0.2.54"></script>
+<script src="../shared/reward.js?v=0.2.54"></script>
+<script src="../shared/furigana.js?v=0.2.54"></script>
+<script src="../shared/yomi.js?v=0.2.54"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -2096,11 +2096,14 @@ function renderBugs(){
   var tierLabel=Q4BReward.TIERNAME[Q4BReward.tierOf(sp)];
   if(entry){
    var shinyBadge=entry.shiny?'<span style="font-size:10px">✨</span>':'';
+   var eNormal=(entry.normal!=null?entry.normal:1);
+   var showSh=(entry.shiny&&!eNormal)?1:0;   /* 通常を基本表示。色違いのみ所持時だけ色違い */
+   var szlabel=(entry.min!=null&&entry.min<entry.max)?(entry.min+'〜'+entry.max+'mm'):(entry.max+'mm');
    h+='<div class="bug" data-spid="'+sp.id+'">'
-    +Q4BReward.svg(sp,entry.shiny)
+    +Q4BReward.svg(sp,showSh)
     +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'
     +'<div class="rar">'+tierLabel+'</div>'
-    +'<div style="font-size:10px;color:#888">'+entry.max+'mm</div>'
+    +'<div style="font-size:10px;color:#888">'+szlabel+'</div>'
     +'</div>';
   } else {
    h+='<div class="bug no" data-spid="'+sp.id+'">'
@@ -2123,13 +2126,23 @@ function renderBugs(){
    if(!entry2){ modal('<div class="center"><div style="font-size:40px">❓</div><div style="font-weight:bold;margin:6px 0">まだ つかまえて いない むし</div><div class="small">まちがえずに こたえると ゲージが たまって むしが でるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return; }
    var shinyBadge=entry2.shiny?'✨':' ';
    var szr=Q4BReward.sizeRange(sp2);
+   var e2Normal=(entry2.normal!=null?entry2.normal:1);
+   var forms2;
+   if(e2Normal&&entry2.shiny){
+    forms2='<div style="display:flex;gap:10px;justify-content:center;align-items:flex-end;margin-bottom:6px">'
+     +'<div><div style="width:72px;height:72px;margin:0 auto">'+Q4BReward.svg(sp2,0)+'</div><div style="font-size:11px;color:#888">ノーマル</div></div>'
+     +'<div><div style="width:72px;height:72px;margin:0 auto">'+Q4BReward.svg(sp2,1)+'</div><div style="font-size:11px;color:#888">✨いろちがい</div></div></div>';
+   }else{
+    forms2='<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2,entry2.shiny?1:0)+'</div>';
+   }
+   var caught2=(entry2.min!=null&&entry2.min<entry2.max)?(entry2.min+'〜'+entry2.max+'mm'):(entry2.max+'mm');
    var mh='<div class="center">'
-    +'<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2,entry2.shiny)+'</div>'
+    +forms2
     +'<div style="font-weight:bold;font-size:16px">'+(sp2.jaName||sp2.id)+shinyBadge+'</div>'
     +(sp2.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+sp2.scientificName+'</div>':'')
     +(sp2.familyJa?'<div style="font-size:12px;color:#56714e">'+sp2.familyJa+'</div>':'')
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
-    +'<div style="font-size:13px;color:#56714e;margin:2px 0">さいだい <b>'+entry2.max+'mm</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
+    +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
     +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'
     +'</div>';

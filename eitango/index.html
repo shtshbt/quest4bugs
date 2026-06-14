@@ -227,14 +227,14 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.53"></script>
-<script src="../shared/bugs.js?v=0.2.53"></script>
-<script src="../shared/render.js?v=0.2.53"></script>
-<script src="../shared/bespoke.js?v=0.2.53"></script>
-<script src="../shared/reward.js?v=0.2.53"></script>
-<script src="../shared/furigana.js?v=0.2.53"></script>
-<script src="../shared/yomi.js?v=0.2.53"></script>
-<script src="../shared/colloc.js?v=0.2.53"></script>
+<script src="../shared/storage.js?v=0.2.54"></script>
+<script src="../shared/bugs.js?v=0.2.54"></script>
+<script src="../shared/render.js?v=0.2.54"></script>
+<script src="../shared/bespoke.js?v=0.2.54"></script>
+<script src="../shared/reward.js?v=0.2.54"></script>
+<script src="../shared/furigana.js?v=0.2.54"></script>
+<script src="../shared/yomi.js?v=0.2.54"></script>
+<script src="../shared/colloc.js?v=0.2.54"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4424,10 +4424,14 @@ const Reward = {
     const prev = p.catches[id];
     const isNew = !prev;
     const isRecord = !isNew && size > prev.max;
+    const prevMin = prev ? (prev.min != null ? prev.min : prev.max) : size;
+    const prevNormal = prev ? (prev.normal != null ? prev.normal : 1) : 0;
     p.catches[id] = {
       n: (prev ? prev.n : 0) + 1,
       max: Math.max(size, prev ? prev.max : 0),
-      shiny: (prev && prev.shiny) || shiny ? 1 : 0
+      min: Math.min(size, prevMin),
+      shiny: ((prev && prev.shiny) || shiny) ? 1 : 0,
+      normal: (prevNormal || (shiny ? 0 : 1)) ? 1 : 0
     };
     return { sp, size, shiny, isNew, isRecord };
   },
@@ -4734,8 +4738,11 @@ function scrZukan(){
   <div class="zgrid">${zk.map(s=>{
     const c=P.catches[s[0]];
     if(!c) return `<div class="zc un"><span class="ze">${spSVG(s,36)}</span><span class="zn">？？？</span><span class="zs">　</span></div>`;
+    const cNormal=(c.normal!=null?c.normal:1);
+    const showSh=(c.shiny&&!cNormal)?1:0;   /* 通常を基本表示。色違いのみ所持時だけ色違い */
+    const szl=(c.min!=null&&c.min<c.max)?`${c.min}〜${c.max}mm`:`${c.max}mm`;
     return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]})" onclick="showSpec('${s[0]}')">
-      <span class="ze">${spSVG(s,36,c.shiny)}</span><span class="zn">${s[1]}</span><span class="zs">${c.max}mm ×${c.n}</span></button>`;
+      <span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
   }).join('')}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
@@ -4763,9 +4770,14 @@ function eitangoAmberCatch(){
 function showSpec(id){
   const s=specById(id);
   const c=P.catches[id];
+  const cNormal=(c.normal!=null?c.normal:1);
+  const both=(cNormal&&c.shiny);
+  const baseShiny=(c.shiny&&!cNormal)?true:false;   /* 通常を基本表示。色違いのみ所持時だけ色違い */
+  const caught=(c.min!=null&&c.min<c.max)?`${c.min}〜${c.max}mm`:`${c.max}mm`;
   $('#modal').innerHTML=`<div class="mcard">
-    ${UI.specCard({sp:s,size:c.max,shiny:!!c.shiny,isNew:false,isRecord:false})}
-    <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
+    ${UI.specCard({sp:s,size:c.max,shiny:baseShiny,isNew:false,isRecord:false})}
+    ${both?`<div style="margin-top:4px"><span style="display:inline-block;width:54px;height:54px;vertical-align:middle">${spSVG(s,30,1)}</span> <span class="small">✨いろちがいも ゲットずみ</span></div>`:''}
+    <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた おおきさ: ${caught} ／ かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
 }

@@ -179,13 +179,13 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.53"></script>
-<script src="../shared/bugs.js?v=0.2.53"></script>
-<script src="../shared/render.js?v=0.2.53"></script>
-<script src="../shared/bespoke.js?v=0.2.53"></script>
-<script src="../shared/reward.js?v=0.2.53"></script>
-<script src="../shared/furigana.js?v=0.2.53"></script>
-<script src="../shared/yomi.js?v=0.2.53"></script>
+<script src="../shared/storage.js?v=0.2.54"></script>
+<script src="../shared/bugs.js?v=0.2.54"></script>
+<script src="../shared/render.js?v=0.2.54"></script>
+<script src="../shared/bespoke.js?v=0.2.54"></script>
+<script src="../shared/reward.js?v=0.2.54"></script>
+<script src="../shared/furigana.js?v=0.2.54"></script>
+<script src="../shared/yomi.js?v=0.2.54"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -561,7 +561,10 @@ function showZukan(){
     h+='<div class="zc r'+tier+(rec?"":" ")+'" onclick="openBugNew(\''+sp.id+'\')">';
     if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
     if(rec){
-      h+='<div class="bs">'+Q4BReward.svg(sp,rec.shiny)+'</div>';
+      /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */
+      var recNormal=(rec.normal!=null?rec.normal:1);
+      var showShiny=(rec.shiny&&!recNormal)?1:0;
+      h+='<div class="bs">'+Q4BReward.svg(sp,showShiny)+'</div>';
       h+='<div class="nm">'+esc(sp.jaName)+(rec.shiny?'✨':"")+'</div>';
     }else{
       h+='<div class="bs sil">'+Q4BReward.svg(sp)+'</div>';
@@ -587,10 +590,20 @@ function openBugNew(spId){
       +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span></p>';
   }else{
     var sz=Q4BReward.sizeRange(sp);
-    inner='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp,rec.shiny)+'</div>'
+    var recNormal=(rec.normal!=null?rec.normal:1);
+    var forms;
+    if(recNormal&&rec.shiny){
+      forms='<div style="display:flex;gap:10px;justify-content:center;align-items:flex-end">'
+        +'<div><div style="width:104px;height:104px;margin:0 auto">'+Q4BReward.svg(sp,0)+'</div><div class="note">ノーマル</div></div>'
+        +'<div><div style="width:104px;height:104px;margin:0 auto">'+Q4BReward.svg(sp,1)+'</div><div class="note">✨いろちがい</div></div></div>';
+    }else{
+      forms='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp,rec.shiny?1:0)+'</div>';
+    }
+    var caught=(rec.min!=null&&rec.min<rec.max)?(rec.min+'〜'+rec.max+'mm'):(rec.max+'mm');
+    inner=forms
       +'<h3>'+esc(sp.jaName)+(rec.shiny?'　✨':"")+'</h3>'
       +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>　×'+rec.n+'</p>'
-      +'<p style="font-size:14px;color:var(--sub)">最大 <b>'+rec.max+'mm</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
+      +'<p style="font-size:14px;color:var(--sub)">つかまえた おおきさ <b>'+caught+'</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
       +(sp.scientificName?'<p class="note"><i>'+esc(sp.scientificName)+'</i></p>':"")
       +'<p class="note">'+esc([sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
