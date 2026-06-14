@@ -60,12 +60,12 @@
   /* ---- catch roll ---- */
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
   var SHINY_CHANCE = 0.03;
-  var TIER_WEIGHT = [70, 22, 6, 1.6, 0.4]; // N / R / SR / SSR / SS
+  var TIER_WEIGHT = [70, 22, 6.5, 1.35, 0.15]; // N / R / SR / SSR / SS（SS=でんせつ≈0.15%に希少化）
   var REVIEW_BOOST = 3;  // 復習チャレンジ時の「珍しい虫が出やすい」係数
-  /* boost>1 で SR以上(tier>=2)のティア重みを倍化（復習チャレンジ用のレアブースト） */
+  /* boost>1 で SR/SSR(tier 2,3)のみ倍化。SS(tier4=でんせつ)は希少のまま据え置く。 */
   function weightsWith(boost){
     if(!boost || boost<=1) return TIER_WEIGHT;
-    return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
+    return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : w; });
   }
   /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先するが、
      捕獲済みも再出現を許容する（サイズ差・✨色違いのバリエーションがあるため、
@@ -147,10 +147,20 @@
     return record(coll, sp);
   }
 
-  /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional. */
-  function award(coll, game, boost){
+  /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional.
+     minTier を渡すと「tier>=minTier に限定した重み付き抽選」（一様ではない＝SSは希少のまま）。
+     テスト合格ボーナス等で『レア確定だがSSはちゃんと稀』を実現する。 */
+  function award(coll, game, boost, minTier){
     if(!coll.catches) coll.catches = {};
-    var sp = rollFromPool(pool(game), coll.catches, boost);
+    var p = pool(game), sp = null;
+    if(minTier){
+      var TW = weightsWith(boost);
+      var byTier = [0,1,2,3,4].map(function(t){ return (t>=minTier) ? p.filter(function(s){ return tierOf(s)===t; }) : []; });
+      var w = byTier.map(function(a,t){ return a.length ? TW[t] : 0; });
+      var tot = w.reduce(function(a,b){ return a+b; }, 0);
+      if(tot>0){ var r=Math.random()*tot, tier=0, i; for(i=0;i<5;i++){ if(w[i] && r<w[i]){ tier=i; break; } r-=w[i]; } var cand=byTier[tier]; sp=cand[Math.floor(Math.random()*cand.length)]; }
+    }
+    if(!sp) sp = rollFromPool(p, coll.catches, boost);
     return sp ? record(coll, sp) : null;
   }
 

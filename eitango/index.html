@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.25"></script>
-<script src="../shared/bugs.js?v=0.2.25"></script>
-<script src="../shared/render.js?v=0.2.25"></script>
-<script src="../shared/reward.js?v=0.2.25"></script>
-<script src="../shared/furigana.js?v=0.2.25"></script>
-<script src="../shared/yomi.js?v=0.2.25"></script>
+<script src="../shared/storage.js?v=0.2.26"></script>
+<script src="../shared/bugs.js?v=0.2.26"></script>
+<script src="../shared/render.js?v=0.2.26"></script>
+<script src="../shared/reward.js?v=0.2.26"></script>
+<script src="../shared/furigana.js?v=0.2.26"></script>
+<script src="../shared/yomi.js?v=0.2.26"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2905,8 +2905,8 @@ const Reward = {
     const pool = SPECIES.filter(s => s[3] === field);
     if (!pool.length) return null;
     const streakBonus = 1 + Math.min(p.streak.n, 30) * 0.02;
-    // tier 3 (でんせつ) is a very rare drop; nushi are still the fixed special encounter.
-    const tierW = night ? [60, 27, 11 * streakBonus, 2 * streakBonus] : [68, 24, 7 * streakBonus, 1 * streakBonus];
+    // tier 3 (でんせつ=最上位) は約0.15-0.2%の超希少。streak/night増幅はSR(tier2)までで、でんせつは据え置く。
+    const tierW = night ? [62, 29, 8.85 * streakBonus, 0.2] : [70, 24, 5.85 * streakBonus, 0.15];
     const byTier = [0, 1, 2, 3].map(t => pool.filter(s => s[4] === t));
     const tw = byTier.map((a, t) => a.length ? tierW[t] : 0);
     let tot = tw.reduce((a, b) => a + b, 0);
