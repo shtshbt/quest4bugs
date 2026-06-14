@@ -188,13 +188,13 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.64"></script>
-<script src="../shared/bugs.js?v=0.2.64"></script>
-<script src="../shared/render.js?v=0.2.64"></script>
-<script src="../shared/bespoke.js?v=0.2.64"></script>
-<script src="../shared/reward.js?v=0.2.64"></script>
-<script src="../shared/furigana.js?v=0.2.64"></script>
-<script src="../shared/yomi.js?v=0.2.64"></script>
+<script src="../shared/storage.js?v=0.2.65"></script>
+<script src="../shared/bugs.js?v=0.2.65"></script>
+<script src="../shared/render.js?v=0.2.65"></script>
+<script src="../shared/bespoke.js?v=0.2.65"></script>
+<script src="../shared/reward.js?v=0.2.65"></script>
+<script src="../shared/furigana.js?v=0.2.65"></script>
+<script src="../shared/yomi.js?v=0.2.65"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -568,7 +568,7 @@ function keisanMasterSection(){
  var ord=["add","sub","mul","div","all"]; ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
-  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?Q4BReward.svg(sp):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||""))+'</div></div>';
+  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||""))+'</div></div>';
  }).join("");
  return '<div class="card"><h3>🎓 マスター虫　<span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span></h3><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div>';
 }

@@ -227,14 +227,14 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.64"></script>
-<script src="../shared/bugs.js?v=0.2.64"></script>
-<script src="../shared/render.js?v=0.2.64"></script>
-<script src="../shared/bespoke.js?v=0.2.64"></script>
-<script src="../shared/reward.js?v=0.2.64"></script>
-<script src="../shared/furigana.js?v=0.2.64"></script>
-<script src="../shared/yomi.js?v=0.2.64"></script>
-<script src="../shared/colloc.js?v=0.2.64"></script>
+<script src="../shared/storage.js?v=0.2.65"></script>
+<script src="../shared/bugs.js?v=0.2.65"></script>
+<script src="../shared/render.js?v=0.2.65"></script>
+<script src="../shared/bespoke.js?v=0.2.65"></script>
+<script src="../shared/reward.js?v=0.2.65"></script>
+<script src="../shared/furigana.js?v=0.2.65"></script>
+<script src="../shared/yomi.js?v=0.2.65"></script>
+<script src="../shared/colloc.js?v=0.2.65"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4638,7 +4638,7 @@ function eitangoMasterSection(){
   const tmp={catches:P.catches};
   const got=ms.filter(sp=>Q4BReward.masterObtained(tmp,sp.id)).length;
   const cells=ms.map(sp=>{ const ok=Q4BReward.masterObtained(tmp,sp.id); const fd=fieldById(sp.master.key);
-    return `<div class="zc" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?Q4BReward.svg(sp):'🎓'}</span><span class="zn">${ok?(sp.jaName+' 🎓'):(fd?fd.name:'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></div>`;
+    return `<div class="zc" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'🎓'}</span><span class="zn">${ok?(sp.jaName+' 🎓'):(fd?fd.name:'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></div>`;
   }).join('');
   return `<div class="h2" style="margin-top:8px">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span></div>
     <div class="note" style="margin-bottom:6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>

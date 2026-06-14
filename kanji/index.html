@@ -159,13 +159,13 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.64"></script>
-<script src="../shared/bugs.js?v=0.2.64"></script>
-<script src="../shared/render.js?v=0.2.64"></script>
-<script src="../shared/bespoke.js?v=0.2.64"></script>
-<script src="../shared/reward.js?v=0.2.64"></script>
-<script src="../shared/furigana.js?v=0.2.64"></script>
-<script src="../shared/yomi.js?v=0.2.64"></script>
+<script src="../shared/storage.js?v=0.2.65"></script>
+<script src="../shared/bugs.js?v=0.2.65"></script>
+<script src="../shared/render.js?v=0.2.65"></script>
+<script src="../shared/bespoke.js?v=0.2.65"></script>
+<script src="../shared/reward.js?v=0.2.65"></script>
+<script src="../shared/furigana.js?v=0.2.65"></script>
+<script src="../shared/yomi.js?v=0.2.65"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1907,7 +1907,7 @@ function kanjiMasterSection(){
  ms.sort(function(a,b){ var o=['hira','g1','g2','g3','g4','g5','g6']; return o.indexOf(a.master.key)-o.indexOf(b.master.key); });
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(ST.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(ST.coll,sp.id);
-  return '<div class="bug"'+(ok?'':' style="opacity:.55"')+'>'+(ok?Q4BReward.svg(sp):'<div style="font-size:40px;line-height:64px">🎓</div>')
+  return '<div class="bug"'+(ok?'':' style="opacity:.55"')+'>'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:40px;line-height:64px">🎓</div>')
    +'<div class="nm">'+(ok?(sp.jaName+' 🎓'):(GLAB[sp.master.key]||'')+' ？')+'</div>'
    +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></div>';
  }).join('');

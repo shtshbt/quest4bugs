@@ -327,6 +327,26 @@
     return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
       pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size, variant:pr.variant});
   }
-  global.Q4BRender={ draw:bugSVG, species:speciesSVG,
+  /* 装飾版: ボス＝暗い背景＋金の二重枠、マスター＝淡金背景＋金枠。中身は少し縮めて枠内に収める。 */
+  function decoSpecies(sp, shiny){
+    var kind = (sp&&sp.bossOnly) ? 'boss' : ((sp&&sp.masterOnly) ? 'master' : '');
+    var full = speciesSVG(sp, shiny);
+    if(!kind) return full;
+    var inner = full.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
+    var bg;
+    if(kind==='boss'){
+      bg = '<rect x="2" y="2" width="96" height="96" rx="14" fill="#24060f"/>'
+        +'<rect x="2" y="2" width="96" height="50" rx="14" fill="#3a0a18" opacity=".7"/>'
+        +'<rect x="4" y="4" width="92" height="92" rx="12" fill="none" stroke="#E8B23A" stroke-width="2.5"/>'
+        +'<rect x="7" y="7" width="86" height="86" rx="9" fill="none" stroke="#8a1530" stroke-width="1.4"/>';
+    } else {
+      bg = '<rect x="2" y="2" width="96" height="96" rx="14" fill="#fdf3d6"/>'
+        +'<rect x="4" y="4" width="92" height="92" rx="12" fill="none" stroke="#E0A32E" stroke-width="2.6"/>'
+        +'<rect x="7" y="7" width="86" height="86" rx="9" fill="none" stroke="#caa24a" stroke-width="1.2" opacity=".7"/>';
+    }
+    var scaled = '<g transform="translate(50 53) scale(0.8) translate(-50 -54)">'+inner+'</g>';
+    return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+((sp&&(sp.jaName||sp.id))||'')+'">'+bg+scaled+'</svg>';
+  }
+  global.Q4BRender={ draw:bugSVG, species:speciesSVG, deco:decoSpecies,
     addBespoke:function(m){ if(m)for(var k in m)if(Object.prototype.hasOwnProperty.call(m,k))BESPOKE[k]=m[k]; } };
 })(window);
