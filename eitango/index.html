@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.22"></script>
-<script src="../shared/bugs.js?v=0.2.22"></script>
-<script src="../shared/render.js?v=0.2.22"></script>
-<script src="../shared/reward.js?v=0.2.22"></script>
-<script src="../shared/furigana.js?v=0.2.22"></script>
-<script src="../shared/yomi.js?v=0.2.22"></script>
+<script src="../shared/storage.js?v=0.2.23"></script>
+<script src="../shared/bugs.js?v=0.2.23"></script>
+<script src="../shared/render.js?v=0.2.23"></script>
+<script src="../shared/reward.js?v=0.2.23"></script>
+<script src="../shared/furigana.js?v=0.2.23"></script>
+<script src="../shared/yomi.js?v=0.2.23"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3344,7 +3344,8 @@ function scrProgress(){
           <div style="font-size:11px;color:var(--sub)">${Engine.esc(f.sub)}</div>
         </div>
         <div style="text-align:right;font-size:13px;font-weight:800;white-space:nowrap">
-          ${mastered}/${total}語 <span style="color:${barColor}">${pct}%</span>
+          すすみ <span style="color:${barColor}">${pct}%</span>
+          <div style="font-size:11px;color:var(--sub);font-weight:700">マスター ${mastered}/${total}語</div>
         </div>
       </div>
       <div style="height:10px;background:rgba(0,0,0,.08);border-radius:999px;overflow:hidden">

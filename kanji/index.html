@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.22"></script>
-<script src="../shared/bugs.js?v=0.2.22"></script>
-<script src="../shared/render.js?v=0.2.22"></script>
-<script src="../shared/reward.js?v=0.2.22"></script>
-<script src="../shared/furigana.js?v=0.2.22"></script>
-<script src="../shared/yomi.js?v=0.2.22"></script>
+<script src="../shared/storage.js?v=0.2.23"></script>
+<script src="../shared/bugs.js?v=0.2.23"></script>
+<script src="../shared/render.js?v=0.2.23"></script>
+<script src="../shared/reward.js?v=0.2.23"></script>
+<script src="../shared/furigana.js?v=0.2.23"></script>
+<script src="../shared/yomi.js?v=0.2.23"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1848,8 +1848,9 @@ function renderProgress(){
  var hr=calcMastered(hiraKeys);
  var hPct=hr.pct;
  h+='<div class="pgbar-row">'
-  +'<div class="pgbar-label"><span>ひらがな</span><span>'+hr.mastered+'/'+hr.total+'じ（'+hPct+'%）</span></div>'
+  +'<div class="pgbar-label"><span>ひらがな</span><span>すすみ '+hPct+'%</span></div>'
   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
+  +'<div class="pgbar-sub">マスター '+hr.mastered+'/'+hr.total+'じ</div>'
   +'</div>';
  // 学年ごと
  grades.forEach(function(g){
@@ -1858,8 +1859,9 @@ function renderProgress(){
   var pct=r.pct;
   var locked=!unOK('u'+g);
   h+='<div class="pgbar-row"'+(locked?' style="opacity:.5"':'')+'>'
-   +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>'+r.mastered+'/'+r.total+'じ（'+pct+'%）</span></div>'
+   +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>すすみ '+pct+'%</span></div>'
    +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+pct+'%"></div></div>'
+   +'<div class="pgbar-sub">マスター '+r.mastered+'/'+r.total+'じ</div>'
    +'</div>';
  });
  h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上</div>'
