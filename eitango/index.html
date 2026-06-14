@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.23"></script>
-<script src="../shared/bugs.js?v=0.2.23"></script>
-<script src="../shared/render.js?v=0.2.23"></script>
-<script src="../shared/reward.js?v=0.2.23"></script>
-<script src="../shared/furigana.js?v=0.2.23"></script>
-<script src="../shared/yomi.js?v=0.2.23"></script>
+<script src="../shared/storage.js?v=0.2.24"></script>
+<script src="../shared/bugs.js?v=0.2.24"></script>
+<script src="../shared/render.js?v=0.2.24"></script>
+<script src="../shared/reward.js?v=0.2.24"></script>
+<script src="../shared/furigana.js?v=0.2.24"></script>
+<script src="../shared/yomi.js?v=0.2.24"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2886,7 +2886,7 @@ const Reward = {
     c.q++;
     Engine.touchStreak(p);
     if (!ok) return null;
-    c.c++; p.amber++; p.amberTotal++;            // 🍯救済通路は満額
+    c.c++; if(window.QuestSave){QuestSave.amberAdd(ePid(),1);}else{p.amber++;} p.amberTotal++;  // 🍯共有ウォレットへ
     // 新しさ係数: 同じ語の連打でゲージの進みを逓減（最低0.2、違う語は満額1）
     let fresh = 1;
     if (itemId != null) {
@@ -3058,13 +3058,28 @@ async function boot(){
   CURID=QuestSave.currentProfile();
   if(!CURID||!profMeta(CURID)) CURID=PROFILES.length?PROFILES[0].id:null;
   if(CURID){ QuestSave.setCurrentProfile(CURID); P=normState(await QuestSave.load(NS,CURID)); }
+  setupWalletE();
   if(location.hash==='#zukan') screen='zukan';
   render();
+}
+/* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照）＋旧P.amber移行 */
+function ePid(){ return CURID||(window.QuestSave&&QuestSave.currentProfile()); }
+function eAmber(){ return window.QuestSave?QuestSave.amberOf(ePid()):(P?P.amber||0:0); }
+function setupWalletE(){
+  if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
+    Q4BReward.setAmberStore({
+      get:function(){return QuestSave.amberOf(ePid());},
+      add:function(n){return QuestSave.amberAdd(ePid(),n);},
+      spend:function(n){return QuestSave.amberSpend(ePid(),n);}
+    });
+  }
+  if(window.QuestSave&&P&&ePid()&&(P.amber||0)>0&&!P.amberMig){ QuestSave.amberAdd(ePid(),P.amber); P.amber=0; P.amberMig=1; touchP(); }
 }
 
 async function selectProfile(id){
   CURID=id; QuestSave.setCurrentProfile(id);
   P=normState(await QuestSave.load(NS,id));
+  setupWalletE();
   closeModal(); screen='home'; render();
 }
 
@@ -3149,7 +3164,7 @@ function scrHome(){
   const night=Engine.isNight();
   const caughtN=Object.keys(P.catches).length;
   const totN=Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0);
-  const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:Q4BReward.poolCount('eitango'),amber:P.amber,streak:P.streak.n,total:totN}):'';
+  const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:Q4BReward.poolCount('eitango'),amber:eAmber(),streak:P.streak.n,total:totN}):'';
   let h=`<div class="topbar">
     <button class="chip" onclick="showProfiles()">${profIcon(meta)} ${Engine.esc(meta.name)} <small>▼</small></button>
     <span class="sp"></span>
@@ -3211,7 +3226,7 @@ function scrZukan(){
   if(!tabs.find(f=>f.id===zTab)) zTab=tabs[0].id;
   const zk=Reward.zukanFor(zTab);
   const caught=zk.filter(s=>P.catches[s[0]]).length;
-  const amberNow=P.amber||0;
+  const amberNow=eAmber();
   const canSpend=amberNow>=30;
   return `<div class="topbar"><span class="ttl">📖 むしずかん</span><span class="sp"></span>
     <span class="chip">${caught}/${zk.length}</span></div>
@@ -3230,12 +3245,11 @@ function scrZukan(){
 }
 function eitangoAmberCatch(){
   if(!P) return;
-  if((P.amber||0) < 30){ UI.toast('🍯こはくが たりないよ（30こ いるよ）'); return; }
-  /* Q4BReward.spendForCatch に一時 coll を渡す（catches は同一参照で更新される）*/
-  var tmp={amber:30, catches:P.catches};
+  if(eAmber() < 30){ UI.toast('🍯こはくが たりないよ（30こ いるよ）'); return; }
+  /* Q4BReward.spendForCatch が共有ウォレットから30消費（catches は同一参照で更新）*/
+  var tmp={catches:P.catches};
   var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango') : null;
   if(!got){ UI.toast('🍯 むしが みつからなかった…'); return; }
-  P.amber -= 30;
   touchP();
   /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して UI.specCard に渡す */
   var spRow=ALLSP.find(function(s){return s[0]===got.sp.id;});
@@ -3638,14 +3652,12 @@ function renderStart(){
     const nb=Math.min(SRS.newBudget(P), SRS.newList(P,GWORDS).length);
     info=`ふくしゅう <b>${due}</b>語 ／ きょうの新しい語 のこり <b>${nb}</b>語<br>しゅうとく ${SRS.mastered(P,GWORDS)} / ${GWORDS.length}語`;
   }
-  const t=String(Engine.todayKey());
-  const extraLeft=P.extra.date===t?3-P.extra.used:3;
   const hasNushi=NUSHI.some(x=>x[3]===GFID);
   $('#app').innerHTML=`
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🟡${P.amber}</span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
   </div>
   <div class="field ${GFIELD.cls}" style="pointer-events:none">
     <div class="fn">${GFIELD.emoji} ${GFIELD.name}</div><div class="fs">${GFIELD.sub}</div>
@@ -3656,16 +3668,10 @@ function renderStart(){
     <div class="small" style="margin-top:6px">🐛採集ゲージ ${P.pool}/${Reward.NEED} (せいかいで たまる)</div>
     <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${SESSION_N}もん)</button>
     ${(hasNushi&&!P.nushi[GFID])?`<button class="btn amber" onclick="startNushi()">👑 ヌシに ちょうせん (${KIDS?'10もん中9もん':'20もん中18もん'}せいかい)</button>`:''}
-    <button class="btn sub" ${extraLeft<=0||P.amber<30?'disabled':''} onclick="doExtra()">🟡30で ついか採集 (きょう あと${Math.max(0,extraLeft)}回)</button>
+    <div class="small" style="margin-top:6px;opacity:.8">🍯こはくで よぶ は「むしずかん」から（30こで1ぴき）</div>
   </div>`;
 }
 function exitToMap(){ S=null; screen='home'; render(); window.scrollTo(0,0); }
-function doExtra(){
-  const res=Reward.extraCatch(P,GFID);
-  if(!res){ UI.toast('琥珀が たりないか きょうの分は おわり'); return; }
-  touchP();
-  showCatch(res,()=>{ renderStart(); });
-}
 
 /* ---------- question queue ---------- */
 const SESSION_N=5;
@@ -3743,7 +3749,7 @@ function startReview(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🟡${P.amber}</span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
   </div>
   <div class="card center" style="background:#fff8dc;border:2px solid var(--amber)">
     <div style="font-size:32px">🔁</div>
@@ -3783,7 +3789,7 @@ function header(){
   const modeLabel=S.mode==='nushi'?'👑ヌシ戦 ':S.mode==='review'?'🔁ふくしゅう ':'';
   return `<div class="topbar">
     <button class="chip" onclick="quit()">✕ やめる</button><span class="sp"></span>
-    ${gaugeChip}<span class="chip">🟡${P.amber}</span>
+    ${gaugeChip}<span class="chip">🍯${eAmber()}</span>
   </div>
   <div class="qbar"><i style="width:${pct}%"></i></div>
   <div class="small" style="padding:0 4px">${modeLabel}${S.i+1} / ${S.queue.length}もん ${S.mode==='nushi'?`(せいかい ${S.correct})`:''}</div>`;
@@ -3888,12 +3894,11 @@ function afterAnswer(item,ok,title,detail){
   if(S&&S.mode==='review'){
     /* 復習モード: Q4BReward レアブーストで採集。二重採集なし */
     if(ok&&window.Q4BReward){
-      const coll={gauge:P.reviewGauge||0, total:0, amber:P.amber, catches:P.catches,
+      const coll={gauge:P.reviewGauge||0, total:0, catches:P.catches,
         recent:(P.recent||(P.recent=[])), acc:P.reviewAcc||0};
       const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.REVIEW_BOOST,item.w.key);
       P.reviewGauge=coll.gauge;
       P.reviewAcc=coll.acc;  /* 新しさ係数の端数を保持 */
-      P.amber=coll.amber; /* amberはQ4BRewardが+1してくれる */
       P.amberTotal=(P.amberTotal||0)+1;
       if(raw){
         /* rawのsp はオブジェクト形式 → ALLSP配列行に変換 */
@@ -3952,7 +3957,7 @@ function closeCatch(){
 /* ---------- end ---------- */
 function endSession(){
   let bonus=0;
-  if(S.mode==='main'){ bonus=5; P.amber+=5; P.amberTotal+=5; }
+  if(S.mode==='main'){ bonus=5; if(window.QuestSave){QuestSave.amberAdd(ePid(),5);}else{P.amber+=5;} P.amberTotal+=5; }
   let nushiHtml='';
   if(S.mode==='nushi'){
     if(S.correct>=S.need){

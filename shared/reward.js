@@ -100,14 +100,19 @@
   }
 
   /* 🍯 こはく(amber): a soft currency earned per correct answer, spendable on
-     an extra catch. Gives "save up & spend" agency + a collection pity path. */
+     an extra catch. Gives "save up & spend" agency + a collection pity path.
+     共有ウォレット: setAmberStore({get,add,spend}) を差すと、全ゲームで1つの財布を
+     共有する（未設定なら従来どおり coll.amber を使う＝後方互換）。 */
   var AMBER_PER_CORRECT = 1;
   var AMBER_CATCH_COST = 30;
-  function amberOf(coll){ return (coll && coll.amber) || 0; }
+  var amberStore = null;  // {get:()->n, add:(n)->n, spend:(n)->bool}
+  function setAmberStore(s){ amberStore = s; }
+  function earnAmber(coll, n){ if(amberStore) amberStore.add(n); else coll.amber = (coll.amber||0) + n; }
+  function amberOf(coll){ return amberStore ? amberStore.get() : ((coll && coll.amber) || 0); }
   function spendForCatch(coll, game){
     if(!coll.catches) coll.catches = {};
-    if((coll.amber||0) < AMBER_CATCH_COST) return null;
-    coll.amber -= AMBER_CATCH_COST;
+    if(amberStore){ if(!amberStore.spend(AMBER_CATCH_COST)) return null; }
+    else { if((coll.amber||0) < AMBER_CATCH_COST) return null; coll.amber -= AMBER_CATCH_COST; }
     var sp = rollFromPool(pool(game), coll.catches);
     return sp ? record(coll, sp) : null;
   }
@@ -131,7 +136,7 @@
      同一問題の連打を検知してゲージの進みを逓減する。 */
   function onCorrect(coll, game, need, boost, itemId){
     if(!coll.catches) coll.catches = {};
-    coll.amber = (coll.amber||0) + AMBER_PER_CORRECT;   // 🍯救済通路は満額のまま温存
+    earnAmber(coll, AMBER_PER_CORRECT);   // 🍯救済通路は満額のまま温存（共有ウォレット対応）
     coll.acc = (coll.acc||0) + freshnessOf(coll, itemId);
     if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持
     var threshold = need || NEED_DEFAULT;
@@ -196,6 +201,7 @@
     onCorrect: onCorrect,
     award: award,
     spendForCatch: spendForCatch,
+    setAmberStore: setAmberStore,
     amberOf: amberOf,
     AMBER_CATCH_COST: AMBER_CATCH_COST,
     REVIEW_BOOST: REVIEW_BOOST,
