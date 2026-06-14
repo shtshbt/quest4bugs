@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.26"></script>
-<script src="../shared/bugs.js?v=0.2.26"></script>
-<script src="../shared/render.js?v=0.2.26"></script>
-<script src="../shared/reward.js?v=0.2.26"></script>
-<script src="../shared/furigana.js?v=0.2.26"></script>
-<script src="../shared/yomi.js?v=0.2.26"></script>
+<script src="../shared/storage.js?v=0.2.27"></script>
+<script src="../shared/bugs.js?v=0.2.27"></script>
+<script src="../shared/render.js?v=0.2.27"></script>
+<script src="../shared/reward.js?v=0.2.27"></script>
+<script src="../shared/furigana.js?v=0.2.27"></script>
+<script src="../shared/yomi.js?v=0.2.27"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1480,8 +1480,8 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  +'<div class="tiles">'
  +'<button class="tile" id="bRange"><div class="ic">🔁</div><div class="lb">はんいを えらぶ</div></button>'
  +'<button class="tile" id="bTest"><div class="ic">🏆</div><div class="lb">チャレンジ</div></button>'
- +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">ずかん</div></button>'
- +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしかご</div></button>'
+ +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">かんじ一覧</div></button>'
+ +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしずかん</div></button>'
  +'<button class="tile" id="bProgress"><div class="ic">📊</div><div class="lb">できたこと</div></button>'
  +(introCount>0?'<button class="tile" id="bReviewSmall"><div class="ic">🔁</div><div class="lb">ふくしゅう</div></button>':'')
  +'</div>'
@@ -2020,7 +2020,7 @@ function renderBugs(){
   +'<button id="kanji-amber-btn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto"'
   +(canSpend?'':' disabled')
   +'>🍯 こはくで よぶ（30）</button></div>'
-  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしかご</div>'
+  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
   +'<div class="bugs">';
  sorted.forEach(function(sp){

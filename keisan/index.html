@@ -179,12 +179,12 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.26"></script>
-<script src="../shared/bugs.js?v=0.2.26"></script>
-<script src="../shared/render.js?v=0.2.26"></script>
-<script src="../shared/reward.js?v=0.2.26"></script>
-<script src="../shared/furigana.js?v=0.2.26"></script>
-<script src="../shared/yomi.js?v=0.2.26"></script>
+<script src="../shared/storage.js?v=0.2.27"></script>
+<script src="../shared/bugs.js?v=0.2.27"></script>
+<script src="../shared/render.js?v=0.2.27"></script>
+<script src="../shared/reward.js?v=0.2.27"></script>
+<script src="../shared/furigana.js?v=0.2.27"></script>
+<script src="../shared/yomi.js?v=0.2.27"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -509,7 +509,7 @@ function showHome(){
       +'<button class="btn amber" onclick="startReview()">ふくしゅうチャレンジ</button></div>';
   }
   h+='<div class="grid2">'
-    +'<button class="btn ghost" onclick="showZukan()">📖 昆虫ずかん</button>'
+    +'<button class="btn ghost" onclick="showZukan()">📖 むしずかん</button>'
     +'<button class="btn ghost" onclick="showStats()">📊 きろく</button></div>'
     +'<div class="grid2" style="margin-top:0">'
     +'<button class="btn sm ghost" onclick="showProgress()">📊 できたこと</button>'
@@ -528,7 +528,7 @@ function showZukan(){
   var tot=pool.length||BUGS.length;
   var rankLabel=window.Q4BReward?Q4BReward.rank(p.coll.total):"";
   var h='<div class="scr">'+topBar("showHome()");
-  h+='<div class="card"><h3>📖 昆虫ずかん　<span style="color:var(--amber-d)">'+cnt+' / '+tot+'</span></h3>'
+  h+='<div class="card"><h3>📖 むしずかん　<span style="color:var(--amber-d)">'+cnt+' / '+tot+'</span></h3>'
     +'<div class="pbar"><i style="width:'+(tot?Math.round(cnt/tot*100):0)+'%"></i></div>'
     +(rankLabel?'<p style="margin:6px 0 0;font-size:13px;color:var(--sub)">称号：<b style="color:var(--ink)">'+esc(rankLabel)+'</b></p>':"")
     +'</div>';
