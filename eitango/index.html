@@ -228,13 +228,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.44"></script>
-<script src="../shared/bugs.js?v=0.2.44"></script>
-<script src="../shared/render.js?v=0.2.44"></script>
-<script src="../shared/reward.js?v=0.2.44"></script>
-<script src="../shared/furigana.js?v=0.2.44"></script>
-<script src="../shared/yomi.js?v=0.2.44"></script>
-<script src="../shared/colloc.js?v=0.2.44"></script>
+<script src="../shared/storage.js?v=0.2.45"></script>
+<script src="../shared/bugs.js?v=0.2.45"></script>
+<script src="../shared/render.js?v=0.2.45"></script>
+<script src="../shared/reward.js?v=0.2.45"></script>
+<script src="../shared/furigana.js?v=0.2.45"></script>
+<script src="../shared/yomi.js?v=0.2.45"></script>
+<script src="../shared/colloc.js?v=0.2.45"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4259,7 +4259,7 @@ function srsType(w){
   const single = w.en && !/\s/.test(w.en);
   const seen = P.srs[w.key] && P.srs[w.key][0]>0;
   /* 明示選択モード（不可能な語は4択にフォールバック） */
-  if(EFMT==='spell')  return single?'spell':'e2j';
+  if(EFMT==='spell')  return 'spell';  /* 明示選択時は語句でもスペル入力(空白も入力可) */
   if(EFMT==='colloc') return (window.COLLOC&&window.COLLOC[w.en])?'colloc':'e2j';
   if(EFMT==='mc')     return Math.random()<0.5?'j2e':'e2j';
   const r=Math.random();
