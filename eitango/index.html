@@ -228,12 +228,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.37"></script>
-<script src="../shared/bugs.js?v=0.2.37"></script>
-<script src="../shared/render.js?v=0.2.37"></script>
-<script src="../shared/reward.js?v=0.2.37"></script>
-<script src="../shared/furigana.js?v=0.2.37"></script>
-<script src="../shared/yomi.js?v=0.2.37"></script>
+<script src="../shared/storage.js?v=0.2.38"></script>
+<script src="../shared/bugs.js?v=0.2.38"></script>
+<script src="../shared/render.js?v=0.2.38"></script>
+<script src="../shared/reward.js?v=0.2.38"></script>
+<script src="../shared/furigana.js?v=0.2.38"></script>
+<script src="../shared/yomi.js?v=0.2.38"></script>
+<script src="../shared/colloc.js?v=0.2.38"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4001,10 +4002,13 @@ function buildMain(){
 function srsType(w){
   const r=Math.random();
   const single = w.en && !/\s/.test(w.en);
+  const seen = P.srs[w.key] && P.srs[w.key][0]>0;
   if(r<0.15&&w.ex&&new RegExp(stem(w.en),'i').test(w.ex)) return 'cloze';
+  /* 語法/コロケーション(短文穴埋め・英検形式)。既習＋データがある語のみ */
+  if(r<0.30&&seen&&window.COLLOC&&window.COLLOC[w.en]) return 'colloc';
   /* スペル入力: 既習(box>0)の単語のみ。最初の文字＋文字数ヒントで足場をかける */
-  if(r<0.32&&single&&P.srs[w.key]&&P.srs[w.key][0]>0) return 'spell';
-  if(r<0.52) return 'j2e';
+  if(r<0.45&&single&&seen) return 'spell';
+  if(r<0.62) return 'j2e';
   return 'e2j';
 }
 function stem(en){ const f=en.split(' ')[0]; return f.slice(0,Math.max(3,f.length-2)).replace(/[^a-zA-Z]/g,''); }
@@ -4138,6 +4142,14 @@ function renderSRS(item){
     qhtml=`<div class="qword"><div class="w jp">${furi(w.ja)}</div>
       <div class="pos"><span class="tag">${w.pos||''}</span> <span class="small">英語では?</span></div></div>
       <div>${cards.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansSRS(${i})">${c.en}</button>`).join('')}</div>`;
+  } else if(t==='colloc'){
+    const cd=window.COLLOC[w.en];
+    const choices=Engine.shuffle([w.en, ...cd.distractors]);
+    S.colloc=choices;
+    const sent=Engine.esc(cd.sentence).replace('___','<b style="color:var(--leaf)">______</b>');
+    qhtml=`<div class="qword"><div class="ex" style="font-size:18px;color:var(--ink);line-height:1.7">${sent}</div>
+      <div class="small" style="margin-top:8px">🔗 どの ことばが はいる？　ヒント: ${furi(w.ja)}</div></div>
+      <div>${choices.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansColloc(${i})">${c}</button>`).join('')}</div>`;
   } else if(t==='spell'){
     const masked=w.en.replace(/[a-zA-Z]/g,'_');
     qhtml=`<div class="qword"><div class="w jp">${furi(w.ja)}</div>
@@ -4168,6 +4180,16 @@ function ansSpell(){
   afterAnswer(item,ok,
     ok?'せいかい! ⌨️✨':'おしい!',
     `<b>${w.en}</b> ${w.pos?'['+w.pos+']':''} ＝ ${furi(w.ja)}`);
+  Speech.say(w.en);
+}
+function ansColloc(i){
+  if(S.__locked)return; S.__locked=true;
+  const item=S.queue[S.i], w=item.w, picked=S.colloc[i], ok=picked===w.en;
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=null);
+  $('#op'+i).classList.add(ok?'ok':'ng');
+  if(!ok){ const ci=S.colloc.indexOf(w.en); if(ci>=0)$('#op'+ci).classList.add('ok'); }
+  const full=Engine.esc(window.COLLOC[w.en].sentence).replace('___','<b>'+w.en+'</b>');
+  afterAnswer(item,ok, ok?'せいかい! 🔗':'おしい!', `<b>${w.en}</b> ＝ ${furi(w.ja)}<br><span class="small">${full}</span>`);
   Speech.say(w.en);
 }
 function ansSRS(i){
