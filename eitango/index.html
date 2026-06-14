@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.21"></script>
-<script src="../shared/bugs.js?v=0.2.21"></script>
-<script src="../shared/render.js?v=0.2.21"></script>
-<script src="../shared/reward.js?v=0.2.21"></script>
-<script src="../shared/furigana.js?v=0.2.21"></script>
-<script src="../shared/yomi.js?v=0.2.21"></script>
+<script src="../shared/storage.js?v=0.2.22"></script>
+<script src="../shared/bugs.js?v=0.2.22"></script>
+<script src="../shared/render.js?v=0.2.22"></script>
+<script src="../shared/reward.js?v=0.2.22"></script>
+<script src="../shared/furigana.js?v=0.2.22"></script>
+<script src="../shared/yomi.js?v=0.2.22"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2880,13 +2880,23 @@ const SRS = {
 const Reward = {
   NEED: 8,
   RARNAME: ['ノーマル', 'レア', 'スーパーレア', 'でんせつ'],
-  onAnswer(p, ok, field) {
+  onAnswer(p, ok, field, itemId) {
     const t = Engine.todayKey();
     const c = p.cal[t] || (p.cal[t] = { q: 0, c: 0 });
     c.q++;
     Engine.touchStreak(p);
     if (!ok) return null;
-    c.c++; p.amber++; p.amberTotal++; p.pool++;
+    c.c++; p.amber++; p.amberTotal++;            // 🍯救済通路は満額
+    // 新しさ係数: 同じ語の連打でゲージの進みを逓減（最低0.2、違う語は満額1）
+    let fresh = 1;
+    if (itemId != null) {
+      if (!p.recent) p.recent = [];
+      let reps = 0; for (let i = 0; i < p.recent.length; i++) if (p.recent[i] === itemId) reps++;
+      p.recent.push(itemId); if (p.recent.length > 12) p.recent = p.recent.slice(-12);
+      fresh = reps === 0 ? 1 : Math.max(0.2, Math.pow(0.5, reps));
+    }
+    p.poolAcc = (p.poolAcc || 0) + fresh;
+    if (p.poolAcc >= 1) { p.pool++; p.poolAcc -= 1; }   // ゲージは整数を維持
     if (p.pool >= this.NEED) { p.pool -= this.NEED; return this.roll(field, p); }
     return null;
   },
@@ -3877,9 +3887,11 @@ function afterAnswer(item,ok,title,detail){
   if(S&&S.mode==='review'){
     /* 復習モード: Q4BReward レアブーストで採集。二重採集なし */
     if(ok&&window.Q4BReward){
-      const coll={gauge:P.reviewGauge||0, total:0, amber:P.amber, catches:P.catches};
-      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.REVIEW_BOOST);
+      const coll={gauge:P.reviewGauge||0, total:0, amber:P.amber, catches:P.catches,
+        recent:(P.recent||(P.recent=[])), acc:P.reviewAcc||0};
+      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.REVIEW_BOOST,item.w.key);
       P.reviewGauge=coll.gauge;
+      P.reviewAcc=coll.acc;  /* 新しさ係数の端数を保持 */
       P.amber=coll.amber; /* amberはQ4BRewardが+1してくれる */
       P.amberTotal=(P.amberTotal||0)+1;
       if(raw){
@@ -3893,7 +3905,7 @@ function afterAnswer(item,ok,title,detail){
     const tc=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
     tc.q++; if(ok){tc.c++;} Engine.touchStreak(P);
   } else {
-    res=Reward.onAnswer(P,ok,GFID);
+    res=Reward.onAnswer(P,ok,GFID,item.w.key);  // 同じ語の連打を検知（新しさ係数）
   }
   if(res){ S.caught.push(res); pendingCatch=res; }
   if(!ok&&!item.retry&&S.mode==='main'&&!S.retried[item.w.key]){

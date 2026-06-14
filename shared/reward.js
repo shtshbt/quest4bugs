@@ -112,14 +112,30 @@
     return sp ? record(coll, sp) : null;
   }
 
+  /* 新しさ係数: 直近で同じ問題(itemId)を繰り返すほどゲージの進みを軽減する。
+     2回目0.5→3回目0.25→…最低0.2は残す(ゼロにはしない)。違う問題は満額1。
+     直近 RECENT_MAX 問の窓で判定するので、時間が経てば自然に回復する。
+     → 難しくはせず「同じ問題の連打farming」の旨味だけ穏やかに下げる。 */
+  var RECENT_MAX = 12;
+  function freshnessOf(coll, itemId){
+    if(itemId == null) return 1;            // itemId未指定のゲームは従来どおり満額
+    if(!coll.recent) coll.recent = [];
+    var reps = 0, i;
+    for(i=0;i<coll.recent.length;i++){ if(coll.recent[i] === itemId) reps++; }
+    coll.recent.push(itemId);
+    if(coll.recent.length > RECENT_MAX) coll.recent = coll.recent.slice(-RECENT_MAX);
+    return reps === 0 ? 1 : Math.max(0.2, Math.pow(0.5, reps));
+  }
   /* called on each correct answer. returns a catch result, or null if the
-     gauge is not full yet. `need` lets a game tune the cadence. */
-  function onCorrect(coll, game, need, boost){
+     gauge is not full yet. `need` lets a game tune the cadence. itemId(任意)で
+     同一問題の連打を検知してゲージの進みを逓減する。 */
+  function onCorrect(coll, game, need, boost, itemId){
     if(!coll.catches) coll.catches = {};
-    coll.amber = (coll.amber||0) + AMBER_PER_CORRECT;
-    coll.gauge = (coll.gauge||0) + 1;
+    coll.amber = (coll.amber||0) + AMBER_PER_CORRECT;   // 🍯救済通路は満額のまま温存
+    coll.acc = (coll.acc||0) + freshnessOf(coll, itemId);
+    if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持
     var threshold = need || NEED_DEFAULT;
-    if(coll.gauge < threshold) return null;
+    if((coll.gauge||0) < threshold) return null;
     coll.gauge -= threshold;
     var sp = rollFromPool(pool(game), coll.catches, boost);
     if(!sp) return null;
