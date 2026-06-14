@@ -15,6 +15,8 @@
   --egg:#e3ddcb; --larva:#a8d97c; --pupa:#c79a6b; --adult:#f2b53a;
   --r:18px;
 }
+/* 夜テーマ: 夜空配色（よるは よるの虫が出やすい） */
+body.night{ --sky:#16213c; --grass:#243352; --card:#243352; --leaf:#7fb069; --forest:#dbe6f0; --deep:#eef3f8; --soil:#cda781; background:#16213c; color:#e9edf6; }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -156,13 +158,13 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.57"></script>
-<script src="../shared/bugs.js?v=0.2.57"></script>
-<script src="../shared/render.js?v=0.2.57"></script>
-<script src="../shared/bespoke.js?v=0.2.57"></script>
-<script src="../shared/reward.js?v=0.2.57"></script>
-<script src="../shared/furigana.js?v=0.2.57"></script>
-<script src="../shared/yomi.js?v=0.2.57"></script>
+<script src="../shared/storage.js?v=0.2.58"></script>
+<script src="../shared/bugs.js?v=0.2.58"></script>
+<script src="../shared/render.js?v=0.2.58"></script>
+<script src="../shared/bespoke.js?v=0.2.58"></script>
+<script src="../shared/reward.js?v=0.2.58"></script>
+<script src="../shared/furigana.js?v=0.2.58"></script>
+<script src="../shared/yomi.js?v=0.2.58"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1476,7 +1478,10 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* ================= ホーム ================= */
 function countIntroduced(){ var n=0; itemPool().forEach(function(key){ if(introduced(key))n++ }); return n }
 function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr();
- var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ var night=!!(window.Q4BReward&&Q4BReward.isNightNow&&Q4BReward.isNightNow());
+ if(window.Q4BReward&&Q4BReward.setNight)Q4BReward.setNight(night);
+ document.body.classList.toggle('night',night);
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  if(ST.re&&ST.re.d<=t&&TESTS[ST.re.t])h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[ST.re.t].label+'」に もういちど ちょうせんしよう</div>';
  // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
  var introCount=countIntroduced();

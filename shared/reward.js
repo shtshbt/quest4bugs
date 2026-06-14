@@ -109,7 +109,29 @@
     for(i=0;i<5;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
     var cand = byTier[tier];
     if(caught){ var fresh = cand.filter(function(s){ return !caught[s.id]; }); if(fresh.length) cand = fresh; }
+    /* 昼夜の重み付き抽選（setNight が呼ばれたゲームのみ有効。未使用ゲームは一様のまま） */
+    if(_nightActive && cand.length>1){
+      var nw = cand.map(function(s){ return nightFactor(nightOf(s)); });
+      var ntot = nw.reduce(function(a,b){return a+b;},0);
+      if(ntot>0){ var rr = Math.random()*ntot; for(var k=0;k<cand.length;k++){ if(rr<nw[k]) return cand[k]; rr-=nw[k]; } }
+    }
     return cand[Math.floor(Math.random()*cand.length)];
+  }
+  /* ---- 昼夜（夜は夜行性の虫が出やすい）。eitango の nightFor と同方針 ---- */
+  var _isNight=false, _nightActive=false;
+  function setNight(b){ _isNight=!!b; _nightActive=true; }
+  function isNightNow(){ var h=new Date().getHours(); return h>=18 || h<5; }
+  function nightOf(sp){
+    var tags=sp.tags||[];
+    if(tags.indexOf('firefly')>=0) return 1;
+    if(sp.id==='suzumushi'||sp.id==='enma_koorogi'||sp.id==='higurashi') return 1;
+    if((sp.note||'').indexOf('夜')>=0) return 1;
+    if(sp.groupJa==='蛾'||tags.indexOf('moth')>=0) return 1;   /* ガは多くが夜行性 */
+    return 2; /* 既定: 昼夜どちらでも */
+  }
+  function nightFactor(n){
+    if(!_nightActive || n===2) return 1;
+    return _isNight ? (n===1 ? 2.5 : 0.45) : (n===1 ? 0.45 : 1);
   }
   function record(coll, sp){
     var prev = coll.catches[sp.id];
@@ -274,6 +296,8 @@
     TIERNAME: TIERNAME,
     sizeRange: sizeRange,
     migrateSizes: migrateSizes,
+    setNight: setNight,
+    isNightNow: isNightNow,
     onCorrect: onCorrect,
     award: award,
     spendForCatch: spendForCatch,
