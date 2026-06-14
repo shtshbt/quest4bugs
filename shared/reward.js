@@ -84,8 +84,8 @@
   /* ---- catch roll ---- */
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
   var SHINY_CHANCE = 0.03;
-  var TIER_WEIGHT = [70, 22, 6.5, 1.35, 0.15]; // N / R / SR / SSR / SS（SS=でんせつ≈0.15%に希少化）
-  var REVIEW_BOOST = 3;  // 復習チャレンジ時の「珍しい虫が出やすい」係数
+  var TIER_WEIGHT = [72, 23, 5, 0.8, 0.08]; // N / R / SR / SSR / SS（高効率な復習周回でのレア量産を抑えるため SR/SSR/SS を薄く）
+  var REVIEW_BOOST = 2;  // 復習チャレンジ時の「珍しい虫が出やすい」係数（復習のレア量産を抑えるため 3→2）
   /* boost>1(復習) で SR/SSR(tier 2,3)を倍化。SS(tier4=でんせつ)は逆に抑制する。
      復習は高頻度に周回できるため、据え置きだと量でSSが溜まりやすい。SSは通常プレイ/
      テスト合格など achievement で出すものとし、復習では出にくくする。 */
