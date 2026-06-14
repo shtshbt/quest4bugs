@@ -67,22 +67,21 @@
     if(!boost || boost<=1) return TIER_WEIGHT;
     return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
   }
-  /* caught: 既捕獲の {id:..} マップ。渡すと「未捕獲のみ」を抽選対象にする
-     （= 捕獲済みは二度と出ない。重複なしでコレクションが必ず前進する）。
-     残りが未捕獲レアのみになればそのティアから出る。全種捕獲済みなら null。
+  /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先するが、
+     捕獲済みも再出現を許容する（サイズ差・✨色違いのバリエーションがあるため、
+     同じ種を採り直す意味がある）。未捕獲バイアスでコンプ到達も現実的に保つ。
      boost: レアブースト係数（省略時1=通常）。 */
   function rollFromPool(p, caught, boost){
     if(!p || !p.length) return null;
     var TW = weightsWith(boost);
-    var avail = caught ? p.filter(function(s){ return !caught[s.id]; }) : p;
-    if(!avail.length) return null; // すべて捕獲済み（コンプリート）
-    var byTier = [0,1,2,3,4].map(function(t){ return avail.filter(function(s){ return tierOf(s)===t; }); });
+    var byTier = [0,1,2,3,4].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
     var w = byTier.map(function(a,t){ return a.length ? TW[t] : 0; });
     var tot = w.reduce(function(a,b){return a+b;},0);
     if(tot<=0) return null;
     var r = Math.random()*tot, tier = 0, i;
     for(i=0;i<5;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
     var cand = byTier[tier];
+    if(caught){ var fresh = cand.filter(function(s){ return !caught[s.id]; }); if(fresh.length) cand = fresh; }
     return cand[Math.floor(Math.random()*cand.length)];
   }
   function record(coll, sp){
