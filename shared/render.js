@@ -43,6 +43,63 @@
     }
     return wings(c1,c2,K,leg); /* chou: default */
   }
+  /* ===== Phase1: 種ごとの模様・サイズ（パラメトリック強化） =====
+     archetype の本体だ円 box に模様を重ね、size で全体を拡縮する。
+     データ(jaName/groupJa)から deriveParams で導出し、色違いだけの状態を解消する。 */
+  var BODYBOX={  /* archetype -> [cx,cy,rx,ry]（本体のだ円目安。脚や頭は含めない） */
+    kabuto:[56,58,24,19], kuwagata:[58,58,22,18], kogane:[50,56,25,22],
+    tamamushi:[50,57,14,27], osamushi:[50,64,14,23], kamikiri:[50,60,13,28],
+    other:[50,58,21,25], semi:[50,55,16,25], hachi:[50,60,19,23],
+    batta:[50,58,25,10], mizu:[50,54,21,26], hotaru:[50,52,16,25]
+  };
+  var BFLY={chou:1,ageha:1,tateha:1,shijimi:1,seseri:1,ga:1};
+  function _inEll(rx,ry,offs){ var o=[]; for(var i=0;i<offs.length;i++){ var dx=offs[i][0]*rx,dy=offs[i][1]*ry;
+    if((dx*dx)/(rx*rx)+(dy*dy)/(ry*ry)<=1.02)o.push([dx,dy]); } return o; }
+  function patternMarks(box,kind,color){
+    var cx=box[0],cy=box[1],rx=box[2],ry=box[3],s='';
+    if(kind==='spots'){
+      var r=Math.max(2,Math.min(rx,ry)*0.22);
+      _inEll(rx*0.78,ry*0.8,[[-.5,-.45],[.5,-.45],[0,-.12],[-.55,.22],[.55,.22],[0,.52],[0,-.72]]).forEach(function(d){
+        s+='<circle cx="'+(cx+d[0]).toFixed(1)+'" cy="'+(cy+d[1]).toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+color+'" opacity=".82"/>'; });
+    }else if(kind==='stripes'){
+      [-.55,-.2,.15,.5].forEach(function(f){ var dy=f*ry, hw=rx*Math.sqrt(Math.max(0,1-f*f))*0.92;
+        s+='<path d="M'+(cx-hw).toFixed(1)+' '+(cy+dy).toFixed(1)+' h'+(2*hw).toFixed(1)+'" stroke="'+color+'" stroke-width="'+Math.max(2,ry*0.16).toFixed(1)+'" stroke-linecap="round" opacity=".8"/>'; });
+    }else if(kind==='bands'){
+      [-.25,.28].forEach(function(f){ var dy=f*ry, hw=rx*Math.sqrt(Math.max(0,1-f*f))*0.95;
+        s+='<path d="M'+(cx-hw).toFixed(1)+' '+(cy+dy).toFixed(1)+' h'+(2*hw).toFixed(1)+'" stroke="'+color+'" stroke-width="'+Math.max(4,ry*0.4).toFixed(1)+'" opacity=".72"/>'; });
+    }else if(kind==='eyespot'){
+      [[-.48,-.12],[.48,-.12]].forEach(function(o){ var x=cx+o[0]*rx,y=cy+o[1]*ry,R=Math.min(rx,ry)*0.34;
+        s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R.toFixed(1)+'" fill="'+color+'"/><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(R*0.42).toFixed(1)+'" fill="#fff"/>'; });
+    }else if(kind==='metallic'){
+      s+='<path d="M'+(cx-rx*0.45).toFixed(1)+' '+(cy-ry*0.4).toFixed(1)+' Q'+cx+' '+(cy-ry*0.05).toFixed(1)+' '+(cx-rx*0.18).toFixed(1)+' '+(cy+ry*0.5).toFixed(1)+'" stroke="#fff" stroke-width="3" fill="none" opacity=".38" stroke-linecap="round"/>';
+    }
+    return s;
+  }
+  var WINGC=[[27,37],[73,37],[31,72],[69,72]];  /* 蝶の翅中心(上左右・下左右) */
+  function wingMarks(kind,color){ var s='';
+    if(kind==='spots'){ WINGC.forEach(function(w){ s+='<circle cx="'+w[0]+'" cy="'+w[1]+'" r="3" fill="'+color+'" opacity=".82"/>'; }); }
+    else if(kind==='eyespot'){ WINGC.forEach(function(w){ s+='<circle cx="'+w[0]+'" cy="'+w[1]+'" r="4.2" fill="'+color+'"/><circle cx="'+w[0]+'" cy="'+w[1]+'" r="1.8" fill="#fff"/>'; }); }
+    else if(kind==='bands'){ s+='<path d="M12 40 Q27 32 46 46" stroke="'+color+'" stroke-width="3.5" fill="none" opacity=".7"/><path d="M88 40 Q73 32 54 46" stroke="'+color+'" stroke-width="3.5" fill="none" opacity=".7"/>'; }
+    else if(kind==='stripes'){ s+='<path d="M14 30 L44 50 M16 41 L45 57" stroke="'+color+'" stroke-width="2.4" opacity=".7"/><path d="M86 30 L56 50 M84 41 L55 57" stroke="'+color+'" stroke-width="2.4" opacity=".7"/>'; }
+    else if(kind==='metallic'){ s+='<path d="M16 34 Q28 30 44 48" stroke="#fff" stroke-width="2.6" fill="none" opacity=".4"/><path d="M84 34 Q72 30 56 48" stroke="#fff" stroke-width="2.6" fill="none" opacity=".4"/>'; }
+    return s;
+  }
+  function deriveParams(sp){
+    var nm=sp.jaName||sp.id||'', g=sp.groupJa||'', pattern='none', pcolor='#2A3D2C', size=1;
+    if(/トラ|縞|シマ/.test(nm)) pattern='stripes';
+    else if(/ホシ|星|マダラ|斑|ブチ/.test(nm)) pattern='spots';
+    else if(/ジャノメ/.test(nm)||g==='ジャノメ') pattern='eyespot';
+    else if(/ルリ|瑠璃|ニジ|虹|タマムシ|玉虫|ミドリ|アオ|青|コガネ|黄金/.test(nm)){ pattern='metallic'; pcolor='#ffffff'; }
+    else if(g==='ヒョウモン'||g==='ハンミョウ') pattern='spots';
+    else if(g==='タテハ'||g==='マダラチョウ') pattern='bands';
+    else if(/カミキリ/.test(g)) pattern='spots';
+    if(sp.renderer==='tentou') pattern='none';   /* テントウは元描画で斑点あり→重複回避 */
+    if(/ヘラクレス|ゴライアス|ギラファ|テイオウ|オオ|巨大/.test(nm)) size=1.12;
+    if(/ヒメ|チビ|マメ/.test(nm)) size=0.9;
+    if(g==='シジミ'||g==='ゼフィルス') size=Math.min(size,0.94);
+    return {pattern:pattern, patternColor:pcolor, size:size};
+  }
+
   function bugSVG(b){
   var c1=b.c1,c2=b.c2,K="#2A3D2C",inner="";
   var leg='stroke="'+K+'" stroke-width="3" stroke-linecap="round" fill="none"';
@@ -188,8 +245,16 @@
     +'<path d="M44 24 l-6 -8 M56 24 l6 -8" '+leg+'/>'
     +'<circle cx="46" cy="29" r="2.2" fill="#fff"/><circle cx="54" cy="29" r="2.2" fill="#fff"/>';
   }
+  /* 模様レイヤ（本体の上に重ねる。蝶は翅、その他は本体だ円に配置） */
+  var pat='';
+  if(b.pattern&&b.pattern!=='none'){
+    if(BFLY[b.t]) pat=wingMarks(b.pattern, b.patternColor||K);
+    else if(BODYBOX[b.t]) pat=patternMarks(BODYBOX[b.t], b.pattern, b.patternColor||K);
+  }
+  var content=inner+pat;
+  if(b.size&&Math.abs(b.size-1)>0.001) content=scaleG(b.size, content);  /* サイズ拡縮（sheenは固定） */
   var sheen = b.shiny ? '<g opacity=".95"><path d="M79 16 l2.2 5.4 5.4 2.2 -5.4 2.2 -2.2 5.4 -2.2 -5.4 -5.4 -2.2 5.4 -2.2 z" fill="#fff"/><path d="M22 30 l1.5 3.6 3.6 1.5 -3.6 1.5 -1.5 3.6 -1.5 -3.6 -3.6 -1.5 3.6 -1.5 z" fill="#fff" opacity=".85"/></g>' : '';
-  return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+b.n+'">'+inner+sheen+'</svg>';
+  return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+b.n+'">'+content+sheen+'</svg>';
 }
   /* ---- 色違い(shiny): 色相を回し彩度を上げた別カラーで描く（全ゲーム共通） ---- */
   function _clamp(v,a,c){return Math.max(a,Math.min(c,v));}
@@ -202,7 +267,9 @@
     if(!sp)return "";
     var cols=sp.colors||["#7A6B3A","#2A3D2C"];
     if(shiny) cols=[_shift(cols[0]), _shift(cols[1])];
-    return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny});
+    var pr=deriveParams(sp);
+    return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
+      pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size});
   }
   global.Q4BRender={ draw:bugSVG, species:speciesSVG };
 })(window);
