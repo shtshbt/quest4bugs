@@ -189,6 +189,8 @@ if(!window.QuestSave){(function(g){var m={};g.QuestSave={
 'use strict';
 /* ================= データ ================= */
 var HIRA='あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん'.split('');
+/* ひらがなの標準画数（書きクイズの画数チェック用。教科書体準拠。判定は±1で寛容に） */
+var HIRA_KAKU={'あ':3,'い':2,'う':2,'え':2,'お':3,'か':3,'き':4,'く':1,'け':3,'こ':2,'さ':3,'し':1,'す':2,'せ':3,'そ':1,'た':4,'ち':2,'つ':1,'て':1,'と':2,'な':4,'に':3,'ぬ':2,'ね':2,'の':1,'は':3,'ひ':1,'ふ':4,'へ':1,'ほ':4,'ま':3,'み':2,'む':3,'め':2,'も':3,'や':3,'ゆ':2,'よ':2,'ら':2,'り':2,'る':1,'れ':2,'ろ':1,'わ':2,'を':3,'ん':1};
 var SIM={'あ':'おめ','お':'あす','い':'りこ','り':'いん','う':'つら','つ':'うし','ね':'れわ','れ':'ねわ','わ':'ねれ','は':'ほま','ほ':'はま','ま':'もは','ぬ':'めね','め':'ぬあ','る':'ろそ','ろ':'るそ','き':'さち','さ':'きち','し':'つも','ん':'りそ','た':'なに','な':'たに'};
 var WORDS=[{w:'あり',p:'🐜'},{w:'はち',p:'🐝'},{w:'てんとうむし',p:'🐞'},{w:'かたつむり',p:'🐌'},{w:'せみ',p:'bug:abura'},{w:'とんぼ',p:'bug:shiokara'},{w:'ほたる',p:'bug:hotaru'}];
 
@@ -1665,19 +1667,64 @@ function traceUI(box,ch,test){
    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillStyle='rgba(46,93,40,'+alpha+')';
    ctx.fillText(ch,132,140); ctx.restore() } }
  bg(test?0:0.16);
- var on=false;
+ var on=false, strokes=0;        // strokes=ペンを下ろした回数(=書いた画数)
  function pos(e){ var r=cv.getBoundingClientRect();
   return {x:(e.clientX-r.left)*264/r.width, y:(e.clientY-r.top)*264/r.height} }
- cv.addEventListener('pointerdown',function(e){ on=true; var q=pos(e);
+ cv.addEventListener('pointerdown',function(e){ on=true; strokes++; var q=pos(e);
   ctx.strokeStyle='#1d3d19'; ctx.lineWidth=14; ctx.lineCap='round'; ctx.lineJoin='round';
   ctx.beginPath(); ctx.moveTo(q.x,q.y); e.preventDefault() });
  cv.addEventListener('pointermove',function(e){ if(!on)return; var q=pos(e); ctx.lineTo(q.x,q.y); ctx.stroke(); e.preventDefault() });
  cv.addEventListener('pointerup',function(){ on=false });
+ /* 寛容な「文字の上に書けているか」判定。お手本グリフ領域とインクの重なりだけを見る。
+    筆順・形のくずれは不問。お手本を無視した落書き(precision低)や空白(coverage低)のみ弾く。 */
+ function judgeInk(){
+  var S=4, N=Math.floor(264/S);              // 4pxグリッドに粗視化
+  // 目標グリフのマスク(やや太らせて許容ゾーンを広げる)
+  var mc=document.createElement('canvas'); mc.width=264; mc.height=264; var mx=mc.getContext('2d');
+  mx.fillStyle='#000'; mx.textAlign='center'; mx.textBaseline='middle';
+  mx.font='190px "Hiragino Mincho ProN","Yu Mincho",serif';
+  mx.lineWidth=20; mx.strokeStyle='#000'; mx.lineJoin='round';
+  mx.strokeText(ch,132,140); mx.fillText(ch,132,140);   // fill+太stroke=太らせたマスク
+  var md=mx.getImageData(0,0,264,264).data;
+  var id=ctx.getImageData(0,0,264,264).data;
+  var ink=[], tgt=[];                          // 粗視化したブール配列
+  for(var gy=0;gy<N;gy++)for(var gx=0;gx<N;gx++){
+   var px=gx*S+(S>>1), py=gy*S+(S>>1), o=(py*264+px)*4;
+   var a=id[o+3], lum=(id[o]+id[o+1]+id[o+2])/3;
+   ink[gy*N+gx]=(a>180&&lum<110)?1:0;          // 濃いインクのみ(薄いお手本/十字線は除外)
+   tgt[gy*N+gx]=(md[o+3]>60)?1:0;
+  }
+  function dilate(arr){ var out=new Array(N*N).fill(0); var R=2;
+   for(var y=0;y<N;y++)for(var x=0;x<N;x++){ if(!arr[y*N+x])continue;
+    for(var dy=-R;dy<=R;dy++)for(var dx=-R;dx<=R;dx++){ var ny=y+dy,nx=x+dx;
+     if(ny>=0&&ny<N&&nx>=0&&nx<N)out[ny*N+nx]=1; } } return out; }
+  var dTgt=dilate(tgt), dInk=dilate(ink);
+  var inkTot=0,inkOn=0,tgtTot=0,tgtHit=0;
+  for(var i=0;i<N*N;i++){
+   if(ink[i]){ inkTot++; if(dTgt[i])inkOn++; }
+   if(tgt[i]){ tgtTot++; if(dInk[i])tgtHit++; }
+  }
+  var precision=inkTot?inkOn/inkTot:0;          // インクのうち文字の上にある割合
+  var coverage=tgtTot?tgtHit/tgtTot:0;          // 文字のうちなぞれた割合
+  return { shapeOk:(precision>=0.45&&coverage>=0.30), inkTot:inkTot, precision:precision, coverage:coverage };
+ }
  var wb=$('wBtns');
- wb.innerHTML='<div class="row" style="margin-bottom:8px"><button class="btn sub" id="bClr">けす</button>'+(test?'<button class="btn sub" id="bAns">こたえを みる</button>':'')+'</div><div class="row"><button class="btn" id="bGood">かけた ⭕</button><button class="btn soil" id="bBad">まちがえた</button></div>';
- $('bClr').addEventListener('click',function(){ bg(test?0:0.16) });
+ wb.innerHTML='<div class="row" style="margin-bottom:8px"><button class="btn sub" id="bClr">けす</button>'+(test?'<button class="btn sub" id="bAns">こたえを みる</button>':'')+'</div><div class="row"><button class="btn" id="bGood">かけた ⭕</button><button class="btn soil" id="bBad">まちがえた</button></div><div id="wNote" class="small" style="margin-top:6px;min-height:18px;color:var(--soil)"></div>';
+ $('bClr').addEventListener('click',function(){ bg(test?0:0.16); strokes=0; var nt=$('wNote'); if(nt)nt.textContent=''; });
  if(test)$('bAns').addEventListener('click',function(){ bg(0.3) });
- $('bGood').addEventListener('click',function(){ answered(true) });
+ $('bGood').addEventListener('click',function(){
+  var nt=$('wNote');
+  var kaku=HIRA_KAKU[ch];           // ひらがなのみ画数チェック(漢字フォールバックは対象外)
+  var j=judgeInk();
+  if(j.inkTot<30){ if(nt)nt.textContent='まだ かけてないみたい。「'+ch+'」を かいてみよう ✏️'; return; }
+  /* 画数チェック: 標準±1で寛容に。外れたら正しい画数を教える(学習にもなる) */
+  if(kaku&&(strokes<kaku-1||strokes>kaku+1)){
+   if(nt)nt.textContent='「'+ch+'」は '+kaku+'かく だよ。いまは '+strokes+'かく。ていねいに かいてみよう ✏️'; return;
+  }
+  /* 形チェック: お手本領域とのおおまかな重なり */
+  if(!j.shapeOk){ if(nt)nt.textContent='「'+ch+'」の かたちに なるように かいてみよう ✏️'; return; }
+  answered(true);
+ });
  $('bBad').addEventListener('click',function(){ answered(false) });
 }
 
