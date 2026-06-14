@@ -228,13 +228,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.41"></script>
-<script src="../shared/bugs.js?v=0.2.41"></script>
-<script src="../shared/render.js?v=0.2.41"></script>
-<script src="../shared/reward.js?v=0.2.41"></script>
-<script src="../shared/furigana.js?v=0.2.41"></script>
-<script src="../shared/yomi.js?v=0.2.41"></script>
-<script src="../shared/colloc.js?v=0.2.41"></script>
+<script src="../shared/storage.js?v=0.2.42"></script>
+<script src="../shared/bugs.js?v=0.2.42"></script>
+<script src="../shared/render.js?v=0.2.42"></script>
+<script src="../shared/reward.js?v=0.2.42"></script>
+<script src="../shared/furigana.js?v=0.2.42"></script>
+<script src="../shared/yomi.js?v=0.2.42"></script>
+<script src="../shared/colloc.js?v=0.2.42"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4161,6 +4161,7 @@ async function doDelProf(id,name){
    Uses module globals: P (current state), CURID, touchP().
    ======================================================================== */
 let GFID=1, GFIELD=FIELDS[0], KIDS=false, GWORDS=[];
+let EFMT='mix';        /* 出題形式: mix(おまかせ)/mc(4択)/spell/colloc */
 let S=null;            /* session state */
 let pendingCatch=null;
 
@@ -4199,6 +4200,10 @@ function renderStart(){
   <div class="card center">
     <div class="small">${info}</div>
     <div class="small" style="margin-top:6px">🐛採集ゲージ ${P.pool}/${Reward.NEED} (せいかいで たまる)</div>
+    ${KIDS?'':`<div class="small" style="margin-top:8px;font-weight:700">出題の かたち</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:4px 0 2px">
+    ${[['mix','🎲おまかせ'],['mc','📝4たく'],['spell','⌨️スペル'],['colloc','🔗ごほう']].map(f=>`<button class="chip" style="cursor:pointer;${EFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':''}" onclick="EFMT='${f[0]}';renderStart()">${f[1]}</button>`).join('')}
+    </div>`}
     <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${SESSION_N}もん)</button>
     ${(hasNushi&&!P.nushi[GFID])?`<button class="btn amber" onclick="startNushi()">👑 ヌシに ちょうせん (${KIDS?'10もん中9もん':'20もん中18もん'}せいかい)</button>`:''}
     <div class="small" style="margin-top:6px;opacity:.8">🍯こはくで よぶ は「むしずかん」から（30こで1ぴき）</div>
@@ -4250,9 +4255,13 @@ function buildMain(){
   return q;
 }
 function srsType(w){
-  const r=Math.random();
   const single = w.en && !/\s/.test(w.en);
   const seen = P.srs[w.key] && P.srs[w.key][0]>0;
+  /* 明示選択モード（不可能な語は4択にフォールバック） */
+  if(EFMT==='spell')  return (single&&seen)?'spell':'e2j';
+  if(EFMT==='colloc') return (seen&&window.COLLOC&&window.COLLOC[w.en])?'colloc':'e2j';
+  if(EFMT==='mc')     return Math.random()<0.5?'j2e':'e2j';
+  const r=Math.random();
   if(r<0.15&&w.ex&&new RegExp(stem(w.en),'i').test(w.ex)) return 'cloze';
   /* 語法/コロケーション(短文穴埋め・英検形式)。既習＋データがある語のみ */
   if(r<0.30&&seen&&window.COLLOC&&window.COLLOC[w.en]) return 'colloc';
