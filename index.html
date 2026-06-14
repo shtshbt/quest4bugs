@@ -118,12 +118,12 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
-<script src="./shared/storage.js?v=0.2.20"></script>
-<script src="./shared/bugs.js?v=0.2.20"></script>
-<script src="./shared/render.js?v=0.2.20"></script>
-<script src="./shared/reward.js?v=0.2.20"></script>
-<script src="./shared/furigana.js?v=0.2.20"></script>
-<script src="./shared/yomi.js?v=0.2.20"></script>
+<script src="./shared/storage.js?v=0.2.21"></script>
+<script src="./shared/bugs.js?v=0.2.21"></script>
+<script src="./shared/render.js?v=0.2.21"></script>
+<script src="./shared/reward.js?v=0.2.21"></script>
+<script src="./shared/furigana.js?v=0.2.21"></script>
+<script src="./shared/yomi.js?v=0.2.21"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
@@ -227,7 +227,7 @@ function clearCloud(){
   $("ghToken").value="";
   loadCloudUI();
 }
-var ICONS=["🪲","🐛","🦋","🐝","🐞","🦗","🐜","🦂"];
+var ICONS=["🪲","🐛","🦋","🐝","🐞","🦗","🐜","🦂","🐌","🐢","🦎","🐸","🐠","🐙","🦀","🐰","🐱","🐶","🦊","🐼","🐯","🦁","🐵","🦄"];
 function renderProfiles(){
   if(!window.QuestSave){$("profList").innerHTML='<p class="note">保存層が読み込めませんでした</p>';return;}
   QuestSave.profiles().then(function(ps){
@@ -305,27 +305,59 @@ function renderDashboard(pid,name){
     $("dashCard").style.display="";
   }).catch(function(){$("dashCard").style.display="none";});
 }
-function addProf(){
-  var nm=prompt("なまえを いれてね");
-  if(!nm||!nm.trim())return;
-  var ic=ICONS[Math.floor(Math.random()*ICONS.length)];
-  QuestSave.addProfile(nm.trim(),ic);
-  renderProfiles();
-}
-function editProf(id){
+function addProf(){ openProfEditor(null); }
+function editProf(id){ openProfEditor(id); }
+/* タップで選べるアイコングリッド付きの プロフィール エディタ（新規・編集 共通） */
+function openProfEditor(id){
   QuestSave.profiles().then(function(ps){
-    var p=null,i;for(i=0;i<ps.length;i++)if(ps[i].id===id)p=ps[i];
-    if(!p)return;
-    var act=prompt(p.name+" を どうする？\n1=なまえ へんこう\n2=アイコン へんこう\n3=さくじょ","1");
-    if(act==="1"){
-      var nm=prompt("あたらしい なまえ",p.name);
-      if(nm&&nm.trim()){p.name=nm.trim();QuestSave.saveProfiles(ps).then(renderProfiles);}
-    }else if(act==="2"){
-      var ic=prompt("アイコン（"+ICONS.join("")+" から1つ）",p.icon||"🪲");
-      if(ic){p.icon=ic.trim()||p.icon;QuestSave.saveProfiles(ps).then(renderProfiles);}
-    }else if(act==="3"){
-      if(confirm(p.name+" の きろくを けします。よいですか？")){QuestSave.deleteProfile(id);renderProfiles();}
+    var p=null,i; if(id)for(i=0;i<ps.length;i++)if(ps[i].id===id)p=ps[i];
+    var selected=p?(p.icon||"🪲"):ICONS[0];
+    var name=p?p.name:"";
+    function gridHTML(){
+      return ICONS.map(function(ic){
+        var on=ic===selected;
+        return '<button type="button" class="iconpick" data-ic="'+ic+'" style="font-size:26px;width:46px;height:46px;line-height:1;border-radius:12px;cursor:pointer;border:2px solid '+(on?"var(--green)":"var(--line)")+';background:'+(on?"var(--green-l)":"#fff")+'">'+ic+'</button>';
+      }).join("");
     }
+    var h='<div style="background:var(--panel);border-radius:18px;padding:18px;max-width:380px;width:94%;max-height:88vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)">'
+      +'<h3 style="margin:0 0 10px">'+(p?"プロフィールの へんこう":"あたらしい こ")+'</h3>'
+      +'<label class="note">なまえ</label>'
+      +'<input id="peName" placeholder="なまえ" style="width:100%">'
+      +'<div class="note" style="margin:8px 0 4px">アイコン（タップで えらぶ）</div>'
+      +'<div id="peGrid" style="display:flex;flex-wrap:wrap;gap:8px">'+gridHTML()+'</div>'
+      +'<div class="g2" style="margin-top:16px"><button class="btn sm amber" style="color:#fff" id="peSave">ほぞん</button>'
+      +'<button class="btn sm" id="peCancel">やめる</button></div>'
+      +(p?'<button class="btn sm" id="peDel" style="margin-top:8px;color:#C0392B;border-color:#E7B0A8">この こ を さくじょ</button>':"")
+      +'</div>';
+    var ov=document.createElement("div");
+    ov.id="profModal";
+    ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.45);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px";
+    ov.innerHTML=h;
+    document.body.appendChild(ov);
+    $("peName").value=name;
+    ov.querySelectorAll(".iconpick").forEach(function(b){
+      b.addEventListener("click",function(){
+        selected=b.getAttribute("data-ic");
+        ov.querySelectorAll(".iconpick").forEach(function(x){
+          var on=x.getAttribute("data-ic")===selected;
+          x.style.borderColor=on?"var(--green)":"var(--line)";
+          x.style.background=on?"var(--green-l)":"#fff";
+        });
+      });
+    });
+    function close(){var m=$("profModal");if(m)m.remove();}
+    ov.addEventListener("click",function(e){if(e.target===ov)close();});
+    $("peCancel").onclick=close;
+    $("peSave").onclick=function(){
+      var nm=$("peName").value.trim();
+      if(!nm){$("peName").focus();return;}
+      if(p)QuestSave.updateProfile(p.id,{name:nm,icon:selected});
+      else QuestSave.addProfile(nm,selected);
+      close(); renderProfiles();
+    };
+    if(p)$("peDel").onclick=function(){
+      if(confirm(p.name+" の きろくを けします。よいですか？\n（ほかの たんまつからも きえます）")){QuestSave.deleteProfile(p.id);close();renderProfiles();}
+    };
   });
 }
 loadCloudUI();
