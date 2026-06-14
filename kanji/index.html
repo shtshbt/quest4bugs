@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.28"></script>
-<script src="../shared/bugs.js?v=0.2.28"></script>
-<script src="../shared/render.js?v=0.2.28"></script>
-<script src="../shared/reward.js?v=0.2.28"></script>
-<script src="../shared/furigana.js?v=0.2.28"></script>
-<script src="../shared/yomi.js?v=0.2.28"></script>
+<script src="../shared/storage.js?v=0.2.29"></script>
+<script src="../shared/bugs.js?v=0.2.29"></script>
+<script src="../shared/render.js?v=0.2.29"></script>
+<script src="../shared/reward.js?v=0.2.29"></script>
+<script src="../shared/furigana.js?v=0.2.29"></script>
+<script src="../shared/yomi.js?v=0.2.29"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1516,7 +1516,9 @@ function startLearn(){ var q=buildDaily();
  SES={mode:'learn',q:q,i:0,ok:0,res:[],wrongs:[],before:{}};
  q.forEach(function(p){ SES.before[p.key+'|'+p.sk]=rec(p.key,p.sk).s });
  nextQ() }
-function startPractice(pairs,label){ pairs=shuffle(pairs).slice(0,10);
+function startPractice(pairs,label){
+ if(!pairs||!pairs.length){ modal('<div class="center"><div style="font-size:32px">🔍</div><div style="font-weight:bold;margin:8px 0">この はんい・かたちの もんだいが ないよ</div><div class="small">べつの かたち（おまかせ等）や はんいを えらんでね</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
+ pairs=shuffle(pairs).slice(0,10);
  if(!pairs.length){ modal('<div class="center">れんしゅうできる ものが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal(); SES={mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}; nextQ() }
 function startTest(id){ var tdef=TESTS[id]; var items=tdef.items(); var pairs=[];
@@ -1883,8 +1885,12 @@ function renderProgress(){
 
 //JS-MID2
 /* ================= はんいを えらぶ ================= */
+var RANGEFMT='mix';  /* 出題形式フィルタ: mix(おまかせ)/y(よみ)/r(えらぶ)/w(かき)/j(じゅくご)/o(おくりがな) */
 function pairsFor(keys){ var out=[];
- keys.forEach(function(key){ gatedSkills(key).forEach(function(sk){ out.push({key:key,sk:sk}) }) });
+ keys.forEach(function(key){
+  var sks = (RANGEFMT==='mix') ? gatedSkills(key) : (skillsOf(key).indexOf(RANGEFMT)>=0 ? [RANGEFMT] : []);
+  sks.forEach(function(sk){ out.push({key:key,sk:sk}) });
+ });
  return out }
 function weakPairs(){ var keys={};
  ST.wrong.forEach(function(w){ keys[w.k]=1 });
@@ -1892,7 +1898,13 @@ function weakPairs(){ var keys={};
  return pairsFor(Object.keys(keys)) }
 function renderRange(){ var s=$('scr-range');
  var h='<button class="btn sub mini" id="bBk1">← ホーム</button>'
- +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">はんいを えらんで れんしゅう</div><div class="small" style="margin-bottom:10px">れんしゅうでは ステージは あがらない（まちがえると さがる）</div>';
+ +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">はんいを えらんで れんしゅう</div><div class="small" style="margin-bottom:6px">れんしゅうでは ステージは あがらない（まちがえると さがる）</div>';
+ /* 出題形式セレクタ（範囲ボタンに適用） */
+ h+='<div class="small" style="margin:2px 0 4px;font-weight:700">出題の かたち（とくに ✏️かき が だいじ）</div>'
+   +'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">'
+   +[['mix','🎲おまかせ'],['y','📖よみ'],['w','✏️かき'],['j','🔤じゅくご'],['o','〜おくりがな']].map(function(f){
+     return '<button class="btn sub mini" style="margin:0;'+(RANGEFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':'')+'" onclick="RANGEFMT=\''+f[0]+'\';renderRange()">'+f[1]+'</button>'; }).join('')
+   +'</div>';
  if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ</button>';
  var _anyLock=false;
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
