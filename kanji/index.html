@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.46"></script>
-<script src="../shared/bugs.js?v=0.2.46"></script>
-<script src="../shared/render.js?v=0.2.46"></script>
-<script src="../shared/reward.js?v=0.2.46"></script>
-<script src="../shared/furigana.js?v=0.2.46"></script>
-<script src="../shared/yomi.js?v=0.2.46"></script>
+<script src="../shared/storage.js?v=0.2.47"></script>
+<script src="../shared/bugs.js?v=0.2.47"></script>
+<script src="../shared/render.js?v=0.2.47"></script>
+<script src="../shared/reward.js?v=0.2.47"></script>
+<script src="../shared/furigana.js?v=0.2.47"></script>
+<script src="../shared/yomi.js?v=0.2.47"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1730,6 +1730,7 @@ function endSession(){
 
 function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.res.length;
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
+ var wasPassed=passed(id); /* この回より前に すでに合格済みか（周回判定）。unshift の前に捕捉 */
  ST.tests.unshift({d:t,t:id,sc:sc,n:total,w:SES.wrongs.map(function(p){return p.key})});
  if(ST.tests.length>40)ST.tests.length=40;
  var pass=(sc>=80), gold=(sc>=95), gainedCatches=[];
@@ -1753,15 +1754,19 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
   if(window.Q4BReward){
    var pool2=Q4BReward.pool('kanji');
    if(pool2&&pool2.length){
-    if(isExam){
-     // 受験テスト合格: レア確定だが重み付き（SSはちゃんと希少）
+    if(wasPassed){
+     // すでに合格済みチャレンジの周回: 報酬ディスカウント（レア確定・きんボーナスなし＝通常採集1匹のみ）
+     var dc=Q4BReward.award(ST.coll,'kanji');  // 重み付き（ほぼノーマル）。SR量産ルートを封じる
+     if(dc)gainedCatches.push(dc);
+    } else if(isExam){
+     // 初回の受験テスト合格: レア確定だが重み付き（SSはちゃんと希少）
      var ec=Q4BReward.award(ST.coll,'kanji',1,1);
      if(ec)gainedCatches.push(ec);
     } else {
-     var rc=Q4BReward.award(ST.coll,'kanji');  // 通常合格: 重み付き（多くはノーマル）
+     var rc=Q4BReward.award(ST.coll,'kanji');  // 初回の通常合格: 重み付き（多くはノーマル）
      if(rc)gainedCatches.push(rc);
      if(gold){
-      // きん合格ボーナス: もう1匹（レア確定・重み付き）
+      // 初回きん合格ボーナス: もう1匹（レア確定・重み付き）
       var gc=Q4BReward.award(ST.coll,'kanji',1,1);
       if(gc)gainedCatches.push(gc);
      }
@@ -1779,6 +1784,7 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
   else { h+='<div class="result-big">🍂</div><div style="font-weight:bold;font-size:20px">あと すこし！</div>' }
  }
  h+='<div class="qmid">'+sc+' てん（⭕'+SES.ok+'／'+total+'）</div>';
+ if(pass&&wasPassed){ h+='<div class="small" style="color:var(--sub)">✅ クリアずみの チャレンジ：ごほうびは ひかえめだよ。あたらしい がくねんに ちょうせんしよう！</div>'; }
  if(gainedCatches.length&&window.Q4BReward){ h+='<div class="small">🧺 つかまえた！</div><div class="bugs" style="margin:8px 0">';
   gainedCatches.forEach(function(got){
    if(!got)return;

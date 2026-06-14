@@ -173,6 +173,11 @@
   var RANKS = [[0,"かけだし虫とり"],[20,"みならい虫とり"],[60,"いちにんまえの虫とり"],
     [140,"ベテラン虫とり"],[300,"虫とりのたつじん"],[600,"でんせつの虫はかせ"]];
   function rank(total){ var r=RANKS[0][1]; for(var i=0;i<RANKS.length;i++){ if((total||0)>=RANKS[i][0]) r=RANKS[i][1]; } return r; }
+  /* 全ゲーム合計の捕獲数で決まる「総合称号」（しきい値を合計向けにスケール）。ポータル用。 */
+  var RANKS_G = [[0,"かけだし虫とり"],[50,"みならい虫とり"],[150,"いちにんまえの虫とり"],
+    [400,"ベテラン虫とり"],[900,"虫とりのたつじん"],[2000,"でんせつの虫はかせ"]];
+  function rankGlobal(total){ var r=RANKS_G[0][1]; for(var i=0;i<RANKS_G.length;i++){ if((total||0)>=RANKS_G[i][0]) r=RANKS_G[i][1]; } return r; }
+  function rankGlobalNext(total){ for(var i=0;i<RANKS_G.length;i++){ if((total||0)<RANKS_G[i][0]) return {name:RANKS_G[i][1], need:RANKS_G[i][0]-(total||0)}; } return null; }
   /* 称号一覧: 獲得済み(過去＋現在)を表示。未来の名前は伏せ、つぎまでの匹数だけ示す。 */
   function rankListHTML(total){
     total = total||0;
@@ -246,6 +251,8 @@
     collectedCount: collectedCount,
     rank: rank,
     rankListHTML: rankListHTML,
+    rankGlobal: rankGlobal,
+    rankGlobalNext: rankGlobalNext,
     svg: svg,
     netSwing: netSwing,
     statusHTML: statusHTML,
