@@ -228,13 +228,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.38"></script>
-<script src="../shared/bugs.js?v=0.2.38"></script>
-<script src="../shared/render.js?v=0.2.38"></script>
-<script src="../shared/reward.js?v=0.2.38"></script>
-<script src="../shared/furigana.js?v=0.2.38"></script>
-<script src="../shared/yomi.js?v=0.2.38"></script>
-<script src="../shared/colloc.js?v=0.2.38"></script>
+<script src="../shared/storage.js?v=0.2.39"></script>
+<script src="../shared/bugs.js?v=0.2.39"></script>
+<script src="../shared/render.js?v=0.2.39"></script>
+<script src="../shared/reward.js?v=0.2.39"></script>
+<script src="../shared/furigana.js?v=0.2.39"></script>
+<script src="../shared/yomi.js?v=0.2.39"></script>
+<script src="../shared/colloc.js?v=0.2.39"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3435,12 +3435,12 @@ function scrHome(){
         let started=0,frac=0,learned=0;
         words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; frac+=Math.min(2,k[1])/2; if(k[1]>=2)learned++;});
         prog=words.length?learned/words.length:0; /* 単純な習得率 */
-        progTxt=`はじめた ${started}/${words.length}・おぼえた ${learned}`;
+        progTxt=`がくしゅうちゅう ${started}/${words.length}・おぼえた ${learned}`;
       } else {
         let started=0,frac=0,m=0;
         words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; frac+=Math.min(3,s[0])/3; if(s[0]>=3)m++;});
         prog=words.length?m/words.length:0; /* 単純な習得率 */
-        progTxt=`はじめた ${started}/${words.length}・しゅうとく ${m}`;
+        progTxt=`がくしゅうちゅう ${started}/${words.length}・しゅうとく ${m}`;
       }
     }
     h+=f.open
@@ -3641,7 +3641,7 @@ function scrProgress(){
         </div>
         <div style="text-align:right;font-size:13px;font-weight:800;white-space:nowrap">
           すすみ <span style="color:${barColor}">${pct}%</span>
-          <div style="font-size:11px;color:var(--sub);font-weight:700">はじめた ${started}/${total}・マスター ${mastered}</div>
+          <div style="font-size:11px;color:var(--sub);font-weight:700">がくしゅうちゅう ${started}/${total}・マスター ${mastered}</div>
         </div>
       </div>
       <div style="height:10px;background:rgba(0,0,0,.08);border-radius:999px;overflow:hidden">
