@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.40"></script>
-<script src="../shared/bugs.js?v=0.2.40"></script>
-<script src="../shared/render.js?v=0.2.40"></script>
-<script src="../shared/reward.js?v=0.2.40"></script>
-<script src="../shared/furigana.js?v=0.2.40"></script>
-<script src="../shared/yomi.js?v=0.2.40"></script>
+<script src="../shared/storage.js?v=0.2.41"></script>
+<script src="../shared/bugs.js?v=0.2.41"></script>
+<script src="../shared/render.js?v=0.2.41"></script>
+<script src="../shared/reward.js?v=0.2.41"></script>
+<script src="../shared/furigana.js?v=0.2.41"></script>
+<script src="../shared/yomi.js?v=0.2.41"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1553,7 +1553,7 @@ function answered(ok){ var p=SES.q[SES.i];
 function showCatchModal(got){
  if(!window.Q4BReward)return;
  var sp=got.sp;
- var svgHtml=Q4BReward.svg(sp);
+ var svgHtml=Q4BReward.svg(sp,got.shiny);
  var badges='';
  if(got.isNew)badges+='<span style="background:#e8f5e9;color:#2e7d32;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ NEW！</span>';
  if(got.isRecord&&!got.isNew)badges+='<span style="background:#fff8e1;color:#f57f17;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">🏆 じこベスト！</span>';
@@ -1785,7 +1785,7 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
    var sp=got.sp;
    var shinyB=got.shiny?'✨':'';
    var newB=got.isNew?'<span style="font-size:10px;color:#2e7d32">NEW</span>':'';
-   h+='<div class="bug">'+Q4BReward.svg(sp)+'<div class="nm">'+(sp.jaName||sp.id)+shinyB+newB+'</div><div class="rar">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp)]+'</div></div>' });
+   h+='<div class="bug">'+Q4BReward.svg(sp,got.shiny)+'<div class="nm">'+(sp.jaName||sp.id)+shinyB+newB+'</div><div class="rar">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp)]+'</div></div>' });
   h+='</div>' }
  if(!pass){ h+='<div class="small">3にち ごに さいチャレンジが とどくよ</div>';
   if(SES.wrongs.length)h+='<button class="btn soil" id="bRev" style="margin-top:10px">まちがえた もじを れんしゅう</button>' }
@@ -2043,7 +2043,7 @@ function renderBugs(){
   if(entry){
    var shinyBadge=entry.shiny?'<span style="font-size:10px">✨</span>':'';
    h+='<div class="bug" data-spid="'+sp.id+'">'
-    +Q4BReward.svg(sp)
+    +Q4BReward.svg(sp,entry.shiny)
     +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'
     +'<div class="rar">'+tierLabel+'</div>'
     +'<div style="font-size:10px;color:#888">'+entry.max+'mm</div>'
@@ -2070,7 +2070,7 @@ function renderBugs(){
    var shinyBadge=entry2.shiny?'✨':' ';
    var szr=Q4BReward.sizeRange(sp2);
    var mh='<div class="center">'
-    +'<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2)+'</div>'
+    +'<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2,entry2.shiny)+'</div>'
     +'<div style="font-weight:bold;font-size:16px">'+(sp2.jaName||sp2.id)+shinyBadge+'</div>'
     +(sp2.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+sp2.scientificName+'</div>':'')
     +(sp2.familyJa?'<div style="font-size:12px;color:#56714e">'+sp2.familyJa+'</div>':'')

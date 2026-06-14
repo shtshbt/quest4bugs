@@ -212,7 +212,7 @@
   }
 
   /* ---- rendering helper (uses shared/render.js if present) ---- */
-  function svg(sp){ return (global.Q4BRender ? global.Q4BRender.species(sp) : ""); }
+  function svg(sp, shiny){ return (global.Q4BRender ? global.Q4BRender.species(sp, shiny) : ""); }
 
   /* 全ゲーム共通のステータスバー（図鑑数・こはく・連続日数・称号）。
      各ゲームが自分のデータから値を渡す: {caught, pool, amber, streak, total} */

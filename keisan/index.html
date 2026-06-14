@@ -179,12 +179,12 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.40"></script>
-<script src="../shared/bugs.js?v=0.2.40"></script>
-<script src="../shared/render.js?v=0.2.40"></script>
-<script src="../shared/reward.js?v=0.2.40"></script>
-<script src="../shared/furigana.js?v=0.2.40"></script>
-<script src="../shared/yomi.js?v=0.2.40"></script>
+<script src="../shared/storage.js?v=0.2.41"></script>
+<script src="../shared/bugs.js?v=0.2.41"></script>
+<script src="../shared/render.js?v=0.2.41"></script>
+<script src="../shared/reward.js?v=0.2.41"></script>
+<script src="../shared/furigana.js?v=0.2.41"></script>
+<script src="../shared/yomi.js?v=0.2.41"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -561,7 +561,7 @@ function showZukan(){
     h+='<div class="zc r'+tier+(rec?"":" ")+'" onclick="openBugNew(\''+sp.id+'\')">';
     if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
     if(rec){
-      h+='<div class="bs">'+Q4BReward.svg(sp)+'</div>';
+      h+='<div class="bs">'+Q4BReward.svg(sp,rec.shiny)+'</div>';
       h+='<div class="nm">'+esc(sp.jaName)+(rec.shiny?'✨':"")+'</div>';
     }else{
       h+='<div class="bs sil">'+Q4BReward.svg(sp)+'</div>';
@@ -587,7 +587,7 @@ function openBugNew(spId){
       +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span></p>';
   }else{
     var sz=Q4BReward.sizeRange(sp);
-    inner='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp)+'</div>'
+    inner='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp,rec.shiny)+'</div>'
       +'<h3>'+esc(sp.jaName)+(rec.shiny?'　✨':"")+'</h3>'
       +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>　×'+rec.n+'</p>'
       +'<p style="font-size:14px;color:var(--sub)">最大 <b>'+rec.max+'mm</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
@@ -649,7 +649,7 @@ function showCapture(i,extraMsg,presetGot){
       var h='<div class="scr">'+topBar();
       h+='<div class="card center"><h2>つかまえた！</h2>'+(extraMsg?'<p style="color:var(--amber-d);font-weight:700">'+extraMsg+'</p>':"")
         +'<div class="flipwrap"><div class="flip">'
-        +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp)+'</div>'
+        +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp,got.shiny)+'</div>'
         +'<div class="bn">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>'
         +'<span class="note">'+got.size+'mm</span>'+tag+'</div>'
         +'<div class="face back"><span style="font-size:50px">🧺</span></div>'
@@ -1462,7 +1462,7 @@ function showKeiCatch(got){
   if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md"><div class="mcard" style="text-align:center">'
     +'<div style="font-weight:800;font-size:18px">🧺 つかまえた！</div>'
-    +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
+    +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp,got.shiny)+'</div>'
     +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
     +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
     +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"")

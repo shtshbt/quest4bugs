@@ -228,13 +228,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.40"></script>
-<script src="../shared/bugs.js?v=0.2.40"></script>
-<script src="../shared/render.js?v=0.2.40"></script>
-<script src="../shared/reward.js?v=0.2.40"></script>
-<script src="../shared/furigana.js?v=0.2.40"></script>
-<script src="../shared/yomi.js?v=0.2.40"></script>
-<script src="../shared/colloc.js?v=0.2.40"></script>
+<script src="../shared/storage.js?v=0.2.41"></script>
+<script src="../shared/bugs.js?v=0.2.41"></script>
+<script src="../shared/render.js?v=0.2.41"></script>
+<script src="../shared/reward.js?v=0.2.41"></script>
+<script src="../shared/furigana.js?v=0.2.41"></script>
+<script src="../shared/yomi.js?v=0.2.41"></script>
+<script src="../shared/colloc.js?v=0.2.41"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2314,7 +2314,257 @@ const FIELD5RAW=[
 ["facial recognition","顔認証","The phone uses facial recognition to unlock the screen.","名"],
 ["sustainability","持続可能性","Using less plastic is good for sustainability.","名"],
 ["server farm","データセンター，サーバー群","A huge server farm stores all the videos we watch online.","名"],
-["open source","オープンソース，無料で公開された","Many programmers build apps using open source software.","形"]
+["open source","オープンソース，無料で公開された","Many programmers build apps using open source software.","形"],
+["windmill","風車","The windmill turns and makes electricity.","名"],
+["turbine","タービン，風力発電機","The wind turbine spins all day.","名"],
+["hydrogen","水素","Some cars run on hydrogen.","名"],
+["geothermal","地熱の","Geothermal power comes from heat in the earth.","形"],
+["hydropower","水力発電","Hydropower uses moving water to make energy.","名"],
+["biomass","バイオマス，生物燃料","Biomass can be made from old plants.","名"],
+["solar panel","太陽光パネル","A solar panel turns sunlight into power.","名"],
+["emit","排出する，出す","Cars emit a lot of smoke.","動"],
+["pollutant","汚染物質","Factories release pollutants into the air.","名"],
+["contamination","汚染","Oil caused contamination of the river.","名"],
+["sewage","下水，汚水","Sewage should be cleaned before it goes to the sea.","名"],
+["compost","堆肥","We make compost from food scraps.","名"],
+["reuse","再利用する","Please reuse this plastic bottle.","動"],
+["biodegradable","生分解性の","This bag is biodegradable and breaks down in soil.","形"],
+["recyclable","再生利用できる","Glass bottles are recyclable.","形"],
+["reforestation","森林再生，再植林","Reforestation brings forests back to life.","名"],
+["extinction","絶滅","Many animals face extinction today.","名"],
+["endangered","絶滅の危機にある","Pandas are an endangered animal.","形"],
+["glacier","氷河","The glacier is melting because of warm weather.","名"],
+["sea level","海面，海水面","The sea level is slowly rising.","名"],
+["wildfire","山火事","A wildfire burned the dry forest.","名"],
+["flood","洪水","Heavy rain caused a big flood.","名"],
+["typhoon","台風","A strong typhoon hit the coast.","名"],
+["heatwave","熱波，猛暑","The heatwave made the city very hot.","名"],
+["scarcity","不足，欠乏","Water scarcity is a serious problem.","名"],
+["depletion","枯渇，消耗","The depletion of oil worries many people.","名"],
+["footprint","足跡，環境負荷","We should make our carbon footprint smaller.","名"],
+["neutrality","中立，ニュートラル","The country aims for carbon neutrality.","名"],
+["resilient","回復力のある，強い","A resilient city can recover from disasters.","形"],
+["mitigate","和らげる，軽減する","We must mitigate the effects of climate change.","動"],
+["preservation","保護，保存","Forest preservation helps many animals.","名"],
+["restoration","修復，回復","The restoration of the river took many years.","名"],
+["ecological","生態的な，環境の","Pollution causes ecological damage.","形"],
+["environmental","環境の","Environmental problems affect everyone.","形"],
+["grid","送電網，電力網","Solar power feeds into the city grid.","名"],
+["wetland","湿地","Many birds live in the wetland.","名"],
+["reservoir","貯水池","The reservoir stores water for the city.","名"],
+["groundwater","地下水","We pump groundwater for the farm.","名"],
+["smog","スモッグ，煙霧","Thick smog covered the busy city.","名"],
+["ozone","オゾン","The ozone layer protects us from the sun.","名"],
+["rainforest","熱帯雨林","Many plants grow in the rainforest.","名"],
+["permafrost","永久凍土","The permafrost is melting in the north.","名"],
+["methane","メタン","Cows produce a gas called methane.","名"],
+["insulation","断熱，断熱材","Good insulation keeps the house warm.","名"],
+["nuclear","原子力の，核の","Nuclear power makes a lot of energy.","形"],
+["coal","石炭","Burning coal makes a lot of smoke.","名"],
+["petroleum","石油","Plastic is made from petroleum.","名"],
+["decompose","分解する，腐る","Fruit will decompose in the soil.","動"],
+["watershed","流域，分水嶺","The forest protects the watershed.","名"],
+["clean energy","クリーンエネルギー","Clean energy does not pollute the air.","名"],
+["calorie","カロリー，熱量","This snack has a lot of calories.","名"],
+["vitamin","ビタミン","Oranges are full of vitamin C.","名"],
+["bandage","包帯","The nurse put a bandage on my cut.","名"],
+["fever","発熱，熱","He stayed home because of a fever.","名"],
+["cough","せき，せきをする","She has a bad cough today.","名"],
+["clinic","診療所，クリニック","I went to the clinic for a checkup.","名"],
+["patient","患者","The doctor sees many patients each day.","名"],
+["nurse","看護師","The nurse gave me a glass of water.","名"],
+["dentist","歯科医，歯医者","I visit the dentist twice a year.","名"],
+["pill","錠剤，丸薬","He took a pill for his headache.","名"],
+["medicine","薬，医学","Please take this medicine after meals.","名"],
+["healthy","健康な，健全な","Eating vegetables keeps you healthy.","形"],
+["illness","病気","Rest is important during an illness.","名"],
+["disease","病気，疾患","Washing hands helps stop disease.","名"],
+["pain","痛み，苦痛","I felt a sharp pain in my arm.","名"],
+["injury","けが，負傷","He missed the game due to an injury.","名"],
+["recover","回復する，治る","She will recover in a few days.","動"],
+["cure","治す，治療","This medicine can cure the illness.","動"],
+["treatment","治療，処置","The treatment helped him feel better.","名"],
+["surgery","手術","The surgery took three hours.","名"],
+["blood","血，血液","The doctor tested my blood.","名"],
+["heart","心臓，心","Exercise is good for your heart.","名"],
+["brain","脳","Sleep helps your brain rest.","名"],
+["bone","骨","Milk helps build strong bones.","名"],
+["skin","肌，皮膚","Use cream to protect your skin.","名"],
+["stomach","胃，おなか","My stomach hurts after eating too much.","名"],
+["lung","肺","Smoking is bad for your lungs.","名"],
+["diet","食事，ダイエット","A balanced diet keeps you strong.","名"],
+["exercise","運動，練習","Daily exercise makes you healthy.","名"],
+["rest","休息，休む","You need rest when you are sick.","名"],
+["sick","病気の，気分が悪い","I feel sick and want to lie down.","形"],
+["checkup","健康診断，検診","I had a checkup at the hospital.","名"],
+["ache","痛み，うずく","My head began to ache at night.","名"],
+["sore","痛い，ひりひりする","My throat is sore this morning.","形"],
+["sneeze","くしゃみ，くしゃみをする","I sneeze a lot in spring.","動"],
+["tablet","錠剤","Swallow the tablet with water.","名"],
+["vision","視力，視覚","Carrots are good for your vision.","名"],
+["breath","息，呼吸","Take a deep breath and relax.","名"],
+["weight","体重，重さ","He checks his weight every week.","名"],
+["fitness","健康，体力","She goes to the gym for fitness.","名"],
+["hospital","病院","The hospital is near the station.","名"],
+["doctor","医者，博士","The doctor told me to drink water.","名"],
+["meal","食事","We eat three meals a day.","名"],
+["fat","脂肪，太った","Too much fat is not good for you.","名"],
+["sugar","砂糖，糖分","Too much sugar can harm your teeth.","名"],
+["throat","のど","My throat hurts when I swallow.","名"],
+["dizzy","めまいがする","I felt dizzy after standing up fast.","形"],
+["hurt","傷つける，痛む","Be careful not to hurt your knee.","動"],
+["immunity","免疫，免疫力","Sleep and good food help build immunity against germs.","名"],
+["wellness","健康，健康な状態","Eating well and moving every day is good for your wellness.","名"],
+["inequality","不平等，格差","Many people are working to reduce inequality in society.","名"],
+["immigration","移民，入国","Immigration has changed the culture of many cities.","名"],
+["aging","高齢化，老化","Japan faces problems caused by an aging population.","名"],
+["urbanization","都市化","Urbanization causes many people to move to big cities.","名"],
+["injustice","不公正，不正義","People marched to protest against social injustice.","名"],
+["homeless","ホームレスの，家のない","The city built shelters for homeless people.","形"],
+["hunger","飢え，空腹","Charities work hard to end world hunger.","名"],
+["unemployment","失業","Unemployment rose sharply during the crisis.","名"],
+["gender","性別，ジェンダー","The law promotes gender equality at work.","名"],
+["racism","人種差別","Racism has no place in a fair society.","名"],
+["inclusion","包摂，受け入れ","The school promotes the inclusion of all students.","名"],
+["tolerance","寛容","Tolerance helps people of different cultures live together.","名"],
+["empower","権限を与える，力づける","Education can empower women to find good jobs.","動"],
+["marginalize","疎外する","Society should not marginalize poor families.","動"],
+["asylum","亡命，避難所","The family sought asylum in a safe country.","名"],
+["migrant","移住者","Many migrants travel far to find work.","名"],
+["deport","国外追放する","The government tried to deport the workers.","動"],
+["humanitarian","人道的な","They sent humanitarian aid to the disaster area.","形"],
+["activist","活動家","The activist spoke about human rights.","名"],
+["campaigner","運動家","The campaigner fought for cleaner water.","名"],
+["donor","寄付者，提供者","A kind donor gave money to the school.","名"],
+["orphanage","孤児院","She volunteers at a local orphanage.","名"],
+["slum","スラム街，貧民街","Many families live in crowded slums.","名"],
+["underprivileged","恵まれない","The program helps underprivileged children learn.","形"],
+["wealthy","裕福な","Wealthy nations often help poorer ones.","形"],
+["affluent","豊かな，富裕な","They live in an affluent part of the city.","形"],
+["needy","貧しい，困窮した","Volunteers brought meals to needy families.","形"],
+["inclusive","包括的な，誰もが参加できる","We want an inclusive society for everyone.","形"],
+["multicultural","多文化の","Our school is a multicultural community.","形"],
+["oppression","抑圧","The people rose up against years of oppression.","名"],
+["liberation","解放","The movement fought for the liberation of slaves.","名"],
+["equity","公平，公正","The plan aims to bring equity to all workers.","名"],
+["fairness","公平さ","Fairness is important in every game and law.","名"],
+["birthrate","出生率","A low birthrate can lead to an aging society.","名"],
+["caregiver","介護者，世話をする人","A caregiver looks after the elderly woman.","名"],
+["nursing","看護，介護","Many old people live in a nursing home.","名"],
+["accessibility","利用しやすさ，アクセスのしやすさ","The city improved accessibility for wheelchair users.","名"],
+["exploitation","搾取","Laws protect workers from exploitation.","名"],
+["majority","多数派，大多数","The majority voted for a fairer system.","名"],
+["shelter","避難所，住まい","The shelter gives food and beds to the poor.","名"],
+["starvation","餥死，飢え","Aid workers tried to prevent starvation in the region.","名"],
+["outcast","のけ者，追放された人","He felt like an outcast in the new town.","名"],
+["coexist","共存する","People of many faiths can coexist in peace.","動"],
+["civic","市民の，都市の","Voting is an important civic duty.","形"],
+["disadvantaged","恵まれない，不利な立場の","The charity supports disadvantaged families.","形"],
+["prejudiced","偏見を持った，先入観のある","We should not be prejudiced against people from other countries.","形"],
+["livelihood","生計，暮らし","The new factory provides a livelihood for many poor families.","名"],
+["integration","統合，融合","The integration of immigrants into society takes time and effort.","名"],
+["prosperity","繁栄，豊かさ","Education brings prosperity to a whole nation.","名"],
+["empowerment","権限の付与，自立支援","The empowerment of women helps the entire community grow.","名"],
+["headline","見出し，大見出し","The headline of the news article was very surprising.","名"],
+["editor","編集者，編集長","The editor decided which stories to print today.","名"],
+["reporter","記者，レポーター","A reporter asked the mayor many questions.","名"],
+["newspaper","新聞","My grandfather reads the newspaper every morning.","名"],
+["magazine","雑誌","She bought a magazine about science at the store.","名"],
+["channel","チャンネル，経路","Please change the channel to watch the news.","名"],
+["viewer","視聴者","Many viewers watched the show last night.","名"],
+["audience","観客，聴衆","The audience listened carefully to the speech.","名"],
+["interview","インタビュー，面接","The famous singer gave an interview on TV.","名"],
+["comment","コメント，意見","People left many comments under the video.","名"],
+["rumor","うわさ","Do not believe every rumor you hear online.","名"],
+["fact","事実","It is important to check the facts before sharing.","名"],
+["opinion","意見，考え","Everyone has a different opinion about the movie.","名"],
+["truth","真実","We always try to find out the truth.","名"],
+["false","うその，間違った","The website shared false information about the event.","形"],
+["trust","信用する，信頼","You can trust this news because it is well known.","動"],
+["believe","信じる","Do not believe everything you read on the internet.","動"],
+["publish","出版する，掲載する","The company will publish the report next week.","動"],
+["report","報道する，報告","The news will report the results of the game.","動"],
+["warn","警告する","The TV news warned people about the storm.","動"],
+["inform","知らせる","The website will inform you of any changes.","動"],
+["comparison","比較","A comparison of the two reports shows clear differences.","名"],
+["viral","急速に広まる","The funny video went viral in just one day.","形"],
+["popular","人気のある","This show is popular among young people.","形"],
+["public","公の，一般の","The news is open to the public for free.","形"],
+["private","個人の，私的な","Keep your private information safe online.","形"],
+["fair","公平な","The article gave a fair view of both sides.","形"],
+["website","ウェブサイト","This website shares news from around the world.","名"],
+["doubt","疑う，疑い","I doubt that this news is really true.","動"],
+["judge","判断する","You must judge if the source is reliable.","動"],
+["audience rating","視聴率","The new show got a high audience rating.","名"],
+["slogan","標語，宣伝文句","The advertisement used a catchy slogan.","名"],
+["poster","ポスター","A poster on the wall advertised the new movie.","名"],
+["commercial","コマーシャル，広告放送","A long commercial played before the video started.","名"],
+["survey","調査，アンケート","The news showed the results of a public survey.","名"],
+["headline news","トップニュース","The storm was the headline news this morning.","名"],
+["edit","編集する","They will edit the video before posting it.","動"],
+["trend","流行，傾向","This topic became a big trend on social media.","名"],
+["freedom of speech","言論の自由","Freedom of speech lets people share their ideas.","熟"],
+["critical thinking","批判的思考","Critical thinking helps you find the truth.","熟"],
+["misinformation","誤った情報，デマ","A lot of misinformation spreads quickly on the internet.","名"],
+["journalism","報道，ジャーナリズム","Good journalism helps people learn the truth.","名"],
+["advertisement","広告","I saw an advertisement for a new game on TV.","名"],
+["censorship","検閲","Some countries use censorship to hide the news.","名"],
+["propaganda","宣伝，プロパガンダ","The government used propaganda to change people's minds.","名"],
+["influencer","インフルエンサー","The influencer told her fans to buy the new shoes.","名"],
+["broadcast","放送する，放送","They will broadcast the game live tonight.","動"],
+["deception","だますこと，欺き","The fake news was full of deception.","名"],
+["mislead","誤解させる，惑わす","A false headline can mislead many readers.","動"],
+["distort","歪める，曲げて伝える","Some articles distort the facts to get attention.","動"],
+["salary","給料","She gets her salary at the end of every month.","名"],
+["income","収入，所得","His income is enough to support his family.","名"],
+["expense","費用，経費","We need to cut down on travel expenses.","名"],
+["profit","利益，もうけ","The company made a big profit this year.","名"],
+["loss","損失，赤字","The store had a loss last month.","名"],
+["market","市場","There is a strong market for new phones.","名"],
+["customer","客，顧客","The shop has many happy customers.","名"],
+["product","製品，商品","This product is very popular among young people.","名"],
+["service","サービス，接客","The hotel is famous for its good service.","名"],
+["company","会社","He works for a large car company.","名"],
+["factory","工場","The factory makes thousands of cars a day.","名"],
+["office","事務所，会社","She goes to the office by train every day.","名"],
+["manager","部長，管理者","The manager praised her hard work.","名"],
+["employee","従業員，社員","The company has over 500 employees.","名"],
+["employer","雇い主，雇用者","A good employer treats workers fairly.","名"],
+["hire","雇う","The shop will hire more workers in summer.","動"],
+["manage","経営する，管理する","She manages a small coffee shop.","動"],
+["earn","稼ぐ，得る","He earns money by teaching English.","動"],
+["pay","支払う，給料","You can pay for the book by card.","動"],
+["sell","売る","They sell fresh fruit at the market.","動"],
+["buy","買う","I want to buy a new bag for school.","動"],
+["trade","貿易，取引する","The two countries trade with each other.","名"],
+["business","商売，事業","He started a small business at home.","名"],
+["price","価格，値段","The price of rice went up last year.","名"],
+["cost","費用，かかる","The trip will cost a lot of money.","名"],
+["tax","税金","People pay tax to the government.","名"],
+["bank","銀行","She saves her money in the bank.","名"],
+["save","貯める，節約する","I save a little money every week.","動"],
+["spend","使う，費やす","He spends too much money on games.","動"],
+["wealth","富，財産","His family gained great wealth.","名"],
+["goods","商品，品物","The truck carries goods to the city.","名"],
+["value","価値","This old coin has great value.","名"],
+["interest","利子，関心","The bank pays interest on your savings.","名"],
+["loan","融資，貸付金","They took a loan to buy a house.","名"],
+["meeting","会議，打ち合わせ","We have a meeting at ten o'clock.","名"],
+["project","計画，事業","Our team finished the project on time.","名"],
+["task","仕事，作業","Each worker has a different task.","名"],
+["goal","目標","Her goal is to open her own shop.","名"],
+["profitable","もうかる，有益な","The new plan was very profitable.","形"],
+["expensive","高価な","This watch is too expensive for me.","形"],
+["cheap","安い","These shoes are cheap but good.","形"],
+["competition","競争","There is strong competition between shops.","名"],
+["advertise","宣伝する","They advertise the new game on TV.","動"],
+["merger","合併，合同","The two banks announced a big merger last year.","名"],
+["shareholder","株主","Each shareholder voted on the company's new plan.","名"],
+["invoice","請求書","Please send the invoice to our office by Friday.","名"],
+["overtime","残業，時間外労働","He worked overtime to finish the project.","名"],
+["promotion","昇進，宣伝","She got a promotion to manager last month.","名"],
+["negotiation","交渉","The two companies began a long negotiation about the price.","名"],
+["teamwork","チームワーク，協力","Good teamwork helped the staff finish the project on time.","名"]
 ];
 const PRE1RAW=[
 ["abolish","廃止する","The government decided to abolish the old tax law.","v."],
@@ -3044,11 +3294,11 @@ function buildSpecies(){
   ALLSP=[...SPECIES,...NUSHI];
 }
 /* Return SVG for a species row sp, fallback to emoji if renderer unavailable */
-function spSVG(sp,size){
+function spSVG(sp,size,shiny){
   const id=sp[0].replace(/^nushi_/,'');
   const src=SPECIES_SRC[id]||SPECIES_SRC[sp[0]];
   if(src&&window.Q4BRender){
-    return '<span style="display:inline-block;width:'+(size||80)+'px;height:'+(size||80)+'px">'+Q4BRender.species(src)+'</span>';
+    return '<span style="display:inline-block;width:'+(size||80)+'px;height:'+(size||80)+'px">'+Q4BRender.species(src,shiny)+'</span>';
   }
   return '<span style="font-size:'+(size||80)+'px;line-height:1">'+sp[8]+'</span>';
 }
@@ -3169,7 +3419,7 @@ const Reward = {
     let tot2 = ws.reduce((a, b) => a + b, 0);
     let r2 = Math.random() * tot2, sp = cand[cand.length - 1];
     for (let i = 0; i < cand.length; i++) { if (r2 < ws[i]) { sp = cand[i]; break; } r2 -= ws[i]; }
-    const shiny = Math.random() < 0.03 * streakBonus;
+    const shiny = Math.random() < 0.03;  /* 色違い率は全ゲーム共通(3%) */
     const size = this.rollSize(sp);
     return this.record(p, sp, size, shiny);
   },
@@ -3230,7 +3480,7 @@ const UI = {
       (res.shiny ? '<span class="shinytag">✨いろちがい!</span>' : '');
     return `<div class="spec ${res.shiny ? 'shiny' : ''} ${sp[4] === 3 ? 'legend' : ''}" style="--rc:${rc}">
       <span class="badge">${Reward.RARNAME[sp[4]]}</span>
-      <span class="me">${spSVG(sp,82)}</span>
+      <span class="me">${spSVG(sp,82,res.shiny)}</span>
       <div class="mn">${sp[1]}</div>
       <div class="men">${sp[2]}</div>
       <div class="msz">${res.size}mm</div>
@@ -3494,7 +3744,7 @@ function scrZukan(){
     const c=P.catches[s[0]];
     if(!c) return `<div class="zc un"><span class="ze">${spSVG(s,36)}</span><span class="zn">？？？</span><span class="zs">　</span></div>`;
     return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]})" onclick="showSpec('${s[0]}')">
-      <span class="ze">${spSVG(s,36)}</span><span class="zn">${s[1]}</span><span class="zs">${c.max}mm ×${c.n}</span></button>`;
+      <span class="ze">${spSVG(s,36,c.shiny)}</span><span class="zn">${s[1]}</span><span class="zs">${c.max}mm ×${c.n}</span></button>`;
   }).join('')}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
@@ -4316,7 +4566,7 @@ function endSession(){
   ${nushiHtml}
   ${S.caught.length?`<div class="h2">きょうの せいか</div><div class="zgrid">${S.caught.map(r=>`
     <div class="zc ${r.shiny?'shiny':''}" style="--rc:var(--rar${r.sp[4]})">
-      <span class="ze">${spSVG(r.sp,36)}</span><span class="zn">${r.sp[1]}</span><span class="zs">${r.size}mm${r.isNew?' NEW':''}</span></div>`).join('')}</div>`:''}
+      <span class="ze">${spSVG(r.sp,36,r.shiny)}</span><span class="zn">${r.sp[1]}</span><span class="zs">${r.size}mm${r.isNew?' NEW':''}</span></div>`).join('')}</div>`:''}
   <button class="btn" onclick="renderStart()">もういちど あそぶ</button>
   <button class="btn sub" onclick="screen='zukan';S=null;render();">📖 ずかんを みる</button>
   <button class="btn ghost" onclick="exitToMap()">マップへ もどる</button>`;
