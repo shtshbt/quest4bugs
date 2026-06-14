@@ -86,10 +86,13 @@
   var SHINY_CHANCE = 0.03;
   var TIER_WEIGHT = [70, 22, 6.5, 1.35, 0.15]; // N / R / SR / SSR / SS（SS=でんせつ≈0.15%に希少化）
   var REVIEW_BOOST = 3;  // 復習チャレンジ時の「珍しい虫が出やすい」係数
-  /* boost>1 で SR/SSR(tier 2,3)のみ倍化。SS(tier4=でんせつ)は希少のまま据え置く。 */
+  /* boost>1(復習) で SR/SSR(tier 2,3)を倍化。SS(tier4=でんせつ)は逆に抑制する。
+     復習は高頻度に周回できるため、据え置きだと量でSSが溜まりやすい。SSは通常プレイ/
+     テスト合格など achievement で出すものとし、復習では出にくくする。 */
+  var SS_REVIEW_MUL = 0.3;
   function weightsWith(boost){
     if(!boost || boost<=1) return TIER_WEIGHT;
-    return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : w; });
+    return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : (t===4 ? w*SS_REVIEW_MUL : w); });
   }
   /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先するが、
      捕獲済みも再出現を許容する（サイズ差・✨色違いのバリエーションがあるため、
