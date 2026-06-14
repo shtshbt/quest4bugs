@@ -97,7 +97,54 @@
     if(/ヘラクレス|ゴライアス|ギラファ|テイオウ|オオ|巨大/.test(nm)) size=1.12;
     if(/ヒメ|チビ|マメ/.test(nm)) size=0.9;
     if(g==='シジミ'||g==='ゼフィルス') size=Math.min(size,0.94);
-    return {pattern:pattern, patternColor:pcolor, size:size};
+    /* Phase2: 部位variant（archetypeごとに解釈。クワガタ大アゴ・カブトのツノ・カミキリ触角） */
+    var variant='', rd=sp.renderer;
+    if(rd==='kabuto') variant=/ヘラクレス|ネプチューン|サタン/.test(nm)?'long':(/コーカサス|アトラス|ヒルス|モーレンカンプ|ゾウカブト/.test(nm)?'three':'single');
+    else if(rd==='kuwagata') variant=/ノコギリ/.test(nm)?'saw':(/ヒラタ/.test(nm)?'flat':(/ミヤマ/.test(nm)?'miyama':(/ギラファ|マンディブラリス/.test(nm)?'giraffe':'standard')));
+    else if(rd==='kamikiri'||rd==='kamakiri') variant=/ヒゲナガ/.test(nm)?'longant':'';
+    return {pattern:pattern, patternColor:pcolor, size:size, variant:variant};
+  }
+  /* カブトのツノ（頭は左 ~37,50。ツノは左上へ） */
+  function kabutoHorn(v,c2,K,leg){
+    if(v==='long'){ /* ヘラクレス系: 長い上下のはさみツノ */
+      return '<path d="M35 44 C24 34 15 23 7 10 C14 10 20 14 25 20 C31 28 37 37 41 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5" stroke-linejoin="round"/>'
+        +'<path d="M34 56 C24 55 15 49 9 39 C16 40 23 44 29 49 C33 52 37 53 41 54 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5" stroke-linejoin="round"/>'
+        +'<path d="M17 19 l-4 1 M14 41 l-3 -2" '+leg+'/>';
+    }
+    if(v==='three'){ /* コーカサス系: 3本ツノ */
+      return '<path d="M34 46 C26 36 22 26 20 14 L27 16 C29 26 33 35 40 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+        +'<path d="M31 43 C23 37 17 31 12 23" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>'
+        +'<path d="M33 54 C25 53 18 49 12 43" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>';
+    }
+    return '<path d="M34 46 C26 36 22 26 20 14 L27 16 C29 26 33 35 40 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+      +'<path d="M20 14 l-5 -4 M20 14 l1 -7" '+leg+'/>';
+  }
+  /* クワガタの大アゴ（頭は左 ~38,52。大アゴは左へ） */
+  function kuwaMandible(v,c2,K){
+    if(v==='saw'){ /* ノコギリ: 細長く湾曲・内歯 */
+      return '<path d="M31 45 C18 38 9 28 12 14 C20 20 27 31 36 39" fill="none" stroke="'+c2+'" stroke-width="5.5" stroke-linecap="round"/>'
+        +'<path d="M30 58 C16 62 6 58 6 44 C15 50 24 52 33 49" fill="none" stroke="'+c2+'" stroke-width="5.5" stroke-linecap="round"/>'
+        +'<path d="M19 26 l5 2 M14 35 l5 1 M15 50 l5 -2 M11 45 l5 -1" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
+    }
+    if(v==='flat'){ /* ヒラタ: 太く平行で短め */
+      return '<path d="M32 46 C22 42 13 40 7 39" fill="none" stroke="'+c2+'" stroke-width="7" stroke-linecap="round"/>'
+        +'<path d="M32 57 C22 59 13 60 7 60" fill="none" stroke="'+c2+'" stroke-width="7" stroke-linecap="round"/>'
+        +'<path d="M7 39 l-2 2 M7 60 l-2 -2 M18 42 l3 2 M18 58 l3 -2" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
+    }
+    if(v==='miyama'){ /* ミヤマ: 大きく湾曲＋頭部の張り出し */
+      return '<path d="M31 44 C19 36 13 23 18 11 C24 18 29 30 36 39" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
+        +'<path d="M30 59 C18 63 10 57 9 46 C17 51 25 53 33 50" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
+        +'<path d="M20 21 l5 3 M14 49 l5 -2" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/>'
+        +'<path d="M40 42 C38 38 33 38 32 42 M40 62 C38 66 33 66 32 62" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>';
+    }
+    if(v==='giraffe'){ /* ギラファ: 非常に長く細い大アゴ */
+      return '<path d="M32 47 C20 42 9 37 2 31 C10 39 21 44 36 48" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
+        +'<path d="M32 57 C20 60 9 63 2 68 C10 61 21 56 36 53" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
+        +'<path d="M5 33 l3 -2 M5 66 l3 2 M16 41 l3 1 M16 58 l3 -1" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
+    }
+    return '<path d="M31 45 C21 38 15 29 15 18 C22 23 28 31 36 39" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
+      +'<path d="M30 58 C20 62 13 60 9 50 C17 53 24 52 33 49" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
+      +'<path d="M22 30 l6 1 M18 52 l5 -3" stroke="'+K+'" stroke-width="2.5" stroke-linecap="round"/>';
   }
 
   function bugSVG(b){
@@ -108,17 +155,14 @@
     +'<ellipse cx="56" cy="58" rx="25" ry="20" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
     +'<path d="M56 40 L58 76" stroke="'+K+'" stroke-width="2.5"/>'
     +'<ellipse cx="37" cy="50" rx="12" ry="10" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
-    +'<path d="M34 46 C26 36 22 26 20 14 L27 16 C29 26 33 35 40 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
-    +'<path d="M20 14 l-5 -4 M20 14 l1 -7" '+leg+'/>'
+    +kabutoHorn(b.variant,c2,K,leg)
     +'<circle cx="34" cy="51" r="2.4" fill="#fff"/>';
   }else if(b.t==="kuwagata"){
     inner='<path d="M44 72 l-8 11 M56 75 l0 12 M66 70 l9 9 M46 62 l-14 5" '+leg+'/>'
     +'<ellipse cx="58" cy="58" rx="23" ry="19" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
     +'<path d="M58 41 L59 75" stroke="'+K+'" stroke-width="2.5"/>'
     +'<ellipse cx="38" cy="52" rx="13" ry="11" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
-    +'<path d="M31 45 C21 38 15 29 15 18 C22 23 28 31 36 39" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
-    +'<path d="M30 58 C20 62 13 60 9 50 C17 53 24 52 33 49" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
-    +'<path d="M22 30 l6 1 M18 52 l5 -3" stroke="'+K+'" stroke-width="2.5" stroke-linecap="round"/>'
+    +kuwaMandible(b.variant,c2,K)
     +'<circle cx="36" cy="52" r="2.4" fill="#fff"/>';
   }else if(b.t==="chou"||b.t==="ageha"||b.t==="tateha"||b.t==="shijimi"||b.t==="seseri"||b.t==="ga"){
     inner=butterfly(b.t,c1,c2,K,leg);
@@ -210,7 +254,9 @@
     +'<path d="M50 32 L50 88" stroke="'+K+'" stroke-width="2.5"/>'
     +'<ellipse cx="44" cy="52" rx="4" ry="9" fill="'+c2+'" opacity=".7"/>'
     +'<ellipse cx="50" cy="30" rx="9" ry="9" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
-    +'<path d="M46 25 C40 12 50 6 40 -2 M54 25 C60 12 50 6 60 -2" fill="none" stroke="'+c2+'" stroke-width="3" stroke-linecap="round"/>'
+    +(b.variant==='longant'   /* ヒゲナガ: 体長を超える非常に長い触角 */
+      ?'<path d="M46 25 C34 16 18 12 12 4 M54 25 C66 16 82 12 88 4" fill="none" stroke="'+c2+'" stroke-width="2.5" stroke-linecap="round"/>'
+      :'<path d="M46 25 C40 12 50 6 40 -2 M54 25 C60 12 50 6 60 -2" fill="none" stroke="'+c2+'" stroke-width="3" stroke-linecap="round"/>')
     +'<circle cx="46" cy="29" r="2" fill="#fff"/><circle cx="54" cy="29" r="2" fill="#fff"/>';
   }else if(b.t==="kogane"){ /* scarab / chafer: round domed body */
     inner='<path d="M30 74 l-9 8 M50 80 l0 10 M70 74 l9 8 M28 60 l-11 -1 M72 60 l11 -1" '+leg+'/>'
@@ -269,7 +315,7 @@
     if(shiny) cols=[_shift(cols[0]), _shift(cols[1])];
     var pr=deriveParams(sp);
     return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
-      pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size});
+      pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size, variant:pr.variant});
   }
   global.Q4BRender={ draw:bugSVG, species:speciesSVG };
 })(window);
