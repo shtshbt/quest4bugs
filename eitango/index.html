@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.32"></script>
-<script src="../shared/bugs.js?v=0.2.32"></script>
-<script src="../shared/render.js?v=0.2.32"></script>
-<script src="../shared/reward.js?v=0.2.32"></script>
-<script src="../shared/furigana.js?v=0.2.32"></script>
-<script src="../shared/yomi.js?v=0.2.32"></script>
+<script src="../shared/storage.js?v=0.2.33"></script>
+<script src="../shared/bugs.js?v=0.2.33"></script>
+<script src="../shared/render.js?v=0.2.33"></script>
+<script src="../shared/reward.js?v=0.2.33"></script>
+<script src="../shared/furigana.js?v=0.2.33"></script>
+<script src="../shared/yomi.js?v=0.2.33"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3367,13 +3367,15 @@ function scrHome(){
     if(f.open){
       const words=WordDB.byField(f.id);
       if(f.kids){
-        const learned=words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
-        prog=words.length?learned/words.length:0;
-        progTxt=`おぼえたことば ${learned}/${words.length}`;
+        let started=0,frac=0,learned=0;
+        words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; frac+=Math.min(2,k[1])/2; if(k[1]>=2)learned++;});
+        prog=started?frac/started:0;  /* バー=はじめた語の学習度（1問ごとに動く） */
+        progTxt=`はじめた ${started}/${words.length}・おぼえた ${learned}`;
       } else {
-        const m=SRS.mastered(P,words);
-        prog=words.length?m/words.length:0;
-        progTxt=`しゅうとく ${m}/${words.length}語`;
+        let started=0,frac=0,m=0;
+        words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; frac+=Math.min(4,s[0])/4; if(s[0]>=4)m++;});
+        prog=started?frac/started:0;
+        progTxt=`はじめた ${started}/${words.length}・しゅうとく ${m}`;
       }
     }
     h+=f.open
