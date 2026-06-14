@@ -309,13 +309,24 @@
   function _rgbHsl(r,g,b){r/=255;g/=255;b/=255;var mx=Math.max(r,g,b),mn=Math.min(r,g,b),h,s,l=(mx+mn)/2;if(mx===mn){h=s=0;}else{var d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);if(mx===r)h=(g-b)/d+(g<b?6:0);else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;}return [h,s,l];}
   function _hslRgb(h,s,l){h=(h%360+360)%360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2,r,g,b;if(h<60){r=c;g=x;b=0;}else if(h<120){r=x;g=c;b=0;}else if(h<180){r=0;g=c;b=x;}else if(h<240){r=0;g=x;b=c;}else if(h<300){r=x;g=0;b=c;}else{r=c;g=0;b=x;}return [(r+m)*255,(g+m)*255,(b+m)*255];}
   function _shift(hex){var rgb=_hexRgb(hex),hsl=_rgbHsl(rgb[0],rgb[1],rgb[2]);var o=_hslRgb(hsl[0]+160,_clamp(hsl[1]*1.25+0.1,0,1),_clamp(hsl[2]+0.06,0.14,0.88));return _rgbHex(o[0],o[1],o[2]);}
+  /* Phase3/4: 代表種の個別作画レジストリ。BESPOKE[id](c1,c2,shiny,kit)→本体SVG（<svg>とsheenは speciesSVG が付与）。
+     未登録の種は従来の archetype+params(Phase1/2) にフォールバックする。 */
+  var BESPOKE={};
+  var _SHEEN='<g opacity=".95"><path d="M79 16 l2.2 5.4 5.4 2.2 -5.4 2.2 -2.2 5.4 -2.2 -5.4 -5.4 -2.2 5.4 -2.2 z" fill="#fff"/><path d="M22 30 l1.5 3.6 3.6 1.5 -3.6 1.5 -1.5 3.6 -1.5 -3.6 -3.6 -1.5 3.6 -1.5 z" fill="#fff" opacity=".85"/></g>';
+  var _KIT={ K:"#2A3D2C", leg:'stroke="#2A3D2C" stroke-width="3" stroke-linecap="round" fill="none"', scaleG:scaleG, patternMarks:patternMarks };
   function speciesSVG(sp, shiny){
     if(!sp)return "";
     var cols=sp.colors||["#7A6B3A","#2A3D2C"];
     if(shiny) cols=[_shift(cols[0]), _shift(cols[1])];
+    var fn=BESPOKE[sp.id];
+    if(fn){
+      return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+(sp.jaName||sp.id||"")+'">'
+        +fn(cols[0],cols[1],!!shiny,_KIT)+(shiny?_SHEEN:'')+'</svg>';
+    }
     var pr=deriveParams(sp);
     return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
       pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size, variant:pr.variant});
   }
-  global.Q4BRender={ draw:bugSVG, species:speciesSVG };
+  global.Q4BRender={ draw:bugSVG, species:speciesSVG,
+    addBespoke:function(m){ if(m)for(var k in m)if(Object.prototype.hasOwnProperty.call(m,k))BESPOKE[k]=m[k]; } };
 })(window);
