@@ -43,14 +43,38 @@
     ari:[5,18], kemushi:[30,100], dango:[8,16], other:[12,45]
   };
   function hash(s){ var h=0,i; s=String(s); for(i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;} return h; }
-  function sizeRange(sp){
+  /* 旧アルゴリズム(見た目/レア度から算出)。実寸データが無い種のフォールバック＋既存記録の移行に使う */
+  function legacySizeRange(sp){
     var b = BASE_SIZE[sp.renderer] || [12,45];
     var span = b[1]-b[0];
-    var lo = b[0] + span*0.15*((hash(sp.id)%100)/100); // small deterministic shift per species
+    var lo = b[0] + span*0.15*((hash(sp.id)%100)/100);
     var hi = lo + span*0.8;
-    // rarer species skew a touch larger
     var bump = 1 + tierOf(sp)*0.05;
     return [Math.round(lo), Math.round(hi*bump)];
+  }
+  /* 実寸 sizeMm:[min,max] があればそれを使う。無ければ旧アルゴリズム */
+  function sizeRange(sp){
+    if(sp && sp.sizeMm && sp.sizeMm.length===2 && sp.sizeMm[1]>sp.sizeMm[0]) return [sp.sizeMm[0], sp.sizeMm[1]];
+    return legacySizeRange(sp);
+  }
+  var _byId=null;
+  function spById(id){ if(!_byId){ _byId={}; for(var i=0;i<BUGS.length;i++)_byId[BUGS[i].id]=BUGS[i]; } return _byId[id]; }
+  /* 既存catch記録の max/min を 旧レンジ→新(実寸)レンジへ比例移行。1回だけ(coll._sizeMig=2でガード) */
+  function migrateSizes(coll){
+    if(!coll || !coll.catches || coll._sizeMig===2) return false;
+    var changed=false;
+    for(var id in coll.catches){ if(!Object.prototype.hasOwnProperty.call(coll.catches,id))continue;
+      var e=coll.catches[id]; if(!e)continue;
+      var sp=spById(id); if(!sp||!sp.sizeMm)continue;
+      var oldR=legacySizeRange(sp), newR=[sp.sizeMm[0],sp.sizeMm[1]];
+      var oldSpan=Math.max(1,oldR[1]-oldR[0]), newSpan=newR[1]-newR[0];
+      function remap(v){ var pct=(v-oldR[0])/oldSpan; if(pct<0)pct=0; if(pct>1)pct=1; return Math.round((newR[0]+pct*newSpan)*10)/10; }
+      if(e.max!=null)e.max=remap(e.max);
+      e.min=(e.min!=null)?remap(e.min):e.max;
+      changed=true;
+    }
+    coll._sizeMig=2;
+    return changed;
   }
   function rollSize(sp){
     var r = sizeRange(sp), v = r[0] + (r[1]-r[0])*Math.pow(Math.random(), 1.7);
@@ -246,6 +270,7 @@
     tierOf: tierOf,
     TIERNAME: TIERNAME,
     sizeRange: sizeRange,
+    migrateSizes: migrateSizes,
     onCorrect: onCorrect,
     award: award,
     spendForCatch: spendForCatch,

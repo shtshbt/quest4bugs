@@ -227,14 +227,14 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.54"></script>
-<script src="../shared/bugs.js?v=0.2.54"></script>
-<script src="../shared/render.js?v=0.2.54"></script>
-<script src="../shared/bespoke.js?v=0.2.54"></script>
-<script src="../shared/reward.js?v=0.2.54"></script>
-<script src="../shared/furigana.js?v=0.2.54"></script>
-<script src="../shared/yomi.js?v=0.2.54"></script>
-<script src="../shared/colloc.js?v=0.2.54"></script>
+<script src="../shared/storage.js?v=0.2.55"></script>
+<script src="../shared/bugs.js?v=0.2.55"></script>
+<script src="../shared/render.js?v=0.2.55"></script>
+<script src="../shared/bespoke.js?v=0.2.55"></script>
+<script src="../shared/reward.js?v=0.2.55"></script>
+<script src="../shared/furigana.js?v=0.2.55"></script>
+<script src="../shared/yomi.js?v=0.2.55"></script>
+<script src="../shared/colloc.js?v=0.2.55"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4173,7 +4173,12 @@ function emojiFor(b){
 }
 
 /* deterministic size range (mm) from family / rarity / id hash */
+/* 実寸 sizeMm:[min,max] があればそれを優先。無ければ旧アルゴリズム(legacy) */
 function sizeRange(b){
+  if(b&&b.sizeMm&&b.sizeMm.length===2&&b.sizeMm[1]>b.sizeMm[0]) return [b.sizeMm[0], b.sizeMm[1]];
+  return legacySizeRange(b);
+}
+function legacySizeRange(b){
   const h=hashStr(b.id);
   const fam=b.family||'', tier=rarityToTier(b.rarity);
   let base, span;
@@ -4571,6 +4576,23 @@ function setupWalletE(){
     });
   }
   if(window.QuestSave&&P&&ePid()&&(P.amber||0)>0&&!P.amberMig){ QuestSave.amberAdd(ePid(),P.amber); P.amber=0; P.amberMig=1; touchP(); }
+  if(P&&migrateCatchSizes(P)) touchP();
+}
+/* 既存catchのサイズを 旧レンジ→新(実寸)レンジへ一度だけ移行 */
+function migrateCatchSizes(p){
+  if(!p||!p.catches||p._sizeMig===2) return false;
+  let changed=false;
+  for(const id in p.catches){ if(!Object.prototype.hasOwnProperty.call(p.catches,id))continue;
+    const e=p.catches[id], b=SPECIES_SRC[id]; if(!e||!b||!b.sizeMm)continue;
+    const oldR=legacySizeRange(b), newR=[b.sizeMm[0],b.sizeMm[1]];
+    const oldSpan=Math.max(1,oldR[1]-oldR[0]), newSpan=newR[1]-newR[0];
+    const remap=v=>{ let pct=(v-oldR[0])/oldSpan; if(pct<0)pct=0; if(pct>1)pct=1; return Math.round((newR[0]+pct*newSpan)*10)/10; };
+    if(e.max!=null)e.max=remap(e.max);
+    e.min=(e.min!=null)?remap(e.min):e.max;
+    changed=true;
+  }
+  p._sizeMig=2;
+  return changed;
 }
 
 async function selectProfile(id){
