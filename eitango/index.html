@@ -223,16 +223,17 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <div id="nav">
   <button data-s="home"><span class="ic">🗺️</span>マップ</button>
   <button data-s="zukan"><span class="ic">📖</span>ずかん</button>
+  <button data-s="dict"><span class="ic">📚</span>じしょ</button>
   <button data-s="progress"><span class="ic">📈</span>できたこと</button>
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.36"></script>
-<script src="../shared/bugs.js?v=0.2.36"></script>
-<script src="../shared/render.js?v=0.2.36"></script>
-<script src="../shared/reward.js?v=0.2.36"></script>
-<script src="../shared/furigana.js?v=0.2.36"></script>
-<script src="../shared/yomi.js?v=0.2.36"></script>
+<script src="../shared/storage.js?v=0.2.37"></script>
+<script src="../shared/bugs.js?v=0.2.37"></script>
+<script src="../shared/render.js?v=0.2.37"></script>
+<script src="../shared/reward.js?v=0.2.37"></script>
+<script src="../shared/furigana.js?v=0.2.37"></script>
+<script src="../shared/yomi.js?v=0.2.37"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -2252,7 +2253,67 @@ const FIELD5RAW=[
 ["reform","改革，改革する","The school needs a reform of its rules.","名"],
 ["global warming","地球温暖化","Global warming is melting the ice.","熟"],
 ["artificial","人工の","Artificial intelligence can answer questions.","形"],
-["intelligence","知能，知性","Some machines now show real intelligence.","名"]
+["intelligence","知能，知性","Some machines now show real intelligence.","名"],
+["chip","集積回路，チップ","A tiny chip inside the phone does all the thinking.","名"],
+["processor","処理装置，プロセッサー","A fast processor lets the computer work quickly.","名"],
+["memory","記憶装置，メモリー","The computer needs more memory to run the big game.","名"],
+["automation","自動化","Automation lets machines do boring jobs for us.","名"],
+["robotics","ロボット工学","In robotics class we build small walking robots.","名"],
+["cybersecurity","サイバー安全対策","Cybersecurity keeps our online data safe from thieves.","名"],
+["semiconductor","半導体","A semiconductor is a key part of every computer.","名"],
+["generative","生成的な，作り出す","Generative AI can draw new pictures from words.","形"],
+["neural","神経の，ニューラルの","A neural network learns like a tiny brain.","形"],
+["dataset","データの集まり","The AI studied a huge dataset of cat photos.","名"],
+["quantum","量子の","A quantum computer can solve some puzzles very fast.","形"],
+["simulation","模擬実験，シミュレーション","The game uses a simulation of real city traffic.","名"],
+["automated","自動化された","The automated door opens when you walk near it.","形"],
+["interface","接点，操作画面","The app has a simple interface that kids can use.","名"],
+["encryption","暗号化","Encryption turns your message into secret code.","名"],
+["firewall","防御壁，ファイアウォール","A firewall blocks bad programs from the computer.","名"],
+["malware","悪意のあるソフト","Never click strange links that may hide malware.","名"],
+["bandwidth","通信容量","More bandwidth lets many people watch videos at once.","名"],
+["interactive","双方向の，対話型の","The interactive map moves when you touch it.","形"],
+["innovative","革新的な","Her innovative idea made the robot much faster.","形"],
+["prototype","試作品","They built a prototype of the new flying drone.","名"],
+["founder","創業者","The founder started the company in her garage.","名"],
+["investor","投資家","An investor gave money to help the startup grow.","名"],
+["capital","資本，資金","The team needs more capital to build the factory.","名"],
+["spacecraft","宇宙船","The spacecraft landed gently on the red planet.","名"],
+["telescope","望遠鏡","We used a telescope to see the rings of Saturn.","名"],
+["astronaut","宇宙飛行士","The astronaut floated inside the space station.","名"],
+["galaxy","銀河","Our galaxy has billions of bright stars.","名"],
+["asteroid","小惑星","A small asteroid passed close to our planet.","名"],
+["launchpad","発射台","The rocket stood tall on the launchpad.","名"],
+["automate","自動化する","The factory uses robots to automate hard work.","動"],
+["upgrade","性能を上げる，更新する","We upgrade the software to fix small bugs.","動"],
+["compute","計算する","The big machine can compute millions of sums fast.","動"],
+["automatic pilot","自動操縦","The plane flew home using automatic pilot.","熟"],
+["self-driving","自動運転の","A self-driving car can stop by itself at red lights.","形"],
+["navigation","道案内，航行","The navigation app shows the fastest road home.","名"],
+["radar","電波探知機，レーダー","The car's radar sees objects in the dark.","名"],
+["gadget","小型機器","This little gadget can measure the room's heat.","名"],
+["wearable","身につける機器","A wearable watch counts how many steps you walk.","名"],
+["touchscreen","触れる画面","You tap the touchscreen to open the app.","名"],
+["automatic translation","自動翻訳","Automatic translation helped us read the foreign sign.","熟"],
+["smart","賢い，高機能の","A smart speaker can answer your questions out loud.","形"],
+["backup","控え，予備保存","Always keep a backup of your important files.","名"],
+["storage","保存場所，記憶領域","The phone ran out of storage for new photos.","名"],
+["command","命令，指令","The robot moved after we gave it a command.","名"],
+["code","プログラム，符号","She wrote code to make the game character jump.","名"],
+["program","プログラムする","You can program the robot to dance in a circle.","動"],
+["virtual reality","仮想現実","With virtual reality you can walk inside a game.","熟"],
+["identity","身元，正体","A password protects your identity online.","名"],
+["scam","詐欺","That email was a scam to steal your money.","名"],
+["automatic update","自動更新","The automatic update fixed the game overnight.","熟"],
+["automatic save","自動保存","Thanks to automatic save, I did not lose my work.","熟"],
+["detection","検出，発見","The sensor's detection of smoke set off the alarm.","名"],
+["automation system","自動制御の仕組み","The farm's automation system waters the plants daily.","熟"],
+["chatbot","会話AI，自動応答プログラム","I asked the chatbot a question and it answered right away.","名"],
+["electric vehicle","電気自動車","My uncle drives an electric vehicle that needs no gas.","名"],
+["facial recognition","顔認証","The phone uses facial recognition to unlock the screen.","名"],
+["sustainability","持続可能性","Using less plastic is good for sustainability.","名"],
+["server farm","データセンター，サーバー群","A huge server farm stores all the videos we watch online.","名"],
+["open source","オープンソース，無料で公開された","Many programmers build apps using open source software.","形"]
 ];
 const PRE1RAW=[
 ["abolish","廃止する","The government decided to abolish the old tax law.","v."],
@@ -3281,6 +3342,7 @@ function render(){
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(screen==='home') $('#app').innerHTML=scrHome();
   if(screen==='zukan') $('#app').innerHTML=scrZukan();
+  if(screen==='dict'){ $('#app').innerHTML=scrDict(); if(dictQ){ const si=document.querySelector('#app input'); if(si){ si.focus(); si.setSelectionRange(si.value.length,si.value.length); } } }
   if(screen==='progress') $('#app').innerHTML=scrProgress();
   if(screen==='stats') $('#app').innerHTML=scrStats();
   if(screen==='set') $('#app').innerHTML=scrSet();
@@ -3497,6 +3559,33 @@ function calcProgressSummary(){
   return '';
 }
 
+/* ---------------- じしょ（級ごと・習得状況つきで意味を引ける） ---------------- */
+let dictTab=null, dictQ='';
+function scrDict(){
+  const tabs=FIELDS.filter(f=>f.open);
+  if(!dictTab||!tabs.find(f=>f.id===dictTab)) dictTab=tabs[0].id;
+  const f=FIELDS.find(x=>x.id===dictTab);
+  let words=WordDB.byField(dictTab);
+  const q=(dictQ||'').trim().toLowerCase();
+  if(q) words=words.filter(w=>w.en.toLowerCase().includes(q)||(w.ja||'').includes(dictQ));
+  function badge(w){
+    if(f.kids){ const k=P.kids[w.key]; const lv=k?k[1]:0; return lv>=2?'✅':lv>=1?'🔸':'·'; }
+    const s=P.srs[w.key]; const b=s?s[0]:0; return b>=3?'✅':b>=1?'🔸':'·';
+  }
+  const m = f.kids ? words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length : SRS.mastered(P,words);
+  const rows=words.map(w=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid rgba(0,0,0,.06)">
+    <span style="width:20px;text-align:center;font-size:15px">${badge(w)}</span>
+    <span style="flex:1;min-width:0"><b style="font-size:16px">${w.en}</b> <span class="small">${w.pos||''}</span><br><span class="small">${furi(w.ja)}</span></span>
+    <button class="chip" style="cursor:pointer" onclick="Speech.say('${w.en.replace(/'/g,"\\'")}')">🔊</button>
+  </div>`).join('') || '<div class="small center" style="padding:16px">みつからないよ</div>';
+  return `<div class="topbar"><span class="ttl">📚 じしょ</span></div>
+  <div class="ztabs">${tabs.map(t=>`<button class="${t.id===dictTab?'on':''}" onclick="dictTab=${t.id};render()">${t.emoji} ${t.name}</button>`).join('')}</div>
+  <div class="card" style="padding:10px">
+    <input type="text" placeholder="🔍 えいご/いみ で さがす" value="${(dictQ||'').replace(/"/g,'&quot;')}" oninput="dictQ=this.value;clearTimeout(window.__dt);window.__dt=setTimeout(render,250)" style="width:100%;font-size:15px;padding:8px;border:2px solid var(--leaf);border-radius:10px">
+    <div class="small" style="margin-top:6px">${f.sub}　しゅうとく <b>${m}</b>/${words.length}　（✅しゅうとく・🔸がくしゅう中・·まだ）</div>
+  </div>
+  <div class="card" style="padding:0">${rows}</div>`;
+}
 function scrProgress(){
   const openFields=FIELDS.filter(f=>f.open);
   /* 各フィールドのしゅうとく率を計算 */
