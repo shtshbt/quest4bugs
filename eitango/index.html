@@ -224,7 +224,6 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="home"><span class="ic">🗺️</span>マップ</button>
   <button data-s="zukan"><span class="ic">📖</span>ずかん</button>
   <button data-s="dict"><span class="ic">📚</span>じしょ</button>
-  <button data-s="progress"><span class="ic">📈</span>できたこと</button>
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
@@ -3141,7 +3140,7 @@ const FIELDS = [
   { id: 2, name: 'いけ', sub: '英検3〜4級', emoji: '💧', cls: 'f-pond', open: true },
   { id: 3, name: 'はやし', sub: '英検準2級', emoji: '🌳', cls: 'f-woods', open: true },
   { id: 4, name: 'やま', sub: '英検2級', emoji: '⛰️', cls: 'f-mt', open: true },
-  { id: 5, name: 'どうくつ', sub: '時事・AI・テクノロジー', emoji: '💡', cls: 'f-cave', open: true },
+  { id: 5, name: 'どうくつ', sub: 'トピックスべつ（時事・社会・AIほか）', emoji: '💡', cls: 'f-cave', open: true },
   { id: 6, name: 'ねったいの ジャングル', sub: '英検準1級', emoji: '🌴', cls: 'f-jungle', open: true },
   { id: 7, name: 'アマゾン', sub: '英検1級', emoji: '🔥', cls: 'f-amazon', open: true }
 ];
@@ -3718,7 +3717,7 @@ function scrHome(){
   }
   h+=`<div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
     <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="startReview()" ${reviewCount<5?'disabled':''}>🔁 ふくしゅう</button>
-    <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="go('progress')">📈 できたこと</button>
+    <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="go('stats')">🗒️ きろく</button>
   </div>`;
   h+=`<p class="small center" style="margin-top:12px">フィールドを タップして たんけんに しゅっぱつ!</p>`;
   return h;
@@ -3999,6 +3998,7 @@ function scrStats(){
     <div class="stat"><div class="sv">📖 ${caught}/${ALLSP.length}</div><div class="sl">ずかん かんせいど</div></div>
     <div class="stat"><div class="sv">🍯 ${P.amberTotal}</div><div class="sl">るいけい こはく</div></div>
   </div>
+  ${window.Q4BReward?`<div class="h2">🏅 しょうごう</div><div class="card">${Q4BReward.rankListHTML(Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0))}</div>`:''}
   <div class="h2">この7日間 (こい色=せいかい)</div>
   <div class="card"><div class="bars">${bars}</div></div>
   <div class="h2">ことばの がくしゅう きろく</div>

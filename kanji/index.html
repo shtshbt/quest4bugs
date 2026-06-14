@@ -1485,7 +1485,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  +'<button class="tile" id="bTest"><div class="ic">🏆</div><div class="lb">チャレンジ</div></button>'
  +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">かんじ一覧</div></button>'
  +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしずかん</div></button>'
- +'<button class="tile" id="bProgress"><div class="ic">📊</div><div class="lb">できたこと</div></button>'
+ +'<button class="tile" id="bProgress"><div class="ic">📊</div><div class="lb">きろく</div></button>'
  +(introCount>0?'<button class="tile" id="bReviewSmall"><div class="ic">🔁</div><div class="lb">ふくしゅう</div></button>':'')
  +'</div>'
  +'<button class="btn sub" id="bMode" style="margin-top:10px">'+(CUR.mode==='small'?'🐛 いまは ひらがなコース':'🪲 いまは かんじコース')+'　タップで きりかえ</button>'
@@ -1859,7 +1859,7 @@ function renderProgress(){
  var s=$('scr-progress');
  var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
  var h='<button class="btn sub mini" id="bBkPg">← ホーム</button>'
- +'<div class="card"><div style="font-weight:bold;font-size:18px;margin-bottom:6px">📊 できたこと</div>'
+ +'<div class="card"><div style="font-weight:bold;font-size:18px;margin-bottom:6px">📊 きろく</div>'
  +'<div class="small" style="margin-bottom:12px">'+(ST.progressSummary||'')+'</div>';
  // ひらがな行
  var hiraKeys=HIRA.map(function(c){return 'h:'+c});

@@ -512,9 +512,8 @@ function showHome(){
     +'<button class="btn ghost" onclick="showZukan()">📖 むしずかん</button>'
     +'<button class="btn ghost" onclick="showStats()">📊 きろく</button></div>'
     +'<div class="grid2" style="margin-top:0">'
-    +'<button class="btn sm ghost" onclick="showProgress()">📊 できたこと</button>'
-    +'<button class="btn sm ghost" onclick="startReview()">🔁 ふくしゅう</button></div>'
-    +'<button class="btn sm ghost" onclick="showSettings()">⚙ せってい・データ</button>';
+    +'<button class="btn sm ghost" onclick="startReview()">🔁 ふくしゅう</button>'
+    +'<button class="btn sm ghost" onclick="showSettings()">⚙ せってい・データ</button></div>';
   h+='</div>';
   render(h);
 }
@@ -682,6 +681,28 @@ function showStats(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
   h+='<div class="card center"><h3>🔥 れんぞく '+p.streak.n+'日</h3>'
     +'<p class="note">にがした虫の再ちょうせん待ち：'+p.missed.length+'匹　／　とりもどした数：'+p.recapture+'匹</p></div>';
+  /* 総括 */
+  h+='<div class="card"><h3>🌱 いまの ちから</h3>'
+    +'<p style="font-weight:800;font-size:18px;color:var(--green-d)">'+esc(buildProgressSummary(p))+'</p></div>';
+  /* ひっさんレベル・九九バー（k5のみ） */
+  if(p.type==="k5"){
+    var hsMx=p.hsMax||1, hkMx=p.hkMax||1;
+    function hsBar(mx,run){ if(mx>=4)return 100; return Math.round(((mx-1)*5+Math.max(0,Math.min(5,run||0)))/20*100); }
+    h+='<div class="card"><h3>✏️ ひっさんレベル</h3>'
+      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+hsBar(hsMx,p.hsRun)+'%"></span></span>'
+      +'<span class="bv">レベル'+hsMx+' / 4</span></div>'
+      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+hsBar(hkMx,p.hkRun)+'%"></span></span>'
+      +'<span class="bv">レベル'+hkMx+' / 4</span></div>'
+      +'<p class="note">ミッション/おまかせ練習で 5問せいかいするごとに レベルアップ！</p></div>';
+    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length, kukuHits=p.kukuHits||0;
+    var kukuPct=Math.round((kukuN+(kukuN<kukuTotal?Math.min(8,kukuHits)/8:0))/kukuTotal*100);
+    h+='<div class="card"><h3>🔢 九九マスター</h3>'
+      +'<div class="brow"><span class="bl">マスター段数</span><span class="bt"><span class="bf" style="width:'+kukuPct+'%"></span></span>'
+      +'<span class="bv">'+kukuN+' / '+kukuTotal+'段</span></div>'
+      +(kukuN>=kukuTotal?'<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>'
+        :'<p class="note">いまの目標：<b>'+ORDER[kukuN]+'の段</b>　ミッションで あと<b>'+Math.max(0,8-kukuHits)+'</b>回せいかいで すすむ（九九チャレンジでも）</p>')
+      +'</div>';
+  }
   /* heatmap: last 10 weeks */
   var t=todayStr(), cells="", start=dShift(t,-69);
   for(var k=0;k<70;k++){
@@ -733,6 +754,8 @@ function showStats(){
       +'<p style="font-size:26px;font-weight:800;margin:4px 0">'+p.carryMiss+' 回</p>'
       +'<p class="note">筆算で，くりあがりを書かずに答え合わせしようとした回数．へっていけばOK！</p></div>';
   }
+  if(window.Q4BReward){ ensureColl(p);
+    h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(p.coll.total)+'</div>'; }
   h+='</div>';
   render(h);
 }
