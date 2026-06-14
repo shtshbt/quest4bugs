@@ -135,6 +135,17 @@
     if(!_nightActive || n===2) return 1;
     return _isNight ? (n===1 ? 2.5 : 0.45) : (n===1 ? 0.45 : 1);
   }
+  /* ---- マスター虫(全習得限定): ゲージ/琥珀では出ず、習得達成でのみ授与 ---- */
+  function masterBugsFor(game){ return BUGS.filter(function(sp){ return sp.masterOnly && sp.master && sp.master.game===game; }); }
+  function masterObtained(coll, id){ return !!(coll && coll.catches && coll.catches[id]); }
+  function awardMaster(coll, sp){
+    if(!coll.catches) coll.catches={};
+    if(coll.catches[sp.id]) return null;          // 既に授与済み（一回限り）
+    var sz = sizeRange(sp)[1];                     // マスターは最大サイズで記録
+    coll.catches[sp.id] = { n:1, max:sz, min:sz, shiny:0, normal:1, master:1 };
+    coll.total = (coll.total||0) + 1;
+    return { sp:sp, size:sz, isNew:true, master:true };
+  }
   function record(coll, sp){
     var prev = coll.catches[sp.id];
     var size = rollSize(sp);
@@ -298,6 +309,9 @@
     TIERNAME: TIERNAME,
     sizeRange: sizeRange,
     migrateSizes: migrateSizes,
+    masterBugsFor: masterBugsFor,
+    masterObtained: masterObtained,
+    awardMaster: awardMaster,
     setNight: setNight,
     isNightNow: isNightNow,
     onCorrect: onCorrect,

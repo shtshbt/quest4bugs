@@ -227,14 +227,14 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.61"></script>
-<script src="../shared/bugs.js?v=0.2.61"></script>
-<script src="../shared/render.js?v=0.2.61"></script>
-<script src="../shared/bespoke.js?v=0.2.61"></script>
-<script src="../shared/reward.js?v=0.2.61"></script>
-<script src="../shared/furigana.js?v=0.2.61"></script>
-<script src="../shared/yomi.js?v=0.2.61"></script>
-<script src="../shared/colloc.js?v=0.2.61"></script>
+<script src="../shared/storage.js?v=0.2.62"></script>
+<script src="../shared/bugs.js?v=0.2.62"></script>
+<script src="../shared/render.js?v=0.2.62"></script>
+<script src="../shared/bespoke.js?v=0.2.62"></script>
+<script src="../shared/reward.js?v=0.2.62"></script>
+<script src="../shared/furigana.js?v=0.2.62"></script>
+<script src="../shared/yomi.js?v=0.2.62"></script>
+<script src="../shared/colloc.js?v=0.2.62"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -4605,9 +4605,49 @@ async function selectProfile(id){
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.s));
 function go(s){ screen=s; render(); window.scrollTo(0,0); }
 
+/* ===== マスター虫（全習得限定）===== */
+function masterMetE(sp){
+  const f=sp.master.key, fdef=fieldById(f), words=WordDB.byField(f);
+  if(!words.length) return false;
+  if(fdef && fdef.kids) return words.every(w=>{const k=P.kids[w.key];return k&&k[1]>=2;});
+  return words.every(w=>{const s=P.srs[w.key];return s&&s[0]>=3;});
+}
+function checkMastersE(){
+  if(!window.Q4BReward||!Q4BReward.masterBugsFor||!P||!P.catches) return;
+  const tmp={catches:P.catches}, awarded=[];
+  Q4BReward.masterBugsFor('eitango').forEach(sp=>{
+    if(Q4BReward.masterObtained(tmp,sp.id)) return;
+    if(masterMetE(sp)){ if(Q4BReward.awardMaster(tmp,sp)) awarded.push(sp); }
+  });
+  if(awarded.length){ touchP(); showMasterCelebrationE(awarded); }
+}
+function showMasterCelebrationE(list){ const sp=list[0];
+  $('#modal').innerHTML=`<div class="mcard"><div class="center">
+    <div style="font-size:14px;color:#E0A32E;font-weight:800">🎓 ぜんぶ習得！</div>
+    <div style="width:118px;height:118px;margin:8px auto">${Q4BReward.svg(sp)}</div>
+    <div style="font-weight:bold;font-size:18px">マスター虫「${sp.jaName||sp.id}」をゲット！</div>
+    <div class="small" style="margin-top:4px">${sp.note||''}</div>
+    ${list.length>1?`<div class="small">ほかにも ${list.length-1}匹！</div>`:''}
+    <button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button></div></div>`;
+  $('#modal').classList.add('show');
+}
+function eitangoMasterSection(){
+  if(!window.Q4BReward||!Q4BReward.masterBugsFor) return '';
+  const ms=Q4BReward.masterBugsFor('eitango'); if(!ms.length) return '';
+  ms.sort((a,b)=>a.master.key-b.master.key);
+  const tmp={catches:P.catches};
+  const got=ms.filter(sp=>Q4BReward.masterObtained(tmp,sp.id)).length;
+  const cells=ms.map(sp=>{ const ok=Q4BReward.masterObtained(tmp,sp.id); const fd=fieldById(sp.master.key);
+    return `<div class="zc" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?Q4BReward.svg(sp):'🎓'}</span><span class="zn">${ok?(sp.jaName+' 🎓'):(fd?fd.name:'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></div>`;
+  }).join('');
+  return `<div class="h2" style="margin-top:8px">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span></div>
+    <div class="note" style="margin-bottom:6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
+    <div class="zgrid">${cells}</div>`;
+}
 function render(){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===screen));
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
+  if(P&&P.catches) checkMastersE();
   if(screen==='home') $('#app').innerHTML=scrHome();
   if(screen==='zukan') $('#app').innerHTML=scrZukan();
   if(screen==='dict'){ $('#app').innerHTML=scrDict(); if(dictQ){ const si=document.querySelector('#app input'); if(si){ si.focus(); si.setSelectionRange(si.value.length,si.value.length); } } }
@@ -4756,6 +4796,7 @@ function scrZukan(){
     <span style="font-size:15px;font-weight:700">🍯 こはく：<b>${amberNow}</b></span>
     <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🍯 こはくで よぶ（30）</button>
   </div>
+  ${eitangoMasterSection()}
   <div class="ztabs">${tabs.map(f=>`<button class="${f.id===zTab?'on':''}" onclick="zTab=${f.id};render()">${f.emoji} ${f.name}</button>`).join('')}</div>
   <div class="zgrid">${zk.map(s=>{
     const c=P.catches[s[0]];

@@ -159,13 +159,13 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.61"></script>
-<script src="../shared/bugs.js?v=0.2.61"></script>
-<script src="../shared/render.js?v=0.2.61"></script>
-<script src="../shared/bespoke.js?v=0.2.61"></script>
-<script src="../shared/reward.js?v=0.2.61"></script>
-<script src="../shared/furigana.js?v=0.2.61"></script>
-<script src="../shared/yomi.js?v=0.2.61"></script>
+<script src="../shared/storage.js?v=0.2.62"></script>
+<script src="../shared/bugs.js?v=0.2.62"></script>
+<script src="../shared/render.js?v=0.2.62"></script>
+<script src="../shared/bespoke.js?v=0.2.62"></script>
+<script src="../shared/reward.js?v=0.2.62"></script>
+<script src="../shared/furigana.js?v=0.2.62"></script>
+<script src="../shared/yomi.js?v=0.2.62"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1512,7 +1512,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  $('bParent').addEventListener('click',parentGate);
  if($('bReviewBanner'))$('bReviewBanner').addEventListener('click',startReview);
  if($('bReviewSmall'))$('bReviewSmall').addEventListener('click',startReview);
- head(); showScr('home') }
+ head(); showScr('home'); checkMasters() }
 /* コースはいつでも切替可能。解放状態(ST.un)は両コースぶん保持されるので進捗は消えない */
 function switchMode(){
  CUR.mode=(CUR.mode==='small')?'big':'small';
@@ -1884,6 +1884,45 @@ function calcMastered(keys){
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
+/* ===== マスター虫（全習得限定）===== */
+function masterMet(sp){
+ var key=sp.master.key, keys;
+ if(key==='hira') keys=HIRA.map(function(c){return 'h:'+c});
+ else { var g=parseInt(key.slice(1),10); if(!UNITS[g]||!UNITS[g].length)return false; keys=UNITS[g].map(function(c){return 'k:'+c}); }
+ var r=calcMastered(keys); return r.total>0 && r.mastered>=r.total;
+}
+function checkMasters(){
+ if(!window.Q4BReward||!ST||!ST.coll)return;
+ var awarded=[];
+ Q4BReward.masterBugsFor('kanji').forEach(function(sp){
+  if(Q4BReward.masterObtained(ST.coll,sp.id))return;
+  if(masterMet(sp)){ if(Q4BReward.awardMaster(ST.coll,sp))awarded.push(sp); }
+ });
+ if(awarded.length){ saveST(); showMasterCelebration(awarded); }
+}
+function kanjiMasterSection(){
+ if(!window.Q4BReward||!Q4BReward.masterBugsFor)return '';
+ var ms=Q4BReward.masterBugsFor('kanji'); if(!ms.length)return '';
+ var GLAB={hira:'ひらがな',g1:'1年',g2:'2年',g3:'3年',g4:'4年',g5:'5年',g6:'6年'};
+ ms.sort(function(a,b){ var o=['hira','g1','g2','g3','g4','g5','g6']; return o.indexOf(a.master.key)-o.indexOf(b.master.key); });
+ var got=ms.filter(function(sp){return Q4BReward.masterObtained(ST.coll,sp.id);}).length;
+ var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(ST.coll,sp.id);
+  return '<div class="bug"'+(ok?'':' style="opacity:.55"')+'>'+(ok?Q4BReward.svg(sp):'<div style="font-size:40px;line-height:64px">🎓</div>')
+   +'<div class="nm">'+(ok?(sp.jaName+' 🎓'):(GLAB[sp.master.key]||'')+' ？')+'</div>'
+   +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></div>';
+ }).join('');
+ return '<div class="card"><div style="font-weight:bold;margin-bottom:4px">🎓 マスター虫 <span style="color:var(--gold)">'+got+' / '+ms.length+'</span></div>'
+  +'<div style="font-size:12px;color:#56714e;margin-bottom:8px">そのはんいを <b>ぜんぶ習得</b>すると もらえる特別な虫だよ</div>'
+  +'<div class="bugs">'+cells+'</div></div>';
+}
+function showMasterCelebration(list){ var sp=list[0];
+ modal('<div class="center"><div style="font-size:14px;color:var(--gold);font-weight:800">🎓 ぜんぶ習得！</div>'
+  +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
+  +'<div style="font-weight:bold;font-size:18px">マスター虫「'+(sp.jaName||sp.id)+'」をゲット！</div>'
+  +'<div class="small" style="margin-top:4px">'+(sp.note||'')+'</div>'
+  +(list.length>1?'<div class="small">ほかにも '+(list.length-1)+'匹！</div>':'')
+  +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button></div>');
+}
 
 function updateProgressSummary(){
  if(!ST)return;
@@ -2096,6 +2135,7 @@ function renderBugs(){
   +'<button id="kanji-amber-btn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto"'
   +(canSpend?'':' disabled')
   +'>🍯 こはくで よぶ（30）</button></div>'
+  +kanjiMasterSection()
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
   +'<div class="bugs">';

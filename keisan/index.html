@@ -188,13 +188,13 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.61"></script>
-<script src="../shared/bugs.js?v=0.2.61"></script>
-<script src="../shared/render.js?v=0.2.61"></script>
-<script src="../shared/bespoke.js?v=0.2.61"></script>
-<script src="../shared/reward.js?v=0.2.61"></script>
-<script src="../shared/furigana.js?v=0.2.61"></script>
-<script src="../shared/yomi.js?v=0.2.61"></script>
+<script src="../shared/storage.js?v=0.2.62"></script>
+<script src="../shared/bugs.js?v=0.2.62"></script>
+<script src="../shared/render.js?v=0.2.62"></script>
+<script src="../shared/bespoke.js?v=0.2.62"></script>
+<script src="../shared/reward.js?v=0.2.62"></script>
+<script src="../shared/furigana.js?v=0.2.62"></script>
+<script src="../shared/yomi.js?v=0.2.62"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -531,8 +531,47 @@ function showHome(){
     +'<button class="btn sm ghost" onclick="showSettings()">⚙ せってい・データ</button></div>';
   h+='</div>';
   render(h);
+  checkMastersK();
 }
 
+/* ===== マスター虫（全習得限定）===== */
+function masterMetK(key){
+ var p=P(); if(!p)return false;
+ if(key==="add") return (p.hsMax||1)>=4;
+ if(key==="sub") return (p.hkMax||1)>=4;
+ if(key==="mul") return (p.kukuIdx||0)>=ORDER.length;
+ if(key==="div") return ["anzan","sougou","mix"].some(function(c){var s=p.stats[c];return s&&s.n>=50&&(s.ok/s.n)>=0.9;});
+ if(key==="all") return masterMetK("add")&&masterMetK("sub")&&masterMetK("mul")&&masterMetK("div");
+ return false;
+}
+var KMASTERLAB={add:"たし算ひっさん",sub:"ひき算ひっさん",mul:"九九",div:"暗算",all:"ぜんぶ"};
+function checkMastersK(){
+ var p=P(); if(!p||!window.Q4BReward||!Q4BReward.masterBugsFor)return; ensureColl(p);
+ var awarded=[];
+ Q4BReward.masterBugsFor("keisan").forEach(function(sp){
+  if(Q4BReward.masterObtained(p.coll,sp.id))return;
+  if(masterMetK(sp.master.key)){ if(Q4BReward.awardMaster(p.coll,sp))awarded.push(sp); }
+ });
+ if(awarded.length){ save(); showMasterCelebrationK(awarded); }
+}
+function showMasterCelebrationK(list){ var sp=list[0];
+ var inner='<div style="font-size:14px;color:var(--amber-d);font-weight:800">🎓 ぜんぶ習得！</div>'
+  +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
+  +'<div style="font-weight:bold;font-size:18px">マスター虫「'+esc(sp.jaName||sp.id)+'」をゲット！</div>'
+  +'<div class="note" style="margin-top:4px">'+esc(sp.note||"")+'</div>'
+  +(list.length>1?'<div class="note">ほかにも '+(list.length-1)+'匹！</div>':"");
+ app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard center">'+inner+'<button class="btn" style="margin-top:12px" onclick="closeMd()">やったー！</button></div></div>');
+}
+function keisanMasterSection(){
+ if(!window.Q4BReward||!Q4BReward.masterBugsFor)return "";
+ var p=P(); var ms=Q4BReward.masterBugsFor("keisan"); if(!ms.length)return "";
+ var ord=["add","sub","mul","div","all"]; ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
+ var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
+ var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
+  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?Q4BReward.svg(sp):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||""))+'</div></div>';
+ }).join("");
+ return '<div class="card"><h3>🎓 マスター虫　<span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span></h3><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div>';
+}
 /* ---------- zukan ---------- */
 function showZukan(){
   var p=P();
@@ -566,6 +605,7 @@ function showZukan(){
     +'<button id="amberCatchBtn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto'+(canSpend?'':'opacity:.45;pointer-events:none')+'"'
     +(canSpend?'':' disabled')
     +' onclick="keisanAmberCatch()">🍯 こはくで よぶ（30）</button></div>';
+  h+=keisanMasterSection();
   /* Q4BReward ベース: tierOf 降順ソート */
   var sorted=pool.slice().sort(function(a,b){ return Q4BReward.tierOf(b)-Q4BReward.tierOf(a)||(a.jaName<b.jaName?-1:1); });
   h+='<div class="zgrid">';
