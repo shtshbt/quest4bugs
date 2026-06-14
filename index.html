@@ -118,13 +118,13 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
-<script src="./shared/storage.js?v=0.2.62"></script>
-<script src="./shared/bugs.js?v=0.2.62"></script>
-<script src="./shared/render.js?v=0.2.62"></script>
-<script src="./shared/bespoke.js?v=0.2.62"></script>
-<script src="./shared/reward.js?v=0.2.62"></script>
-<script src="./shared/furigana.js?v=0.2.62"></script>
-<script src="./shared/yomi.js?v=0.2.62"></script>
+<script src="./shared/storage.js?v=0.2.63"></script>
+<script src="./shared/bugs.js?v=0.2.63"></script>
+<script src="./shared/render.js?v=0.2.63"></script>
+<script src="./shared/bespoke.js?v=0.2.63"></script>
+<script src="./shared/reward.js?v=0.2.63"></script>
+<script src="./shared/furigana.js?v=0.2.63"></script>
+<script src="./shared/yomi.js?v=0.2.63"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
@@ -259,6 +259,32 @@ function ymd(d){return d.getFullYear()+"-"+pad2d(d.getMonth()+1)+"-"+pad2d(d.get
 /* 日付キーの正規化: えいたんごは数値 YYYYMMDD、けいさん/かんじは YYYY-MM-DD で保存しているため揃える */
 function ndk(k){k=String(k);return /^\d{8}$/.test(k)?(k.slice(0,4)+"-"+k.slice(4,6)+"-"+k.slice(6,8)):k;}
 function sumDaily(map,src,key,g){var d,nd,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c){nd=ndk(d);if(!map[nd])map[nd]={k:0,j:0,e:0};map[nd][g]+=c;}}}
+/* 属性別 統合ずかん（ゲーム横断・バトルのパーティ編成の土台）。既存の各ゲーム図鑑は保持。 */
+function attrZukanHTML(kp,ks,es){
+  if(!window.Q4BRender||!window.BUGS) return '';
+  var byId={}; window.BUGS.forEach(function(s){ byId[s.id]=s; });
+  var groups=[
+    {emoji:'🦋',label:'かんじタイプ（蝶・ガ）',catches:(ks&&ks.coll&&ks.coll.catches)||{}},
+    {emoji:'🪲',label:'けいさんタイプ（甲虫）',catches:(kp&&kp.coll&&kp.coll.catches)||{}},
+    {emoji:'🐝',label:'えいごタイプ（その他）',catches:(es&&es.catches)||{}}
+  ];
+  var diagram='<div class="note" style="text-align:center;margin:2px 0 10px;font-weight:800;background:var(--green-l);border-radius:10px;padding:6px">'
+    +'🦋蝶ガ ▶ 🪲甲虫 ▶ 🐝その他 ▶ 🦋…<br><span style="font-weight:600;color:var(--sub)">やじるしの さきに つよい（じゃんけん）</span></div>';
+  var body=groups.map(function(g){
+    var ids=Object.keys(g.catches).filter(function(id){ return byId[id]; });
+    var cells=ids.map(function(id){ var sp=byId[id], c=g.catches[id];
+      var shiny=(c&&c.shiny&&!(c.normal!=null?c.normal:1))?1:0;
+      var mb=(c&&c.master)?'🎓':'';
+      return '<div style="position:relative;width:42px;height:42px" title="'+esc(sp.jaName||id)+'">'+window.Q4BRender.species(sp,shiny)
+        +(mb?'<span style="position:absolute;right:-2px;bottom:-2px;font-size:11px">'+mb+'</span>':'')+'</div>';
+    }).join('');
+    return '<div style="margin-bottom:10px"><div class="note" style="font-weight:800;margin-bottom:4px">'+g.emoji+' '+esc(g.label)
+      +' <span style="color:var(--sub)">'+ids.length+'ひき</span></div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:4px">'+(cells||'<span class="note">まだ いないよ</span>')+'</div></div>';
+  }).join('');
+  return '<details style="margin-top:12px;border-top:1px solid var(--line);padding-top:8px"><summary style="font-weight:800;font-size:16px;cursor:pointer;list-style:none">🦋🪲🐝 ぞくせいべつ ずかん（バトルよう）</summary>'
+    +'<div style="margin-top:8px">'+diagram+body+'</div></details>';
+}
 function renderDashboard(pid,name){
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
@@ -308,7 +334,8 @@ function renderDashboard(pid,name){
       +(gNext?'<span style="color:var(--sub);margin-left:auto">つぎ「'+esc(gNext.name)+'」まで あと'+gNext.need+'ひき</span>':'')+'</div>'
       +psLine
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（14日・'+totalQ+'もん）</div>'
-      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>'+legend;
+      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>'+legend
+      +attrZukanHTML(kp,ks,es);
     $("dashCard").innerHTML=h;
     $("dashCard").style.display="";
   }).catch(function(){$("dashCard").style.display="none";});
