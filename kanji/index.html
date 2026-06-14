@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.33"></script>
-<script src="../shared/bugs.js?v=0.2.33"></script>
-<script src="../shared/render.js?v=0.2.33"></script>
-<script src="../shared/reward.js?v=0.2.33"></script>
-<script src="../shared/furigana.js?v=0.2.33"></script>
-<script src="../shared/yomi.js?v=0.2.33"></script>
+<script src="../shared/storage.js?v=0.2.34"></script>
+<script src="../shared/bugs.js?v=0.2.34"></script>
+<script src="../shared/render.js?v=0.2.34"></script>
+<script src="../shared/reward.js?v=0.2.34"></script>
+<script src="../shared/furigana.js?v=0.2.34"></script>
+<script src="../shared/yomi.js?v=0.2.34"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1536,10 +1536,10 @@ function answered(ok){ var p=SES.q[SES.i];
  if(ok){ SES.ok++;
   // 採集ゲージ: learn/practice/review のみ（test は finishTest で別途処理）
   if(SES.mode!=='test'&&window.Q4BReward){
-   var iid=p.key+'|'+p.sk;  // 同じ漢字×同じスキルの連打を検知（新しさ係数）
+   var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 連打検知＋既習スキルの周回は採集鈍化
    var got=(SES.mode==='review')
-    ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST,iid)
-    : Q4BReward.onCorrect(ST.coll,'kanji',8,1,iid);
+    ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST,iid,kval)
+    : Q4BReward.onCorrect(ST.coll,'kanji',8,1,iid,kval);
    if(got){ saveST(); setTimeout(function(){ Q4BReward.netSwing(function(){ showCatchModal(got) }) },650); }
   }
  } else { SES.wrongs.push(p);
