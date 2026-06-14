@@ -118,12 +118,12 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
-<script src="./shared/storage.js?v=0.2.31"></script>
-<script src="./shared/bugs.js?v=0.2.31"></script>
-<script src="./shared/render.js?v=0.2.31"></script>
-<script src="./shared/reward.js?v=0.2.31"></script>
-<script src="./shared/furigana.js?v=0.2.31"></script>
-<script src="./shared/yomi.js?v=0.2.31"></script>
+<script src="./shared/storage.js?v=0.2.32"></script>
+<script src="./shared/bugs.js?v=0.2.32"></script>
+<script src="./shared/render.js?v=0.2.32"></script>
+<script src="./shared/reward.js?v=0.2.32"></script>
+<script src="./shared/furigana.js?v=0.2.32"></script>
+<script src="./shared/yomi.js?v=0.2.32"></script>
 <script>
 "use strict";
 function $(i){return document.getElementById(i);}
@@ -268,10 +268,11 @@ function renderDashboard(pid,name){
   ]).then(function(r){
     var book=r[0],ks=r[1],es=r[2],kp=null,i;
     if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
-    var amber=0;
-    if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
-    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; amber+=(ks.coll&&ks.coll.amber)||0; sumDaily(day,ks.log,"a","j");}
-    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
+    /* 琥珀は共有ウォレットが正。未移行(各ゲーム初回ロード前)の旧coll.amberだけ暫定加算 */
+    var amber=(window.QuestSave&&QuestSave.amberOf)?QuestSave.amberOf(pid):0;
+    if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; if(!kp.coll.amberMig)amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
+    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; if(ks.coll&&!ks.coll.amberMig)amber+=ks.coll.amber||0; sumDaily(day,ks.log,"a","j");}
+    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
     var total=keisanN+kanjiN+eitangoN;
     var pool=window.Q4BReward?(Q4BReward.poolCount("kanji")+Q4BReward.poolCount("keisan")+Q4BReward.poolCount("eitango")):547;
     /* combined streak: consecutive days up to today with any activity */

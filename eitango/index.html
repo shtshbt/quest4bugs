@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.31"></script>
-<script src="../shared/bugs.js?v=0.2.31"></script>
-<script src="../shared/render.js?v=0.2.31"></script>
-<script src="../shared/reward.js?v=0.2.31"></script>
-<script src="../shared/furigana.js?v=0.2.31"></script>
-<script src="../shared/yomi.js?v=0.2.31"></script>
+<script src="../shared/storage.js?v=0.2.32"></script>
+<script src="../shared/bugs.js?v=0.2.32"></script>
+<script src="../shared/render.js?v=0.2.32"></script>
+<script src="../shared/reward.js?v=0.2.32"></script>
+<script src="../shared/furigana.js?v=0.2.32"></script>
+<script src="../shared/yomi.js?v=0.2.32"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3499,15 +3499,15 @@ function scrProgress(){
   const rows=openFields.map(f=>{
     const words=WordDB.byField(f.id);
     const total=words.length;
-    let mastered=0, frac=0;
+    let mastered=0, started=0, frac=0;
     if(f.kids){
-      words.forEach(w=>{const k=P.kids[w.key]; const lv=k?Math.max(0,Math.min(2,k[1]||0)):0; frac+=lv/2; if(k&&k[1]>=2)mastered++;});
+      words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; const lv=Math.min(2,k[1]); frac+=lv/2; if(k[1]>=2)mastered++;});
     } else {
-      words.forEach(w=>{const s=P.srs[w.key]; const st=s?Math.max(0,Math.min(4,s[0]||0)):0; frac+=st/4; if(s&&s[0]>=4)mastered++;});
+      words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; const st=Math.min(4,s[0]); frac+=st/4; if(s[0]>=4)mastered++;});
     }
-    /* バーは部分進捗（平均ステージ率）で1問ごとに動く。masteredは完全習得数(ラベル用) */
-    const pct=total?Math.round(100*frac/total):0;
-    return {f,mastered,total,pct};
+    /* バーは「はじめた語の習得度」で1問ごとに動く（分母を全語にすると拡充で動かないため） */
+    const pct=started?Math.round(100*frac/started):0;
+    return {f,mastered,started,total,pct};
   });
 
   /* 総括ラベル: しゅうとく率50%以上の最上位 */
@@ -3535,7 +3535,7 @@ function scrProgress(){
 
   /* バーのHTML */
   let barsHtml='';
-  for(const {f,mastered,total,pct} of rows){
+  for(const {f,mastered,started,total,pct} of rows){
     const barPct=Math.min(100,pct);
     const barColor=pct>=80?'var(--good)':pct>=50?'var(--amber)':'var(--sub)';
     barsHtml+=`<div style="margin-top:14px">
@@ -3547,7 +3547,7 @@ function scrProgress(){
         </div>
         <div style="text-align:right;font-size:13px;font-weight:800;white-space:nowrap">
           すすみ <span style="color:${barColor}">${pct}%</span>
-          <div style="font-size:11px;color:var(--sub);font-weight:700">マスター ${mastered}/${total}語</div>
+          <div style="font-size:11px;color:var(--sub);font-weight:700">はじめた ${started}/${total}・マスター ${mastered}</div>
         </div>
       </div>
       <div style="height:10px;background:rgba(0,0,0,.08);border-radius:999px;overflow:hidden">

@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.31"></script>
-<script src="../shared/bugs.js?v=0.2.31"></script>
-<script src="../shared/render.js?v=0.2.31"></script>
-<script src="../shared/reward.js?v=0.2.31"></script>
-<script src="../shared/furigana.js?v=0.2.31"></script>
-<script src="../shared/yomi.js?v=0.2.31"></script>
+<script src="../shared/storage.js?v=0.2.32"></script>
+<script src="../shared/bugs.js?v=0.2.32"></script>
+<script src="../shared/render.js?v=0.2.32"></script>
+<script src="../shared/reward.js?v=0.2.32"></script>
+<script src="../shared/furigana.js?v=0.2.32"></script>
+<script src="../shared/yomi.js?v=0.2.32"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1452,8 +1452,8 @@ function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
   // 後方互換: 旧 coll (配列) を新形式に移行
   if(!ST.coll||Array.isArray(ST.coll))ST.coll={gauge:0,total:0,catches:{}};
-  // 旧・ゲーム別amberを共有ウォレットへ一度だけ移行
-  if(window.QuestSave&&CUR&&ST.coll.amber>0&&!ST.coll.amberMig){ QuestSave.amberAdd(CUR.id,ST.coll.amber); ST.coll.amber=0; ST.coll.amberMig=1; }
+  // 旧・ゲーム別amberを共有ウォレットへ一度だけ移行（即保存して再移行=二重計上を防ぐ）
+  if(window.QuestSave&&CUR&&ST.coll.amber>0&&!ST.coll.amberMig){ QuestSave.amberAdd(CUR.id,ST.coll.amber); ST.coll.amber=0; ST.coll.amberMig=1; saveST(); }
   initUn(); head(); renderHome() }) }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function kPidNow(){ return CUR?CUR.id:(window.QuestSave&&QuestSave.currentProfile()); }

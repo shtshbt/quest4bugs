@@ -179,12 +179,12 @@ input[type=text]{font-family:inherit; font-size:18px; padding:10px 12px; border:
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
 <div id="app"></div>
-<script src="../shared/storage.js?v=0.2.31"></script>
-<script src="../shared/bugs.js?v=0.2.31"></script>
-<script src="../shared/render.js?v=0.2.31"></script>
-<script src="../shared/reward.js?v=0.2.31"></script>
-<script src="../shared/furigana.js?v=0.2.31"></script>
-<script src="../shared/yomi.js?v=0.2.31"></script>
+<script src="../shared/storage.js?v=0.2.32"></script>
+<script src="../shared/bugs.js?v=0.2.32"></script>
+<script src="../shared/render.js?v=0.2.32"></script>
+<script src="../shared/reward.js?v=0.2.32"></script>
+<script src="../shared/furigana.js?v=0.2.32"></script>
+<script src="../shared/yomi.js?v=0.2.32"></script>
 <script>
 "use strict";
 var DB={v:1, act:null, profiles:[]};
@@ -370,7 +370,7 @@ function newProfile(name,type){
 }
 function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}};
   /* 旧・ゲーム別amberを共有ウォレットへ一度だけ移行 */
-  if(window.QuestSave&&p.id&&p.coll.amber>0&&!p.coll.amberMig){ QuestSave.amberAdd(p.id,p.coll.amber); p.coll.amber=0; p.coll.amberMig=1; }
+  if(window.QuestSave&&p.id&&p.coll.amber>0&&!p.coll.amberMig){ QuestSave.amberAdd(p.id,p.coll.amber); p.coll.amber=0; p.coll.amberMig=1; save(); /* 即保存して再移行(二重計上)を防ぐ */ }
 }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act) return DB.profiles[i]; return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
