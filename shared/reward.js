@@ -25,7 +25,9 @@
     return "eitango";
   }
   var POOLS = { kanji:[], keisan:[], eitango:[] };
-  BUGS.forEach(function(sp){ (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
+  /* masterOnly(全習得限定)・bossOnly(ボス専用)は通常の採集プールから除外。
+     ゲージ/琥珀の抽選には絶対に出さず、習得達成/ボス撃破でのみ授与する。 */
+  BUGS.forEach(function(sp){ if(sp.masterOnly||sp.bossOnly)return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
   function pool(game){ return POOLS[game] || BUGS; }
   function poolCount(game){ return pool(game).length; }
 
