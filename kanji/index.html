@@ -156,12 +156,12 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.2.18"></script>
-<script src="../shared/bugs.js?v=0.2.18"></script>
-<script src="../shared/render.js?v=0.2.18"></script>
-<script src="../shared/reward.js?v=0.2.18"></script>
-<script src="../shared/furigana.js?v=0.2.18"></script>
-<script src="../shared/yomi.js?v=0.2.18"></script>
+<script src="../shared/storage.js?v=0.2.19"></script>
+<script src="../shared/bugs.js?v=0.2.19"></script>
+<script src="../shared/render.js?v=0.2.19"></script>
+<script src="../shared/reward.js?v=0.2.19"></script>
+<script src="../shared/furigana.js?v=0.2.19"></script>
+<script src="../shared/yomi.js?v=0.2.19"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -1799,14 +1799,15 @@ function startReview(){
 
 /* ================= 進捗バー ================= */
 function calcMastered(keys){
- // マスター = 全 gatedSkills が stage >= 4
- var total=keys.length, mastered=0;
+ // マスター = 全 gatedSkills が stage >= 4。pct は部分進捗（平均ステージ率, 1問ごとに動く）
+ var total=keys.length, mastered=0, frac=0;
  keys.forEach(function(key){
-  var sks=gatedSkills(key);
-  var done=sks.every(function(sk){ return rec(key,sk).s>=4 });
-  if(done)mastered++;
+  var sks=gatedSkills(key), sum=0;
+  sks.forEach(function(sk){ var st=Math.max(0,Math.min(4,rec(key,sk).s)); sum+=st/4; });
+  frac += sks.length ? sum/sks.length : 0;
+  if(sks.every(function(sk){ return rec(key,sk).s>=4 }))mastered++;
  });
- return {mastered:mastered,total:total}
+ return {mastered:mastered,total:total,pct: total?Math.round(100*frac/total):0}
 }
 
 function updateProgressSummary(){
@@ -1844,7 +1845,7 @@ function renderProgress(){
  // ひらがな行
  var hiraKeys=HIRA.map(function(c){return 'h:'+c});
  var hr=calcMastered(hiraKeys);
- var hPct=hr.total>0?Math.round(100*hr.mastered/hr.total):0;
+ var hPct=hr.pct;
  h+='<div class="pgbar-row">'
   +'<div class="pgbar-label"><span>ひらがな</span><span>'+hr.mastered+'/'+hr.total+'じ（'+hPct+'%）</span></div>'
   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
@@ -1853,7 +1854,7 @@ function renderProgress(){
  grades.forEach(function(g){
   var keys=UNITS[g].map(function(c){return 'k:'+c});
   var r=calcMastered(keys);
-  var pct=r.total>0?Math.round(100*r.mastered/r.total):0;
+  var pct=r.pct;
   var locked=!unOK('u'+g);
   h+='<div class="pgbar-row"'+(locked?' style="opacity:.5"':'')+'>'
    +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>'+r.mastered+'/'+r.total+'じ（'+pct+'%）</span></div>'

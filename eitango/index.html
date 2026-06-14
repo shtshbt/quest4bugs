@@ -227,12 +227,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.2.18"></script>
-<script src="../shared/bugs.js?v=0.2.18"></script>
-<script src="../shared/render.js?v=0.2.18"></script>
-<script src="../shared/reward.js?v=0.2.18"></script>
-<script src="../shared/furigana.js?v=0.2.18"></script>
-<script src="../shared/yomi.js?v=0.2.18"></script>
+<script src="../shared/storage.js?v=0.2.19"></script>
+<script src="../shared/bugs.js?v=0.2.19"></script>
+<script src="../shared/render.js?v=0.2.19"></script>
+<script src="../shared/reward.js?v=0.2.19"></script>
+<script src="../shared/furigana.js?v=0.2.19"></script>
+<script src="../shared/yomi.js?v=0.2.19"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const BASICRAW=[
@@ -3287,13 +3287,14 @@ function scrProgress(){
   const rows=openFields.map(f=>{
     const words=WordDB.byField(f.id);
     const total=words.length;
-    let mastered=0;
+    let mastered=0, frac=0;
     if(f.kids){
-      mastered=words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
+      words.forEach(w=>{const k=P.kids[w.key]; const lv=k?Math.max(0,Math.min(2,k[1]||0)):0; frac+=lv/2; if(k&&k[1]>=2)mastered++;});
     } else {
-      mastered=SRS.mastered(P,words);
+      words.forEach(w=>{const s=P.srs[w.key]; const st=s?Math.max(0,Math.min(4,s[0]||0)):0; frac+=st/4; if(s&&s[0]>=4)mastered++;});
     }
-    const pct=total?Math.round(mastered/total*100):0;
+    /* バーは部分進捗（平均ステージ率）で1問ごとに動く。masteredは完全習得数(ラベル用) */
+    const pct=total?Math.round(100*frac/total):0;
     return {f,mastered,total,pct};
   });
 
