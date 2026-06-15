@@ -375,7 +375,7 @@ function bossReachOpen(r){
 function prevCleared(r){ return !!r && (r.stage===1 || !!CLEARED[r.stage-1]); }
 /* 真の解禁＝3ゲーム到達度と撃破順の両立。1教科だけ進んだ先のボスを飛び級で開けない（まだら解放の防止） */
 function bossOpen(r){ return prevCleared(r) && bossReachOpen(r); }
-function unlockedCount(){ var n=0,i; for(i=0;i<B.roster.length;i++) if(bossOpen(B.roster[i]))n++; return n; }
+function unlockedCount(){ var n=0,i,r; for(i=0;i<B.roster.length;i++){ r=B.roster[i]; if(CLEARED[r.stage]||bossOpen(r))n++; } return n; }
 /* 次に挑む対象＝まだ倒していない最初のボス（撃破順のフロンティア） */
 function nextBoss(){ var i,r; for(i=0;i<B.roster.length;i++){ r=B.roster[i]; if(!CLEARED[r.stage]) return r; } return null; }
 /* ====== 目標レンジ・誕生日・生まれ月設定UI ====== */
@@ -437,9 +437,9 @@ function nextBandHint(type){
   if(type==="none") return "";
   var v=REACH[type]||0, thrs=[2,4,6,8,9.5], i, band=0;
   for(i=0;i<thrs.length;i++){ if(v<thrs[i]){ band=i+1; break; } }
-  if(band===0) return "✨ band5まで 到達ずみ！あとは たおすだけ！";
-  var st=null,j,r; for(j=0;j<B.roster.length;j++){ r=B.roster[j]; if(Math.ceil(r.stage/10)===band && r.type===type){ st=r.stage; break; } }
-  return "→ もうすこしで band"+band+(st?"（No."+st+"〜）":"")+" が ひらく！";
+  if(band===0) return "✨ band5レベルまで 到達ずみ！";
+  /* 注: 実際のボス解禁は撃破順（前のボスを倒す）に従う。ここは「その教科の到達レベル」を示すだけ。 */
+  return "→ もうすこしで band"+band+" レベル！";
 }
 function thrToKanji(thr,age){ var g=thr/10*(expGrade(age)+0.5); return g<1?"ひらがな":("小"+Math.min(6,Math.ceil(g))); }
 function thrToField(thr,age){ var ef=thr/10*expField(age), names=["にわ","いけ","はやし","やま","ジャングル","アマゾン"]; return names[Math.min(5,Math.max(0,Math.ceil(ef)-1))]; }
@@ -455,7 +455,7 @@ function unlockMapHTML(age){
   });
   var mozOpen=(REACH.kanji>=9.5&&REACH.keisan>=9.5&&REACH.eitango>=9.5);
   h+='<tr><td style="padding:3px;border:1px solid #ddd;font-size:10px">⚫ モズ（さいしゅう）</td><td colspan="3" style="text-align:center;padding:3px;border:1px solid #ddd'+(mozOpen?';background:#ffe08a;font-weight:800':'')+'">3きょうか ぜんぶ MAX</td></tr>';
-  h+='</table><div style="font-size:10px;color:#999;margin-top:3px">緑＝到達ずみ。年齢が上がると 目標レンジも上がるよ。</div>';
+  h+='</table><div style="font-size:10px;color:#999;margin-top:3px">緑＝到達ずみ。<b>3きょうか ぜんぶ 緑</b>に なると その帯が 解禁（さらに 前のボスから順に撃破）。年齢が上がると 目標レンジも上がるよ。</div>';
   return h;
 }
 function loadAll(){
@@ -574,10 +574,14 @@ function renderHome(){
           into=Math.round(Math.min(1,_cur/_thr)*100); }
   document.getElementById("ghfill").style.width = into+"%";
   var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの3ゲーム到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
+  /* 解禁は3教科すべてが閾値到達で初めて開く。足りない教科＝一番ひくい教科を案内する。 */
+  var _subs=[["かんじ",REACH.kanji],["けいさん",REACH.keisan],["えいご",REACH.eitango]];
+  _subs.sort(function(a,b){return a[1]-b[1];});
+  var _weak=_subs[0][0];
   document.getElementById("ghmeta").textContent = nx
     ? (nxOpen
         ? "解禁ずみ "+unlocked+" 体 ／ No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）に いどめるよ！"
-        : "解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）が ひらくよ！")
+        : "解禁ずみ "+unlocked+" 体 ／ "+_weak+"を のばすと No."+nx.stage+"に ちかづくよ！（3きょうか そろえて 解禁）")
     : "ぜんぶ解禁ずみ！あとは たおすだけ！";
   /* 🎯 到達度バー＋次ボス目標＋📖解禁マップ＋🎂誕生日演出 */
   var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
@@ -622,21 +626,24 @@ function renderHome(){
     var body=band.querySelector(".band-body");
     rs.forEach(function(r){
       var sp=byId[r.id];
+      var done=!!CLEARED[r.stage];                          /* 撃破済み（クリア済みは常に公開・再戦可） */
       var progOpen=bossReachOpen(r);                        /* 年齢到達度ゲート(3ゲームすべて) */
       var prevOk=prevCleared(r);                            /* 撃破制: 前のボスを倒した */
-      var open=progOpen&&prevOk;                            /* 解禁＝到達度＋撃破順の両立 */
+      var fightable=progOpen&&prevOk;                       /* いま たたかえる（到達度＋撃破順） */
+      var show=done||fightable;                             /* アート公開＝撃破済み or 解禁済み */
       var isFront=(nx&&r.stage===nx.stage);
       var nem = r.predator ? (r.final?'<div class="nemesis final">さいきょう！</div>':'<div class="nemesis">天敵！</div>') : '';
       var trs = r.predator ? B.bossTraits(r) : [];
       var trChip = trs.map(function(t){return ' <span class="trait-chip sm">'+t.icon+t.name+'</span>';}).join('');
-      var d=document.createElement("div"); d.className="bcell"+(r.predator?" pred":"")+(open?"":" locked")+(isFront&&!open?" frontier":"");
-      if(open){
-        /* 撃破順＋到達度の両方を満たした→ボス公開＋「たたかう」 */
+      var d=document.createElement("div"); d.className="bcell"+(r.predator?" pred":"")+(show?"":" locked")+(done?" done":"")+(isFront&&!show?" frontier":"");
+      if(show){
+        /* 撃破済み or 解禁済み→ボス公開。撃破済みは ✓＋「もういちど」、未撃破は「たたかう」 */
         d.innerHTML='<span class="stg">No.'+r.stage+'</span>'
           +(r.predator?(r.final?'<span class="pin">👑</span>':'<span class="pin">🦂</span>'):'')
           +'<div class="art">'+R.deco(sp,false)+'</div>'+nem+'<div class="bn">'+sp.jaName+'</div>'
           +'<div><span class="badge b-'+(r.type||"none")+'">'+TYPE_JA[r.type||"none"]+'</span>'+trChip+'</div>'
-          +'<button>たたかう</button>';
+          +(done?'<div class="lk done">✓ たおした！</div>':'')
+          +'<button>'+(done?'もういちど':'たたかう')+'</button>';
         d.querySelector("button").onclick=function(){ startBattle(r); };
       } else {
         /* 未解禁→シルエット。撃破順が未到達なら「前を倒そう」、到達度が未達なら「べんきょうで解禁」 */
