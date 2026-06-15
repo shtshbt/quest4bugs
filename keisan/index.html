@@ -495,11 +495,23 @@ function dueMissed(p){var t=todayStr(); return p.missed.filter(function(m){retur
 /* Lvに応じてボタン背景を 薄緑(Lv1)→濃緑(Lv10) に濃くする＝進捗がひと目で分かる */
 function lvBg(lv){ var t=Math.max(0,Math.min(1,(lv-1)/9)); function mix(a,b){return Math.round(a+(b-a)*t);}
   return 'rgb('+mix(0xEC,0x2C)+','+mix(0xF2,0x5F)+','+mix(0xDB,0x2D)+')'; }
-function catBtnHTML(c,act,p){
+function courseCats(p){ return (p.type==="k5")?K5CATS.concat(K5DEV):K10CATS.concat(K10DEV); }
+/* おすすめ(レアブースト対象): 今日未学習 ∪ 総学習量の少ないtop5。まんべんなく学習を促す。 */
+function balanceCats(p){
+  var cats=courseCats(p), t=todayStr(), set={};
+  var sorted=cats.slice().sort(function(a,b){return ((p.stats[a]&&p.stats[a].n)||0)-((p.stats[b]&&p.stats[b].n)||0);});
+  sorted.slice(0,5).forEach(function(c){ set[c]='low'; });
+  cats.forEach(function(c){ if(((p.lastDone&&p.lastDone[c])||"")!==t){ set[c]=set[c]?'both':'new'; } });
+  return set;
+}
+function isBalanceCat(p,c){ return !!balanceCats(p)[c]; }
+function catBtnHTML(c,act,p,mark){
   var leveled=!!LVL_CATS[c], lv=leveled?((p.lv&&p.lv[c])||1):0;
-  var sty=leveled?(' style="background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'var(--ink)')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)"'):'';
+  var sty=leveled?('background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'var(--ink)')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)'):'';
+  if(mark) sty+=';outline:3px solid #E8B23A;outline-offset:-1px';
   var lvtag=leveled?'<span style="font-weight:800;opacity:.92">　Lv'+lv+'/10</span>':'';
-  return '<button class="btn sm ghost"'+sty+' onclick="'+act+'">'+CATL[c]+lvtag+'</button>';
+  var mk=(mark==='low'||mark==='both')?' 🌟':(mark==='new'?' 🆕':'');
+  return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+'</button>';
 }
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
@@ -515,11 +527,13 @@ function showHome(){
     +'<p style="margin:2px 0 12px">'+(night?'🌙 よるは よるの虫が でやすいよ<br>':'')+(done?"れんしゅうで もっと つかまえよう":"クリアすると 昆虫を 1匹 ゲット！")+(due?'<br>🦋 にがした虫が '+due+'匹 まってるよ':"")+'</p>'
     +'<button class="btn big amber" onclick="startMission()">'+(done?"もういちど ちょうせん":"ミッション スタート！")+'</button>'
     +'<div class="grass"></div></div>';
+  var bal=balanceCats(p);  /* おすすめ(レアブースト)カテゴリ */
+  h+='<div class="card" style="border-color:var(--amber);background:#FFF8ED"><p style="font-weight:800;color:var(--amber-d);margin:0">🌟 まだ やっていない／あまり やっていない（🌟🆕）を やると、めずらしい虫が 出やすいよ！いろいろ やってみよう</p></div>';
   h+='<div class="card"><h3>じぶんで れんしゅう</h3><div class="grid2">';
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   cats.forEach(function(c){
     var act=(c==="kuku")?"showKuku()":((c==="hissan"||c==="hikizan")?"showLevels('"+c+"')":"startPractice('"+c+"')");
-    h+=catBtnHTML(c,act,p);
+    h+=catBtnHTML(c,act,p,bal[c]);
   });
   h+='</div></div>';
   /* 発展演習（コース別。Lv1-10の適応難度） */
@@ -527,7 +541,7 @@ function showHome(){
   if(devs&&devs.length){
     h+='<div class="card"><h3>🌟 はってん もんだい</h3><div class="grid2">';
     devs.forEach(function(c){
-      h+=catBtnHTML(c,"startPractice('"+c+"')",p);
+      h+=catBtnHTML(c,"startPractice('"+c+"')",p,bal[c]);
     });
     h+='</div></div>';
   }
@@ -3645,7 +3659,7 @@ function startMission(){
   nextQ();
 }
 function startPractice(cat,lv){
-  Q={mode:"practice",cat:cat,lv:lv||null,list:buildPractice(cat,P(),lv),i:0,ok:0,ms:0};
+  Q={mode:"practice",cat:cat,lv:lv||null,list:buildPractice(cat,P(),lv),i:0,ok:0,ms:0,balanceBoost:isBalanceCat(P(),cat)};
   nextQ();
 }
 function startReview(){
@@ -3962,6 +3976,7 @@ function recordStat(cat,ok,ms){
   r.push(ok?1:0); while(r.length>20)r.shift();
   var d=p.daily[t]||(p.daily[t]={n:0,ok:0});
   d.n++; if(ok)d.ok++; d.ms=(d.ms||0)+ms;
+  p.lastDone=p.lastDone||{}; p.lastDone[cat]=t;  /* まんべんなく学習: カテゴリ別の最終学習日 */
 }
 function handleMissed(q,ok,o){
   var p=P(), t=todayStr(), i;
@@ -4036,9 +4051,8 @@ function afterJudge(ok,q,o){
   if(ok && window.Q4BReward){
     ensureColl(p);
     var iid=q.cat+':'+(q.text||q.say||'');  // 同じ問題の連打を検知（新しさ係数）
-    var got=(Q&&Q.review)
-      ? Q4BReward.onCorrect(p.coll,'keisan', 8, Q4BReward.REVIEW_BOOST, iid)
-      : Q4BReward.onCorrect(p.coll,'keisan', 8, 1, iid);
+    var _boost=(Q&&(Q.review||Q.balanceBoost))?Q4BReward.REVIEW_BOOST:1;  /* 復習 or まんべんなく学習 でレアブースト */
+    var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
     if(got) o.capture=got;
   }
   save();
