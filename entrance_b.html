@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Quest4Bugs — 入口（案B 元気な草原）</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{font-family:'Hiragino Maru Gothic ProN','Yu Gothic',system-ui,sans-serif;
+    background:linear-gradient(180deg,#8fd0ff 0%,#bfe9a8 60%,#7fc96a 100%);
+    overflow:hidden;display:flex;align-items:center;justify-content:center;
+    color:#2b3a1e;-webkit-user-select:none;user-select:none}
+  .sun{position:fixed;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;
+    background:radial-gradient(circle,#fff3a8,#ffd95e);box-shadow:0 0 80px 30px rgba(255,221,94,.6)}
+  .cloud{position:fixed;font-size:70px;opacity:.85;animation:drift 22s linear infinite}
+  @keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(110vw)}}
+  /* 飛ぶ虫たち */
+  .flyer{position:fixed;font-size:34px;animation:wander 12s ease-in-out infinite}
+  @keyframes wander{0%{transform:translate(0,0) rotate(-8deg)}25%{transform:translate(40px,-30px) rotate(8deg)}
+    50%{transform:translate(80px,10px) rotate(-6deg)}75%{transform:translate(30px,-20px) rotate(10deg)}100%{transform:translate(0,0) rotate(-8deg)}}
+  .grass{position:fixed;bottom:0;left:0;right:0;height:90px;font-size:60px;white-space:nowrap;overflow:hidden;opacity:.55}
+  .card{position:relative;z-index:5;text-align:center;width:92%;max-width:440px;
+    background:rgba(255,255,255,.78);border:4px solid #fff;border-radius:26px;padding:30px 24px;
+    box-shadow:0 16px 40px rgba(60,90,40,.3)}
+  .badge{font-size:60px;animation:pop 1.8s ease-in-out infinite}
+  @keyframes pop{50%{transform:scale(1.14) rotate(6deg)}}
+  .logo{font-size:14vw;font-weight:900;line-height:1;margin:4px 0 2px;
+    color:#3a8a3f;text-shadow:3px 3px 0 #fff,5px 5px 0 #f4b400;letter-spacing:1px}
+  @media(min-width:480px){.logo{font-size:60px}}
+  .sub{font-size:16px;font-weight:800;color:#e07b1a;margin-bottom:22px}
+  .field{display:flex;flex-direction:column;gap:12px;align-items:center}
+  .field input{width:100%;background:#fff;border:3px solid #9fd07e;border-radius:14px;
+    outline:none;font-size:18px;text-align:center;padding:14px;letter-spacing:2px;color:#2b3a1e}
+  .field input:focus{border-color:#f4b400}
+  .field input::placeholder{color:#a8b89a;font-size:15px;letter-spacing:1px}
+  .go{width:100%;background:linear-gradient(180deg,#ffd95e,#f4a400);border:none;color:#5a3a00;
+    font-weight:900;font-size:20px;padding:15px;border-radius:16px;cursor:pointer;
+    box-shadow:0 5px 0 #c97f00;transition:transform .08s}
+  .go:active{transform:translateY(3px);box-shadow:0 2px 0 #c97f00}
+  .err{min-height:18px;margin-top:12px;font-size:14px;font-weight:800;color:#d6452e}
+</style>
+</head>
+<body>
+  <div class="sun"></div>
+  <div class="cloud" style="top:60px">☁️</div>
+  <div class="cloud" style="top:140px;animation-delay:8s;font-size:50px">☁️</div>
+  <div class="flyer" style="top:24%;left:12%">🦋</div>
+  <div class="flyer" style="top:60%;left:78%;animation-delay:3s">🐝</div>
+  <div class="flyer" style="top:18%;left:72%;animation-delay:6s;font-size:26px">🐞</div>
+  <div class="grass">🌱🌿🍀🌱🌾🌿🍀🌱🌾🌿🍀🌱🌾🌿🍀🌱🌾🌿</div>
+  <div class="card">
+    <div class="badge">🪲🦋🐞</div>
+    <div class="logo">Quest4Bugs</div>
+    <div class="sub">いざ、むしとり だいぼうけん！</div>
+    <div class="field">
+      <input id="pw" type="password" inputmode="text" placeholder="あいことば（password）" autocomplete="off">
+      <button class="go" onclick="tryEnter()">🌟 スタート！</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+<script>
+  function tryEnter(){var v=document.getElementById('pw').value;
+    document.getElementById('err').textContent = v==='mushi' ? '✅ ようこそ！（本番ではポータルへ）' : '❌ あいことばが ちがうよ';}
+  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryEnter();});
+</script>
+</body>
+</html>
