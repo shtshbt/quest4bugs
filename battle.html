@@ -242,6 +242,13 @@
       <div class="cyc-hint">矢印のさきが よわい（やられる側）。<br>攻撃：有利2倍(20)／普通10／不利半分(5)。防御せいこうでも 有利5・普通7・不利9（しっぱい10）。</div>
     </div>
 
+    <div class="card" id="goalCard">
+      <div class="sec-t">🎯 きみの とうたつど
+        <button class="mini-btn" onclick="openBirthModal()">🎂 うまれた つき</button></div>
+      <div id="reachBars"></div>
+      <details style="margin-top:6px"><summary style="cursor:pointer;font-size:12px;color:#5a6a3a;font-weight:700">📖 解禁マップ（おうちのひと向け）</summary><div id="unlockMap" style="margin-top:6px;overflow-x:auto"></div></details>
+    </div>
+
     <div class="card">
       <div class="sec-t">⛩️ ボス解禁ゲージ</div>
       <div class="gbar"><i id="ghfill"></i></div>
@@ -284,22 +291,173 @@ var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
 var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"むぞくせい"};
 
 /* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
-var PROF=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={};
-/* 進捗連動の到達度スコア＝「教科の前進」のみから算出（farming耐性）。
-   漢字=認定合格の学年数、計算=九九段+筆算到達Lv+各カテゴリの適応Lv(基礎/発展)、英語=習得語数(box>=3)。
-   復習・周回(演習量)は加算しない＝新規前進だけがボス解禁を進める。 */
-function reachScore(kp,ks,es){
-  var s=0,k,w,e;
-  var un=(ks&&ks.un)||{}; ["hira","u1","u2","u3","u4","u5","u6"].forEach(function(g){ if(un[g])s+=200; });
-  if(kp){ s+=(kp.kukuIdx||0)*45 + ((kp.hsMax||1)-1)*45 + ((kp.hkMax||1)-1)*45;
-    if(kp.lv){ for(k in kp.lv){ s+=((kp.lv[k]||1)-1)*25; } } }
-  if(es&&es.srs){ for(w in es.srs){ e=es.srs[w]; if(e&&e[0]>=3)s+=20; } }
-  return s;
+var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
+/* ====== 年齢ベース到達度（v3：docs/battle_design.md 確定設計v3） ======
+   年齢を真実源に、3教科を「年齢ゴールに対する達成率(0-10)」で正規化。
+   volume(量)では伸びない＝farming無効。high-water markで再ロックなし。 */
+function ageOf(birth){
+  if(!birth) return null;
+  var p=String(birth).split("-"), by=+p[0], bm=+p[1]||1;
+  if(!by) return null;
+  var d=new Date(), a=d.getFullYear()-by;
+  if((d.getMonth()+1)<bm) a--;
+  return a;
+}
+function expGrade(age){ if(age==null) age=8; return Math.max(1,Math.min(6,age-5)); }   /* 漢字: 目標学年 */
+function expField(age){ if(age==null) age=8;                                            /* 英語: 目標フィールド数 */
+  if(age<=6)return 1; if(age===7)return 2; if(age===8)return 2.5; if(age===9)return 3;
+  if(age===10)return 3.5; if(age===11)return 4; return 5; }
+function calcCourse(age){ return (age==null||age<=7)?"k5":"k10"; }
+var K5_CATS=["hissan","hikizan","kuku","anzan","warizan","wasa","jikan","kakebun"];
+var K10_CATS=["mix","kufuu","deci","frac","sougou","warizan","wasa","jikan","kakebun",
+  "noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei",
+  "ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];
+/* 漢字: 合格学年テスト(80点)数 / 目標学年（ひらがな=0.5学年扱い） */
+function reachKanji(ks,age){
+  var tests=(ks&&ks.tests)||[];
+  function passed(id){ for(var i=0;i<tests.length;i++) if(tests[i].t===id&&(tests[i].sc||0)>=80) return true; return false; }
+  var pg=0,g; for(g=1;g<=6;g++) if(passed('t_u'+g)) pg++;
+  var kg=(passed('t_hira')?0.5:0)+pg;
+  return 10*Math.min(1, kg/(expGrade(age)+0.5));
+}
+/* 英語: srs key prefix でフィールド分類→習得率(box>=3が総語の20%)で「到達」→連続到達数 / 目標フィールド数 */
+var EN_FIELD=[{pre:"b",total:256},{pre:"f2",total:319},{pre:"f3",total:256},{pre:"f4",total:242},{pre:"p",total:1797},{pre:"f7",total:545}];
+function reachEng(es,age){
+  var srs=(es&&es.srs)||{}, cnt={}, k,s,pre;
+  for(k in srs){ s=srs[k]; if(!s||(s[0]||0)<3) continue; pre=k.split("|")[0]; cnt[pre]=(cnt[pre]||0)+1; }
+  var R=0.20, efr=0,i,f,rate;
+  for(i=0;i<EN_FIELD.length;i++){ f=EN_FIELD[i]; rate=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); efr+=rate; if(rate<1)break; }
+  return 10*Math.min(1, efr/expField(age));
+}
+/* 計算: コース該当カテゴリの平均Lv(0-10)。②(九九/筆算のLv化)前は進度をLv換算で暫定補完 */
+function reachCalc(kp,age){
+  if(!kp) return 0;
+  var cats=(calcCourse(age)==="k5")?K5_CATS:K10_CATS, vals=[],i,c;
+  for(i=0;i<cats.length;i++){ c=cats[i];
+    if(c==="kuku"){ if(kp.kukuIdx!=null) vals.push(1+(Math.min(9,kp.kukuIdx)/9)*9); }
+    else if(c==="hissan"){ if(kp.hsMax!=null) vals.push(1+((Math.min(4,kp.hsMax)-1)/3)*9); }
+    else if(c==="hikizan"){ if(kp.hkMax!=null) vals.push(1+((Math.min(4,kp.hkMax)-1)/3)*9); }
+    else if(kp.lv&&kp.lv[c]!=null){ vals.push(kp.lv[c]); }
+  }
+  if(!vals.length) return 0;
+  var sm=0; for(i=0;i<vals.length;i++)sm+=vals[i]; return Math.min(10, sm/vals.length);
+}
+/* high-water mark を適用して REACH を確定（BATTLE.reachMax に保存→再ロック防止） */
+function computeReach(kp,ks,es){
+  var age=ageOf(PROFOBJ&&PROFOBJ.birth);
+  var cur={kanji:reachKanji(ks,age), keisan:reachCalc(kp,age), eitango:reachEng(es,age)};
+  var mx=(BATTLE&&BATTLE.reachMax)||{};
+  REACH={ kanji:Math.max(cur.kanji,mx.kanji||0), keisan:Math.max(cur.keisan,mx.keisan||0), eitango:Math.max(cur.eitango,mx.eitango||0) };
+  if(!BATTLE.reachMax) BATTLE.reachMax={};
+  BATTLE.reachMax.kanji=REACH.kanji; BATTLE.reachMax.keisan=REACH.keisan; BATTLE.reachMax.eitango=REACH.eitango;
+  /* 表示用ラベル（現在の生データから：いま何ができるか） */
+  (function(){
+    var tests=(ks&&ks.tests)||[]; function ps(id){for(var i=0;i<tests.length;i++)if(tests[i].t===id&&(tests[i].sc||0)>=80)return true;return false;}
+    var pg=0,g; for(g=1;g<=6;g++)if(ps("t_u"+g))pg++;
+    REACH_INFO.kanji={label:(pg>0?"小"+pg:(ps("t_hira")?"ひらがな":"これから"))};
+    var srs=(es&&es.srs)||{},cnt={},k,s,pre; for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
+    var fr=0,names=["にわ","いけ","はやし","やま","ジャングル","アマゾン"],i,f,rate;
+    for(i=0;i<EN_FIELD.length;i++){f=EN_FIELD[i];rate=Math.min(1,(cnt[f.pre]||0)/(f.total*0.2));if(rate>=1)fr=i+1;else break;}
+    REACH_INFO.eitango={label:(fr>0?names[Math.min(5,fr-1)]:"これから")};
+    REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
+  })();
+  return REACH;
+}
+/* per-attribute 解禁: そのボス属性の到達度 ≥ band閾値（モズは3教科すべて9.5）。撃破制は呼び出し側で別判定 */
+var BAND_THR=[0,2,4,6,8,9.5];
+function bandThr(stage){ return BAND_THR[Math.ceil(stage/10)]||9.5; }
+function bossReachOpen(r){
+  if(!r) return false;
+  if(r.type==="none") return REACH.kanji>=9.5 && REACH.keisan>=9.5 && REACH.eitango>=9.5;
+  return (REACH[r.type]||0) >= bandThr(r.stage);
+}
+function unlockedCount(){ var n=0,i; for(i=0;i<B.roster.length;i++) if(bossReachOpen(B.roster[i]))n++; return n; }
+function firstReachLocked(){ var i; for(i=0;i<B.roster.length;i++) if(!bossReachOpen(B.roster[i])) return B.roster[i]; return null; }
+/* ====== 目標レンジ・誕生日・生まれ月設定UI ====== */
+function goalLabels(age){
+  var g=expGrade(age);
+  var kanji=(age!=null&&age<=5)?"小1じゅんび":("小"+g);
+  var fnames=["","にわ","いけ","はやし","やま","ジャングル"];
+  var eng=fnames[Math.min(5,Math.ceil(expField(age)))]||"にわ";
+  var calc=(calcCourse(age)==="k5")?"きそ":"じゅけん";
+  return {kanji:kanji,eng:eng,calc:calc};
+}
+/* 誕生月をまたいで年齢が上がったら年1回だけ祝う（初回は祝わず基準化） */
+function checkBirthday(age){
+  if(age==null||!PROFOBJ) return;
+  var last=PROFOBJ.lastBdayAge;
+  if(last==null){ PROFOBJ.lastBdayAge=age; if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age}); return; }
+  if(age>last){
+    var gl=goalLabels(age);
+    PROFOBJ.lastBdayAge=age; if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age});
+    setTimeout(function(){ alert("🎂 おたんじょうび おめでとう！\n"+age+"さいに なったね！\n\nこれからの もくひょう：\n🟣かんじ "+gl.kanji+"　🟢たんご "+gl.eng+"　🔵けいさん "+gl.calc+"\n\nいままで あつめた虫・たおしたボスは そのまま だよ！💪"); },300);
+  }
+}
+function openBirthModal(){
+  var cur=(PROFOBJ&&PROFOBJ.birth)||"", cy=new Date().getFullYear();
+  var curY=cur.split("-")[0], curM=+(cur.split("-")[1]||0), yopts="",mopts="",y,m;
+  for(y=cy-13;y<=cy-3;y++) yopts+='<option value="'+y+'"'+(String(y)===curY?" selected":"")+'>'+y+'年</option>';
+  for(m=1;m<=12;m++) mopts+='<option value="'+m+'"'+(m===curM?" selected":"")+'>'+m+'月</option>';
+  var ov=document.createElement("div"); ov.id="birthOv";
+  ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px";
+  ov.innerHTML='<div style="background:#fff;border-radius:18px;padding:22px;max-width:300px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)">'
+    +'<div style="font-weight:800;font-size:18px;margin-bottom:6px">🎂 うまれた つき</div>'
+    +'<div style="font-size:12px;color:#777;margin-bottom:14px">としに あわせて もんだいの レベルと もくひょうが きまるよ</div>'
+    +'<select id="bvY" style="font-size:16px;padding:6px;border-radius:8px">'+yopts+'</select> '
+    +'<select id="bvM" style="font-size:16px;padding:6px;border-radius:8px">'+mopts+'</select>'
+    +'<div style="margin-top:18px"><button class="mini-btn" onclick="closeBirthModal()">やめる</button> '
+    +'<button class="mini-btn" style="background:#E8B23A;color:#fff;border-color:#c98f1e" onclick="saveBirth()">きめる</button></div></div>';
+  document.body.appendChild(ov);
+}
+function closeBirthModal(){ var o=document.getElementById("birthOv"); if(o)o.parentNode.removeChild(o); }
+function saveBirth(){
+  var y=document.getElementById("bvY").value, m=+document.getElementById("bvM").value;
+  var birth=y+"-"+(m<10?"0"+m:m);
+  if(window.QuestSave&&QuestSave.updateProfile) QuestSave.updateProfile(PROF,{birth:birth});
+  if(PROFOBJ) PROFOBJ.birth=birth;
+  closeBirthModal();
+  loadAll().then(function(){ renderHome(); }).catch(function(){ renderHome(); });
+}
+/* ====== 到達度バー・次ボス目標・解禁マップ ====== */
+function reachBarHTML(label,emoji,type){
+  var val=REACH[type]||0, info=REACH_INFO[type]||{}, pct=Math.max(0,Math.min(100,val*10));
+  var ticks=[2,4,6,8,9.5].map(function(t){return '<span style="position:absolute;left:'+(t*10)+'%;top:-1px;bottom:-1px;width:2px;background:rgba(80,60,20,.25)"></span>';}).join('');
+  return '<div style="margin:9px 0">'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800"><span>'+emoji+' '+label+'</span><span style="color:#7a5a10">'+(info.label||"-")+'</span></div>'
+    +'<div style="position:relative;height:15px;background:#e7ecd8;border-radius:8px;overflow:hidden;margin:4px 0;border:1px solid #d5dcc2">'
+    +'<i style="display:block;height:100%;width:'+pct+'%;background:linear-gradient(90deg,#f0c95a,#E8B23A)"></i>'+ticks+'</div>'
+    +'<div style="font-size:11px;color:#7a8a5a">'+nextBandHint(type)+'</div></div>';
+}
+function nextBandHint(type){
+  if(type==="none") return "";
+  var v=REACH[type]||0, thrs=[2,4,6,8,9.5], i, band=0;
+  for(i=0;i<thrs.length;i++){ if(v<thrs[i]){ band=i+1; break; } }
+  if(band===0) return "✨ band5まで 到達ずみ！あとは たおすだけ！";
+  var st=null,j,r; for(j=0;j<B.roster.length;j++){ r=B.roster[j]; if(Math.ceil(r.stage/10)===band && r.type===type){ st=r.stage; break; } }
+  return "→ もうすこしで band"+band+(st?"（No."+st+"〜）":"")+" が ひらく！";
+}
+function thrToKanji(thr,age){ var g=thr/10*(expGrade(age)+0.5); return g<1?"ひらがな":("小"+Math.min(6,Math.ceil(g))); }
+function thrToField(thr,age){ var ef=thr/10*expField(age), names=["にわ","いけ","はやし","やま","ジャングル","アマゾン"]; return names[Math.min(5,Math.max(0,Math.ceil(ef)-1))]; }
+function thrToLv(thr){ return "Lv"+Math.ceil(thr); }
+function unlockMapHTML(age){
+  var thrs=[2,4,6,8,9.5];
+  var h='<table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="background:#f0f3e6"><th style="padding:3px;border:1px solid #ddd">ステージ</th><th style="padding:3px;border:1px solid #ddd">🟣かんじ</th><th style="padding:3px;border:1px solid #ddd">🟢たんご</th><th style="padding:3px;border:1px solid #ddd">🔵けいさん</th></tr>';
+  BANDS.forEach(function(bd,i){
+    var thr=thrs[i];
+    function cell(type,txt){ var open=(REACH[type]||0)>=thr; return '<td style="text-align:center;padding:3px;border:1px solid #ddd'+(open?';background:#d8f0c0;font-weight:800':'')+'">'+txt+'</td>'; }
+    h+='<tr><td style="padding:3px;border:1px solid #ddd;font-size:10px">'+bd.stars+' '+bd.name+'<br><span style="color:#aaa">No.'+bd.lo+'-'+bd.hi+'</span></td>'
+      +cell("kanji",thrToKanji(thr,age))+cell("eitango",thrToField(thr,age))+cell("keisan",thrToLv(thr))+'</tr>';
+  });
+  var mozOpen=(REACH.kanji>=9.5&&REACH.keisan>=9.5&&REACH.eitango>=9.5);
+  h+='<tr><td style="padding:3px;border:1px solid #ddd;font-size:10px">⚫ モズ（さいしゅう）</td><td colspan="3" style="text-align:center;padding:3px;border:1px solid #ddd'+(mozOpen?';background:#ffe08a;font-weight:800':'')+'">3きょうか ぜんぶ MAX</td></tr>';
+  h+='</table><div style="font-size:10px;color:#999;margin-top:3px">緑＝到達ずみ。年齢が上がると 目標レンジも上がるよ。</div>';
+  return h;
 }
 function loadAll(){
   if(!window.QuestSave) return Promise.resolve();
-  return QuestSave.profiles().then(function(){
+  return QuestSave.profiles().then(function(plist){
     PROF = QuestSave.currentProfile();
+    PROFOBJ=null; if(plist)for(var pi=0;pi<plist.length;pi++)if(plist[pi].id===PROF)PROFOBJ=plist[pi];
     if(!PROF) return null;
     return Promise.all([
       QuestSave.load("keisan","_book"),
@@ -319,8 +477,7 @@ function loadAll(){
       CLEARED = bt.cleared || {};
       PARTY = (bt.party||[]).map(function(id){return byId[id];}).filter(Boolean);
       SEL = PARTY.slice();
-      /* v1暫定ゲージ: 捕獲数×30(=おおよその累計正解)。本格的な進捗連動解禁は後日結線。 */
-      GAUGE = reachScore(kp,ks,es);  /* 進捗連動: 教科の前進(認定/レベル/習得)から算出＝farming耐性 */
+      computeReach(kp,ks,es);  /* 年齢ベース到達度(v3) を REACH/BATTLE.reachMax に確定。high-water適用＝再ロックなし */
     });
   });
 }
@@ -404,12 +561,24 @@ var BANDS=[
   {lo:41,hi:50,name:"おうじゃの いただき",stars:"★★★★★",col:"#6b1020"}
 ];
 function renderHome(){
-  var unlocked=B.unlockedStages(GAUGE), nx=B.nextUnlock(GAUGE);
-  var nextCost=nx?B.unlockCost(nx.stage):0, into=nx?(nextCost-nx.need):nextCost;
-  document.getElementById("ghfill").style.width = nx? Math.round(into/nextCost*100)+"%" : "100%";
+  var unlocked=unlockedCount(), nx=firstReachLocked();
+  var into=100;
+  if(nx){ var _thr=(nx.type==="none")?9.5:bandThr(nx.stage),
+            _cur=(nx.type==="none")?Math.min(REACH.kanji,REACH.keisan,REACH.eitango):(REACH[nx.type]||0);
+          into=Math.round(Math.min(1,_cur/_thr)*100); }
+  document.getElementById("ghfill").style.width = into+"%";
   document.getElementById("ghmeta").textContent = nx
-    ? "進捗で解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると つぎの No."+nx.stage+" が ひらくよ！"
-    : "進捗で ぜんぶ解禁ずみ！あとは 倒すだけ！";
+    ? "解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）が ひらくよ！"
+    : "ぜんぶ解禁ずみ！あとは たおすだけ！";
+  /* 🎯 到達度バー＋次ボス目標＋📖解禁マップ＋🎂誕生日演出 */
+  var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
+  var _rb=document.getElementById("reachBars"), _um=document.getElementById("unlockMap");
+  if(_rb){
+    if(_age==null){ _rb.innerHTML='<div style="color:#b23a2e;font-weight:700;padding:4px 0">🎂 「うまれた つき」を せっていしてね</div>'; }
+    else { _rb.innerHTML=reachBarHTML("かんじ","🟣","kanji")+reachBarHTML("たんご","🟢","eitango")+reachBarHTML("けいさん","🔵","keisan"); }
+  }
+  if(_um){ _um.innerHTML=(_age==null)?"":unlockMapHTML(_age); }
+  checkBirthday(_age);
   // パーティ
   var pc=document.getElementById("party"); pc.innerHTML="";
   PARTY.forEach(function(s){ var d=document.createElement("div"); d.className="pcell";
@@ -435,7 +604,7 @@ function renderHome(){
   BANDS.forEach(function(bd){
     var rs=B.roster.filter(function(r){return r.stage>=bd.lo&&r.stage<=bd.hi;});
     var hps=rs.map(function(r){return r.hp;}), hpMin=Math.min.apply(null,hps),hpMax=Math.max.apply(null,hps);
-    var cleared = unlocked>=bd.hi;
+    var cleared = rs.every(function(r){return CLEARED[r.stage];});
     var band=document.createElement("div"); band.className="band"+(cleared?" cleared":"");
     var hpTxt = hpMin===hpMax?("HP"+hpMin):("HP"+hpMin+"〜"+hpMax);
     band.innerHTML='<div class="band-h" style="background:'+bd.col+'">'
@@ -444,7 +613,7 @@ function renderHome(){
     var body=band.querySelector(".band-body");
     rs.forEach(function(r){
       var sp=byId[r.id];
-      var progOpen=r.stage<=unlocked;                       /* 進捗(reachScore)ゲート達成 */
+      var progOpen=bossReachOpen(r);                        /* 年齢到達度ゲート(per-attribute) */
       var prevOk=(r.stage===1)||!!CLEARED[r.stage-1];        /* 撃破制: 前のボスを倒した */
       var fight=progOpen&&prevOk;                            /* 戦える */
       var isFront=(nx&&r.stage===nx.stage);
