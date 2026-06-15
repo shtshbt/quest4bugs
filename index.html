@@ -279,7 +279,7 @@ function renderDashboard(pid,name){
     if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; if(es.catches)gCaught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
     var total=keisanN+kanjiN+eitangoN;
     var gRank=window.Q4BReward?Q4BReward.rankGlobal(gCaught):"",gNext=window.Q4BReward?Q4BReward.rankGlobalNext(gCaught):null;
-    var pool=window.Q4BReward?(Q4BReward.poolCount("kanji")+Q4BReward.poolCount("keisan")+Q4BReward.poolCount("eitango")):547;
+    var pool=window.Q4BReward&&Q4BReward.bugs?Q4BReward.bugs.length:547;
     /* combined streak: consecutive days up to today with any activity */
     var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
     while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}
