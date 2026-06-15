@@ -49,11 +49,25 @@
     return null;
   }
   function bossAt(stage){ for(var i=0;i<ROSTER.length;i++) if(ROSTER[i].stage===stage) return ROSTER[i]; return null; }
+  /* ボス報酬。昆虫ボス=初回のみ種取得(再戦は重複なし・基本琥珀のみ)。
+     天敵=非昆虫ゆえ琥珀(帯で 50/150/300、モズ1000)＋バッジ。パーティは1種1匹(重複不可)。 */
+  function predAmber(stage){ if(stage>=50)return 1000; if(stage>=36)return 300; if(stage>=16)return 150; return 50; }
+  function bossReward(r, alreadyCleared){
+    if(!r) return null;
+    /* 再戦(撃破済み)は昆虫・天敵とも追加報酬なし＝farming不可。練習＋問題ごとの基本琥珀のみ。 */
+    if(alreadyCleared) return { kind:"none", first:false, predator:!!r.predator, speciesId:(r.predator?null:r.id) };
+    if(r.predator){
+      return { kind:"amber", amber:predAmber(r.stage), first:true, final:!!r.final,
+        badge:(r.final?"champion":"nemesis-"+r.stage), title:(r.final?"おうじゃ":null) };
+    }
+    return { kind:"species", speciesId:r.id, first:true };
+  }
   global.Q4BBattle = {
     roster: ROSTER, BEATS: BEATS, BASE_DMG: BASE_DMG, BOSS_DMG: BOSS_DMG,
     DMG_NEUTRAL: DMG_NEUTRAL, DMG_ADV: DMG_ADV, DMG_DIS: DMG_DIS,
     DEF_ADV: DEF_ADV, DEF_NEUTRAL: DEF_NEUTRAL, DEF_DIS: DEF_DIS,
     damage: damage, bossDamage: bossDamage, advLabel: advLabel, bugHP: bugHP, HP_BY_TIER: HP_BY_TIER,
-    unlockCost: unlockCost, unlockedStages: unlockedStages, nextUnlock: nextUnlock, bossAt: bossAt
+    unlockCost: unlockCost, unlockedStages: unlockedStages, nextUnlock: nextUnlock, bossAt: bossAt,
+    bossReward: bossReward, predAmber: predAmber
   };
 })(window);
