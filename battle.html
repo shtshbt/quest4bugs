@@ -455,7 +455,7 @@ function unlockMapHTML(age){
   });
   var mozOpen=(REACH.kanji>=9.5&&REACH.keisan>=9.5&&REACH.eitango>=9.5);
   h+='<tr><td style="padding:3px;border:1px solid #ddd;font-size:10px">⚫ モズ（さいしゅう）</td><td colspan="3" style="text-align:center;padding:3px;border:1px solid #ddd'+(mozOpen?';background:#ffe08a;font-weight:800':'')+'">3きょうか ぜんぶ MAX</td></tr>';
-  h+='</table><div style="font-size:10px;color:#999;margin-top:3px">緑＝到達ずみ。年齢が上がると 目標レンジも上がるよ。</div>';
+  h+='</table><div style="font-size:10px;color:#999;margin-top:3px">緑＝到達ずみ。<b>3きょうか ぜんぶ 緑</b>に なると その帯が 解禁（さらに 前のボスから順に撃破）。年齢が上がると 目標レンジも上がるよ。</div>';
   return h;
 }
 function loadAll(){
@@ -574,10 +574,14 @@ function renderHome(){
           into=Math.round(Math.min(1,_cur/_thr)*100); }
   document.getElementById("ghfill").style.width = into+"%";
   var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの3ゲーム到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
+  /* 解禁は3教科すべてが閾値到達で初めて開く。足りない教科＝一番ひくい教科を案内する。 */
+  var _subs=[["かんじ",REACH.kanji],["けいさん",REACH.keisan],["えいご",REACH.eitango]];
+  _subs.sort(function(a,b){return a[1]-b[1];});
+  var _weak=_subs[0][0];
   document.getElementById("ghmeta").textContent = nx
     ? (nxOpen
         ? "解禁ずみ "+unlocked+" 体 ／ No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）に いどめるよ！"
-        : "解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）が ひらくよ！")
+        : "解禁ずみ "+unlocked+" 体 ／ "+_weak+"を のばすと No."+nx.stage+"に ちかづくよ！（3きょうか そろえて 解禁）")
     : "ぜんぶ解禁ずみ！あとは たおすだけ！";
   /* 🎯 到達度バー＋次ボス目標＋📖解禁マップ＋🎂誕生日演出 */
   var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
