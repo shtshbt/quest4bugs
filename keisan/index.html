@@ -374,7 +374,7 @@ function reconcile(reg){
 function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
-    best5:{}, daily:{}, carryMiss:0, recapture:0, kukuIdx:0, kukuClear:{}, kukuHits:0,
+    best5:{}, daily:{}, carryMiss:0, recapture:0, lv:{}, kukuIdx:0, kukuClear:{}, kukuHits:0,
     hsLevel:1, hsRun:0, hsMax:1, hkLevel:1, hkRun:0, hkMax:1, hissanInput:"app", speech:(type==="k5"),
     coll:{gauge:0, total:0, catches:{}}, progressSummary:""};
 }
@@ -502,7 +502,8 @@ function showHome(){
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   cats.forEach(function(c){
     var act=(c==="kuku")?"showKuku()":((c==="hissan"||c==="hikizan")?"showLevels('"+c+"')":"startPractice('"+c+"')");
-    h+='<button class="btn sm ghost" onclick="'+act+'">'+CATL[c]+'</button>';
+    var lvtag=(p.type==="k10"&&["mix","kufuu","deci","frac"].indexOf(c)>=0)?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
+    h+='<button class="btn sm ghost" onclick="'+act+'">'+CATL[c]+lvtag+'</button>';
   });
   h+='</div></div>';
   /* timed */
@@ -1026,33 +1027,107 @@ function gAnzan(){
   else {a=ri(12,79);b=ri(10,99-a);}
   return {cat:"anzan",kind:"num",text:a+"＋"+b,say:a+" たす "+b+" は？",ans:a+b};
 }
-function gMix(){
-  var k=ri(1,5),a,b,c,t,ans;
-  if(k===1){a=ri(10,60);b=ri(3,9);c=ri(3,9);t=a+"＋"+b+"×"+c;ans=a+b*c;}
-  else if(k===2){b=ri(3,9);c=ri(3,9);a=b*c+ri(0,40);t=a+"−"+b+"×"+c;ans=a-b*c;}
-  else if(k===3){a=ri(5,30);b=ri(5,30);c=ri(2,6);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;}
-  else if(k===4){a=ri(6,12);b=ri(6,12);c=ri(5,Math.min(40,a*b-1));t=a+"×"+b+"−"+c;ans=a*b-c;}
-  else{b=ri(3,9);a=b*ri(2,12);c=ri(5,40);t=a+"÷"+b+"＋"+c;ans=a/b+c;}
-  return {cat:"mix",kind:"num",text:t,say:readify(t),ans:ans};
+function gMix(lv){
+  if(lv==null) lv=ri(1,10);
+  for(var i=0;i<200;i++){
+    var a,b,c,d,t,ans,m,prod;
+    if(lv===1){ // a+b×c
+      a=ri(10,30);b=ri(2,5);c=ri(2,5);t=a+"＋"+b+"×"+c;ans=a+b*c;
+    } else if(lv===2){ // a±b×c
+      b=ri(3,6);c=ri(3,6);
+      if(Math.random()<0.5){a=ri(20,60);t=a+"＋"+b+"×"+c;ans=a+b*c;}
+      else{a=b*c+ri(5,40);t=a+"−"+b+"×"+c;ans=a-b*c;}
+    } else if(lv===3){ // (a+b)×c
+      a=ri(5,15);b=ri(5,15);c=ri(2,5);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;
+    } else if(lv===4){ // (a+b)×c大 / a×b−c
+      if(Math.random()<0.5){a=ri(5,15);b=ri(5,15);if(a+b<15)continue;c=ri(3,6);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;}
+      else{a=ri(6,12);b=ri(6,12);c=ri(5,a*b-1);t=a+"×"+b+"−"+c;ans=a*b-c;if(ans<0)continue;}
+    } else if(lv===5){ // 乗減 / 除加 (積30-80, 除割り切れ)
+      if(Math.random()<0.5){a=ri(6,12);b=ri(5,9);prod=a*b;if(prod<30||prod>80)continue;c=ri(5,prod-1);t=a+"×"+b+"−"+c;ans=prod-c;if(ans<0)continue;}
+      else{b=ri(3,9);m=ri(4,12);a=b*m;if(a<30||a>80)continue;c=ri(5,40);t=a+"÷"+b+"＋"+c;ans=a/b+c;}
+    } else if(lv===6){ // 除加 / 括弧 (積70-100, 除割り切れ, 括弧和20-40)
+      if(Math.random()<0.5){b=ri(4,9);m=ri(8,15);a=b*m;if(a<70||a>100)continue;c=ri(5,40);t=a+"÷"+b+"＋"+c;ans=a/b+c;}
+      else{a=ri(10,30);b=ri(10,30);if(a+b<20||a+b>40)continue;c=ri(2,5);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;}
+    } else if(lv===7){ // (a+b)×c 和20-40 乗数5-8
+      a=ri(10,30);b=ri(10,30);if(a+b<20||a+b>40)continue;c=ri(5,8);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;
+    } else if(lv===8){ // 2桁乗−減 10-15×8-12
+      a=ri(10,15);b=ri(8,12);c=ri(5,a*b-1);t=a+"×"+b+"−"+c;ans=a*b-c;if(ans<0)continue;
+    } else if(lv===9){ // (a+b)×c−d 和30-50 乗数5-9 減10-80
+      a=ri(15,35);b=ri(15,35);if(a+b<30||a+b>50)continue;c=ri(5,9);d=ri(10,80);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;
+    } else { // lv===10 (a+b)×c−d大 / 2桁乗
+      if(Math.random()<0.5){a=ri(20,40);b=ri(20,40);if(a+b<40||a+b>60)continue;c=6;d=ri(20,120);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;}
+      else{a=ri(12,18);b=ri(9,12);t=a+"×"+b;ans=a*b;}
+    }
+    return {cat:"mix",kind:"num",text:t,say:readify(t),ans:ans};
+  }
+  return {cat:"mix",kind:"num",text:"10＋2×3",say:readify("10＋2×3"),ans:16};
 }
-function gKufuu(){
-  var k=ri(1,5),t,ans,hint,n,a,b,c,m;
-  if(k===1){n=ri(7,39);t=pick(["25×"+n+"×4","4×"+n+"×25",n+"×25×4"]);ans=100*n;hint="25×4＝100 をさきに計算！";}
-  else if(k===2){n=ri(3,15);t=pick(["125×"+n+"×8","8×"+n+"×125"]);ans=1000*n;hint="125×8＝1000 をさきに！";}
-  else if(k===3){a=ri(12,89);
-    if(Math.random()<0.5){t=a+"×99";ans=a*99;hint=a+"×100−"+a+" で計算！";}
-    else{t=a+"×101";ans=a*101;hint=a+"×100＋"+a+" で計算！";}}
-  else if(k===4){a=ri(12,49);b=ri(11,89);c=100-b;t=a+"×"+b+"＋"+a+"×"+c;ans=a*100;hint=a+"×（"+b+"＋"+c+"）＝"+a+"×100";}
-  else{m=ri(20,200);t=(m-2)+"＋"+(m-1)+"＋"+m+"＋"+(m+1)+"＋"+(m+2);ans=5*m;hint="まんなかの数 "+m+" ×5！";}
-  return {cat:"kufuu",kind:"num",text:t,say:readify(t),ans:ans,hint:hint};
+function gKufuu(lv){
+  if(lv==null)lv=ri(1,10);
+  var t,ans,hint,n,a,b,c,m,pats,k;
+  for(var attempt=0;attempt<200;attempt++){
+    if(lv<=2){pats=[1,2];}
+    else if(lv<=5){pats=[3,4];}
+    else if(lv<=8){pats=[5,4,6];}
+    else{pats=[7,8];}
+    k=pick(pats);t=null;ans=null;hint=null;
+    if(k===1){n=(lv<=1)?ri(7,29):ri(7,49);t=pick(["25×"+n+"×4","4×"+n+"×25",n+"×25×4"]);ans=100*n;hint="25×4＝100 をさきに計算！";}
+    else if(k===2){n=(lv<=1)?ri(3,12):ri(3,19);t=pick(["125×"+n+"×8","8×"+n+"×125"]);ans=1000*n;hint="125×8＝1000 をさきに！";}
+    else if(k===3){a=(lv<=4)?ri(12,89):ri(20,149);
+      if(Math.random()<0.5){t=a+"×99";ans=a*99;hint=a+"×100−"+a+" で計算！";}
+      else{t=a+"×101";ans=a*101;hint=a+"×100＋"+a+" で計算！";}}
+    else if(k===4){a=(lv<=5)?ri(12,49):ri(12,79);b=ri(11,89);c=100-b;t=a+"×"+b+"＋"+a+"×"+c;ans=a*100;hint=a+"×（"+b+"＋"+c+"）＝"+a+"×100";}
+    else if(k===5){m=(lv<=7)?ri(20,200):ri(50,400);t=(m-2)+"＋"+(m-1)+"＋"+m+"＋"+(m+1)+"＋"+(m+2);ans=5*m;hint="まんなかの数 "+m+" ×5！";}
+    else if(k===6){a=ri(12,79);
+      if(Math.random()<0.5){t=a+"×98";ans=a*98;hint=a+"×100−"+a+"×2 で計算！";}
+      else{t=a+"×102";ans=a*102;hint=a+"×100＋"+a+"×2 で計算！";}}
+    else if(k===7){a=ri(50,199);
+      if(Math.random()<0.5){t="101×"+a;ans=101*a;hint="100×"+a+"＋"+a+" で計算！";}
+      else{t="99×"+a;ans=99*a;hint="100×"+a+"−"+a+" で計算！";}}
+    else{if(Math.random()<0.5){n=ri(30,99);t=pick(["25×"+n+"×4","4×"+n+"×25"]);ans=100*n;hint="25×4＝100 をさきに計算！";}
+      else{a=ri(50,99);b=ri(11,89);c=100-b;t=a+"×"+b+"＋"+a+"×"+c;ans=a*100;hint=a+"×（"+b+"＋"+c+"）＝"+a+"×100";}}
+    if(t!=null&&ans!=null&&Number.isInteger(ans)&&ans>=0){
+      return {cat:"kufuu",kind:"num",text:t,say:readify(t),ans:ans,hint:hint};
+    }
+  }
+  return {cat:"kufuu",kind:"num",text:"25×8×4",say:readify("25×8×4"),ans:800,hint:"25×4＝100 をさきに計算！"};
 }
-function gDeci(){
-  var k=ri(1,5),x,y,t,ans,kk;
-  if(k===1){x=ri(11,99);y=ri(11,99);t=fmtDec(x/10)+"＋"+fmtDec(y/10);ans=(x+y)/10;}
-  else if(k===2){x=ri(21,99);y=ri(11,x-10);t=fmtDec(x/10)+"−"+fmtDec(y/10);ans=(x-y)/10;}
-  else if(k===3){x=ri(11,99);kk=ri(2,9);t=fmtDec(x/10)+"×"+kk;ans=x*kk/10;}
-  else if(k===4){x=ri(11,39);y=ri(11,39);t=fmtDec(x/10)+"×"+fmtDec(y/10);ans=x*y/100;}
-  else{x=ri(12,98);kk=ri(2,9);t=fmtDec(x*kk/10)+"÷"+kk;ans=x/10;}
+function gDeci(lv){
+  if(lv==null)lv=ri(1,10);
+  var x,y,t,ans,kk;
+  for(var tr=0;tr<200;tr++){
+    if(lv<=2){
+      // 加算(1dp)。x,y は 1/10スケール整数
+      if(lv===1){ x=ri(1,99); y=ri(1,99); if(x+y>=100)continue; } // a+b<10
+      else { x=ri(1,99); y=ri(1,99); if(x+y<100||x+y>180)continue; } // a+b 10-18
+      t=fmtDec(x/10)+"＋"+fmtDec(y/10); ans=(x+y)/10; break;
+    } else if(lv<=4){
+      // 減算(1dp)
+      x=ri(11,99); y=ri(1,x-1);
+      var xo=x%10, yo=y%10; // 一の位(小数第1位)
+      if(lv===3){ if(xo<yo)continue; } // くり下がりなし: 被減数の小数位>=減数
+      else { if(xo>=yo)continue; } // くり下がりあり
+      t=fmtDec(x/10)+"−"+fmtDec(y/10); ans=(x-y)/10; break;
+    } else if(lv<=6){
+      // 小数×整数。x は 1/10スケール整数, kk 整数
+      kk=ri(2,9); x=ri(11,99);
+      var prod=x*kk; // = ans*10
+      if(lv===5){ if(prod>=100)continue; } // 結果<10
+      else { if(prod<100||prod>=1000)continue; } // 結果10-99
+      t=fmtDec(x/10)+"×"+kk; ans=prod/10; break;
+    } else if(lv<=8){
+      // 小数×小数(2dp)。x,y は 1/10スケール整数。問題文は (x/10)×(y/10)=x*y/100。
+      // x*y は整数なので結果は常に小数第2位までで割り切れる(クリーン保証)。
+      if(lv===7){ x=ri(11,49); y=ri(11,49); } else { x=ri(51,99); y=ri(51,99); }
+      t=fmtDec(x/10)+"×"+fmtDec(y/10); ans=x*y/100; break;
+    } else {
+      // 小数÷整数(逆算)。答え=x/10, 被除数=x*kk/10, kk整数
+      kk=ri(2,9);
+      if(lv===9){ x=ri(1,39); } else { x=ri(40,99); }
+      var dividend=x*kk; // = 被除数*10
+      t=fmtDec(dividend/10)+"÷"+kk; ans=x/10; break;
+    }
+  }
   return {cat:"deci",kind:"num",dot:true,text:t,say:readify(t),ans:Math.round(ans*100)/100};
 }
 function frD(n,d){return '<span class="fr"><i>'+n+'</i><i>'+d+'</i></span>';}
@@ -1062,20 +1137,52 @@ function fmtFrac(p,q){
   if(n===0)return ""+w;
   return (w? '<span class="mixw">'+w+'</span>':"")+frD(n,q);
 }
-function gFrac(){
+function gFrac(lv){
+  if(lv==null)lv=ri(1,10);
   for(var t=0;t<200;t++){
-    var op=pick(["add","sub","mul","div"]);
-    var d1=ri(2,9),d2=ri(2,9),n1=ri(1,d1-1),n2=ri(1,d2-1),p,q,sym,sayop;
-    if(op==="sub"&&n1*d2<n2*d1){var tn=n1,td=d1;n1=n2;d1=d2;n2=tn;d2=td;}
-    if(op==="add"){p=n1*d2+n2*d1;q=d1*d2;sym="＋";sayop=" たす ";}
-    else if(op==="sub"){p=n1*d2-n2*d1;q=d1*d2;sym="−";sayop=" ひく ";}
-    else if(op==="mul"){p=n1*n2;q=d1*d2;sym="×";sayop=" かける ";}
-    else{p=n1*d2;q=d1*n2;sym="÷";sayop=" わる ";}
-    if(p===0)continue;
-    var g=gcd(p,q);
-    return {cat:"frac",kind:"frac",text:frD(n1,d1)+" "+sym+" "+frD(n2,d2),
-      say:d1+"ぶんの"+n1+sayop+d2+"ぶんの"+n2+" は？",
-      ans:{p:p/g,q:q/g}};
+    var ops;
+    if(lv===1)ops=["add"];
+    else if(lv<=4)ops=["add","sub"];
+    else if(lv===5)ops=["mul"];
+    else if(lv===6)ops=["mul","div"];
+    else if(lv===7)ops=["add","sub","mul"];
+    else ops=["add","sub","mul","div"];
+    var op=pick(ops);
+
+    var d1,d2,n1,n2,w1=0,w2=0,mixAllowed=(lv>=9);
+    if(lv===1){var d=pick([2,3,4]);d1=d2=d;}
+    else if(lv===2){var dd=ri(2,6);d1=d2=dd;}
+    else if(lv<=4){d1=ri(2,8);d2=ri(2,8);}
+    else if(lv===5||lv===6){d1=ri(2,5);d2=ri(2,5);}
+    else if(lv<=9){d1=ri(2,9);d2=ri(2,9);}
+    else {d1=ri(3,10);d2=ri(3,10);}
+
+    n1=ri(1,d1-1);n2=ri(1,d2-1);
+    if(mixAllowed){w1=ri(0,3);w2=ri(0,3);}
+
+    if(lv===1&&n1+n2>=d1)continue;
+    if(lv===2&&op==="add"&&n1+n2>=d1)continue;
+    if(lv===2&&op==="sub"&&!(n1>n2))continue;
+
+    var P1=w1*d1+n1,Q1=d1,P2=w2*d2+n2,Q2=d2,p,q,sym,sayop;
+    if(op==="add"){p=P1*Q2+P2*Q1;q=Q1*Q2;sym="＋";sayop=" たす ";}
+    else if(op==="sub"){
+      if(P1*Q2<=P2*Q1)continue;
+      p=P1*Q2-P2*Q1;q=Q1*Q2;sym="−";sayop=" ひく ";
+    }
+    else if(op==="mul"){p=P1*P2;q=Q1*Q2;sym="×";sayop=" かける ";}
+    else{p=P1*Q2;q=Q1*P2;sym="÷";sayop=" わる ";}
+
+    if(p===0||q<=0)continue;
+    if(lv===3||lv===4){var g0=gcd(p,q);if(p/g0>=q/g0)continue;}
+
+    var g=gcd(p,q),rp=p/g,rq=q/g;
+    function frTxt(w,n,d){return w?'<span class="mixw">'+w+'</span>'+frD(n,d):frD(n,d);}
+    function frSay(w,n,d){return (w?w+"と":"")+d+"ぶんの"+n;}
+    return {cat:"frac",kind:"frac",
+      text:frTxt(w1,n1,d1)+" "+sym+" "+frTxt(w2,n2,d2),
+      say:frSay(w1,n1,d1)+sayop+frSay(w2,n2,d2)+" は？",
+      ans:{p:rp,q:rq}};
   }
 }
 function gMachi(){
@@ -1102,14 +1209,15 @@ function gMachi(){
     fixmsg:"ほんとうは "+["①","②","③"][kk]+" ＝ "+fix};
 }
 function genBy(cat,p,lv){
+  if(lv==null && p && p.type==="k10" && ["mix","kufuu","deci","frac"].indexOf(cat)>=0){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="hissan")return gHissan(p,lv);
   if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p);
   if(cat==="anzan")return gAnzan();
-  if(cat==="mix")return gMix();
-  if(cat==="kufuu")return gKufuu();
-  if(cat==="deci")return gDeci();
-  if(cat==="frac")return gFrac();
+  if(cat==="mix")return gMix(lv);
+  if(cat==="kufuu")return gKufuu(lv);
+  if(cat==="deci")return gDeci(lv);
+  if(cat==="frac")return gFrac(lv);
   if(cat==="machigai")return gMachi();
   return genBy(pick(["mix","kufuu","deci","frac","machigai"]),p);
 }
@@ -1248,6 +1356,14 @@ function padHTML(dot,okCall,fn){
   h+='<button class="ok" onclick="'+okCall+'">こたえあわせ</button></div>';
   return h;
 }
+/* K10適応レベルの可視化: 現在Lv＋この10問の進み（●正解/✗ミス/○未）。次の判定までを体感できる。 */
+function lvDotsHTML(p,cat){
+  if(!(p.type==="k10"&&["mix","kufuu","deci","frac"].indexOf(cat)>=0))return"";
+  var n=(p.stats[cat]&&p.stats[cat].n)||0, inblk=n%10;
+  var rec=inblk>0?(p.recent[cat]||[]).slice(-inblk):[];
+  var dots=""; for(var i=0;i<10;i++){ dots+=(i<inblk)?(rec[i]?"●":"✗"):"○"; }
+  return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+dots+'</span>';
+}
 function renderQ(q){
   JLOCK=false; BUF=""; Q.t0=Date.now();
   var p=P(), h='<div class="scr qwrap">';
@@ -1255,7 +1371,7 @@ function renderQ(q){
   if(Q.timed)h+='<span class="chip fire">⏱ <span id="tleft">'+Math.max(0,Math.ceil((Q.end-Date.now())/1000))+'</span>秒</span><span class="chip kago">'+Q.ok+'問</span>';
   else h+='<span class="chip">'+(Q.i+1)+' / '+Q.list.length+'</span>';
   h+='</div>';
-  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(q._mid?"　🦋にがした虫！":"")+'</span>'
+  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
     +(q.say?'<button class="spk" onclick="saySafe()">🔊 よむ</button>':"")+'</div>';
   if(q.kind==="num"){
     h+='<div class="qcard"><div class="qtext'+(q.text.length>9?" mid":"")+'">'+q.text+' ＝</div>'
@@ -1477,6 +1593,16 @@ function afterJudge(ok,q,o){
   if(ok)Q.ok++;
   recordStat(q.cat,ok,ms);
   handleMissed(q,ok,o);
+  /* K10適応レベル: 10問ごとに直近10問で判定（8↑でLv+1 / 6↓でLv-1、最大10/最小1）。レベル選択練習は除外。 */
+  if(p.type==="k10" && ["mix","kufuu","deci","frac"].indexOf(q.cat)>=0 && !(Q&&Q.lv)){
+    if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
+    var s10=p.stats[q.cat];
+    if(s10 && s10.n>0 && s10.n%10===0){
+      var ok10=(p.recent[q.cat]||[]).slice(-10).reduce(function(x,y){return x+y;},0);
+      if(ok10>=8 && p.lv[q.cat]<10){ p.lv[q.cat]++; o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
+      else if(ok10<=6 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
+    }
+  }
   /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習 Q.lv では行わない） */
   if(q.cat==="hissan"&&p.type==="k5"&&!(Q&&Q.lv)){
     if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
