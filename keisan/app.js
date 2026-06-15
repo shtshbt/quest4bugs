@@ -247,6 +247,16 @@ function ensureLvProgress(p){
   syncLegacyFromLv(p);
   return changed;
 }
+/* カテゴリLvの推移を1日1点で記録（同日は最新で上書き）。📈レベルすいいグラフ用。
+   実装後からの記録（過去分は遡れない）。 */
+function logLv(p,cat){
+  if(!p||!cat||!LVL_CATS[cat])return;
+  var lv=(p.lv&&p.lv[cat]); if(lv==null)return;
+  if(!p.lvlog)p.lvlog={};
+  var arr=p.lvlog[cat]||(p.lvlog[cat]=[]), d=todayStr();
+  if(arr.length&&arr[arr.length-1][0]===d)arr[arr.length-1][1]=lv;
+  else arr.push([d,lv]);
+}
 function normalizeAllProgress(){
   var changed=false;
   if(!DB||!DB.profiles)return false;
@@ -631,6 +641,32 @@ function showCapture(i,extraMsg,presetGot){
 }
 
 /* ---------- stats ---------- */
+/* 📈 カテゴリ別 Lv 推移（小さな折れ線の一覧）。p.lvlog にデータがあるカテゴリのみ表示。 */
+function lvTrendSection(p){
+  if(!p||!p.lvlog)return '';
+  var cats=courseCats(p), rows="", any=false;
+  cats.forEach(function(c){
+    var log=p.lvlog[c]; if(!log||!log.length)return; any=true;
+    var W=120,H=46,pad=5,n=log.length;
+    var xy=log.map(function(e,i){
+      var x=pad+(W-2*pad)*(n<2?0:i/(n-1));
+      var y=pad+(H-2*pad)*(1-((clampLv(e[1])-1)/9));
+      return [x,y];
+    });
+    var cur=clampLv(log[log.length-1][1]), mastered=cur>=10;
+    var col=mastered?"#E8B23A":"var(--green)", cold=mastered?"#B26A00":"var(--green-d)";
+    var poly=(n>=2)?'<polyline points="'+xy.map(function(q){return q[0].toFixed(1)+","+q[1].toFixed(1);}).join(" ")+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round"/>':'';
+    var last=xy[xy.length-1];
+    rows+='<div style="display:inline-block;width:50%;vertical-align:top;padding:3px;box-sizing:border-box">'
+      +'<div style="font-size:11px;font-weight:700;color:#3a4a2c">'+(CATL[c]||c)+' <span style="color:'+cold+'">Lv'+cur+(mastered?" 🎓":"")+'</span></div>'
+      +'<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="background:#F3F6EC;border-radius:6px">'
+      +'<line x1="'+pad+'" y1="'+pad+'" x2="'+(W-pad)+'" y2="'+pad+'" stroke="#E2C879" stroke-width="1" stroke-dasharray="2 3"/>'
+      +poly+'<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="3" fill="'+cold+'"/></svg></div>';
+  });
+  if(!any)return '';
+  return '<div class="card"><h3>📈 レベルの すいい</h3><div>'+rows+'</div>'
+    +'<p class="note">カテゴリごとの Lv1→10 の のびかた。点線は Lv10（マスター虫ゲット！）</p></div>';
+}
 function showStats(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
   h+='<div class="card center"><h3>🔥 れんぞく '+p.streak.n+'日</h3>'
@@ -696,6 +732,7 @@ function showStats(){
     h+='<div class="card"><h3>⏱ かいとう時間の すいい（平均）</h3>'+svg
       +'<p class="note">1問あたりの 平均かいとう時間（みじかいほど 速い）。直近'+tdays.length+'日</p></div>';
   }
+  h+=lvTrendSection(p);  /* 📈 カテゴリ別 Lv 推移グラフ */
   var best5="", key, label;
   p.best5=p.best5||{};
   for(key in p.best5){
@@ -3970,6 +4007,7 @@ function afterJudge(ok,q,o){
     var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
     if(got) o.capture=got;
   }
+  logLv(p,q.cat);  /* この問題のカテゴリの現在Lvを記録（推移グラフ用・同日上書き） */
   save();
   showFB(ok,q,o,ms);
 }
@@ -4084,7 +4122,7 @@ function finishSet(){
   if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
     var cleared=(Q.ok>=4), key=Q.cat, unlocked=false;
     if(!p.lv)p.lv={};
-    if(cleared&&Q.lv>=((p.lv&&p.lv[key])||1)&&Q.lv<10){ p.lv[key]=Q.lv+1; syncLegacyFromLv(p); unlocked=true; }
+    if(cleared&&Q.lv>=((p.lv&&p.lv[key])||1)&&Q.lv<10){ p.lv[key]=Q.lv+1; syncLegacyFromLv(p); logLv(p,key); unlocked=true; }
     updateProgressSummary(p);
     save();
     var msgs=[scoreLine];
