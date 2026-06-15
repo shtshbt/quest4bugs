@@ -4887,11 +4887,11 @@ function calcProgressSummary(){
   return '';
 }
 
-/* ---------------- 習得4段バッジ（🥚→🐛→🛡️→🦋） ---------------- */
+/* ---------------- 習得4段バッジ（🥚→🐛→🟤→🦋） ---------------- */
 /* SRS: box 0-5（0=未開始, 習得=box>=3）/ kids: k=[seen,correct,wrong]（習得=correct>=2）
    返り値 {stage:0-3, emoji, label, remain} remain=せいちゅう(習得)まであと何回（習得済みは0） */
 function growthStage(w,isKids){
-  /* stage: 0=🥚まだ 1=🐛がくしゅう中 2=🛡️もうすぐ 3=🦋せいちゅう(習得) */
+  /* stage: 0=🥚まだ 1=🐛がくしゅう中 2=🟤もうすぐ 3=🦋せいちゅう(習得) */
   let prog,maxStep;
   if(isKids){ const k=P.kids[w.key]; prog=k?k[1]:0; maxStep=2; } /* 正解回数/2でせいちゅう */
   else { const s=P.srs[w.key]; prog=s?s[0]:0; maxStep=3; }       /* box/3でせいちゅう */
@@ -4901,7 +4901,7 @@ function growthStage(w,isKids){
   else if(prog>=maxStep-1) stage=2;
   else stage=1;
   const remain=Math.max(0,maxStep-prog);
-  const EMO=['🥚','🐛','🛡️','🦋'];
+  const EMO=['🥚','🐛','🟤','🦋'];
   const LBL=['まだ','がくしゅう中','もうすぐ せいちゅう','せいちゅう'];
   return {stage,emoji:EMO[stage],label:LBL[stage],remain};
 }
@@ -4929,7 +4929,7 @@ function scrDict(){
   <div class="ztabs">${tabs.map(t=>`<button class="${t.id===dictTab?'on':''}" onclick="dictTab=${t.id};render()">${t.emoji} ${t.name}</button>`).join('')}</div>
   <div class="card" style="padding:10px">
     <input type="text" placeholder="🔍 えいご/いみ で さがす" value="${(dictQ||'').replace(/"/g,'&quot;')}" oninput="dictQ=this.value;clearTimeout(window.__dt);window.__dt=setTimeout(render,250)" style="width:100%;font-size:15px;padding:8px;border:2px solid var(--leaf);border-radius:10px">
-    <div class="small" style="margin-top:6px">${f.sub}　せいちゅう <b>${m}</b>/${words.length}　（🥚まだ→🐛がくしゅう中→🛡️もうすぐ→🦋せいちゅう）</div>
+    <div class="small" style="margin-top:6px">${f.sub}　せいちゅう <b>${m}</b>/${words.length}　（🥚まだ→🐛がくしゅう中→🟤もうすぐ→🦋せいちゅう）</div>
   </div>
   <div class="card" style="padding:0">${rows}</div>`;
 }
@@ -4940,7 +4940,7 @@ function scrProgress(){
     const words=WordDB.byField(f.id);
     const total=words.length;
     let mastered=0, started=0, frac=0;
-    const stageCount=[0,0,0,0]; /* 🥚🐛🛡️🦋 */
+    const stageCount=[0,0,0,0]; /* 🥚🐛🟤🦋 */
     if(f.kids){
       words.forEach(w=>{const k=P.kids[w.key]; stageCount[growthStage(w,true).stage]++; if(!k||!(k[1]>0))return; started++; const lv=Math.min(2,k[1]); frac+=lv/2; if(k[1]>=2)mastered++;});
     } else {
@@ -4982,7 +4982,7 @@ function scrProgress(){
     const stageRow=`<div style="display:flex;gap:10px;margin-top:5px;font-size:12px;font-weight:700;color:var(--sub)">
       <span title="まだ">🥚 ${stageCount[0]}</span>
       <span title="がくしゅう中">🐛 ${stageCount[1]}</span>
-      <span title="もうすぐ せいちゅう">🛡️ ${stageCount[2]}</span>
+      <span title="もうすぐ せいちゅう">🟤 ${stageCount[2]}</span>
       <span title="せいちゅう" style="color:var(--good)">🦋 ${stageCount[3]}</span>
     </div>`;
     barsHtml+=`<div style="margin-top:14px">

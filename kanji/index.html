@@ -1389,7 +1389,7 @@ function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textCon
  $('hStreak').style.display='none'; /* 連続日数は統一ステータスバーに表示するため、ヘッダの重複を解消 */ }
 function isLocked(key){ if(key[0]==='h')return !unOK('hira'); var u=KMAP[key.slice(2)].u; return !unOK('u'+u) }
 function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">🏆チャレンジ(にんていテスト)に ごうかくすると ひらくよ！</span><br><button class="btn gold" style="margin-top:10px" onclick="closeModal();renderTests()">🏆 チャレンジへ いく</button><button class="btn sub" style="margin-top:6px" onclick="closeModal()">とじる</button></div>') }
-function stEmoji(s){ return ['🥚','🐛','🟤','🪲','🪲','🪲'][Math.max(0,Math.min(5,s))] }  /* 卵→幼虫→蛹→成虫(box>=3=しゅうとく) */
+function stEmoji(s){ return ['🥚','🐛','🟤','🦋','🦋','🦋'][Math.max(0,Math.min(5,s))] }  /* 卵→幼虫→蛹→成虫(box>=3=しゅうとく) */
 
 /* ================= テスト定義 ================= */
 // 解放チェーン: hira → u1 → u2 → u4 → u5 → u6 (UNITSの学年昇順)
@@ -1884,8 +1884,8 @@ function calcMastered(keys){
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
-/* 学年内訳: その学年の文字を stageOfItem で 4段に分類して 🥚n 🐛n 🛡️n 🦋n を返す。
-   既存ロジック非依存・追加のみ。box0=卵🥚 / box1=幼虫🐛 / box2=蛹🛡️ / box>=3=成虫🦋(習得)。 */
+/* 学年内訳: その学年の文字を stageOfItem で 4段に分類して 🥚n 🐛n 🟤n 🦋n を返す。
+   既存ロジック非依存・追加のみ。box0=卵🥚 / box1=幼虫🐛 / box2=蛹🟤 / box>=3=成虫🦋(習得)。 */
 function stageBreakdown(keys){
  var c=[0,0,0,0];
  keys.forEach(function(key){
@@ -1896,7 +1896,7 @@ function stageBreakdown(keys){
  return c;
 }
 function breakdownHTML(keys){
- var c=stageBreakdown(keys), em=['🥚','🐛','🛡️','🦋'];
+ var c=stageBreakdown(keys), em=['🥚','🐛','🟤','🦋'];
  var parts=[];
  for(var i=0;i<4;i++){ if(c[i]>0) parts.push(em[i]+c[i]); }
  if(!parts.length) return '';
@@ -1997,7 +1997,7 @@ function renderProgress(){
    +(locked?'':breakdownHTML(keys))
    +'</div>';
  });
- h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上<br>🥚たまご 🐛ようちゅう 🛡️さなぎ 🦋せいちゅう（しゅうとく）</div>'
+ h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上<br>🥚たまご 🐛ようちゅう 🟤さなぎ 🦋せいちゅう（しゅうとく）</div>'
  +'</div>';
  if(window.Q4BReward&&ST.coll)h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(ST.coll.total)+'</div>';
  s.innerHTML=h;
