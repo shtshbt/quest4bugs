@@ -62,12 +62,24 @@
     }
     return { kind:"species", speciesId:r.id, first:true };
   }
+  /* ボス特性（天敵のみ）。運なしが原則だが、最終ボス モズの dodge だけは意図的な例外(20%回避)。 */
+  var TRAITS = {
+    renzoku:{key:"renzoku",icon:"🦶",name:"れんぞく",desc:"ぼうぎょが 2かい！"},
+    doku:   {key:"doku",   icon:"☠️",name:"どく",   desc:"ぼうぎょを まちがえると ダメージ +5！"},
+    yoroi:  {key:"yoroi",  icon:"🛡️",name:"ヨロイ",  desc:"ゆうり いがいの こうげきが はんげん！"},
+    sensei: {key:"sensei", icon:"⚡",name:"せんせい",desc:"さいしょに ボスが こうげき！"},
+    dodge:  {key:"dodge",  icon:"💨",name:"かいひ",  desc:"ときどき こうげきを よける！"}
+  };
+  var PRED_TRAIT = {5:"renzoku",10:"sensei",15:"renzoku",20:"doku",25:"yoroi",30:"sensei",35:"yoroi",40:"sensei",45:"doku",50:"dodge"};
+  function bossTrait(r){ if(!r||!r.predator) return null; var k=PRED_TRAIT[r.stage]; return k?TRAITS[k]:null; }
+  var DODGE_CHANCE = 0.2, DOKU_BONUS = 5;
   global.Q4BBattle = {
     roster: ROSTER, BEATS: BEATS, BASE_DMG: BASE_DMG, BOSS_DMG: BOSS_DMG,
     DMG_NEUTRAL: DMG_NEUTRAL, DMG_ADV: DMG_ADV, DMG_DIS: DMG_DIS,
     DEF_ADV: DEF_ADV, DEF_NEUTRAL: DEF_NEUTRAL, DEF_DIS: DEF_DIS,
     damage: damage, bossDamage: bossDamage, advLabel: advLabel, bugHP: bugHP, HP_BY_TIER: HP_BY_TIER,
     unlockCost: unlockCost, unlockedStages: unlockedStages, nextUnlock: nextUnlock, bossAt: bossAt,
-    bossReward: bossReward, predAmber: predAmber
+    bossReward: bossReward, predAmber: predAmber,
+    TRAITS: TRAITS, bossTrait: bossTrait, DODGE_CHANCE: DODGE_CHANCE, DOKU_BONUS: DOKU_BONUS
   };
 })(window);
