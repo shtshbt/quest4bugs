@@ -25,9 +25,9 @@
     return "eitango";
   }
   var POOLS = { kanji:[], keisan:[], eitango:[] };
-  /* masterOnly(全習得限定)・bossOnly(ボス専用)は通常の採集プールから除外。
-     ゲージ/琥珀の抽選には絶対に出さず、習得達成/ボス撃破でのみ授与する。 */
-  BUGS.forEach(function(sp){ if(sp.masterOnly||sp.bossOnly)return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
+  /* masterOnly(全習得限定)・bossOnly(ボス専用)・SS(でんせつ)は通常の採集プールから除外。
+     ゲージ/琥珀の抽選には絶対に出さず、SSは習得達成(マスター)/ボス撃破でのみ授与する。 */
+  BUGS.forEach(function(sp){ if(sp.masterOnly||sp.bossOnly||sp.rarity==="SS")return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
   function pool(game){ return POOLS[game] || BUGS; }
   function poolCount(game){ return pool(game).length; }
 
@@ -88,6 +88,7 @@
   var SHINY_CHANCE = 0.03;
   var TIER_WEIGHT = [72, 23, 5, 0.8, 0.08]; // N / R / SR / SSR / SS（高効率な復習周回でのレア量産を抑えるため SR/SSR/SS を薄く）
   var REVIEW_BOOST = 2;  // 復習チャレンジ時の「珍しい虫が出やすい」係数（復習のレア量産を抑えるため 3→2）
+  var HATTEN_BOOST = 1.5;  // 発展（難問）の「すこしレアが出やすい」係数。通常1と復習2の中間
   /* boost>1(復習) で SR/SSR(tier 2,3)を倍化。SS(tier4=でんせつ)は逆に抑制する。
      復習は高頻度に周回できるため、据え置きだと量でSSが溜まりやすい。SSは通常プレイ/
      テスト合格など achievement で出すものとし、復習では出にくくする。 */
@@ -321,6 +322,7 @@
     amberOf: amberOf,
     AMBER_CATCH_COST: AMBER_CATCH_COST,
     REVIEW_BOOST: REVIEW_BOOST,
+    HATTEN_BOOST: HATTEN_BOOST,
     record: record,
     collectedCount: collectedCount,
     rank: rank,

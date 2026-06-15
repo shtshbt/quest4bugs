@@ -383,7 +383,7 @@ function showHome(){
   /* 発展演習（コース別。Lv1-10の適応難度） */
   var devs=(p.type==="k5")?K5DEV:K10DEV;
   if(devs&&devs.length){
-    h+='<div class="card"><h3>🌟 はってん もんだい</h3><div class="grid2">';
+    h+='<div class="card"><h3>🌟 はってん もんだい <span style="font-size:11px;color:#B26A00;font-weight:700;background:#FFF3D6;border:1px solid #F2C879;border-radius:999px;padding:1px 8px;margin-left:4px">✨ レアな虫が すこし でやすい！</span></h3><div class="grid2">';
     devs.forEach(function(c){
       h+=catBtnHTML(c,"startPractice('"+c+"')",p,bal[c]);
     });
@@ -426,6 +426,8 @@ function masterMetK(key){
  if(key==="mul") return ((p.lv&&p.lv.kuku)||legacyKukuToLv(p))>=10;
  if(key==="div") return ["anzan","sougou","mix"].some(function(c){var s=p.stats[c];return s&&s.n>=50&&(s.ok/s.n)>=0.9;});
  if(key==="all") return masterMetK("add")&&masterMetK("sub")&&masterMetK("mul")&&masterMetK("div");
+ /* per-category マスター: そのカテゴリの Lv が10(制覇)に到達したら獲得 */
+ if(LVL_CATS[key]) return ((p.lv&&p.lv[key])||0)>=10;
  return false;
 }
 var KMASTERLAB={add:"たし算ひっさん",sub:"ひき算ひっさん",mul:"九九",div:"暗算",all:"ぜんぶ"};
@@ -452,7 +454,7 @@ function keisanMasterSection(){
  var ord=["add","sub","mul","div","all"]; ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
-  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||""))+'</div></div>';
+  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></div>';
  }).join("");
  return '<div class="card"><h3>🎓 マスター虫　<span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span></h3><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div>';
 }
@@ -3962,7 +3964,9 @@ function afterJudge(ok,q,o){
   if(ok && window.Q4BReward){
     ensureColl(p);
     var iid=q.cat+':'+(q.text||q.say||'');  // 同じ問題の連打を検知（新しさ係数）
-    var _boost=(Q&&(Q.review||Q.balanceBoost))?Q4BReward.REVIEW_BOOST:1;  /* 復習 or まんべんなく学習 でレアブースト */
+    /* レアブースト: 復習/まんべんなく=2.0、発展(難問)=1.5(中間)、四則など自分練習=通常1.0 */
+    var _isHatten=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);
+    var _boost=(Q&&(Q.review||Q.balanceBoost))?Q4BReward.REVIEW_BOOST:(_isHatten?Q4BReward.HATTEN_BOOST:1);
     var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
     if(got) o.capture=got;
   }
