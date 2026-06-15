@@ -402,10 +402,11 @@ var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん",
   mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合",
   warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", noudo:"濃度", tabibito:"旅人算", hiritsu:"比",
   tsurukame:"つるかめ算", kabusoku:"過不足算", heikin:"平均算", soneki:"損益算", shigoto:"仕事算", nenrei:"年齢算", ueki:"植木算",
-  ryuusui:"流水算", tsuuka:"通過算", shuuki:"周期算", nichireki:"日暦算", kisokusei:"規則性", hayasahi:"速さと比", shuugou:"集合算"};
+  ryuusui:"流水算", tsuuka:"通過算", shuuki:"周期算", nichireki:"日暦算", kisokusei:"規則性", hayasahi:"速さと比", shuugou:"集合算",
+  bairitsu:"倍数算", shoukyo:"消去算", houjin:"方陣算", baai:"場合の数", hireihanpi:"比例反比例"};
 var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
-var K5DEV=["wasa","jikan","kakebun"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou"];  /* 発展演習(コース別) */
-var LVL_CATS={mix:1,kufuu:1,deci:1,frac:1,warizan:1,wasa:1,jikan:1,kakebun:1,noudo:1,tabibito:1,hiritsu:1,tsurukame:1,kabusoku:1,heikin:1,soneki:1,shigoto:1,nenrei:1,ueki:1,ryuusui:1,tsuuka:1,shuuki:1,nichireki:1,kisokusei:1,hayasahi:1,shuugou:1};  /* 適応レベル対象 */
+var K5DEV=["wasa","jikan","kakebun"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
+var LVL_CATS={mix:1,kufuu:1,deci:1,frac:1,warizan:1,wasa:1,jikan:1,kakebun:1,noudo:1,tabibito:1,hiritsu:1,tsurukame:1,kabusoku:1,heikin:1,soneki:1,shigoto:1,nenrei:1,ueki:1,ryuusui:1,tsuuka:1,shuuki:1,nichireki:1,kisokusei:1,hayasahi:1,shuugou:1,bairitsu:1,shoukyo:1,houjin:1,baai:1,hireihanpi:1};  /* 適応レベル対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
 
@@ -3150,6 +3151,427 @@ function gShuugou(lv){
   }
   return {cat:"shuugou", kind:"num", text:t, say:null, ans:ans};
 }
+function gBairitsu(lv){
+  if(lv==null) lv=ri(1,10);
+  var NAMES=["太郎","花子","ゆうき","さくら","けんた","あきら"];
+  var ITEMS=["あめ","おはじき","シール","カード","ビー玉","どんぐり"];
+  var t="", ans=0, say=null;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv===1||lv===2||lv===3){
+      // 一方が他方のN倍。和または差を与えて各値を求める(倍数の和差算)
+      var item=pick(ITEMS);
+      var N=(lv===1?2:ri(2,4));
+      var small=ri(3,20);
+      var big=small*N;            // 大=小のN倍(逆算で割り切れる)
+      if(lv===1){
+        // 和を与えて「小さい方」を求める: small=sum/(N+1)
+        var sum=small+big;
+        ans=small;
+        t="赤い"+item+"は 青い"+item+"の "+N+"倍です。あわせて "+sum+"個 あります。青い"+item+"は 何個ですか？";
+      } else if(lv===2){
+        // 差を与えて「小さい方」を求める: small=dif/(N-1)
+        var dif=big-small;
+        ans=small;
+        t="赤い"+item+"は 青い"+item+"の "+N+"倍です。赤い"+item+"は 青い"+item+"より "+dif+"個 多いです。青い"+item+"は 何個ですか？";
+      } else {
+        // 和を与えて「大きい方」を求める: big=sum*N/(N+1)
+        var sum=small+big;
+        ans=big;
+        t="赤い"+item+"は 青い"+item+"の "+N+"倍です。あわせて "+sum+"個 あります。赤い"+item+"は 何個ですか？";
+      }
+    }
+    else if(lv===4||lv===5||lv===6){
+      // 何かを足す/引くとN倍になる
+      var item=pick(ITEMS);
+      var c=pick(NAMES);
+      var N=ri(2,4);
+      if(lv===4){
+        // 小さい数 s、大きい数に a を足すと s のN倍 → big = N*s - a
+        var s=ri(3,15);
+        var a=ri(1,12);
+        var big=N*s-a;
+        if(big<=s) continue;
+        ans=big;
+        t="青い"+item+"は "+s+"個 あります。赤い"+item+"に "+a+"個 たすと、青い"+item+"の "+N+"倍に なります。赤い"+item+"は 何個ですか？";
+      } else if(lv===5){
+        // 大きい数から b を引くと 小さい数のN倍 → big = N*s + b
+        var s=ri(3,15);
+        var b=ri(1,12);
+        var big=N*s+b;
+        ans=big;
+        t="青い"+item+"は "+s+"個 あります。赤い"+item+"から "+b+"個 とると、青い"+item+"の "+N+"倍に なります。赤い"+item+"は 何個ですか？";
+      } else {
+        // 両方に同じ数 a を足すとN倍: (big+a)=N*(small+a) → small を逆算
+        var small=ri(4,20);
+        var a=ri(1,10);
+        var big=N*(small+a)-a;     // big を逆算
+        if(big<=small) continue;
+        ans=small;
+        t=c+"は 赤い"+item+"を "+big+"個 持っています。二人とも あと "+a+"個 ずつ もらうと、"+c+"の数が もう一人の "+N+"倍に なります。もう一人は 今 何個 持っていますか？";
+      }
+    }
+    else { // lv===7,8,9,10  比の変化(○あげる/もらうと比が変わる)
+      var c1=pick(NAMES), c2=c1;
+      while(c2===c1) c2=pick(NAMES);
+      var item=pick(ITEMS);
+      if(lv===7||lv===8){
+        // c1 が c2 に m個 あげると c1 が c2 の N倍になる
+        var N=(lv===7?2:ri(2,3));
+        var m=ri(1,8);
+        var b=ri(3,15);           // あげた後の c2
+        var aft1=N*b;             // あげた後の c1 = N倍
+        var before1=aft1+m;       // 初めの c1
+        var before2=b-m;          // 初めの c2
+        if(before2<1) continue;
+        if(before1<=before2) continue;
+        ans=before1;
+        t=c1+"は "+c2+"に "+item+"を "+m+"個 あげました。すると "+c1+"の数が "+c2+"の "+N+"倍に なりました。"+c1+"は はじめ 何個 持っていましたか？";
+      } else {
+        // lv9,10: c1 が m個 もらうと比が p:q に。c2 の数を与えて c1 の初めを求める
+        var p=(lv===9?3:pick([3,5])), q=2;   // 2 と互いに素 -> 比はすでに約分済
+        if(p<=q) p=q+1;
+        var k=ri(2,8);
+        var Bv=q*k;
+        var aft1=p*k;             // もらった後の c1
+        var m=ri(1,10);
+        var Av=aft1-m;            // 初めの c1
+        if(Av<1) continue;
+        if(Av>=aft1) continue;
+        ans=Av;
+        t=c1+"と "+c2+"が "+item+"を 持っています。"+c1+"が "+m+"個 もらうと、二人の数の 比が "+p+":"+q+"に なりました。このとき "+c2+"は "+Bv+"個 持っています。"+c1+"は はじめ 何個 持っていましたか？";
+      }
+    }
+    if(ans>0 && ans===Math.floor(ans)) break;
+  }
+  return {cat:"bairitsu", kind:"num", text:t, say:null, ans:ans};
+}
+function gShoukyo(lv){
+  if(lv==null) lv=ri(1,10);
+  // 商品ペア（単位は「円」、個数で表現）
+  var PAIRS=[
+    {a:"りんご",b:"みかん"},{a:"ノート",b:"えんぴつ"},{a:"パン",b:"ジュース"},
+    {a:"ケーキ",b:"プリン"},{a:"消しゴム",b:"定規"},{a:"シール",b:"カード"}
+  ];
+  var TRIO=[
+    {a:"おとな",b:"子ども",c:"赤ちゃん",cnt:"人",amt:"人分"},
+    {a:"大きい箱",b:"中くらいの箱",c:"小さい箱",cnt:"個",amt:"個分"}
+  ];
+  var gcd=function(x,y){x=Math.abs(x);y=Math.abs(y);while(y){var t=y;y=x%y;x=t;}return x;};
+  var lcm=function(x,y){return x/gcd(x,y)*y;};
+  var t="", ans=0;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv>=1 && lv<=3){
+      // 2品 a,b の2式。bの個数を両式でそろえて消去 → a 1個の値段。
+      // 式1: m1*a + n*b = T1 ,  式2: m2*a + n*b = T2 （bの係数 n が共通）
+      var p=pick(PAIRS);
+      var pa=ri(2,(lv===1?9:15))*10;   // a 1個の値段
+      var pb=ri(2,(lv===1?9:15))*10;   // b 1個の値段
+      var n =ri(1,(lv===1?2:3));        // 共通の b の個数
+      var m1=ri(1,(lv<=2?3:4));
+      var m2=ri(1,(lv<=2?3:4));
+      if(m1===m2) continue;             // a の係数が同じだと消去できない
+      var T1=m1*pa+n*pb;
+      var T2=m2*pa+n*pb;
+      if(T1<=0||T2<=0) continue;
+      ans=pa;                            // 消去で直接出る a 1個の値段
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=p.a+" "+m1+"個と "+p.b+" "+n+"個で "+T1+"円、"+
+        p.a+" "+m2+"個と "+p.b+" "+n+"個で "+T2+"円です。"+p.a+" 1個は いくら？";
+    }
+    else if(lv>=4 && lv<=6){
+      // 2式とも係数がそろっていない。片方を倍して b を消去 → a 1個の値段。
+      // 式1: m1*a + k1*b = T1 , 式2: m2*a + k2*b = T2
+      var p=pick(PAIRS);
+      var pa=ri(2,(lv===4?9:18))*10;
+      var pb=ri(2,(lv===4?9:18))*10;
+      var m1=ri(1,(lv<=5?3:4));
+      var k1=ri(1,(lv<=5?3:4));
+      var m2=ri(1,(lv<=5?3:4));
+      var k2=ri(1,(lv<=5?3:4));
+      if(k1===k2) continue;              // b の係数一致だと Lv1-3 と同質（倍が不要）
+      var det=m1*k2-m2*k1;
+      if(det===0) continue;              // 比例 → 不定（ill-posed）排除
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      if(T1<=0||T2<=0) continue;
+      ans=pa;                            // a 1個の値段
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=p.a+" "+m1+"個と "+p.b+" "+k1+"個で "+T1+"円、"+
+        p.a+" "+m2+"個と "+p.b+" "+k2+"個で "+T2+"円です。"+p.a+" 1個は いくら？";
+    }
+    else if(lv>=7 && lv<=8){
+      // 2式・大きめ係数。両方を倍して消去（計算量増）。答えは b 1個。
+      var p=pick(PAIRS);
+      var pa=ri(3,(lv===7?12:20))*10;
+      var pb=ri(3,(lv===7?12:20))*10;
+      var m1=ri(2,4), k1=ri(2,4), m2=ri(2,4), k2=ri(2,4);
+      if(m1===m2 && k1===k2) continue;
+      var det=m1*k2-m2*k1;
+      if(det===0) continue;
+      if(m1%m2===0 || m2%m1===0) continue; // a係数が割り切れない→両式を倍が必要
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      if(T1<=0||T2<=0) continue;
+      ans=pb;                            // b 1個の値段
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=p.a+" "+m1+"個と "+p.b+" "+k1+"個で "+T1+"円、"+
+        p.a+" "+m2+"個と "+p.b+" "+k2+"個で "+T2+"円です。"+p.b+" 1個は いくら？";
+    }
+    else { // lv 9-10: 3量（連立 + 差で1量を消去）
+      // 式1: m1*a + k1*b = T1 , 式2: m2*a + k2*b = T2 を解いて a を出し、
+      // c は a より dc 円安い（最後の引き算で c を求める）。答えは c 1単位。
+      var tr=pick(TRIO);
+      var pa=ri(3,(lv===9?12:20))*10;   // a 1単位
+      var pb=ri(2,(lv===9?9:15))*10;    // b 1単位
+      var dc=ri(1,(lv===9?9:15))*10;    // c は a より dc 円安い
+      var pc=pa-dc;
+      if(pc<=0) continue;
+      var m1=ri(1,3), k1=ri(1,3);
+      var m2=m1+ri(1,2), k2=ri(1,3);
+      if(k1===k2 && m1===m2) continue;
+      var det=m1*k2-m2*k1;
+      if(det===0) continue;
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      if(T1<=0||T2<=0) continue;
+      ans=pc;                            // c 1単位の値段
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=tr.a+" "+m1+tr.cnt+"と "+tr.b+" "+k1+tr.cnt+"で "+T1+"円、"+
+        tr.a+" "+m2+tr.cnt+"と "+tr.b+" "+k2+tr.cnt+"で "+T2+"円です。"+
+        "また "+tr.c+"は "+tr.a+"より "+dc+"円 安いです。"+tr.c+" 1"+tr.amt+"は いくら？";
+    }
+    break;
+  }
+  return {cat:"shoukyo", kind:"num", text:t, say:null, ans:ans};
+}
+function gHoujin(lv){
+  if(lv==null) lv=ri(1,10);
+  var ITEMS=["おはじき","ご石","タイル","コイン","おはな","ボール"];
+  var t="", ans=0;
+
+  for(var tries=0; tries<200; tries++){
+    var it=pick(ITEMS);
+
+    // Lv1-3: 中実方陣 一辺n → 全体(n^2) / 外周(4n-4) / 内側(n-2)^2
+    if(lv>=1 && lv<=3){
+      var n=ri(3,12);
+      if(lv===1){
+        ans=n*n;
+        t=it+"を たてよこ おなじ数で すきまなく ならべて、1辺が "+n+"こ の 正方形に しました。ぜんぶで なんこ？";
+      } else if(lv===2){
+        ans=4*n-4;
+        t=it+"を ならべて 1辺 "+n+"こ の 正方形に しました。いちばん そとがわ(まわり)に ある "+it+"は なんこ？";
+      } else {
+        ans=(n-2)*(n-2);
+        t=it+"を ならべて 1辺 "+n+"こ の 正方形に しました。いちばん そとがわを のぞいた、内がわの "+it+"は なんこ？";
+      }
+    }
+    // Lv4-6: 外周/全体 の個数から一辺 or 全体を逆算
+    else if(lv>=4 && lv<=6){
+      var n=ri(3,15);
+      if(lv===4){
+        var p=4*n-4;
+        ans=n;
+        t="ある 正方形の まわり(外周)に "+it+"が "+p+"こ ならんでいます。1辺は なんこ ならんでいますか？";
+      } else if(lv===5){
+        var tot=n*n;
+        ans=n;
+        t=it+"を すきまなく ならべて 正方形を つくったら、ぜんぶで "+tot+"こ つかいました。1辺は なんこ？";
+      } else {
+        var p=4*n-4;
+        ans=n*n;
+        t="正方形に ならべた "+it+"の まわり(外周)に "+p+"こ あります。"+it+"は ぜんぶで なんこ？";
+      }
+    }
+    // Lv7-10: 中空方陣(ふち m 重)
+    else {
+      var m=(lv<=8)?2:ri(2,3);
+      var n=ri(2*m+1, 14);
+      var inner=n-2*m;
+      if(inner<1) continue;
+      var ring=n*n-inner*inner;
+      if(lv===7){
+        ans=ring;
+        t=it+"を ならべて 1辺 "+n+"こ の 正方形を つくり、まわりから "+m+"重ぶんを ふちに しました。ふちの "+it+"は なんこ？";
+      } else if(lv===8){
+        ans=n;
+        t="1辺が おなじ 正方形で、まわり "+m+"重ぶんの ふちに "+it+"が "+ring+"こ あります。1辺は なんこ?";
+      } else if(lv===9){
+        ans=ring;
+        t=it+"を 1辺 "+n+"こ の 正方形に ならべ、そとがわ "+m+"重を ふちと します。ふちの "+it+"は なんこ？";
+      } else {
+        ans=inner*inner;
+        t=it+"を 1辺 "+n+"こ の 正方形に ならべ、そとがわ "+m+"重ぶんを とりのぞきます。のこった 内がわの "+it+"は なんこ？";
+      }
+    }
+
+    if(ans>0 && ans===Math.round(ans)){
+      return {cat:"houjin",kind:"num",text:t,say:null,ans:ans};
+    }
+  }
+  return {cat:"houjin",kind:"num",text:"1辺 5こ の 正方形に ならべました。ぜんぶで なんこ？",say:null,ans:25};
+}
+function gBaai(lv){
+  if(lv==null) lv=ri(1,10);
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=b;b=a%b;a=t;}return a;}
+  function nPr(n,r){var v=1;for(var i=0;i<r;i++)v*=(n-i);return v;}
+  function nCr(n,r){if(r<0||r>n)return 0;if(r>n-r)r=n-r;var num=1,den=1;for(var i=0;i<r;i++){num*=(n-i);den*=(i+1);}return num/den;}
+  function paths(w,h){return nCr(w+h,h);} /* grid corner-to-corner */
+
+  for(var tries=0; tries<200; tries++){
+    var text=null, ans=null;
+
+    if(lv<=3){
+      /* 樹形図／積の法則: ○通り × △通り */
+      if(lv===1){
+        var a=ri(2,4), b=ri(2,4);
+        var items=pick([
+          ["シャツ","ズボン"],["上着","くつ"],["パン","飲み物"],["ぼうし","かばん"]
+        ]);
+        text=items[0]+"が"+a+"種類、"+items[1]+"が"+b+"種類あります。組み合わせは全部で何通り？";
+        ans=a*b;
+      } else if(lv===2){
+        var a2=ri(2,6), b2=ri(2,6);
+        text="入り口が"+a2+"通り、出口が"+b2+"通りあります。通り方は全部で何通り？";
+        ans=a2*b2;
+      } else {
+        var a3=ri(2,3), b3=ri(2,3), c3=ri(2,4);
+        text="前菜が"+a3+"種類、主菜が"+b3+"種類、デザートが"+c3+"種類。コースは全部で何通り？";
+        ans=a3*b3*c3;
+      }
+    } else if(lv<=6){
+      /* 順列 nPr: 並べ方 */
+      if(lv===4){
+        var n4=ri(3,4);
+        text=n4+"人が1列に並びます。並び方は全部で何通り？";
+        ans=nPr(n4,n4);
+      } else if(lv===5){
+        var n5=ri(4,5), r5=ri(2,3);
+        text=n5+"人の中から"+r5+"人を選んで1列に並べます。並べ方は何通り？";
+        ans=nPr(n5,r5);
+      } else {
+        var n6=ri(5,6), r6=3;
+        text=n6+"枚の数字カードから"+r6+"枚を選んで並べ、"+r6+"けたの数を作ります。何通り？";
+        ans=nPr(n6,r6);
+      }
+    } else if(lv<=8){
+      /* 組合せ nCr: 選び方 */
+      if(lv===7){
+        var n7=ri(4,6), r7=2;
+        text=n7+"人の中から"+r7+"人の代表を選びます。選び方は何通り？";
+        ans=nCr(n7,r7);
+      } else {
+        var n8=ri(5,7), r8=ri(2,3);
+        text=n8+"種類のおかしから"+r8+"種類を選びます。選び方は何通り？";
+        ans=nCr(n8,r8);
+      }
+    } else {
+      /* 道順(格子) / 和の法則 */
+      if(lv===9){
+        var w9=ri(2,3), h9=ri(2,3);
+        text="たて"+h9+"区画、よこ"+w9+"区画の道を、遠回りせずに右上まで行きます。道順は何通り？";
+        ans=paths(w9,h9);
+      } else {
+        if(Math.random()<0.5){
+          var a10=ri(2,5), b10=ri(2,5);
+          text="赤いボールが"+a10+"個、青いボールが"+b10+"個あります。1個選ぶ選び方は何通り？";
+          ans=a10+b10;
+        } else {
+          var w10=ri(3,4), h10=ri(2,3);
+          text="たて"+h10+"区画、よこ"+w10+"区画の道を、遠回りせずに右上まで行きます。道順は何通り？";
+          ans=paths(w10,h10);
+        }
+      }
+    }
+
+    if(text!=null && ans!=null && ans>0 && ans===Math.floor(ans)){
+      return {cat:"baai", kind:"num", text:text, say:null, ans:ans};
+    }
+  }
+  return {cat:"baai", kind:"num", text:"赤が2種類、青が3種類。組み合わせは何通り？", say:null, ans:6};
+}
+function gHireihanpi(lv){
+  if(lv==null) lv=ri(1,10);
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t;}return a||1;}
+  var ITEMS=["くぎ","ねじ","ボルト","タイル","ビーズ","えんぴつ"];
+  var t="", ans=0;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv>=1 && lv<=3){
+      // 比例: x が a のとき y が b。x=c のとき y は? (y=b*c/a)
+      // a を約数として持つ b・c を作り割り切れ保証
+      var a=ri(2,(lv<=2?5:8));
+      var unit=ri(2,(lv===1?6:9));        // 1単位あたり y = unit
+      var b=a*unit;                        // x=a で y=b は整数
+      var c=a*ri(2,(lv<=2?6:9));           // c は a の倍数 → 割り切れ
+      if(c===a) continue;
+      ans=b*c/a;                           // = unit*c
+      if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+      // 質的難化: Lv1 同単位, Lv2 物量, Lv3 やや大きい数
+      var ctx = (lv===1)
+        ? "リボン "+a+"m の ねだんは "+b+"円です。"+c+"m では なん円？"
+        : (lv===2
+          ? "はぐるま が "+a+"回 まわると ベルトは "+b+"cm すすみます。"+c+"回 では なん cm？"
+          : "きかい が "+a+"分 で "+b+"個 つくります。"+c+"分 では なん個？");
+      t=ctx;
+    }
+    else if(lv>=4 && lv<=6){
+      // 反比例: 積一定 (歯車の歯数×回転 / 人数×日数 = 一定)
+      var K, x1, y1, x2;
+      if(lv===4){
+        // 歯車: 歯数 x1 × 回転 y1 = 歯数 x2 × 回転?
+        x1=ri(2,9); y1=ri(2,9); K=x1*y1;
+        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
+        if(divs.length===0) continue;
+        x2=pick(divs); ans=K/x2;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t="歯数 "+x1+" の 歯車が "+y1+"回 まわると、歯数 "+x2+" の 歯車は なん回 まわる？";
+      } else if(lv===5){
+        // 仕事: x1人で y1日 → x2人なら何日 (x1*y1=x2*?)
+        x1=ri(2,9); y1=ri(2,9); K=x1*y1;
+        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
+        if(divs.length===0) continue;
+        x2=pick(divs); ans=K/x2;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t=x1+"人 で "+y1+"日 かかる しごとを、"+x2+"人 で すると なん日？";
+      } else {
+        // lv6: 速さ×時間=距離一定 (毎分 x1 m で y1分 → 毎分 x2 m なら何分)
+        x1=ri(2,12); y1=ri(2,12); K=x1*y1;
+        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
+        if(divs.length===0) continue;
+        x2=pick(divs); ans=K/x2;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t="ある みちのりを 毎分 "+x1+"m で あるくと "+y1+"分。毎分 "+x2+"m では なん分？";
+      }
+    }
+    else { // lv 7-10: 文章で比例/反比例を見分けて逆算
+      var isInverse = (Math.random()<0.5);
+      if(!isInverse){
+        // 比例: a 分 で b → c 分 で?  (b は a の倍数)
+        var a=ri(2,(lv<=8?6:9));
+        var unit=ri(2,(lv<=8?7:9));
+        var b=a*unit;
+        var c=a*ri(2,(lv<=8?7:9));
+        if(c===a) continue;
+        ans=unit*c;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t="水を "+a+"分 入れると "+b+"L たまります。"+c+"分 では なん L？";
+      } else {
+        // 反比例: 積一定
+        var x1=ri(2,(lv<=8?9:12)), y1=ri(2,(lv<=8?9:12)), K=x1*y1;
+        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
+        if(divs.length===0) continue;
+        var x2=pick(divs); ans=K/x2;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t="本を "+x1+"さつ ずつ つむと "+y1+"だん。"+x2+"さつ ずつ では なん だん？";
+      }
+    }
+    if(ans>0 && Number.isInteger(ans) && ans<=200) break;
+  }
+  return {cat:"hireihanpi",kind:"num",text:t,say:null,ans:ans};
+}
 function genBy(cat,p,lv){
   if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="hissan")return gHissan(p,lv);
@@ -3181,6 +3603,11 @@ function genBy(cat,p,lv){
   if(cat==="kisokusei")return gKisokusei(lv);
   if(cat==="hayasahi")return gHayasahi(lv);
   if(cat==="shuugou")return gShuugou(lv);
+  if(cat==="bairitsu")return gBairitsu(lv);
+  if(cat==="shoukyo")return gShoukyo(lv);
+  if(cat==="houjin")return gHoujin(lv);
+  if(cat==="baai")return gBaai(lv);
+  if(cat==="hireihanpi")return gHireihanpi(lv);
   if(cat==="machigai")return gMachi();
   return genBy(pick(["mix","kufuu","deci","frac","machigai"]),p);
 }
