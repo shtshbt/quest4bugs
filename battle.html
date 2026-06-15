@@ -363,17 +363,17 @@ function computeReach(kp,ks,es){
   })();
   return REACH;
 }
-/* per-attribute 解禁: そのボス属性の到達度 ≥ band閾値（モズは3教科すべて9.5）。撃破制は呼び出し側で別判定 */
+/* 総合解禁: 3ゲームすべての到達度 ≥ band閾値（モズも同じく3教科すべて9.5）。撃破制は呼び出し側で別判定 */
 var BAND_THR=[0,2,4,6,8,9.5];
 function bandThr(stage){ return BAND_THR[Math.ceil(stage/10)]||9.5; }
 function bossReachOpen(r){
   if(!r) return false;
-  if(r.type==="none") return REACH.kanji>=9.5 && REACH.keisan>=9.5 && REACH.eitango>=9.5;
-  return (REACH[r.type]||0) >= bandThr(r.stage);
+  var thr=(r.type==="none")?9.5:bandThr(r.stage);
+  return REACH.kanji>=thr && REACH.keisan>=thr && REACH.eitango>=thr;
 }
 /* 撃破順ゲート: 前のボスを倒したか（No.1は常にOK） */
 function prevCleared(r){ return !!r && (r.stage===1 || !!CLEARED[r.stage-1]); }
-/* 真の解禁＝到達度（属性）と撃破順の両立。属性だけ満たした先のボスを飛び級で開けない（まだら解放の防止） */
+/* 真の解禁＝3ゲーム到達度と撃破順の両立。1教科だけ進んだ先のボスを飛び級で開けない（まだら解放の防止） */
 function bossOpen(r){ return prevCleared(r) && bossReachOpen(r); }
 function unlockedCount(){ var n=0,i; for(i=0;i<B.roster.length;i++) if(bossOpen(B.roster[i]))n++; return n; }
 /* 次に挑む対象＝まだ倒していない最初のボス（撃破順のフロンティア） */
@@ -570,10 +570,10 @@ function renderHome(){
   var unlocked=unlockedCount(), nx=nextBoss();
   var into=100;
   if(nx){ var _thr=(nx.type==="none")?9.5:bandThr(nx.stage),
-            _cur=(nx.type==="none")?Math.min(REACH.kanji,REACH.keisan,REACH.eitango):(REACH[nx.type]||0);
+            _cur=Math.min(REACH.kanji,REACH.keisan,REACH.eitango);
           into=Math.round(Math.min(1,_cur/_thr)*100); }
   document.getElementById("ghfill").style.width = into+"%";
-  var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの属性到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
+  var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの3ゲーム到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
   document.getElementById("ghmeta").textContent = nx
     ? (nxOpen
         ? "解禁ずみ "+unlocked+" 体 ／ No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）に いどめるよ！"
@@ -622,7 +622,7 @@ function renderHome(){
     var body=band.querySelector(".band-body");
     rs.forEach(function(r){
       var sp=byId[r.id];
-      var progOpen=bossReachOpen(r);                        /* 年齢到達度ゲート(per-attribute) */
+      var progOpen=bossReachOpen(r);                        /* 年齢到達度ゲート(3ゲームすべて) */
       var prevOk=prevCleared(r);                            /* 撃破制: 前のボスを倒した */
       var open=progOpen&&prevOk;                            /* 解禁＝到達度＋撃破順の両立 */
       var isFront=(nx&&r.stage===nx.stage);
