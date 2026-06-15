@@ -492,6 +492,15 @@ function setCourse(id,t){
 
 /* ---------- home ---------- */
 function dueMissed(p){var t=todayStr(); return p.missed.filter(function(m){return m.due<=t;});}
+/* Lvに応じてボタン背景を 薄緑(Lv1)→濃緑(Lv10) に濃くする＝進捗がひと目で分かる */
+function lvBg(lv){ var t=Math.max(0,Math.min(1,(lv-1)/9)); function mix(a,b){return Math.round(a+(b-a)*t);}
+  return 'rgb('+mix(0xEC,0x2C)+','+mix(0xF2,0x5F)+','+mix(0xDB,0x2D)+')'; }
+function catBtnHTML(c,act,p){
+  var leveled=!!LVL_CATS[c], lv=leveled?((p.lv&&p.lv[c])||1):0;
+  var sty=leveled?(' style="background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'var(--ink)')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)"'):'';
+  var lvtag=leveled?'<span style="font-weight:800;opacity:.92">　Lv'+lv+'/10</span>':'';
+  return '<button class="btn sm ghost"'+sty+' onclick="'+act+'">'+CATL[c]+lvtag+'</button>';
+}
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
   var t=todayStr(), d=p.daily[t], done=d&&d.md;
@@ -510,8 +519,7 @@ function showHome(){
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   cats.forEach(function(c){
     var act=(c==="kuku")?"showKuku()":((c==="hissan"||c==="hikizan")?"showLevels('"+c+"')":"startPractice('"+c+"')");
-    var lvtag=(LVL_CATS[c])?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
-    h+='<button class="btn sm ghost" onclick="'+act+'">'+CATL[c]+lvtag+'</button>';
+    h+=catBtnHTML(c,act,p);
   });
   h+='</div></div>';
   /* 発展演習（コース別。Lv1-10の適応難度） */
@@ -519,8 +527,7 @@ function showHome(){
   if(devs&&devs.length){
     h+='<div class="card"><h3>🌟 はってん もんだい</h3><div class="grid2">';
     devs.forEach(function(c){
-      var lvtag=(LVL_CATS[c])?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
-      h+='<button class="btn sm ghost" onclick="startPractice(\''+c+'\')">'+CATL[c]+lvtag+'</button>';
+      h+=catBtnHTML(c,"startPractice('"+c+"')",p);
     });
     h+='</div></div>';
   }
