@@ -478,7 +478,9 @@ function loadAll(){
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
       if(ks&&ks.coll){ add(ks.coll.catches); caught+=ks.coll.total||0; }
       if(es){ add(es.catches); if(es.catches)caught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); }
-      OWNED = Object.keys(ids).map(function(id){return byId[id];}).filter(function(s){return s&&!s.bossOnly&&!s.masterOnly;});
+      /* 手持ち＝採集済み。bossOnly(敵専用)は除外するが、masterOnly(制覇で得たSSマスター虫)は
+         勝ち取った強ユニットなのでパーティ編成で選べるようにする。 */
+      OWNED = Object.keys(ids).map(function(id){return byId[id];}).filter(function(s){return s&&!s.bossOnly;});
       BATTLE = bt;
       CLEARED = bt.cleared || {};
       PARTY = (bt.party||[]).map(function(id){return byId[id];}).filter(Boolean);
