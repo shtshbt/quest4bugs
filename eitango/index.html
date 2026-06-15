@@ -4773,15 +4773,15 @@ function scrHome(){
       <button class="btn amber" style="margin-top:8px" onclick="startReview()">ふくしゅうチャレンジ ▶</button>
     </div>`;
   }
-  /* --- ごぶさた復習導線（習得済みだが最後の正解から7日以上＝box>=3かつdue到来）--- */
+  /* --- おもいだし問題導線（習得済みだが最後の正解から7日以上＝box>=3かつdue到来）--- */
   const _t=Engine.todayKey();
   const staleCount=FIELDS.filter(f=>f.open&&!f.kids).flatMap(f=>WordDB.byField(f.id))
     .filter(w=>{const s=P.srs[w.key];return s&&s[0]>=3&&s[1]<=_t;}).length;
   if(staleCount>0){
     h+=`<div class="card" style="background:#eef6ff;border:2px solid #5b8fd6;margin-top:10px">
-      <div style="font-weight:800;font-size:15px">⏰ ごぶさた復習！ おぼえた <b>${staleCount}語</b>が しばらく でていないよ</div>
+      <div style="font-weight:800;font-size:15px">⏰ おもいだし問題！ おぼえた <b>${staleCount}語</b>が しばらく でていないよ</div>
       <p class="small" style="margin-top:4px">わすれる まえに おさらいしよう（${Math.min(staleCount,SESSION_N)}もん）</p>
-      <button class="btn" style="background:#5b8fd6;margin-top:8px" onclick="startStale()">⏰ ごぶさた復習 ▶</button>
+      <button class="btn" style="background:#5b8fd6;margin-top:8px" onclick="startStale()">⏰ おもいだし問題 ▶</button>
     </div>`;
   }
   h+=`<div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
@@ -5398,7 +5398,7 @@ function startStale(){
     WordDB.byField(f.id).filter(w=>{const s=P.srs[w.key];return s&&s[0]>=3&&s[1]<=t;})
       .forEach(w=>stale.push({w,fid:f.id}));
   }
-  if(stale.length<1){ UI.toast('ごぶさたの ことばは ないよ'); return; }
+  if(stale.length<1){ UI.toast('おもいだす ことばは ないよ'); return; }
   const picked=Engine.shuffle(stale).slice(0,SESSION_N);
   const queue=picked.map(x=>({w:x.w, type:srsType(x.w), fid:x.fid}));
   GFID=queue[0].fid; GFIELD=fieldById(GFID)||FIELDS[0]; KIDS=false;
@@ -5413,7 +5413,7 @@ function startStale(){
   </div>
   <div class="card center" style="background:#eef6ff;border:2px solid #5b8fd6">
     <div style="font-size:32px">⏰</div>
-    <div style="font-weight:800;font-size:20px;margin-top:4px">ごぶさた復習</div>
+    <div style="font-weight:800;font-size:20px;margin-top:4px">おもいだし問題</div>
     <p class="small" style="margin-top:6px">しばらく といていない おぼえた ことばを ${queue.length}もん！<br>わすれる まえに おさらいしよう。🌟めずらしい虫も 出やすいよ！</p>
     <button class="btn" style="background:#5b8fd6;margin-top:12px" onclick="nextQ(true)">▶ スタート!</button>
     <button class="btn ghost" onclick="exitToMap()">やめる</button>
