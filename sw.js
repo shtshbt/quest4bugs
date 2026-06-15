@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v1";
+var CACHE = "q4b-cache-v2";
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -37,14 +37,40 @@ self.addEventListener("fetch", function(e){
   if(req.method !== "GET") return;                       /* POST/PUT(GitHub API) は触らない */
   var url = new URL(req.url);
   if(url.origin !== self.location.origin) return;        /* 別オリジン(api.github.com 等)は素通し */
+
+  var isHTML = req.mode === "navigate" ||
+               (req.headers.get("accept") || "").indexOf("text/html") >= 0;
+
+  if(isHTML){
+    /* HTML は network-first: オンラインなら常に最新HTML(新しい?v=参照)を取得。
+       オフライン時のみキャッシュ(完全一致→無ければ任意)にフォールバック。 */
+    e.respondWith(
+      fetch(req).then(function(res){
+        if(res && res.ok) caches.open(CACHE).then(function(c){ c.put(req, res.clone()); });
+        return res;
+      }).catch(function(){
+        return caches.open(CACHE).then(function(c){
+          return c.match(req).then(function(h){ return h || c.match(req, {ignoreSearch:true}); });
+        });
+      })
+    );
+    return;
+  }
+
+  /* アセット(js/css等)は「?v= まで含む完全一致」を優先。
+     バージョンが上がると新URL=キャッシュミス→ネットから取得し最新化。
+     オフラインで完全一致が無い時だけ ignoreSearch で旧版にフォールバック(継続性)。 */
   e.respondWith(
     caches.open(CACHE).then(function(c){
-      return c.match(req, {ignoreSearch:true}).then(function(hit){
-        var net = fetch(req).then(function(res){
-          if(res && res.ok) c.put(req, res.clone());     /* オンライン時は最新を取り込み次回更新 */
+      return c.match(req).then(function(exact){
+        if(exact){
+          fetch(req).then(function(res){ if(res && res.ok) c.put(req, res.clone()); }).catch(function(){});
+          return exact;                                  /* 同バージョン→即返し＋背後更新 */
+        }
+        return fetch(req).then(function(res){
+          if(res && res.ok) c.put(req, res.clone());     /* 新バージョン→取得して保存 */
           return res;
-        }).catch(function(){ return hit; });             /* オフラインはキャッシュで継続 */
-        return hit || net;                               /* cache-first ＋ 背後更新 */
+        }).catch(function(){ return c.match(req, {ignoreSearch:true}); });  /* オフラインは旧版 */
       });
     })
   );

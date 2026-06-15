@@ -663,7 +663,8 @@ function lvTrendSection(p){
       +'<line x1="'+pad+'" y1="'+pad+'" x2="'+(W-pad)+'" y2="'+pad+'" stroke="#E2C879" stroke-width="1" stroke-dasharray="2 3"/>'
       +poly+'<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="3" fill="'+cold+'"/></svg></div>';
   });
-  if(!any)return '';
+  if(!any)return '<div class="card"><h3>📈 レベルの すいい</h3>'
+    +'<p class="note">けいさんを といて Lvが あがると、ここに カテゴリごとの のびかたグラフが でるよ！（きょうから きろくスタート）</p></div>';
   return '<div class="card"><h3>📈 レベルの すいい</h3><div>'+rows+'</div>'
     +'<p class="note">カテゴリごとの Lv1→10 の のびかた。点線は Lv10（マスター虫ゲット！）</p></div>';
 }
