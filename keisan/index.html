@@ -80,6 +80,8 @@ body.night .hs .inp.on, body.night .frbox.on, body.night .hs .carry.on{ backgrou
 .qcard{background:var(--panel); border:2px solid var(--line); border-radius:18px; padding:18px 14px; text-align:center;}
 .qtext{font-size:42px; font-weight:800; letter-spacing:.04em; line-height:1.4; margin:8px 0;}
 .qtext.mid{font-size:32px;}
+.qtext.word{font-size:20px; font-weight:700; line-height:1.6; letter-spacing:0; text-align:left; padding:0 4px;}
+.qtext.word ruby rt{font-size:11px; color:var(--sub); font-weight:600;}
 .ansline{min-height:54px; font-size:38px; font-weight:800; border-bottom:4px solid var(--green); display:inline-block; min-width:140px; padding:0 10px;}
 .pad{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:330px; margin:14px auto 0;}
 .pad button{font-family:inherit; font-size:26px; font-weight:800; padding:13px 0; border-radius:14px; border:2px solid var(--line);
@@ -397,8 +399,11 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
-  mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合"};
-var K5CATS=["hissan","hikizan","kuku","anzan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
+  mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合",
+  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう"};
+var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
+var K5DEV=["wasa","jikan","kakebun"], K10DEV=[];  /* 発展演習(コース別) */
+var LVL_CATS={mix:1,kufuu:1,deci:1,frac:1,warizan:1,wasa:1,jikan:1,kakebun:1};  /* 適応レベル対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
 
@@ -502,10 +507,20 @@ function showHome(){
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   cats.forEach(function(c){
     var act=(c==="kuku")?"showKuku()":((c==="hissan"||c==="hikizan")?"showLevels('"+c+"')":"startPractice('"+c+"')");
-    var lvtag=(p.type==="k10"&&["mix","kufuu","deci","frac"].indexOf(c)>=0)?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
+    var lvtag=(LVL_CATS[c])?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
     h+='<button class="btn sm ghost" onclick="'+act+'">'+CATL[c]+lvtag+'</button>';
   });
   h+='</div></div>';
+  /* 発展演習（コース別。Lv1-10の適応難度） */
+  var devs=(p.type==="k5")?K5DEV:K10DEV;
+  if(devs&&devs.length){
+    h+='<div class="card"><h3>🌟 はってん もんだい</h3><div class="grid2">';
+    devs.forEach(function(c){
+      var lvtag=(LVL_CATS[c])?'<span class="note">　Lv'+((p.lv&&p.lv[c])||1)+'/10</span>':'';
+      h+='<button class="btn sm ghost" onclick="startPractice(\''+c+'\')">'+CATL[c]+lvtag+'</button>';
+    });
+    h+='</div></div>';
+  }
   /* timed */
   var th=""; TIMED_OK[p.type].forEach(function(c){
     var rec=p.recent[c]||[], n=rec.length, okn=rec.reduce(function(s,x){return s+x;},0);
@@ -1208,8 +1223,331 @@ function gMachi(){
   return {cat:"machigai",kind:"choice",text:expr,say:null,ans:kk,lines:lines,
     fixmsg:"ほんとうは "+["①","②","③"][kk]+" ＝ "+fix};
 }
+function gWarizan(lv){
+  if(lv==null)lv=ri(1,10);
+  var a,b,d,q,dividend,t,ans;
+  for(var attempt=0;attempt<200;attempt++){
+    t=null;ans=null;
+    if(lv<=2){
+      // 九九の逆・あまりなし: (a*b)÷a＝b
+      a=ri(2,9); b=(lv===1)?ri(2,5):ri(2,9);
+      t=(a*b)+"÷"+a; ans=b;
+    } else if(lv<=5){
+      // 2桁÷1桁(Lv3-4) / 3桁÷1桁(Lv5) あまりなし
+      d=ri(2,9);
+      if(lv<=4){
+        q=ri(2,12); dividend=d*q;
+        if(lv===3&&dividend>99)continue;
+        t=dividend+"÷"+d; ans=q;
+      } else {
+        q=ri(13,140); dividend=d*q;
+        if(dividend>999)continue;
+        if(dividend<100)continue; // 3桁を保つ
+        t=dividend+"÷"+d; ans=q;
+      }
+    } else if(lv<=7){
+      // あまりあり・商を答える
+      d=ri(2,9);
+      dividend=(lv===6)?ri(d+1,99):ri(d+1,300);
+      if(dividend%d===0)continue; // あまり>0
+      t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
+    } else if(lv===8){
+      // あまりあり・あまりを答える
+      d=ri(2,9);
+      dividend=ri(d+1,300);
+      if(dividend%d===0)continue;
+      t=dividend+"÷"+d+" のあまり"; ans=dividend%d;
+    } else {
+      // 2桁で割る(除数 11-99) Lv9:あまりなし / Lv10:あまりあり商
+      d=ri(11,99);
+      if(lv===9){
+        q=ri(2,30); dividend=d*q;
+        if(dividend>999)continue;
+        t=dividend+"÷"+d; ans=q;
+      } else {
+        q=ri(2,30); dividend=d*q+ri(1,d-1); // あまり 1..d-1 を確保
+        if(dividend>999)continue;
+        if(dividend%d===0)continue;
+        t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
+      }
+    }
+    if(t!=null&&ans!=null&&Number.isInteger(ans)&&ans>0){
+      return {cat:"warizan",kind:"num",text:t,say:t.replace("÷"," わる ").replace(" のしょう","").replace(" のあまり",""),ans:ans};
+    }
+  }
+  return {cat:"warizan",kind:"num",text:"6÷2",say:"6 わる 2",ans:3};
+}
+function gWasa(lv){
+  if(lv==null) lv=ri(1,10);
+  var NAMES=["たろう","はなこ","ゆうき","さくら","けんた"];
+  var ITEMS=["あめ","えんぴつ","シール","けしごむ","ノート"];
+  var t="", ans=0, say=null;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv===1){
+      // おつり1品: M円もって a円のXをかった→おつり
+      var M=ri(5,10)*10, a=ri(1,M/10-1)*10;
+      ans=M-a;
+      if(ans<=0) continue;
+      var it=pick(ITEMS);
+      t=M+"円もって "+a+"円の"+it+"を かいました。おつりは なん円？";
+    }
+    else if(lv===2){
+      // 合計 or 差
+      var a=ri(10,90), b=ri(10,90);
+      if(Math.random()<0.5){ ans=a+b; t=a+"円と "+b+"円。あわせて なん円？"; }
+      else { ans=Math.abs(a-b); if(ans<=0) continue; t=a+"円と "+b+"円。ちがいは なん円？"; }
+    }
+    else if(lv===3){
+      // おつり2品
+      var M=ri(15,30)*10, a=ri(10,90), b=ri(10,90);
+      ans=M-(a+b);
+      if(ans<=0) continue;
+      var i1=pick(ITEMS), i2=pick(ITEMS);
+      t=M+"円もって "+a+"円の"+i1+"と "+b+"円の"+i2+"を かいました。おつりは なん円？";
+    }
+    else if(lv===4||lv===5){
+      // 和差算: 大or小を問う（big+small=偶数なので割り切れる）
+      var maxv=(lv===4)?40:100;
+      var big=ri(10,maxv), small=ri(5,big-1);
+      if(small>=big) continue;
+      var S=big+small, D=big-small;
+      if(D<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      if(Math.random()<0.5){
+        ans=big;
+        t=n1+"と "+n2+"の あめは あわせて "+S+"こ。ちがいは "+D+"こ。おおいほうは なんこ？";
+      } else {
+        ans=small;
+        t=n1+"と "+n2+"の あめは あわせて "+S+"こ。ちがいは "+D+"こ。すくないほうは なんこ？";
+      }
+    }
+    else if(lv===6){
+      // ○個かって△円のこり
+      var M=ri(20,50)*10, price=ri(20,80), n=ri(2,5);
+      ans=M-price*n;
+      if(ans<=0) continue;
+      var it=pick(ITEMS);
+      t=M+"円もって "+price+"円の"+it+"を "+n+"こ かいました。のこりは なん円？";
+    }
+    else if(lv===7){
+      // 3数の合計 or 2段階おつり
+      if(Math.random()<0.5){
+        var a=ri(20,90), b=ri(20,90), c=ri(20,90);
+        ans=a+b+c;
+        t=a+"円と "+b+"円と "+c+"円。あわせて なん円？";
+      } else {
+        var M=ri(30,60)*10, a=ri(30,90), b=ri(30,90);
+        ans=M-a-b;
+        if(ans<=0) continue;
+        var i1=pick(ITEMS), i2=pick(ITEMS);
+        t=M+"円もって "+a+"円の"+i1+"を かい、つぎに "+b+"円の"+i2+"を かいました。のこりは なん円？";
+      }
+    }
+    else if(lv===8){
+      // 3者の整理: 基準より多い/少ない→合計
+      var n1=pick(NAMES), n2=pick(NAMES), n3=pick(NAMES);
+      if(n1===n2||n2===n3||n1===n3) continue;
+      var base=ri(10,40), d1=ri(2,15), d2=ri(2,15);
+      var v3=base-d2;
+      if(v3<=0) continue;
+      ans=base+(base+d1)+v3;
+      t=n2+"は あめを "+base+"こ もっています。"+n1+"は "+n2+"より "+d1+"こ おおく、"+n3+"は "+n2+"より "+d2+"こ すくないです。3にんで あわせて なんこ？";
+    }
+    else if(lv===9){
+      // 和差算＋おつり複合: 2人合計S差D、おおいほうがused円つかってのこり
+      var big=ri(30,120), small=ri(10,big-1);
+      if(small>=big) continue;
+      var S=big+small, D=big-small;
+      if(D<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      var used=ri(5,small-1);
+      if(used<=0||used>=small) continue;
+      ans=big-used;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"の おかねは あわせて "+S+"円、ちがいは "+D+"円。おおいほうが "+used+"円 つかいました。のこりは なん円？";
+    }
+    else { // lv===10
+      // 3者・条件2つ: 合計と1人＋差→残り1人
+      var n1=pick(NAMES), n2=pick(NAMES), n3=pick(NAMES);
+      if(n1===n2||n2===n3||n1===n3) continue;
+      var total=ri(60,150), v1=ri(15,60), d=ri(2,20);
+      var v2=v1+d, v3=total-v1-v2;
+      if(v3<=0) continue;
+      ans=v3;
+      t="3にんで あめを あわせて "+total+"こ もっています。"+n1+"は "+v1+"こ、"+n2+"は "+n1+"より "+d+"こ おおいです。"+n3+"は なんこ？";
+    }
+    break;
+  }
+  return {cat:"wasa", kind:"num", text:t, say:say, ans:ans};
+}
+function gJikan(lv){
+  function p2(n){return (n<10?"0":"")+n;}
+  if(lv==null)lv=ri(1,10);
+  for(var i=0;i<200;i++){
+    var h,h1,h2,m1,m2,t,ans,say;
+    if(lv<=2){ // 同じ時間内の経過 / 次の正時まで
+      if(Math.random()<0.5){ // h:m1 -> h:m2 (同じh)
+        h=ri(1,9);m1=(lv===1)?ri(0,30):ri(0,50);m2=ri(m1+1,59);
+        t=h+"じ"+p2(m1)+"ふんから "+h+"じ"+p2(m2)+"ふんまで なんぷん？";
+        ans=m2-m1;say="なんぷん";
+      } else { // 次の正時まで
+        h=ri(1,9);m1=(lv===1)?ri(10,55):ri(1,59);
+        t=h+"じ"+p2(m1)+"ふんから "+(h+1)+"じちょうどまで なんぷん？";
+        ans=60-m1;say="なんぷん";
+      }
+    } else if(lv<=4){ // 時をまたぐ経過 h:m1 -> (h+1):m2
+      h=ri(1,9);
+      if(lv===3){m1=ri(31,55);m2=ri(1,29);}
+      else{m1=ri(20,58);m2=ri(1,55);}
+      t=h+"じ"+p2(m1)+"ふんから "+(h+1)+"じ"+p2(m2)+"ふんまで なんぷん？";
+      ans=(60-m1)+m2;say="なんぷん";
+    } else if(lv<=6){ // 任意の2時刻差(分), 数時間以内
+      var span=(lv===5)?ri(1,2):ri(2,3);
+      h1=ri(1,12-span);m1=ri(0,59);
+      h2=h1+span;m2=ri(0,59);
+      var tot=(h2*60+m2)-(h1*60+m1);
+      if(tot<=0)continue;
+      t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
+      ans=tot;say="なんぷん";
+    } else if(lv===7){ // ○時間○分は何分？
+      var hh=ri(1,3);var mm=ri(1,59);
+      t=hh+"じかん"+mm+"ふんは ぜんぶで なんぷん？";
+      ans=hh*60+mm;say="なんぷん";
+    } else if(lv===8){ // 大きめの時刻差
+      h1=ri(1,6);m1=ri(0,59);
+      h2=ri(h1+2,11);m2=ri(0,59);
+      var tot8=(h2*60+m2)-(h1*60+m1);
+      if(tot8<=0)continue;
+      t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
+      ans=tot8;say="なんぷん";
+    } else if(lv===9){ // またぎ複数時間・繰り上がり
+      var hsp=ri(2,4);
+      if(Math.random()<0.5){ // 時刻差(借り確定)
+        h1=ri(1,12-hsp);m1=ri(20,59);
+        h2=h1+hsp;m2=ri(0,m1-1);
+        var t9=(h2*60+m2)-(h1*60+m1);
+        if(t9<=0)continue;
+        t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
+        ans=t9;say="なんぷん";
+      } else { // ○時間○分は何分(大きめ)
+        var h9=ri(3,5);var m9=ri(1,59);
+        t=h9+"じかん"+m9+"ふんは ぜんぶで なんぷん？";
+        ans=h9*60+m9;say="なんぷん";
+      }
+    } else { // lv===10 複雑な大きい時刻差・繰り上がり
+      h1=ri(1,5);m1=ri(15,59);
+      h2=ri(h1+3,11);m2=ri(0,m1-1);
+      var t10=(h2*60+m2)-(h1*60+m1);
+      if(t10<=0)continue;
+      t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
+      ans=t10;say="なんぷん";
+    }
+    if(t!=null&&Number.isInteger(ans)&&ans>0){
+      return {cat:"jikan",kind:"num",text:t,say:say,ans:ans};
+    }
+  }
+  return {cat:"jikan",kind:"num",text:"3じ10ぷんから 3じ25ふんまで なんぷん？",say:"なんぷん",ans:15};
+}
+function gKakebun(lv){
+  if(lv==null) lv=ri(1,10);
+  if(lv<1) lv=1; if(lv>10) lv=10;
+  var cat="kakebun";
+  for(var attempt=0; attempt<200; attempt++){
+    var r=null;
+    if(lv<=2){
+      // 単価×個数 / 箱入り×箱数
+      var maxP = lv===1 ? 9 : 12;
+      var maxN = lv===1 ? 5 : 9;
+      if(pick([0,1])===0){
+        var item=pick(["りんご","あめ","えんぴつ","シール","クッキー"]);
+        var p=ri(2,maxP)*10;          // 単価(10円単位で分かりやすく)
+        var n=ri(2,maxN);
+        var ans=p*n;
+        var t="1こ "+p+"円の "+item+" を "+n+"こ かいます。ぜんぶで いくら？";
+        r={cat:cat,kind:"num",text:t,say:null,ans:ans};
+      }else{
+        var k=ri(2,maxP);             // 1箱の個数
+        var m=ri(2,maxN);             // 箱数
+        var ans2=k*m;
+        var t2="1はこ "+k+"こ入りの おかしが "+m+"はこ あります。ぜんぶで 何こ？";
+        r={cat:cat,kind:"num",text:t2,say:null,ans:ans2};
+      }
+    }else if(lv<=4){
+      // 等分(割り切れ)
+      var m3 = lv===3 ? ri(2,5) : ri(2,8);
+      var per = lv===3 ? ri(2,9) : ri(3,12);
+      var N = per*m3;
+      var ans3=N/m3;
+      var who = lv===3 ? "人" : pick(["人","グループ"]);
+      var thing=pick(["あめ","おはじき","カード","くり"]);
+      var t3=N+"この "+thing+" を "+m3+who+"で おなじ数ずつ わけます。1"+who+" 何こ？";
+      r={cat:cat,kind:"num",text:t3,say:null,ans:ans3};
+    }else if(lv<=6){
+      // 2段階: 単価×個数+送料 / n個かってM円→おつり
+      if(pick([0,1])===0){
+        var p5=ri(3, lv===5?9:15)*10;
+        var n5=ri(2, lv===5?6:9);
+        var sou=ri(2, lv===5?6:12)*50;  // 送料(50円単位)
+        var ans5=p5*n5+sou;
+        var t5="1こ "+p5+"円の おかしを "+n5+"こ かって、そうりょう "+sou+"円を はらいます。ぜんぶで いくら？";
+        r={cat:cat,kind:"num",text:t5,say:null,ans:ans5};
+      }else{
+        var p6=ri(3, lv===5?9:15)*10;
+        var n6=ri(2, lv===5?6:9);
+        var cost=p6*n6;
+        var pay=(Math.floor(cost/100)+ri(1,5))*100;   // 払う額(おつり>=0)
+        var ans6=pay-cost;
+        var t6="1こ "+p6+"円の ジュースを "+n6+"こ かって "+pay+"円 だしました。おつりは いくら？";
+        r={cat:cat,kind:"num",text:t6,say:null,ans:ans6};
+      }
+    }else{
+      // Lv7-10: ×÷混在・単位あたり・少し複雑
+      var sub;
+      if(lv<=8) sub=pick([0,1]); else sub=pick([0,1,2]);
+      if(sub===0){
+        // 1箱k個入りをm箱買い、p人で等分(割り切れ)
+        var k7=ri(3, lv<=8?6:9);
+        var m7=ri(2, lv<=8?5:8);
+        var total=k7*m7;
+        // pは totalの約数(2以上, total未満)
+        var divs=[]; for(var d=2; d<total; d++){ if(total%d===0) divs.push(d); }
+        if(divs.length===0) continue;
+        var p7=pick(divs);
+        var ans7=total/p7;
+        var t7="1はこ "+k7+"こ入りの あめが "+m7+"はこ あります。"+p7+"人で おなじ数ずつ わけると 1人 何こ？";
+        r={cat:cat,kind:"num",text:t7,say:null,ans:ans7};
+      }else if(sub===1){
+        // 単位あたり: a個でb円 → c個でいくら(a|c, 単価整数)
+        var unit=ri(lv<=8?2:5, lv<=8?9:20)*10;  // 1個あたりの単価
+        var a8=ri(2, lv<=8?5:8);                 // まとめ単位
+        var price=unit*a8;                        // a8個でprice円
+        var sets=ri(2, lv<=8?5:9);
+        var c8=a8*sets;
+        var ans8=unit*c8;
+        var t8=a8+"こで "+price+"円の えんぴつを "+c8+"こ かうと いくら？";
+        r={cat:cat,kind:"num",text:t8,say:null,ans:ans8};
+      }else{
+        // Lv9-10: 単位あたり×時間 - 消費
+        var rate=ri(5,15);            // 1分にrateこ作る
+        var min=ri(3,12);
+        var made=rate*min;
+        var used=ri(2, Math.max(2,Math.floor(made/2)));
+        var ans9=made-used;
+        var t9="きかいは 1分間に "+rate+"こ おかしを 作ります。"+min+"分間 作って "+used+"こ 食べました。のこりは 何こ？";
+        if(ans9<=0) continue;
+        r={cat:cat,kind:"num",text:t9,say:null,ans:ans9};
+      }
+    }
+    if(r && Number.isInteger(r.ans) && r.ans>0) return r;
+  }
+  // フォールバック
+  return {cat:cat,kind:"num",text:"1こ 30円の あめを 4こ かいます。ぜんぶで いくら？",say:null,ans:120};
+}
 function genBy(cat,p,lv){
-  if(lv==null && p && p.type==="k10" && ["mix","kufuu","deci","frac"].indexOf(cat)>=0){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
+  if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="hissan")return gHissan(p,lv);
   if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p);
@@ -1218,6 +1556,10 @@ function genBy(cat,p,lv){
   if(cat==="kufuu")return gKufuu(lv);
   if(cat==="deci")return gDeci(lv);
   if(cat==="frac")return gFrac(lv);
+  if(cat==="warizan")return gWarizan(lv);
+  if(cat==="wasa")return gWasa(lv);
+  if(cat==="jikan")return gJikan(lv);
+  if(cat==="kakebun")return gKakebun(lv);
   if(cat==="machigai")return gMachi();
   return genBy(pick(["mix","kufuu","deci","frac","machigai"]),p);
 }
@@ -1358,12 +1700,15 @@ function padHTML(dot,okCall,fn){
 }
 /* K10適応レベルの可視化: 現在Lv＋この10問の進み（●正解/✗ミス/○未）。次の判定までを体感できる。 */
 function lvDotsHTML(p,cat){
-  if(!(p.type==="k10"&&["mix","kufuu","deci","frac"].indexOf(cat)>=0))return"";
+  if(!LVL_CATS[cat])return"";
   var n=(p.stats[cat]&&p.stats[cat].n)||0, inblk=n%10;
   var rec=inblk>0?(p.recent[cat]||[]).slice(-inblk):[];
   var dots=""; for(var i=0;i<10;i++){ dots+=(i<inblk)?(rec[i]?"●":"✗"):"○"; }
   return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+dots+'</span>';
 }
+/* 5歳向け発展(K5DEV)の文章題に ふりがな(ruby) を付ける。表示テキストの漢字のみ対象。 */
+var FURI5={"円":"えん","人":"にん","数":"かず","何":"なん","個":"こ","分":"ふん","時":"じ","間":"かん"};
+function furi5(s){ return s.replace(/[円人数何個分時間]/g, function(c){ return '<ruby>'+c+'<rt>'+(FURI5[c]||"")+'</rt></ruby>'; }); }
 function renderQ(q){
   JLOCK=false; BUF=""; Q.t0=Date.now();
   var p=P(), h='<div class="scr qwrap">';
@@ -1374,8 +1719,10 @@ function renderQ(q){
   h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
     +(q.say?'<button class="spk" onclick="saySafe()">🔊 よむ</button>':"")+'</div>';
   if(q.kind==="num"){
-    h+='<div class="qcard"><div class="qtext'+(q.text.length>9?" mid":"")+'">'+q.text+' ＝</div>'
-      +'<div><span class="ansline" id="ansl">？</span></div>'
+    var isWord=K5DEV.indexOf(q.cat)>=0;  /* 文章題(5歳発展)はふりがな＋「こたえ」表示 */
+    var qt=isWord?furi5(q.text):q.text;
+    h+='<div class="qcard"><div class="qtext'+(isWord?" word":(q.text.length>9?" mid":""))+'">'+qt+(isWord?'':' ＝')+'</div>'
+      +'<div>'+(isWord?'<span class="note">こたえ </span>':'')+'<span class="ansline" id="ansl">？</span></div>'
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
       +padHTML(!!q.dot,"submitNum()")+'</div>';
   }else if(q.kind==="hissan"){
@@ -1594,7 +1941,7 @@ function afterJudge(ok,q,o){
   recordStat(q.cat,ok,ms);
   handleMissed(q,ok,o);
   /* K10適応レベル: 10問ごとに直近10問で判定（8↑でLv+1 / 6↓でLv-1、最大10/最小1）。レベル選択練習は除外。 */
-  if(p.type==="k10" && ["mix","kufuu","deci","frac"].indexOf(q.cat)>=0 && !(Q&&Q.lv)){
+  if(LVL_CATS[q.cat] && !(Q&&Q.lv)){
     if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
     var s10=p.stats[q.cat];
     if(s10 && s10.n>0 && s10.n%10===0){
