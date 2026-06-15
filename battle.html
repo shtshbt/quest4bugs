@@ -70,10 +70,10 @@
   .band-h{display:flex;align-items:center;gap:8px;padding:8px 12px;color:#fff;font-weight:800;font-size:14px}
   .band-h .stars{margin-left:auto;font-size:12px;letter-spacing:1px}
   .band-h .hp{font-size:11px;font-weight:700;opacity:.95}
-  .band-body{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px}
+  .band-body{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px}
   .band.cleared .band-h{filter:saturate(.6)}
-  .bcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 4px;background:#fafdf2;position:relative;width:92px}
-  .bcell .art{width:72px;height:72px;margin:0 auto}
+  .bcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 2px;background:#fafdf2;position:relative;width:auto;min-width:0}
+  .bcell .art{width:100%;max-width:72px;aspect-ratio:1;height:auto;margin:0 auto}
   .bcell .bn{font-size:11px;font-weight:700;line-height:1.2;margin-top:2px;height:26px;overflow:hidden}
   .bcell.locked .art{filter:grayscale(1) brightness(1.15) contrast(.45);opacity:.45}
   .bcell.locked .bn{color:#9aa884}
