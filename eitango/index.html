@@ -4773,6 +4773,17 @@ function scrHome(){
       <button class="btn amber" style="margin-top:8px" onclick="startReview()">ふくしゅうチャレンジ ▶</button>
     </div>`;
   }
+  /* --- ごぶさた復習導線（習得済みだが最後の正解から7日以上＝box>=3かつdue到来）--- */
+  const _t=Engine.todayKey();
+  const staleCount=FIELDS.filter(f=>f.open&&!f.kids).flatMap(f=>WordDB.byField(f.id))
+    .filter(w=>{const s=P.srs[w.key];return s&&s[0]>=3&&s[1]<=_t;}).length;
+  if(staleCount>0){
+    h+=`<div class="card" style="background:#eef6ff;border:2px solid #5b8fd6;margin-top:10px">
+      <div style="font-weight:800;font-size:15px">⏰ ごぶさた復習！ おぼえた <b>${staleCount}語</b>が しばらく でていないよ</div>
+      <p class="small" style="margin-top:4px">わすれる まえに おさらいしよう（${Math.min(staleCount,SESSION_N)}もん）</p>
+      <button class="btn" style="background:#5b8fd6;margin-top:8px" onclick="startStale()">⏰ ごぶさた復習 ▶</button>
+    </div>`;
+  }
   h+=`<div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
     <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="startReview()" ${reviewCount<5?'disabled':''}>🔁 ふくしゅう</button>
     <button class="btn sub" style="margin-top:0;flex:1;font-size:15px;padding:12px" onclick="go('stats')">🗒️ きろく</button>
@@ -5374,6 +5385,37 @@ function startReview(){
     <div style="font-weight:800;font-size:20px;margin-top:4px">ふくしゅうチャレンジ</div>
     <p class="small" style="margin-top:6px">これまで おぼえた ことばから ${queue.length}もん出るよ！<br>🌟 めずらしい虫が 出やすいよ！</p>
     <button class="btn amber" onclick="nextQ(true)" style="margin-top:12px">▶ スタート!</button>
+    <button class="btn ghost" onclick="exitToMap()">やめる</button>
+  </div>`;
+}
+
+function startStale(){
+  /* 習得済み(box>=3)かつ due到来(=最後の正解から7日以上ごぶさた)の語だけを集めて復習 */
+  const t=Engine.todayKey();
+  const stale=[];
+  for(const f of FIELDS){
+    if(!f.open||f.kids) continue;
+    WordDB.byField(f.id).filter(w=>{const s=P.srs[w.key];return s&&s[0]>=3&&s[1]<=t;})
+      .forEach(w=>stale.push({w,fid:f.id}));
+  }
+  if(stale.length<1){ UI.toast('ごぶさたの ことばは ないよ'); return; }
+  const picked=Engine.shuffle(stale).slice(0,SESSION_N);
+  const queue=picked.map(x=>({w:x.w, type:srsType(x.w), fid:x.fid}));
+  GFID=queue[0].fid; GFIELD=fieldById(GFID)||FIELDS[0]; KIDS=false;
+  GWORDS=FIELDS.filter(f=>f.open).flatMap(f=>WordDB.byField(f.id));
+  S={mode:'review',queue,i:0,correct:0,answered:0,caught:[],retried:{}};
+  screen='';
+  $('#app').innerHTML=`
+  <div class="topbar">
+    <button class="chip" onclick="exitToMap()">← マップ</button>
+    <span class="sp"></span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
+  </div>
+  <div class="card center" style="background:#eef6ff;border:2px solid #5b8fd6">
+    <div style="font-size:32px">⏰</div>
+    <div style="font-weight:800;font-size:20px;margin-top:4px">ごぶさた復習</div>
+    <p class="small" style="margin-top:6px">しばらく といていない おぼえた ことばを ${queue.length}もん！<br>わすれる まえに おさらいしよう。🌟めずらしい虫も 出やすいよ！</p>
+    <button class="btn" style="background:#5b8fd6;margin-top:12px" onclick="nextQ(true)">▶ スタート!</button>
     <button class="btn ghost" onclick="exitToMap()">やめる</button>
   </div>`;
 }
