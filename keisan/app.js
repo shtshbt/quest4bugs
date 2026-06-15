@@ -461,7 +461,8 @@ function showMasterCelebrationK(list){ var sp=list[0];
 function keisanMasterSection(){
  if(!window.Q4BReward||!Q4BReward.masterBugsFor)return "";
  var p=P(); var ms=Q4BReward.masterBugsFor("keisan"); if(!ms.length)return "";
- var ord=["add","sub","mul","div","all"]; ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
+ var ord=["hissan","add","hikizan","sub","kuku","mul","anzan","div","warizan","mix","kufuu","deci","frac","machigai","sougou","wasa","jikan","kakebun","noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi","all"];
+ ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
   return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></div>';
@@ -4002,9 +4003,9 @@ function afterJudge(ok,q,o){
   if(ok && window.Q4BReward){
     ensureColl(p);
     var iid=q.cat+':'+(q.text||q.say||'');  // 同じ問題の連打を検知（新しさ係数）
-    /* レアブースト: 復習/まんべんなく=2.0、発展(難問)=1.5(中間)、四則など自分練習=通常1.0 */
+    /* レアブースト: 復習=2.0、発展(難問)=1.5(中間)、まんべんなく=2.0、通常=1.0 */
     var _isHatten=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);
-    var _boost=(Q&&(Q.review||Q.balanceBoost))?Q4BReward.REVIEW_BOOST:(_isHatten?Q4BReward.HATTEN_BOOST:1);
+    var _boost=(Q&&Q.review)?Q4BReward.REVIEW_BOOST:(_isHatten?Q4BReward.HATTEN_BOOST:((Q&&Q.balanceBoost)?Q4BReward.REVIEW_BOOST:1));
     var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
     if(got) o.capture=got;
   }
