@@ -73,7 +73,7 @@
   /* 特性は弱→強で進む（並び替え後のステージ準拠）。値は配列＝複数特性可。
      トビズムカデ(No.45)は どく＋れんぞく の二重特性（猛毒の多足＝最恐の天敵）。 */
   var PRED_TRAIT = {5:["sensei"],10:["sensei"],15:["doku"],20:["doku"],25:["yoroi"],
-    30:["yoroi"],35:["doku"],40:["renzoku"],45:["doku","renzoku"],50:["dodge"]};
+    30:["yoroi"],35:["doku","yoroi"],40:["renzoku"],45:["doku","renzoku"],50:["dodge"]};
   function bossTraits(r){ if(!r||!r.predator) return []; var ks=PRED_TRAIT[r.stage]||[];
     return ks.map(function(k){return TRAITS[k];}); }
   function hasTrait(r,key){ var ks=(r&&r.predator)?(PRED_TRAIT[r.stage]||[]):[]; return ks.indexOf(key)>=0; }
