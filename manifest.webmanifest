@@ -1,0 +1,11 @@
+{
+  "name": "Quest4Bugs",
+  "short_name": "Quest4Bugs",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F3E6",
+  "theme_color": "#3A7D6A",
+  "lang": "ja"
+}
