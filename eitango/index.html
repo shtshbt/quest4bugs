@@ -4887,6 +4887,25 @@ function calcProgressSummary(){
   return '';
 }
 
+/* ---------------- 習得4段バッジ（🥚→🐛→🛡️→🦋） ---------------- */
+/* SRS: box 0-5（0=未開始, 習得=box>=3）/ kids: k=[seen,correct,wrong]（習得=correct>=2）
+   返り値 {stage:0-3, emoji, label, remain} remain=せいちゅう(習得)まであと何回（習得済みは0） */
+function growthStage(w,isKids){
+  /* stage: 0=🥚まだ 1=🐛がくしゅう中 2=🛡️もうすぐ 3=🦋せいちゅう(習得) */
+  let prog,maxStep;
+  if(isKids){ const k=P.kids[w.key]; prog=k?k[1]:0; maxStep=2; } /* 正解回数/2でせいちゅう */
+  else { const s=P.srs[w.key]; prog=s?s[0]:0; maxStep=3; }       /* box/3でせいちゅう */
+  let stage;
+  if(prog<=0) stage=0;
+  else if(prog>=maxStep) stage=3;
+  else if(prog>=maxStep-1) stage=2;
+  else stage=1;
+  const remain=Math.max(0,maxStep-prog);
+  const EMO=['🥚','🐛','🛡️','🦋'];
+  const LBL=['まだ','がくしゅう中','もうすぐ せいちゅう','せいちゅう'];
+  return {stage,emoji:EMO[stage],label:LBL[stage],remain};
+}
+
 /* ---------------- じしょ（級ごと・習得状況つきで意味を引ける） ---------------- */
 let dictTab=null, dictQ='';
 function scrDict(){
@@ -4896,21 +4915,21 @@ function scrDict(){
   let words=WordDB.byField(dictTab);
   const q=(dictQ||'').trim().toLowerCase();
   if(q) words=words.filter(w=>w.en.toLowerCase().includes(q)||(w.ja||'').includes(dictQ));
-  function badge(w){
-    if(f.kids){ const k=P.kids[w.key]; const lv=k?k[1]:0; return lv>=2?'✅':lv>=1?'🔸':'·'; }
-    const s=P.srs[w.key]; const b=s?s[0]:0; return b>=3?'✅':b>=1?'🔸':'·';
-  }
   const m = f.kids ? words.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length : SRS.mastered(P,words);
-  const rows=words.map(w=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid rgba(0,0,0,.06)">
-    <span style="width:20px;text-align:center;font-size:15px">${badge(w)}</span>
-    <span style="flex:1;min-width:0"><b style="font-size:16px">${w.en}</b> <span class="small">${w.pos||''}</span><br><span class="small">${furi(w.ja)}</span></span>
+  const rows=words.map(w=>{
+    const g=growthStage(w,f.kids);
+    const hint=g.stage>=3?'<span class="small" style="color:var(--good);font-weight:700">せいちゅう！</span>'
+      :`<span class="small" style="color:var(--sub)">あと ${g.remain}かいで せいちゅう</span>`;
+    return `<div style="display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid rgba(0,0,0,.06)">
+    <span style="width:24px;text-align:center;font-size:18px" title="${g.label}">${g.emoji}</span>
+    <span style="flex:1;min-width:0"><b style="font-size:16px">${w.en}</b> <span class="small">${w.pos||''}</span><br><span class="small">${furi(w.ja)}</span><br>${hint}</span>
     <button class="chip" style="cursor:pointer" onclick="Speech.say('${w.en.replace(/'/g,"\\'")}')">🔊</button>
-  </div>`).join('') || '<div class="small center" style="padding:16px">みつからないよ</div>';
+  </div>`;}).join('') || '<div class="small center" style="padding:16px">みつからないよ</div>';
   return `<div class="topbar"><span class="ttl">📚 じしょ</span></div>
   <div class="ztabs">${tabs.map(t=>`<button class="${t.id===dictTab?'on':''}" onclick="dictTab=${t.id};render()">${t.emoji} ${t.name}</button>`).join('')}</div>
   <div class="card" style="padding:10px">
     <input type="text" placeholder="🔍 えいご/いみ で さがす" value="${(dictQ||'').replace(/"/g,'&quot;')}" oninput="dictQ=this.value;clearTimeout(window.__dt);window.__dt=setTimeout(render,250)" style="width:100%;font-size:15px;padding:8px;border:2px solid var(--leaf);border-radius:10px">
-    <div class="small" style="margin-top:6px">${f.sub}　しゅうとく <b>${m}</b>/${words.length}　（✅しゅうとく・🔸がくしゅう中・·まだ）</div>
+    <div class="small" style="margin-top:6px">${f.sub}　せいちゅう <b>${m}</b>/${words.length}　（🥚まだ→🐛がくしゅう中→🛡️もうすぐ→🦋せいちゅう）</div>
   </div>
   <div class="card" style="padding:0">${rows}</div>`;
 }
@@ -4921,14 +4940,15 @@ function scrProgress(){
     const words=WordDB.byField(f.id);
     const total=words.length;
     let mastered=0, started=0, frac=0;
+    const stageCount=[0,0,0,0]; /* 🥚🐛🛡️🦋 */
     if(f.kids){
-      words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; const lv=Math.min(2,k[1]); frac+=lv/2; if(k[1]>=2)mastered++;});
+      words.forEach(w=>{const k=P.kids[w.key]; stageCount[growthStage(w,true).stage]++; if(!k||!(k[1]>0))return; started++; const lv=Math.min(2,k[1]); frac+=lv/2; if(k[1]>=2)mastered++;});
     } else {
-      words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; const st=Math.min(3,s[0]); frac+=st/3; if(s[0]>=3)mastered++;});
+      words.forEach(w=>{const s=P.srs[w.key]; stageCount[growthStage(w,false).stage]++; if(!s||!(s[0]>0))return; started++; const st=Math.min(3,s[0]); frac+=st/3; if(s[0]>=3)mastered++;});
     }
     /* バーは「はじめた語の習得度」で1問ごとに動く（分母を全語にすると拡充で動かないため） */
     const pct=total?Math.round(100*mastered/total):0; /* 単純な習得率(全体数のうち) */
-    return {f,mastered,started,total,pct};
+    return {f,mastered,started,total,pct,stageCount};
   });
 
   /* 総括ラベル: しゅうとく率50%以上の最上位 */
@@ -4956,9 +4976,15 @@ function scrProgress(){
 
   /* バーのHTML */
   let barsHtml='';
-  for(const {f,mastered,started,total,pct} of rows){
+  for(const {f,mastered,started,total,pct,stageCount} of rows){
     const barPct=Math.min(100,pct);
     const barColor=pct>=80?'var(--good)':pct>=50?'var(--amber)':'var(--sub)';
+    const stageRow=`<div style="display:flex;gap:10px;margin-top:5px;font-size:12px;font-weight:700;color:var(--sub)">
+      <span title="まだ">🥚 ${stageCount[0]}</span>
+      <span title="がくしゅう中">🐛 ${stageCount[1]}</span>
+      <span title="もうすぐ せいちゅう">🛡️ ${stageCount[2]}</span>
+      <span title="せいちゅう" style="color:var(--good)">🦋 ${stageCount[3]}</span>
+    </div>`;
     barsHtml+=`<div style="margin-top:14px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
         <span style="font-size:18px">${f.emoji}</span>
@@ -4968,12 +4994,13 @@ function scrProgress(){
         </div>
         <div style="text-align:right;font-size:13px;font-weight:800;white-space:nowrap">
           すすみ <span style="color:${barColor}">${pct}%</span>
-          <div style="font-size:11px;color:var(--sub);font-weight:700">がくしゅうちゅう ${started}/${total}・マスター ${mastered}</div>
+          <div style="font-size:11px;color:var(--sub);font-weight:700">がくしゅうちゅう ${started}/${total}・🦋 ${mastered}</div>
         </div>
       </div>
       <div style="height:10px;background:rgba(0,0,0,.08);border-radius:999px;overflow:hidden">
         <div style="height:100%;width:${barPct}%;background:${barColor};border-radius:999px;transition:width .4s"></div>
       </div>
+      ${stageRow}
     </div>`;
   }
 
@@ -5585,12 +5612,22 @@ function afterAnswer(item,ok,title,detail){
   S.answered++;
   if(ok) S.correct++;
   if(!item.retry){
-    if(item.type==='kids'){
+    const wasKids=item.type==='kids';
+    const prevStage=growthStage(item.w,wasKids).stage; /* 更新前の段階 */
+    if(wasKids){
       const k=P.kids[item.w.key]||[0,0,0];
       k[0]++; if(ok)k[1]++; else k[2]++;
       P.kids[item.w.key]=k;
     } else {
       SRS.grade(P,item.w.key,ok);
+    }
+    /* 段階が前進したら演出（せいちょう実感） */
+    if(ok){
+      const g=growthStage(item.w,wasKids);
+      if(g.stage>prevStage){
+        if(g.stage>=3) UI.toast('🦋 「'+item.w.en+'」が せいちゅうに なった！');
+        else UI.toast(g.emoji+' 「'+item.w.en+'」が '+g.label+' に すすんだ！');
+      }
     }
   }
   let res=null;
