@@ -644,10 +644,16 @@ function showCapture(i,extraMsg,presetGot){
 /* ---------- stats ---------- */
 /* 📈 カテゴリ別 Lv 推移（小さな折れ線の一覧）。p.lvlog にデータがあるカテゴリのみ表示。 */
 function lvTrendSection(p){
-  if(!p||!p.lvlog)return '';
+  if(!p)return '';
   var cats=courseCats(p), rows="", any=false;
   cats.forEach(function(c){
-    var log=p.lvlog[c]; if(!log||!log.length)return; any=true;
+    var log=p.lvlog&&p.lvlog[c];
+    if(!log||!log.length){
+      var currentLv=clampLv(p.lv&&p.lv[c]);
+      if(currentLv<=1)return;
+      log=[[todayStr(),currentLv]];
+    }
+    any=true;
     var W=120,H=46,pad=5,n=log.length;
     var xy=log.map(function(e,i){
       var x=pad+(W-2*pad)*(n<2?0:i/(n-1));
