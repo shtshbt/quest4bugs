@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>バトル プレビュー — Quest4Bugs</title>
+<style>
+  :root{ --ink:#243018; --paper:#f3f7e9; --card:#fff; --line:#cdd9b6;
+    --kanji:#7C3AED; --keisan:#2563EB; --eitango:#16A34A; --gauge:#E8B23A; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background:linear-gradient(170deg,#eaf2d8,#dfeacc);color:var(--ink);-webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:14px}
+  h1{font-size:20px;margin:6px 0 2px}
+  .note{font-size:12px;color:#5e6b46;margin:0 0 12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;
+    box-shadow:0 2px 6px rgba(60,70,30,.08)}
+  .sec-t{font-weight:700;font-size:14px;margin:0 0 8px;display:flex;align-items:center;gap:6px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;color:#fff;border-radius:999px;padding:2px 9px}
+  .b-kanji{background:var(--kanji)} .b-keisan{background:var(--keisan)} .b-eitango{background:var(--eitango)}
+  .b-none{background:#64748b}
+  .trait-chip{display:inline-block;font-size:11px;font-weight:800;background:#2a1020;color:#ffd2a8;border:1px solid #c0140e;border-radius:6px;padding:1px 6px}
+  .trait-chip.sm{font-size:11px;padding:0 4px;background:#fff0e6;color:#b3261e;border-color:#e0a08a}
+  /* 三すくみ図 */
+  .cycle{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13px}
+  .cycle .node{font-weight:700;border-radius:10px;padding:6px 12px;color:#fff}
+  .cycle .arr{font-size:18px;color:#8a9a6a}
+  .cyc-hint{font-size:11px;color:#5e6b46;text-align:center;margin-top:6px;line-height:1.5}
+  /* ゲージ */
+  .gbar{height:14px;background:#e7ecd8;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+  .gbar>i{display:block;height:100%;background:linear-gradient(90deg,#f0c95a,#E8B23A)}
+  .g-meta{font-size:12px;color:#5e6b46;margin-top:4px}
+  /* パーティ */
+  .party{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+  .pcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:5px 2px;background:#fff}
+  .pcell .art{width:52px;height:52px;margin:0 auto}
+  .pcell .pn{font-size:10px;line-height:1.1;height:22px;overflow:hidden}
+  .pcell .hp{font-size:10px;color:#777}
+  .attz{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:8px}
+  .attz span{background:#eef4df;border-radius:8px;padding:3px 8px}
+  .mini-btn{margin-left:auto;font-size:12px;font-weight:800;border:0;border-radius:8px;background:#3b7d3b;color:#fff;padding:4px 10px;cursor:pointer}
+  /* パーティ編成画面 */
+  .ps-head{display:flex;align-items:center;gap:8px;margin:6px 0 4px}
+  .ps-head h1{margin:0}
+  .ps-count{margin-left:auto;font-weight:800;font-size:14px;background:#E8B23A;color:#4a2c00;border-radius:999px;padding:3px 12px}
+  .ps-order-h{font-size:12px;color:#5e6b46;font-weight:700;margin:2px 0 4px}
+  .ps-sel{display:flex;flex-direction:column;gap:6px;margin:4px 0}
+  .ps-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:5px 7px;background:#fff}
+  .ps-row.lead{border-color:#E8B23A;background:#fff8e6}
+  .ps-row .num{font-weight:900;color:#b3924a;width:18px;text-align:center;flex:none}
+  .ps-row .art{width:42px;height:42px;flex:none}
+  .ps-row .info{flex:1;min-width:0}
+  .ps-row .nm{font-weight:700;font-size:13px;line-height:1.2}
+  .ps-row .meta{font-size:11px;color:#777;margin-top:1px}
+  .ps-row .ctrl{display:flex;gap:3px;flex:none}
+  .ps-row .ctrl button{border:1px solid var(--line);background:#f4f7ec;border-radius:7px;font-weight:800;font-size:14px;width:30px;height:30px;cursor:pointer;color:#3a5a2a}
+  .ps-row .ctrl button:disabled{opacity:.3}
+  .ps-row .ctrl .rm{color:#b3261e}
+  .ps-empty{border:2px dashed #bcd09a;border-radius:10px;padding:9px;text-align:center;color:#aab98a;font-size:12px}
+  .ps-div{font-size:11px;font-weight:800;color:#b3792a;text-align:center;margin:1px 0;letter-spacing:.02em}
+  .pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:7px;margin-top:8px}
+  .pool .pcell{cursor:pointer;position:relative}
+  .pool .pcell.sel{outline:3px solid #E8B23A;background:#fff7e2}
+  .pool .pcell .chk{position:absolute;top:2px;right:4px;font-size:13px;display:none}
+  .pool .pcell.sel .chk{display:block}
+
+  /* ===== ボス登攀タワー ===== */
+  .tower-intro{font-size:12px;color:#5e6b46;margin:0 0 6px;text-align:center}
+  .band{border:1px solid var(--line);border-radius:14px;margin:10px 0;overflow:hidden;background:#fff}
+  .band-h{display:flex;align-items:center;gap:8px;padding:8px 12px;color:#fff;font-weight:800;font-size:14px}
+  .band-h .stars{margin-left:auto;font-size:12px;letter-spacing:1px}
+  .band-h .hp{font-size:11px;font-weight:700;opacity:.95}
+  .band-body{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px}
+  .band.cleared .band-h{filter:saturate(.6)}
+  .bcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 4px;background:#fafdf2;position:relative;width:92px}
+  .bcell .art{width:72px;height:72px;margin:0 auto}
+  .bcell .bn{font-size:11px;font-weight:700;line-height:1.2;margin-top:2px;height:26px;overflow:hidden}
+  .bcell.locked .art{filter:grayscale(1) brightness(1.15) contrast(.45);opacity:.45}
+  .bcell.locked .bn{color:#9aa884}
+  .bcell .pin{position:absolute;top:3px;left:4px;font-size:13px}
+  .bcell .stg{position:absolute;top:3px;right:5px;font-size:10px;color:#94a37a;font-weight:800}
+  .bcell .lk{font-size:10px;color:#b07d22;font-weight:700}
+  .bcell.pred{box-shadow:0 0 0 2px #c2410c inset}
+  .bcell.frontier{box-shadow:0 0 0 3px #E8B23A;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px #E8B23A}50%{box-shadow:0 0 0 6px #f0d27e}}
+  .bcell button{margin-top:3px;font-size:11px;padding:4px 10px;border:0;border-radius:8px;background:#b3261e;color:#fff;font-weight:800;cursor:pointer}
+  .frontier .lk{color:#a13;font-weight:800}
+
+  /* ===== バトル画面（ダーク・ドラマチック） ===== */
+  #battle{display:none}
+  .bt-scene{background:radial-gradient(120% 90% at 50% 0%,#3a1020 0%,#1b0c18 55%,#0c0710 100%);
+    border-radius:16px;padding:14px 12px 16px;color:#f6e9d8;box-shadow:inset 0 0 60px rgba(0,0,0,.6);position:relative;overflow:hidden}
+  .bt-scene::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 2px,transparent 2px 4px);pointer-events:none}
+  .bt-title{text-align:center;font-weight:900;font-size:15px;color:#ffd87a;text-shadow:0 1px 3px #000;margin-bottom:8px;letter-spacing:.02em}
+  .arena{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end;position:relative;z-index:1}
+  .fighter{text-align:center;position:relative}
+  .fighter .artbox{position:relative;display:inline-block}
+  .enemy .art{width:130px;height:130px;margin:0 auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+  .ally .art{width:104px;height:104px;margin:0 auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+  .fname{font-weight:800;font-size:13px;margin-top:2px;color:#fff;text-shadow:0 1px 2px #000}
+  .adv{font-size:11px;font-weight:800;margin-left:4px}
+  .adv.good{color:#7CFC9A} .adv.bad{color:#ff9a9a} .adv.neu{color:#cbb}
+  .hpwrap{margin:4px auto 0;max-width:160px}
+  .hplabel{font-size:10px;color:#e9d6c5;display:flex;justify-content:space-between;margin-bottom:2px}
+  .hpbar{height:13px;border-radius:7px;background:rgba(0,0,0,.45);overflow:hidden;border:1px solid rgba(255,255,255,.25)}
+  .hpbar>i{display:block;height:100%;background:linear-gradient(90deg,#67e07c,#36b14e);transition:width .35s ease}
+  .hpbar.mid>i{background:linear-gradient(90deg,#f4d35e,#e6a817)}
+  .hpbar.low>i{background:linear-gradient(90deg,#ff7b7b,#d33)}
+  /* ターンバナー */
+  .turn-banner{margin:12px 0 4px;text-align:center;font-weight:900;font-size:16px;padding:8px;border-radius:10px;
+    background:linear-gradient(90deg,rgba(255,216,122,.16),rgba(255,216,122,.28),rgba(255,216,122,.16));
+    color:#ffe9b0;text-shadow:0 1px 2px #000;border:1px solid rgba(255,216,122,.4);position:relative;z-index:1}
+  .turn-banner.def{background:linear-gradient(90deg,rgba(120,180,255,.16),rgba(120,180,255,.30),rgba(120,180,255,.16));color:#cfe3ff;border-color:rgba(150,190,255,.45)}
+  /* 問題ゾーン */
+  .q-zone{margin:8px 0;background:#fffdf5;border:3px solid #E8B23A;border-radius:14px;padding:12px 10px 14px;position:relative;z-index:1;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+  .q-label{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#E8B23A;color:#4a2c00;font-weight:900;font-size:12px;padding:1px 14px;border-radius:999px;letter-spacing:.1em}
+  .q-text{text-align:center;font-size:32px;font-weight:900;color:#243018;margin:8px 0 12px}
+  .ans{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .ans button{font-size:21px;font-weight:900;min-width:70px;padding:13px 16px;border:2px solid #d8c187;border-radius:12px;background:#fff;color:#243018;cursor:pointer;box-shadow:0 2px 0 #d8c187}
+  .ans button:active{transform:translateY(2px);box-shadow:none}
+  /* ログ */
+  .log{margin:10px 0 4px;font-size:13px;color:#ffe9cf;min-height:38px;text-align:center;line-height:1.5;font-weight:700;text-shadow:0 1px 2px #000;position:relative;z-index:1}
+  /* ベンチ */
+  .bench-wrap{margin-top:8px;position:relative;z-index:1}
+  .bench-label{font-size:11px;color:#e9d6c5;text-align:center;margin-bottom:4px}
+  .bench{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+  .bench .m{text-align:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:4px 4px 2px;width:58px;cursor:pointer;transition:transform .15s}
+  .bench .m .art{width:42px;height:42px;margin:0 auto}
+  .bench .m small{display:block;font-size:9px;color:#e9d6c5}
+  .bench .m.active{outline:2px solid #E8B23A;background:rgba(232,178,58,.18)}
+  .bench .m.dead{opacity:.3;cursor:default}
+  .bench .m.swappable:active{transform:scale(.93)}
+  /* エフェクト */
+  .dmg-float{position:absolute;left:50%;top:30%;transform:translateX(-50%);font-weight:900;font-size:28px;color:#ffec6b;
+    text-shadow:0 2px 4px #000,0 0 8px #f33;pointer-events:none;animation:floatUp 1s ease-out forwards;z-index:5}
+  .dmg-float.toAlly{color:#ff8a8a;text-shadow:0 2px 4px #000,0 0 8px #900}
+  .dmg-float.guard{color:#9fd0ff;font-size:20px}
+  @keyframes floatUp{0%{opacity:0;transform:translate(-50%,8px) scale(.6)}20%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}100%{opacity:0;transform:translate(-50%,-46px) scale(1)}}
+  .hit{animation:hitShake .42s}
+  @keyframes hitShake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(7px) }45%{transform:translateX(-5px)}60%{transform:translateX(5px);filter:brightness(2.2) sepia(1) hue-rotate(-30deg)}75%{transform:translateX(-2px)}}
+  .slash{position:absolute;inset:0;pointer-events:none;z-index:4}
+  .slash::after{content:"";position:absolute;left:8%;top:50%;width:84%;height:7px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translateY(-50%) rotate(-18deg);border-radius:6px;animation:slashGo .35s ease-out forwards;box-shadow:0 0 12px #fff}
+  @keyframes slashGo{0%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(0)}40%{opacity:1}100%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(1.1)}}
+  .fainting{animation:faintDrop 1s ease-in forwards}
+  @keyframes faintDrop{0%{opacity:1;transform:none}40%{filter:grayscale(1)}100%{opacity:0;transform:translateY(26px) rotate(85deg) scale(.7)}}
+  .swap-in{animation:swapIn .6s cubic-bezier(.2,1.3,.5,1)}
+  @keyframes swapIn{0%{opacity:0;transform:translateY(34px) scale(.6)}100%{opacity:1;transform:none}}
+  .bt-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+  .bt-flash.go{animation:flashGo .4s}
+  @keyframes flashGo{0%{opacity:.0}25%{opacity:.55}100%{opacity:0}}
+  .centerline{position:absolute;left:50%;top:0;bottom:64px;width:2px;background:linear-gradient(#0000,rgba(255,255,255,.18),#0000);transform:translateX(-50%);z-index:0}
+  /* 特性発動ポップ */
+  .trait-pop{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);z-index:8;text-align:center;pointer-events:none;
+    background:rgba(24,6,18,.86);border:2px solid #ffd87a;border-radius:14px;padding:9px 18px;box-shadow:0 4px 20px rgba(0,0,0,.6);
+    animation:traitPop 1.1s cubic-bezier(.2,1.3,.4,1) forwards}
+  .trait-pop.pred-r{border-color:#ff6a4a;box-shadow:0 0 22px rgba(255,60,30,.6)}
+  .trait-pop .tp-ic{font-size:32px;line-height:1}
+  .trait-pop .tp-tx{font-weight:900;font-size:15px;color:#ffe9b0;text-shadow:0 2px 3px #000;margin-top:3px}
+  @keyframes traitPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-8deg)}22%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-62%) scale(1)}}
+  .btn{display:inline-block;font-size:14px;font-weight:800;padding:10px 18px;border:0;border-radius:12px;background:#3b7d3b;color:#fff;cursor:pointer}
+  .btn.flee{background:#5b3a3a;margin-top:10px}
+  .end{text-align:center;padding:22px 10px}
+  .end h2{font-size:26px;margin:6px 0;color:#ffd87a;text-shadow:0 2px 4px #000}
+  .end p{color:#f0e2d2}
+  .pvbanner{background:#2b2b33;color:#ffd87a;font-size:12px;text-align:center;padding:6px;border-radius:10px;margin-bottom:8px}
+  /* 三すくみ三角 */
+  .tri-wrap{display:flex;flex-direction:column;align-items:center}
+  .tri{max-width:280px;width:100%}
+  .tri text{font-weight:800}
+  /* 天敵ラベル（カード） */
+  .bcell .nemesis{position:absolute;bottom:30px;left:50%;transform:translateX(-50%) rotate(-6deg);
+    background:#c0140e;color:#fff;font-weight:900;font-size:10px;padding:1px 7px;border-radius:4px;
+    box-shadow:0 1px 3px rgba(0,0,0,.4);letter-spacing:.04em;white-space:nowrap}
+  .bcell .nemesis.final{background:#7a0e8c}
+  /* 登場エフェクト */
+  .intro-scene{background:radial-gradient(120% 90% at 50% 30%,#3a1020,#120712);border-radius:16px;
+    min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#fff;position:relative;overflow:hidden}
+  .intro-scene.pred{background:radial-gradient(120% 90% at 50% 30%,#5a0a0a,#1a0606);animation:predShake .5s 2}
+  @keyframes predShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .intro-art{width:150px;height:150px;animation:introZoom .7s cubic-bezier(.2,1.4,.5,1)}
+  @keyframes introZoom{0%{opacity:0;transform:scale(.25) rotate(-12deg)}70%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
+  .intro-text{font-weight:900;font-size:22px;margin-top:14px;text-shadow:0 2px 5px #000;animation:textSlam .5s .25s both}
+  .intro-text.pred{color:#ff5a4a;font-size:24px;text-shadow:0 2px 6px #000,0 0 12px #f00}
+  @keyframes textSlam{0%{opacity:0;transform:scale(2.4)}60%{opacity:1;transform:scale(.92)}100%{transform:scale(1)}}
+  .intro-tag{background:#c0140e;color:#fff;font-weight:900;font-size:13px;padding:3px 14px;border-radius:999px;
+    letter-spacing:.12em;margin-bottom:6px;animation:textSlam .5s both}
+  .intro-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:introFlash .6s}
+  @keyframes introFlash{0%{opacity:.0}10%{opacity:.7}100%{opacity:0}}
+  .intro-trait{margin-top:10px;background:rgba(0,0,0,.4);border:1px solid #ffb38a;border-radius:10px;
+    padding:6px 14px;font-size:13px;font-weight:800;color:#ffe0c8;animation:textSlam .5s .4s both}
+  /* エリアクリア演出 */
+  .clear-scene{background:radial-gradient(120% 90% at 50% 38%,#fff6cf,#f3c64e 42%,#bd7d1c);border-radius:16px;
+    min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#5a3a00;position:relative;overflow:hidden;text-align:center;padding:22px}
+  .clear-scene.ult{background:radial-gradient(120% 90% at 50% 38%,#fff8de,#ffce46 34%,#9c139a)}
+  .clear-ribbon{position:absolute;top:0;left:0;right:0;height:46px;background:repeating-linear-gradient(45deg,#ffe9a8 0 14px,#f6cf6a 14px 28px);opacity:.5}
+  .clear-crown{font-size:56px;animation:introZoom .8s;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
+  .clear-badge{font-size:24px;letter-spacing:4px;color:#b9791a;text-shadow:0 1px 2px #fff;animation:textSlam .5s both;position:relative;z-index:1}
+  .clear-scene.ult .clear-badge{color:#fff;text-shadow:0 1px 3px #600}
+  .clear-title{font-size:27px;font-weight:900;margin:6px 0;color:#7a4a00;text-shadow:0 2px 3px rgba(255,255,255,.6);animation:textSlam .55s .1s both;position:relative;z-index:1}
+  .clear-scene.ult .clear-title{color:#fff;text-shadow:0 2px 6px #800,0 0 14px #f5c}
+  .clear-sub{font-size:13px;font-weight:800;margin-bottom:16px;position:relative;z-index:1}
+  .spark-wrap{position:absolute;inset:0;pointer-events:none}
+  .spark{position:absolute;font-size:22px;opacity:0;transform:translate(-50%,-50%) scale(0);animation:sparkPop 1.3s ease-out infinite}
+  @keyframes sparkPop{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.35)}100%{opacity:0;transform:translate(-50%,-50%) scale(.7)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== ホーム ===== -->
+  <div id="home">
+    <h1>⚔️ ずかんバトル</h1>
+    <p class="note">あつめた虫でパーティを組んで、強敵ボスにいどもう。属性は虫の出身ゲームで決まるよ。</p>
+
+    <div class="card">
+      <div class="sec-t">🔺 ぞくせいの3すくみ</div>
+      <div class="tri-wrap">
+      <svg class="tri" viewBox="0 0 260 196" role="img" aria-label="三すくみ かんじ→けいさん→えいご→かんじ">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M0 1 L9 5 L0 9 z" fill="#7a4a00"/>
+          </marker>
+        </defs>
+        <!-- 矢印：つよい→よわい（さきがやられる側） -->
+        <line x1="108" y1="58" x2="64" y2="128" stroke="#caa24a" stroke-width="5" marker-end="url(#ah)"/>
+        <line x1="86" y1="160" x2="172" y2="160" stroke="#caa24a" stroke-width="5" marker-end="url(#ah)"/>
+        <line x1="194" y1="128" x2="150" y2="58" stroke="#caa24a" stroke-width="5" marker-end="url(#ah)"/>
+        <!-- ノード -->
+        <g>
+          <rect x="97" y="14" width="64" height="34" rx="9" fill="#7C3AED"/>
+          <text x="129" y="36" text-anchor="middle" fill="#fff" font-size="16">かんじ</text>
+          <rect x="14" y="146" width="80" height="34" rx="9" fill="#2563EB"/>
+          <text x="54" y="168" text-anchor="middle" fill="#fff" font-size="16">けいさん</text>
+          <rect x="170" y="146" width="64" height="34" rx="9" fill="#16A34A"/>
+          <text x="202" y="168" text-anchor="middle" fill="#fff" font-size="16">えいご</text>
+        </g>
+      </svg>
+      </div>
+      <div class="cyc-hint">矢印のさきが よわい（やられる側）。<br>攻撃：有利2倍(20)／普通10／不利半分(5)。防御せいこうでも 有利5・普通7・不利9（しっぱい10）。</div>
+    </div>
+
+    <div class="card">
+      <div class="sec-t">⛩️ ボス解禁ゲージ</div>
+      <div class="gbar"><i id="ghfill"></i></div>
+      <div class="g-meta" id="ghmeta"></div>
+    </div>
+
+    <div class="card">
+      <div class="sec-t">🧰 パーティ（6体）<span class="badge b-none" id="pcount"></span>
+        <button class="mini-btn" onclick="showPartySelect()">✏️ へんせい</button></div>
+      <div class="party" id="party"></div>
+      <div class="attz" id="attz"></div>
+    </div>
+
+    <div class="sec-t" style="margin-top:16px">👑 おうじゃへの みち <span style="font-size:11px;color:#7a8a5a;font-weight:400">（未解禁はシルエット）</span></div>
+    <p class="tower-intro">ボスを 下へ 下へと たおして、いちばん下の おうじゃを めざそう！</p>
+    <div id="tower"></div>
+  </div>
+
+  <!-- ===== パーティ編成 ===== -->
+  <div id="pselect" style="display:none"></div>
+
+  <!-- ===== バトル ===== -->
+  <div id="battle"></div>
+</div>
+
+<script src="./shared/storage.js"></script>
+<script src="./shared/bugs.js"></script>
+<script src="./shared/render.js"></script>
+<script src="./shared/bespoke.js"></script>
+<script src="./shared/reward.js"></script>
+<script src="./shared/battle.js"></script>
+<script>
+var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
+var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
+var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"むぞくせい"};
+
+/* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
+var PROF=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={};
+function loadAll(){
+  if(!window.QuestSave) return Promise.resolve();
+  return QuestSave.profiles().then(function(){
+    PROF = QuestSave.currentProfile();
+    if(!PROF) return null;
+    return Promise.all([
+      QuestSave.load("keisan","_book"),
+      QuestSave.load("kanji",PROF),
+      QuestSave.load("eitango",PROF),
+      QuestSave.load("battle",PROF)
+    ]).then(function(r){
+      var book=r[0],ks=r[1],es=r[2],bt=r[3]||{};
+      var kp=null,i; if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===PROF)kp=book.profiles[i];
+      var ids={}, caught=0;
+      function add(c){ if(c)Object.keys(c).forEach(function(id){ids[id]=1;}); }
+      if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
+      if(ks&&ks.coll){ add(ks.coll.catches); caught+=ks.coll.total||0; }
+      if(es){ add(es.catches); if(es.catches)caught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); }
+      OWNED = Object.keys(ids).map(function(id){return byId[id];}).filter(function(s){return s&&!s.bossOnly&&!s.masterOnly;});
+      BATTLE = bt;
+      CLEARED = bt.cleared || {};
+      PARTY = (bt.party||[]).map(function(id){return byId[id];}).filter(Boolean);
+      SEL = PARTY.slice();
+      /* v1暫定ゲージ: 捕獲数×30(=おおよその累計正解)。本格的な進捗連動解禁は後日結線。 */
+      GAUGE = (bt.gauge!=null) ? bt.gauge : caught*30;
+    });
+  });
+}
+function saveBattle(){ if(!PROF||!window.QuestSave)return; BATTLE.party=PARTY.map(function(s){return s.id;}); BATTLE.cleared=CLEARED; BATTLE.gauge=GAUGE; QuestSave.save("battle",PROF,BATTLE); }
+
+/* ================= パーティ編成（別画面） ================= */
+function showPartySelect(){
+  SEL=PARTY.slice();
+  document.getElementById("home").style.display="none";
+  document.getElementById("pselect").style.display="block";
+  renderPSelect();
+}
+function renderPSelect(){
+  var slots="";
+  for(var i=0;i<SEL.length;i++){ var s=SEL[i], g=RW.gameFor(s);
+    slots+='<div class="ps-row'+(i===0?" lead":"")+'">'
+      +'<span class="num">'+(i+1)+'</span>'
+      +'<div class="art">'+R.species(s,false)+'</div>'
+      +'<div class="info"><div class="nm">'+s.jaName+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
+      +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'
+      +'<div class="ctrl">'
+      +'<button onclick="moveSlot('+i+',-1)"'+(i===0?' disabled':'')+'>▲</button>'
+      +'<button onclick="moveSlot('+i+',1)"'+(i===SEL.length-1?' disabled':'')+'>▼</button>'
+      +'<button class="rm" onclick="pickToggle(\''+s.id+'\')">×</button></div></div>';
+    if(i===2) slots+='<div class="ps-div">▲ ここまで 昆虫ボス用（せんとう3匹）／天敵は ぜんいん6匹 ▼</div>';
+  }
+  for(var e=SEL.length;e<6;e++){ slots+='<div class="ps-empty">あき（下から えらぶ）</div>';
+    if(e===2) slots+='<div class="ps-div">▲ ここまで 昆虫ボス用（せんとう3匹）／天敵は ぜんいん6匹 ▼</div>'; }
+  var cnt={kanji:0,keisan:0,eitango:0}; SEL.forEach(function(s){cnt[RW.gameFor(s)]++;});
+  var pool=""; OWNED.forEach(function(s){ var sel=SEL.some(function(x){return x.id===s.id;});
+    pool+='<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
+      +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'; });
+  document.getElementById("pselect").innerHTML=
+     '<div class="ps-head"><h1>✏️ パーティへんせい</h1><span class="ps-count">'+SEL.length+'/6</span></div>'
+    +'<p class="note">なかまを タップで えらぶ（さいだい6体・同じ虫は1匹まで）。昆虫ボスは <b>せんとう3匹</b>、天敵は <b>6匹</b>で たたかう。さきの3匹に 弱点タイプを 入れておこう！</p>'
+    +'<div class="card"><div class="ps-order-h">⚔️ でてくる じゅんばん（▲▼でいれかえ・１が せんとう）</div>'
+    +'<div class="ps-sel">'+slots+'</div>'
+    +'<div class="attz"><span>🟣 かんじ '+cnt.kanji+'</span><span>🔵 けいさん '+cnt.keisan+'</span><span>🟢 えいご '+cnt.eitango+'</span></div></div>'
+    +'<div class="card"><div class="sec-t">📦 もっている虫（'+OWNED.length+'）</div><div class="pool">'+pool+'</div></div>'
+    +'<div style="text-align:center;display:flex;gap:10px;justify-content:center;margin-top:6px">'
+    +'<button class="btn" onclick="applyParty()">けってい</button>'
+    +'<button class="btn" style="background:#5b3a3a" onclick="cancelParty()">やめる</button></div>';
+}
+function moveSlot(i,dir){ var j=i+dir; if(j<0||j>=SEL.length)return; var t=SEL[i];SEL[i]=SEL[j];SEL[j]=t; renderPSelect(); }
+function pickToggle(id){
+  var at=-1; for(var i=0;i<SEL.length;i++)if(SEL[i].id===id){at=i;break;}
+  if(at>=0) SEL.splice(at,1);
+  else { if(SEL.length>=6) return; SEL.push(byId[id]); }
+  renderPSelect();
+}
+function applyParty(){ if(SEL.length<1)return; PARTY=SEL.slice(); saveBattle(); cancelParty(); }
+function cancelParty(){ document.getElementById("pselect").style.display="none"; document.getElementById("home").style.display="block"; renderHome(); }
+
+/* ---- 質問バンク ---- */
+/* デモ用に少し難しめ（本番は各ゲームの進捗SRSから、現在レベル+α で出題） */
+function makeQ(type){
+  if(type==="keisan"){
+    var k=Math.floor(seed()*3);
+    if(k===0){ var a=12+Math.floor(seed()*78),b=11+Math.floor(seed()*60); return {q:a+" + "+b, ans:a+b}; }
+    if(k===1){ var x=23+Math.floor(seed()*70),y=11+Math.floor(seed()*18); if(y>x){var t=x;x=y;y=t;} return {q:x+" − "+y, ans:x-y}; }
+    var c=12+Math.floor(seed()*8),d=3+Math.floor(seed()*7); return {q:c+" × "+d, ans:c*d};
+  }
+  if(type==="kanji"){ var kq=KANJIQ[Math.floor(seed()*KANJIQ.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:kq.c}; }
+  var e=EIGOQ[Math.floor(seed()*EIGOQ.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:e.c};
+}
+var KANJIQ=[{q:"森林",a:"しんりん",c:["しんりん","もり","きこり"]},{q:"昆虫",a:"こんちゅう",c:["こんちゅう","むし","かぶと"]},
+  {q:"太陽",a:"たいよう",c:["たいよう","ひかり","つき"]},{q:"地球",a:"ちきゅう",c:["ちきゅう","せかい","ほし"]},
+  {q:"自然",a:"しぜん",c:["しぜん","やま","みどり"]},{q:"観察",a:"かんさつ",c:["かんさつ","みる","しらべ"]}];
+var EIGOQ=[{q:"insect =?",a:"こんちゅう",c:["こんちゅう","どうぶつ","さかな"]},{q:"forest =?",a:"もり",c:["もり","うみ","やま"]},
+  {q:"strong =?",a:"つよい",c:["つよい","はやい","おおきい"]},{q:"science =?",a:"かがく",c:["かがく","さんすう","こくご"]},
+  {q:"collect =?",a:"あつめる",c:["あつめる","なげる","はしる"]},{q:"battle =?",a:"たたかい",c:["たたかい","あそび","おはなし"]}];
+var _s=20260614; function seed(){ _s=(_s*1103515245+12345)&0x7fffffff; return _s/0x7fffffff; }
+
+/* ================= ホーム ================= */
+var BANDS=[
+  {lo:1, hi:10,name:"みならいの へいげん",stars:"★",col:"#3a7d6a"},
+  {lo:11,hi:20,name:"ふかい もり",stars:"★★",col:"#2f6a2a"},
+  {lo:21,hi:30,name:"しれんの いわば",stars:"★★★",col:"#7a5a10"},
+  {lo:31,hi:40,name:"まよいの たに",stars:"★★★★",col:"#7a3210"},
+  {lo:41,hi:50,name:"おうじゃの いただき",stars:"★★★★★",col:"#6b1020"}
+];
+function renderHome(){
+  var unlocked=B.unlockedStages(GAUGE), nx=B.nextUnlock(GAUGE);
+  var nextCost=nx?B.unlockCost(nx.stage):0, into=nx?(nextCost-nx.need):nextCost;
+  document.getElementById("ghfill").style.width = nx? Math.round(into/nextCost*100)+"%" : "100%";
+  document.getElementById("ghmeta").textContent = nx
+    ? "解禁ずみ "+unlocked+" 体 ／ つぎの No."+nx.stage+" まで あと "+nx.need+" 問"
+    : "ぜんぶ解禁ずみ！";
+  // パーティ
+  var pc=document.getElementById("party"); pc.innerHTML="";
+  PARTY.forEach(function(s){ var d=document.createElement("div"); d.className="pcell";
+    d.innerHTML='<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div>';
+    pc.appendChild(d); });
+  document.getElementById("pcount").textContent=PARTY.length+"/6";
+  var cnt={kanji:0,keisan:0,eitango:0}; PARTY.forEach(function(s){cnt[RW.gameFor(s)]++;});
+  document.getElementById("attz").innerHTML=
+    '<span>🟣 かんじ '+cnt.kanji+'</span><span>🔵 けいさん '+cnt.keisan+'</span><span>🟢 えいご '+cnt.eitango+'</span>';
+  // タワー（高い帯を上に）
+  var tw=document.getElementById("tower"); tw.innerHTML="";
+  BANDS.forEach(function(bd){
+    var rs=B.roster.filter(function(r){return r.stage>=bd.lo&&r.stage<=bd.hi;});
+    var hps=rs.map(function(r){return r.hp;}), hpMin=Math.min.apply(null,hps),hpMax=Math.max.apply(null,hps);
+    var cleared = unlocked>=bd.hi;
+    var band=document.createElement("div"); band.className="band"+(cleared?" cleared":"");
+    var hpTxt = hpMin===hpMax?("HP"+hpMin):("HP"+hpMin+"〜"+hpMax);
+    band.innerHTML='<div class="band-h" style="background:'+bd.col+'">'
+      +'<span>'+bd.name+'</span><span class="hp">'+hpTxt+'</span><span class="stars">'+bd.stars+'</span></div>'
+      +'<div class="band-body"></div>';
+    var body=band.querySelector(".band-body");
+    rs.forEach(function(r){
+      var sp=byId[r.id], open=r.stage<=unlocked, isFront=(nx&&r.stage===nx.stage);
+      var nem = r.predator ? (r.final?'<div class="nemesis final">さいきょう！</div>':'<div class="nemesis">天敵！</div>') : '';
+      var trs = r.predator ? B.bossTraits(r) : [];
+      var trChip = trs.map(function(t){return ' <span class="trait-chip sm">'+t.icon+t.name+'</span>';}).join('');
+      var d=document.createElement("div"); d.className="bcell"+(r.predator?" pred":"")+(open?"":" locked")+(isFront?" frontier":"");
+      if(open){
+        d.innerHTML='<span class="stg">No.'+r.stage+'</span>'
+          +(r.predator?(r.final?'<span class="pin">👑</span>':'<span class="pin">🦂</span>'):'')
+          +'<div class="art">'+R.deco(sp,false)+'</div>'+nem+'<div class="bn">'+sp.jaName+'</div>'
+          +'<div><span class="badge b-'+(r.type||"none")+'">'+TYPE_JA[r.type||"none"]+'</span>'+trChip+'</div>'
+          +'<button>たたかう</button>';
+        d.querySelector("button").onclick=function(){ startBattle(r); };
+      } else {
+        d.innerHTML='<span class="stg">No.'+r.stage+'</span>'
+          +'<div class="art">'+R.deco(sp,false)+'</div>'+nem
+          +'<div class="bn">？？？</div>'
+          +(isFront?'<div class="lk">▶ つぎ！ あと '+nx.need+'問</div>':'<div class="lk">🔒 '+B.unlockCost(r.stage)+'問</div>');
+      }
+      body.appendChild(d);
+    });
+    tw.appendChild(band);
+  });
+}
+
+/* ================= バトル ================= */
+var st=null;
+function rewardLine(rew){
+  if(!rew) return "";
+  if(rew.kind==="species") return '🪲 '+st.boss.jaName+'を ずかんに とうろく！';
+  if(rew.kind==="amber") return '🍯 こはく +'+rew.amber+(rew.title?'　🏅 称号「'+rew.title+'」かくとく！':(rew.badge?'　🎖️ 天敵バッジ かくとく！':''));
+  return '（とうろくずみ・れんしゅうになった！）';
+}
+var BATTLE_HTML=''
++'<div class="bt-scene">'
++' <div class="bt-flash" id="btFlash"></div>'
++' <div class="centerline"></div>'
++' <div class="bt-title" id="btTitle"></div>'
++' <div class="arena">'
++'   <div class="fighter ally" id="allySide"><div class="artbox"><div class="art" id="meArt"></div></div>'
++'     <div class="fname" id="meName"></div>'
++'     <div class="hpwrap"><div class="hplabel"><span>あなた</span><span id="meHpT"></span></div><div class="hpbar" id="meHpBar"><i></i></div></div></div>'
++'   <div class="fighter enemy" id="enemySide"><div class="artbox"><div class="art" id="bossArt"></div></div>'
++'     <div class="fname" id="bossName"></div>'
++'     <div class="hpwrap"><div class="hplabel"><span>ボス</span><span id="bossHpT"></span></div><div class="hpbar" id="bossHpBar"><i></i></div></div></div>'
++' </div>'
++' <div class="turn-banner" id="turnBanner"></div>'
++' <div class="q-zone"><div class="q-label">もんだい</div><div class="q-text" id="qtext"></div><div class="ans" id="ans"></div></div>'
++' <div class="log" id="log"></div>'
++' <div class="bench-wrap"><div class="bench-label">なかま（タップで こうたい）</div><div class="bench" id="bench"></div></div>'
++'</div>'
++'<div style="text-align:center"><button class="btn flee" onclick="quitBattle()">← にげる</button></div>';
+
+function startBattle(r){
+  var boss=byId[r.id], maxHp=r.hp||90;
+  st={ r:r, boss:boss, bossMax:maxHp, bossHp:maxHp, traits:B.bossTraits(r),
+    party: PARTY.slice(0, B.bossPartySize(r)).map(function(s){ return {sp:s, type:RW.gameFor(s), max:B.bugHP(s.rarity), hp:B.bugHP(s.rarity)}; }),
+    idx:0, phase:"attack", defReps:1, defDone:0, q:null, busy:false };
+  document.getElementById("home").style.display="none";
+  var bt=document.getElementById("battle"); bt.style.display="block";
+  // ---- 登場エフェクト ----
+  var pred=r.predator, fin=r.final;
+  var tag = fin ? '<div class="intro-tag">👑 おうじゃ 👑</div>'
+          : pred ? '<div class="intro-tag">⚠️ 天敵 ⚠️</div>' : '';
+  var msg = pred ? (fin?'おうじゃ '+boss.jaName+'が たちはだかる！！':'天敵 '+boss.jaName+'が おそってきた！！')
+                 : boss.jaName+'が あらわれた！';
+  bt.innerHTML='<div class="intro-scene'+(pred?' pred':'')+'">'
+    +(pred?'<div class="intro-flash"></div>':'')
+    +tag
+    +'<div class="intro-art">'+R.deco(boss,false)+'</div>'
+    +'<div class="intro-text'+(pred?' pred':'')+'">'+msg+'</div>'
+    +st.traits.map(function(t){return '<div class="intro-trait">'+t.icon+' とくせい「'+t.name+'」：'+t.desc+'</div>';}).join('')
+    +'</div>';
+  setTimeout(function(){
+    bt.innerHTML=BATTLE_HTML; drawBattle();
+    if(hasTr("sensei")){
+      log("⚡ すばやい！ "+st.boss.jaName+"の せんせい こうげき！ きをつけて！");
+      traitFx("⚡","とくせい はつどう！ せんせい こうげき！");
+      beginDefense(); nextQuestion();
+    } else {
+      st.phase="attack"; nextQuestion();
+    }
+  }, pred?1900:1400);
+}
+function beginDefense(){ st.phase="defense"; st.defReps=hasTr("renzoku")?2:1; st.defDone=0; }
+function activeM(){ return st.party[st.idx]; }
+function hasTr(k){ return st.traits && st.traits.some(function(t){return t.key===k;}); }
+function drawBattle(){
+  var m=activeM(), r=st.r;
+  document.getElementById("btTitle").textContent="⚔️ No."+r.stage+"  "+st.boss.jaName+" との たたかい！";
+  document.getElementById("bossArt").innerHTML=R.deco(st.boss,false);
+  document.getElementById("bossName").innerHTML=st.boss.jaName+' <span class="badge b-'+(r.type||"none")+'">'+TYPE_JA[r.type||"none"]+'</span>'
+    +st.traits.map(function(t){return ' <span class="trait-chip">'+t.icon+t.name+'</span>';}).join('')
+    +(st.party.length<6?' <span class="trait-chip sm">'+st.party.length+'匹せい</span>':'');
+  setHp("boss",st.bossHp,st.bossMax);
+  document.getElementById("meArt").innerHTML=R.species(m.sp,false);
+  var adv=B.advLabel(m.type,r.type);
+  document.getElementById("meName").innerHTML=m.sp.jaName+' <span class="badge b-'+m.type+'">'+TYPE_JA[m.type]+'</span>'
+    +'<span class="adv '+(adv==="ゆうり"?"good":adv==="ふり"?"bad":"neu")+'">'+(adv==="ゆうり"?"▲ゆうり":adv==="ふり"?"▼ふり":"・ふつう")+'</span>';
+  setHp("me",m.hp,m.max);
+  drawBench();
+}
+function setHp(who,hp,max){
+  var bar=document.getElementById(who+"HpBar"), pct=Math.max(0,hp/max*100);
+  bar.querySelector("i").style.width=pct+"%";
+  bar.classList.toggle("low",pct<=30); bar.classList.toggle("mid",pct>30&&pct<=60);
+  document.getElementById(who+"HpT").textContent="HP "+Math.max(0,hp)+"/"+max;
+}
+function drawBench(){
+  var bn=document.getElementById("bench"); bn.innerHTML="";
+  st.party.forEach(function(m,i){ var d=document.createElement("div");
+    var alive=m.hp>0, active=(i===st.idx);
+    d.className="m"+(alive?"":" dead")+(active?" active":"")+(alive&&!active?" swappable":"");
+    d.innerHTML='<div class="art">'+R.species(m.sp,false)+'</div><small>'+(alive?("HP"+m.hp):"💀")+'</small>';
+    if(alive&&!active) d.onclick=function(){ swapTo(i); };
+    bn.appendChild(d); });
+}
+function nextQuestion(){
+  var m=activeM();
+  st.q=makeQ(m.type);
+  var tb=document.getElementById("turnBanner");
+  if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
+  else { tb.className="turn-banner def";
+    tb.textContent="🛡️ "+m.sp.jaName+"の ぼうぎょターン！"+(st.defReps>1?("（れんぞく "+((st.defDone||0)+1)+"/"+st.defReps+"）"):" ボスがおそってくる！"); }
+  document.getElementById("qtext").textContent=st.q.q;
+  var ans=document.getElementById("ans"); ans.innerHTML="";
+  var choices = st.q.kind==="choice" ? st.q.choices.slice() : numChoices(st.q.ans);
+  shuffle(choices).forEach(function(c){ var b=document.createElement("button");
+    b.textContent=c; b.onclick=function(){ answer(c); }; ans.appendChild(b); });
+  st.busy=false;
+}
+function numChoices(ans){ var set={}; set[ans]=1; while(Object.keys(set).length<4){ var d=ans+(Math.floor(seed()*9)-4); if(d>0)set[d]=1; } return Object.keys(set).map(Number); }
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(seed()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+
+/* ---- メンバー交代（タップ） ---- */
+function swapTo(i){
+  if(st.busy) return;
+  if(i===st.idx || st.party[i].hp<=0) return;
+  st.idx=i; var m=activeM();
+  log("🔄 こうたい！ つぎは "+m.sp.jaName+"！");
+  var art=document.getElementById("meArt"); art.innerHTML=R.species(m.sp,false);
+  flashClass(art.parentNode,"swap-in",600);
+  drawBattle();
+  nextQuestion(); // 交代したら その虫の科目で出題しなおし
+}
+
+/* ---- エフェクト ---- */
+function floatDmg(side,text,cls){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var f=document.createElement("div"); f.className="dmg-float "+(cls||""); f.textContent=text; box.appendChild(f);
+  setTimeout(function(){ if(f.parentNode)f.parentNode.removeChild(f); },1000);
+}
+function flashClass(el,cls,ms){ if(!el)return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(function(){el.classList.remove(cls);},ms||450); }
+function slashOn(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var s=document.createElement("div"); s.className="slash"; box.appendChild(s);
+  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },380);
+  flashClass(box,"hit",420);
+}
+function sceneFlash(){ flashClass(document.getElementById("btFlash"),"go",400); }
+function traitFx(icon,text){
+  var sc=document.querySelector("#battle .bt-scene"); if(!sc)return;
+  var p=document.createElement("div"); p.className="trait-pop pred-r";
+  p.innerHTML='<div class="tp-ic">'+icon+'</div><div class="tp-tx">'+text+'</div>';
+  sc.appendChild(p); sceneFlash();
+  setTimeout(function(){ if(p.parentNode)p.parentNode.removeChild(p); },1150);
+}
+
+function answer(c){
+  if(st.busy) return; st.busy=true;
+  var m=activeM(), r=st.r, correct=(String(c)===String(st.q.ans));
+  if(st.phase==="attack"){
+    if(correct){
+      if(hasTr("dodge") && Math.random()<B.DODGE_CHANCE){
+        log("💨 "+st.boss.jaName+"は すばやく よけた！ ダメージ なし！");
+        traitFx("💨","かいひ！ "+st.boss.jaName+"が よけた！");
+      } else {
+        var dmg=B.damage(m.type,r.type||"none"), al=B.advLabel(m.type,r.type), yo=(hasTr("yoroi")&&al!=="ゆうり");
+        if(yo) dmg=Math.ceil(dmg/2);
+        st.bossHp-=dmg; slashOn("enemy"); floatDmg("enemy","-"+dmg);
+        if(yo) traitFx("🛡️","ヨロイ！ こうげきを はんげん！");
+        log("⚔️ "+m.sp.jaName+"の こうげき！ "+st.boss.jaName+"に "+dmg+"の ダメージ！"
+          +(al==="ゆうり"?"（ゆうり×2！）":al==="ふり"?"（ふり…）":"")+(yo?"（🛡️ヨロイで はんげん）":""));
+        setTimeout(function(){ setHp("boss",st.bossHp,st.bossMax); },180);
+      }
+    } else { log("💨 "+m.sp.jaName+"の こうげきは ミス！"); }
+    if(st.bossHp<=0){ return setTimeout(function(){ finish(true); },700); }
+    beginDefense(); setTimeout(nextQuestion,820);
+  } else {
+    st.defDone=(st.defDone||0)+1;
+    var dk=hasTr("doku"), taken=B.bossDamage(correct,m.type,r.type||"none");
+    if(dk && !correct) taken+=B.DOKU_BONUS;
+    m.hp-=taken; slashOn("ally"); sceneFlash(); floatDmg("ally","-"+taken,correct?"guard toAlly":"toAlly");
+    if(correct){ var dl=B.advLabel(m.type,r.type);
+      log("🛡️ "+m.sp.jaName+"は ガード！ それでも "+taken+"の ダメージ"+(dl==="ゆうり"?"（ゆうりで かるい）":dl==="ふり"?"（ふりで おもい）":"")); }
+    else { log("💥 "+st.boss.jaName+"の こうげき！ "+m.sp.jaName+"に "+taken+"の ダメージ！"+(dk?"（☠️どく＋5！）":"")); }
+    if(dk && !correct) traitFx("☠️","どく はつどう！ +5 ダメージ！");
+    setTimeout(function(){ setHp("me",m.hp,m.max); drawBench(); },180);
+    if(m.hp<=0){ return setTimeout(faint,700); }
+    if(st.defDone < st.defReps){ traitFx("🦶","れんぞく！ "+st.boss.jaName+"が もういちど こうげき！"); setTimeout(nextQuestion,820); return; }  // れんぞく：もう1回防御
+    st.phase="attack"; setTimeout(nextQuestion,820);
+  }
+}
+function faint(){
+  var m=activeM();
+  log("💀 "+m.sp.jaName+"は たおれてしまった…！");
+  var art=document.getElementById("meArt"); flashClass(art.parentNode,"fainting",1000);
+  // 全滅判定は「生存数0」で厳密に。次の虫は後ろ優先→いなければ前方の生存虫へ循環。
+  var aliveTotal=0; for(var j=0;j<st.party.length;j++){ if(st.party[j].hp>0) aliveTotal++; }
+  if(aliveTotal===0){ return setTimeout(function(){ finish(false); },1000); }
+  var next=-1; for(var i=st.idx+1;i<st.party.length;i++){ if(st.party[i].hp>0){next=i;break;} }
+  if(next<0){ for(var k=0;k<st.idx;k++){ if(st.party[k].hp>0){next=k;break;} } }
+  setTimeout(function(){
+    st.idx=next; var nm=activeM();
+    log("➡️ "+nm.sp.jaName+"、いけー！");
+    drawBattle();
+    flashClass(document.getElementById("meArt").parentNode,"swap-in",600);
+    st.phase="attack"; nextQuestion();
+  },1050);
+}
+function bandOf(stage){ for(var i=0;i<BANDS.length;i++){ if(stage>=BANDS[i].lo&&stage<=BANDS[i].hi) return BANDS[i]; } return null; }
+function finish(win){
+  var bt=document.getElementById("battle");
+  var rew = win ? B.bossReward(st.r, CLEARED[st.r.stage]) : null;
+  if(win){
+    if(rew && rew.first){
+      if(rew.kind==="species" && rew.speciesId){ BATTLE.bosses=BATTLE.bosses||{}; BATTLE.bosses[rew.speciesId]={n:1}; }
+      else if(rew.kind==="amber"){ if(window.QuestSave&&QuestSave.amberAdd&&PROF)QuestSave.amberAdd(PROF, rew.amber||0);
+        if(rew.badge){ BATTLE.badges=BATTLE.badges||{}; BATTLE.badges[rew.badge]=1; } }
+    }
+    CLEARED[st.r.stage]=1;
+    saveBattle();
+  }
+  if(win && st.r.stage%10===0){ return showStageClear(bandOf(st.r.stage), st.r.stage===50, rew); }
+  bt.innerHTML='<div class="bt-scene"><div class="end">'+(win
+    ? '<h2>🎉 ボスを たおした！</h2><p>'+rewardLine(rew)+'</p>'
+    : '<h2>ぜんめつ…</h2><p>パーティを そだてて もういちど ちょうせんしよう。</p>')
+    +'<button class="btn" onclick="quitBattle()">もどる</button></div></div>';
+}
+function showStageClear(band, ult, rew){
+  var sparks="";
+  for(var i=0;i<16;i++){ var ang=i/16*6.283, x=50+Math.cos(ang)*(30+12*(i%3)), y=44+Math.sin(ang)*(28+11*(i%3));
+    sparks+='<span class="spark" style="left:'+x.toFixed(1)+'%;top:'+y.toFixed(1)+'%;animation-delay:'+(i*0.05).toFixed(2)+'s">'+(i%3===0?"⭐":i%3===1?"✨":"🌟")+'</span>'; }
+  document.getElementById("battle").innerHTML=
+    '<div class="clear-scene'+(ult?" ult":"")+'"><div class="clear-ribbon"></div><div class="spark-wrap">'+sparks+'</div>'
+    +(ult?'<div class="clear-crown">👑</div>':'')
+    +'<div class="clear-badge">'+(band?band.stars:"")+'</div>'
+    +'<div class="clear-title">'+(ult?"ぜんステージ せいは！！":"「"+(band?band.name:"")+"」クリア！")+'</div>'
+    +'<div class="clear-sub">'+(ult?"きみは ずかんバトルの おうじゃだ！":st.boss.jaName+"を たおして このエリアを せいは！")+'<br>'+rewardLine(rew)+'</div>'
+    +'<button class="btn" onclick="quitBattle()">もどる</button></div>';
+}
+function log(t){ var el=document.getElementById("log"); if(el)el.textContent=t; }
+function quitBattle(){
+  document.getElementById("battle").style.display="none";
+  document.getElementById("battle").innerHTML="";
+  document.getElementById("home").style.display="block";
+}
+loadAll().then(function(){
+  if(!PROF){ document.getElementById("home").innerHTML='<div class="card" style="text-align:center;margin-top:20px"><p>まずは ポータルで プロフィールを えらんでね。</p><a class="btn" href="./index.html" style="display:inline-block;text-decoration:none;margin-top:8px">← ポータルへ</a></div>'; return; }
+  renderHome();
+}).catch(function(e){ renderHome(); });
+</script>
+</body>
+</html>
