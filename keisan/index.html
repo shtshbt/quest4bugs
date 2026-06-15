@@ -400,10 +400,10 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
   mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合",
-  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう"};
+  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", noudo:"濃度", tabibito:"旅人算", hiritsu:"比"};
 var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
-var K5DEV=["wasa","jikan","kakebun"], K10DEV=[];  /* 発展演習(コース別) */
-var LVL_CATS={mix:1,kufuu:1,deci:1,frac:1,warizan:1,wasa:1,jikan:1,kakebun:1};  /* 適応レベル対象 */
+var K5DEV=["wasa","jikan","kakebun"], K10DEV=["noudo","tabibito","hiritsu"];  /* 発展演習(コース別) */
+var LVL_CATS={mix:1,kufuu:1,deci:1,frac:1,warizan:1,wasa:1,jikan:1,kakebun:1,noudo:1,tabibito:1,hiritsu:1};  /* 適応レベル対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
 
@@ -1546,6 +1546,286 @@ function gKakebun(lv){
   // フォールバック
   return {cat:cat,kind:"num",text:"1こ 30円の あめを 4こ かいます。ぜんぶで いくら？",say:null,ans:120};
 }
+function gNoudo(lv){
+  if(lv==null)lv=ri(1,10);
+  var t="", ans=0;
+  for(var iter=0;iter<200;iter++){
+    if(lv<=2){
+      // 食塩の量: x%の食塩水yg中の食塩は何g？ ans=x*y/100
+      var x=ri(5,25);
+      var y=ri(1,6)*100;
+      if((x*y)%100!==0) continue;
+      ans=x*y/100;
+      if(ans<=0) continue;
+      t=x+"% の食塩水 "+y+"g の中に、食塩は何 g とけている？";
+    }
+    else if(lv<=4){
+      // 濃度を求める: 食塩ag を 水bg にとかす→濃度何%？ ans=100*a/(a+b)
+      var a=ri(5,60);
+      var b=ri(40,300);
+      var denom=a+b;
+      if((100*a)%denom!==0) continue;
+      ans=100*a/denom;
+      if(ans<=0||ans>=100) continue;
+      t="食塩 "+a+"g を 水 "+b+"g にとかしました。濃度は何 % ？";
+    }
+    else if(lv<=6){
+      // 加水 or 加塩
+      if(Math.random()<0.5){
+        // x%の食塩水ag に 水bg を加える→何%？
+        var x=ri(5,25), a=ri(1,5)*100, b=ri(1,5)*50;
+        if((x*a)%100!==0) continue;
+        var salt=x*a/100;
+        var denom=a+b;
+        if((100*salt)%denom!==0) continue;
+        ans=100*salt/denom;
+        if(ans<=0||ans>=100) continue;
+        t=x+"% の食塩水 "+a+"g に 水 "+b+"g を加えました。濃度は何 % ？";
+      } else {
+        // x%の食塩水ag に 食塩cg を加える→何%？
+        var x=ri(5,25), a=ri(1,5)*100, c=ri(5,60);
+        if((x*a)%100!==0) continue;
+        var salt=x*a/100;
+        var denom=a+c;
+        if((100*(salt+c))%denom!==0) continue;
+        ans=100*(salt+c)/denom;
+        if(ans<=0||ans>=100) continue;
+        t=x+"% の食塩水 "+a+"g に 食塩 "+c+"g を加えました。濃度は何 % ？";
+      }
+    }
+    else if(lv<=8){
+      // 2液混合: x%ag と y%bg を混ぜる→何%？ ans=(x*a+y*b)/(a+b)
+      var x=ri(3,20), y=ri(3,20);
+      if(x===y) continue;
+      var a=ri(1,5)*100, b=ri(1,5)*100;
+      if((x*a)%100!==0 || (y*b)%100!==0) continue;
+      var denom=a+b;
+      var num=x*a+y*b;
+      if(num%denom!==0) continue;
+      ans=num/denom;
+      if(ans<=0||ans>=100) continue;
+      t=x+"% の食塩水 "+a+"g と "+y+"% の食塩水 "+b+"g を混ぜました。濃度は何 % ？";
+    }
+    else {
+      // 蒸発 or 逆算(加水で薄める)
+      if(Math.random()<0.5){
+        // x%ag から 水bg を蒸発→何%？(食塩不変)
+        var x=ri(5,20), a=ri(2,6)*100, b=ri(1,4)*50;
+        if(b>=a) continue;
+        if((x*a)%100!==0) continue;
+        var salt=x*a/100;
+        var denom=a-b;
+        if(denom<=salt) continue; // 水が残る(濃度<100)
+        if((100*salt)%denom!==0) continue;
+        ans=100*salt/denom;
+        if(ans<=0||ans>=100) continue;
+        t=x+"% の食塩水 "+a+"g から 水 "+b+"g を蒸発させました。濃度は何 % ？";
+      } else {
+        // x%ag を y%にするには 水を何g 加える？
+        var x=ri(8,25);
+        var y=ri(2,x-1); // 薄めるので y<x
+        var a=ri(1,5)*100;
+        if((x*a)%100!==0) continue;
+        var salt=x*a/100;
+        if((salt*100)%y!==0) continue;
+        var newMass=salt*100/y;
+        ans=newMass-a;
+        if(ans<=0) continue;
+        t=x+"% の食塩水 "+a+"g を "+y+"% にするには、水を何 g 加えればよい？";
+      }
+    }
+    break;
+  }
+  // fallback (well-posed)
+  if(!t){
+    ans=20; t="10% の食塩水 200g の中に、食塩は何 g とけている？";
+  }
+  return {cat:"noudo",kind:"num",text:t,say:null,ans:ans};
+}
+function gTabibito(lv){
+  if(lv==null) lv=ri(1,10);
+  var NAMES=["太郎","花子","ゆうき","さくら","けんた","あきら"];
+  var t="", ans=0, say=null;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv===1||lv===2){
+      // 出会い算: Dm はなれた2人が向かい合う→何分後に出会う ans=D/(v1+v2)
+      var v1=ri(2,12)*(lv===1?5:10);   // m/分
+      var v2=ri(2,12)*(lv===1?5:10);
+      var minute=ri(2,(lv===1?9:15));
+      var sum=v1+v2;
+      var D=sum*minute;                // 割り切れるよう逆算
+      ans=minute;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"が "+D+"m はなれて います。"+n1+"は 分速"+v1+"m、"+n2+"は 分速"+v2+"m で 向かい合って 進みます。何分後に 出会う？";
+    }
+    else if(lv===3||lv===4){
+      // 追いつき算: Dm先を行く人を v1(後)>v2(前) で追う ans=D/(v1-v2)
+      var lo=(lv===3?2:4);
+      var v2=ri(lo,10)*5;        // 前の人 m/分
+      var dv=ri(2,10)*5;         // 速さの差
+      var v1=v2+dv;              // 後ろの人(速い)
+      var minute=ri(2,(lv===3?9:14));
+      var D=dv*minute;          // 逆算で割り切れる
+      ans=minute;
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t=n2+"が "+D+"m 先を 分速"+v2+"m で 進んでいます。"+n1+"が 同じ方向に 分速"+v1+"m で 追いかけます。何分後に 追いつく？";
+    }
+    else if(lv===5){
+      // 円周・逆回り→出会い ans=L/(v1+v2)
+      var v1=ri(2,12)*5, v2=ri(2,12)*5;
+      var minute=ri(2,10);
+      var sum=v1+v2;
+      var L=sum*minute;
+      ans=minute;
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t="まわりが "+L+"m の 池を、"+n1+"と "+n2+"が 同じ場所から 反対向きに 進みます。"+n1+"は 分速"+v1+"m、"+n2+"は 分速"+v2+"m。何分後に はじめて 出会う？";
+    }
+    else if(lv===6){
+      // 円周・同回り→追い越し ans=L/(v1-v2)
+      var v2=ri(2,9)*5;
+      var dv=ri(2,9)*5;
+      var v1=v2+dv;
+      var minute=ri(2,10);
+      var L=dv*minute;
+      ans=minute;
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t="まわりが "+L+"m の 池を、"+n1+"と "+n2+"が 同じ場所から 同じ向きに 進みます。"+n1+"は 分速"+v1+"m、"+n2+"は 分速"+v2+"m。"+n1+"が "+n2+"に はじめて 追いつくのは 何分後？";
+    }
+    else if(lv===7){
+      // 往復: 同じ道Dを行きv1・帰りv2、それぞれ整数分→合計分
+      var v1=ri(2,10)*10, v2=ri(2,10)*10;
+      var g=gcd(v1,v2);
+      var D=v1*v2/g*ri(1,4);   // v1,v2両方で割り切れる距離
+      var tt1=D/v1, tt2=D/v2;
+      if(tt1!==Math.floor(tt1)||tt2!==Math.floor(tt2)) continue;
+      ans=tt1+tt2;
+      if(ans<=0) continue;
+      var n1=pick(NAMES);
+      t=n1+"が 家から "+D+"m 先の 公園へ 行って 帰ります。行きは 分速"+v1+"m、帰りは 分速"+v2+"m。往復で 何分 かかる？";
+    }
+    else if(lv===8){
+      // 出会いまでに進んだ距離を問う = v1×時間
+      var v1=ri(3,12)*5, v2=ri(3,12)*5;
+      var minute=ri(3,12);
+      var sum=v1+v2;
+      var D=sum*minute;
+      ans=v1*minute;     // n1が出会うまでに進んだ距離
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t=n1+"と "+n2+"が "+D+"m はなれて 向かい合って 進みます。"+n1+"は 分速"+v1+"m、"+n2+"は 分速"+v2+"m。出会うまでに "+n1+"が 進む 道のりは 何m？";
+    }
+    else if(lv===9){
+      // 距離逆算: 速さの和×出会い時間=はじめの距離 ans=(v1+v2)*t
+      var v1=ri(4,15)*5, v2=ri(4,15)*5;
+      var minute=ri(4,15);
+      ans=(v1+v2)*minute;
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t=n1+"は 分速"+v1+"m、"+n2+"は 分速"+v2+"m で 向かい合って 進み、"+minute+"分後に 出会いました。2人は はじめ 何m はなれて いた？";
+    }
+    else { // lv===10
+      // 相手の速さ逆算: D=(v1+v2)*t → v2 = D/t - v1
+      var v1=ri(4,15)*5;
+      var v2=ri(4,15)*5;
+      var minute=ri(4,12);
+      var D=(v1+v2)*minute;
+      ans=v2;            // 相手の速さ(分速 m)
+      if(ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t=n1+"と "+n2+"が "+D+"m はなれて 向かい合って 進み、"+minute+"分後に 出会いました。"+n1+"は 分速"+v1+"m です。"+n2+"の 速さは 分速 何m？";
+    }
+    break;
+  }
+  return {cat:"tabibito", kind:"num", text:t, say:say, ans:ans};
+}
+function gHiritsu(lv){
+  if(lv==null) lv=ri(1,10);
+  var ITEMS=["あめ","シール","えんぴつ","ビー玉","おはじき","カード"];
+  var t="", ans=0, say=null;
+
+  for(var tries=0; tries<200; tries++){
+    if(lv===1||lv===2){
+      // 比例: 既約の比 a:b。一方が given個 → もう一方は？
+      var a=ri(1,(lv===1?5:9)), b=ri(1,(lv===1?5:9));
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(2,(lv===1?6:9));
+      var askA = Math.random()<0.5;       // true: 赤(a側)を与えて青を問う
+      var givenVal = askA ? a*k : b*k;
+      ans = askA ? b*k : a*k;
+      if(ans<=0||givenVal<=0) continue;
+      t="赤と青の おはじきの 比は "+a+":"+b+"。"+(askA?"赤":"青")+"が "+givenVal+"個の とき、"+(askA?"青":"赤")+"は なん個？";
+    }
+    else if(lv===3||lv===4){
+      // 比例配分(2): 全部N個を a:b に分ける→おおい/すくない方
+      var a=ri(1,(lv===3?4:7)), b=ri(1,(lv===3?4:7));
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(2,(lv===3?8:12));
+      var N=(a+b)*k, partA=a*k, partB=b*k;
+      var askBig = Math.random()<0.5;
+      var bigPart=Math.max(partA,partB), smallPart=Math.min(partA,partB);
+      ans = askBig?bigPart:smallPart;
+      if(ans<=0) continue;
+      t=pick(ITEMS)+"が ぜんぶで "+N+"個。これを "+a+":"+b+" に分けます。"+(askBig?"おおい":"すくない")+"ほうは なん個？";
+    }
+    else if(lv===5||lv===6){
+      // 比例配分(3): N を a:b:c に分ける→ある1グループ
+      var a=ri(1,(lv===5?3:5)), b=ri(1,(lv===5?3:5)), c=ri(1,(lv===5?3:5));
+      var k=ri(2,(lv===5?6:9));
+      var N=(a+b+c)*k, rs=[a,b,c], which=ri(0,2);
+      ans=rs[which]*k;
+      if(ans<=0) continue;
+      var nm=["1ばんめ","2ばんめ","3ばんめ"][which];
+      t=pick(ITEMS)+"が ぜんぶで "+N+"個。これを "+a+":"+b+":"+c+" に分けます。"+nm+"の グループは なん個？";
+    }
+    else if(lv===7||lv===8){
+      // 連比: A:B=a:b1 と B:C=b2:c（共通項B）から A:C を合成して片方を問う
+      var a=ri(1,(lv===7?4:6)), b1=ri(2,(lv===7?5:7));
+      var b2=ri(2,(lv===7?5:7)), c=ri(1,(lv===7?4:6));
+      var ra=a*b2, rc=b1*c;               // 合成 A:C = ra:rc
+      var k=ri(2,(lv===7?5:8));
+      var askA = Math.random()<0.5;       // true: A側を与えてCを問う
+      var givenVal = askA ? ra*k : rc*k;
+      ans = askA ? rc*k : ra*k;
+      if(ans<=0) continue;
+      t="A:B = "+a+":"+b1+"、 B:C = "+b2+":"+c+" です。"+(askA?"A":"C")+"が "+givenVal+"個の とき、"+(askA?"C":"A")+"は なん個？";
+    }
+    else { // lv 9,10
+      var twoStep = (lv===10) && (Math.random()<0.5);
+      if(!twoStep){
+        // 全体の a/b が given個 → 全体は？（whole を b の倍数にして整数保証）
+        var b=ri(2,(lv===9?5:8)), a=ri(1,b-1);
+        var whole=b*ri(2,(lv===9?8:12));
+        var given=whole*a/b;
+        if(!Number.isInteger(given)||given<=0) continue;
+        ans=whole;
+        t=pick(ITEMS)+"ぜんたいの "+a+"/"+b+"が "+given+"個です。ぜんたいは なん個？";
+      } else {
+        // 2ステップ: 全体Nのa/bを使った→のこり = N*(b-a)/b
+        var b=ri(2,8), a=ri(1,b-1);
+        var N=b*ri(3,12);
+        ans=N-N*a/b;
+        if(!Number.isInteger(ans)||ans<=0) continue;
+        t=pick(ITEMS)+"が "+N+"個 あります。ぜんたいの "+a+"/"+b+"を つかいました。のこりは なん個？";
+      }
+    }
+    if(ans>0 && Number.isInteger(ans)) break;
+  }
+  return {cat:"hiritsu",kind:"num",text:t,say:say,ans:ans};
+}
 function genBy(cat,p,lv){
   if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="hissan")return gHissan(p,lv);
@@ -1560,6 +1840,9 @@ function genBy(cat,p,lv){
   if(cat==="wasa")return gWasa(lv);
   if(cat==="jikan")return gJikan(lv);
   if(cat==="kakebun")return gKakebun(lv);
+  if(cat==="noudo")return gNoudo(lv);
+  if(cat==="tabibito")return gTabibito(lv);
+  if(cat==="hiritsu")return gHiritsu(lv);
   if(cat==="machigai")return gMachi();
   return genBy(pick(["mix","kufuu","deci","frac","machigai"]),p);
 }
@@ -1719,8 +2002,8 @@ function renderQ(q){
   h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
     +(q.say?'<button class="spk" onclick="saySafe()">🔊 よむ</button>':"")+'</div>';
   if(q.kind==="num"){
-    var isWord=K5DEV.indexOf(q.cat)>=0;  /* 文章題(5歳発展)はふりがな＋「こたえ」表示 */
-    var qt=isWord?furi5(q.text):q.text;
+    var isWord=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);  /* 文章題は「こたえ」表示。ふりがなは5歳発展のみ */
+    var qt=(K5DEV.indexOf(q.cat)>=0)?furi5(q.text):q.text;
     h+='<div class="qcard"><div class="qtext'+(isWord?" word":(q.text.length>9?" mid":""))+'">'+qt+(isWord?'':' ＝')+'</div>'
       +'<div>'+(isWord?'<span class="note">こたえ </span>':'')+'<span class="ansline" id="ansl">？</span></div>'
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
