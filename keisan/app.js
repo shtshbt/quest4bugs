@@ -153,7 +153,13 @@ function say(t){
 
 /* ---------- storage: keisanの本体は1つの「book」に保持し、
    プロフィール一覧は全ゲーム共通の共有レジストリ(QuestSave.profiles)と同期する ---------- */
-function save(){ if(window.QuestSave) QuestSave.save("keisan","_book",DB); }
+/* 各プロフィールを独立した kv エントリ "keisan <id>" に保存する。
+   旧来は全プロフィールを単一 "_book" にまとめていたため、複数端末で別アカウントを触ると
+   last-write-wins で他アカウントの進捗が巻き戻る不具合があった。per-profile 化して各々が
+   独立したタイムスタンプでマージされるようにする（他ゲーム eitango/kanji/battle と同じ構造）。 */
+function saveProfile(p){ if(p&&p.id&&window.QuestSave) QuestSave.save("keisan", p.id, p); }
+function saveAll(){ if(window.QuestSave) DB.profiles.forEach(saveProfile); }
+function save(){ saveProfile(P()); }   /* 通常保存＝現在のアカウントのみ（他アカウントのタイムスタンプを動かさない） */
 function profIcon(type){ return type==="k5"?"🐞":(type==="k10"?"🪲":"🐛"); }
 /* type未設定（他ゲームで作られた子）でもアバター描画が壊れないようフォールバック */
 function av(p){ return (p&&AV[p.type])||{n:"",t:"tentou",c1:"#9DB17C",c2:"#5B6B45"}; }
@@ -187,9 +193,9 @@ function newProfile(name,type){
 }
 function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}};
   /* 旧・ゲーム別amberを共有ウォレットへ一度だけ移行 */
-  if(window.QuestSave&&p.id&&p.coll.amber>0&&!p.coll.amberMig){ QuestSave.amberAdd(p.id,p.coll.amber); p.coll.amber=0; p.coll.amberMig=1; save(); /* 即保存して再移行(二重計上)を防ぐ */ }
+  if(window.QuestSave&&p.id&&p.coll.amber>0&&!p.coll.amberMig){ QuestSave.amberAdd(p.id,p.coll.amber); p.coll.amber=0; p.coll.amberMig=1; saveProfile(p); /* 当該プロフィールを即保存して再移行(二重計上)を防ぐ */ }
   /* 既存catchのサイズを実寸レンジへ一度だけ移行 */
-  if(window.Q4BReward&&Q4BReward.migrateSizes&&Q4BReward.migrateSizes(p.coll)) save();
+  if(window.Q4BReward&&Q4BReward.migrateSizes&&Q4BReward.migrateSizes(p.coll)) saveProfile(p);
 }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
@@ -827,8 +833,8 @@ function doImp(){
     var d=JSON.parse($("impT").value);
     if(!d||!d.profiles||!Array.isArray(d.profiles)) throw 0;
     DB=d; if(!DB.profiles)DB.profiles=[];
-    if(window.QuestSave){ QuestSave.profiles().then(function(reg){ reconcile(reg); save(); alert("復元しました"); showProfiles(); }); }
-    else { save(); alert("復元しました"); showProfiles(); }
+    if(window.QuestSave){ QuestSave.profiles().then(function(reg){ reconcile(reg); saveAll(); alert("復元しました"); showProfiles(); }); }
+    else { saveAll(); alert("復元しました"); showProfiles(); }
   }catch(e){alert("読み込めませんでした．文字列を確認してください");}
 }
 function resetAll(){
@@ -4110,22 +4116,37 @@ function finishTimed(){
 function boot(){
   app=$("app");
   if(!window.QuestSave){ DB={v:1,act:null,profiles:[]}; showNewProfile(); return; }
-  Promise.all([QuestSave.load("keisan","_book"),QuestSave.load("keisan","_legacy"),QuestSave.profiles()])
-    .then(function(r){
-      var book=r[0], legacy=r[1], reg=r[2]||[];
-      DB=book||legacy||{v:1,act:null,profiles:[]};
-      if(!DB.profiles)DB.profiles=[];
-      reconcile(reg);
-      var progressMigrated=normalizeAllProgress();
-      DB.act=QuestSave.currentProfile();
-      if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
-        if(DB.act)QuestSave.setCurrentProfile(DB.act); }
-      if((book!==DB||progressMigrated)&&DB.profiles.length)save(); // persist migrated/reconciled book once
-      /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
-      if(!DB.profiles.length)showNewProfile();
-      else if(!P())showProfiles();
-      else if(!P().type)chooseCourse(P());
-      else showHome();
-    });
+  /* 起動時に他端末の更新を自動取り込み（pull）してから読み込む */
+  var pull = QuestSave.syncDown ? QuestSave.syncDown().catch(function(){}) : Promise.resolve();
+  pull.then(function(){
+    return Promise.all([QuestSave.profiles(), QuestSave.load("keisan","_book"), QuestSave.load("keisan","_legacy")]);
+  }).then(function(r){
+    var reg=r[0]||[], book=r[1], legacy=r[2];
+    /* レジストリ各プロフィールの per-profile エントリ "keisan <id>" を読む */
+    return Promise.all(reg.map(function(rp){ return QuestSave.load("keisan", rp.id); }))
+      .then(function(parts){
+        DB={v:1, act:null, profiles:[]};
+        var migrated=false, bookById={};
+        if(book&&book.profiles)book.profiles.forEach(function(p){ if(p&&p.id)bookById[p.id]=p; });
+        reg.forEach(function(rp,i){
+          var p=parts[i];
+          if(!p&&bookById[rp.id]){ p=bookById[rp.id]; migrated=true; }   /* 旧_book→per-profile へ移行 */
+          if(p)DB.profiles.push(p);
+        });
+        /* レジストリが空（初回・レガシー）なら旧_book/legacy の profiles でシード */
+        if(reg.length===0){ var src=book||legacy; if(src&&src.profiles){ DB.profiles=src.profiles.slice(); migrated=true; } }
+        reconcile(reg);
+        var progressMigrated=normalizeAllProgress();
+        DB.act=QuestSave.currentProfile();
+        if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
+          if(DB.act)QuestSave.setCurrentProfile(DB.act); }
+        if((migrated||progressMigrated)&&DB.profiles.length)saveAll(); // 移行/正規化分を per-profile で一度だけ書き出す
+        /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
+        if(!DB.profiles.length)showNewProfile();
+        else if(!P())showProfiles();
+        else if(!P().type)chooseCourse(P());
+        else showHome();
+      });
+  });
 }
 boot();

@@ -159,7 +159,7 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.3.0"></script>
+<script src="../shared/storage.js?v=0.4.2"></script>
 <script src="../shared/bugs.js?v=0.3.0"></script>
 <script src="../shared/render.js?v=0.3.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
@@ -2305,7 +2305,9 @@ QuestSave.onStatus(function(st){ var c=$('hSync');
  else { c.style.display=''; c.textContent=(st==='synced')?'☁✓':((st==='syncing')?'☁…':'☁!'); }
  var sy=document.getElementById('syTx'); if(sy)sy.textContent=st });
 (function boot(){
- QuestSave.autoConnect().catch(function(){return null}).then(function(){
+ QuestSave.autoConnect().catch(function(){return null})
+ .then(function(){ return QuestSave.syncDown?QuestSave.syncDown().catch(function(){}):null; })  /* 起動時に他端末の更新を自動取り込み */
+ .then(function(){
   return QuestSave.load('kanji','_settings');
  }).then(function(cf){
   CFG=Object.assign({},DEF_CFG,cf||{});

@@ -119,7 +119,7 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 
   <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
 </div>
-<script src="./shared/storage.js?v=0.3.0"></script>
+<script src="./shared/storage.js?v=0.4.2"></script>
 <script src="./shared/bugs.js?v=0.3.0"></script>
 <script src="./shared/render.js?v=0.3.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
@@ -264,12 +264,13 @@ function renderDashboard(pid,name){
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
   Promise.all([
-    QuestSave.load("keisan","_book"),
+    QuestSave.load("keisan",pid),          /* 計算は per-profile に統一 */
     QuestSave.load("kanji",pid),
-    QuestSave.load("eitango",pid)
+    QuestSave.load("eitango",pid),
+    QuestSave.load("keisan","_book")        /* 移行前デバイス用フォールバック */
   ]).then(function(r){
-    var book=r[0],ks=r[1],es=r[2],kp=null,i;
-    if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
+    var kp=r[0],ks=r[1],es=r[2],book=r[3],i;
+    if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
     /* 琥珀は共有ウォレットが正。未移行(各ゲーム初回ロード前)の旧coll.amberだけ暫定加算 */
     var amber=(window.QuestSave&&QuestSave.amberOf)?QuestSave.amberOf(pid):0;
     var gCaught=0; /* 全ゲーム合計の捕獲数（重複ふくむ）→ 総合称号に使う */
@@ -370,7 +371,10 @@ function openProfEditor(id){
   });
 }
 loadCloudUI();
-renderProfiles();
+/* 起動時に他端末の更新を自動取り込み（pull）してからプロフィール／ダッシュボードを描画。
+   push は自動だが pull が従来手動だったため、他アカウントの数値が降りてこなかったのを解消。 */
+if(window.QuestSave&&QuestSave.syncDown){ QuestSave.syncDown().then(renderProfiles).catch(renderProfiles); }
+else { renderProfiles(); }
 </script>
 </body>
 </html>
