@@ -650,7 +650,6 @@ function lvTrendSection(p){
     var log=p.lvlog&&p.lvlog[c];
     if(!log||!log.length){
       var currentLv=clampLv(p.lv&&p.lv[c]);
-      if(currentLv<=1)return;
       log=[[todayStr(),currentLv]];
     }
     any=true;
@@ -671,9 +670,9 @@ function lvTrendSection(p){
       +poly+'<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="3" fill="'+cold+'"/></svg></div>';
   });
   if(!any)return '<div class="card"><h3>📈 レベルの すいい</h3>'
-    +'<p class="note">けいさんを といて Lvが あがると、ここに カテゴリごとの のびかたグラフが でるよ！（きょうから きろくスタート）</p></div>';
+    +'<p class="note">けいさんを とくと、ここに カテゴリごとの のびかたグラフが でるよ！（きょうから きろくスタート）</p></div>';
   return '<div class="card"><h3>📈 レベルの すいい</h3><div>'+rows+'</div>'
-    +'<p class="note">カテゴリごとの Lv1→10 の のびかた。点線は Lv10（マスター虫ゲット！）</p></div>';
+    +'<p class="note">通常カテゴリも発展カテゴリも対象。履歴がまだ少ないところは、いまのLvを点で表示します。</p></div>';
 }
 function showStats(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
@@ -821,6 +820,7 @@ function showProgress(){
   });
   h+='<div class="card"><h3>🎯 カテゴリ せいかいりつ</h3>'
     +(bars||'<p class="note">まだデータがないよ。ミッションをやってみよう！</p>')+'</div>';
+  h+=lvTrendSection(p);
   if(window.Q4BReward){ ensureColl(p);
     h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(p.coll.total)+'</div>'; }
   h+='</div>';
