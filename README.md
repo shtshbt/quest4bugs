@@ -1,7 +1,6 @@
 # quest4bugs
 
-子ども向け学習ゲーム集。GitHub Pages で公開。
-
+子ども向け学習ゲーム集。
 公開 URL: https://shtshbt.github.io/quest4bugs/
 
 ## 構成
