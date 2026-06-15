@@ -1884,6 +1884,24 @@ function calcMastered(keys){
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
+/* 学年内訳: その学年の文字を stageOfItem で 4段に分類して 🥚n 🐛n 🛡️n 🦋n を返す。
+   既存ロジック非依存・追加のみ。box0=卵🥚 / box1=幼虫🐛 / box2=蛹🛡️ / box>=3=成虫🦋(習得)。 */
+function stageBreakdown(keys){
+ var c=[0,0,0,0];
+ keys.forEach(function(key){
+  var st=stageOfItem(key);
+  var i = st>=3 ? 3 : (st<=0 ? 0 : st);  // 0/1/2/3+ の4区分
+  c[i]++;
+ });
+ return c;
+}
+function breakdownHTML(keys){
+ var c=stageBreakdown(keys), em=['🥚','🐛','🛡️','🦋'];
+ var parts=[];
+ for(var i=0;i<4;i++){ if(c[i]>0) parts.push(em[i]+c[i]); }
+ if(!parts.length) return '';
+ return '<div style="font-size:12px;opacity:.9;margin-top:3px;letter-spacing:1px">'+parts.join(' ')+'</div>';
+}
 /* ===== マスター虫（全習得限定）===== */
 function masterMet(sp){
  var key=sp.master.key, keys;
@@ -1964,6 +1982,7 @@ function renderProgress(){
   +'<div class="pgbar-label"><span>ひらがな</span><span>しゅうとく '+hPct+'%</span></div>'
   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
   +'<div class="pgbar-sub">マスター '+hr.mastered+'/'+hr.total+'じ</div>'
+  +breakdownHTML(hiraKeys)
   +'</div>';
  // 学年ごと
  grades.forEach(function(g){
@@ -1975,9 +1994,10 @@ function renderProgress(){
    +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>しゅうとく '+pct+'%</span></div>'
    +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+pct+'%"></div></div>'
    +'<div class="pgbar-sub">マスター '+r.mastered+'/'+r.total+'じ</div>'
+   +(locked?'':breakdownHTML(keys))
    +'</div>';
  });
- h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上</div>'
+ h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上<br>🥚たまご 🐛ようちゅう 🛡️さなぎ 🦋せいちゅう（しゅうとく）</div>'
  +'</div>';
  if(window.Q4BReward&&ST.coll)h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(ST.coll.total)+'</div>';
  s.innerHTML=h;
@@ -2008,11 +2028,11 @@ function renderRange(){ var s=$('scr-range');
      return '<button class="btn sub mini" style="margin:0;'+(RANGEFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':'')+'" onclick="RANGEFMT=\''+f[0]+'\';renderRange()">'+f[1]+'</button>'; }).join('')
    +'</div>';
  function rangeBar(keys){ var rr=calcMastered(keys); return '<div class="pgbar-wrap" style="height:7px;margin:7px 0 2px"><div class="pgbar-fill" style="width:'+rr.pct+'%"></div></div><div style="font-size:11px;opacity:.85">しゅうとく '+rr.mastered+'/'+rr.total+'（'+rr.pct+'%）</div>'; }
- if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ'+rangeBar(HIRA.map(function(c){return 'h:'+c}))+'</button>';
+ if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ'+rangeBar(HIRA.map(function(c){return 'h:'+c}))+breakdownHTML(HIRA.map(function(c){return 'h:'+c}))+'</button>';
  var _anyLock=false;
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
   var _op=unOK('u'+g); if(!_op)_anyLock=true;
-  h+='<button class="btn'+(_op?'':' soil')+'" id="rU'+g+'"'+(_op?'':' style="opacity:.5"')+'>'+(_op?'':'🔒 ')+'かんじ '+g+'ねんせい'+(_op?rangeBar(UNITS[g].map(function(c){return 'k:'+c})):'')+'</button>';
+  h+='<button class="btn'+(_op?'':' soil')+'" id="rU'+g+'"'+(_op?'':' style="opacity:.5"')+'>'+(_op?'':'🔒 ')+'かんじ '+g+'ねんせい'+(_op?(rangeBar(UNITS[g].map(function(c){return 'k:'+c}))+breakdownHTML(UNITS[g].map(function(c){return 'k:'+c}))):'')+'</button>';
  });
  if(_anyLock)h+='<div class="banner" style="margin-top:8px">🏆 チャレンジ(にんていテスト)に ごうかくすると あたらしい学年が ひらくよ！</div>'
    +'<button class="btn gold" id="rChal">🏆 チャレンジで はんいを ひろげよう！</button>';
