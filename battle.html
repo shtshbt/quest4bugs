@@ -279,7 +279,7 @@
   <div id="battle"></div>
 </div>
 
-<script src="./shared/storage.js?v=0.3.0"></script>
+<script src="./shared/storage.js?v=0.4.2"></script>
 <script src="./shared/bugs.js?v=0.3.0"></script>
 <script src="./shared/render.js?v=0.3.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
@@ -371,8 +371,13 @@ function bossReachOpen(r){
   if(r.type==="none") return REACH.kanji>=9.5 && REACH.keisan>=9.5 && REACH.eitango>=9.5;
   return (REACH[r.type]||0) >= bandThr(r.stage);
 }
-function unlockedCount(){ var n=0,i; for(i=0;i<B.roster.length;i++) if(bossReachOpen(B.roster[i]))n++; return n; }
-function firstReachLocked(){ var i; for(i=0;i<B.roster.length;i++) if(!bossReachOpen(B.roster[i])) return B.roster[i]; return null; }
+/* 撃破順ゲート: 前のボスを倒したか（No.1は常にOK） */
+function prevCleared(r){ return !!r && (r.stage===1 || !!CLEARED[r.stage-1]); }
+/* 真の解禁＝到達度（属性）と撃破順の両立。属性だけ満たした先のボスを飛び級で開けない（まだら解放の防止） */
+function bossOpen(r){ return prevCleared(r) && bossReachOpen(r); }
+function unlockedCount(){ var n=0,i; for(i=0;i<B.roster.length;i++) if(bossOpen(B.roster[i]))n++; return n; }
+/* 次に挑む対象＝まだ倒していない最初のボス（撃破順のフロンティア） */
+function nextBoss(){ var i,r; for(i=0;i<B.roster.length;i++){ r=B.roster[i]; if(!CLEARED[r.stage]) return r; } return null; }
 /* ====== 目標レンジ・誕生日・生まれ月設定UI ====== */
 function goalLabels(age){
   var g=expGrade(age);
@@ -460,13 +465,14 @@ function loadAll(){
     PROFOBJ=null; if(plist)for(var pi=0;pi<plist.length;pi++)if(plist[pi].id===PROF)PROFOBJ=plist[pi];
     if(!PROF) return null;
     return Promise.all([
-      QuestSave.load("keisan","_book"),
+      QuestSave.load("keisan",PROF),       /* 計算は per-profile（"keisan <id>"）に統一 */
       QuestSave.load("kanji",PROF),
       QuestSave.load("eitango",PROF),
-      QuestSave.load("battle",PROF)
+      QuestSave.load("battle",PROF),
+      QuestSave.load("keisan","_book")     /* 移行前デバイス用フォールバック */
     ]).then(function(r){
-      var book=r[0],ks=r[1],es=r[2],bt=r[3]||{};
-      var kp=null,i; if(book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===PROF)kp=book.profiles[i];
+      var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4];
+      var i; if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===PROF)kp=book.profiles[i];
       var ids={}, caught=0;
       function add(c){ if(c)Object.keys(c).forEach(function(id){ids[id]=1;}); }
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
@@ -561,14 +567,17 @@ var BANDS=[
   {lo:41,hi:50,name:"おうじゃの いただき",stars:"★★★★★",col:"#6b1020"}
 ];
 function renderHome(){
-  var unlocked=unlockedCount(), nx=firstReachLocked();
+  var unlocked=unlockedCount(), nx=nextBoss();
   var into=100;
   if(nx){ var _thr=(nx.type==="none")?9.5:bandThr(nx.stage),
             _cur=(nx.type==="none")?Math.min(REACH.kanji,REACH.keisan,REACH.eitango):(REACH[nx.type]||0);
           into=Math.round(Math.min(1,_cur/_thr)*100); }
   document.getElementById("ghfill").style.width = into+"%";
+  var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの属性到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
   document.getElementById("ghmeta").textContent = nx
-    ? "解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）が ひらくよ！"
+    ? (nxOpen
+        ? "解禁ずみ "+unlocked+" 体 ／ No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）に いどめるよ！"
+        : "解禁ずみ "+unlocked+" 体 ／ べんきょうを すすめると No."+nx.stage+"（"+(TYPE_JA[nx.type||"none"]||"")+"）が ひらくよ！")
     : "ぜんぶ解禁ずみ！あとは たおすだけ！";
   /* 🎯 到達度バー＋次ボス目標＋📖解禁マップ＋🎂誕生日演出 */
   var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
@@ -614,27 +623,29 @@ function renderHome(){
     rs.forEach(function(r){
       var sp=byId[r.id];
       var progOpen=bossReachOpen(r);                        /* 年齢到達度ゲート(per-attribute) */
-      var prevOk=(r.stage===1)||!!CLEARED[r.stage-1];        /* 撃破制: 前のボスを倒した */
-      var fight=progOpen&&prevOk;                            /* 戦える */
+      var prevOk=prevCleared(r);                            /* 撃破制: 前のボスを倒した */
+      var open=progOpen&&prevOk;                            /* 解禁＝到達度＋撃破順の両立 */
       var isFront=(nx&&r.stage===nx.stage);
       var nem = r.predator ? (r.final?'<div class="nemesis final">さいきょう！</div>':'<div class="nemesis">天敵！</div>') : '';
       var trs = r.predator ? B.bossTraits(r) : [];
       var trChip = trs.map(function(t){return ' <span class="trait-chip sm">'+t.icon+t.name+'</span>';}).join('');
-      var d=document.createElement("div"); d.className="bcell"+(r.predator?" pred":"")+(progOpen?"":" locked")+(isFront&&!progOpen?" frontier":"");
-      if(progOpen){
-        /* 進捗達成→ボス公開。撃破制を満たせば「たたかう」、未なら「前を倒そう」 */
+      var d=document.createElement("div"); d.className="bcell"+(r.predator?" pred":"")+(open?"":" locked")+(isFront&&!open?" frontier":"");
+      if(open){
+        /* 撃破順＋到達度の両方を満たした→ボス公開＋「たたかう」 */
         d.innerHTML='<span class="stg">No.'+r.stage+'</span>'
           +(r.predator?(r.final?'<span class="pin">👑</span>':'<span class="pin">🦂</span>'):'')
           +'<div class="art">'+R.deco(sp,false)+'</div>'+nem+'<div class="bn">'+sp.jaName+'</div>'
           +'<div><span class="badge b-'+(r.type||"none")+'">'+TYPE_JA[r.type||"none"]+'</span>'+trChip+'</div>'
-          +(fight?'<button>たたかう</button>':'<div class="lk">▶ まえの ボスを たおそう</div>');
-        if(fight) d.querySelector("button").onclick=function(){ startBattle(r); };
+          +'<button>たたかう</button>';
+        d.querySelector("button").onclick=function(){ startBattle(r); };
       } else {
-        /* 進捗未達→シルエット */
+        /* 未解禁→シルエット。撃破順が未到達なら「前を倒そう」、到達度が未達なら「べんきょうで解禁」 */
+        var why = !prevOk ? '🔒 まえの ボスを たおそう'
+                          : (isFront?'▶ つぎ！ べんきょうで 解禁':'🔒 べんきょうで 解禁');
         d.innerHTML='<span class="stg">No.'+r.stage+'</span>'
           +'<div class="art">'+R.deco(sp,false)+'</div>'+nem
           +'<div class="bn">？？？</div>'
-          +(isFront?'<div class="lk">▶ つぎ！ べんきょうで 解禁</div>':'<div class="lk">🔒 べんきょうで 解禁</div>');
+          +'<div class="lk">'+why+'</div>';
       }
       body.appendChild(d);
     });
@@ -875,7 +886,9 @@ function quitBattle(){
   document.getElementById("battle").innerHTML="";
   document.getElementById("home").style.display="block";
 }
-loadAll().then(function(){
+/* 起動時に他端末の更新を自動取り込み（pull）してから描画。push は自動・pull も自動で双方向同期。 */
+(window.QuestSave&&QuestSave.syncDown?QuestSave.syncDown():Promise.resolve())
+  .then(loadAll).then(function(){
   if(!PROF){ document.getElementById("home").innerHTML='<div class="card" style="text-align:center;margin-top:20px"><p>まずは ポータルで プロフィールを えらんでね。</p><a class="btn" href="./index.html" style="display:inline-block;text-decoration:none;margin-top:8px">← ポータルへ</a></div>'; return; }
   renderHome();
 }).catch(function(e){ renderHome(); });
