@@ -859,10 +859,17 @@ function startReview(){
 
 /* ================= 進捗バー ================= */
 function calcMastered(keys){
- // しゅうとく = その字の 全スキルが 成虫(box>=3)。pct は 単純な習得率(全体数のうち)。
+ // しゅうとく = 「よみ」を おぼえた字(box>=3)。＝読めるようになった字の割合。直感的で ちゃんと動く指標。
+ // （旧定義は 全スキルbox3＝box が1日1回しか上がらないため ほぼ永久に0%だった）
+ var total=keys.length, mastered=0;
+ keys.forEach(function(key){ if(rec(key,'y').s>=3)mastered++; });
+ return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
+}
+function calcFullMastered(keys){
+ // ぜんぶマスター = その字の 全スキル(よみ/熟語/かき/じゅくご/送り)が 成虫(box>=3)。マスター虫の条件。
  var total=keys.length, mastered=0;
  keys.forEach(function(key){
-  var sks=skillsOf(key);  // 解放ゲートとは独立に、全スキルで判定
+  var sks=skillsOf(key);
   if(sks.every(function(sk){ return rec(key,sk).s>=3 }))mastered++;
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
@@ -872,7 +879,7 @@ function calcMastered(keys){
 function stageBreakdown(keys){
  var c=[0,0,0,0];
  keys.forEach(function(key){
-  var st=stageOfItem(key);
+  var st=rec(key,'y').s;   // 「よみ」の進み具合で4区分（headlineの しゅうとく% と整合）
   var i = st>=3 ? 3 : (st<=0 ? 0 : st);  // 0/1/2/3+ の4区分
   c[i]++;
  });
@@ -890,7 +897,7 @@ function masterMet(sp){
  var key=sp.master.key, keys;
  if(key==='hira') keys=HIRA.map(function(c){return 'h:'+c});
  else { var g=parseInt(key.slice(1),10); if(!UNITS[g]||!UNITS[g].length)return false; keys=UNITS[g].map(function(c){return 'k:'+c}); }
- var r=calcMastered(keys); return r.total>0 && r.mastered>=r.total;
+ var r=calcFullMastered(keys); return r.total>0 && r.mastered>=r.total;
 }
 function checkMasters(){
  if(!window.Q4BReward||!ST||!ST.coll)return;
@@ -959,28 +966,28 @@ function renderProgress(){
  +'<div class="small" style="margin-bottom:12px">'+(ST.progressSummary||'')+'</div>';
  // ひらがな行
  var hiraKeys=HIRA.map(function(c){return 'h:'+c});
- var hr=calcMastered(hiraKeys);
+ var hr=calcMastered(hiraKeys), hf=calcFullMastered(hiraKeys);
  var hPct=hr.pct;
  h+='<div class="pgbar-row">'
   +'<div class="pgbar-label"><span>ひらがな</span><span>しゅうとく '+hPct+'%</span></div>'
   +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+hPct+'%"></div></div>'
-  +'<div class="pgbar-sub">マスター '+hr.mastered+'/'+hr.total+'じ</div>'
+  +'<div class="pgbar-sub">よみ '+hr.mastered+'/'+hr.total+'じ　・　🎓ぜんぶマスター '+hf.mastered+'/'+hf.total+'じ</div>'
   +breakdownHTML(hiraKeys)
   +'</div>';
  // 学年ごと
  grades.forEach(function(g){
   var keys=UNITS[g].map(function(c){return 'k:'+c});
-  var r=calcMastered(keys);
+  var r=calcMastered(keys), rf=calcFullMastered(keys);
   var pct=r.pct;
   var locked=!unOK('u'+g);
   h+='<div class="pgbar-row"'+(locked?' style="opacity:.5"':'')+'>'
    +'<div class="pgbar-label"><span>'+(locked?'🔒 ':'')+g+'ねんせい かんじ</span><span>しゅうとく '+pct+'%</span></div>'
    +'<div class="pgbar-wrap"><div class="pgbar-fill" style="width:'+pct+'%"></div></div>'
-   +'<div class="pgbar-sub">マスター '+r.mastered+'/'+r.total+'じ</div>'
+   +'<div class="pgbar-sub">よみ '+r.mastered+'/'+r.total+'じ　・　🎓ぜんぶマスター '+rf.mastered+'/'+rf.total+'じ</div>'
    +(locked?'':breakdownHTML(keys))
    +'</div>';
  });
- h+='<div class="small" style="margin-top:8px">マスター = よみ・かき・じゅくご など すべての スキルが ステージ4以上<br>🥚たまご 🐛ようちゅう 🟤さなぎ 🦋せいちゅう（しゅうとく）</div>'
+ h+='<div class="small" style="margin-top:8px">しゅうとく＝「よみ」を おぼえた字（🦋せいちゅう）。🎓ぜんぶマスター＝よみ・かき・じゅくご など <b>すべて</b>のスキルが せいちゅう（マスター虫の じょうけん）。<br>🥚たまご 🐛ようちゅう 🟤さなぎ 🦋せいちゅう（よみ しゅうとく）</div>'
  +'</div>';
  if(window.Q4BReward&&ST.coll)h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(ST.coll.total)+'</div>';
  s.innerHTML=h;
