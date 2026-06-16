@@ -329,7 +329,10 @@
   }
   /* 装飾版: ボス＝暗い背景＋金の二重枠、マスター＝淡金背景＋金枠。中身は少し縮めて枠内に収める。 */
   function decoSpecies(sp, shiny){
-    var kind = (sp&&sp.bossOnly) ? 'boss' : ((sp&&sp.masterOnly) ? 'master' : '');
+    /* 強調背景の統一: ボス(roster全種含む)=赤枠 / マスター=金枠 / SS(でんせつ)=紺金枠。
+       これで「背景テーマが無いボスがいる」不整合を解消（SSのボス種にも必ず枠が付く）。 */
+    var isBoss = !!(sp && (sp.bossOnly || (global.Q4B_BOSS_IDS && sp.id && global.Q4B_BOSS_IDS[sp.id])));
+    var kind = isBoss ? 'boss' : ((sp&&sp.masterOnly) ? 'master' : ((sp&&sp.rarity==='SS') ? 'ss' : ''));
     var full = speciesSVG(sp, shiny);
     if(!kind) return full;
     var inner = full.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
@@ -339,6 +342,11 @@
         +'<rect x="2" y="2" width="96" height="50" rx="14" fill="#3a0a18" opacity=".7"/>'
         +'<rect x="4" y="4" width="92" height="92" rx="12" fill="none" stroke="#E8B23A" stroke-width="2.5"/>'
         +'<rect x="7" y="7" width="86" height="86" rx="9" fill="none" stroke="#8a1530" stroke-width="1.4"/>';
+    } else if(kind==='ss'){
+      bg = '<rect x="2" y="2" width="96" height="96" rx="14" fill="#121a30"/>'
+        +'<rect x="2" y="2" width="96" height="50" rx="14" fill="#22305a" opacity=".75"/>'
+        +'<rect x="4" y="4" width="92" height="92" rx="12" fill="none" stroke="#F2D06B" stroke-width="2.6"/>'
+        +'<rect x="7" y="7" width="86" height="86" rx="9" fill="none" stroke="#7a5f1c" stroke-width="1.3"/>';
     } else {
       bg = '<rect x="2" y="2" width="96" height="96" rx="14" fill="#fdf3d6"/>'
         +'<rect x="4" y="4" width="92" height="92" rx="12" fill="none" stroke="#E0A32E" stroke-width="2.6"/>'

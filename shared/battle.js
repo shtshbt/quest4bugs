@@ -92,4 +92,7 @@
     TRAITS: TRAITS, bossTraits: bossTraits, hasTrait: hasTrait, bossPartySize: bossPartySize,
     INSECT_PARTY: INSECT_PARTY, PRED_PARTY: PRED_PARTY, DODGE_CHANCE: DODGE_CHANCE, DOKU_BONUS: DOKU_BONUS
   };
+  /* 全ボス種idを共有→render.deco が roster の全ボスに統一強調枠を付けられる（背景テーマ不統一の解消） */
+  global.Q4B_BOSS_IDS = {};
+  ROSTER.forEach(function(r){ global.Q4B_BOSS_IDS[r.id] = 1; });
 })(window);
