@@ -578,24 +578,50 @@ function applyParty(){ if(SEL.length<1)return; PARTY=SEL.slice(); saveBattle(); 
 function cancelParty(){ document.getElementById("pselect").style.display="none"; document.getElementById("home").style.display="block"; renderHome(); }
 
 /* ---- 質問バンク ---- */
-/* デモ用に少し難しめ（本番は各ゲームの進捗SRSから、現在レベル+α で出題） */
-function makeQ(type){
+/* バトル出題（A: band(1-5)連動で難易度カーブ＋バリエーション。Bで各ゲーム実データに接続予定） */
+function makeQ(type, bd){
+  bd=Math.max(1,Math.min(5,bd||1));
   if(type==="keisan"){
-    var k=Math.floor(seed()*3);
-    if(k===0){ var a=12+Math.floor(seed()*78),b=11+Math.floor(seed()*60); return {q:a+" + "+b, ans:a+b}; }
-    if(k===1){ var x=23+Math.floor(seed()*70),y=11+Math.floor(seed()*18); if(y>x){var t=x;x=y;y=t;} return {q:x+" − "+y, ans:x-y}; }
-    var c=12+Math.floor(seed()*8),d=3+Math.floor(seed()*7); return {q:c+" × "+d, ans:c*d};
+    function R(mn,mx){ return mn+Math.floor(seed()*(mx-mn+1)); }
+    var ops = bd<=1?["+","-"] : bd===2?["+","-","×"] : bd===3?["+","-","×","÷"] : ["+","-","×","÷","mix"];
+    var op=ops[Math.floor(seed()*ops.length)];
+    var hi=[20,60,99,400,999][bd-1];
+    if(op==="+"){ var a=R(5,hi),b=R(5,hi); return {q:a+" + "+b,ans:a+b}; }
+    if(op==="-"){ var x=R(6,hi),y=R(1,x); return {q:x+" − "+y,ans:x-y}; }
+    if(op==="×"){
+      if(bd<=2){ var c=R(2,9),d=R(2,9); return {q:c+" × "+d,ans:c*d}; }            /* 九九 */
+      if(bd===3){ var c3=R(11,30),d3=R(2,9); return {q:c3+" × "+d3,ans:c3*d3}; }    /* 2桁×1桁 */
+      var c4=R(12,bd>=5?60:40),d4=R(11,bd>=5?40:25); return {q:c4+" × "+d4,ans:c4*d4}; /* 2桁×2桁 */
+    }
+    if(op==="÷"){ var dv=R(2,9),qo=R(2,bd>=4?15:9); return {q:(dv*qo)+" ÷ "+dv,ans:qo}; } /* わりきれる */
+    var m1=R(2,9),m2=R(2,9),m3=R(2,30); return {q:m1+" × "+m2+" + "+m3,ans:m1*m2+m3};      /* 四則混合 */
   }
-  if(type==="kanji"){ var kq=KANJIQ[Math.floor(seed()*KANJIQ.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:kq.c}; }
-  var e=EIGOQ[Math.floor(seed()*EIGOQ.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:e.c};
+  if(type==="kanji"){ var kq=KANJIQ[Math.floor(seed()*KANJIQ.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:shuffle(kq.c.slice())}; }
+  var e=EIGOQ[Math.floor(seed()*EIGOQ.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:shuffle(e.c.slice())};
 }
-var KANJIQ=[{q:"森林",a:"しんりん",c:["しんりん","もり","きこり"]},{q:"昆虫",a:"こんちゅう",c:["こんちゅう","むし","かぶと"]},
+var KANJIQ=[
+  {q:"森林",a:"しんりん",c:["しんりん","もり","きこり"]},{q:"昆虫",a:"こんちゅう",c:["こんちゅう","むし","かぶと"]},
   {q:"太陽",a:"たいよう",c:["たいよう","ひかり","つき"]},{q:"地球",a:"ちきゅう",c:["ちきゅう","せかい","ほし"]},
-  {q:"自然",a:"しぜん",c:["しぜん","やま","みどり"]},{q:"観察",a:"かんさつ",c:["かんさつ","みる","しらべ"]}];
-var EIGOQ=[{q:"insect =?",a:"こんちゅう",c:["こんちゅう","どうぶつ","さかな"]},{q:"forest =?",a:"もり",c:["もり","うみ","やま"]},
+  {q:"自然",a:"しぜん",c:["しぜん","やま","みどり"]},{q:"観察",a:"かんさつ",c:["かんさつ","みる","しらべ"]},
+  {q:"植物",a:"しょくぶつ",c:["しょくぶつ","くさ","はな"]},{q:"動物",a:"どうぶつ",c:["どうぶつ","いきもの","けもの"]},
+  {q:"幼虫",a:"ようちゅう",c:["ようちゅう","さなぎ","たまご"]},{q:"成虫",a:"せいちゅう",c:["せいちゅう","おとな","はね"]},
+  {q:"水分",a:"すいぶん",c:["すいぶん","みず","しめり"]},{q:"気温",a:"きおん",c:["きおん","てんき","あつさ"]},
+  {q:"季節",a:"きせつ",c:["きせつ","とき","つき"]},{q:"羽化",a:"うか",c:["うか","とぶ","はね"]},
+  {q:"標本",a:"ひょうほん",c:["ひょうほん","みほん","はこ"]},{q:"生息",a:"せいそく",c:["せいそく","すむ","いきる"]},
+  {q:"採集",a:"さいしゅう",c:["さいしゅう","とる","あつめ"]},{q:"天敵",a:"てんてき",c:["てんてき","かたき","なかま"]},
+  {q:"飛行",a:"ひこう",c:["ひこう","とぶ","はしる"]},{q:"夜行",a:"やこう",c:["やこう","よる","ひる"]}];
+var EIGOQ=[
+  {q:"insect =?",a:"こんちゅう",c:["こんちゅう","どうぶつ","さかな"]},{q:"forest =?",a:"もり",c:["もり","うみ","やま"]},
   {q:"strong =?",a:"つよい",c:["つよい","はやい","おおきい"]},{q:"science =?",a:"かがく",c:["かがく","さんすう","こくご"]},
-  {q:"collect =?",a:"あつめる",c:["あつめる","なげる","はしる"]},{q:"battle =?",a:"たたかい",c:["たたかい","あそび","おはなし"]}];
-var _s=20260614; function seed(){ _s=(_s*1103515245+12345)&0x7fffffff; return _s/0x7fffffff; }
+  {q:"collect =?",a:"あつめる",c:["あつめる","なげる","はしる"]},{q:"battle =?",a:"たたかい",c:["たたかい","あそび","おはなし"]},
+  {q:"river =?",a:"かわ",c:["かわ","うみ","いけ"]},{q:"mountain =?",a:"やま",c:["やま","もり","たに"]},
+  {q:"night =?",a:"よる",c:["よる","あさ","ひる"]},{q:"wing =?",a:"はね",c:["はね","あし","つの"]},
+  {q:"water =?",a:"みず",c:["みず","ひ","つち"]},{q:"tree =?",a:"き",c:["き","はな","くさ"]},
+  {q:"jungle =?",a:"ジャングル",c:["ジャングル","さばく","ほっきょく"]},{q:"hunter =?",a:"ハンター",c:["ハンター","せんしゅ","しょくにん"]},
+  {q:"king =?",a:"おう",c:["おう","へいし","たみ"]},{q:"danger =?",a:"きけん",c:["きけん","あんぜん","しんぱい"]},
+  {q:"rare =?",a:"めずらしい",c:["めずらしい","ふつう","おおい"]},{q:"giant =?",a:"きょだいな",c:["きょだいな","ちいさな","ふつうの"]},
+  {q:"poison =?",a:"どく",c:["どく","くすり","みつ"]},{q:"speed =?",a:"はやさ",c:["はやさ","おもさ","たかさ"]}];
+function seed(){ return Math.random(); }   /* 固定シード廃止＝毎バトル異なる出題に */
 
 /* ================= ホーム ================= */
 var BANDS=[
@@ -794,7 +820,7 @@ function drawBench(){
 }
 function nextQuestion(){
   var m=activeM();
-  st.q=makeQ(m.type);
+  st.q=makeQ(m.type, st.r?Math.ceil(st.r.stage/10):1);   /* ボスのband(1-5)で難易度スケール */
   var tb=document.getElementById("turnBanner");
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
   else { tb.className="turn-banner def";
