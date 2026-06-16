@@ -288,7 +288,7 @@
 <script src="./shared/eitango_data.js?v=0.5.0"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
-<script src="./shared/reward.js?v=0.4.4"></script>
+<script src="./shared/reward.js?v=0.4.5"></script>
 <script src="./shared/battle.js?v=0.5.0"></script>
 <script>
 var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
@@ -384,8 +384,11 @@ function computeReach(kp,ks,es){
     var srs=(es&&es.srs)||{},kids=(es&&es.kids)||{},cnt={},k,s,pre;
     for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
     for(k in kids){s=kids[k];if(!s||(s[1]||0)<2)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
-    var fields=enFields(),fr=0,i,f; for(i=0;i<fields.length;i++){f=fields[i];if((cnt[f.pre]||0)/(f.total*0.2)>=1)fr++;}  /* 到達フィールド数（順不同） */
-    REACH_INFO.eitango={label:(fr>0?(fr+"フィールド とうたつ"):"これから")};
+    /* 英語ラベル: 漢字「小2」/計算「Lv2」と並ぶ分かりやすさに。今いるフィールド名＋おぼえた語数を表示
+       （旧「これから」は何をすれば進むか不明だった→「えいごで ことばを おぼえると すすむ」が伝わる） */
+    var fields=enFields(),FN=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"],ci=-1,i;
+    for(i=0;i<fields.length;i++){ if((cnt[fields[i].pre]||0)>0)ci=i; }   /* いちばん先のフィールド */
+    REACH_INFO.eitango={label:(ci>=0?(FN[ci]+" "+(cnt[fields[ci].pre]||0)+"ご"):"にわ から")};
     REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
   })();
   return REACH;
@@ -484,22 +487,29 @@ function saveBirth(){
   loadAll().then(function(){ renderHome(); }).catch(function(){ renderHome(); });
 }
 /* ====== 到達度バー・次ボス目標・解禁マップ ====== */
+var TIER_NAMES=["みならいの へいげん","ふかい もり","しれんの いわば","まよいの たに","おうじゃの いただき"];
+var TIER_SHORT=["へいげん","もり","いわば","たに","いただき"];
 function reachBarHTML(label,emoji,type){
   var val=REACH[type]||0, info=REACH_INFO[type]||{}, pct=Math.max(0,Math.min(100,val*10));
-  var ticks=[2,4,6,8,9.5].map(function(t){return '<span style="position:absolute;left:'+(t*10)+'%;top:-1px;bottom:-1px;width:2px;background:rgba(80,60,20,.25)"></span>';}).join('');
-  return '<div style="margin:9px 0">'
+  var ticks=[2,4,6,8,9.5].map(function(t){return '<span style="position:absolute;left:'+(t*10)+'%;top:-1px;bottom:-1px;width:2px;background:rgba(80,60,20,.3)"></span>';}).join('');
+  /* バー下の「メモリ」: 各到達ポイントに地名（到達済みは金・太字） */
+  var memo=[2,4,6,8,9.5].map(function(t,i){ var on=val>=t;
+    return '<span style="position:absolute;left:'+(t*10)+'%;transform:translateX(-50%);font-size:8px;line-height:1;white-space:nowrap;color:'+(on?'#7a5a10':'#b9c0a8')+';font-weight:'+(on?800:600)+'">'+TIER_SHORT[i]+'</span>';
+  }).join('');
+  return '<div style="margin:9px 0 16px">'
     +'<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800"><span>'+emoji+' '+label+'</span><span style="color:#7a5a10">'+(info.label||"-")+'</span></div>'
     +'<div style="position:relative;height:15px;background:#e7ecd8;border-radius:8px;overflow:hidden;margin:4px 0;border:1px solid #d5dcc2">'
     +'<i style="display:block;height:100%;width:'+pct+'%;background:linear-gradient(90deg,#f0c95a,#E8B23A)"></i>'+ticks+'</div>'
+    +'<div style="position:relative;height:11px;margin-bottom:3px">'+memo+'</div>'
     +'<div style="font-size:11px;color:#7a8a5a">'+nextBandHint(type)+'</div></div>';
 }
 function nextBandHint(type){
   if(type==="none") return "";
   var v=REACH[type]||0, thrs=[2,4,6,8,9.5], i, band=0;
   for(i=0;i<thrs.length;i++){ if(v<thrs[i]){ band=i+1; break; } }
-  if(band===0) return "✨ band5レベルまで 到達ずみ！";
+  if(band===0) return "✨「"+TIER_NAMES[4]+"」まで 到達ずみ！";
   /* 注: 実際のボス解禁は撃破順（前のボスを倒す）に従う。ここは「その教科の到達レベル」を示すだけ。 */
-  return "→ もうすこしで band"+band+" レベル！";
+  return "→ もうすこしで「"+TIER_NAMES[band-1]+"」！";
 }
 function thrToKanji(thr,age){ var g=thr/10*(expGrade(age)+0.5); return g<1?"ひらがな":("小"+Math.min(6,Math.ceil(g))); }
 function thrToField(thr){ var ef=Math.pow(thr/4.6,2), names=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"]; return names[Math.min(6,Math.max(0,Math.ceil(ef)-1))]; }
@@ -583,7 +593,10 @@ function renderPSelect(){
   var typeChips=chip("ぜんぶ","",PTYPE,"psType")+chip("🟣かんじ","kanji",PTYPE,"psType")+chip("🔵けいさん","keisan",PTYPE,"psType")+chip("🟢えいご","eitango",PTYPE,"psType");
   var rarChips=chip("ぜんぶ","",PRARITY,"psRarity")+chip("SS","SS",PRARITY,"psRarity")+chip("SSR","SSR",PRARITY,"psRarity")+chip("SR","SR",PRARITY,"psRarity")+chip("R","R",PRARITY,"psRarity")+chip("N","N",PRARITY,"psRarity");
   document.getElementById("pselect").innerHTML=
-     '<div class="ps-head"><h1>✏️ パーティへんせい</h1><span class="ps-count">'+SEL.length+'/6</span></div>'
+     '<div style="position:sticky;top:0;z-index:30;background:rgba(243,247,233,.97);backdrop-filter:blur(3px);display:flex;gap:10px;justify-content:center;padding:10px 0 8px;margin-bottom:4px;box-shadow:0 3px 10px rgba(0,0,0,.15)">'
+    +'<button class="btn" style="margin:0;font-size:17px;padding:13px 26px" onclick="applyParty()">✅ けってい（'+SEL.length+'/6）</button>'
+    +'<button class="btn" style="margin:0;background:#5b3a3a;font-size:17px;padding:13px 22px" onclick="cancelParty()">やめる</button></div>'
+    +'<div class="ps-head"><h1>✏️ パーティへんせい</h1><span class="ps-count">'+SEL.length+'/6</span></div>'
     +'<p class="note">なかまを タップで えらぶ（さいだい6体・同じ虫は1匹まで）。昆虫ボスは <b>せんとう3匹</b>、天敵は <b>6匹</b>で たたかう。さきの3匹に 弱点タイプを 入れておこう！</p>'
     +'<div class="card"><div class="ps-order-h">⚔️ でてくる じゅんばん（▲▼でいれかえ・１が せんとう）</div>'
     +'<div class="ps-sel">'+slots+'</div>'
@@ -925,7 +938,7 @@ var st=null;
 function rewardLine(rew){
   if(!rew) return "";
   if(rew.kind==="species") return '🪲 '+st.boss.jaName+'を ずかんに とうろく！';
-  if(rew.kind==="amber") return '🍯 こはく +'+rew.amber+(rew.title?'　🏅 称号「'+rew.title+'」かくとく！':(rew.badge?'　🎖️ 天敵バッジ かくとく！':''));
+  if(rew.kind==="amber") return '🔶 こはく +'+rew.amber+(rew.title?'　🏅 称号「'+rew.title+'」かくとく！':(rew.badge?'　🎖️ 天敵バッジ かくとく！':''));
   return '（とうろくずみ・れんしゅうになった！）';
 }
 var BATTLE_HTML=''

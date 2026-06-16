@@ -168,7 +168,7 @@
     return { sp:sp, size:size, shiny:shiny, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
   }
 
-  /* 🍯 こはく(amber): a soft currency earned per correct answer, spendable on
+  /* 🔶 こはく(amber): a soft currency earned per correct answer, spendable on
      an extra catch. Gives "save up & spend" agency + a collection pity path.
      共有ウォレット: setAmberStore({get,add,spend}) を差すと、全ゲームで1つの財布を
      共有する（未設定なら従来どおり coll.amber を使う＝後方互換）。 */
@@ -205,10 +205,10 @@
      同一問題の連打を検知してゲージの進みを逓減する。 */
   /* value(任意,0〜1): その問題の「学習価値」。習得済み内容の周回は低い値を渡すと
      ゲージの伸びが鈍る → 既マスター/薄いフィールドの farming で図鑑が安く埋まるのを防ぐ。
-     🍯こはくは満額のまま(救済通路は維持)。 */
+     🔶こはくは満額のまま(救済通路は維持)。 */
   function onCorrect(coll, game, need, boost, itemId, value){
     if(!coll.catches) coll.catches = {};
-    earnAmber(coll, AMBER_PER_CORRECT);   // 🍯救済通路は満額のまま温存（共有ウォレット対応）
+    earnAmber(coll, AMBER_PER_CORRECT);   // 🔶救済通路は満額のまま温存（共有ウォレット対応）
     var v = (value==null) ? 1 : Math.max(0, Math.min(1, value));
     coll.acc = (coll.acc||0) + freshnessOf(coll, itemId) * v;
     if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持
@@ -295,7 +295,7 @@
     function chip(t){ return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.9);border:1.5px solid #CFDDB2;border-radius:999px;padding:2px 9px;font-size:13px;font-weight:800;color:#2A3D2C;white-space:nowrap">'+t+'</span>'; }
     return '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px">'
       + chip('🧺 '+(v.caught||0)+'/'+(v.pool||0))
-      + chip('🍯 '+(v.amber||0))
+      + chip('🔶 '+(v.amber||0))
       + chip('🔥 '+(v.streak||0)+'日')
       + chip('🏅 '+rank(v.total||0))
       + '</div>';

@@ -232,7 +232,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/eitango_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.4.4"></script>
+<script src="../shared/reward.js?v=0.4.5"></script>
 <script src="../shared/battle.js?v=0.5.0"></script>
 <script src="../shared/boss_zukan.js?v=0.5.0"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
@@ -572,7 +572,7 @@ const Reward = {
     c.q++;
     Engine.touchStreak(p);
     if (!ok) return null;
-    c.c++; if(window.QuestSave){QuestSave.amberAdd(ePid(),1);}else{p.amber++;} p.amberTotal++;  // 🍯共有ウォレットへ
+    c.c++; if(window.QuestSave){QuestSave.amberAdd(ePid(),1);}else{p.amber++;} p.amberTotal++;  // 🔶共有ウォレットへ
     // 新しさ係数: 同じ語の連打でゲージの進みを逓減（最低0.2、違う語は満額1）
     let fresh = 1;
     if (itemId != null) {
@@ -998,8 +998,8 @@ function scrZukan(){
   return `<div class="topbar"><span class="ttl">📖 むしずかん</span><span class="sp"></span>
     <span class="chip">${caught}/${zk.length}</span></div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 2px">
-    <span style="font-size:15px;font-weight:700">🍯 こはく：<b>${amberNow}</b></span>
-    <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🍯 こはくで よぶ（30）</button>
+    <span style="font-size:15px;font-weight:700">🔶 こはく：<b>${amberNow}</b></span>
+    <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🔶 こはくで よぶ（30）</button>
   </div>
   ${eitangoMasterSection()}
   ${window.Q4BBossZukan?Q4BBossZukan.sectionHTML('eitango'):''}
@@ -1017,21 +1017,21 @@ function scrZukan(){
 }
 function eitangoAmberCatch(){
   if(!P) return;
-  if(eAmber() < 30){ UI.toast('🍯こはくが たりないよ（30こ いるよ）'); return; }
+  if(eAmber() < 30){ UI.toast('🔶こはくが たりないよ（30こ いるよ）'); return; }
   /* Q4BReward.spendForCatch が共有ウォレットから30消費（catches は同一参照で更新）*/
   var tmp={catches:P.catches};
   var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango') : null;
-  if(!got){ UI.toast('🍯 むしが みつからなかった…'); return; }
+  if(!got){ UI.toast('🔶 むしが みつからなかった…'); return; }
   touchP();
   /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して UI.specCard に渡す */
   var spRow=ALLSP.find(function(s){return s[0]===got.sp.id;});
   if(!spRow){
     /* フォールバック: 簡易表示 */
-    UI.toast('🍯 ' + (got.sp.jaName||got.sp.id) + ' を つかまえた！');
+    UI.toast('🔶 ' + (got.sp.jaName||got.sp.id) + ' を つかまえた！');
     render(); return;
   }
   var spRes={sp:spRow, size:got.size, shiny:got.shiny, isNew:got.isNew, isRecord:got.isRecord};
-  $('#modal').innerHTML='<div class="mcard"><div class="center"><div style="font-size:16px;font-weight:bold;margin-bottom:8px">🍯 こはく30こで つかまえた！</div>'
+  $('#modal').innerHTML='<div class="mcard"><div class="center"><div style="font-size:16px;font-weight:bold;margin-bottom:8px">🔶 こはく30こで つかまえた！</div>'
     +UI.specCard(spRes)
     +'<button class="btn sub" style="margin-top:12px" onclick="closeModal();render()">ずかんで みる</button></div></div>';
   $('#modal').classList.add('show');
@@ -1296,7 +1296,7 @@ function scrStats(){
     <div class="stat"><div class="sv">🔥 ${P.streak.n}日</div><div class="sl">れんぞく学習 (さいこう ${P.streak.best}日)</div></div>
     <div class="stat"><div class="sv">${q?Math.round(c/q*100):0}%</div><div class="sl">せいかいりつ (${c}/${q}問)</div></div>
     <div class="stat"><div class="sv">📖 ${caught}/${ALLSP.length}</div><div class="sl">ずかん かんせいど</div></div>
-    <div class="stat"><div class="sv">🍯 ${P.amberTotal}</div><div class="sl">るいけい こはく</div></div>
+    <div class="stat"><div class="sv">🔶 ${P.amberTotal}</div><div class="sl">るいけい こはく</div></div>
   </div>
   ${window.Q4BReward?`<div class="h2">🏅 しょうごう</div><div class="card">${Q4BReward.rankListHTML(Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0))}</div>`:''}
   <div class="h2">この7日間 (こい色=せいかい)</div>
@@ -1493,7 +1493,7 @@ function renderStart(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="field ${GFIELD.cls}" style="pointer-events:none">
     <div class="fn">${GFIELD.emoji} ${GFIELD.name}</div><div class="fs">${GFIELD.sub}</div>
@@ -1508,7 +1508,7 @@ function renderStart(){
     </div>`}
     <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${SESSION_N}もん)</button>
     ${(hasNushi&&!P.nushi[GFID])?`<button class="btn amber" onclick="startNushi()">👑 ヌシに ちょうせん (${KIDS?'10もん中9もん':'20もん中18もん'}せいかい)</button>`:''}
-    <div class="small" style="margin-top:6px;opacity:.8">🍯こはくで よぶ は「むしずかん」から（30こで1ぴき）</div>
+    <div class="small" style="margin-top:6px;opacity:.8">🔶こはくで よぶ は「むしずかん」から（30こで1ぴき）</div>
   </div>`;
 }
 function exitToMap(){ S=null; screen='home'; render(); window.scrollTo(0,0); }
@@ -1605,7 +1605,7 @@ function startReview(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="card center" style="background:#fff8dc;border:2px solid var(--amber)">
     <div style="font-size:32px">🔁</div>
@@ -1636,7 +1636,7 @@ function startStale(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🍯${eAmber()}</span>
+    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="card center" style="background:#eef6ff;border:2px solid #5b8fd6">
     <div style="font-size:32px">⏰</div>
@@ -1676,7 +1676,7 @@ function header(){
   const modeLabel=S.mode==='nushi'?'👑ヌシ戦 ':S.mode==='review'?'🔁ふくしゅう ':'';
   return `<div class="topbar">
     <button class="chip" onclick="quit()">✕ やめる</button><span class="sp"></span>
-    ${gaugeChip}<span class="chip">🍯${eAmber()}</span>
+    ${gaugeChip}<span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="qbar"><i style="width:${pct}%"></i></div>
   <div class="small" style="padding:0 4px">${modeLabel}${S.i+1} / ${S.queue.length}もん ${S.mode==='nushi'?`(せいかい ${S.correct})`:''}</div>`;

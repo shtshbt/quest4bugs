@@ -503,10 +503,10 @@ function showZukan(){
   var amberNow=Q4BReward.amberOf(p.coll);
   var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);
   h+='<div class="card" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
-    +'<span style="font-size:15px;font-weight:700">🍯 こはく：<b>'+amberNow+'</b></span>'
+    +'<span style="font-size:15px;font-weight:700">🔶 こはく：<b>'+amberNow+'</b></span>'
     +'<button id="amberCatchBtn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto'+(canSpend?'':'opacity:.45;pointer-events:none')+'"'
     +(canSpend?'':' disabled')
-    +' onclick="keisanAmberCatch()">🍯 こはくで よぶ（30）</button></div>';
+    +' onclick="keisanAmberCatch()">🔶 こはくで よぶ（30）</button></div>';
   h+=keisanMasterSection();
   if(window.Q4BBossZukan)h+=Q4BBossZukan.sectionHTML("keisan");  /* 👑 ボス昆虫節 */
   /* Q4BReward ベース: tierOf 降順ソート */
@@ -603,9 +603,9 @@ function keisanAmberCatch(){
   var p=P(); ensureColl(p);
   if(!window.Q4BReward)return;
   var got=Q4BReward.spendForCatch(p.coll,'keisan');
-  if(!got){ alert('🍯こはくが たりないよ（30こ いるよ）'); return; }
+  if(!got){ alert('🔶こはくが たりないよ（30こ いるよ）'); return; }
   save();
-  showCapture(null,'🍯こはく30こで つかまえた！',got);
+  showCapture(null,'🔶こはく30こで つかまえた！',got);
 }
 function showCapture(i,extraMsg,presetGot){
   var p=P(); ensureColl(p);
