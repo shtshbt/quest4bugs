@@ -386,9 +386,12 @@ function computeReach(kp,ks,es){
     for(k in kids){s=kids[k];if(!s||(s[1]||0)<2)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
     /* 英語ラベル: 漢字「小2」/計算「Lv2」と並ぶ分かりやすさに。今いるフィールド名＋おぼえた語数を表示
        （旧「これから」は何をすれば進むか不明だった→「えいごで ことばを おぼえると すすむ」が伝わる） */
-    var fields=enFields(),FN=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"],ci=-1,i;
-    for(i=0;i<fields.length;i++){ if((cnt[fields[i].pre]||0)>0)ci=i; }   /* いちばん先のフィールド */
-    REACH_INFO.eitango={label:(ci>=0?(FN[ci]+" "+(cnt[fields[ci].pre]||0)+"ご"):"にわ から")};
+    /* レベル＝「20%以上 習得した いちばん先のフィールド」。少数の語(例:アマゾン5語)で
+       難フィールドに誤判定しないよう、未到達なら にわの進捗で表示する。 */
+    var fields=enFields(),FN=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"],reachedIdx=-1,i,n;
+    for(i=0;i<fields.length;i++){ n=cnt[fields[i].pre]||0; if(n>=fields[i].total*0.2)reachedIdx=i; }  /* 20%以上＝到達 */
+    var idx=(reachedIdx>=0)?reachedIdx:(((cnt[fields[0].pre]||0)>0)?0:-1);
+    REACH_INFO.eitango={label:(idx>=0?(FN[idx]+" "+(cnt[fields[idx].pre]||0)+"ご"):"にわ から")};
     REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
   })();
   return REACH;
