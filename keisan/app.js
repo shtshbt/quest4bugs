@@ -361,7 +361,8 @@ function balanceCats(p){
 function isBalanceCat(p,c){ return !!balanceCats(p)[c]; }
 function catBtnHTML(c,act,p,mark){
   var leveled=!!LVL_CATS[c], lv=leveled?((p.lv&&p.lv[c])||1):0;
-  var sty=leveled?('background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'var(--ink)')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)'):'';
+  /* 背景(lvBg)は固定の薄緑→濃緑。文字色も固定にする（var(--ink)は夜モードで白化し薄緑に白文字＝不可視になるため） */
+  var sty=leveled?('background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'#22331a')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)'):'';
   if(mark) sty+=';outline:3px solid #E8B23A;outline-offset:-1px';
   var lvtag=leveled?'<span style="font-weight:800;opacity:.92">　Lv'+lv+'/10</span>':'';
   var mk=(mark==='low'||mark==='both')?' 🌟':(mark==='new'?' 🆕':'');
