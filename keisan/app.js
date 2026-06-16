@@ -954,7 +954,7 @@ function gKuku(p,dan,lv){
   if(lv==null) lv=legacyKukuToLv(p);
   var d, b=ri(1,9);
   if(dan){ d=dan; }
-  else if(lv>=10){ d=ORDER[ri(0,ORDER.length-1)]; }                /* Lv10: 全段ミックス */
+  else if(lv>=10){ d=ORDER[ri(0,ORDER.length-2)]; }                /* Lv10: 全段ミックス(1の段は除外＝易しすぎ回避) */
   else {
     var idx=Math.min(Math.max(1,lv)-1, ORDER.length-1);
     var target=ORDER[idx], unlocked=ORDER.slice(0, idx+1);          /* そのLvの段を主軸(6割)＋既習段で復習 */
@@ -3045,49 +3045,33 @@ function gShuugou(lv){
       }
     }
     else {
-      // lv7-10: 3集合 / 条件付き
-      if(lv===7){
-        // 3集合の和集合: A∪B∪C = 全体 - どれでもない
-        var W3 = ri(30,42);
-        var neither3 = ri(2,6);
-        var union3 = W3 - neither3;
-        ans = union3;
-        t = "クラス "+W3+"人のうち、算数・国語・理科の どの教科も すきでない人が "
-          + neither3+"人 います。算数・国語・理科の どれか(1つ以上)が すきな人は 何人ですか。";
-      } else if(lv===8){
-        // 3集合の単純和の逆算 (秋 = 全体 - 春 - 夏 - どれも、冬=0明記)
-        var W4 = ri(30,40);
-        var a4 = ri(6,12), b4 = ri(5,11), none4 = ri(2,6);
-        var c4 = W4 - a4 - b4 - none4;
-        if(c4 < 2) continue;
-        ans = c4;
-        t = "クラス "+W4+"人に 好きな きせつを ひとつ えらんでもらいました。"
-          + "春は "+a4+"人、夏は "+b4+"人、どれも えらばなかった人は "+none4+"人です。"
-          + "のこりは みんな 秋を えらびました(冬は いません)。"
-          + "秋を えらんだ人は 何人ですか。";
-      } else if(lv===9){
-        // 包除原理で A∩B を問う: A∩B = A + B + どちらでもない - 全体
-        var W5 = ri(30,42);
-        var A5 = ri(12,20), B5 = ri(12,20);
-        var neither5 = ri(2,6);
-        var both5 = A5 + B5 + neither5 - W5;
-        if(both5 < 2) continue;
-        if(both5 >= A5 || both5 >= B5) continue;
-        ans = both5;
-        t = "クラス "+W5+"人のうち、英語が すきな人は "+A5+"人、音楽が すきな人は "+B5+"人、"
-          + "どちらも すきでない人は "+neither5+"人です。"
-          + "英語と音楽の 両方が すきな人は 何人ですか。";
-      } else {
-        // lv10: 包除原理の2段階 — A∩B を求めてから「Aだけ」を答える
-        var W6=ri(32,44), A6=ri(14,22), B6=ri(14,22), neither6=ri(2,6);
-        var both6=A6+B6+neither6-W6;
-        if(both6<2 || both6>=A6 || both6>=B6) continue;
-        var onlyA6=A6-both6;
-        if(onlyA6<2) continue;
-        ans=onlyA6;
-        t = "クラス "+W6+"人のうち、サッカーが すきな人は "+A6+"人、野球が すきな人は "+B6+"人、"
-          + "どちらも すきでない人は "+neither6+"人です。"
-          + "サッカーだけ(野球は すきでない)が すきな人は 何人ですか。";
+      // lv7-10: 3集合(ベン図)の包除原理。7領域から作問し、レベルで問う対象を変える
+      // （従来 Lv7 は「全体−どれでもない」の引き算だけで Lv5/6 より易しい凹みだった）
+      var S3=pick([
+        {w:"クラス",u:"人",A:"算数",B:"国語",C:"理科",v:"が すきな人"},
+        {w:"クラス",u:"人",A:"犬",B:"ねこ",C:"うさぎ",v:"を かっている人"},
+        {w:"クラス",u:"人",A:"サッカー",B:"野球",C:"水泳",v:"が すきな人"}
+      ]);
+      var oA=ri(2,8),oB=ri(2,8),oC=ri(2,8),dAB=ri(1,5),dBC=ri(1,5),dCA=ri(1,5),T=ri(1,4),N=ri(2,6);
+      var A7=oA+dAB+dCA+T, B7=oB+dAB+dBC+T, C7=oC+dBC+dCA+T;
+      var iAB=dAB+T, iBC=dBC+T, iCA=dCA+T;             // 2つの両方(=ちょうど2つ＋3つ)
+      var union=oA+oB+oC+dAB+dBC+dCA+T, total=union+N;
+      var givens = S3.w+" "+total+S3.u+"を しらべました。"
+        + S3.A+S3.v+"は "+A7+S3.u+"、"+S3.B+S3.v+"は "+B7+S3.u+"、"+S3.C+S3.v+"は "+C7+S3.u+"。"
+        + S3.A+"と"+S3.B+"の両方は "+iAB+S3.u+"、"+S3.B+"と"+S3.C+"の両方は "+iBC+S3.u+"、"
+        + S3.C+"と"+S3.A+"の両方は "+iCA+S3.u+"、3つ ぜんぶは "+T+S3.u+"です。";
+      if(lv===7){          // 少なくとも1つ(和集合) = A+B+C −(2つ)＋(3つ)
+        ans=union;
+        t=givens+"どれか 1つ以上に あてはまる人は 何"+S3.u+"？";
+      } else if(lv===8){   // どれにも当てはまらない = 全体 − 和集合
+        ans=N;
+        t=givens+"どれにも あてはまらない人は 何"+S3.u+"？";
+      } else if(lv===9){   // ちょうど1つだけ
+        ans=oA+oB+oC;
+        t=givens+"3つの うち ちょうど 1つだけに あてはまる人は 何"+S3.u+"？";
+      } else {             // ちょうど2つ
+        ans=dAB+dBC+dCA;
+        t=givens+"3つの うち ちょうど 2つに あてはまる人は 何"+S3.u+"？";
       }
     }
     if(ans>0 && Number.isInteger(ans)) break;
