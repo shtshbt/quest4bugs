@@ -262,8 +262,9 @@ function saveCFG(){ QuestSave.save('kanji','_settings',CFG) }
 /* ================= SRS ================= */
 var INT=[0,1,3,7,21,60];
 function rec(key,sk){ var a=ST.srs[key]||(ST.srs[key]={}); return a[sk]||(a[sk]={s:0,due:todayStr(),la:''}) }
+function stageVal(key,sk){ var a=ST.srs&&ST.srs[key], r=a&&a[sk]; return (r&&typeof r.s==='number')?r.s:0 }
 function skillsOf(key){ if(key[0]==='h') return ['y','w']; var x=KMAP[key.slice(2)]; var a=['y','r','w','j']; if(x.oku)a.push('o'); return a }
-function stageOfItem(key){ var m=99; skillsOf(key).forEach(function(s){ m=Math.min(m,rec(key,s).s) }); return m===99?0:m }
+function stageOfItem(key){ var m=99; skillsOf(key).forEach(function(s){ m=Math.min(m,stageVal(key,s)) }); return m===99?0:m }
 function gatedSkills(key){ var ry=rec(key,'y'); var out=['y'];
  if(key[0]==='h'){ if(ry.s>=1) out.push('w'); return out }
  var sks=skillsOf(key);
@@ -271,7 +272,7 @@ function gatedSkills(key){ var ry=rec(key,'y'); var out=['y'];
     おまかせが よみ偏重にならず バランス良く混ざるようにする */
  if(ry.s>=1){ sks.forEach(function(s){ if(s!=='y') out.push(s) }) }
  return out }
-function introduced(key){ return skillsOf(key).some(function(s){ return rec(key,s).s>0 }) }
+function introduced(key){ return skillsOf(key).some(function(s){ return stageVal(key,s)>0 }) }
 function applyAnswer(key,sk,ok,mode){
  var r=rec(key,sk), t=todayStr();
  /* れんしゅう/ふくしゅうでも 正解で すすむ(1日1回まで)。テストは進級なし(関門のため)。
@@ -865,10 +866,10 @@ function calcMastered(keys){
  var total=keys.length, sum=0, yomi=0;
  keys.forEach(function(key){
   var sks=skillsOf(key);
-  var y=Math.min(3,rec(key,'y').s)/3;            // よみ達成度 0..1
-  if(rec(key,'y').s>=3)yomi++;
+  var ys=stageVal(key,'y'), y=Math.min(3,ys)/3;  // よみ達成度 0..1
+  if(ys>=3)yomi++;
   var others=sks.filter(function(s){return s!=='y';}), o=0;
-  if(others.length){ var t=0; others.forEach(function(s){ t+=Math.min(3,rec(key,s).s)/3; }); o=t/others.length; }
+  if(others.length){ var t=0; others.forEach(function(s){ t+=Math.min(3,stageVal(key,s))/3; }); o=t/others.length; }
   sum += others.length ? (0.5*y+0.5*o) : y;       // よみ半分＋他スキル半分
  });
  return {mastered:yomi, total:total, sum:sum, pct: total?Math.round(100*sum/total):0}
@@ -878,7 +879,7 @@ function calcFullMastered(keys){
  var total=keys.length, mastered=0;
  keys.forEach(function(key){
   var sks=skillsOf(key);
-  if(sks.every(function(sk){ return rec(key,sk).s>=3 }))mastered++;
+  if(sks.every(function(sk){ return stageVal(key,sk)>=3 }))mastered++;
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
@@ -887,7 +888,7 @@ function calcFullMastered(keys){
 function stageBreakdown(keys){
  var c=[0,0,0,0];
  keys.forEach(function(key){
-  var st=rec(key,'y').s;   // 「よみ」の進み具合で4区分（headlineの しゅうとく% と整合）
+  var st=stageVal(key,'y');   // 「よみ」の進み具合で4区分
   var i = st>=3 ? 3 : (st<=0 ? 0 : st);  // 0/1/2/3+ の4区分
   c[i]++;
  });
@@ -948,11 +949,11 @@ function updateProgressSummary(){
  grades.forEach(function(g){
   var keys=UNITS[g].map(function(c){return 'k:'+c});
   var r=calcMastered(keys);
-  if(r.total>0&&(r.mastered/r.total)>=0.5) bestGrade=g;
+  if(r.total>0&&r.pct>=50) bestGrade=g;
  });
  var hiraKeys=HIRA.map(function(c){return 'h:'+c});
  var hr=calcMastered(hiraKeys);
- var hiraPct=hr.total>0?Math.round(100*hr.mastered/hr.total):0;
+ var hiraPct=hr.pct;
  var summary='';
  if(bestGrade>0){
   summary='かんじ '+bestGrade+'ねんせいまで がんばってるね！ひらがな '+hiraPct+'%';
