@@ -913,9 +913,11 @@ function carriesOf(a,b){
   return {cols:cols, need:need};
 }
 function gHissan(p,lvOv){
-  var lv=hsStageFromLv(lvOv||((p.lv&&p.lv.hissan)||p.hsLevel||1)), a=0,b=0,good=false,t=0;
+  var rawLv=lvOv||((p.lv&&p.lv.hissan)||p.hsLevel||1);
+  var lv=hsStageFromLv(rawLv), a=0,b=0,good=false,t=0;
   while(!good&&t<300){ t++;
-    if(lv===1){var a1=ri(2,9),b1=ri(10-a1,9),a2=ri(1,7),b2=ri(1,8-a2); a=a2*10+a1; b=b2*10+b1;}
+    if(rawLv>=10){a=ri(1000,9999);b=ri(1000,9999);}      /* Lv10: 4桁＋4桁 */
+    else if(lv===1){var a1=ri(2,9),b1=ri(10-a1,9),a2=ri(1,7),b2=ri(1,8-a2); a=a2*10+a1; b=b2*10+b1;}
     else if(lv===2){a=ri(15,99);b=ri(15,99);}
     else if(lv===3){a=ri(100,899);b=ri(15,99);}
     else {a=ri(100,899);b=ri(100,899);}
@@ -937,9 +939,11 @@ function borrowsOf(a,b){
   return {cols:cols, need:need};
 }
 function gHikizan(p,lvOv){
-  var lv=hsStageFromLv(lvOv||((p.lv&&p.lv.hikizan)||p.hkLevel||1)), a=0,b=0,good=false,t=0;
+  var rawLv=lvOv||((p.lv&&p.lv.hikizan)||p.hkLevel||1);
+  var lv=hsStageFromLv(rawLv), a=0,b=0,good=false,t=0;
   while(!good&&t<400){ t++;
-    if(lv===1){ a=ri(11,99); b=ri(1, a%10); }          /* 2桁−1桁・くり下がりなし */
+    if(rawLv>=10){ a=ri(1100,9999); b=ri(1000,a-1); }  /* Lv10: 4桁−4桁 */
+    else if(lv===1){ a=ri(11,99); b=ri(1, a%10); }     /* 2桁−1桁・くり下がりなし */
     else if(lv===2){ a=ri(21,99); b=ri(11,a-1); }      /* 2桁−2桁 */
     else if(lv===3){ a=ri(100,899); b=ri(11,99); }     /* 3桁−2桁 */
     else { a=ri(120,999); b=ri(101,a-1); }             /* 3桁−3桁 */
