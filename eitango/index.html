@@ -5338,8 +5338,12 @@ function buildMain(){
     }
     return q;
   }
-  /* 復習(due)優先 → 新規(1日予算内) → 不足分は既習で補充して つねに N問にそろえる */
-  let due=Engine.shuffle(SRS.dueList(P,GWORDS)).slice(0,N);
+  /* 復習(due)＋新規(1日予算内) → 不足分は既習で補充して つねに N問にそろえる。
+     ★復習で全枠を埋めず新語の枠を必ず確保（同じ復習語だけ無限ループする不具合の修正）。
+     新語が残っていれば due は最大 N-2 までにして、2枠を新語に回す。 */
+  var _newAvail=Math.min(SRS.newBudget(P), SRS.newList(P,GWORDS).length);
+  var _dueCap=_newAvail>0 ? Math.max(1, N-2) : N;
+  let due=Engine.shuffle(SRS.dueList(P,GWORDS)).slice(0,_dueCap);
   let q=due.map(w=>({w,type:srsType(w)}));
   if(q.length<N){
     const budget=Math.min(SRS.newBudget(P),N-q.length);
