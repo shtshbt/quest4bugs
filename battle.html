@@ -348,7 +348,9 @@ function reachEng(es,age){
   /* break撤廃: どのフィールドの進捗も加算（順番に縛られず、どこから進めてもOK） */
   var R=0.20, efr=0,i,f,fields=enFields();
   for(i=0;i<fields.length;i++){ f=fields[i]; efr+=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); }
-  return 10*Math.min(1, efr/expField(age));
+  /* なだらかなconcave曲線：band1(reach2)はにわ約10語で到達＝従来どおり軽い／
+     band5(reach9.5)は約4.3フィールド相当＝長い登りで「もっと学ぶ」意欲を残す。年齢正規化は廃止し絶対値に。 */
+  return Math.min(10, 4.6*Math.sqrt(efr));
 }
 /* 計算: コース該当カテゴリの平均Lv(0-10)。②(九九/筆算のLv化)前は進度をLv換算で暫定補完 */
 function reachCalc(kp,age){
@@ -369,7 +371,9 @@ function computeReach(kp,ks,es){
   var age=ageOf(PROFOBJ&&PROFOBJ.birth);
   var cur={kanji:reachKanji(ks,age), keisan:reachCalc(kp,age), eitango:reachEng(es,age)};
   var mx=(BATTLE&&BATTLE.reachMax)||{};
-  REACH={ kanji:Math.max(cur.kanji,mx.kanji||0), keisan:Math.max(cur.keisan,mx.keisan||0), eitango:Math.max(cur.eitango,mx.eitango||0) };
+  /* 英語は学習が単調(語彙は消えない)＝high-water不要。旧式の過大値(band5張り付き)を現在値で再基準化。
+     かんじ/けいさんはLv変動があるので従来どおりhigh-waterで再ロック防止。 */
+  REACH={ kanji:Math.max(cur.kanji,mx.kanji||0), keisan:Math.max(cur.keisan,mx.keisan||0), eitango:cur.eitango };
   if(!BATTLE.reachMax) BATTLE.reachMax={};
   BATTLE.reachMax.kanji=REACH.kanji; BATTLE.reachMax.keisan=REACH.keisan; BATTLE.reachMax.eitango=REACH.eitango;
   /* 表示用ラベル（現在の生データから：いま何ができるか） */
@@ -498,7 +502,7 @@ function nextBandHint(type){
   return "→ もうすこしで band"+band+" レベル！";
 }
 function thrToKanji(thr,age){ var g=thr/10*(expGrade(age)+0.5); return g<1?"ひらがな":("小"+Math.min(6,Math.ceil(g))); }
-function thrToField(thr,age){ var ef=thr/10*expField(age), names=["にわ","いけ","はやし","やま","ジャングル","アマゾン"]; return names[Math.min(5,Math.max(0,Math.ceil(ef)-1))]; }
+function thrToField(thr){ var ef=Math.pow(thr/4.6,2), names=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"]; return names[Math.min(6,Math.max(0,Math.ceil(ef)-1))]; }
 function thrToLv(thr){ return "Lv"+Math.ceil(thr); }
 function unlockMapHTML(age){
   var thrs=[2,4,6,8,9.5];
