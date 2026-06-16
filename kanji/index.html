@@ -18,6 +18,11 @@
 /* 夜テーマ: 夜空配色（よるは よるの虫が出やすい） */
 body.night{ --sky:#16213c; --grass:#243352; --card:#243352; --leaf:#7fb069; --forest:#dbe6f0; --deep:#eef3f8; --soil:#cda781; background:#16213c; color:#e9edf6; }
 body.night .btn.sub{ background:#2b3a5a; color:#e9edf6; border-color:#3a4a6a; box-shadow:0 4px 0 #16213c; }
+/* 夜モード: 白固定だった図鑑カード/タブを暗くし、昆虫名(白文字)が読めるように */
+body.night .bug{ background:#1e2c49; border-color:#3a4a6a; }
+body.night .bug .nm{ color:#eef3f8; }
+body.night .tabs button{ background:#243352; color:#cfe0d0; border-color:#3a4a6a; }
+body.night .tabs button.on{ background:#7fb069; color:#16213c; }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 html,body{height:100%}
 body{
