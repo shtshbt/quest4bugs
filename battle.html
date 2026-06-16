@@ -61,6 +61,9 @@
   .pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:7px;margin-top:8px}
   .pool .pcell{cursor:pointer;position:relative}
   .pool .pcell.sel{outline:3px solid #E8B23A;background:#fff7e2}
+  .psf-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#5a6a3a;margin:5px 0}
+  .psf{border:1.5px solid #cfddb2;background:#fff;color:#3a4a2c;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+  .psf.on{background:#3a7d6a;color:#fff;border-color:#3a7d6a}
   .pool .pcell .chk{position:absolute;top:2px;right:4px;font-size:13px;display:none}
   .pool .pcell.sel .chk{display:block}
 
@@ -497,8 +500,10 @@ function loadAll(){
 function saveBattle(){ if(!PROF||!window.QuestSave)return; BATTLE.party=PARTY.map(function(s){return s.id;}); BATTLE.cleared=CLEARED; BATTLE.gauge=GAUGE; QuestSave.save("battle",PROF,BATTLE); }
 
 /* ================= パーティ編成（別画面） ================= */
+var PSEARCH="", PTYPE="", PRARITY="";   /* 編成プールの絞り込み: 名称検索 / タイプ / レア度 */
 function showPartySelect(){
   SEL=PARTY.slice();
+  PSEARCH=""; PTYPE=""; PRARITY="";      /* 毎回リセット */
   document.getElementById("home").style.display="none";
   document.getElementById("pselect").style.display="block";
   renderPSelect();
@@ -520,21 +525,48 @@ function renderPSelect(){
   for(var e=SEL.length;e<6;e++){ slots+='<div class="ps-empty">あき（下から えらぶ）</div>';
     if(e===2) slots+='<div class="ps-div">▲ ここまで 昆虫ボス用（せんとう3匹）／天敵は ぜんいん6匹 ▼</div>'; }
   var cnt={kanji:0,keisan:0,eitango:0}; SEL.forEach(function(s){cnt[RW.gameFor(s)]++;});
-  var pool=""; OWNED.forEach(function(s){ var sel=SEL.some(function(x){return x.id===s.id;});
-    pool+='<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
-      +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
-      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'; });
+  /* 絞り込みチップ生成（active表示つき） */
+  function chip(label,val,cur,fn){ var on=(cur===val); return '<button class="psf'+(on?" on":"")+'" onclick="'+fn+'(\''+val+'\')">'+label+'</button>'; }
+  var typeChips=chip("ぜんぶ","",PTYPE,"psType")+chip("🟣かんじ","kanji",PTYPE,"psType")+chip("🔵けいさん","keisan",PTYPE,"psType")+chip("🟢えいご","eitango",PTYPE,"psType");
+  var rarChips=chip("ぜんぶ","",PRARITY,"psRarity")+chip("SS","SS",PRARITY,"psRarity")+chip("SSR","SSR",PRARITY,"psRarity")+chip("SR","SR",PRARITY,"psRarity")+chip("R","R",PRARITY,"psRarity")+chip("N","N",PRARITY,"psRarity");
   document.getElementById("pselect").innerHTML=
      '<div class="ps-head"><h1>✏️ パーティへんせい</h1><span class="ps-count">'+SEL.length+'/6</span></div>'
     +'<p class="note">なかまを タップで えらぶ（さいだい6体・同じ虫は1匹まで）。昆虫ボスは <b>せんとう3匹</b>、天敵は <b>6匹</b>で たたかう。さきの3匹に 弱点タイプを 入れておこう！</p>'
     +'<div class="card"><div class="ps-order-h">⚔️ でてくる じゅんばん（▲▼でいれかえ・１が せんとう）</div>'
     +'<div class="ps-sel">'+slots+'</div>'
     +'<div class="attz"><span>🟣 かんじ '+cnt.kanji+'</span><span>🔵 けいさん '+cnt.keisan+'</span><span>🟢 えいご '+cnt.eitango+'</span></div></div>'
-    +'<div class="card"><div class="sec-t">📦 もっている虫（'+OWNED.length+'）</div><div class="pool">'+pool+'</div></div>'
+    +'<div class="card"><div class="sec-t">📦 もっている虫</div>'
+    +'<input id="psSearch" type="search" placeholder="🔍 なまえで さがす" value="'+PSEARCH.replace(/"/g,"&quot;")+'" oninput="psSearch(this.value)" '
+    +'style="width:100%;padding:10px 12px;border:2px solid #cfddb2;border-radius:10px;font-size:15px;outline:none;font-family:inherit;margin-bottom:8px">'
+    +'<div class="psf-row">タイプ: '+typeChips+'</div>'
+    +'<div class="psf-row">レア: '+rarChips+'</div>'
+    +'<div id="poolWrap"></div></div>'
     +'<div style="text-align:center;display:flex;gap:10px;justify-content:center;margin-top:6px">'
     +'<button class="btn" onclick="applyParty()">けってい</button>'
     +'<button class="btn" style="background:#5b3a3a" onclick="cancelParty()">やめる</button></div>';
+  renderPool();
 }
+/* 絞り込み条件で OWNED をフィルタしてプールだけ再描画（検索はフォーカス維持のためプールのみ更新） */
+function psMatch(s){
+  if(PTYPE && RW.gameFor(s)!==PTYPE) return false;
+  if(PRARITY && s.rarity!==PRARITY) return false;
+  if(PSEARCH){ var q=PSEARCH.trim().toLowerCase();
+    if(((s.jaName||"")+" "+(s.scientificName||"")).toLowerCase().indexOf(q)<0) return false; }
+  return true;
+}
+function renderPool(){
+  var w=document.getElementById("poolWrap"); if(!w)return;
+  var list=OWNED.filter(psMatch);
+  var pool=list.map(function(s){ var sel=SEL.some(function(x){return x.id===s.id;});
+    return '<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
+      +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'; }).join("");
+  w.innerHTML='<div class="note" style="margin:2px 0 6px">該当 '+list.length+' / '+OWNED.length+' 匹</div>'
+    +'<div class="pool">'+(pool||'<p class="note">みつからないよ。けんさく・フィルタを かえてみてね</p>')+'</div>';
+}
+function psSearch(v){ PSEARCH=v; renderPool(); }                 /* 入力中はプールのみ更新＝フォーカス維持 */
+function psType(t){ PTYPE=(PTYPE===t?"":t); renderPSelect(); }   /* チップ状態更新のため全再描画（検索語は保持） */
+function psRarity(r){ PRARITY=(PRARITY===r?"":r); renderPSelect(); }
 function moveSlot(i,dir){ var j=i+dir; if(j<0||j>=SEL.length)return; var t=SEL[i];SEL[i]=SEL[j];SEL[j]=t; renderPSelect(); }
 function pickToggle(id){
   var at=-1; for(var i=0;i<SEL.length;i++)if(SEL[i].id===id){at=i;break;}
