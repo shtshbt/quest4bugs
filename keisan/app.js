@@ -321,6 +321,7 @@ function makeProfile(){
 }
 function selProfile(id){
   DB.act=id; if(window.QuestSave)QuestSave.setCurrentProfile(id);
+  if(window.Q4BBossZukan)Q4BBossZukan.load(id);  /* 子の切替でボス撃破データも更新 */
   var p=P();
   if(p&&!p.type){ chooseCourse(p); return; }
   save(); showHome();
@@ -504,6 +505,7 @@ function showZukan(){
     +(canSpend?'':' disabled')
     +' onclick="keisanAmberCatch()">🍯 こはくで よぶ（30）</button></div>';
   h+=keisanMasterSection();
+  if(window.Q4BBossZukan)h+=Q4BBossZukan.sectionHTML("keisan");  /* 👑 ボス昆虫節 */
   /* Q4BReward ベース: tierOf 降順ソート */
   var sorted=pool.slice().sort(function(a,b){ return Q4BReward.tierOf(b)-Q4BReward.tierOf(a)||(a.jaName<b.jaName?-1:1); });
   h+='<div class="zgrid">';
@@ -4201,6 +4203,7 @@ function boot(){
         DB.act=QuestSave.currentProfile();
         if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
           if(DB.act)QuestSave.setCurrentProfile(DB.act); }
+        if(window.Q4BBossZukan&&DB.act)Q4BBossZukan.load(DB.act);  /* 図鑑のボス節用に撃破データを読む */
         if((migrated||progressMigrated)&&DB.profiles.length)saveAll(); // 移行/正規化分を per-profile で一度だけ書き出す
         /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
         if(!DB.profiles.length)showNewProfile();

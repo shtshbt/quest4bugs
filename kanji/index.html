@@ -171,6 +171,8 @@ input[type=range]{width:100%}
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.4"></script>
+<script src="../shared/battle.js?v=0.5.0"></script>
+<script src="../shared/boss_zukan.js?v=0.5.0"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script>
@@ -1464,6 +1466,7 @@ function ensureMode(p){
   $('cSmall').addEventListener('click',function(){ pick('small'); });
  }); }
 function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
+ if(window.Q4BBossZukan)Q4BBossZukan.load(p.id);  /* 図鑑のボス節用に撃破データを読む */
  ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); }).then(function(d){ ST=d||newState();
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
   // 後方互換: 旧 coll (配列) を新形式に移行
@@ -2163,6 +2166,7 @@ function renderBugs(){
   +(canSpend?'':' disabled')
   +'>🍯 こはくで よぶ（30）</button></div>'
   +kanjiMasterSection()
+  +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
   +'<div class="bugs">';

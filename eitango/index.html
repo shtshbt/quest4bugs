@@ -232,6 +232,8 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.4"></script>
+<script src="../shared/battle.js?v=0.5.0"></script>
+<script src="../shared/boss_zukan.js?v=0.5.0"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script src="../shared/colloc.js?v=0.3.0"></script>
@@ -4561,6 +4563,7 @@ async function boot(){
   CURID=QuestSave.currentProfile();
   if(!CURID||!profMeta(CURID)) CURID=PROFILES.length?PROFILES[0].id:null;
   if(CURID){ QuestSave.setCurrentProfile(CURID); P=normState(await QuestSave.load(NS,CURID)); }
+  if(window.Q4BBossZukan&&CURID)Q4BBossZukan.load(CURID);  /* 図鑑のボス節用に撃破データを読む */
   setupWalletE();
   if(location.hash==='#zukan') screen='zukan';
   render();
@@ -4598,6 +4601,7 @@ function migrateCatchSizes(p){
 
 async function selectProfile(id){
   CURID=id; QuestSave.setCurrentProfile(id);
+  if(window.Q4BBossZukan)Q4BBossZukan.load(id);  /* 図鑑のボス節用に撃破データを読む */
   P=normState(await QuestSave.load(NS,id));
   setupWalletE();
   closeModal(); screen='home'; render();
@@ -4809,6 +4813,7 @@ function scrZukan(){
     <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🍯 こはくで よぶ（30）</button>
   </div>
   ${eitangoMasterSection()}
+  ${window.Q4BBossZukan?Q4BBossZukan.sectionHTML('eitango'):''}
   <div class="ztabs">${tabs.map(f=>`<button class="${f.id===zTab?'on':''}" onclick="zTab=${f.id};render()">${f.emoji} ${f.name}</button>`).join('')}</div>
   <div class="zgrid">${zk.map(s=>{
     const c=P.catches[s[0]];
