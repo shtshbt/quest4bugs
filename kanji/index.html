@@ -439,8 +439,8 @@ function ensureMode(p){
   $('cSmall').addEventListener('click',function(){ pick('small'); });
  }); }
 function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
- if(window.Q4BBossZukan)Q4BBossZukan.load(p.id);  /* 図鑑のボス節用に撃破データを読む */
- ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); }).then(function(d){ ST=d||newState();
+ var bz=window.Q4BBossZukan?Q4BBossZukan.load(p.id):Promise.resolve();
+ Promise.all([bz, ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); })]).then(function(r){ var d=r[1]; ST=d||newState();
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
   // 後方互換: 旧 coll (配列) を新形式に移行
   if(!ST.coll||Array.isArray(ST.coll))ST.coll={gauge:0,total:0,catches:{}};

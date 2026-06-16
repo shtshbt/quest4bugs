@@ -751,7 +751,7 @@ async function boot(){
   CURID=QuestSave.currentProfile();
   if(!CURID||!profMeta(CURID)) CURID=PROFILES.length?PROFILES[0].id:null;
   if(CURID){ QuestSave.setCurrentProfile(CURID); P=normState(await QuestSave.load(NS,CURID)); }
-  if(window.Q4BBossZukan&&CURID)Q4BBossZukan.load(CURID);  /* 図鑑のボス節用に撃破データを読む */
+  if(window.Q4BBossZukan&&CURID)await Q4BBossZukan.load(CURID);
   setupWalletE();
   if(location.hash==='#zukan') screen='zukan';
   render();
@@ -789,7 +789,7 @@ function migrateCatchSizes(p){
 
 async function selectProfile(id){
   CURID=id; QuestSave.setCurrentProfile(id);
-  if(window.Q4BBossZukan)Q4BBossZukan.load(id);  /* 図鑑のボス節用に撃破データを読む */
+  if(window.Q4BBossZukan)await Q4BBossZukan.load(id);
   P=normState(await QuestSave.load(NS,id));
   setupWalletE();
   closeModal(); screen='home'; render();
@@ -895,6 +895,7 @@ async function makeProfile(){
   PROFILES=await QuestSave.profiles();
   CURID=p.id;
   P=normState(null);
+  if(window.Q4BBossZukan)await Q4BBossZukan.load(CURID);
   touchP();
   screen='home'; render();
 }
@@ -1452,6 +1453,7 @@ async function doDelProf(id,name){
   CURID=QuestSave.currentProfile();
   if(CURID&&profMeta(CURID)){ P=normState(await QuestSave.load(NS,CURID)); }
   else { CURID=PROFILES.length?PROFILES[0].id:null; if(CURID){QuestSave.setCurrentProfile(CURID);P=normState(await QuestSave.load(NS,CURID));} else P=null; }
+  if(window.Q4BBossZukan)await Q4BBossZukan.load(CURID);
   render();
 }
 

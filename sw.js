@@ -4,14 +4,14 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v2";
+var CACHE = "q4b-cache-v3";
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
   "./keisan/index.html", "./keisan/app.js", "./keisan/style.css",
-  "./shared/storage.js", "./shared/bugs.js", "./shared/render.js",
+  "./shared/storage.js", "./shared/bugs.js", "./shared/kanji_data.js", "./shared/eitango_data.js", "./shared/render.js",
   "./shared/bespoke.js", "./shared/reward.js", "./shared/furigana.js",
-  "./shared/yomi.js", "./shared/battle.js", "./shared/colloc.js",
+  "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./manifest.webmanifest"
 ];
 

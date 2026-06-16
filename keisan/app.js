@@ -317,14 +317,17 @@ function makeProfile(){
   if(window.QuestSave){ var sp=QuestSave.addProfile(name,profIcon(window._ptype)); p.id=sp.id; }
   DB.profiles.push(p); DB.act=p.id;
   if(window.QuestSave)QuestSave.setCurrentProfile(p.id);
-  save(); showHome();
+  save();
+  var bz=window.Q4BBossZukan?Q4BBossZukan.load(p.id):Promise.resolve();
+  bz.then(showHome).catch(showHome);
 }
 function selProfile(id){
   DB.act=id; if(window.QuestSave)QuestSave.setCurrentProfile(id);
-  if(window.Q4BBossZukan)Q4BBossZukan.load(id);  /* 子の切替でボス撃破データも更新 */
+  var bz=window.Q4BBossZukan?Q4BBossZukan.load(id):Promise.resolve();
   var p=P();
-  if(p&&!p.type){ chooseCourse(p); return; }
-  save(); showHome();
+  if(p&&!p.type){ bz.then(function(){ chooseCourse(p); }).catch(function(){ chooseCourse(p); }); return; }
+  save();
+  bz.then(showHome).catch(showHome);
 }
 /* 他ゲームで作られた（コース未設定の）子が初めて遊ぶときコースを決める */
 function chooseCourse(p){
@@ -4203,13 +4206,21 @@ function boot(){
         DB.act=QuestSave.currentProfile();
         if(!P()){ DB.act=DB.profiles.length?DB.profiles[0].id:null;
           if(DB.act)QuestSave.setCurrentProfile(DB.act); }
-        if(window.Q4BBossZukan&&DB.act)Q4BBossZukan.load(DB.act);  /* 図鑑のボス節用に撃破データを読む */
-        if((migrated||progressMigrated)&&DB.profiles.length)saveAll(); // 移行/正規化分を per-profile で一度だけ書き出す
-        /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
-        if(!DB.profiles.length)showNewProfile();
-        else if(!P())showProfiles();
-        else if(!P().type)chooseCourse(P());
-        else showHome();
+        var bz=window.Q4BBossZukan&&DB.act?Q4BBossZukan.load(DB.act):Promise.resolve();
+        bz.then(function(){
+          if((migrated||progressMigrated)&&DB.profiles.length)saveAll(); // 移行/正規化分を per-profile で一度だけ書き出す
+          /* ポータルで選んだ子のホームへ直行（再選択は上のプロフィールチップから） */
+          if(!DB.profiles.length)showNewProfile();
+          else if(!P())showProfiles();
+          else if(!P().type)chooseCourse(P());
+          else showHome();
+        }).catch(function(){
+          if((migrated||progressMigrated)&&DB.profiles.length)saveAll();
+          if(!DB.profiles.length)showNewProfile();
+          else if(!P())showProfiles();
+          else if(!P().type)chooseCourse(P());
+          else showHome();
+        });
       });
   });
 }
