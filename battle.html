@@ -585,19 +585,27 @@ function makeQ(type, bd){
     function R(mn,mx){ return mn+Math.floor(seed()*(mx-mn+1)); }
     var ops = bd<=1?["+","-"] : bd===2?["+","-","×"] : bd===3?["+","-","×","÷"] : ["+","-","×","÷","mix"];
     var op=ops[Math.floor(seed()*ops.length)];
-    var hi=[20,60,99,400,999][bd-1];
-    if(op==="+"){ var a=R(5,hi),b=R(5,hi); return {q:a+" + "+b,ans:a+b}; }
-    if(op==="-"){ var x=R(6,hi),y=R(1,x); return {q:x+" − "+y,ans:x-y}; }
+    var hi=[20,99,999,9999,99999][bd-1];        /* 加減の上限を band で大きく */
+    if(op==="+"){ var lo=bd<=2?5:bd===3?50:300; var a=R(lo,hi),b=R(lo,hi); return {q:a+" + "+b,ans:a+b}; }
+    if(op==="-"){ var lo2=bd<=2?6:bd===3?80:500; var x=R(lo2,hi),y=R(1,x); return {q:x+" − "+y,ans:x-y}; }
     if(op==="×"){
-      if(bd<=2){ var c=R(2,9),d=R(2,9); return {q:c+" × "+d,ans:c*d}; }            /* 九九 */
-      if(bd===3){ var c3=R(11,30),d3=R(2,9); return {q:c3+" × "+d3,ans:c3*d3}; }    /* 2桁×1桁 */
-      var c4=R(12,bd>=5?60:40),d4=R(11,bd>=5?40:25); return {q:c4+" × "+d4,ans:c4*d4}; /* 2桁×2桁 */
+      if(bd<=2){ var c=R(2,9),d=R(2,9); return {q:c+" × "+d,ans:c*d}; }              /* 九九 */
+      if(bd===3){ var c3=R(11,40),d3=R(2,9); return {q:c3+" × "+d3,ans:c3*d3}; }      /* 2桁×1桁 */
+      if(bd===4){ var c4=R(12,50),d4=R(11,30); return {q:c4+" × "+d4,ans:c4*d4}; }    /* 2桁×2桁 */
+      var c5=R(21,99),d5=R(21,99); return {q:c5+" × "+d5,ans:c5*d5};                  /* 2桁×2桁(大) */
     }
-    if(op==="÷"){ var dv=R(2,9),qo=R(2,bd>=4?15:9); return {q:(dv*qo)+" ÷ "+dv,ans:qo}; } /* わりきれる */
-    var m1=R(2,9),m2=R(2,9),m3=R(2,30); return {q:m1+" × "+m2+" + "+m3,ans:m1*m2+m3};      /* 四則混合 */
+    if(op==="÷"){
+      if(bd<=3){ var dv=R(2,9),qo=R(2,9); return {q:(dv*qo)+" ÷ "+dv,ans:qo}; }        /* 九九の逆 */
+      var dv2=R(3,bd>=5?25:12),qo2=R(6,bd>=5?40:20); return {q:(dv2*qo2)+" ÷ "+dv2,ans:qo2}; /* 大きめ・割り切れ */
+    }
+    /* 四則混合（多段・band で難化） */
+    var pat=Math.floor(seed()*3);
+    if(pat===0){ var m1=R(2,bd>=5?12:9),m2=R(2,9),m3=R(2,bd>=5?99:30); return {q:m1+" × "+m2+" + "+m3,ans:m1*m2+m3}; }
+    if(pat===1){ var n1=R(3,bd>=5?12:9),n2=R(2,9),v=n1*n2,n3=R(1,Math.max(1,v-1)); return {q:n1+" × "+n2+" − "+n3,ans:v-n3}; }
+    var k1=R(2,9),k2=R(2,bd>=5?40:20),k3=R(2,bd>=5?40:20); return {q:k1+" × ( "+k2+" + "+k3+" )",ans:k1*(k2+k3)};
   }
-  if(type==="kanji"){ var kq=KANJIQ[Math.floor(seed()*KANJIQ.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:shuffle(kq.c.slice())}; }
-  var e=EIGOQ[Math.floor(seed()*EIGOQ.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:shuffle(e.c.slice())};
+  if(type==="kanji"){ var kb=(bd>=3?KANJIQ_H:KANJIQ); var kq=kb[Math.floor(seed()*kb.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:shuffle(kq.c.slice())}; }
+  var eb=(bd>=3?EIGOQ_H:EIGOQ); var e=eb[Math.floor(seed()*eb.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:shuffle(e.c.slice())};
 }
 var KANJIQ=[
   {q:"森林",a:"しんりん",c:["しんりん","もり","きこり"]},{q:"昆虫",a:"こんちゅう",c:["こんちゅう","むし","かぶと"]},
@@ -621,6 +629,23 @@ var EIGOQ=[
   {q:"king =?",a:"おう",c:["おう","へいし","たみ"]},{q:"danger =?",a:"きけん",c:["きけん","あんぜん","しんぱい"]},
   {q:"rare =?",a:"めずらしい",c:["めずらしい","ふつう","おおい"]},{q:"giant =?",a:"きょだいな",c:["きょだいな","ちいさな","ふつうの"]},
   {q:"poison =?",a:"どく",c:["どく","くすり","みつ"]},{q:"speed =?",a:"はやさ",c:["はやさ","おもさ","たかさ"]}];
+/* 難問バンク（difficulty>=3 で出題＝強い子・高bandにチャレンジング） */
+var KANJIQ_H=[
+  {q:"生態系",a:"せいたいけい",c:["せいたいけい","せいかつ","しぜん"]},{q:"変態",a:"へんたい",c:["へんたい","へんか","せいちょう"]},
+  {q:"擬態",a:"ぎたい",c:["ぎたい","へんしん","かくれ"]},{q:"分布",a:"ぶんぷ",c:["ぶんぷ","ばしょ","ちず"]},
+  {q:"絶滅",a:"ぜつめつ",c:["ぜつめつ","しょうめつ","きえる"]},{q:"環境",a:"かんきょう",c:["かんきょう","しぜん","まわり"]},
+  {q:"繁殖",a:"はんしょく",c:["はんしょく","ふえる","たまご"]},{q:"捕食",a:"ほしょく",c:["ほしょく","たべる","かり"]},
+  {q:"甲殻",a:"こうかく",c:["こうかく","から","よろい"]},{q:"触角",a:"しょっかく",c:["しょっかく","つの","ひげ"]},
+  {q:"複眼",a:"ふくがん",c:["ふくがん","りょうめ","めだま"]},{q:"鱗粉",a:"りんぷん",c:["りんぷん","こな","はね"]},
+  {q:"幼生",a:"ようせい",c:["ようせい","あかちゃん","こども"]},{q:"羽化不全",a:"うかふぜん",c:["うかふぜん","しっぱい","びょうき"]}];
+var EIGOQ_H=[
+  {q:"habitat =?",a:"せいそくち",c:["せいそくち","たべもの","てんき"]},{q:"predator =?",a:"ほしょくしゃ",c:["ほしょくしゃ","えもの","なかま"]},
+  {q:"camouflage =?",a:"ぎたい",c:["ぎたい","もよう","いろ"]},{q:"metamorphosis =?",a:"へんたい",c:["へんたい","せいちょう","たんじょう"]},
+  {q:"antenna =?",a:"しょっかく",c:["しょっかく","あし","はね"]},{q:"venom =?",a:"どく",c:["どく","みつ","えき"]},
+  {q:"nocturnal =?",a:"やこうせいの",c:["やこうせいの","ひるの","あさの"]},{q:"larva =?",a:"ようちゅう",c:["ようちゅう","せいちゅう","たまご"]},
+  {q:"colony =?",a:"しゅうだん",c:["しゅうだん","すあな","えさ"]},{q:"endangered =?",a:"ぜつめつきぐ",c:["ぜつめつきぐ","あんぜん","ほうふ"]},
+  {q:"exoskeleton =?",a:"がいこっかく",c:["がいこっかく","ほね","ひふ"]},{q:"survive =?",a:"いきのこる",c:["いきのこる","にげる","たたかう"]},
+  {q:"tropical =?",a:"ねったいの",c:["ねったいの","さむい","かんそうした"]},{q:"specimen =?",a:"ひょうほん",c:["ひょうほん","しゃしん","え"]}];
 function seed(){ return Math.random(); }   /* 固定シード廃止＝毎バトル異なる出題に */
 
 /* ================= ホーム ================= */
@@ -820,7 +845,10 @@ function drawBench(){
 }
 function nextQuestion(){
   var m=activeM();
-  st.q=makeQ(m.type, st.r?Math.ceil(st.r.stage/10):1);   /* ボスのband(1-5)で難易度スケール */
+  /* 難易度＝ボスのband と 子の実力(REACH 0-10→1-5) の大きい方。強い子は序盤ボスでもチャレンジングに */
+  var _bb=st.r?Math.ceil(st.r.stage/10):1;
+  var _rl=Math.max(1,Math.min(5,Math.ceil((REACH[m.type]||0)/2)));
+  st.q=makeQ(m.type, Math.max(_bb,_rl));
   var tb=document.getElementById("turnBanner");
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
   else { tb.className="turn-banner def";
