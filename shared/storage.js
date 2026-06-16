@@ -579,7 +579,14 @@
       });
     }catch(_e2){}
     if("serviceWorker" in global.navigator && global.addEventListener){
-      global.addEventListener("load",function(){ global.navigator.serviceWorker.register(_base+"sw.js").catch(function(){}); });
+      /* 新しいSWが制御を奪ったら1回だけ自動リロード＝デプロイ更新が確実に反映される（古いキャッシュ居座り対策） */
+      var _refreshing=false;
+      global.navigator.serviceWorker.addEventListener("controllerchange",function(){
+        if(_refreshing)return; _refreshing=true; global.location.reload();
+      });
+      global.addEventListener("load",function(){
+        global.navigator.serviceWorker.register(_base+"sw.js").then(function(reg){ try{reg.update();}catch(_){} }).catch(function(){});
+      });
     }
   }
 })(window);
