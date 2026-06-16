@@ -304,9 +304,9 @@ function ageOf(birth){
   return a;
 }
 function expGrade(age){ if(age==null) age=8; return Math.max(1,Math.min(6,age-5)); }   /* 漢字: 目標学年 */
-function expField(age){ if(age==null) age=8;                                            /* 英語: 目標フィールド数 */
-  if(age<=6)return 1; if(age===7)return 2; if(age===8)return 2.5; if(age===9)return 3;
-  if(age===10)return 3.5; if(age===11)return 4; return 5; }
+function expField(age){ if(age==null) age=8;   /* 英語: 目標フィールド数（緩和：上限4＝ジャングル/アマゾン無しでも達成可） */
+  if(age<=6)return 1; if(age===7)return 1.5; if(age===8)return 2; if(age===9)return 2.5;
+  if(age===10)return 3; if(age===11)return 3.5; return 4; }
 function calcCourse(age){ return (age==null||age<=7)?"k5":"k10"; }
 var K5_CATS=["hissan","hikizan","kuku","anzan","warizan","wasa","jikan","kakebun"];
 var K10_CATS=["mix","kufuu","deci","frac","sougou","warizan","wasa","jikan","kakebun",
@@ -321,12 +321,16 @@ function reachKanji(ks,age){
   return 10*Math.min(1, kg/(expGrade(age)+0.5));
 }
 /* 英語: srs key prefix でフィールド分類→習得率(box>=3が総語の20%)で「到達」→連続到達数 / 目標フィールド数 */
-var EN_FIELD=[{pre:"b",total:256},{pre:"f2",total:319},{pre:"f3",total:256},{pre:"f4",total:242},{pre:"p",total:1797},{pre:"f7",total:545}];
+var EN_FIELD=[{pre:"b",total:256},{pre:"f2",total:319},{pre:"f3",total:256},{pre:"f4",total:242},{pre:"f5",total:410},{pre:"p",total:1797},{pre:"f7",total:545}];
 function reachEng(es,age){
-  var srs=(es&&es.srs)||{}, cnt={}, k,s,pre;
+  var srs=(es&&es.srs)||{}, kids=(es&&es.kids)||{}, cnt={}, k,s,pre;
+  /* 通常フィールド: srs の box(>=3)を習得とみなす */
   for(k in srs){ s=srs[k]; if(!s||(s[0]||0)<3) continue; pre=k.split("|")[0]; cnt[pre]=(cnt[pre]||0)+1; }
-  var R=0.20, efr=0,i,f,rate;
-  for(i=0;i<EN_FIELD.length;i++){ f=EN_FIELD[i]; rate=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); efr+=rate; if(rate<1)break; }
+  /* にわ等のkidsモード: kids[key][1](>=2)を習得とみなす（reachEngがsrsしか見ず取りこぼしていた修正） */
+  for(k in kids){ s=kids[k]; if(!s||(s[1]||0)<2) continue; pre=k.split("|")[0]; cnt[pre]=(cnt[pre]||0)+1; }
+  /* break撤廃: どのフィールドの進捗も加算（順番に縛られず、どこから進めてもOK） */
+  var R=0.20, efr=0,i,f;
+  for(i=0;i<EN_FIELD.length;i++){ f=EN_FIELD[i]; efr+=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); }
   return 10*Math.min(1, efr/expField(age));
 }
 /* 計算: コース該当カテゴリの平均Lv(0-10)。②(九九/筆算のLv化)前は進度をLv換算で暫定補完 */
@@ -355,10 +359,11 @@ function computeReach(kp,ks,es){
     var tests=(ks&&ks.tests)||[]; function ps(id){for(var i=0;i<tests.length;i++)if(tests[i].t===id&&(tests[i].sc||0)>=80)return true;return false;}
     var pg=0,g; for(g=1;g<=6;g++)if(ps("t_u"+g))pg++;
     REACH_INFO.kanji={label:(pg>0?"小"+pg:(ps("t_hira")?"ひらがな":"これから"))};
-    var srs=(es&&es.srs)||{},cnt={},k,s,pre; for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
-    var fr=0,names=["にわ","いけ","はやし","やま","ジャングル","アマゾン"],i,f,rate;
-    for(i=0;i<EN_FIELD.length;i++){f=EN_FIELD[i];rate=Math.min(1,(cnt[f.pre]||0)/(f.total*0.2));if(rate>=1)fr=i+1;else break;}
-    REACH_INFO.eitango={label:(fr>0?names[Math.min(5,fr-1)]:"これから")};
+    var srs=(es&&es.srs)||{},kids=(es&&es.kids)||{},cnt={},k,s,pre;
+    for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
+    for(k in kids){s=kids[k];if(!s||(s[1]||0)<2)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
+    var fr=0,i,f; for(i=0;i<EN_FIELD.length;i++){f=EN_FIELD[i];if((cnt[f.pre]||0)/(f.total*0.2)>=1)fr++;}  /* 到達フィールド数（順不同） */
+    REACH_INFO.eitango={label:(fr>0?(fr+"フィールド とうたつ"):"これから")};
     REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
   })();
   return REACH;
