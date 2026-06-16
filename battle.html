@@ -352,6 +352,7 @@ function reachEng(es,age){
      band5(reach9.5)は約4.3フィールド相当＝長い登りで「もっと学ぶ」意欲を残す。年齢正規化は廃止し絶対値に。 */
   return Math.min(10, 4.6*Math.sqrt(efr));
 }
+function reachLvLabel(v){ return "Lv "+(Math.round(Math.max(0,Math.min(10,v||0))*10)/10).toFixed(1); }
 /* 計算: コース該当カテゴリの平均Lv(0-10)。②(九九/筆算のLv化)前は進度をLv換算で暫定補完 */
 function reachCalc(kp,age){
   if(!kp) return 0;
@@ -380,18 +381,18 @@ function computeReach(kp,ks,es){
   (function(){
     var tests=(ks&&ks.tests)||[]; function ps(id){for(var i=0;i<tests.length;i++)if(tests[i].t===id&&(tests[i].sc||0)>=80)return true;return false;}
     var pg=0,g; for(g=1;g<=6;g++)if(ps("t_u"+g))pg++;
-    REACH_INFO.kanji={label:(pg>0?"小"+pg:(ps("t_hira")?"ひらがな":"これから"))};
+    REACH_INFO.kanji={label:reachLvLabel(REACH.kanji),detail:(pg>0?"テスト 小"+pg+"✓":(ps("t_hira")?"ひらがな✓":"ひらがな から"))};
     var srs=(es&&es.srs)||{},kids=(es&&es.kids)||{},cnt={},k,s,pre;
     for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
     for(k in kids){s=kids[k];if(!s||(s[1]||0)<2)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
-    /* 英語ラベル: 漢字「小2」/計算「Lv2」と並ぶ分かりやすさに。今いるフィールド名＋おぼえた語数を表示
-       （旧「これから」は何をすれば進むか不明だった→「えいごで ことばを おぼえると すすむ」が伝わる） */
-    /* レベル＝「20%以上 習得した いちばん先のフィールド」。少数の語(例:アマゾン5語)で
-       難フィールドに誤判定しないよう、未到達なら にわの進捗で表示する。 */
-    var fields=enFields(),FN=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"],reachedIdx=-1,i,n;
-    for(i=0;i<fields.length;i++){ n=cnt[fields[i].pre]||0; if(n>=fields[i].total*0.2)reachedIdx=i; }  /* 20%以上＝到達 */
-    var idx=(reachedIdx>=0)?reachedIdx:(((cnt[fields[0].pre]||0)>0)?0:-1);
-    REACH_INFO.eitango={label:(idx>=0?(FN[idx]+" "+(cnt[fields[idx].pre]||0)+"ご"):"にわ から")};
+    /* 英語: 右はボス判定そのもののLv、補助行はLvの正体(20%到達ユニットと次の目標)を表示 */
+    var fields=enFields(),FN=["にわ","いけ","はやし","やま","どうくつ","ジャングル","アマゾン"],i,n,need,denom,units=0,next=null;
+    for(i=0;i<fields.length;i++){
+      n=cnt[fields[i].pre]||0; denom=fields[i].total*0.2; need=Math.ceil(denom);
+      units+=Math.min(1,n/denom);
+      if(!next&&n<need) next={name:FN[i],n:n,need:need};
+    }
+    REACH_INFO.eitango={label:reachLvLabel(REACH.eitango),detail:"20%ゲージ "+units.toFixed(1)+"こ"+(next?("・次 "+next.name+" "+next.n+"/"+next.need+"ご"):"・ぜんぶ✓")};
     REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
   })();
   return REACH;
@@ -504,6 +505,7 @@ function reachBarHTML(label,emoji,type){
     +'<div style="position:relative;height:15px;background:#e7ecd8;border-radius:8px;overflow:hidden;margin:4px 0;border:1px solid #d5dcc2">'
     +'<i style="display:block;height:100%;width:'+pct+'%;background:linear-gradient(90deg,#f0c95a,#E8B23A)"></i>'+ticks+'</div>'
     +'<div style="position:relative;height:11px;margin-bottom:3px">'+memo+'</div>'
+    +(info.detail?'<div style="font-size:10px;color:#6d7d53;margin:-1px 0 2px">'+info.detail+'</div>':'')
     +'<div style="font-size:11px;color:#7a8a5a">'+nextBandHint(type)+'</div></div>';
 }
 function nextBandHint(type){
