@@ -423,6 +423,39 @@ function openBirthModal(){
   document.body.appendChild(ov);
 }
 function closeBirthModal(){ var o=document.getElementById("birthOv"); if(o)o.parentNode.removeChild(o); }
+/* ボスずかんのセルをクリック→詳細表示（一般昆虫図鑑と同様の見た目） */
+function bossDetail(id){
+  var sp=byId[id]; if(!sp)return;
+  var r=null; B.roster.forEach(function(x){ if(x.id===id)r=x; });
+  var got=!!((BATTLE.bosses||{})[id]);
+  var n=(((BATTLE.bosses||{})[id])||{}).n||0;
+  var tier=RW.tierOf(sp), tname=RW.TIERNAME[tier];
+  var g=RW.gameFor(sp), hp=r?r.hp:B.bugHP(sp.rarity);
+  var fam=[sp.familyJa,sp.groupJa].filter(Boolean).join(' / ');
+  var inner;
+  if(!got){
+    inner='<div style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">'+R.species(sp,false)+'</div>'
+      +'<h3>？？？</h3><p style="color:#777;font-size:13px">まだ たおしていない…<br>ボスせんで かちにいこう！</p>'
+      +'<p><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> <span class="badge b-none">'+tname+'</span> HP'+hp+'</p>';
+  }else{
+    var sz=RW.sizeRange(sp);
+    inner='<div style="width:140px;height:140px;margin:0 auto">'+R.species(sp,false)+'</div>'
+      +'<h3>👑 '+sp.jaName+'</h3>'
+      +'<p><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> <span class="badge b-none">'+tname+'</span> HP'+hp+(n?'　たおした ×'+n:'')+'</p>'
+      +'<p style="font-size:13px;color:#777">おおきさ '+sz[0]+'〜'+sz[1]+'mm</p>'
+      +(sp.scientificName?'<p style="font-size:12px;color:#999"><i>'+sp.scientificName+'</i></p>':"")
+      +(fam?'<p style="font-size:12px;color:#999">'+fam+'</p>':"")
+      +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:13px;color:#c98f1e;font-weight:800">'+sp.caution+'</p>':"")
+      +(sp.note?'<p style="background:#eef6e0;border-radius:12px;padding:10px;font-size:14px">'+sp.note+'</p>':"");
+  }
+  var ov=document.createElement("div"); ov.id="bossDetailOv";
+  ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px";
+  ov.onclick=function(e){ if(e.target===ov)closeBossDetail(); };
+  ov.innerHTML='<div style="background:#fff;border-radius:18px;padding:20px;max-width:320px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3);max-height:86vh;overflow:auto">'+inner
+    +'<div style="margin-top:14px"><button class="mini-btn" onclick="closeBossDetail()">とじる</button></div></div>';
+  document.body.appendChild(ov);
+}
+function closeBossDetail(){ var o=document.getElementById("bossDetailOv"); if(o)o.parentNode.removeChild(o); }
 function saveBirth(){
   var y=document.getElementById("bvY").value, m=+document.getElementById("bvM").value;
   var birth=y+"-"+(m<10?"0"+m:m);
@@ -719,7 +752,7 @@ function renderHome(){
         var sp=byId[r.id], got=!!caught[r.id];
         var art = got ? R.deco(sp,false) : '<div style="width:58px;height:58px;filter:brightness(0) opacity(.32)">'+R.deco(sp,false)+'</div>';
         var nm = got ? sp.jaName : "？？？";
-        return '<div style="width:58px;text-align:center"><div style="width:58px;height:58px">'+art+'</div><div style="font-size:9px;line-height:1.1;height:22px;overflow:hidden">'+nm+'</div></div>';
+        return '<div style="width:58px;text-align:center;cursor:pointer" onclick="bossDetail(\''+r.id+'\')"><div style="width:58px;height:58px">'+art+'</div><div style="font-size:9px;line-height:1.1;height:22px;overflow:hidden">'+nm+'</div></div>';
       }).join("");
   }).join("");
   // タワー（高い帯を上に）
