@@ -266,7 +266,7 @@
     </div>
 
     <div class="card" id="bossZukanCard" style="display:none">
-      <div class="sec-t">🏆 たおしたボス <span class="badge b-none" id="bzCount"></span></div>
+      <div class="sec-t">🏆 ボスずかん <span class="badge b-none" id="bzCount"></span></div>
       <div id="bossZukan" style="display:flex;flex-wrap:wrap;gap:6px"></div>
     </div>
 
@@ -692,16 +692,26 @@ function renderHome(){
   var cnt={kanji:0,keisan:0,eitango:0}; PARTY.forEach(function(s){cnt[RW.gameFor(s)]++;});
   document.getElementById("attz").innerHTML=
     '<span>🟣 かんじ '+cnt.kanji+'</span><span>🔵 けいさん '+cnt.keisan+'</span><span>🟢 えいご '+cnt.eitango+'</span>';
-  // 倒したボス図鑑（昆虫ボス＝種、天敵＝バッジから種を逆引き。どちらも装飾枠で表示）
-  var defeated=[], bosses=BATTLE.bosses||{}, badges=BATTLE.badges||{};
-  Object.keys(bosses).forEach(function(id){ if(byId[id])defeated.push(byId[id]); });
-  Object.keys(badges).forEach(function(bk){ var stg=(bk==="champion")?50:parseInt(bk.replace("nemesis-",""),10); var r=B.bossAt(stg); if(r&&byId[r.id])defeated.push(byId[r.id]); });
+  // ボスずかん：全昆虫ボス（天敵以外）を属性別に。撃破=作画／未撃破=シルエット
+  var bosses=BATTLE.bosses||{}, badges=BATTLE.badges||{}, caught={};
+  Object.keys(bosses).forEach(function(id){ caught[id]=1; });
+  Object.keys(badges).forEach(function(bk){ var stg=(bk==="champion")?50:parseInt(bk.replace("nemesis-",""),10); var r=B.bossAt(stg); if(r&&r.id)caught[r.id]=1; });
+  var insectBosses=B.roster.filter(function(r){return !r.predator && byId[r.id];});
   var bzCard=document.getElementById("bossZukanCard");
-  if(defeated.length){
-    bzCard.style.display=""; document.getElementById("bzCount").textContent=defeated.length+"体";
-    document.getElementById("bossZukan").innerHTML=defeated.map(function(sp){
-      return '<div style="width:58px;text-align:center"><div style="width:58px;height:58px">'+R.deco(sp,false)+'</div><div style="font-size:9px;line-height:1.1;height:22px;overflow:hidden">'+sp.jaName+'</div></div>'; }).join("");
-  } else bzCard.style.display="none";
+  bzCard.style.display="";
+  var gotN=insectBosses.filter(function(r){return caught[r.id];}).length;
+  document.getElementById("bzCount").textContent=gotN+"/"+insectBosses.length+"体";
+  document.getElementById("bossZukan").innerHTML=["kanji","keisan","eitango"].map(function(g){
+    var list=insectBosses.filter(function(r){return r.type===g;});
+    if(!list.length) return "";
+    return '<div style="width:100%;font-size:11px;font-weight:700;margin:6px 0 2px;opacity:.85"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span></div>'
+      + list.map(function(r){
+        var sp=byId[r.id], got=!!caught[r.id];
+        var art = got ? R.deco(sp,false) : '<div style="width:58px;height:58px;filter:brightness(0) opacity(.32)">'+R.deco(sp,false)+'</div>';
+        var nm = got ? sp.jaName : "？？？";
+        return '<div style="width:58px;text-align:center"><div style="width:58px;height:58px">'+art+'</div><div style="font-size:9px;line-height:1.1;height:22px;overflow:hidden">'+nm+'</div></div>';
+      }).join("");
+  }).join("");
   // タワー（高い帯を上に）
   var tw=document.getElementById("tower"); tw.innerHTML="";
   BANDS.forEach(function(bd){
