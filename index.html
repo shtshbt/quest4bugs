@@ -340,9 +340,10 @@ function renderDashboard(pid,name){
     QuestSave.load("keisan",pid),          /* 計算は per-profile に統一 */
     QuestSave.load("kanji",pid),
     QuestSave.load("eitango",pid),
+    QuestSave.load("battle",pid),
     QuestSave.load("keisan","_book")        /* 移行前デバイス用フォールバック */
   ]).then(function(r){
-    var kp=r[0],ks=r[1],es=r[2],book=r[3],i;
+    var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4],i;
     if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
     /* 琥珀は共有ウォレットが正。未移行(各ゲーム初回ロード前)の旧coll.amberだけ暫定加算 */
     var amber=(window.QuestSave&&QuestSave.amberOf)?QuestSave.amberOf(pid):0;
@@ -350,7 +351,9 @@ function renderDashboard(pid,name){
     if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; gCaught+=kp.coll.total||0; if(!kp.coll.amberMig)amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
     if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; if(ks.coll){gCaught+=ks.coll.total||0; if(!ks.coll.amberMig)amber+=ks.coll.amber||0;} sumDaily(day,ks.log,"a","j");}
     if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; if(es.catches)gCaught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
-    var total=keisanN+kanjiN+eitangoN;
+    var battleN=Object.keys((bt&&bt.bosses)||{}).length;
+    if(battleN) gCaught+=battleN;
+    var total=keisanN+kanjiN+eitangoN+battleN;
     var gRank=window.Q4BReward?Q4BReward.rankGlobal(gCaught):"",gNext=window.Q4BReward?Q4BReward.rankGlobalNext(gCaught):null;
     var pool=window.Q4BReward&&Q4BReward.bugs?Q4BReward.bugs.length:547;
     /* combined streak: consecutive days up to today with any activity */
@@ -376,7 +379,7 @@ function renderDashboard(pid,name){
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">🧺</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
-      +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+'　🍯こはく '+amber+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🍯こはく '+amber+'　🔥れんぞく '+streak+'にち</div></div></div>'
       +'<div class="note" style="display:flex;align-items:center;gap:8px;background:var(--green-l);border-radius:10px;padding:6px 10px;margin:0 0 8px">'
       +'<span style="font-size:18px">🏅</span><span style="font-weight:800">'+esc(gRank)+'</span>'
       +'<span style="color:var(--sub)">（つうさん '+gCaught+'ひき）</span>'

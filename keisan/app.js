@@ -3486,6 +3486,16 @@ function gHireihanpi(lv){
 }
 function genBy(cat,p,lv){
   if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
+  if(cat==="sougou"){
+    /* 総合: 学習済みカテゴリ全体から1問。cat を "sougou" に統一して集計・レベリングする
+       （従来は default に落ち subtype の cat になり、p.lv.sougou が上がらないバグだった）。
+       難易度は sougou 自身の Lv を各 subtype 生成器へ渡してスケールさせる。 */
+    var spool=["mix","kufuu","deci","frac","machigai"];
+    if(p) K10DEV.forEach(function(c){ if(p.stats&&p.stats[c]&&p.stats[c].n>0) spool.push(c); });
+    var sq=genBy(pick(spool), p, lv);
+    sq.cat="sougou";
+    return sq;
+  }
   if(cat==="hissan")return gHissan(p,lv);
   if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p);

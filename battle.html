@@ -486,6 +486,7 @@ function loadAll(){
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
       if(ks&&ks.coll){ add(ks.coll.catches); caught+=ks.coll.total||0; }
       if(es){ add(es.catches); if(es.catches)caught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); }
+      if(bt&&bt.bosses){ add(bt.bosses); }
       /* 手持ち＝図鑑に追加された採集済みの虫。除外するのは天敵(boss.predator＝バッジ報酬で
          種として図鑑に入らない)だけ。昆虫ボス(撃破で図鑑入り)もSSマスター虫も編成可。 */
       OWNED = Object.keys(ids).map(function(id){return byId[id];}).filter(function(s){return s&&!(s.boss&&s.boss.predator);});
@@ -604,8 +605,17 @@ function makeQ(type, bd){
     if(pat===1){ var n1=R(3,bd>=5?12:9),n2=R(2,9),v=n1*n2,n3=R(1,Math.max(1,v-1)); return {q:n1+" × "+n2+" − "+n3,ans:v-n3}; }
     var k1=R(2,9),k2=R(2,bd>=5?40:20),k3=R(2,bd>=5?40:20); return {q:k1+" × ( "+k2+" + "+k3+" )",ans:k1*(k2+k3)};
   }
-  if(type==="kanji"){ var kb=(bd>=3?KANJIQ_H:KANJIQ); var kq=kb[Math.floor(seed()*kb.length)]; return {q:kq.q+" の よみは？",ans:kq.a,kind:"choice",choices:shuffle(kq.c.slice())}; }
-  var eb=(bd>=3?EIGOQ_H:EIGOQ); var e=eb[Math.floor(seed()*eb.length)]; return {q:e.q,ans:e.a,kind:"choice",choices:shuffle(e.c.slice())};
+  function choiceQ(item, bank, prompt){
+    var choices=item.c.slice(), guard=0;
+    while(bd>=3 && choices.length<4 && guard<20){
+      var extra=bank[Math.floor(seed()*bank.length)].a;
+      if(extra!==item.a && choices.indexOf(extra)<0) choices.push(extra);
+      guard++;
+    }
+    return {q:prompt,ans:item.a,kind:"choice",choices:shuffle(choices)};
+  }
+  if(type==="kanji"){ var kb=(bd>=3?KANJIQ_H:KANJIQ); var kq=kb[Math.floor(seed()*kb.length)]; return choiceQ(kq,kb,kq.q+" の よみは？"); }
+  var eb=(bd>=3?EIGOQ_H:EIGOQ); var e=eb[Math.floor(seed()*eb.length)]; return choiceQ(e,eb,e.q);
 }
 var KANJIQ=[
   {q:"森林",a:"しんりん",c:["しんりん","もり","きこり"]},{q:"昆虫",a:"こんちゅう",c:["こんちゅう","むし","かぶと"]},
@@ -855,9 +865,9 @@ function drawBench(){
 }
 function nextQuestion(){
   var m=activeM();
-  /* 難易度＝ボスのband と 子の実力(REACH 0-10→1-5) の大きい方。強い子は序盤ボスでもチャレンジングに */
+  /* Use the higher of boss band and a slightly-ahead reach band so early bosses still challenge advanced players. */
   var _bb=st.r?Math.ceil(st.r.stage/10):1;
-  var _rl=Math.max(1,Math.min(5,Math.ceil((REACH[m.type]||0)/2)));
+  var _rl=Math.max(1,Math.min(5,Math.ceil(((REACH[m.type]||0)+1)/2)));
   st.q=makeQ(m.type, Math.max(_bb,_rl));
   var tb=document.getElementById("turnBanner");
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
