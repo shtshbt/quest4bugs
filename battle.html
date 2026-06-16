@@ -327,7 +327,18 @@ function reachKanji(ks,age){
   return 10*Math.min(1, kg/(expGrade(age)+0.5));
 }
 /* 英語: srs key prefix でフィールド分類→習得率(box>=3が総語の20%)で「到達」→連続到達数 / 目標フィールド数 */
-var EN_FIELD=[{pre:"b",total:256},{pre:"f2",total:319},{pre:"f3",total:256},{pre:"f4",total:242},{pre:"f5",total:410},{pre:"p",total:1797},{pre:"f7",total:545}];
+var EN_FIELD_DEF=[{pre:"b",level:1,fallback:256},{pre:"f2",level:2,fallback:319},{pre:"f3",level:3,fallback:256},{pre:"f4",level:4,fallback:242},{pre:"f5",level:5,fallback:410},{pre:"p",level:6,fallback:1797},{pre:"f7",level:7,fallback:545}];
+function enFields(){
+  var EI=window.Q4B_EI;
+  return EN_FIELD_DEF.map(function(f){
+    var total=f.fallback;
+    if(EI&&EI.byField){
+      var words=EI.byField(f.level)||[];
+      if(words.length) total=words.length;
+    }
+    return {pre:f.pre,level:f.level,total:total};
+  });
+}
 function reachEng(es,age){
   var srs=(es&&es.srs)||{}, kids=(es&&es.kids)||{}, cnt={}, k,s,pre;
   /* 通常フィールド: srs の box(>=3)を習得とみなす */
@@ -335,8 +346,8 @@ function reachEng(es,age){
   /* にわ等のkidsモード: kids[key][1](>=2)を習得とみなす（reachEngがsrsしか見ず取りこぼしていた修正） */
   for(k in kids){ s=kids[k]; if(!s||(s[1]||0)<2) continue; pre=k.split("|")[0]; cnt[pre]=(cnt[pre]||0)+1; }
   /* break撤廃: どのフィールドの進捗も加算（順番に縛られず、どこから進めてもOK） */
-  var R=0.20, efr=0,i,f;
-  for(i=0;i<EN_FIELD.length;i++){ f=EN_FIELD[i]; efr+=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); }
+  var R=0.20, efr=0,i,f,fields=enFields();
+  for(i=0;i<fields.length;i++){ f=fields[i]; efr+=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); }
   return 10*Math.min(1, efr/expField(age));
 }
 /* 計算: コース該当カテゴリの平均Lv(0-10)。②(九九/筆算のLv化)前は進度をLv換算で暫定補完 */
@@ -369,7 +380,7 @@ function computeReach(kp,ks,es){
     var srs=(es&&es.srs)||{},kids=(es&&es.kids)||{},cnt={},k,s,pre;
     for(k in srs){s=srs[k];if(!s||(s[0]||0)<3)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
     for(k in kids){s=kids[k];if(!s||(s[1]||0)<2)continue;pre=k.split("|")[0];cnt[pre]=(cnt[pre]||0)+1;}
-    var fr=0,i,f; for(i=0;i<EN_FIELD.length;i++){f=EN_FIELD[i];if((cnt[f.pre]||0)/(f.total*0.2)>=1)fr++;}  /* 到達フィールド数（順不同） */
+    var fields=enFields(),fr=0,i,f; for(i=0;i<fields.length;i++){f=fields[i];if((cnt[f.pre]||0)/(f.total*0.2)>=1)fr++;}  /* 到達フィールド数（順不同） */
     REACH_INFO.eitango={label:(fr>0?(fr+"フィールド とうたつ"):"これから")};
     REACH_INFO.keisan={label:"Lv"+Math.max(1,Math.round(REACH.keisan))};
   })();
@@ -654,23 +665,25 @@ function makeQ(type, bd){
   if(type==="kanji") return makeKanjiQ(bd, choiceQ);
   return makeEigoQ(bd, choiceQ);
 }
-/* ===== 本物連動の出題（カンジ・エイゴ）：子の学習済み範囲から70/30で出題 ===== */
+/* ===== 本物連動の出題（カンジ・エイゴ）：定着範囲を主軸に、進捗の少し先を混ぜる ===== */
 function makeKanjiQ(bd, choiceQ){
   var ks=PROG.kanji, K=window.Q4B_KANJI;
   if(ks&&ks.srs&&K&&K.length){
     var kmap={}; K.forEach(function(x){kmap[x.k]=x;});
-    var learned=[];
+    var learned=[], started=[];
     for(var key in ks.srs){
       if(key.charAt(0)!=='k')continue;                 /* 'k:漢字' */
       var rec=ks.srs[key], y=rec&&rec.y;               /* y=よみスキル */
-      if(!(y&&y.s>0))continue;
       var kx=kmap[key.slice(2)];
-      if(kx&&kx.main)learned.push(kx);
+      if(!(kx&&kx.main&&y))continue;
+      if(y.s>=2)learned.push(kx);
+      else if(y.s>0)started.push(kx);
     }
+    if(learned.length<4&&started.length>=4) learned=started;   /* 序盤だけ緩和。通常は定着済み(s>=2)を使う */
     if(learned.length>=4){
       var maxG=0; learned.forEach(function(x){if(x.u>maxG)maxG=x.u;});
       var target=null;
-      if(seed()<(bd>=4?0.5:0.3)){                       /* チャレンジ枠＝次学年から */
+      if(seed()<(bd>=4?0.25:0.15)){                      /* チャレンジ枠＝次学年から少量 */
         var ng=Math.min(6,maxG+1), np=K.filter(function(x){return x.u===ng&&x.main;});
         if(np.length)target=np[Math.floor(seed()*np.length)];
       }
@@ -692,25 +705,58 @@ function eiAll(){
   if(EI&&EI.byField){ for(var f=1;f<=7;f++){ EI.byField(f).forEach(function(w){a.push(w);}); } }
   EI_ALL=a; return a;
 }
+function eigoMastered(w,srs,kids){
+  if(w.level===1){ var k=kids[w.key]; return !!(k&&k[1]>=2); }
+  var s=srs[w.key]; return !!(s&&s[0]>=3);
+}
+function eigoTargetInfo(es,all){
+  var srs=(es&&es.srs)||{}, kids=(es&&es.kids)||{}, fields=enFields(), byLevel={}, cnt={}, i;
+  all.forEach(function(w){ if(!byLevel[w.level])byLevel[w.level]=[]; byLevel[w.level].push(w); });
+  all.forEach(function(w){ if(eigoMastered(w,srs,kids)) cnt[w.level]=(cnt[w.level]||0)+1; });
+  var active=1, completed=0;
+  for(i=0;i<fields.length;i++){
+    var f=fields[i], c=cnt[f.level]||0;
+    if(c>0) active=f.level;
+    if(c>=Math.max(4,Math.ceil(f.total*0.20))){ completed=f.level; active=Math.max(active,Math.min(7,f.level+1)); }
+  }
+  return {srs:srs,kids:kids,fields:fields,byLevel:byLevel,cnt:cnt,active:active,completed:completed};
+}
+function eigoDistractors(target,info){
+  var levels=[target.level,target.level-1,target.level+1,target.level-2,target.level+2], pool=[], seenLevel={}, i;
+  for(i=0;i<levels.length;i++){
+    var lv=levels[i];
+    if(lv<1||lv>7||seenLevel[lv])continue;
+    seenLevel[lv]=1;
+    pool=pool.concat(info.byLevel[lv]||[]);
+    if(pool.length>=12)break;
+  }
+  if(pool.length<4)pool=pool.concat(eiAll());
+  var ans=target.ja, distr=[], seen={}; seen[ans]=1;
+  pool=shuffle(pool);
+  for(i=0;i<pool.length&&distr.length<3;i++){
+    var j=pool[i].ja;
+    if(j&&!seen[j]){seen[j]=1;distr.push(j);}
+  }
+  return distr;
+}
 function makeEigoQ(bd, choiceQ){
   var es=PROG.eitango, all=eiAll();
   if(es&&all.length){
-    var srs=es.srs||{}, kids=es.kids||{};
-    var learned=all.filter(function(w){
-      if(w.level===1){ var k=kids[w.key]; return k&&k[1]>=2; }   /* にわ＝kidsモード(正解>=2) */
-      var s=srs[w.key]; return s&&s[0]>=2;                        /* それ以外＝box>=2 */
-    });
+    var info=eigoTargetInfo(es,all), srs=info.srs, kids=info.kids;
+    var learned=all.filter(function(w){ return eigoMastered(w,srs,kids); });
     if(learned.length>=4){
-      var maxF=1; learned.forEach(function(w){if(w.level>maxF)maxF=w.level;});
-      var target=null;
-      if(seed()<(bd>=4?0.5:0.3)){                                /* チャレンジ枠＝次フィールド */
-        var nf=Math.min(7,maxF+1), np=all.filter(function(w){return w.level===nf;});
-        if(np.length)target=np[Math.floor(seed()*np.length)];
+      var current=learned.filter(function(w){return w.level===info.active;});
+      var basePool=current.length>=4?current:learned.filter(function(w){return w.level<=info.active;});
+      if(basePool.length<4)basePool=learned;
+      var target=null, challengeLevel=Math.min(7,info.active+1);
+      if(seed()<(bd>=4?0.25:0.15)){                              /* チャレンジ枠＝進捗フィールドの少し先 */
+        var activeUnseen=(info.byLevel[info.active]||[]).filter(function(w){return !eigoMastered(w,srs,kids);});
+        var nextPool=(info.completed>=info.active-1)?(info.byLevel[challengeLevel]||[]):[];
+        var challenge=activeUnseen.length>=4?activeUnseen:nextPool;
+        if(challenge.length)target=challenge[Math.floor(seed()*challenge.length)];
       }
-      if(!target)target=learned[Math.floor(seed()*learned.length)];
-      var ans=target.ja, distr=[], seen={}; seen[ans]=1;
-      var dp=shuffle(all);
-      for(var i=0;i<dp.length&&distr.length<3;i++){ var j=dp[i].ja; if(j&&!seen[j]){seen[j]=1;distr.push(j);} }
+      if(!target)target=basePool[Math.floor(seed()*basePool.length)];
+      var ans=target.ja, distr=eigoDistractors(target,info);
       return {q:target.en+" の いみは？", ans:ans, kind:"choice", choices:shuffle([ans].concat(distr))};
     }
   }
@@ -969,7 +1015,7 @@ function nextQuestion(){
   var _bb=st.r?Math.ceil(st.r.stage/10):1;
   var _rl=Math.max(1,Math.min(5,Math.ceil(((REACH[m.type]||0)+1)/2)));
   var _d=Math.max(_bb,_rl);
-  if(Math.random()<0.3)_d=Math.min(5,_d+1);   /* 70/30: 3割で1段むずかしく＝少しチャレンジング */
+  if(m.type==="keisan"&&Math.random()<0.25)_d=Math.min(5,_d+1);   /* 計算だけ外側で少し難化。漢字/英語は各実データ側で調整 */
   st.q=makeQ(m.type, _d);
   var tb=document.getElementById("turnBanner");
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
