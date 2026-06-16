@@ -949,18 +949,44 @@ function gHikizan(p,lvOv){
   return {cat:"hikizan", kind:(p.hissanInput==="app"?"hissan":"num"), a:a, b:b,
     text:a+"−"+b, say:a+" ひく "+b+" は？", ans:a-b};
 }
-function gKuku(p,dan){
-  var unlocked=ORDER.slice(0, Math.max(1,Math.min(p.kukuIdx+1, ORDER.length)));
-  /* ミッションでは「いまの目標の段」を6割で出し、周回で自然に習得が進むようにする */
-  var target=ORDER[Math.min(p.kukuIdx||0, ORDER.length-1)];
-  var d=dan||((Math.random()<0.6 && unlocked.indexOf(target)>=0)?target:pick(unlocked)), b=ri(1,9);
+function gKuku(p,dan,lv){
+  /* Lv1-9 = ORDER の各段に対応（Lv=kukuIdx+1 と整合）、Lv10 = 全段ミックス */
+  if(lv==null) lv=legacyKukuToLv(p);
+  var d, b=ri(1,9);
+  if(dan){ d=dan; }
+  else if(lv>=10){ d=ORDER[ri(0,ORDER.length-1)]; }                /* Lv10: 全段ミックス */
+  else {
+    var idx=Math.min(Math.max(1,lv)-1, ORDER.length-1);
+    var target=ORDER[idx], unlocked=ORDER.slice(0, idx+1);          /* そのLvの段を主軸(6割)＋既習段で復習 */
+    d=(Math.random()<0.6)?target:pick(unlocked);
+  }
   return {cat:"kuku",kind:"num",dan:d,b:b,text:d+"×"+b,say:d+" かける "+b+" は？",ans:d*b};
 }
-function gAnzan(){
-  var a,b;
-  if(Math.random()<0.4){a=ri(12,89);b=ri(4,9);}
-  else {a=ri(12,79);b=ri(10,99-a);}
-  return {cat:"anzan",kind:"num",text:a+"＋"+b,say:a+" たす "+b+" は？",ans:a+b};
+function gAnzan(lv){
+  /* Lvに応じて 桁数・演算 を上げる（従来は2桁＋のみで頭打ちだった） */
+  if(lv==null) lv=ri(1,10);
+  var a,b,c,t,ans;
+  if(lv<=2){               /* 2桁＋1〜2桁（繰り上がり） */
+    if(Math.random()<0.4){a=ri(12,89);b=ri(4,9);} else {a=ri(12,79);b=ri(10,99-a);}
+    t=a+"＋"+b; ans=a+b;
+  } else if(lv<=4){        /* 2桁−2桁 / 3桁＋2桁 */
+    if(Math.random()<0.5){a=ri(40,99);b=ri(11,a-1);t=a+"−"+b;ans=a-b;}
+    else {a=ri(100,400);b=ri(11,99);t=a+"＋"+b;ans=a+b;}
+  } else if(lv<=6){        /* 2桁×1桁 / 3桁−3桁 */
+    if(Math.random()<0.5){a=ri(11,40);b=ri(3,9);t=a+"×"+b;ans=a*b;}
+    else {a=ri(200,800);b=ri(100,a-50);t=a+"−"+b;ans=a-b;}
+  } else if(lv<=8){        /* きりのいい× / 割り切れ÷ / 3桁−3桁 */
+    var pat=ri(0,2);
+    if(pat===0){a=ri(2,9)*10;b=ri(11,29);t=a+"×"+b;ans=a*b;}
+    else if(pat===1){b=ri(3,9);c=ri(11,30);a=b*c;t=a+"÷"+b;ans=c;}
+    else {a=ri(3,9)*100;b=ri(101,a-50);t=a+"−"+b;ans=a-b;}
+  } else {                 /* 2桁×2桁(暗算向き) / 3口の加算 / ×100前後 */
+    var pp=ri(0,2);
+    if(pp===0){a=ri(11,25);b=ri(11,25);t=a+"×"+b;ans=a*b;}
+    else if(pp===1){a=ri(20,90);b=ri(20,90);c=ri(20,90);t=a+"＋"+b+"＋"+c;ans=a+b+c;}
+    else {a=ri(11,40);b=ri(95,105);t=a+"×"+b;ans=a*b;}
+  }
+  return {cat:"anzan",kind:"num",text:t,say:readify(t),ans:ans};
 }
 function gMix(lv){
   if(lv==null) lv=ri(1,10);
@@ -2781,14 +2807,15 @@ function gNichireki(lv){
         if(ans<=0) continue;
         t=WD[startWd-1]+"曜日の "+n9+"日前は 何曜日ですか。"+labelNote;
       } else { // lv===10
-        // 日付指定: ある月のx日が startWd 曜日のとき、同月のy日は何曜日
-        var m10=pick([1,3,4,5,6,7,8,9,10,11,12]);
+        // 月をまたぐ日付指定: m月x日が startWd 曜日のとき、翌月y日は何曜日（当月残り＋翌月分で計算）
+        var m10=pick([1,3,4,5,6,7,8,9,10,11]);   // 翌月が2月にならない月
         var md10=MDAYS[m10-1];
-        var x=ri(1,md10-7);
-        var y=ri(x+1,md10);
-        ans=((startWd-1+(y-x))%7)+1;
+        var x=ri(10,md10);
+        var y=ri(5,MDAYS[m10]-1);                  // 翌月の日
+        var diff=(md10-x)+y;
+        ans=((startWd-1+diff)%7)+1;
         if(ans<=0) continue;
-        t=m10+"月"+x+"日が "+WD[startWd-1]+"曜日のとき、"+m10+"月"+y+"日は 何曜日ですか。"+labelNote;
+        t=m10+"月"+x+"日が "+WD[startWd-1]+"曜日のとき、"+(m10+1)+"月"+y+"日は 何曜日ですか。"+labelNote;
       }
     }
     break;
@@ -2850,11 +2877,11 @@ function gKisokusei(lv){
         var t5="ボールを 三角形に つみます。1だん目 1こ、2だん目 2こ ……と ふやして "+n5+"だん つむと、ボールは ぜんぶで 何こ？";
         r={cat:cat,kind:"num",text:t5,say:null,ans:ans5};
       }else{
-        // 四角数 n^2
-        var n6=ri(5,13);
-        var ans6=n6*n6;
-        var t6="ご石を たて "+n6+"こ、よこ "+n6+"こ の 正方形に ならべます。ご石は ぜんぶで 何こ？";
-        r={cat:cat,kind:"num",text:t6,say:null,ans:ans6};
+        // 三角数の逆算: 合計から段数を求める（前進の三角数より一段むずかしい）
+        var n6=ri(6,15);
+        var tot6=n6*(n6+1)/2;
+        var t6="ボールを 三角形に つみます。1だん目 1こ、2だん目 2こ ……と ふやしたら、ぜんぶで "+tot6+"こ に なりました。何だん つみましたか？";
+        r={cat:cat,kind:"num",text:t6,say:null,ans:n6};
       }
     }
     if(r && Number.isInteger(r.ans) && r.ans>0) return r;
@@ -3051,17 +3078,16 @@ function gShuugou(lv){
           + "どちらも すきでない人は "+neither5+"人です。"
           + "英語と音楽の 両方が すきな人は 何人ですか。";
       } else {
-        // lv10: 曜日を番号化(月=1..木=4)し、最多人数の曜日番号を問う条件付き
-        var DAYS=[["月",1],["火",2],["水",3],["木",4]];
-        var cnts=[];
-        for(var i=0;i<4;i++){ cnts.push(ri(5,18)); }
-        var mx=Math.max.apply(null,cnts);
-        var mxIdx=cnts.indexOf(mx);
-        if(cnts.filter(function(x){return x===mx;}).length!==1) continue; // 最大が一意のみ採用
-        ans = DAYS[mxIdx][1];
-        t = "委員会の 集まる曜日べつ 人数を しらべました。"
-          + "月よう日="+cnts[0]+"人、火よう日="+cnts[1]+"人、水よう日="+cnts[2]+"人、木よう日="+cnts[3]+"人です。"
-          + "いちばん 人数が 多い曜日を 番号で 答えてください。(月=1、火=2、水=3、木=4)";
+        // lv10: 包除原理の2段階 — A∩B を求めてから「Aだけ」を答える
+        var W6=ri(32,44), A6=ri(14,22), B6=ri(14,22), neither6=ri(2,6);
+        var both6=A6+B6+neither6-W6;
+        if(both6<2 || both6>=A6 || both6>=B6) continue;
+        var onlyA6=A6-both6;
+        if(onlyA6<2) continue;
+        ans=onlyA6;
+        t = "クラス "+W6+"人のうち、サッカーが すきな人は "+A6+"人、野球が すきな人は "+B6+"人、"
+          + "どちらも すきでない人は "+neither6+"人です。"
+          + "サッカーだけ(野球は すきでない)が すきな人は 何人ですか。";
       }
     }
     if(ans>0 && Number.isInteger(ans)) break;
@@ -3392,11 +3418,11 @@ function gBaai(lv){
         ans=paths(w9,h9);
       } else {
         if(Math.random()<0.5){
-          var a10=ri(2,5), b10=ri(2,5);
-          text="赤いボールが"+a10+"個、青いボールが"+b10+"個あります。1個選ぶ選び方は何通り？";
-          ans=a10+b10;
+          var n10=ri(6,8), r10=3;
+          text=n10+"人の中から"+r10+"人の代表を選びます。選び方は何通り？";
+          ans=nCr(n10,r10);
         } else {
-          var w10=ri(3,4), h10=ri(2,3);
+          var w10=ri(3,4), h10=3;
           text="たて"+h10+"区画、よこ"+w10+"区画の道を、遠回りせずに右上まで行きます。道順は何通り？";
           ans=paths(w10,h10);
         }
@@ -3503,8 +3529,8 @@ function genBy(cat,p,lv){
   }
   if(cat==="hissan")return gHissan(p,lv);
   if(cat==="hikizan")return gHikizan(p,lv);
-  if(cat==="kuku")return gKuku(p);
-  if(cat==="anzan")return gAnzan();
+  if(cat==="kuku")return gKuku(p,null,lv);
+  if(cat==="anzan")return gAnzan(lv);
   if(cat==="mix")return gMix(lv);
   if(cat==="kufuu")return gKufuu(lv);
   if(cat==="deci")return gDeci(lv);
