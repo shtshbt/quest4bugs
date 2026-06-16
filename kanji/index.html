@@ -859,11 +859,19 @@ function startReview(){
 
 /* ================= 進捗バー ================= */
 function calcMastered(keys){
- // しゅうとく = 「よみ」を おぼえた字(box>=3)。＝読めるようになった字の割合。直感的で ちゃんと動く指標。
- // （旧定義は 全スキルbox3＝box が1日1回しか上がらないため ほぼ永久に0%だった）
- var total=keys.length, mastered=0;
- keys.forEach(function(key){ if(rec(key,'y').s>=3)mastered++; });
- return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
+ // しゅうとく% = 全スキルの「部分点」平均。よみ50%＋他スキル(かき/熟語/送り)平均50%、各スキル box3 で満点。
+ // ＝0%張り付きにならず、よみだけでは満点(50%)にならない フェアな指標。
+ // mastered は「よみを おぼえた字(box3)」の実数（サブ表示用）。
+ var total=keys.length, sum=0, yomi=0;
+ keys.forEach(function(key){
+  var sks=skillsOf(key);
+  var y=Math.min(3,rec(key,'y').s)/3;            // よみ達成度 0..1
+  if(rec(key,'y').s>=3)yomi++;
+  var others=sks.filter(function(s){return s!=='y';}), o=0;
+  if(others.length){ var t=0; others.forEach(function(s){ t+=Math.min(3,rec(key,s).s)/3; }); o=t/others.length; }
+  sum += others.length ? (0.5*y+0.5*o) : y;       // よみ半分＋他スキル半分
+ });
+ return {mastered:yomi, total:total, sum:sum, pct: total?Math.round(100*sum/total):0}
 }
 function calcFullMastered(keys){
  // ぜんぶマスター = その字の 全スキル(よみ/熟語/かき/じゅくご/送り)が 成虫(box>=3)。マスター虫の条件。
@@ -987,7 +995,7 @@ function renderProgress(){
    +(locked?'':breakdownHTML(keys))
    +'</div>';
  });
- h+='<div class="small" style="margin-top:8px">しゅうとく＝「よみ」を おぼえた字（🦋せいちゅう）。🎓ぜんぶマスター＝よみ・かき・じゅくご など <b>すべて</b>のスキルが せいちゅう（マスター虫の じょうけん）。<br>🥚たまご 🐛ようちゅう 🟤さなぎ 🦋せいちゅう（よみ しゅうとく）</div>'
+ h+='<div class="small" style="margin-top:8px">しゅうとく％＝よみ・かき・じゅくご など 全スキルの すすみ具合の へいきん（よみで 50%、ぜんぶ できると 100%）。🎓ぜんぶマスター＝<b>すべて</b>のスキルが せいちゅう（マスター虫の じょうけん）。<br>🥚たまご 🐛ようちゅう 🟤さなぎ 🦋せいちゅう（よみ しゅうとく）</div>'
  +'</div>';
  if(window.Q4BReward&&ST.coll)h+='<div class="card"><h3>🏅 しょうごう</h3>'+Q4BReward.rankListHTML(ST.coll.total)+'</div>';
  s.innerHTML=h;
@@ -1017,7 +1025,7 @@ function renderRange(){ var s=$('scr-range');
    +[['mix','🎲おまかせ'],['y','📖よみ'],['w','✏️かき'],['j','🔤じゅくご'],['o','〜おくりがな']].map(function(f){
      return '<button class="btn sub mini" style="margin:0;'+(RANGEFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':'')+'" onclick="RANGEFMT=\''+f[0]+'\';renderRange()">'+f[1]+'</button>'; }).join('')
    +'</div>';
- function rangeBar(keys){ var rr=calcMastered(keys); return '<div class="pgbar-wrap" style="height:7px;margin:7px 0 2px"><div class="pgbar-fill" style="width:'+rr.pct+'%"></div></div><div style="font-size:11px;opacity:.85">しゅうとく '+rr.mastered+'/'+rr.total+'（'+rr.pct+'%）</div>'; }
+ function rangeBar(keys){ var rr=calcMastered(keys); return '<div class="pgbar-wrap" style="height:7px;margin:7px 0 2px"><div class="pgbar-fill" style="width:'+rr.pct+'%"></div></div><div style="font-size:11px;opacity:.85">しゅうとく '+rr.pct+'%（よみ '+rr.mastered+'/'+rr.total+'）</div>'; }
  if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ'+rangeBar(HIRA.map(function(c){return 'h:'+c}))+breakdownHTML(HIRA.map(function(c){return 'h:'+c}))+'</button>';
  var _anyLock=false;
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
