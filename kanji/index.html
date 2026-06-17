@@ -19,9 +19,9 @@
 body.night{ --sky:#16213c; --grass:#243352; --card:#243352; --leaf:#7fb069; --forest:#dbe6f0; --deep:#eef3f8; --soil:#cda781; background:#16213c; color:#e9edf6; }
 body.night .btn.sub{ background:#2b3a5a; color:#e9edf6; border-color:#3a4a6a; box-shadow:0 4px 0 #16213c; }
 /* 夜モード: 白固定だった図鑑カード/タブを暗くし、昆虫名(白文字)が読めるように */
-body.night .bug{ background:#1e2c49!important; border-color:#3a4a6a!important; color:#e9edf6!important; }
-body.night .bug .nm{ color:#e9edf6!important; }
-body.night .bug .rar{ color:#ffd86b!important; }
+body.night .bug{ background:#fffdf6!important; border-color:#2e5d28!important; color:#2e5d28!important; }
+body.night .bug .nm{ color:#2e5d28!important; }
+body.night .bug .rar{ color:#7a4a23!important; }
 body.night .tabs button{ background:#243352; color:#cfe0d0; border-color:#3a4a6a; }
 body.night .tabs button.on{ background:#7fb069; color:#16213c; }
 /* 夜モード: 図鑑/範囲選択グリッドのセルは薄いパステル固定背景なので、文字(漢字)を濃色に固定して可読化 */
@@ -111,9 +111,9 @@ canvas.trace{touch-action:none;border-radius:11px}
 
 /* ---- むしかご ---- */
 .bugs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
-.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center}
+.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center;color:#2e5d28;font:inherit;appearance:none;-webkit-appearance:none}
 .bug svg{width:64px;height:64px}
-.bug .nm{font-size:11px;font-weight:bold;color:var(--forest);margin-top:2px;min-height:2.4em}
+.bug .nm{font-size:11px;font-weight:bold;color:#2e5d28;margin-top:2px;min-height:2.4em}
 .bug.no{opacity:.45;filter:grayscale(1)}
 .rar{font-size:10px;color:var(--soil)}
 
