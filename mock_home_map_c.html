@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Quest4Bugs map mock C</title>
+<style>
+body{margin:0;background:#eef4dd;color:#253626;font-family:"Hiragino Maru Gothic ProN","BIZ UDPGothic",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:14px}.card{background:#fffdf4;border:2px solid #cfd9b2;border-radius:18px;padding:14px;margin-bottom:12px}
+h1{font-size:22px;margin:0 0 4px}.note{font-size:13px;color:#61705d;margin:0}svg{width:100%;height:auto;display:block;border-radius:18px;box-shadow:0 4px 0 rgba(50,70,30,.15)}
+.zone{stroke:#fff;stroke-width:6}.btn text{fill:#fff;font-weight:900}.btn rect{filter:drop-shadow(0 3px 0 rgba(0,0,0,.22))}.title{font-size:18px;font-weight:900;fill:#243426}.mini{font-size:12px;font-weight:800;fill:#4c5a4a}
+.step{fill:#fff6cc;stroke:#b9831c;stroke-width:3}
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>案C: 断面ワールドマップ</h1>
+    <p class="note">縦に3地形を積み、中央に王者への階段を置く。スマホ画面でスクロールなしに収まりやすい案。</p>
+  </div>
+  <svg viewBox="0 0 760 560" role="img" aria-label="Quest4Bugs 断面ワールドマップ">
+    <rect width="760" height="560" fill="#bde6f2"/>
+    <path class="zone" d="M40 62h680v135c-89 36-172 24-251-10-95-40-181-23-263 14-56 25-111 23-166-4Z" fill="#8fd36b"/>
+    <path class="zone" d="M40 195c70 27 126 27 180 4 92-39 174-52 267-14 79 33 154 48 233 13v172c-95 26-161 18-231-16-88-43-170-40-256 2-64 31-128 33-193 2Z" fill="#ddbd72"/>
+    <path class="zone" d="M40 354c67 29 133 27 197-5 84-42 164-40 248 2 76 38 149 45 235 20v127H40Z" fill="#69a6d8"/>
+    <path d="M379 102C356 159 358 210 382 253c29 51 29 103 0 154-19 34-24 70-15 108" fill="none" stroke="#fff1b8" stroke-width="24" stroke-linecap="round"/>
+    <path d="M379 102C356 159 358 210 382 253c29 51 29 103 0 154-19 34-24 70-15 108" fill="none" stroke="#7a5b2e" stroke-width="4" stroke-dasharray="8 10" stroke-linecap="round"/>
+    <circle class="step" cx="375" cy="132" r="21"/><text x="375" y="138" text-anchor="middle" font-size="13" font-weight="900" fill="#5a3a00">1</text>
+    <circle class="step" cx="382" cy="272" r="21"/><text x="382" y="278" text-anchor="middle" font-size="13" font-weight="900" fill="#5a3a00">2</text>
+    <a href="./battle.html"><circle class="step" cx="369" cy="442" r="38"/><text x="369" y="438" text-anchor="middle" font-size="14" font-weight="900" fill="#5a3a00">王者</text><text x="369" y="456" text-anchor="middle" font-size="14" font-weight="900" fill="#5a3a00">バトル</text></a>
+    <a href="./keisan/index.html" class="btn"><rect x="80" y="100" width="190" height="58" rx="16" fill="#2f8a4d"/><text x="175" y="136" text-anchor="middle" font-size="20">🪲 けいさん</text></a>
+    <a href="./kanji/index.html" class="btn"><rect x="490" y="252" width="190" height="58" rx="16" fill="#b66b2d"/><text x="585" y="288" text-anchor="middle" font-size="20">✏️ かんじ</text></a>
+    <a href="./eitango/index.html" class="btn"><rect x="78" y="404" width="190" height="58" rx="16" fill="#2d74b8"/><text x="173" y="440" text-anchor="middle" font-size="20">🔤 えいご</text></a>
+    <text x="85" y="86" class="title">森の計算台地</text><text x="490" y="238" class="title">漢字の古道</text><text x="82" y="390" class="title">英語の入り江</text>
+    <text x="448" y="120" class="mini">進むほど中央の道がひらく</text>
+    <text x="438" y="442" class="mini">3ゲームの力で王者へ</text>
+  </svg>
+</main>
+</body>
+</html>
