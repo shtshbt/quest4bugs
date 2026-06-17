@@ -231,7 +231,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.4.8"></script>
+<script src="../shared/storage.js?v=0.4.12"></script>
 <script src="../shared/bugs.js?v=0.4.7"></script>
 <script src="../shared/eitango_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
@@ -1843,6 +1843,7 @@ function ansSRS(i){
 function afterAnswer(item,ok,title,detail){
   S.answered++;
   if(ok) S.correct++;
+  if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(ePid(),'eitango',1);
   if(!item.retry){
     const wasKids=item.type==='kids';
     const prevStage=growthStage(item.w,wasKids).stage; /* 更新前の段階 */

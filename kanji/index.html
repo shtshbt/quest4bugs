@@ -167,7 +167,7 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.4.8"></script>
+<script src="../shared/storage.js?v=0.4.12"></script>
 <script src="../shared/bugs.js?v=0.4.7"></script>
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
@@ -534,6 +534,7 @@ function answered(ok){ var p=SES.q[SES.i];
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  if(ok){ SES.ok++;
+  if(window.QuestSave&&QuestSave.recordCorrect&&CUR&&CUR.id)QuestSave.recordCorrect(CUR.id,'kanji',1);
   // 採集ゲージ: learn/practice/review のみ（test は finishTest で別途処理）
   if(SES.mode!=='test'&&window.Q4BReward){
    var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 連打検知＋既習スキルの周回は採集鈍化

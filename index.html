@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.8">
+<meta name="q4b-release" content="0.4.12">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -38,6 +38,27 @@ padding:8px;font-family:monospace;-webkit-user-select:text;user-select:text;}
 input{width:100%;font-size:15px;border:2px solid var(--line);border-radius:10px;
 padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;user-select:text;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.goshin{border:2px solid #BDA46A;background:linear-gradient(180deg,#FFFCF0,#F7EFD9);border-radius:16px;padding:12px;margin:10px 0}
+.goshin-top{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:stretch}
+.goshin-tree{font-size:34px;line-height:1;text-align:center}
+.goshin-title{font-weight:900;font-size:17px;line-height:1.2}
+.goshin-board{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:8px 10px;font-size:13px;font-weight:800;color:#42533A;line-height:1.45}
+.goshin-wallet{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.goshin-chip{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:6px 7px;min-width:0}
+.goshin-chip b{display:block;font-size:10px;color:#7A6B4B;line-height:1.15}
+.goshin-chip strong{display:block;font-size:17px;line-height:1.15}
+.goshin-chip span{display:block;font-size:9px;color:#7A6B4B;font-weight:800;line-height:1.2;margin-top:2px}
+.goshin-daily{display:grid;grid-template-columns:repeat(3,1fr) 132px;gap:6px;margin-top:8px}
+.goshin-subj,.goshin-clock{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:7px;min-width:0}
+.goshin-subj.done{background:#F2FFE9;border-color:#8DBB5D}
+.goshin-subj h4,.goshin-clock h4{margin:0 0 4px;font-size:12px;line-height:1.2}
+.goshin-need{font-size:11px;font-weight:900;color:#536047}
+.goshin-bar{height:7px;background:#E5DCC0;border-radius:999px;overflow:hidden;margin-top:5px}
+.goshin-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#78AF4A,#E2BB3C)}
+.goshin-found{font-size:10px;color:#6B7A5E;font-weight:900;margin-top:4px}
+.goshin-clock-in{display:grid;grid-template-columns:40px 1fr;gap:6px;align-items:center}
+.goshin-clock svg{width:40px;height:50px;display:block}
+@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:44px 1fr}}
 </style>
 <script>try{if(localStorage.getItem('q4b_entered')==='1')document.documentElement.className+=' q4b-in';}catch(e){}</script>
 <style>
@@ -195,7 +216,7 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.8"></script>
+<script src="./shared/storage.js?v=0.4.12"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
@@ -208,6 +229,64 @@ function $(i){return document.getElementById(i);}
 function pad2(n){return (n<10?"0":"")+n;}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function pct50(n){return Math.max(0,Math.min(100,Math.round((Math.max(0,n||0)/50)*100)));}
+function subjLabel(s){return {keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}[s]||s;}
+function dropClockSvg(n){
+  n=Math.max(0,Math.min(3,Math.floor(n)||0));
+  function drop(x,y,on){
+    return '<path d="M'+x+' '+y+'c3.2 3.2 4.1 6.4 0 9.8-4.1-3.4-3.2-6.6 0-9.8Z" fill="'+(on?'#55B9E2':'#EEF8FB')+'" stroke="'+(on?'#247FA8':'#A9C8D2')+'" stroke-width="1"/>';
+  }
+  return '<svg viewBox="0 0 54 66" aria-hidden="true">'
+    +'<defs><linearGradient id="gbr" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#D4AA62"/><stop offset=".55" stop-color="#8A5C2C"/><stop offset="1" stop-color="#563617"/></linearGradient></defs>'
+    +'<rect x="10" y="3" width="34" height="7" rx="3.5" fill="url(#gbr)" stroke="#4D3118" stroke-width="1.5"/>'
+    +'<rect x="10" y="56" width="34" height="7" rx="3.5" fill="url(#gbr)" stroke="#4D3118" stroke-width="1.5"/>'
+    +'<path d="M15 11h24c-.8 11.8-5.4 17.4-12 22.8C20.4 28.4 15.8 22.8 15 11Z" fill="#F7FDFF" opacity=".82" stroke="#5F4728" stroke-width="2"/>'
+    +'<path d="M15 55h24c-.8-11.8-5.4-17.4-12-22.8C20.4 37.6 15.8 43.2 15 55Z" fill="#F7FDFF" opacity=".82" stroke="#5F4728" stroke-width="2"/>'
+    +'<path d="M13 10v46M41 10v46" fill="none" stroke="url(#gbr)" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<path d="M27 30.5v5.2" stroke="#3AA9D9" stroke-width="2.2" stroke-linecap="round"/>'
+    +drop(19,45.5,n>=1)+drop(27,39.5,n>=2)+drop(35,45.5,n>=3)
+    +'</svg>';
+}
+function goshinTip(g,bt){
+  var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], i, s, missing=[], best=null, bestNeed=999;
+  var mx=(bt&&bt.reachMax)||{}, minSub=null, min=999;
+  for(i=0;i<subs.length;i++){s=subs[i]; if(typeof mx[s]==="number"&&mx[s]<min){min=mx[s];minSub=s;}}
+  if(minSub&&min<9.5)return "王者への道：まずは "+labels[minSub]+" をすすめよう";
+  for(i=0;i<subs.length;i++){
+    s=subs[i];
+    if(!(g.daily.subjects[s]&&g.daily.subjects[s].fragment)){
+      missing.push(labels[s]);
+      var need=Math.max(0,50-((g.daily.subjects[s]&&g.daily.subjects[s].correct)||0));
+      if(need<bestNeed){bestNeed=need;best=s;}
+    }
+  }
+  if(g.dewProgress>=2&&missing.length)return "今日はあと "+missing.join("・")+" で、しずくどけいが満ちるよ";
+  if(best)return labels[best]+"を あと"+bestNeed+"もんで、かせき発見";
+  return "3教科でかせき発見！しずくどけいが進んだよ";
+}
+function goshinHTML(pid,amber,bt){
+  if(!window.QuestSave||!QuestSave.goshinOf)return "";
+  var g=QuestSave.goshinOf(pid), d=g.daily||{}, subs=(d.subjects||{}), order=["keisan","kanji","eitango"];
+  function card(s,icon){
+    var x=subs[s]||{correct:0,fragment:false}, p=pct50(x.correct);
+    return '<div class="goshin-subj '+(x.fragment?'done':'')+'"><h4>'+icon+' '+subjLabel(s)+'</h4>'
+      +'<div class="goshin-need">せいかい '+Math.min(50,x.correct||0)+' / 50</div>'
+      +'<div class="goshin-bar"><i style="width:'+p+'%"></i></div>'
+      +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,50-(x.correct||0))+'もん')+'</div></div>';
+  }
+  return '<div class="goshin">'
+    +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
+    +'<div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div></div>'
+    +'<div class="goshin-wallet">'
+    +'<div class="goshin-chip"><b>🔶 こはく</b><strong>'+amber+'</strong><span>30こで虫をよぼう</span></div>'
+    +'<div class="goshin-chip"><b>🪨 かせきのかけら</b><strong>'+g.fossilFragments+'</strong><span>おおむかしの虫のかせきだ</span></div>'
+    +'<div class="goshin-chip"><b>💧 めざめのしずく</b><strong>'+g.awakeningDrops+'</strong><span>ごしんぼくのふしぎなしずく</span></div>'
+    +'</div>'
+    +'<div class="goshin-board" style="margin-top:8px"><b>きょう見つけた かせきのかけら</b><br>50もん せいかいすると、1日ひとつ みつかるよ</div>'
+    +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")
+    +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
+    +'</div></div>';
+}
 function exp(){
   if(!window.QuestSave){$("expA").innerHTML='<p class="note" style="color:#E05A48">保存層が読み込めませんでした</p>';return;}
   var s=QuestSave.exportAll(), o={};
@@ -383,6 +462,7 @@ function renderDashboard(pid,name){
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">🧺</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔶こはく '+amber+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +goshinHTML(pid,amber,bt)
       +'<div class="note" style="display:flex;align-items:center;gap:8px;background:var(--green-l);border-radius:10px;padding:6px 10px;margin:0 0 8px">'
       +'<span style="font-size:18px">🏅</span><span style="font-weight:800">'+esc(gRank)+'</span>'
       +'<span style="color:var(--sub)">（つうさん '+gCaught+'ひき）</span>'

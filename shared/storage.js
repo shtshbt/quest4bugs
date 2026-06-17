@@ -320,6 +320,112 @@
   function amberAdd(pid,n){ var v=amberOf(pid)+(n||0); amberSet(pid,v); return v; }
   function amberSpend(pid,n){ var v=amberOf(pid); if(v<n)return false; amberSet(pid,v-n); return true; }
 
+  /* ---------------- shared ごしんぼく rewards（プロフィール単位） ----------
+     かせきのかけら: 各教科で 1日50問正解した瞬間に +1（各教科1日1個まで）。
+     めざめのしずく: 3教科すべてでかけらを見つけた日が3日たまると +1。 */
+  var REWARD_SUBJECTS=["keisan","kanji","eitango"];
+  function todayKey(){
+    var d=new Date();
+    return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());
+  }
+  function rewardKey(pid){ return "goshin"+SEP+pid; }
+  function blankRewardDay(date){
+    var subjects={}, i;
+    for(i=0;i<REWARD_SUBJECTS.length;i++)subjects[REWARD_SUBJECTS[i]]={correct:0,fragment:false};
+    return {date:date,subjects:subjects,dewDay:false};
+  }
+  function normalizeRewardLogDay(day){
+    var i, s;
+    day=day&&typeof day==="object"?day:{};
+    if(!day.correct||typeof day.correct!=="object")day.correct={};
+    if(!day.subjects||typeof day.subjects!=="object")day.subjects={};
+    for(i=0;i<REWARD_SUBJECTS.length;i++){
+      s=REWARD_SUBJECTS[i];
+      day.correct[s]=Math.max(0,Math.floor(day.correct[s])||0);
+      day.subjects[s]=!!day.subjects[s];
+    }
+    day.dewDay=!!day.dewDay;
+    day.drop=!!day.drop;
+    return day;
+  }
+  function normalizeRewardData(data,date){
+    var i, s, logDay, d;
+    data=data&&typeof data==="object"?data:{};
+    data.v=1;
+    data.fossilFragments=Math.max(0,Math.floor(data.fossilFragments)||0);
+    data.awakeningDrops=Math.max(0,Math.floor(data.awakeningDrops)||0);
+    data.dewProgress=Math.max(0,Math.min(2,Math.floor(data.dewProgress)||0));
+    if(!data.log||typeof data.log!=="object")data.log={};
+    date=date||todayKey();
+    logDay=normalizeRewardLogDay(data.log[date]);
+    data.log[date]=logDay;
+    d=blankRewardDay(date);
+    for(i=0;i<REWARD_SUBJECTS.length;i++){
+      s=REWARD_SUBJECTS[i];
+      d.subjects[s].correct=logDay.correct[s];
+      d.subjects[s].fragment=logDay.subjects[s];
+    }
+    d.dewDay=logDay.dewDay;
+    data.daily=d;
+    return data;
+  }
+  function rewardEntry(pid){
+    var store=loadStore(), key=rewardKey(pid), entry=store.kv[key];
+    if(!entry||!entry.data){
+      entry={v:1,updated:now(),data:normalizeRewardData({},todayKey())};
+      store.kv[key]=entry;
+    }else{
+      entry.data=normalizeRewardData(entry.data,todayKey());
+    }
+    return {store:store,key:key,entry:entry};
+  }
+  function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+  function goshinOf(pid){
+    if(!pid)return normalizeRewardData({},todayKey());
+    var r=rewardEntry(pid);
+    return clone(r.entry.data);
+  }
+  function recordCorrect(pid,subject,n){
+    var i, okSub=false, date=todayKey(), r, data, logDay, dsub, awards={fragment:false,dewDay:false,drop:false};
+    if(!pid)return {ok:false,error:"missing profile"};
+    for(i=0;i<REWARD_SUBJECTS.length;i++)if(REWARD_SUBJECTS[i]===subject)okSub=true;
+    if(!okSub)return {ok:false,error:"unknown subject"};
+    n=Math.max(1,Math.floor(n)||1);
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,date);
+    logDay=normalizeRewardLogDay(data.log[date]);
+    data.log[date]=logDay;
+    logDay.correct[subject]+=n;
+    dsub=data.daily.subjects[subject];
+    dsub.correct=logDay.correct[subject];
+    if(logDay.correct[subject]>=50&&!logDay.subjects[subject]){
+      logDay.subjects[subject]=true;
+      dsub.fragment=true;
+      data.fossilFragments++;
+      awards.fragment=true;
+    }
+    var all=true;
+    for(i=0;i<REWARD_SUBJECTS.length;i++)if(!logDay.subjects[REWARD_SUBJECTS[i]])all=false;
+    if(all&&!logDay.dewDay){
+      logDay.dewDay=true;
+      data.daily.dewDay=true;
+      data.dewProgress++;
+      awards.dewDay=true;
+      if(data.dewProgress>=3){
+        data.awakeningDrops++;
+        data.dewProgress=0;
+        logDay.drop=true;
+        awards.drop=true;
+      }
+    }
+    data=normalizeRewardData(data,date);
+    r.entry.updated=now();
+    r.entry.data=data;
+    persist();
+    schedulePush();
+    return {ok:true,subject:subject,awards:awards,state:clone(data)};
+  }
+
   /* ---------------- connection helpers ---------------- */
   async function testConnection(){
     var cfg=getConfig();
@@ -530,6 +636,7 @@
     currentProfile:currentProfile, setCurrentProfile:setCurrentProfile,
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
+    goshinOf:goshinOf, recordCorrect:recordCorrect,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,
