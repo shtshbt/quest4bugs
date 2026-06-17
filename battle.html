@@ -596,7 +596,8 @@ function renderPSelect(){
   /* 絞り込みチップ生成（active表示つき） */
   function chip(label,val,cur,fn){ var on=(cur===val); return '<button class="psf'+(on?" on":"")+'" onclick="'+fn+'(\''+val+'\')">'+label+'</button>'; }
   var typeChips=chip("ぜんぶ","",PTYPE,"psType")+chip("🟣かんじ","kanji",PTYPE,"psType")+chip("🔵けいさん","keisan",PTYPE,"psType")+chip("🟢えいご","eitango",PTYPE,"psType");
-  var rarChips=chip("ぜんぶ","",PRARITY,"psRarity")+chip("SS","SS",PRARITY,"psRarity")+chip("SSR","SSR",PRARITY,"psRarity")+chip("SR","SR",PRARITY,"psRarity")+chip("R","R",PRARITY,"psRarity")+chip("N","N",PRARITY,"psRarity");
+  /* レア度表示は ゲーム内名称（でんせつ／ウルトラレア／…）に統一 */
+  var rarChips=chip("ぜんぶ","",PRARITY,"psRarity")+chip("でんせつ","SS",PRARITY,"psRarity")+chip("ウルトラレア","SSR",PRARITY,"psRarity")+chip("スーパーレア","SR",PRARITY,"psRarity")+chip("レア","R",PRARITY,"psRarity")+chip("ノーマル","N",PRARITY,"psRarity");
   document.getElementById("pselect").innerHTML=
      '<div style="position:sticky;top:0;z-index:30;background:rgba(243,247,233,.97);backdrop-filter:blur(3px);display:flex;gap:10px;justify-content:center;padding:10px 0 8px;margin-bottom:4px;box-shadow:0 3px 10px rgba(0,0,0,.15)">'
     +'<button class="btn" style="margin:0;font-size:17px;padding:13px 26px" onclick="applyParty()">✅ けってい（'+SEL.length+'/6）</button>'
