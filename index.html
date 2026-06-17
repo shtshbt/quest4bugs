@@ -69,28 +69,28 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .equip-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
 .equip-head h4{margin:0;font-size:12px;line-height:1.2}
 .equip-box .hint{font-size:10px;color:#6B7A5E;font-weight:900;line-height:1.25;margin:-2px 0 6px}
-.equip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.equip-card{border:1px solid #D8C892;border-radius:12px;background:#FFFCF3;padding:6px;min-width:0;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer}
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:5px}
+.equip-card{border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:4px 3px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
 .equip-card.owned{background:#F2FFE9;border-color:#8DBB5D}
 .equip-card.locked{opacity:.78}
 .equip-card.ready{background:#FFF7D9;border-color:#E5B84C;box-shadow:0 0 0 2px rgba(229,184,76,.18) inset}
-.equip-art{height:56px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}
-.equip-art svg{width:56px;height:56px;display:block}
-.equip-name{font-size:11px;font-weight:900;line-height:1.2;min-height:2.4em}
-.equip-meta{font-size:9px;color:#6B7A5E;font-weight:900;line-height:1.25;margin-top:3px}
+.equip-art{height:54px;margin:0 auto 2px;display:flex;align-items:center;justify-content:center}
+.equip-art svg{width:54px;height:54px;display:block}
+.equip-name{font-size:9.5px;font-weight:900;line-height:1.15;min-height:2.2em;letter-spacing:-.02em}
+.equip-meta{font-size:8.5px;color:#6B7A5E;font-weight:900;line-height:1.2;margin-top:2px}
 .equip-more{margin-top:6px}
 .equip-more summary{font-size:12px;font-weight:900;color:#42533A;cursor:pointer;list-style:none;border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:6px 8px;text-align:center}
 .equip-more[open] summary{margin-bottom:6px}
-.equip-modal-card{background:var(--panel);border-radius:18px;padding:16px;max-width:390px;width:94%;max-height:88vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.equip-modal-art{width:132px;height:132px;margin:0 auto 8px}
+.equip-modal-card{background:var(--panel);border-radius:16px;padding:14px;max-width:320px;width:92%;max-height:86vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.equip-modal-art{width:96px;height:96px;margin:0 auto 6px}
 .shiny-box{border:1px solid #B9D4E4;border-radius:12px;background:linear-gradient(180deg,#F5FCFF,#FFFDF7);padding:8px;margin-top:8px}
 .shiny-box h4{margin:0 0 3px;font-size:12px;line-height:1.2}
 .shiny-box .hint{font-size:10px;color:#5B7180;font-weight:900;line-height:1.25;margin-bottom:6px}
-.shiny-list{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.shiny-card{border:1px solid #B9D4E4;border-radius:12px;background:#FFFFFF;padding:6px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
-.shiny-art{width:56px;height:56px;margin:0 auto 4px}
-.shiny-name{font-size:10px;font-weight:900;line-height:1.2;min-height:2.4em}
-@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}.equip-grid,.shiny-list{grid-template-columns:repeat(2,1fr)}}
+.shiny-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:5px}
+.shiny-card{border:1px solid #B9D4E4;border-radius:10px;background:#FFFFFF;padding:4px 3px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
+.shiny-art{width:54px;height:54px;margin:0 auto 2px}
+.shiny-name{font-size:9.5px;font-weight:900;line-height:1.15;min-height:2.2em;letter-spacing:-.02em}
+@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}}
 </style>
 <script>try{if(localStorage.getItem('q4b_entered')==='1')document.documentElement.className+=' q4b-in';}catch(e){}</script>
 <style>
@@ -249,7 +249,7 @@ html.q4b-in #q4bGate{display:none!important}
   </details>
 </div>
 <script src="./shared/storage.js?v=0.4.13"></script>
-<script src="./shared/equipment_data.js?v=0.1.0"></script>
+<script src="./shared/equipment_data.js?v=0.2.0"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>

@@ -55,39 +55,162 @@
   var ITEMS = makeItems(), BY_ID={};
   ITEMS.forEach(function(it){ BY_ID[it.id]=it; });
 
-  function svgWrap(label, inner){
+  /* SVG: 琥珀色のラウンドプレート＋古代昆虫の部位（化石パーツ）。グラデ＋ハイライト＋影で立体感。 */
+  function svgWrap(label, id, inner){
+    var gid=id+'g', hid=id+'h', sid=id+'s';
     return '<svg viewBox="0 0 120 120" role="img" aria-label="'+label+'" width="100%" height="100%">'
-      +'<defs><radialGradient id="eqBg" cx="42%" cy="28%" r="70%"><stop stop-color="#FFF8DA"/><stop offset="1" stop-color="#E8D39A"/></radialGradient></defs>'
-      +'<rect x="6" y="6" width="108" height="108" rx="16" fill="url(#eqBg)" stroke="#8B6A2F" stroke-width="3"/>'
-      +'<rect x="12" y="12" width="96" height="96" rx="12" fill="none" stroke="#FFF3BE" stroke-width="2" opacity=".75"/>'
-      +inner+'</svg>';
+      +'<defs>'
+      +'<radialGradient id="'+gid+'" cx="35%" cy="25%" r="80%"><stop stop-color="#FFF4C2"/><stop offset=".55" stop-color="#E8C77A"/><stop offset="1" stop-color="#9A7028"/></radialGradient>'
+      +'<linearGradient id="'+hid+'" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF" stop-opacity=".85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>'
+      +'<filter id="'+sid+'" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.4" in="SourceAlpha"/><feOffset dy="1.6"/><feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+      +'</defs>'
+      +'<circle cx="60" cy="60" r="54" fill="url(#'+gid+')" stroke="#6E4B16" stroke-width="2.4"/>'
+      +'<ellipse cx="50" cy="38" rx="28" ry="14" fill="url(#'+hid+')" opacity=".75"/>'
+      +'<g filter="url(#'+sid+')">'+inner+'</g>'
+      +'<circle cx="60" cy="60" r="54" fill="none" stroke="#FFE9A3" stroke-width="1" opacity=".7"/>'
+      +'</svg>';
   }
+  /* 攻撃: クワガタ大顎/カマキリの鎌/カブトの角/毒針/しろがねの爪/赤銅の牙 */
   function attackSvg(it){
-    var c1=it.colors[0], c2=it.colors[1];
-    if(it.rank===1)return svgWrap(it.name,'<path d="M26 73 C43 42 51 35 63 27 C62 44 56 63 42 86 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M94 73 C77 42 69 35 57 27 C58 44 64 63 78 86 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M45 82 L60 48 L75 82" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>');
-    if(it.rank===2)return svgWrap(it.name,'<path d="M58 24 C84 30 96 52 88 82 C74 70 62 53 58 24 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M62 24 C36 30 24 52 32 82 C46 70 58 53 62 24 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M34 78 C48 91 72 91 86 78" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    if(it.rank===3)return svgWrap(it.name,'<path d="M60 20 L73 54 L106 48 L81 70 L91 102 L60 84 L29 102 L39 70 L14 48 L47 54 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M60 29 L67 58 L92 56" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>');
-    if(it.rank===4)return svgWrap(it.name,'<path d="M60 18 C80 43 89 65 88 90 C73 83 64 67 60 44 C56 67 47 83 32 90 C31 65 40 43 60 18 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><circle cx="60" cy="68" r="8" fill="'+c2+'"/>');
-    if(it.rank===5)return svgWrap(it.name,'<path d="M24 84 C47 76 62 52 78 22 L90 32 C76 64 58 92 30 101 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M43 78 L35 60 M56 65 L47 48 M69 48 L60 34" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    return svgWrap(it.name,'<path d="M28 72 C40 38 52 28 60 22 C68 28 80 38 92 72 C78 67 68 55 60 40 C52 55 42 67 28 72 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M38 82 C50 94 70 94 82 82" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>');
+    var c1=it.colors[0], c2=it.colors[1], dark="#1A0E06";
+    if(it.rank===1) /* はがねのおおあご: クワガタの左右大顎 */
+      return svgWrap(it.name, it.id,
+        '<path d="M30 80 C35 50 50 35 60 30 C58 50 50 70 38 88 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M36 50 L42 60 M40 68 L48 76" stroke="'+c2+'" stroke-width="2" stroke-linecap="round"/>'
+        +'<path d="M90 80 C85 50 70 35 60 30 C62 50 70 70 82 88 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M84 50 L78 60 M80 68 L72 76" stroke="'+c2+'" stroke-width="2" stroke-linecap="round"/>'
+        +'<circle cx="60" cy="40" r="6" fill="'+c2+'" stroke="'+dark+'" stroke-width="2"/>');
+    if(it.rank===2) /* おうごんのかま: カマキリの鎌 */
+      return svgWrap(it.name, it.id,
+        '<path d="M28 88 C30 70 38 56 52 50 L80 30 C90 26 96 32 92 42 L70 58 C68 70 60 82 46 92 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M52 50 L62 38" stroke="'+c2+'" stroke-width="2.5" stroke-linecap="round"/>'
+        +'<path d="M40 72 L46 66 M48 80 L54 74" stroke="'+c2+'" stroke-width="2" stroke-linecap="round" opacity=".7"/>'
+        +'<circle cx="84" cy="36" r="3" fill="#FFFBE6"/>');
+    if(it.rank===3) /* おうじゃのツノ: カブトムシのY字角 */
+      return svgWrap(it.name, it.id,
+        '<path d="M60 30 L60 78 M60 78 L40 92 M60 78 L80 92" stroke="'+c1+'" stroke-width="10" stroke-linecap="round" fill="none"/>'
+        +'<path d="M52 30 C50 24 70 24 68 30 L66 42 L54 42 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 38 L60 70" stroke="'+c2+'" stroke-width="2" opacity=".7"/>'
+        +'<path d="M42 88 L48 82 M78 88 L72 82" stroke="'+c2+'" stroke-width="2.5" stroke-linecap="round"/>');
+    if(it.rank===4) /* しっこくのどくばり: 蜂の毒針 */
+      return svgWrap(it.name, it.id,
+        '<path d="M60 22 L72 78 L60 98 L48 78 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 22 L60 88" stroke="'+c2+'" stroke-width="1.5" opacity=".6"/>'
+        +'<circle cx="60" cy="96" r="3.5" fill="#FF6B6B" stroke="'+dark+'" stroke-width="1.5"/>'
+        +'<path d="M44 40 L52 48 M76 40 L68 48" stroke="'+c2+'" stroke-width="2" stroke-linecap="round"/>');
+    if(it.rank===5) /* しろがねのかぎづめ: 鋭い湾曲した爪 */
+      return svgWrap(it.name, it.id,
+        '<path d="M28 92 C40 80 56 60 70 36 L86 30 C88 38 78 60 60 80 C50 90 38 96 28 92 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M38 84 L48 72 M52 64 L62 50" stroke="'+c2+'" stroke-width="2" stroke-linecap="round"/>'
+        +'<ellipse cx="76" cy="36" rx="6" ry="3" fill="#FFFBE6" opacity=".85"/>');
+    /* rank6 あかがねのきば: 双牙 */
+    return svgWrap(it.name, it.id,
+      '<path d="M40 28 C46 50 50 70 42 92 C36 86 32 64 36 38 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+      +'<path d="M80 28 C74 50 70 70 78 92 C84 86 88 64 84 38 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+      +'<path d="M40 40 L42 70 M80 40 L78 70" stroke="'+c2+'" stroke-width="1.5" opacity=".7"/>'
+      +'<path d="M52 50 Q60 56 68 50" stroke="'+c2+'" stroke-width="2.5" fill="none" stroke-linecap="round"/>');
   }
+  /* 防御: 甲・複眼・鱗粉・甲羅・繭・虹羽 */
   function defenseSvg(it){
-    var c1=it.colors[0], c2=it.colors[1];
-    if(it.rank===1)return svgWrap(it.name,'<path d="M60 18 L96 32 V59 C96 81 82 96 60 105 C38 96 24 81 24 59 V32 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M60 27 V94 M36 42 H84" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    if(it.rank===2)return svgWrap(it.name,'<ellipse cx="60" cy="60" rx="36" ry="24" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><circle cx="60" cy="60" r="15" fill="'+c2+'" stroke="#2A1B10" stroke-width="3"/><circle cx="60" cy="60" r="6" fill="#FFF8DA"/>');
-    if(it.rank===3)return svgWrap(it.name,'<path d="M18 48 C38 24 82 24 102 48 C86 62 34 62 18 48 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M22 76 C42 52 78 52 98 76 C78 90 42 90 22 76 Z" fill="'+c2+'" stroke="#2A1B10" stroke-width="4"/><circle cx="60" cy="62" r="7" fill="#FFF8DA"/>');
-    if(it.rank===4)return svgWrap(it.name,'<ellipse cx="60" cy="66" rx="38" ry="30" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M24 66 H96 M60 36 V96" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="66" r="10" fill="#FFF8DA" opacity=".55"/>');
-    if(it.rank===5)return svgWrap(it.name,'<path d="M36 86 C34 52 45 28 60 18 C75 28 86 52 84 86 C72 95 48 95 36 86 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M42 82 C48 70 72 70 78 82" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    return svgWrap(it.name,'<path d="M60 18 C78 34 96 44 105 62 C88 72 78 88 60 102 C42 88 32 72 15 62 C24 44 42 34 60 18 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M30 62 H90 M60 32 V92" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>');
+    var c1=it.colors[0], c2=it.colors[1], dark="#1A0E06";
+    if(it.rank===1) /* てっぺきのよろい: 紋章入りの胸甲 */
+      return svgWrap(it.name, it.id,
+        '<path d="M60 24 L92 38 L88 70 C84 86 72 94 60 100 C48 94 36 86 32 70 L28 38 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 36 L60 92 M40 50 L80 50" stroke="'+c2+'" stroke-width="2.5" stroke-linecap="round"/>'
+        +'<circle cx="60" cy="62" r="7" fill="'+c2+'" stroke="'+dark+'" stroke-width="2"/>'
+        +'<circle cx="60" cy="62" r="2.5" fill="#FFFBE6"/>');
+    if(it.rank===2) /* すいしょうのふくがん: 多眼の構造 */
+      return svgWrap(it.name, it.id,
+        '<ellipse cx="60" cy="60" rx="38" ry="28" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<g fill="'+c2+'" stroke="'+dark+'" stroke-width="1">'
+        +'<circle cx="44" cy="54" r="6"/><circle cx="60" cy="48" r="7"/><circle cx="76" cy="54" r="6"/>'
+        +'<circle cx="48" cy="70" r="5"/><circle cx="60" cy="74" r="6"/><circle cx="72" cy="70" r="5"/>'
+        +'</g>'
+        +'<circle cx="58" cy="46" r="2" fill="#FFFBE6"/><circle cx="42" cy="52" r="1.5" fill="#FFFBE6"/>');
+    if(it.rank===3) /* かがやきのりんぷん: 鱗粉が舞う翅 */
+      return svgWrap(it.name, it.id,
+        '<path d="M60 36 C82 30 94 46 88 64 C76 70 64 64 60 50 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 36 C38 30 26 46 32 64 C44 70 56 64 60 50 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 36 L60 92" stroke="'+dark+'" stroke-width="2" stroke-linecap="round"/>'
+        +'<g fill="'+c2+'" opacity=".9">'
+        +'<circle cx="42" cy="78" r="2.5"/><circle cx="52" cy="86" r="2"/><circle cx="68" cy="84" r="2.5"/>'
+        +'<circle cx="78" cy="76" r="2"/><circle cx="60" cy="92" r="2"/>'
+        +'</g>');
+    if(it.rank===4) /* くろがねのこうら: テントウムシ型の半球甲羅 */
+      return svgWrap(it.name, it.id,
+        '<path d="M22 76 A38 32 0 0 1 98 76 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 50 L60 76" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<g fill="'+c2+'" stroke="'+dark+'" stroke-width="1.2">'
+        +'<circle cx="44" cy="62" r="4"/><circle cx="50" cy="72" r="3.5"/>'
+        +'<circle cx="76" cy="62" r="4"/><circle cx="70" cy="72" r="3.5"/>'
+        +'</g>'
+        +'<path d="M30 60 C40 52 50 50 60 52" stroke="#FFFBE6" stroke-width="2" fill="none" opacity=".55"/>');
+    if(it.rank===5) /* まもりのまゆ: 繭 */
+      return svgWrap(it.name, it.id,
+        '<path d="M44 32 C36 56 36 86 56 96 C76 96 84 70 78 38 C72 30 50 28 44 32 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M42 42 C50 46 70 46 80 40 M40 56 C50 60 72 60 82 54 M42 72 C52 76 70 76 78 70" stroke="'+c2+'" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".75"/>'
+        +'<ellipse cx="50" cy="40" rx="6" ry="3" fill="#FFFBE6" opacity=".55"/>');
+    /* rank6 にじいろのはね */
+    return svgWrap(it.name, it.id,
+      '<path d="M60 30 C84 28 96 48 92 70 C84 80 72 78 64 70 C62 60 60 48 60 30 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+      +'<path d="M60 30 C36 28 24 48 28 70 C36 80 48 78 56 70 C58 60 60 48 60 30 Z" fill="'+c2+'" stroke="'+dark+'" stroke-width="2.5"/>'
+      +'<path d="M60 32 L60 92" stroke="'+dark+'" stroke-width="2"/>'
+      +'<path d="M40 50 L50 56 M40 62 L52 64 M68 56 L80 50 M68 64 L82 62" stroke="#FFFBE6" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>');
   }
+  /* HP: 樹液・花蜜・朝露・果実・しずく・花粉 */
   function hpSvg(it){
-    var c1=it.colors[0], c2=it.colors[1];
-    if(it.rank===1)return svgWrap(it.name,'<path d="M60 22 C74 44 82 59 82 74 C82 88 72 98 60 98 C48 98 38 88 38 74 C38 59 46 44 60 22 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M52 40 C61 45 69 54 70 69" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    if(it.rank===2)return svgWrap(it.name,'<path d="M60 18 C76 34 88 54 88 76 C88 91 76 101 60 101 C44 101 32 91 32 76 C32 54 44 34 60 18 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><circle cx="60" cy="70" r="20" fill="'+c2+'" opacity=".7"/>');
-    if(it.rank===3)return svgWrap(it.name,'<path d="M60 20 C80 44 90 62 88 80 C76 93 44 93 32 80 C30 62 40 44 60 20 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M40 75 C52 62 68 62 80 75" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    if(it.rank===4)return svgWrap(it.name,'<circle cx="60" cy="56" r="30" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M60 24 L68 50 L96 50 L73 66 L82 94 L60 76 L38 94 L47 66 L24 50 L52 50 Z" fill="'+c2+'" opacity=".78"/>');
-    if(it.rank===5)return svgWrap(it.name,'<path d="M60 18 C74 28 82 42 82 60 C82 81 69 95 60 104 C51 95 38 81 38 60 C38 42 46 28 60 18 Z" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><path d="M44 62 C56 56 64 42 72 30" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>');
-    return svgWrap(it.name,'<circle cx="60" cy="60" r="34" fill="'+c1+'" stroke="#2A1B10" stroke-width="4"/><g fill="'+c2+'"><circle cx="43" cy="51" r="5"/><circle cx="60" cy="42" r="5"/><circle cx="77" cy="51" r="5"/><circle cx="50" cy="72" r="5"/><circle cx="70" cy="72" r="5"/></g>');
+    var c1=it.colors[0], c2=it.colors[1], dark="#1A0E06";
+    if(it.rank===1) /* いのちのじゅえき: 樹皮から滴る樹液 */
+      return svgWrap(it.name, it.id,
+        '<path d="M20 30 C30 40 32 60 28 80 C24 90 18 92 16 86 C20 70 20 50 16 36 Z" fill="#7A5230" stroke="'+dark+'" stroke-width="2"/>'
+        +'<path d="M40 36 C56 30 76 36 88 50 C84 70 76 84 64 90 C50 86 42 70 40 50 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M64 50 C72 56 74 70 70 80" stroke="'+c2+'" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
+        +'<ellipse cx="56" cy="46" rx="6" ry="3" fill="#FFFBE6" opacity=".7"/>');
+    if(it.rank===2) /* たいようのはなみつ: 花と蜜 */
+      return svgWrap(it.name, it.id,
+        '<g fill="'+c1+'" stroke="'+dark+'" stroke-width="2">'
+        +'<ellipse cx="60" cy="38" rx="11" ry="14"/><ellipse cx="42" cy="52" rx="14" ry="11"/>'
+        +'<ellipse cx="78" cy="52" rx="14" ry="11"/><ellipse cx="48" cy="72" rx="13" ry="11"/>'
+        +'<ellipse cx="72" cy="72" rx="13" ry="11"/>'
+        +'</g>'
+        +'<circle cx="60" cy="58" r="11" fill="'+c2+'" stroke="'+dark+'" stroke-width="2"/>'
+        +'<circle cx="56" cy="54" r="3" fill="#FFFBE6"/>');
+    if(it.rank===3) /* にじのあさつゆ: 葉に乗る大粒の朝露 */
+      return svgWrap(it.name, it.id,
+        '<path d="M20 88 C40 60 70 50 100 60 C90 80 70 92 50 94 C36 94 26 92 20 88 Z" fill="#6FA85A" stroke="'+dark+'" stroke-width="2"/>'
+        +'<path d="M30 86 C50 70 80 64 96 66" stroke="#3F7A3A" stroke-width="2" fill="none"/>'
+        +'<g stroke="'+dark+'" stroke-width="2">'
+        +'<path d="M60 30 C70 44 70 56 60 58 C50 56 50 44 60 30 Z" fill="'+c1+'"/>'
+        +'<circle cx="42" cy="56" r="6" fill="'+c2+'"/><circle cx="78" cy="58" r="5" fill="'+c2+'"/>'
+        +'</g>'
+        +'<circle cx="56" cy="42" r="2.5" fill="#FFFBE6"/>');
+    if(it.rank===4) /* ひかりのかじつ: 光る果実 */
+      return svgWrap(it.name, it.id,
+        '<circle cx="60" cy="64" r="30" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M60 36 C56 28 58 22 62 22 C66 22 64 30 60 36 Z" fill="#5A8233" stroke="'+dark+'" stroke-width="2"/>'
+        +'<path d="M60 22 C68 18 76 22 78 28" stroke="#5A8233" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
+        +'<ellipse cx="50" cy="56" rx="9" ry="6" fill="#FFFBE6" opacity=".55"/>'
+        +'<circle cx="46" cy="52" r="2.5" fill="#FFFBE6"/>'
+        +'<path d="M70 78 C76 76 80 72 80 66" stroke="'+c2+'" stroke-width="2" fill="none" opacity=".6"/>');
+    if(it.rank===5) /* こもれびのしずく: 雫 */
+      return svgWrap(it.name, it.id,
+        '<path d="M60 22 C72 44 80 60 80 76 C80 90 70 100 60 100 C50 100 40 90 40 76 C40 60 48 44 60 22 Z" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+        +'<path d="M52 58 C58 64 64 74 64 84" stroke="#FFFBE6" stroke-width="3" fill="none" stroke-linecap="round" opacity=".75"/>'
+        +'<ellipse cx="50" cy="50" rx="4" ry="6" fill="#FFFBE6" opacity=".7"/>'
+        +'<g stroke="'+c2+'" stroke-width="1.5" opacity=".5">'
+        +'<path d="M30 36 L36 42 M88 36 L82 42 M28 70 L34 70 M92 70 L86 70"/>'
+        +'</g>');
+    /* rank6 きらめきのかふん: 花粉の粒子 */
+    return svgWrap(it.name, it.id,
+      '<circle cx="60" cy="60" r="30" fill="'+c1+'" stroke="'+dark+'" stroke-width="2.5"/>'
+      +'<g fill="'+c2+'" stroke="'+dark+'" stroke-width="1.2">'
+      +'<circle cx="48" cy="50" r="5"/><circle cx="60" cy="44" r="5.5"/><circle cx="72" cy="50" r="5"/>'
+      +'<circle cx="44" cy="64" r="4.5"/><circle cx="76" cy="64" r="4.5"/>'
+      +'<circle cx="52" cy="74" r="4.5"/><circle cx="68" cy="74" r="4.5"/><circle cx="60" cy="62" r="4"/>'
+      +'</g>'
+      +'<g fill="#FFFBE6" opacity=".85">'
+      +'<circle cx="46" cy="48" r="1.6"/><circle cx="58" cy="42" r="1.8"/><circle cx="70" cy="48" r="1.6"/>'
+      +'</g>');
   }
   function svg(id){
     var it=BY_ID[id]; if(!it)return "";
