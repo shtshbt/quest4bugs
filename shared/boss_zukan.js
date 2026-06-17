@@ -27,28 +27,51 @@
     return B.roster.filter(function(r){ return !r.predator && r.type === game && byId[r.id]; });
   }
 
-  /* 図鑑に差し込むセクション HTML（class="card" でゲームのテーマを継承） */
+  /* Render the boss section using each game's regular zukan classes. */
   function sectionHTML(game){
     var RW = global.Q4BReward, R = global.Q4BRender, byId = byIdMap();
     if(!RW || !R) return "";
     var list = bossesFor(game);
     if(!list.length) return "";
     var got = list.filter(function(r){ return BOSSES[r.id]; }).length;
-    var cells = list.map(function(r){
-      var sp = byId[r.id], c = !!BOSSES[r.id];
-      var art = c ? R.deco(sp, 0)
-                  : '<div style="width:58px;height:58px;filter:brightness(0) opacity(.32)">' + R.deco(sp, 0) + '</div>';
-      var nm = c ? esc(sp.jaName) : "？？？";
-      return '<div style="width:58px;text-align:center;cursor:pointer" onclick="Q4BBossZukan.detail(\'' + r.id + '\')">'
-        + '<div style="width:58px;height:58px">' + art + '</div>'
-        + '<div style="font-size:9px;line-height:1.1;height:24px;overflow:hidden;margin-top:2px">' + nm + '</div></div>';
-    }).join("");
+    var gridClass = game === "kanji" ? "bugs" : "zgrid";
+    var cells = list.map(function(r){ return cellHTML(game, r, byId[r.id], !!BOSSES[r.id]); }).join("");
     return '<div class="card"><h3>👑 ボス昆虫　<span style="color:#E8B33C">' + got + ' / ' + list.length + '</span></h3>'
       + '<p style="margin:2px 0 8px;font-size:13px;color:#888">ずかんバトルで たおすと あらわれる 強いボス</p>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:6px">' + cells + '</div></div>';
+      + '<div class="' + gridClass + '">' + cells + '</div></div>';
   }
 
-  /* クリック詳細（自己完結オーバーレイ。どのゲームでも動く） */
+  function cellHTML(game, r, sp, got){
+    var RW = global.Q4BReward;
+    var tier = RW.tierOf(sp), tierName = RW.TIERNAME[tier] || "";
+    var name = got ? esc(sp.jaName) : "？？？";
+    var id = jsStr(r.id);
+    var art = artHTML(sp, false);
+    var click = 'Q4BBossZukan.detail(\'' + id + '\')';
+    if(game === "kanji"){
+      return '<button type="button" class="bug' + (got ? '' : ' no') + '" onclick="' + click + '"'
+        + ' style="width:100%;font:inherit;cursor:pointer;appearance:none;-webkit-appearance:none">'
+        + (got ? art : '<div style="font-size:44px;line-height:64px">❓</div>')
+        + '<div class="nm">' + name + (got ? '👑' : '') + '</div>'
+        + '<div class="rar">' + tierName + '</div>'
+        + '<div style="font-size:10px;color:#888">' + (r.hp ? 'HP' + r.hp : 'ボス') + '</div>'
+        + '</button>';
+    }
+    if(game === "eitango"){
+      return '<button type="button" class="zc' + (got ? '' : ' un') + '" style="--rc:var(--rar' + tier + ')" onclick="' + click + '">'
+        + '<span class="ze" style="width:64px;height:64px;margin:0 auto;display:block">' + art + '</span>'
+        + '<span class="zn">' + name + (got ? '👑' : '') + '</span>'
+        + '<span class="zs">' + (got && r.hp ? 'HP' + r.hp + ' ' : '') + tierName + '</span>'
+        + '</button>';
+    }
+    return '<button type="button" class="zc r' + tier + '" onclick="' + click + '"'
+      + (got ? '' : ' style="opacity:.55"')
+      + '><div class="bs' + (got ? '' : ' sil') + '">' + art + '</div>'
+      + '<div class="nm">' + name + (got ? '👑' : '') + '</div>'
+      + '</button>';
+  }
+
+  /* Boss detail modal. Reuse each game's modal shell when available. */
   function detail(id){
     var B = global.Q4BBattle, RW = global.Q4BReward, R = global.Q4BRender, byId = byIdMap();
     var sp = byId[id]; if(!sp || !RW || !R) return;
@@ -60,34 +83,66 @@
     var fam = [sp.familyJa, sp.groupJa].filter(Boolean).join(' / ');
     var inner;
     if(!got){
-      inner = '<div style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + R.species(sp, false) + '</div>'
+      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + artHTML(sp, false) + '</div>'
         + '<h3>？？？</h3><p style="color:#777;font-size:13px">まだ たおしていない…<br>ずかんバトルで かちにいこう！</p>'
-        + '<p><span style="background:#777;color:#fff;border-radius:8px;padding:2px 8px;font-size:12px">' + TYPE_JA[g] + '</span> '
-        + '<span style="background:#bbb;color:#fff;border-radius:8px;padding:2px 8px;font-size:12px">' + tname + '</span>'
-        + (hp ? ' HP' + hp : '') + '</p>';
+        + badgeHTML(TYPE_JA[g], "#777") + ' ' + badgeHTML(tname, "#bbb")
+        + (hp ? '<span style="margin-left:6px;color:#777;font-size:13px">HP' + hp + '</span>' : '')
+        + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
     }else{
       var sz = RW.sizeRange(sp);
-      inner = '<div style="width:140px;height:140px;margin:0 auto">' + R.species(sp, false) + '</div>'
+      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto">' + artHTML(sp, false) + '</div>'
         + '<h3>👑 ' + esc(sp.jaName) + '</h3>'
-        + '<p><span style="background:#5b7;color:#fff;border-radius:8px;padding:2px 8px;font-size:12px">' + TYPE_JA[g] + '</span> '
-        + '<span style="background:#E8B33C;color:#fff;border-radius:8px;padding:2px 8px;font-size:12px">' + tname + '</span>'
+        + '<p>' + badgeHTML(TYPE_JA[g], "#5b7") + ' ' + badgeHTML(tname, "#E8B33C")
         + (hp ? ' HP' + hp : '') + (n ? '　たおした ×' + n : '') + '</p>'
         + '<p style="font-size:13px;color:#777">おおきさ ' + sz[0] + '〜' + sz[1] + 'mm</p>'
         + (sp.scientificName ? '<p style="font-size:12px;color:#999"><i>' + esc(sp.scientificName) + '</i></p>' : "")
         + (fam ? '<p style="font-size:12px;color:#999">' + esc(fam) + '</p>' : "")
         + (sp.caution ? '<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:13px;color:#c98f1e;font-weight:800">' + esc(sp.caution) + '</p>' : "")
-        + (sp.note ? '<p style="background:#eef6e0;border-radius:12px;padding:10px;font-size:14px">' + esc(sp.note) + '</p>' : "");
+        + (sp.note ? '<p style="background:#eef6e0;border-radius:12px;padding:10px;font-size:14px">' + esc(sp.note) + '</p>' : "")
+        + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
+    }
+    showDetail(inner);
+  }
+
+  var activeDetail = null;
+  function showDetail(inner){
+    closeDetail();
+    var doc = global.document;
+    var kanjiModalInner = doc.getElementById("modalIn");
+    if(kanjiModalInner && typeof global.modal === "function"){
+      activeDetail = "kanji";
+      global.modal(inner);
+      return;
+    }
+    var existing = doc.getElementById("modal");
+    if(existing && !kanjiModalInner){
+      activeDetail = "existing";
+      existing.innerHTML = '<div class="mcard">' + inner + '</div>';
+      existing.classList.add("show");
+      return;
     }
     var ov = document.createElement("div"); ov.id = "bossZukanOv";
     ov.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px";
     ov.onclick = function(e){ if(e.target === ov) closeDetail(); };
-    ov.innerHTML = '<div style="background:#fff;border-radius:18px;padding:20px;max-width:320px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3);max-height:86vh;overflow:auto">' + inner
-      + '<div style="margin-top:14px"><button onclick="Q4BBossZukan.closeDetail()" style="border:none;background:#eee;border-radius:10px;padding:8px 18px;font-size:15px;font-weight:700;cursor:pointer">とじる</button></div></div>';
-    document.body.appendChild(ov);
+    ov.innerHTML = '<div class="mcard" style="background:#fff;border-radius:18px;padding:20px;max-width:360px;width:100%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3);max-height:86vh;overflow:auto">' + inner + '</div>';
+    doc.body.appendChild(ov);
+    activeDetail = "own";
   }
-  function closeDetail(){ var o = document.getElementById("bossZukanOv"); if(o) o.parentNode.removeChild(o); }
+  function closeDetail(){
+    var o = document.getElementById("bossZukanOv"); if(o) o.parentNode.removeChild(o);
+    if(activeDetail === "kanji" && typeof global.closeModal === "function") global.closeModal();
+    if(activeDetail === "existing"){
+      var m = document.getElementById("modal");
+      if(m){ m.classList.remove("show"); m.innerHTML = ""; }
+    }
+    activeDetail = null;
+  }
+
+  function artHTML(sp, shiny){ return global.Q4BReward && global.Q4BReward.svg ? global.Q4BReward.svg(sp, shiny) : global.Q4BRender.species(sp, shiny); }
+  function badgeHTML(text, color){ return '<span style="background:' + color + ';color:#fff;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:800">' + esc(text) + '</span>'; }
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function jsStr(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }
 
   global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail };
 })(window);
