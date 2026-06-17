@@ -70,12 +70,16 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .equip-head h4{margin:0;font-size:12px;line-height:1.2}
 .equip-box .hint{font-size:10px;color:#6B7A5E;font-weight:900;line-height:1.25;margin:-2px 0 6px}
 .equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:5px}
-.equip-card{border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:4px 3px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
+.equip-card{position:relative;border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:4px 3px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
 .equip-card.owned{background:#F2FFE9;border-color:#8DBB5D}
 .equip-card.locked{opacity:.78}
 .equip-card.ready{background:#FFF7D9;border-color:#E5B84C;box-shadow:0 0 0 2px rgba(229,184,76,.18) inset}
 .equip-art{height:54px;margin:0 auto 2px;display:flex;align-items:center;justify-content:center}
 .equip-art svg{width:54px;height:54px;display:block}
+.equip-slot{position:absolute;top:2px;left:2px;display:flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#fff;border:1.5px solid #C9A23A;font-size:10px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.15);z-index:1}
+.equip-slot.atk{border-color:#C04848;background:#FFF1F0}
+.equip-slot.def{border-color:#3D7AB8;background:#F0F6FF}
+.equip-slot.hp{border-color:#3FA664;background:#F0FFF4}
 .equip-name{font-size:9.5px;font-weight:900;line-height:1.15;min-height:2.2em;letter-spacing:-.02em}
 .equip-meta{font-size:8.5px;color:#6B7A5E;font-weight:900;line-height:1.2;margin-top:2px}
 .equip-more{margin-top:6px}
@@ -415,7 +419,10 @@ function openShinyPicker(){
 function equipmentCardHTML(item,g){
   var eq=(g&&g.equipment)||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
   var ok=(g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost);
+  var slotMap={attack:{cls:"atk",icon:"⚔"},defense:{cls:"def",icon:"🛡"},hp:{cls:"hp",icon:"❤"}};
+  var sb=slotMap[item.slot]||{cls:"",icon:""};
   return '<button class="equip-card '+(owned?'owned':(ok?'ready':'locked'))+'" onclick="openEquipmentCard(\''+item.id+'\')" type="button">'
+    +'<span class="equip-slot '+sb.cls+'" title="'+esc(item.slotLabel)+'" aria-label="'+esc(item.slotLabel)+'">'+sb.icon+'</span>'
     +'<div class="equip-art">'+Q4BEquipment.svg(item.id)+'</div>'
     +'<div class="equip-name">'+esc(item.name)+'</div>'
     +'<div class="equip-meta">'+(owned?'そうび中: '+esc(wearer?speciesName(wearer):'まだ'):(ok?'復元できる':'🪨'+item.fossilCost+' 💧'+item.dewCost))+'</div>'
