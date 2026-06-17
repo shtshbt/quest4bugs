@@ -316,8 +316,8 @@ function bossTip(bt){
       if(gap>minGap){minGap=gap; minSub=s;}
     }
   }
-  if(!missing.length)return "王者への道：No."+boss.stage+" に ちょうせんできるよ";
-  return "王者への道：No."+boss.stage+" まで、まず "+labels[minSub]+" をすすめよう";
+  if(!missing.length)return "おうじゃのみち：No."+boss.stage+" に ちょうせんできるよ";
+  return "おうじゃのみち：No."+boss.stage+" まで、まず "+labels[minSub]+" をすすめよう";
 }
 function goshinTip(g,bt){
   var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], i, s, missing=[], best=null, bestNeed=999, btip=bossTip(bt);
@@ -482,9 +482,16 @@ function openEquipmentCard(id){
   var g=QuestSave.goshinOf(pid), eq=g.equipment||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
   var p=nextPriceFor(g);
   var can=g.fossilFragments>=p.fossil&&g.awakeningDrops>=p.dew;
-  var actBtn = owned
-    ? ''
-    : '<button class="btn amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+(can?'復元する':'足りない')+'</button>';
+  /* ボタン: 未復元=「復元する」/ 復元済み未装備=「つける」/ 装備中=「はずす」+「ほかの虫につけかえ」 */
+  var btns='';
+  if(!owned){
+    btns += '<button class="btn amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+(can?'復元する':'足りない')+'</button>';
+  }else if(!wearer){
+    btns += '<button class="btn amber" style="color:#fff" onclick="openEquipPicker(\''+item.id+'\')">つける</button>';
+  }else{
+    btns += '<button class="btn" style="background:#7DA85E;color:#fff" onclick="openEquipPicker(\''+item.id+'\')">つけかえ</button>';
+    btns += '<button class="btn" style="background:#B98562;color:#fff" onclick="unequipUi(\''+item.id+'\')">はずす</button>';
+  }
   var h='<div class="equip-modal-card">'
     +'<div class="equip-modal-art">'+Q4BEquipment.svg(item.id)+'</div>'
     +'<h3>'+esc(item.name)+'</h3>'
@@ -493,9 +500,8 @@ function openEquipmentCard(id){
     +'<div class="row"><b>そうび中</b><span>'+esc(wearer?speciesName(wearer):'—')+'</span></div>'
     +'<div class="row"><b>'+(owned?'状態':'必要')+'</b><span>'+(owned?'復元ずみ':'🪨'+p.fossil+' / 💧'+p.dew)+'</span></div>'
     +(item.slot==="hp"?'<div class="row" style="color:#A07628"><b>注意</b><span>SSの虫には不可</span></div>':'')
-    +'<div class="btnrow">'
-    +(actBtn?actBtn:'')
-    +'<button class="btn" '+(actBtn?'style="background:#9aa896"':'')+' onclick="closeEquipmentModal()">とじる</button>'
+    +'<div class="btnrow">'+btns
+    +'<button class="btn" style="background:#9aa896" onclick="closeEquipmentModal()">とじる</button>'
     +'</div></div>';
   var ov=document.createElement("div");
   ov.id="equipModal";
@@ -503,6 +509,86 @@ function openEquipmentCard(id){
   ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
   ov.innerHTML=h;
   document.body.appendChild(ov);
+}
+/* ===== 装備割り当てピッカー: 所有虫から選んで装着 ===== */
+function gatherOwnedSpecies(states){
+  /* states: {keisan,kanji,eitango,battle} → [{id,name,rarity}] */
+  var seen={}, out=[];
+  function add(catches){
+    if(!catches)return;
+    for(var id in catches){
+      if(seen[id])continue;
+      var sp=speciesById(id);
+      if(!sp)continue;
+      seen[id]=1;
+      out.push({id:id, name:sp.jaName||id, rarity:sp.rarity||"N"});
+    }
+  }
+  add(states.keisan&&states.keisan.coll&&states.keisan.coll.catches);
+  add(states.kanji&&states.kanji.coll&&states.kanji.coll.catches);
+  add(states.eitango&&states.eitango.catches);
+  add(states.battle&&states.battle.bosses);
+  out.sort(function(a,b){
+    var ro={SS:0,SSR:1,SR:2,R:3,N:4};
+    var d=(ro[a.rarity]||5)-(ro[b.rarity]||5);
+    if(d)return d;
+    return a.name.localeCompare(b.name,"ja");
+  });
+  return out;
+}
+function openEquipPicker(itemId){
+  var pid=QuestSave.currentProfile();
+  if(!pid)return;
+  var item=Q4BEquipment.byId[itemId];
+  if(!item)return;
+  Promise.all([
+    QuestSave.load("keisan",pid),
+    QuestSave.load("kanji",pid),
+    QuestSave.load("eitango",pid),
+    QuestSave.load("battle",pid)
+  ]).then(function(r){
+    var list=gatherOwnedSpecies({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3]});
+    var g=QuestSave.goshinOf(pid), eq=g.equipment||{};
+    /* HP装備はSS除外 */
+    if(item.slot==="hp") list=list.filter(function(x){return x.rarity!=="SS";});
+    var h='<div class="equip-modal-card">'
+      +'<h3>'+esc(item.name)+' を つける</h3>'
+      +'<div class="sub">えらんだ虫の '+esc(item.slotLabel)+'スロットに セット</div>';
+    if(!list.length){
+      h+='<p class="note" style="text-align:center;margin:10px 0">'+(item.slot==="hp"?'HPパーツを つけられる虫(SS以外)が まだ いません':'まだ虫を つかまえていません')+'</p>';
+    }else{
+      h+='<div class="shiny-list">'+list.map(function(x){
+        var cur=eq.equipped&&eq.equipped[x.id]&&eq.equipped[x.id][item.slot];
+        var curName=cur?(Q4BEquipment.byId[cur]&&Q4BEquipment.byId[cur].name):"";
+        return '<button class="shiny-card" type="button" onclick="equipItemUi(\''+itemId+'\',\''+x.id+'\',\''+x.rarity+'\')">'
+          +'<div class="shiny-art">'+speciesArt(x.id,false)+'</div>'
+          +'<div class="shiny-name">'+esc(x.name)+'</div>'
+          +'<div class="equip-meta" style="color:'+(cur?'#C04848':'#6B7A5E')+'">'+(cur?'おきかえ:'+esc(curName||'装備'):x.rarity)+'</div></button>';
+      }).join("")+'</div>';
+    }
+    h+='<div class="btnrow"><button class="btn" style="background:#9aa896" onclick="openEquipmentCard(\''+itemId+'\')">もどる</button></div></div>';
+    closeEquipmentModal();
+    var ov=document.createElement("div");
+    ov.id="equipModal";
+    ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
+    ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
+    ov.innerHTML=h;
+    document.body.appendChild(ov);
+  }).catch(function(){alert("虫の記録を読み込めませんでした");});
+}
+function equipItemUi(itemId,speciesId,rarity){
+  var pid=QuestSave.currentProfile();
+  var r=QuestSave.equipItem(pid,itemId,speciesId,rarity);
+  if(!r.ok){alert("そうびできませんでした: "+(r.error||"unknown"));return;}
+  closeEquipmentModal();
+  renderProfiles();
+}
+function unequipUi(itemId){
+  var pid=QuestSave.currentProfile();
+  var r=QuestSave.unequipItem(pid,itemId);
+  if(!r.ok){alert("はずせませんでした: "+(r.error||"unknown"));return;}
+  closeEquipmentModal();
+  renderProfiles();
 }
 function closeEquipmentModal(){
   var ov=document.getElementById("equipModal");
