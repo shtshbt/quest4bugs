@@ -172,7 +172,7 @@ input[type=range]{width:100%}
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.4.5"></script>
+<script src="../shared/reward.js?v=0.4.6"></script>
 <script src="../shared/battle.js?v=0.5.0"></script>
 <script src="../shared/boss_zukan.js?v=0.5.2"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
@@ -481,7 +481,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  +'<button class="tile" id="bRange"><div class="ic">🔁</div><div class="lb">はんいを えらぶ</div></button>'
  +'<button class="tile" id="bTest"><div class="ic">🏆</div><div class="lb">チャレンジ</div></button>'
  +'<button class="tile" id="bZukan"><div class="ic">📖</div><div class="lb">かんじ一覧</div></button>'
- +'<button class="tile" id="bBugs"><div class="ic">🧺</div><div class="lb">むしずかん</div></button>'
+ +'<button class="tile" id="bBugs"><div class="ic">📖</div><div class="lb">むしずかん</div></button>'
  +'<button class="tile" id="bProgress"><div class="ic">📊</div><div class="lb">きろく</div></button>'
  +(introCount>0?'<button class="tile" id="bReviewSmall"><div class="ic">🔁</div><div class="lb">ふくしゅう</div></button>':'')
  +'</div>'
@@ -557,7 +557,7 @@ function showCatchModal(got){
  if(got.isRecord&&!got.isNew)badges+='<span style="background:#fff8e1;color:#f57f17;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">🏆 じこベスト！</span>';
  if(got.shiny)badges+='<span style="background:#f3e5f5;color:#7b1fa2;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ いろちがい！</span>';
  var h='<div class="center">'
-  +'<div style="font-size:18px;font-weight:bold;margin-bottom:8px">🧺 むしを つかまえた！</div>'
+  +'<div style="font-size:18px;font-weight:bold;margin-bottom:8px">📖 むしを つかまえた！</div>'
   +'<div style="width:80px;height:80px;margin:0 auto 6px">'+svgHtml+'</div>'
   +'<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>'
   +'<div style="font-size:13px;color:#56714e;margin:2px 0">'+got.size+'mm　'+Q4BReward.TIERNAME[got.tier]+'</div>'
@@ -828,7 +828,7 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
  }
  h+='<div class="qmid">'+sc+' てん（⭕'+SES.ok+'／'+total+'）</div>';
  if(pass&&wasPassed){ h+='<div class="small" style="color:var(--sub)">✅ クリアずみの チャレンジ：ごほうびは ひかえめだよ。あたらしい がくねんに ちょうせんしよう！</div>'; }
- if(gainedCatches.length&&window.Q4BReward){ h+='<div class="small">🧺 つかまえた！</div><div class="bugs" style="margin:8px 0">';
+ if(gainedCatches.length&&window.Q4BReward){ h+='<div class="small">📖 つかまえた！</div><div class="bugs" style="margin:8px 0">';
   gainedCatches.forEach(function(got){
    if(!got)return;
    var sp=got.sp;
@@ -1185,7 +1185,7 @@ function renderBugs(){
   +'>🔶 こはくで よぶ（30）</button></div>'
   +kanjiMasterSection()
   +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
-  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">🧺 むしずかん</div>'
+  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">📖 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
   +'<div class="bugs">';
  sorted.forEach(function(sp){

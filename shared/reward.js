@@ -294,7 +294,7 @@
     v = v || {};
     function chip(t){ return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.9);border:1.5px solid #CFDDB2;border-radius:999px;padding:2px 9px;font-size:13px;font-weight:800;color:#2A3D2C;white-space:nowrap">'+t+'</span>'; }
     return '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px">'
-      + chip('🧺 '+(v.caught||0)+'/'+(v.pool||0))
+      + chip('📖 '+(v.caught||0)+'/'+(v.pool||0))
       + chip('🔶 '+(v.amber||0))
       + chip('🔥 '+(v.streak||0)+'日')
       + chip('🏅 '+rank(v.total||0))

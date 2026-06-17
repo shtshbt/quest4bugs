@@ -277,7 +277,7 @@ function kagoChip(){
   var p=P(); if(!p)return ''; ensureColl(p);
   var cnt=(window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p));
   var tot=(window.Q4BReward?Q4BReward.poolCount('keisan'):BUGS.length);
-  return '<button class="chip kago" onclick="showZukan()">🧺 '+cnt+'/'+tot+'</button>';
+  return '<button class="chip kago" onclick="showZukan()">📖 '+cnt+'/'+tot+'</button>';
 }
 function fireChip(){var p=P(); if(!p)return ''; return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
 function capCount(p){var c=0; for(var k in p.caps) c++; return c;}
@@ -292,7 +292,7 @@ function showProfiles(){
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
       +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
-      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　🧺'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -651,7 +651,7 @@ function showCapture(i,extraMsg,presetGot){
         +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp,got.shiny)+'</div>'
         +'<div class="bn">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>'
         +'<span class="note">'+got.size+'mm</span>'+tag+'</div>'
-        +'<div class="face back"><span style="font-size:50px">🧺</span></div>'
+        +'<div class="face back"><span style="font-size:50px">📖</span></div>'
         +'</div></div>'
         +'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note||"")+'</p>'
         +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
@@ -668,7 +668,7 @@ function showCapture(i,extraMsg,presetGot){
     +'<div class="face front r'+b.r+'"><div class="bs">'+bugSVG(b)+'</div>'
     +'<div class="bn">'+esc(b.n)+'</div><span class="rtag r'+b.r+'">'+RAR[b.r]+'</span>'
     +(cnt>1?'<span class="note">×'+cnt+'匹め</span>':'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！</span>')+'</div>'
-    +'<div class="face back"><span style="font-size:50px">🧺</span></div>'
+    +'<div class="face back"><span style="font-size:50px">📖</span></div>'
     +'</div></div>'
     +'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(b.q)+'</p>'
     +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
@@ -4115,7 +4115,7 @@ function showKeiCatch(got){
   if(got.isNew)tags.push('✨ NEW！ずかん登録'); else if(got.isRecord)tags.push('📏 じこベスト更新');
   if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md"><div class="mcard" style="text-align:center">'
-    +'<div style="font-weight:800;font-size:18px">🧺 つかまえた！</div>'
+    +'<div style="font-weight:800;font-size:18px">📖 つかまえた！</div>'
     +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp,got.shiny)+'</div>'
     +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
     +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
