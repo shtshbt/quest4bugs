@@ -260,8 +260,8 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.13"></script>
-<script src="./shared/equipment_data.js?v=0.2.0"></script>
+<script src="./shared/storage.js?v=0.4.14"></script>
+<script src="./shared/equipment_data.js?v=0.3.0"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
@@ -416,25 +416,33 @@ function openShinyPicker(){
     document.body.appendChild(ov);
   }).catch(function(){alert("虫の記録を読み込めませんでした");});
 }
+function nextPriceFor(g){
+  /* 「これから何個目を復元するか」で価格決定。順不同で公平に */
+  var eq=(g&&g.equipment)||{}, owned=eq.owned||{};
+  var ownedCount=0; for(var k in owned)if(owned[k])ownedCount++;
+  return Q4BEquipment.priceAt(ownedCount);
+}
 function equipmentCardHTML(item,g){
   var eq=(g&&g.equipment)||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
-  var ok=(g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost);
+  var p=nextPriceFor(g);
+  var ok=(g.fossilFragments>=p.fossil&&g.awakeningDrops>=p.dew);
   var slotMap={attack:{cls:"atk",icon:"⚔"},defense:{cls:"def",icon:"🛡"},hp:{cls:"hp",icon:"❤"}};
   var sb=slotMap[item.slot]||{cls:"",icon:""};
   return '<button class="equip-card '+(owned?'owned':(ok?'ready':'locked'))+'" onclick="openEquipmentCard(\''+item.id+'\')" type="button">'
     +'<span class="equip-slot '+sb.cls+'" title="'+esc(item.slotLabel)+'" aria-label="'+esc(item.slotLabel)+'">'+sb.icon+'</span>'
     +'<div class="equip-art">'+Q4BEquipment.svg(item.id)+'</div>'
     +'<div class="equip-name">'+esc(item.name)+'</div>'
-    +'<div class="equip-meta">'+(owned?'そうび中: '+esc(wearer?speciesName(wearer):'まだ'):(ok?'復元できる':'🪨'+item.fossilCost+' 💧'+item.dewCost))+'</div>'
+    +'<div class="equip-meta">'+(owned?'そうび中: '+esc(wearer?speciesName(wearer):'まだ'):(ok?'復元できる':'🪨'+p.fossil+' 💧'+p.dew))+'</div>'
     +'</button>';
 }
 function equipmentHTML(g){
   if(!window.Q4BEquipment)return "";
   var items=Q4BEquipment.items||[], owned=0, ready=0, h="", i, item;
+  var p=nextPriceFor(g), canAfford=(g.fossilFragments>=p.fossil&&g.awakeningDrops>=p.dew);
   for(i=0;i<items.length;i++){
     item=items[i];
     if(g.equipment&&g.equipment.owned&&g.equipment.owned[item.id])owned++;
-    else if(g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost)ready++;
+    else if(canAfford)ready++;
     h+=equipmentCardHTML(item,g);
   }
   return '<div class="equip-box"><div class="equip-head"><h4>こだいこんちゅうの かせきパーツ</h4>'
@@ -472,7 +480,8 @@ function openEquipmentCard(id){
   var item=Q4BEquipment.byId[id], pid=QuestSave.currentProfile();
   if(!item||!pid)return;
   var g=QuestSave.goshinOf(pid), eq=g.equipment||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
-  var can=g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost;
+  var p=nextPriceFor(g);
+  var can=g.fossilFragments>=p.fossil&&g.awakeningDrops>=p.dew;
   var actBtn = owned
     ? ''
     : '<button class="btn amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+(can?'復元する':'足りない')+'</button>';
@@ -482,7 +491,7 @@ function openEquipmentCard(id){
     +'<div class="sub">かせきパーツ・'+esc(item.slotLabel)+'</div>'
     +'<div class="meta"><span class="lbl">こうか</span><span>'+esc(item.effect)+'</span></div>'
     +'<div class="row"><b>そうび中</b><span>'+esc(wearer?speciesName(wearer):'—')+'</span></div>'
-    +'<div class="row"><b>'+(owned?'状態':'必要')+'</b><span>'+(owned?'復元ずみ':'🪨'+item.fossilCost+' / 💧'+item.dewCost)+'</span></div>'
+    +'<div class="row"><b>'+(owned?'状態':'必要')+'</b><span>'+(owned?'復元ずみ':'🪨'+p.fossil+' / 💧'+p.dew)+'</span></div>'
     +(item.slot==="hp"?'<div class="row" style="color:#A07628"><b>注意</b><span>SSの虫には不可</span></div>':'')
     +'<div class="btnrow">'
     +(actBtn?actBtn:'')

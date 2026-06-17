@@ -26,32 +26,34 @@
     hp:{value:20, text:"HPを20にする"}
   };
 
-  function priceFor(index){
-    var i=index+1;
-    return {
-      fossil:i<=3?6:(i<=6?9:(i<=9?12:(i<=12?15:18))),
-      dew:i<=3?1:(i<=9?2:3)
-    };
+  /* 価格は「これが何個目の復元か」で決まる（順不同。最初に何を選んでも同じ）。
+       1〜3個目: かけら6 / しずく1  (各3日)
+       4〜9個目: かけら9〜12 / しずく2  (各6日)
+     10〜18個目: かけら15〜18 / しずく3  (各9日)
+     ※同帯内はわずかに段階上昇させ集めるたびに重くなる感を出す */
+  function priceForNth(n){
+    if(n<=3)  return {fossil:6,                            dew:1};
+    if(n<=9)  return {fossil:9 + Math.floor((n-4)*3/5),    dew:2};   /* 4→9, 5→9, 6→10, 7→10, 8→11, 9→12 */
+    return        {fossil:15 + Math.floor((n-10)*3/8),     dew:3};   /* 10→15, ..., 18→18 */
   }
   function slotLabel(slot){ return {attack:"こうげき",defense:"まもり",hp:"HP"}[slot]||slot; }
   function makeItems(){
-    var out=[], slots=["attack","defense","hp"], rank, si, slot, id, effect, price, cols;
+    var out=[], slots=["attack","defense","hp"], rank, si, slot, id, effect, cols;
     for(rank=0;rank<6;rank++){
       for(si=0;si<slots.length;si++){
-        slot=slots[si];
-        id=slot+"_"+(rank+1);
-        effect=EFFECTS[slot];
-        price=priceFor(out.length);
-        cols=PALETTES[slot][rank];
+        slot=slots[si]; id=slot+"_"+(rank+1); effect=EFFECTS[slot]; cols=PALETTES[slot][rank];
         out.push({
           id:id, slot:slot, rank:rank+1, name:NAMES[slot][rank],
           slotLabel:slotLabel(slot), effect:effect.text, effectValue:effect.value,
-          fossilCost:price.fossil, dewCost:price.dew, colors:cols
+          colors:cols
+          /* fossilCost/dewCost はベタ焼きしない＝動的に nthPriceFor(ownedCount) で算出 */
         });
       }
     }
     return out;
   }
+  /* 既存コード後方互換: 所持数を渡せばそのときの価格を返す */
+  function priceAt(ownedCount){ return priceForNth((ownedCount|0)+1); }
   var ITEMS = makeItems(), BY_ID={};
   ITEMS.forEach(function(it){ BY_ID[it.id]=it; });
 
@@ -224,6 +226,7 @@
     byId:BY_ID,
     slotLabel:slotLabel,
     svg:svg,
+    priceAt:priceAt,                /* 所持数で動的に次の価格を算出 */
     ATTACK_BONUS:5,
     DEFENSE_REDUCTION:3,
     HP_FLOOR:20

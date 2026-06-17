@@ -475,10 +475,15 @@
     data=normalizeRewardData(r.entry.data,todayKey());
     eq=data.equipment;
     if(eq.owned[item.id])return {ok:false,error:"already owned"};
-    if(data.fossilFragments<item.fossilCost)return {ok:false,error:"not enough fossil fragments"};
-    if(data.awakeningDrops<item.dewCost)return {ok:false,error:"not enough awakening drops"};
-    data.fossilFragments-=item.fossilCost;
-    data.awakeningDrops-=item.dewCost;
+    /* 動的価格: これが何個目の復元か（所持数+1）で決まる。順不同で公平に */
+    var ownedCount=Object.keys(eq.owned||{}).length;
+    var price=(global.Q4BEquipment&&global.Q4BEquipment.priceAt)
+      ? global.Q4BEquipment.priceAt(ownedCount)
+      : {fossil:item.fossilCost||0,dew:item.dewCost||0};
+    if(data.fossilFragments<price.fossil)return {ok:false,error:"not enough fossil fragments"};
+    if(data.awakeningDrops<price.dew)return {ok:false,error:"not enough awakening drops"};
+    data.fossilFragments-=price.fossil;
+    data.awakeningDrops-=price.dew;
     eq.owned[item.id]={id:item.id,obtainedAt:stamp()};
     r.entry.updated=now();
     r.entry.data=normalizeRewardData(data,todayKey());
