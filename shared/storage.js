@@ -348,6 +348,37 @@
     day.drop=!!day.drop;
     return day;
   }
+  function blankEquipmentData(){
+    return {owned:{},equipped:{},equippedBy:{}};
+  }
+  function normalizeEquipmentData(eq){
+    var out=blankEquipmentData(), k, v, sid, slots, slot;
+    eq=eq&&typeof eq==="object"?eq:{};
+    if(eq.owned&&typeof eq.owned==="object"){
+      for(k in eq.owned){
+        v=eq.owned[k];
+        if(v&&typeof v==="object")out.owned[k]={id:String(v.id||k),obtainedAt:String(v.obtainedAt||"")};
+        else if(v)out.owned[k]={id:String(k),obtainedAt:""};
+      }
+    }
+    if(eq.equipped&&typeof eq.equipped==="object"){
+      for(sid in eq.equipped){
+        slots=eq.equipped[sid];
+        if(!slots||typeof slots!=="object")continue;
+        out.equipped[sid]={};
+        for(slot in slots)if(slots[slot]&&out.owned[slots[slot]])out.equipped[sid][slot]=slots[slot];
+      }
+    }
+    if(eq.equippedBy&&typeof eq.equippedBy==="object"){
+      for(k in eq.equippedBy)if(out.owned[k]&&eq.equippedBy[k])out.equippedBy[k]=String(eq.equippedBy[k]);
+    }else{
+      for(sid in out.equipped){
+        slots=out.equipped[sid];
+        for(slot in slots)if(slots[slot])out.equippedBy[slots[slot]]=sid;
+      }
+    }
+    return out;
+  }
   function normalizeRewardData(data,date){
     var i, s, logDay, d;
     data=data&&typeof data==="object"?data:{};
@@ -367,6 +398,7 @@
     }
     d.dewDay=logDay.dewDay;
     data.daily=d;
+    data.equipment=normalizeEquipmentData(data.equipment);
     return data;
   }
   function rewardEntry(pid){
@@ -424,6 +456,92 @@
     persist();
     schedulePush();
     return {ok:true,subject:subject,awards:awards,state:clone(data)};
+  }
+  function equipmentOf(pid){
+    if(!pid)return blankEquipmentData();
+    var r=rewardEntry(pid);
+    r.entry.data=normalizeRewardData(r.entry.data,todayKey());
+    return clone(r.entry.data.equipment);
+  }
+  function itemDef(itemId){
+    return global.Q4BEquipment&&global.Q4BEquipment.byId?global.Q4BEquipment.byId[itemId]:null;
+  }
+  function restoreEquipment(pid,itemId){
+    var r, data, item, eq;
+    if(!pid)return {ok:false,error:"missing profile"};
+    item=itemDef(itemId);
+    if(!item)return {ok:false,error:"unknown equipment"};
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    eq=data.equipment;
+    if(eq.owned[item.id])return {ok:false,error:"already owned"};
+    if(data.fossilFragments<item.fossilCost)return {ok:false,error:"not enough fossil fragments"};
+    if(data.awakeningDrops<item.dewCost)return {ok:false,error:"not enough awakening drops"};
+    data.fossilFragments-=item.fossilCost;
+    data.awakeningDrops-=item.dewCost;
+    eq.owned[item.id]={id:item.id,obtainedAt:stamp()};
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return {ok:true,itemId:item.id,state:clone(r.entry.data)};
+  }
+  function spendAwakeningDrops(pid,n){
+    var r, data;
+    if(!pid)return {ok:false,error:"missing profile"};
+    n=Math.max(1,Math.floor(n)||1);
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    if(data.awakeningDrops<n)return {ok:false,error:"not enough awakening drops"};
+    data.awakeningDrops-=n;
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return {ok:true,state:clone(r.entry.data)};
+  }
+  function canUseHpEquipment(rarity){
+    return String(rarity||"").toUpperCase()!=="SS";
+  }
+  function equipItem(pid,itemId,speciesId,rarity){
+    var r, data, item, eq, oldSpecies, oldItem;
+    if(!pid||!speciesId)return {ok:false,error:"missing target"};
+    item=itemDef(itemId);
+    if(!item)return {ok:false,error:"unknown equipment"};
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    eq=data.equipment;
+    if(!eq.owned[item.id])return {ok:false,error:"equipment is not owned"};
+    if(item.slot==="hp"&&!canUseHpEquipment(rarity))return {ok:false,error:"hp equipment cannot be used by SS"};
+    oldSpecies=eq.equippedBy[item.id];
+    if(oldSpecies&&eq.equipped[oldSpecies])delete eq.equipped[oldSpecies][item.slot];
+    if(!eq.equipped[speciesId])eq.equipped[speciesId]={};
+    oldItem=eq.equipped[speciesId][item.slot];
+    if(oldItem)delete eq.equippedBy[oldItem];
+    eq.equipped[speciesId][item.slot]=item.id;
+    eq.equippedBy[item.id]=speciesId;
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return {ok:true,itemId:item.id,speciesId:speciesId,state:clone(r.entry.data)};
+  }
+  function unequipItem(pid,itemId){
+    var r, data, item, eq, sid;
+    if(!pid)return {ok:false,error:"missing profile"};
+    item=itemDef(itemId);
+    if(!item)return {ok:false,error:"unknown equipment"};
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    eq=data.equipment;
+    sid=eq.equippedBy[item.id];
+    if(sid&&eq.equipped[sid])delete eq.equipped[sid][item.slot];
+    delete eq.equippedBy[item.id];
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return {ok:true,itemId:item.id,state:clone(r.entry.data)};
   }
 
   /* ---------------- connection helpers ---------------- */
@@ -637,6 +755,8 @@
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
+    equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
+    spendAwakeningDrops:spendAwakeningDrops,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,

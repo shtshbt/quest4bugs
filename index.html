@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.14">
+<meta name="q4b-release" content="0.4.15">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -65,7 +65,32 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .goshin-clock-in{display:grid;grid-template-columns:48px 1fr;gap:7px;align-items:center}
 .goshin-clock svg{width:48px;height:58px;display:block}
 .goshin-clock .note{line-height:1.25}
-@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}}
+.equip-box{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:8px;margin-top:8px}
+.equip-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
+.equip-head h4{margin:0;font-size:12px;line-height:1.2}
+.equip-box .hint{font-size:10px;color:#6B7A5E;font-weight:900;line-height:1.25;margin:-2px 0 6px}
+.equip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.equip-card{border:1px solid #D8C892;border-radius:12px;background:#FFFCF3;padding:6px;min-width:0;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer}
+.equip-card.owned{background:#F2FFE9;border-color:#8DBB5D}
+.equip-card.locked{opacity:.78}
+.equip-card.ready{background:#FFF7D9;border-color:#E5B84C;box-shadow:0 0 0 2px rgba(229,184,76,.18) inset}
+.equip-art{height:56px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}
+.equip-art svg{width:56px;height:56px;display:block}
+.equip-name{font-size:11px;font-weight:900;line-height:1.2;min-height:2.4em}
+.equip-meta{font-size:9px;color:#6B7A5E;font-weight:900;line-height:1.25;margin-top:3px}
+.equip-more{margin-top:6px}
+.equip-more summary{font-size:12px;font-weight:900;color:#42533A;cursor:pointer;list-style:none;border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:6px 8px;text-align:center}
+.equip-more[open] summary{margin-bottom:6px}
+.equip-modal-card{background:var(--panel);border-radius:18px;padding:16px;max-width:390px;width:94%;max-height:88vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.equip-modal-art{width:132px;height:132px;margin:0 auto 8px}
+.shiny-box{border:1px solid #B9D4E4;border-radius:12px;background:linear-gradient(180deg,#F5FCFF,#FFFDF7);padding:8px;margin-top:8px}
+.shiny-box h4{margin:0 0 3px;font-size:12px;line-height:1.2}
+.shiny-box .hint{font-size:10px;color:#5B7180;font-weight:900;line-height:1.25;margin-bottom:6px}
+.shiny-list{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.shiny-card{border:1px solid #B9D4E4;border-radius:12px;background:#FFFFFF;padding:6px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
+.shiny-art{width:56px;height:56px;margin:0 auto 4px}
+.shiny-name{font-size:10px;font-weight:900;line-height:1.2;min-height:2.4em}
+@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}.equip-grid,.shiny-list{grid-template-columns:repeat(2,1fr)}}
 </style>
 <script>try{if(localStorage.getItem('q4b_entered')==='1')document.documentElement.className+=' q4b-in';}catch(e){}</script>
 <style>
@@ -223,7 +248,8 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.12"></script>
+<script src="./shared/storage.js?v=0.4.13"></script>
+<script src="./shared/equipment_data.js?v=0.1.0"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
@@ -308,6 +334,99 @@ function goshinDoneText(g){
   if(done.length)return done.join("・")+"で かせきのかけらを見つけた";
   return "まだ今日の記録はないよ";
 }
+function speciesName(id){
+  var a=window.Q4B_BUGS||window.BUGS||[], i;
+  for(i=0;i<a.length;i++)if(a[i]&&a[i].id===id)return a[i].jaName||id;
+  return id||"まだ";
+}
+function speciesById(id){
+  var a=window.Q4B_BUGS||window.BUGS||[], i;
+  for(i=0;i<a.length;i++)if(a[i]&&a[i].id===id)return a[i];
+  return null;
+}
+function speciesArt(id,shiny){
+  var sp=speciesById(id);
+  if(!sp||!window.Q4BRender)return '<div style="font-size:32px">🪲</div>';
+  return (Q4BRender.deco?Q4BRender.deco(sp,!!shiny):Q4BRender.species(sp,!!shiny));
+}
+function shinyHTML(g){
+  return '<div class="shiny-box"><h4>めざめのしずくで 色をかえる</h4>'
+    +'<div class="hint">しずく1こで、つかまえた虫を きらめく色にできるよ。強さはかわらないよ。</div>'
+    +'<button class="btn sm" type="button" onclick="openShinyPicker()" '+(g.awakeningDrops>0?'':'disabled')+'>色をかえる虫をえらぶ</button></div>';
+}
+function addShinyCandidates(out,source,state,catches){
+  var id, rec, sp;
+  catches=catches||{};
+  for(id in catches){
+    rec=catches[id]||{};
+    if(rec.shiny)continue;
+    sp=speciesById(id);
+    if(!sp)continue;
+    out.push({source:source,id:id,name:sp.jaName||id,rarity:sp.rarity||"N"});
+  }
+}
+function openShinyPicker(){
+  var pid=QuestSave.currentProfile();
+  if(!pid)return;
+  var g=QuestSave.goshinOf(pid);
+  if(g.awakeningDrops<1){alert("めざめのしずくが たりません");return;}
+  Promise.all([
+    QuestSave.load("keisan",pid),
+    QuestSave.load("kanji",pid),
+    QuestSave.load("eitango",pid),
+    QuestSave.load("battle",pid)
+  ]).then(function(r){
+    var list=[], kp=r[0]||{}, ks=r[1]||{}, es=r[2]||{}, bt=r[3]||{};
+    addShinyCandidates(list,"keisan",kp,kp.coll&&kp.coll.catches);
+    addShinyCandidates(list,"kanji",ks,ks.coll&&ks.coll.catches);
+    addShinyCandidates(list,"eitango",es,es.catches);
+    addShinyCandidates(list,"battle",bt,bt.bosses);
+    list.sort(function(a,b){return a.name.localeCompare(b.name,"ja");});
+    var h='<div class="equip-modal-card"><h3 style="margin:0 0 6px;text-align:center">しずくで 色をかえる</h3>'
+      +'<p class="note" style="text-align:center;margin:0 0 8px">めざめのしずく 1こをつかいます</p>';
+    if(!list.length){
+      h+='<p class="note" style="text-align:center">色をかえられる虫が まだいないよ</p>';
+    }else{
+      h+='<div class="shiny-list">'+list.map(function(x){
+        return '<button class="shiny-card" type="button" onclick="makeShinyUi(\''+x.source+'\',\''+x.id+'\')">'
+          +'<div class="shiny-art">'+speciesArt(x.id,true)+'</div>'
+          +'<div class="shiny-name">'+esc(x.name)+'</div>'
+          +'<div class="equip-meta">💧1</div></button>';
+      }).join("")+'</div>';
+    }
+    h+='<button class="btn sm" onclick="closeEquipmentModal()">とじる</button></div>';
+    var ov=document.createElement("div");
+    ov.id="equipModal";
+    ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
+    ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
+    ov.innerHTML=h;
+    closeEquipmentModal();
+    document.body.appendChild(ov);
+  }).catch(function(){alert("虫の記録を読み込めませんでした");});
+}
+function equipmentCardHTML(item,g){
+  var eq=(g&&g.equipment)||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
+  var ok=(g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost);
+  return '<button class="equip-card '+(owned?'owned':(ok?'ready':'locked'))+'" onclick="openEquipmentCard(\''+item.id+'\')" type="button">'
+    +'<div class="equip-art">'+Q4BEquipment.svg(item.id)+'</div>'
+    +'<div class="equip-name">'+esc(item.name)+'</div>'
+    +'<div class="equip-meta">'+(owned?'そうび中: '+esc(wearer?speciesName(wearer):'まだ'):(ok?'復元できる':'🪨'+item.fossilCost+' 💧'+item.dewCost))+'</div>'
+    +'</button>';
+}
+function equipmentHTML(g){
+  if(!window.Q4BEquipment)return "";
+  var items=Q4BEquipment.items||[], owned=0, ready=0, h="", i, item;
+  for(i=0;i<items.length;i++){
+    item=items[i];
+    if(g.equipment&&g.equipment.owned&&g.equipment.owned[item.id])owned++;
+    else if(g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost)ready++;
+    h+=equipmentCardHTML(item,g);
+  }
+  return '<div class="equip-box"><div class="equip-head"><h4>こだいこんちゅうの かせきパーツ</h4>'
+    +'<span class="note">復元ずみ '+owned+' / '+items.length+'</span></div>'
+    +'<div class="hint">かせきのかけらと しずくで復元するよ。遠くのきょうてきに たちむかう力をくれる。復元できるパーツ：'+ready+'こ</div>'
+    +'<details class="equip-more"><summary>かせきパーツを ひらく</summary><div class="equip-grid">'+h+'</div></details></div>';
+}
 function goshinHTML(pid,amber,bt){
   if(!window.QuestSave||!QuestSave.goshinOf)return "";
   var g=QuestSave.goshinOf(pid), d=g.daily||{}, subs=(d.subjects||{}), order=["keisan","kanji","eitango"];
@@ -331,7 +450,78 @@ function goshinHTML(pid,amber,bt){
     +'<div class="hint">50もん せいかいすると、1日ひとつ みつかるよ</div>'
     +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
-    +'</div></div>';
+    +'</div>'+equipmentHTML(g)+shinyHTML(g)+'</div>';
+}
+function openEquipmentCard(id){
+  if(!window.Q4BEquipment||!window.QuestSave)return;
+  var item=Q4BEquipment.byId[id], pid=QuestSave.currentProfile();
+  if(!item||!pid)return;
+  var g=QuestSave.goshinOf(pid), eq=g.equipment||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
+  var can=g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost;
+  var h='<div class="equip-modal-card">'
+    +'<div class="equip-modal-art">'+Q4BEquipment.svg(item.id)+'</div>'
+    +'<h3 style="margin:0 0 6px;text-align:center">'+esc(item.name)+'</h3>'
+    +'<p class="note" style="margin:0 0 8px;text-align:center">こだいこんちゅうの かせきパーツ・'+esc(item.slotLabel)+'</p>'
+    +'<div class="card" style="border-radius:12px;padding:10px;margin-bottom:8px">'
+    +'<b>こうか</b><br>'+esc(item.effect)+(item.slot==="hp"?'<br><span class="note">SSの虫にはつけられません</span>':'')
+    +'</div>'
+    +'<div class="card" style="border-radius:12px;padding:10px;margin-bottom:8px">'
+    +'<b>そうび中</b><br>'+esc(wearer?speciesName(wearer):'まだ')
+    +'</div>'
+    +(owned?'<p class="note">このそうびは復元ずみです。</p>':
+      '<p class="note">復元に必要：🪨 '+item.fossilCost+' / 💧 '+item.dewCost+'</p>'
+      +'<button class="btn sm amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+ (can?'ごしんぼくで復元する':'まだ足りない') +'</button>')
+    +'<button class="btn sm" onclick="closeEquipmentModal()">とじる</button>'
+    +'</div>';
+  var ov=document.createElement("div");
+  ov.id="equipModal";
+  ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
+  ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
+  ov.innerHTML=h;
+  document.body.appendChild(ov);
+}
+function closeEquipmentModal(){
+  var ov=document.getElementById("equipModal");
+  if(ov)ov.remove();
+}
+function restoreEquipmentUi(id){
+  var r=QuestSave.restoreEquipment(QuestSave.currentProfile(),id);
+  if(!r.ok){alert("復元できませんでした: "+(r.error||"unknown"));return;}
+  closeEquipmentModal();
+  renderProfiles();
+}
+function markCatchShiny(source,state,id){
+  if(source==="eitango"){
+    if(!state.catches||!state.catches[id])return false;
+    state.catches[id].shiny=1;
+    if(state.catches[id].normal==null)state.catches[id].normal=1;
+    return true;
+  }
+  if(source==="battle"){
+    if(!state.bosses||!state.bosses[id])return false;
+    state.bosses[id].shiny=1;
+    return true;
+  }
+  if(!state.coll||!state.coll.catches||!state.coll.catches[id])return false;
+  state.coll.catches[id].shiny=1;
+  if(state.coll.catches[id].normal==null)state.coll.catches[id].normal=1;
+  return true;
+}
+function makeShinyUi(source,id){
+  var pid=QuestSave.currentProfile(), ns=source==="battle"?"battle":source;
+  if(!pid)return;
+  if(!confirm(speciesName(id)+" に めざめのしずくを 1こ つかいますか？"))return;
+  QuestSave.load(ns,pid).then(function(state){
+    state=state||{};
+    if(!markCatchShiny(source,state,id)){alert("この虫の記録が見つかりませんでした");return;}
+    var spent=QuestSave.spendAwakeningDrops(pid,1);
+    if(!spent.ok){alert("しずくが たりません");return;}
+    return QuestSave.save(ns,pid,state).then(function(){
+      closeEquipmentModal();
+      renderProfiles();
+      alert(speciesName(id)+" が きらめく色になった！");
+    });
+  }).catch(function(){alert("色をかえられませんでした");});
 }
 function exp(){
   if(!window.QuestSave){$("expA").innerHTML='<p class="note" style="color:#E05A48">保存層が読み込めませんでした</p>';return;}

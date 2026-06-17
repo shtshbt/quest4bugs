@@ -46,13 +46,14 @@
     var tier = RW.tierOf(sp), tierName = RW.TIERNAME[tier] || "";
     var name = got ? esc(sp.jaName) : "？？？";
     var id = jsStr(r.id);
-    var art = artHTML(sp, false);
+    var rec = BOSSES[r.id] || {}, shiny = got && !!rec.shiny;
+    var art = artHTML(sp, shiny);
     var click = 'Q4BBossZukan.detail(\'' + id + '\')';
     if(game === "kanji"){
       return '<button type="button" class="bug' + (got ? '' : ' no') + '" onclick="' + click + '"'
         + ' style="width:100%;font:inherit;cursor:pointer;appearance:none;-webkit-appearance:none">'
         + (got ? art : '<div style="font-size:44px;line-height:64px">❓</div>')
-        + '<div class="nm">' + name + (got ? '👑' : '') + '</div>'
+        + '<div class="nm">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</div>'
         + '<div class="rar">' + tierName + '</div>'
         + '<div style="font-size:10px;color:#888">' + (r.hp ? 'HP' + r.hp : 'ボス') + '</div>'
         + '</button>';
@@ -60,14 +61,14 @@
     if(game === "eitango"){
       return '<button type="button" class="zc' + (got ? '' : ' un') + '" style="--rc:var(--rar' + tier + ')" onclick="' + click + '">'
         + '<span class="ze" style="width:64px;height:64px;margin:0 auto;display:block">' + art + '</span>'
-        + '<span class="zn">' + name + (got ? '👑' : '') + '</span>'
+        + '<span class="zn">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</span>'
         + '<span class="zs">' + (got && r.hp ? 'HP' + r.hp + ' ' : '') + tierName + '</span>'
         + '</button>';
     }
     return '<button type="button" class="zc r' + tier + '" onclick="' + click + '"'
       + (got ? '' : ' style="opacity:.55"')
       + '><div class="bs' + (got ? '' : ' sil') + '">' + art + '</div>'
-      + '<div class="nm">' + name + (got ? '👑' : '') + '</div>'
+      + '<div class="nm">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</div>'
       + '</button>';
   }
 
@@ -77,7 +78,7 @@
     var sp = byId[id]; if(!sp || !RW || !R) return;
     var TYPE_JA = { kanji:"かんじ", keisan:"けいさん", eitango:"えいご", none:"むぞくせい" };
     var r = null; if(B && B.roster) B.roster.forEach(function(x){ if(x.id === id) r = x; });
-    var got = !!BOSSES[id], n = ((BOSSES[id]) || {}).n || 0;
+    var got = !!BOSSES[id], rec = (BOSSES[id]) || {}, n = rec.n || 0, shiny = !!rec.shiny;
     var tier = RW.tierOf(sp), tname = RW.TIERNAME[tier];
     var g = RW.gameFor(sp), hp = r ? r.hp : (B && B.bugHP ? B.bugHP(sp.rarity) : "");
     var fam = [sp.familyJa, sp.groupJa].filter(Boolean).join(' / ');
@@ -90,8 +91,8 @@
         + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
     }else{
       var sz = RW.sizeRange(sp);
-      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto">' + artHTML(sp, false) + '</div>'
-        + '<h3>👑 ' + esc(sp.jaName) + '</h3>'
+      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto">' + artHTML(sp, shiny) + '</div>'
+        + '<h3>👑 ' + esc(sp.jaName) + (shiny ? ' ✨' : '') + '</h3>'
         + '<p>' + badgeHTML(TYPE_JA[g], "#5b7") + ' ' + badgeHTML(tname, "#E8B33C")
         + (hp ? ' HP' + hp : '') + (n ? '　たおした ×' + n : '') + '</p>'
         + '<p style="font-size:13px;color:#777">おおきさ ' + sz[0] + '〜' + sz[1] + 'mm</p>'
