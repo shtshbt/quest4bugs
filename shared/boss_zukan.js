@@ -101,7 +101,7 @@
         + (sp.note ? '<p style="background:#eef6e0;border-radius:12px;padding:10px;font-size:14px">' + esc(sp.note) + '</p>' : "")
         + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
     }
-    showDetail(inner);
+    showDetail(detailCardHTML(inner));
   }
 
   var activeDetail = null;
@@ -140,6 +140,7 @@
 
   function artHTML(sp, shiny){ return global.Q4BReward && global.Q4BReward.svg ? global.Q4BReward.svg(sp, shiny) : global.Q4BRender.species(sp, shiny); }
   function badgeHTML(text, color){ return '<span style="background:' + color + ';color:#fff;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:800">' + esc(text) + '</span>'; }
+  function detailCardHTML(inner){ return '<div style="background:#FFFDF4;color:#2A3D2C;border-radius:18px;padding:6px 4px;text-align:center">' + inner + '</div>'; }
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function jsStr(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }

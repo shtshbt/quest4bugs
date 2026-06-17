@@ -19,9 +19,9 @@
 body.night{ --sky:#16213c; --grass:#243352; --card:#243352; --leaf:#7fb069; --forest:#dbe6f0; --deep:#eef3f8; --soil:#cda781; background:#16213c; color:#e9edf6; }
 body.night .btn.sub{ background:#2b3a5a; color:#e9edf6; border-color:#3a4a6a; box-shadow:0 4px 0 #16213c; }
 /* 夜モード: 白固定だった図鑑カード/タブを暗くし、昆虫名(白文字)が読めるように */
-body.night .bug{ background:#fffdf6!important; border-color:#2e5d28!important; color:#2e5d28!important; }
-body.night .bug .nm{ color:#2e5d28!important; }
-body.night .bug .rar{ color:#7a4a23!important; }
+body.night .bug{ background:#1e2c49!important; border-color:#3a4a6a!important; color:#e9edf6!important; }
+body.night .bug .nm{ color:#e9edf6!important; }
+body.night .bug .rar{ color:#ffd86b!important; }
 body.night .tabs button{ background:#243352; color:#cfe0d0; border-color:#3a4a6a; }
 body.night .tabs button.on{ background:#7fb069; color:#16213c; }
 /* 夜モード: 図鑑/範囲選択グリッドのセルは薄いパステル固定背景なので、文字(漢字)を濃色に固定して可読化 */
@@ -111,9 +111,9 @@ canvas.trace{touch-action:none;border-radius:11px}
 
 /* ---- むしかご ---- */
 .bugs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
-.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center;color:#2e5d28;font:inherit;appearance:none;-webkit-appearance:none}
+.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center}
 .bug svg{width:64px;height:64px}
-.bug .nm{font-size:11px;font-weight:bold;color:#2e5d28;margin-top:2px;min-height:2.4em}
+.bug .nm{font-size:11px;font-weight:bold;color:var(--forest);margin-top:2px;min-height:2.4em}
 .bug.no{opacity:.45;filter:grayscale(1)}
 .rar{font-size:10px;color:var(--soil)}
 
@@ -174,7 +174,7 @@ input[type=range]{width:100%}
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.5"></script>
 <script src="../shared/battle.js?v=0.5.0"></script>
-<script src="../shared/boss_zukan.js?v=0.5.1"></script>
+<script src="../shared/boss_zukan.js?v=0.5.2"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script>
@@ -367,6 +367,7 @@ function fbShow(ok){ $('fbIc').textContent=ok?'⭕':'❌'; $('fb').classList.add
 function modal(html){ $('modalIn').innerHTML=html; $('modal').classList.add('on') }
 function closeModal(){ $('modal').classList.remove('on') }
 $('modal').addEventListener('click',function(e){ if(e.target.id==='modal')closeModal() });
+function zukanDetailHTML(html){ return '<div class="center" style="background:#fffdf6;color:#2e5d28;border-radius:16px;padding:6px 2px">' + html + '</div>'; }
 
 function nameOf(id){ for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)return PROFILES[i].name; return id }
 function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textContent=CUR.emoji+' '+CUR.name;
@@ -1192,7 +1193,7 @@ function renderBugs(){
    var sp2=null; for(var i=0;i<pool.length;i++)if(pool[i].id===id){sp2=pool[i];break;}
    if(!sp2)return;
    var entry2=ST.coll.catches[id];
-   if(!entry2){ modal('<div class="center"><div style="font-size:40px">❓</div><div style="font-weight:bold;margin:6px 0">まだ つかまえて いない むし</div><div class="small">まちがえずに こたえると ゲージが たまって むしが でるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return; }
+   if(!entry2){ modal(zukanDetailHTML('<div style="font-size:40px">❓</div><div style="font-weight:bold;margin:6px 0;color:#2e5d28">まだ つかまえて いない むし</div><div style="font-size:13px;color:#56714e">まちがえずに こたえると ゲージが たまって むしが でるよ</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>')); return; }
    var shinyBadge=entry2.shiny?'✨':' ';
    var szr=Q4BReward.sizeRange(sp2);
    var e2Normal=(entry2.normal!=null?entry2.normal:1);
@@ -1205,16 +1206,14 @@ function renderBugs(){
     forms2='<div style="width:80px;height:80px;margin:0 auto 6px">'+Q4BReward.svg(sp2,entry2.shiny?1:0)+'</div>';
    }
    var caught2=(entry2.min!=null&&entry2.min<entry2.max)?(entry2.min+'〜'+entry2.max+'mm'):(entry2.max+'mm');
-   var mh='<div class="center">'
-    +forms2
-    +'<div style="font-weight:bold;font-size:16px">'+(sp2.jaName||sp2.id)+shinyBadge+'</div>'
+   var mh=zukanDetailHTML(forms2
+    +'<div style="font-weight:bold;font-size:16px;color:#2e5d28">'+(sp2.jaName||sp2.id)+shinyBadge+'</div>'
     +(sp2.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+sp2.scientificName+'</div>':'')
     +(sp2.familyJa?'<div style="font-size:12px;color:#56714e">'+sp2.familyJa+'</div>':'')
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
-    +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'
-    +'</div>';
+    +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>');
    modal(mh);
   });
  });

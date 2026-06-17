@@ -129,9 +129,9 @@ body.night .hs .inp.on, body.night .frbox.on, body.night .hs .carry.on{ backgrou
 .zc{background:var(--panel); border:2px solid var(--line); border-radius:14px; padding:8px 4px; text-align:center; cursor:pointer; position:relative; color:var(--ink); font:inherit; appearance:none; -webkit-appearance:none;}
 .zc .bs{width:64px; height:64px; margin:0 auto;}
 .zc .nm{font-size:11px; font-weight:700; margin-top:2px; line-height:1.2; min-height:26px; color:var(--ink);}
-body.night .zc{background:#FFFDF4!important; color:#2A3D2C!important; border-color:#CFDDB2;}
-body.night .zc .nm{color:#2A3D2C!important;}
-body.night .zc .cnt{color:#CF7F14!important;}
+body.night .zc{background:#243352!important; color:#e9edf6!important; border-color:#3a4a6a;}
+body.night .zc .nm{color:#e9edf6!important;}
+body.night .zc .cnt{color:#ffd86b!important;}
 .zc.r1{border-color:var(--rR);} .zc.r2{border-color:var(--rSR);}
 .zc.r3{border-color:var(--rSSR); box-shadow:0 0 10px #e8b33c66;}
 .zc.r4{border-color:var(--rSS); box-shadow:0 0 12px #e05a4866;}
