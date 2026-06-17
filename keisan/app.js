@@ -470,9 +470,37 @@ function keisanMasterSection(){
  ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
-  return '<div class="zc" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></div>';
+  return '<button type="button" class="zc" onclick="openMasterBugK(\''+sp.id+'\')" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></button>';
  }).join("");
  return '<div class="card"><h3>🎓 マスター虫　<span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span></h3><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div>';
+}
+function openMasterBugK(spId){
+  var p=P(); ensureColl(p);
+  if(!window.Q4BReward||!Q4BReward.masterBugsFor)return;
+  var ms=Q4BReward.masterBugsFor("keisan"), sp=null;
+  for(var i=0;i<ms.length;i++){ if(ms[i].id===spId){ sp=ms[i]; break; } }
+  if(!sp)return;
+  var rec=p.coll.catches[sp.id];
+  var label=(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||"マスター");
+  var tier=Q4BReward.tierOf(sp);
+  var inner;
+  if(!rec){
+    inner='<div style="font-size:44px;line-height:64px">🎓</div>'
+      +'<h3>まだ ひみつ</h3><p class="note">「'+esc(label)+'」を ぜんぶ習得すると あらわれるよ。</p>'
+      +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span></p>';
+  }else{
+    var sz=Q4BReward.sizeRange(sp);
+    var caught=(rec.min!=null&&rec.min<rec.max)?(rec.min+'〜'+rec.max+'mm'):(rec.max+'mm');
+    inner='<div style="width:140px;height:140px;margin:0 auto">'+Q4BReward.svg(sp,0)+'</div>'
+      +'<h3>'+esc(sp.jaName)+' 🎓</h3>'
+      +'<p><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>　'+esc(label)+' マスター</p>'
+      +'<p style="font-size:14px;color:var(--sub)">つかまえた おおきさ <b>'+caught+'</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
+      +(sp.scientificName?'<p class="note"><i>'+esc(sp.scientificName)+'</i></p>':"")
+      +'<p class="note">'+esc([sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
+      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"");
+  }
+  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
+    +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');
 }
 /* ---------- zukan ---------- */
 function showZukan(){
