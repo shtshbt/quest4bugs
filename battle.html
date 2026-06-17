@@ -278,7 +278,7 @@
         <div style="font-size:10px;opacity:.9">通常バトル（縦の挑戦）</div>
       </button>
       <button class="btn" id="taniEntryBtn" style="margin:0;background:linear-gradient(135deg,#1a1a26,#2a2030);color:#fff;border:2px solid #5a4a6a;padding:14px 8px;text-align:center;line-height:1.25;display:none" onclick="showTani()">
-        <div style="font-size:22px">🗿</div>
+        <div style="font-size:22px">🦴</div>
         <div style="font-weight:900;font-size:15px;margin-top:2px">かせきのたに</div>
         <div style="font-size:10px;opacity:.9">5れんせん・装備の力で太古へ</div>
       </button>
@@ -451,7 +451,7 @@ function taniWin(){
   var layer=TANI_LAYERS[tierN-1];
   var bt=document.getElementById("battle");
   bt.innerHTML='<div class="bt-scene"><div class="end">'
-    +'<h2>🗿 '+layer.name+' を こうりゃく！</h2>'
+    +'<h2>🦴 '+layer.name+' を こうりゃく！</h2>'
     +'<p>🪨 かせきのかけら +'+rewardFrags+(prior===0?'（しょかい！）':'（さいせん）')+'</p>'
     +'<button class="btn" onclick="taniQuit()">かせきのたにへ もどる</button>'
     +'<button class="btn" style="background:#5b3a3a" onclick="quitBattle()">ホームへ</button>'
@@ -483,7 +483,7 @@ function taniQuit(){
 function showTani(){
   if(!taniUnlocked()){ alert("まだ かせきのたに には ちょうせんできません"); return; }
   var h='<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
-    +'<h2 style="margin:0;font-size:18px">🗿 かせきのたに</h2>'
+    +'<h2 style="margin:0;font-size:18px">🦴 かせきのたに</h2>'
     +'<button class="btn sm" style="margin:0;padding:5px 10px;background:#9aa896" onclick="closeTani()">もどる</button></div>'
     +'<p class="note" style="margin:0 0 8px;font-size:12px">5れんせん。HPは持ちこし。装備の力で太古に挑め。ひきあげるまで進むか ぜんめつしたら しゅうりょう。</p>';
   h+='<div style="display:flex;flex-direction:column;gap:6px">';
@@ -504,7 +504,7 @@ function showTani(){
     h+='<button class="btn" '+(open?'':'disabled')+' style="margin:0;padding:8px 10px;background:'+bg+';color:#fff;border:2px solid '+border+';text-align:left;'+(open?'':'opacity:.55;cursor:not-allowed')+'" '
       +(open?'onclick="startTani('+L.n+')"':'')+'>'
       +'<div style="display:flex;align-items:center;gap:8px">'
-      +'<span style="font-size:20px;font-weight:900;width:30px">'+(open?'🗿':'🔒')+'</span>'
+      +'<span style="font-size:20px;font-weight:900;width:30px">'+(open?'🦴':'🔒')+'</span>'
       +'<div style="flex:1;min-width:0">'
       +'<div style="font-weight:800;font-size:14px;color:#fff">第'+L.n+'層 '+L.name+'</div>'
       +'<div style="display:flex;gap:2px;margin-top:3px">'+arts+'</div>'
