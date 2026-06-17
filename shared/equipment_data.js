@@ -38,9 +38,10 @@
   }
   function slotLabel(slot){ return {attack:"こうげき",defense:"まもり",hp:"HP"}[slot]||slot; }
   function makeItems(){
+    /* 並び順: 攻撃6 → 防御6 → HP6（一覧で同じ系統がまとまる） */
     var out=[], slots=["attack","defense","hp"], rank, si, slot, id, effect, cols;
-    for(rank=0;rank<6;rank++){
-      for(si=0;si<slots.length;si++){
+    for(si=0;si<slots.length;si++){
+      for(rank=0;rank<6;rank++){
         slot=slots[si]; id=slot+"_"+(rank+1); effect=EFFECTS[slot]; cols=PALETTES[slot][rank];
         out.push({
           id:id, slot:slot, rank:rank+1, name:NAMES[slot][rank],
