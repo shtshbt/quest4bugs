@@ -346,10 +346,10 @@ function reachEng(es,age){
   /* にわ等のkidsモード: kids[key][1](>=2)を習得とみなす（reachEngがsrsしか見ず取りこぼしていた修正） */
   for(k in kids){ s=kids[k]; if(!s||(s[1]||0)<2) continue; pre=k.split("|")[0]; cnt[pre]=(cnt[pre]||0)+1; }
   /* break撤廃: どのフィールドの進捗も加算（順番に縛られず、どこから進めてもOK） */
-  var R=0.20, efr=0,i,f,fields=enFields();
+  /* 25%習得で「1F相当」(2026-06-17 旧20%は甘すぎ＝にわ完だけでband3だった→band3には次フィールドも25%必要に)。 */
+  var R=0.25, efr=0,i,f,fields=enFields();
   for(i=0;i<fields.length;i++){ f=fields[i]; efr+=Math.min(1,(cnt[f.pre]||0)/(f.total*R)); }
-  /* なだらかなconcave曲線：band1(reach2)はにわ約10語で到達＝従来どおり軽い／
-     band5(reach9.5)は約4.3フィールド相当＝長い登りで「もっと学ぶ」意欲を残す。年齢正規化は廃止し絶対値に。 */
+  /* concave曲線: band1(reach2)はにわ約12語で到達=従来どおり軽い／band5≈4.3F相当の長い登り。 */
   return Math.min(10, 4.6*Math.sqrt(efr));
 }
 function reachLvLabel(v){ return "Lv "+(Math.round(Math.max(0,Math.min(10,v||0))*10)/10).toFixed(1); }
