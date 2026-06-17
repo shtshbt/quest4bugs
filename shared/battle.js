@@ -49,13 +49,18 @@
     return null;
   }
   function bossAt(stage){ for(var i=0;i<ROSTER.length;i++) if(ROSTER[i].stage===stage) return ROSTER[i]; return null; }
-  /* ボス報酬。昆虫ボス=初回のみ種取得(再戦は重複なし・基本琥珀のみ)。
-     天敵=非昆虫ゆえ琥珀(帯で 50/150/300、モズ1000)＋バッジ。パーティは1種1匹(重複不可)。 */
+  /* ボス報酬。昆虫ボス=初回のみ種取得＋再戦少量琥珀。天敵=琥珀(帯50/150/300、モズ1000)＋バッジ／再戦も少量琥珀。
+     再戦琥珀は腕試しの動機を残す範囲(昆虫10/天敵浅層15/深層20/モズ30)。パーティは1種1匹(重複不可)。 */
   function predAmber(stage){ if(stage>=50)return 1000; if(stage>=36)return 300; if(stage>=16)return 150; return 50; }
+  function predAmberRetry(stage){ if(stage>=50)return 30; if(stage>=36)return 20; return 15; }
+  var INSECT_RETRY_AMBER=10;
   function bossReward(r, alreadyCleared){
     if(!r) return null;
-    /* 再戦(撃破済み)は昆虫・天敵とも追加報酬なし＝farming不可。練習＋問題ごとの基本琥珀のみ。 */
-    if(alreadyCleared) return { kind:"none", first:false, predator:!!r.predator, speciesId:(r.predator?null:r.id) };
+    if(alreadyCleared){
+      /* 再戦も少量琥珀＝再挑戦の旨味は残しつつ farming は抑制。 */
+      var amt=r.predator?predAmberRetry(r.stage):INSECT_RETRY_AMBER;
+      return { kind:"amber", amber:amt, first:false, predator:!!r.predator, speciesId:(r.predator?null:r.id) };
+    }
     if(r.predator){
       return { kind:"amber", amber:predAmber(r.stage), first:true, final:!!r.final,
         badge:(r.final?"champion":"nemesis-"+r.stage), title:(r.final?"おうじゃ":null) };

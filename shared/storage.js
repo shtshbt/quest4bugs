@@ -492,6 +492,21 @@
     schedulePush();
     return {ok:true,itemId:item.id,state:clone(r.entry.data)};
   }
+  /* かせきのたに クリア報酬等で かせきのかけら を直接付与（学習以外の入手経路） */
+  function addFossilFragments(pid,n){
+    var r, data;
+    if(!pid)return {ok:false,error:"missing profile"};
+    n=Math.max(0,Math.floor(n)||0);
+    if(!n) return {ok:true,added:0};
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    data.fossilFragments=(data.fossilFragments||0)+n;
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return {ok:true,added:n,state:clone(r.entry.data)};
+  }
   function spendAwakeningDrops(pid,n){
     var r, data;
     if(!pid)return {ok:false,error:"missing profile"};
@@ -762,7 +777,7 @@
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
-    spendAwakeningDrops:spendAwakeningDrops,
+    spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,

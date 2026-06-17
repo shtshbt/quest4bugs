@@ -270,7 +270,21 @@
       <div id="bossZukan" style="display:flex;flex-wrap:wrap;gap:6px"></div>
     </div>
 
-    <div class="sec-t" style="margin-top:16px">👑 おうじゃの みち <span style="font-size:11px;color:#7a8a5a;font-weight:400">（未解禁はシルエット）</span></div>
+    <!-- モード入口（横並びボタン） -->
+    <div id="modeEntries" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
+      <button class="btn" style="margin:0;background:linear-gradient(135deg,#3a7d6a,#2b5d4d);color:#fff;border:2px solid #1f4438;padding:14px 8px;text-align:center;line-height:1.25" onclick="document.getElementById('tower').scrollIntoView({behavior:'smooth'})">
+        <div style="font-size:22px">⚔️</div>
+        <div style="font-weight:900;font-size:15px;margin-top:2px">おうじゃのみち</div>
+        <div style="font-size:10px;opacity:.9">通常バトル（縦の挑戦）</div>
+      </button>
+      <button class="btn" id="taniEntryBtn" style="margin:0;background:linear-gradient(135deg,#1a1a26,#2a2030);color:#fff;border:2px solid #5a4a6a;padding:14px 8px;text-align:center;line-height:1.25;display:none" onclick="showTani()">
+        <div style="font-size:22px">🗿</div>
+        <div style="font-weight:900;font-size:15px;margin-top:2px">かせきのたに</div>
+        <div style="font-size:10px;opacity:.9">5れんせん・装備の力で太古へ</div>
+      </button>
+    </div>
+
+    <div class="sec-t" style="margin-top:16px">👑 おうじゃのみち <span style="font-size:11px;color:#7a8a5a;font-weight:400">（未解禁はシルエット）</span></div>
     <p class="tower-intro">ボスを 下へ 下へと たおして、いちばん下の おうじゃを めざそう！</p>
     <div id="tower"></div>
   </div>
@@ -282,14 +296,15 @@
   <div id="battle"></div>
 </div>
 
-<script src="./shared/storage.js?v=0.4.12"></script>
+<script src="./shared/storage.js?v=0.4.16"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/kanji_data.js?v=0.5.0"></script>
 <script src="./shared/eitango_data.js?v=0.5.0"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.4.8"></script>
-<script src="./shared/battle.js?v=0.5.0"></script>
+<script src="./shared/battle.js?v=0.5.1"></script>
+<script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script>
 var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
 var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
@@ -327,6 +342,191 @@ function effectiveBossDamage(baseDmg, defenderSp){
   var eq=equippedFor(defenderSp.id);
   if(eq.defense && window.Q4BEquipment) return Math.max(1, baseDmg - (Q4BEquipment.DEFENSE_REDUCTION||3));
   return baseDmg;
+}
+/* ====== かせきのたに（遠征モード）======
+   10層×5連戦。tier解禁=「おうじゃのみち」no.5(最初の天敵=ニホンカナヘビ)撃破済み＋装備1個以上復元。
+   ボスは順番に対戦、HP持ち越し、撃破時に「いにしえの息吹」で生存者+20%回復。
+   報酬: 初回はかけら多め(5-15)、再戦は半分(2-7)。 */
+var TANI={active:false, tier:0, idx:0, order:[]};
+var TANI_LAYERS=[
+  {n:1, name:"げんせいの あさせ", lo:1,  hi:5},
+  {n:2, name:"しんせいだいの いりぐち", lo:6,  hi:10},
+  {n:3, name:"しんせいだいの おくち",   lo:11, hi:15},
+  {n:4, name:"白亜紀の たにぞこ",       lo:16, hi:20},
+  {n:5, name:"白亜紀の だんがい",       lo:21, hi:25},
+  {n:6, name:"ジュラ紀の さけめ",       lo:26, hi:30},
+  {n:7, name:"ジュラ紀の しんえん",     lo:31, hi:35},
+  {n:8, name:"三畳紀の ちていこ",       lo:36, hi:40},
+  {n:9, name:"古生代の だいくうどう",   lo:41, hi:45},
+  {n:10,name:"太古の さいしんぶ",       lo:46, hi:50}
+];
+/* tier撃破報酬（かけら個数）。初回は多め、再戦は半分。 */
+function taniReward(tierN, firstClear){
+  var base=tierN<=3?5:(tierN<=6?7:(tierN<=9?10:15));
+  return firstClear?base:Math.floor(base/2);
+}
+/* かせきのたに解禁判定: no.5天敵を倒したか（CLEARED）＋装備1個以上復元 */
+function taniUnlocked(){
+  if(!CLEARED||!CLEARED[5]) return false;
+  if(!window.QuestSave||!QuestSave.goshinOf||!PROF) return false;
+  var g=QuestSave.goshinOf(PROF), eq=g&&g.equipment, owned=(eq&&eq.owned)||{};
+  for(var k in owned) if(owned[k]) return true;
+  return false;
+}
+function taniLayerUnlocked(layer){
+  if(!taniUnlocked()) return false;
+  if(layer.n===1) return true;
+  /* 前の層をクリア済みなら次が解禁 */
+  return !!(BATTLE&&BATTLE.tani&&BATTLE.tani.cleared&&BATTLE.tani.cleared[layer.n-1]);
+}
+/* 層撃破回数 */
+function taniClearedCount(tierN){
+  return (BATTLE&&BATTLE.tani&&BATTLE.tani.cleared&&BATTLE.tani.cleared[tierN])||0;
+}
+function startTani(tierN){
+  var layer=TANI_LAYERS[tierN-1]; if(!layer) return;
+  if(!PARTY.length){ alert("さきに ✏️へんせい で パーティを 組んでね！"); return; }
+  if(!taniLayerUnlocked(layer)){ alert("まだ ちょうせんできません"); return; }
+  TANI.active=true; TANI.tier=tierN; TANI.idx=0;
+  TANI.order=B.roster.filter(function(r){return r.stage>=layer.lo&&r.stage<=layer.hi;})
+    .sort(function(a,b){return a.stage-b.stage;});
+  EXPED=true;
+  /* HP持ち越し用のスナップ。startBattleが新規HPで上書きするのを止めるため st 経由でいく */
+  document.getElementById("home").style.display="none";
+  document.getElementById("pselect").style.display="none";
+  taniStartCurrent();
+}
+function taniStartCurrent(){
+  var r=TANI.order[TANI.idx];
+  /* 通常の startBattle を使う。HP持ち越しはここで上書き */
+  startBattle(r);
+  /* 2戦目以降は前回のHPを引き継ぐ（partyHpKeep に保存していたら復元） */
+  if(TANI.partyHpKeep&&TANI.partyHpKeep.length===st.party.length){
+    for(var i=0;i<st.party.length;i++){
+      st.party[i].hp=Math.max(0, TANI.partyHpKeep[i]);
+    }
+    /* 全滅HPの虫から先頭インデックスをずらす */
+    if(st.party[st.idx] && st.party[st.idx].hp<=0){
+      for(var j=0;j<st.party.length;j++) if(st.party[j].hp>0){st.idx=j;break;}
+    }
+    drawBattle();
+  }
+}
+function taniBreath(){
+  /* いにしえの息吹: 生存者の最大HPの+20%回復 */
+  var any=false;
+  for(var i=0;i<st.party.length;i++){
+    var m=st.party[i];
+    if(m.hp>0){
+      var heal=Math.ceil(m.max*0.2);
+      var before=m.hp;
+      m.hp=Math.min(m.max, m.hp+heal);
+      if(m.hp>before) any=true;
+    }
+  }
+  if(any){
+    traitFx("✨","かせきパーツが ひかっている！ ちからが わいてきた！");
+    drawBench();
+    setHp("me",st.party[st.idx].hp,st.party[st.idx].max);
+  }
+}
+function taniContinue(){
+  /* 次のボスに進む or クリア */
+  TANI.partyHpKeep=st.party.map(function(m){return m.hp;});
+  taniBreath();
+  TANI.idx++;
+  if(TANI.idx>=TANI.order.length){ taniWin(); return; }
+  setTimeout(taniStartCurrent, 1600);
+}
+function taniWin(){
+  EXPED=false;
+  var tierN=TANI.tier;
+  var prior=taniClearedCount(tierN);
+  var rewardFrags=taniReward(tierN, prior===0);
+  if(!BATTLE.tani) BATTLE.tani={cleared:{}};
+  if(!BATTLE.tani.cleared) BATTLE.tani.cleared={};
+  BATTLE.tani.cleared[tierN]=prior+1;
+  if(window.QuestSave&&QuestSave.addFossil&&PROF) QuestSave.addFossil(PROF, rewardFrags);
+  saveBattle();
+  var layer=TANI_LAYERS[tierN-1];
+  var bt=document.getElementById("battle");
+  bt.innerHTML='<div class="bt-scene"><div class="end">'
+    +'<h2>🗿 '+layer.name+' を こうりゃく！</h2>'
+    +'<p>🪨 かせきのかけら +'+rewardFrags+(prior===0?'（しょかい！）':'（さいせん）')+'</p>'
+    +'<button class="btn" onclick="taniQuit()">かせきのたにへ もどる</button>'
+    +'<button class="btn" style="background:#5b3a3a" onclick="quitBattle()">ホームへ</button>'
+    +'</div></div>';
+  TANI.active=false; TANI.tier=0; TANI.idx=0; TANI.order=[]; TANI.partyHpKeep=null;
+}
+function taniLose(){
+  EXPED=false;
+  TANI.active=false; TANI.tier=0; TANI.idx=0; TANI.order=[]; TANI.partyHpKeep=null;
+  /* ぜんめつ画面（既存 finish(false) と同じ） */
+  var bt=document.getElementById("battle");
+  bt.innerHTML='<div class="bt-scene"><div class="end">'
+    +'<h2>ぜんめつ…</h2><p>こだいの ちからは つよかった。そだててから もういちど。</p>'
+    +'<button class="btn" onclick="quitBattle()">もどる</button></div></div>';
+}
+function taniFlee(){
+  if(!confirm("「ひきあげる」と そうびと パーティHPは そのまま、たに への ちょうせんは ちゅうだんします。よろしいですか？")) return;
+  EXPED=false; TANI.active=false;
+  quitBattle();
+}
+function taniQuit(){
+  /* 層クリア後、かせきのたに画面へ戻る */
+  document.getElementById("battle").innerHTML="";
+  document.getElementById("battle").style.display="none";
+  document.getElementById("home").style.display="block";
+  renderHome();
+  showTani();
+}
+function showTani(){
+  if(!taniUnlocked()){ alert("まだ かせきのたに には ちょうせんできません"); return; }
+  var h='<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
+    +'<h2 style="margin:0;font-size:18px">🗿 かせきのたに</h2>'
+    +'<button class="btn sm" style="margin:0;padding:5px 10px;background:#9aa896" onclick="closeTani()">もどる</button></div>'
+    +'<p class="note" style="margin:0 0 8px;font-size:12px">5れんせん。HPは持ちこし。装備の力で太古に挑め。ひきあげるまで進むか ぜんめつしたら しゅうりょう。</p>';
+  h+='<div style="display:flex;flex-direction:column;gap:6px">';
+  TANI_LAYERS.forEach(function(L){
+    var open=taniLayerUnlocked(L);
+    var cleared=taniClearedCount(L.n);
+    var rsters=B.roster.filter(function(r){return r.stage>=L.lo&&r.stage<=L.hi;}).sort(function(a,b){return a.stage-b.stage;});
+    var arts=rsters.map(function(r){
+      var sp=byId[r.id];
+      if(!sp){
+        var pred='<div style="font-size:24px">👹</div>';
+        return '<div style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;'+(open?'':'filter:grayscale(1) opacity(.5)')+'">'+pred+'</div>';
+      }
+      return '<div style="width:38px;height:38px;'+(open?'':'filter:grayscale(1) opacity(.5)')+'">'+R.deco(sp,0)+'</div>';
+    }).join("");
+    var bg=open?'linear-gradient(135deg,#1a1a26 0%,#2a2030 100%)':'#3a3a3a';
+    var border=open?'#5a4a6a':'#555';
+    h+='<button class="btn" '+(open?'':'disabled')+' style="margin:0;padding:8px 10px;background:'+bg+';color:#fff;border:2px solid '+border+';text-align:left;'+(open?'':'opacity:.55;cursor:not-allowed')+'" '
+      +(open?'onclick="startTani('+L.n+')"':'')+'>'
+      +'<div style="display:flex;align-items:center;gap:8px">'
+      +'<span style="font-size:20px;font-weight:900;width:30px">'+(open?'🗿':'🔒')+'</span>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div style="font-weight:800;font-size:14px;color:#fff">第'+L.n+'層 '+L.name+'</div>'
+      +'<div style="display:flex;gap:2px;margin-top:3px">'+arts+'</div>'
+      +'</div>'
+      +'<div style="text-align:right;font-size:10px;color:#cbd">'
+      +(open?(cleared>0?('✅×'+cleared):'未クリア'):'前の層クリアで')
+      +'<br>🪨'+taniReward(L.n,true)+'/'+taniReward(L.n,false)+'</div>'
+      +'</div></button>';
+  });
+  h+='</div></div>';
+  var holder=document.getElementById("taniOv");
+  if(!holder){
+    holder=document.createElement("div");
+    holder.id="taniOv";
+    holder.style.cssText="position:fixed;inset:0;background:rgba(20,15,25,.92);z-index:200;padding:14px;overflow:auto";
+    document.body.appendChild(holder);
+  }
+  holder.style.display="block";
+  holder.innerHTML=h;
+}
+function closeTani(){
+  var o=document.getElementById("taniOv"); if(o)o.style.display="none";
 }
 /* ====== 年齢ベース到達度（v3：docs/battle_design.md 確定設計v3） ======
    年齢を真実源に、3教科を「年齢ゴールに対する達成率(0-10)」で正規化。
@@ -872,6 +1072,9 @@ function renderHome(){
             _cur=Math.min(REACH.kanji,REACH.keisan,REACH.eitango);
           into=Math.round(Math.min(1,_cur/_thr)*100); }
   document.getElementById("ghfill").style.width = into+"%";
+  /* かせきのたに 入口の表示制御 */
+  var taniBtn=document.getElementById("taniEntryBtn");
+  if(taniBtn) taniBtn.style.display = taniUnlocked() ? "" : "none";
   var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの3ゲーム到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
   /* 解禁は3教科すべてが閾値到達で初めて開く。足りない教科＝一番ひくい教科を案内する。 */
   var _subs=[["かんじ",REACH.kanji],["けいさん",REACH.keisan],["えいご",REACH.eitango]];
@@ -1020,6 +1223,11 @@ function startBattle(r){
     +'</div>';
   setTimeout(function(){
     bt.innerHTML=BATTLE_HTML; drawBattle();
+    /* 遠征中は「にげる」→「ひきあげる」＋進捗バッジ */
+    if(TANI.active){
+      var flee=bt.querySelector(".btn.flee");
+      if(flee) flee.textContent="← ひきあげる ("+(TANI.idx+1)+"/"+TANI.order.length+")";
+    }
     if(hasTr("sensei")){
       log("⚡ すばやい！ "+st.boss.jaName+"の せんせい こうげき！ きをつけて！");
       traitFx("⚡","とくせい はつどう！ せんせい こうげき！");
@@ -1174,6 +1382,11 @@ function faint(){
 }
 function bandOf(stage){ for(var i=0;i<BANDS.length;i++){ if(stage>=BANDS[i].lo&&stage<=BANDS[i].hi) return BANDS[i]; } return null; }
 function finish(win){
+  /* かせきのたに 進行中なら 連戦継続/失敗にフック（通常報酬・CLEARED 更新はスキップ＝独立進行） */
+  if(TANI.active){
+    if(win){ taniContinue(); return; }
+    taniLose(); return;
+  }
   var bt=document.getElementById("battle");
   var rew = win ? B.bossReward(st.r, CLEARED[st.r.stage]) : null;
   if(win){
@@ -1181,6 +1394,9 @@ function finish(win){
       if(rew.kind==="species" && rew.speciesId){ BATTLE.bosses=BATTLE.bosses||{}; BATTLE.bosses[rew.speciesId]={n:1}; }
       else if(rew.kind==="amber"){ if(window.QuestSave&&QuestSave.amberAdd&&PROF)QuestSave.amberAdd(PROF, rew.amber||0);
         if(rew.badge){ BATTLE.badges=BATTLE.badges||{}; BATTLE.badges[rew.badge]=1; } }
+    } else if(rew && !rew.first && rew.kind==="amber" && rew.amber){
+      /* 再戦琥珀（昆虫10/天敵浅層15/深層20/モズ30） */
+      if(window.QuestSave&&QuestSave.amberAdd&&PROF) QuestSave.amberAdd(PROF, rew.amber);
     }
     CLEARED[st.r.stage]=1;
     saveBattle();
@@ -1205,9 +1421,16 @@ function showStageClear(band, ult, rew){
 }
 function log(t){ var el=document.getElementById("log"); if(el)el.textContent=t; }
 function quitBattle(){
+  /* 遠征中(かせきのたに進行中)に「にげる/ひきあげる」が押されたら確認＋遠征終了 */
+  if(TANI.active){
+    if(!confirm("「ひきあげる」と たに への ちょうせんは ちゅうだんします。よろしいですか？")) return;
+    EXPED=false;
+    TANI.active=false; TANI.tier=0; TANI.idx=0; TANI.order=[]; TANI.partyHpKeep=null;
+  }
   document.getElementById("battle").style.display="none";
   document.getElementById("battle").innerHTML="";
   document.getElementById("home").style.display="block";
+  renderHome();
 }
 /* 起動時に他端末の更新を自動取り込み（pull）してから描画。push は自動・pull も自動で双方向同期。 */
 (window.QuestSave&&QuestSave.syncDown?QuestSave.syncDown():Promise.resolve())
