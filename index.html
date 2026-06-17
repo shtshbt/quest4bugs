@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.12">
+<meta name="q4b-release" content="0.4.13">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -42,13 +42,18 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .goshin-top{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:stretch}
 .goshin-tree{font-size:34px;line-height:1;text-align:center}
 .goshin-title{font-weight:900;font-size:17px;line-height:1.2}
+.goshin-board-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:6px}
 .goshin-board{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:8px 10px;font-size:13px;font-weight:800;color:#42533A;line-height:1.45}
 .goshin-wallet{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
 .goshin-chip{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:6px 7px;min-width:0}
 .goshin-chip b{display:block;font-size:10px;color:#7A6B4B;line-height:1.15}
 .goshin-chip strong{display:block;font-size:17px;line-height:1.15}
 .goshin-chip span{display:block;font-size:9px;color:#7A6B4B;font-weight:800;line-height:1.2;margin-top:2px}
-.goshin-daily{display:grid;grid-template-columns:repeat(3,1fr) 132px;gap:6px;margin-top:8px}
+.goshin-work{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:7px;margin-top:8px;align-items:stretch}
+.goshin-fragments,.goshin-clock{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:8px;min-width:0}
+.goshin-fragments h4,.goshin-clock h4{margin:0 0 3px;font-size:12px;line-height:1.2}
+.goshin-fragments .hint{font-size:10px;color:#6B7A5E;font-weight:900;line-height:1.25;margin-bottom:6px}
+.goshin-daily{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .goshin-subj,.goshin-clock{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:7px;min-width:0}
 .goshin-subj.done{background:#F2FFE9;border-color:#8DBB5D}
 .goshin-subj h4,.goshin-clock h4{margin:0 0 4px;font-size:12px;line-height:1.2}
@@ -56,9 +61,11 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .goshin-bar{height:7px;background:#E5DCC0;border-radius:999px;overflow:hidden;margin-top:5px}
 .goshin-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#78AF4A,#E2BB3C)}
 .goshin-found{font-size:10px;color:#6B7A5E;font-weight:900;margin-top:4px}
-.goshin-clock-in{display:grid;grid-template-columns:40px 1fr;gap:6px;align-items:center}
-.goshin-clock svg{width:40px;height:50px;display:block}
-@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:44px 1fr}}
+.goshin-clock{border-color:#9ED0E6;background:linear-gradient(180deg,#F4FCFF,#FFFDF7);min-height:112px}
+.goshin-clock-in{display:grid;grid-template-columns:48px 1fr;gap:7px;align-items:center}
+.goshin-clock svg{width:48px;height:58px;display:block}
+.goshin-clock .note{line-height:1.25}
+@media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}}
 </style>
 <script>try{if(localStorage.getItem('q4b_entered')==='1')document.documentElement.className+=' q4b-in';}catch(e){}</script>
 <style>
@@ -221,6 +228,7 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.4.4"></script>
+<script src="./shared/battle.js?v=0.5.0"></script>
 <script src="./shared/furigana.js?v=0.3.0"></script>
 <script src="./shared/yomi.js?v=0.3.0"></script>
 <script>
@@ -247,11 +255,35 @@ function dropClockSvg(n){
     +drop(19,45.5,n>=1)+drop(27,39.5,n>=2)+drop(35,45.5,n>=3)
     +'</svg>';
 }
+function nextBossInfo(bt){
+  var roster=(window.Q4BBattle&&Q4BBattle.roster)||[], cleared=(bt&&bt.cleared)||{}, bosses=(bt&&bt.bosses)||{}, i, r;
+  for(i=0;i<roster.length;i++){
+    r=roster[i];
+    if(!cleared[r.stage]&&!bosses[r.id])return r;
+  }
+  return null;
+}
+function bossThreshold(stage,type){
+  if(type==="none")return 9.5;
+  return ([0,2,4,6,8,9.5])[Math.ceil(stage/10)]||9.5;
+}
+function bossTip(bt){
+  var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], mx=(bt&&bt.reachMax)||{}, boss=nextBossInfo(bt), i, s, thr, missing=[], minSub=null, minGap=-1, v, gap;
+  if(!boss||!mx)return "";
+  thr=bossThreshold(boss.stage,boss.type);
+  for(i=0;i<subs.length;i++){
+    s=subs[i]; v=typeof mx[s]==="number"?mx[s]:0; gap=thr-v;
+    if(gap>0){
+      missing.push(labels[s]);
+      if(gap>minGap){minGap=gap; minSub=s;}
+    }
+  }
+  if(!missing.length)return "王者への道：No."+boss.stage+" に ちょうせんできるよ";
+  return "王者への道：No."+boss.stage+" まで、まず "+labels[minSub]+" をすすめよう";
+}
 function goshinTip(g,bt){
-  var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], i, s, missing=[], best=null, bestNeed=999;
-  var mx=(bt&&bt.reachMax)||{}, minSub=null, min=999;
-  for(i=0;i<subs.length;i++){s=subs[i]; if(typeof mx[s]==="number"&&mx[s]<min){min=mx[s];minSub=s;}}
-  if(minSub&&min<9.5)return "王者への道：まずは "+labels[minSub]+" をすすめよう";
+  var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], i, s, missing=[], best=null, bestNeed=999, btip=bossTip(bt);
+  if(btip)return btip;
   for(i=0;i<subs.length;i++){
     s=subs[i];
     if(!(g.daily.subjects[s]&&g.daily.subjects[s].fragment)){
@@ -263,6 +295,18 @@ function goshinTip(g,bt){
   if(g.dewProgress>=2&&missing.length)return "今日はあと "+missing.join("・")+" で、しずくどけいが満ちるよ";
   if(best)return labels[best]+"を あと"+bestNeed+"もんで、かせき発見";
   return "3教科でかせき発見！しずくどけいが進んだよ";
+}
+function goshinDoneText(g){
+  var labels={keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}, subs=["keisan","kanji","eitango"], done=[], counts=[], i, s, x;
+  for(i=0;i<subs.length;i++){
+    s=subs[i]; x=(g.daily.subjects&&g.daily.subjects[s])||{correct:0,fragment:false};
+    if(x.correct>0)counts.push(labels[s]+" "+x.correct+"もん");
+    if(x.fragment)done.push(labels[s]);
+  }
+  if(g.daily&&g.daily.dewDay)return "3教科でかせき発見。しずくどけいが進んだ！";
+  if(counts.length)return counts.join("・")+" せいかいした";
+  if(done.length)return done.join("・")+"で かせきのかけらを見つけた";
+  return "まだ今日の記録はないよ";
 }
 function goshinHTML(pid,amber,bt){
   if(!window.QuestSave||!QuestSave.goshinOf)return "";
@@ -276,14 +320,16 @@ function goshinHTML(pid,amber,bt){
   }
   return '<div class="goshin">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
-    +'<div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div></div>'
+    +'<div class="goshin-board-grid"><div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div>'
+    +'<div class="goshin-board"><b>きょう達成したこと</b><br>'+esc(goshinDoneText(g))+'</div></div></div>'
     +'<div class="goshin-wallet">'
     +'<div class="goshin-chip"><b>🔶 こはく</b><strong>'+amber+'</strong><span>30こで虫をよぼう</span></div>'
     +'<div class="goshin-chip"><b>🪨 かせきのかけら</b><strong>'+g.fossilFragments+'</strong><span>おおむかしの虫のかせきだ</span></div>'
     +'<div class="goshin-chip"><b>💧 めざめのしずく</b><strong>'+g.awakeningDrops+'</strong><span>ごしんぼくのふしぎなしずく</span></div>'
     +'</div>'
-    +'<div class="goshin-board" style="margin-top:8px"><b>きょう見つけた かせきのかけら</b><br>50もん せいかいすると、1日ひとつ みつかるよ</div>'
-    +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")
+    +'<div class="goshin-work"><div class="goshin-fragments"><h4>きょう見つけた かせきのかけら</h4>'
+    +'<div class="hint">50もん せいかいすると、1日ひとつ みつかるよ</div>'
+    +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
     +'</div></div>';
 }
