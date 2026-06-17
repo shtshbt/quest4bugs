@@ -506,7 +506,7 @@ function openEquipmentCard(id){
     +'<div class="meta"><span class="lbl">こうか</span><span>'+esc(item.effect)+'</span></div>'
     +'<div class="row"><b>そうび中</b><span>'+esc(wearer?speciesName(wearer):'—')+'</span></div>'
     +'<div class="row"><b>'+(owned?'状態':'必要')+'</b><span>'+(owned?'復元ずみ':'🪨'+p.fossil+' / 💧'+p.dew)+'</span></div>'
-    +(item.slot==="hp"?'<div class="row" style="color:#A07628"><b>注意</b><span>SSの虫には不可</span></div>':'')
+    +(item.slot==="hp"?'<div class="row" style="color:#A07628"><b>注意</b><span>「でんせつ」の虫には つけられない</span></div>':'')
     +'<div class="btnrow">'+btns
     +'<button class="btn" style="background:#9aa896" onclick="closeEquipmentModal()">とじる</button>'
     +'</div></div>';
@@ -567,10 +567,12 @@ function openEquipPicker(itemId){
       h+='<div class="shiny-list">'+list.map(function(x){
         var cur=eq.equipped&&eq.equipped[x.id]&&eq.equipped[x.id][item.slot];
         var curName=cur?(Q4BEquipment.byId[cur]&&Q4BEquipment.byId[cur].name):"";
+        var rTier=(window.Q4BReward&&Q4BReward.TIERNAME&&{N:0,R:1,SR:2,SSR:3,SS:4}[x.rarity]);
+        var rName=(rTier!=null&&window.Q4BReward)?window.Q4BReward.TIERNAME[rTier]:x.rarity;
         return '<button class="shiny-card" type="button" onclick="equipItemUi(\''+itemId+'\',\''+x.id+'\',\''+x.rarity+'\')">'
           +'<div class="shiny-art">'+speciesArt(x.id,false)+'</div>'
           +'<div class="shiny-name">'+esc(x.name)+'</div>'
-          +'<div class="equip-meta" style="color:'+(cur?'#C04848':'#6B7A5E')+'">'+(cur?'おきかえ:'+esc(curName||'装備'):x.rarity)+'</div></button>';
+          +'<div class="equip-meta" style="color:'+(cur?'#C04848':'#6B7A5E')+'">'+(cur?'おきかえ:'+esc(curName||'装備'):esc(rName))+'</div></button>';
       }).join("")+'</div>';
     }
     h+='<div class="btnrow"><button class="btn" style="background:#9aa896" onclick="openEquipmentCard(\''+itemId+'\')">もどる</button></div></div>';
