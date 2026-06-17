@@ -111,7 +111,7 @@ canvas.trace{touch-action:none;border-radius:11px}
 
 /* ---- むしかご ---- */
 .bugs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
-.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center}
+.bug{background:#fffdf6;border:2px solid var(--forest);border-radius:14px;padding:8px;text-align:center;font:inherit;appearance:none;-webkit-appearance:none}
 .bug svg{width:64px;height:64px}
 .bug .nm{font-size:11px;font-weight:bold;color:var(--forest);margin-top:2px;min-height:2.4em}
 .bug.no{opacity:.45;filter:grayscale(1)}
@@ -926,21 +926,47 @@ function kanjiMasterSection(){
  ms.sort(function(a,b){ var o=['hira','g1','g2','g3','g4','g5','g6']; return o.indexOf(a.master.key)-o.indexOf(b.master.key); });
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(ST.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(ST.coll,sp.id);
-  return '<div class="bug"'+(ok?'':' style="opacity:.55"')+'>'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:40px;line-height:64px">🎓</div>')
+  return '<button type="button" class="bug" onclick="openKanjiMasterBug(\''+sp.id+'\')"'+(ok?'':' style="opacity:.55"')+'>'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:40px;line-height:64px">🎓</div>')
    +'<div class="nm">'+(ok?(sp.jaName+' 🎓'):(GLAB[sp.master.key]||'')+' ？')+'</div>'
-   +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></div>';
+   +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></button>';
  }).join('');
  return '<div class="card"><div style="font-weight:bold;margin-bottom:4px">🎓 マスター虫 <span style="color:var(--gold)">'+got+' / '+ms.length+'</span></div>'
   +'<div style="font-size:12px;color:#56714e;margin-bottom:8px">そのはんいを <b>ぜんぶ習得</b>すると もらえる特別な虫だよ</div>'
   +'<div class="bugs">'+cells+'</div></div>';
 }
+function openKanjiMasterBug(spId){
+ if(!window.Q4BReward||!Q4BReward.masterBugsFor||!ST||!ST.coll)return;
+ var ms=Q4BReward.masterBugsFor('kanji'), sp=null;
+ for(var i=0;i<ms.length;i++){ if(ms[i].id===spId){ sp=ms[i]; break; } }
+ if(!sp)return;
+ var GLAB={hira:'ひらがな',g1:'1年',g2:'2年',g3:'3年',g4:'4年',g5:'5年',g6:'6年'};
+ var rec=ST.coll.catches[sp.id], label=GLAB[sp.master.key]||'マスター', tier=Q4BReward.tierOf(sp);
+ var inner;
+ if(!rec){
+  inner='<div style="font-size:44px;line-height:64px">🎓</div>'
+   +'<div style="font-weight:bold;font-size:16px;color:#2e5d28;margin-top:4px">まだ ひみつ</div>'
+   +'<div style="font-size:13px;color:#56714e;margin:6px 0">「'+esc(label)+'」を ぜんぶ習得すると あらわれるよ。</div>'
+   +'<div style="font-size:12px;color:#7a4a23">'+Q4BReward.TIERNAME[tier]+'</div>';
+ }else{
+  var sz=Q4BReward.sizeRange(sp);
+  var caught=(rec.min!=null&&rec.min<rec.max)?(rec.min+'〜'+rec.max+'mm'):(rec.max+'mm');
+  inner='<div style="width:112px;height:112px;margin:0 auto">'+Q4BReward.svg(sp,0)+'</div>'
+   +'<div style="font-weight:bold;font-size:16px;color:#2e5d28">'+esc(sp.jaName)+' 🎓</div>'
+   +(sp.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+esc(sp.scientificName)+'</div>':'')
+   +(sp.familyJa?'<div style="font-size:12px;color:#56714e">'+esc(sp.familyJa)+'</div>':'')
+   +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[tier]+'　'+esc(label)+' マスター</div>'
+   +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught+'</b>　（この虫の範囲: '+sz[0]+'〜'+sz[1]+'mm）</div>'
+   +(sp.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+esc(sp.note)+'</div>':'');
+ }
+ modal(zukanDetailHTML(inner+'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'));
+}
 function showMasterCelebration(list){ var sp=list[0];
- modal('<div class="center"><div style="font-size:14px;color:var(--gold);font-weight:800">🎓 ぜんぶ習得！</div>'
+ modal(zukanDetailHTML('<div style="font-size:14px;color:#b9821a;font-weight:800">🎓 ぜんぶ習得！</div>'
   +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
-  +'<div style="font-weight:bold;font-size:18px">マスター虫「'+(sp.jaName||sp.id)+'」をゲット！</div>'
-  +'<div class="small" style="margin-top:4px">'+(sp.note||'')+'</div>'
-  +(list.length>1?'<div class="small">ほかにも '+(list.length-1)+'匹！</div>':'')
-  +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button></div>');
+  +'<div style="font-weight:bold;font-size:18px;color:#2e5d28">マスター虫「'+esc(sp.jaName||sp.id)+'」をゲット！</div>'
+  +'<div style="font-size:13px;color:#56714e;margin-top:4px">'+esc(sp.note||'')+'</div>'
+  +(list.length>1?'<div style="font-size:13px;color:#56714e">ほかにも '+(list.length-1)+'匹！</div>':'')
+  +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button>'));
 }
 
 function updateProgressSummary(){

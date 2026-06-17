@@ -461,8 +461,9 @@ function showMasterCelebrationK(list){ var sp=list[0];
   +'<div style="font-weight:bold;font-size:18px">マスター虫「'+esc(sp.jaName||sp.id)+'」をゲット！</div>'
   +'<div class="note" style="margin-top:4px">'+esc(sp.note||"")+'</div>'
   +(list.length>1?'<div class="note">ほかにも '+(list.length-1)+'匹！</div>':"");
- app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard center">'+inner+'<button class="btn" style="margin-top:12px" onclick="closeMd()">やったー！</button></div></div>');
+ app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard center">'+zukanDetailHTMLK(inner+'<button class="btn" style="margin-top:12px" onclick="closeMd()">やったー！</button>')+'</div></div>');
 }
+function zukanDetailHTMLK(html){ return '<div style="background:#FFFDF4;color:#2A3D2C;border-radius:18px;padding:6px 4px;text-align:center">'+html+'</div>'; }
 function keisanMasterSection(){
  if(!window.Q4BReward||!Q4BReward.masterBugsFor)return "";
  var p=P(); var ms=Q4BReward.masterBugsFor("keisan"); if(!ms.length)return "";
@@ -499,8 +500,8 @@ function openMasterBugK(spId){
       +'<p class="note">'+esc([sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"");
   }
-  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
-    +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');
+  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+zukanDetailHTMLK(inner
+    +'<button class="btn sm ghost" onclick="closeMd()">とじる</button>')+'</div></div>');
 }
 /* ---------- zukan ---------- */
 function showZukan(){

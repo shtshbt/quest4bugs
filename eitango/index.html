@@ -819,13 +819,13 @@ function checkMastersE(){
   if(awarded.length){ touchP(); showMasterCelebrationE(awarded); }
 }
 function showMasterCelebrationE(list){ const sp=list[0];
-  $('#modal').innerHTML=`<div class="mcard"><div class="center">
+  $('#modal').innerHTML=`<div class="mcard">${zukanDetailHTML(`
     <div style="font-size:14px;color:#E0A32E;font-weight:800">🎓 ぜんぶ習得！</div>
     <div style="width:118px;height:118px;margin:8px auto">${Q4BReward.svg(sp)}</div>
-    <div style="font-weight:bold;font-size:18px">マスター虫「${sp.jaName||sp.id}」をゲット！</div>
-    <div class="small" style="margin-top:4px">${sp.note||''}</div>
-    ${list.length>1?`<div class="small">ほかにも ${list.length-1}匹！</div>`:''}
-    <button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button></div></div>`;
+    <div style="font-weight:bold;font-size:18px;color:#2b2417">マスター虫「${Engine.esc(sp.jaName||sp.id)}」をゲット！</div>
+    <div style="font-size:13px;color:#6f6450;margin-top:4px">${Engine.esc(sp.note||'')}</div>
+    ${list.length>1?`<div style="font-size:13px;color:#6f6450">ほかにも ${list.length-1}匹！</div>`:''}
+    <button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button>`)}</div>`;
   $('#modal').classList.add('show');
 }
 function eitangoMasterSection(){
@@ -835,11 +835,38 @@ function eitangoMasterSection(){
   const tmp={catches:P.catches};
   const got=ms.filter(sp=>Q4BReward.masterObtained(tmp,sp.id)).length;
   const cells=ms.map(sp=>{ const ok=Q4BReward.masterObtained(tmp,sp.id); const fd=fieldById(sp.master.key);
-    return `<div class="zc" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'🎓'}</span><span class="zn">${ok?(sp.jaName+' 🎓'):(fd?fd.name:'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></div>`;
+    return `<button type="button" class="zc" onclick="openMasterBugE('${sp.id}')" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'🎓'}</span><span class="zn">${ok?(Engine.esc(sp.jaName)+' 🎓'):(fd?Engine.esc(fd.name):'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></button>`;
   }).join('');
   return `<div class="h2" style="margin-top:8px">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span></div>
     <div class="note" style="margin-bottom:6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
     <div class="zgrid">${cells}</div>`;
+}
+function openMasterBugE(spId){
+  if(!window.Q4BReward||!Q4BReward.masterBugsFor||!P||!P.catches) return;
+  const ms=Q4BReward.masterBugsFor('eitango');
+  const sp=ms.find(x=>x.id===spId);
+  if(!sp) return;
+  const rec=P.catches[sp.id], fd=fieldById(sp.master.key), label=fd?fd.name:'マスター';
+  const tier=Q4BReward.tierOf(sp);
+  let inner='';
+  if(!rec){
+    inner=`<div style="font-size:44px;line-height:64px">🎓</div>
+      <div style="font-weight:bold;font-size:16px;color:#2b2417;margin-top:4px">まだ ひみつ</div>
+      <div style="font-size:13px;color:#6f6450;margin:6px 0">「${Engine.esc(label)}」を ぜんぶ習得すると あらわれるよ。</div>
+      <div style="font-size:12px;color:#b97c08">${Q4BReward.TIERNAME[tier]}</div>`;
+  }else{
+    const sz=Q4BReward.sizeRange(sp);
+    const caught=(rec.min!=null&&rec.min<rec.max)?`${rec.min}〜${rec.max}mm`:`${rec.max}mm`;
+    inner=`<div style="width:112px;height:112px;margin:0 auto">${Q4BReward.svg(sp,0)}</div>
+      <div style="font-weight:bold;font-size:16px;color:#2b2417">${Engine.esc(sp.jaName)} 🎓</div>
+      ${sp.scientificName?`<div style="font-size:12px;color:#888;font-style:italic">${Engine.esc(sp.scientificName)}</div>`:''}
+      ${sp.familyJa?`<div style="font-size:12px;color:#6f6450">${Engine.esc(sp.familyJa)}</div>`:''}
+      <div style="font-size:13px;margin:4px 0">${Q4BReward.TIERNAME[tier]}　${Engine.esc(label)} マスター</div>
+      <div style="font-size:13px;color:#6f6450;margin:2px 0">つかまえた おおきさ <b>${caught}</b>　（この虫の範囲: ${sz[0]}〜${sz[1]}mm）</div>
+      ${sp.note?`<div style="font-size:12px;color:#6f6450;margin-top:4px">${Engine.esc(sp.note)}</div>`:''}`;
+  }
+  $('#modal').innerHTML=`<div class="mcard">${zukanDetailHTML(inner+'<button class="btn sub" style="margin-top:12px" onclick="closeModal()">とじる</button>')}</div>`;
+  $('#modal').classList.add('show');
 }
 function render(){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===screen));
@@ -915,6 +942,7 @@ function showProfiles(){
   $('#modal').classList.add('show');
 }
 function closeModal(){ $('#modal').classList.remove('show'); $('#modal').innerHTML=''; window.__cn=null; }
+function zukanDetailHTML(html){ return `<div style="background:#fbf7e8;color:#2b2417;border-radius:20px;padding:6px 4px;text-align:center">${html}</div>`; }
 
 /* ---------------- HOME (map) ---------------- */
 function scrHome(){
