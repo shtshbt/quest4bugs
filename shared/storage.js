@@ -321,8 +321,9 @@
   function amberSpend(pid,n){ var v=amberOf(pid); if(v<n)return false; amberSet(pid,v-n); return true; }
 
   /* ---------------- shared ごしんぼく rewards（プロフィール単位） ----------
-     かせきのかけら: 各教科で 1日50問正解した瞬間に +1（各教科1日1個まで）。
-     めざめのしずく: 3教科すべてでかけらを見つけた日が3日たまると +1。 */
+     かせきのかけら: 各教科で 1日30問正解した瞬間に +1（各教科1日1個まで）。
+     めざめのしずく: 3教科すべてでかけらを見つけた日が3日たまると +1。
+     ※50→30に緩和(2026-06-17): 5歳が現実的に届く・長続き優先。律速はしずく側なのでインフレなし。 */
   var REWARD_SUBJECTS=["keisan","kanji","eitango"];
   function todayKey(){
     var d=new Date();
@@ -430,7 +431,7 @@
     logDay.correct[subject]+=n;
     dsub=data.daily.subjects[subject];
     dsub.correct=logDay.correct[subject];
-    if(logDay.correct[subject]>=50&&!logDay.subjects[subject]){
+    if(logDay.correct[subject]>=30&&!logDay.subjects[subject]){
       logDay.subjects[subject]=true;
       dsub.fragment=true;
       data.fossilFragments++;

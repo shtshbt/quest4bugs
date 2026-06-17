@@ -260,7 +260,7 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.14"></script>
+<script src="./shared/storage.js?v=0.4.15"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
@@ -275,7 +275,7 @@ function $(i){return document.getElementById(i);}
 function pad2(n){return (n<10?"0":"")+n;}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
-function pct50(n){return Math.max(0,Math.min(100,Math.round((Math.max(0,n||0)/50)*100)));}
+function pct50(n){return Math.max(0,Math.min(100,Math.round((Math.max(0,n||0)/30)*100)));}  /* 30問でかけら1個（旧50問から緩和） */
 function subjLabel(s){return {keisan:"けいさん",kanji:"かんじ",eitango:"えいご"}[s]||s;}
 function dropClockSvg(n){
   n=Math.max(0,Math.min(3,Math.floor(n)||0));
@@ -326,7 +326,7 @@ function goshinTip(g,bt){
     s=subs[i];
     if(!(g.daily.subjects[s]&&g.daily.subjects[s].fragment)){
       missing.push(labels[s]);
-      var need=Math.max(0,50-((g.daily.subjects[s]&&g.daily.subjects[s].correct)||0));
+      var need=Math.max(0,30-((g.daily.subjects[s]&&g.daily.subjects[s].correct)||0));
       if(need<bestNeed){bestNeed=need;best=s;}
     }
   }
@@ -456,9 +456,9 @@ function goshinHTML(pid,amber,bt){
   function card(s,icon){
     var x=subs[s]||{correct:0,fragment:false}, p=pct50(x.correct);
     return '<div class="goshin-subj '+(x.fragment?'done':'')+'"><h4>'+icon+' '+subjLabel(s)+'</h4>'
-      +'<div class="goshin-need">せいかい '+Math.min(50,x.correct||0)+' / 50</div>'
+      +'<div class="goshin-need">せいかい '+Math.min(30,x.correct||0)+' / 30</div>'
       +'<div class="goshin-bar"><i style="width:'+p+'%"></i></div>'
-      +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,50-(x.correct||0))+'もん')+'</div></div>';
+      +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,30-(x.correct||0))+'もん')+'</div></div>';
   }
   return '<div class="goshin">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
@@ -470,7 +470,7 @@ function goshinHTML(pid,amber,bt){
     +'<div class="goshin-chip"><b>💧 めざめのしずく</b><strong>'+g.awakeningDrops+'</strong><span>ごしんぼくのふしぎなしずく</span></div>'
     +'</div>'
     +'<div class="goshin-work"><div class="goshin-fragments"><h4>きょう見つけた かせきのかけら</h4>'
-    +'<div class="hint">50もん せいかいすると、1日ひとつ みつかるよ</div>'
+    +'<div class="hint">30もん せいかいすると、1日ひとつ みつかるよ</div>'
     +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
     +'</div>'+equipmentHTML(g)+shinyHTML(g)+'</div>';
