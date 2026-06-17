@@ -81,8 +81,16 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .equip-more{margin-top:6px}
 .equip-more summary{font-size:12px;font-weight:900;color:#42533A;cursor:pointer;list-style:none;border:1px solid #D8C892;border-radius:10px;background:#FFFCF3;padding:6px 8px;text-align:center}
 .equip-more[open] summary{margin-bottom:6px}
-.equip-modal-card{background:var(--panel);border-radius:16px;padding:14px;max-width:320px;width:92%;max-height:86vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.equip-modal-art{width:96px;height:96px;margin:0 auto 6px}
+.equip-modal-card{background:var(--panel);border-radius:14px;padding:12px 14px 10px;max-width:280px;width:88%;max-height:84vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:12px;line-height:1.4}
+.equip-modal-card h3{margin:0;font-size:14px;font-weight:900;text-align:center;line-height:1.2}
+.equip-modal-card .sub{font-size:10px;color:#6B7A5E;font-weight:800;text-align:center;margin:2px 0 6px}
+.equip-modal-card .meta{display:flex;justify-content:space-between;font-size:11px;font-weight:800;border-top:1px dashed #D8C892;border-bottom:1px dashed #D8C892;padding:5px 0;margin:6px 0}
+.equip-modal-card .meta .lbl{color:#7A6B4B}
+.equip-modal-card .row{display:flex;justify-content:space-between;font-size:11px;font-weight:700;padding:3px 0;color:#42533A}
+.equip-modal-card .row b{color:#7A6B4B;font-weight:800}
+.equip-modal-card .btnrow{display:flex;gap:6px;margin-top:8px}
+.equip-modal-card .btnrow .btn{margin:0;font-size:12px;padding:7px 10px;flex:1;border-radius:10px}
+.equip-modal-art{width:72px;height:72px;margin:2px auto 4px}
 .shiny-box{border:1px solid #B9D4E4;border-radius:12px;background:linear-gradient(180deg,#F5FCFF,#FFFDF7);padding:8px;margin-top:8px}
 .shiny-box h4{margin:0 0 3px;font-size:12px;line-height:1.2}
 .shiny-box .hint{font-size:10px;color:#5B7180;font-weight:900;line-height:1.25;margin-bottom:6px}
@@ -458,21 +466,21 @@ function openEquipmentCard(id){
   if(!item||!pid)return;
   var g=QuestSave.goshinOf(pid), eq=g.equipment||{}, owned=eq.owned&&eq.owned[item.id], wearer=eq.equippedBy&&eq.equippedBy[item.id];
   var can=g.fossilFragments>=item.fossilCost&&g.awakeningDrops>=item.dewCost;
+  var actBtn = owned
+    ? ''
+    : '<button class="btn amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+(can?'復元する':'足りない')+'</button>';
   var h='<div class="equip-modal-card">'
     +'<div class="equip-modal-art">'+Q4BEquipment.svg(item.id)+'</div>'
-    +'<h3 style="margin:0 0 6px;text-align:center">'+esc(item.name)+'</h3>'
-    +'<p class="note" style="margin:0 0 8px;text-align:center">こだいこんちゅうの かせきパーツ・'+esc(item.slotLabel)+'</p>'
-    +'<div class="card" style="border-radius:12px;padding:10px;margin-bottom:8px">'
-    +'<b>こうか</b><br>'+esc(item.effect)+(item.slot==="hp"?'<br><span class="note">SSの虫にはつけられません</span>':'')
-    +'</div>'
-    +'<div class="card" style="border-radius:12px;padding:10px;margin-bottom:8px">'
-    +'<b>そうび中</b><br>'+esc(wearer?speciesName(wearer):'まだ')
-    +'</div>'
-    +(owned?'<p class="note">このそうびは復元ずみです。</p>':
-      '<p class="note">復元に必要：🪨 '+item.fossilCost+' / 💧 '+item.dewCost+'</p>'
-      +'<button class="btn sm amber" style="color:#fff" '+(can?'onclick="restoreEquipmentUi(\''+item.id+'\')"':'disabled')+'>'+ (can?'ごしんぼくで復元する':'まだ足りない') +'</button>')
-    +'<button class="btn sm" onclick="closeEquipmentModal()">とじる</button>'
-    +'</div>';
+    +'<h3>'+esc(item.name)+'</h3>'
+    +'<div class="sub">かせきパーツ・'+esc(item.slotLabel)+'</div>'
+    +'<div class="meta"><span class="lbl">こうか</span><span>'+esc(item.effect)+'</span></div>'
+    +'<div class="row"><b>そうび中</b><span>'+esc(wearer?speciesName(wearer):'—')+'</span></div>'
+    +'<div class="row"><b>'+(owned?'状態':'必要')+'</b><span>'+(owned?'復元ずみ':'🪨'+item.fossilCost+' / 💧'+item.dewCost)+'</span></div>'
+    +(item.slot==="hp"?'<div class="row" style="color:#A07628"><b>注意</b><span>SSの虫には不可</span></div>':'')
+    +'<div class="btnrow">'
+    +(actBtn?actBtn:'')
+    +'<button class="btn" '+(actBtn?'style="background:#9aa896"':'')+' onclick="closeEquipmentModal()">とじる</button>'
+    +'</div></div>';
   var ov=document.createElement("div");
   ov.id="equipModal";
   ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
