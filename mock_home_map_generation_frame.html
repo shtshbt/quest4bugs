@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest4Bugs home map generation frame</title>
+<style>
+  :root{--ink:#26321f;--paper:#eef3e2;--line:#6f7f5a;--tree:#2f6b38;--kanji:#7c3aed;--keisan:#2563eb;--eigo:#16a34a;--king:#c17a18;--fossil:#5b536b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;background:#dfe8cf;color:var(--ink)}
+  .wrap{max-width:1180px;margin:0 auto;padding:16px}
+  h1{font-size:18px;margin:0 0 8px}
+  .note{font-size:12px;line-height:1.55;color:#526146;margin:0 0 10px}
+  .stage{position:relative;aspect-ratio:16/11;background:#eef6db;border:1px solid #9aaa80;border-radius:10px;overflow:hidden;box-shadow:0 6px 24px rgba(45,60,30,.15)}
+  .stage svg{display:block;width:100%;height:100%}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:10px}
+  .legend div{background:#fff;border:1px solid #cbd8b8;border-radius:8px;padding:8px;font-size:12px;font-weight:800}
+  .chip{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px}
+  .card{background:#fff;border:1px solid #cbd8b8;border-radius:10px;padding:10px}
+  .card h2{font-size:14px;margin:0 0 6px}
+  .card ul{margin:0;padding-left:18px;font-size:12px;line-height:1.55}
+  .label{font-size:28px;font-weight:900;paint-order:stroke;stroke:#fff;stroke-width:7px;stroke-linejoin:round}
+  .small{font-size:18px;font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Quest4Bugs ホームマップ PNG生成フレーム</h1>
+  <p class="note">最終絵の前段階。全モジュールを同じ <b>1600×1100</b> キャンバスで描き、透明PNGとして重ねる想定。端末差を吸収するため、中央の安全領域とクリック領域を同時に確認する。</p>
+
+  <div class="stage">
+    <svg viewBox="0 0 1600 1100" role="img" aria-label="home map module frame">
+      <defs>
+        <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9dd7df"/><stop offset="1" stop-color="#5ea7bd"/></linearGradient>
+        <linearGradient id="island" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8f0c7"/><stop offset="1" stop-color="#b8d28b"/></linearGradient>
+        <filter id="soft"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#2b3c24" flood-opacity=".25"/></filter>
+        <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#ffffff" stroke-opacity=".18" stroke-width="2"/></pattern>
+      </defs>
+      <rect width="1600" height="1100" fill="url(#sea)"/>
+      <rect width="1600" height="1100" fill="url(#grid)"/>
+
+      <!-- whole island silhouette -->
+      <path d="M217 808 C145 692 172 489 304 344 C461 172 709 126 944 162 C1193 200 1398 348 1452 547 C1507 751 1361 915 1115 977 C836 1047 398 1001 217 808 Z"
+            fill="url(#island)" stroke="#4f6d38" stroke-width="9" filter="url(#soft)"/>
+
+      <!-- module zones: broad overlap is intentional; final PNGs should feather into neighbors -->
+      <path d="M285 765 C230 636 260 482 392 366 C517 257 682 222 823 266 C738 384 728 496 763 612 C628 635 509 696 402 815 Z"
+            fill="#7c3aed" opacity=".20" stroke="#7c3aed" stroke-width="5" stroke-dasharray="16 10"/>
+      <path d="M642 844 C596 679 654 522 793 418 C922 322 1087 308 1228 365 C1126 478 1106 610 1174 742 C1024 751 865 792 721 912 Z"
+            fill="#2563eb" opacity=".20" stroke="#2563eb" stroke-width="5" stroke-dasharray="16 10"/>
+      <path d="M828 298 C975 190 1180 219 1319 361 C1430 475 1442 625 1367 739 C1247 643 1129 580 986 592 C1008 468 953 367 828 298 Z"
+            fill="#16a34a" opacity=".20" stroke="#16a34a" stroke-width="5" stroke-dasharray="16 10"/>
+      <path d="M520 574 C653 492 832 482 985 548 C1130 611 1236 742 1235 891 C1042 838 882 856 728 940 C697 793 620 684 520 574 Z"
+            fill="#c17a18" opacity=".24" stroke="#c17a18" stroke-width="6"/>
+      <path d="M1018 682 C1131 628 1284 671 1370 782 C1311 895 1176 963 1000 978 C1030 870 1035 772 1018 682 Z"
+            fill="#5b536b" opacity=".26" stroke="#5b536b" stroke-width="6"/>
+
+      <!-- Goshinboku hub before all routes -->
+      <g transform="translate(352 838)">
+        <circle r="78" fill="#fff9dc" stroke="#8a6d29" stroke-width="7"/>
+        <path d="M0 54 C-33 31 -24 -10 -9 -34 C-4 -48 5 -48 10 -34 C27 -8 34 31 0 54 Z" fill="#6b3f22" stroke="#3f2617" stroke-width="5"/>
+        <path d="M-53 -18 C-42 -74 32 -96 61 -38 C36 -49 12 -42 -2 -21 C-22 -39 -40 -34 -53 -18 Z" fill="#2f6b38" stroke="#214b28" stroke-width="5"/>
+        <path d="M-58 2 C-91 -21 -73 -73 -24 -72 C-39 -46 -31 -25 -8 -16 C-26 -9 -44 -3 -58 2 Z" fill="#3f7d43" stroke="#214b28" stroke-width="5"/>
+        <text x="0" y="106" text-anchor="middle" class="label small" fill="#2f5b34">ごしんぼく</text>
+      </g>
+
+      <!-- route spine -->
+      <path d="M424 823 C506 733 604 655 738 610 C815 584 895 581 974 608 C1094 649 1191 733 1226 857"
+            fill="none" stroke="#7a5731" stroke-width="18" stroke-linecap="round" opacity=".55"/>
+      <path d="M424 823 C506 733 604 655 738 610 C815 584 895 581 974 608 C1094 649 1191 733 1226 857"
+            fill="none" stroke="#f1d28b" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+
+      <!-- click/safe rectangles -->
+      <rect x="160" y="80" width="1280" height="880" fill="none" stroke="#ffffff" stroke-width="5" stroke-dasharray="22 18" opacity=".75"/>
+      <text x="180" y="113" class="small" fill="#fff">4:3 / iPad safe</text>
+      <rect x="300" y="155" width="1000" height="790" fill="none" stroke="#223044" stroke-width="4" stroke-dasharray="14 12" opacity=".45"/>
+      <text x="318" y="186" class="small" fill="#223044">portrait crop safe</text>
+
+      <text x="454" y="324" class="label" fill="#6431be">かんじ</text>
+      <text x="796" y="380" class="label" fill="#1d54c8">けいさん</text>
+      <text x="1168" y="360" class="label" fill="#108344">えいご</text>
+      <text x="835" y="720" text-anchor="middle" class="label" fill="#9a5f12">おうじゃのみち</text>
+      <text x="1216" y="848" text-anchor="middle" class="label small" fill="#4f4660">かせきのたに</text>
+
+      <!-- suggested module bounding boxes -->
+      <g fill="none" stroke="#1d2733" stroke-width="3" stroke-dasharray="10 10" opacity=".6">
+        <rect x="210" y="220" width="650" height="640"/>
+        <rect x="560" y="290" width="740" height="670"/>
+        <rect x="780" y="180" width="660" height="620"/>
+        <rect x="480" y="500" width="790" height="470"/>
+        <rect x="980" y="630" width="430" height="350"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="legend">
+    <div><span class="chip" style="background:var(--tree)"></span>ごしんぼく: 最初のハブ。通知・もちもの・そうび生成の入口</div>
+    <div><span class="chip" style="background:var(--kanji)"></span>かんじ: 地形は森だけに固定しない。複数フィールドを含める</div>
+    <div><span class="chip" style="background:var(--keisan)"></span>けいさん: 岩場だけでなく森・水辺・山道を含める</div>
+    <div><span class="chip" style="background:var(--eigo)"></span>えいご: フィールド別単語世界を広く配置</div>
+    <div><span class="chip" style="background:var(--king)"></span>おうじゃのみち: 中央の縦進行。ボス道そのもの</div>
+    <div><span class="chip" style="background:var(--fossil)"></span>かせきのたに: 1周目から古代トーン。2周目で全島へ拡張</div>
+  </div>
+
+  <div class="spec">
+    <div class="card"><h2>生成サイズ</h2><ul>
+      <li>master canvas: 1600×1100 PNG</li>
+      <li>module PNG: 同じ1600×1100で透明背景推奨</li>
+      <li>最終表示はCSSで width:100%, aspect-ratio:16/11</li>
+    </ul></div>
+    <div class="card"><h2>境界ルール</h2><ul>
+      <li>モジュール境界は重ねる。境界ぴったりで切らない</li>
+      <li>道・海岸線・影は共通ベース側に寄せる</li>
+      <li>地名ラベルとクリック領域はHTML/SVG overlayで別管理</li>
+    </ul></div>
+    <div class="card"><h2>次の確認</h2><ul>
+      <li>iPhone縦で portrait crop safe 内に主要導線が残るか</li>
+      <li>iPad横で4:3 safe 内にラベルが過密にならないか</li>
+      <li>各モジュールPNGを差し替えても継ぎ目が破綻しないか</li>
+    </ul></div>
+  </div>
+</div>
+</body>
+</html>
