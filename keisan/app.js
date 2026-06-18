@@ -215,6 +215,19 @@ var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん",
   tsurukame:"つるかめ算", kabusoku:"過不足算", heikin:"平均算", soneki:"損益算", shigoto:"仕事算", nenrei:"年齢算", ueki:"植木算",
   ryuusui:"流水算", tsuuka:"通過算", shuuki:"周期算", nichireki:"日暦算", kisokusei:"規則性", hayasahi:"速さと比", shuugou:"集合算",
   bairitsu:"倍数算", shoukyo:"消去算", houjin:"方陣算", baai:"場合の数", hireihanpi:"比例反比例"};
+var LV_LABELS={
+  mix:{
+    1:"たし算・ひき算ミックス", 2:"かけ算入り", 3:"わり算入り", 4:"かけ算・わり算を先に",
+    5:"2段階計算", 6:"かっこを先に", 7:"かっこ×かけ算", 8:"2けた×2けた",
+    9:"かっこ＋ひき算", 10:"総合チャレンジ"
+  },
+  wasa:{
+    1:"1品のおつり", 2:"合計・差", 3:"2品のおつり・3数の合計", 4:"合計からもう片方",
+    5:"差からもう片方", 6:"合計と差から多い方", 7:"合計と差から少ない方",
+    8:"3人の基準差", 9:"和差算＋おつり", 10:"3人・条件2つ"
+  }
+};
+function lvLabel(cat,lv){ var m=LV_LABELS[cat]; return m?m[clampLv(lv)]:""; }
 var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
 var K5DEV=["wasa","jikan","kakebun"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
 var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,
@@ -369,8 +382,9 @@ function catBtnHTML(c,act,p,mark){
   var sty=leveled?('background:'+lvBg(lv)+';color:'+(lv>=6?'#fff':'#22331a')+';border-color:transparent;box-shadow:0 3px 0 rgba(40,60,30,.22)'):'';
   if(mark) sty+=';outline:3px solid #E8B23A;outline-offset:-1px';
   var lvtag=leveled?'<span style="font-weight:800;opacity:.92">　Lv'+lv+'/10</span>':'';
+  var sub=leveled&&lvLabel(c,lv)?'<br><span style="font-size:11px;font-weight:700;opacity:.9">'+esc(lvLabel(c,lv))+'</span>':'';
   var mk=(mark==='low'||mark==='both')?' 🌟':(mark==='new'?' 🆕':'');
-  return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+'</button>';
+  return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+sub+'</button>';
 }
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
@@ -1025,32 +1039,43 @@ function gMix(lv){
   if(lv==null) lv=ri(1,10);
   for(var i=0;i<200;i++){
     var a,b,c,d,t,ans,m,prod;
-    if(lv===1){ // a+b×c
-      a=ri(10,30);b=ri(2,5);c=ri(2,5);t=a+"＋"+b+"×"+c;ans=a+b*c;
-    } else if(lv===2){ // a±b×c
-      b=ri(3,6);c=ri(3,6);
-      if(Math.random()<0.5){a=ri(20,60);t=a+"＋"+b+"×"+c;ans=a+b*c;}
-      else{a=b*c+ri(5,40);t=a+"−"+b+"×"+c;ans=a-b*c;}
-    } else if(lv===3){ // (a+b)×c
-      a=ri(5,15);b=ri(5,15);c=ri(2,5);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;
-    } else if(lv===4){ // (a+b)×c大 / a×b−c
-      if(Math.random()<0.5){a=ri(5,15);b=ri(5,15);if(a+b<15)continue;c=ri(3,6);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;}
-      else{a=ri(6,12);b=ri(6,12);c=ri(5,a*b-1);t=a+"×"+b+"−"+c;ans=a*b-c;if(ans<0)continue;}
-    } else if(lv===5){ // 乗減 / 除加 (積30-80, 除割り切れ)
-      if(Math.random()<0.5){a=ri(6,12);b=ri(5,9);prod=a*b;if(prod<30||prod>80)continue;c=ri(5,prod-1);t=a+"×"+b+"−"+c;ans=prod-c;if(ans<0)continue;}
-      else{b=ri(3,9);m=ri(4,12);a=b*m;if(a<30||a>80)continue;c=ri(5,40);t=a+"÷"+b+"＋"+c;ans=a/b+c;}
-    } else if(lv===6){ // 除加 / 括弧 (積70-100, 除割り切れ, 括弧和20-40)
-      if(Math.random()<0.5){b=ri(4,9);m=ri(8,15);a=b*m;if(a<70||a>100)continue;c=ri(5,40);t=a+"÷"+b+"＋"+c;ans=a/b+c;}
-      else{a=ri(10,30);b=ri(10,30);if(a+b<20||a+b>40)continue;c=ri(2,5);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;}
-    } else if(lv===7){ // (a+b)×c 和20-40 乗数5-8
-      a=ri(10,30);b=ri(10,30);if(a+b<20||a+b>40)continue;c=ri(5,8);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;
-    } else if(lv===8){ // 2桁乗−減 10-15×8-12
-      a=ri(10,15);b=ri(8,12);c=ri(5,a*b-1);t=a+"×"+b+"−"+c;ans=a*b-c;if(ans<0)continue;
-    } else if(lv===9){ // (a+b)×c−d 和30-50 乗数5-9 減10-80
-      a=ri(15,35);b=ri(15,35);if(a+b<30||a+b>50)continue;c=ri(5,9);d=ri(10,80);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;
-    } else { // lv===10 (a+b)×c−d大 / 2桁乗
-      if(Math.random()<0.5){a=ri(20,40);b=ri(20,40);if(a+b<40||a+b>60)continue;c=6;d=ri(20,120);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;}
-      else{a=ri(12,18);b=ri(9,12);t=a+"×"+b;ans=a*b;}
+    if(lv===1){ // たし算・ひき算ミックス
+      if(Math.random()<0.5){a=ri(12,80);b=ri(8,60);t=a+"＋"+b;ans=a+b;}
+      else{a=ri(30,120);b=ri(8,a-5);t=a+"−"+b;ans=a-b;}
+    } else if(lv===2){ // かけ算入り
+      a=ri(3,9);b=ri(3,9);c=ri(5,40);prod=a*b;
+      if(Math.random()<0.5){t=a+"×"+b+"＋"+c;ans=prod+c;}
+      else{c=ri(1,prod-1);t=a+"×"+b+"−"+c;ans=prod-c;}
+    } else if(lv===3){ // わり算入り
+      b=ri(2,9);m=ri(3,12);a=b*m;c=ri(5,40);
+      if(Math.random()<0.5){t=a+"÷"+b+"＋"+c;ans=m+c;}
+      else{c=ri(1,m-1);t=a+"÷"+b+"−"+c;ans=m-c;}
+    } else if(lv===4){ // かけ算・わり算を先に
+      if(Math.random()<0.5){
+        b=ri(3,9);c=ri(3,9);prod=b*c;
+        if(Math.random()<0.5){a=ri(10,60);t=a+"＋"+b+"×"+c;ans=a+prod;}
+        else{a=prod+ri(5,50);t=a+"−"+b+"×"+c;ans=a-prod;}
+      } else {
+        b=ri(2,9);m=ri(4,15);c=b*m;a=ri(10,60);
+        t=a+"＋"+c+"÷"+b;ans=a+m;
+      }
+    } else if(lv===5){ // 2段階計算
+      if(Math.random()<0.5){a=ri(4,9);b=ri(4,9);c=ri(5,40);d=ri(1,30);t=a+"×"+b+"＋"+c+"−"+d;ans=a*b+c-d;if(ans<0)continue;}
+      else{b=ri(2,9);m=ri(4,15);a=b*m;c=ri(2,7);d=ri(2,9);t=a+"÷"+b+"＋"+c+"×"+d;ans=m+c*d;}
+    } else if(lv===6){ // かっこを先に
+      a=ri(10,40);b=ri(5,30);c=ri(5,30);
+      if(Math.random()<0.5){t="（"+a+"＋"+b+"）−"+c;ans=a+b-c;if(ans<0)continue;}
+      else{a=b+ri(5,40);t="（"+a+"−"+b+"）＋"+c;ans=a-b+c;}
+    } else if(lv===7){ // かっこ×かけ算
+      a=ri(8,25);b=ri(5,20);c=ri(2,6);t="（"+a+"＋"+b+"）×"+c;ans=(a+b)*c;
+    } else if(lv===8){ // 2けた×2けた
+      a=ri(11,25);b=ri(11,25);t=a+"×"+b;ans=a*b;
+    } else if(lv===9){ // かっこ＋ひき算
+      a=ri(12,35);b=ri(12,35);c=ri(3,8);d=ri(10,80);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;
+    } else { // lv===10 総合チャレンジ
+      if(Math.random()<0.34){a=ri(20,40);b=ri(20,40);if(a+b<40||a+b>70)continue;c=ri(5,8);d=ri(20,140);ans=(a+b)*c-d;if(ans<0)continue;t="（"+a+"＋"+b+"）×"+c+"−"+d;}
+      else if(Math.random()<0.67){a=ri(12,30);b=ri(12,30);c=ri(5,60);t=a+"×"+b+"＋"+c;ans=a*b+c;}
+      else{b=ri(3,9);m=ri(10,25);a=b*m;c=ri(4,9);d=ri(5,40);t=a+"÷"+b+"＋"+c+"×"+d;ans=m+c*d;}
     }
     return {cat:"mix",kind:"num",text:t,say:readify(t),ans:ans};
   }
@@ -1278,50 +1303,56 @@ function gWasa(lv){
       else { ans=Math.abs(a-b); if(ans<=0) continue; t=a+"円と "+b+"円。ちがいは なん円？"; }
     }
     else if(lv===3){
-      // おつり2品
-      var M=ri(15,30)*10, a=ri(10,90), b=ri(10,90);
-      ans=M-(a+b);
-      if(ans<=0) continue;
-      var i1=pick(ITEMS), i2=pick(ITEMS);
-      t=M+"円もって "+a+"円の"+i1+"と "+b+"円の"+i2+"を かいました。おつりは なん円？";
+      // おつり2品 or 3数の合計
+      if(Math.random()<0.6){
+        var M=ri(15,30)*10, a=ri(10,90), b=ri(10,90);
+        ans=M-(a+b);
+        if(ans<=0) continue;
+        var i1=pick(ITEMS), i2=pick(ITEMS);
+        t=M+"円もって "+a+"円の"+i1+"と "+b+"円の"+i2+"を かいました。おつりは なん円？";
+      } else {
+        var x=ri(10,70), y=ri(10,70), z=ri(10,70);
+        ans=x+y+z;
+        t=x+"こ、"+y+"こ、"+z+"こ。あわせて なんこ？";
+      }
     }
-    else if(lv===4||lv===5){
-      // 和差算: 大or小を問う（big+small=偶数なので割り切れる）
-      var maxv=(lv===4)?40:100;
-      var big=ri(10,maxv), small=ri(5,big-1);
+    else if(lv===4){
+      // 合計S、片方a、もう片方
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      var a=ri(8,35), b=ri(8,35), S=a+b;
+      ans=b;
+      t=n1+"と "+n2+"は あわせて "+S+"こ あめを もっています。"+n1+"は "+a+"こです。"+n2+"は なんこ？";
+    }
+    else if(lv===5){
+      // 差D、片方a、もう片方
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      var base=ri(8,40), D=ri(3,18);
+      if(Math.random()<0.5){
+        ans=base+D;
+        t=n1+"は "+n2+"より "+D+"こ おおく もっています。"+n2+"は "+base+"こです。"+n1+"は なんこ？";
+      } else {
+        ans=base-D;
+        if(ans<=0) continue;
+        t=n1+"は "+n2+"より "+D+"こ すくなく もっています。"+n2+"は "+base+"こです。"+n1+"は なんこ？";
+      }
+    }
+    else if(lv===6||lv===7){
+      // 合計S、差Dから多い方/少ない方
+      var maxv=(lv===6)?60:90;
+      var big=ri(15,maxv), small=ri(5,big-1);
       if(small>=big) continue;
       var S=big+small, D=big-small;
       if(D<=0) continue;
       var n1=pick(NAMES), n2=pick(NAMES);
       if(n1===n2) continue;
-      if(Math.random()<0.5){
+      if(lv===6){
         ans=big;
         t=n1+"と "+n2+"の あめは あわせて "+S+"こ。ちがいは "+D+"こ。おおいほうは なんこ？";
       } else {
         ans=small;
         t=n1+"と "+n2+"の あめは あわせて "+S+"こ。ちがいは "+D+"こ。すくないほうは なんこ？";
-      }
-    }
-    else if(lv===6){
-      // ○個かって△円のこり
-      var M=ri(20,50)*10, price=ri(20,80), n=ri(2,5);
-      ans=M-price*n;
-      if(ans<=0) continue;
-      var it=pick(ITEMS);
-      t=M+"円もって "+price+"円の"+it+"を "+n+"こ かいました。のこりは なん円？";
-    }
-    else if(lv===7){
-      // 3数の合計 or 2段階おつり
-      if(Math.random()<0.5){
-        var a=ri(20,90), b=ri(20,90), c=ri(20,90);
-        ans=a+b+c;
-        t=a+"円と "+b+"円と "+c+"円。あわせて なん円？";
-      } else {
-        var M=ri(30,60)*10, a=ri(30,90), b=ri(30,90);
-        ans=M-a-b;
-        if(ans<=0) continue;
-        var i1=pick(ITEMS), i2=pick(ITEMS);
-        t=M+"円もって "+a+"円の"+i1+"を かい、つぎに "+b+"円の"+i2+"を かいました。のこりは なん円？";
       }
     }
     else if(lv===8){
@@ -1336,17 +1367,25 @@ function gWasa(lv){
     }
     else if(lv===9){
       // 和差算＋おつり複合: 2人合計S差D、おおいほうがused円つかってのこり
-      var big=ri(30,120), small=ri(10,big-1);
-      if(small>=big) continue;
-      var S=big+small, D=big-small;
-      if(D<=0) continue;
-      var n1=pick(NAMES), n2=pick(NAMES);
-      if(n1===n2) continue;
-      var used=ri(5,small-1);
-      if(used<=0||used>=small) continue;
-      ans=big-used;
-      if(ans<=0) continue;
-      t=n1+"と "+n2+"の おかねは あわせて "+S+"円、ちがいは "+D+"円。おおいほうが "+used+"円 つかいました。のこりは なん円？";
+      if(Math.random()<0.5){
+        var big=ri(30,120), small=ri(10,big-1);
+        if(small>=big) continue;
+        var S=big+small, D=big-small;
+        if(D<=0) continue;
+        var n1=pick(NAMES), n2=pick(NAMES);
+        if(n1===n2) continue;
+        var used=ri(5,small-1);
+        if(used<=0||used>=small) continue;
+        ans=big-used;
+        if(ans<=0) continue;
+        t=n1+"と "+n2+"の おかねは あわせて "+S+"円、ちがいは "+D+"円。おおいほうが "+used+"円 つかいました。のこりは なん円？";
+      } else {
+        var M=ri(30,60)*10, a=ri(30,90), b=ri(30,90);
+        ans=M-a-b;
+        if(ans<=0) continue;
+        var i1=pick(ITEMS), i2=pick(ITEMS);
+        t=M+"円もって "+a+"円の"+i1+"を かい、つぎに "+b+"円の"+i2+"を かいました。のこりは なん円？";
+      }
     }
     else { // lv===10
       // 3者・条件2つ: 合計と1人＋差→残り1人
@@ -3798,7 +3837,8 @@ function renderQ(q){
   if(Q.timed)h+='<span class="chip fire">⏱ <span id="tleft">'+Math.max(0,Math.ceil((Q.end-Date.now())/1000))+'</span>秒</span><span class="chip kago">'+Q.ok+'問</span>';
   else h+='<span class="chip">'+(Q.i+1)+' / '+Q.list.length+'</span>';
   h+='</div>';
-  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
+  var nowLv=(Q&&Q.lv)?Q.lv:((p.lv&&p.lv[q.cat])||1), stage=lvLabel(q.cat,nowLv);
+  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(stage?'　Lv'+clampLv(nowLv)+'：'+esc(stage):'')+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
     +(q.say?'<button class="spk" onclick="saySafe()">🔊 よむ</button>':"")+'</div>';
   if(q.kind==="num"){
     var isWord=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);  /* 文章題は「こたえ」表示。ふりがなは5歳発展のみ */
