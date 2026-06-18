@@ -32,10 +32,13 @@
   .g-meta{font-size:12px;color:#5e6b46;margin-top:4px}
   /* パーティ */
   .party{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-  .pcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:5px 2px;background:#fff}
+  .pcell{text-align:center;border:1px solid var(--line);border-radius:10px;padding:5px 2px;background:#fff;position:relative}
   .pcell .art{width:52px;height:52px;margin:0 auto}
   .pcell .pn{font-size:10px;line-height:1.1;height:22px;overflow:hidden}
   .pcell .hp{font-size:10px;color:#777}
+  .eqmini{display:flex;justify-content:center;gap:2px;min-height:15px;margin-top:2px}
+  .eqmini i{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1px solid #c9a23a;background:#fff8dc;font-size:9px;font-style:normal;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.14)}
+  .eqmini i.atk{border-color:#C04848;background:#FFF1F0}.eqmini i.def{border-color:#3D7AB8;background:#F0F6FF}.eqmini i.hp{border-color:#3FA664;background:#F0FFF4}
   .attz{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:8px}
   .attz span{background:#eef4df;border-radius:8px;padding:3px 8px}
   .mini-btn{margin-left:auto;font-size:12px;font-weight:800;border:0;border-radius:8px;background:#3b7d3b;color:#fff;padding:4px 10px;cursor:pointer}
@@ -306,6 +309,7 @@ var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"�
 /* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
 var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
 var PROG={kanji:null,keisan:null,eitango:null};  /* 各教科のper-profileデータ（本物連動の出題用） */
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 /* ===== 装備効果（遠征モード=かせきのたに でのみ有効） =====
    EXPED フラグが true のときだけ装備のHP底上げ・与ダメ+5・被ダメ-3 が効く。
    通常ボス戦では EXPED=false で素のバランスを維持（学力＋タイプ相性の正攻法）。 */
@@ -314,6 +318,15 @@ function equippedFor(speciesId){
   if(!speciesId||!window.QuestSave||!QuestSave.goshinOf||!PROF) return {};
   var g=QuestSave.goshinOf(PROF), eq=g&&g.equipment;
   return (eq&&eq.equipped&&eq.equipped[speciesId])||{};
+}
+function equipmentBadgeHTML(sp){
+  if(!sp||!window.Q4BEquipment) return "";
+  var eq=equippedFor(sp.id), slots=["attack","defense","hp"], icons={attack:"⚔",defense:"🛡",hp:"❤"}, cls={attack:"atk",defense:"def",hp:"hp"}, h="";
+  slots.forEach(function(slot){
+    var itemId=eq&&eq[slot], item=itemId&&Q4BEquipment.byId&&Q4BEquipment.byId[itemId];
+    if(item) h+='<i class="'+cls[slot]+'" title="'+esc(item.name+'（'+item.effect+'）')+'">'+icons[slot]+'</i>';
+  });
+  return h?'<div class="eqmini">'+h+'</div>':"";
 }
 function effectiveBugHP(sp){
   var base=B.bugHP(sp.rarity);
@@ -806,7 +819,7 @@ function renderPSelect(){
       +'<span class="num">'+(i+1)+'</span>'
       +'<div class="art">'+R.species(s,false)+'</div>'
       +'<div class="info"><div class="nm">'+s.jaName+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
-      +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'
+      +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+B.bugHP(s.rarity)+equipmentBadgeHTML(s)+'</div></div>'
       +'<div class="ctrl">'
       +'<button onclick="moveSlot('+i+',-1)"'+(i===0?' disabled':'')+'>▲</button>'
       +'<button onclick="moveSlot('+i+',1)"'+(i===SEL.length-1?' disabled':'')+'>▼</button>'
@@ -855,6 +868,7 @@ function renderPool(){
   var pool=list.map(function(s){ var sel=SEL.some(function(x){return x.id===s.id;});
     return '<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
       +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +equipmentBadgeHTML(s)
       +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'; }).join("");
   w.innerHTML='<div class="note" style="margin:2px 0 6px">該当 '+list.length+' / '+OWNED.length+' 匹</div>'
     +'<div class="pool">'+(pool||'<p class="note">みつからないよ。けんさく・フィルタを かえてみてね</p>')+'</div>';
@@ -1091,6 +1105,7 @@ function renderHome(){
   var pc=document.getElementById("party"); pc.innerHTML="";
   PARTY.forEach(function(s){ var d=document.createElement("div"); d.className="pcell";
     d.innerHTML='<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +equipmentBadgeHTML(s)
       +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div>';
     pc.appendChild(d); });
   document.getElementById("pcount").textContent=PARTY.length+"/6";
