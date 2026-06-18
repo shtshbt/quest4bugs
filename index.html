@@ -604,10 +604,49 @@ function closeEquipmentModal(){
   if(ov)ov.remove();
 }
 function restoreEquipmentUi(id){
-  var r=QuestSave.restoreEquipment(QuestSave.currentProfile(),id);
+  var pid=QuestSave.currentProfile();
+  /* 復元前に所持数を見て「初の1個目か」を判定 */
+  var g0=QuestSave.goshinOf(pid), eq0=g0&&g0.equipment, owned0=(eq0&&eq0.owned)||{};
+  var ownedBefore=0; for(var k in owned0) if(owned0[k]) ownedBefore++;
+  var r=QuestSave.restoreEquipment(pid,id);
   if(!r.ok){alert("復元できませんでした: "+(r.error||"unknown"));return;}
   closeEquipmentModal();
   renderProfiles();
+  if(ownedBefore===0){
+    /* 初の化石パーツ復元＝かせきのたに 解禁。派手な1度きり演出 */
+    showFirstRestoreAnnouncement(id);
+  }
+}
+function showFirstRestoreAnnouncement(itemId){
+  var item=window.Q4BEquipment&&Q4BEquipment.byId[itemId];
+  var artSvg=item?Q4BEquipment.svg(itemId):"";
+  var ov=document.createElement("div"); ov.id="firstRestoreOv";
+  ov.style.cssText="position:fixed;inset:0;background:radial-gradient(ellipse at center, rgba(40,20,60,.92), rgba(10,5,20,.98));z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;animation:frFade .6s ease-out";
+  /* 黄金の光・粒子・揺れる文字 */
+  var sparks=""; for(var i=0;i<14;i++){
+    var d=(i*0.18).toFixed(2), x=(20+Math.random()*60).toFixed(1), y=(15+Math.random()*70).toFixed(1);
+    sparks+='<div style="position:absolute;left:'+x+'%;top:'+y+'%;font-size:'+(14+Math.random()*18).toFixed(0)+'px;animation:frSpark 1.6s ease-out '+d+'s infinite">✨</div>';
+  }
+  ov.innerHTML='<style>'
+    +'@keyframes frFade{from{opacity:0}to{opacity:1}}'
+    +'@keyframes frSpark{0%{opacity:0;transform:translateY(0) scale(.5)}30%{opacity:1}100%{opacity:0;transform:translateY(-40px) scale(1.4)}}'
+    +'@keyframes frGlow{0%,100%{filter:drop-shadow(0 0 20px #FFD96A) drop-shadow(0 0 40px #FFD96A)}50%{filter:drop-shadow(0 0 35px #FFE9A3) drop-shadow(0 0 70px #FFE9A3)}}'
+    +'@keyframes frRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}'
+    +'@keyframes frShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}'
+    +'</style>'
+    +sparks
+    +'<div style="background:linear-gradient(180deg,#3a1a1a,#1a0a0a);border:3px solid #C9A23A;border-radius:24px;padding:32px 24px;max-width:340px;width:92%;text-align:center;color:#FFF8DA;box-shadow:0 0 60px rgba(232,184,76,.5),inset 0 0 30px rgba(80,30,10,.6)">'
+    +'<div style="font-size:13px;color:#E5B84C;font-weight:900;letter-spacing:3px;margin-bottom:6px;animation:frRise .8s ease-out">═ 太 古 の こ え ═</div>'
+    +'<div style="width:120px;height:120px;margin:8px auto;animation:frGlow 1.6s ease-in-out infinite, frRise 1s ease-out">'+artSvg+'</div>'
+    +'<h2 style="margin:14px 0 8px;font-size:18px;font-weight:900;color:#FFD96A;letter-spacing:1px;animation:frRise 1.2s ease-out">🦴 化石のささやきが きこえる…</h2>'
+    +'<p style="font-size:14px;line-height:1.55;color:#FFF8DA;margin:8px 0 18px;animation:frRise 1.4s ease-out">パーツの ちからが <b style="color:#FFD96A">「かせきのたに」</b>への みちを しめしている</p>'
+    +'<button class="btn" style="margin:0;background:linear-gradient(135deg,#C9A23A,#8B6A2F);color:#fff;border:2px solid #FFE9A3;padding:12px 22px;font-size:15px;font-weight:900;animation:frShake 2.4s ease-in-out infinite, frRise 1.6s ease-out" onclick="closeFirstRestore()">いざ、たんけんへ ⚔️</button>'
+    +'</div>';
+  document.body.appendChild(ov);
+}
+function closeFirstRestore(){
+  var o=document.getElementById("firstRestoreOv");
+  if(o) o.parentNode.removeChild(o);
 }
 function markCatchShiny(source,state,id){
   if(source==="eitango"){
