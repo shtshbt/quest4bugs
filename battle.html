@@ -1023,10 +1023,21 @@ function makeQ(type, bd){
   bd=Math.max(1,Math.min(5,bd||1));
   if(type==="keisan"){
     function R(mn,mx){ return mn+Math.floor(seed()*(mx-mn+1)); }
-    /* 文章題比率: bd<=2 では 0%、bd=3 で 15%、bd>=4 で 25% */
-    var wordRoll=seed(), wordChance=bd<=2?0:(bd===3?0.15:0.25);
+    /* 文章題比率: 子のkeisan Lv進捗に応じて拡大。
+       Sushiro等で30+カテゴリ Lv4達成済みなのに battle ではただの演算しか出ないのを是正。 */
+    var kp=PROG&&PROG.keisan, advCats=0;
+    if(kp&&kp.lv){
+      ['mix','kufuu','deci','frac','machigai','sougou','noudo','tabibito','hiritsu','tsurukame',
+       'kabusoku','heikin','soneki','shigoto','nenrei','ueki','ryuusui','tsuuka','shuuki','nichireki',
+       'kisokusei','hayasahi','shuugou','bairitsu','shoukyo','houjin','baai','hireihanpi']
+        .forEach(function(c){ if((kp.lv[c]||0)>=3) advCats++; });
+    }
+    /* 文章題比率: 基本(bd>=3で15%/bd>=4で25%) + 発展カテゴリLv3以上の数だけ追加(最大+30%) */
+    var wordChance=bd<=2?0:(bd===3?0.15:0.25);
+    if(advCats>=5) wordChance += Math.min(0.30, advCats*0.02);
+    var wordRoll=seed();
     if(wordRoll<wordChance){
-      var wq=makeKeisanWordProblem(bd, R);
+      var wq=makeKeisanWordProblem(bd, R, advCats);
       if(wq) return wq;
     }
     var ops = bd<=1?["+","-"] : bd===2?["+","-","×"] : bd===3?["+","-","×","÷"] : ["+","-","×","÷","mix"];
@@ -1063,15 +1074,28 @@ function makeQ(type, bd){
   return makeEigoQ(bd, choiceQ);
 }
 /* 計算の文章題: 種類豊富にしてバリエーション稼ぐ。bandに応じて難度UP。
-   返り値が null なら呼び出し側で純粋演算にフォールバック。 */
-function makeKeisanWordProblem(bd, R){
-  var NAMES=["はな","たろう","ゆうき","あきら","さくら","けんた"];
+   返り値が null なら呼び出し側で純粋演算にフォールバック。
+   advCats=子のkeisan発展カテゴリLv>=3の数。多いほど高度な問題タイプも開放。 */
+function makeKeisanWordProblem(bd, R, advCats){
+  advCats=advCats||0;
+  var NAMES=["はな","たろう","ゆうき","あきら","さくら","けんた","ひかる","あおい"];
   var nm=NAMES[Math.floor(seed()*NAMES.length)];
   var nm2=NAMES[Math.floor(seed()*NAMES.length)];
   if(nm2===nm) nm2=NAMES[(NAMES.indexOf(nm)+1)%NAMES.length];
-  var ITEMS=["あめ","シール","おはじき","えんぴつ","クッキー","カード","おはな"];
+  var ITEMS=["あめ","シール","おはじき","えんぴつ","クッキー","カード","おはな","ビー玉","ドングリ"];
   var it=ITEMS[Math.floor(seed()*ITEMS.length)];
-  var pick=Math.floor(seed()*6);
+  /* 種類のプール: advCats と bd によって選べる種類を増やす */
+  var pool=[0,1,2,3];  /* 基礎4種 */
+  if(bd>=3) pool.push(4);                          /* 速さ */
+  if(bd>=4) pool.push(5);                          /* 割合 */
+  if(advCats>=3) pool.push(6);                     /* 平均 */
+  if(advCats>=3 && bd>=3) pool.push(7);            /* つるかめ算 */
+  if(advCats>=5 && bd>=3) pool.push(8);            /* 過不足算 */
+  if(advCats>=5 && bd>=4) pool.push(9);            /* 損益(割引) */
+  if(advCats>=8 && bd>=4) pool.push(10);           /* 旅人算（出会い） */
+  if(advCats>=8 && bd>=4) pool.push(11);           /* 仕事算 */
+  if(advCats>=10 && bd>=4) pool.push(12);          /* 年齢算 */
+  var pick=pool[Math.floor(seed()*pool.length)];
   /* 種類0: 和差 */
   if(pick===0){
     var a=R(bd<=3?10:50, bd<=3?60:200), b=R(bd<=3?5:30, bd<=3?Math.min(a-1,50):150);
@@ -1093,15 +1117,61 @@ function makeKeisanWordProblem(bd, R){
     var tot=ans3*d3;
     return {q:it+"が "+tot+"こ あります。"+d3+"にん で わけると ひとり なんこ？", ans:ans3};
   }
-  /* 種類4 (bd>=3): 速さ */
-  if(pick===4 && bd>=3){
+  /* 種類4: 速さ */
+  if(pick===4){
     var sp=R(40,bd===3?80:200), mn=R(3,bd<=3?10:30);
     return {q:nm+"は ぷんそく "+sp+"m で "+mn+"ぷん あるきました。なんm すすんだ？", ans:sp*mn};
   }
-  /* 種類5 (bd>=4): 割合 */
-  if(pick===5 && bd>=4){
+  /* 種類5: 割合 */
+  if(pick===5){
     var base=R(10,40)*10, pct=R(1,9)*10;
     return {q:base+"えんの "+pct+"パーセント は なんえん？", ans:Math.round(base*pct/100)};
+  }
+  /* 種類6: 平均 */
+  if(pick===6){
+    var n6=R(3,5), s6=R(60,90), tot6=s6*n6;
+    return {q:nm+"の テストの "+n6+"かいの ごうけいが "+tot6+"てんでした。へいきんは なんてん？", ans:s6};
+  }
+  /* 種類7: つるかめ算 (簡易) */
+  if(pick===7){
+    var tot7=R(4,8), legs=R(12,24);
+    /* つる(2足) + かめ(4足) = tot7, 2*tot7 + 2*kame = legs → kame=(legs-2tot7)/2 */
+    var kame=(legs-2*tot7)/2;
+    if(kame<1||kame>=tot7||!Number.isInteger(kame)){
+      /* 再生成: kameを先に決めて整合 */
+      kame=R(1,tot7-1); legs=2*(tot7-kame)+4*kame;
+    }
+    return {q:"つるとかめが あわせて "+tot7+"匹 います。あしの数は "+legs+"本 です。かめは なん匹？", ans:kame};
+  }
+  /* 種類8: 過不足算 */
+  if(pick===8){
+    var p8=R(3,6), each8=R(4,7), extra=R(2,5);
+    /* 1人 each8 個ずつ配ると extra 個 余る → 全部 = each8*p8 + extra */
+    var totC=each8*p8+extra;
+    return {q:it+"を "+p8+"人に 1人 "+each8+"こ ずつ くばると "+extra+"こ あまります。"+it+"は ぜんぶで なんこ？", ans:totC};
+  }
+  /* 種類9: 損益(割引) */
+  if(pick===9){
+    var orig=R(80,300)*10, disc=R(1,4)*10;
+    return {q:orig+"えんの "+it+"が "+disc+"パーセント びき で うっています。いくらで かえる？", ans:Math.round(orig*(100-disc)/100)};
+  }
+  /* 種類10: 旅人算（出会い） */
+  if(pick===10){
+    var d10=R(60,120)*5, sp1=R(20,50), sp2=R(20,50);
+    if(sp1+sp2===0)sp2=30;
+    return {q:nm+"と "+nm2+"が "+d10+"m はなれて 向かいあって あるきます。"+nm+"は ぷんそく "+sp1+"m、"+nm2+"は ぷんそく "+sp2+"m。何分で 出会う？", ans:Math.round(d10/(sp1+sp2))};
+  }
+  /* 種類11: 仕事算 */
+  if(pick===11){
+    var d11=R(6,12), share=R(3,d11-1);
+    var per=Math.floor(100/d11);   /* 1日あたりのおおよその割合 */
+    return {q:"ある しごとを "+nm+"は ひとりで "+d11+"日で おわります。"+share+"日 はたらくと、しごとの ぜんたいの なんパーセント が おわる？", ans:Math.round(share*100/d11)};
+  }
+  /* 種類12: 年齢算 */
+  if(pick===12){
+    var child=R(5,12), gap=R(20,30), parent=child+gap;
+    var y=R(3,10);
+    return {q:"いま "+nm+"は "+child+"さい、おとうさんは "+parent+"さいです。"+y+"年後、"+nm+"は なんさい？", ans:child+y};
   }
   return null;  /* フォールバック→純粋演算 */
 }
