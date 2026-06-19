@@ -199,7 +199,8 @@
     color:#fff;position:relative;overflow:hidden}
   .intro-scene.pred{background:radial-gradient(120% 90% at 50% 30%,#5a0a0a,#1a0606);animation:predShake .5s 2}
   .intro-scene.exped{background:radial-gradient(120% 90% at 50% 28%,#23324a 0%,#171424 48%,#090814 100%);animation:expedRumble .62s 3}
-  .intro-scene.exped::before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(115deg,rgba(176,210,235,.10) 0 2px,transparent 2px 12px);opacity:.55;animation:expedFog 2.4s linear infinite}
+  .intro-scene.exped::before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(115deg,rgba(176,210,235,.10) 0 2px,transparent 2px 12px);opacity:.55;animation:expedFog 2.4s linear infinite;pointer-events:none}
+  .intro-scene.exped>*{position:relative;z-index:1}
   @keyframes expedFog{from{transform:translateX(-24px)}to{transform:translateX(24px)}}
   @keyframes expedRumble{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
   @keyframes predShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
@@ -210,7 +211,7 @@
   @keyframes textSlam{0%{opacity:0;transform:scale(2.4)}60%{opacity:1;transform:scale(.92)}100%{transform:scale(1)}}
   .intro-tag{background:#c0140e;color:#fff;font-weight:900;font-size:13px;padding:3px 14px;border-radius:999px;
     letter-spacing:.12em;margin-bottom:6px;animation:textSlam .5s both}
-  .intro-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:introFlash .6s}
+  .intro-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:introFlash .6s;pointer-events:none}
   @keyframes introFlash{0%{opacity:.0}10%{opacity:.7}100%{opacity:0}}
   .intro-trait{margin-top:10px;background:rgba(0,0,0,.4);border:1px solid #ffb38a;border-radius:10px;
     padding:6px 14px;font-size:13px;font-weight:800;color:#ffe0c8;animation:textSlam .5s .4s both}
