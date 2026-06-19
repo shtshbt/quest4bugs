@@ -371,16 +371,19 @@ function taniReward(tierN, firstClear){
   var base=tierN<=3?5:(tierN<=6?7:(tierN<=9?10:15));
   return firstClear?base:Math.floor(base/2);
 }
-/* かせきのたに解禁判定: no.5天敵を倒したか（CLEARED）＋装備1個以上復元 */
-function taniUnlocked(){
-  if(!CLEARED||!CLEARED[5]) return false;
+/* かせきのたに発見: 化石パーツを1個以上復元したら入口が見える。
+   遠征バトルは No.5 天敵撃破後に解禁する。 */
+function taniDiscovered(){
   if(!window.QuestSave||!QuestSave.goshinOf||!PROF) return false;
   var g=QuestSave.goshinOf(PROF), eq=g&&g.equipment, owned=(eq&&eq.owned)||{};
   for(var k in owned) if(owned[k]) return true;
   return false;
 }
+function taniBattleReady(){
+  return !!(CLEARED&&CLEARED[5]&&taniDiscovered());
+}
 function taniLayerUnlocked(layer){
-  if(!taniUnlocked()) return false;
+  if(!taniBattleReady()) return false;
   if(layer.n===1) return true;
   /* 前の層をクリア済みなら次が解禁 */
   return !!(BATTLE&&BATTLE.tani&&BATTLE.tani.cleared&&BATTLE.tani.cleared[layer.n-1]);
@@ -487,11 +490,12 @@ function taniQuit(){
   showTani();
 }
 function showTani(){
-  if(!taniUnlocked()){ alert("まだ かせきのたに には ちょうせんできません"); return; }
+  if(!taniDiscovered()){ alert("まだ かせきのたに は 見つかっていません"); return; }
   var h='<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
     +'<h2 style="margin:0;font-size:18px">🦴 かせきのたに</h2>'
     +'<button class="btn sm" style="margin:0;padding:5px 10px;background:#9aa896" onclick="closeTani()">もどる</button></div>'
-    +'<p class="note" style="margin:0 0 8px;font-size:12px">5れんせん。HPは持ちこし。装備の力で太古に挑め。ひきあげるまで進むか ぜんめつしたら しゅうりょう。</p>';
+    +'<p class="note" style="margin:0 0 8px;font-size:12px">5れんせん。HPは持ちこし。装備の力で太古に挑め。ひきあげるまで進むか ぜんめつしたら しゅうりょう。</p>'
+    +(taniBattleReady()?'':'<p style="margin:0 0 8px;background:#fff3cd;color:#5a3d00;border:1px solid #e5c85c;border-radius:10px;padding:8px;font-size:12px;font-weight:800">まず おうじゃのみち No.5 の天敵をたおすと、遠征に ちょうせんできるよ。</p>');
   h+='<div style="display:flex;flex-direction:column;gap:6px">';
   TANI_LAYERS.forEach(function(L){
     var open=taniLayerUnlocked(L);
@@ -516,7 +520,7 @@ function showTani(){
       +'<div style="display:flex;gap:2px;margin-top:3px">'+arts+'</div>'
       +'</div>'
       +'<div style="text-align:right;font-size:10px;color:#cbd">'
-      +(open?(cleared>0?('✅×'+cleared):'未クリア'):'前の層クリアで')
+      +(open?(cleared>0?('✅×'+cleared):'未クリア'):(taniBattleReady()?'前の層クリアで':'No.5撃破で'))
       +'<br>🪨'+taniReward(L.n,true)+'/'+taniReward(L.n,false)+'</div>'
       +'</div></button>';
   });
@@ -1081,7 +1085,7 @@ function renderHome(){
   document.getElementById("ghfill").style.width = into+"%";
   /* かせきのたに 入口の表示制御 */
   var taniBtn=document.getElementById("taniEntryBtn");
-  if(taniBtn) taniBtn.style.display = taniUnlocked() ? "" : "none";
+  if(taniBtn) taniBtn.style.display = taniDiscovered() ? "" : "none";
   var nxOpen=nx&&bossReachOpen(nx);   /* フロンティアの3ゲーム到達度が足りているか（足りていれば撃破順的に今すぐ挑める） */
   /* 解禁は3教科すべてが閾値到達で初めて開く。足りない教科＝一番ひくい教科を案内する。 */
   var _subs=[["かんじ",REACH.kanji],["けいさん",REACH.keisan],["えいご",REACH.eitango]];
@@ -1445,6 +1449,7 @@ function quitBattle(){
   .then(loadAll).then(function(){
   if(!PROF){ document.getElementById("home").innerHTML='<div class="card" style="text-align:center;margin-top:20px"><p>まずは ポータルで プロフィールを えらんでね。</p><a class="btn" href="./index.html" style="display:inline-block;text-decoration:none;margin-top:8px">← ポータルへ</a></div>'; return; }
   renderHome();
+  if(location.hash==="#tani"&&taniDiscovered()) setTimeout(showTani,80);
 }).catch(function(e){ renderHome(); });
 </script>
 </body>
