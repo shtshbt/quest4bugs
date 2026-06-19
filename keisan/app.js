@@ -5,6 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
+var KZ_Q="", KZ_R="";
 
 /* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
@@ -197,6 +198,17 @@ function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}};
   /* 既存catchのサイズを実寸レンジへ一度だけ移行 */
   if(window.Q4BReward&&Q4BReward.migrateSizes&&Q4BReward.migrateSizes(p.coll)) saveProfile(p);
 }
+function zukanSearchTextK(sp){
+  return [sp.id,sp.jaName,sp.scientificName,sp.familyJa,sp.groupJa].filter(Boolean).join(" ").toLowerCase();
+}
+function zukanMatchK(sp){
+  var q=(KZ_Q||"").trim().toLowerCase();
+  if(KZ_R!=="" && String(Q4BReward.tierOf(sp))!==String(KZ_R))return false;
+  if(q && zukanSearchTextK(sp).indexOf(q)<0)return false;
+  return true;
+}
+function setKZQ(v){KZ_Q=v||"";showZukan();setTimeout(function(){var e=$("kzq");if(e){e.focus();e.setSelectionRange(e.value.length,e.value.length);}},0);}
+function setKZR(v){KZ_R=(KZ_R===String(v))?"":String(v);showZukan();}
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function pidNow(){ var p=P(); return p?p.id:(window.QuestSave&&QuestSave.currentProfile()); }
@@ -211,7 +223,7 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
   mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合",
-  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", noudo:"濃度", tabibito:"旅人算", hiritsu:"比",
+  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", kukuyomi:"九九あんしょう", noudo:"濃度", tabibito:"旅人算", hiritsu:"比",
   tsurukame:"つるかめ算", kabusoku:"過不足算", heikin:"平均算", soneki:"損益算", shigoto:"仕事算", nenrei:"年齢算", ueki:"植木算",
   ryuusui:"流水算", tsuuka:"通過算", shuuki:"周期算", nichireki:"日暦算", kisokusei:"規則性", hayasahi:"速さと比", shuugou:"集合算",
   bairitsu:"倍数算", shoukyo:"消去算", houjin:"方陣算", baai:"場合の数", hireihanpi:"比例反比例"};
@@ -241,6 +253,7 @@ var LEVEL_GUIDE={
   sougou:["既習ミックス入門","既習ミックス基礎","既習ミックス標準","計算順序入り","かっこ入り","小数分数入り","発展混合","弱点復習","時間を意識","総合チャレンジ"],
   jikan:["同じ時の中の経過","次の正時まで","時をまたぐ","午前午後なし標準","開始時刻を求める","終了時刻を求める","分のくり上がり","長めの時間","2段階の時間","時間総合"],
   kakebun:["1あたり×個数","個数を求める","合計から単価","2段階かけ算","かけ算文章題標準","わり算文章題標準","×÷混在","単位あたり","消費・残り","文章題総合"],
+  kukuyomi:["2の段","5の段","3の段","4の段","6の段","7の段","8の段","9の段","1の段","全段ミックス"],
   noudo:["食塩水の量","食塩の量","濃さを求める","水を足す","食塩を足す","混ぜる入門","混ぜる標準","逆算入り","複合条件","濃度総合"],
   tabibito:["同じ向き","向かい合う","追いつき","出会いの時刻","距離を求める","速さを求める","途中変更","往復","複合条件","旅人算総合"],
   hiritsu:["比の意味","同じ比にする","比から実数","全体を分ける","比の差","連比入門","連比標準","割合との接続","文章題複合","比の総合"],
@@ -271,8 +284,8 @@ function levelGuide(cat){
   return out;
 }
 var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
-var K5DEV=["wasa","jikan","kakebun"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
-var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,
+var K5DEV=["wasa","jikan","kakebun","kukuyomi"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
+var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,kukuyomi:1,
   mix:1,kufuu:1,deci:1,frac:1,machigai:1,sougou:1,noudo:1,tabibito:1,hiritsu:1,tsurukame:1,kabusoku:1,heikin:1,soneki:1,shigoto:1,nenrei:1,ueki:1,ryuusui:1,tsuuka:1,shuuki:1,nichireki:1,kisokusei:1,hayasahi:1,shuugou:1,bairitsu:1,shoukyo:1,houjin:1,baai:1,hireihanpi:1};  /* Lv1-10対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
@@ -598,8 +611,17 @@ function showZukan(){
   if(window.Q4BBossZukan)h+=Q4BBossZukan.sectionHTML("keisan");  /* 👑 ボス昆虫節 */
   /* Q4BReward ベース: tierOf 降順ソート */
   var sorted=pool.slice().sort(function(a,b){ return Q4BReward.tierOf(b)-Q4BReward.tierOf(a)||(a.jaName<b.jaName?-1:1); });
+  var filtered=sorted.filter(zukanMatchK);
+  h+='<div class="card" style="padding:12px">'
+    +'<input id="kzq" value="'+esc(KZ_Q)+'" oninput="setKZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin-bottom:8px">'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:800">'
+    +[["","ぜんぶ"],["4","でんせつ"],["3","ウルトラ"],["2","スーパー"],["1","レア"],["0","ノーマル"]].map(function(x){
+      var on=String(KZ_R)===String(x[0]) || (x[0]===""&&KZ_R==="");
+      return '<button class="chip" style="cursor:pointer;'+(on?'background:var(--green);color:#fff':'')+'" onclick="setKZR(\''+x[0]+'\')">'+x[1]+'</button>';
+    }).join("")
+    +'<span class="note" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div></div>';
   h+='<div class="zgrid">';
-  sorted.forEach(function(sp){
+  filtered.forEach(function(sp){
     var rec=p.coll.catches[sp.id];
     var tier=Q4BReward.tierOf(sp);
     h+='<div class="zc r'+tier+(rec?"":" ")+'" onclick="openBugNew(\''+sp.id+'\')">';
@@ -616,7 +638,7 @@ function showZukan(){
     }
     h+='</div>';
   });
-  h+='</div></div>';
+  h+=(filtered.length?'':'<p class="note center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>')+'</div></div>';
   render(h);
 }
 function openBugNew(spId){
@@ -1629,6 +1651,86 @@ function gKakebun(lv){
   }
   // フォールバック
   return {cat:cat,kind:"num",text:"1こ 30円の あめを 4こ かいます。ぜんぶで いくら？",say:null,ans:120};
+}
+/* 九九暗唱: 「ににんがし」「にさんがろく」のフレーズを覚える専用カテゴリ。
+   小学校の指導順(2→5→3→4→6→7→8→9→1)で学習。
+   Lv1: 2の段 / Lv2: 5の段 / Lv3: 3の段 / Lv4: 4の段 / Lv5: 6の段
+   Lv6: 7の段 / Lv7: 8の段 / Lv8: 9の段 / Lv9: 1の段 / Lv10: 全段ミックス */
+function gKukuYomi(lv){
+  if(lv==null) lv=ri(1,10);
+  /* 九九暗唱表: 各段9個ずつ。読み(全文)で記憶 */
+  var KUKU={
+    1:["いんいちがいち","いんにがに","いんさんがさん","いんしがし","いんごがご","いんろくがろく","いんしちがしち","いんはちがはち","いんくがく"],
+    2:["ににんがに","ににんがし","にさんがろく","にしがはち","にごじゅう","にろくじゅうに","にしちじゅうし","にはちじゅうろく","にくじゅうはち"],
+    3:["さんいちがさん","さんにがろく","さざんがく","さんしじゅうに","さんごじゅうご","さぶろくじゅうはち","さんしちにじゅういち","さんぱにじゅうし","さんくにじゅうしち"],
+    4:["しいちがし","しにがはち","しさんじゅうに","ししじゅうろく","しごにじゅう","しろくにじゅうし","ししちにじゅうはち","しはさんじゅうに","しくさんじゅうろく"],
+    5:["ごいちがご","ごにじゅう","ごさんじゅうご","ごしにじゅう","ごごにじゅうご","ごろくさんじゅう","ごしちさんじゅうご","ごはしじゅう","ごっくしじゅうご"],
+    6:["ろくいちがろく","ろくにじゅうに","ろくさんじゅうはち","ろくしにじゅうし","ろくごさんじゅう","ろくろくさんじゅうろく","ろくしちしじゅうに","ろくはしじゅうはち","ろっくごじゅうし"],
+    7:["しちいちがしち","しちにじゅうし","しちさんにじゅういち","しちしにじゅうはち","しちごさんじゅうご","しちろくしじゅうに","しちしちしじゅうく","しちはごじゅうろく","しちくろくじゅうさん"],
+    8:["はちいちがはち","はちにじゅうろく","はっさんにじゅうし","はちしさんじゅうに","はちごしじゅう","はちろくしじゅうはち","はちしちごじゅうろく","はっぱろくじゅうし","はっくしちじゅうに"],
+    9:["くいちがく","くにじゅうはち","くさんにじゅうしち","くしさんじゅうろく","くごしじゅうご","くろくごじゅうし","くしちろくじゅうさん","くはしちじゅうに","くくはちじゅういち"]
+  };
+  /* 段の値(N)とdan順位の対応 */
+  var dans=[2,5,3,4,6,7,8,9,1];
+  var dan;
+  if(lv>=10){ dan=dans[Math.floor(Math.random()*dans.length)]; }
+  else { dan=dans[Math.min(lv-1, dans.length-1)]; }
+  var b=ri(1,9);
+  var phrase=KUKU[dan][b-1];
+  var fullVal=dan*b;
+  var pattern=Math.floor(Math.random()*4);
+  /* 4つの出題パターン: A: 結果穴埋め / B: 段の名前穴埋め / C: フレーズ→値 / D: 値→フレーズ */
+  if(pattern===0){
+    /* A: 結果穴埋め "ににん___" → 選択肢に正解＋紛らわしいもの */
+    var head=phrase.replace(/(が|じゅう|に|さん|し|ご|ろく|しち|はち|く)?(に|し|さん|ろく|はち|じゅう|に|し|ご|ろく|しち|はち|く|いち|さんじゅう|しじゅう|ごじゅう|ろくじゅう|しちじゅう|はちじゅう)+$/,"");
+    /* 簡易: フレーズを末尾2-4文字で切る */
+    var cutLen=phrase.length>=5?3:2;
+    var headSimple=phrase.substring(0, phrase.length-cutLen);
+    var tail=phrase.substring(phrase.length-cutLen);
+    /* 同じ段の他のフレーズから末尾候補を集める */
+    var tails=KUKU[dan].map(function(p){return p.substring(Math.max(0,p.length-cutLen));}).filter(function(t,i,a){return a.indexOf(t)===i&&t!==tail;});
+    if(tails.length<3){ /* 他段からも借りる */
+      var others=dans.filter(function(d){return d!==dan;}).slice(0,3);
+      others.forEach(function(od){ KUKU[od].forEach(function(p){var t=p.substring(Math.max(0,p.length-cutLen));if(tails.indexOf(t)<0&&t!==tail)tails.push(t);}); });
+    }
+    tails=shuffle(tails).slice(0,3);
+    var choicesA=shuffle([tail].concat(tails));
+    return {cat:"kukuyomi",kind:"choice",text:'「'+headSimple+'____」の つづきは？',say:null,ans:tail,choices:choicesA};
+  }
+  if(pattern===1){
+    /* B: フレーズ全体から値を答える「ににんがし は いくつ？」→4 */
+    var distractors=[];
+    while(distractors.length<3){
+      var dv=fullVal+(ri(0,1)?ri(1,10):-ri(1,Math.min(fullVal-1,10)));
+      if(dv>0&&dv!==fullVal&&distractors.indexOf(dv)<0)distractors.push(dv);
+    }
+    return {cat:"kukuyomi",kind:"choice",text:'「'+phrase+'」 は いくつ？',say:null,ans:fullVal,choices:shuffle([fullVal].concat(distractors))};
+  }
+  if(pattern===2){
+    /* C: 値→フレーズ "2×4=8 を 九九で よむと？" */
+    var wrongPhrases=[];
+    /* 同じ段の他、または近い値の他段 */
+    KUKU[dan].forEach(function(p){if(p!==phrase&&wrongPhrases.indexOf(p)<0)wrongPhrases.push(p);});
+    if(wrongPhrases.length<3){
+      dans.filter(function(d){return d!==dan;}).slice(0,3).forEach(function(od){ KUKU[od].forEach(function(p){if(wrongPhrases.indexOf(p)<0)wrongPhrases.push(p);}); });
+    }
+    wrongPhrases=shuffle(wrongPhrases).slice(0,3);
+    return {cat:"kukuyomi",kind:"choice",text:dan+'×'+b+'='+fullVal+' を 九九で よむと？',say:null,ans:phrase,choices:shuffle([phrase].concat(wrongPhrases))};
+  }
+  /* D: フレーズの次は？「にさんがろく の つぎは？」→「にしがはち」(b+1の同じ段) */
+  if(b>=9){ /* 9の次がないので別パターンに振り替え */
+    var distractors2=[];
+    while(distractors2.length<3){
+      var dv2=fullVal+(ri(0,1)?ri(1,10):-ri(1,Math.min(fullVal-1,10)));
+      if(dv2>0&&dv2!==fullVal&&distractors2.indexOf(dv2)<0)distractors2.push(dv2);
+    }
+    return {cat:"kukuyomi",kind:"choice",text:'「'+phrase+'」 は いくつ？',say:null,ans:fullVal,choices:shuffle([fullVal].concat(distractors2))};
+  }
+  var nextPhrase=KUKU[dan][b];
+  var wrongs=[];
+  KUKU[dan].forEach(function(p){if(p!==nextPhrase&&p!==phrase&&wrongs.indexOf(p)<0)wrongs.push(p);});
+  wrongs=shuffle(wrongs).slice(0,3);
+  return {cat:"kukuyomi",kind:"choice",text:'「'+phrase+'」 の つぎは？',say:null,ans:nextPhrase,choices:shuffle([nextPhrase].concat(wrongs))};
 }
 function gNoudo(lv){
   if(lv==null)lv=ri(1,10);
@@ -3652,6 +3754,7 @@ function genBy(cat,p,lv){
   if(cat==="hissan")return gHissan(p,lv);
   if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p,null,lv);
+  if(cat==="kukuyomi")return gKukuYomi(lv);
   if(cat==="anzan")return gAnzan(lv);
   if(cat==="mix")return gMix(lv);
   if(cat==="kufuu")return gKufuu(lv);
