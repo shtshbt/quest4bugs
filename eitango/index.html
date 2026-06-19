@@ -942,7 +942,9 @@ function showProfiles(){
   $('#modal').classList.add('show');
 }
 function closeModal(){ $('#modal').classList.remove('show'); $('#modal').innerHTML=''; window.__cn=null; }
-function zukanDetailHTML(html){ return `<div style="background:#fbf7e8;color:#2b2417;border-radius:20px;padding:6px 4px;text-align:center">${html}</div>`; }
+function zukanDetailHTML(html){
+  return `<div style="--card:#fbf7e8;--ink:#2b2417;--sub:#6f6450;--amber2:#b97c08;background:#fbf7e8;color:#2b2417;border-radius:20px;padding:6px 4px;text-align:center">${html}</div>`;
+}
 
 /* ---------------- HOME (map) ---------------- */
 function scrHome(){

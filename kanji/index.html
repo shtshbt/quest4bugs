@@ -367,7 +367,9 @@ function fbShow(ok){ $('fbIc').textContent=ok?'⭕':'❌'; $('fb').classList.add
 function modal(html){ $('modalIn').innerHTML=html; $('modal').classList.add('on') }
 function closeModal(){ $('modal').classList.remove('on') }
 $('modal').addEventListener('click',function(e){ if(e.target.id==='modal')closeModal() });
-function zukanDetailHTML(html){ return '<div class="center" style="background:#fffdf6;color:#2e5d28;border-radius:16px;padding:6px 2px">' + html + '</div>'; }
+function zukanDetailHTML(html){
+ return '<div class="center" style="--forest:#2e5d28;--deep:#1d3d19;--soil:#7a4a23;--card:#ffffff;--egg:#e3ddcb;background:#fffdf6;color:#2e5d28;border-radius:16px;padding:6px 2px">' + html + '</div>';
+}
 
 function nameOf(id){ for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)return PROFILES[i].name; return id }
 function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textContent=CUR.emoji+' '+CUR.name;

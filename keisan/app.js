@@ -519,7 +519,9 @@ function showMasterCelebrationK(list){ var sp=list[0];
   +(list.length>1?'<div class="note">ほかにも '+(list.length-1)+'匹！</div>':"");
  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard center">'+zukanDetailHTMLK(inner+'<button class="btn" style="margin-top:12px" onclick="closeMd()">やったー！</button>')+'</div></div>');
 }
-function zukanDetailHTMLK(html){ return '<div style="background:#FFFDF4;color:#2A3D2C;border-radius:18px;padding:6px 4px;text-align:center">'+html+'</div>'; }
+function zukanDetailHTMLK(html){
+  return '<div style="--ink:#2A3D2C;--sub:#5B6B4F;--green-l:#E2EFCB;--amber-d:#CF7F14;background:#FFFDF4;color:#2A3D2C;border-radius:18px;padding:6px 4px;text-align:center">'+html+'</div>';
+}
 function keisanMasterSection(){
  if(!window.Q4BReward||!Q4BReward.masterBugsFor)return "";
  var p=P(); var ms=Q4BReward.masterBugsFor("keisan"); if(!ms.length)return "";
