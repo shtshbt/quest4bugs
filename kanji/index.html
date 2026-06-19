@@ -168,7 +168,7 @@ input[type=range]{width:100%}
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
 <script src="../shared/storage.js?v=0.4.17"></script>
-<script src="../shared/bugs.js?v=0.4.7"></script>
+<script src="../shared/bugs.js?v=0.4.8"></script>
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
@@ -250,15 +250,34 @@ function pad2(n){return (n<10?'0':'')+n}
 function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
 function addDays(ds,n){var p=ds.split('-');var d=new Date(+p[0],+p[1]-1,+p[2]+n);return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
+var BUG_Q="",BUG_R="",BUG_C="";
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
 function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
 function unOK(part){ return CFG.all ? true : !!ST.un[part] }
 function saveST(){ QuestSave.save('kanji',CUR.id,ST) }
 function saveCFG(){ QuestSave.save('kanji','_settings',CFG) }
+function bugSearchText(sp){return [sp.id,sp.jaName,sp.scientificName,sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' ').toLowerCase()}
+function bugClassKey(sp){return sp.familyJa||sp.orderJa||sp.groupJa||''}
+function bugClassOptions(list){
+ var seen={},out=[];
+ list.forEach(function(sp){var k=bugClassKey(sp);if(k&&!seen[k]){seen[k]=1;out.push(k)}});
+ return out.sort(function(a,b){return a.localeCompare(b,'ja')});
+}
+function bugMatch(sp){
+ var q=(BUG_Q||'').trim().toLowerCase();
+ if(BUG_R!==''&&String(Q4BReward.tierOf(sp))!==String(BUG_R))return false;
+ if(BUG_C!==''&&bugClassKey(sp)!==BUG_C)return false;
+ if(q&&bugSearchText(sp).indexOf(q)<0)return false;
+ return true;
+}
+function setBugQ(v){BUG_Q=v||'';renderBugs();setTimeout(function(){var e=$('bugQ');if(e){e.focus();if(e.setSelectionRange)e.setSelectionRange(e.value.length,e.value.length)}},0)}
+function setBugR(v){BUG_R=(BUG_R===String(v))?'':String(v);renderBugs()}
+function setBugC(v){BUG_C=v||'';renderBugs()}
 
 /* ================= SRS ================= */
 var INT=[0,1,3,7,21,60];
@@ -956,7 +975,7 @@ function openKanjiMasterBug(spId){
   inner='<div style="width:112px;height:112px;margin:0 auto">'+Q4BReward.svg(sp,0)+'</div>'
    +'<div style="font-weight:bold;font-size:16px;color:#2e5d28">'+esc(sp.jaName)+' 🎓</div>'
    +(sp.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+esc(sp.scientificName)+'</div>':'')
-   +(sp.familyJa?'<div style="font-size:12px;color:#56714e">'+esc(sp.familyJa)+'</div>':'')
+   +([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).length?'<div style="font-size:12px;color:#56714e">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</div>':'')
    +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[tier]+'　'+esc(label)+' マスター</div>'
    +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught+'</b>　（この虫の範囲: '+sz[0]+'〜'+sz[1]+'mm）</div>'
    +(sp.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+esc(sp.note)+'</div>':'');
@@ -1173,6 +1192,8 @@ function renderBugs(){
   var ta=Q4BReward.tierOf(a), tb=Q4BReward.tierOf(b);
   return ta!==tb ? tb-ta : a.id<b.id?-1:1;
  });
+ var classOpts=bugClassOptions(sorted);
+ var filtered=sorted.filter(bugMatch);
  var cnt=Q4BReward.collectedCount(ST.coll);
  var total=Q4BReward.poolCount('kanji');
  var rankName=Q4BReward.rank(ST.coll.total||0);
@@ -1189,8 +1210,20 @@ function renderBugs(){
   +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">📖 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
+  +'<input id="bugQ" value="'+escAttr(BUG_Q)+'" oninput="setBugQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--forest);border-radius:12px;font:inherit;margin-bottom:8px">'
+  +'<label class="small" style="display:block;font-weight:bold;margin-bottom:8px">分類 '
+  +'<select onchange="setBugC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--forest);border-radius:10px;font:inherit;background:var(--card);color:var(--deep)">'
+  +'<option value="">ぜんぶの科</option>'
+  +classOpts.map(function(k){return '<option value="'+escAttr(k)+'"'+(BUG_C===k?' selected':'')+'>'+esc(k)+'</option>'}).join('')
+  +'</select></label>'
+  +'<div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:bold;margin-bottom:8px">'
+  +[['','ぜんぶ'],['4','でんせつ'],['3','ウルトラ'],['2','スーパー'],['1','レア'],['0','ノーマル']].map(function(x){
+    var on=String(BUG_R)===String(x[0])||(x[0]===''&&BUG_R==='');
+    return '<button class="chip" style="cursor:pointer;'+(on?'background:var(--forest);color:#fff':'')+'" onclick="setBugR(\''+x[0]+'\')">'+x[1]+'</button>';
+  }).join('')
+  +'<span class="small" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div>'
   +'<div class="bugs">';
- sorted.forEach(function(sp){
+ filtered.forEach(function(sp){
   var entry=ST.coll.catches[sp.id];
   var tierLabel=Q4BReward.TIERNAME[Q4BReward.tierOf(sp)];
   if(entry){
@@ -1212,7 +1245,7 @@ function renderBugs(){
     +'</div>';
   }
  });
- h+='</div></div>';
+ h+=(filtered.length?'':'<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>')+'</div></div>';
  s.innerHTML=h;
  // タップで詳細モーダル
  s.querySelectorAll('.bug[data-spid]').forEach(function(el){
@@ -1238,7 +1271,7 @@ function renderBugs(){
    var mh=zukanDetailHTML(forms2
     +'<div style="font-weight:bold;font-size:16px;color:#2e5d28">'+(sp2.jaName||sp2.id)+shinyBadge+'</div>'
     +(sp2.scientificName?'<div style="font-size:12px;color:#888;font-style:italic">'+sp2.scientificName+'</div>':'')
-    +(sp2.familyJa?'<div style="font-size:12px;color:#56714e">'+sp2.familyJa+'</div>':'')
+    +([sp2.orderJa,sp2.familyJa,sp2.groupJa].filter(Boolean).length?'<div style="font-size:12px;color:#56714e">'+esc([sp2.orderJa,sp2.familyJa,sp2.groupJa].filter(Boolean).join(' / '))+'</div>':'')
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')

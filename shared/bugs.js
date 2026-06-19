@@ -3,6 +3,15 @@
 
   var RARITY_LEVEL={N:0,R:1,SR:2,SSR:3,SS:4};
   var RARITY_LABELS=["ノーマル","レア","スーパーレア","ウルトラレア","スペシャル"];
+  var ORDER_JA={
+    Lepidoptera:"チョウ目", Coleoptera:"コウチュウ目", Odonata:"トンボ目",
+    Hemiptera:"カメムシ目（半翅目）", Hymenoptera:"ハチ目", Orthoptera:"バッタ目（直翅目）",
+    Diptera:"ハエ目", Mantodea:"カマキリ目", Neuroptera:"アミメカゲロウ目",
+    Phasmatodea:"ナナフシ目", Megaloptera:"ヘビトンボ目", Trichoptera:"トビケラ目",
+    Isopoda:"ワラジムシ目", Araneae:"クモ目", Scorpiones:"サソリ目",
+    Scolopendromorpha:"オオムカデ目", Scutigeromorpha:"ゲジ目", Squamata:"有鱗目",
+    Anura:"カエル目", Passeriformes:"スズメ目"
+  };
 
   var LEP_MOTH_FAMS={Sphingidae:1,Saturniidae:1,Bombycidae:1,Limacodidae:1,Erebidae:1,Noctuidae:1,Geometridae:1,Arctiidae:1,Lasiocampidae:1,Epicopeiidae:1,Tortricidae:1,Zygaenidae:1,Notodontidae:1,Lymantriidae:1,Cossidae:1,Sesiidae:1};
   /* refine the butterfly/moth silhouette from family so 200+ Lepidoptera are not all one shape */
@@ -36,6 +45,7 @@
       scientificName:o.scientificName||"",
       taxonRank:o.taxonRank||"species",
       order:o.order||"",
+      orderJa:ORDER_JA[o.order]||"",
       family:o.family||"",
       subfamily:o.subfamily||"",
       tribe:o.tribe||"",
