@@ -57,6 +57,7 @@
   .ps-row .meta{font-size:11px;color:#777;margin-top:1px}
   .ps-row .ctrl{display:flex;gap:3px;flex:none}
   .ps-row .ctrl button{border:1px solid var(--line);background:#f4f7ec;border-radius:7px;font-weight:800;font-size:14px;width:30px;height:30px;cursor:pointer;color:#3a5a2a}
+  .ps-row .ctrl .ps-equip-btn{width:auto;min-width:45px;font-size:11px;background:#fff8e6;color:#6b4b12;border-color:#D8C892;padding:5px 7px}
   .ps-row .ctrl button:disabled{opacity:.3}
   .ps-row .ctrl .rm{color:#b3261e}
   .ps-empty{border:2px dashed #bcd09a;border-radius:10px;padding:9px;text-align:center;color:#aab98a;font-size:12px}
@@ -69,6 +70,20 @@
   .psf.on{background:#3a7d6a;color:#fff;border-color:#3a7d6a}
   .pool .pcell .chk{position:absolute;top:2px;right:4px;font-size:13px;display:none}
   .pool .pcell.sel .chk{display:block}
+  .ps-equip-note{margin:6px 0 0;background:#fff8e6;border:1px solid #E8B23A;border-radius:10px;padding:6px 8px;font-size:11px;font-weight:800;color:#6b4b12;line-height:1.35}
+  .ps-equip-btn{border:1px solid #D8C892;background:#fff8e6;color:#6b4b12;border-radius:8px;font-weight:900;font-size:11px;padding:5px 7px;cursor:pointer}
+  .party-equip-ov{position:fixed;inset:0;background:rgba(22,30,20,.56);display:flex;align-items:center;justify-content:center;z-index:260;padding:16px}
+  .party-equip-card{background:#fffdf5;border:2px solid var(--line);border-radius:16px;max-width:430px;width:94%;max-height:86vh;overflow:auto;padding:12px;box-shadow:0 14px 36px rgba(0,0,0,.28)}
+  .party-equip-card h3{font-size:16px;margin:0 0 3px;text-align:center}
+  .party-equip-card .sub{text-align:center;font-size:12px;color:#5e6b46;font-weight:800;margin-bottom:8px}
+  .eq-slot-block{border:1px solid #D8C892;border-radius:12px;background:#FFFCF3;padding:8px;margin-top:8px}
+  .eq-slot-block h4{margin:0 0 5px;font-size:13px}
+  .eq-choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+  .eq-choice{border:1px solid #D8C892;border-radius:10px;background:#fff;text-align:center;padding:5px 4px;font-family:inherit;color:#243018;cursor:pointer;font-size:10px;font-weight:900;line-height:1.2}
+  .eq-choice.on{background:#F2FFE9;border-color:#76B65D}
+  .eq-choice svg{width:44px;height:44px;display:block;margin:0 auto 2px}
+  .tani-focus{animation:taniFocus 1.15s ease-in-out 3}
+  @keyframes taniFocus{0%,100%{filter:none;transform:none}50%{filter:brightness(1.14) saturate(1.15);transform:scale(1.02);box-shadow:0 0 0 6px rgba(255,216,122,.42)}}
 
   /* ===== ボス登攀タワー ===== */
   .tower-intro{font-size:12px;color:#5e6b46;margin:0 0 6px;text-align:center}
@@ -183,6 +198,10 @@
     min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;
     color:#fff;position:relative;overflow:hidden}
   .intro-scene.pred{background:radial-gradient(120% 90% at 50% 30%,#5a0a0a,#1a0606);animation:predShake .5s 2}
+  .intro-scene.exped{background:radial-gradient(120% 90% at 50% 28%,#23324a 0%,#171424 48%,#090814 100%);animation:expedRumble .62s 3}
+  .intro-scene.exped::before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(115deg,rgba(176,210,235,.10) 0 2px,transparent 2px 12px);opacity:.55;animation:expedFog 2.4s linear infinite}
+  @keyframes expedFog{from{transform:translateX(-24px)}to{transform:translateX(24px)}}
+  @keyframes expedRumble{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
   @keyframes predShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
   .intro-art{width:150px;height:150px;animation:introZoom .7s cubic-bezier(.2,1.4,.5,1)}
   @keyframes introZoom{0%{opacity:0;transform:scale(.25) rotate(-12deg)}70%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
@@ -328,6 +347,68 @@ function equipmentBadgeHTML(sp){
   });
   return h?'<div class="eqmini">'+h+'</div>':"";
 }
+function ownedEquipmentItems(){
+  if(!window.Q4BEquipment||!window.QuestSave||!QuestSave.goshinOf||!PROF) return [];
+  var g=QuestSave.goshinOf(PROF), owned=(g.equipment&&g.equipment.owned)||{};
+  return (Q4BEquipment.items||[]).filter(function(item){return !!owned[item.id];});
+}
+function openPartyEquip(speciesId){
+  if(!window.Q4BEquipment||!window.QuestSave||!QuestSave.equipItem){ alert("そうびデータを 読み込めませんでした"); return; }
+  var sp=byId[speciesId]; if(!sp)return;
+  var items=ownedEquipmentItems();
+  var eq=equippedFor(speciesId), slots=[
+    {id:"attack",label:"こうげき",icon:"⚔"},
+    {id:"defense",label:"ぼうぎょ",icon:"🛡"},
+    {id:"hp",label:"HP",icon:"❤"}
+  ];
+  function slotHTML(slot){
+    var cur=eq[slot.id], curItem=cur&&Q4BEquipment.byId[cur];
+    var choices=items.filter(function(item){return item.slot===slot.id;});
+    if(slot.id==="hp"&&sp.rarity==="SS") return '<div class="eq-slot-block"><h4>'+slot.icon+' '+slot.label+'</h4><p class="note" style="margin:0">でんせつの虫には HPパーツを つけられないよ。</p></div>';
+    var h='<div class="eq-slot-block"><h4>'+slot.icon+' '+slot.label+' <span class="note">'+(curItem?esc(curItem.name):'なし')+'</span></h4>';
+    if(!choices.length){
+      h+='<p class="note" style="margin:0">この種類のパーツは まだ復元していないよ。</p>';
+    }else{
+      h+='<div class="eq-choice-grid">'+choices.map(function(item){
+        return '<button class="eq-choice '+(cur===item.id?'on':'')+'" onclick="setPartyEquip(\''+item.id+'\',\''+speciesId+'\',\''+sp.rarity+'\')" type="button">'
+          +Q4BEquipment.svg(item.id)+'<span>'+esc(item.name)+'</span><br><span class="note">'+esc(item.effect)+'</span></button>';
+      }).join("")+'</div>';
+      if(curItem) h+='<button class="btn sm" style="margin:7px 0 0;width:100%" onclick="clearPartyEquip(\''+curItem.id+'\',\''+speciesId+'\')">このパーツを はずす</button>';
+    }
+    return h+'</div>';
+  }
+  var ov=document.createElement("div");
+  ov.id="partyEquipOv";
+  ov.className="party-equip-ov";
+  ov.onclick=function(e){if(e.target===ov)closePartyEquip();};
+  ov.innerHTML='<div class="party-equip-card">'
+    +'<h3>そうびを かえる</h3>'
+    +'<div class="sub">'+esc(sp.jaName)+'　'+equipmentBadgeHTML(sp)+'</div>'
+    +'<div class="ps-equip-note">そうびの効果は <b>かせきのたに</b> の遠征でだけ はたらくよ。ふつうのボス戦では 効果なし。</div>'
+    +(items.length?slots.map(slotHTML).join(""):'<p class="note" style="text-align:center">復元ずみの かせきパーツが まだありません。</p>')
+    +'<button class="btn" style="margin:10px 0 0;background:#9aa896" onclick="closePartyEquip()">とじる</button>'
+    +'</div>';
+  closePartyEquip();
+  document.body.appendChild(ov);
+}
+function closePartyEquip(){
+  var ov=document.getElementById("partyEquipOv");
+  if(ov)ov.remove();
+}
+function setPartyEquip(itemId,speciesId,rarity){
+  var r=QuestSave.equipItem(PROF,itemId,speciesId,rarity);
+  if(!r.ok){alert("そうびできませんでした: "+(r.error||"unknown"));return;}
+  closePartyEquip();
+  renderPSelect();
+  openPartyEquip(speciesId);
+}
+function clearPartyEquip(itemId,speciesId){
+  var r=QuestSave.unequipItem(PROF,itemId);
+  if(!r.ok){alert("はずせませんでした: "+(r.error||"unknown"));return;}
+  closePartyEquip();
+  renderPSelect();
+  openPartyEquip(speciesId);
+}
 function effectiveBugHP(sp){
   var base=B.bugHP(sp.rarity);
   if(!EXPED) return base;
@@ -402,7 +483,8 @@ function startTani(tierN){
   var layer=TANI_LAYERS[tierN-1]; if(!layer) return;
   if(PARTY.length<6){ alert("かせきのたに は 6匹パーティで ちょうせんするよ。さきに ✏️へんせい で 6匹えらんでね！"); return; }
   if(!taniLayerUnlocked(layer)){ alert("まだ ちょうせんできません"); return; }
-  TANI.active=true; TANI.tier=tierN; TANI.idx=0;
+  closeTani();
+  TANI.active=true; TANI.tier=tierN; TANI.idx=0; TANI.partyHpKeep=null;
   TANI.order=B.roster.filter(function(r){return r.stage>=layer.lo&&r.stage<=layer.hi;})
     .sort(function(a,b){return a.stage-b.stage;});
   EXPED=true;
@@ -429,29 +511,53 @@ function taniStartCurrent(){
 }
 function taniBreath(){
   /* いにしえの息吹: 生存者の最大HPの+20%回復 */
-  var any=false;
+  var any=false, healed=0, members=0;
   for(var i=0;i<st.party.length;i++){
     var m=st.party[i];
     if(m.hp>0){
       var heal=Math.ceil(m.max*0.2);
       var before=m.hp;
       m.hp=Math.min(m.max, m.hp+heal);
-      if(m.hp>before) any=true;
+      if(m.hp>before){ any=true; healed+=m.hp-before; members++; }
     }
   }
   if(any){
-    traitFx("✨","かせきパーツが ひかっている！ ちからが わいてきた！");
     drawBench();
     setHp("me",st.party[st.idx].hp,st.party[st.idx].max);
   }
+  return {any:any,healed:healed,members:members};
+}
+function showTaniHealNotice(info,next){
+  var ov=document.createElement("div");
+  ov.id="taniHealOv";
+  ov.style.cssText="position:fixed;inset:0;background:rgba(8,10,18,.70);z-index:270;display:flex;align-items:center;justify-content:center;padding:18px";
+  ov.innerHTML='<div style="background:radial-gradient(120% 100% at 50% 0%,#2f3758,#161628);border:2px solid #9ED0E6;border-radius:18px;max-width:330px;width:92%;padding:18px;text-align:center;color:#f3fbff;box-shadow:0 16px 42px rgba(0,0,0,.45)">'
+    +'<div style="font-size:42px;line-height:1;filter:drop-shadow(0 0 12px #9ED0E6)">✨</div>'
+    +'<h3 style="margin:6px 0 6px;color:#DDF6FF">いにしえの息吹！</h3>'
+    +'<p style="font-size:14px;line-height:1.55;margin:0 0 12px;font-weight:800">かせきパーツが ひかっている！<br>なかま '+info.members+'匹の HPが あわせて '+info.healed+' かいふくした。</p>'
+    +'<button class="btn" style="margin:0;background:#3D7AB8" onclick="closeTaniHealNotice()">つぎへ</button>'
+    +'</div>';
+  window.__q4bTaniHealNext=next;
+  document.body.appendChild(ov);
+}
+function closeTaniHealNotice(){
+  var ov=document.getElementById("taniHealOv");
+  if(ov)ov.remove();
+  var next=window.__q4bTaniHealNext;
+  window.__q4bTaniHealNext=null;
+  if(typeof next==="function")next();
 }
 function taniContinue(){
   /* 次のボスに進む or クリア */
+  var heal=taniBreath();
   TANI.partyHpKeep=st.party.map(function(m){return m.hp;});
-  taniBreath();
   TANI.idx++;
-  if(TANI.idx>=TANI.order.length){ taniWin(); return; }
-  setTimeout(taniStartCurrent, 1600);
+  function proceed(){
+    if(TANI.idx>=TANI.order.length){ taniWin(); return; }
+    taniStartCurrent();
+  }
+  if(heal.any) showTaniHealNotice(heal,proceed);
+  else setTimeout(proceed,600);
 }
 function taniWin(){
   EXPED=false;
@@ -853,6 +959,7 @@ function renderPSelect(){
       +'<div class="info"><div class="nm">'+s.jaName+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
       +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+B.bugHP(s.rarity)+equipmentBadgeHTML(s)+'</div></div>'
       +'<div class="ctrl">'
+      +'<button class="ps-equip-btn" onclick="openPartyEquip(\''+s.id+'\')">そうび</button>'
       +'<button onclick="moveSlot('+i+',-1)"'+(i===0?' disabled':'')+'>▲</button>'
       +'<button onclick="moveSlot('+i+',1)"'+(i===SEL.length-1?' disabled':'')+'>▼</button>'
       +'<button class="rm" onclick="pickToggle(\''+s.id+'\')">×</button></div></div>';
@@ -873,6 +980,7 @@ function renderPSelect(){
     +'<div class="ps-head"><h1>✏️ パーティへんせい</h1><span class="ps-count">'+SEL.length+'/6</span></div>'
     +'<p class="note">なかまを タップで えらぶ（さいだい6体・同じ虫は1匹まで）。昆虫ボスは <b>せんとう3匹</b>、天敵は <b>6匹</b>で たたかう。さきの3匹に 弱点タイプを 入れておこう！</p>'
     +'<div class="card"><div class="ps-order-h">⚔️ でてくる じゅんばん（▲▼でいれかえ・１が せんとう）</div>'
+    +'<div class="ps-equip-note">そうびはここでも かえられるよ。効果が出るのは <b>かせきのたに</b> の遠征だけ。</div>'
     +'<div class="ps-sel">'+slots+'</div>'
     +'<div class="attz"><span>🟣 かんじ '+cnt.kanji+'</span><span>🔵 けいさん '+cnt.keisan+'</span><span>🟢 えいご '+cnt.eitango+'</span></div></div>'
     +'<div class="card"><div class="sec-t">📦 もっている虫</div>'
@@ -1211,6 +1319,13 @@ function renderHome(){
     tw.appendChild(band);
   });
 }
+function focusTaniEntry(){
+  var btn=document.getElementById("taniEntryBtn");
+  if(!btn||btn.style.display==="none")return;
+  btn.scrollIntoView({behavior:"smooth",block:"center"});
+  btn.classList.remove("tani-focus");
+  setTimeout(function(){btn.classList.add("tani-focus");},30);
+}
 
 /* ================= バトル ================= */
 var st=null;
@@ -1250,16 +1365,19 @@ function startBattle(r){
   document.getElementById("home").style.display="none";
   var bt=document.getElementById("battle"); bt.style.display="block";
   // ---- 登場エフェクト ----
-  var pred=r.predator, fin=r.final;
-  var tag = fin ? '<div class="intro-tag">👑 おうじゃ 👑</div>'
+  var pred=r.predator, fin=r.final, exped=TANI.active;
+  var tag = exped ? '<div class="intro-tag">🦴 かせきのたに '+(TANI.idx+1)+' / '+TANI.order.length+'</div>'
+          : fin ? '<div class="intro-tag">👑 おうじゃ 👑</div>'
           : pred ? '<div class="intro-tag">⚠️ 天敵 ⚠️</div>' : '';
-  var msg = pred ? (fin?'おうじゃ '+boss.jaName+'が たちはだかる！！':'天敵 '+boss.jaName+'が おそってきた！！')
+  var msg = exped ? boss.jaName+'たちが ととうをくんで おそってきた！'
+          : pred ? (fin?'おうじゃ '+boss.jaName+'が たちはだかる！！':'天敵 '+boss.jaName+'が おそってきた！！')
                  : boss.jaName+'が あらわれた！';
-  bt.innerHTML='<div class="intro-scene'+(pred?' pred':'')+'">'
-    +(pred?'<div class="intro-flash"></div>':'')
+  bt.innerHTML='<div class="intro-scene'+(exped?' exped':(pred?' pred':''))+'">'
+    +(pred||exped?'<div class="intro-flash"></div>':'')
     +tag
     +'<div class="intro-art">'+R.deco(boss,false)+'</div>'
-    +'<div class="intro-text'+(pred?' pred':'')+'">'+msg+'</div>'
+    +'<div class="intro-text'+(pred||exped?' pred':'')+'">'+msg+'</div>'
+    +(exped?'<div class="intro-trait">太古の気配が うずまく… HPを引きついで 5れんせんに いどむ！</div>':'')
     +st.traits.map(function(t){return '<div class="intro-trait">'+t.icon+' とくせい「'+t.name+'」：'+t.desc+'</div>';}).join('')
     +'</div>';
   setTimeout(function(){
@@ -1276,7 +1394,7 @@ function startBattle(r){
     } else {
       st.phase="attack"; nextQuestion();
     }
-  }, pred?1900:1400);
+  }, exped?2300:(pred?1900:1400));
 }
 function beginDefense(){ st.phase="defense"; st.defReps=hasTr("renzoku")?2:1; st.defDone=0; }
 function activeM(){ return st.party[st.idx]; }
@@ -1478,7 +1596,7 @@ function quitBattle(){
   .then(loadAll).then(function(){
   if(!PROF){ document.getElementById("home").innerHTML='<div class="card" style="text-align:center;margin-top:20px"><p>まずは ポータルで プロフィールを えらんでね。</p><a class="btn" href="./index.html" style="display:inline-block;text-decoration:none;margin-top:8px">← ポータルへ</a></div>'; return; }
   renderHome();
-  if(location.hash==="#tani"&&taniDiscovered()) setTimeout(showTani,80);
+  if(location.hash==="#tani"&&taniDiscovered()) setTimeout(focusTaniEntry,120);
 }).catch(function(e){ renderHome(); });
 </script>
 </body>
