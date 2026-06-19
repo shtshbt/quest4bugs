@@ -567,10 +567,31 @@ var K10_CATS=["mix","kufuu","deci","frac","sougou","warizan","wasa","jikan","kak
   "ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];
 /* 漢字: 合格学年テスト(80点)数 / 目標学年（ひらがな=0.5学年扱い） */
 function reachKanji(ks,age){
+  /* 案A(2026-06-19): テスト合格だけだと「合格1回でreach+1.82」と他教科より爆ジャンプし、
+     かんじだけ階段的に上がってバランス悪かった。学年内のSRS進捗(よみbox>=3)を加味して
+     合格までの間も連続的に reach が伸びるよう変更。テストは「節目で大きめジャンプ」を保つ。
+     既存合格者の reach は不変 or 微増（退行ゼロを試算で確認済み）。 */
   var tests=(ks&&ks.tests)||[];
   function passed(id){ for(var i=0;i<tests.length;i++) if(tests[i].t===id&&(tests[i].sc||0)>=80) return true; return false; }
-  var pg=0,g; for(g=1;g<=6;g++) if(passed('t_u'+g)) pg++;
-  var kg=(passed('t_hira')?0.5:0)+pg;
+  /* 各学年のよみ習得数を集計（kanji_data.js 由来の Q4B_KANJI を学年分母として使う） */
+  var KANJI=window.Q4B_KANJI||[], srs=(ks&&ks.srs)||{};
+  var gradeTotal={}, gradeLearned={}, hiraLearned=0, key, sk, g;
+  for(var i=0;i<KANJI.length;i++){ var k=KANJI[i]; if(k.u>0){ gradeTotal[k.u]=(gradeTotal[k.u]||0)+1; } }
+  for(key in srs){ sk=srs[key]; if(!sk)continue;
+    var y=sk.y; if(!y||(y.s||0)<3) continue;  /* よみ box>=3 を「習得」 */
+    if(key.charAt(0)==='h') hiraLearned++;
+    else if(key.charAt(0)==='k'){
+      var x=null; for(var j=0;j<KANJI.length;j++)if(KANJI[j].k===key.slice(2)){x=KANJI[j];break;}
+      if(x&&x.u>0) gradeLearned[x.u]=(gradeLearned[x.u]||0)+1;
+    }
+  }
+  /* kg計算: ひらがな(0.5重み)＋各学年(1.0重み)、合格してれば満点、未合格でも SRS進捗ぶん部分点 */
+  var kg=0;
+  if(passed('t_hira')) kg+=0.5; else kg+=0.5 * Math.min(1, hiraLearned/46);
+  for(g=1;g<=6;g++){
+    if(passed('t_u'+g)) kg+=1.0;
+    else if(gradeTotal[g]>0) kg+=Math.min(1, (gradeLearned[g]||0)/gradeTotal[g]);
+  }
   return 10*Math.min(1, kg/(expGrade(age)+0.5));
 }
 /* 英語: srs key prefix でフィールド分類→習得率(box>=3が総語の20%)で「到達」→連続到達数 / 目標フィールド数 */
