@@ -507,6 +507,23 @@
     schedulePush();
     return {ok:true,added:n,state:clone(r.entry.data)};
   }
+  /* しずく取得通知を「見た」マーク。同日2回目以降の通知を全端末で抑制する。
+     localStorage のみの旧抑制は端末別だった→ プロフィールデータに保存して同期。 */
+  function markDropSeen(pid,date){
+    if(!pid)return {ok:false};
+    date=date||todayKey();
+    var r=rewardEntry(pid);
+    var data=normalizeRewardData(r.entry.data,todayKey());
+    if(data.log[date]){
+      if(data.log[date].dropSeen) return {ok:true,already:true};
+      data.log[date].dropSeen=true;
+      r.entry.updated=now();
+      r.entry.data=normalizeRewardData(data,todayKey());
+      persist();
+      schedulePush();
+    }
+    return {ok:true};
+  }
   function spendAwakeningDrops(pid,n){
     var r, data;
     if(!pid)return {ok:false,error:"missing profile"};
@@ -777,7 +794,7 @@
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
-    spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments,
+    spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments, markDropSeen:markDropSeen,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,

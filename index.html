@@ -305,7 +305,7 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.16"></script>
+<script src="./shared/storage.js?v=0.4.17"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
@@ -734,8 +734,13 @@ function maybeShowDropAnnouncement(pid,g){
   if(!pid||!g||!g.log)return;
   var date=todayKey(), day=g.log[date];
   if(!day||!day.drop)return;
-  var key="q4b_drop_seen_"+pid+"_"+date;
-  try{ if(localStorage.getItem(key)==="1")return; localStorage.setItem(key,"1"); }catch(e){}
+  /* 通知済みフラグはプロフィールデータに保存（全端末で同期）。
+     旧版は localStorage で端末別だったため iPad/PC で各1回ずつ表示される問題があった。 */
+  if(day.dropSeen) return;
+  /* 既存localStorageも併用（直近セッション中の冗長表示を抑制） */
+  try{ var key="q4b_drop_seen_"+pid+"_"+date; if(localStorage.getItem(key)==="1")return; localStorage.setItem(key,"1"); }catch(e){}
+  /* データ層にも記録 */
+  if(window.QuestSave&&QuestSave.markDropSeen) QuestSave.markDropSeen(pid,date);
   var ov=document.createElement("div");
   ov.id="dropAwardOv";
   ov.style.cssText="position:fixed;inset:0;background:rgba(28,52,62,.38);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px";
