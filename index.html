@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.33">
+<meta name="q4b-release" content="0.4.34">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -553,6 +553,7 @@ function openEquipmentCard(id){
   ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
   ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
   ov.innerHTML=h;
+  closeEquipmentModal();
   document.body.appendChild(ov);
 }
 /* ===== 装備割り当てピッカー: 所有虫から選んで装着 ===== */
@@ -637,19 +638,40 @@ function equipItemUi(itemId,speciesId,rarity){
   var pid=QuestSave.currentProfile();
   var r=QuestSave.equipItem(pid,itemId,speciesId,rarity);
   if(!r.ok){alert("そうびできませんでした: "+(r.error||"unknown"));return;}
-  closeEquipmentModal();
-  renderProfiles();
+  showEquipDoneModal(itemId,speciesId,"そうびしました");
 }
 function unequipUi(itemId){
   var pid=QuestSave.currentProfile();
   var r=QuestSave.unequipItem(pid,itemId);
   if(!r.ok){alert("はずせませんでした: "+(r.error||"unknown"));return;}
-  closeEquipmentModal();
-  renderProfiles();
+  showEquipDoneModal(itemId,null,"はずしました");
+}
+function showEquipDoneModal(itemId,speciesId,title){
+  window.__q4bEquipDirty=true;
+  var item=window.Q4BEquipment&&Q4BEquipment.byId[itemId], sp=speciesId&&speciesById(speciesId);
+  var ov=document.getElementById("equipModal");
+  if(!ov){
+    ov=document.createElement("div");
+    ov.id="equipModal";
+    ov.style.cssText="position:fixed;inset:0;background:rgba(42,61,44,.48);display:flex;align-items:center;justify-content:center;z-index:250;padding:16px";
+    document.body.appendChild(ov);
+  }
+  ov.onclick=function(e){if(e.target===ov)closeEquipmentModal();};
+  ov.innerHTML='<div class="equip-modal-card">'
+    +'<div class="equip-modal-art">'+(item?Q4BEquipment.svg(itemId):'')+'</div>'
+    +'<h3>'+esc(title)+'</h3>'
+    +'<div class="sub">'+esc(item?item.name:'かせきパーツ')+(sp?' → '+esc(sp.jaName):'')+'</div>'
+    +'<p class="note" style="text-align:center;margin:6px 0 10px">OKをおすと そうびカードに もどるよ。</p>'
+    +'<button class="btn amber" style="margin:0;color:#fff" onclick="openEquipmentCard(\''+itemId+'\')">OK</button>'
+    +'</div>';
 }
 function closeEquipmentModal(){
   var ov=document.getElementById("equipModal");
   if(ov)ov.remove();
+  if(window.__q4bEquipDirty){
+    window.__q4bEquipDirty=false;
+    renderProfiles();
+  }
 }
 function restoreEquipmentUi(id){
   var pid=QuestSave.currentProfile();
@@ -928,9 +950,10 @@ function renderProfiles(){
     var h="";
     ps.forEach(function(p){
       var on=p.id===cur;
+      var birth=p.birth?(' <span style="font-size:12px;opacity:.78">🎂 '+esc(p.birth.replace("-","/"))+'</span>'):'';
       h+='<div class="g2" style="grid-template-columns:1fr auto;margin:6px 0">'
         +'<button class="btn sm" style="text-align:left;'+(on?"background:var(--green);color:#fff;box-shadow:0 3px 0 var(--green-d)":"")+'" onclick="pickProf(\''+p.id+'\')">'
-        +(on?"✓ ":"")+(p.icon||"🪲")+" "+esc(p.name)+'</button>'
+        +(on?"✓ ":"")+(p.icon||"🪲")+" "+esc(p.name)+birth+'</button>'
         +'<button class="btn sm" onclick="editProf(\''+p.id+'\')">…</button></div>';
     });
     $("profList").innerHTML=h;
@@ -1046,6 +1069,9 @@ function openProfEditor(id){
     var p=null,i; if(id)for(i=0;i<ps.length;i++)if(ps[i].id===id)p=ps[i];
     var selected=p?(p.icon||"🪲"):ICONS[0];
     var name=p?p.name:"";
+    var curBirth=(p&&p.birth)||"", curY=curBirth.split("-")[0], curM=+(curBirth.split("-")[1]||0), cy=new Date().getFullYear(), yopts='<option value="">----</option>', mopts='<option value="">--</option>', y,m;
+    for(y=cy-13;y<=cy-3;y++) yopts+='<option value="'+y+'"'+(String(y)===curY?" selected":"")+'>'+y+'年</option>';
+    for(m=1;m<=12;m++) mopts+='<option value="'+m+'"'+(m===curM?" selected":"")+'>'+m+'月</option>';
     function gridHTML(){
       return ICONS.map(function(ic){
         var on=ic===selected;
@@ -1056,6 +1082,10 @@ function openProfEditor(id){
       +'<h3 style="margin:0 0 10px">'+(p?"プロフィールの へんこう":"あたらしい こ")+'</h3>'
       +'<label class="note">なまえ</label>'
       +'<input id="peName" placeholder="なまえ" style="width:100%">'
+      +'<label class="note">うまれた つき（おうじゃのみちの目標に使う）</label>'
+      +'<div class="g2" style="grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">'
+      +'<select id="peBirthY" style="font-size:16px;padding:9px;border:2px solid var(--line);border-radius:10px;background:#fff;font-family:inherit">'+yopts+'</select>'
+      +'<select id="peBirthM" style="font-size:16px;padding:9px;border:2px solid var(--line);border-radius:10px;background:#fff;font-family:inherit">'+mopts+'</select></div>'
       +'<div class="note" style="margin:8px 0 4px">アイコン（タップで えらぶ）</div>'
       +'<div id="peGrid" style="display:flex;flex-wrap:wrap;gap:8px">'+gridHTML()+'</div>'
       +'<div class="g2" style="margin-top:16px"><button class="btn sm amber" style="color:#fff" id="peSave">ほぞん</button>'
@@ -1084,8 +1114,11 @@ function openProfEditor(id){
     $("peSave").onclick=function(){
       var nm=$("peName").value.trim();
       if(!nm){$("peName").focus();return;}
-      if(p)QuestSave.updateProfile(p.id,{name:nm,icon:selected});
-      else QuestSave.addProfile(nm,selected);
+      var by=$("peBirthY").value, bm=$("peBirthM").value;
+      if((by&&!bm)||(!by&&bm)){alert("うまれた年と月を 両方えらんでね");return;}
+      var birth=by?(by+"-"+(Number(bm)<10?"0"+Number(bm):bm)):"";
+      if(p)QuestSave.updateProfile(p.id,{name:nm,icon:selected,birth:birth});
+      else { var np=QuestSave.addProfile(nm,selected); if(birth)QuestSave.updateProfile(np.id,{birth:birth}); }
       close(); renderProfiles();
     };
     if(p)$("peDel").onclick=function(){

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>⚔️ ずかんバトル — Quest4Bugs</title>
+<title>⚔️ おうじゃのみち — Quest4Bugs</title>
 <style>
   :root{ --ink:#243018; --paper:#f3f7e9; --card:#fff; --line:#cdd9b6;
     --kanji:#7C3AED; --keisan:#2563EB; --eitango:#16A34A; --gauge:#E8B23A; }
@@ -237,7 +237,7 @@
 
   <!-- ===== ホーム ===== -->
   <div id="home">
-    <h1>⚔️ ずかんバトル</h1>
+    <h1>⚔️ おうじゃのみち</h1>
     <p class="note">あつめた虫でパーティを組んで、強敵ボスにいどもう。属性は虫の出身ゲームで決まるよ。</p>
 
     <div class="card">
@@ -268,8 +268,7 @@
     </div>
 
     <div class="card" id="goalCard">
-      <div class="sec-t">🎯 きみの とうたつど
-        <button class="mini-btn" onclick="openBirthModal()">🎂 うまれた つき</button></div>
+      <div class="sec-t">🎯 きみの とうたつど</div>
       <div id="reachBars"></div>
       <details style="margin-top:6px"><summary style="cursor:pointer;font-size:12px;color:#5a6a3a;font-weight:700">📖 解禁マップ（おうちのひと向け）</summary><div id="unlockMap" style="margin-top:6px;overflow-x:auto"></div></details>
     </div>
@@ -398,16 +397,32 @@ function closePartyEquip(){
 function setPartyEquip(itemId,speciesId,rarity){
   var r=QuestSave.equipItem(PROF,itemId,speciesId,rarity);
   if(!r.ok){alert("そうびできませんでした: "+(r.error||"unknown"));return;}
-  closePartyEquip();
   renderPSelect();
-  openPartyEquip(speciesId);
+  showPartyEquipDone(itemId,speciesId,"そうびしました");
 }
 function clearPartyEquip(itemId,speciesId){
   var r=QuestSave.unequipItem(PROF,itemId);
   if(!r.ok){alert("はずせませんでした: "+(r.error||"unknown"));return;}
-  closePartyEquip();
   renderPSelect();
-  openPartyEquip(speciesId);
+  showPartyEquipDone(itemId,speciesId,"はずしました");
+}
+function showPartyEquipDone(itemId,speciesId,title){
+  var item=window.Q4BEquipment&&Q4BEquipment.byId[itemId], sp=byId[speciesId];
+  var ov=document.getElementById("partyEquipOv");
+  if(!ov){
+    ov=document.createElement("div");
+    ov.id="partyEquipOv";
+    ov.className="party-equip-ov";
+    document.body.appendChild(ov);
+  }
+  ov.onclick=function(e){if(e.target===ov)closePartyEquip();};
+  ov.innerHTML='<div class="party-equip-card" style="text-align:center">'
+    +'<div style="width:72px;height:72px;margin:0 auto 6px">'+(item?Q4BEquipment.svg(itemId):'')+'</div>'
+    +'<h3>'+esc(title)+'</h3>'
+    +'<div class="sub">'+esc(item?item.name:'かせきパーツ')+(sp?' → '+esc(sp.jaName):'')+'</div>'
+    +'<p class="note" style="margin:6px 0 10px">OKをおすと この虫のそうび画面に もどるよ。</p>'
+    +'<button class="btn" style="margin:0;background:#3D7AB8" onclick="openPartyEquip(\''+speciesId+'\')">OK</button>'
+    +'</div>';
 }
 function effectiveBugHP(sp){
   var base=B.bugHP(sp.rarity);
@@ -506,7 +521,7 @@ function taniStartCurrent(){
     if(st.party[st.idx] && st.party[st.idx].hp<=0){
       for(var j=0;j<st.party.length;j++) if(st.party[j].hp>0){st.idx=j;break;}
     }
-    drawBattle();
+    if(document.getElementById("meHpBar")) drawBattle();
   }
 }
 function taniBreath(){
@@ -786,7 +801,7 @@ function bossOpen(r){ return prevCleared(r) && bossReachOpen(r); }
 function unlockedCount(){ var n=0,i,r; for(i=0;i<B.roster.length;i++){ r=B.roster[i]; if(CLEARED[r.stage]||bossOpen(r))n++; } return n; }
 /* 次に挑む対象＝まだ倒していない最初のボス（撃破順のフロンティア） */
 function nextBoss(){ var i,r; for(i=0;i<B.roster.length;i++){ r=B.roster[i]; if(!CLEARED[r.stage]) return r; } return null; }
-/* ====== 目標レンジ・誕生日・生まれ月設定UI ====== */
+/* ====== 目標レンジ・誕生日 ====== */
 function goalLabels(age){
   var g=expGrade(age);
   var kanji=(age!=null&&age<=5)?"小1じゅんび":("小"+g);
@@ -806,23 +821,6 @@ function checkBirthday(age){
     setTimeout(function(){ alert("🎂 おたんじょうび おめでとう！\n"+age+"さいに なったね！\n\nこれからの もくひょう：\n🟣かんじ "+gl.kanji+"　🟢えいご "+gl.eng+"　🔵けいさん "+gl.calc+"\n\nいままで あつめた虫・たおしたボスは そのまま だよ！💪"); },300);
   }
 }
-function openBirthModal(){
-  var cur=(PROFOBJ&&PROFOBJ.birth)||"", cy=new Date().getFullYear();
-  var curY=cur.split("-")[0], curM=+(cur.split("-")[1]||0), yopts="",mopts="",y,m;
-  for(y=cy-13;y<=cy-3;y++) yopts+='<option value="'+y+'"'+(String(y)===curY?" selected":"")+'>'+y+'年</option>';
-  for(m=1;m<=12;m++) mopts+='<option value="'+m+'"'+(m===curM?" selected":"")+'>'+m+'月</option>';
-  var ov=document.createElement("div"); ov.id="birthOv";
-  ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px";
-  ov.innerHTML='<div style="background:#fff;border-radius:18px;padding:22px;max-width:300px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)">'
-    +'<div style="font-weight:800;font-size:18px;margin-bottom:6px">🎂 うまれた つき</div>'
-    +'<div style="font-size:12px;color:#777;margin-bottom:14px">としに あわせて もんだいの レベルと もくひょうが きまるよ</div>'
-    +'<select id="bvY" style="font-size:16px;padding:6px;border-radius:8px">'+yopts+'</select> '
-    +'<select id="bvM" style="font-size:16px;padding:6px;border-radius:8px">'+mopts+'</select>'
-    +'<div style="margin-top:18px"><button class="mini-btn" onclick="closeBirthModal()">やめる</button> '
-    +'<button class="mini-btn" style="background:#E8B23A;color:#fff;border-color:#c98f1e" onclick="saveBirth()">きめる</button></div></div>';
-  document.body.appendChild(ov);
-}
-function closeBirthModal(){ var o=document.getElementById("birthOv"); if(o)o.parentNode.removeChild(o); }
 /* ボスずかんのセルをクリック→詳細表示（一般昆虫図鑑と同様の見た目） */
 function bossDetail(id){
   var sp=byId[id]; if(!sp)return;
@@ -856,14 +854,6 @@ function bossDetail(id){
   document.body.appendChild(ov);
 }
 function closeBossDetail(){ var o=document.getElementById("bossDetailOv"); if(o)o.parentNode.removeChild(o); }
-function saveBirth(){
-  var y=document.getElementById("bvY").value, m=+document.getElementById("bvM").value;
-  var birth=y+"-"+(m<10?"0"+m:m);
-  if(window.QuestSave&&QuestSave.updateProfile) QuestSave.updateProfile(PROF,{birth:birth});
-  if(PROFOBJ) PROFOBJ.birth=birth;
-  closeBirthModal();
-  loadAll().then(function(){ renderHome(); }).catch(function(){ renderHome(); });
-}
 /* ====== 到達度バー・次ボス目標・解禁マップ ====== */
 var TIER_NAMES=["みならいの へいげん","ふかい もり","しれんの いわば","まよいの たに","おうじゃの いただき"];
 var TIER_SHORT=["へいげん","もり","いわば","たに","いただき"];
@@ -1236,7 +1226,7 @@ function renderHome(){
   var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
   var _rb=document.getElementById("reachBars"), _um=document.getElementById("unlockMap");
   if(_rb){
-    if(_age==null){ _rb.innerHTML='<div style="color:#b23a2e;font-weight:700;padding:4px 0">🎂 「うまれた つき」を せっていしてね</div>'; }
+    if(_age==null){ _rb.innerHTML='<div style="color:#b23a2e;font-weight:700;padding:4px 0">🎂 ホームのプロフィールで「うまれた つき」を せっていしてね</div>'; }
     else { _rb.innerHTML=reachBarHTML("かんじ","🟣","kanji")+reachBarHTML("えいご","🟢","eitango")+reachBarHTML("けいさん","🔵","keisan"); }
   }
   if(_um){ _um.innerHTML=(_age==null)?"":unlockMapHTML(_age); }
@@ -1379,22 +1369,27 @@ function startBattle(r){
     +'<div class="intro-text'+(pred||exped?' pred':'')+'">'+msg+'</div>'
     +(exped?'<div class="intro-trait">太古の気配が うずまく… HPを引きついで 5れんせんに いどむ！</div>':'')
     +st.traits.map(function(t){return '<div class="intro-trait">'+t.icon+' とくせい「'+t.name+'」：'+t.desc+'</div>';}).join('')
+    +(exped?'<button class="btn" style="width:auto;margin-top:18px;background:#3D7AB8;padding:11px 24px" onclick="beginBattleAfterIntro()">OK</button>':'')
     +'</div>';
-  setTimeout(function(){
-    bt.innerHTML=BATTLE_HTML; drawBattle();
-    /* 遠征中は「にげる」→「ひきあげる」＋進捗バッジ */
-    if(TANI.active){
-      var flee=bt.querySelector(".btn.flee");
-      if(flee) flee.textContent="← ひきあげる ("+(TANI.idx+1)+"/"+TANI.order.length+")";
-    }
-    if(hasTr("sensei")){
-      log("⚡ すばやい！ "+st.boss.jaName+"の せんせい こうげき！ きをつけて！");
-      traitFx("⚡","とくせい はつどう！ せんせい こうげき！");
-      beginDefense(); nextQuestion();
-    } else {
-      st.phase="attack"; nextQuestion();
-    }
-  }, exped?2300:(pred?1900:1400));
+  if(exped)return;
+  setTimeout(beginBattleAfterIntro, pred?1900:1400);
+}
+function beginBattleAfterIntro(){
+  if(!st)return;
+  var bt=document.getElementById("battle");
+  bt.innerHTML=BATTLE_HTML; drawBattle();
+  /* 遠征中は「にげる」→「ひきあげる」＋進捗バッジ */
+  if(TANI.active){
+    var flee=bt.querySelector(".btn.flee");
+    if(flee) flee.textContent="← ひきあげる ("+(TANI.idx+1)+"/"+TANI.order.length+")";
+  }
+  if(hasTr("sensei")){
+    log("⚡ すばやい！ "+st.boss.jaName+"の せんせい こうげき！ きをつけて！");
+    traitFx("⚡","とくせい はつどう！ せんせい こうげき！");
+    beginDefense(); nextQuestion();
+  } else {
+    st.phase="attack"; nextQuestion();
+  }
 }
 function beginDefense(){ st.phase="defense"; st.defReps=hasTr("renzoku")?2:1; st.defDone=0; }
 function activeM(){ return st.party[st.idx]; }
