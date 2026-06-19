@@ -347,6 +347,7 @@
     }
     day.dewDay=!!day.dewDay;
     day.drop=!!day.drop;
+    day.dropSeen=!!day.dropSeen;
     return day;
   }
   function blankEquipmentData(){

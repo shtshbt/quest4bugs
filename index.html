@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.37">
+<meta name="q4b-release" content="0.4.38">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -305,7 +305,7 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.17"></script>
+<script src="./shared/storage.js?v=0.4.18"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.9"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
@@ -734,11 +734,24 @@ function maybeShowDropAnnouncement(pid,g){
   if(!pid||!g||!g.log)return;
   var date=todayKey(), day=g.log[date];
   if(!day||!day.drop)return;
+  if(document.getElementById("dropAwardOv"))return;
+  window.__q4bDropSeenSession=window.__q4bDropSeenSession||{};
+  var sessionKey=pid+"_"+date;
+  if(window.__q4bDropSeenSession[sessionKey])return;
   /* 通知済みフラグはプロフィールデータに保存（全端末で同期）。
      旧版は localStorage で端末別だったため iPad/PC で各1回ずつ表示される問題があった。 */
   if(day.dropSeen) return;
   /* 既存localStorageも併用（直近セッション中の冗長表示を抑制） */
-  try{ var key="q4b_drop_seen_"+pid+"_"+date; if(localStorage.getItem(key)==="1")return; localStorage.setItem(key,"1"); }catch(e){}
+  try{
+    var key="q4b_drop_seen_"+pid+"_"+date;
+    if(localStorage.getItem(key)==="1"){
+      if(window.QuestSave&&QuestSave.markDropSeen) QuestSave.markDropSeen(pid,date);
+      window.__q4bDropSeenSession[sessionKey]=1;
+      return;
+    }
+    localStorage.setItem(key,"1");
+  }catch(e){}
+  window.__q4bDropSeenSession[sessionKey]=1;
   /* データ層にも記録 */
   if(window.QuestSave&&QuestSave.markDropSeen) QuestSave.markDropSeen(pid,date);
   var ov=document.createElement("div");
