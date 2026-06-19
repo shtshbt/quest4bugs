@@ -809,7 +809,13 @@ function ymd(d){return d.getFullYear()+"-"+pad2d(d.getMonth()+1)+"-"+pad2d(d.get
 /* 日付キーの正規化: えいたんごは数値 YYYYMMDD、けいさん/かんじは YYYY-MM-DD で保存しているため揃える */
 function ndk(k){k=String(k);return /^\d{8}$/.test(k)?(k.slice(0,4)+"-"+k.slice(4,6)+"-"+k.slice(6,8)):k;}
 function sumDaily(map,src,key,g){var d,nd,v,c;if(!src)return;for(d in src){v=src[d];c=(v&&v[key])||0;if(c){nd=ndk(d);if(!map[nd])map[nd]={k:0,j:0,e:0};map[nd][g]+=c;}}}
+function setDashRange(n){
+  window.__q4bDashRange=n;
+  /* 現プロフィールで再描画。pid/name は state に持っていないので renderProfiles 経由 */
+  if(window.__q4bDashCtx) renderDashboard(window.__q4bDashCtx.pid, window.__q4bDashCtx.name);
+}
 function renderDashboard(pid,name){
+  window.__q4bDashCtx={pid:pid,name:name};
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
   Promise.all([
@@ -835,15 +841,36 @@ function renderDashboard(pid,name){
     /* combined streak: consecutive days up to today with any activity */
     var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
     while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}
-    /* daily stacked bars (last 14 days, ゲーム別色分け) */
+    /* daily stacked bars: 期間切替対応＋累計サマリ。データは全期間保存済み、表示だけ切り替える。 */
     var COL={k:"#3E7C3F",j:"#E8902E",e:"#4F9DD6"};
+    /* 累計（全期間） */
+    var allDays=Object.keys(day), allTotalQ=0, bestDay=null, bestN=0;
+    allDays.forEach(function(d){var o=day[d],tot=o.k+o.j+o.e;allTotalQ+=tot;if(tot>bestN){bestN=tot;bestDay=d;}});
+    /* 全期間レンジ計算（最古日〜今日） */
+    var oldest=null;
+    allDays.forEach(function(d){if(!oldest||d<oldest)oldest=d;});
+    var spanFromOldest=1;
+    if(oldest){var od=new Date(oldest);spanFromOldest=Math.max(1,Math.floor((t-od)/(1000*60*60*24))+1);}
+    /* 期間切替の選択肢: 14日/60日/全期間 */
+    window.__q4bDashRange = window.__q4bDashRange || 14;
+    var rangeOpts=[{n:14,lab:"14日"},{n:60,lab:"60日"},{n:Math.max(spanFromOldest,60),lab:"ぜんき間"}];
+    var BARS_DAYS=window.__q4bDashRange<=60?window.__q4bDashRange:rangeOpts[2].n;
+    var tabsHTML='<div style="display:flex;gap:4px;margin:6px 0 4px">'+rangeOpts.map(function(o){
+      var active=(window.__q4bDashRange===o.n||(window.__q4bDashRange===999&&o.lab==="ぜんき間"));
+      return '<button type="button" onclick="setDashRange('+(o.lab==="ぜんき間"?999:o.n)+')" style="flex:1;padding:5px 6px;font-size:11px;border:1px solid '+(active?"var(--green-d)":"var(--line)")+';border-radius:8px;background:'+(active?"var(--green)":"#fff")+';color:'+(active?"#fff":"var(--ink)")+';font-weight:700;cursor:pointer">'+o.lab+'</button>';
+    }).join("")+'</div>';
+    /* 「ぜんき間」のときは spanFromOldest を使う */
+    if(window.__q4bDashRange===999) BARS_DAYS=spanFromOldest;
     var bars="",max=1,vals=[],k;
-    for(k=13;k>=0;k--){var dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-k);var o=day[ymd(dd)]||{k:0,j:0,e:0};var tot=o.k+o.j+o.e;vals.push(o);if(tot>max)max=tot;}
-    function seg(c,col){return c?'<div style="height:'+Math.max(2,Math.round((c/max)*42))+'px;background:'+col+'"></div>':"";}
-    vals.forEach(function(o){var tot=o.k+o.j+o.e;
-      var inner=tot?(seg(o.e,COL.e)+seg(o.j,COL.j)+seg(o.k,COL.k)):'<div style="height:3px;background:var(--line)"></div>';
-      bars+='<div title="けいさん'+o.k+'・かんじ'+o.j+'・えいご'+o.e+'" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;border-radius:3px 3px 0 0;overflow:hidden">'+inner+'</div>';});
-    var totalQ=vals.reduce(function(a,o){return a+o.k+o.j+o.e;},0);
+    for(k=BARS_DAYS-1;k>=0;k--){var dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-k);var o=day[ymd(dd)]||{k:0,j:0,e:0};var tot=o.k+o.j+o.e;vals.push({d:ymd(dd),o:o});if(tot>max)max=tot;}
+    function seg(c,col){return c?'<div style="height:'+Math.max(1,Math.round((c/max)*42))+'px;background:'+col+'"></div>':"";}
+    /* 期間が長いとgapを縮める＝全期間でも横幅に収まる */
+    var gapPx=BARS_DAYS<=14?3:(BARS_DAYS<=60?2:1);
+    vals.forEach(function(v){var o=v.o,tot=o.k+o.j+o.e;
+      var inner=tot?(seg(o.e,COL.e)+seg(o.j,COL.j)+seg(o.k,COL.k)):'<div style="height:2px;background:var(--line)"></div>';
+      bars+='<div title="'+v.d+': けいさん'+o.k+'・かんじ'+o.j+'・えいご'+o.e+'" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;border-radius:2px 2px 0 0;overflow:hidden;min-width:0">'+inner+'</div>';});
+    var totalQ=vals.reduce(function(a,v){return a+v.o.k+v.o.j+v.o.e;},0);
+    var rangeLabel=window.__q4bDashRange===999?"ぜんき間":(window.__q4bDashRange+"日");
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.round(total/pool*100);
@@ -862,8 +889,10 @@ function renderDashboard(pid,name){
       +'<span style="color:var(--sub)">（つうさん '+gCaught+'ひき）</span>'
       +(gNext?'<span style="color:var(--sub);margin-left:auto">つぎ「'+esc(gNext.name)+'」まで あと'+gNext.need+'ひき</span>':'')+'</div>'
       +psLine
-      +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（14日・'+totalQ+'もん）</div>'
-      +'<div style="display:flex;align-items:flex-end;gap:3px;height:48px">'+bars+'</div>'+legend;
+      +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（'+rangeLabel+'・'+totalQ+'もん）</div>'
+      +tabsHTML
+      +'<div style="display:flex;align-items:flex-end;gap:'+gapPx+'px;height:48px">'+bars+'</div>'+legend
+      +'<div class="note" style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap"><span>📊 つうさん <b>'+allTotalQ+'もん</b></span>'+(bestDay?'<span>🏆 ベスト日 '+bestDay+'（'+bestN+'もん）</span>':'')+'</div>';
     $("dashCard").innerHTML=h;
     $("dashCard").style.display="";
   }).catch(function(){$("dashCard").style.display="none";});
