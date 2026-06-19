@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.15">
+<meta name="q4b-release" content="0.4.28">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -109,6 +109,41 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .shiny-card{border:1px solid #B9D4E4;border-radius:10px;background:#FFFFFF;padding:4px 3px;min-width:0;text-align:center;font-family:inherit;color:var(--ink);cursor:pointer}
 .shiny-art{width:54px;height:54px;margin:0 auto 2px}
 .shiny-name{font-size:9.5px;font-weight:900;line-height:1.15;min-height:2.2em;letter-spacing:-.02em}
+.home-map{position:relative;aspect-ratio:1448/1086;overflow:hidden;border:2px solid #8FA077;border-radius:16px;background:#85D6EF;box-shadow:0 7px 18px rgba(42,58,26,.16);margin:8px 0 12px}
+.home-map img{user-select:none;-webkit-user-drag:none}
+.map-base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.map-crop{position:absolute;overflow:hidden;pointer-events:none;transform-origin:center;transition:transform .16s ease,filter .16s ease}
+.map-crop>img{position:absolute;display:block;height:auto;max-width:none}
+.map-root{left:33.8%;top:2.5%;width:32%;aspect-ratio:1243/949;z-index:2}
+.map-root img{width:116.5%;left:-9.7%;top:-6.7%}
+.map-eigo{left:5.3%;top:34.1%;width:27%;aspect-ratio:1413/983;z-index:3}
+.map-eigo img{width:102.5%;left:-1.5%;top:-4.8%}
+.map-keisan{left:36.7%;top:34%;width:26.8%;aspect-ratio:1392/1026;z-index:3}
+.map-keisan img{width:104%;left:-2%;top:-2.2%}
+.map-kanji{left:67%;top:34.2%;width:26.5%;aspect-ratio:1391/945;z-index:3}
+.map-kanji img{width:104.1%;left:-2.3%;top:-6.9%}
+.map-ouja{inset:0;width:100%;height:100%;aspect-ratio:auto;overflow:visible;z-index:4}
+.map-ouja img{inset:0;width:100%;height:100%;object-fit:cover}
+.map-label{position:absolute;z-index:20;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:.28em;padding:.28em .62em;border:2px solid rgba(64,39,12,.75);border-radius:999px;background:rgba(255,248,214,.92);color:#34220E;font-size:clamp(10px,3.1vw,17px);font-weight:900;text-shadow:0 1px 0 #fff;box-shadow:0 3px 0 rgba(58,34,10,.25);white-space:nowrap;pointer-events:none;transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+.map-root-label{left:50%;top:12%}
+.map-eigo-label{left:25.5%;top:34.7%}
+.map-keisan-label{left:50%;top:34.9%}
+.map-kanji-label{left:72.5%;top:34.7%}
+.map-ouja-label{left:51%;top:64%}
+.map-kaseki-label{left:51%;top:87%}
+.map-hot{position:absolute;z-index:30;border:0;padding:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.map-hot:focus-visible{outline:3px solid rgba(255,246,150,.95);outline-offset:2px}
+.map-hot::after{content:"";position:absolute;inset:0;border-radius:inherit;border:3px solid transparent;background:transparent;transition:background .16s ease,border-color .16s ease,box-shadow .16s ease}
+.map-hot:hover::after,.map-hot:focus-visible::after{background:rgba(255,244,126,.13);border-color:rgba(255,244,152,.78);box-shadow:0 0 0 5px rgba(90,63,18,.16),inset 0 0 28px rgba(255,245,170,.30)}
+.map-hot-root{left:34%;top:2.4%;width:32%;height:26%;border-radius:45% 47% 48% 50%}
+.map-hot-eigo{left:5%;top:33.5%;width:30%;height:24.5%;border-radius:42% 52% 48% 45%}
+.map-hot-keisan{left:35%;top:33.4%;width:30%;height:24.8%;border-radius:45% 42% 50% 48%}
+.map-hot-kanji{left:65.5%;top:33.6%;width:30%;height:24.8%;border-radius:48% 44% 45% 52%}
+.map-hot-ouja{left:17%;top:53%;width:67%;height:25%;border-radius:46% 42% 50% 48%}
+.map-hot-kaseki{left:16%;top:78%;width:69%;height:14.5%;border-radius:48% 44% 42% 46%}
+.home-map[data-active="kaseki"] .map-hot-kaseki::after{background:rgba(105,134,170,.18);border-color:rgba(192,214,238,.70);box-shadow:0 0 0 5px rgba(65,89,128,.16),inset 0 0 34px rgba(201,224,255,.26)}
+.home-map[data-active="root"] .map-root,.home-map[data-active="eigo"] .map-eigo,.home-map[data-active="keisan"] .map-keisan,.home-map[data-active="kanji"] .map-kanji,.home-map[data-active="ouja"] .map-ouja{transform:translateY(-6px) scale(1.025);filter:brightness(1.08) saturate(1.04) drop-shadow(0 11px 12px rgba(46,34,12,.24))}
+.home-map[data-active="root"] .map-root-label,.home-map[data-active="eigo"] .map-eigo-label,.home-map[data-active="keisan"] .map-keisan-label,.home-map[data-active="kanji"] .map-kanji-label,.home-map[data-active="ouja"] .map-ouja-label,.home-map[data-active="kaseki"] .map-kaseki-label{transform:translate(-50%,-56%) scale(1.05);filter:brightness(1.05);box-shadow:0 5px 0 rgba(58,34,10,.28),0 0 18px rgba(255,238,140,.55)}
 @media(max-width:520px){.goshin-top{grid-template-columns:1fr}.goshin-board-grid{grid-template-columns:1fr}.goshin-wallet{grid-template-columns:1fr}.goshin-work{grid-template-columns:1fr}.goshin-daily{grid-template-columns:1fr}.goshin-clock-in{grid-template-columns:54px 1fr}.goshin-clock svg{width:54px;height:64px}}
 </style>
 <script>try{if(localStorage.getItem('q4b_entered')==='1')document.documentElement.className+=' q4b-in';}catch(e){}</script>
@@ -467,7 +502,7 @@ function goshinHTML(pid,amber,bt){
       +'<div class="goshin-bar"><i style="width:'+p+'%"></i></div>'
       +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,30-(x.correct||0))+'もん')+'</div></div>';
   }
-  return '<div class="goshin">'
+  return '<div class="goshin" id="goshinboku-panel">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
     +'<div class="goshin-board-grid"><div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div>'
     +'<div class="goshin-board"><b>きょう達成したこと</b><br>'+esc(goshinDoneText(g))+'</div></div></div>'
@@ -647,6 +682,69 @@ function showFirstRestoreAnnouncement(itemId){
 function closeFirstRestore(){
   var o=document.getElementById("firstRestoreOv");
   if(o) o.parentNode.removeChild(o);
+}
+function hasRestoredEquipment(g){
+  var owned=(g&&g.equipment&&g.equipment.owned)||{}, k;
+  for(k in owned) if(owned[k]) return true;
+  return false;
+}
+function homeTaniUnlocked(g,bt){
+  return !!(bt&&bt.cleared&&bt.cleared[5]&&hasRestoredEquipment(g));
+}
+function homeMapHTML(taniOpen){
+  return '<div class="home-map" data-home-map>'
+    +'<img class="map-base" src="assets/home_map_base_island_v1.webp" alt="">'
+    +'<div class="map-crop map-root"><img src="assets/home_map_module_goshinboku_v1.webp" alt=""></div>'
+    +'<div class="map-crop map-eigo"><img src="assets/home_map_module_eigo_v2.webp" alt=""></div>'
+    +'<div class="map-crop map-keisan"><img src="assets/home_map_module_keisan_v1.webp" alt=""></div>'
+    +'<div class="map-crop map-kanji"><img src="assets/home_map_module_kanji_v1.webp" alt=""></div>'
+    +'<div class="map-crop map-ouja"><img src="assets/home_map_module_ouja_no_michi_fitted_v1.webp" alt=""></div>'
+    +'<div class="map-label map-root-label">🌳 ごしんぼく</div>'
+    +'<div class="map-label map-eigo-label">🔤 えいご</div>'
+    +'<div class="map-label map-keisan-label">🪲 けいさん</div>'
+    +'<div class="map-label map-kanji-label">✏️ かんじ</div>'
+    +'<div class="map-label map-ouja-label">⚔️ おうじゃのみち</div>'
+    +(taniOpen?'<div class="map-label map-kaseki-label">🦴 かせきのたに</div>':'')
+    +'<button class="map-hot map-hot-root" type="button" data-target="root" data-scroll="#goshinboku-panel" aria-label="ごしんぼく"></button>'
+    +'<button class="map-hot map-hot-eigo" type="button" data-target="eigo" data-url="./eitango/index.html" aria-label="えいご"></button>'
+    +'<button class="map-hot map-hot-keisan" type="button" data-target="keisan" data-url="./keisan/index.html" aria-label="けいさん"></button>'
+    +'<button class="map-hot map-hot-kanji" type="button" data-target="kanji" data-url="./kanji/index.html" aria-label="かんじ"></button>'
+    +'<button class="map-hot map-hot-ouja" type="button" data-target="ouja" data-url="./battle.html" aria-label="おうじゃのみち"></button>'
+    +(taniOpen?'<button class="map-hot map-hot-kaseki" type="button" data-target="kaseki" data-url="./battle.html#tani" aria-label="かせきのたに"></button>':'')
+    +'</div>';
+}
+function initHomeMap(){
+  var maps=document.querySelectorAll("[data-home-map]"), i, j;
+  for(i=0;i<maps.length;i++){
+    (function(map){
+      var spots=map.querySelectorAll(".map-hot");
+      for(j=0;j<spots.length;j++){
+        (function(spot){
+          spot.addEventListener("pointerenter",function(){map.dataset.active=spot.dataset.target;});
+          spot.addEventListener("focus",function(){map.dataset.active=spot.dataset.target;});
+          spot.addEventListener("pointerleave",function(){if(map.dataset.pinned!=="true")map.dataset.active="";});
+          spot.addEventListener("click",function(){
+            var same=map.dataset.active===spot.dataset.target&&map.dataset.pinned==="true";
+            map.dataset.active=same?"":spot.dataset.target;
+            map.dataset.pinned=same?"false":"true";
+            if(same) return;
+            if(spot.dataset.scroll){
+              var target=document.querySelector(spot.dataset.scroll);
+              if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+              return;
+            }
+            if(spot.dataset.url) setTimeout(function(){window.location.href=spot.dataset.url;},120);
+          });
+        })(spots[j]);
+      }
+      map.addEventListener("pointerdown",function(event){
+        if(!event.target.closest(".map-hot")){
+          map.dataset.active="";
+          map.dataset.pinned="false";
+        }
+      });
+    })(maps[i]);
+  }
 }
 function markCatchShiny(source,state,id){
   if(source==="eitango"){
@@ -879,10 +977,13 @@ function renderDashboard(pid,name){
     if(kp&&kp.progressSummary)ps.push(esc(kp.progressSummary));
     if(es&&es.progressSummary)ps.push(esc(es.progressSummary));
     var psLine=ps.length?'<div class="note" style="background:var(--green-l);border-radius:10px;padding:6px 8px;margin:0 0 8px">📊 '+ps.join('　/　')+'</div>':'';
+    var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
+    var taniOpen=homeTaniUnlocked(gHome,bt);
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +homeMapHTML(taniOpen)
       +goshinHTML(pid,amber,bt)
       +'<div class="note" style="display:flex;align-items:center;gap:8px;background:var(--green-l);border-radius:10px;padding:6px 10px;margin:0 0 8px">'
       +'<span style="font-size:18px">🏅</span><span style="font-weight:800">'+esc(gRank)+'</span>'
@@ -894,6 +995,7 @@ function renderDashboard(pid,name){
       +'<div style="display:flex;align-items:flex-end;gap:'+gapPx+'px;height:48px">'+bars+'</div>'+legend
       +'<div class="note" style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap"><span>📊 つうさん <b>'+allTotalQ+'もん</b></span>'+(bestDay?'<span>🏆 ベスト日 '+bestDay+'（'+bestN+'もん）</span>':'')+'</div>';
     $("dashCard").innerHTML=h;
+    initHomeMap();
     $("dashCard").style.display="";
   }).catch(function(){$("dashCard").style.display="none";});
 }
