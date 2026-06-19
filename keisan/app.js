@@ -320,8 +320,10 @@ function levelGuide(cat){
   for(i=1;i<=10;i++) out.push((a&&a[i-1])||lvLabel(cat,i)||ADV_LEVEL_LABELS[i-1]);
   return out;
 }
-var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
-var K5DEV=["wasa","jikan","kakebun","kukuyomi","nanbanme","ikutsu","kazoeru","ookii","nagasahikaku","tokei1","sansuu100","kuraidori","nagasa","kasa","bunsuu1","hyou","amari","omosa","shousuu1","bunsuu2","bouguraf","shikishiki","nichireki1","gairai","menseki","kawariwari","kakuchishiki","shakaku","hakohako","okane","jisshuu"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
+var K5CATS=["hissan","hikizan","kuku","kukuyomi","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
+/* kukuyomi は基本側(K5CATS)に置く: 自分で練習の「九九」より暗唱の方が低レベルなのに発展側に
+   あると逆転していた問題を是正。九九本体(kuku)の隣に並べて段階感を出す。 */
+var K5DEV=["wasa","jikan","kakebun","nanbanme","ikutsu","kazoeru","ookii","nagasahikaku","tokei1","sansuu100","kuraidori","nagasa","kasa","bunsuu1","hyou","amari","omosa","shousuu1","bunsuu2","bouguraf","shikishiki","nichireki1","gairai","menseki","kawariwari","kakuchishiki","shakaku","hakohako","okane","jisshuu"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
 var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,kukuyomi:1,nanbanme:1,ikutsu:1,kazoeru:1,ookii:1,nagasahikaku:1,tokei1:1,sansuu100:1,kuraidori:1,nagasa:1,kasa:1,bunsuu1:1,hyou:1,amari:1,omosa:1,shousuu1:1,bunsuu2:1,bouguraf:1,shikishiki:1,nichireki1:1,gairai:1,menseki:1,kawariwari:1,kakuchishiki:1,shakaku:1,hakohako:1,okane:1,jisshuu:1,
   mix:1,kufuu:1,deci:1,frac:1,machigai:1,sougou:1,noudo:1,tabibito:1,hiritsu:1,tsurukame:1,kabusoku:1,heikin:1,soneki:1,shigoto:1,nenrei:1,ueki:1,ryuusui:1,tsuuka:1,shuuki:1,nichireki:1,kisokusei:1,hayasahi:1,shuugou:1,bairitsu:1,shoukyo:1,houjin:1,baai:1,hireihanpi:1};  /* Lv1-10対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
@@ -4161,12 +4163,15 @@ function renderQ(q){
     h+='</div></div>';
   }else if(q.kind==="choice" && q.choices){
     /* 新仕様: 九九暗唱・K5DEV新27カテゴリ用の4択選択。
-       問題文と選択肢に ふりがな(furi5)を付与＝5歳でも読める。 */
+       問題文と選択肢に ふりがな(furi5)を付与＝5歳でも読める。
+       選択肢の値は data-v にプレーンで入れ、onclick はインデックスのみ渡す。
+       (旧: 値を onclick に入れていたが < > ' " が混入してHTMLが壊れていた) */
     var qt2=furi5(q.text);
     h+='<div class="qcard"><div class="qtext mid k5choice">'+qt2+'</div>'
       +'<div class="k5choices">';
     q.choices.forEach(function(c,i){
-      h+='<button class="k5cbtn" onclick="k5ChoiceTap(\''+String(c).replace(/'/g,"\\'")+'\')">'+furi5(String(c))+'</button>';
+      var raw=String(c).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      h+='<button class="k5cbtn" data-v="'+raw+'" onclick="k5ChoiceTap('+i+')">'+furi5(String(c))+'</button>';
     });
     h+='</div></div>';
   }
@@ -4321,12 +4326,13 @@ function choiceTap(i){
   var q=curQ();
   afterJudge(i===q.ans,q,{fix:q.fixmsg});
 }
-/* 新仕様: 値ベースの4択選択（九九暗唱・K5DEV新27カテゴリ用） */
-function k5ChoiceTap(value){
+/* 新仕様: index ベースの4択選択（九九暗唱・K5DEV新27カテゴリ用） */
+function k5ChoiceTap(idx){
   if(JLOCK)return;
   var q=curQ();
   if(!q||!q.choices)return;
-  var ok=String(value)===String(q.ans);
+  var picked=q.choices[idx];
+  var ok=String(picked)===String(q.ans);
   afterJudge(ok,q,{fix:q.fixmsg});
 }
 

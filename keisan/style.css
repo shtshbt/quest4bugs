@@ -56,8 +56,9 @@ h2{font-size:22px;} h3{font-size:18px;}
 body.night{ --bg:#1b2740; --panel:#243352; --ink:#e9edf6; --sub:#aeb8cf; --line:#3a4a6a; --sky:#16213c; --green-l:#27406a; }
 body.night .hero{ background:linear-gradient(180deg,#16213c 0%,#1f2e4d 70%,#27406a 100%); }
 /* 夜: 白背景の入力系を暗色＋明色文字に（数字パッド・選択肢・九九・筆算入力が読めるように） */
-body.night .pad button, body.night .lines button, body.night .dan, body.night .spk,
+body.night .pad button, body.night .lines button, body.night .k5cbtn, body.night .dan, body.night .spk,
 body.night .hs .inp, body.night .frbox{ background:#2b3a5a; color:#e9edf6; border-color:#3a4a6a; }
+body.night .k5cbtn rt{color:#aeb8cf;}  /* 夜モードのふりがな色 */
 body.night .hs .inp.on, body.night .frbox.on, body.night .hs .carry.on{ background:#4a3a1a; border-color:var(--amber); }
 .hero .grass{position:absolute; left:0; right:0; bottom:0; height:10px;
   background:repeating-linear-gradient(-45deg,var(--green) 0 6px,#5B9A4C 6px 12px);}
