@@ -557,7 +557,11 @@ function checkMastersK(){
  var awarded=[];
  Q4BReward.masterBugsFor("keisan").forEach(function(sp){
   if(Q4BReward.masterObtained(p.coll,sp.id))return;
-  if(masterMetK(sp.master.key)){ if(Q4BReward.awardMaster(p.coll,sp))awarded.push(sp); }
+  /* k5(ビギナー)モードの子は k5key 条件で達成判定。k5keyが無いマスター虫(共通5種等)はk10と同じkey判定。
+     これによりk5の子も k10と同じマスター虫を取得可能（達成パスは年齢相応の k5カテゴリ）。 */
+  var checkKey=sp.master.key;
+  if(p.type==="k5" && sp.master.k5key){ checkKey=sp.master.k5key; }
+  if(masterMetK(checkKey)){ if(Q4BReward.awardMaster(p.coll,sp))awarded.push(sp); }
  });
  if(awarded.length){ save(); showMasterCelebrationK(awarded); }
 }
