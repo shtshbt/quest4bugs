@@ -350,8 +350,8 @@ function effectiveBossDamage(baseDmg, defenderSp){
   return baseDmg;
 }
 /* ====== かせきのたに（遠征モード）======
-   10層×5連戦。tier解禁=「おうじゃのみち」no.5(最初の天敵=ニホンカナヘビ)撃破済み＋装備1個以上復元。
-   ボスは順番に対戦、HP持ち越し、撃破時に「いにしえの息吹」で生存者+20%回復。
+   10層×5連戦。入口は装備1個以上復元で発見、遠征は「おうじゃのみち」5体単位の撃破状況と連動して解禁。
+   化石の谷では全戦6匹パーティ。ボスは順番に対戦、HP持ち越し、撃破時に「いにしえの息吹」で生存者+20%回復。
    報酬: 初回はかけら多め(5-15)、再戦は半分(2-7)。 */
 var TANI={active:false, tier:0, idx:0, order:[]};
 var TANI_LAYERS=[
@@ -382,8 +382,14 @@ function taniDiscovered(){
 function taniBattleReady(){
   return !!(CLEARED&&CLEARED[5]&&taniDiscovered());
 }
+function taniBandCleared(layer){
+  if(!layer||!CLEARED) return false;
+  for(var n=layer.lo;n<=layer.hi;n++) if(!CLEARED[n]) return false;
+  return true;
+}
 function taniLayerUnlocked(layer){
   if(!taniBattleReady()) return false;
+  if(!taniBandCleared(layer)) return false;
   if(layer.n===1) return true;
   /* 前の層をクリア済みなら次が解禁 */
   return !!(BATTLE&&BATTLE.tani&&BATTLE.tani.cleared&&BATTLE.tani.cleared[layer.n-1]);
@@ -394,7 +400,7 @@ function taniClearedCount(tierN){
 }
 function startTani(tierN){
   var layer=TANI_LAYERS[tierN-1]; if(!layer) return;
-  if(!PARTY.length){ alert("さきに ✏️へんせい で パーティを 組んでね！"); return; }
+  if(PARTY.length<6){ alert("かせきのたに は 6匹パーティで ちょうせんするよ。さきに ✏️へんせい で 6匹えらんでね！"); return; }
   if(!taniLayerUnlocked(layer)){ alert("まだ ちょうせんできません"); return; }
   TANI.active=true; TANI.tier=tierN; TANI.idx=0;
   TANI.order=B.roster.filter(function(r){return r.stage>=layer.lo&&r.stage<=layer.hi;})
@@ -500,6 +506,7 @@ function showTani(){
   TANI_LAYERS.forEach(function(L){
     var open=taniLayerUnlocked(L);
     var cleared=taniClearedCount(L.n);
+    var bandCleared=taniBandCleared(L);
     var rsters=B.roster.filter(function(r){return r.stage>=L.lo&&r.stage<=L.hi;}).sort(function(a,b){return a.stage-b.stage;});
     var arts=rsters.map(function(r){
       var sp=byId[r.id];
@@ -520,7 +527,7 @@ function showTani(){
       +'<div style="display:flex;gap:2px;margin-top:3px">'+arts+'</div>'
       +'</div>'
       +'<div style="text-align:right;font-size:10px;color:#cbd">'
-      +(open?(cleared>0?('✅×'+cleared):'未クリア'):(taniBattleReady()?'前の層クリアで':'No.5撃破で'))
+      +(open?(cleared>0?('✅×'+cleared):'未クリア'):(taniBattleReady()?(bandCleared?'前の層クリアで':('王者No.'+L.lo+'-'+L.hi+'撃破で')):'No.5撃破で'))
       +'<br>🪨'+taniReward(L.n,true)+'/'+taniReward(L.n,false)+'</div>'
       +'</div></button>';
   });
@@ -1215,8 +1222,9 @@ var BATTLE_HTML=''
 function startBattle(r){
   var boss=byId[r.id], maxHp=r.hp||90;
   if(!PARTY.length){ alert("さきに ✏️へんせい で パーティを 組んでね！"); return; }  /* 空パーティ ガード */
+  var partySize=TANI.active ? B.PRED_PARTY : B.bossPartySize(r);
   st={ r:r, boss:boss, bossMax:maxHp, bossHp:maxHp, traits:B.bossTraits(r),
-    party: PARTY.slice(0, B.bossPartySize(r)).map(function(s){ var hp=effectiveBugHP(s); return {sp:s, type:RW.gameFor(s), max:hp, hp:hp}; }),
+    party: PARTY.slice(0, partySize).map(function(s){ var hp=effectiveBugHP(s); return {sp:s, type:RW.gameFor(s), max:hp, hp:hp}; }),
     idx:0, phase:"attack", defReps:1, defDone:0, q:null, busy:false };
   document.getElementById("home").style.display="none";
   var bt=document.getElementById("battle"); bt.style.display="block";
