@@ -231,7 +231,9 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
   mix:"四則混合", kufuu:"工夫計算", deci:"小数", frac:"分数", machigai:"まちがいさがし", sougou:"総合",
-  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", kukuyomi:"九九あんしょう", noudo:"濃度", tabibito:"旅人算", hiritsu:"比",
+  warizan:"わり算", wasa:"和差算", jikan:"時間けいさん", kakebun:"かけ算ぶんしょう", kukuyomi:"九九あんしょう",
+  nanbanme:"なんばんめ",ikutsu:"いくつといくつ",kazoeru:"かずをかぞえる",ookii:"おおきいかず",nagasahikaku:"ながさくらべ",tokei1:"とけい",sansuu100:"100より大きい数",kuraidori:"くらいどり",nagasa:"ながさのたんい",kasa:"かさのたんい",bunsuu1:"はじめての分数",hyou:"ひょうとグラフ",amari:"あまりのあるわり算",omosa:"おもさのたんい",shousuu1:"はじめての小数",bunsuu2:"分数のたしひき",bouguraf:"ぼうグラフ",shikishiki:"□をつかった式",nichireki1:"時こくと時間",gairai:"がい数",menseki:"面積のたんい",kawariwari:"変わり方",kakuchishiki:"角の知識",shakaku:"四角形のなまえ",hakohako:"はこのなまえ",okane:"おかね",jisshuu:"10の合成と分解",
+  noudo:"濃度", tabibito:"旅人算", hiritsu:"比",
   tsurukame:"つるかめ算", kabusoku:"過不足算", heikin:"平均算", soneki:"損益算", shigoto:"仕事算", nenrei:"年齢算", ueki:"植木算",
   ryuusui:"流水算", tsuuka:"通過算", shuuki:"周期算", nichireki:"日暦算", kisokusei:"規則性", hayasahi:"速さと比", shuugou:"集合算",
   bairitsu:"倍数算", shoukyo:"消去算", houjin:"方陣算", baai:"場合の数", hireihanpi:"比例反比例"};
@@ -262,6 +264,33 @@ var LEVEL_GUIDE={
   jikan:["同じ時の中の経過","次の正時まで","時をまたぐ","午前午後なし標準","開始時刻を求める","終了時刻を求める","分のくり上がり","長めの時間","2段階の時間","時間総合"],
   kakebun:["1あたり×個数","個数を求める","合計から単価","2段階かけ算","かけ算文章題標準","わり算文章題標準","×÷混在","単位あたり","消費・残り","文章題総合"],
   kukuyomi:["2の段","5の段","3の段","4の段","6の段","7の段","8の段","9の段","1の段","全段ミックス"],
+  nanbanme:["まえからなんばんめ","うしろからなんばんめ","なんばんめかこたえる","10までのれつ","なんばんめかこたえる(10)","なんばんめ と なんこ","りょうほうから","ことばで いちあて","あいだの にんずう","あいだに なんにん"],
+  ikutsu:["5までの分解","5の分解","6・7の分解","8・9の分解","10は□と□（前半）","10は□と□（後半）","□と□で10","もういくつで10","3つに分ける","10をつくる応用"],
+  kazoeru:["5までかぞえる","10までかぞえる","おおきいのは？","20までかぞえる","10ずつまとめる","100までかぞえる","2とび5とび","じゅんばん","1000までかぞえる","おなじかずのなかま"],
+  ookii:["どっちおおい","20までくらべ","じゅんばん","なんばんめ","100までよむ","あいだのかず","10とびとび","30ばんめ","ふごう＜＞","□のかず"],
+  nagasahikaku:["どっちがながい","3つくらべ","はしそろえ","まかせて比較","いくつぶん","マス目くらべ","cmはじまり","cmたしひき","cmとmm","ながさの応用"],
+  tokei1:["ちょうどのじ","なんじはん","じ・じはんみわけ","あさひるよる","ふんのよみ5とび","なんじなんぷん","1ぷんきざみ","なんぷんあと","なんぷんまえ","あさひる12じ"],
+  sansuu100:["100よみ","100だい","3けたよみ","3けたかき","くらべる","せんよみ","かずのせん","10ばい","100ばい","そうごう"],
+  kuraidori:["10のまとまり","2けたのくらい","2けたをくみたて","100までのかず","100のまとまり","3けたのくらい","3けたをくみたて","1000までのかず","10のかたまり","10000までのくらい"],
+  nagasa:["ながいのは？","いくつぶん","cmをしる","mmをしる","mをしる","ながさをよむ","たしざん","ひきざん","mとcm","ながさの問題"],
+  kasa:["おおいすくない","コップでくらべ","Lをしる","dLをしる","LとdLかんさん","mLをしる","たしざんひきざん","LとdLのけいさん","くりあがるけいさん","たんいをえらぶ"],
+  bunsuu1:["はんぶん","二分の一","三分の一","四分の一","よみかた","おなじ大きさ","くらべる","ずから よむ","なんこぶん","いろんな分数"],
+  hyou:["かずをかぞえる","しゅるいわけ","ひょうをよむ","グラフをよむ","いちばんおおい","おおさくらべ","ぜんぶでいくつ","あてはまる","ふたつくらべ","よみとり名人"],
+  amari:["あまりとは","÷2のあまり","÷3のあまり","商とあまり","÷4-6の練習","÷7-9の練習","たしかめ算","文しょう題①","文しょう題②","あまりの きまり"],
+  omosa:["おもいのは","てんびん","g(グラム)","kgを よむ","1kg=1000g","gをkgに","kgとg","たしざん","t(トン)","そうごう"],
+  shousuu1:["0.1のいみ","0.1なんこ","1は0.1","1より大きい","かずのせん","大小くらべ","たしざん","ひきざん","たんいへんかん","小数の文章"],
+  bunsuu2:["ぶんすうよみ","ぶんすうのおおきさ","たしざんきほん","ひきざんきほん","1になるたしざん","1からひく","ぶんすうのいみ","もんだいぶん","3つのけいさん","1またぎけいさん"],
+  bouguraf:["1めもり","おおきい","ちいさい","2めもり","5めもり","10めもり","あわせて","ちがい","じゅんい","よみとり"],
+  shikishiki:["たす□小","□たす小","ひく□小","□ひく小","たし2けた","ひき2けた","かけ□","わり□","3けた式","文しょう□"],
+  nichireki1:["なんじ","なんじはん","なんじなんぷん","1ぷんきざみ","なんぷんあと","なんぷんまえ","なんぷんかん","じこくをまたぐ","じかんとぷん","じこくと時間"],
+  gairai:["10の位で四捨五入","切り上げ・切り捨て","100の位で四捨五入","1000の位で四捨五入","上から1けた","上から2けた","万の位までのがい数","がい数のたし算ひき算","がい数のかけ算わり算","がい数のはんい"],
+  menseki:["ひろさくらべ","cm2を しる","せいほうけい","ちょうほうけい","おおきい数","m2を しる","たんいかんけい","a と ha","km2 と ふくざつ","おうよう"],
+  kawariwari:["ペアでふえる","ひょうをよむ","きまりみつけ","ぼうのかず","わとさ いっしょ","ばいのかんけい","□と○のしき","ひれいよみ","つかってとく","変わり方マスター"],
+  kakuchishiki:["ちょっかく","いろんなかく","はんかいてん","いっかいてん","ぶんどき","かくをよむ","かくのたしざん","かくのひきざん","さんかくのかく","おおきいかく"],
+  shakaku:["へんのかず","ちょうてん","せいほうけい","ちょうほうけい","せいとちょう","へいこう","だいけい","ひしがた","たいかくせん","なかまわけ"],
+  hakohako:["めんのかず","ちょうてん","へんのかず","まとめおぼえ","おなじめん","へいこうへん","ちょうてんあつまる","めんのかたち","みわけよう","そうごうもんだい"],
+  okane:["1円と10円","10円と1円","50円・100円","100円までかぞえる","500円玉のとうじょう","おかねでかう","おつりはいくら","おなじきんがく","2つかってあわせる","おかいものマスター"],
+  jisshuu:["10までかぞえる","10をつくる","10のなかま","あといくつ","10えん=1えん10まい","10のしき","10からひく","10といくつ","10をつくってたす","10からひいてたす"],
   noudo:["食塩水の量","食塩の量","濃さを求める","水を足す","食塩を足す","混ぜる入門","混ぜる標準","逆算入り","複合条件","濃度総合"],
   tabibito:["同じ向き","向かい合う","追いつき","出会いの時刻","距離を求める","速さを求める","途中変更","往復","複合条件","旅人算総合"],
   hiritsu:["比の意味","同じ比にする","比から実数","全体を分ける","比の差","連比入門","連比標準","割合との接続","文章題複合","比の総合"],
@@ -292,8 +321,8 @@ function levelGuide(cat){
   return out;
 }
 var K5CATS=["hissan","hikizan","kuku","anzan","warizan"], K10CATS=["mix","kufuu","deci","frac","machigai","sougou"];
-var K5DEV=["wasa","jikan","kakebun","kukuyomi"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
-var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,kukuyomi:1,
+var K5DEV=["wasa","jikan","kakebun","kukuyomi","nanbanme","ikutsu","kazoeru","ookii","nagasahikaku","tokei1","sansuu100","kuraidori","nagasa","kasa","bunsuu1","hyou","amari","omosa","shousuu1","bunsuu2","bouguraf","shikishiki","nichireki1","gairai","menseki","kawariwari","kakuchishiki","shakaku","hakohako","okane","jisshuu"], K10DEV=["noudo","tabibito","hiritsu","tsurukame","kabusoku","heikin","soneki","shigoto","nenrei","ueki","ryuusui","tsuuka","shuuki","nichireki","kisokusei","hayasahi","shuugou","bairitsu","shoukyo","houjin","baai","hireihanpi"];  /* 発展演習(コース別) */
+var LVL_CATS={hissan:1,hikizan:1,kuku:1,anzan:1,warizan:1,wasa:1,jikan:1,kakebun:1,kukuyomi:1,nanbanme:1,ikutsu:1,kazoeru:1,ookii:1,nagasahikaku:1,tokei1:1,sansuu100:1,kuraidori:1,nagasa:1,kasa:1,bunsuu1:1,hyou:1,amari:1,omosa:1,shousuu1:1,bunsuu2:1,bouguraf:1,shikishiki:1,nichireki1:1,gairai:1,menseki:1,kawariwari:1,kakuchishiki:1,shakaku:1,hakohako:1,okane:1,jisshuu:1,
   mix:1,kufuu:1,deci:1,frac:1,machigai:1,sougou:1,noudo:1,tabibito:1,hiritsu:1,tsurukame:1,kabusoku:1,heikin:1,soneki:1,shigoto:1,nenrei:1,ueki:1,ryuusui:1,tsuuka:1,shuuki:1,nichireki:1,kisokusei:1,hayasahi:1,shuugou:1,bairitsu:1,shoukyo:1,houjin:1,baai:1,hireihanpi:1};  /* Lv1-10対象 */
 var TIMED_OK={k5:["anzan","kuku"], k10:["mix","kufuu","deci"]};
 var AV={k5:{n:"",t:"tentou",c1:"#E03C2E",c2:"#2A1A14"}, k10:{n:"",t:"kuwagata",c1:"#33302B",c2:"#565046"}};
@@ -1665,6 +1694,25 @@ function gKakebun(lv){
   }
   // フォールバック
   return {cat:cat,kind:"num",text:"1こ 30円の あめを 4こ かいます。ぜんぶで いくら？",say:null,ans:120};
+}
+/* K5DEV発展27カテゴリの汎用生成器: shared/k5_devs_data.js のプールから出題。
+   各カテゴリのLv1-10は学習指導要領(小1-小4)に沿った段階仕様で生成済み。 */
+function gK5Dev(cat, lv){
+  if(lv==null) lv=ri(1,10);
+  lv=Math.max(1,Math.min(10,lv));
+  var data=window.Q4B_K5DEVS && window.Q4B_K5DEVS[cat];
+  if(!data || !data.levels || !data.levels[lv-1]){
+    return {cat:cat,kind:"choice",text:"1+1は？",say:null,ans:"2",choices:["1","2","3","4"]};
+  }
+  var pool=data.levels[lv-1].pool || [];
+  if(!pool.length){
+    return {cat:cat,kind:"choice",text:"1+1は？",say:null,ans:"2",choices:["1","2","3","4"]};
+  }
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  var ans=String(q.ans);
+  var choices=[ans];
+  (q.distractors||[]).forEach(function(d){ var s=String(d); if(choices.indexOf(s)<0)choices.push(s); });
+  return {cat:cat,kind:"choice",text:q.text,say:null,ans:ans,choices:shuffle(choices)};
 }
 /* 九九暗唱: 「ににんがし」「にさんがろく」のフレーズを覚える専用カテゴリ。
    小学校の指導順(2→5→3→4→6→7→8→9→1)で学習。
@@ -3769,6 +3817,33 @@ function genBy(cat,p,lv){
   if(cat==="hikizan")return gHikizan(p,lv);
   if(cat==="kuku")return gKuku(p,null,lv);
   if(cat==="kukuyomi")return gKukuYomi(lv);
+  if(cat==="nanbanme")return gK5Dev("nanbanme",lv);
+  if(cat==="ikutsu")return gK5Dev("ikutsu",lv);
+  if(cat==="kazoeru")return gK5Dev("kazoeru",lv);
+  if(cat==="ookii")return gK5Dev("ookii",lv);
+  if(cat==="nagasahikaku")return gK5Dev("nagasahikaku",lv);
+  if(cat==="tokei1")return gK5Dev("tokei1",lv);
+  if(cat==="sansuu100")return gK5Dev("sansuu100",lv);
+  if(cat==="kuraidori")return gK5Dev("kuraidori",lv);
+  if(cat==="nagasa")return gK5Dev("nagasa",lv);
+  if(cat==="kasa")return gK5Dev("kasa",lv);
+  if(cat==="bunsuu1")return gK5Dev("bunsuu1",lv);
+  if(cat==="hyou")return gK5Dev("hyou",lv);
+  if(cat==="amari")return gK5Dev("amari",lv);
+  if(cat==="omosa")return gK5Dev("omosa",lv);
+  if(cat==="shousuu1")return gK5Dev("shousuu1",lv);
+  if(cat==="bunsuu2")return gK5Dev("bunsuu2",lv);
+  if(cat==="bouguraf")return gK5Dev("bouguraf",lv);
+  if(cat==="shikishiki")return gK5Dev("shikishiki",lv);
+  if(cat==="nichireki1")return gK5Dev("nichireki1",lv);
+  if(cat==="gairai")return gK5Dev("gairai",lv);
+  if(cat==="menseki")return gK5Dev("menseki",lv);
+  if(cat==="kawariwari")return gK5Dev("kawariwari",lv);
+  if(cat==="kakuchishiki")return gK5Dev("kakuchishiki",lv);
+  if(cat==="shakaku")return gK5Dev("shakaku",lv);
+  if(cat==="hakohako")return gK5Dev("hakohako",lv);
+  if(cat==="okane")return gK5Dev("okane",lv);
+  if(cat==="jisshuu")return gK5Dev("jisshuu",lv);
   if(cat==="anzan")return gAnzan(lv);
   if(cat==="mix")return gMix(lv);
   if(cat==="kufuu")return gKufuu(lv);
