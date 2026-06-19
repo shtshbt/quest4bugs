@@ -4025,9 +4025,37 @@ function lvDotsHTML(p,cat){
   var dots=""; for(var i=0;i<10;i++){ dots+=(i<inblk)?(rec[i]?"●":"✗"):"○"; }
   return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+dots+'</span>';
 }
-/* 5歳向け発展(K5DEV)の文章題に ふりがな(ruby) を付ける。表示テキストの漢字のみ対象。 */
-var FURI5={"円":"えん","人":"にん","数":"かず","何":"なん","個":"こ","分":"ふん","時":"じ","間":"かん"};
-function furi5(s){ return s.replace(/[円人数何個分時間]/g, function(c){ return '<ruby>'+c+'<rt>'+(FURI5[c]||"")+'</rt></ruby>'; }); }
+/* 5歳向け発展(K5DEV)の文章題に ふりがな(ruby) を付ける。表示テキストの漢字のみ対象。
+   ⚠ 順番重要: 長い熟語を先に置換しないと「正三角形→正三角+形」のように分割される。 */
+var FURI5_PAIRS=[
+  /* === 27カテゴリ追加分の熟語(長い順) === */
+  ["正三角形","せいさんかくけい"],["正方形","せいほうけい"],
+  ["円玉","えんだま"],["何本","なんぼん"],["何人","なんにん"],["何台","なんだい"],
+  ["半分","はんぶん"],["本数","ほんすう"],["色紙","いろがみ"],["分後","ふんご"],
+  /* === 単漢字（既存 + 拡張） === */
+  ["円","えん"],["人","にん"],["数","かず"],["何","なん"],["個","こ"],
+  ["分","ふん"],["時","じ"],["間","かん"],
+  ["上","うえ"],["十","じゅう"],["一","いち"],["百","ひゃく"],["倍","ばい"],
+  ["千","せん"],["大","だい"],["本","ほん"],["入","はい"],["切","き"],
+  ["色","いろ"],["商","しょう"],["小","しょう"],["日","にち"],
+  ["白","しろ"],["捨","す"],["金","きん"],["長","なが"],
+  ["皿","さら"],["子","こ"],["台","だい"],["同","おな"],
+  ["中","なか"],["算","さん"],["辺","へん"],["字","じ"]
+];
+var FURI5={}; FURI5_PAIRS.forEach(function(p){FURI5[p[0]]=p[1];});  /* 後方互換のため辞書も保持 */
+function furi5(s){
+  if(!s||s.indexOf("<ruby>")>=0) return s;  /* 既に処理済みは触らない */
+  for(var i=0;i<FURI5_PAIRS.length;i++){
+    var word=FURI5_PAIRS[i][0], yomi=FURI5_PAIRS[i][1];
+    /* rubyタグの内側を保護: 既にrubyが含まれた領域を一時的にプレースホルダ化 */
+    var parts=s.split(/(<ruby>[\s\S]*?<\/ruby>)/);
+    for(var j=0;j<parts.length;j+=2){
+      parts[j]=parts[j].split(word).join('<ruby>'+word+'<rt>'+yomi+'</rt></ruby>');
+    }
+    s=parts.join('');
+  }
+  return s;
+}
 function speechRecCtor(){ return window.SpeechRecognition||window.webkitSpeechRecognition||null; }
 function voiceKukuHTML(q){
   if(!q||q.cat!=="kuku")return "";
@@ -4125,10 +4153,21 @@ function renderQ(q){
       +'<div class="note">こたえが整数なら ひだりの□だけでOK</div>'
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
       +padHTML(false,"frSubmit()","frPad")+'</div>';
-  }else if(q.kind==="choice"){
+  }else if(q.kind==="choice" && q.lines){
+    /* 旧仕様: machigai用のミス行選択 */
     h+='<div class="qcard"><div class="qtext mid">'+q.text+'</div>'
       +'<p style="font-weight:700;margin:6px 0">まちがっている 行は どれ？</p><div class="lines">';
     q.lines.forEach(function(L,i){h+='<button onclick="choiceTap('+i+')">'+L+'</button>';});
+    h+='</div></div>';
+  }else if(q.kind==="choice" && q.choices){
+    /* 新仕様: 九九暗唱・K5DEV新27カテゴリ用の4択選択。
+       問題文と選択肢に ふりがな(furi5)を付与＝5歳でも読める。 */
+    var qt2=furi5(q.text);
+    h+='<div class="qcard"><div class="qtext mid k5choice">'+qt2+'</div>'
+      +'<div class="k5choices">';
+    q.choices.forEach(function(c,i){
+      h+='<button class="k5cbtn" onclick="k5ChoiceTap(\''+String(c).replace(/'/g,"\\'")+'\')">'+furi5(String(c))+'</button>';
+    });
     h+='</div></div>';
   }
   h+='</div>';
@@ -4281,6 +4320,14 @@ function choiceTap(i){
   if(JLOCK)return;
   var q=curQ();
   afterJudge(i===q.ans,q,{fix:q.fixmsg});
+}
+/* 新仕様: 値ベースの4択選択（九九暗唱・K5DEV新27カテゴリ用） */
+function k5ChoiceTap(value){
+  if(JLOCK)return;
+  var q=curQ();
+  if(!q||!q.choices)return;
+  var ok=String(value)===String(q.ans);
+  afterJudge(ok,q,{fix:q.fixmsg});
 }
 
 /* ---------- judge / record ---------- */
