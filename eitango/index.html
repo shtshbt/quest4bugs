@@ -242,6 +242,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script src="../shared/colloc.js?v=0.3.0"></script>
+<script src="../shared/idiom_data.js?v=0.1.0"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const {BASICRAW,P1A,P1B,P1C,P1D,FIELD2RAW,FIELD3RAW,FIELD4RAW,FIELD5RAW,PRE1RAW,ICHIRAW}=window.Q4B_EI_RAW;  /* データは ../shared/eitango_data.js */
@@ -1496,7 +1497,7 @@ async function doDelProf(id,name){
    Uses module globals: P (current state), CURID, touchP().
    ======================================================================== */
 let GFID=1, GFIELD=FIELDS[0], KIDS=false, GWORDS=[];
-let EFMT='mix';        /* 出題形式: mix(おまかせ)/mc(4択)/spell/colloc */
+let EFMT='mix';        /* 出題形式: mix(おまかせ)/mc(4択)/spell/colloc/jukugo(熟語) */
 function setEFMT(m){ EFMT=m; renderStart(); }  /* インラインonclickから確実にEFMTを更新 */
 let S=null;            /* session state */
 let pendingCatch=null;
@@ -1516,6 +1517,16 @@ function renderStart(){
   if(KIDS){
     const learned=GWORDS.filter(w=>{const k=P.kids[w.key];return k&&k[1]>=2;}).length;
     info=`おぼえたことば <b>${learned}</b> / ${GWORDS.length}`;
+  } else if(EFMT==='jukugo'){
+    const ids=idiomList(GFID).map(it=>Object.assign({},it,{key:idiomKey(GFID,it.en)}));
+    if(!ids.length){
+      info=`<b style="color:var(--bad)">このフィールドの 熟語は まだ ないよ</b>`;
+    } else {
+      const t=Engine.todayKey();
+      const due=ids.filter(it=>{const s=P.srs[it.key];return s&&s[0]>0&&s[1]<=t;}).length;
+      const mastered=ids.filter(it=>{const s=P.srs[it.key];return s&&s[0]>=3;}).length;
+      info=`🗣熟語モード ｜ ふくしゅう <b>${due}</b> ／ しゅうとく ${mastered} / ${ids.length} 熟語`;
+    }
   } else {
     const due=SRS.dueList(P,GWORDS).length;
     const nb=Math.min(SRS.newBudget(P), SRS.newList(P,GWORDS).length);
@@ -1538,7 +1549,7 @@ function renderStart(){
     <div class="small" style="margin-top:6px">🐛採集ゲージ ${P.pool}/${Reward.NEED} (せいかいで たまる)</div>
     ${KIDS?'':`<div class="small" style="margin-top:8px;font-weight:700">出題の かたち</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:4px 0 2px">
-    ${[['mix','🎲おまかせ'],['mc','📝たんご4たく'],['spell','⌨️スペル'],['colloc','🧩ぶんあなうめ']].map(f=>`<button class="chip" style="cursor:pointer;${EFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':''}" onclick="setEFMT('${f[0]}')">${f[1]}</button>`).join('')}
+    ${[['mix','🎲おまかせ'],['mc','📝たんご4たく'],['spell','⌨️スペル'],['colloc','🧩ぶんあなうめ'],['jukugo','🗣熟語']].map(f=>`<button class="chip" style="cursor:pointer;${EFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':''}" onclick="setEFMT('${f[0]}')">${f[1]}</button>`).join('')}
     </div>`}
     <button class="btn" onclick="startMain()">▶ たんけんに しゅっぱつ! (${SESSION_N}もん)</button>
     ${(hasNushi&&!P.nushi[GFID])?`<button class="btn amber" onclick="startNushi()">👑 ヌシに ちょうせん (${KIDS?'10もん中9もん':'20もん中18もん'}せいかい)</button>`:''}
@@ -1547,9 +1558,57 @@ function renderStart(){
 }
 function exitToMap(){ S=null; screen='home'; render(); window.scrollTo(0,0); }
 
+/* ---------- 熟語 (jukugo) helpers ----------
+   データソース: window.Q4B_IDIOM.byField(fid)
+   SRS キー: idiom|<fid>|<en の半角空白を _ に置換>
+   ※ reachEng の集計には含めない (battle.html 側で idiom| prefix を除外する想定) */
+function idiomKey(fid, en){ return 'idiom|'+fid+'|'+(en||'').toLowerCase().replace(/\s+/g,'_'); }
+function idiomList(fid){
+  if(!window.Q4B_IDIOM||!window.Q4B_IDIOM.byField) return [];
+  return window.Q4B_IDIOM.byField(fid)||[];
+}
+/* 熟語モード用 queue を構築。50% 意味選択 / 50% 穴埋め。
+   既出 (srs に登録ありかつ due 到来) を優先、不足分は新規＋既習で埋める。 */
+function buildJukugoQueue(fid, N){
+  const all=idiomList(fid);
+  if(!all.length) return [];
+  const t=Engine.todayKey();
+  /* 各熟語に key を付与 */
+  const withKey=all.map(it=>{ const k=idiomKey(fid,it.en); return Object.assign({},it,{key:k,fid:fid}); });
+  /* due / new / seen に分類 */
+  const due=withKey.filter(it=>{ const s=P.srs[it.key]; return s&&s[0]>0&&s[1]<=t; });
+  const newer=withKey.filter(it=>!P.srs[it.key]);
+  const seen=withKey.filter(it=>{ const s=P.srs[it.key]; return s&&!(s[1]<=t); });
+  let pool=[];
+  pool=pool.concat(Engine.shuffle(due).slice(0, Math.max(1,N-2)));
+  if(pool.length<N){
+    const need=N-pool.length;
+    pool=pool.concat(Engine.shuffle(newer).slice(0, Math.min(need, 2)));
+  }
+  if(pool.length<N){
+    const have=new Set(pool.map(x=>x.key));
+    const fill=Engine.shuffle(seen.filter(x=>!have.has(x.key)));
+    for(let i=0;i<fill.length&&pool.length<N;i++) pool.push(fill[i]);
+  }
+  if(pool.length<N){
+    const have2=new Set(pool.map(x=>x.key));
+    const any=Engine.shuffle(withKey.filter(x=>!have2.has(x.key)));
+    for(let i=0;i<any.length&&pool.length<N;i++) pool.push(any[i]);
+  }
+  return pool.slice(0,N).map(it=>({
+    w:it,
+    type: Math.random()<0.5 ? 'jukugo_mc' : 'jukugo_cloze',
+    jukugo:true
+  }));
+}
+
 /* ---------- question queue ---------- */
 const SESSION_N=5;
 function buildMain(){
+  if(!KIDS && EFMT==='jukugo'){
+    const q=buildJukugoQueue(GFID, SESSION_N);
+    return q;
+  }
   const N=SESSION_N;
   if(KIDS){
     const pool=GWORDS.map(w=>{
@@ -1612,7 +1671,7 @@ function srsType(w){
 }
 function stem(en){ const f=en.split(' ')[0]; return f.slice(0,Math.max(3,f.length-2)).replace(/[^a-zA-Z]/g,''); }
 
-function startMain(){ S={mode:'main',queue:buildMain(),i:0,correct:0,answered:0,caught:[],retried:{}}; if(!S.queue.length){UI.toast('ことばが ないよ');return;} nextQ(true); }
+function startMain(){ S={mode:'main',queue:buildMain(),i:0,correct:0,answered:0,caught:[],retried:{}}; if(!S.queue.length){UI.toast(EFMT==='jukugo'?'このフィールドの 熟語データが ないよ':'ことばが ないよ');return;} nextQ(true); }
 
 function startReview(){
   /* 全開放フィールド横断で既習語を収集 */
@@ -1700,7 +1759,9 @@ function nextQ(first){
   if(pendingCatch){ const r=pendingCatch; pendingCatch=null; showCatch(r,()=>nextQ()); return; }
   if(!S||S.i>=S.queue.length){ endSession(); return; }
   const item=S.queue[S.i];
-  if(item.type==='kids') renderKids(item); else renderSRS(item);
+  if(item.type==='kids') renderKids(item);
+  else if(item.type==='jukugo_mc'||item.type==='jukugo_cloze') renderJukugo(item);
+  else renderSRS(item);
 }
 function header(){
   const pct=Math.round(S.i/S.queue.length*100);
@@ -1841,6 +1902,65 @@ function ansSRS(i){
   if(item.type!=='e2j') Speech.say(w.en);
 }
 
+/* ---------- 熟語モード: 出題と回答 ----------
+   item.w = {key,en,ja,example,distractors_meaning,distractors_phrase,fid}
+   type='jukugo_mc'    : 意味選択 (en を見せて ja を 4 択から選ばせる)
+   type='jukugo_cloze' : 穴埋め (example の中の熟語を ___ に置換、選択肢から選ぶ) */
+function renderJukugo(item){
+  S.__locked=false;
+  const w=item.w, t=item.type;
+  let qhtml='';
+  if(t==='jukugo_mc'){
+    const dm=(w.distractors_meaning||[]).slice(0,3);
+    const opts=Engine.shuffle([w.ja, ...dm]);
+    S.jukugoChoices=opts;
+    qhtml=`<div class="qword"><div class="w">${Engine.esc(w.en)}</div>
+      <div class="pos"><span class="tag">熟語</span> <span class="small">いみは？</span></div>
+      <button class="spk" onclick="Speech.say(${JSON.stringify(w.en)})">🔊</button></div>
+      <div>${opts.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansJukugo(${i})">${furi(c)}</button>`).join('')}</div>`;
+    Speech.say(w.en);
+  } else {
+    /* cloze: example から熟語部分を ___ に置換。完全一致ヒットしなければ最初の語の語幹で検索 */
+    const ex=w.example||'';
+    let blanked=ex, hit=false;
+    if(ex){
+      const re=new RegExp(w.en.split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('\\s+'),'i');
+      if(re.test(ex)){ blanked=ex.replace(re,'＿＿＿'); hit=true; }
+      else {
+        const first=w.en.split(/\s+/)[0]||'';
+        if(first.length>=3){
+          const re2=new RegExp('\\b'+first.replace(/[^a-zA-Z]/g,'').slice(0,Math.max(3,first.length-2))+'[a-z]*','i');
+          if(re2.test(ex)){ blanked=ex.replace(re2,'＿＿＿'); hit=true; }
+        }
+      }
+    }
+    /* example がない/穴埋めできない場合は単純に「___ the ...」のテンプレに退避 */
+    if(!hit) blanked='＿＿＿ … ('+furi(w.ja)+')';
+    const dp=(w.distractors_phrase||[]).slice(0,3);
+    const opts=Engine.shuffle([w.en, ...dp]);
+    S.jukugoChoices=opts;
+    qhtml=`<div class="qword"><div class="ex" style="font-size:18px;color:var(--ink);line-height:1.7">${Engine.esc(blanked).replace('＿＿＿','<b style="color:var(--leaf)">＿＿＿</b>')}</div>
+      <div class="small" style="margin-top:8px">🧩 ぶんに あう 熟語は？　ヒント: ${furi(w.ja)}</div></div>
+      <div>${opts.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansJukugo(${i})">${Engine.esc(c)}</button>`).join('')}</div>`;
+  }
+  $('#app').innerHTML=header()+qhtml;
+}
+function ansJukugo(i){
+  if(S.__locked)return; S.__locked=true;
+  const item=S.queue[S.i], w=item.w, t=item.type;
+  const picked=S.jukugoChoices[i];
+  const correct = (t==='jukugo_mc') ? w.ja : w.en;
+  const ok = picked===correct;
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=null);
+  $('#op'+i).classList.add(ok?'ok':'ng');
+  if(!ok){ const ci=S.jukugoChoices.indexOf(correct); if(ci>=0)$('#op'+ci).classList.add('ok'); }
+  const exShown = w.example ? ('<br><span class="small">'+Engine.esc(w.example).replace(new RegExp(w.en.split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('\\s+'),'i'),'<b>'+Engine.esc(w.en)+'</b>')+'</span>') : '';
+  afterAnswer(item, ok,
+    ok ? (t==='jukugo_mc'?'せいかい! 🗣':'せいかい! 🧩') : 'おしい!',
+    `<b>${Engine.esc(w.en)}</b> ＝ ${furi(w.ja)}${exShown}`);
+  Speech.say(w.en);
+}
+
 /* ---------- scoring ---------- */
 function afterAnswer(item,ok,title,detail){
   S.answered++;
@@ -1860,7 +1980,11 @@ function afterAnswer(item,ok,title,detail){
     if(ok){
       const g=growthStage(item.w,wasKids);
       if(g.stage>prevStage){
-        if(g.stage>=3) UI.toast('🦋 「'+item.w.en+'」が せいちゅうに なった！');
+        const isJukugo=(item.type==='jukugo_mc'||item.type==='jukugo_cloze');
+        if(isJukugo){
+          if(g.stage>=3) UI.toast('🏆 熟語「'+item.w.en+'」を マスターした！');
+          else UI.toast(g.emoji+' 熟語「'+item.w.en+'」が '+g.label+' に すすんだ！');
+        } else if(g.stage>=3) UI.toast('🦋 「'+item.w.en+'」が せいちゅうに なった！');
         else UI.toast(g.emoji+' 「'+item.w.en+'」が '+g.label+' に すすんだ！');
       }
     }
