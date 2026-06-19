@@ -314,7 +314,7 @@
 <script src="./shared/storage.js?v=0.4.17"></script>
 <script src="./shared/bugs.js?v=0.4.7"></script>
 <script src="./shared/kanji_data.js?v=0.5.0"></script>
-<script src="./shared/eitango_data.js?v=0.5.0"></script>
+<script src="./shared/eitango_data.js?v=0.5.1"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.4.8"></script>
@@ -1023,6 +1023,12 @@ function makeQ(type, bd){
   bd=Math.max(1,Math.min(5,bd||1));
   if(type==="keisan"){
     function R(mn,mx){ return mn+Math.floor(seed()*(mx-mn+1)); }
+    /* 文章題比率: bd<=2 では 0%、bd=3 で 15%、bd>=4 で 25% */
+    var wordRoll=seed(), wordChance=bd<=2?0:(bd===3?0.15:0.25);
+    if(wordRoll<wordChance){
+      var wq=makeKeisanWordProblem(bd, R);
+      if(wq) return wq;
+    }
     var ops = bd<=1?["+","-"] : bd===2?["+","-","×"] : bd===3?["+","-","×","÷"] : ["+","-","×","÷","mix"];
     var op=ops[Math.floor(seed()*ops.length)];
     var hi=[20,99,999,9999,99999][bd-1];        /* 加減の上限を band で大きく */
@@ -1056,6 +1062,49 @@ function makeQ(type, bd){
   if(type==="kanji") return makeKanjiQ(bd, choiceQ);
   return makeEigoQ(bd, choiceQ);
 }
+/* 計算の文章題: 種類豊富にしてバリエーション稼ぐ。bandに応じて難度UP。
+   返り値が null なら呼び出し側で純粋演算にフォールバック。 */
+function makeKeisanWordProblem(bd, R){
+  var NAMES=["はな","たろう","ゆうき","あきら","さくら","けんた"];
+  var nm=NAMES[Math.floor(seed()*NAMES.length)];
+  var nm2=NAMES[Math.floor(seed()*NAMES.length)];
+  if(nm2===nm) nm2=NAMES[(NAMES.indexOf(nm)+1)%NAMES.length];
+  var ITEMS=["あめ","シール","おはじき","えんぴつ","クッキー","カード","おはな"];
+  var it=ITEMS[Math.floor(seed()*ITEMS.length)];
+  var pick=Math.floor(seed()*6);
+  /* 種類0: 和差 */
+  if(pick===0){
+    var a=R(bd<=3?10:50, bd<=3?60:200), b=R(bd<=3?5:30, bd<=3?Math.min(a-1,50):150);
+    return {q:nm+"は "+it+"を "+a+"こ もっています。"+nm2+"に "+b+"こ あげました。のこりは なんこ？", ans:a-b};
+  }
+  /* 種類1: 単純積 */
+  if(pick===1){
+    var c=R(2,bd<=3?12:bd===4?25:40), d=R(2,9);
+    return {q:nm+"は "+it+"を 1ふくろ "+c+"こ ずつ "+d+"ふくろ かいました。ぜんぶで なんこ？", ans:c*d};
+  }
+  /* 種類2: 単価合計 */
+  if(pick===2){
+    var p=R(bd<=3?20:50,bd<=3?100:500)*10, n=R(2,bd<=3?8:15);
+    return {q:"1こ "+p+"えんの "+it+"を "+n+"こ かいました。ぜんぶで なんえん？", ans:p*n};
+  }
+  /* 種類3: 割り算（等分） */
+  if(pick===3){
+    var ans3=R(2,bd<=3?9:20), d3=R(2,bd<=3?6:10);
+    var tot=ans3*d3;
+    return {q:it+"が "+tot+"こ あります。"+d3+"にん で わけると ひとり なんこ？", ans:ans3};
+  }
+  /* 種類4 (bd>=3): 速さ */
+  if(pick===4 && bd>=3){
+    var sp=R(40,bd===3?80:200), mn=R(3,bd<=3?10:30);
+    return {q:nm+"は ぷんそく "+sp+"m で "+mn+"ぷん あるきました。なんm すすんだ？", ans:sp*mn};
+  }
+  /* 種類5 (bd>=4): 割合 */
+  if(pick===5 && bd>=4){
+    var base=R(10,40)*10, pct=R(1,9)*10;
+    return {q:base+"えんの "+pct+"パーセント は なんえん？", ans:Math.round(base*pct/100)};
+  }
+  return null;  /* フォールバック→純粋演算 */
+}
 /* ===== 本物連動の出題（カンジ・エイゴ）：定着範囲を主軸に、進捗の少し先を混ぜる ===== */
 function makeKanjiQ(bd, choiceQ){
   var ks=PROG.kanji, K=window.Q4B_KANJI;
@@ -1079,6 +1128,34 @@ function makeKanjiQ(bd, choiceQ){
         if(np.length)target=np[Math.floor(seed()*np.length)];
       }
       if(!target)target=learned[Math.floor(seed()*learned.length)];
+      /* 出題タイプ多様化: ① よみ ② 熟語のよみ(jk) ③ 送り仮名(oku) を比率でランダム選択 */
+      var typeRoll=seed();
+      var hasJk=target.jk&&target.jk.length>0, hasOku=target.oku&&target.oku.ok;
+      if(typeRoll<0.30 && hasJk){
+        /* 熟語のよみ問題: target.jk からランダムに1つ選んで、その熟語の読みを問う */
+        var jk=target.jk[Math.floor(seed()*target.jk.length)];
+        var ans2=jk.r, distr2=[], seen2={}; seen2[ans2]=1;
+        /* 他の漢字の jk から似た読みを抽出 */
+        var jkPool=[];
+        learned.forEach(function(x){ if(x.jk)x.jk.forEach(function(j){ if(j.r&&j.r!==ans2)jkPool.push(j.r); }); });
+        jkPool=shuffle(jkPool);
+        for(var ji=0;ji<jkPool.length&&distr2.length<3;ji++){ if(!seen2[jkPool[ji]]){seen2[jkPool[ji]]=1;distr2.push(jkPool[ji]);} }
+        if(distr2.length>=3) return {q:jk.w+" の よみは？", ans:ans2, kind:"choice", choices:shuffle([ans2].concat(distr2))};
+      }
+      if(typeRoll<0.45 && hasOku){
+        /* 送り仮名問題: 正しい送り仮名 vs 間違った送り仮名 */
+        var okuAns=target.oku.ok, okuNg=target.oku.ng;
+        if(okuAns && okuNg){
+          /* 他の漢字の送り仮名を distractor に追加 */
+          var okuPool=[];
+          learned.forEach(function(x){ if(x.oku&&x.oku.ok&&x.oku.ok!==okuAns)okuPool.push(x.oku.ok); });
+          okuPool=shuffle(okuPool);
+          var distr3=[okuNg];
+          for(var oi=0;oi<okuPool.length&&distr3.length<3;oi++) if(distr3.indexOf(okuPool[oi])<0)distr3.push(okuPool[oi]);
+          if(distr3.length>=3) return {q:target.k+"("+target.oku.r+") の おくりがなは？", ans:okuAns, kind:"choice", choices:shuffle([okuAns].concat(distr3))};
+        }
+      }
+      /* デフォルト: よみ問題 */
       var ans=target.main, distr=[], seen={}; seen[ans]=1;
       var dp=shuffle(K.filter(function(x){return x.main&&x.main!==ans&&Math.abs((x.u||0)-(target.u||0))<=1;}));
       for(var i=0;i<dp.length&&distr.length<3;i++){ if(!seen[dp[i].main]){seen[dp[i].main]=1;distr.push(dp[i].main);} }
@@ -1147,6 +1224,28 @@ function makeEigoQ(bd, choiceQ){
         if(challenge.length)target=challenge[Math.floor(seed()*challenge.length)];
       }
       if(!target)target=basePool[Math.floor(seed()*basePool.length)];
+      /* 出題タイプ多様化: 30% で例文穴埋め(en語が含まれる場合のみ)、それ以外は意味選択 */
+      if(seed()<0.30 && target.ex && target.en){
+        var ex=target.ex, en=target.en, enLow=en.toLowerCase();
+        /* en が例文に含まれるか確認(活用形も拾うため部分一致) */
+        var exLow=ex.toLowerCase(), pos=exLow.indexOf(enLow);
+        if(pos>=0){
+          /* 例文の該当語を ___ に置換 */
+          var blank=ex.substring(0,pos)+"___"+ex.substring(pos+en.length);
+          var ans2=en, distr2=[], seen2={}; seen2[enLow]=1;
+          /* 同フィールドの他語(似た品詞優先)を distractor */
+          var dpool=basePool.filter(function(w){return w.en&&w.en!==en;});
+          /* 品詞があれば同pos優先 */
+          if(target.pos){ var samePos=dpool.filter(function(w){return w.pos===target.pos;}); if(samePos.length>=3) dpool=samePos; }
+          dpool=shuffle(dpool);
+          for(var di=0;di<dpool.length&&distr2.length<3;di++){
+            var den=dpool[di].en, dlow=den.toLowerCase();
+            if(!seen2[dlow]){seen2[dlow]=1;distr2.push(den);}
+          }
+          if(distr2.length>=3) return {q:blank, ans:ans2, kind:"choice", choices:shuffle([ans2].concat(distr2))};
+        }
+      }
+      /* デフォルト: 意味選択 */
       var ans=target.ja, distr=eigoDistractors(target,info);
       return {q:target.en+" の いみは？", ans:ans, kind:"choice", choices:shuffle([ans].concat(distr))};
     }
@@ -1352,7 +1451,8 @@ function startBattle(r){
   var partySize=TANI.active ? B.PRED_PARTY : B.bossPartySize(r);
   st={ r:r, boss:boss, bossMax:maxHp, bossHp:maxHp, traits:B.bossTraits(r),
     party: PARTY.slice(0, partySize).map(function(s){ var hp=effectiveBugHP(s); return {sp:s, type:RW.gameFor(s), max:hp, hp:hp}; }),
-    idx:0, phase:"attack", defReps:1, defDone:0, q:null, busy:false };
+    idx:0, phase:"attack", defReps:1, defDone:0, q:null, busy:false,
+    recentQ:[] };  /* 直近重複弾き用 */
   document.getElementById("home").style.display="none";
   var bt=document.getElementById("battle"); bt.style.display="block";
   // ---- 登場エフェクト ----
@@ -1432,7 +1532,13 @@ function nextQuestion(){
   var _rl=Math.max(1,Math.min(5,Math.ceil(((REACH[m.type]||0)+1)/2)));
   var _d=Math.max(_bb,_rl);
   if(m.type==="keisan"&&Math.random()<0.25)_d=Math.min(5,_d+1);   /* 計算だけ外側で少し難化。漢字/英語は各実データ側で調整 */
-  st.q=makeQ(m.type, _d);
+  /* 直近重複弾き: 直近8問と同じ問題文を出さない（10回まで再抽選） */
+  if(!st.recentQ) st.recentQ=[];
+  var tries=0, q;
+  do { q=makeQ(m.type, _d); tries++; }
+  while(q && q.q && st.recentQ.indexOf(q.q)>=0 && tries<10);
+  st.q=q;
+  if(q && q.q){ st.recentQ.push(q.q); if(st.recentQ.length>8) st.recentQ.shift(); }
   var tb=document.getElementById("turnBanner");
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
   else { tb.className="turn-banner def";

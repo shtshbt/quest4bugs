@@ -7968,19 +7968,20 @@ const ICHIRAW=[
 ];
 
   g.Q4B_EI_RAW = {BASICRAW:BASICRAW,P1A:P1A,P1B:P1B,P1C:P1C,P1D:P1D,FIELD2RAW:FIELD2RAW,FIELD3RAW:FIELD3RAW,FIELD4RAW:FIELD4RAW,FIELD5RAW:FIELD5RAW,PRE1RAW:PRE1RAW,ICHIRAW:ICHIRAW};
-  /* バトル用: フィールドfの単語 {key,en,ja,level}（srsキーはゲームと一致） */
+  /* バトル用: フィールドfの単語 {key,en,ja,ex,pos,level}（srsキーはゲームと一致）
+     ex/pos も含めることでバトル側で例文穴埋め・品詞別distractorsが使える。 */
   function byField(f){
     var arr=[];
-    if(f===1) arr=BASICRAW.map(function(w){return {key:'b|'+w[0],en:w[0],ja:w[1],level:1};});
-    else if(f===2) arr=FIELD2RAW.map(function(w){return {key:'f2|'+w[0],en:w[0],ja:w[1],level:2};});
-    else if(f===3) arr=FIELD3RAW.map(function(w){return {key:'f3|'+w[0],en:w[0],ja:w[1],level:3};});
-    else if(f===4) arr=FIELD4RAW.map(function(w){return {key:'f4|'+w[0],en:w[0],ja:w[1],level:4};});
-    else if(f===5) arr=FIELD5RAW.map(function(w){return {key:'f5|'+w[0],en:w[0],ja:w[1],level:5};});
-    else if(f===6){ var base=[].concat(P1A,P1B,P1C,P1D).map(function(w){return {key:'p|'+w[0],en:w[0],ja:w[1],level:6};});
+    if(f===1) arr=BASICRAW.map(function(w){return {key:'b|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:1};});
+    else if(f===2) arr=FIELD2RAW.map(function(w){return {key:'f2|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:2};});
+    else if(f===3) arr=FIELD3RAW.map(function(w){return {key:'f3|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:3};});
+    else if(f===4) arr=FIELD4RAW.map(function(w){return {key:'f4|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:4};});
+    else if(f===5) arr=FIELD5RAW.map(function(w){return {key:'f5|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:5};});
+    else if(f===6){ var base=[].concat(P1A,P1B,P1C,P1D).map(function(w){return {key:'p|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:6};});
       var seen={}; base.forEach(function(w){seen[w.en.toLowerCase().trim()]=1;});
-      var extra=PRE1RAW.filter(function(w){return !seen[w[0].toLowerCase().trim()];}).map(function(w){return {key:'p|'+w[0],en:w[0],ja:w[1],level:6};});
+      var extra=PRE1RAW.filter(function(w){return !seen[w[0].toLowerCase().trim()];}).map(function(w){return {key:'p|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:6};});
       arr=base.concat(extra); }
-    else if(f===7) arr=ICHIRAW.map(function(w){return {key:'f7|'+w[0],en:w[0],ja:w[1],level:7};});
+    else if(f===7) arr=ICHIRAW.map(function(w){return {key:'f7|'+w[0],en:w[0],ja:w[1],ex:w[2]||"",pos:w[3]||"",level:7};});
     var m={},out=[]; arr.forEach(function(w){ if(!m[w.key]){m[w.key]=1;out.push(w);} }); return out;
   }
   g.Q4B_EI = { byField: byField };
