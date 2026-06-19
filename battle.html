@@ -1119,8 +1119,20 @@ function makeKanjiQ(bd, choiceQ){
       if(y.s>=2)learned.push(kx);
       else if(y.s>0)started.push(kx);
     }
-    if(learned.length<4&&started.length>=4) learned=started;   /* 序盤だけ緩和。通常は定着済み(s>=2)を使う */
+    /* プール拡大: 旧は基本 learned(s>=2)のみで「触ったけどまだ定着してない字」を捨てていた。
+       Sushiroの場合 76字 started あるのに 69字 learned のみで出題＝相当狭かった。
+       新: 通常時も 25% は started(s>=1)から出題＝復習効果＋出題プール拡大。 */
+    if(learned.length<4&&started.length>=4) learned=started;
     if(learned.length>=4){
+      /* 25% は started 側から（学習中で定着前の字を復習＝SRS的にも理にかなう） */
+      if(started.length>=4 && seed()<0.25){
+        var s=started[Math.floor(seed()*started.length)];
+        var ans=s.main, distr=[], seen={}; seen[ans]=1;
+        var pool=K.filter(function(x){return x.main&&x.main!==ans&&Math.abs((x.u||0)-(s.u||0))<=1;});
+        pool=shuffle(pool);
+        for(var pi=0;pi<pool.length&&distr.length<3;pi++){ if(!seen[pool[pi].main]){seen[pool[pi].main]=1;distr.push(pool[pi].main);} }
+        if(distr.length>=3) return {q:s.k+" の よみは？", ans:ans, kind:"choice", choices:shuffle([ans].concat(distr))};
+      }
       var maxG=0; learned.forEach(function(x){if(x.u>maxG)maxG=x.u;});
       var target=null;
       if(seed()<(bd>=4?0.25:0.15)){                      /* チャレンジ枠＝次学年から少量 */
@@ -1211,19 +1223,33 @@ function makeEigoQ(bd, choiceQ){
   var es=PROG.eitango, all=eiAll();
   if(es&&all.length){
     var info=eigoTargetInfo(es,all), srs=info.srs, kids=info.kids;
-    var learned=all.filter(function(w){ return eigoMastered(w,srs,kids); });
-    if(learned.length>=4){
-      var current=learned.filter(function(w){return w.level===info.active;});
-      var basePool=current.length>=4?current:learned.filter(function(w){return w.level<=info.active;});
-      if(basePool.length<4)basePool=learned;
-      var target=null, challengeLevel=Math.min(7,info.active+1);
-      if(seed()<(bd>=4?0.25:0.15)){                              /* チャレンジ枠＝進捗フィールドの少し先 */
-        var activeUnseen=(info.byLevel[info.active]||[]).filter(function(w){return !eigoMastered(w,srs,kids);});
-        var nextPool=(info.completed>=info.active-1)?(info.byLevel[challengeLevel]||[]):[];
-        var challenge=activeUnseen.length>=4?activeUnseen:nextPool;
+    /* 旧バグ: active=最後に1個でもmaster語があるlevelに上書きされ、basePool=current(=active1フィールド)で
+       しばしば1語ループに陥っていた（例: f7に1語あるとactive=7、出題プール1語）。
+       修正: 全マスター語を主プールにし、学習中(started)語も30%混ぜる＝出題プールが百倍に。 */
+    var mastered=all.filter(function(w){ return eigoMastered(w,srs,kids); });
+    var started=all.filter(function(w){
+      if(eigoMastered(w,srs,kids)) return false;
+      if(w.level===1){ var k=kids[w.key]; return !!(k&&(k[1]||0)>=1); }
+      var s=srs[w.key]; return !!(s&&(s[0]||0)>=1);
+    });
+    var basePool=mastered.length>=4?mastered:mastered.concat(started);
+    if(basePool.length>=4){
+      var target=null, challengeLevel=Math.min(7,(info.active||1)+1);
+      if(seed()<(bd>=4?0.25:0.15)){                              /* チャレンジ枠 */
+        var nextPool=(info.byLevel[challengeLevel]||[]).filter(function(w){return !eigoMastered(w,srs,kids);});
+        var prefer=nextPool.filter(function(w){
+          if(w.level===1){ var k=kids[w.key]; return !!(k&&(k[1]||0)>=1); }
+          var s=srs[w.key]; return !!(s&&(s[0]||0)>=1);
+        });
+        var challenge=prefer.length>=4?prefer:nextPool;
         if(challenge.length)target=challenge[Math.floor(seed()*challenge.length)];
       }
-      if(!target)target=basePool[Math.floor(seed()*basePool.length)];
+      if(!target){
+        /* 70% mastered / 30% started(あれば) で出題プール拡大 */
+        var useStarted=(started.length>=4 && seed()<0.30);
+        var pool=useStarted?started:(mastered.length>=4?mastered:basePool);
+        target=pool[Math.floor(seed()*pool.length)];
+      }
       /* 出題タイプ多様化: 30% で例文穴埋め(en語が含まれる場合のみ)、それ以外は意味選択 */
       if(seed()<0.30 && target.ex && target.en){
         var ex=target.ex, en=target.en, enLow=en.toLowerCase();
