@@ -763,7 +763,7 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab=1, zQ='', zR='', zC='';
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false;
 
 async function boot(){
   buildSpecies();
@@ -1050,9 +1050,9 @@ function enterField(id){ P.field=id; touchP(); startSession(id); }
 
 /* ---------------- ZUKAN ---------------- */
 function scrZukan(){
-  const tabs=FIELDS.filter(f=>f.open);
-  if(!tabs.find(f=>f.id===zTab)) zTab=tabs[0].id;
-  const zk=Reward.zukanFor(zTab);
+  const tabs=[{id:'all',name:'ぜんぶ',emoji:'📖'}].concat(FIELDS.filter(f=>f.open));
+  if(!tabs.find(f=>String(f.id)===String(zTab))) zTab='all';
+  const zk=String(zTab)==='all'?ALLSP:Reward.zukanFor(Number(zTab));
   const classOpts=zukanClassOptions(zk);
   if(zC && !classOpts.includes(zC)) zC='';
   const filtered=zk.filter(zukanMatch);
@@ -1067,9 +1067,9 @@ function scrZukan(){
   </div>
   ${eitangoMasterSection()}
   ${window.Q4BBossZukan?Q4BBossZukan.sectionHTML('eitango'):''}
-  <div class="ztabs">${tabs.map(f=>`<button class="${f.id===zTab?'on':''}" onclick="zTab=${f.id};render()">${f.emoji} ${f.name}</button>`).join('')}</div>
+  <div class="ztabs">${tabs.map(f=>`<button class="${String(f.id)===String(zTab)?'on':''}" onclick="zTab='${f.id}';render()">${f.emoji} ${f.name}</button>`).join('')}</div>
   <div class="card" style="padding:12px">
-    <input id="zq" value="${Engine.esc(zQ)}" oninput="setZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--leaf);border-radius:12px;font:inherit;margin-bottom:8px;background:var(--card);color:var(--ink)">
+    <input id="zq" value="${Engine.esc(zQ)}" oncompositionstart="zComp=true" oncompositionend="zComp=false;setZQ(this.value)" oninput="if(zComp){zQ=this.value}else setZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--leaf);border-radius:12px;font:inherit;margin-bottom:8px;background:var(--card);color:var(--ink)">
     <label class="small" style="display:block;font-weight:800;margin-bottom:8px">分類
       <select onchange="setZC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--leaf);border-radius:10px;font:inherit;background:var(--card);color:var(--ink)">
         <option value="">ぜんぶの目</option>

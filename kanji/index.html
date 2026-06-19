@@ -254,7 +254,7 @@ function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
-var BUG_Q="",BUG_R="",BUG_C="";
+var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false;
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
 function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
@@ -1210,7 +1210,7 @@ function renderBugs(){
   +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">📖 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
-  +'<input id="bugQ" value="'+escAttr(BUG_Q)+'" oninput="setBugQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--forest);border-radius:12px;font:inherit;margin-bottom:8px">'
+  +'<input id="bugQ" value="'+escAttr(BUG_Q)+'" oncompositionstart="BUG_COMP=true" oncompositionend="BUG_COMP=false;setBugQ(this.value)" oninput="if(BUG_COMP){BUG_Q=this.value}else setBugQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--forest);border-radius:12px;font:inherit;margin-bottom:8px">'
   +'<label class="small" style="display:block;font-weight:bold;margin-bottom:8px">分類 '
   +'<select onchange="setBugC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--forest);border-radius:10px;font:inherit;background:var(--card);color:var(--deep)">'
   +'<option value="">ぜんぶの科</option>'

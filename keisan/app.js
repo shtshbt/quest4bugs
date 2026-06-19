@@ -5,7 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
-var KZ_Q="", KZ_R="", KZ_C="";
+var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false;
 
 /* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
@@ -655,7 +655,7 @@ function showZukan(){
   var classOpts=zukanClassOptionsK(sorted);
   var filtered=sorted.filter(zukanMatchK);
   h+='<div class="card" style="padding:12px">'
-    +'<input id="kzq" value="'+esc(KZ_Q)+'" oninput="setKZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin-bottom:8px">'
+    +'<input id="kzq" value="'+esc(KZ_Q)+'" oncompositionstart="KZ_COMP=true" oncompositionend="KZ_COMP=false;setKZQ(this.value)" oninput="if(KZ_COMP){KZ_Q=this.value}else setKZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin-bottom:8px">'
     +'<label class="note" style="display:block;font-weight:800;margin-bottom:8px">分類 '
     +'<select onchange="setKZC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font:inherit;background:var(--panel);color:var(--ink)">'
     +'<option value="">ぜんぶの科</option>'
