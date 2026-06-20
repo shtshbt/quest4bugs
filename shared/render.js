@@ -14,28 +14,31 @@
   }
   function scaleG(s,inner){ return '<g transform="translate(50 54) scale('+s+') translate(-50 -54)">'+inner+'</g>'; }
   /* butterfly archetypes: same wing base, distinct silhouette per family group */
-  function butterfly(t,c1,c2,K,leg){
+  /* sex='f' のとき、color/both 系のメスは輝く翅色を控えめに(c2で代替)。
+     ゼフィルス・メスアカ系で「オスは輝く緑/青、メスは褐色」が表現される。 */
+  function butterfly(t,c1,c2,K,leg,sex){
+    var wc1 = (sex==='f') ? c2 : c1;   /* メスは翅本体を鈍色に */
     if(t==="ageha"){ /* swallowtail: large wings + hindwing tails */
       return '<path d="M33 80 C29 89 26 95 23 99 M67 80 C71 89 74 95 77 99" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>'
-        +scaleG(1.07,wings(c1,c2,K,leg));
+        +scaleG(1.07,wings(wc1,c2,K,leg));
     }
     if(t==="tateha"){ /* nymphalid: broad wings + forewing eyespots */
-      return scaleG(1.02,wings(c1,c2,K,leg))
+      return scaleG(1.02,wings(wc1,c2,K,leg))
         +'<circle cx="24" cy="34" r="3.2" fill="'+K+'"/><circle cx="24" cy="34" r="1.3" fill="#fff"/>'
         +'<circle cx="76" cy="34" r="3.2" fill="'+K+'"/><circle cx="76" cy="34" r="1.3" fill="#fff"/>';
     }
     if(t==="shijimi"){ /* small lycaenid: compact + tiny tails */
-      return scaleG(0.72,wings(c1,c2,K,leg))
+      return scaleG(0.72,wings(wc1,c2,K,leg))
         +'<path d="M41 76 l-2 6 M59 76 l2 6" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/>';
     }
     if(t==="seseri"){ /* skipper: stout body + swept wings + hooked antennae */
-      return scaleG(0.8,wings(c1,c2,K,leg))
+      return scaleG(0.8,wings(wc1,c2,K,leg))
         +'<ellipse cx="50" cy="58" rx="7.5" ry="14" fill="'+K+'"/>'
         +'<path d="M44 42 C39 34 35 32 32 35 M56 42 C61 34 65 32 68 35" '+leg+'/>';
     }
     if(t==="ga"){ /* moth: roof-folded wings + fuzzy body */
-      return '<path d="M50 38 C28 40 14 60 18 80 C30 80 44 70 50 56 Z" fill="'+c1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
-        +'<path d="M50 38 C72 40 86 60 82 80 C70 80 56 70 50 56 Z" fill="'+c1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+      return '<path d="M50 38 C28 40 14 60 18 80 C30 80 44 70 50 56 Z" fill="'+wc1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
+        +'<path d="M50 38 C72 40 86 60 82 80 C70 80 56 70 50 56 Z" fill="'+wc1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
         +'<path d="M30 72 h40" stroke="'+c2+'" stroke-width="3" opacity=".8"/>'
         +'<ellipse cx="50" cy="54" rx="7" ry="18" fill="'+K+'"/>'
         +'<path d="M47 38 C42 30 36 27 30 27 M53 38 C58 30 64 27 70 27" '+leg+'/>'
@@ -104,14 +107,23 @@
     else if(rd==='kamikiri'||rd==='kamakiri') variant=/ヒゲナガ/.test(nm)?'longant':'';
     return {pattern:pattern, patternColor:pcolor, size:size, variant:variant};
   }
-  /* カブトのツノ（頭は左 ~37,50。ツノは左上へ） */
+  /* カブトのツノ（頭は左 ~37,50。ツノは左上へ）
+     性差: '_f' suffix が付くとメス扱いで角を描かない（メスカブトは角がない）。
+           '_m' suffix も同様に処理して既存 variant ロジックに分岐させる。 */
   function kabutoHorn(v,c2,K,leg){
-    if(v==='long'){ /* ヘラクレス系: 長い上下のはさみツノ */
+    var sexF = v && /(_f)$/.test(v);
+    var sexM = v && /(_m)$/.test(v);
+    var base = v ? v.replace(/_[mf]$/,'') : v;
+    if(sexF){
+      /* メスカブト: 角なし、頭部に小さな突起だけで丸い印象 */
+      return '<path d="M34 44 l-3 -3 M34 56 l-3 3" stroke="'+K+'" stroke-width="2" stroke-linecap="round" fill="none"/>';
+    }
+    if(base==='long'){ /* ヘラクレス系: 長い上下のはさみツノ */
       return '<path d="M35 44 C24 34 15 23 7 10 C14 10 20 14 25 20 C31 28 37 37 41 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5" stroke-linejoin="round"/>'
         +'<path d="M34 56 C24 55 15 49 9 39 C16 40 23 44 29 49 C33 52 37 53 41 54 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5" stroke-linejoin="round"/>'
         +'<path d="M17 19 l-4 1 M14 41 l-3 -2" '+leg+'/>';
     }
-    if(v==='three'){ /* コーカサス系: 3本ツノ */
+    if(base==='three'){ /* コーカサス系: 3本ツノ */
       return '<path d="M34 46 C26 36 22 26 20 14 L27 16 C29 26 33 35 40 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
         +'<path d="M31 43 C23 37 17 31 12 23" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>'
         +'<path d="M33 54 C25 53 18 49 12 43" fill="none" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>';
@@ -119,25 +131,34 @@
     return '<path d="M34 46 C26 36 22 26 20 14 L27 16 C29 26 33 35 40 43 Z" fill="'+c2+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
       +'<path d="M20 14 l-5 -4 M20 14 l1 -7" '+leg+'/>';
   }
-  /* クワガタの大アゴ（頭は左 ~38,52。大アゴは左へ） */
+  /* クワガタの大アゴ（頭は左 ~38,52。大アゴは左へ）
+     性差: '_f' でメス扱い。メスは大顎が短く小さい。 */
   function kuwaMandible(v,c2,K){
-    if(v==='saw'){ /* ノコギリ: 細長く湾曲・内歯 */
+    var sexF = v && /(_f)$/.test(v);
+    var base = v ? v.replace(/_[mf]$/,'') : v;
+    if(sexF){
+      /* メスクワガタ: 大顎は短く直線的、内歯なし */
+      return '<path d="M32 46 C26 44 22 43 20 43" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
+        +'<path d="M32 57 C26 59 22 60 20 60" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
+        +'<path d="M20 43 l-2 -1 M20 60 l-2 1" stroke="'+K+'" stroke-width="1.8" stroke-linecap="round"/>';
+    }
+    if(base==='saw'){ /* ノコギリ: 細長く湾曲・内歯 */
       return '<path d="M31 45 C18 38 9 28 12 14 C20 20 27 31 36 39" fill="none" stroke="'+c2+'" stroke-width="5.5" stroke-linecap="round"/>'
         +'<path d="M30 58 C16 62 6 58 6 44 C15 50 24 52 33 49" fill="none" stroke="'+c2+'" stroke-width="5.5" stroke-linecap="round"/>'
         +'<path d="M19 26 l5 2 M14 35 l5 1 M15 50 l5 -2 M11 45 l5 -1" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
     }
-    if(v==='flat'){ /* ヒラタ: 太く平行で短め */
+    if(base==='flat'){ /* ヒラタ: 太く平行で短め */
       return '<path d="M32 46 C22 42 13 40 7 39" fill="none" stroke="'+c2+'" stroke-width="7" stroke-linecap="round"/>'
         +'<path d="M32 57 C22 59 13 60 7 60" fill="none" stroke="'+c2+'" stroke-width="7" stroke-linecap="round"/>'
         +'<path d="M7 39 l-2 2 M7 60 l-2 -2 M18 42 l3 2 M18 58 l3 -2" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
     }
-    if(v==='miyama'){ /* ミヤマ: 大きく湾曲＋頭部の張り出し */
+    if(base==='miyama'){ /* ミヤマ: 大きく湾曲＋頭部の張り出し */
       return '<path d="M31 44 C19 36 13 23 18 11 C24 18 29 30 36 39" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
         +'<path d="M30 59 C18 63 10 57 9 46 C17 51 25 53 33 50" fill="none" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>'
         +'<path d="M20 21 l5 3 M14 49 l5 -2" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/>'
         +'<path d="M40 42 C38 38 33 38 32 42 M40 62 C38 66 33 66 32 62" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>';
     }
-    if(v==='giraffe'){ /* ギラファ: 非常に長く細い大アゴ */
+    if(base==='giraffe'){ /* ギラファ: 非常に長く細い大アゴ */
       return '<path d="M32 47 C20 42 9 37 2 31 C10 39 21 44 36 48" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
         +'<path d="M32 57 C20 60 9 63 2 68 C10 61 21 56 36 53" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'
         +'<path d="M5 33 l3 -2 M5 66 l3 2 M16 41 l3 1 M16 58 l3 -1" stroke="'+K+'" stroke-width="2" stroke-linecap="round"/>';
@@ -165,7 +186,7 @@
     +kuwaMandible(b.variant,c2,K)
     +'<circle cx="36" cy="52" r="2.4" fill="#fff"/>';
   }else if(b.t==="chou"||b.t==="ageha"||b.t==="tateha"||b.t==="shijimi"||b.t==="seseri"||b.t==="ga"){
-    inner=butterfly(b.t,c1,c2,K,leg);
+    inner=butterfly(b.t,c1,c2,K,leg,b.sex);
   }else if(b.t==="tombo"){
     inner='<ellipse cx="29" cy="42" rx="21" ry="6.5" fill="'+c2+'" opacity=".9" stroke="'+K+'" stroke-width="2.5" transform="rotate(-13 29 42)"/>'
     +'<ellipse cx="71" cy="42" rx="21" ry="6.5" fill="'+c2+'" opacity=".9" stroke="'+K+'" stroke-width="2.5" transform="rotate(13 71 42)"/>'

@@ -1289,7 +1289,7 @@ function renderBugs(){
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
-    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2,{coll:ST.coll,favCallback:'kanjiFavTap'}):'')
+    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2,{coll:ST.coll,favCallback:'kanjiFavTap',saveFn:saveST}):'')
     +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>');
    modal(mh);
   });

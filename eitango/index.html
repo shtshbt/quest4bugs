@@ -1175,7 +1175,7 @@ function showSpec(id){
     ${UI.specCard({sp:s,size:c.max,shiny:baseShiny,isNew:false,isRecord:false})}
     ${both?`<div style="margin-top:4px"><span style="display:inline-block;width:54px;height:54px;vertical-align:middle">${spSVG(s,30,1)}</span> <span class="small">✨いろちがいも ゲットずみ</span></div>`:''}
     <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた おおきさ: ${caught} ／ かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
-    ${window.Q4BZukan?Q4BZukan.detailHTML(c, Object.assign({id:id},SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}),{coll:{catches:P.catches,favorites:P.favorites||{}},favCallback:'eitangoFavTap'}):''}
+    ${window.Q4BZukan?Q4BZukan.detailHTML(c, Object.assign({id:id},SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}),{coll:{catches:P.catches,favorites:P.favorites||{}},favCallback:'eitangoFavTap',saveFn:touchP}):''}
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
 }

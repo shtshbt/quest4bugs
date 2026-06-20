@@ -171,6 +171,58 @@
     if(!entry.records) entry.records=[];
     entry.records.push({d:todayStr(), s:size, sex:sex, shiny:!!shiny});
   }
+  /* レガシー catches (records 無し・n>=1) から仮想の個体履歴を再構成する。
+     方針(docs/zukan_enhancement_plan.md 79-83 参照):
+       - 最大個体は entry.max を使う (1個体)
+       - 最小個体は entry.min を使う (1個体、min!=max のとき)
+       - 残り (n-2 個体) は rollSize(sp, sex) で分布を再現
+       - 各個体に sexRatio から性別を抽選 → 性別別レンジがあれば sizeBySexMm に合わせる
+       - 日付は "" (空 = 不明) + legacy:true マーク
+       - 色違いは entry.shiny フラグから 1個体だけ shiny=true、残りは false
+     後方互換: 同一 entry を上書き保存。次回以降は通常の record() で追加される。 */
+  function backfillRecords(coll, sp){
+    if(!coll || !coll.catches || !sp) return null;
+    var entry = coll.catches[sp.id];
+    if(!entry) return null;
+    if(entry.records && entry.records.length>0) return entry;   /* 既に records あり */
+    var n = entry.n || 0;
+    if(n<=0) return entry;
+    var maxSize = entry.max!=null ? entry.max : null;
+    var minSize = entry.min!=null ? entry.min : maxSize;
+    /* サイズから性別を逆推定: sizeBySexMm がある種では、size が オス/メスのレンジに
+       どちら入るかで sex を決める。両方該当 or 該当なしなら rollSex に委ねる。 */
+    function inferSex(size){
+      if(size==null || !sp.sizeBySexMm) return rollSex(sp);
+      var m = sp.sizeBySexMm.m, f = sp.sizeBySexMm.f;
+      var inM = size>=m[0]-0.5 && size<=m[1]+0.5;
+      var inF = size>=f[0]-0.5 && size<=f[1]+0.5;
+      if(inM && !inF) return 'm';
+      if(inF && !inM) return 'f';
+      return rollSex(sp);
+    }
+    var records = [];
+    var shinyLeft = entry.shiny ? 1 : 0;
+    /* 最大個体を必ず追加: sex はサイズから逆推定 */
+    if(maxSize!=null){
+      records.push({d:"", s:maxSize, sex:inferSex(maxSize), shiny:shinyLeft>0, legacy:true});
+      if(shinyLeft>0) shinyLeft--;
+    }
+    /* 最小個体 (max と違うときだけ) */
+    if(minSize!=null && minSize!==maxSize && records.length<n){
+      records.push({d:"", s:minSize, sex:inferSex(minSize), shiny:shinyLeft>0, legacy:true});
+      if(shinyLeft>0) shinyLeft--;
+    }
+    /* 残りを分布で生成 */
+    while(records.length<n){
+      var sx3 = rollSex(sp);
+      var sz = rollSize(sp, sx3);
+      /* 既に最大/最小として登録済みのサイズと完全一致は避ける(分散性のため、若干ジッタ) */
+      records.push({d:"", s:sz, sex:sx3, shiny:shinyLeft>0, legacy:true});
+      if(shinyLeft>0) shinyLeft--;
+    }
+    entry.records = records;
+    return entry;
+  }
   function awardMaster(coll, sp){
     if(!coll.catches) coll.catches={};
     if(coll.catches[sp.id]) return null;          // 既に授与済み（一回限り）
@@ -411,6 +463,7 @@
     toggleFavorite: toggleFavorite,
     listFavorites: listFavorites,
     favoriteButtonHTML: favoriteButtonHTML,
+    backfillRecords: backfillRecords,
     setNight: setNight,
     isNightNow: isNightNow,
     onCorrect: onCorrect,

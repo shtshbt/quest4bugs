@@ -152,6 +152,13 @@
   function detailHTML(entry, sp, opts){
     if(!entry) return "";
     opts = opts || {};
+    /* レガシー記録(records なし)を自動 backfill:
+       既存の n/max/min/shiny から仮想 records を生成して、ヒストグラム表示を維持する。
+       opts.saveFn があれば永続化(次回以降は通常表示で動く)。 */
+    if((!entry.records || entry.records.length===0) && entry.n>0 && global.Q4BReward && global.Q4BReward.backfillRecords && opts.coll){
+      global.Q4BReward.backfillRecords(opts.coll, sp);
+      if(typeof opts.saveFn === 'function') opts.saveFn();
+    }
     var records = entry.records || [];
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
     var html = '';
