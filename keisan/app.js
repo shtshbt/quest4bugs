@@ -5,7 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
-var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false;
+var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false;
 
 /* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
@@ -224,6 +224,7 @@ function zukanMatchK(sp){
   if(KZ_R!=="" && String(Q4BReward.tierOf(sp))!==String(KZ_R))return false;
   if(KZ_C!=="" && zukanClassKeyK(sp)!==KZ_C)return false;
   if(KZ_FAV){ var p=P(); if(!p||!Q4BReward.isFavorite(p.coll,sp.id)) return false; }
+  if(KZ_SHINY){ var p2=P(); var e=p2&&p2.coll&&p2.coll.catches&&p2.coll.catches[sp.id]; if(!e||!e.shiny) return false; }
   if(q && zukanSearchTextK(sp).indexOf(q)<0)return false;
   return true;
 }
@@ -231,6 +232,7 @@ function setKZQ(v){KZ_Q=v||"";showZukan();setTimeout(function(){var e=$("kzq");i
 function setKZR(v){KZ_R=(KZ_R===String(v))?"":String(v);showZukan();}
 function setKZC(v){KZ_C=v||"";showZukan();}
 function setKZFav(){ KZ_FAV=!KZ_FAV; showZukan(); }
+function setKZShiny(){ KZ_SHINY=!KZ_SHINY; showZukan(); }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function pidNow(){ var p=P(); return p?p.id:(window.QuestSave&&QuestSave.currentProfile()); }
@@ -684,6 +686,7 @@ function showZukan(){
       return '<button class="chip" style="cursor:pointer;'+(on?'background:var(--green);color:#fff':'')+'" onclick="setKZR(\''+x[0]+'\')">'+x[1]+'</button>';
     }).join("")
     +'<button class="chip" style="cursor:pointer;'+(KZ_FAV?'background:#E84A6B;color:#fff':'')+'" onclick="setKZFav()">♥ おきにいり</button>'
+    +'<button class="chip" style="cursor:pointer;'+(KZ_SHINY?'background:#E0A32E;color:#fff':'')+'" onclick="setKZShiny()">✨ いろちがい</button>'
     +'<span class="note" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div></div>';
   h+='<div class="zgrid">';
   filtered.forEach(function(sp){
