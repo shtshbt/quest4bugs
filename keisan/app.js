@@ -722,7 +722,8 @@ function openBugNew(spId){
       +(sp.scientificName?'<p class="note"><i>'+esc(sp.scientificName)+'</i></p>':"")
       +'<p class="note">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
-      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"");
+      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"")
+      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp):"");
   }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');

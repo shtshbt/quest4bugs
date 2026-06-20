@@ -237,6 +237,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.8"></script>
+<script src="../shared/zukan_detail.js?v=0.1.0"></script>
 <script src="../shared/battle.js?v=0.5.1"></script>
 <script src="../shared/boss_zukan.js?v=0.5.3"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
@@ -1157,6 +1158,7 @@ function showSpec(id){
     ${UI.specCard({sp:s,size:c.max,shiny:baseShiny,isNew:false,isRecord:false})}
     ${both?`<div style="margin-top:4px"><span style="display:inline-block;width:54px;height:54px;vertical-align:middle">${spSVG(s,30,1)}</span> <span class="small">✨いろちがいも ゲットずみ</span></div>`:''}
     <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた おおきさ: ${caught} ／ かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
+    ${window.Q4BZukan?Q4BZukan.detailHTML(c, SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}):''}
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
 }

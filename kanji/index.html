@@ -173,6 +173,7 @@ input[type=range]{width:100%}
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.8"></script>
+<script src="../shared/zukan_detail.js?v=0.1.0"></script>
 <script src="../shared/battle.js?v=0.5.1"></script>
 <script src="../shared/boss_zukan.js?v=0.5.3"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
@@ -1275,6 +1276,7 @@ function renderBugs(){
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
+    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2):'')
     +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>');
    modal(mh);
   });
