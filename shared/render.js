@@ -314,26 +314,109 @@
   var BESPOKE={};
   var _SHEEN='<g opacity=".95"><path d="M79 16 l2.2 5.4 5.4 2.2 -5.4 2.2 -2.2 5.4 -2.2 -5.4 -5.4 -2.2 5.4 -2.2 z" fill="#fff"/><path d="M22 30 l1.5 3.6 3.6 1.5 -3.6 1.5 -1.5 3.6 -1.5 -3.6 -3.6 -1.5 3.6 -1.5 z" fill="#fff" opacity=".85"/></g>';
   var _KIT={ K:"#2A3D2C", leg:'stroke="#2A3D2C" stroke-width="3" stroke-linecap="round" fill="none"', scaleG:scaleG, patternMarks:patternMarks };
-  function speciesSVG(sp, shiny){
+  /* 性的二型: sp.sexDimorphism と sp.sizeBySexMm から sex 別の描画パラメータを返す。
+     - size: scale だけ調整 (体格差で描画スケール)
+     - horn / mandible: variant に sex 情報を載せて kabuto / kuwagata renderer に分岐させる
+     - color: 色配列をメス用にシフト (基本色を控えめに / コントラスト弱める)
+     - wingless: メスのみ専用シルエットへ
+     - both: color と size の両方
+     未指定 sex (null/undefined) は中立スケール 1.0、色変更なし。 */
+  function sexAdjust(sp, sex, cols, params){
+    if(!sex || (sex!=='m' && sex!=='f')) return {cols:cols, sexScale:1.0, variantSuffix:'', winglessFemale:false};
+    var dim = sp && sp.sexDimorphism;
+    if(!dim) return {cols:cols, sexScale:1.0, variantSuffix:'', winglessFemale:false};
+    var sizeScale = 1.0;
+    var newCols = cols;
+    var variantSuffix = '';
+    var winglessFemale = false;
+    /* size 系 + 体格差: sizeBySexMm の中央値比から計算 */
+    if((dim==='size' || dim==='both' || dim==='horn' || dim==='mandible') && sp.sizeBySexMm){
+      var mMid = (sp.sizeBySexMm.m[0]+sp.sizeBySexMm.m[1])/2;
+      var fMid = (sp.sizeBySexMm.f[0]+sp.sizeBySexMm.f[1])/2;
+      if(mMid>0 && fMid>0){
+        var avg = (mMid+fMid)/2;
+        sizeScale = (sex==='m' ? mMid : fMid) / avg;
+        /* 過度な変形を避ける: 極端な体格差(2倍以上)も 0.6〜1.35 にクランプ */
+        if(sizeScale<0.6) sizeScale=0.6;
+        if(sizeScale>1.35) sizeScale=1.35;
+      }
+    }
+    /* horn (カブト): variant に sex 情報を渡して角の描画を切替 */
+    if(dim==='horn') variantSuffix = '_'+sex;
+    /* mandible (クワガタ): 同じく大顎切替 */
+    if(dim==='mandible') variantSuffix = '_'+sex;
+    /* color: メスは色2(c2)を主体に、明度落とし */
+    if((dim==='color' || dim==='both') && sex==='f'){
+      newCols = [cols[1], cols[0]];   /* 色を入れ替えてメス用の落ち着いた色味 */
+    }
+    /* wingless: メスのみ専用 */
+    if(dim==='wingless' && sex==='f') winglessFemale = true;
+    return {cols:newCols, sexScale:sizeScale, variantSuffix:variantSuffix, winglessFemale:winglessFemale};
+  }
+  /* メス無翅シルエット (フユシャク・マイマイガ・ベッコウバチ系の簡易描画): 太い胴体のみ */
+  function winglessFemaleSVG(c1, c2, K){
+    var leg = 'stroke="'+K+'" stroke-width="3" stroke-linecap="round" fill="none"';
+    return '<g>'
+      + '<path d="M30 45 C28 65 32 80 50 82 C68 80 72 65 70 45 C68 38 60 33 50 33 C40 33 32 38 30 45 Z" fill="'+c1+'" stroke="'+K+'" stroke-width="2.6"/>'
+      + '<circle cx="50" cy="32" r="9" fill="'+c1+'" stroke="'+K+'" stroke-width="2.5"/>'   /* 頭 */
+      + '<line x1="46" y1="25" x2="42" y2="18" '+leg+'/>'                                   /* 短い触角 */
+      + '<line x1="54" y1="25" x2="58" y2="18" '+leg+'/>'
+      + '<path d="M32 52 L20 56 M30 62 L18 66 M32 72 L22 78" '+leg+'/>'                     /* 左の脚 */
+      + '<path d="M68 52 L80 56 M70 62 L82 66 M68 72 L78 78" '+leg+'/>'                     /* 右の脚 */
+      + '<ellipse cx="50" cy="62" rx="14" ry="20" fill="'+c2+'" opacity=".25"/>'             /* 腹のふくらみ */
+      + '</g>';
+  }
+  function speciesSVG(sp, shiny, sex){
     if(!sp)return "";
     var cols=sp.colors||["#7A6B3A","#2A3D2C"];
     if(shiny) cols=[_shift(cols[0]), _shift(cols[1])];
-    var fn=BESPOKE[sp.id];
-    if(fn){
-      return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+(sp.jaName||sp.id||"")+'">'
-        +fn(cols[0],cols[1],!!shiny,_KIT)+(shiny?_SHEEN:'')+'</svg>';
+    /* 性的二型の調整 (sex が指定されたときのみ作用) */
+    var sa = sexAdjust(sp, sex, cols, null);
+    cols = sa.cols;
+    /* メス無翅 (フユシャク・マイマイガ等) は専用シルエット */
+    if(sa.winglessFemale){
+      return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+(sp.jaName||sp.id||"")+' ♀">'
+        + winglessFemaleSVG(cols[0], cols[1], "#2A3D2C")
+        + '</svg>';
     }
-    var pr=deriveParams(sp);
-    return bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
-      pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size, variant:pr.variant});
+    var fn=BESPOKE[sp.id];
+    var inner;
+    if(fn){
+      inner = fn(cols[0],cols[1],!!shiny,_KIT)+(shiny?_SHEEN:'');
+    } else {
+      var pr=deriveParams(sp);
+      /* variantSuffix で renderer 側に性別情報を伝える (kabuto/kuwagata 等が _m/_f を読む) */
+      var v = pr.variant + (sa.variantSuffix||'');
+      inner = bugSVG({t:sp.renderer||"other", c1:cols[0], c2:cols[1], n:sp.jaName||sp.id||"", shiny:!!shiny,
+        pattern:pr.pattern, patternColor:pr.patternColor, size:pr.size, variant:v, sex:sex||null});
+      /* bugSVG が外側 svg を付けない設計なので付ける。元コードは bugSVG が svg 込みで返している場合があるので、その場合は素通し。 */
+      if(inner && inner.indexOf('<svg')===0){
+        /* bugSVG が svg 込みで返した場合: ラベル更新と sex scale 適用のため再ラップ */
+        if(sex==='m' || sex==='f' || sa.sexScale!==1.0){
+          var bodyOnly = inner.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
+          var lab = (sp.jaName||sp.id||"") + (sex==='m'?' ♂':(sex==='f'?' ♀':''));
+          if(sa.sexScale!==1.0){
+            bodyOnly = '<g transform="translate(50 54) scale('+sa.sexScale+') translate(-50 -54)">'+bodyOnly+'</g>';
+          }
+          return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+lab+'">'+bodyOnly+'</svg>';
+        }
+        return inner;   /* sex 指定なし & scale 1.0 のときはそのまま */
+      }
+    }
+    /* fn 経由(BESPOKE) または bugSVG が svg 込みでないとき */
+    var label = (sp.jaName||sp.id||"") + (sex==='m'?' ♂':(sex==='f'?' ♀':''));
+    if(sa.sexScale!==1.0){
+      inner = '<g transform="translate(50 54) scale('+sa.sexScale+') translate(-50 -54)">'+inner+'</g>';
+    }
+    return '<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="'+label+'">'+inner+'</svg>';
   }
   /* 装飾版: ボス＝暗い背景＋金の二重枠、マスター＝淡金背景＋金枠。中身は少し縮めて枠内に収める。 */
-  function decoSpecies(sp, shiny){
+  function decoSpecies(sp, shiny, sex){
     /* 強調背景の統一: ボス(roster全種含む)=赤枠 / マスター=金枠 / SS(でんせつ)=紺金枠。
        これで「背景テーマが無いボスがいる」不整合を解消（SSのボス種にも必ず枠が付く）。 */
     var isBoss = !!(sp && (sp.bossOnly || (global.Q4B_BOSS_IDS && sp.id && global.Q4B_BOSS_IDS[sp.id])));
     var kind = isBoss ? 'boss' : ((sp&&sp.masterOnly) ? 'master' : ((sp&&sp.rarity==='SS') ? 'ss' : ''));
-    var full = speciesSVG(sp, shiny);
+    var full = speciesSVG(sp, shiny, sex);
     if(!kind) return full;
     var inner = full.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
     var bg;

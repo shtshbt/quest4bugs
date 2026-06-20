@@ -85,8 +85,8 @@
     return '<div style="font-size:12px;margin:4px 0">'+parts.join(' / ')+' （ぜんぶで '+total+'ひき）</div>';
   }
 
-  /* 最大・最小ハイライト */
-  function bestWorstHTML(records){
+  /* 最大・最小ハイライト + sex 別 SVG プレビュー (sp.sexDimorphism がある種で表示) */
+  function bestWorstHTML(records, sp){
     if(!records || records.length===0) return "";
     var maxR=null, minR=null;
     records.forEach(function(r){
@@ -103,6 +103,16 @@
     html += lineFor('さいだい', maxR, '🏆');
     if(minR && minR!==maxR) html += lineFor('さいしょう', minR, '🌱');
     html += '</div>';
+    /* 性差顕著種は sex 別 SVG を並べて表示 (♂♀ の見た目違いを子供に直感的に伝える) */
+    if(sp && sp.sexDimorphism && global.Q4BRender && global.Q4BRender.species){
+      html += '<div style="display:flex;gap:14px;justify-content:center;margin:6px 0">'
+        + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'m')+'</div><div style="font-size:11px;color:#3a5fa5">♂ オス</div></div>'
+        + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:#a0497a">♀ メス</div></div>'
+        + '</div>';
+      if(sp.sexDimorphismNote){
+        html += '<div style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0">💡 '+sp.sexDimorphismNote+'</div>';
+      }
+    }
     return html;
   }
 
@@ -155,7 +165,7 @@
       return html;
     }
     html += sexSummary(records);
-    html += bestWorstHTML(records);
+    html += bestWorstHTML(records, sp);
     html += histogramHTML(records, sizeMm);
     html += recentListHTML(records, 5);
     return html;
