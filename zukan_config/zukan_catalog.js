@@ -241,7 +241,7 @@
         licenseUrl: "https://creativecommons.org/licenses/by/4.0/"
       },
       image: {
-        version: "1",
+        version: "2",
         display: "zukan_cards/processed/AMK556427_L2_grade.webp",
         segmented: "zukan_cards/processed/AMK556427_L1_segmented.png",
         original: "zukan_cards/original/AMK556427_original.jpg",
@@ -249,7 +249,7 @@
         thumb108: "zukan_cards/thumb/AMK556427_108.webp",
         thumb216: "zukan_cards/thumb/AMK556427_216.webp"
       },
-      modifications: ["cropped", "background removed", "color adjusted"]
+      modifications: ["cropped", "rotated", "background removed", "color adjusted"]
     },
 
     "goliath_beetle": {
@@ -288,7 +288,7 @@
         licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/"
       },
       image: {
-        version: "1",
+        version: "2",
         display: "zukan_cards/processed/MNHNLMNHNL89483_L2_grade.webp",
         segmented: "zukan_cards/processed/MNHNLMNHNL89483_L1_segmented.png",
         original: "zukan_cards/original/MNHNLMNHNL89483_original.jpg",
@@ -296,7 +296,7 @@
         thumb108: "zukan_cards/thumb/MNHNLMNHNL89483_108.webp",
         thumb216: "zukan_cards/thumb/MNHNLMNHNL89483_216.webp"
       },
-      modifications: ["cropped", "background removed", "color adjusted"]
+      modifications: ["cropped", "rotated", "background removed", "color adjusted"]
     },
 
     "morpho_butterfly": {

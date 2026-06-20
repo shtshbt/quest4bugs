@@ -46,7 +46,7 @@
   "originalSha256": "46cd267a80a30a39181fdafb0e45a9b05bb8cbd32cc8fbdcf73a964ae56e82a2",
   "processing": {
     "cropBox": [0, 296, 5043, 3385],
-    "rotationDegrees": 0,
+    "rotationDegrees": 90,
     "padding": 0.1,
     "canvas": 512,
     "minSize": 20,
@@ -56,11 +56,11 @@
     "colorGradeVersion": "q4b-l2-v1",
     "manualMaskCorrection": false
   },
-  "modifications": ["cropped", "background removed", "color adjusted"],
+  "modifications": ["cropped", "rotated", "background removed", "color adjusted"],
   "raw": {
     "originalImage": "original/MNHNLMNHNL89483_original.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "MNHNL Luxembourg 1899 Africa-collected Goliathus goliatus specimen, dorsal pinned mount. Tier 4 fallback as USNM/NHMUK/RMNH all 0 hits."
+  "notes": "MNHNL Luxembourg 1899 Africa-collected Goliathus goliatus specimen, pinned mount. rotate 90 to put head up (orig head was right-facing). Tier 4 fallback as USNM/NHMUK/RMNH all 0 hits."
 }
