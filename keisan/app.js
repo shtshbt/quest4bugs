@@ -601,7 +601,8 @@ function keisanMasterSection(){
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
   return '<button type="button" class="zc" onclick="openMasterBugK(\''+sp.id+'\')" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></button>';
  }).join("");
- return '<div class="card"><h3>🎓 マスター虫　<span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span></h3><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div>';
+ return '<details class="card" open style="padding:0"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">🎓 マスター虫 <span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
+   +'<div style="padding:0 14px 14px"><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div></details>';
 }
 function openMasterBugK(spId){
   var p=P(); ensureColl(p);

@@ -36,9 +36,9 @@
     var got = list.filter(function(r){ return BOSSES[r.id]; }).length;
     var gridClass = game === "kanji" ? "bugs" : "zgrid";
     var cells = list.map(function(r){ return cellHTML(game, r, byId[r.id], !!BOSSES[r.id]); }).join("");
-    return '<div class="card"><h3>👑 ボス昆虫　<span style="color:#E8B33C">' + got + ' / ' + list.length + '</span></h3>'
-      + '<p style="margin:2px 0 8px;font-size:13px;color:#888">ずかんバトルで たおすと あらわれる 強いボス</p>'
-      + '<div class="' + gridClass + '">' + cells + '</div></div>';
+    return '<details class="card" open style="padding:0"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">👑 ボス昆虫 <span style="color:#E8B33C">' + got + ' / ' + list.length + '</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
+      + '<div style="padding:0 14px 14px"><p style="margin:2px 0 8px;font-size:13px;color:#888">ずかんバトルで たおすと あらわれる 強いボス</p>'
+      + '<div class="' + gridClass + '">' + cells + '</div></div></details>';
   }
 
   function cellHTML(game, r, sp, got){

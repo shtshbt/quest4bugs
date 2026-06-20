@@ -914,9 +914,9 @@ function eitangoMasterSection(){
   const cells=ms.map(sp=>{ const ok=Q4BReward.masterObtained(tmp,sp.id); const fd=fieldById(sp.master.key);
     return `<button type="button" class="zc" onclick="openMasterBugE('${sp.id}')" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'🎓'}</span><span class="zn">${ok?(Engine.esc(sp.jaName)+' 🎓'):(fd?Engine.esc(fd.name):'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></button>`;
   }).join('');
-  return `<div class="h2" style="margin-top:8px">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span></div>
-    <div class="note" style="margin-bottom:6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
-    <div class="zgrid">${cells}</div>`;
+  return `<details open style="margin-top:8px"><summary style="list-style:none;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;padding:4px 0">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>
+    <div class="note" style="margin:4px 0 6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
+    <div class="zgrid">${cells}</div></details>`;
 }
 function openMasterBugE(spId){
   if(!window.Q4BReward||!Q4BReward.masterBugsFor||!P||!P.catches) return;
