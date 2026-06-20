@@ -2365,24 +2365,37 @@ function gHiritsu(lv){
   var t="", ans=0, say=null;
 
   for(var tries=0; tries<200; tries++){
-    if(lv===1||lv===2){
-      // 比例: 既約の比 a:b。一方が given個 → もう一方は？
-      var a=ri(1,(lv===1?5:9)), b=ri(1,(lv===1?5:9));
+    if(lv===1){
+      // 比の意味: 「同じ比に直す」= 約分。例 6:9 を いちばん かんたんな比に。
+      var base1=ri(2,5), base2=ri(2,5);
+      if(base1===base2) continue;
+      if(gcd(base1,base2)!==1) continue;        // 既約の基準比
+      var m=ri(2,6);
+      var p=base1*m, q=base2*m;
+      // どちらを問うか: 約分後の小さい方/大きい方をランダムに
+      var askA = Math.random()<0.5;
+      ans = askA ? base1 : base2;
+      if(ans<=0) continue;
+      t=p+":"+q+" を いちばん かんたんな 比に なおすと、"+(askA?"まえ":"うしろ")+"の 数は いくつ？";
+    }
+    else if(lv===2){
+      // 比例の基本: 既約 a:b、一方の実数から他方を求める
+      var a=ri(1,6), b=ri(1,6);
       if(a===b) continue;
       if(gcd(a,b)!==1) continue;
-      var k=ri(2,(lv===1?6:9));
-      var askA = Math.random()<0.5;       // true: 赤(a側)を与えて青を問う
+      var k=ri(2,7);
+      var askA = Math.random()<0.5;
       var givenVal = askA ? a*k : b*k;
       ans = askA ? b*k : a*k;
       if(ans<=0||givenVal<=0) continue;
       t="赤と青の おはじきの 比は "+a+":"+b+"。"+(askA?"赤":"青")+"が "+givenVal+"個の とき、"+(askA?"青":"赤")+"は なん個？";
     }
-    else if(lv===3||lv===4){
-      // 比例配分(2): 全部N個を a:b に分ける→おおい/すくない方
-      var a=ri(1,(lv===3?4:7)), b=ri(1,(lv===3?4:7));
+    else if(lv===3){
+      // 比例配分(2) 小: 全部Nを a:b に分けて、おおい/すくない方
+      var a=ri(1,4), b=ri(1,4);
       if(a===b) continue;
       if(gcd(a,b)!==1) continue;
-      var k=ri(2,(lv===3?8:12));
+      var k=ri(2,8);
       var N=(a+b)*k, partA=a*k, partB=b*k;
       var askBig = Math.random()<0.5;
       var bigPart=Math.max(partA,partB), smallPart=Math.min(partA,partB);
@@ -2390,48 +2403,127 @@ function gHiritsu(lv){
       if(ans<=0) continue;
       t=pick(ITEMS)+"が ぜんぶで "+N+"個。これを "+a+":"+b+" に分けます。"+(askBig?"おおい":"すくない")+"ほうは なん個？";
     }
-    else if(lv===5||lv===6){
-      // 比例配分(3): N を a:b:c に分ける→ある1グループ
-      var a=ri(1,(lv===5?3:5)), b=ri(1,(lv===5?3:5)), c=ri(1,(lv===5?3:5));
-      var k=ri(2,(lv===5?6:9));
+    else if(lv===4){
+      // 比例配分(2) 大 + 差を問う: 多い方と少ない方の差はいくつ？
+      var a=ri(2,7), b=ri(1,7);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(3,12);
+      var N=(a+b)*k, partA=a*k, partB=b*k;
+      var diff=Math.abs(partA-partB);
+      ans=diff;
+      if(ans<=0) continue;
+      t=pick(ITEMS)+"が ぜんぶで "+N+"個。これを "+a+":"+b+" に分けると、おおい ほうと すくない ほうの 差は なん個？";
+    }
+    else if(lv===5){
+      // 比の差からの逆算: a:b に分けたら 差が D だった → 多い方 or 少ない方 or 全体
+      var a=ri(2,7), b=ri(1,6);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var big=Math.max(a,b), small=Math.min(a,b);
+      var k=ri(2,9);
+      var D=(big-small)*k;
+      var bigPart=big*k, smallPart=small*k, N=(a+b)*k;
+      var ask=ri(0,2); // 0:多い方 1:少ない方 2:全体
+      ans = (ask===0)? bigPart : (ask===1)? smallPart : N;
+      if(ans<=0) continue;
+      var askName=["おおい ほう","すくない ほう","ぜんたい"][ask];
+      t=pick(ITEMS)+"を "+a+":"+b+" に 分けたら、おおい ほうと すくない ほうの 差が "+D+"個に なりました。"+askName+"は なん個？";
+    }
+    else if(lv===6){
+      // 比例配分(3): N を a:b:c に分けて、ある1グループ
+      var a=ri(1,5), b=ri(1,5), c=ri(1,5);
+      var k=ri(2,8);
       var N=(a+b+c)*k, rs=[a,b,c], which=ri(0,2);
       ans=rs[which]*k;
       if(ans<=0) continue;
       var nm=["1ばんめ","2ばんめ","3ばんめ"][which];
       t=pick(ITEMS)+"が ぜんぶで "+N+"個。これを "+a+":"+b+":"+c+" に分けます。"+nm+"の グループは なん個？";
     }
-    else if(lv===7||lv===8){
-      // 連比: A:B=a:b1 と B:C=b2:c（共通項B）から A:C を合成して片方を問う
-      var a=ri(1,(lv===7?4:6)), b1=ri(2,(lv===7?5:7));
-      var b2=ri(2,(lv===7?5:7)), c=ri(1,(lv===7?4:6));
-      var ra=a*b2, rc=b1*c;               // 合成 A:C = ra:rc
-      var k=ri(2,(lv===7?5:8));
-      var askA = Math.random()<0.5;       // true: A側を与えてCを問う
+    else if(lv===7){
+      // 連比入門: A:B と B:C の共通項B をそろえて A:B:C → A:C をいちばん かんたんな比で
+      var a=ri(1,4), b1=ri(2,5);
+      var b2=ri(2,5), c=ri(1,4);
+      var ra=a*b2, rc=b1*c;                    // 合成 A:C = ra:rc
+      var g=gcd(ra,rc);
+      var ra2=ra/g, rc2=rc/g;
+      if(ra2===rc2) continue;
+      var askA = Math.random()<0.5;
+      ans = askA ? ra2 : rc2;
+      if(ans<=0) continue;
+      t="A:B = "+a+":"+b1+"、 B:C = "+b2+":"+c+" です。A:C を いちばん かんたんな 比で あらわすと、"+(askA?"A":"C")+"の 数は いくつ？";
+    }
+    else if(lv===8){
+      // 連比標準: A:B と B:C から A:C を作って、A or C の実数を求める
+      var a=ri(1,6), b1=ri(2,7);
+      var b2=ri(2,7), c=ri(1,6);
+      var ra=a*b2, rc=b1*c;
+      var k=ri(2,6);
+      var askA = Math.random()<0.5;
       var givenVal = askA ? ra*k : rc*k;
       ans = askA ? rc*k : ra*k;
-      if(ans<=0) continue;
+      if(ans<=0||givenVal<=0) continue;
       t="A:B = "+a+":"+b1+"、 B:C = "+b2+":"+c+" です。"+(askA?"A":"C")+"が "+givenVal+"個の とき、"+(askA?"C":"A")+"は なん個？";
     }
-    else { // lv 9,10
-      var twoStep = (lv===10) && (Math.random()<0.5);
-      if(!twoStep){
-        // 全体の a/b が given個 → 全体は？（whole を b の倍数にして整数保証）
-        var b=ri(2,(lv===9?5:8)), a=ri(1,b-1);
-        var whole=b*ri(2,(lv===9?8:12));
+    else if(lv===9){
+      // 分数で表された部分量から逆算: 「全体の a/b が given個 → 全体は？」または「のこりが given → 全体は？」
+      var b=ri(2,6), a=ri(1,b-1);
+      var whole=b*ri(3,10);
+      var useRest = Math.random()<0.5;
+      if(useRest){
+        // のこり (b-a)/b が given → 全体
+        var rest=whole*(b-a)/b;
+        if(!Number.isInteger(rest)||rest<=0) continue;
+        ans=whole;
+        t=pick(ITEMS)+"の ぜんたいの "+a+"/"+b+"を つかったら、のこりは "+rest+"個でした。はじめは ぜんぶで なん個？";
+      } else {
         var given=whole*a/b;
         if(!Number.isInteger(given)||given<=0) continue;
         ans=whole;
         t=pick(ITEMS)+"ぜんたいの "+a+"/"+b+"が "+given+"個です。ぜんたいは なん個？";
+      }
+    }
+    else { // lv===10
+      // 複合2ステップ: 全体Nから a/b を使い、のこりを c:d に分ける → 一方のグループ
+      var which=ri(0,1);
+      if(which===0){
+        // のこりを c:d に分ける
+        var b=ri(2,5), a=ri(1,b-1);
+        var c=ri(1,4), d=ri(1,4);
+        if(c===d) continue;
+        if(gcd(c,d)!==1) continue;
+        var N=b*(c+d)*ri(2,6);
+        var used=N*a/b;
+        var rest=N-used;
+        if(!Number.isInteger(rest)||rest<=0) continue;
+        if(rest%(c+d)!==0) continue;
+        var askBig=Math.random()<0.5;
+        var bigPart=Math.max(c,d)*(rest/(c+d));
+        var smallPart=Math.min(c,d)*(rest/(c+d));
+        ans=askBig?bigPart:smallPart;
+        if(ans<=0||!Number.isInteger(ans)) continue;
+        t=pick(ITEMS)+"が "+N+"個 あります。ぜんたいの "+a+"/"+b+"を つかい、のこりを "+c+":"+d+" に 分けます。"+(askBig?"おおい":"すくない")+"ほうは なん個？";
       } else {
-        // 2ステップ: 全体Nのa/bを使った→のこり = N*(b-a)/b
-        var b=ri(2,8), a=ri(1,b-1);
-        var N=b*ri(3,12);
-        ans=N-N*a/b;
-        if(!Number.isInteger(ans)||ans<=0) continue;
-        t=pick(ITEMS)+"が "+N+"個 あります。ぜんたいの "+a+"/"+b+"を つかいました。のこりは なん個？";
+        // 2回の比: A:B = a:b、その後 B のうち c/d を使う → 使った量
+        var a=ri(1,5), b=ri(1,5);
+        if(a===b) continue;
+        if(gcd(a,b)!==1) continue;
+        var d=ri(2,5), c=ri(1,d-1);
+        var k=d*ri(2,6);
+        var N=(a+b)*k;
+        var Bpart=b*k;
+        var used=Bpart*c/d;
+        if(!Number.isInteger(used)||used<=0) continue;
+        ans=used;
+        t=pick(ITEMS)+"が ぜんぶで "+N+"個 あります。A と B に "+a+":"+b+" で 分け、B の "+c+"/"+d+"を つかいました。つかった のは なん個？";
       }
     }
     if(ans>0 && Number.isInteger(ans)) break;
+  }
+  // フォールバック: 最低限 valid な問題を保証
+  if(!(ans>0 && Number.isInteger(ans))){
+    ans=6;
+    t="赤と青の おはじきの 比は 2:3。赤が 4個の とき、青は なん個？";
   }
   return {cat:"hiritsu",kind:"num",text:t,say:say,ans:ans};
 }
@@ -2542,250 +2634,513 @@ function gTsurukame(lv){
 function gKabusoku(lv){
   if(lv==null) lv=ri(1,10);
   var ITEMS=["あめ","えんぴつ","シール","おりがみ","ビー玉","クッキー"];
+  var BUYS=["みかん","りんご","ジュース","パン","ノート"];
   var t="", ans=0;
 
   for(var tries=0; tries<200; tries++){
-    if(lv>=1 && lv<=3){
-      // 1人per個ずつ配ると extra あまる / short たりない → 人数
-      var per=ri(2,(lv===1?4:6));
-      var people=ri(4,(lv===1?8:12));
+    if(lv===1){
+      // あまり型のみ：1人per個ずつ配ると extra あまる → 何人？
+      var per=ri(2,4);
+      var people=ri(4,8);
       var item=pick(ITEMS);
-      if(lv===1 || (lv===2 && ri(0,1)===0)){
-        // あまる: total = per*people + extra
-        var extra=ri(1,per-1>=1?per-1:1);
-        var total=per*people+extra;
+      var extra=ri(1, Math.max(1,per-1));
+      var total=per*people+extra;
+      ans=people;
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=item+"を 1人に "+per+"個ずつ 配ると "+extra+"個 あまります。"+item+"は ぜんぶで "+total+"個 あります。子どもは 何人？";
+    }
+    else if(lv===2){
+      // たりない型のみ：1人per個ずつ配るには shortage 個 たりない → 何人？
+      var per=ri(2,5);
+      var people=ri(4,10);
+      var item=pick(ITEMS);
+      var shortage=ri(1, Math.max(1,per-1));
+      var total=per*people-shortage;
+      if(total<=0) continue;
+      ans=people;
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t=item+"を 1人に "+per+"個ずつ 配るには "+shortage+"個 たりません。"+item+"は ぜんぶで "+total+"個 あります。子どもは 何人？";
+    }
+    else if(lv===3){
+      // 同符号2配り方：両方あまり or 両方たりない → 1人分の差で人数
+      // perA<perB として (perB-perA)*people = remA - remB (両あまり) or shortA - shortB
+      var perA=ri(2,4);
+      var perB=perA+ri(1,3);
+      var people=ri(4,10);
+      var item=pick(ITEMS);
+      var diff=perB-perA;
+      if(ri(0,1)===0){
+        // 両方あまり：少なく配ると remA あまり、多く配ると remB あまる (remA>remB>=0)
+        var remB=ri(0, Math.max(0,perB-2));
+        var remA=remB + diff*people; // remA = remB + diff*people
+        if(remA<=remB) continue;
+        var total=perA*people+remA;
+        if(total!==perB*people+remB) continue;
         ans=people;
         if(ans<=0||ans!==Math.floor(ans)) continue;
-        t=item+"を 1人に "+per+"個ずつ 配ると "+extra+"個 あまります。"+item+"は ぜんぶで "+total+"個 あります。子どもは 何人？";
+        t=item+"を 1人に "+perA+"個ずつ 配ると "+remA+"個 あまり、1人に "+perB+"個ずつ 配ると "+remB+"個 あまります。子どもは 何人？";
       } else {
-        // たりない: total = per*people - shortage
-        var shortage=ri(1,per-1>=1?per-1:1);
-        var total=per*people-shortage;
-        ans=people;
+        // 両方たりない：少なく配るとshortAたりない、多く配るとshortBたりない (shortB>shortA>=1)
+        var shortA=ri(1, Math.max(1,perA-1));
+        var shortB=shortA + diff*people;
+        if(shortB<=shortA) continue;
+        var total=perA*people-shortA;
         if(total<=0) continue;
+        if(total!==perB*people-shortB) continue;
+        ans=people;
         if(ans<=0||ans!==Math.floor(ans)) continue;
-        t=item+"を 1人に "+per+"個ずつ 配るには "+shortage+"個 たりません。"+item+"は ぜんぶで "+total+"個 あります。子どもは 何人？";
+        t=item+"を 1人に "+perA+"個ずつ 配るには "+shortA+"個 たりず、1人に "+perB+"個ずつ 配るには "+shortB+"個 たりません。子どもは 何人？";
       }
     }
-    else if(lv>=4 && lv<=6){
-      // 両方過不足: 少なく配ると余り / 多く配ると不足 → 人数
-      // (perB-perA)*people = remA + shortB  (perB>perA)
-      var perA=ri(2,5);
-      var perB=perA+ri(1,(lv===6?4:3));
-      var people=ri(4,(lv===4?8:14));
+    else if(lv===4){
+      // 過不足(余り+不足) → 人数
+      var perA=ri(2,4);
+      var perB=perA+ri(1,3);
+      var people=ri(4,9);
       var item=pick(ITEMS);
       var diff=perB-perA;
       var totalDiff=diff*people;
-      // 余り remA を 1..totalDiff-1 から、shortB を残りに
       if(totalDiff<2) continue;
-      var remA=ri(1,totalDiff-1);
+      var remA=ri(1, totalDiff-1);
       var shortB=totalDiff-remA;
       if(shortB<=0) continue;
-      var total=perA*people+remA; // 検算: =perB*people - shortB
+      var total=perA*people+remA;
       if(perB*people-shortB!==total) continue;
       ans=people;
       if(ans<=0||ans!==Math.floor(ans)) continue;
       t=item+"を 1人に "+perA+"個ずつ 配ると "+remA+"個 あまり、1人に "+perB+"個ずつ 配るには "+shortB+"個 たりません。子どもは 何人？";
     }
-    else if(lv>=7 && lv<=8){
-      // 差集め算: 2通りの配り方の合計差から人数。
-      // 1個price円、1人perA個 と perB個 買うと 代金の差 = (perB-perA)*price*people
-      var price=ri(2,(lv===7?8:12))*10;
+    else if(lv===5){
+      // 過不足 → 全体個数 (人数→個数を計算するステップを追加)
+      var perA=ri(2,5);
+      var perB=perA+ri(1,3);
+      var people=ri(4,12);
+      var item=pick(ITEMS);
+      var diff=perB-perA;
+      var totalDiff=diff*people;
+      if(totalDiff<2) continue;
+      var remA=ri(1, totalDiff-1);
+      var shortB=totalDiff-remA;
+      if(shortB<=0) continue;
+      var total=perA*people+remA;
+      if(perB*people-shortB!==total) continue;
+      ans=total;
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t="子どもが "+people+"人 います。"+item+"を 1人に "+perA+"個ずつ 配ると "+remA+"個 あまり、1人に "+perB+"個ずつ 配るには "+shortB+"個 たりません。"+item+"は ぜんぶで 何個？";
+    }
+    else if(lv===6){
+      // 過不足 → 1人分 (人数と「もう一方の per」が与えられて perA を逆算)
+      var perA=ri(2,5);
+      var perB=perA+ri(1,3);
+      var people=ri(4,12);
+      var item=pick(ITEMS);
+      var diff=perB-perA;
+      var totalDiff=diff*people;
+      if(totalDiff<2) continue;
+      var remA=ri(1, totalDiff-1);
+      var shortB=totalDiff-remA;
+      if(shortB<=0) continue;
+      var total=perA*people+remA;
+      if(perB*people-shortB!==total) continue;
+      ans=perA;
+      if(ans<=0||ans!==Math.floor(ans)) continue;
+      t="子ども "+people+"人 に "+item+" を 配ります。1人に いくつか ずつ 配ると "+remA+"個 あまり、1人に "+perB+"個ずつ 配るには "+shortB+"個 たりません。"+item+"を 1人に 何個ずつ 配りましたか？(少ない方)";
+    }
+    else if(lv===7){
+      // 差集め算 基本：1個price円、perA個 と perB個 買うと 代金の差 → 人数
+      var price=ri(2,8)*10;
       var perA=ri(1,3);
-      var perB=perA+ri(1,(lv===8?4:2));
-      var people=ri(3,(lv===7?9:15));
-      var item2=pick(["みかん","りんご","ジュース","パン","ノート"]);
+      var perB=perA+ri(1,2);
+      var people=ri(3,9);
+      var item2=pick(BUYS);
       var gap=(perB-perA)*price*people;
       ans=people;
       if(gap<=0||ans<=0||ans!==Math.floor(ans)) continue;
-      t="1個 "+price+"円の "+item2+"を、子ども 1人に "+perA+"個ずつ 買うときと "+perB+"個ずつ 買うときでは、代金の合計が "+gap+"円 ちがいます。子どもは 何人？";
+      t="1個 "+price+"円の "+item2+"を、子ども 1人に "+perA+"個ずつ 買うときと 1人に "+perB+"個ずつ 買うときでは、代金の合計が "+gap+"円 ちがいます。子どもは 何人？";
     }
-    else { // lv 9-10: 長椅子/部屋割り型
-      // 1脚perA人ずつ座ると leftPeople人すわれない、perB人ずつ座ると emptyseats人分あく → 椅子の数
+    else if(lv===8){
+      // 差集め算 やや大きめ：価格・個数差ともに拡大
+      var price=ri(3,12)*10;
+      var perA=ri(1,3);
+      var perB=perA+ri(2,4);
+      var people=ri(5,15);
+      var item2=pick(BUYS);
+      var gap=(perB-perA)*price*people;
+      ans=people;
+      if(gap<=0||ans<=0||ans!==Math.floor(ans)) continue;
+      t="1個 "+price+"円の "+item2+"を、子ども 1人に "+perA+"個ずつ 買うときと 1人に "+perB+"個ずつ 買うときでは、代金の合計が "+gap+"円 ちがいます。子どもは 何人？";
+    }
+    else if(lv===9){
+      // 長椅子型：perA人で座ると leftPeople 人すわれない、perB人で座ると emptyseats 人分あく → 椅子の数
       var perA=ri(3,5);
-      var perB=perA+ri(1,(lv===10?3:2));
-      var benches=ri(4,(lv===9?9:14));
-      var leftPeople=ri(1,perA*2);      // perAで座ると座れない人
-      var P=perA*benches+leftPeople;    // 総人数
-      var emptyseats=perB*benches-P;    // perBで座ったときの空席
-      if(emptyseats<1) continue;        // 1席以上あく(自然な文)
-      if(emptyseats>=perB) continue;    // 最後の椅子が丸ごと空く以上はNG(well-posed)
+      var perB=perA+ri(1,2);
+      var benches=ri(4,9);
+      var leftPeople=ri(1,perA*2);
+      var P=perA*benches+leftPeople;
+      var emptyseats=perB*benches-P;
+      if(emptyseats<1) continue;
+      if(emptyseats>=perB) continue;
       ans=benches;
       if(ans<=0||ans!==Math.floor(ans)) continue;
-      if(lv===9){
-        t="長椅子に 1脚 "+perA+"人ずつ すわると "+leftPeople+"人 すわれません。1脚 "+perB+"人ずつ すわると ちょうど 全員 すわれて "+emptyseats+"人分 あきます。長椅子は 何脚？";
+      t="長椅子に 1脚 "+perA+"人ずつ すわると "+leftPeople+"人 すわれません。1脚 "+perB+"人ずつ すわると ちょうど 全員 すわれて "+emptyseats+"人分 あきます。長椅子は 何脚？";
+    }
+    else { // lv===10
+      // 部屋割り総合：長椅子型 or 部屋型 or 過不足→人数 をランダム
+      var r=ri(0,2);
+      if(r===0){
+        // 部屋型
+        var perA=ri(3,5);
+        var perB=perA+ri(1,3);
+        var rooms=ri(5,14);
+        var leftPeople=ri(1,perA*2);
+        var P=perA*rooms+leftPeople;
+        var emptyseats=perB*rooms-P;
+        if(emptyseats<1) continue;
+        if(emptyseats>=perB) continue;
+        ans=rooms;
+        if(ans<=0||ans!==Math.floor(ans)) continue;
+        var who=pick(["子ども","生徒","お客さん"]);
+        t=who+"を 部屋に 1部屋 "+perA+"人ずつ 入れると "+leftPeople+"人 入れません。1部屋 "+perB+"人ずつ 入れると "+emptyseats+"人分 あきます。部屋は いくつ？";
+      } else if(r===1){
+        // 長椅子型(大きめ)
+        var perA=ri(3,5);
+        var perB=perA+ri(2,3);
+        var benches=ri(6,14);
+        var leftPeople=ri(1,perA*2);
+        var P=perA*benches+leftPeople;
+        var emptyseats=perB*benches-P;
+        if(emptyseats<1) continue;
+        if(emptyseats>=perB) continue;
+        ans=benches;
+        if(ans<=0||ans!==Math.floor(ans)) continue;
+        t="長椅子に 1脚 "+perA+"人ずつ すわると "+leftPeople+"人 すわれません。1脚 "+perB+"人ずつ すわると "+emptyseats+"人分 あきます。長椅子は 何脚？";
       } else {
-        var item3=pick(["子ども","生徒","お客さん"]);
-        t=item3+"を 部屋に 1部屋 "+perA+"人ずつ 入れると "+leftPeople+"人 入れません。1部屋 "+perB+"人ずつ 入れると "+emptyseats+"人分 あきます。部屋は いくつ？";
+        // 過不足 → 人数 (難しめ)
+        var perA=ri(3,6);
+        var perB=perA+ri(2,4);
+        var people=ri(6,15);
+        var item=pick(ITEMS);
+        var diff=perB-perA;
+        var totalDiff=diff*people;
+        if(totalDiff<2) continue;
+        var remA=ri(1, totalDiff-1);
+        var shortB=totalDiff-remA;
+        if(shortB<=0) continue;
+        var total=perA*people+remA;
+        if(perB*people-shortB!==total) continue;
+        ans=people;
+        if(ans<=0||ans!==Math.floor(ans)) continue;
+        t=item+"を 1人に "+perA+"個ずつ 配ると "+remA+"個 あまり、1人に "+perB+"個ずつ 配るには "+shortB+"個 たりません。子どもは 何人？";
       }
     }
     break;
+  }
+  // fallback (well-posed)
+  if(!t){
+    ans=6;
+    t="あめを 1人に 3個ずつ 配ると 2個 あまり、1人に 4個ずつ 配るには 4個 たりません。子どもは 何人？";
   }
   return {cat:"kabusoku", kind:"num", text:t, say:null, ans:ans};
 }
 function gHeikin(lv){
   if(lv==null) lv=ri(1,10);
   var t="", ans=0, say=null;
+  var SUBJ=["こくご","さんすう","りか","しゃかい","えいご","おんがく"];
 
   for(var tries=0; tries<200; tries++){
-    if(lv<=3){
-      // 数個の平均。Lv1:3個/小, Lv2:4個, Lv3:5個（個数増で質的に難化）
-      var n=(lv===1)?3:(lv===2)?4:5;
-      var hi=(lv===1)?30:(lv===2)?50:100;
-      var avg=ri(2,hi);            // 先に平均を決め、合計=avg*n を整数値に分配
-      var vals=[], rem=avg*n, ok=true;
-      for(var k=0;k<n-1;k++){
-        var up=rem-(n-1-k);        // 残り要素に最低1ずつ残す
-        if(up<1){ok=false;break;}
-        var v=ri(1, Math.min(up, hi*2));
-        vals.push(v); rem-=v;
+    if(lv===1){
+      // 単純平均（3個・小さい数）：平均の意味づけ
+      var n1=3, hi1=20;
+      var avg1=ri(2,hi1);
+      var vals1=[], rem1=avg1*n1, ok1=true;
+      for(var k=0;k<n1-1;k++){
+        var up1=rem1-(n1-1-k);
+        if(up1<1){ok1=false;break;}
+        var v1=ri(1, Math.min(up1, hi1*2));
+        vals1.push(v1); rem1-=v1;
       }
-      if(!ok||rem<1) continue;
-      vals.push(rem);
-      var s2=0; for(var z=0;z<vals.length;z++) s2+=vals[z];
-      if(s2%n!==0) continue;
-      ans=s2/n;
+      if(!ok1||rem1<1) continue;
+      vals1.push(rem1);
+      ans=avg1;
       if(ans<=0) continue;
-      t=vals.join("、")+" の平均はいくつ？";
+      t=vals1.join("、")+" の へいきんは いくつ？";
     }
-    else if(lv<=6){
-      // 平均から合計（Lv4）、または欠けた1つを逆算（Lv5/6）
-      if(lv===4){
-        var n=ri(3,5), avg=ri(5,100);
-        ans=avg*n;
-        if(ans<=0) continue;
-        t=n+"教科の平均点は "+avg+"点。合計点は何点？";
-      } else {
-        var n=(lv===5)?ri(3,4):ri(4,6);          // Lv6は教科数を増やし質的に難化
-        var avg=ri(5,(lv===5)?80:100);
-        var total=avg*n;
-        var known=[], ksum=0, ok=true;
-        for(var k=0;k<n-1;k++){
-          var maxk=Math.min(avg*2, total-ksum-(n-1-k)); // 欠け含む残りに最低1
-          if(maxk<1){ok=false;break;}
-          var v=ri(1,maxk);
-          known.push(v); ksum+=v;
-        }
-        if(!ok) continue;
-        ans=total-ksum;
-        if(ans<=0) continue;
-        t=n+"教科の平均点は "+avg+"点。"+(n-1)+"教科は "+known.join("、")+"点。残りの教科は何点？";
+    else if(lv===2){
+      // 単純平均（4〜5個、範囲拡大）：個数増で質的に難化
+      var n2=ri(4,5), hi2=80;
+      var avg2=ri(5,hi2);
+      var vals2=[], rem2=avg2*n2, ok2=true;
+      for(var k=0;k<n2-1;k++){
+        var up2=rem2-(n2-1-k);
+        if(up2<1){ok2=false;break;}
+        var v2=ri(1, Math.min(up2, hi2*2));
+        vals2.push(v2); rem2-=v2;
       }
+      if(!ok2||rem2<1) continue;
+      vals2.push(rem2);
+      ans=avg2;
+      if(ans<=0) continue;
+      t=n2+"教科のテストは "+vals2.join("、")+"点。へいきんは何点？";
     }
-    else if(lv<=8){
-      // 2グループの平均合成
-      if(lv===7){
-        // 人数の異なる2群を合成（全体平均）
-        var nA=ri(2,6), nB=ri(2,6);
-        var avgA=ri(4,40), avgB=ri(4,40);
-        var totalN=nA+nB, totalSum=nA*avgA+nB*avgB;
-        if(totalSum%totalN!==0) continue;
-        ans=totalSum/totalN;
-        if(ans<=0) continue;
-        t=nA+"人の平均は "+avgA+"点、別の "+nB+"人の平均は "+avgB+"点。全員の平均は何点？";
-      } else {
-        // 全体平均＋一方の群から他方の群の平均を逆算（質的に難）
-        var nA=ri(2,5), nB=ri(2,5);
-        var totalN=nA+nB;
-        var allAvg=ri(10,60), avgA=ri(5,80);
-        var sumB=allAvg*totalN - avgA*nA;
-        if(sumB<=0) continue;
-        if(sumB%nB!==0) continue;
-        ans=sumB/nB;
-        if(ans<=0) continue;
-        t="全員 "+totalN+"人の平均は "+allAvg+"点。そのうち "+nA+"人の平均は "+avgA+"点。のこり "+nB+"人の平均は何点？";
+    else if(lv===3){
+      // 平均→合計の逆算（積の意味）
+      var n3=ri(3,6), avg3=ri(10,90);
+      ans=avg3*n3;
+      if(ans<=0) continue;
+      t=n3+"教科の平均点は "+avg3+"点。ごうけいは何点？";
+    }
+    else if(lv===4){
+      // 欠けた1つを逆算（3〜4教科）：合計-既知＝欠け
+      var n4=ri(3,4), avg4=ri(20,80);
+      var total4=avg4*n4;
+      var known4=[], ksum4=0, ok4=true;
+      for(var k=0;k<n4-1;k++){
+        var maxk4=Math.min(avg4*2, total4-ksum4-(n4-1-k));
+        if(maxk4<1){ok4=false;break;}
+        var v4=ri(1,maxk4);
+        known4.push(v4); ksum4+=v4;
       }
+      if(!ok4) continue;
+      ans=total4-ksum4;
+      if(ans<=0||ans>100) continue;
+      t=n4+"教科の平均点は "+avg4+"点。"+(n4-1)+"教科は "+known4.join("、")+"点。のこりの 1教科は何点？";
     }
-    else {
-      // Lv9-10: 平均を上げるのに必要な点数
-      if(lv===9){
-        // これまでn回の平均がcur。次の1回で全体平均をtargetにするには何点？
-        var n=ri(2,4), cur=ri(40,75), target=ri(cur+1, cur+15);
-        ans=target*(n+1) - cur*n;          // 次の1回の点数
-        if(ans<=0||ans>100) continue;       // 満点100で現実的に
-        t="これまで "+n+"回のテストの平均は "+cur+"点。次のテストで全体の平均を "+target+"点にするには、何点とればよい？";
-      } else {
-        // Lv10: あとnExtra回すべて同じ点で平均をtargetに。1回あたり何点？
-        var n=ri(2,4), cur=ri(40,70), nExtra=ri(2,3);
-        var target=ri(cur+1, cur+12);
-        var extraSum=target*(n+nExtra) - cur*n;
-        if(extraSum<=0) continue;
-        if(extraSum%nExtra!==0) continue;
-        ans=extraSum/nExtra;                // 各回の点数
+    else if(lv===5){
+      // 欠けた1つを逆算（5〜6教科、範囲拡大）：個数増で質的に難化
+      var n5=ri(5,6), avg5=ri(30,90);
+      var total5=avg5*n5;
+      var known5=[], ksum5=0, ok5=true;
+      for(var k=0;k<n5-1;k++){
+        var maxk5=Math.min(avg5*2, total5-ksum5-(n5-1-k));
+        if(maxk5<1){ok5=false;break;}
+        var v5=ri(1,maxk5);
+        known5.push(v5); ksum5+=v5;
+      }
+      if(!ok5) continue;
+      ans=total5-ksum5;
+      if(ans<=0||ans>100) continue;
+      t=n5+"教科の平均点は "+avg5+"点。"+(n5-1)+"教科は "+known5.join("、")+"点。のこりの 1教科は何点？";
+    }
+    else if(lv===6){
+      // 人数追加 / 1人除外による平均変化
+      // パターンA: n人の平均avgに、追加1人(score)が入る→新しい平均
+      // パターンB: n人の平均avgから1人(score)が抜ける→残りの平均
+      if(Math.random()<0.5){
+        var n6=ri(3,6), avg6=ri(40,80);
+        var score6=ri(20,95);
+        var newTotal6=avg6*n6+score6;
+        var newN6=n6+1;
+        if(newTotal6%newN6!==0) continue;
+        ans=newTotal6/newN6;
         if(ans<=0||ans>100) continue;
-        t="これまで "+n+"回の平均は "+cur+"点。あと "+nExtra+"回 すべて同じ点をとって、全体の平均を "+target+"点にしたい。1回あたり何点必要？";
+        t=n6+"人の平均は "+avg6+"点でした。あとから 1人 ("+score6+"点) が入りました。"+newN6+"人の 平均は何点？";
+      } else {
+        var n6b=ri(4,6), avg6b=ri(40,80);
+        var score6b=ri(20,95);
+        var leftTotal6=avg6b*n6b-score6b;
+        var leftN6=n6b-1;
+        if(leftTotal6<=0) continue;
+        if(leftTotal6%leftN6!==0) continue;
+        ans=leftTotal6/leftN6;
+        if(ans<=0||ans>100) continue;
+        t=n6b+"人の平均は "+avg6b+"点でした。そのうち 1人 ("+score6b+"点) が ぬけました。のこり "+leftN6+"人の 平均は何点？";
       }
+    }
+    else if(lv===7){
+      // 2群の平均合成（全体平均）
+      var nA7=ri(2,6), nB7=ri(2,6);
+      var avgA7=ri(20,80), avgB7=ri(20,80);
+      if(avgA7===avgB7) continue;
+      var totalN7=nA7+nB7, totalSum7=nA7*avgA7+nB7*avgB7;
+      if(totalSum7%totalN7!==0) continue;
+      ans=totalSum7/totalN7;
+      if(ans<=0||ans>100) continue;
+      t=nA7+"人の グループの 平均は "+avgA7+"点、べつの "+nB7+"人の グループの 平均は "+avgB7+"点。ぜんいんの 平均は何点？";
+    }
+    else if(lv===8){
+      // 群平均の逆算：全体平均と片方の群から、もう片方の群の平均を求める
+      var nA8=ri(2,5), nB8=ri(2,5);
+      var totalN8=nA8+nB8;
+      var allAvg8=ri(30,70), avgA8=ri(20,85);
+      var sumB8=allAvg8*totalN8 - avgA8*nA8;
+      if(sumB8<=0) continue;
+      if(sumB8%nB8!==0) continue;
+      ans=sumB8/nB8;
+      if(ans<=0||ans>100) continue;
+      t="ぜんいん "+totalN8+"人の 平均は "+allAvg8+"点。そのうち "+nA8+"人の 平均は "+avgA8+"点。のこり "+nB8+"人の 平均は何点？";
+    }
+    else if(lv===9){
+      // 次の1回で目標平均にするには何点必要か
+      var n9=ri(2,4), cur9=ri(40,75);
+      var target9=ri(cur9+1, cur9+15);
+      ans=target9*(n9+1) - cur9*n9;
+      if(ans<=0||ans>100) continue;
+      t="これまで "+n9+"回の テストの 平均は "+cur9+"点。つぎの テストで ぜんたいの 平均を "+target9+"点に するには、何点 とれば よい？";
+    }
+    else { // lv===10
+      // あとnExtra回すべて同じ点で目標平均に。1回あたり何点？
+      var n10=ri(2,4), cur10=ri(40,70), nExtra10=ri(2,3);
+      var target10=ri(cur10+1, cur10+12);
+      var extraSum10=target10*(n10+nExtra10) - cur10*n10;
+      if(extraSum10<=0) continue;
+      if(extraSum10%nExtra10!==0) continue;
+      ans=extraSum10/nExtra10;
+      if(ans<=0||ans>100) continue;
+      t="これまで "+n10+"回の 平均は "+cur10+"点。あと "+nExtra10+"回 すべて 同じ点を とって、ぜんたいの 平均を "+target10+"点に したい。1回あたり 何点 ひつよう？";
     }
     break;
+  }
+  // fallback (well-posed)
+  if(!t){
+    ans=50;
+    t="3教科の テストは 40、50、60点。へいきんは何点？";
   }
   return {cat:"heikin", kind:"num", text:t, say:say, ans:ans};
 }
 function gSoneki(lv){
   if(lv==null) lv=ri(1,10);
   var t="", ans=0;
-  for(var iter=0;iter<200;iter++){
-    if(lv<=3){
-      var cost=ri(2,30)*100;
-      var profit=ri(1,20)*100;
-      if(Math.random()<0.5){
-        ans=cost+profit;
-        t="原価 "+cost+"円 の品物に "+profit+"円 の利益を見こんで定価をつけました。定価は何円？";
-      } else {
-        var price=cost+profit;
-        ans=price-cost;
-        if(ans<=0) continue;
-        t="原価 "+cost+"円 の品物を "+price+"円 で売りました。利益は何円？";
-      }
+  for(var iter=0;iter<300;iter++){
+    if(lv===1){
+      // 基礎: 原価+利益=定価 (用語の導入)
+      var cost=ri(2,15)*100;
+      var profit=ri(1,10)*100;
+      ans=cost+profit;
+      t="原価 "+cost+"円 の品物に "+profit+"円 の利益を見こんで定価をつけました。定価は何円？";
     }
-    else if(lv<=6){
-      var price=ri(5,30)*100;
-      var d=ri(1,5);
+    else if(lv===2){
+      // 売値-原価=利益額 (順方向の差)
+      var cost=ri(3,25)*100;
+      var profit=ri(1,15)*100;
+      var price=cost+profit;
+      ans=profit;
+      if(ans<=0) continue;
+      t="原価 "+cost+"円 の品物を "+price+"円 で売りました。利益は何円？";
+    }
+    else if(lv===3){
+      // 損失: 原価>売値 → 損失額
+      var cost=ri(5,30)*100;
+      var loss=ri(1,Math.max(1,cost/100-1))*100;
+      if(loss>=cost) continue;
+      var price=cost-loss;
+      if(price<=0) continue;
+      ans=loss;
+      t="原価 "+cost+"円 の品物を "+price+"円 で売りました。損失は何円？";
+    }
+    else if(lv===4){
+      // 利益率→定価: 原価に r% の利益を見こんで定価
+      var cost=ri(3,30)*100;
+      var r=ri(1,5)*10; // 10,20,30,40,50%
+      var profit=cost*r/100;
+      if(profit%1!==0) continue;
+      ans=cost+profit;
+      if(ans<=0) continue;
+      t="原価 "+cost+"円 の品物に "+r+"% の利益を見こんで定価をつけました。定価は何円？";
+    }
+    else if(lv===5){
+      // 定価から割引→売値
+      var price=ri(5,40)*100;
+      var d=ri(1,5); // 1〜5割引
       var disc=price*d/10;
       if(disc%1!==0) continue;
       ans=price-disc;
       if(ans<=0) continue;
       t="定価 "+price+"円 の品物を "+d+"割引きで売りました。売値は何円？";
     }
-    else if(lv<=8){
+    else if(lv===6){
+      // 売値と割引率→定価を逆算
+      var price=ri(6,40)*100;
+      var d=ri(1,5);
+      var disc=price*d/10;
+      if(disc%1!==0) continue;
+      var sell=price-disc;
+      if(sell<=0) continue;
+      ans=price;
+      t=d+"割引きで売ったら 売値が "+sell+"円 になりました。定価は何円？";
+    }
+    else if(lv===7){
+      // 利益率と利益額→原価を逆算
       var cost=ri(3,40)*100;
       var r=ri(1,5)*10;
       var profit=cost*r/100;
       if(profit%1!==0) continue;
-      if(Math.random()<0.5){
-        ans=cost+profit;
-        t="原価 "+cost+"円 の品物に "+r+"% の利益を見こんで定価をつけました。定価は何円？";
-      } else {
-        ans=cost;
-        t=r+"% の利益を見こんだら、利益が "+profit+"円 になりました。原価は何円？";
-      }
+      ans=cost;
+      if(ans<=0) continue;
+      t="ある品物に "+r+"% の利益を見こんで売ったところ、利益が "+profit+"円 になりました。原価は何円？";
+    }
+    else if(lv===8){
+      // 複数商品: 同じ品物を n 個 仕入れて 全部売ったときの合計利益
+      var cost=ri(2,15)*100;
+      var profit=ri(1,10)*100;
+      var n=ri(3,12);
+      var price=cost+profit;
+      ans=profit*n;
+      if(ans<=0) continue;
+      t="原価 "+cost+"円 の品物を "+n+"個 仕入れ、1個 "+price+"円 で すべて売りました。合計の利益は何円？";
+    }
+    else if(lv===9){
+      // 売買複合: 原価→マークアップで定価→割引で売値→利益
+      var cost=ri(5,30)*100;
+      var mark=ri(2,6)*10;     // 20〜60%
+      var price=cost+cost*mark/100;
+      if(price%1!==0) continue;
+      var d=ri(1,3);           // 1〜3割引(まだ利益が残る範囲)
+      var disc=price*d/10;
+      if(disc%1!==0) continue;
+      var sell=price-disc;
+      if(sell<=cost) continue; // Lv9 は利益が残るケースに限定
+      ans=sell-cost;
+      if(ans<=0) continue;
+      t="原価 "+cost+"円 の品物に "+mark+"% の利益を見こんで定価をつけ、その定価の "+d+"割引きで売りました。利益は何円？";
     }
     else {
-      if(Math.random()<0.5){
+      // Lv10 総合: 利益or損失の判定込み
+      var pick10=ri(0,1);
+      if(pick10===0){
+        // マークアップ+大きめ割引で損失/利益どちらにもなる→金額のみ問う
         var cost=ri(5,30)*100;
-        var mark=ri(2,6)*10;
+        var mark=ri(2,5)*10;     // 20〜50%
         var price=cost+cost*mark/100;
         if(price%1!==0) continue;
-        var d=ri(1,3);
-        var disc=price*d/10;
-        if(disc%1!==0) continue;
-        var sell=price-disc;
-        ans=sell-cost;
-        if(ans<=0) continue;
-        t="原価 "+cost+"円 の品物に "+mark+"% の利益を見こんで定価をつけ、その定価の "+d+"割引きで売りました。利益は何円？";
-      } else {
-        var price=ri(6,30)*100;
-        var d=ri(1,5);
+        var d=ri(2,5);           // 2〜5割引
         var disc=price*d/10;
         if(disc%1!==0) continue;
         var sell=price-disc;
         if(sell<=0) continue;
-        ans=price;
-        t=d+"割引きで売ったら 売値が "+sell+"円 になりました。定価は何円？";
+        if(sell===cost) continue;
+        if(sell>cost){
+          ans=sell-cost;
+          t="原価 "+cost+"円 の品物に "+mark+"% の利益を見こんで定価をつけ、その定価の "+d+"割引きで売りました。利益は何円？";
+        } else {
+          ans=cost-sell;
+          t="原価 "+cost+"円 の品物に "+mark+"% の利益を見こんで定価をつけ、その定価の "+d+"割引きで売りました。損失は何円？";
+        }
+      } else {
+        // 複数仕入れ + 売れ残り: n個仕入れ、k個だけ売値で売って残りは捨てる → 合計利益or損失
+        var cost=ri(2,15)*100;
+        var profit=ri(1,8)*100;
+        var price=cost+profit;
+        var n=ri(5,15);
+        var k=ri(Math.ceil(n/2),n);   // 半分以上は売れる
+        if(k>=n) continue;            // 必ず売れ残りあり
+        var income=price*k;
+        var spend=cost*n;
+        if(income===spend) continue;
+        if(income>spend){
+          ans=income-spend;
+          t="原価 "+cost+"円 の品物を "+n+"個 仕入れ、1個 "+price+"円 で "+k+"個 売りました。残りは売れず捨てました。合計の利益は何円？";
+        } else {
+          ans=spend-income;
+          t="原価 "+cost+"円 の品物を "+n+"個 仕入れ、1個 "+price+"円 で "+k+"個 売りました。残りは売れず捨てました。合計の損失は何円？";
+        }
       }
     }
     if(ans>0 && ans%1===0) break;
   }
-  if(!t){ ans=1500; t="原価 1000円 の品物に 500円 の利益を見こんで定価をつけました。定価は何円？"; }
+  if(!t){
+    ans=1500;
+    t="原価 1000円 の品物に 500円 の利益を見こんで定価をつけました。定価は何円？";
+  }
   return {cat:"soneki",kind:"num",text:t,say:null,ans:ans};
 }
 function gShigoto(lv){
@@ -2796,122 +3151,140 @@ function gShigoto(lv){
   var t="", ans=0;
 
   for(var tries=0; tries<200; tries++){
-    if(lv>=1 && lv<=3){
-      // 1人/1台の仕事量×時間。3パターンを質的に分ける
-      var sub = (lv===1)?0 : (lv===2)? ri(0,1) : ri(0,2);
-      if(sub===0){
-        // total = rate × time（積を問う）
-        var rate=ri(2,(lv===1?6:9)), time=ri(2,(lv===1?6:9));
-        ans=rate*time;
-        if(ans<=0) continue;
-        t="1日に "+rate+"個 作る 人が、"+time+"日 はたらきます。ぜんぶで 何個 作れる？";
-      } else if(sub===1){
-        // time = total ÷ rate（割り切れる）
-        var rate=ri(2,9), time=ri(2,9), total=rate*time;
+    if(lv===1){
+      // 全体量を求める: 1日に○個 × 日数(積)。仕事算の前段として「全体量」を意識させる
+      var rate=ri(2,8), time=ri(2,8);
+      ans=rate*time;
+      if(ans<=0) continue;
+      var n1=pick(NAMES);
+      t=n1+"は 1日に "+rate+"個 おもちゃを 作ります。"+time+"日 はたらくと、ぜんぶで 何個 作れる？";
+    }
+    else if(lv===2){
+      // 日数を求める: 全体○個を1日△個 → 何日(全体を「与えられた量」として置く感覚)
+      var rate=ri(2,9), time=ri(3,12), total=rate*time;
+      ans=time;
+      if(ans<=0) continue;
+      var n2=pick(NAMES);
+      t="ぜんぶで "+total+"個の しごとが あります。"+n2+"は 1日に "+rate+"個 すすめます。何日で 終わる？";
+    }
+    else if(lv===3){
+      // 1日量を求める: 全体○個を△日 → 1日何個(逆算で割り算)
+      var rate=ri(2,9), time=ri(2,9), total=rate*time;
+      ans=rate;
+      if(ans<=0) continue;
+      t=total+"個の しごとを "+time+"日で ちょうど 終わらせるには、1日に 何個 すれば よい？";
+    }
+    else if(lv===4){
+      // 2人同時作業(基本): A は a日、B は b日 → いっしょで何日(整数解のみ)
+      // 構成: 一緒の日数 c を先に決め、a を選び b = a*c/(a-c) が整数
+      var c=ri(2,5);
+      var a=ri(c+1,12);
+      if(a<=c) continue;
+      var b=a*c/(a-c);
+      if(!Number.isInteger(b)||b<=0||b===a) continue;
+      ans=c;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t="ある しごとを "+n1+"は "+a+"日、"+n2+"は "+b+"日で 終わらせます。2人 いっしょに すると 何日で 終わる？";
+    }
+    else if(lv===5){
+      // 仕事率の逆算: A は a日、2人いっしょなら c日 → B は何日(整数解のみ)
+      // 全体を 1 と置き 1/a + 1/B = 1/c → B = a*c/(a-c)
+      var c=ri(2,6);
+      var a=ri(c+1,15);
+      if(a<=c) continue;
+      var b=a*c/(a-c);
+      if(!Number.isInteger(b)||b<=0||b===a) continue;
+      ans=b;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t="ある しごとを "+n1+"は "+a+"日で 終わらせます。"+n1+"と "+n2+"が いっしょに すると "+c+"日で 終わります。"+n2+"が 1人で すると 何日で 終わる？";
+    }
+    else if(lv===6){
+      // 3人同時作業: A は a日、B は b日、C は c日 → 3人で何日(整数解のみ)
+      // 全体W=lcm(a,b,c) と置き、合計仕事率 W/a+W/b+W/c で W を割って整数
+      var a=ri(3,10), b=ri(3,12), c=ri(3,15);
+      if(a===b||b===c||a===c) continue;
+      var W=lcmL(lcmL(a,b),c);
+      var sum=W/a+W/b+W/c;
+      if(W%sum!==0) continue;
+      ans=W/sum;
+      if(ans<=0) continue;
+      t="ある しごとを A は "+a+"日、B は "+b+"日、C は "+c+"日で 終わらせます。3人 いっしょに すると 何日で 終わる？";
+    }
+    else if(lv===7){
+      // 途中交代(基礎): 1人→2人。1人でd日かかる仕事を、はじめx日やり、残りを2人で。残り何日？
+      // 1人の1日量=1、全体=d。残り(d-x)を2人で → (d-x)/2
+      var d=ri(4,12);
+      var x=ri(1,d-2);
+      var rest=d-x;
+      if(rest%2!==0) continue;
+      ans=rest/2;
+      if(ans<=0) continue;
+      var n1=pick(NAMES);
+      t=n1+"が 1人で すると "+d+"日 かかる しごとが あります。はじめ "+n1+"が 1人で "+x+"日 やった あと、もう 1人 てつだいに 来て 2人で つづけます。あと 何日で 終わる？";
+    }
+    else if(lv===8){
+      // 途中交代(標準): 2人→1人。A は a日、B は b日。はじめ2人でx日→残りをAだけで何日？
+      // 全体W=lcm(a,b)、rA=W/a, rB=W/b。x を rest=W-(rA+rB)*x が rA で割り切れるよう選ぶ
+      var a=ri(3,12), b=ri(3,12);
+      if(a===b) continue;
+      var W=lcmL(a,b);
+      var rA=W/a, rB=W/b;
+      var full=Math.floor(W/(rA+rB));
+      if(full<2) continue;
+      var cand=[];
+      for(var xx=1; xx<full; xx++){
+        var rest0=W-(rA+rB)*xx;
+        if(rest0>0 && rest0%rA===0) cand.push(xx);
+      }
+      if(cand.length===0) continue;
+      var x=pick(cand);
+      var rest=W-(rA+rB)*x;
+      ans=rest/rA;
+      if(!Number.isInteger(ans)||ans<=0) continue;
+      var n1=pick(NAMES), n2=pick(NAMES);
+      if(n1===n2) continue;
+      t="ある しごとを "+n1+"は "+a+"日、"+n2+"は "+b+"日で 終わらせます。はじめ 2人 いっしょに "+x+"日 やった あと、"+n1+"が 1人で つづけます。あと 何日で 終わる？";
+    }
+    else if(lv===9){
+      // のべ人日: p人でd日かかる仕事を、p2人ですると何日？(p*d を p2 で割り切れる p2 を選ぶ)
+      var p=ri(2,6), d=ri(3,10);
+      var total=p*d;
+      var divs=[];
+      for(var q=2;q<=total;q++){ if(total%q===0 && q!==p && q<=total) divs.push(q); }
+      if(divs.length===0) continue;
+      var p2=pick(divs);
+      ans=total/p2;
+      if(!Number.isInteger(ans)||ans<=0||ans===d) continue;
+      t=p+"人で すると "+d+"日 かかる しごとが あります。同じ しごとを "+p2+"人で すると 何日で 終わる？";
+    }
+    else {
+      // Lv10: 水そう注水/排水。注水のみ or 注水しながら排水
+      var drain = (Math.random()<0.5);
+      if(!drain){
+        // 注水のみ: 容量V=inR*time、時間を問う
+        var inR=ri(2,9), time=ri(3,12), V=inR*time;
         ans=time;
         if(ans<=0) continue;
-        t="ぜんぶで "+total+"個の 仕事を、1日に "+rate+"個 すると 何日で 終わる？";
+        t="からの 水そうに 1分間に "+inR+"L 水を 入れます。水そうの ようりょうは "+V+"L です。いっぱいに なるのは 何分後？";
       } else {
-        // rate = total ÷ time（割り切れる）
-        var rate=ri(2,9), time=ri(2,9), total=rate*time;
-        ans=rate;
-        if(ans<=0) continue;
-        t=total+"個の 仕事を "+time+"日で 終わらせるには、1日に 何個 すれば よい？";
-      }
-    }
-    else if(lv>=4 && lv<=6){
-      // 全体仕事を最小公倍数で置き、複数人で何日。答えから逆算して整数を保証
-      var threePeople = (lv===6) && (Math.random()<0.5);
-      if(!threePeople){
-        // いっしょの日数 c を先に決め、da を選び db=da*c/(da-c)（整数のみ）
-        var c=ri(2,(lv===4?5:8));
-        var da=ri(c+1,(lv===4?12:20));
-        if(da<=c) continue;
-        var db=da*c/(da-c);
-        if(!Number.isInteger(db)||db<=0||db===da) continue;
-        ans=c;
-        var n1=pick(NAMES), n2=pick(NAMES);
-        if(n1===n2) continue;
-        t="ある 仕事を "+n1+"は "+da+"日、"+n2+"は "+db+"日で 終わります。2人 いっしょに すると 何日で 終わる？";
-      } else {
-        // 全体W=最小公倍数を選び、3人の1日仕事量(W約数)を割り当て、合計がW割り切れを確認
-        var W=lcmL(lcmL(ri(2,6),ri(2,6)),ri(2,6))*ri(1,3);
-        var ds=[];
-        for(var q=2;q<=W;q++){ if(W%q===0) ds.push(q); } // W割り切れる日数(=1日量整数)
-        if(ds.length<3) continue;
-        var da=pick(ds), db=pick(ds), dc=pick(ds);
-        if(da===db||db===dc||da===dc) continue;
-        var sum=W/da+W/db+W/dc;
-        if(W%sum!==0) continue;
-        ans=W/sum;
-        if(ans<=0) continue;
-        t="ある 仕事を A は "+da+"日、B は "+db+"日、C は "+dc+"日で 終わります。3人 いっしょに すると 何日で 終わる？";
-      }
-    }
-    else if(lv===7 || lv===8){
-      // 途中から人数変化
-      var sub2 = (lv===7)?0 : ri(0,1);
-      if(sub2===0){
-        // 1人でd日かかる仕事。x日はたらいた後、もう1人加わって残りを2人で。残り日数を問う
-        var d=ri(4,(lv===7?10:14));
-        var W=d;                       // 1人の1日分=1, 全体=d
-        var x=ri(1,d-2);               // 最初の単独日数
-        var rest=W-x;                  // 残り仕事（1人×x日ぶん）
-        ans=rest/2;                    // 2人で
-        if(!Number.isInteger(ans)||ans<=0) continue;
-        t="1人で すると "+d+"日 かかる 仕事を、はじめ 1人で "+x+"日 やりました。のこりを 2人で すると、あと 何日で 終わる？";
-      } else {
-        // 全体W=lcm(da,db)。最初2人でx日→残りを A1人で。rest が rA で割り切れる x のみ採用
-        var da=ri(2,10), db=ri(2,10);
-        if(da===db) continue;
-        var W=lcmL(da,db);
-        var rA=W/da, rB=W/db;
-        var full=Math.floor(W/(rA+rB));   // 2人で全部終わるまでの目安
-        if(full<2) continue;
-        var cand=[];
-        for(var xx=1; xx<full; xx++){
-          var rest0=W-(rA+rB)*xx;
-          if(rest0>0 && rest0%rA===0) cand.push(xx);
-        }
-        if(cand.length===0) continue;
-        var x=pick(cand);
-        var rest=W-(rA+rB)*x;
-        ans=rest/rA;
-        if(!Number.isInteger(ans)||ans<=0) continue;
-        t="ある 仕事を A は "+da+"日、B は "+db+"日で 終わります。はじめ 2人で "+x+"日 やった あと、A 1人で つづけます。あと 何日で 終わる？";
-      }
-    }
-    else { // lv 9,10: のべ / 水そう注水
-      var tank = (Math.random()<0.5);
-      if(!tank){
-        // のべ人日: p人でd日 → 全体= p*d 人日。p2人だと何日（割り切れ）
-        var p=ri(2,(lv===9?6:9)), d=ri(2,(lv===9?8:12));
-        var total=p*d;                 // 人日
-        var divs=[];
-        for(var q=2;q<=total;q++){ if(total%q===0 && q!==p) divs.push(q); }
-        if(divs.length===0) continue;
-        var p2=pick(divs);
-        ans=total/p2;
-        if(!Number.isInteger(ans)||ans<=0) continue;
-        t=p+"人で すると "+d+"日 かかる 仕事が あります。同じ 仕事を "+p2+"人で すると 何日で 終わる？";
-      } else {
-        // 水そう注水: 容量Vを 入る量inで → 時間（割り切れ）。lv10は排水も
-        var drain = (lv===10) && (Math.random()<0.5);
-        if(!drain){
-          var inR=ri(2,9), time=ri(2,(lv===9?8:12)), V=inR*time;
-          ans=time;
-          if(ans<=0) continue;
-          t="からの 水そうに 1分間に "+inR+"L 入れます。水そうの ようりょうは "+V+"L です。いっぱいに なるのは 何分後？";
-        } else {
-          var inR=ri(4,12), outR=ri(1,inR-1), net=inR-outR;
-          var time=ri(2,10), V=net*time;
-          ans=time;
-          if(net<=0||V<=0) continue;
-          t="水そうに 1分間に "+inR+"L 入れながら、1分間に "+outR+"L ぬきます。ようりょう "+V+"L の 水そうが いっぱいに なるのは 何分後？";
-        }
+        // 注水しながら排水: 正味 net=inR-outR、容量V=net*time
+        var inR=ri(4,12), outR=ri(1,inR-1), net=inR-outR;
+        if(net<=0) continue;
+        var time=ri(3,10), V=net*time;
+        if(V<=0) continue;
+        ans=time;
+        t="水そうに 1分間に "+inR+"L 入れながら、そこから 1分間に "+outR+"L ぬきます。ようりょう "+V+"L の 水そうが いっぱいに なるのは 何分後？";
       }
     }
     if(ans>0 && Number.isInteger(ans)) break;
+  }
+  // フォールバック: ans/text が確定していなければ最も単純な Lv1 型で生成
+  if(!(ans>0 && Number.isInteger(ans))){
+    var rate=3, time=4;
+    ans=rate*time;
+    t="1日に "+rate+"個 作る 人が、"+time+"日 はたらくと、ぜんぶで 何個 作れる？";
   }
   return {cat:"shigoto", kind:"num", text:t, say:null, ans:ans};
 }
@@ -2921,72 +3294,105 @@ function gNenrei(lv){
   var t="", ans=0, say=null;
 
   for(var tries=0; tries<200; tries++){
-    if(lv===1||lv===2||lv===3){
-      // 何年後/前の年齢: 単純加減
+    if(lv===1){
+      // 年齢差: 今の2人の年齢差を求める(導入)
+      var c1=pick(NAMES), c2=pick(NAMES);
+      if(c1===c2) continue;
+      var a1=ri(6,12), b1=ri(1,5);
+      var older=a1+b1;
+      ans=b1;
+      t=c1+"は "+older+"歳、"+c2+"は "+a1+"歳です。2人の 年れいの ちがいは 何歳？";
+    }
+    else if(lv===2){
+      // 何年後の年齢: 単純加算
       var c=pick(NAMES);
-      var now=(lv===1?ri(6,12):ri(8,40));
-      var y=(lv===1?ri(1,5):ri(2,15));
-      if(lv===3){
-        // 何年前(過去) ans=now-y、正に保つ
-        if(now-y<1) continue;
-        ans=now-y;
-        t=c+"は 今 "+now+"歳です。"+y+"年前は 何歳でしたか？";
-      } else {
-        ans=now+y;
-        t=c+"は 今 "+now+"歳です。"+y+"年後は 何歳になりますか？";
-      }
+      var now2=ri(6,15);
+      var y2=ri(2,12);
+      ans=now2+y2;
+      t=c+"は 今 "+now2+"歳です。"+y2+"年後は 何歳に なりますか？";
     }
-    else if(lv===4||lv===5||lv===6){
-      // 親子の年齢 和・差・和差算
-      var oya=ri(30,45), ko=ri(6,14);
-      if(oya<=ko) continue;
-      if(lv===4){
-        // 和
-        ans=oya+ko;
-        t="お父さんは "+oya+"歳、子どもは "+ko+"歳です。年齢の 和は 何歳ですか？";
-      } else if(lv===5){
-        // 差
-        ans=oya-ko;
-        t="お父さんは "+oya+"歳、子どもは "+ko+"歳です。年齢の 差は 何歳ですか？";
-      } else {
-        // 和差算: 和と差から子を求める ans=(sum-dif)/2
-        var sum=oya+ko, dif=oya-ko;
-        if((sum-dif)%2!==0) continue;
-        ans=(sum-dif)/2;
-        if(ans<1) continue;
-        t="お父さんと 子どもの 年齢の 和は "+sum+"歳、差は "+dif+"歳です。子どもは 何歳ですか？";
-      }
+    else if(lv===3){
+      // 何年前の年齢: 単純減算(過去)
+      var c=pick(NAMES);
+      var now3=ri(15,40);
+      var y3=ri(3,12);
+      if(now3-y3<1) continue;
+      ans=now3-y3;
+      t=c+"は 今 "+now3+"歳です。"+y3+"年前は 何歳でしたか？";
     }
-    else if(lv===7||lv===8){
-      // □年後にN倍: oya+x = N*(ko+x) を逆算で構成、ans=x
-      var N=(lv===7?ri(2,3):ri(2,4));
-      var ko=ri(4,12);
-      var x=ri(1,12);
-      var oya=N*(ko+x)-x;   // 逆算で必ず整数・割り切れる
-      if(oya<=ko) continue;
-      if(oya>80) continue;
-      ans=x;
-      t="今 お父さんは "+oya+"歳、子どもは "+ko+"歳です。お父さんの 年齢が 子どもの "+N+"倍に なるのは 何年後ですか？";
+    else if(lv===4){
+      // 親子の年齢の 和
+      var oya4=ri(30,45), ko4=ri(6,14);
+      if(oya4<=ko4) continue;
+      ans=oya4+ko4;
+      t="お父さんは "+oya4+"歳、子どもは "+ko4+"歳です。2人の 年れいの 和は 何歳？";
     }
-    else { // lv===9||lv===10
-      // 倍の関係から現在年齢を逆算
-      var N=(lv===9?ri(2,4):ri(3,5));
-      var ko=ri(5,15);
-      var oya=N*ko;   // 今ちょうどN倍
-      if(oya>90) continue;
-      if(lv===9){
-        // 和とN倍から子を求める: ko=sum/(N+1)
-        var sum=oya+ko;
-        ans=ko;
-        t="お父さんの 年齢は 子どもの "+N+"倍で、年齢の 和は "+sum+"歳です。子どもは 何歳ですか？";
-      } else {
-        // 差とN倍から親を求める: dif=(N-1)*ko, oya=N*ko
-        var dif=oya-ko;
-        ans=oya;
-        t="お父さんの 年齢は 子どもの "+N+"倍で、年齢の 差は "+dif+"歳です。お父さんは 何歳ですか？";
-      }
+    else if(lv===5){
+      // 親子の年齢の 差
+      var oya5=ri(30,48), ko5=ri(5,14);
+      if(oya5<=ko5) continue;
+      ans=oya5-ko5;
+      t="お父さんは "+oya5+"歳、子どもは "+ko5+"歳です。2人の 年れいの 差は 何歳？";
+    }
+    else if(lv===6){
+      // 和差算: 和と差から子どもの年齢を逆算
+      var oya6=ri(30,48), ko6=ri(6,15);
+      if(oya6<=ko6) continue;
+      var sum6=oya6+ko6, dif6=oya6-ko6;
+      if((sum6-dif6)%2!==0) continue;
+      ans=(sum6-dif6)/2; // = ko6
+      if(ans<1) continue;
+      t="お父さんと 子どもの 年れいの 和は "+sum6+"歳、差は "+dif6+"歳です。子どもは 何歳？";
+    }
+    else if(lv===7){
+      // 3人問題: 兄弟2人+お母さん、今の和→N年後の和
+      var ani=ri(8,14), oto=ri(3,ani-1);
+      var haha=ri(32,45);
+      if(haha<=ani) continue;
+      var y7=ri(3,10);
+      var nowSum=ani+oto+haha;
+      ans=nowSum+3*y7;
+      t="お兄さんは "+ani+"歳、弟は "+oto+"歳、お母さんは "+haha+"歳です。"+y7+"年後の 3人の 年れいの 和は 何歳？";
+    }
+    else if(lv===8){
+      // □年後に 親が 子の N倍: oya+x = N*(ko+x) を逆算で構成
+      var N8=ri(2,3);
+      var ko8=ri(4,12);
+      var x8=ri(2,12);
+      var oya8=N8*(ko8+x8)-x8;
+      if(oya8<=ko8) continue;
+      if(oya8>80) continue;
+      // 「N倍」が今すでに成立しているケースは除外
+      if(oya8===N8*ko8) continue;
+      ans=x8;
+      t="今 お父さんは "+oya8+"歳、子どもは "+ko8+"歳です。お父さんの 年れいが 子どもの "+N8+"倍に なるのは 何年後？";
+    }
+    else if(lv===9){
+      // 倍率+和 から現在の子の年齢を逆算: oya = N*ko, sum=oya+ko=(N+1)*ko
+      var N9=ri(3,5);
+      var ko9=ri(8,15);
+      var oya9=N9*ko9;
+      if(oya9<25||oya9>60) continue;
+      var sum9=oya9+ko9;
+      ans=ko9;
+      t="今 お父さんの 年れいは 子どもの "+N9+"倍です。2人の 年れいの 和は "+sum9+"歳です。子どもは 何歳？";
+    }
+    else { // lv===10
+      // 倍率+差 から現在の親の年齢を逆算: dif=(N-1)*ko, oya=N*ko
+      var N10=ri(3,5);
+      var ko10=ri(7,14);
+      var oya10=N10*ko10;
+      if(oya10<25||oya10>65) continue;
+      var dif10=oya10-ko10; // =(N-1)*ko
+      ans=oya10;
+      t="今 お父さんの 年れいは 子どもの "+N10+"倍で、2人の 年れいの 差は "+dif10+"歳です。お父さんは 何歳？";
     }
     if(ans>0 && ans===Math.floor(ans)) break;
+  }
+  // fallback (well-posed)
+  if(!t){
+    ans=15;
+    t="お父さんは 40歳、子どもは 10歳です。お父さんが 子どもの 2倍に なるのは 何年後？";
   }
   return {cat:"nenrei", kind:"num", text:t, say:null, ans:ans};
 }
@@ -2996,69 +3402,134 @@ function gUeki(lv){
   var t="", ans=0, say=null;
 
   for(var tries=0; tries<200; tries++){
-    if(lv<=3){
-      // 両端あり: 本数 = 長さ÷間隔 + 1
-      var gap=pick(lv===1?[2,5,10]:lv===2?[3,4,5,6]:[4,6,8,12]);
-      var n=ri((lv===1?2:lv===2?3:4),(lv===1?8:lv===2?12:18)); // 間の数
+    if(lv===1){
+      // 両端あり・本数(小さめ)
+      var gap=pick([2,5,10]);
+      var n=ri(2,8); // 間の数
       var L=gap*n;
       var obj=pick(TREE);
-      ans=n+1;
+      ans=n+1; // 本数
       if(ans<=0) continue;
       t="まっすぐな 道に そって、長さ "+L+"m の あいだに "+gap+"m おきに "+obj+"を 立てます。両はしにも 立てるとき、"+obj+"は 何本 いる？";
     }
-    else if(lv<=5){
-      // 両端なし: 本数 = 長さ÷間隔 - 1
-      var gap=pick(lv===4?[2,4,5]:[3,5,6,8]);
-      var n=ri((lv===4?3:4),(lv===4?12:18));
+    else if(lv===2){
+      // 両端なし・本数(間に立てる)
+      var gap=pick([2,3,4,5,6]);
+      var n=ri(3,12); // 間の数
       var L=gap*n;
       var obj=pick(TREE);
-      ans=n-1;
+      ans=n-1; // 両はしを除く本数
       if(ans<=0) continue;
       t="ビルと ビルの あいだ、長さ "+L+"m に "+gap+"m おきに "+obj+"を 立てます。両はしには 立てないとき、"+obj+"は 何本 いる？";
     }
-    else if(lv<=7){
-      // 円周: 本数 = 一周÷間隔
-      var gap=pick(lv===6?[2,5,10]:[4,6,8,12]);
-      var n=ri((lv===6?4:5),(lv===6?15:20));
+    else if(lv===3){
+      // 円形・本数
+      var gap=pick([2,4,5,6,8]);
+      var n=ri(4,15); // 円周上の本数 = 間の数
       var L=gap*n;
       var obj=pick(TREE);
-      ans=n;
+      ans=n; // 円形は本数=間の数
       if(ans<=0) continue;
       t="まわりが "+L+"m の 池の まわりに、"+gap+"m おきに "+obj+"を 立てます。"+obj+"は 何本 いる？";
     }
-    else if(lv===8){
-      // 間隔の逆算(両端あり): 間隔 = 長さ÷(本数-1)
+    else if(lv===4){
+      // 両端あり・全長(本数 → 長さ)
+      var gap=pick([2,3,4,5,6,8]);
+      var count=ri(4,12); // 本数
+      var obj=pick(TREE);
+      ans=gap*(count-1); // 全長
+      if(ans<=0) continue;
+      t="まっすぐな 道に "+obj+"を "+count+"本、両はしも ふくめて "+gap+"m おきに 立てます。さいしょの "+obj+"から さいごの "+obj+"まで 何m？";
+    }
+    else if(lv===5){
+      // 両端なし・全長(間に立てた本数 → 全長)
+      var gap=pick([2,3,4,5,6,8]);
+      var count=ri(3,12); // 間に立てた本数
+      var obj=pick(TREE);
+      // 間の数 = count + 1
+      ans=gap*(count+1);
+      if(ans<=0) continue;
+      t="ビルと ビルの あいだに "+obj+"を "+count+"本、"+gap+"m おきに 立てました。両はしの ビルから "+gap+"m はなしてあります。ビルから ビルまで 何m？";
+    }
+    else if(lv===6){
+      // 円形・一周の長さ(本数 → 一周)
+      var gap=pick([2,4,5,6,8,10]);
+      var count=ri(5,18); // 本数=間の数
+      var obj=pick(TREE);
+      ans=gap*count; // 一周
+      if(ans<=0) continue;
+      t="まるい 池の まわりに "+obj+"を "+count+"本、"+gap+"m おきに 立てました。池の まわりは 何m？";
+    }
+    else if(lv===7){
+      // 両端あり・間隔の逆算
       var gap=pick([2,3,4,5,6,8,10]);
       var n=ri(3,15);
       var L=gap*n;
       var count=n+1;
       var obj=pick(TREE);
-      ans=gap;
+      ans=gap; // 間隔
       if(ans<=0) continue;
       t="まっすぐな 道に "+obj+"を "+count+"本、両はしも ふくめて 同じ あいだで 立てたら、ぜんたいの 長さは "+L+"m でした。"+obj+"と "+obj+"の あいだは 何m？";
     }
-    else if(lv===9){
-      // 長さの逆算(両端あり): 長さ = (本数-1)×間隔
-      var gap=pick([2,3,4,5,6,8,10]);
-      var n=ri(4,18);
-      var count=n+1;
+    else if(lv===8){
+      // 円形・間隔の逆算 (本数と一周から)
+      var gap=pick([2,3,4,5,6,8]);
+      var count=ri(5,15); // 円形は本数=間の数
+      var L=gap*count;    // 一周
       var obj=pick(TREE);
-      ans=gap*n;
+      ans=gap;
       if(ans<=0) continue;
-      t="まっすぐな 道に "+obj+"を "+count+"本、両はしも ふくめて "+gap+"m おきに 立てます。さいしょの "+obj+"から さいごの "+obj+"まで 何m？";
+      t="まわりが "+L+"m の 池の まわりに、"+obj+"を "+count+"本、同じ あいだで 立てました。"+obj+"と "+obj+"の あいだは 何m？";
+    }
+    else if(lv===9){
+      // 複合: 木の間に旗を立てる(両端あり・2種類)
+      // 木は gap1 おき(両端あり)に count1 本、隣り合う木の間に旗を等間隔で k 本ずつ追加
+      var gap1=pick([6,8,10,12]);
+      var k=pick([1,2,3]); // 木と木の間に立てる旗の本数
+      var count1=ri(3,7);  // 木の本数
+      var n1=count1-1;     // 木の間の数
+      // 旗は両端の木を除いて、各間に k 本 → 全部で n1*k 本
+      var obj1="木";
+      var obj2=pick(["旗","花"]);
+      var subGap=gap1/(k+1);
+      if(!Number.isInteger(subGap)) continue;
+      ans=n1*k; // 旗の本数
+      if(ans<=0) continue;
+      var L=gap1*n1;
+      t="まっすぐな 道(長さ "+L+"m)に "+obj1+"を "+count1+"本、両はしも ふくめて "+gap1+"m おきに 立てました。となりあう "+obj1+"の あいだに "+obj2+"を "+k+"本ずつ、同じ あいだで 立てると、"+obj2+"は ぜんぶで 何本？";
     }
     else { // lv===10
-      // 道の両側(両端あり): 片側(長さ÷間隔+1)×2
-      var gap=pick([2,4,5,6,8,10]);
-      var n=ri(4,18);
-      var L=gap*n;
-      var perSide=n+1;
-      var obj=pick(TREE);
-      ans=perSide*2;
-      if(ans<=0) continue;
-      t="まっすぐな 道(長さ "+L+"m)の 両がわに、"+gap+"m おきに "+obj+"を 立てます。両はしにも 立てるとき、"+obj+"は ぜんぶで 何本 いる？";
+      // 総合: 道の両側 or 周回複合
+      if(Math.random()<0.5){
+        // 道の両側(両端あり)
+        var gap=pick([2,4,5,6,8,10]);
+        var n=ri(4,18);
+        var L=gap*n;
+        var perSide=n+1;
+        var obj=pick(TREE);
+        ans=perSide*2;
+        if(ans<=0) continue;
+        t="まっすぐな 道(長さ "+L+"m)の 両がわに、"+gap+"m おきに "+obj+"を 立てます。両はしにも 立てるとき、"+obj+"は ぜんぶで 何本 いる？";
+      } else {
+        // 円形の両端(内側と外側 → ここでは「一周をm 周まわって 本数」)
+        // 池のまわりに gap おきに立てて、ちょうど x 周して数えなおすパターンは難しいので、
+        // 「池の まわりに 2しゅるい(木と旗)を 交互に 立てる」へ
+        var gap=pick([2,3,4,5,6]);
+        var pairs=ri(4,12); // 木と旗のペア数
+        var L=gap*pairs*2;  // 交互なので間隔は gap、ペアごとに 2*gap
+        var obj1="木";
+        var obj2="旗";
+        ans=pairs; // 木の本数(旗も同じ本数)
+        if(ans<=0) continue;
+        t="まわりが "+L+"m の 池の まわりに、"+obj1+"と "+obj2+"を こうごに "+gap+"m おきに 立てます。"+obj1+"は 何本 いる？";
+      }
     }
     break;
+  }
+  // フォールバック
+  if(!t){
+    ans=6;
+    t="まっすぐな 道に そって、長さ 10m の あいだに 2m おきに 木を 立てます。両はしにも 立てるとき、木は 何本 いる？";
   }
   return {cat:"ueki", kind:"num", text:t, say:say, ans:ans};
 }
@@ -3071,25 +3542,25 @@ function gRyuusui(lv){
 
   for(var tries=0; tries<200; tries++){
     if(lv===1){
-      // 静水時の速さ = (下り+上り)/2 を和差で。和が偶数になるよう構成
-      var still=ri(3,12)*5;   // 静水時 m/分
-      var flow=ri(1,still/5-1)*5; // 流速 < 静水時
+      // 静水速度逆算: still = (down + up) / 2
+      var still=ri(3,12)*5;          // 静水時 m/分
+      var flow=ri(1,still/5-1)*5;    // 流速 < 静水時
       var down=still+flow, up=still-flow;
-      ans=still;
       if(up<=0) continue;
+      ans=still;
       t="ある"+pick(BOATS)+"は 川を 下ると 分速"+down+"m、上ると 分速"+up+"m です。静水時（流れのないとき）の 速さは 分速 何m？";
     }
     else if(lv===2){
-      // 流速 = (下り-上り)/2
+      // 流速逆算: flow = (down - up) / 2
       var still=ri(3,12)*5;
       var flow=ri(1,still/5-1)*5;
       var down=still+flow, up=still-flow;
-      ans=flow;
       if(up<=0||flow<=0) continue;
+      ans=flow;
       t="ある"+pick(BOATS)+"は 川を 下ると 分速"+down+"m、上ると 分速"+up+"m です。川の 流れの 速さ（流速）は 分速 何m？";
     }
     else if(lv===3){
-      // 静水時と流速から、下りor上りの速さ ans=still±flow
+      // 上下流速度: still と flow から 下り or 上り の速さ
       var still=ri(4,12)*5;
       var flow=ri(1,still/5-1)*5;
       var dir=ri(0,1); // 0:下り 1:上り
@@ -3098,7 +3569,7 @@ function gRyuusui(lv){
       t="静水時の 速さが 分速"+still+"m の "+pick(BOATS)+"が、流れの 速さ 分速"+flow+"m の 川を "+(dir===0?"下ります":"上ります")+"。このときの 速さは 分速 何m？";
     }
     else if(lv===4){
-      // 下りの時間 = 距離 / (still+flow)
+      // 下りの所要時間: 時間 = 距離 / (still + flow)
       var still=ri(4,12)*5;
       var flow=ri(1,still/5-1)*5;
       var down=still+flow;
@@ -3109,7 +3580,7 @@ function gRyuusui(lv){
       t="静水時 分速"+still+"m の "+pick(BOATS)+"が、流れ 分速"+flow+"m の 川を "+D+"m 下ります。何分 かかる？";
     }
     else if(lv===5){
-      // 上りの距離 = (still-flow)*時間
+      // 上りの距離: D = (still - flow) * 時間
       var still=ri(5,14)*5;
       var flow=ri(1,still/5-2)*5;
       var up=still-flow;
@@ -3119,18 +3590,18 @@ function gRyuusui(lv){
       t="静水時 分速"+still+"m の "+pick(BOATS)+"が、流れ 分速"+flow+"m の 川を "+minute+"分 上りました。進んだ 道のりは 何m？";
     }
     else if(lv===6){
-      // 上りの時間 = D/(still-flow)
+      // 上りの時間: 時間 = D / (still - flow)
       var still=ri(6,15)*5;
       var flow=ri(1,still/5-2)*5;
       var up=still-flow;
-      var minute=ri(2,12);   // 上りにかかる時間（逆算でDを作る）
+      var minute=ri(2,12);
       var D=up*minute;
       ans=minute;
       if(ans<=0||up<=0) continue;
       t="流れ 分速"+flow+"m の 川に そった "+D+"m の 道のりを、静水時 分速"+still+"m の "+pick(BOATS)+"が 上ります。何分 かかる？";
     }
     else if(lv===7){
-      // 往復時間 = D/down + D/up（両方割り切れる距離を逆算）
+      // 往復時間: D/down + D/up（両方割り切れる距離を逆算）
       var still=ri(6,15)*5;
       var flow=ri(1,still/5-2)*5;
       var down=still+flow, up=still-flow;
@@ -3144,7 +3615,20 @@ function gRyuusui(lv){
       t="ある"+pick(BOATS)+"が、流れ 分速"+flow+"m の 川を "+D+"m 下って、同じ道を 上って もどります。静水時の 速さは 分速"+still+"m。往復で 何分 かかる？";
     }
     else if(lv===8){
-      // 静水速さ逆算: 同じ距離Dを下りtd分・上りtu分 → still=(D/td+D/tu)/2
+      // いかだ問題: いかだは 流れと 同じ 速さで 進む → 時間 = D / flow
+      // ボートの 下り・上り の 分速から 流速を 出させてから、いかだの 所要時間を 問う。
+      var still=ri(5,12)*5;
+      var flow=ri(1,still/5-1)*5;
+      var down=still+flow, up=still-flow;
+      if(up<=0||flow<=0) continue;
+      var minute=ri(3,15);
+      var D=flow*minute;            // いかだで割り切れる距離
+      if(D<=0) continue;
+      ans=minute;
+      t="ある 川を ボートで 下ると 分速"+down+"m、上ると 分速"+up+"m です。この 川を "+D+"m 「いかだ」で 下ると 何分 かかる？（いかだは 流れと 同じ 速さで 進みます）";
+    }
+    else if(lv===9){
+      // 往復条件 → 静水速度逆算: 同じ距離Dを下りtd分・上りtu分 → still = (D/td + D/tu) / 2
       var still=ri(6,15)*5;
       var flow=ri(1,still/5-2)*5;
       var down=still+flow, up=still-flow;
@@ -3155,24 +3639,10 @@ function gRyuusui(lv){
       if(td!==Math.floor(td)||tu!==Math.floor(tu)) continue;
       ans=still;
       if(ans<=0) continue;
-      t="ある"+pick(BOATS)+"が、ある 川の 同じ道を 下ると "+td+"分、上ると "+tu+"分 かかります。その 道のりは "+D+"m です。この"+pick(BOATS)+"の 静水時の 速さは 分速 何m？";
-    }
-    else if(lv===9){
-      // 流速逆算: 下り時間・上り時間と距離から flow=(D/td-D/tu)/2
-      var still=ri(7,16)*5;
-      var flow=ri(1,still/5-2)*5;
-      var down=still+flow, up=still-flow;
-      if(up<=0||flow<=0) continue;
-      var g=gcd(down,up);
-      var D=down*up/g*ri(1,3);
-      var td=D/down, tu=D/up;
-      if(td!==Math.floor(td)||tu!==Math.floor(tu)) continue;
-      ans=flow;
-      if(ans<=0) continue;
-      t="ある"+pick(BOATS)+"が、ある 川の 同じ "+D+"m の 道を 下ると "+td+"分、上ると "+tu+"分 かかります。川の 流れの 速さは 分速 何m？";
+      t="ある"+pick(BOATS)+"が、ある 川の 同じ "+D+"m の 道を 下ると "+td+"分、上ると "+tu+"分 かかります。この"+pick(BOATS)+"の 静水時の 速さは 分速 何m？";
     }
     else { // lv===10
-      // 流速逆算（静水速さと下り(距離/時間)から）: flow = D/分 - still
+      // 静水速度と下り条件 → 流速逆算: flow = D / 分 - still
       var still=ri(7,16)*5;
       var flow=ri(1,still/5-2)*5;
       var down=still+flow;
@@ -3184,6 +3654,12 @@ function gRyuusui(lv){
     }
     break;
   }
+  // フォールバック: ループで text が組み立てられなかった場合の最終保証
+  if(!t){
+    var fStill=40, fFlow=10;
+    ans=fStill;
+    t="ある"+pick(BOATS)+"は 川を 下ると 分速"+(fStill+fFlow)+"m、上ると 分速"+(fStill-fFlow)+"m です。静水時の 速さは 分速 何m？";
+  }
   return {cat:"ryuusui", kind:"num", text:t, say:say, ans:ans};
 }
 function gTsuuka(lv){
@@ -3192,103 +3668,127 @@ function gTsuuka(lv){
   var t="", ans=0, say=null;
 
   for(var tries=0; tries<200; tries++){
-    if(lv===1||lv===2||lv===3){
-      // 鉄橋/トンネルを渡る: 時間=(列車長+橋長)÷速さ  ans=秒
-      var v=ri(2,(lv===1?15:25));            // m/秒
-      var sec=ri(3,(lv===1?12:lv===2?20:30));// 秒(割り切れる答え)
-      var dist=v*sec;                        // = 列車長+橋長
-      var trainLen=ri(5,(lv===1?20:40))*5;   // 列車長(5の倍数)
-      var bridgeLen=dist-trainLen;           // 橋/トンネル長
-      if(bridgeLen<=0) continue;
-      var place=(lv===3?"トンネル":"鉄橋");
-      var verb=(lv===3?"くぐりぬける":"わたりきる");
-      ans=sec;
-      t="長さ"+trainLen+"m の "+pick(TRAINS)+"が 秒速"+v+"m で 走っています。長さ"+bridgeLen+"m の "+place+"を "+verb+"のに 何秒 かかる？";
+    if(lv===1){
+      // 柱通過(基礎): 列車長÷速さ = 秒。小さめの数値。
+      var v1=ri(5,15);                // m/秒
+      var sec1=ri(2,10);              // 秒
+      var trainLen1=v1*sec1;          // m (割り切れる)
+      if(trainLen1<=0) continue;
+      ans=sec1;
+      t="長さ"+trainLen1+"m の "+pick(TRAINS)+"が 秒速"+v1+"m で 走っています。電柱を 通過するのに 何秒 かかる？";
+    }
+    else if(lv===2){
+      // 人/信号機 通過: 列車長÷速さ = 秒。Lv1より少し大きめの数値。
+      var v2=ri(6,20);
+      var sec2=ri(3,12);
+      var trainLen2=v2*sec2;
+      if(trainLen2<=0) continue;
+      var obj2=pick(["立っている人","信号機","駅員さん"]);
+      ans=sec2;
+      t="長さ"+trainLen2+"m の "+pick(TRAINS)+"が 秒速"+v2+"m で 走っています。"+obj2+"の 前を 通過するのに 何秒 かかる？";
+    }
+    else if(lv===3){
+      // 鉄橋/トンネル: (列車長+橋長)÷速さ = 秒
+      var v3=ri(8,25);
+      var sec3=ri(5,25);
+      var dist3=v3*sec3;              // = 列車長 + 橋長
+      var trainLen3=ri(4,16)*5;       // 5の倍数
+      var bridgeLen3=dist3-trainLen3;
+      if(bridgeLen3<=0) continue;
+      if(bridgeLen3<trainLen3) continue; // 橋の方が長い設定にしておく(自然)
+      var isTunnel=(Math.random()<0.5);
+      var place3=(isTunnel?"トンネル":"鉄橋");
+      var verb3=(isTunnel?"くぐりぬける":"わたりきる");
+      ans=sec3;
+      t="長さ"+trainLen3+"m の "+pick(TRAINS)+"が 秒速"+v3+"m で 走っています。長さ"+bridgeLen3+"m の "+place3+"を "+verb3+"のに 何秒 かかる？";
     }
     else if(lv===4){
-      // 電柱/人を通過: 列車長÷速さ  ans=秒
-      var v=ri(3,25);
-      var sec=ri(2,15);
-      var trainLen=v*sec;
-      ans=sec;
-      if(ans<=0) continue;
-      var obj=pick(["電柱","立っている人","信号機"]);
-      t="長さ"+trainLen+"m の "+pick(TRAINS)+"が 秒速"+v+"m で 走っています。"+obj+"を 通過するのに 何秒 かかる？";
+      // 柱通過(標準): 時間を求める。Lv1より数値レンジを拡大。
+      var v4=ri(10,30);
+      var sec4=ri(4,18);
+      var trainLen4=v4*sec4;
+      if(trainLen4<=0) continue;
+      var obj4=pick(["電柱","信号機","立っている人"]);
+      ans=sec4;
+      t="長さ"+trainLen4+"m の "+pick(TRAINS)+"が 秒速"+v4+"m で 走っています。"+obj4+"を 通過するのに 何秒 かかる？";
     }
     else if(lv===5){
-      // 電柱通過から 列車長を逆算: 列車長=速さ×秒  ans=列車長 m
-      var v=ri(5,30);
-      var sec=ri(2,15);
-      ans=v*sec;
+      // 列車長 逆算: 列車長 = 速さ × 秒
+      var v5=ri(8,30);
+      var sec5=ri(3,18);
+      ans=v5*sec5;
       if(ans<=0) continue;
-      var obj=pick(["電柱","立っている人","信号機"]);
-      t=pick(TRAINS)+"が 秒速"+v+"m で 走り、"+obj+"を 通過するのに "+sec+"秒 かかりました。この列車の 長さは 何m？";
+      var obj5=pick(["電柱","信号機","立っている人"]);
+      t=pick(TRAINS)+"が 秒速"+v5+"m で 走り、"+obj5+"を 通過するのに "+sec5+"秒 かかりました。この列車の 長さは 何m？";
     }
     else if(lv===6){
-      // 電柱通過から 速さを逆算: 速さ=列車長÷秒  ans=速さ m/秒
-      var v=ri(4,25);                  // 答えとなる速さ
-      var sec=ri(2,15);
-      var trainLen=v*sec;              // 割り切れる
-      ans=v;
-      if(ans<=0) continue;
-      var obj=pick(["電柱","立っている人","信号機"]);
-      t="長さ"+trainLen+"m の "+pick(TRAINS)+"が "+obj+"を 通過するのに "+sec+"秒 かかりました。この列車の 速さは 秒速 何m？";
+      // 速さ 逆算: 速さ = 列車長 ÷ 秒
+      var v6=ri(6,25);                // 答えとなる速さ
+      var sec6=ri(3,18);
+      var trainLen6=v6*sec6;          // 割り切れるように
+      if(trainLen6<=0) continue;
+      var obj6=pick(["電柱","信号機","立っている人"]);
+      ans=v6;
+      t="長さ"+trainLen6+"m の "+pick(TRAINS)+"が "+obj6+"を 通過するのに "+sec6+"秒 かかりました。この列車の 速さは 秒速 何m？";
     }
     else if(lv===7){
-      // すれ違い(向かい合う): 時間=(L1+L2)÷(v1+v2)  ans=秒
-      var sec=ri(3,15);
-      var v1=ri(3,18), v2=ri(3,18);
-      var sumV=v1+v2;
-      var total=sumV*sec;              // = L1+L2
-      var L1=ri(4,30)*5;
-      var L2=total-L1;
-      if(L2<=0||L2%5!==0) continue;
-      ans=sec;
-      t="長さ"+L1+"m で 秒速"+v1+"m の 列車Aと、長さ"+L2+"m で 秒速"+v2+"m の 列車Bが 向かい合って 走り、すれちがいます。出会ってから はなれるまで 何秒 かかる？";
+      // すれ違い(向かい合う): 時間 = (L1+L2) ÷ (v1+v2)
+      var sec7=ri(4,15);
+      var v1_7=ri(5,18), v2_7=ri(5,18);
+      var sumV7=v1_7+v2_7;
+      var total7=sumV7*sec7;          // = L1 + L2
+      var L1_7=ri(4,30)*5;
+      var L2_7=total7-L1_7;
+      if(L2_7<=0||L2_7%5!==0) continue;
+      ans=sec7;
+      t="長さ"+L1_7+"m で 秒速"+v1_7+"m の 列車Aと、長さ"+L2_7+"m で 秒速"+v2_7+"m の 列車Bが 向かい合って 走り、すれちがいます。出会ってから はなれるまで 何秒 かかる？";
     }
     else if(lv===8){
-      // 追い越し(同方向): 時間=(L1+L2)÷(v1-v2)  ans=秒
-      var sec=ri(3,15);
-      var v2=ri(3,12);                 // 前(遅い)
-      var dv=ri(2,12);                 // 速さの差
-      var v1=v2+dv;                    // 後(速い)
-      var total=dv*sec;               // = L1+L2
-      var L1=ri(4,20)*5;
-      var L2=total-L1;
-      if(L2<=0||L2%5!==0) continue;
-      ans=sec;
-      t="長さ"+L1+"m で 秒速"+v1+"m の 列車Aが、長さ"+L2+"m で 秒速"+v2+"m の 列車Bを 後ろから 追い越します。追いついてから 追い越し終わるまで 何秒 かかる？";
+      // 追い越し(同方向): 時間 = (L1+L2) ÷ (v1-v2)
+      var sec8=ri(4,15);
+      var v2_8=ri(4,12);              // 前(おそい)
+      var dv8=ri(3,12);               // 速さの差
+      var v1_8=v2_8+dv8;              // 後(はやい)
+      var total8=dv8*sec8;            // = L1 + L2
+      var L1_8=ri(4,20)*5;
+      var L2_8=total8-L1_8;
+      if(L2_8<=0||L2_8%5!==0) continue;
+      ans=sec8;
+      t="長さ"+L1_8+"m で 秒速"+v1_8+"m の 列車Aが、長さ"+L2_8+"m で 秒速"+v2_8+"m の 列車Bを 後ろから 追い越します。追いついてから 追い越し終わるまで 何秒 かかる？";
     }
     else if(lv===9){
-      // すれ違い時間と片方の長さ・両速さから もう片方の長さを逆算
-      // L2 = (v1+v2)*sec - L1   ans=L2(m)
-      var sec=ri(3,15);
-      var v1=ri(3,18), v2=ri(3,18);
-      var sumV=v1+v2;
-      var total=sumV*sec;
-      var L1=ri(4,30)*5;
-      var L2=total-L1;
-      if(L2<=0) continue;
-      ans=L2;
-      t="長さ"+L1+"m で 秒速"+v1+"m の 列車Aと、秒速"+v2+"m の 列車Bが 向かい合って すれちがうのに "+sec+"秒 かかりました。列車Bの 長さは 何m？";
+      // すれ違いから 相手列車長 を逆算: L2 = (v1+v2)*sec - L1
+      var sec9=ri(4,15);
+      var v1_9=ri(5,18), v2_9=ri(5,18);
+      var sumV9=v1_9+v2_9;
+      var total9=sumV9*sec9;
+      var L1_9=ri(4,30)*5;
+      var L2_9=total9-L1_9;
+      if(L2_9<=0) continue;
+      ans=L2_9;
+      t="長さ"+L1_9+"m で 秒速"+v1_9+"m の 列車Aと、秒速"+v2_9+"m の 列車Bが 向かい合って すれちがうのに "+sec9+"秒 かかりました。列車Bの 長さは 何m？";
     }
-    else { // lv===10
-      // 追い越し時間・両長さ・遅い側の速さから 速い側の速さを逆算
-      // (v1-v2) = (L1+L2)/sec → v1 = v2 + (L1+L2)/sec   ans=v1(m/秒)
-      var sec=ri(3,15);
-      var v2=ri(3,12);
-      var dv=ri(2,12);
-      var v1=v2+dv;
-      var total=dv*sec;               // L1+L2
-      var L1=ri(4,20)*5;
-      var L2=total-L1;
-      if(L2<=0||L2%5!==0) continue;
-      ans=v1;
-      t="長さ"+L1+"m の 列車Aが、長さ"+L2+"m で 秒速"+v2+"m の 列車Bを 後ろから 追い越すのに "+sec+"秒 かかりました。列車Aの 速さは 秒速 何m？";
+    else if(lv===10){
+      // 追い越しから 速さ を逆算: v1 = v2 + (L1+L2)/sec
+      var sec10=ri(4,15);
+      var v2_10=ri(4,12);
+      var dv10=ri(3,12);
+      var v1_10=v2_10+dv10;
+      var total10=dv10*sec10;         // = L1 + L2
+      var L1_10=ri(4,20)*5;
+      var L2_10=total10-L1_10;
+      if(L2_10<=0||L2_10%5!==0) continue;
+      ans=v1_10;
+      t="長さ"+L1_10+"m の 列車Aが、長さ"+L2_10+"m で 秒速"+v2_10+"m の 列車Bを 後ろから 追い越すのに "+sec10+"秒 かかりました。列車Aの 速さは 秒速 何m？";
     }
-    break;
+    if(t!=="" && Number.isInteger(ans) && ans>0){
+      return {cat:"tsuuka", kind:"num", text:t, say:say, ans:ans};
+    }
   }
-  return {cat:"tsuuka", kind:"num", text:t, say:say, ans:ans};
+  // フォールバック (well-posed): 長さ120m の電車が 秒速10m で 電柱を通過 → 12秒
+  return {cat:"tsuuka", kind:"num",
+    text:"長さ120m の 電車が 秒速10m で 走っています。電柱を 通過するのに 何秒 かかる？",
+    say:null, ans:12};
 }
 function gShuuki(lv){
   if(lv==null) lv=ri(1,10);
@@ -3563,70 +4063,182 @@ function gHayasahi(lv){
   var t="", ans=0, say=null;
 
   for(var tries=0; tries<200; tries++){
-    if(lv>=1 && lv<=3){
-      // 速さの比：同じ時間に進むと距離の比=速さの比。一方の距離を与え他方を問う
-      var a=ri(2,(lv===1?4:(lv===2?6:8))), b=ri(2,(lv===1?4:(lv===2?6:8)));
-      if(a===b) continue;
-      if(gcd(a,b)!==1) continue;            // 既約の比に正規化
-      var k=ri(2,(lv===1?6:(lv===2?9:12)));  // 共通スケール
-      var n1=NAMES[0], n2=NAMES[1];
-      var askA = Math.random()<0.5;          // true: A側距離を与えてB側を問う
-      var givenVal = askA ? a*k : b*k;
-      ans = askA ? b*k : a*k;
-      if(ans<=0 || givenVal<=0) continue;
-      t=n1+"と"+n2+"が 同じ時間 走ると、進む距離の比は "+a+":"+b+" です。"+
-        (askA?n1:n2)+"が "+givenVal+"m 進んだとき、"+(askA?n2:n1)+"は 何m 進む？";
-    }
-    else if(lv>=4 && lv<=6){
-      // 同じ距離なら、かかる時間の比は 速さの逆比。速さの比 a:b → 時間の比 b:a
-      var a=ri(2,(lv===4?4:(lv===5?6:8))), b=ri(2,(lv===4?4:(lv===5?6:8)));
+    if(lv===1){
+      // Lv1: 速さの比から距離（同じ時間に進む距離の比 = 速さの比, 小さい比）
+      var a=ri(2,4), b=ri(2,4);
       if(a===b) continue;
       if(gcd(a,b)!==1) continue;
-      var k=ri(2,(lv===4?6:(lv===5?9:12)));   // 時間比スケール（分）
-      var n1=NAMES[2], n2=NAMES[3];
-      var askA = Math.random()<0.5;            // true: A時間を与えてB時間を問う
-      var timeA = b*k;                          // A の時間は逆比の b 側
-      var timeB = a*k;
-      var givenVal = askA ? timeA : timeB;
-      ans = askA ? timeB : timeA;
-      if(ans<=0 || givenVal<=0) continue;
-      t=n1+"と"+n2+"が 同じ道のりを 進みます。速さの比は "+a+":"+b+" です。"+
-        (askA?n1:n2)+"は "+givenVal+"分 かかりました。"+(askA?n2:n1)+"は 何分 かかる？";
+      var k=ri(2,6);
+      var n1=NAMES[0], n2=NAMES[1];
+      var givenVal=a*k;
+      ans=b*k;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"が 同じ時間 走ると、進む きょりの 比は "+a+":"+b+" です。"+
+        n1+"が "+givenVal+"m 進んだとき、"+n2+"は 何m 進む？";
     }
-    else { // lv 7-10：比から具体値を逆算（一方の値が与えられ他方を求める）
-      var sub = (lv<=8) ? 0 : 1;   // lv7-8: 速さ比から速さ / lv9-10: 距離=速さ×時間
-      if(sub===0){
-        // 速さの比 a:b と、片方の「速さ(m/分)」を与え、もう片方の速さを問う
-        var a=ri(2,(lv===7?5:7)), b=ri(2,(lv===7?5:7));
-        if(a===b) continue;
-        if(gcd(a,b)!==1) continue;
-        var k=ri(3,(lv===7?9:14));     // 単位あたりの実速度スケール
-        var n1=NAMES[4], n2=NAMES[5];
-        var askA = Math.random()<0.5;   // 与える側
-        var speedA=a*k, speedB=b*k;
-        var givenVal = askA ? speedA : speedB;
-        ans = askA ? speedB : speedA;
-        if(ans<=0 || givenVal<=0) continue;
-        t=n1+"と"+n2+"の 速さの比は "+a+":"+b+" です。"+
-          (askA?n1:n2)+"の 速さは 分速 "+givenVal+"m です。"+(askA?n2:n1)+"の 速さは 分速 何m？";
-      } else {
-        // 速さの比 a:b、同じ時間 T 分 進む → 距離 = 速さ×時間。片方の距離を与え他方を問う
-        var a=ri(2,(lv===9?5:7)), b=ri(2,(lv===9?5:7));
-        if(a===b) continue;
-        if(gcd(a,b)!==1) continue;
-        var spd=ri(2,(lv===9?6:9));     // 速さの1あたり（分速 m）
-        var T=ri(2,(lv===9?8:12));       // 時間（分）
-        var n1=NAMES[0], n2=NAMES[3];
-        var askA = Math.random()<0.5;
-        var distA = a*spd*T, distB = b*spd*T;
-        var givenVal = askA ? distA : distB;
-        ans = askA ? distB : distA;
-        if(ans<=0 || givenVal<=0) continue;
-        t=n1+"と"+n2+"が "+T+"分間 進みました。速さの比は "+a+":"+b+" で、"+
-          (askA?n1:n2)+"は "+givenVal+"m 進みました。"+(askA?n2:n1)+"は 何m 進む？";
-      }
+    else if(lv===2){
+      // Lv2: 同じ道のり → かかる時間は速さの逆比
+      var a=ri(2,5), b=ri(2,5);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(3,8);                 // 分のスケール
+      var n1=NAMES[2], n2=NAMES[3];
+      // 速さの比 a:b → 同じ道のりにかかる時間の比は b:a
+      var timeA=b*k, timeB=a*k;
+      ans=timeB;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"が 同じ道のりを 進みます。速さの 比は "+a+":"+b+" です。"+
+        n1+"は "+timeA+"分 かかりました。"+n2+"は 何分 かかる？";
+    }
+    else if(lv===3){
+      // Lv3: 速さの比 + 片方の「分速 m」 → もう片方の速さ
+      var a=ri(2,5), b=ri(2,5);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(10,30);               // 分速の単位スケール
+      var n1=NAMES[4], n2=NAMES[5];
+      var speedA=a*k, speedB=b*k;
+      ans=speedB;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"の 速さの 比は "+a+":"+b+" です。"+
+        n1+"の 速さは 分速 "+speedA+"m です。"+n2+"の 速さは 分速 何m？";
+    }
+    else if(lv===4){
+      // Lv4: 速さの比 + 同じ時間 T 分 → 距離 = 速さ×時間 を使い、一方の距離→他方の距離
+      var a=ri(2,5), b=ri(2,5);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var spd=ri(20,60);             // 1あたりの分速 m
+      var T=ri(3,8);                 // 分
+      var n1=NAMES[0], n2=NAMES[3];
+      var distA=a*spd*T, distB=b*spd*T;
+      ans=distB;
+      if(ans<=0) continue;
+      t=n1+"と "+n2+"が "+T+"分間 進みました。速さの 比は "+a+":"+b+" で、"+
+        n1+"は "+distA+"m 進みました。"+n2+"は 何m 進んだ？";
+    }
+    else if(lv===5){
+      // Lv5: 「ちがう時間」で進んだ距離が与えられる → 速さの比を求める
+      // n1: tA 分で dA m、n2: tB 分で dB m → 速さ vA=dA/tA, vB=dB/tB、比 vA:vB
+      var a=ri(2,6), b=ri(2,6);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(10,40);               // 共通スケール (m/分)
+      var vA=a*k, vB=b*k;
+      var tA=ri(3,9), tB=ri(3,9);
+      if(tA===tB) continue;          // 「ちがう時間」にする
+      var dA=vA*tA, dB=vB*tB;
+      // 答えは a:b を 10倍して 10a+b（2桁の比）として返す形式は子供に難しいので、
+      // ここでは「相手の速さ(分速)」を答えにする：n1 の分速だけ与え n2 を問う
+      ans=vB;
+      if(ans<=0) continue;
+      var n1=NAMES[1], n2=NAMES[2];
+      t=n1+"は "+tA+"分で "+dA+"m、"+n2+"は "+tB+"分で "+dB+"m 進みました。"+
+        n1+"の 速さが 分速 "+vA+"m のとき、"+n2+"の 速さは 分速 何m？";
+    }
+    else if(lv===6){
+      // Lv6: 「同じ道のり」を ちがう時間で進む → 速さは時間の逆比
+      // n1 は tA 分、n2 は tB 分、n1 の速さが与えられ n2 の速さを問う
+      // vA*tA = vB*tB → vB = vA*tA/tB
+      var a=ri(2,6), b=ri(2,6);      // 時間の比
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(2,5);                 // 時間スケール
+      var tA=a*k, tB=b*k;            // 分
+      // vA を割り切れる形に：vA = b*m とすると vB = a*m
+      var m=ri(10,25);
+      var vA=b*m, vB=a*m;            // m/分
+      ans=vB;
+      if(ans<=0) continue;
+      var D=vA*tA;                   // 同じ道のり
+      var n1=NAMES[4], n2=NAMES[0];
+      t=n1+"と "+n2+"が 同じ "+D+"m の 道を 進みました。"+
+        n1+"は "+tA+"分、"+n2+"は "+tB+"分 かかりました。"+
+        n1+"の 速さが 分速 "+vA+"m のとき、"+n2+"の 速さは 分速 何m？";
+    }
+    else if(lv===7){
+      // Lv7: 速さの比 × 時間の比 → 距離の比（合成）
+      // n1 は速さ a, 時間 c 分、n2 は速さ b, 時間 d 分。
+      // 距離: dA = a*k * c*m, dB = b*k * d*m。片方の距離を与えて他方を問う。
+      var a=ri(2,5), b=ri(2,5);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var c=ri(2,5), d=ri(2,5);
+      if(c===d) continue;
+      if(gcd(c,d)!==1) continue;
+      var k=ri(10,25);               // 速さスケール
+      var mt=ri(2,5);                // 時間スケール
+      var vA=a*k, vB=b*k;
+      var tA=c*mt, tB=d*mt;
+      var dA=vA*tA, dB=vB*tB;
+      ans=dB;
+      if(ans<=0) continue;
+      var n1=NAMES[2], n2=NAMES[5];
+      t=n1+"と "+n2+"の 速さの 比は "+a+":"+b+" です。"+
+        n1+"は "+tA+"分、"+n2+"は "+tB+"分 走ります。"+
+        n1+"が "+dA+"m 進んだとき、"+n2+"は 何m 進む？";
+    }
+    else if(lv===8){
+      // Lv8: 往復の平均の速さ（同じ道Dを 行き vA, 帰り vB）
+      // 平均の速さ = 2*D / (D/vA + D/vB) = 2*vA*vB/(vA+vB)
+      var a=ri(2,6), b=ri(2,6);
+      if(a===b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(10,20);
+      var vA=a*k, vB=b*k;            // m/分
+      var sum=vA+vB;
+      var num=2*vA*vB;
+      if(num%sum!==0) continue;      // 平均速度が整数になるよう保証
+      ans=num/sum;
+      if(ans<=0) continue;
+      // 距離は問題文用に適当な整数(D は vA, vB の公倍数なら時間も整数)
+      var lcm=vA*vB/gcd(vA,vB);
+      var D=lcm*ri(1,3);
+      var n1=NAMES[3];
+      t=n1+"は 家から こうえんまで "+D+"m の 道を、"+
+        "行きは 分速 "+vA+"m、帰りは 分速 "+vB+"m で 往復しました。"+
+        "往復の 平均の 速さは 分速 何m？";
+    }
+    else if(lv===9){
+      // Lv9: 出発時刻がちがう。先発 n1(速さ vA) が出発、t0 分後に後発 n2(速さ vB, vB>vA) が同じ道を追う。
+      // 同じ場所に同時に着くには n2 は (D/vB) 分かかり、n1 は (D/vA) 分かかる。
+      // 与: vA, vB, t0 → n2 の所要時間 D/vB を問うのは「追いつき算」相当だが
+      // ここでは「n2 が出発してから 何分後に n1 に 追いつく？」を問う:
+      // 追いつき時間 = (vA * t0) / (vB - vA)
+      var a=ri(2,4), b=ri(3,7);
+      if(a>=b) continue;
+      if(gcd(a,b)!==1) continue;
+      var k=ri(20,40);
+      var vA=a*k, vB=b*k;            // vA<vB
+      var dv=vB-vA;
+      var t0=ri(3,12);               // 先発の先行時間(分)
+      var num=vA*t0;
+      if(num%dv!==0) continue;
+      ans=num/dv;                    // 追いつくまでの時間(分)
+      if(ans<=0) continue;
+      var n1=NAMES[0], n2=NAMES[4];
+      t=n1+"が 分速 "+vA+"m で 家を 出ました。"+t0+"分 おくれて "+n2+"が 同じ 道を 分速 "+vB+"m で 追いかけます。"+
+        n2+"が 出発してから 何分後に "+n1+"に 追いつく？";
+    }
+    else if(lv===10){
+      // Lv10: 途中で速さが変わる。前半 T1 分は分速 v1、後半 T2 分は分速 v2 → 全体の道のりは？
+      var v1=ri(4,12)*10, v2=ri(4,12)*10;
+      if(v1===v2) continue;
+      var T1=ri(3,10), T2=ri(3,10);
+      var d1=v1*T1, d2=v2*T2;
+      ans=d1+d2;
+      if(ans<=0) continue;
+      var n1=NAMES[5];
+      t=n1+"は はじめの "+T1+"分間は 分速 "+v1+"m、"+
+        "つぎの "+T2+"分間は 分速 "+v2+"m で 進みました。"+
+        "全部で 何m 進んだ？";
     }
     if(ans>0 && Number.isInteger(ans)) break;
+  }
+  // fallback (well-posed): Lv1 相当の素直な問題
+  if(!t || !(ans>0) || !Number.isInteger(ans)){
+    ans=12;
+    t="たろうと はなこが 同じ時間 走ると、進む きょりの 比は 2:3 です。たろうが 8m 進んだとき、はなこは 何m 進む？";
   }
   return {cat:"hayasahi",kind:"num",text:t,say:say,ans:ans};
 }
@@ -3847,95 +4459,208 @@ function gShoukyo(lv){
     {a:"ケーキ",b:"プリン"},{a:"消しゴム",b:"定規"},{a:"シール",b:"カード"}
   ];
   var TRIO=[
-    {a:"おとな",b:"子ども",c:"赤ちゃん",cnt:"人",amt:"人分"},
-    {a:"大きい箱",b:"中くらいの箱",c:"小さい箱",cnt:"個",amt:"個分"}
+    {a:"りんご",b:"みかん",c:"バナナ"},
+    {a:"ノート",b:"えんぴつ",c:"消しゴム"},
+    {a:"ケーキ",b:"プリン",c:"クッキー"},
+    {a:"パン",b:"ジュース",c:"おにぎり"}
   ];
   var gcd=function(x,y){x=Math.abs(x);y=Math.abs(y);while(y){var t=y;y=x%y;x=t;}return x;};
   var lcm=function(x,y){return x/gcd(x,y)*y;};
   var t="", ans=0;
 
-  for(var tries=0; tries<200; tries++){
-    if(lv>=1 && lv<=3){
-      // 2品 a,b の2式。bの個数を両式でそろえて消去 → a 1個の値段。
-      // 式1: m1*a + n*b = T1 ,  式2: m2*a + n*b = T2 （bの係数 n が共通）
+  for(var tries=0; tries<300; tries++){
+    if(lv===1){
+      // 同じ b の個数で、a が「1個だけ」増えると T が増える。直接 a 1個の値段を引き算で。
       var p=pick(PAIRS);
-      var pa=ri(2,(lv===1?9:15))*10;   // a 1個の値段
-      var pb=ri(2,(lv===1?9:15))*10;   // b 1個の値段
-      var n =ri(1,(lv===1?2:3));        // 共通の b の個数
-      var m1=ri(1,(lv<=2?3:4));
-      var m2=ri(1,(lv<=2?3:4));
-      if(m1===m2) continue;             // a の係数が同じだと消去できない
+      var pa=ri(2,9)*10;     // a 1個 = 20〜90円
+      var pb=ri(2,9)*10;     // b 1個
+      var n =ri(1,2);         // 共通の b の個数
+      var m1=ri(1,2);
+      var m2=m1+1;            // a の差は 1 → 引き算するだけで pa
       var T1=m1*pa+n*pb;
       var T2=m2*pa+n*pb;
-      if(T1<=0||T2<=0) continue;
-      ans=pa;                            // 消去で直接出る a 1個の値段
-      if(ans<=0||ans!==Math.floor(ans)) continue;
-      t=p.a+" "+m1+"個と "+p.b+" "+n+"個で "+T1+"円、"+
-        p.a+" "+m2+"個と "+p.b+" "+n+"個で "+T2+"円です。"+p.a+" 1個は いくら？";
+      ans=pa;
+      t=p.a+" "+m1+"こと "+p.b+" "+n+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+n+"こで "+T2+"円です。"+p.a+" 1こは いくら？";
     }
-    else if(lv>=4 && lv<=6){
-      // 2式とも係数がそろっていない。片方を倍して b を消去 → a 1個の値段。
-      // 式1: m1*a + k1*b = T1 , 式2: m2*a + k2*b = T2
+    else if(lv===2){
+      // b の個数は同じ、a の個数差が 2〜3 → 差から単価を割り算で求める
       var p=pick(PAIRS);
-      var pa=ri(2,(lv===4?9:18))*10;
-      var pb=ri(2,(lv===4?9:18))*10;
-      var m1=ri(1,(lv<=5?3:4));
-      var k1=ri(1,(lv<=5?3:4));
-      var m2=ri(1,(lv<=5?3:4));
-      var k2=ri(1,(lv<=5?3:4));
-      if(k1===k2) continue;              // b の係数一致だと Lv1-3 と同質（倍が不要）
-      var det=m1*k2-m2*k1;
-      if(det===0) continue;              // 比例 → 不定（ill-posed）排除
+      var pa=ri(2,12)*10;
+      var pb=ri(2,12)*10;
+      var n =ri(1,3);
+      var m1=ri(1,3);
+      var m2=m1+ri(2,3);      // a の差は 2 か 3
+      var T1=m1*pa+n*pb;
+      var T2=m2*pa+n*pb;
+      ans=pa;
+      t=p.a+" "+m1+"こと "+p.b+" "+n+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+n+"こで "+T2+"円です。"+p.a+" 1こは いくら？";
+    }
+    else if(lv===3){
+      // b の個数共通だが、文脈を 2 文に分けて読解負荷を増やす（買い物 → 別の日にもう一回）
+      var p=pick(PAIRS);
+      var pa=ri(3,15)*10;
+      var pb=ri(3,15)*10;
+      var n =ri(2,3);
+      var m1=ri(1,3);
+      var m2=m1+ri(1,3);
+      if(m1===m2) continue;
+      var T1=m1*pa+n*pb;
+      var T2=m2*pa+n*pb;
+      ans=pa;
+      t="きのう "+p.a+"を "+m1+"こ、"+p.b+"を "+n+"こ かったら "+T1+"円でした。"+
+        "きょう "+p.a+"を "+m2+"こ、"+p.b+"を "+n+"こ かったら "+T2+"円でした。"+
+        p.a+" 1こは いくら？";
+    }
+    else if(lv===4){
+      // 片方の式を整数倍して b の係数をそろえる（k2 = k1 * 整数）
+      var p=pick(PAIRS);
+      var pa=ri(2,12)*10;
+      var pb=ri(2,12)*10;
+      var k1=ri(1,2);
+      var r =ri(2,3);
+      var k2=k1*r;            // k2 は k1 の整数倍 → 式1を r 倍すれば消去
+      var m1=ri(1,3);
+      var m2=ri(1,4);
+      if(m1*r===m2) continue; // m1*r === m2 だと a も同時に消えて不定
       var T1=m1*pa+k1*pb;
       var T2=m2*pa+k2*pb;
-      if(T1<=0||T2<=0) continue;
-      ans=pa;                            // a 1個の値段
-      if(ans<=0||ans!==Math.floor(ans)) continue;
-      t=p.a+" "+m1+"個と "+p.b+" "+k1+"個で "+T1+"円、"+
-        p.a+" "+m2+"個と "+p.b+" "+k2+"個で "+T2+"円です。"+p.a+" 1個は いくら？";
+      ans=pa;
+      t=p.a+" "+m1+"こと "+p.b+" "+k1+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+k2+"こで "+T2+"円です。"+p.a+" 1こは いくら？";
     }
-    else if(lv>=7 && lv<=8){
-      // 2式・大きめ係数。両方を倍して消去（計算量増）。答えは b 1個。
+    else if(lv===5){
+      // 片方を倍タイプの拡張：範囲を広げ、答えを b に
       var p=pick(PAIRS);
-      var pa=ri(3,(lv===7?12:20))*10;
-      var pb=ri(3,(lv===7?12:20))*10;
-      var m1=ri(2,4), k1=ri(2,4), m2=ri(2,4), k2=ri(2,4);
-      if(m1===m2 && k1===k2) continue;
+      var pa=ri(3,15)*10;
+      var pb=ri(3,15)*10;
+      var m1=ri(1,3);
+      var r =ri(2,3);
+      var m2=m1*r;            // a の係数を整数倍 → 式1を r 倍して a 消去
+      var k1=ri(1,4);
+      var k2=ri(1,4);
+      if(k1*r===k2) continue;
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      ans=pb;
+      t=p.a+" "+m1+"こと "+p.b+" "+k1+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+k2+"こで "+T2+"円です。"+p.b+" 1こは いくら？";
+    }
+    else if(lv===6){
+      // 両方を倍：a の係数が互いに割り切れない → 最小公倍数を取って両式を倍
+      var p=pick(PAIRS);
+      var pa=ri(3,15)*10;
+      var pb=ri(3,15)*10;
+      var m1=ri(2,4), m2=ri(2,4);
+      if(m1===m2) continue;
+      if(m1%m2===0 || m2%m1===0) continue; // 片方倍では消えない係数にする
+      var k1=ri(1,4), k2=ri(1,4);
       var det=m1*k2-m2*k1;
       if(det===0) continue;
-      if(m1%m2===0 || m2%m1===0) continue; // a係数が割り切れない→両式を倍が必要
       var T1=m1*pa+k1*pb;
       var T2=m2*pa+k2*pb;
-      if(T1<=0||T2<=0) continue;
-      ans=pb;                            // b 1個の値段
-      if(ans<=0||ans!==Math.floor(ans)) continue;
-      t=p.a+" "+m1+"個と "+p.b+" "+k1+"個で "+T1+"円、"+
-        p.a+" "+m2+"個と "+p.b+" "+k2+"個で "+T2+"円です。"+p.b+" 1個は いくら？";
+      ans=pa;
+      t=p.a+" "+m1+"こと "+p.b+" "+k1+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+k2+"こで "+T2+"円です。"+p.a+" 1こは いくら？";
     }
-    else { // lv 9-10: 3量（連立 + 差で1量を消去）
-      // 式1: m1*a + k1*b = T1 , 式2: m2*a + k2*b = T2 を解いて a を出し、
-      // c は a より dc 円安い（最後の引き算で c を求める）。答えは c 1単位。
+    else if(lv===7){
+      // 両方を倍・範囲拡大：係数 2〜5、答えは b
+      var p=pick(PAIRS);
+      var pa=ri(4,18)*10;
+      var pb=ri(4,18)*10;
+      var m1=ri(2,5), m2=ri(2,5);
+      if(m1===m2) continue;
+      if(m1%m2===0 || m2%m1===0) continue;
+      var k1=ri(2,5), k2=ri(2,5);
+      var det=m1*k2-m2*k1;
+      if(det===0) continue;
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      ans=pb;
+      t=p.a+" "+m1+"こと "+p.b+" "+k1+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+k2+"こで "+T2+"円です。"+p.b+" 1こは いくら？";
+    }
+    else if(lv===8){
+      // 両方を倍・桁拡大：単価 100 円台もあり得る、答えは a と b ランダム
+      var p=pick(PAIRS);
+      var pa=ri(5,22)*10;
+      var pb=ri(5,22)*10;
+      var m1=ri(2,5), m2=ri(2,5);
+      if(m1===m2) continue;
+      if(m1%m2===0 || m2%m1===0) continue;
+      var k1=ri(2,5), k2=ri(2,5);
+      if(k1%k2===0 || k2%k1===0) continue; // b も片方倍で消えないように
+      var det=m1*k2-m2*k1;
+      if(det===0) continue;
+      var T1=m1*pa+k1*pb;
+      var T2=m2*pa+k2*pb;
+      var askB=(Math.random()<0.5);
+      ans=askB?pb:pa;
+      t=p.a+" "+m1+"こと "+p.b+" "+k1+"こで "+T1+"円、"+
+        p.a+" "+m2+"こと "+p.b+" "+k2+"こで "+T2+"円です。"+
+        (askB?p.b:p.a)+" 1こは いくら？";
+    }
+    else if(lv===9){
+      // 真の3量(a,b,c)：3 式から消去して c を求める。
+      // 式1: m1*a + k1*b = T1
+      // 式2: m2*a + k2*b = T2
+      // 式3: a + b + c = T3 （a と b を先に出してから c を引き算で求める）
       var tr=pick(TRIO);
-      var pa=ri(3,(lv===9?12:20))*10;   // a 1単位
-      var pb=ri(2,(lv===9?9:15))*10;    // b 1単位
-      var dc=ri(1,(lv===9?9:15))*10;    // c は a より dc 円安い
-      var pc=pa-dc;
-      if(pc<=0) continue;
-      var m1=ri(1,3), k1=ri(1,3);
-      var m2=m1+ri(1,2), k2=ri(1,3);
-      if(k1===k2 && m1===m2) continue;
+      var pa=ri(3,12)*10;
+      var pb=ri(3,12)*10;
+      var pc=ri(3,12)*10;
+      var m1=ri(1,3), m2=ri(1,3);
+      if(m1===m2) continue;
+      var k1=ri(1,3), k2=ri(1,3);
       var det=m1*k2-m2*k1;
       if(det===0) continue;
       var T1=m1*pa+k1*pb;
       var T2=m2*pa+k2*pb;
-      if(T1<=0||T2<=0) continue;
-      ans=pc;                            // c 1単位の値段
-      if(ans<=0||ans!==Math.floor(ans)) continue;
-      t=tr.a+" "+m1+tr.cnt+"と "+tr.b+" "+k1+tr.cnt+"で "+T1+"円、"+
-        tr.a+" "+m2+tr.cnt+"と "+tr.b+" "+k2+tr.cnt+"で "+T2+"円です。"+
-        "また "+tr.c+"は "+tr.a+"より "+dc+"円 安いです。"+tr.c+" 1"+tr.amt+"は いくら？";
+      var T3=pa+pb+pc;
+      ans=pc;
+      t=tr.a+" "+m1+"こと "+tr.b+" "+k1+"こで "+T1+"円、"+
+        tr.a+" "+m2+"こと "+tr.b+" "+k2+"こで "+T2+"円です。"+
+        "また "+tr.a+"・"+tr.b+"・"+tr.c+" 1こずつで "+T3+"円です。"+
+        tr.c+" 1こは いくら？";
     }
+    else { // lv===10
+      // 真の3量(a,b,c)：3 式とも 3 変数を含む。
+      // 式1: a + b + c = T1
+      // 式2: m2*a + k2*b + n2*c = T2
+      // 式3: m3*a + k3*b + n3*c = T3
+      // 一次独立性を det 3x3 で保証する。
+      var tr=pick(TRIO);
+      var pa=ri(3,12)*10;
+      var pb=ri(3,12)*10;
+      var pc=ri(3,12)*10;
+      var m2=ri(1,3), k2=ri(1,3), n2=ri(1,3);
+      var m3=ri(1,3), k3=ri(1,3), n3=ri(1,3);
+      // 行列式: |1 1 1; m2 k2 n2; m3 k3 n3|
+      var det3=1*(k2*n3-n2*k3) - 1*(m2*n3-n2*m3) + 1*(m2*k3-k2*m3);
+      if(det3===0) continue;
+      var T1=pa+pb+pc;
+      var T2=m2*pa+k2*pb+n2*pc;
+      var T3=m3*pa+k3*pb+n3*pc;
+      // 質問対象をランダムに
+      var pickAns=ri(1,3);
+      var askName, askVal;
+      if(pickAns===1){askName=tr.a;askVal=pa;}
+      else if(pickAns===2){askName=tr.b;askVal=pb;}
+      else {askName=tr.c;askVal=pc;}
+      ans=askVal;
+      t=tr.a+"・"+tr.b+"・"+tr.c+" 1こずつで "+T1+"円、"+
+        tr.a+" "+m2+"こと "+tr.b+" "+k2+"こと "+tr.c+" "+n2+"こで "+T2+"円、"+
+        tr.a+" "+m3+"こと "+tr.b+" "+k3+"こと "+tr.c+" "+n3+"こで "+T3+"円です。"+
+        askName+" 1こは いくら？";
+    }
+    if(ans<=0 || ans!==Math.floor(ans)) continue;
     break;
+  }
+  // fallback
+  if(!t){
+    ans=80;
+    t="りんご 1こと みかん 2こで 220円、りんご 2こと みかん 2こで 300円です。りんご 1こは いくら？";
   }
   return {cat:"shoukyo", kind:"num", text:t, say:null, ans:ans};
 }
@@ -4088,80 +4813,159 @@ function gBaai(lv){
 function gHireihanpi(lv){
   if(lv==null) lv=ri(1,10);
   function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t;}return a||1;}
-  var ITEMS=["くぎ","ねじ","ボルト","タイル","ビーズ","えんぴつ"];
   var t="", ans=0;
 
-  for(var tries=0; tries<200; tries++){
-    if(lv>=1 && lv<=3){
-      // 比例: x が a のとき y が b。x=c のとき y は? (y=b*c/a)
-      // a を約数として持つ b・c を作り割り切れ保証
-      var a=ri(2,(lv<=2?5:8));
-      var unit=ri(2,(lv===1?6:9));        // 1単位あたり y = unit
-      var b=a*unit;                        // x=a で y=b は整数
-      var c=a*ri(2,(lv<=2?6:9));           // c は a の倍数 → 割り切れ
-      if(c===a) continue;
-      ans=b*c/a;                           // = unit*c
+  for(var tries=0; tries<300; tries++){
+    if(lv===1){
+      // 比例の意味: 倍率で考える。x が k 倍になると y も k 倍。
+      // a→b の関係で、x が ka になったら y は？(= kb)
+      var a=ri(2,6);
+      var unit=ri(2,8);
+      var b=a*unit;            // x=a で y=b
+      var k=ri(2,5);            // 倍率
+      ans=b*k;                  // x=ka のとき y=kb
+      if(ans<=0||ans>200) continue;
+      t="リボン "+a+"m の おもさは "+b+"g です。リボンを "+k+"ばいの ながさに すると、おもさは なん g？";
+    }
+    else if(lv===2){
+      // 比例計算 基本: a→b、c→? を計算 (y=b*c/a, c は a の倍数)
+      var a2=ri(2,6);
+      var unit2=ri(2,8);
+      var b2=a2*unit2;
+      var m2=ri(2,7);
+      var c2=a2*m2;
+      if(c2===a2) continue;
+      ans=unit2*c2;             // = b2*c2/a2
+      if(ans<=0||ans>300) continue;
+      t="えんぴつ "+a2+"本 の ねだんは "+b2+"円 です。おなじ えんぴつ "+c2+"本 では なん円？";
+    }
+    else if(lv===3){
+      // 反比例の意味: 積が一定。x が 2倍 になると y は 1/2 倍。
+      // 「x×y = 一定」をイメージさせる導入問題
+      var x3=ri(2,6);
+      var y3=ri(4,12);
+      var k3=ri(2,4);            // x を k3 倍にする
+      if(y3%k3!==0) continue;    // y が割り切れる必要
+      ans=y3/k3;
+      if(ans<=0) continue;
+      t="ジュースを "+x3+"人 で わけると 1人 "+y3+"dL ずつ です。人数を "+k3+"ばい に すると、1人 なん dL？";
+    }
+    else if(lv===4){
+      // 反比例計算 基本: x1*y1 = x2*?  歯車モデル
+      var x4=ri(2,9), y4=ri(2,9), K4=x4*y4;
+      var divs4=[]; for(var d=2; d<=K4; d++){ if(K4%d===0 && d!==x4) divs4.push(d); }
+      if(divs4.length===0) continue;
+      var x4b=pick(divs4);
+      ans=K4/x4b;
       if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-      // 質的難化: Lv1 同単位, Lv2 物量, Lv3 やや大きい数
-      var ctx = (lv===1)
-        ? "リボン "+a+"m の ねだんは "+b+"円です。"+c+"m では なん円？"
-        : (lv===2
-          ? "はぐるま が "+a+"回 まわると ベルトは "+b+"cm すすみます。"+c+"回 では なん cm？"
-          : "きかい が "+a+"分 で "+b+"個 つくります。"+c+"分 では なん個？");
-      t=ctx;
+      t="はすう "+x4+" の はぐるまが "+y4+"かい まわると、はすう "+x4b+" の はぐるまは なんかい まわる？";
     }
-    else if(lv>=4 && lv<=6){
-      // 反比例: 積一定 (歯車の歯数×回転 / 人数×日数 = 一定)
-      var K, x1, y1, x2;
-      if(lv===4){
-        // 歯車: 歯数 x1 × 回転 y1 = 歯数 x2 × 回転?
-        x1=ri(2,9); y1=ri(2,9); K=x1*y1;
-        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
-        if(divs.length===0) continue;
-        x2=pick(divs); ans=K/x2;
-        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-        t="歯数 "+x1+" の 歯車が "+y1+"回 まわると、歯数 "+x2+" の 歯車は なん回 まわる？";
-      } else if(lv===5){
-        // 仕事: x1人で y1日 → x2人なら何日 (x1*y1=x2*?)
-        x1=ri(2,9); y1=ri(2,9); K=x1*y1;
-        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
-        if(divs.length===0) continue;
-        x2=pick(divs); ans=K/x2;
-        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-        t=x1+"人 で "+y1+"日 かかる しごとを、"+x2+"人 で すると なん日？";
+    else if(lv===5){
+      // 表から判断: 表の値が比例か反比例かを答える (kind:num だが 1=比例, 2=反比例 で回答)
+      var isProp=(Math.random()<0.5);
+      var x1=2, x2=3, x3b=6;
+      if(isProp){
+        var u5=ri(2,8);
+        var y1=u5*x1, y2=u5*x2, y3b=u5*x3b;
+        ans=1;
+        t="つぎの ひょうは ひれい か はんぴれい？  x="+x1+" のとき y="+y1+"、 x="+x2+" のとき y="+y2+"、 x="+x3b+" のとき y="+y3b+"。  ひれい は 1、 はんぴれい は 2 で こたえてね。";
       } else {
-        // lv6: 速さ×時間=距離一定 (毎分 x1 m で y1分 → 毎分 x2 m なら何分)
-        x1=ri(2,12); y1=ri(2,12); K=x1*y1;
-        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
-        if(divs.length===0) continue;
-        x2=pick(divs); ans=K/x2;
-        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-        t="ある みちのりを 毎分 "+x1+"m で あるくと "+y1+"分。毎分 "+x2+"m では なん分？";
+        var K5=12*ri(1,4);     // x1=2,x2=3,x3=6 すべての公倍数=6 の倍数
+        if(K5%x1!==0||K5%x2!==0||K5%x3b!==0) continue;
+        var yy1=K5/x1, yy2=K5/x2, yy3=K5/x3b;
+        ans=2;
+        t="つぎの ひょうは ひれい か はんぴれい？  x="+x1+" のとき y="+yy1+"、 x="+x2+" のとき y="+yy2+"、 x="+x3b+" のとき y="+yy3+"。  ひれい は 1、 はんぴれい は 2 で こたえてね。";
       }
     }
-    else { // lv 7-10: 文章で比例/反比例を見分けて逆算
-      var isInverse = (Math.random()<0.5);
-      if(!isInverse){
-        // 比例: a 分 で b → c 分 で?  (b は a の倍数)
-        var a=ri(2,(lv<=8?6:9));
-        var unit=ri(2,(lv<=8?7:9));
-        var b=a*unit;
-        var c=a*ri(2,(lv<=8?7:9));
-        if(c===a) continue;
-        ans=unit*c;
-        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-        t="水を "+a+"分 入れると "+b+"L たまります。"+c+"分 では なん L？";
+    else if(lv===6){
+      // 比例定数: y = □ × x の □ を答える (1あたり量)
+      var a6=ri(2,7);
+      var k6=ri(2,9);            // 比例定数 = 1あたり量
+      var b6=a6*k6;
+      ans=k6;
+      if(ans<=0||ans>20) continue;
+      t="水を 入れる じかん x分 と たまる りょう y L が ひれい して います。x="+a6+" の とき y="+b6+" でした。 y = □ × x の □ に 入る かずは？";
+    }
+    else if(lv===7){
+      // 単位量を経由する比例: a 個 で b 円、c 個では？  (1個あたりを意識)
+      // ここでは b が a の倍数になるよう保証
+      var a7=ri(3,8);
+      var u7=ri(3,12);
+      var b7=a7*u7;
+      var c7=ri(2,12);
+      if(c7===a7) continue;
+      ans=u7*c7;
+      if(ans<=0||ans>500) continue;
+      t="おかし "+a7+"こ で "+b7+"円 です。1こ あたりの ねだんを かんがえて、"+c7+"こ では なん円？";
+    }
+    else if(lv===8){
+      // 判別して解く: 文章から比例か反比例かを見抜いて 1段階計算
+      var which8=(Math.random()<0.5);
+      if(which8){
+        // 比例: 距離と時間
+        var a8=ri(2,8);
+        var u8=ri(3,9);
+        var b8=a8*u8;
+        var m8=ri(2,6);
+        var c8=a8*m8;
+        if(c8===a8) continue;
+        ans=u8*c8;
+        if(ans<=0||ans>500) continue;
+        t="(ひれい か はんぴれい か かんがえてね) くるまが "+a8+"分 で "+b8+"km すすみます。おなじ はやさ なら、"+c8+"分 で なん km？";
       } else {
-        // 反比例: 積一定
-        var x1=ri(2,(lv<=8?9:12)), y1=ri(2,(lv<=8?9:12)), K=x1*y1;
-        var divs=[]; for(var d=2; d<=K; d++){ if(K%d===0 && d!==x1) divs.push(d); }
-        if(divs.length===0) continue;
-        var x2=pick(divs); ans=K/x2;
+        // 反比例: 人数と日数
+        var x8=ri(3,9), y8=ri(3,9), K8=x8*y8;
+        var divs8=[]; for(var d=2; d<=K8; d++){ if(K8%d===0 && d!==x8) divs8.push(d); }
+        if(divs8.length===0) continue;
+        var x8b=pick(divs8);
+        ans=K8/x8b;
         if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
-        t="本を "+x1+"さつ ずつ つむと "+y1+"だん。"+x2+"さつ ずつ では なん だん？";
+        t="(ひれい か はんぴれい か かんがえてね) "+x8+"人 で "+y8+"日 かかる しごとを、"+x8b+"人 で すると なん日？";
       }
     }
-    if(ans>0 && Number.isInteger(ans) && ans<=200) break;
+    else if(lv===9){
+      // 逆算: y の値から x を求める (比例 or 反比例)
+      var which9=(Math.random()<0.5);
+      if(which9){
+        // 比例の逆算: a→b、y=B のとき x は？(B が unit の倍数になるよう作る)
+        var a9=ri(2,6);
+        var u9=ri(3,9);
+        var b9=a9*u9;
+        var m9=ri(2,8);
+        var B9=u9*m9;             // 求めたい時の y
+        if(B9===b9) continue;
+        ans=m9;                    // x = B9/u9
+        if(ans<=0||ans>50) continue;
+        t="きかいが "+a9+"分 で "+b9+"こ つくります。"+B9+"こ つくるには なん分 かかる？";
+      } else {
+        // 反比例の逆算: x1*y1=K、y=Y のとき x は？(Y が K の約数)
+        var x9b=ri(2,9), y9b=ri(2,9), K9=x9b*y9b;
+        var divsY=[]; for(var d=2; d<=K9; d++){ if(K9%d===0 && d!==y9b) divsY.push(d); }
+        if(divsY.length===0) continue;
+        var Y9=pick(divsY);
+        ans=K9/Y9;
+        if(!Number.isInteger(ans)||ans<=0||ans>200) continue;
+        t="まいぶん "+x9b+"L ずつ 入れると "+y9b+"分 で いっぱい に なる タンク。"+Y9+"分 で いっぱい に するには、まいぶん なん L ずつ 入れる？";
+      }
+    }
+    else if(lv===10){
+      // 複合条件: 2段階比例 (単位量を経由して別の単位へ)
+      // 例: a 分で b L → c 時間 で何 L？  (分↔時間 の換算をはさむ)
+      var a10=ri(2,6);              // 分
+      var u10=ri(2,8);              // 1分あたり L
+      var b10=a10*u10;              // a10 分で b10 L
+      var c10=ri(2,5);              // 時間
+      ans=u10*60*c10;               // 1分 u10 L × 60分 × c10 時間
+      if(ans<=0||ans>3000) continue;
+      t="ホースで "+a10+"分 に "+b10+"L の 水を 入れられます。おなじ いきおいで "+c10+"じかん 入れると、なん L？";
+    }
+    if(ans>0 && Number.isInteger(ans)) break;
+  }
+
+  // フォールバック: tries で決まらなかった場合の最小保証
+  if(!(ans>0 && Number.isInteger(ans))){
+    ans=12;
+    t="2m で 6円 の ひも が あります。 4m では なん円？";
   }
   return {cat:"hireihanpi",kind:"num",text:t,say:null,ans:ans};
 }
