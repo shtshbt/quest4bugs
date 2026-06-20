@@ -1,0 +1,66 @@
+{
+  "speciesId": "apollo",
+  "speciesJa": "アポロチョウ",
+  "scientificName": "Parnassius apollo",
+  "creditLine": "Natural History Museum, London",
+  "creator": "The Trustees of the Natural History Museum, London",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014168924",
+    "occurrenceId": "b8debc91-d980-4d64-957c-cf63533187fb",
+    "persistentId": "https://data.nhm.ac.uk/object/b8debc91-d980-4d64-957c-cf63533187fb",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3031163206",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b8debc91-d980-4d64-957c-cf63533187fb",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/13cb5151-0923-4948-a164-d3903d79e273",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKNHMUK014168924_original.jpg",
+    "segmented": "processed/NHMUKNHMUK014168924_L1_segmented.png",
+    "display": "processed/NHMUKNHMUK014168924_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKNHMUK014168924_54.webp",
+      "108": "thumb/NHMUKNHMUK014168924_108.webp",
+      "216": "thumb/NHMUKNHMUK014168924_216.webp"
+    }
+  },
+  "originalSha256": "d10edb7d612f2278d2fec96ac6fd7aa0997850ebe8df47b79fe58f740d1204cc",
+  "processing": {
+    "cropBox": [68, 173, 1077, 830],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/NHMUKNHMUK014168924_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "NHMUK Syntype of Parnassius apollo, dorsal view; locality/collector not captured in GBIF record (skeletal type record)."
+}

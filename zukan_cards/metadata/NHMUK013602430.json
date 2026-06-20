@@ -1,0 +1,66 @@
+{
+  "speciesId": "queen_alexandras_birdwing",
+  "speciesJa": "アレクサンドラトリバネアゲハ",
+  "scientificName": "Ornithoptera alexandrae",
+  "creditLine": "Natural History Museum, London",
+  "creator": "The Trustees of the Natural History Museum, London",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)102817",
+    "occurrenceId": "1e5b43ac-971e-4943-8ef7-6a4bc6c11751",
+    "persistentId": "https://data.nhm.ac.uk/object/1e5b43ac-971e-4943-8ef7-6a4bc6c11751",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "A.S. Meek",
+    "eventDate": "1907",
+    "eventYear": 1907,
+    "country": "Papua New Guinea",
+    "localityVerbatim": "Kumusi R.",
+    "localityNormalized": "Kumusi River, Papua New Guinea",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446090909",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/1e5b43ac-971e-4943-8ef7-6a4bc6c11751",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/eca2a1e9-bc00-4f8e-b103-5cf846306839",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK013602430_original.jpg",
+    "segmented": "processed/NHMUK013602430_L1_segmented.png",
+    "display": "processed/NHMUK013602430_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013602430_54.webp",
+      "108": "thumb/NHMUK013602430_108.webp",
+      "216": "thumb/NHMUK013602430_216.webp"
+    }
+  },
+  "originalSha256": "0359d92d4959084e872f8ac28def3eb0b4d61dd740cc8a2446510b092d3bc182",
+  "processing": {
+    "cropBox": [10, 20, 1430, 800],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/NHMUK013602430_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "A.S. Meek 1907 Papua New Guinea (Kumusi R.) female, dorsal — world's largest butterfly"
+}

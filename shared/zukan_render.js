@@ -53,7 +53,11 @@
 
   function imageHref(entry, sex){
     var img = (sex === "f" && entry.image_female) ? entry.image_female : entry.image;
-    return ZUKAN_BASE + img.display;
+    /* image build を再生成したとき browser / service-worker cache が旧版を返さないよう、
+       catalog の imageVersion (or sexごとに image_female.version) を query に付加。
+       catalog 側で再 build のたびに bump する規約。 */
+    var ver = (img.version || entry.imageVersion || "1");
+    return ZUKAN_BASE + img.display + "?v=" + encodeURIComponent(ver);
   }
 
   function museumInner(entry, sex){

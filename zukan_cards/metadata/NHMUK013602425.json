@@ -1,0 +1,66 @@
+{
+  "speciesId": "queen_alexandras_birdwing",
+  "speciesJa": "アレクサンドラトリバネアゲハ",
+  "scientificName": "Ornithoptera alexandrae",
+  "creditLine": "Natural History Museum, London",
+  "creator": "The Trustees of the Natural History Museum, London",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)102811",
+    "occurrenceId": "161f225c-52f2-4675-9c64-f75a99c1bf74",
+    "persistentId": "https://data.nhm.ac.uk/object/161f225c-52f2-4675-9c64-f75a99c1bf74",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "A.S. Meek",
+    "eventDate": "1907",
+    "eventYear": 1907,
+    "country": "Papua New Guinea",
+    "localityVerbatim": "Kumusi R.",
+    "localityNormalized": "Kumusi River, Papua New Guinea",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446090903",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/161f225c-52f2-4675-9c64-f75a99c1bf74",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/63bf72b5-233a-4dce-9a3b-d63f55fd0ba2",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK013602425_original.jpg",
+    "segmented": "processed/NHMUK013602425_L1_segmented.png",
+    "display": "processed/NHMUK013602425_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013602425_54.webp",
+      "108": "thumb/NHMUK013602425_108.webp",
+      "216": "thumb/NHMUK013602425_216.webp"
+    }
+  },
+  "originalSha256": "0e14c7590d41016334abce76b9e3e8d7597a70b9600ee29007c59cc3f5f69b1e",
+  "processing": {
+    "cropBox": [0, 0, 1440, 950],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/NHMUK013602425_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "A.S. Meek 1907 Papua New Guinea (Kumusi R.) male, dorsal. crop 0,0,1440,950 — full width + 950 tall to ensure wing lobes + abdomen + tail tassel fully retained (label area below excluded)"
+}

@@ -1,0 +1,68 @@
+{
+  "speciesId": "rainbow_stag_beetle",
+  "speciesJa": "ニジイロクワガタ",
+  "scientificName": "Phalacrognathus muelleri",
+  "creditLine": "Australian Museum",
+  "creator": "Joycelyn Goh",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.556427",
+    "occurrenceId": "b8443a59-e4ef-44e8-ab9e-1d60de530136",
+    "persistentId": "https://biocache.ala.org.au/occurrences/b8443a59-e4ef-44e8-ab9e-1d60de530136",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D.C.F. Rentz",
+    "eventDate": "2019-03-01/2019-03-15",
+    "eventYear": 2019,
+    "country": "Australia",
+    "localityVerbatim": "19 Butler Drive, Top of the Range, Kuranda (formerly 11 Victor Place)",
+    "localityNormalized": "Kuranda, Queensland, Australia",
+    "decimalLatitude": -16.805277,
+    "decimalLongitude": 145.63861,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2596644573",
+    "institutionRecordUrl": "https://biocache.ala.org.au/occurrences/b8443a59-e4ef-44e8-ab9e-1d60de530136",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=05ccfaeb-c9b8-4e5d-b8be-76910426410a",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK556427_original.jpg",
+    "segmented": "processed/AMK556427_L1_segmented.png",
+    "display": "processed/AMK556427_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK556427_54.webp",
+      "108": "thumb/AMK556427_108.webp",
+      "216": "thumb/AMK556427_216.webp"
+    }
+  },
+  "originalSha256": "2864fdb9e19b66715b95501350a1b321d676ebfd7a1b2e8e25d3d2b841c04669",
+  "processing": {
+    "cropBox": [0, 94, 425, 312],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/AMK556427_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "D.C.F. Rentz 2019 Kuranda, Queensland specimen, dorsal — photo by Joycelyn Goh (Australian Museum). Tier 4 fallback (AM) as Phalacrognathus muelleri is Australian-endemic."
+}

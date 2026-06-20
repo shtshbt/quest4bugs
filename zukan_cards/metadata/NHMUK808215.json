@@ -1,0 +1,66 @@
+{
+  "speciesId": "morpho_butterfly",
+  "speciesJa": "モルフォチョウ",
+  "scientificName": "Morpho menelaus",
+  "creditLine": "Natural History Museum, London",
+  "creator": "The Trustees of the Natural History Museum, London",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "808215",
+    "occurrenceId": "6f42bc62-2bc4-4403-b87f-1a59e162a1a7",
+    "persistentId": "https://data.nhm.ac.uk/object/6f42bc62-2bc4-4403-b87f-1a59e162a1a7",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Venezuela",
+    "localityVerbatim": null,
+    "localityNormalized": "Venezuela",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3457661662",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6f42bc62-2bc4-4403-b87f-1a59e162a1a7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/a6958f61-4175-45cf-94e6-9c4f03302322",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK808215_original.jpg",
+    "segmented": "processed/NHMUK808215_L1_segmented.png",
+    "display": "processed/NHMUK808215_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK808215_54.webp",
+      "108": "thumb/NHMUK808215_108.webp",
+      "216": "thumb/NHMUK808215_216.webp"
+    }
+  },
+  "originalSha256": "c080e306ddffef1e4cf9072df0670921c7e5d427c3b9695c3bce6db31fb6f342",
+  "processing": {
+    "cropBox": [0, 31, 1195, 930],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/NHMUK808215_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "Paratype Morpho menelaus laurellae from Venezuela, dorsal — NHM London specimen 808215. Tier 2 NHMUK fallback (USNM had 0 hits for Morpho)."
+}

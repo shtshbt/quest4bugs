@@ -1,0 +1,68 @@
+{
+  "speciesId": "bhutan_glory",
+  "speciesJa": "ブータンシボリアゲハ",
+  "scientificName": "Bhutanitis lidderdalii",
+  "creditLine": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetchedDate": "2026-06-20",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.986686",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986686",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986686",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1979-09-03",
+    "eventYear": 1979,
+    "country": "Thailand",
+    "localityVerbatim": "Chiang Dao",
+    "localityNormalized": "Chiang Dao, Thailand",
+    "decimalLatitude": 19.367814,
+    "decimalLongitude": 98.964902,
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3497102314",
+    "institutionRecordUrl": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986686",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.986686_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNH_INS_986686_original.jpg",
+    "segmented": "processed/RMNH_INS_986686_L1_segmented.png",
+    "display": "processed/RMNH_INS_986686_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNH_INS_986686_54.webp",
+      "108": "thumb/RMNH_INS_986686_108.webp",
+      "216": "thumb/RMNH_INS_986686_216.webp"
+    }
+  },
+  "originalSha256": "99af3a8b999a240e809d8c17063716cc544655a8e25eb7d1018cac23fdef3da9",
+  "processing": {
+    "cropBox": [10, 420, 720, 1050],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": ["cropped", "rotated", "background removed", "color adjusted"],
+  "raw": {
+    "originalImage": "original/RMNH_INS_986686_original.jpg",
+    "verbatimLabelText": "B. lidderdallii ssp. occellatomaculata I.GARASHI 1979 / Chiang Dao THAILAND SEP 3 1979",
+    "sourceRecordSnapshot": null
+  },
+  "notes": "Naturalis 1979-09-03 Chiang Dao Thailand female, lateral view rotated to upright; only CC0 candidate available for this species"
+}
