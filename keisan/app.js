@@ -291,10 +291,10 @@ var LEVEL_GUIDE={
   hakohako:["めんのかず","ちょうてん","へんのかず","まとめおぼえ","おなじめん","へいこうへん","ちょうてんあつまる","めんのかたち","みわけよう","そうごうもんだい"],
   okane:["1円と10円","10円と1円","50円・100円","100円までかぞえる","500円玉のとうじょう","おかねでかう","おつりはいくら","おなじきんがく","2つかってあわせる","おかいものマスター"],
   jisshuu:["10までかぞえる","10をつくる","10のなかま","あといくつ","10えん=1えん10まい","10のしき","10からひく","10といくつ","10をつくってたす","10からひいてたす"],
-  noudo:["食塩水の量","食塩の量","濃さを求める","水を足す","食塩を足す","混ぜる入門","混ぜる標準","逆算入り","複合条件","濃度総合"],
+  noudo:["食塩水の全体量","食塩の量","濃さを求める","水を足す","食塩を足す","2液混合入門","2液混合標準","逆算(加水で薄める)","蒸発","濃度総合"],
   tabibito:["同じ向き","向かい合う","追いつき","出会いの時刻","距離を求める","速さを求める","途中変更","往復","複合条件","旅人算総合"],
   hiritsu:["比の意味","同じ比にする","比から実数","全体を分ける","比の差","連比入門","連比標準","割合との接続","文章題複合","比の総合"],
-  tsurukame:["2種類の数","合計個数","合計足数","片方を求める","表で整理","差を使う","条件大きめ","金額入り","複合条件","つるかめ総合"],
+  tsurukame:["つる・かめ 基礎","つる・かめ 標準","つる・かめ 発展","値段違い2種 基礎","値段違い2種 標準","値段違い2種 発展","得点型","金額型(個数差)","3種つるかめ","金額＋個数差(発展)"],
   kabusoku:["不足を求める","余りを求める","1人あたりの差","人数を求める","個数を求める","余り不足の比較","条件2つ","大きめの数","複合条件","過不足総合"],
   heikin:["平均を求める","合計を求める","人数を増やす","欠けた値","平均の変化","大きめの平均","平均との差","目標平均","必要点数","平均総合"],
   soneki:["原価と売値","利益を求める","損を求める","利益率","割引","定価を求める","原価を求める","複数商品","売買複合","損益総合"],
@@ -2118,8 +2118,14 @@ function gNoudo(lv){
   if(lv==null)lv=ri(1,10);
   var t="", ans=0;
   for(var iter=0;iter<200;iter++){
-    if(lv<=2){
-      // 食塩の量: x%の食塩水yg中の食塩は何g？ ans=x*y/100
+    if(lv===1){
+      // 食塩水全体量: 水ag + 食塩bg = 全体何g？  ※基礎の「濃度＝部分／全体」の意味づけ
+      var a1=ri(50,300), b1=ri(10,60);
+      ans=a1+b1;
+      t="水 "+a1+"g に 食塩 "+b1+"g を とかしました。食塩水は ぜんぶで 何 g？";
+    }
+    else if(lv===2){
+      // 食塩の量: x%の食塩水yg中の食塩は何g？
       var x=ri(5,25);
       var y=ri(1,6)*100;
       if((x*y)%100!==0) continue;
@@ -2127,55 +2133,90 @@ function gNoudo(lv){
       if(ans<=0) continue;
       t=x+"% の食塩水 "+y+"g の中に、食塩は何 g とけている？";
     }
-    else if(lv<=4){
-      // 濃度を求める: 食塩ag を 水bg にとかす→濃度何%？ ans=100*a/(a+b)
-      var a=ri(5,60);
-      var b=ri(40,300);
-      var denom=a+b;
-      if((100*a)%denom!==0) continue;
-      ans=100*a/denom;
+    else if(lv===3){
+      // 濃さを求める: 食塩ag を 水bg にとかす→濃度何%？
+      var a3=ri(5,60), b3=ri(40,300);
+      var denom3=a3+b3;
+      if((100*a3)%denom3!==0) continue;
+      ans=100*a3/denom3;
       if(ans<=0||ans>=100) continue;
-      t="食塩 "+a+"g を 水 "+b+"g にとかしました。濃度は何 % ？";
+      t="食塩 "+a3+"g を 水 "+b3+"g にとかしました。濃度は何 % ？";
     }
-    else if(lv<=6){
-      // 加水 or 加塩
-      if(Math.random()<0.5){
-        // x%の食塩水ag に 水bg を加える→何%？
-        var x=ri(5,25), a=ri(1,5)*100, b=ri(1,5)*50;
-        if((x*a)%100!==0) continue;
-        var salt=x*a/100;
-        var denom=a+b;
-        if((100*salt)%denom!==0) continue;
-        ans=100*salt/denom;
-        if(ans<=0||ans>=100) continue;
-        t=x+"% の食塩水 "+a+"g に 水 "+b+"g を加えました。濃度は何 % ？";
-      } else {
-        // x%の食塩水ag に 食塩cg を加える→何%？
-        var x=ri(5,25), a=ri(1,5)*100, c=ri(5,60);
-        if((x*a)%100!==0) continue;
-        var salt=x*a/100;
-        var denom=a+c;
-        if((100*(salt+c))%denom!==0) continue;
-        ans=100*(salt+c)/denom;
-        if(ans<=0||ans>=100) continue;
-        t=x+"% の食塩水 "+a+"g に 食塩 "+c+"g を加えました。濃度は何 % ？";
-      }
-    }
-    else if(lv<=8){
-      // 2液混合: x%ag と y%bg を混ぜる→何%？ ans=(x*a+y*b)/(a+b)
-      var x=ri(3,20), y=ri(3,20);
-      if(x===y) continue;
-      var a=ri(1,5)*100, b=ri(1,5)*100;
-      if((x*a)%100!==0 || (y*b)%100!==0) continue;
-      var denom=a+b;
-      var num=x*a+y*b;
-      if(num%denom!==0) continue;
-      ans=num/denom;
+    else if(lv===4){
+      // 水を足す: x%の食塩水ag に 水bg を加える→何%？
+      var x4=ri(5,25), a4=ri(1,5)*100, b4=ri(1,5)*50;
+      if((x4*a4)%100!==0) continue;
+      var salt4=x4*a4/100;
+      var denom4=a4+b4;
+      if((100*salt4)%denom4!==0) continue;
+      ans=100*salt4/denom4;
       if(ans<=0||ans>=100) continue;
-      t=x+"% の食塩水 "+a+"g と "+y+"% の食塩水 "+b+"g を混ぜました。濃度は何 % ？";
+      t=x4+"% の食塩水 "+a4+"g に 水 "+b4+"g を加えました。濃度は何 % ？";
+    }
+    else if(lv===5){
+      // 食塩を足す: x%の食塩水ag に 食塩cg を加える→何%？
+      var x5=ri(5,25), a5=ri(1,5)*100, c5=ri(5,60);
+      if((x5*a5)%100!==0) continue;
+      var salt5=x5*a5/100;
+      var denom5=a5+c5;
+      if((100*(salt5+c5))%denom5!==0) continue;
+      ans=100*(salt5+c5)/denom5;
+      if(ans<=0||ans>=100) continue;
+      t=x5+"% の食塩水 "+a5+"g に 食塩 "+c5+"g を加えました。濃度は何 % ？";
+    }
+    else if(lv===6){
+      // 2液混合 入門: x%ag と y%bg (小さめ)
+      var x6=ri(3,15), y6=ri(3,15);
+      if(x6===y6) continue;
+      var a6=ri(1,3)*100, b6=ri(1,3)*100;
+      if((x6*a6)%100!==0 || (y6*b6)%100!==0) continue;
+      var denom6=a6+b6, num6=x6*a6+y6*b6;
+      if(num6%denom6!==0) continue;
+      ans=num6/denom6;
+      if(ans<=0||ans>=100) continue;
+      t=x6+"% の食塩水 "+a6+"g と "+y6+"% の食塩水 "+b6+"g を混ぜました。濃度は何 % ？";
+    }
+    else if(lv===7){
+      // 2液混合 標準: 範囲拡大
+      var x7=ri(3,20), y7=ri(3,20);
+      if(x7===y7) continue;
+      var a7=ri(1,5)*100, b7=ri(1,5)*100;
+      if((x7*a7)%100!==0 || (y7*b7)%100!==0) continue;
+      var denom7=a7+b7, num7=x7*a7+y7*b7;
+      if(num7%denom7!==0) continue;
+      ans=num7/denom7;
+      if(ans<=0||ans>=100) continue;
+      t=x7+"% の食塩水 "+a7+"g と "+y7+"% の食塩水 "+b7+"g を混ぜました。濃度は何 % ？";
+    }
+    else if(lv===8){
+      // 逆算: y%にするには 水を何g 加える？
+      var x8=ri(8,25);
+      var y8=ri(2,x8-1);
+      var a8=ri(1,5)*100;
+      if((x8*a8)%100!==0) continue;
+      var salt8=x8*a8/100;
+      // 食塩量 salt8 / y% = 全体 → 加える水 = 全体 - a8
+      var totalGoal=salt8*100/y8;
+      if(totalGoal<=a8) continue;
+      var addW=totalGoal-a8;
+      if(!Number.isInteger(addW)) continue;
+      ans=addW;
+      t=x8+"% の食塩水 "+a8+"g を "+y8+"% にするには、水を何 g 加える？";
+    }
+    else if(lv===9){
+      // 蒸発: x%ag から bg 蒸発させると何%？(食塩不変)
+      var x9=ri(5,20), a9=ri(2,6)*100, b9=ri(1,4)*50;
+      if(b9>=a9) continue;
+      if((x9*a9)%100!==0) continue;
+      var salt9=x9*a9/100, denom9=a9-b9;
+      if(denom9<=salt9) continue;
+      if((100*salt9)%denom9!==0) continue;
+      ans=100*salt9/denom9;
+      if(ans<=0||ans>=100) continue;
+      t=x9+"% の食塩水 "+a9+"g から 水 "+b9+"g を蒸発させました。濃度は何 % ？";
     }
     else {
-      // 蒸発 or 逆算(加水で薄める)
+      // Lv10 総合: 加水/加塩/蒸発/混合/逆算 をランダム
       if(Math.random()<0.5){
         // x%ag から 水bg を蒸発→何%？(食塩不変)
         var x=ri(5,20), a=ri(2,6)*100, b=ri(1,4)*50;
@@ -2446,18 +2487,21 @@ function gTsurukame(lv){
           + "まちがえると "+minus+"点 ひかれます。"+q+"問 答えて 得点は "+score+"点でした。"
           + "正解は 何問でしたか。";
       } else {
-        // lv8: 過不足算(差の応用)。a個ずつだと余り、b個ずつだと余り/不足 → 全体個数
-        var ppl = ri(4,9);                   // 人数
-        var a = ri(3,6), b = a + ri(1,3);    // a<b 個ずつ配る2案
-        var surplus = ri(1, a*2);            // a個ずつ配ると余る数
-        var totalItems = a*ppl + surplus;    // 全体個数
-        var diff = totalItems - b*ppl;       // b個ずつ: diff>=0余り / <0不足
-        ans = totalItems;
+        // lv8: 金額型つるかめ(発展) — 値段違い2種で「合計金額が予算を上回るか足りないか」型
+        //      旧実装は過不足算が混入していた(別カテゴリーの内容)ため金額型に戻す。
+        var GOODS8=[["りんご","みかん"],["シャープペン","えんぴつ"],["ケーキ","プリン"]];
+        var pr8 = pick(GOODS8);
+        var pA = ri(5,9)*10;
+        var pB = ri(2,pA/10-1)*10;
+        if(pB<=0) continue;
+        var nT = ri(10,20);                  // 個数合計(大きめ)
+        var nA = ri(2, nT-2);
+        var nB = nT - nA;
+        var total8 = pA*nA + pB*nB;
+        ans = nA;                            // 高い方を問う
         if(ans<=0) continue;
-        var phrase = (diff>=0)? (b+"個ずつ配ると "+diff+"個 余ります")
-                              : (b+"個ずつ配ると "+(-diff)+"個 足りません");
-        t = "おかしを 子ども "+ppl+"人に 配ります。"+a+"個ずつ配ると "+surplus+"個 余り、"
-          + phrase+"。おかしは 全部で 何個 ありますか。";
+        t = "1個 "+pA+"円の "+pr8[0]+"と 1個 "+pB+"円の "+pr8[1]+"を あわせて "+nT+"個 買ったら "
+          + "代金は "+total8+"円でした。"+pr8[0]+"は 何個 買いましたか。";
       }
     }
     else {
