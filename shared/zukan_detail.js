@@ -125,13 +125,31 @@
       + '</div>';
   }
 
-  /* 全部まとめた詳細 HTML を返す。entry: catches[id], sp: 種データ */
-  function detailHTML(entry, sp){
+  /* お気に入りトグルボタン HTML。クリックで coll.favorites を反転 → saveFn → reRenderFn を呼ぶ。
+     各画面の詳細モーダルに同じ形で差し込める共通スニペット。
+     coll: 該当ゲームの collection オブジェクト
+     id: 種 id
+     globalAccessor: 'window.kanjiZukanFavToggle' 等、画面側で window 直下に登録したコールバック名 */
+  function favoriteToggleHTML(coll, id, globalCallbackName){
+    if(!global.Q4BReward || !global.Q4BReward.favoriteButtonHTML) return "";
+    var onclickStr = globalCallbackName ? globalCallbackName+"('"+id+"')" : "";
+    return '<div style="display:inline-block">'+global.Q4BReward.favoriteButtonHTML(coll, id, onclickStr)+'</div>';
+  }
+
+  /* 全部まとめた詳細 HTML を返す。entry: catches[id], sp: 種データ
+     opts.coll: お気に入り対象コレクション (Q4BReward.favoriteButtonHTML 用)
+     opts.favCallback: window 直下に登録したお気に入りトグル関数名 (例: "kanjiFavTap") */
+  function detailHTML(entry, sp, opts){
     if(!entry) return "";
+    opts = opts || {};
     var records = entry.records || [];
-    /* size レンジは sp.sizeMm を優先、なければ reward.js の sizeRange(sp) を使う */
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
     var html = '';
+    /* お気に入りボタン (画面側が opts.coll / opts.favCallback を渡したときのみ表示) */
+    if(opts.coll && opts.favCallback){
+      var fav = favoriteToggleHTML(opts.coll, (sp&&sp.id)||"", opts.favCallback);
+      if(fav) html += '<div style="text-align:right;margin:2px 0">'+fav+'</div>';
+    }
     if(records.length===0){
       html += '<div style="font-size:12px;color:#888;margin:6px 0">これからの捕獲で きろくが たまるよ</div>';
       return html;
@@ -149,5 +167,6 @@
     sexSummary: sexSummary,
     bestWorstHTML: bestWorstHTML,
     recentListHTML: recentListHTML,
+    favoriteToggleHTML: favoriteToggleHTML,
   };
 })(window);

@@ -78,8 +78,23 @@
     coll._sizeMig=2;
     return changed;
   }
-  function rollSize(sp){
-    var r = sizeRange(sp), v = r[0] + (r[1]-r[0])*Math.pow(Math.random(), 1.7);
+  function rollSize(sp, sex){
+    /* sex (m/f) と sizeBySexMm が両方ある種は性別別のレンジを使う。
+       それ以外は共通 sizeRange を使う。 */
+    var r;
+    if(sex && sp && sp.sizeBySexMm && sp.sizeBySexMm[sex]) r = sp.sizeBySexMm[sex];
+    else r = sizeRange(sp);
+    /* docs/zukan_enhancement_plan.md の推奨分布: 88%は中央寄り、12%は大型寄り */
+    var x, ru = Math.random();
+    if(ru < 0.88){
+      /* 3つの一様乱数の平均で中央山を作る */
+      x = (Math.random() + Math.random() + Math.random()) / 3;
+    } else if(ru < 0.985){
+      x = 0.55 + Math.random() * 0.35;
+    } else {
+      x = 0.88 + Math.random() * 0.12;
+    }
+    var v = r[0] + (r[1]-r[0]) * x;
     return Math.round(v*10)/10;
   }
 
@@ -168,9 +183,9 @@
   }
   function record(coll, sp){
     var prev = coll.catches[sp.id];
-    var size = rollSize(sp);
-    var shiny = Math.random() < SHINY_CHANCE;
     var sex = rollSex(sp);
+    var size = rollSize(sp, sex);    /* sex を先に決めて、性別別レンジが使える種では分布が分かれる */
+    var shiny = Math.random() < SHINY_CHANCE;
     var isNew = !prev;
     var isRecord = !isNew && size > prev.max;
     var prevMin = prev ? (prev.min!=null ? prev.min : prev.max) : size;
@@ -329,6 +344,41 @@
     ov.querySelector('.q4bnetbtn').onclick=function(){ if(done)return; done=true; ov.remove(); if(onSwing)onSwing(); };
   }
 
+  /* ---- お気に入り (図鑑詳細のハートマーク) ----
+     coll.favorites = {id:true} の lazy-init マップ。未定義セーブとの後方互換のため、
+     操作直前に必ず空オブジェクトでフォールバック。解除時は delete してキーを残さない
+     (JSON サイズ膨張防止)。同期は per-key LWW で透過対応 (sync_architecture.md)。 */
+  function _favMap(coll){
+    if(!coll) return null;
+    if(!coll.favorites) coll.favorites = {};
+    return coll.favorites;
+  }
+  function isFavorite(coll, id){
+    if(!coll || !coll.favorites || !id) return false;
+    return !!coll.favorites[id];
+  }
+  function toggleFavorite(coll, id){
+    var fav = _favMap(coll); if(!fav || !id) return false;
+    if(fav[id]){ delete fav[id]; return false; }
+    fav[id] = true; return true;
+  }
+  function listFavorites(coll){
+    if(!coll || !coll.favorites) return [];
+    return Object.keys(coll.favorites).filter(function(k){ return coll.favorites[k]; });
+  }
+  /* 図鑑詳細モーダル用 ハートトグルボタンの HTML を返す共有ヘルパ。
+     使用側: onclick で Q4BReward.toggleFavorite(coll,id) → 保存 → モーダル再描画。 */
+  function favoriteButtonHTML(coll, id, onclickStr){
+    var on = isFavorite(coll, id);
+    return '<button type="button" class="q4b-fav-btn" data-bugid="'+id+'" '
+      +(onclickStr?'onclick="'+onclickStr+'" ':'')
+      +'aria-pressed="'+(on?'true':'false')+'" '
+      +'aria-label="'+(on?'お気に入り解除':'お気に入りに追加')+'" '
+      +'style="border:none;background:transparent;cursor:pointer;font-size:24px;line-height:1;padding:4px 8px;color:'+(on?'#E84A6B':'#B9C4A8')+';transition:transform .15s">'
+      +(on ? '♥' : '♡')
+      +'</button>';
+  }
+
   /* ---- rendering helper (uses shared/render.js if present) ---- */
   function svg(sp, shiny){ return (global.Q4BRender ? global.Q4BRender.species(sp, shiny) : ""); }
 
@@ -357,6 +407,10 @@
     masterBugsFor: masterBugsFor,
     masterObtained: masterObtained,
     awardMaster: awardMaster,
+    isFavorite: isFavorite,
+    toggleFavorite: toggleFavorite,
+    listFavorites: listFavorites,
+    favoriteButtonHTML: favoriteButtonHTML,
     setNight: setNight,
     isNightNow: isNightNow,
     onCorrect: onCorrect,

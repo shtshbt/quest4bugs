@@ -161,6 +161,18 @@ function say(t){
 function saveProfile(p){ if(p&&p.id&&window.QuestSave) QuestSave.save("keisan", p.id, p); }
 function saveAll(){ if(window.QuestSave) DB.profiles.forEach(saveProfile); }
 function save(){ saveProfile(P()); }   /* 通常保存＝現在のアカウントのみ（他アカウントのタイムスタンプを動かさない） */
+/* 図鑑詳細モーダルのお気に入りハート: トグル → 保存 → ボタン差し替え。 */
+window.keisanFavTap=function(id){
+  var p=P(); if(!p||!p.coll||!window.Q4BReward) return;
+  Q4BReward.toggleFavorite(p.coll, id);
+  save();
+  var btn=document.querySelector('.q4b-fav-btn[data-bugid="'+id+'"]');
+  if(btn){
+    var nh=Q4BReward.favoriteButtonHTML(p.coll, id, "keisanFavTap('"+id+"')");
+    var tmp=document.createElement('div'); tmp.innerHTML=nh;
+    btn.replaceWith(tmp.firstChild);
+  }
+};
 function profIcon(type){ return type==="k5"?"🐞":(type==="k10"?"🪲":"🐛"); }
 /* type未設定（他ゲームで作られた子）でもアバター描画が壊れないようフォールバック */
 function av(p){ return (p&&AV[p.type])||{n:"",t:"tentou",c1:"#9DB17C",c2:"#5B6B45"}; }
@@ -723,7 +735,7 @@ function openBugNew(spId){
       +'<p class="note">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
       +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"")
-      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp):"");
+      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:P()&&P().coll,favCallback:'keisanFavTap'}):"");
   }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');

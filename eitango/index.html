@@ -786,6 +786,23 @@ function touchP(){
   QuestSave.save(NS, CURID, P);
 }
 function saveSettings(){ QuestSave.save(NS,'_settings',{rate:CFG.rate, showMeaning:CFG.showMeaning}); }
+/* 図鑑詳細モーダルのお気に入りハート: トグル → 保存 → ボタン差し替え。 */
+window.eitangoFavTap=function(id){
+  if(!P||!P.catches||!window.Q4BReward) return;
+  /* eitango は catches を直接 coll として扱う(他ゲームと構造が違う)が、お気に入りは
+     P.favorites を独立に持つことで catches に手を入れず安全に追加する。 */
+  if(!P.favorites) P.favorites={};
+  /* 既存 catches[id] と favorites[id] を1つにまとめた擬似 coll で API を呼ぶ。 */
+  var pseudoColl={catches:P.catches, favorites:P.favorites};
+  Q4BReward.toggleFavorite(pseudoColl, id);
+  touchP();
+  var btn=document.querySelector('.q4b-fav-btn[data-bugid="'+id+'"]');
+  if(btn){
+    var nh=Q4BReward.favoriteButtonHTML(pseudoColl, id, "eitangoFavTap('"+id+"')");
+    var tmp=document.createElement('div'); tmp.innerHTML=nh;
+    btn.replaceWith(tmp.firstChild);
+  }
+};
 function setMeaning(on){ CFG.showMeaning=!!on; saveSettings(); }
 function saveCustom(){ QuestSave.save(NS,'_custom',CUSTOM); }
 
@@ -1158,7 +1175,7 @@ function showSpec(id){
     ${UI.specCard({sp:s,size:c.max,shiny:baseShiny,isNew:false,isRecord:false})}
     ${both?`<div style="margin-top:4px"><span style="display:inline-block;width:54px;height:54px;vertical-align:middle">${spSVG(s,30,1)}</span> <span class="small">✨いろちがいも ゲットずみ</span></div>`:''}
     <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた おおきさ: ${caught} ／ かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
-    ${window.Q4BZukan?Q4BZukan.detailHTML(c, SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}):''}
+    ${window.Q4BZukan?Q4BZukan.detailHTML(c, Object.assign({id:id},SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}),{coll:{catches:P.catches,favorites:P.favorites||{}},favCallback:'eitangoFavTap'}):''}
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
 }

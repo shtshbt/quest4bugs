@@ -261,6 +261,19 @@ function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
 function unOK(part){ return CFG.all ? true : !!ST.un[part] }
 function saveST(){ QuestSave.save('kanji',CUR.id,ST) }
+/* 図鑑詳細モーダル内のお気に入りハートをタップしたとき: トグル → 保存 → ボタンだけ差し替え。
+   モーダル全体を再描画すると入力やスクロール位置が消えるためボタンのみ更新。 */
+window.kanjiFavTap=function(id){
+  if(!ST||!ST.coll||!window.Q4BReward) return;
+  Q4BReward.toggleFavorite(ST.coll, id);
+  saveST();
+  var btn=document.querySelector('.q4b-fav-btn[data-bugid="'+id+'"]');
+  if(btn){
+    var nh=Q4BReward.favoriteButtonHTML(ST.coll, id, "kanjiFavTap('"+id+"')");
+    var tmp=document.createElement('div'); tmp.innerHTML=nh;
+    btn.replaceWith(tmp.firstChild);
+  }
+};
 function saveCFG(){ QuestSave.save('kanji','_settings',CFG) }
 function bugSearchText(sp){return [sp.id,sp.jaName,sp.scientificName,sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' ').toLowerCase()}
 function bugClassKey(sp){return sp.familyJa||sp.orderJa||sp.groupJa||''}
@@ -1276,7 +1289,7 @@ function renderBugs(){
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
-    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2):'')
+    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2,{coll:ST.coll,favCallback:'kanjiFavTap'}):'')
     +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>');
    modal(mh);
   });
