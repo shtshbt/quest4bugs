@@ -170,21 +170,50 @@
 
   function bugSVG(b){
   var c1=b.c1,c2=b.c2,K="#2A3D2C",inner="";
+  /* メス時は主色 c1 を鈍色に。トンボ・カマキリ・バッタ等のメスは派手な縄張り色を持たない傾向。
+     kabuto/kuwagata は b.sex==='f' で個別パスを描いているので影響しない。
+     chou/ga/shijimi 等は butterfly() 内で個別 sex 分岐。 */
+  if(b.sex==='f' && b.t!=='kabuto' && b.t!=='kuwagata' && b.t!=='chou' && b.t!=='ageha' && b.t!=='tateha' && b.t!=='shijimi' && b.t!=='seseri' && b.t!=='ga'){
+    c1 = _muteFemale(c1);
+  }
   var leg='stroke="'+K+'" stroke-width="3" stroke-linecap="round" fill="none"';
   if(b.t==="kabuto"){
-    inner='<path d="M40 70 l-9 11 M50 74 l-2 12 M62 71 l9 10 M44 60 l-13 4" '+leg+'/>'
-    +'<ellipse cx="56" cy="58" rx="25" ry="20" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
-    +'<path d="M56 40 L58 76" stroke="'+K+'" stroke-width="2.5"/>'
-    +'<ellipse cx="37" cy="50" rx="12" ry="10" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
-    +kabutoHorn(b.variant,c2,K,leg)
-    +'<circle cx="34" cy="51" r="2.4" fill="#fff"/>';
+    if(b.sex==='f'){
+      /* メスカブト専用: 角なし、体は少し横に平ぺったく、頭部は小ぶり。
+         オスSVGの「縮小+角消去」ではなく、形状から描き起こす。 */
+      inner='<path d="M40 71 l-9 11 M50 74 l-2 12 M62 71 l9 10 M44 60 l-13 4" '+leg+'/>'
+        +'<ellipse cx="56" cy="60" rx="26" ry="18" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'   /* 本体: 横長平たい */
+        +'<path d="M56 43 L58 76" stroke="'+K+'" stroke-width="1.6" opacity=".55"/>'                   /* 中央線(薄め) */
+        +'<ellipse cx="36" cy="52" rx="11" ry="9" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5"/>'  /* 頭(小) */
+        +'<path d="M30 47 l-4 -4 M30 56 l-4 4" stroke="'+K+'" stroke-width="2" stroke-linecap="round" fill="none"/>'  /* 短い触角 */
+        +'<circle cx="34" cy="52" r="2.1" fill="#fff"/>';
+    } else {
+      inner='<path d="M40 70 l-9 11 M50 74 l-2 12 M62 71 l9 10 M44 60 l-13 4" '+leg+'/>'
+        +'<ellipse cx="56" cy="58" rx="25" ry="20" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+        +'<path d="M56 40 L58 76" stroke="'+K+'" stroke-width="2.5"/>'
+        +'<ellipse cx="37" cy="50" rx="12" ry="10" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+        +kabutoHorn(b.variant,c2,K,leg)
+        +'<circle cx="34" cy="51" r="2.4" fill="#fff"/>';
+    }
   }else if(b.t==="kuwagata"){
-    inner='<path d="M44 72 l-8 11 M56 75 l0 12 M66 70 l9 9 M46 62 l-14 5" '+leg+'/>'
-    +'<ellipse cx="58" cy="58" rx="23" ry="19" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
-    +'<path d="M58 41 L59 75" stroke="'+K+'" stroke-width="2.5"/>'
-    +'<ellipse cx="38" cy="52" rx="13" ry="11" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
-    +kuwaMandible(b.variant,c2,K)
-    +'<circle cx="36" cy="52" r="2.4" fill="#fff"/>';
+    if(b.sex==='f'){
+      /* メスクワガタ専用: 大顎が短く直線的、本体はやや丸め、頭部小ぶり */
+      inner='<path d="M44 72 l-8 11 M56 75 l0 12 M66 70 l9 9 M46 62 l-14 5" '+leg+'/>'
+        +'<ellipse cx="58" cy="60" rx="22" ry="18" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'    /* 本体: 丸めの楕円 */
+        +'<path d="M58 43 L59 76" stroke="'+K+'" stroke-width="1.6" opacity=".55"/>'                    /* 薄い中央線 */
+        +'<ellipse cx="40" cy="53" rx="11" ry="10" fill="'+c2+'" stroke="'+K+'" stroke-width="2.5"/>'   /* 頭(小) */
+        +'<path d="M32 47 C26 45 22 44 19 44" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'  /* 短い大顎 上 */
+        +'<path d="M32 59 C26 61 22 62 19 62" fill="none" stroke="'+c2+'" stroke-width="4" stroke-linecap="round"/>'  /* 短い大顎 下 */
+        +'<path d="M19 44 l-2 -1 M19 62 l-2 1" stroke="'+K+'" stroke-width="1.8" stroke-linecap="round"/>'
+        +'<circle cx="38" cy="53" r="2.1" fill="#fff"/>';
+    } else {
+      inner='<path d="M44 72 l-8 11 M56 75 l0 12 M66 70 l9 9 M46 62 l-14 5" '+leg+'/>'
+        +'<ellipse cx="58" cy="58" rx="23" ry="19" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+        +'<path d="M58 41 L59 75" stroke="'+K+'" stroke-width="2.5"/>'
+        +'<ellipse cx="38" cy="52" rx="13" ry="11" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+        +kuwaMandible(b.variant,c2,K)
+        +'<circle cx="36" cy="52" r="2.4" fill="#fff"/>';
+    }
   }else if(b.t==="chou"||b.t==="ageha"||b.t==="tateha"||b.t==="shijimi"||b.t==="seseri"||b.t==="ga"){
     inner=butterfly(b.t,c1,c2,K,leg,b.sex);
   }else if(b.t==="tombo"){
@@ -330,6 +359,13 @@
   function _rgbHsl(r,g,b){r/=255;g/=255;b/=255;var mx=Math.max(r,g,b),mn=Math.min(r,g,b),h,s,l=(mx+mn)/2;if(mx===mn){h=s=0;}else{var d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);if(mx===r)h=(g-b)/d+(g<b?6:0);else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;}return [h,s,l];}
   function _hslRgb(h,s,l){h=(h%360+360)%360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2,r,g,b;if(h<60){r=c;g=x;b=0;}else if(h<120){r=x;g=c;b=0;}else if(h<180){r=0;g=c;b=x;}else if(h<240){r=0;g=x;b=c;}else if(h<300){r=x;g=0;b=c;}else{r=c;g=0;b=x;}return [(r+m)*255,(g+m)*255,(b+m)*255];}
   function _shift(hex){var rgb=_hexRgb(hex),hsl=_rgbHsl(rgb[0],rgb[1],rgb[2]);var o=_hslRgb(hsl[0]+160,_clamp(hsl[1]*1.25+0.1,0,1),_clamp(hsl[2]+0.06,0.14,0.88));return _rgbHex(o[0],o[1],o[2]);}
+  /* メス用に色を彩度/明度を落として地味目に。トンボ・蝶のメスはオスより色が控えめになる
+     傾向を表現する。彩度50%・明度0.85倍で「地味だが鈍くなりすぎない」バランス。 */
+  function _muteFemale(hex){
+    var rgb=_hexRgb(hex), hsl=_rgbHsl(rgb[0],rgb[1],rgb[2]);
+    var o=_hslRgb(hsl[0], hsl[1]*0.45, _clamp(hsl[2]*0.85, 0.18, 0.88));
+    return _rgbHex(o[0],o[1],o[2]);
+  }
   /* Phase3/4: 代表種の個別作画レジストリ。BESPOKE[id](c1,c2,shiny,kit)→本体SVG（<svg>とsheenは speciesSVG が付与）。
      未登録の種は従来の archetype+params(Phase1/2) にフォールバックする。 */
   var BESPOKE={};
