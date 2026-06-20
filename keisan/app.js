@@ -5,7 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
-var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false;
+var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false;
 
 /* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
@@ -223,12 +223,14 @@ function zukanMatchK(sp){
   var q=(KZ_Q||"").trim().toLowerCase();
   if(KZ_R!=="" && String(Q4BReward.tierOf(sp))!==String(KZ_R))return false;
   if(KZ_C!=="" && zukanClassKeyK(sp)!==KZ_C)return false;
+  if(KZ_FAV){ var p=P(); if(!p||!Q4BReward.isFavorite(p.coll,sp.id)) return false; }
   if(q && zukanSearchTextK(sp).indexOf(q)<0)return false;
   return true;
 }
 function setKZQ(v){KZ_Q=v||"";showZukan();setTimeout(function(){var e=$("kzq");if(e){e.focus();e.setSelectionRange(e.value.length,e.value.length);}},0);}
 function setKZR(v){KZ_R=(KZ_R===String(v))?"":String(v);showZukan();}
 function setKZC(v){KZ_C=v||"";showZukan();}
+function setKZFav(){ KZ_FAV=!KZ_FAV; showZukan(); }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function pidNow(){ var p=P(); return p?p.id:(window.QuestSave&&QuestSave.currentProfile()); }
@@ -680,12 +682,15 @@ function showZukan(){
       var on=String(KZ_R)===String(x[0]) || (x[0]===""&&KZ_R==="");
       return '<button class="chip" style="cursor:pointer;'+(on?'background:var(--green);color:#fff':'')+'" onclick="setKZR(\''+x[0]+'\')">'+x[1]+'</button>';
     }).join("")
+    +'<button class="chip" style="cursor:pointer;'+(KZ_FAV?'background:#E84A6B;color:#fff':'')+'" onclick="setKZFav()">♥ おきにいり</button>'
     +'<span class="note" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div></div>';
   h+='<div class="zgrid">';
   filtered.forEach(function(sp){
     var rec=p.coll.catches[sp.id];
     var tier=Q4BReward.tierOf(sp);
-    h+='<div class="zc r'+tier+(rec?"":" ")+'" onclick="openBugNew(\''+sp.id+'\')">';
+    var isFav=Q4BReward.isFavorite(p.coll,sp.id);
+    h+='<div class="zc r'+tier+(rec?"":" ")+'" style="position:relative" onclick="openBugNew(\''+sp.id+'\')">';
+    if(isFav) h+='<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>';
     if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
     if(rec){
       /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */

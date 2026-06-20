@@ -124,7 +124,7 @@ body.night .kcard.ok{background:#23402a}
 #modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
   background:rgba(15,20,12,.78);padding:18px}
 #modal.show{display:flex}
-.mcard{background:var(--card);border-radius:26px;padding:22px 18px;width:100%;max-width:430px;
+.mcard{position:relative;background:var(--card);border-radius:26px;padding:22px 18px;width:100%;max-width:430px;
   text-align:center;max-height:92vh;overflow-y:auto}
 .bush{font-size:84px;animation:rustle .5s infinite;display:block;padding:30px 0}
 @keyframes rustle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
@@ -524,12 +524,14 @@ function zukanMatch(sp){
   const q=(zQ||'').trim().toLowerCase();
   if(zR!=='' && String(sp[4])!==String(zR)) return false;
   if(zC!=='' && zukanClassKey(sp)!==zC) return false;
+  if(zFav && (!P.favorites||!P.favorites[sp[0]])) return false;
   if(q && zukanSearchText(sp).indexOf(q)<0) return false;
   return true;
 }
 function setZQ(v){ zQ=v||''; render(); setTimeout(()=>{const e=$('#zq'); if(e){e.focus(); e.setSelectionRange(e.value.length,e.value.length);}},0); }
 function setZR(v){ zR=(zR===String(v))?'':String(v); render(); }
 function setZC(v){ zC=v||''; render(); }
+function setZFav(){ zFav=!zFav; render(); }
 
 /* ---------------- WordDB ---------------- */
 let CUSTOM = []; /* loaded from QuestSave('eitango','_custom') */
@@ -811,7 +813,7 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false;
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false;
 
 async function boot(){
   buildSpecies();
@@ -1129,6 +1131,7 @@ function scrZukan(){
         const on=(String(zR)===String(x[0])||(x[0]===''&&zR===''));
         return `<button class="chip" style="cursor:pointer;${on?'background:var(--leaf);color:#fff':''}" onclick="setZR('${x[0]}')">${x[1]}</button>`;
       }).join('')}
+      <button class="chip" style="cursor:pointer;${zFav?'background:#E84A6B;color:#fff':''}" onclick="setZFav()">♥ おきにいり</button>
       <span class="small" style="align-self:center;margin-left:auto">表示 ${filtered.length} / ${zk.length}</span>
     </div>
   </div>
@@ -1138,8 +1141,10 @@ function scrZukan(){
     const cNormal=(c.normal!=null?c.normal:1);
     const showSh=(c.shiny&&!cNormal)?1:0;   /* 通常を基本表示。色違いのみ所持時だけ色違い */
     const szl=(c.min!=null&&c.min<c.max)?`${c.min}〜${c.max}mm`:`${c.max}mm`;
-    return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]})" onclick="showSpec('${s[0]}')">
-      <span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
+    const isFav=(P.favorites&&P.favorites[s[0]])?true:false;
+    const favBadge=isFav?'<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>':'';
+    return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]});position:relative" onclick="showSpec('${s[0]}')">
+      ${favBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }

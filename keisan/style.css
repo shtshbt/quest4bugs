@@ -174,7 +174,7 @@ body.night .zc .cnt{color:#ffd86b!important;}
 
 /* modal */
 .modal{position:fixed; inset:0; background:rgba(42,61,44,.5); display:flex; align-items:center; justify-content:center; z-index:60; padding:20px;}
-.mcard{background:var(--panel); border-radius:20px; border:3px solid var(--line); padding:20px; max-width:420px; width:100%; text-align:center; max-height:86vh; overflow:auto;}
+.mcard{position:relative; background:var(--panel); border-radius:20px; border:3px solid var(--line); padding:20px; max-width:420px; width:100%; text-align:center; max-height:86vh; overflow:auto;}
 
 /* misc */
 .row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line);}

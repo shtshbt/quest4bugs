@@ -101,50 +101,60 @@
      ベスト3/最小3 は groupedListHTML で扱う */
   function bestWorstHTML(records, sp){ return sexPreviewHTML(sp); }
 
-  /* グループ別サマリ: 大きいベスト3 / 小さいベスト3 / 最近3件
-     重複(同一個体)は除外して各グループ独立に並べる。 */
-  function groupedListHTML(records){
+  /* 2x2 ベスト表 (オス♂×メス♀ × 大きさ・小ささ) — コンパクト表示。 */
+  function bestTableHTML(records){
+    if(!records || records.length===0) return "";
+    var bestM=null, smallM=null, bestF=null, smallF=null;
+    records.forEach(function(r){
+      if(r.s==null) return;
+      if(r.sex==="m"){
+        if(!bestM || r.s>bestM.s) bestM=r;
+        if(!smallM || r.s<smallM.s) smallM=r;
+      } else if(r.sex==="f"){
+        if(!bestF || r.s>bestF.s) bestF=r;
+        if(!smallF || r.s<smallF.s) smallF=r;
+      }
+    });
+    function cell(r){
+      return '<td style="text-align:center;padding:4px 6px">'
+        + (r ? '<b>'+r.s+'</b><span style="font-size:10px;color:#888">mm</span>'
+             : '<span style="color:#bbb">-</span>')
+        + '</td>';
+    }
+    return ''
+      + '<table style="border-collapse:collapse;width:100%;font-size:12px;margin:6px 0">'
+      +   '<tr><th></th>'
+      +     '<th style="color:#56714e;font-weight:normal;font-size:11px">🏆 さいだい</th>'
+      +     '<th style="color:#56714e;font-weight:normal;font-size:11px">🌱 さいしょう</th></tr>'
+      +   '<tr><td style="color:#3a5fa5;font-weight:bold;padding:2px 6px;font-size:13px">♂ オス</td>'+cell(bestM)+cell(smallM)+'</tr>'
+      +   '<tr><td style="color:#a0497a;font-weight:bold;padding:2px 6px;font-size:13px">♀ メス</td>'+cell(bestF)+cell(smallF)+'</tr>'
+      + '</table>';
+  }
+  /* 最近 N 件の表 (日付・サイズ・性別) */
+  function recentListHTML(records, limit){
     if(!records || records.length===0) return "";
     function sexIcon(sx){ return sx==="m"?"♂":sx==="f"?"♀":""; }
-    function row(r){
-      return '<div style="display:flex;justify-content:space-between;font-size:11px;color:#444;padding:1px 0">'
-        + '<span>'+(r.d||'<span style="color:#bbb">きろくなし</span>')+'</span>'
-        + '<span><b>'+r.s+'mm</b> '+sexIcon(r.sex)+(r.shiny?' ✨':'')+'</span>'
-        + '</div>';
-    }
-    function block(title, emoji, rows){
-      if(rows.length===0) return '';
-      return ''
-        + '<div style="margin:6px 0">'
-        +   '<div style="font-size:11px;color:#56714e;margin-bottom:2px">'+emoji+' '+title+'</div>'
-        +   '<div style="background:rgba(0,0,0,.04);padding:4px 8px;border-radius:6px">'+rows.map(row).join('')+'</div>'
-        + '</div>';
-    }
-    var bigSort = records.slice().sort(function(a,b){ return (b.s||0)-(a.s||0); });
-    var smallSort = records.slice().sort(function(a,b){ return (a.s||0)-(b.s||0); });
-    /* 日付ありが優先、日付なし(legacy)は後ろ。同点は size 大きい順 */
-    var dateSort = records.slice().sort(function(a,b){
+    var n = Math.min(limit||5, records.length);
+    /* 日付ありが先頭、新しい順。日付なし(legacy)は末尾。 */
+    var sorted = records.slice().sort(function(a,b){
       var ad=a.d||'', bd=b.d||'';
       if(ad && !bd) return -1;
       if(!ad && bd) return 1;
       if(ad===bd) return (b.s||0)-(a.s||0);
       return ad < bd ? 1 : -1;
-    });
-    var html = '';
-    if(records.length>=2){
-      html += block('大きい ベスト3', '🏆', bigSort.slice(0,3));
-      var smallTop = smallSort.slice(0,3);
-      /* big と完全に重複する場合(records.length<=3)は省略 */
-      var bigIds = bigSort.slice(0,3).map(function(r){return r.d+'/'+r.s+'/'+r.sex;}).join('|');
-      var smallIds = smallTop.map(function(r){return r.d+'/'+r.s+'/'+r.sex;}).join('|');
-      if(smallIds !== bigIds) html += block('小さい ベスト3', '🌱', smallTop);
-    }
-    html += block('さいきん3けん', '🕒', dateSort.slice(0,3));
-    return html;
-  }
-  /* 直近の捕獲履歴一覧 (旧式・後方互換) — 案Bの groupedListHTML に置き換え */
-  function recentListHTML(records, limit){
-    return groupedListHTML(records);
+    }).slice(0, n);
+    var rows = sorted.map(function(r){
+      return '<tr style="font-size:11px;color:#444">'
+        + '<td style="padding:1px 4px">'+(r.d||'<span style="color:#bbb">きろくなし</span>')+'</td>'
+        + '<td style="padding:1px 4px;text-align:right"><b>'+r.s+'mm</b></td>'
+        + '<td style="padding:1px 4px;text-align:center">'+sexIcon(r.sex)+(r.shiny?' ✨':'')+'</td>'
+        + '</tr>';
+    }).join('');
+    return ''
+      + '<div style="margin:6px 0">'
+      +   '<div style="font-size:11px;color:#56714e;margin-bottom:2px">🕒 さいきんの きろく ('+n+'けん)</div>'
+      +   '<table style="border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px"><tbody>'+rows+'</tbody></table>'
+      + '</div>';
   }
 
   /* お気に入りトグルボタン HTML。クリックで coll.favorites を反転 → saveFn → reRenderFn を呼ぶ。
@@ -174,19 +184,19 @@
     var records = entry.records || [];
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
     var html = '';
-    /* お気に入りボタン (画面側が opts.coll / opts.favCallback を渡したときのみ表示)
-       — 右上に絶対配置。モーダルが position:relative の枠を持つ前提で
-       float+負marginの併用で「追加スペースを取らずに右上に浮かせる」 */
+    /* お気に入りボタン: モーダル(.mcard/.inner が position:relative) の右上に絶対配置。
+       追加スペース行を取らない。 */
     if(opts.coll && opts.favCallback){
       var fav = global.Q4BReward.favoriteButtonHTML(opts.coll, (sp&&sp.id)||"", opts.favCallback+"('"+((sp&&sp.id)||"")+"')");
-      if(fav) html += '<div style="float:right;margin:-2px -4px 0 0;line-height:0">'+fav+'</div>';
+      if(fav) html += '<div style="position:absolute;top:6px;right:8px;z-index:5">'+fav+'</div>';
     }
     if(records.length===0){
       html += '<div style="font-size:12px;color:#888;margin:6px 0">これからの捕獲で きろくが たまるよ</div>';
       return html;
     }
     html += sexSummary(records);
-    html += bestWorstHTML(records, sp);
+    html += bestWorstHTML(records, sp);       /* SVG プレビュー + dimorphism note */
+    html += bestTableHTML(records);           /* 2x2 ベスト表 (オス×メス × 大・小) */
     html += histogramHTML(records, sizeMm);
     html += recentListHTML(records, 5);
     return html;
@@ -196,6 +206,7 @@
     detailHTML: detailHTML,
     histogramHTML: histogramHTML,
     sexSummary: sexSummary,
+    bestTableHTML: bestTableHTML,
     bestWorstHTML: bestWorstHTML,
     recentListHTML: recentListHTML,
     favoriteToggleHTML: favoriteToggleHTML,

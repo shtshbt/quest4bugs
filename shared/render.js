@@ -444,7 +444,18 @@
         + winglessFemaleSVG(cols[0], cols[1], "#2A3D2C")
         + '</svg>';
     }
-    var fn=BESPOKE[sp.id];
+    /* sex='f' で horn/mandible 系 + 全ての Lucanidae(クワガタ科) + カブト類 は
+       bespoke (オスベースの個別 SVG) を使わず、汎用 bugSVG の sex='f' 専用パスに振り替える。
+       sexDimorphism が未設定の bespoke 種でもメス時に「オスの縮小版」にならないよう
+       family/groupJa からも判定する。 */
+    var useBespoke = !!BESPOKE[sp.id];
+    var isKuwaKabu = sp.family==='Lucanidae' || /カブト/.test(sp.groupJa||'');
+    if(useBespoke && sex==='f' && (
+        (sp.sexDimorphism==='horn' || sp.sexDimorphism==='mandible') || isKuwaKabu
+      )){
+      useBespoke = false;
+    }
+    var fn = useBespoke ? BESPOKE[sp.id] : null;
     var inner;
     if(fn){
       inner = fn(cols[0],cols[1],!!shiny,_KIT)+(shiny?_SHEEN:'');
