@@ -85,54 +85,66 @@
     return '<div style="font-size:12px;margin:4px 0">'+parts.join(' / ')+' （ぜんぶで '+total+'ひき）</div>';
   }
 
-  /* 最大・最小ハイライト + sex 別 SVG プレビュー (sp.sexDimorphism がある種で表示) */
-  function bestWorstHTML(records, sp){
-    if(!records || records.length===0) return "";
-    var maxR=null, minR=null;
-    records.forEach(function(r){
-      if(r.s==null) return;
-      if(!maxR || r.s>maxR.s) maxR=r;
-      if(!minR || r.s<minR.s) minR=r;
-    });
-    if(!maxR) return "";
-    function sexIcon(sx){ return sx==="m"?"♂":sx==="f"?"♀":""; }
-    function lineFor(label, r, emoji){
-      return '<span style="display:inline-block;margin:0 6px;font-size:12px">'+emoji+' '+label+': <b>'+r.s+'mm</b> '+sexIcon(r.sex)+' '+(r.shiny?'✨':'')+(r.d?' <span style="color:#888">('+r.d+')</span>':'')+'</span>';
-    }
-    var html = '<div style="margin:4px 0">';
-    html += lineFor('さいだい', maxR, '🏆');
-    if(minR && minR!==maxR) html += lineFor('さいしょう', minR, '🌱');
-    html += '</div>';
-    /* 性差顕著種は sex 別 SVG を並べて表示 (♂♀ の見た目違いを子供に直感的に伝える) */
-    if(sp && sp.sexDimorphism && global.Q4BRender && global.Q4BRender.species){
-      html += '<div style="display:flex;gap:14px;justify-content:center;margin:6px 0">'
-        + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'m')+'</div><div style="font-size:11px;color:#3a5fa5">♂ オス</div></div>'
-        + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:#a0497a">♀ メス</div></div>'
-        + '</div>';
-      if(sp.sexDimorphismNote){
-        html += '<div style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0">💡 '+sp.sexDimorphismNote+'</div>';
-      }
+  /* 性差顕著種の sex 別 SVG プレビュー (sp.sexDimorphism がある種で表示) */
+  function sexPreviewHTML(sp){
+    if(!sp || !sp.sexDimorphism || !global.Q4BRender || !global.Q4BRender.species) return "";
+    var html = '<div style="display:flex;gap:14px;justify-content:center;margin:6px 0">'
+      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'m')+'</div><div style="font-size:11px;color:#3a5fa5">♂ オス</div></div>'
+      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:#a0497a">♀ メス</div></div>'
+      + '</div>';
+    if(sp.sexDimorphismNote){
+      html += '<div style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0">💡 '+sp.sexDimorphismNote+'</div>';
     }
     return html;
   }
+  /* 旧API: bestWorstHTML — 互換のため残すが内部は sexPreviewHTML 呼び出しのみ
+     ベスト3/最小3 は groupedListHTML で扱う */
+  function bestWorstHTML(records, sp){ return sexPreviewHTML(sp); }
 
-  /* 直近の捕獲履歴一覧 (最新 N 件) */
-  function recentListHTML(records, limit){
+  /* グループ別サマリ: 大きいベスト3 / 小さいベスト3 / 最近3件
+     重複(同一個体)は除外して各グループ独立に並べる。 */
+  function groupedListHTML(records){
     if(!records || records.length===0) return "";
-    var n = Math.min(limit||5, records.length);
-    var recent = records.slice(-n).reverse();
     function sexIcon(sx){ return sx==="m"?"♂":sx==="f"?"♀":""; }
-    var rows = recent.map(function(r){
+    function row(r){
       return '<div style="display:flex;justify-content:space-between;font-size:11px;color:#444;padding:1px 0">'
-        +    '<span>'+(r.d||'?')+'</span>'
-        +    '<span><b>'+r.s+'mm</b> '+sexIcon(r.sex)+(r.shiny?' ✨':'')+'</span>'
-        +    '</div>';
-    }).join("");
-    return ''
-      + '<div style="margin:8px 0">'
-      +   '<div style="font-size:12px;color:#56714e;margin-bottom:2px">さいきんの きろく ('+n+'けん)</div>'
-      +   '<div style="background:rgba(0,0,0,.04);padding:4px 8px;border-radius:6px">'+rows+'</div>'
-      + '</div>';
+        + '<span>'+(r.d||'<span style="color:#bbb">きろくなし</span>')+'</span>'
+        + '<span><b>'+r.s+'mm</b> '+sexIcon(r.sex)+(r.shiny?' ✨':'')+'</span>'
+        + '</div>';
+    }
+    function block(title, emoji, rows){
+      if(rows.length===0) return '';
+      return ''
+        + '<div style="margin:6px 0">'
+        +   '<div style="font-size:11px;color:#56714e;margin-bottom:2px">'+emoji+' '+title+'</div>'
+        +   '<div style="background:rgba(0,0,0,.04);padding:4px 8px;border-radius:6px">'+rows.map(row).join('')+'</div>'
+        + '</div>';
+    }
+    var bigSort = records.slice().sort(function(a,b){ return (b.s||0)-(a.s||0); });
+    var smallSort = records.slice().sort(function(a,b){ return (a.s||0)-(b.s||0); });
+    /* 日付ありが優先、日付なし(legacy)は後ろ。同点は size 大きい順 */
+    var dateSort = records.slice().sort(function(a,b){
+      var ad=a.d||'', bd=b.d||'';
+      if(ad && !bd) return -1;
+      if(!ad && bd) return 1;
+      if(ad===bd) return (b.s||0)-(a.s||0);
+      return ad < bd ? 1 : -1;
+    });
+    var html = '';
+    if(records.length>=2){
+      html += block('大きい ベスト3', '🏆', bigSort.slice(0,3));
+      var smallTop = smallSort.slice(0,3);
+      /* big と完全に重複する場合(records.length<=3)は省略 */
+      var bigIds = bigSort.slice(0,3).map(function(r){return r.d+'/'+r.s+'/'+r.sex;}).join('|');
+      var smallIds = smallTop.map(function(r){return r.d+'/'+r.s+'/'+r.sex;}).join('|');
+      if(smallIds !== bigIds) html += block('小さい ベスト3', '🌱', smallTop);
+    }
+    html += block('さいきん3けん', '🕒', dateSort.slice(0,3));
+    return html;
+  }
+  /* 直近の捕獲履歴一覧 (旧式・後方互換) — 案Bの groupedListHTML に置き換え */
+  function recentListHTML(records, limit){
+    return groupedListHTML(records);
   }
 
   /* お気に入りトグルボタン HTML。クリックで coll.favorites を反転 → saveFn → reRenderFn を呼ぶ。
@@ -162,10 +174,12 @@
     var records = entry.records || [];
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
     var html = '';
-    /* お気に入りボタン (画面側が opts.coll / opts.favCallback を渡したときのみ表示) */
+    /* お気に入りボタン (画面側が opts.coll / opts.favCallback を渡したときのみ表示)
+       — 右上に絶対配置。モーダルが position:relative の枠を持つ前提で
+       float+負marginの併用で「追加スペースを取らずに右上に浮かせる」 */
     if(opts.coll && opts.favCallback){
-      var fav = favoriteToggleHTML(opts.coll, (sp&&sp.id)||"", opts.favCallback);
-      if(fav) html += '<div style="text-align:right;margin:2px 0">'+fav+'</div>';
+      var fav = global.Q4BReward.favoriteButtonHTML(opts.coll, (sp&&sp.id)||"", opts.favCallback+"('"+((sp&&sp.id)||"")+"')");
+      if(fav) html += '<div style="float:right;margin:-2px -4px 0 0;line-height:0">'+fav+'</div>';
     }
     if(records.length===0){
       html += '<div style="font-size:12px;color:#888;margin:6px 0">これからの捕獲で きろくが たまるよ</div>';

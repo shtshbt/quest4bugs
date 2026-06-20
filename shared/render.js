@@ -350,16 +350,24 @@
     var newCols = cols;
     var variantSuffix = '';
     var winglessFemale = false;
-    /* size 系 + 体格差: sizeBySexMm の中央値比から計算 */
+    /* 体格差: sizeBySexMm の中央値比から scale を計算。
+       horn/mandible 種は「角・大顎の有無」が主要な性差で、本体サイズは似ているので
+       scale クランプを控えめ([0.85, 1.1]) にする。
+       size 純粋種(バッタ・カマキリ等)は大胆な scale 差を許す ([0.6, 1.35])。 */
     if((dim==='size' || dim==='both' || dim==='horn' || dim==='mandible') && sp.sizeBySexMm){
       var mMid = (sp.sizeBySexMm.m[0]+sp.sizeBySexMm.m[1])/2;
       var fMid = (sp.sizeBySexMm.f[0]+sp.sizeBySexMm.f[1])/2;
       if(mMid>0 && fMid>0){
         var avg = (mMid+fMid)/2;
         sizeScale = (sex==='m' ? mMid : fMid) / avg;
-        /* 過度な変形を避ける: 極端な体格差(2倍以上)も 0.6〜1.35 にクランプ */
-        if(sizeScale<0.6) sizeScale=0.6;
-        if(sizeScale>1.35) sizeScale=1.35;
+        if(dim==='horn' || dim==='mandible'){
+          /* オス角込み全長で計算されるため scale 比は実体差を誇張する。控えめに */
+          if(sizeScale<0.85) sizeScale=0.85;
+          if(sizeScale>1.10) sizeScale=1.10;
+        } else {
+          if(sizeScale<0.6) sizeScale=0.6;
+          if(sizeScale>1.35) sizeScale=1.35;
+        }
       }
     }
     /* horn (カブト): variant に sex 情報を渡して角の描画を切替 */
