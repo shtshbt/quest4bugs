@@ -1092,17 +1092,48 @@ function carriesOf(a,b){
   }
   return {cols:cols, need:need};
 }
+/* たし算の筆算: Lv 1-10 で桁数とくり上がりを段階化。
+   旧実装は hsStage(1-4)に集約していたため Lv1-3/Lv4-5/Lv6-8 がそれぞれ同一だった。 */
 function gHissan(p,lvOv){
   var rawLv=lvOv||((p.lv&&p.lv.hissan)||p.hsLevel||1);
-  var lv=hsStageFromLv(rawLv), a=0,b=0,good=false,t=0;
-  while(!good&&t<300){ t++;
-    if(rawLv>=10){a=ri(1000,9999);b=ri(1000,9999);}      /* Lv10: 4桁＋4桁 */
-    else if(lv===1){var a1=ri(2,9),b1=ri(10-a1,9),a2=ri(1,7),b2=ri(1,8-a2); a=a2*10+a1; b=b2*10+b1;}
-    else if(lv===2){a=ri(15,99);b=ri(15,99);}
-    else if(lv===3){a=ri(100,899);b=ri(15,99);}
-    else {a=ri(100,899);b=ri(100,899);}
-    if(lv===1){good=true;}
-    else{var cs=carriesOf(a,b),any=false,i; for(i=1;i<cs.cols;i++)if(cs.need[i])any=true; good=any;}
+  var lv=clampLv(rawLv);
+  var a=0,b=0,good=false,t=0;
+  /* 必要なくり上がり回数 (need[i]=1 なら桁 i にくり上がりが必要) */
+  function carryCount(A,B){ var c=carriesOf(A,B), n=0; for(var i=1;i<c.cols;i++) if(c.need[i]) n++; return n; }
+  while(!good&&t<400){ t++;
+    if(lv===1){ /* 2桁＋1桁・くり上がりなし */
+      var a1=ri(2,9), b1=ri(0,9-a1), a2=ri(1,8);
+      a=a2*10+a1; b=b1;
+      good=(carryCount(a,b)===0);
+    } else if(lv===2){ /* 2桁＋2桁・くり上がりなし */
+      a=ri(11,89); b=ri(10,99-Math.floor(a/10)*10-9);  /* 雑なので再判定で吸収 */
+      if(b<10) b=10;
+      good=(carryCount(a,b)===0);
+    } else if(lv===3){ /* 2桁＋2桁・くり上がりあり (1回でOK) */
+      a=ri(15,99); b=ri(15,99);
+      good=(carryCount(a,b)>=1);
+    } else if(lv===4){ /* 2桁＋2桁・くり上がり 1回ピッタリ */
+      a=ri(15,99); b=ri(15,99);
+      good=(carryCount(a,b)===1);
+    } else if(lv===5){ /* 2桁＋2桁・くり上がり 2回（一の位＋十の位） */
+      a=ri(15,99); b=ri(15,99);
+      good=(carryCount(a,b)===2);
+    } else if(lv===6){ /* 3桁＋1桁 */
+      a=ri(100,899); b=ri(2,9);
+      good=true;
+    } else if(lv===7){ /* 3桁＋2桁・くり上がりあり */
+      a=ri(100,899); b=ri(15,99);
+      good=(carryCount(a,b)>=1);
+    } else if(lv===8){ /* 3桁＋3桁・くり上がりあり */
+      a=ri(100,899); b=ri(100,899);
+      good=(carryCount(a,b)>=1);
+    } else if(lv===9){ /* 3桁＋3桁・くり上がり 2回以上 */
+      a=ri(100,899); b=ri(100,899);
+      good=(carryCount(a,b)>=2);
+    } else { /* Lv10: 4桁＋4桁 */
+      a=ri(1000,9999); b=ri(1000,9999);
+      good=(carryCount(a,b)>=2);
+    }
   }
   return {cat:"hissan", kind:(p.hissanInput==="app"?"hissan":"num"), a:a, b:b,
     text:a+"＋"+b, say:a+" たす "+b+" は？", ans:a+b};
@@ -1118,17 +1149,44 @@ function borrowsOf(a,b){
   }
   return {cols:cols, need:need};
 }
+/* ひき算の筆算: Lv 1-10 で桁数とくり下がりを段階化。 */
 function gHikizan(p,lvOv){
   var rawLv=lvOv||((p.lv&&p.lv.hikizan)||p.hkLevel||1);
-  var lv=hsStageFromLv(rawLv), a=0,b=0,good=false,t=0;
-  while(!good&&t<400){ t++;
-    if(rawLv>=10){ a=ri(1100,9999); b=ri(1000,a-1); }  /* Lv10: 4桁−4桁 */
-    else if(lv===1){ a=ri(11,99); b=ri(1, a%10); }     /* 2桁−1桁・くり下がりなし */
-    else if(lv===2){ a=ri(21,99); b=ri(11,a-1); }      /* 2桁−2桁 */
-    else if(lv===3){ a=ri(100,899); b=ri(11,99); }     /* 3桁−2桁 */
-    else { a=ri(120,999); b=ri(101,a-1); }             /* 3桁−3桁 */
-    if(lv===1){ good=(a-b>=0)&&((a%10)>=(b%10)); }
-    else{ var bs=borrowsOf(a,b),any=false,i; for(i=1;i<bs.cols;i++)if(bs.need[i])any=true; good=(a>=b)&&any; }
+  var lv=clampLv(rawLv);
+  var a=0,b=0,good=false,t=0;
+  function borrowCount(A,B){ var c=borrowsOf(A,B), n=0; for(var i=1;i<c.cols;i++) if(c.need[i]) n++; return n; }
+  while(!good&&t<500){ t++;
+    if(lv===1){ /* 2桁−1桁・くり下がりなし */
+      a=ri(11,99); b=ri(1, a%10);
+      good=((a%10)>=b)&&(a-b>=0);
+    } else if(lv===2){ /* 2桁−2桁・くり下がりなし */
+      a=ri(21,99); b=ri(10,a-1);
+      good=(borrowCount(a,b)===0)&&(a>=b);
+    } else if(lv===3){ /* 2桁−2桁・くり下がりあり */
+      a=ri(21,99); b=ri(11,a-1);
+      good=(borrowCount(a,b)>=1)&&(a>=b);
+    } else if(lv===4){ /* 2桁−2桁・くり下がり 1回 */
+      a=ri(21,99); b=ri(11,a-1);
+      good=(borrowCount(a,b)===1)&&(a>=b);
+    } else if(lv===5){ /* 2桁−2桁・くり下がり 2回 (一の位＋十の位/百の位) */
+      a=ri(21,99); b=ri(11,a-1);
+      good=(borrowCount(a,b)>=2)&&(a>=b);
+    } else if(lv===6){ /* 3桁−1桁 */
+      a=ri(100,899); b=ri(2,9);
+      good=true;
+    } else if(lv===7){ /* 3桁−2桁・くり下がりあり */
+      a=ri(100,899); b=ri(11,99);
+      good=(borrowCount(a,b)>=1)&&(a>=b);
+    } else if(lv===8){ /* 3桁−3桁・くり下がりあり */
+      a=ri(120,999); b=ri(101,a-1);
+      good=(borrowCount(a,b)>=1)&&(a>=b);
+    } else if(lv===9){ /* 3桁−3桁・くり下がり 2回以上 */
+      a=ri(120,999); b=ri(101,a-1);
+      good=(borrowCount(a,b)>=2)&&(a>=b);
+    } else { /* Lv10: 4桁−4桁 */
+      a=ri(1100,9999); b=ri(1000,a-1);
+      good=(borrowCount(a,b)>=2)&&(a>=b);
+    }
   }
   return {cat:"hikizan", kind:(p.hissanInput==="app"?"hissan":"num"), a:a, b:b,
     text:a+"−"+b, say:a+" ひく "+b+" は？", ans:a-b};
@@ -1138,7 +1196,9 @@ function gKuku(p,dan,lv){
   if(lv==null) lv=legacyKukuToLv(p);
   var d, b=ri(1,9);
   if(dan){ d=dan; }
-  else if(lv>=10){ d=ORDER[ri(0,ORDER.length-2)]; }                /* Lv10: 全段ミックス(1の段は除外＝易しすぎ回避) */
+  else if(lv>=10){ /* Lv10: 2〜9の段が主、1の段は10%混在 */
+    d = (Math.random()<0.9) ? ORDER[ri(0,ORDER.length-2)] : 1;
+  }
   else {
     var idx=Math.min(Math.max(1,lv)-1, ORDER.length-1);
     var target=ORDER[idx], unlocked=ORDER.slice(0, idx+1);          /* そのLvの段を主軸(6割)＋既習段で復習 */
@@ -1253,12 +1313,29 @@ function gMix(lv){
 }
 function gKufuu(lv){
   if(lv==null)lv=ri(1,10);
+  /* 段階構成（Lvごとに型を限定し、復習10%として既習型を混ぜる）:
+       Lv1:  25×4型 (k=1)
+       Lv2:  125×8型 (k=2)
+       Lv3:  ×99/101型 (k=3)
+       Lv4:  分配法則 (k=4)
+       Lv5:  連続5数の和 (k=5)
+       Lv6:  分配法則 (標準・数値範囲拡大)
+       Lv7:  ×98/102型 (k=6)
+       Lv8:  分配＋複合 (k=4,6 ミックス)
+       Lv9:  ×101/99型 大きめ (k=7)
+       Lv10: 全型ランダム総合 (k=1..8) */
   var t,ans,hint,n,a,b,c,m,pats,k;
   for(var attempt=0;attempt<200;attempt++){
-    if(lv<=2){pats=[1,2];}
-    else if(lv<=5){pats=[3,4];}
-    else if(lv<=8){pats=[5,4,6];}
-    else{pats=[7,8];}
+    if(lv===1) pats=[1];
+    else if(lv===2) pats=[2];
+    else if(lv===3) pats=[3];
+    else if(lv===4) pats=[4];
+    else if(lv===5) pats=[5];
+    else if(lv===6) pats=[4];
+    else if(lv===7) pats=[6];
+    else if(lv===8) pats=[4,6];
+    else if(lv===9) pats=[7];
+    else pats=[1,2,3,4,5,6,7,8];   /* Lv10 総合 */
     k=pick(pats);t=null;ans=null;hint=null;
     if(k===1){n=(lv<=1)?ri(7,29):ri(7,49);t=pick(["25×"+n+"×4","4×"+n+"×25",n+"×25×4"]);ans=100*n;hint="25×4＝100 をさきに計算！";}
     else if(k===2){n=(lv<=1)?ri(3,12):ri(3,19);t=pick(["125×"+n+"×8","8×"+n+"×125"]);ans=1000*n;hint="125×8＝1000 をさきに！";}
@@ -1283,38 +1360,63 @@ function gKufuu(lv){
 }
 function gDeci(lv){
   if(lv==null)lv=ri(1,10);
+  /* 段階構成（提言にあわせて演算種別を Lv で分離）:
+       Lv1: 小数1桁・加算（くり上がりなし）
+       Lv2: 小数1桁・加算（くり上がりあり）
+       Lv3: 小数1桁・減算（くり下がりなし）
+       Lv4: 小数1桁・減算（くり下がりあり）
+       Lv5: 小数×整数        ← 旧: Lv5,6 とも×整数で完全重複
+       Lv6: 小数÷整数        ← 旧: ×整数のまま
+       Lv7: 小数×小数（小さめ）
+       Lv8: 小数×小数（大きめ）
+       Lv9: 単位換算・文章題寄り（m↔cm, kg↔g 等の小数換算）
+       Lv10: 小数の四則総合 */
   var x,y,t,ans,kk;
-  for(var tr=0;tr<200;tr++){
+  for(var tr=0;tr<300;tr++){
     if(lv<=2){
-      // 加算(1dp)。x,y は 1/10スケール整数
-      if(lv===1){ x=ri(1,99); y=ri(1,99); if(x+y>=100)continue; } // a+b<10
-      else { x=ri(1,99); y=ri(1,99); if(x+y<100||x+y>180)continue; } // a+b 10-18
+      if(lv===1){ x=ri(1,99); y=ri(1,99); if(x+y>=100)continue; }
+      else { x=ri(1,99); y=ri(1,99); if(x+y<100||x+y>180)continue; }
       t=fmtDec(x/10)+"＋"+fmtDec(y/10); ans=(x+y)/10; break;
     } else if(lv<=4){
-      // 減算(1dp)
       x=ri(11,99); y=ri(1,x-1);
-      var xo=x%10, yo=y%10; // 一の位(小数第1位)
-      if(lv===3){ if(xo<yo)continue; } // くり下がりなし: 被減数の小数位>=減数
-      else { if(xo>=yo)continue; } // くり下がりあり
+      var xo=x%10, yo=y%10;
+      if(lv===3){ if(xo<yo)continue; }
+      else { if(xo>=yo)continue; }
       t=fmtDec(x/10)+"−"+fmtDec(y/10); ans=(x-y)/10; break;
-    } else if(lv<=6){
-      // 小数×整数。x は 1/10スケール整数, kk 整数
+    } else if(lv===5){
+      /* 小数×整数 */
       kk=ri(2,9); x=ri(11,99);
-      var prod=x*kk; // = ans*10
-      if(lv===5){ if(prod>=100)continue; } // 結果<10
-      else { if(prod<100||prod>=1000)continue; } // 結果10-99
-      t=fmtDec(x/10)+"×"+kk; ans=prod/10; break;
-    } else if(lv<=8){
-      // 小数×小数(2dp)。x,y は 1/10スケール整数。問題文は (x/10)×(y/10)=x*y/100。
-      // x*y は整数なので結果は常に小数第2位までで割り切れる(クリーン保証)。
-      if(lv===7){ x=ri(11,49); y=ri(11,49); } else { x=ri(51,99); y=ri(51,99); }
+      t=fmtDec(x/10)+"×"+kk; ans=x*kk/10; break;
+    } else if(lv===6){
+      /* 小数÷整数（割り切れ） */
+      kk=ri(2,9); var q=ri(2,49);
+      var dividend=q*kk;
+      t=fmtDec(dividend/10)+"÷"+kk; ans=q/10; break;
+    } else if(lv===7){
+      x=ri(11,49); y=ri(11,49);
       t=fmtDec(x/10)+"×"+fmtDec(y/10); ans=x*y/100; break;
+    } else if(lv===8){
+      x=ri(51,99); y=ri(51,99);
+      t=fmtDec(x/10)+"×"+fmtDec(y/10); ans=x*y/100; break;
+    } else if(lv===9){
+      /* 単位換算: m↔cm（÷100 / ×100）、kg↔g（÷1000 / ×1000）、L↔dL（÷10 / ×10） */
+      var unit=ri(0,2);
+      if(unit===0){ /* m → cm */
+        x=ri(1,99); t=fmtDec(x/10)+" m は 何 cm？"; ans=x*10;
+      } else if(unit===1){ /* kg → g */
+        x=ri(1,49); t=fmtDec(x/10)+" kg は 何 g？"; ans=x*100;
+      } else { /* L → dL */
+        x=ri(1,99); t=fmtDec(x/10)+" L は 何 dL？"; ans=x;
+      }
+      break;
     } else {
-      // 小数÷整数(逆算)。答え=x/10, 被除数=x*kk/10, kk整数
-      kk=ri(2,9);
-      if(lv===9){ x=ri(1,39); } else { x=ri(40,99); }
-      var dividend=x*kk; // = 被除数*10
-      t=fmtDec(dividend/10)+"÷"+kk; ans=x/10; break;
+      /* Lv10 総合: 加減乗除をランダムに */
+      var pat=ri(0,3);
+      if(pat===0){ x=ri(11,99); y=ri(11,99); t=fmtDec(x/10)+"＋"+fmtDec(y/10); ans=(x+y)/10; }
+      else if(pat===1){ x=ri(50,99); y=ri(10,x-1); t=fmtDec(x/10)+"−"+fmtDec(y/10); ans=(x-y)/10; }
+      else if(pat===2){ x=ri(11,49); y=ri(11,49); t=fmtDec(x/10)+"×"+fmtDec(y/10); ans=x*y/100; }
+      else { kk=ri(2,9); var q10=ri(2,49); t=fmtDec(q10*kk/10)+"÷"+kk; ans=q10/10; }
+      break;
     }
   }
   return {cat:"deci",kind:"num",dot:true,text:t,say:readify(t),ans:Math.round(ans*100)/100};
