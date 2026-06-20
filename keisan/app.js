@@ -4623,4 +4623,7 @@ function boot(){
       });
   });
 }
-boot();
+/* 外部（battle.html など）からは boot() をスキップして生成器のみ再利用したい。
+   window.Q4B_KEISAN_NO_BOOT=true をスクリプト前にセットすれば自動起動を抑止する。 */
+window.Q4B_KEISAN={genBy:genBy, K5DEV:K5DEV, K10DEV:K10DEV, K5CATS:K5CATS, K10CATS:K10CATS, LVL_CATS:LVL_CATS, CATL:CATL};
+if(!window.Q4B_KEISAN_NO_BOOT) boot();

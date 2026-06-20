@@ -139,6 +139,16 @@
   .ans{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
   .ans button{font-size:21px;font-weight:900;min-width:70px;padding:13px 16px;border:2px solid #d8c187;border-radius:12px;background:#fff;color:#243018;cursor:pointer;box-shadow:0 2px 0 #d8c187}
   .ans button:active{transform:translateY(2px);box-shadow:none}
+  /* 数値入力（テンキー）UI: 計算ボス戦で4択から脱却するための入力モード */
+  .numpad-box{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+  .numpad-disp{font-size:38px;font-weight:900;color:#243018;min-height:54px;min-width:160px;padding:6px 18px;background:#fff;border:3px solid #E8B23A;border-radius:12px;text-align:center;letter-spacing:.03em}
+  .numpad-disp.empty::before{content:"？";color:#cbb98a}
+  .numpad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px;width:100%}
+  .numpad-btn{font-size:24px;font-weight:900;padding:14px 0;border:2px solid #d8c187;border-radius:12px;background:#fff;color:#243018;cursor:pointer;box-shadow:0 2px 0 #d8c187;text-align:center;min-width:0}
+  .numpad-btn:active{transform:translateY(2px);box-shadow:none}
+  .numpad-btn.numpad-back{background:#fff5e0;color:#7a5f1a}
+  .numpad-btn.numpad-ok{background:#a8d76a;color:#1f3a0d;border-color:#7faa3f;box-shadow:0 2px 0 #7faa3f}
+  .numpad-btn.numpad-dot{background:#f3eedb}
   /* ログ */
   .log{margin:10px 0 4px;font-size:13px;color:#ffe9cf;min-height:38px;text-align:center;line-height:1.5;font-weight:700;text-shadow:0 1px 2px #000;position:relative;z-index:1}
   /* ベンチ */
@@ -320,6 +330,12 @@
 <script src="./shared/reward.js?v=0.4.8"></script>
 <script src="./shared/battle.js?v=0.5.1"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
+<!-- ボス戦の計算問題を 30+カテゴリーの本格生成器で出題するため keisan/app.js を再利用。boot()は抑止。 -->
+<script>window.Q4B_KEISAN_NO_BOOT=true;</script>
+<script src="./shared/furigana.js?v=0.3.0"></script>
+<script src="./shared/yomi.js?v=0.3.0"></script>
+<script src="./shared/k5_devs_data.js?v=0.1.0"></script>
+<script src="./keisan/app.js?v=0.4.35"></script>
 <script>
 var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
 var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
@@ -1022,44 +1038,72 @@ function cancelParty(){ document.getElementById("pselect").style.display="none";
 function makeQ(type, bd){
   bd=Math.max(1,Math.min(5,bd||1));
   if(type==="keisan"){
+    /* keisan/app.js の本格生成器（30+カテゴリ: noudo/hiritsu/soneki/tabibito/tsurukame/kabusoku/heikin/...）を直接呼ぶ。
+       battle側で4択用distractorに縛られていた制約を解き、数値入力UI(kind:"num")で出題する。 */
+    var KK=window.Q4B_KEISAN;
+    if(KK && KK.genBy){
+      var kp=PROG&&PROG.keisan;
+      var FAKE_P={hissanInput:"num", lv:(kp&&kp.lv)||{}, stats:(kp&&kp.stats)||{}};
+      /* bd → 基本プール（小学校学年カバレッジ準拠） */
+      var basePool;
+      if(bd<=1) basePool=["hissan","hikizan","kuku"];
+      else if(bd===2) basePool=["hissan","hikizan","kuku","anzan","warizan"];
+      else if(bd===3) basePool=["mix","kufuu","warizan","wasa","jikan","amari","kakebun"];
+      else if(bd===4) basePool=["mix","kufuu","deci","frac","machigai","sougou","wasa","kakebun","menseki","gairai"];
+      else basePool=["mix","kufuu","deci","frac","machigai","sougou"];
+      /* 進捗 Lv>=3 のカテゴリーを足す（プールに無いものだけ） */
+      var advCats=[];
+      if(kp&&kp.lv){
+        Object.keys(kp.lv).forEach(function(c){
+          if((kp.lv[c]||0)>=3 && basePool.indexOf(c)<0) advCats.push(c);
+        });
+      }
+      /* bd>=3 で advCats を 40-60% の確率で優先選択 */
+      var pool=basePool.slice(); var useAdv=advCats.length>0 && bd>=3 && seed()<(bd===3?0.4:0.6);
+      if(useAdv) pool=advCats;
+      var cat=pool[Math.floor(seed()*pool.length)];
+      var lv=Math.max(1, Math.min(10, (kp&&kp.lv&&kp.lv[cat])||(bd*2)));
+      /* frac/machigai は分数オブジェクト/虫食い式で数値入力UIに不適。bd>=4 のチャレンジ枠で稀に出るのも除外。 */
+      var SKIP={frac:1, machigai:1};
+      var attempts=0, gq=null;
+      while(attempts<6){
+        if(!SKIP[cat]){
+          try{ gq=KK.genBy(cat, FAKE_P, lv); }catch(e){ gq=null; }
+          if(gq && gq.kind==="num" && gq.text!=null && gq.ans!=null && !isNaN(Number(gq.ans))) break;
+        }
+        /* 失敗時は basePool から取り直す（SKIPは除外） */
+        var pickPool=basePool.filter(function(c){return !SKIP[c];});
+        if(pickPool.length===0) pickPool=["hissan","hikizan","kuku","mix","kufuu"];
+        cat=pickPool[Math.floor(seed()*pickPool.length)];
+        lv=Math.max(1,Math.min(10,bd*2));
+        attempts++; gq=null;
+      }
+      if(gq && gq.text!=null && gq.ans!=null){
+        /* text にHTMLタグ(ruby/furigana)が含まれる可能性: そのまま q として渡す */
+        return {q:gq.text, ans:String(gq.ans), kind:"num", cat:cat};
+      }
+    }
+    /* フォールバック: Q4B_KEISAN 未ロード時の素朴な四則 */
     function R(mn,mx){ return mn+Math.floor(seed()*(mx-mn+1)); }
-    /* 文章題比率: 子のkeisan Lv進捗に応じて拡大。
-       Sushiro等で30+カテゴリ Lv4達成済みなのに battle ではただの演算しか出ないのを是正。 */
-    var kp=PROG&&PROG.keisan, advCats=0;
-    if(kp&&kp.lv){
-      ['mix','kufuu','deci','frac','machigai','sougou','noudo','tabibito','hiritsu','tsurukame',
-       'kabusoku','heikin','soneki','shigoto','nenrei','ueki','ryuusui','tsuuka','shuuki','nichireki',
-       'kisokusei','hayasahi','shuugou','bairitsu','shoukyo','houjin','baai','hireihanpi']
-        .forEach(function(c){ if((kp.lv[c]||0)>=3) advCats++; });
-    }
-    /* 文章題比率: 基本(bd>=3で15%/bd>=4で25%) + 発展カテゴリLv3以上の数だけ追加(最大+30%) */
-    var wordChance=bd<=2?0:(bd===3?0.15:0.25);
-    if(advCats>=5) wordChance += Math.min(0.30, advCats*0.02);
-    var wordRoll=seed();
-    if(wordRoll<wordChance){
-      var wq=makeKeisanWordProblem(bd, R, advCats);
-      if(wq) return wq;
-    }
     var ops = bd<=1?["+","-"] : bd===2?["+","-","×"] : bd===3?["+","-","×","÷"] : ["+","-","×","÷","mix"];
     var op=ops[Math.floor(seed()*ops.length)];
-    var hi=[20,99,999,9999,99999][bd-1];        /* 加減の上限を band で大きく */
-    if(op==="+"){ var lo=bd<=2?5:bd===3?50:300; var a=R(lo,hi),b=R(lo,hi); return {q:a+" + "+b,ans:a+b}; }
-    if(op==="-"){ var lo2=bd<=2?6:bd===3?80:500; var x=R(lo2,hi),y=R(1,x); return {q:x+" − "+y,ans:x-y}; }
+    var hi=[20,99,999,9999,99999][bd-1];
+    if(op==="+"){ var lo=bd<=2?5:bd===3?50:300; var a=R(lo,hi),b=R(lo,hi); return {q:a+" + "+b,ans:a+b,kind:"num"}; }
+    if(op==="-"){ var lo2=bd<=2?6:bd===3?80:500; var x=R(lo2,hi),y=R(1,x); return {q:x+" − "+y,ans:x-y,kind:"num"}; }
     if(op==="×"){
-      if(bd<=2){ var c=R(2,9),d=R(2,9); return {q:c+" × "+d,ans:c*d}; }              /* 九九 */
-      if(bd===3){ var c3=R(11,40),d3=R(2,9); return {q:c3+" × "+d3,ans:c3*d3}; }      /* 2桁×1桁 */
-      if(bd===4){ var c4=R(12,50),d4=R(11,30); return {q:c4+" × "+d4,ans:c4*d4}; }    /* 2桁×2桁 */
-      var c5=R(21,99),d5=R(21,99); return {q:c5+" × "+d5,ans:c5*d5};                  /* 2桁×2桁(大) */
+      if(bd<=2){ var c=R(2,9),d=R(2,9); return {q:c+" × "+d,ans:c*d,kind:"num"}; }
+      if(bd===3){ var c3=R(11,40),d3=R(2,9); return {q:c3+" × "+d3,ans:c3*d3,kind:"num"}; }
+      if(bd===4){ var c4=R(12,50),d4=R(11,30); return {q:c4+" × "+d4,ans:c4*d4,kind:"num"}; }
+      var c5=R(21,99),d5=R(21,99); return {q:c5+" × "+d5,ans:c5*d5,kind:"num"};
     }
     if(op==="÷"){
-      if(bd<=3){ var dv=R(2,9),qo=R(2,9); return {q:(dv*qo)+" ÷ "+dv,ans:qo}; }        /* 九九の逆 */
-      var dv2=R(3,bd>=5?25:12),qo2=R(6,bd>=5?40:20); return {q:(dv2*qo2)+" ÷ "+dv2,ans:qo2}; /* 大きめ・割り切れ */
+      if(bd<=3){ var dv=R(2,9),qo=R(2,9); return {q:(dv*qo)+" ÷ "+dv,ans:qo,kind:"num"}; }
+      var dv2=R(3,bd>=5?25:12),qo2=R(6,bd>=5?40:20); return {q:(dv2*qo2)+" ÷ "+dv2,ans:qo2,kind:"num"};
     }
-    /* 四則混合（多段・band で難化） */
     var pat=Math.floor(seed()*3);
-    if(pat===0){ var m1=R(2,bd>=5?12:9),m2=R(2,9),m3=R(2,bd>=5?99:30); return {q:m1+" × "+m2+" + "+m3,ans:m1*m2+m3}; }
-    if(pat===1){ var n1=R(3,bd>=5?12:9),n2=R(2,9),v=n1*n2,n3=R(1,Math.max(1,v-1)); return {q:n1+" × "+n2+" − "+n3,ans:v-n3}; }
-    var k1=R(2,9),k2=R(2,bd>=5?40:20),k3=R(2,bd>=5?40:20); return {q:k1+" × ( "+k2+" + "+k3+" )",ans:k1*(k2+k3)};
+    if(pat===0){ var m1=R(2,bd>=5?12:9),m2=R(2,9),m3=R(2,bd>=5?99:30); return {q:m1+" × "+m2+" + "+m3,ans:m1*m2+m3,kind:"num"}; }
+    if(pat===1){ var n1=R(3,bd>=5?12:9),n2=R(2,9),v=n1*n2,n3=R(1,Math.max(1,v-1)); return {q:n1+" × "+n2+" − "+n3,ans:v-n3,kind:"num"}; }
+    var k1=R(2,9),k2=R(2,bd>=5?40:20),k3=R(2,bd>=5?40:20); return {q:k1+" × ( "+k2+" + "+k3+" )",ans:k1*(k2+k3),kind:"num"};
   }
   function choiceQ(item, bank, prompt){
     var choices=item.c.slice(), guard=0;
@@ -1210,21 +1254,34 @@ function makeKanjiQ(bd, choiceQ){
         if(np.length)target=np[Math.floor(seed()*np.length)];
       }
       if(!target)target=learned[Math.floor(seed()*learned.length)];
-      /* 出題タイプ多様化: ① よみ ② 熟語のよみ(jk) ③ 送り仮名(oku) を比率でランダム選択 */
+      /* 出題タイプ多様化: ① よみ ② 熟語のよみ(jk) ③ 送り仮名(oku) を比率でランダム選択。
+         旧30/15/55 では「単漢字のよみ」が55%で同じ字ばかり目立っていた。
+         新50/20/30 で熟語中心へ。長い熟語(3字以上)があれば優先して新鮮味を出す。 */
       var typeRoll=seed();
       var hasJk=target.jk&&target.jk.length>0, hasOku=target.oku&&target.oku.ok;
-      if(typeRoll<0.30 && hasJk){
-        /* 熟語のよみ問題: target.jk からランダムに1つ選んで、その熟語の読みを問う */
-        var jk=target.jk[Math.floor(seed()*target.jk.length)];
+      if(typeRoll<0.50 && hasJk){
+        /* 長い熟語(3字以上, 四字熟語含む)を 40% で優先 */
+        var jkCandidates=target.jk;
+        if(seed()<0.4){
+          var longs=target.jk.filter(function(j){return j.w&&j.w.length>=3;});
+          if(longs.length) jkCandidates=longs;
+        }
+        var jk=jkCandidates[Math.floor(seed()*jkCandidates.length)];
         var ans2=jk.r, distr2=[], seen2={}; seen2[ans2]=1;
-        /* 他の漢字の jk から似た読みを抽出 */
-        var jkPool=[];
-        learned.forEach(function(x){ if(x.jk)x.jk.forEach(function(j){ if(j.r&&j.r!==ans2)jkPool.push(j.r); }); });
-        jkPool=shuffle(jkPool);
+        /* 他の漢字の jk から似た読みを抽出（同じ長さを優先して紛らわしく） */
+        var sameLenPool=[], anyLenPool=[];
+        learned.forEach(function(x){ if(x.jk)x.jk.forEach(function(j){
+          if(j.r&&j.r!==ans2){
+            if(j.w && jk.w && j.w.length===jk.w.length) sameLenPool.push(j.r);
+            else anyLenPool.push(j.r);
+          }
+        }); });
+        sameLenPool=shuffle(sameLenPool); anyLenPool=shuffle(anyLenPool);
+        var jkPool=sameLenPool.concat(anyLenPool);
         for(var ji=0;ji<jkPool.length&&distr2.length<3;ji++){ if(!seen2[jkPool[ji]]){seen2[jkPool[ji]]=1;distr2.push(jkPool[ji]);} }
         if(distr2.length>=3) return {q:jk.w+" の よみは？", ans:ans2, kind:"choice", choices:shuffle([ans2].concat(distr2))};
       }
-      if(typeRoll<0.45 && hasOku){
+      if(typeRoll<0.70 && hasOku){
         /* 送り仮名問題: 正しい送り仮名 vs 間違った送り仮名 */
         var okuAns=target.oku.ok, okuNg=target.oku.ng;
         if(okuAns && okuNg){
@@ -1639,12 +1696,61 @@ function nextQuestion(){
   if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
   else { tb.className="turn-banner def";
     tb.textContent="🛡️ "+m.sp.jaName+"の ぼうぎょターン！"+(st.defReps>1?("（れんぞく "+((st.defDone||0)+1)+"/"+st.defReps+"）"):" ボスがおそってくる！"); }
-  document.getElementById("qtext").textContent=st.q.q;
+  /* furigana/ruby を含む可能性のある text は innerHTML で。XSS リスクは生成元(keisan/app.js)を信頼。 */
+  document.getElementById("qtext").innerHTML=st.q.q;
   var ans=document.getElementById("ans"); ans.innerHTML="";
-  var choices = st.q.kind==="choice" ? st.q.choices.slice() : numChoices(st.q.ans);
-  shuffle(choices).forEach(function(c){ var b=document.createElement("button");
-    b.textContent=c; b.onclick=function(){ answer(c); }; ans.appendChild(b); });
+  if(st.q.kind==="num"){
+    drawNumpad(ans);
+  } else {
+    var choices = st.q.kind==="choice" ? st.q.choices.slice() : numChoices(st.q.ans);
+    shuffle(choices).forEach(function(c){ var b=document.createElement("button");
+      b.textContent=c; b.onclick=function(){ answer(c); }; ans.appendChild(b); });
+  }
   st.busy=false;
+}
+/* テンキー入力UI: 0-9 + ⌫ + OK + (小数点は ans に '.' が含まれる場合のみ表示) */
+function drawNumpad(container){
+  var allowDot = String(st.q.ans).indexOf(".")>=0;
+  st.numpadVal="";
+  var box=document.createElement("div"); box.className="numpad-box";
+  var disp=document.createElement("div"); disp.className="numpad-disp empty"; disp.id="numpadDisp";
+  function refresh(){
+    if(st.numpadVal===""){ disp.textContent=""; disp.classList.add("empty"); }
+    else { disp.textContent=st.numpadVal; disp.classList.remove("empty"); }
+  }
+  box.appendChild(disp);
+  var grid=document.createElement("div"); grid.className="numpad-grid";
+  function mkBtn(label, cls, handler){
+    var b=document.createElement("button");
+    b.className="numpad-btn"+(cls?" "+cls:""); b.textContent=label; b.onclick=handler;
+    return b;
+  }
+  function addDigit(d){
+    if(st.busy) return;
+    if(st.numpadVal.length>=10) return;        /* 暴走防止 */
+    if(d==="." && (allowDot===false||st.numpadVal.indexOf(".")>=0)) return;
+    if(d==="0" && st.numpadVal==="0") return;   /* 00 連発防止 */
+    st.numpadVal+=d; refresh();
+  }
+  ["1","2","3","4","5","6","7","8","9"].forEach(function(d){ grid.appendChild(mkBtn(d,"",function(){addDigit(d);})); });
+  if(allowDot){
+    grid.appendChild(mkBtn(".","numpad-dot",function(){addDigit(".");}));
+    grid.appendChild(mkBtn("0","",function(){addDigit("0");}));
+  } else {
+    grid.appendChild(mkBtn("⌫","numpad-back",function(){ if(st.busy)return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); }));
+    grid.appendChild(mkBtn("0","",function(){addDigit("0");}));
+  }
+  grid.appendChild(mkBtn("OK","numpad-ok",function(){
+    if(st.busy||st.numpadVal==="") return;
+    answer(st.numpadVal);
+  }));
+  if(allowDot){
+    /* allowDot のときは ⌫ を追加列で */
+    var back=mkBtn("⌫","numpad-back",function(){ if(st.busy)return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); });
+    grid.appendChild(back);
+  }
+  box.appendChild(grid);
+  container.appendChild(box);
 }
 function numChoices(ans){ var set={}; set[ans]=1; while(Object.keys(set).length<4){ var d=ans+(Math.floor(seed()*9)-4); if(d>0)set[d]=1; } return Object.keys(set).map(Number); }
 function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(seed()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
@@ -1685,7 +1791,15 @@ function traitFx(icon,text){
 
 function answer(c){
   if(st.busy) return; st.busy=true;
-  var m=activeM(), r=st.r, correct=(String(c)===String(st.q.ans));
+  /* kind:"num" は数値同値判定(例: "1.5" と "1.50" を許容)、他は文字列一致 */
+  var correct;
+  if(st.q.kind==="num"){
+    var nc=Number(c), na=Number(st.q.ans);
+    correct = (!isNaN(nc) && !isNaN(na) && Math.abs(nc-na)<1e-6);
+  } else {
+    correct = (String(c)===String(st.q.ans));
+  }
+  var m=activeM(), r=st.r;
   if(st.phase==="attack"){
     if(correct){
       if(hasTr("dodge") && Math.random()<B.DODGE_CHANCE){

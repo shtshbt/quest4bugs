@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v27";
+var CACHE = "q4b-cache-v28";
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -12,6 +12,7 @@ var CORE = [
   "./shared/storage.js", "./shared/equipment_data.js", "./shared/bugs.js", "./shared/kanji_data.js", "./shared/eitango_data.js", "./shared/render.js",
   "./shared/bespoke.js", "./shared/reward.js", "./shared/furigana.js",
   "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
+  "./shared/k5_devs_data.js",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
   "./assets/home_map_module_eigo_v2.webp", "./assets/home_map_module_keisan_v1.webp",
   "./assets/home_map_module_kanji_v1.webp", "./assets/home_map_module_ouja_no_michi_fitted_v1.webp",
