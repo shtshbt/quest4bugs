@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v30";
+var CACHE = "q4b-cache-v31";
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -13,7 +13,8 @@ var CORE = [
   "./shared/bespoke.js", "./shared/reward.js", "./shared/furigana.js",
   "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./shared/k5_devs_data.js",
-  "./shared/zukan_detail.js",
+  "./shared/zukan_detail.js", "./shared/zukan_render.js",
+  "./zukan_config/zukan_catalog.js",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
   "./assets/home_map_module_eigo_v2.webp", "./assets/home_map_module_keisan_v1.webp",
   "./assets/home_map_module_kanji_v1.webp", "./assets/home_map_module_ouja_no_michi_fitted_v1.webp",
@@ -48,10 +49,15 @@ self.addEventListener("fetch", function(e){
 
   if(isHTML){
     /* HTML は network-first: オンラインなら常に最新HTML(新しい?v=参照)を取得。
-       オフライン時のみキャッシュ(完全一致→無ければ任意)にフォールバック。 */
+       オフライン時のみキャッシュ(完全一致→無ければ任意)にフォールバック。
+       注意: res.clone() は同期で取らないと、return res で body が consume された後の
+       async caches.open() 内では clone できず TypeError になる。 */
     e.respondWith(
       fetch(req).then(function(res){
-        if(res && res.ok) caches.open(CACHE).then(function(c){ c.put(req, res.clone()); });
+        if(res && res.ok){
+          var copy = res.clone();
+          caches.open(CACHE).then(function(c){ c.put(req, copy); });
+        }
         return res;
       }).catch(function(){
         return caches.open(CACHE).then(function(c){

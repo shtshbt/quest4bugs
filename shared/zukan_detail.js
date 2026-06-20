@@ -157,6 +157,69 @@
       + '</div>';
   }
 
+  /* 標本詳細表示。Q4B_ZUKAN_INDEX[sp.id] (specimen/source/...) からテーブル化。
+     詳細モーダル末尾に「📋 ひょうほんの情報」ボタン (collapsible) として置く。
+     CC-BY 4.0 の attribution 義務 (institution + license + sourceUrl) もこの table が満たす。 */
+  function specimenInfoHTML(sp){
+    if(!sp || !global.Q4B_ZUKAN_INDEX) return "";
+    var entry = global.Q4B_ZUKAN_INDEX[sp.id];
+    if(!entry) return "";
+    var spec = entry.specimen || {};
+    var src = entry.source || {};
+    var rows = [];
+    /* add(label, value, opts):
+         opts.raw       — true なら value をそのまま (HTML) 挿入
+         opts.fallback  — value が null/空でも、この文言を薄色で表示する。
+                          採集日/採集地/採集者 のような「ラベルから未転記」を示したい
+                          重要 field で使う。それ以外の field は null なら省略。 */
+    function add(label, value, opts){
+      opts = opts || {};
+      if(value == null || value === ""){
+        if(opts.fallback){
+          rows.push([label, '<span style="color:#aaa">'+esc(opts.fallback)+'</span>', true]);
+        }
+        return;
+      }
+      rows.push([label, opts.raw ? value : esc(value), !!opts.raw]);
+    }
+    add("提供", entry.creditLine || spec.institution);
+    add("標本番号", spec.catalogNumber);
+    add("採集日", spec.eventDate || spec.eventYear, {fallback: "ラベルから未転記"});
+    var locParts = [spec.localityVerbatim || spec.localityNormalized || null, spec.country].filter(Boolean);
+    add("採集地", locParts.length ? locParts.join(", ") : null, {fallback: "ラベルから未転記"});
+    add("採集者", spec.recordedBy, {fallback: "ラベルから未転記"});
+    if(spec.sex) add("性別", spec.sex === "Male" ? "オス" : spec.sex === "Female" ? "メス" : spec.sex);
+    if(spec.lifeStage) add("ステージ", spec.lifeStage === "Adult" ? "成虫" : spec.lifeStage);
+    if(spec.preparations) add("保存", spec.preparations === "Pinned" ? "ピン留め" : spec.preparations);
+    if(spec.typeStatus) add("タイプ", spec.typeStatus);
+    if(src.mediaLicense){
+      var lic = src.licenseUrl
+        ? '<a href="'+esc(src.licenseUrl)+'" target="_blank" rel="noopener">'+esc(src.mediaLicense)+'</a>'
+        : esc(src.mediaLicense);
+      add("ライセンス", lic, {raw: true});
+    }
+    if((entry.modifications||[]).length) add("加工", entry.modifications.join("、"));
+    if(src.institutionRecordUrl){
+      add("原レコード", '<a href="'+esc(src.institutionRecordUrl)+'" target="_blank" rel="noopener">📖 開く</a>', {raw: true});
+    }
+    if(rows.length === 0) return "";
+    var rowsHTML = rows.map(function(r){
+      return '<tr>'
+        +   '<th style="text-align:right;padding:4px 8px;color:#56714e;font-weight:normal;white-space:nowrap;vertical-align:top">'+esc(r[0])+'</th>'
+        +   '<td style="padding:4px 8px;color:#333;word-break:break-word">'+r[1]+'</td>'
+        + '</tr>';
+    }).join("");
+    return ''
+      + '<details class="zukan-specimen-info" style="margin:10px 0 0;text-align:right">'
+      +   '<summary style="cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:#56714e;list-style:none;-webkit-user-select:none;user-select:none">'
+      +     '📋 ひょうほんの情報'
+      +   '</summary>'
+      +   '<table style="margin-top:8px;border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px;font-size:11px;text-align:left">'
+      +     '<tbody>'+rowsHTML+'</tbody>'
+      +   '</table>'
+      + '</details>';
+  }
+
   /* お気に入りトグルボタン HTML。クリックで coll.favorites を反転 → saveFn → reRenderFn を呼ぶ。
      各画面の詳細モーダルに同じ形で差し込める共通スニペット。
      coll: 該当ゲームの collection オブジェクト
@@ -199,6 +262,7 @@
     html += bestTableHTML(records);           /* 2x2 ベスト表 (オス×メス × 大・小) */
     html += histogramHTML(records, sizeMm);
     html += recentListHTML(records, 5);
+    html += specimenInfoHTML(sp);
     return html;
   }
 
@@ -210,5 +274,6 @@
     bestWorstHTML: bestWorstHTML,
     recentListHTML: recentListHTML,
     favoriteToggleHTML: favoriteToggleHTML,
+    specimenInfoHTML: specimenInfoHTML,
   };
 })(window);
