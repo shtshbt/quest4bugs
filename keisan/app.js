@@ -1147,29 +1147,62 @@ function gKuku(p,dan,lv){
   return {cat:"kuku",kind:"num",dan:d,b:b,text:d+"×"+b,say:d+" かける "+b+" は？",ans:d*b};
 }
 function gAnzan(lv){
-  /* Lvに応じて 桁数・演算 を上げる（従来は2桁＋のみで頭打ちだった） */
+  /* Lv ごとに「主要演算1種＋既習復習30%」を出題。
+     旧実装は Lv1-2 で加算のみ／Lv3-4 でかけ算わり算が出ない欠落があった。 */
   if(lv==null) lv=ri(1,10);
   var a,b,c,t,ans;
-  if(lv<=2){               /* 2桁＋1〜2桁（繰り上がり） */
-    if(Math.random()<0.4){a=ri(12,89);b=ri(4,9);} else {a=ri(12,79);b=ri(10,99-a);}
-    t=a+"＋"+b; ans=a+b;
-  } else if(lv<=4){        /* 2桁−2桁 / 3桁＋2桁 */
-    if(Math.random()<0.5){a=ri(40,99);b=ri(11,a-1);t=a+"−"+b;ans=a-b;}
-    else {a=ri(100,400);b=ri(11,99);t=a+"＋"+b;ans=a+b;}
-  } else if(lv<=6){        /* 2桁×1桁 / 3桁−3桁 */
-    if(Math.random()<0.5){a=ri(11,40);b=ri(3,9);t=a+"×"+b;ans=a*b;}
-    else {a=ri(200,800);b=ri(100,a-50);t=a+"−"+b;ans=a-b;}
-  } else if(lv<=8){        /* きりのいい× / 割り切れ÷ / 3桁−3桁 */
-    var pat=ri(0,2);
-    if(pat===0){a=ri(2,9)*10;b=ri(11,29);t=a+"×"+b;ans=a*b;}
-    else if(pat===1){b=ri(3,9);c=ri(11,30);a=b*c;t=a+"÷"+b;ans=c;}
-    else {a=ri(3,9)*100;b=ri(101,a-50);t=a+"−"+b;ans=a-b;}
-  } else {                 /* 2桁×2桁(暗算向き) / 3口の加算 / ×100前後 */
-    var pp=ri(0,2);
-    if(pp===0){a=ri(11,25);b=ri(11,25);t=a+"×"+b;ans=a*b;}
-    else if(pp===1){a=ri(20,90);b=ri(20,90);c=ri(20,90);t=a+"＋"+b+"＋"+c;ans=a+b+c;}
-    else {a=ri(11,40);b=ri(95,105);t=a+"×"+b;ans=a*b;}
+  function plain(opStr,A,B,result){ return {t:A+opStr+B, ans:result}; }
+  function pickPattern(){
+    if(lv===1){ /* 1桁加減（最初は引き算も含む） */
+      if(Math.random()<0.5){a=ri(2,9);b=ri(2,9);return plain("＋",a,b,a+b);}
+      a=ri(3,9);b=ri(1,a-1);return plain("−",a,b,a-b);
+    }
+    if(lv===2){ /* 2桁加減（くり上がり/くり下がりあり） */
+      if(Math.random()<0.5){a=ri(20,79);b=ri(20,99-a);if(b<5)b=5;return plain("＋",a,b,a+b);}
+      a=ri(30,99);b=ri(11,a-5);return plain("−",a,b,a-b);
+    }
+    if(lv===3){ /* かけ算入り（2桁×1桁中心、九九含む） */
+      if(Math.random()<0.3){a=ri(2,9);b=ri(2,9);return plain("×",a,b,a*b);}    /* 復習30% */
+      a=ri(11,30);b=ri(2,9);return plain("×",a,b,a*b);
+    }
+    if(lv===4){ /* わり算入り（割り切れ） */
+      if(Math.random()<0.3){a=ri(11,30);b=ri(2,9);return plain("×",a,b,a*b);}  /* 復習30% */
+      b=ri(2,9);var q=ri(2,12);a=b*q;return plain("÷",a,b,q);
+    }
+    if(lv===5){ /* 2段階計算 (a+b)±c や a×b+c */
+      var s=ri(0,2);
+      if(s===0){a=ri(5,20);b=ri(5,20);c=ri(3,15);return {t:a+"＋"+b+"−"+c, ans:a+b-c};}
+      if(s===1){a=ri(2,9);b=ri(2,9);c=ri(10,30);return {t:a+"×"+b+"＋"+c, ans:a*b+c};}
+      a=ri(2,9);b=ri(2,9);c=ri(2,9);return {t:a+"＋"+b+"×"+c, ans:a+b*c};
+    }
+    if(lv===6){ /* 3桁加減 */
+      if(Math.random()<0.5){a=ri(100,800);b=ri(50,199);return plain("＋",a,b,a+b);}
+      a=ri(200,999);b=ri(50,a-50);return plain("−",a,b,a-b);
+    }
+    if(lv===7){ /* きりのよいかけ算 (×10/×100/×11等) */
+      var k=ri(0,2);
+      if(k===0){a=ri(2,9)*10;b=ri(11,29);return plain("×",a,b,a*b);}
+      if(k===1){a=ri(11,49);b=11;return plain("×",a,b,a*b);}
+      a=ri(20,90);b=10;return plain("×",a,b,a*b);
+    }
+    if(lv===8){ /* 割り切れるわり算（2桁以上） */
+      var k2=ri(0,1);
+      if(k2===0){b=ri(3,9);var q2=ri(11,30);a=b*q2;return plain("÷",a,b,q2);}
+      b=ri(11,19);var q3=ri(3,9);a=b*q3;return plain("÷",a,b,q3);
+    }
+    if(lv===9){ /* 2桁×2桁 入門 (両端が25まで) */
+      a=ri(11,25);b=ri(11,25);return plain("×",a,b,a*b);
+    }
+    /* lv===10: 暗算総合 — lv1-9 の中から1つランダム */
+    return null;
   }
+  var r=pickPattern();
+  if(!r){
+    /* Lv10 総合: 上位 Lv (5-9) からランダム抽出 */
+    var subLv=pick([5,6,7,7,8,8,9]);
+    return gAnzan(subLv);
+  }
+  t=r.t; ans=r.ans;
   return {cat:"anzan",kind:"num",text:t,say:readify(t),ans:ans};
 }
 function gMix(lv){
@@ -1295,21 +1328,39 @@ function fmtFrac(p,q){
 }
 function gFrac(lv){
   if(lv==null)lv=ri(1,10);
+  /* 段階構成:
+       Lv1: 同分母 加減      (旧: addのみ → sub も含める)
+       Lv2: 同分母 加減      (約分入門相当: 簡約後既約になる問題が混ざる)
+       Lv3: 異分母 (片方が他方の倍数)
+       Lv4: 異分母 (一般通分)
+       Lv5: 異分母 加減 (標準)              ← 旧: mulのみで完全な不一致
+       Lv6: かけ算 入門                      ← 旧: mul/div → 純粋に ×
+       Lv7: わり算 入門                      ← 旧: add/sub/mul で ÷ が出ない
+       Lv8: 四則 ミックス入門
+       Lv9: 帯分数あり 四則
+       Lv10: 帯分数あり 四則 (分母大きめ) */
   for(var t=0;t<200;t++){
     var ops;
-    if(lv===1)ops=["add"];
+    if(lv<=2)ops=["add","sub"];
     else if(lv<=4)ops=["add","sub"];
-    else if(lv===5)ops=["mul"];
-    else if(lv===6)ops=["mul","div"];
-    else if(lv===7)ops=["add","sub","mul"];
+    else if(lv===5)ops=["add","sub"];
+    else if(lv===6)ops=["mul"];
+    else if(lv===7)ops=["div"];
+    else if(lv===8)ops=["add","sub","mul","div"];
     else ops=["add","sub","mul","div"];
     var op=pick(ops);
 
     var d1,d2,n1,n2,w1=0,w2=0,mixAllowed=(lv>=9);
     if(lv===1){var d=pick([2,3,4]);d1=d2=d;}
     else if(lv===2){var dd=ri(2,6);d1=d2=dd;}
-    else if(lv<=4){d1=ri(2,8);d2=ri(2,8);}
-    else if(lv===5||lv===6){d1=ri(2,5);d2=ri(2,5);}
+    else if(lv===3){
+      /* 片方の分母が他方の倍数 (例: 2 と 4, 3 と 6, 3 と 9) */
+      var base=pick([2,3,4]); d1=base; d2=base*pick([2,3]);
+      if(Math.random()<0.5){ var sw=d1; d1=d2; d2=sw; }
+    }
+    else if(lv===4){d1=ri(2,8);d2=ri(2,8);}
+    else if(lv===5){d1=ri(2,9);d2=ri(2,9);}     /* 異分母標準 */
+    else if(lv===6||lv===7){d1=ri(2,5);d2=ri(2,5);}
     else if(lv<=9){d1=ri(2,9);d2=ri(2,9);}
     else {d1=ri(3,10);d2=ri(3,10);}
 
@@ -1341,75 +1392,179 @@ function gFrac(lv){
       ans:{p:rp,q:rq}};
   }
 }
-function gMachi(){
-  var pat=ri(1,2), kk=ri(0,2), dl=pick([-3,-2,-1,1,2,3]), lines, expr, fix;
-  if(pat===1){
-    var a=ri(3,9),b=ri(3,9),c=ri(3,9),d=ri(3,9);
-    var v0=a*b; if(kk===0)v0+=dl;
-    var v1=c*d; if(kk===1)v1+=dl;
-    var v2=v0+v1; if(kk===2)v2+=dl;
+/* まちがいさがし: Lv ごとに使う演算種・式の形を変えて 10段階化。
+   旧実装は Lv 引数を受け取らず pat=1 (a×b+c×d) / pat=2 (括弧式) の2形式固定だった。
+   3行ステップ式に1か所だけ ±1〜±3 のミスを入れる枠組みは維持。 */
+function gMachi(lv){
+  if(lv==null) lv=ri(1,10);
+  if(lv===10) lv=ri(1,9);              /* 総合: Lv1-9 からランダム */
+  var kk=ri(0,2), dl=pick([-3,-2,-1,1,2,3]);
+  var lines=null, expr="", fix=0, a,b,c,d,v0,v1,v2;
+  function mark(i,base){ return (kk===i)?(base+dl):base; }
+  function bld(idx){ return ["①","②","③","④"][idx]; }
+
+  if(lv<=1){
+    /* Lv1: 九九 — a×b の3ステップ和 (a,b∈[2,5]) */
+    a=ri(2,5); b=ri(2,5); c=ri(2,5); d=ri(2,5);
+    v0=a*b; v1=c*d; v2=v0+v1;
     expr=a+"×"+b+"＋"+c+"×"+d;
-    lines=["① "+a+"×"+b+"＝"+v0,"② "+c+"×"+d+"＝"+v1,"③ "+v0+"＋"+v1+"＝"+v2];
-    fix=(kk===0)?a*b:(kk===1)?c*d:v0+v1;
-  }else{
-    var a=ri(5,30),b=ri(5,30),c=ri(2,6);
-    var v0=a+b; if(kk===0)v0+=dl;
-    var v1=v0*c; if(kk===1)v1+=dl;
-    var d=ri(5,Math.max(6,v1-1)); if(d>=v1)d=v1-1;
-    var v2=v1-d; if(kk===2)v2+=dl;
+    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"×"+d+"＝"+mark(1,v1),"③ "+v0+"＋"+v1+"＝"+mark(2,v2)];
+    fix=[v0,v1,v2][kk];
+  } else if(lv===2){
+    /* Lv2: 加算 — 2桁同士の加算3項 (a,b,c∈[10,40]) */
+    a=ri(10,40); b=ri(10,40); c=ri(10,40);
+    v0=a+b; v1=v0+c;
+    expr=a+"＋"+b+"＋"+c;
+    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ あわせて "+v1+" になる",
+           "● せいかいは ①②のうち どちらか（③は ②の言いかえ）"];
+    /* 3行式が必要なので "③" 行は v1 と同値を別表現 → 最後の説明行はミス対象外。kk は 0/1 のみに制限 */
+    kk=ri(0,1);
+    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ "+a+"＋"+b+"＋"+c+"＝"+v1];
+    fix=[v0,v1][kk];
+  } else if(lv===3){
+    /* Lv3: 減算 — 連続2回の減算 */
+    a=ri(50,99); b=ri(10,a-20); c=ri(5,b-1);
+    v0=a-b; v1=v0-c;
+    expr=a+"−"+b+"−"+c;
+    kk=ri(0,1);
+    lines=["① "+a+"−"+b+"＝"+mark(0,v0),"② "+v0+"−"+c+"＝"+mark(1,v1),"③ "+a+"−"+b+"−"+c+"＝"+v1];
+    fix=[v0,v1][kk];
+  } else if(lv===4){
+    /* Lv4: 符号 — 加減と乗を混ぜた3ステップ */
+    a=ri(3,9); b=ri(3,9); c=ri(10,30);
+    v0=a*b; v1=v0+c; v2=v1-ri(3,Math.max(4,v1-5));
+    var dminus=v1-v2;
+    expr=a+"×"+b+"＋"+c+"−"+dminus;
+    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ "+v1+"−"+dminus+"＝"+mark(2,v2)];
+    fix=[v0,v1,v2][kk];
+  } else if(lv===5){
+    /* Lv5: 順序 — 演算の優先順位を意識した3ステップ (× を先に処理) */
+    a=ri(2,9); b=ri(2,9); c=ri(10,40); d=ri(2,9);
+    v0=a*b; v1=c+v0; v2=d*v1;        /* (c + a*b) * d 相当の段階分解 */
+    expr=c+"＋"+a+"×"+b;
+    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"＋"+v0+"＝"+mark(1,v1),"③ ぜんぶで "+v1,"※ ① の × を 先に やる"];
+    kk=ri(0,1);
+    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"＋"+v0+"＝"+mark(1,v1),"③ "+c+"＋"+a+"×"+b+"＝"+v1];
+    fix=[v0,v1][kk];
+  } else if(lv===6){
+    /* Lv6: かっこ — 旧 pat=2 を流用 (a+b)×c-d */
+    a=ri(5,30); b=ri(5,30); c=ri(2,6);
+    v0=a+b; v1=v0*c;
+    d=ri(5,Math.max(6,v1-1)); if(d>=v1)d=v1-1;
+    v2=v1-d;
     expr="（"+a+"＋"+b+"）×"+c+"−"+d;
-    lines=["① "+a+"＋"+b+"＝"+v0,"② "+v0+"×"+c+"＝"+v1,"③ "+v1+"−"+d+"＝"+v2];
-    fix=(kk===0)?a+b:(kk===1)?v0*c:v1-d;
+    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"×"+c+"＝"+mark(1,v1),"③ "+v1+"−"+d+"＝"+mark(2,v2)];
+    fix=[v0,v1,v2][kk];
+  } else if(lv===7){
+    /* Lv7: 小数 — 小数加減の3ステップ */
+    var ax=ri(20,80), bx=ri(20,60), cx=ri(10,40);  /* /10 で小数化 */
+    var av=ax/10, bv=bx/10, cv=cx/10;
+    var u0=(ax+bx)/10, u1=(ax+bx-cx)/10;
+    expr=av.toFixed(1)+"＋"+bv.toFixed(1)+"−"+cv.toFixed(1);
+    kk=ri(0,1);
+    lines=["① "+av.toFixed(1)+"＋"+bv.toFixed(1)+"＝"+(kk===0?(u0+dl/10).toFixed(1):u0.toFixed(1)),
+           "② "+u0.toFixed(1)+"−"+cv.toFixed(1)+"＝"+(kk===1?(u1+dl/10).toFixed(1):u1.toFixed(1)),
+           "③ こたえ "+u1.toFixed(1)];
+    fix=[u0.toFixed(1),u1.toFixed(1)][kk];
+  } else if(lv===8){
+    /* Lv8: 分数 — 同分母加減の3ステップ。 a/d + b/d - c/d */
+    var dd=pick([5,6,7,8]);
+    var na=ri(1,dd-1), nb=ri(1,dd-1), nc=ri(1,Math.min(na+nb-1,dd-1));
+    var k0=na+nb, k1=k0-nc;
+    expr=na+"/"+dd+"＋"+nb+"/"+dd+"−"+nc+"/"+dd;
+    kk=ri(0,1);
+    lines=["① "+na+"/"+dd+"＋"+nb+"/"+dd+"＝"+(kk===0?(k0+dl):k0)+"/"+dd,
+           "② "+k0+"/"+dd+"−"+nc+"/"+dd+"＝"+(kk===1?(k1+dl):k1)+"/"+dd,
+           "③ こたえ "+k1+"/"+dd];
+    fix=[(k0)+"/"+dd, (k1)+"/"+dd][kk];
+  } else {
+    /* Lv9: 複数行 — 4行式 (a×b + c×d + e) */
+    a=ri(3,9); b=ri(3,9); c=ri(3,9); d=ri(3,9); var e=ri(10,50);
+    v0=a*b; v1=c*d; v2=v0+v1; var v3=v2+e;
+    expr=a+"×"+b+"＋"+c+"×"+d+"＋"+e;
+    kk=ri(0,3);
+    lines=["① "+a+"×"+b+"＝"+(kk===0?v0+dl:v0),
+           "② "+c+"×"+d+"＝"+(kk===1?v1+dl:v1),
+           "③ "+v0+"＋"+v1+"＝"+(kk===2?v2+dl:v2),
+           "④ "+v2+"＋"+e+"＝"+(kk===3?v3+dl:v3)];
+    fix=[v0,v1,v2,v3][kk];
   }
   return {cat:"machigai",kind:"choice",text:expr,say:null,ans:kk,lines:lines,
-    fixmsg:"ほんとうは "+["①","②","③"][kk]+" ＝ "+fix};
+    fixmsg:"ほんとうは "+bld(kk)+" ＝ "+fix};
 }
 function gWarizan(lv){
   if(lv==null)lv=ri(1,10);
+  /* 段階構成:
+       Lv1: 九九の逆 小範囲 (被除数 1-2桁混在 可)
+       Lv2: 九九の逆 全範囲 (被除数 必ず2桁) ← 旧実装は1桁の被除数を許容していた
+       Lv3: 2桁÷1桁 あまりなし
+       Lv4: 2桁÷1桁 あまりあり (商を答える)            ← 旧実装は「あまりなし」だった
+       Lv5: 3桁÷1桁 あまりなし
+       Lv6: 3桁÷1桁 あまりあり (商を答える, 商2桁以上)
+       Lv7: 3桁÷1桁 あまりあり (被除数を 100-999 に限定)
+       Lv8: 2桁で割る あまりなし (商)                  ← 旧実装は「1桁で割る・あまり」だった
+       Lv9: 2桁で割る あまりあり (商)
+       Lv10: 商 / あまり / 検算 を混在                  ← 旧実装は商のみ */
   var a,b,d,q,dividend,t,ans;
   for(var attempt=0;attempt<200;attempt++){
     t=null;ans=null;
-    if(lv<=2){
-      // 九九の逆・あまりなし: (a*b)÷a＝b
-      a=ri(2,9); b=(lv===1)?ri(2,5):ri(2,9);
+    if(lv===1){
+      a=ri(2,9); b=ri(2,5);
       t=(a*b)+"÷"+a; ans=b;
-    } else if(lv<=5){
-      // 2桁÷1桁(Lv3-4) / 3桁÷1桁(Lv5) あまりなし
-      d=ri(2,9);
-      if(lv<=4){
-        q=ri(2,12); dividend=d*q;
-        if(lv===3&&dividend>99)continue;
-        t=dividend+"÷"+d; ans=q;
-      } else {
-        q=ri(13,140); dividend=d*q;
-        if(dividend>999)continue;
-        if(dividend<100)continue; // 3桁を保つ
-        t=dividend+"÷"+d; ans=q;
-      }
-    } else if(lv<=7){
-      // あまりあり・商を答える
-      d=ri(2,9);
-      dividend=(lv===6)?ri(d+1,99):ri(d+1,300);
-      if(dividend%d===0)continue; // あまり>0
+    } else if(lv===2){
+      a=ri(2,9); b=ri(2,9);
+      dividend=a*b;
+      if(dividend<10) continue;       /* 必ず被除数2桁以上 */
+      t=dividend+"÷"+a; ans=b;
+    } else if(lv===3){
+      d=ri(2,9); q=ri(2,11); dividend=d*q;
+      if(dividend<10||dividend>99) continue;
+      t=dividend+"÷"+d; ans=q;
+    } else if(lv===4){
+      /* あまりあり 2桁÷1桁 (商) */
+      d=ri(3,9); dividend=ri(11,99);
+      if(dividend%d===0) continue;
+      t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
+    } else if(lv===5){
+      d=ri(2,9); q=ri(13,140); dividend=d*q;
+      if(dividend<100||dividend>999) continue;
+      t=dividend+"÷"+d; ans=q;
+    } else if(lv===6){
+      /* 3桁÷1桁 あまりあり 商 (商は2桁以上) */
+      d=ri(3,9); dividend=ri(100,500);
+      if(dividend%d===0) continue;
+      var qq=Math.floor(dividend/d);
+      if(qq<10) continue;
+      t=dividend+"÷"+d+" のしょう"; ans=qq;
+    } else if(lv===7){
+      /* 3桁÷1桁 あまりあり 商 (被除数 100-999 限定) */
+      d=ri(2,9); dividend=ri(100,999);
+      if(dividend%d===0) continue;
       t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
     } else if(lv===8){
-      // あまりあり・あまりを答える
-      d=ri(2,9);
-      dividend=ri(d+1,300);
-      if(dividend%d===0)continue;
-      t=dividend+"÷"+d+" のあまり"; ans=dividend%d;
+      /* 2桁で割る あまりなし (商) */
+      d=ri(11,99); q=ri(2,30); dividend=d*q;
+      if(dividend>999) continue;
+      t=dividend+"÷"+d; ans=q;
+    } else if(lv===9){
+      /* 2桁で割る あまりあり (商) */
+      d=ri(11,99); q=ri(2,30); dividend=d*q+ri(1,d-1);
+      if(dividend>999) continue;
+      if(dividend%d===0) continue;
+      t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
     } else {
-      // 2桁で割る(除数 11-99) Lv9:あまりなし / Lv10:あまりあり商
-      d=ri(11,99);
-      if(lv===9){
-        q=ri(2,30); dividend=d*q;
-        if(dividend>999)continue;
-        t=dividend+"÷"+d; ans=q;
-      } else {
-        q=ri(2,30); dividend=d*q+ri(1,d-1); // あまり 1..d-1 を確保
-        if(dividend>999)continue;
-        if(dividend%d===0)continue;
+      /* Lv10 総合: 商を問う / あまりを問う / 検算 (商×除数+あまり=被除数 確認) を均等混在 */
+      var mode=ri(0,2);
+      d=ri(3,9); dividend=ri(50,999);
+      if(dividend%d===0) continue;
+      if(mode===0){
         t=dividend+"÷"+d+" のしょう"; ans=Math.floor(dividend/d);
+      } else if(mode===1){
+        t=dividend+"÷"+d+" のあまり"; ans=dividend%d;
+      } else {
+        /* 検算: 「商×除数+あまり」が被除数になるよう逆問題 */
+        var qx=Math.floor(dividend/d), rx=dividend%d;
+        t=qx+"×"+d+"＋"+rx+" は いくつ？"; ans=qx*d+rx;
       }
     }
     if(t!=null&&ans!=null&&Number.isInteger(ans)&&ans>0){
@@ -1541,66 +1696,97 @@ function gWasa(lv){
 function gJikan(lv){
   function p2(n){return (n<10?"0":"")+n;}
   if(lv==null)lv=ri(1,10);
+  /* 段階構成:
+       Lv1: 同じ時の中の経過 (h:m1 → h:m2)
+       Lv2: 次の正時まで (h:m1 → (h+1):00)
+       Lv3-4: 時をまたぐ経過
+       Lv5: 開始時刻を求める (終了時刻と経過分から)     ← 旧: 任意時刻差
+       Lv6: 終了時刻を求める (開始時刻と経過分から)     ← 旧: 任意時刻差
+       Lv7: 時間と分を分に直す
+       Lv8: 大きめの時刻差
+       Lv9: 2段階 (休憩を挟む経過)                      ← 旧: 単純なまたぎ
+       Lv10: 開始/終了/経過/単位換算を総合 */
   for(var i=0;i<200;i++){
     var h,h1,h2,m1,m2,t,ans,say;
-    if(lv<=2){ // 同じ時間内の経過 / 次の正時まで
-      if(Math.random()<0.5){ // h:m1 -> h:m2 (同じh)
-        h=ri(1,9);m1=(lv===1)?ri(0,30):ri(0,50);m2=ri(m1+1,59);
-        t=h+"じ"+p2(m1)+"ふんから "+h+"じ"+p2(m2)+"ふんまで なんぷん？";
-        ans=m2-m1;say="なんぷん";
-      } else { // 次の正時まで
-        h=ri(1,9);m1=(lv===1)?ri(10,55):ri(1,59);
-        t=h+"じ"+p2(m1)+"ふんから "+(h+1)+"じちょうどまで なんぷん？";
-        ans=60-m1;say="なんぷん";
-      }
+    if(lv===1){ // 同じ時の中の経過
+      h=ri(1,9); m1=ri(0,30); m2=ri(m1+1,59);
+      t=h+"じ"+p2(m1)+"ふんから "+h+"じ"+p2(m2)+"ふんまで なんぷん？";
+      ans=m2-m1; say="なんぷん";
+    } else if(lv===2){ // 次の正時まで
+      h=ri(1,9); m1=ri(1,59);
+      t=h+"じ"+p2(m1)+"ふんから "+(h+1)+"じちょうどまで なんぷん？";
+      ans=60-m1; say="なんぷん";
     } else if(lv<=4){ // 時をまたぐ経過 h:m1 -> (h+1):m2
       h=ri(1,9);
       if(lv===3){m1=ri(31,55);m2=ri(1,29);}
       else{m1=ri(20,58);m2=ri(1,55);}
       t=h+"じ"+p2(m1)+"ふんから "+(h+1)+"じ"+p2(m2)+"ふんまで なんぷん？";
-      ans=(60-m1)+m2;say="なんぷん";
-    } else if(lv<=6){ // 任意の2時刻差(分), 数時間以内
-      var span=(lv===5)?ri(1,2):ri(2,3);
-      h1=ri(1,12-span);m1=ri(0,59);
-      h2=h1+span;m2=ri(0,59);
-      var tot=(h2*60+m2)-(h1*60+m1);
-      if(tot<=0)continue;
-      t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
-      ans=tot;say="なんぷん";
+      ans=(60-m1)+m2; say="なんぷん";
+    } else if(lv===5){ // 開始時刻 逆算: 終了 - 経過 = 開始
+      h2=ri(2,9); m2=ri(0,59);
+      var dur5=ri(10,55);
+      var sm=(h2*60+m2)-dur5; if(sm<=0) continue;
+      h1=Math.floor(sm/60); m1=sm%60;
+      t=h2+"じ"+p2(m2)+"ふんに おわりました。"+dur5+"ふんかかりました。なんじから はじめた？（こたえは ぷんだけ：○じ○ぷんの ぷんを かいてね）";
+      ans=h1*60+m1;       /* 「分単位の合計」で答える設計（学習者には開始時刻を口頭で書かせるが、入力は分） */
+      /* 上記は教育的に難しいので、別案: 開始の "○ふん" の部分を聞く */
+      t=h2+"じ"+p2(m2)+"ふんに おわりました。"+dur5+"ふんかかりました。なんじ なんぷん から はじめた？（こたえは ふん の数字）";
+      ans=m1; say="ふん";
+      if(m1===0) continue; /* 0分はキリ過ぎなので避ける */
+    } else if(lv===6){ // 終了時刻 逆算: 開始 + 経過 = 終了
+      h1=ri(1,8); m1=ri(0,55);
+      var dur6=ri(10,55);
+      var em=(h1*60+m1)+dur6;
+      h2=Math.floor(em/60); m2=em%60;
+      t=h1+"じ"+p2(m1)+"ふんから はじめました。"+dur6+"ふんかかりました。なんじ なんぷんに おわった？（こたえは ふん の数字）";
+      ans=m2; say="ふん";
     } else if(lv===7){ // ○時間○分は何分？
-      var hh=ri(1,3);var mm=ri(1,59);
+      var hh=ri(1,3); var mm=ri(1,59);
       t=hh+"じかん"+mm+"ふんは ぜんぶで なんぷん？";
-      ans=hh*60+mm;say="なんぷん";
+      ans=hh*60+mm; say="なんぷん";
     } else if(lv===8){ // 大きめの時刻差
-      h1=ri(1,6);m1=ri(0,59);
-      h2=ri(h1+2,11);m2=ri(0,59);
+      h1=ri(1,6); m1=ri(0,59);
+      h2=ri(h1+2,11); m2=ri(0,59);
       var tot8=(h2*60+m2)-(h1*60+m1);
-      if(tot8<=0)continue;
+      if(tot8<=0) continue;
       t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
-      ans=tot8;say="なんぷん";
-    } else if(lv===9){ // またぎ複数時間・繰り上がり
-      var hsp=ri(2,4);
-      if(Math.random()<0.5){ // 時刻差(借り確定)
-        h1=ri(1,12-hsp);m1=ri(20,59);
-        h2=h1+hsp;m2=ri(0,m1-1);
-        var t9=(h2*60+m2)-(h1*60+m1);
-        if(t9<=0)continue;
+      ans=tot8; say="なんぷん";
+    } else if(lv===9){ // 2段階: 休憩をはさんで合計経過
+      h1=ri(1,5); m1=ri(0,30);
+      var workA=ri(20,45), brk=ri(10,20), workB=ri(20,45);
+      t="あさ "+h1+"じ"+p2(m1)+"ふんから べんきょうを はじめました。"+workA+"ふん べんきょうして、"+brk+"ふん きゅうけい、また "+workB+"ふん べんきょうしました。べんきょうは ぜんぶで なんぷん？";
+      ans=workA+workB; say="なんぷん";
+    } else { // lv===10 総合: 経過/逆算/換算 をランダム
+      var mode=ri(0,3);
+      if(mode===0){ // 大きい時刻差
+        h1=ri(1,5); m1=ri(15,59);
+        h2=ri(h1+3,11); m2=ri(0,m1-1);
+        var t10=(h2*60+m2)-(h1*60+m1);
+        if(t10<=0) continue;
         t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
-        ans=t9;say="なんぷん";
-      } else { // ○時間○分は何分(大きめ)
-        var h9=ri(3,5);var m9=ri(1,59);
-        t=h9+"じかん"+m9+"ふんは ぜんぶで なんぷん？";
-        ans=h9*60+m9;say="なんぷん";
+        ans=t10; say="なんぷん";
+      } else if(mode===1){ // 換算
+        var hh10=ri(2,5), mm10=ri(1,59);
+        t=hh10+"じかん"+mm10+"ふんは ぜんぶで なんぷん？";
+        ans=hh10*60+mm10; say="なんぷん";
+      } else if(mode===2){ // 逆算開始
+        h2=ri(3,9); m2=ri(0,59);
+        var dur=ri(15,90);
+        var sm10=(h2*60+m2)-dur; if(sm10<=0) continue;
+        var mm10s=sm10%60;
+        if(mm10s===0) continue;
+        t=h2+"じ"+p2(m2)+"ふんに おわりました。"+dur+"ふんかかりました。なんじ なんぷん から はじめた？（こたえは ふん）";
+        ans=mm10s; say="ふん";
+      } else { // 逆算終了
+        h1=ri(1,7); m1=ri(0,55);
+        var dur10b=ri(15,90);
+        var em10=(h1*60+m1)+dur10b;
+        var mm10e=em10%60;
+        t=h1+"じ"+p2(m1)+"ふんから はじめました。"+dur10b+"ふんかかりました。なんじ なんぷんに おわった？（こたえは ふん）";
+        ans=mm10e; say="ふん";
       }
-    } else { // lv===10 複雑な大きい時刻差・繰り上がり
-      h1=ri(1,5);m1=ri(15,59);
-      h2=ri(h1+3,11);m2=ri(0,m1-1);
-      var t10=(h2*60+m2)-(h1*60+m1);
-      if(t10<=0)continue;
-      t=h1+"じ"+p2(m1)+"ふんから "+h2+"じ"+p2(m2)+"ふんまで なんぷん？";
-      ans=t10;say="なんぷん";
     }
-    if(t!=null&&Number.isInteger(ans)&&ans>0){
+    if(t!=null&&Number.isInteger(ans)&&ans>=0){
       return {cat:"jikan",kind:"num",text:t,say:say,ans:ans};
     }
   }
@@ -3881,7 +4067,7 @@ function genBy(cat,p,lv){
   if(cat==="houjin")return gHoujin(lv);
   if(cat==="baai")return gBaai(lv);
   if(cat==="hireihanpi")return gHireihanpi(lv);
-  if(cat==="machigai")return gMachi();
+  if(cat==="machigai")return gMachi(lv);
   return genBy(pick(["mix","kufuu","deci","frac","machigai"]),p);
 }
 
