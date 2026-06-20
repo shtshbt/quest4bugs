@@ -1898,58 +1898,84 @@ function gKakebun(lv){
   if(lv==null) lv=ri(1,10);
   if(lv<1) lv=1; if(lv>10) lv=10;
   var cat="kakebun";
+  /* 段階構成:
+       Lv1: 単価×個数（1あたり×個数）
+       Lv2: 個数を求める（合計÷単価）       ← 旧: 単価×個数 と重複
+       Lv3: 単価を求める（合計÷個数）       ← 旧: 等分除
+       Lv4: 2段階かけ算 (a×b×c)             ← 旧: 等分除と重複
+       Lv5: かけ算標準（多様な場面）         ← 旧: 単価+送料
+       Lv6: わり算標準（等分除＋包含除）     ← 旧: 単価+おつり
+       Lv7: ×÷混在
+       Lv8: 単位あたり
+       Lv9: 消費・残り
+       Lv10: 全形式の総合 */
   for(var attempt=0; attempt<200; attempt++){
     var r=null;
-    if(lv<=2){
-      // 単価×個数 / 箱入り×箱数
-      var maxP = lv===1 ? 9 : 12;
-      var maxN = lv===1 ? 5 : 9;
-      if(pick([0,1])===0){
-        var item=pick(["りんご","あめ","えんぴつ","シール","クッキー"]);
-        var p=ri(2,maxP)*10;          // 単価(10円単位で分かりやすく)
-        var n=ri(2,maxN);
-        var ans=p*n;
-        var t="1こ "+p+"円の "+item+" を "+n+"こ かいます。ぜんぶで いくら？";
-        r={cat:cat,kind:"num",text:t,say:null,ans:ans};
-      }else{
-        var k=ri(2,maxP);             // 1箱の個数
-        var m=ri(2,maxN);             // 箱数
-        var ans2=k*m;
-        var t2="1はこ "+k+"こ入りの おかしが "+m+"はこ あります。ぜんぶで 何こ？";
-        r={cat:cat,kind:"num",text:t2,say:null,ans:ans2};
+    if(lv===1){
+      var item=pick(["りんご","あめ","えんぴつ","シール","クッキー"]);
+      var p=ri(2,9)*10, n=ri(2,5);
+      r={cat:cat,kind:"num",text:"1こ "+p+"円の "+item+" を "+n+"こ かいます。ぜんぶで いくら？",say:null,ans:p*n};
+    } else if(lv===2){
+      /* 個数逆算: 合計÷単価 */
+      var p2=ri(3,9)*10, n2=ri(2,9), tot2=p2*n2;
+      var item2=pick(["りんご","あめ","えんぴつ","シール","クッキー"]);
+      r={cat:cat,kind:"num",text:"1こ "+p2+"円の "+item2+" を ぜんぶで "+tot2+"円 かいました。なんこ かった？",say:null,ans:n2};
+    } else if(lv===3){
+      /* 単価逆算: 合計÷個数 */
+      var p3=ri(3,12)*10, n3=ri(2,9), tot3=p3*n3;
+      var item3=pick(["パン","ジュース","えんぴつ","くだもの"]);
+      r={cat:cat,kind:"num",text:n3+"この "+item3+"を おなじねだんで かったら ぜんぶで "+tot3+"円でした。1こ なん円？",say:null,ans:p3};
+    } else if(lv===4){
+      /* 2段階かけ算 a×b×c (箱入り×箱数×まとめ買い、または列×段×個数) */
+      var a4=ri(2,9), b4=ri(2,9), c4=ri(2,6);
+      var pat4=ri(0,1);
+      if(pat4===0){
+        r={cat:cat,kind:"num",text:"1はこ "+a4+"こ入りの あめが "+b4+"はこ あります。それを "+c4+"セット かいます。ぜんぶで 何こ？",say:null,ans:a4*b4*c4};
+      } else {
+        r={cat:cat,kind:"num",text:"いすが よこに "+a4+"きゃく、たてに "+b4+"れつ、それが "+c4+"へやに あります。いすは ぜんぶで 何きゃく？",say:null,ans:a4*b4*c4};
       }
-    }else if(lv<=4){
-      // 等分(割り切れ)
-      var m3 = lv===3 ? ri(2,5) : ri(2,8);
-      var per = lv===3 ? ri(2,9) : ri(3,12);
-      var N = per*m3;
-      var ans3=N/m3;
-      var who = lv===3 ? "人" : pick(["人","グループ"]);
-      var thing=pick(["あめ","おはじき","カード","くり"]);
-      var t3=N+"この "+thing+" を "+m3+who+"で おなじ数ずつ わけます。1"+who+" 何こ？";
-      r={cat:cat,kind:"num",text:t3,say:null,ans:ans3};
-    }else if(lv<=6){
-      // 2段階: 単価×個数+送料 / n個かってM円→おつり
-      if(pick([0,1])===0){
-        var p5=ri(3, lv===5?9:15)*10;
-        var n5=ri(2, lv===5?6:9);
-        var sou=ri(2, lv===5?6:12)*50;  // 送料(50円単位)
-        var ans5=p5*n5+sou;
-        var t5="1こ "+p5+"円の おかしを "+n5+"こ かって、そうりょう "+sou+"円を はらいます。ぜんぶで いくら？";
-        r={cat:cat,kind:"num",text:t5,say:null,ans:ans5};
-      }else{
-        var p6=ri(3, lv===5?9:15)*10;
-        var n6=ri(2, lv===5?6:9);
-        var cost=p6*n6;
-        var pay=(Math.floor(cost/100)+ri(1,5))*100;   // 払う額(おつり>=0)
-        var ans6=pay-cost;
-        var t6="1こ "+p6+"円の ジュースを "+n6+"こ かって "+pay+"円 だしました。おつりは いくら？";
-        r={cat:cat,kind:"num",text:t6,say:null,ans:ans6};
+    } else if(lv===5){
+      /* かけ算標準: 単位あたり、面積、配給など多様な場面 */
+      var pat5=ri(0,2);
+      if(pat5===0){
+        /* 単位あたり */
+        var rate5=ri(3,12), time5=ri(3,9);
+        r={cat:cat,kind:"num",text:"1分に "+rate5+"こ おかしを 作る きかいで "+time5+"分 作ると 何こ？",say:null,ans:rate5*time5};
+      } else if(pat5===1){
+        /* 面積 */
+        var w5=ri(4,15), h5=ri(3,12);
+        r={cat:cat,kind:"num",text:"たて "+h5+"m、よこ "+w5+"m の はたけの 面積は 何 m2？",say:null,ans:w5*h5};
+      } else {
+        /* 配給 */
+        var k5=ri(3,8), per5=ri(2,5);
+        r={cat:cat,kind:"num",text:k5+"人に カード を 1人 "+per5+"まいずつ くばります。カードは ぜんぶで 何まい いる？",say:null,ans:k5*per5};
+      }
+    } else if(lv===6){
+      /* わり算標準: 等分除と包含除を均等に */
+      var pat6=ri(0,1);
+      if(pat6===0){
+        /* 等分除: 全体を N人で分ける */
+        var nn=ri(3,8), per6=ri(3,12), tot6=nn*per6;
+        r={cat:cat,kind:"num",text:tot6+"この おかしを "+nn+"人で おなじ数ずつ わけると 1人 何こ？",say:null,ans:per6};
+      } else {
+        /* 包含除: 全体に何セット入るか */
+        var per6b=ri(3,9), set6=ri(3,12), tot6b=per6b*set6;
+        r={cat:cat,kind:"num",text:tot6b+"この りんごを 1ふくろに "+per6b+"こずつ 入れると なんふくろ できる？",say:null,ans:set6};
       }
     }else{
-      // Lv7-10: ×÷混在・単位あたり・少し複雑
+      /* Lv7-10:
+           Lv7: ×÷混在 (1箱×m箱÷p人=等分)
+           Lv8: 単位あたり (a個でb円から c個)
+           Lv9: 消費・残り (rate×時間 − 消費)
+           Lv10: 全形式の総合 (Lv1-9 からランダム) */
+      if(lv===10){
+        /* Lv10 総合: Lv 1-9 をランダム再帰 */
+        return gKakebun(ri(1,9));
+      }
       var sub;
-      if(lv<=8) sub=pick([0,1]); else sub=pick([0,1,2]);
+      if(lv===7) sub=0;
+      else if(lv===8) sub=1;
+      else sub=2;  /* lv===9 */
       if(sub===0){
         // 1箱k個入りをm箱買い、p人で等分(割り切れ)
         var k7=ri(3, lv<=8?6:9);
@@ -4098,13 +4124,49 @@ function gHireihanpi(lv){
 function genBy(cat,p,lv){
   if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="sougou"){
-    /* 総合: 学習済みカテゴリ全体から1問。cat を "sougou" に統一して集計・レベリングする
-       （従来は default に落ち subtype の cat になり、p.lv.sougou が上がらないバグだった）。
-       難易度は sougou 自身の Lv を各 subtype 生成器へ渡してスケールさせる。 */
-    var spool=["mix","kufuu","deci","frac","machigai"];
-    if(p) K10DEV.forEach(function(c){ if(p.stats&&p.stats[c]&&p.stats[c].n>0) spool.push(c); });
+    /* 総合: 学習済みカテゴリ全体から1問。cat を "sougou" に統一して集計・レベリングする。
+       Lv ごとの構成:
+         Lv1-7: 基本5分野＋既習発展からランダム抽出 (難易度=sougou自身の Lv)
+         Lv8: 弱点カテゴリを優先抽出（成績下位＝正答率が低いカテゴリから 70%）
+         Lv9: 時間意識（解説に「タイム目標」を付与） + sougou Lv に応じた難度
+         Lv10: 全形式総合 (高 Lv の発展カテゴリも積極的に混ぜる) */
+    var basePool=["mix","kufuu","deci","frac","machigai"];
+    var learnedDev=[];
+    if(p) K10DEV.forEach(function(c){ if(p.stats&&p.stats[c]&&p.stats[c].n>0) learnedDev.push(c); });
+    var spool;
+    if(lv===8 && p && p.stats){
+      /* 弱点優先: 学習済みカテゴリのうち、正答率が低いものを抽出。
+         正答率 = correct/answered。データが少ない (answered<5) は除外して安定化。 */
+      var combined=basePool.concat(learnedDev);
+      var weakList=[];
+      combined.forEach(function(c){
+        var s=p.stats[c];
+        if(s && s.n>=5){
+          var acc=(s.ok||0)/s.n;
+          weakList.push({c:c, acc:acc});
+        }
+      });
+      weakList.sort(function(a,b){return a.acc-b.acc;});
+      var weak=weakList.slice(0, Math.max(3, Math.floor(weakList.length*0.4))).map(function(x){return x.c;});
+      if(weak.length>0 && Math.random()<0.7){
+        spool=weak;
+      } else {
+        spool=combined;
+      }
+    } else if(lv===9){
+      /* 時間意識: Lv7-9 相当の中堅カテゴリを優先（大問の解き直しは時間を食うため） */
+      var mid=["mix","kufuu","deci","frac","machigai"];
+      learnedDev.forEach(function(c){ mid.push(c); });
+      spool=mid;
+    } else if(lv===10){
+      /* 総合: 発展カテゴリを積極的に */
+      spool=learnedDev.length>0 ? basePool.concat(learnedDev,learnedDev) : basePool;
+    } else {
+      spool=basePool.concat(learnedDev);
+    }
     var sq=genBy(pick(spool), p, lv);
     sq.cat="sougou";
+    if(lv===9){ sq.timeHint=true; }   /* UI 側で「タイム目標 60s」等を表示するためのフラグ */
     return sq;
   }
   if(cat==="hissan")return gHissan(p,lv);
