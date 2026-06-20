@@ -12,7 +12,7 @@
   --paper:#f1ead2; --card:#fbf7e8; --ink:#2b2417; --sub:#6f6450;
   --leaf:#4a7c2f; --moss:#2f5d2f; --amber:#dd9a14; --amber2:#b97c08;
   --bad:#c4502e; --good:#3e8e4f;
-  --rar0:#7d9b6a; --rar1:#3f7fb5; --rar2:#9a59c0; --rar3:#d8a012;
+  --rar0:#7d9b6a; --rar1:#3f7fb5; --rar2:#9a59c0; --rar3:#d8a012; --rar4:#e63946;
   --r:18px; --shadow:0 3px 0 rgba(43,36,23,.14);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -340,12 +340,14 @@ const fieldById = id => FIELDS.find(f => f.id === id);
    ======================================================================== */
 function hashStr(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0); }
 
-/* rarity 'N'|'R'|'SR'|'SSR'|'SS' -> tier 0..3 */
+/* rarity 'N'|'R'|'SR'|'SSR'|'SS' -> tier 0..4。reward.js (kanji/keisan) と同じ5段階体系。
+   旧4段階 (SR/SSR 統合) は SR:SSR=4.7:1 の偏りを覆い隠していたため分離した。 */
 function rarityToTier(r){
   if(r==='N')return 0;
   if(r==='R')return 1;
-  if(r==='SR'||r==='SSR')return 2;
-  return 3; /* SS = でんせつ */
+  if(r==='SR')return 2;
+  if(r==='SSR')return 3;
+  return 4; /* SS = でんせつ */
 }
 
 /* emoji from renderer/family */
@@ -393,8 +395,8 @@ function legacySizeRange(b){
   else if(fam==='Coccinellidae'){ base=5; span=6; }
   else if(fam==='Formicidae'){ base=4; span=8; }
   else { base=15; span=30; }
-  /* big-rarity nudge */
-  const rarMul=[0.85,1.0,1.15,1.3][tier];
+  /* big-rarity nudge (5段階: N/R/SR/SSR/SS) */
+  const rarMul=[0.85,1.0,1.15,1.22,1.3][tier];
   span=span*rarMul;
   const minJit=(h%17)/17*0.25;           /* 0..0.25 of span */
   const min=Math.round(base+span*minJit);
@@ -402,11 +404,13 @@ function legacySizeRange(b){
   return [min, Math.max(max,min+3)];
 }
 
-/* deterministic field assignment: spread eitango species (108) across f1-f7.
+/* deterministic field assignment: spread eitango species across f1-f7.
    Rarity tier maps to field band; hash spreads within band.
-   tier0 N  -> f1/f2/f3 (ratio 2:1:1)
-   tier1 R  -> f2/f3/f4/f5/f6 (ratio 1:2:2:2:1)
-   tier2 SR/SSR -> f5/f6/f7 (ratio 1:2:2)  */
+   tier0 N      -> f1/f2/f3 (ratio 2:1:1)
+   tier1 R      -> f2/f3/f4/f5/f6 (ratio 1:2:2:2:1)
+   tier2 SR     -> f5/f6/f7 (ratio 1:2:2)
+   tier3 SSR    -> f5/f6/f7 (SR と同 band; 母数差を field 分布で吸収しない)
+   tier4 SS     -> f6/f7    (最希少フィールドに集約; ヌシ選定の母数を確保) */
 function fieldFor(b){
   const tier=rarityToTier(b.rarity);
   const h=hashStr(b.id);
@@ -424,11 +428,15 @@ function fieldFor(b){
     if(pick<=6)return 5;
     return 6;
   }
-  /* tier2 SR/SSR */
-  const pick=h%5;
-  if(pick===0)return 5;
-  if(pick<=2)return 6;
-  return 7;
+  if(tier===2 || tier===3){
+    /* SR/SSR: 同じ band 配置（旧仕様維持で id 配置が変わらないようにする） */
+    const pick=h%5;
+    if(pick===0)return 5;
+    if(pick<=2)return 6;
+    return 7;
+  }
+  /* tier4 SS: f6/f7 に集約 */
+  return (h%2===0)?6:7;
 }
 
 /* night flag 0/2 = either, 1 = night */
@@ -444,11 +452,14 @@ function nightFor(b){
 let SPECIES=[], NUSHI=[], ALLSP=[];
 const SPECIES_SRC={}; /* id -> bugs.js object (for SVG renderer) */
 function buildSpecies(){
-  /* restrict to eitango-assigned species (Q4BReward.gameFor === 'eitango') */
+  /* restrict to eitango-assigned species (Q4BReward.gameFor === 'eitango').
+     ボス(bossOnly)・マスター虫(masterOnly) は通常採集対象外（モズ・サソリ等が Engine.roll で
+     ランダム捕獲されると図鑑にも残らない異常状態になるため）。reward.js の POOLS 構築と同じ基準。
+     SS(でんせつ) は SPECIES にはヌシ選定用に残すが、Engine.roll で tier4 除外する。 */
   const allBugs=window.Q4B_BUGS||[];
   const bugs=window.Q4BReward
-    ? allBugs.filter(b=>Q4BReward.gameFor(b)==='eitango')
-    : allBugs;
+    ? allBugs.filter(b=>Q4BReward.gameFor(b)==='eitango' && !b.bossOnly && !b.masterOnly)
+    : allBugs.filter(b=>!b.bossOnly && !b.masterOnly);
   SPECIES=[]; NUSHI=[];
   /* pick field nushi: highest-rarity exotic per field. */
   for(const b of bugs){
@@ -476,7 +487,8 @@ function buildSpecies(){
     });
     if(!best)continue;
     const fixed=best[7]; /* fixed at the species max size */
-    NUSHI.push(['nushi_'+best[0], 'ぬし'+best[1], best[2], f.id, 3, 2, fixed, fixed, best[8],
+    /* ヌシは常にでんせつ扱い: tier=4 (SS)。色 (--rar4) と表示が連動。 */
+    NUSHI.push(['nushi_'+best[0], 'ぬし'+best[1], best[2], f.id, 4, 2, fixed, fixed, best[8],
                 'このフィールドの ぬし．でんせつの 1ぴき']);
     /* nushi shares renderer from its source species */
     const baseId=best[0]; /* e.g. 'hercules_beetle' */
@@ -618,11 +630,16 @@ const Reward = {
   },
   roll(field, p) {
     const night = Engine.isNight();
-    const pool = SPECIES.filter(s => s[3] === field);
+    /* 通常採集は tier 0-3 (N/R/SR/SSR) のみ。SS(=tier4, でんせつ) は kanji/keisan と仕様統一で除外
+       ── マスター条件達成 / ヌシ討伐 / ボス撃破でのみ入手するルートに統一する。
+       reward.js:30 のコメント「SSは習得達成(マスター)/ボス撃破でのみ授与」と整合。 */
+    const pool = SPECIES.filter(s => s[3] === field && s[4] < 4);
     if (!pool.length) return null;
     const streakBonus = 1 + Math.min(p.streak.n, 30) * 0.02;
-    // tier 3 (でんせつ=最上位) は約0.15-0.2%の超希少。streak/night増幅はSR(tier2)までで、でんせつは据え置く。
-    const tierW = night ? [62, 29, 8.85 * streakBonus, 0.2] : [70, 24, 5.85 * streakBonus, 0.15];
+    /* reward.js TIER_WEIGHT=[72,23,5,0.8] に揃えた値。streak は SR/SSR (tier 2,3) に倍率。 */
+    const tierW = night
+      ? [62, 29, 7.85 * streakBonus, 1.00 * streakBonus]
+      : [70, 24, 5.00 * streakBonus, 0.85 * streakBonus];
     const byTier = [0, 1, 2, 3].map(t => pool.filter(s => s[4] === t));
     const tw = byTier.map((a, t) => a.length ? tierW[t] : 0);
     let tot = tw.reduce((a, b) => a + b, 0);
