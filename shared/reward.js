@@ -139,11 +139,30 @@
   /* ---- マスター虫(全習得限定): ゲージ/琥珀では出ず、習得達成でのみ授与 ---- */
   function masterBugsFor(game){ return BUGS.filter(function(sp){ return sp.masterOnly && sp.master && sp.master.game===game; }); }
   function masterObtained(coll, id){ return !!(coll && coll.catches && coll.catches[id]); }
+  /* 個体ごとの捕獲履歴(docs/zukan_enhancement_plan.md):
+       records=[{d:"YYYY-MM-DD", s:size, sex:"m"|"f"|"u", shiny:bool}, ...]
+     後方互換: records が欠落していても従来通り動作する。 */
+  function todayStr(){
+    var d=new Date(), y=d.getFullYear(), m=d.getMonth()+1, day=d.getDate();
+    return y+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+  }
+  function rollSex(sp){
+    /* sexRatio が定義されていれば従う。未定義なら 50:50。 */
+    var r = (sp && sp.sexRatio) ? sp.sexRatio : null;
+    if(r && (r.m+r.f)>0) return Math.random() < r.m/(r.m+r.f) ? "m" : "f";
+    return Math.random() < 0.5 ? "m" : "f";
+  }
+  function pushRecord(entry, size, sex, shiny){
+    if(!entry.records) entry.records=[];
+    entry.records.push({d:todayStr(), s:size, sex:sex, shiny:!!shiny});
+  }
   function awardMaster(coll, sp){
     if(!coll.catches) coll.catches={};
     if(coll.catches[sp.id]) return null;          // 既に授与済み（一回限り）
     var sz = sizeRange(sp)[1];                     // マスターは最大サイズで記録
-    coll.catches[sp.id] = { n:1, max:sz, min:sz, shiny:0, normal:1, master:1 };
+    coll.catches[sp.id] = { n:1, max:sz, min:sz, shiny:0, normal:1, master:1, records:[] };
+    /* マスター個体は性別不明 (u) で履歴に記録。学習達成の象徴的1個体。 */
+    pushRecord(coll.catches[sp.id], sz, "u", false);
     coll.total = (coll.total||0) + 1;
     return { sp:sp, size:sz, isNew:true, master:true };
   }
@@ -151,21 +170,23 @@
     var prev = coll.catches[sp.id];
     var size = rollSize(sp);
     var shiny = Math.random() < SHINY_CHANCE;
+    var sex = rollSex(sp);
     var isNew = !prev;
     var isRecord = !isNew && size > prev.max;
-    /* min/normal を追加: サイズ範囲(min〜max)の表示と、色違い/通常の両方所持の判定に使う。
-       既存データは min 欠落→max で代用、normal 欠落→1(通常も捕獲済みと見なす。色違いは3%と稀なため安全) */
     var prevMin = prev ? (prev.min!=null ? prev.min : prev.max) : size;
     var prevNormal = prev ? (prev.normal!=null ? prev.normal : 1) : 0;
+    var prevRecords = prev ? (prev.records || []) : [];
     coll.catches[sp.id] = {
       n: (prev?prev.n:0) + 1,
       max: Math.max(size, prev?prev.max:0),
       min: Math.min(size, prevMin),
       shiny: ((prev && prev.shiny) || shiny) ? 1 : 0,
-      normal: (prevNormal || (shiny?0:1)) ? 1 : 0
+      normal: (prevNormal || (shiny?0:1)) ? 1 : 0,
+      records: prevRecords
     };
+    pushRecord(coll.catches[sp.id], size, sex, shiny);
     coll.total = (coll.total||0) + 1;
-    return { sp:sp, size:size, shiny:shiny, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
+    return { sp:sp, size:size, shiny:shiny, sex:sex, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
   }
 
   /* 🔶 こはく(amber): a soft currency earned per correct answer, spendable on

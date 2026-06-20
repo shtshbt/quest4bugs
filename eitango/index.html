@@ -666,14 +666,27 @@ const Reward = {
     const isRecord = !isNew && size > prev.max;
     const prevMin = prev ? (prev.min != null ? prev.min : prev.max) : size;
     const prevNormal = prev ? (prev.normal != null ? prev.normal : 1) : 0;
+    const prevRecords = prev ? (prev.records || []) : [];
+    /* 個体性別: SPECIES_SRC から bugs.js 側の sexRatio を引く（未定義は50:50） */
+    const src = SPECIES_SRC[id] || SPECIES_SRC[id.replace(/^nushi_/,'')] || null;
+    const sr = (src && src.sexRatio) || null;
+    const sex = (sr && (sr.m+sr.f)>0) ? (Math.random() < sr.m/(sr.m+sr.f) ? "m" : "f") : (Math.random()<0.5?"m":"f");
+    /* ヌシは性別不明 (u) で記録 */
+    const sexFinal = /^nushi_/.test(id) ? "u" : sex;
+    function todayStr(){
+      var d=new Date(), y=d.getFullYear(), m=d.getMonth()+1, day=d.getDate();
+      return y+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+    }
     p.catches[id] = {
       n: (prev ? prev.n : 0) + 1,
       max: Math.max(size, prev ? prev.max : 0),
       min: Math.min(size, prevMin),
       shiny: ((prev && prev.shiny) || shiny) ? 1 : 0,
-      normal: (prevNormal || (shiny ? 0 : 1)) ? 1 : 0
+      normal: (prevNormal || (shiny ? 0 : 1)) ? 1 : 0,
+      records: prevRecords
     };
-    return { sp, size, shiny, isNew, isRecord };
+    p.catches[id].records.push({d:todayStr(), s:size, sex:sexFinal, shiny:!!shiny});
+    return { sp, size, shiny, sex:sexFinal, isNew, isRecord };
   },
   catchNushi(p, field) {
     const n = NUSHI.find(x => x[3] === field);
