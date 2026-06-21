@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v32";
+var CACHE = "q4b-cache-v33";  /* v33: 卵育成システム (Phase 1-7) 追加 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -14,6 +14,7 @@ var CORE = [
   "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./shared/k5_devs_data.js",
   "./shared/zukan_detail.js", "./shared/zukan_render.js",
+  "./shared/bug_archetypes.js", "./shared/breeding.js", "./shared/breeding_debug.js",
   "./zukan_config/zukan_catalog.js",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
   "./assets/home_map_module_eigo_v2.webp", "./assets/home_map_module_keisan_v1.webp",
