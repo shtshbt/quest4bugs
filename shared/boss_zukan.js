@@ -37,6 +37,25 @@
         kanji:   rs[2] && rs[2].coll ? rs[2].coll : null,
         eitango: rs[3] && rs[3].catches ? {catches: rs[3].catches} : null
       };
+      /* migration: eggGranted=true だが対応する boss_pair 卵が eggs/pendingEggs どこにも
+         無いボスを eggGranted=false に戻し、bossesBackfill で再試行可能にする。
+         旧版バグ (eggGranted を null-check 前に true 設定) で取り残されたユーザの救済。 */
+      var _RW = global.Q4BReward;
+      if(_RW && _RW.getBreedingState){
+        var _bs = _RW.getBreedingState();
+        if(_bs){
+          var _has = function(id){
+            return (_bs.eggs||[]).some(function(e){return e.id===id && e.origin==='boss_pair';})
+                || (_bs.pendingEggs||[]).some(function(e){return e.id===id && e.origin==='boss_pair';});
+          };
+          Object.keys(bt.bosses).forEach(function(id){
+            var be = bt.bosses[id];
+            if(be && be.eggGranted === true && !_has(id)){
+              be.eggGranted = false;
+            }
+          });
+        }
+      }
       var res = bossesBackfill(bt.bosses, colls);
       if(res.changed && global.QuestSave.save){
         try{ global.QuestSave.save("battle", profileId, bt); }catch(_){}
@@ -89,12 +108,24 @@
         if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
       }
       /* legacy 救済: eggGranted 未済 + 撃破経験あり (n>=1) で相方卵 1 度だけ授与。
-         旧版 n=10 用 origin='boss_pair' を使う (idempotent)。 */
+         eggGranted は「卵が確実に授与された (eggs[] or pendingEggs[]) と確認できた場合のみ」
+         true にする (null 返却時は維持 → 次回 retry)。 */
       if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && RW.awardBossEgg){
         var opp = be.firstSex === "m" ? "f" : "m";
         var egg = RW.awardBossEgg(null, sp, opp);
-        be.eggGranted = true; changed = true;
-        if(egg) granted.push({sp: sp, sex: opp, egg: egg, queued: !!egg.queuedAt});
+        if(egg){
+          be.eggGranted = true; changed = true;
+          granted.push({sp: sp, sex: opp, egg: egg, queued: !!egg.queuedAt});
+        } else {
+          /* null = awardEgg 内 dedup (同 id+origin が既存) または metamorphosis 無し。
+             既存があるなら実質授与済みなので eggGranted=true 化、無いなら次回 retry */
+          var bs2 = RW.getBreedingState ? RW.getBreedingState() : null;
+          var hasExisting = bs2 && (
+            (bs2.eggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
+            || (bs2.pendingEggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
+          );
+          if(hasExisting){ be.eggGranted = true; changed = true; }
+        }
       }
     });
     return {changed: changed, granted: granted};

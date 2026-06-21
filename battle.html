@@ -982,8 +982,16 @@ function loadAll(){
           }
           if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && Q4BReward.awardBossEgg){
             var opp = be.firstSex === 'm' ? 'f' : 'm';
-            Q4BReward.awardBossEgg(null, sp, opp);
-            be.eggGranted = true;
+            var _egg = Q4BReward.awardBossEgg(null, sp, opp);
+            if(_egg){
+              be.eggGranted = true;
+            } else if(Q4BReward.getBreedingState){
+              /* null = dedup ヒット。既存があれば eggGranted true 化、無ければ retry */
+              var _bs2 = Q4BReward.getBreedingState();
+              var _has = _bs2 && ((_bs2.eggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
+                             || (_bs2.pendingEggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';}));
+              if(_has) be.eggGranted = true;
+            }
           }
         });
       }

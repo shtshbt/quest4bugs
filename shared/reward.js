@@ -982,6 +982,7 @@
     eggGameFor: eggGameFor,
     EGG_SLOT_MAX: EGG_SLOT_MAX,
     setEggStore: setEggStore,
+    getBreedingState: function(){ return _bs(); },
     setFossilStore: setFossilStore,
     setFeedHook: setFeedHook,
     fossilOf: fossilOf,
