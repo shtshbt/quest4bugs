@@ -553,7 +553,16 @@ function catBtnHTML(c,act,p,mark){
   var lvtag=leveled?'<span style="font-weight:800;opacity:.92">　Lv'+lv+'/10</span>':'';
   var sub=leveled&&lvLabel(c,lv)?'<br><span style="font-size:11px;font-weight:700;opacity:.9">'+esc(lvLabel(c,lv))+'</span>':'';
   var mk=(mark==='low'||mark==='both')?' 🌟':(mark==='new'?' 🆕':'');
-  return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+sub+'</button>';
+  /* 既習バッジ: Lv>=8 → レア度ひかえめ */
+  var rare=(leveled&&lv>=8)?'<span style="display:inline-block;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700;color:#6B7A5E;margin-left:4px">📉 レア度ひかえめ</span>':'';
+  return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+rare+sub+'</button>';
+}
+/* 既習度ベースの boost. Lv >= 8 → BOOST_LOW (0.4). それ以外 1.0. */
+function keisanCatBoost(p, cat){
+  if(!window.Q4BReward) return 1;
+  if(!LVL_CATS[cat]) return 1;
+  var lv = (p && p.lv && p.lv[cat]) || 1;
+  return lv >= 8 ? Q4BReward.BOOST_LOW : 1;
 }
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
@@ -5875,9 +5884,13 @@ function afterJudge(ok,q,o){
   if(ok && window.Q4BReward){
     ensureColl(p);
     var iid=q.cat+':'+(q.text||q.say||'');  // 同じ問題の連打を検知（新しさ係数）
-    /* レアブースト: 復習=2.0、発展(難問)=1.5(中間)、まんべんなく=2.0、通常=1.0 */
+    /* レアブースト: 復習=2.0、発展(難問)=1.5、まんべんなく=2.0、通常=1.0、既習(Lv>=8)=0.4 */
     var _isHatten=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);
-    var _boost=(Q&&Q.review)?Q4BReward.REVIEW_BOOST:(_isHatten?Q4BReward.HATTEN_BOOST:((Q&&Q.balanceBoost)?Q4BReward.REVIEW_BOOST:1));
+    var _boost;
+    if(Q&&Q.review) _boost=Q4BReward.REVIEW_BOOST;
+    else if(_isHatten) _boost=Q4BReward.HATTEN_BOOST;
+    else if(Q&&Q.balanceBoost) _boost=Q4BReward.REVIEW_BOOST;
+    else _boost=keisanCatBoost(p, q.cat);  /* Lv>=8 → BOOST_LOW */
     var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
     if(got) o.capture=got;
   }

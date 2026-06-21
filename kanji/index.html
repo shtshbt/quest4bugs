@@ -334,6 +334,28 @@ function gatedSkills(key){ var ry=rec(key,'y'); var out=['y'];
  if(ry.s>=1){ sks.forEach(function(s){ if(s!=='y') out.push(s) }) }
  return out }
 function introduced(key){ return skillsOf(key).some(function(s){ return stageVal(key,s)>0 }) }
+/* 範囲の既習度。80%+ なら BOOST_LOW (レア度ひかえめ) */
+function kanjiRangeKey(key){
+ if(!key) return null;
+ if(key[0]==='h') return 'hira';
+ var x=KMAP[key.slice(2)]; return x?('u'+x.u):null;
+}
+function kanjiRangeMasteryRate(rangeKey){
+ var items=null;
+ if(rangeKey==='hira') items=HIRA.map(function(c){return 'h:'+c});
+ else if(rangeKey&&rangeKey[0]==='u'){
+  var g=+rangeKey.slice(1); if(!UNITS[g])return 0;
+  items=UNITS[g].map(function(c){return 'k:'+c});
+ }
+ if(!items||!items.length) return 0;
+ var r=calcMastered(items);
+ return r.pct/100;
+}
+function kanjiRangeBoost(key){
+ if(!window.Q4BReward) return 1;
+ var rk=kanjiRangeKey(key); if(!rk) return 1;
+ return kanjiRangeMasteryRate(rk)>=0.8 ? Q4BReward.BOOST_LOW : 1;
+}
 function applyAnswer(key,sk,ok,mode){
  var r=rec(key,sk), t=todayStr();
  /* れんしゅう/ふくしゅうでも 正解で すすむ(1日1回まで)。テストは進級なし(関門のため)。
@@ -643,9 +665,8 @@ function answered(ok){ var p=SES.q[SES.i];
   var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 既習スキル(box>=3)は 0.4 で抑制
   if(window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', kval, {itemId:iid, coll:ST.coll});
   if(SES.mode!=='test'&&window.Q4BReward){
-   var got=(SES.mode==='review')
-    ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST,iid,kval)
-    : Q4BReward.onCorrect(ST.coll,'kanji',8,1,iid,kval);
+   var _kboost = (SES.mode==='review') ? Q4BReward.REVIEW_BOOST : kanjiRangeBoost(p.key);
+   var got=Q4BReward.onCorrect(ST.coll,'kanji',8,_kboost,iid,kval);
    if(got){ saveST(); setTimeout(function(){ Q4BReward.netSwing(function(){ showCatchModal(got) }) },650); }
   }
  } else { SES.wrongs.push(p);
@@ -1211,11 +1232,12 @@ function renderRange(){ var s=$('scr-range');
      return '<button class="btn sub mini" style="margin:0;'+(RANGEFMT===f[0]?'background:var(--leaf);color:#fff;border-color:var(--leaf)':'')+'" onclick="RANGEFMT=\''+f[0]+'\';renderRange()">'+f[1]+'</button>'; }).join('')
    +'</div>';
  function rangeBar(keys){ var rr=calcMastered(keys); return '<div class="pgbar-wrap" style="height:7px;margin:7px 0 2px"><div class="pgbar-fill" style="width:'+rr.pct+'%"></div></div><div style="font-size:11px;opacity:.85">しゅうとく '+rr.pct+'%（よみ '+rr.mastered+'/'+rr.total+'）</div>'; }
- if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ'+rangeBar(HIRA.map(function(c){return 'h:'+c}))+breakdownHTML(HIRA.map(function(c){return 'h:'+c}))+'</button>';
+ function rareBadge(keys){ var rr=calcMastered(keys); return rr.pct>=80?'<div style="display:inline-block;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700;color:#6B7A5E;margin-top:4px">📉 レア度ひかえめ</div>':''; }
+ if(unOK('hira'))h+='<button class="btn" id="rHira">ひらがな ぜんぶ'+rangeBar(HIRA.map(function(c){return 'h:'+c}))+rareBadge(HIRA.map(function(c){return 'h:'+c}))+breakdownHTML(HIRA.map(function(c){return 'h:'+c}))+'</button>';
  var _anyLock=false;
  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
   var _op=unOK('u'+g); if(!_op)_anyLock=true;
-  h+='<button class="btn'+(_op?'':' soil')+'" id="rU'+g+'"'+(_op?'':' style="opacity:.5"')+'>'+(_op?'':'🔒 ')+'かんじ '+g+'ねんせい'+(_op?(rangeBar(UNITS[g].map(function(c){return 'k:'+c}))+breakdownHTML(UNITS[g].map(function(c){return 'k:'+c}))):'')+'</button>';
+  h+='<button class="btn'+(_op?'':' soil')+'" id="rU'+g+'"'+(_op?'':' style="opacity:.5"')+'>'+(_op?'':'🔒 ')+'かんじ '+g+'ねんせい'+(_op?(rangeBar(UNITS[g].map(function(c){return 'k:'+c}))+rareBadge(UNITS[g].map(function(c){return 'k:'+c}))+breakdownHTML(UNITS[g].map(function(c){return 'k:'+c}))):'')+'</button>';
  });
  if(_anyLock)h+='<div class="banner" style="margin-top:8px">🏆 チャレンジ(にんていテスト)に ごうかくすると あたらしい学年が ひらくよ！</div>'
    +'<button class="btn gold" id="rChal">🏆 チャレンジで はんいを ひろげよう！</button>';
