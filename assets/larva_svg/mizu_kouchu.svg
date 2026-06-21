@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="水生甲虫型幼虫 (ゲンゴロウ幼虫)">
+  <defs>
+    <linearGradient id="mizuBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A89878"/>
+      <stop offset="100%" stop-color="#5E4E32"/>
+    </linearGradient>
+  </defs>
+  <!-- 細長くやや鎌型・尻に呼吸管 -->
+  <path d="M 12 14 Q 14 30 16 46 L 18 56 L 22 56 L 22 50 Q 20 36 22 22 L 26 16 Q 18 10 12 14 Z"
+        fill="url(#mizuBody)" stroke="#3A2E1A" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- 体節 -->
+  <g stroke="#3A2E1A" stroke-width="0.8" opacity="0.6">
+    <line x1="14" y1="22" x2="22" y2="22"/>
+    <line x1="14" y1="30" x2="22" y2="30"/>
+    <line x1="14" y1="38" x2="22" y2="38"/>
+    <line x1="14" y1="46" x2="22" y2="46"/>
+  </g>
+  <!-- 頭部 (上、扁平・大顎) -->
+  <ellipse cx="18" cy="12" rx="8" ry="5" fill="#3A2E1A" stroke="#1A0F08" stroke-width="1.6"/>
+  <!-- 大顎 (鎌のような) -->
+  <path d="M 12 8 Q 6 6 4 10 M 24 8 Q 30 6 32 10" stroke="#1A0F08" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  <!-- 脚 (3対、横に張り出す) -->
+  <g stroke="#3A2E1A" stroke-width="1.5" stroke-linecap="round" fill="none">
+    <path d="M 14 18 L 6 18 L 4 22"/>
+    <path d="M 22 18 L 30 18 L 32 22"/>
+    <path d="M 14 26 L 4 28"/>
+    <path d="M 22 26 L 32 28"/>
+    <path d="M 14 34 L 6 38"/>
+    <path d="M 22 34 L 30 38"/>
+  </g>
+  <!-- 尾の呼吸管 -->
+  <line x1="20" y1="56" x2="20" y2="62" stroke="#1A0F08" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="ウジ型 (ハエ幼虫)">
+  <defs>
+    <linearGradient id="ujiBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF4"/>
+      <stop offset="100%" stop-color="#D8C8A8"/>
+    </linearGradient>
+  </defs>
+  <!-- 口先尖り・尻太の典型ウジ型 (細長く一端が尖る) -->
+  <path d="M 8 32 Q 8 24 22 22 Q 40 20 52 30 Q 58 38 50 44 Q 36 50 22 46 Q 8 42 8 32 Z"
+        fill="url(#ujiBody)" stroke="#9C8C6C" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- 体節 (環状) -->
+  <g stroke="#B8A888" stroke-width="0.9" opacity="0.6" fill="none">
+    <path d="M 20 24 Q 20 36 22 44"/>
+    <path d="M 28 22 Q 28 36 30 46"/>
+    <path d="M 36 22 Q 36 36 38 46"/>
+    <path d="M 44 24 Q 46 36 46 44"/>
+  </g>
+  <!-- 口器 (左端) -->
+  <path d="M 8 30 L 4 30 L 6 34 L 8 32" stroke="#3A2E1A" stroke-width="1.4" fill="#3A2E1A"/>
+  <!-- 後端の気門 -->
+  <circle cx="51" cy="36" r="1.3" fill="#3A2E1A"/>
+</svg>

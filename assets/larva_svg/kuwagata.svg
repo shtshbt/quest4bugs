@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="クワガタ型幼虫">
+  <defs>
+    <linearGradient id="kuwaBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF0"/>
+      <stop offset="100%" stop-color="#E0D0A0"/>
+    </linearGradient>
+  </defs>
+  <!-- やや太く真っ直ぐめのコメ字 (コガネより太め、頭が大きい) -->
+  <path d="M 14 22 Q 8 32 14 46 Q 30 56 50 46 Q 56 36 48 28 Q 56 20 46 14 Q 30 8 14 22 Z"
+        fill="url(#kuwaBody)" stroke="#705A38" stroke-width="2" stroke-linejoin="round"/>
+  <!-- 体節 -->
+  <path d="M 22 16 Q 18 32 22 50" stroke="#A08858" stroke-width="1.2" fill="none" opacity="0.55"/>
+  <path d="M 30 14 Q 26 32 30 50" stroke="#A08858" stroke-width="1.2" fill="none" opacity="0.55"/>
+  <path d="M 38 16 Q 36 32 38 48" stroke="#A08858" stroke-width="1.2" fill="none" opacity="0.55"/>
+  <!-- 頭部 (大きめ・暗赤茶) -->
+  <ellipse cx="48" cy="42" rx="8" ry="7" fill="#7A4A22" stroke="#3A1F0E" stroke-width="1.6"/>
+  <!-- 強い大顎 -->
+  <path d="M 53 46 L 58 50 M 53 38 L 58 34" stroke="#2A1408" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- 胸脚 -->
+  <path d="M 18 38 L 12 42 M 24 40 L 20 46 M 30 41 L 28 46" stroke="#705A38" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+</svg>

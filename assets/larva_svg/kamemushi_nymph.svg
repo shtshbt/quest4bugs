@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="カメムシ若虫">
+  <defs>
+    <linearGradient id="kameBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9CB068"/>
+      <stop offset="100%" stop-color="#4A6A2A"/>
+    </linearGradient>
+  </defs>
+  <!-- 楕円のずんぐり体 (扁平・盾型) -->
+  <path d="M 32 12 L 22 16 L 16 28 L 18 44 L 32 54 L 46 44 L 48 28 L 42 16 Z"
+        fill="url(#kameBody)" stroke="#1A2A12" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- 頭部 (小さい三角) -->
+  <path d="M 28 12 L 36 12 L 32 7 Z" fill="url(#kameBody)" stroke="#1A2A12" stroke-width="1.5"/>
+  <circle cx="30" cy="11" r="1.2" fill="#1A1A1A"/>
+  <circle cx="34" cy="11" r="1.2" fill="#1A1A1A"/>
+  <!-- 触角 -->
+  <path d="M 28 10 L 22 4 M 36 10 L 42 4" stroke="#1A2A12" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- 翅芽 (背面、短い・若虫の特徴) -->
+  <path d="M 26 18 L 26 32 L 32 34 L 38 32 L 38 18" stroke="#2A4A18" stroke-width="1.2" fill="#6A8A4A" opacity="0.85"/>
+  <!-- 中央の縦線 (翅の合わせ目) -->
+  <line x1="32" y1="20" x2="32" y2="32" stroke="#1A2A12" stroke-width="0.9"/>
+  <!-- 腹部の斑紋 -->
+  <g fill="#E8A848" opacity="0.85">
+    <circle cx="25" cy="38" r="1.2"/>
+    <circle cx="32" cy="40" r="1.2"/>
+    <circle cx="39" cy="38" r="1.2"/>
+  </g>
+  <!-- 脚 6 本 -->
+  <g stroke="#1A2A12" stroke-width="1.4" stroke-linecap="round" fill="none">
+    <path d="M 22 20 L 14 18"/>
+    <path d="M 42 20 L 50 18"/>
+    <path d="M 18 30 L 8 32"/>
+    <path d="M 46 30 L 56 32"/>
+    <path d="M 20 42 L 12 46"/>
+    <path d="M 44 42 L 52 46"/>
+  </g>
+</svg>

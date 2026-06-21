@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="カマキリ若虫 (カマあり親縮小)">
+  <defs>
+    <linearGradient id="kamaBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8C870"/>
+      <stop offset="100%" stop-color="#5E8C3A"/>
+    </linearGradient>
+  </defs>
+  <!-- 三角頭部 -->
+  <path d="M 38 8 L 50 14 L 44 20 Z" fill="url(#kamaBody)" stroke="#1A3A12" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="48" cy="13" r="1.6" fill="#1A1A1A"/>
+  <circle cx="42" cy="11" r="1.6" fill="#1A1A1A"/>
+  <!-- 細長い胸部 -->
+  <path d="M 40 20 L 36 36 L 24 38 L 30 22 Z" fill="url(#kamaBody)" stroke="#1A3A12" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- 鎌 (前脚、特徴的) -->
+  <g stroke="#1A3A12" stroke-width="1.5" stroke-linejoin="round" fill="url(#kamaBody)">
+    <path d="M 38 24 L 50 28 L 54 22 L 50 20 L 46 24 L 40 22 Z"/>
+    <path d="M 32 28 L 42 36 L 48 32 L 44 28 L 40 32 L 34 28 Z"/>
+  </g>
+  <!-- 鎌の棘 -->
+  <g stroke="#1A3A12" stroke-width="0.8" fill="none">
+    <line x1="46" y1="25" x2="46" y2="27"/>
+    <line x1="49" y1="25" x2="49" y2="27"/>
+  </g>
+  <!-- 腹部 (細長い、無翅で短め=若虫) -->
+  <ellipse cx="18" cy="44" rx="10" ry="5" fill="url(#kamaBody)" stroke="#1A3A12" stroke-width="1.5"/>
+  <!-- 中脚・後脚 -->
+  <g stroke="#1A3A12" stroke-width="1.4" stroke-linecap="round" fill="none">
+    <path d="M 26 42 L 22 52"/>
+    <path d="M 16 48 L 14 58"/>
+    <path d="M 24 48 L 22 58"/>
+  </g>
+</svg>

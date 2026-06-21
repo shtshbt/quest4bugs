@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="蛾蛹 (繭の中)">
+  <defs>
+    <radialGradient id="gaCocoon" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D8C8A8"/>
+      <stop offset="100%" stop-color="#8C7858"/>
+    </radialGradient>
+    <linearGradient id="gaPupaInner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7A4A22"/>
+      <stop offset="100%" stop-color="#4A2E14"/>
+    </linearGradient>
+  </defs>
+  <!-- 繭 (絹糸の楕円) -->
+  <ellipse cx="32" cy="34" rx="22" ry="26" fill="url(#gaCocoon)" stroke="#6A5638" stroke-width="2"/>
+  <!-- 絹糸の流れ -->
+  <g stroke="#FFFDF4" stroke-width="0.6" fill="none" opacity="0.7">
+    <path d="M 14 22 Q 32 18 50 24"/>
+    <path d="M 12 30 Q 32 26 52 32"/>
+    <path d="M 12 38 Q 32 36 52 40"/>
+    <path d="M 14 46 Q 32 48 50 46"/>
+  </g>
+  <!-- 透けて見える蛹 -->
+  <ellipse cx="32" cy="34" rx="9" ry="15" fill="url(#gaPupaInner)" stroke="#3A1F0E" stroke-width="1" opacity="0.5"/>
+  <!-- 蛹の体節 (薄く) -->
+  <g stroke="#3A1F0E" stroke-width="0.6" opacity="0.5">
+    <line x1="24" y1="34" x2="40" y2="34"/>
+    <line x1="24" y1="40" x2="40" y2="40"/>
+  </g>
+</svg>

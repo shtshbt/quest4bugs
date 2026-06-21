@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="蝶蛹 (帯蛹)">
+  <defs>
+    <linearGradient id="chouPupa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7AAA5A"/>
+      <stop offset="100%" stop-color="#3A6A2A"/>
+    </linearGradient>
+  </defs>
+  <!-- 帯蛹: 角があり、葉の裏にぶら下がる -->
+  <!-- 葉の影 -->
+  <path d="M 8 6 Q 32 4 56 8" stroke="#5A8A3A" stroke-width="2" fill="none" opacity="0.5"/>
+  <!-- 蛹の本体 (上が頭・下が尾) -->
+  <path d="M 32 10 L 28 18 Q 20 28 22 44 Q 24 56 32 58 Q 40 56 42 44 Q 44 28 36 18 Z"
+        fill="url(#chouPupa)" stroke="#2A4A1A" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- 翅の輪郭 (左右にうっすら) -->
+  <path d="M 24 30 Q 18 36 22 44" stroke="#2A4A1A" stroke-width="1" fill="none" opacity="0.55"/>
+  <path d="M 40 30 Q 46 36 42 44" stroke="#2A4A1A" stroke-width="1" fill="none" opacity="0.55"/>
+  <!-- 体節 -->
+  <g stroke="#1A3A12" stroke-width="0.8" opacity="0.6">
+    <path d="M 24 36 Q 32 38 40 36" fill="none"/>
+    <path d="M 24 42 Q 32 44 40 42" fill="none"/>
+    <path d="M 25 48 Q 32 50 39 48" fill="none"/>
+  </g>
+  <!-- 頭部の角 (アゲハ系の触角芽) -->
+  <path d="M 28 10 L 26 4 M 36 10 L 38 4" stroke="#2A4A1A" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- 帯糸 (葉に留める糸) -->
+  <line x1="22" y1="28" x2="6" y2="22" stroke="#FFFDF4" stroke-width="0.8" opacity="0.7"/>
+  <line x1="42" y1="28" x2="58" y2="22" stroke="#FFFDF4" stroke-width="0.8" opacity="0.7"/>
+  <!-- 金色の点 (種類のアクセント) -->
+  <g fill="#E8C040" opacity="0.9">
+    <circle cx="30" cy="22" r="1"/>
+    <circle cx="34" cy="22" r="1"/>
+  </g>
+</svg>

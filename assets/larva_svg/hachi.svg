@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="ハチ型幼虫 (蜂児)">
+  <defs>
+    <linearGradient id="hachiBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF4"/>
+      <stop offset="100%" stop-color="#E8DCC4"/>
+    </linearGradient>
+  </defs>
+  <!-- C 字曲・脚なし・つるつるの白色蜂児 -->
+  <path d="M 22 12 Q 8 28 14 46 Q 28 56 48 50 Q 56 40 50 30 Q 56 18 44 12 Q 32 8 22 12 Z"
+        fill="url(#hachiBody)" stroke="#A89878" stroke-width="2" stroke-linejoin="round"/>
+  <!-- 体節 (柔らかい) -->
+  <g stroke="#C8B898" stroke-width="0.9" opacity="0.7" fill="none">
+    <path d="M 22 18 Q 18 32 24 46"/>
+    <path d="M 30 14 Q 26 32 32 50"/>
+    <path d="M 38 14 Q 36 32 40 48"/>
+    <path d="M 46 16 Q 46 32 48 44"/>
+  </g>
+  <!-- 頭部 (小さく薄色、見分けにくい) -->
+  <ellipse cx="46" cy="46" rx="5" ry="4" fill="#D8C8A8" stroke="#A89878" stroke-width="1.2"/>
+  <!-- 巣の六角形 (背景アクセント) -->
+  <g stroke="#E8C040" stroke-width="0.8" fill="none" opacity="0.4">
+    <path d="M 4 4 l 4 0 l 2 3 l -2 3 l -4 0 l -2 -3 z"/>
+    <path d="M 56 56 l 4 0 l 2 3 l -2 3 l -4 0 l -2 -3 z"/>
+  </g>
+</svg>

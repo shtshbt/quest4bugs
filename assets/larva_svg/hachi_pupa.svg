@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="ハチ蛹">
+  <defs>
+    <linearGradient id="hachiPupaBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF4"/>
+      <stop offset="100%" stop-color="#D8C8A8"/>
+    </linearGradient>
+  </defs>
+  <!-- 蜂蛹: 白色、楕円、翅と脚の輪郭が見える -->
+  <ellipse cx="32" cy="34" rx="13" ry="20" fill="url(#hachiPupaBody)" stroke="#A88848" stroke-width="2"/>
+  <!-- 頭部の目 (2 つの暗点) -->
+  <circle cx="27" cy="20" r="2" fill="#3A2A18" opacity="0.65"/>
+  <circle cx="37" cy="20" r="2" fill="#3A2A18" opacity="0.65"/>
+  <!-- 翅の輪郭 (体の脇に折り畳まれる) -->
+  <path d="M 22 28 Q 18 36 20 46" stroke="#A88848" stroke-width="0.9" fill="none" opacity="0.6"/>
+  <path d="M 42 28 Q 46 36 44 46" stroke="#A88848" stroke-width="0.9" fill="none" opacity="0.6"/>
+  <!-- 脚の輪郭 -->
+  <g stroke="#A88848" stroke-width="0.8" opacity="0.55" fill="none">
+    <path d="M 25 32 L 22 38"/>
+    <path d="M 39 32 L 42 38"/>
+    <path d="M 26 38 L 23 44"/>
+    <path d="M 38 38 L 41 44"/>
+  </g>
+  <!-- 腹部の体節 (3 本) -->
+  <g stroke="#A88848" stroke-width="0.8" opacity="0.6">
+    <path d="M 24 38 Q 32 40 40 38" fill="none"/>
+    <path d="M 24 44 Q 32 46 40 44" fill="none"/>
+    <path d="M 26 50 Q 32 52 38 50" fill="none"/>
+  </g>
+</svg>

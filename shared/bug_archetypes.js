@@ -75,11 +75,17 @@
   }
 
   /* 制作済 SVG の whitelist (assets/larva_svg/ に存在するもの)。
-     未収載のものは emoji にフォールバック。Phase 6.5 で随時拡充。 */
+     未収載のものは emoji にフォールバック。 */
   var SVG_AVAILABLE={
-    egg:1, koganemushi:1, imomushi:1, kabuto_pupa:1, yago:1
-    /* 追加予定: kuwagata, kamikiri, zoumushi, mizu_kouchu, kemushi, hachi, uji,
-       chou_pupa, ga_pupa, hachi_pupa, batta, kamakiri, semi, kamemushi_nymph, gokiburi */
+    /* 共通 */
+    egg:1,
+    /* 完全変態 larva */
+    koganemushi:1, kuwagata:1, kamikiri:1, zoumushi:1, mizu_kouchu:1,
+    imomushi:1, kemushi:1, hachi:1, uji:1,
+    /* 完全変態 pupa */
+    kabuto_pupa:1, chou_pupa:1, ga_pupa:1, hachi_pupa:1,
+    /* 不完全変態 nymph */
+    yago:1, batta:1, kamakiri:1, semi:1, kamemushi_nymph:1, gokiburi:1
   };
 
   /* archetype name → SVG ファイル URL (HTML からの相対パスは呼び出し側で解決) */

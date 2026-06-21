@@ -477,8 +477,8 @@
      - eggStore: {get:()->{eggs,pendingEggs,stats}, save:(state)->bool}
      - fossilStore: {get:()->n, spend:(n)->bool}  (egg コスト消費)
      ========================================================================= */
-  var EGG_COST   = [20, 60, 200, 600, 2000];   // N / R / SR / SSR / SS
-  var EGG_TARGET = [10, 30, 100, 300, 1000];
+  var EGG_COST   = [3, 6, 9, 12, 15];          // N / R / SR / SSR / SS (低コスト・育成重視)
+  var EGG_TARGET = [100, 250, 500, 750, 1000];
   var EGG_SLOT_MAX = 3;
   function eggCost(sp){ return EGG_COST[tierOf(sp)]; }
   function eggTarget(sp){ return EGG_TARGET[tierOf(sp)]; }

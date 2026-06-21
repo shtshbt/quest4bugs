@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v34";  /* v34: 卵育成 御神木 panel 移動 + archetype SVG 5 種 */
+var CACHE = "q4b-cache-v35";  /* v35: archetype SVG 20 種完成 + 数値訂正 (low cost/育成重視) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -15,9 +15,17 @@ var CORE = [
   "./shared/k5_devs_data.js",
   "./shared/zukan_detail.js", "./shared/zukan_render.js",
   "./shared/bug_archetypes.js", "./shared/breeding.js", "./shared/breeding_debug.js",
-  "./assets/larva_svg/egg.svg", "./assets/larva_svg/koganemushi.svg",
-  "./assets/larva_svg/imomushi.svg", "./assets/larva_svg/kabuto_pupa.svg",
-  "./assets/larva_svg/yago.svg",
+  "./assets/larva_svg/egg.svg",
+  "./assets/larva_svg/koganemushi.svg", "./assets/larva_svg/kuwagata.svg",
+  "./assets/larva_svg/kamikiri.svg", "./assets/larva_svg/zoumushi.svg",
+  "./assets/larva_svg/mizu_kouchu.svg",
+  "./assets/larva_svg/imomushi.svg", "./assets/larva_svg/kemushi.svg",
+  "./assets/larva_svg/hachi.svg", "./assets/larva_svg/uji.svg",
+  "./assets/larva_svg/kabuto_pupa.svg", "./assets/larva_svg/chou_pupa.svg",
+  "./assets/larva_svg/ga_pupa.svg", "./assets/larva_svg/hachi_pupa.svg",
+  "./assets/larva_svg/yago.svg", "./assets/larva_svg/batta.svg",
+  "./assets/larva_svg/kamakiri.svg", "./assets/larva_svg/semi.svg",
+  "./assets/larva_svg/kamemushi_nymph.svg", "./assets/larva_svg/gokiburi.svg",
   "./zukan_config/zukan_catalog.js",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
   "./assets/home_map_module_eigo_v2.webp", "./assets/home_map_module_keisan_v1.webp",
