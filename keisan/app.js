@@ -5,7 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
-var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false;
+var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false, KZ_REARED=false, KZ_PLURAL=false;
 var KEISAN_MASTER_OPEN=true;  /* フィルタ再描画でも折りたたみ状態を保持 */
 function setKeisanMasterOpen(v){ KEISAN_MASTER_OPEN=!!v; }
 
@@ -228,6 +228,8 @@ function zukanMatchK(sp){
   if(KZ_FAV){ var p=P(); if(!p||!Q4BReward.isFavorite(p.coll,sp.id)) return false; }
   if(KZ_SHINY){ var p2=P(); var e=p2&&p2.coll&&p2.coll.catches&&p2.coll.catches[sp.id]; if(!e||!e.shiny) return false; }
   if(KZ_HIDE_UNK){ var p3=P(); var e3=p3&&p3.coll&&p3.coll.catches&&p3.coll.catches[sp.id]; if(!e3) return false; }
+  if(KZ_REARED){ var p4=P(); if(!Q4BReward.hasReared||!Q4BReward.hasReared(p4&&p4.coll,sp.id))return false; }
+  if(KZ_PLURAL){ var p5=P(); var e5=p5&&p5.coll&&p5.coll.catches&&p5.coll.catches[sp.id]; if(!e5||(e5.n||0)<2)return false; }
   if(q && zukanSearchTextK(sp).indexOf(q)<0)return false;
   return true;
 }
@@ -237,6 +239,8 @@ function setKZC(v){KZ_C=v||"";showZukan();}
 function setKZFav(){ KZ_FAV=!KZ_FAV; showZukan(); }
 function setKZShiny(){ KZ_SHINY=!KZ_SHINY; showZukan(); }
 function setKZHideUnk(){ KZ_HIDE_UNK=!KZ_HIDE_UNK; showZukan(); }
+function setKZReared(){ KZ_REARED=!KZ_REARED; showZukan(); }
+function setKZPlural(){ KZ_PLURAL=!KZ_PLURAL; showZukan(); }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function pidNow(){ var p=P(); return p?p.id:(window.QuestSave&&QuestSave.currentProfile()); }
@@ -772,6 +776,8 @@ function showZukan(){
     +'<button class="chip" style="cursor:pointer;'+(KZ_FAV?'background:#E84A6B;color:#fff':'')+'" onclick="setKZFav()">♥ おきにいり</button>'
     +'<button class="chip" style="cursor:pointer;'+(KZ_SHINY?'background:#E0A32E;color:#fff':'')+'" onclick="setKZShiny()">✨ いろちがい</button>'
     +'<button class="chip" style="cursor:pointer;'+(KZ_HIDE_UNK?'background:var(--green);color:#fff':'')+'" onclick="setKZHideUnk()">❓ かくす</button>'
+    +'<button class="chip" style="cursor:pointer;'+(KZ_REARED?'background:#4a9b3a;color:#fff':'')+'" onclick="setKZReared()">🐣 かえした</button>'
+    +'<button class="chip" style="cursor:pointer;'+(KZ_PLURAL?'background:#5b8de0;color:#fff':'')+'" onclick="setKZPlural()">×2 いじょう</button>'
     +'<span class="note" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div></div>';
   h+='<div class="zgrid">';
   filtered.forEach(function(sp){

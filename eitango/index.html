@@ -533,6 +533,8 @@ function zukanMatch(sp){
   if(zFav && (!P.favorites||!P.favorites[sp[0]])) return false;
   if(zShiny){ const c=P.catches&&P.catches[sp[0]]; if(!c||!c.shiny) return false; }
   if(zHideUnk){ const c2=P.catches&&P.catches[sp[0]]; if(!c2) return false; }
+  if(zReared){ const collW={catches:P.catches||{}}; if(!Q4BReward.hasReared||!Q4BReward.hasReared(collW,sp[0])) return false; }
+  if(zPlural){ const c3=P.catches&&P.catches[sp[0]]; if(!c3||(c3.n||0)<2) return false; }
   if(q && zukanSearchText(sp).indexOf(q)<0) return false;
   return true;
 }
@@ -542,6 +544,8 @@ function setZC(v){ zC=v||''; render(); }
 function setZFav(){ zFav=!zFav; render(); }
 function setZShiny(){ zShiny=!zShiny; render(); }
 function setZHideUnk(){ zHideUnk=!zHideUnk; render(); }
+function setZReared(){ zReared=!zReared; render(); }
+function setZPlural(){ zPlural=!zPlural; render(); }
 
 /* ---------------- WordDB ---------------- */
 let CUSTOM = []; /* loaded from QuestSave('eitango','_custom') */
@@ -823,7 +827,7 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zMasterOpen=true;
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zReared=false, zPlural=false, zMasterOpen=true;
 function setEitangoMasterOpen(v){ zMasterOpen=!!v; }
 
 async function boot(){
@@ -1230,6 +1234,8 @@ function scrZukan(){
       <button class="chip" style="cursor:pointer;${zFav?'background:#E84A6B;color:#fff':''}" onclick="setZFav()">♥ おきにいり</button>
       <button class="chip" style="cursor:pointer;${zShiny?'background:#E0A32E;color:#fff':''}" onclick="setZShiny()">✨ いろちがい</button>
       <button class="chip" style="cursor:pointer;${zHideUnk?'background:var(--leaf);color:#fff':''}" onclick="setZHideUnk()">❓ かくす</button>
+      <button class="chip" style="cursor:pointer;${zReared?'background:#4a9b3a;color:#fff':''}" onclick="setZReared()">🐣 かえした</button>
+      <button class="chip" style="cursor:pointer;${zPlural?'background:#5b8de0;color:#fff':''}" onclick="setZPlural()">×2 いじょう</button>
       <span class="small" style="align-self:center;margin-left:auto">表示 ${filtered.length} / ${zk.length}</span>
     </div>
   </div>
