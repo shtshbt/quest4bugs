@@ -531,6 +531,7 @@ function zukanMatch(sp){
   if(zC!=='' && zukanClassKey(sp)!==zC) return false;
   if(zFav && (!P.favorites||!P.favorites[sp[0]])) return false;
   if(zShiny){ const c=P.catches&&P.catches[sp[0]]; if(!c||!c.shiny) return false; }
+  if(zHideUnk){ const c2=P.catches&&P.catches[sp[0]]; if(!c2) return false; }
   if(q && zukanSearchText(sp).indexOf(q)<0) return false;
   return true;
 }
@@ -539,6 +540,7 @@ function setZR(v){ zR=(zR===String(v))?'':String(v); render(); }
 function setZC(v){ zC=v||''; render(); }
 function setZFav(){ zFav=!zFav; render(); }
 function setZShiny(){ zShiny=!zShiny; render(); }
+function setZHideUnk(){ zHideUnk=!zHideUnk; render(); }
 
 /* ---------------- WordDB ---------------- */
 let CUSTOM = []; /* loaded from QuestSave('eitango','_custom') */
@@ -820,7 +822,7 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zMasterOpen=true;
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zMasterOpen=true;
 function setEitangoMasterOpen(v){ zMasterOpen=!!v; }
 
 async function boot(){
@@ -1220,6 +1222,7 @@ function scrZukan(){
       }).join('')}
       <button class="chip" style="cursor:pointer;${zFav?'background:#E84A6B;color:#fff':''}" onclick="setZFav()">♥ おきにいり</button>
       <button class="chip" style="cursor:pointer;${zShiny?'background:#E0A32E;color:#fff':''}" onclick="setZShiny()">✨ いろちがい</button>
+      <button class="chip" style="cursor:pointer;${zHideUnk?'background:var(--leaf);color:#fff':''}" onclick="setZHideUnk()">❓ かくす</button>
       <span class="small" style="align-self:center;margin-left:auto">表示 ${filtered.length} / ${zk.length}</span>
     </div>
   </div>

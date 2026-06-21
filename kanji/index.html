@@ -260,7 +260,7 @@ function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
-var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false;
+var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false,BUG_HIDE_UNK=false;
 var KANJI_MASTER_OPEN=true;  /* フィルタ再描画でも折りたたみ状態を保持 */
 function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; }
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
@@ -295,11 +295,13 @@ function bugMatch(sp){
  if(BUG_C!==''&&bugClassKey(sp)!==BUG_C)return false;
  if(BUG_FAV&&!Q4BReward.isFavorite(ST.coll,sp.id))return false;
  if(BUG_SHINY){ var e=ST.coll.catches[sp.id]; if(!e||!e.shiny) return false; }
+ if(BUG_HIDE_UNK){ var e2=ST.coll.catches[sp.id]; if(!e2)return false; }
  if(q&&bugSearchText(sp).indexOf(q)<0)return false;
  return true;
 }
 function setBugFav(){ BUG_FAV=!BUG_FAV; renderBugs(); }
 function setBugShiny(){ BUG_SHINY=!BUG_SHINY; renderBugs(); }
+function setBugHideUnk(){ BUG_HIDE_UNK=!BUG_HIDE_UNK; renderBugs(); }
 function setBugQ(v){BUG_Q=v||'';renderBugs();setTimeout(function(){var e=$('bugQ');if(e){e.focus();if(e.setSelectionRange)e.setSelectionRange(e.value.length,e.value.length)}},0)}
 function setBugR(v){BUG_R=(BUG_R===String(v))?'':String(v);renderBugs()}
 function setBugC(v){BUG_C=v||'';renderBugs()}
@@ -1335,6 +1337,7 @@ function renderBugs(){
   }).join('')
   +'<button class="chip" style="cursor:pointer;'+(BUG_FAV?'background:#E84A6B;color:#fff':'')+'" onclick="setBugFav()">♥ おきにいり</button>'
   +'<button class="chip" style="cursor:pointer;'+(BUG_SHINY?'background:#E0A32E;color:#fff':'')+'" onclick="setBugShiny()">✨ いろちがい</button>'
+  +'<button class="chip" style="cursor:pointer;'+(BUG_HIDE_UNK?'background:#56714e;color:#fff':'')+'" onclick="setBugHideUnk()">❓ かくす</button>'
   +'<span class="small" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div>'
   +'<div class="bugs">';
  filtered.forEach(function(sp){
