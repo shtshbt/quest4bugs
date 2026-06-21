@@ -308,6 +308,15 @@ function setBugHideUnk(){ BUG_HIDE_UNK=!BUG_HIDE_UNK; renderBugs(); }
 function setBugReared(){ BUG_REARED=!BUG_REARED; renderBugs(); }
 function setBugPlural(){ BUG_PLURAL=!BUG_PLURAL; renderBugs(); }
 function setBugQ(v){BUG_Q=v||'';renderBugs();setTimeout(function(){var e=$('bugQ');if(e){e.focus();if(e.setSelectionRange)e.setSelectionRange(e.value.length,e.value.length)}},0)}
+/* IME 入力中は input 要素を再生成しない (再生成すると変換中の文字列が壊れる)。
+   - event.isComposing が true の間は BUG_Q だけ silent 更新
+   - 非 IME 入力 / 確定後は 250ms debounce で setBugQ → renderBugs */
+var BUG_Q_T=null;
+function bugQInput(el,ev){
+ if(ev&&ev.isComposing){ BUG_Q=el.value; return; }
+ clearTimeout(BUG_Q_T);
+ BUG_Q_T=setTimeout(function(){ setBugQ(el.value); }, 250);
+}
 function setBugR(v){BUG_R=(BUG_R===String(v))?'':String(v);renderBugs()}
 function setBugC(v){BUG_C=v||'';renderBugs()}
 
@@ -1334,7 +1343,7 @@ function renderBugs(){
   +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">📖 むしずかん</div>'
   +'<div style="font-size:13px;color:#56714e;margin-bottom:8px">'+cnt+' / '+total+' しゅ　🏷 '+rankName+'</div>'
-  +'<input id="bugQ" value="'+escAttr(BUG_Q)+'" oncompositionstart="BUG_COMP=true" oncompositionend="BUG_COMP=false;setBugQ(this.value)" oninput="if(BUG_COMP){BUG_Q=this.value}else setBugQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--forest);border-radius:12px;font:inherit;margin-bottom:8px">'
+  +'<input id="bugQ" value="'+escAttr(BUG_Q)+'" oncompositionend="setBugQ(this.value)" oninput="bugQInput(this,event)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--forest);border-radius:12px;font:inherit;margin-bottom:8px">'
   +'<label class="small" style="display:block;font-weight:bold;margin-bottom:8px">分類 '
   +'<select onchange="setBugC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--forest);border-radius:10px;font:inherit;background:var(--card);color:var(--deep)">'
   +'<option value="">ぜんぶの科</option>'

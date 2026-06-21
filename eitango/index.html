@@ -539,6 +539,13 @@ function zukanMatch(sp){
   return true;
 }
 function setZQ(v){ zQ=v||''; render(); setTimeout(()=>{const e=$('#zq'); if(e){e.focus(); e.setSelectionRange(e.value.length,e.value.length);}},0); }
+/* IME 入力中は input 再生成しない。isComposing チェック + 250ms debounce */
+let Z_Q_T=null;
+function zInput(el,ev){
+  if(ev&&ev.isComposing){ zQ=el.value; return; }
+  clearTimeout(Z_Q_T);
+  Z_Q_T=setTimeout(()=>setZQ(el.value), 250);
+}
 function setZR(v){ zR=(zR===String(v))?'':String(v); render(); }
 function setZC(v){ zC=v||''; render(); }
 function setZFav(){ zFav=!zFav; render(); }
@@ -1221,7 +1228,7 @@ function scrZukan(){
   ${window.Q4BBossZukan?Q4BBossZukan.sectionHTML('eitango'):''}
   <div class="ztabs">${tabs.map(f=>`<button class="${String(f.id)===String(zTab)?'on':''}" onclick="zTab='${f.id}';render()">${f.emoji} ${f.name}</button>`).join('')}</div>
   <div class="card" style="padding:12px">
-    <input id="zq" value="${Engine.esc(zQ)}" oncompositionstart="zComp=true" oncompositionend="zComp=false;setZQ(this.value)" oninput="if(zComp){zQ=this.value}else setZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--leaf);border-radius:12px;font:inherit;margin-bottom:8px;background:var(--card);color:var(--ink)">
+    <input id="zq" value="${Engine.esc(zQ)}" oncompositionend="setZQ(this.value)" oninput="zInput(this,event)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--leaf);border-radius:12px;font:inherit;margin-bottom:8px;background:var(--card);color:var(--ink)">
     <label class="small" style="display:block;font-weight:800;margin-bottom:8px">分類
       <select onchange="setZC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--leaf);border-radius:10px;font:inherit;background:var(--card);color:var(--ink)">
         <option value="">ぜんぶの目</option>

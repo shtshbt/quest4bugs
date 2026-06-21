@@ -234,6 +234,13 @@ function zukanMatchK(sp){
   return true;
 }
 function setKZQ(v){KZ_Q=v||"";showZukan();setTimeout(function(){var e=$("kzq");if(e){e.focus();e.setSelectionRange(e.value.length,e.value.length);}},0);}
+/* IME 入力中は input 再生成しない。isComposing チェック + 250ms debounce */
+var KZ_Q_T=null;
+function kzInput(el,ev){
+  if(ev&&ev.isComposing){ KZ_Q=el.value; return; }
+  clearTimeout(KZ_Q_T);
+  KZ_Q_T=setTimeout(function(){ setKZQ(el.value); }, 250);
+}
 function setKZR(v){KZ_R=(KZ_R===String(v))?"":String(v);showZukan();}
 function setKZC(v){KZ_C=v||"";showZukan();}
 function setKZFav(){ KZ_FAV=!KZ_FAV; showZukan(); }
@@ -763,7 +770,7 @@ function showZukan(){
   var classOpts=zukanClassOptionsK(sorted);
   var filtered=sorted.filter(zukanMatchK);
   h+='<div class="card" style="padding:12px">'
-    +'<input id="kzq" value="'+esc(KZ_Q)+'" oncompositionstart="KZ_COMP=true" oncompositionend="KZ_COMP=false;setKZQ(this.value)" oninput="if(KZ_COMP){KZ_Q=this.value}else setKZQ(this.value)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin-bottom:8px">'
+    +'<input id="kzq" value="'+esc(KZ_Q)+'" oncompositionend="setKZQ(this.value)" oninput="kzInput(this,event)" placeholder="🔍 名前・学名・科名でさがす" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin-bottom:8px">'
     +'<label class="note" style="display:block;font-weight:800;margin-bottom:8px">分類 '
     +'<select onchange="setKZC(this.value)" style="width:100%;margin-top:4px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font:inherit;background:var(--panel);color:var(--ink)">'
     +'<option value="">ぜんぶの科</option>'
