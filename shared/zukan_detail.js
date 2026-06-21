@@ -409,8 +409,15 @@
     return progressLine + hatchBtn + btn + abandonBtn;
   }
 
+  /* モーダル open 直後にホスト側から呼ぶ: 該当 root 内の museum 写真に lightbox を装着。
+     呼出はホスト側 (kanji modal/keisan render/eitango showSpec/boss detail) で 1 行。 */
+  function attachLightbox(root){
+    if(global.Q4BZukanLightbox && global.Q4BZukanLightbox.attach) global.Q4BZukanLightbox.attach(root || document.body);
+  }
+
   global.Q4BZukan = {
     detailHTML: detailHTML,
+    attachLightbox: attachLightbox,
     histogramHTML: histogramHTML,
     sexSummary: sexSummary,
     bestTableHTML: bestTableHTML,

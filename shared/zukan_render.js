@@ -71,9 +71,28 @@
 
   function museumSVG(sp, entry, sex){
     var label = (sp && (sp.jaName || sp.id) || "") + sexMark(sex);
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="' + label + '" data-zukan="1">'
+    var spid = (sp && sp.id) || "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="' + label + '" data-zukan="1" data-zukan-spid="' + spid + '" data-zukan-sex="' + (sex||"") + '">'
          + museumInner(entry, sex)
          + '</svg>';
+  }
+
+  /* lightbox 用に entry の高解像度 (original) URL を解決 */
+  function originalImageHref(spId, sex){
+    var sp = {id:spId};
+    var entry = entryFor(sp);
+    if(!entry) return null;
+    var img = (sex === "f" && entry.image_female) ? entry.image_female : entry.image;
+    if(!img) return null;
+    var ver = (img.version || entry.imageVersion || "1");
+    var src = img.original || img.display;
+    if(!src) return null;
+    return ZUKAN_BASE + src + "?v=" + encodeURIComponent(ver);
+  }
+  function displayImageHref(spId, sex){
+    var entry = entryFor({id:spId});
+    if(!entry) return null;
+    return imageHref(entry, sex);
   }
 
   /* Re-implement the rarity frame for a museum specimen. bespoke SVG が中に来る
@@ -108,7 +127,8 @@
     var bg = frameBg(kind);
     var scaled = '<g transform="translate(50 53) scale(0.8) translate(-50 -54)">' + museumInner(entry, sex) + '</g>';
     var label = (sp && (sp.jaName || sp.id)) || "";
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="' + label + '" data-zukan="1">'
+    var spid = (sp && sp.id) || "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="' + label + '" data-zukan="1" data-zukan-spid="' + spid + '" data-zukan-sex="' + (sex||"") + '">'
          + bg + scaled
          + '</svg>';
   }
@@ -139,6 +159,8 @@
     global.Q4BRender.zukanGetMode = getMode;
     global.Q4BRender.zukanSetMode = setMode;
     global.Q4BRender.zukanToggleMode = toggleMode;
+    global.Q4BRender.zukanOriginalImageHref = originalImageHref;
+    global.Q4BRender.zukanDisplayImageHref = displayImageHref;
     /* ずかんきりかえトグル: 各図鑑ページの右上に表示。子供向け文言 (イラスト/しゃしん)。
        使い方: Q4BRender.mountZukanModeToggle(); で document.body に絶対配置でマウント。
        既存ボタンがあれば再利用。クリックでモード切替 + ページ再読込。 */
