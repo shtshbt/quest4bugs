@@ -1774,12 +1774,13 @@ function gMachi(lv){
   }
   var ansIdx = noError ? lines.length : kk;
   var fixmsg = noError ? "ほんとうは ぜんぶ ただしいよ" : ("ほんとうは "+bld(kk)+" ＝ "+fix);
-  /* requireValue (origLv===10): 行タップだけで終わらせず「ほんとうの値」も入力させる 2段階提出。
-     trueVals は各行の真値配列。Lv7 (小数) のとき dot を有効にして小数点キーを出す。
-     Lv8 (分数) は origLv===10 から除外しているのでここに来ない (Lv 練習で直接 8 選択時は除外しない)。 */
+  /* requireValue (origLv が 9 または 10): 行タップだけで終わらせず「ほんとうの値」も入力させる 2段階提出。
+     Lv9 は 4行式で問題形式が最複雑なので、ここから検算必須にする。
+     Lv8 (分数) は 1段階のまま (frac 入力 UI を持たないため Lv10 では pick から除外)。
+     trueVals は各行の真値配列。Lv7 (小数) のとき dot を有効にして小数点キーを出す。 */
   return {cat:"machigai",kind:"choice",text:expr,say:null,
     ans:ansIdx, lines:lines, noError:noError, fixmsg:fixmsg,
-    requireValue:(origLv===10), trueVals:vals, dot:(lv===7), origLv:origLv};
+    requireValue:(origLv===9||origLv===10), trueVals:vals, dot:(lv===7), origLv:origLv};
 }
 function gWarizan(lv){
   if(lv==null)lv=ri(1,10);
