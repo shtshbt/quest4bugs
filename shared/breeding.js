@@ -291,7 +291,10 @@
     var days = bornAt ? daysBetween(bornAt, todayStr()) : 0;
     var dayMsg = days > 0 ? '🐣 きみが '+days+'日間 そだてた 特別な子だよ' : '🐣 きみが そだてた 特別な子だよ';
 
-    /* 4段階 (or 3段階) を ~0.5s 間隔で見せ、最後に成虫アート。SVG があれば img、なければ emoji */
+    /* reduced-motion 配慮 */
+    var reduce = global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* 4段階 (or 3段階) を ~0.55s 間隔で見せ、最後に成虫アート。SVG があれば img、なければ emoji */
     var stageVisuals = stages.map(function(s){ return stageVisual(s, sp); });
     function stageHTML(v){
       if(v.svgUrl) return '<img src="'+v.svgUrl+'" alt="" style="width:120px;height:120px;display:block" onerror="this.style.display=\'none\'">';
@@ -300,11 +303,29 @@
     /* adult stage は SVG (Q4BRender) があれば使う */
     var adultSvg = (global.Q4BRender && global.Q4BRender.species) ? global.Q4BRender.species(sp, egg.shiny) : "";
 
+    /* スタイル (一度だけ注入) — パーティクル / 紙吹雪 / 光輪 */
+    if(!doc.getElementById("q4bHatchFxCss")){
+      var st = doc.createElement("style"); st.id = "q4bHatchFxCss";
+      st.textContent = ''
+        + '@keyframes q4bPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}'
+        + '@keyframes q4bRing{0%{transform:scale(.2);opacity:.85}100%{transform:scale(2.6);opacity:0}}'
+        + '@keyframes q4bFlash{0%{opacity:0}30%{opacity:.55}100%{opacity:0}}'
+        + '@keyframes q4bConfetti{0%{transform:translate3d(0,-10vh,0) rotate(0);opacity:1}100%{transform:translate3d(var(--qx,0),110vh,0) rotate(720deg);opacity:0}}'
+        + '@keyframes q4bSparkleFloat{0%{transform:translate(0,0) scale(.4);opacity:0}30%{opacity:1}100%{transform:translate(var(--qx,0),var(--qy,-80px)) scale(1.1);opacity:0}}'
+        + '.q4b-hatch-stage{position:relative;display:inline-block}'
+        + '.q4b-hatch-stage.beat{animation:q4bPulse .55s ease-in-out}'
+        + '.q4b-ring{position:absolute;inset:50% auto auto 50%;width:140px;height:140px;margin:-70px 0 0 -70px;border-radius:50%;border:6px solid #F2A33C;animation:q4bRing 900ms ease-out forwards;pointer-events:none}'
+        + '.q4b-flash{position:fixed;inset:0;background:radial-gradient(circle,rgba(255,235,160,.9) 0%,rgba(255,235,160,0) 60%);pointer-events:none;animation:q4bFlash 700ms ease-out forwards;z-index:319}'
+        + '.q4b-conf{position:fixed;top:-12vh;width:10px;height:14px;border-radius:2px;pointer-events:none;animation:q4bConfetti 2.4s ease-out forwards;z-index:321}'
+        + '.q4b-sparkle{position:absolute;font-size:22px;pointer-events:none;animation:q4bSparkleFloat 1.4s ease-out forwards}';
+      (doc.head||doc.body).appendChild(st);
+    }
+
     ov.innerHTML = ''
-      + '<div style="background:#FFFDF4;border-radius:22px;max-width:360px;width:96%;padding:24px 22px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
-      +   '<div id="q4bHatchStage" style="line-height:1;margin-bottom:10px;min-height:128px;display:flex;align-items:center;justify-content:center">'+stageHTML(stageVisuals[0])+'</div>'
+      + '<div style="background:#FFFDF4;border-radius:22px;max-width:360px;width:96%;padding:24px 22px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.4);position:relative;overflow:hidden">'
+      +   '<div id="q4bHatchStage" class="q4b-hatch-stage" style="line-height:1;margin-bottom:10px;min-height:128px;display:flex;align-items:center;justify-content:center">'+stageHTML(stageVisuals[0])+'</div>'
       +   '<div id="q4bHatchSparkle" style="font-size:14px;color:#F2A33C;font-weight:800;min-height:24px"></div>'
-      +   '<div id="q4bHatchName" style="font-size:18px;font-weight:800;color:#2A3D2C;margin-top:6px;display:none">'+esc(sp.jaName||sp.id)+' '+sexMark+'</div>'
+      +   '<div id="q4bHatchName" style="font-size:20px;font-weight:800;color:#2A3D2C;margin-top:6px;display:none">'+esc(sp.jaName||sp.id)+' '+sexMark+'</div>'
       +   '<div id="q4bHatchSize" style="font-size:13px;color:#6B7A5E;margin-top:2px;display:none">'+size+'mm</div>'
       +   '<div id="q4bHatchMsg" style="font-size:13px;color:#4A9B3A;font-weight:700;margin-top:8px;display:none">'+dayMsg+'</div>'
       +   '<div id="q4bHatchBtns" style="margin-top:14px;display:none">'
@@ -314,17 +335,103 @@
       + '</div>';
     doc.body.appendChild(ov);
 
-    /* reduced-motion */
-    var reduce = global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* WebAudio で軽い効果音 (許可ジェスチャ時のみ。サイレント失敗安全) */
+    function blip(freq, dur, type){
+      if(reduce) return;
+      try{
+        var Ctx = global.AudioContext || global.webkitAudioContext;
+        if(!Ctx) return;
+        var ctx = global.__q4bAudio || (global.__q4bAudio = new Ctx());
+        if(ctx.state === "suspended") try{ ctx.resume(); }catch(_){}
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = type||"sine"; o.frequency.value = freq||880;
+        g.gain.value = 0.0001;
+        o.connect(g); g.connect(ctx.destination);
+        var now = ctx.currentTime;
+        g.gain.exponentialRampToValueAtTime(0.18, now+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now+(dur||0.2));
+        o.start(now); o.stop(now+(dur||0.2)+0.05);
+      }catch(_){}
+    }
+
+    /* キラキラ粒子をステージ周辺に飛ばす (reduced-motion 時はスキップ) */
+    function spawnSparkles(stageRect, n){
+      if(reduce) return;
+      var symbols = ["✨","⭐","💫","🌟"];
+      for(var k=0;k<n;k++){
+        var s = doc.createElement("span");
+        s.className = "q4b-sparkle";
+        s.textContent = symbols[k % symbols.length];
+        var ang = (Math.PI*2) * (k/n) + (k*0.317);
+        var dist = 60 + 30 * ((k%3)+1);
+        s.style.setProperty("--qx", (Math.cos(ang)*dist)+"px");
+        s.style.setProperty("--qy", (Math.sin(ang)*dist - 20)+"px");
+        s.style.left = "50%"; s.style.top = "50%";
+        stageEl.appendChild(s);
+        setTimeout(function(el){ return function(){ if(el.parentNode) el.remove(); }; }(s), 1500);
+      }
+    }
+
+    /* 紙吹雪を画面に降らせる */
+    function spawnConfetti(n){
+      if(reduce) return;
+      var colors = ["#F2A33C","#3FA86B","#5B8DE0","#E84A6B","#E0A32E","#A06BD8"];
+      for(var k=0;k<n;k++){
+        var c = doc.createElement("div");
+        c.className = "q4b-conf";
+        c.style.background = colors[k % colors.length];
+        c.style.left = (Math.random()*100)+"vw";
+        c.style.animationDuration = (2 + Math.random()*1.4)+"s";
+        c.style.animationDelay = (Math.random()*0.4)+"s";
+        c.style.setProperty("--qx", ((Math.random()-0.5)*200)+"px");
+        doc.body.appendChild(c);
+        setTimeout(function(el){ return function(){ if(el.parentNode) el.remove(); }; }(c), 3200);
+      }
+    }
+
+    /* 一瞬の画面フラッシュ */
+    function flashScreen(){
+      if(reduce) return;
+      var f = doc.createElement("div");
+      f.className = "q4b-flash";
+      doc.body.appendChild(f);
+      setTimeout(function(){ if(f.parentNode) f.remove(); }, 750);
+    }
+
+    /* 光輪 (リング状の拡散) を stage に重ねる */
+    function spawnRing(){
+      if(reduce) return;
+      var r = doc.createElement("div");
+      r.className = "q4b-ring";
+      stageEl.appendChild(r);
+      setTimeout(function(){ if(r.parentNode) r.remove(); }, 950);
+    }
+
     var stepMs = reduce ? 250 : 550;
     var stageEl = ov.querySelector("#q4bHatchStage");
     var sparkleEl = ov.querySelector("#q4bHatchSparkle");
     var i = 1;
+
+    /* ステージ進行ごとに小さい blip と pulse */
+    function pulse(){
+      stageEl.classList.remove("beat");
+      void stageEl.offsetWidth; /* reflow to restart animation */
+      stageEl.classList.add("beat");
+    }
+
     function nextStage(){
       if(i >= stages.length){
-        /* adult */
+        /* adult — 最終演出: フラッシュ + リング + 紙吹雪 + 高音 blip */
         if(adultSvg){ stageEl.innerHTML = '<div style="width:120px;height:120px">'+adultSvg+'</div>'; }
         else { stageEl.textContent = "🐞"; }
+        pulse();
+        flashScreen();
+        spawnRing();
+        spawnSparkles(null, 12);
+        spawnConfetti(28);
+        blip(523.25, 0.18, "triangle");    /* C5 */
+        setTimeout(function(){ blip(659.25, 0.18, "triangle"); }, 130); /* E5 */
+        setTimeout(function(){ blip(783.99, 0.32, "triangle"); }, 260); /* G5 */
         sparkleEl.textContent = "✨ かえったよ！ ✨";
         ov.querySelector("#q4bHatchName").style.display = "block";
         ov.querySelector("#q4bHatchSize").style.display = "block";
@@ -341,9 +448,14 @@
         return;
       }
       stageEl.innerHTML = stageHTML(stageVisuals[i]);
+      pulse();
+      spawnSparkles(null, 5);
+      blip(330 + i*60, 0.12, "sine");
       i++;
       setTimeout(nextStage, stepMs);
     }
+    /* 開始時の最初の blip */
+    blip(220, 0.14, "sine");
     setTimeout(nextStage, stepMs);
   }
 
