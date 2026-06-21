@@ -313,8 +313,8 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./shared/zukan_render.js?v=0.1.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.5.0"></script>
-<script src="./shared/bug_archetypes.js?v=0.1.0"></script>
-<script src="./shared/breeding.js?v=0.1.0"></script>
+<script src="./shared/bug_archetypes.js?v=0.2.0"></script>
+<script src="./shared/breeding.js?v=0.2.0"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
 <script src="./shared/zukan_detail.js?v=0.2.0"></script>
 <script src="./shared/battle.js?v=0.5.1"></script>
@@ -543,7 +543,21 @@ function goshinHTML(pid,amber,bt){
     +'<div class="hint">30もん せいかいすると、1日ひとつ みつかるよ</div>'
     +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
-    +'</div>'+equipmentHTML(g)+shinyHTML(g)+'</div>';
+    +'</div>'+breedingPanelHTML(pid)+equipmentHTML(g)+shinyHTML(g)+'</div>';
+}
+/* 卵育成パネル: 御神木 panel 内、化石パーツ復元の上に表示 */
+function breedingPanelHTML(pid){
+  if(!window.Q4BBreeding||!window.QuestSave||!QuestSave.breedingOf) return "";
+  var bs=QuestSave.breedingOf(pid);
+  return Q4BBreeding.homeBreedingPanelHTML({
+    eggs: bs.eggs||[],
+    pendingCount: (bs.pendingEggs||[]).length,
+    legacyMasterCount: window.__q4bLegacyMasterCount||0,
+    onTap: "homeEggTap",
+    onAdd: "homeEggAdd",
+    onHatch: "homeEggHatch",
+    onAcceptPending: "homeEggAcceptPending"
+  });
 }
 function openEquipmentCard(id){
   if(!window.Q4BEquipment||!window.QuestSave)return;
@@ -1085,33 +1099,18 @@ function renderDashboard(pid,name){
     var psLine=ps.length?'<div class="note" style="background:var(--green-l);border-radius:10px;padding:6px 8px;margin:0 0 8px">📊 '+ps.join('　/　')+'</div>':'';
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
-    /* 卵育成パネル: 全教科の coll を合算して legacy master sex='u' をチェック */
-    var bs=(window.QuestSave&&QuestSave.breedingOf)?QuestSave.breedingOf(pid):{eggs:[],pendingEggs:[],stats:{}};
-    var legacyMasterCount=0;
+    /* 卵育成パネル: 全教科の coll を合算して legacy master sex='u' をチェック (御神木 panel 内に表示) */
     try{
+      window.__q4bLegacyMasterCount=0;
       [kp&&kp.coll,ks&&ks.coll,es].forEach(function(c){
         if(!c||!window.Q4BReward)return;
-        var coll=c.catches?c:{catches:c.catches};
-        if(c.catches){ legacyMasterCount += (Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(c):[]).length; }
+        if(c.catches){ window.__q4bLegacyMasterCount += (Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(c):[]).length; }
       });
-    }catch(_){}
-    var breedingHTML='';
-    if(window.Q4BBreeding){
-      breedingHTML=Q4BBreeding.homeBreedingPanelHTML({
-        eggs: bs.eggs||[],
-        pendingCount: (bs.pendingEggs||[]).length,
-        legacyMasterCount: legacyMasterCount,
-        onTap: "homeEggTap",
-        onAdd: "homeEggAdd",
-        onHatch: "homeEggHatch",
-        onAcceptPending: "homeEggAcceptPending"
-      });
-    }
+    }catch(_){ window.__q4bLegacyMasterCount=0; }
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
-      +breedingHTML
       +homeMapHTML(taniOpen)
       +goshinHTML(pid,amber,bt)
       +'<div class="note" style="display:flex;align-items:center;gap:8px;background:var(--green-l);border-radius:10px;padding:6px 10px;margin:0 0 8px">'

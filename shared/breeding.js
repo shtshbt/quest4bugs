@@ -27,11 +27,30 @@
   var GAME_EMOJI = {kanji:"🟣", keisan:"🔵", eitango:"🟢"};
   var GAME_LABEL = {kanji:"かんじ", keisan:"けいさん", eitango:"えいご"};
 
-  /* ステージ → 表示用 (絵文字 fallback、SVG が将来用意されたら差し替え) */
-  function stageVisual(stage){
+  /* ステージ → 表示用。archetype SVG があれば img、無ければ絵文字。
+     basePath はホーム/各教科ページ用に異なる (window 設定で上書き可能)。 */
+  function _svgBasePath(){
+    /* 呼び出し元の document.baseURI から推定。各教科は ../assets/larva_svg/、ホームは ./assets/larva_svg/。
+       簡易判定: location.pathname に /kanji/ 等が含まれるか。 */
+    var p = (global.location && global.location.pathname) || "";
+    if(/\/(kanji|keisan|eitango)\//.test(p)) return "../assets/larva_svg/";
+    return "./assets/larva_svg/";
+  }
+  function stageVisual(stage, sp){
     var a = A();
-    if(!a) return {emoji:"🥚", svg:null};
-    return {emoji: a.stageEmoji(stage), svg: null /* TODO Phase 6.5 */};
+    if(!a) return {emoji:"🥚", svgUrl:null, archetype:null};
+    if(a.stageVisualFor){
+      var v = a.stageVisualFor(stage, sp, _svgBasePath());
+      return {emoji: v.emoji || a.stageEmoji(stage), svgUrl: v.svgUrl, archetype: v.archetype};
+    }
+    return {emoji: a.stageEmoji(stage), svgUrl:null, archetype:null};
+  }
+  function stageVisualHTML(visual, sizePx){
+    sizePx = sizePx || 36;
+    if(visual.svgUrl){
+      return '<img src="'+visual.svgUrl+'" alt="" style="width:'+sizePx+'px;height:'+sizePx+'px;display:inline-block;vertical-align:middle" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\''+visual.emoji+'\'">';
+    }
+    return '<span style="font-size:'+Math.round(sizePx*0.9)+'px;line-height:1">'+visual.emoji+'</span>';
   }
 
   /* metamorphosis ラベル */
@@ -48,7 +67,7 @@
     var sp = r.spById(egg.id);
     if(!sp) return emptySlotHTML(opts);
     var stage = r.currentStage(egg, sp);
-    var v = stageVisual(stage);
+    var v = stageVisual(stage, sp);
     var ready = r.isHatchReady(egg);
     var p = pct(egg.progress, egg.target);
     var color = GAME_COLOR[egg.game] || "#888";
@@ -60,12 +79,15 @@
     var ctaBtn = ready && opts.onHatch
       ? '<button class="q4b-egg-cta" onclick="event.stopPropagation();'+opts.onHatch+'(\''+egg.id+'\')" style="display:block;width:100%;border:none;border-radius:8px;padding:8px 6px;margin-top:6px;font-size:13px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer">✨ タップでかえす</button>'
       : '';
+    var visualHTML = v.svgUrl
+      ? '<img src="'+v.svgUrl+'" alt="" style="width:42px;height:42px;display:block;margin:0 auto" onerror="this.style.display=\'none\'">'
+      : '<div style="font-size:36px;line-height:1.1">'+v.emoji+'</div>';
     return ''
       + '<div class="q4b-egg-card'+(ready?' q4b-egg-ready':'')+'"'+idAttr+onTapAttr
       +   ' style="background:#FFFDF4;border:2.5px solid '+(ready?'#F2A33C':'#CFDDB2')+';border-radius:14px;padding:8px 6px;cursor:pointer;'
       +   (ready?'box-shadow:0 0 0 3px rgba(242,163,60,.25),0 2px 6px rgba(0,0,0,.08);animation:q4bEggGlow 1.6s ease-in-out infinite;':'')
       +   '">'
-      +   '<div style="font-size:36px;text-align:center;line-height:1.1;margin-bottom:2px">'+v.emoji+'</div>'
+      +   '<div style="text-align:center;margin-bottom:2px;min-height:44px;display:flex;align-items:center;justify-content:center">'+visualHTML+'</div>'
       +   '<div style="font-size:12px;font-weight:800;color:#2A3D2C;text-align:center;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center">'+esc(name)+shinyMark+'</div>'
       +   '<div style="font-size:11px;color:#6B7A5E;text-align:center;margin-top:1px">'+sexMark+'</div>'
       +   '<div style="background:#EAEFE0;border-radius:99px;height:6px;margin:5px 0 3px;overflow:hidden"><div style="width:'+p+'%;height:100%;background:'+color+';transition:width .3s"></div></div>'
@@ -269,14 +291,18 @@
     var days = bornAt ? daysBetween(bornAt, todayStr()) : 0;
     var dayMsg = days > 0 ? '🐣 きみが '+days+'日間 そだてた 特別な子だよ' : '🐣 きみが そだてた 特別な子だよ';
 
-    /* 4段階 (or 3段階) を ~0.5s 間隔で見せ、最後に成虫アート */
-    var stageEmojis = stages.map(function(s){ return a ? a.stageEmoji(s) : "🥚"; });
+    /* 4段階 (or 3段階) を ~0.5s 間隔で見せ、最後に成虫アート。SVG があれば img、なければ emoji */
+    var stageVisuals = stages.map(function(s){ return stageVisual(s, sp); });
+    function stageHTML(v){
+      if(v.svgUrl) return '<img src="'+v.svgUrl+'" alt="" style="width:120px;height:120px;display:block" onerror="this.style.display=\'none\'">';
+      return '<div style="font-size:90px">'+(v.emoji||"")+'</div>';
+    }
     /* adult stage は SVG (Q4BRender) があれば使う */
     var adultSvg = (global.Q4BRender && global.Q4BRender.species) ? global.Q4BRender.species(sp, egg.shiny) : "";
 
     ov.innerHTML = ''
       + '<div style="background:#FFFDF4;border-radius:22px;max-width:360px;width:96%;padding:24px 22px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
-      +   '<div id="q4bHatchStage" style="font-size:90px;line-height:1;margin-bottom:10px;min-height:108px;display:flex;align-items:center;justify-content:center">'+stageEmojis[0]+'</div>'
+      +   '<div id="q4bHatchStage" style="line-height:1;margin-bottom:10px;min-height:128px;display:flex;align-items:center;justify-content:center">'+stageHTML(stageVisuals[0])+'</div>'
       +   '<div id="q4bHatchSparkle" style="font-size:14px;color:#F2A33C;font-weight:800;min-height:24px"></div>'
       +   '<div id="q4bHatchName" style="font-size:18px;font-weight:800;color:#2A3D2C;margin-top:6px;display:none">'+esc(sp.jaName||sp.id)+' '+sexMark+'</div>'
       +   '<div id="q4bHatchSize" style="font-size:13px;color:#6B7A5E;margin-top:2px;display:none">'+size+'mm</div>'
@@ -314,7 +340,7 @@
         };
         return;
       }
-      stageEl.textContent = stageEmojis[i];
+      stageEl.innerHTML = stageHTML(stageVisuals[i]);
       i++;
       setTimeout(nextStage, stepMs);
     }

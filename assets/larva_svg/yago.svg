@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="ヤゴ (トンボ目 若虫)">
+  <!-- ヤゴ: 茶緑、扁平、6本脚、大きい複眼、お尻に3本の鰓 -->
+  <defs>
+    <linearGradient id="yagoBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7A8C5C"/>
+      <stop offset="100%" stop-color="#4A5A3A"/>
+    </linearGradient>
+  </defs>
+  <!-- 腹部 (細長い) -->
+  <ellipse cx="32" cy="42" rx="7" ry="14" fill="url(#yagoBody)" stroke="#2E3A22" stroke-width="1.8"/>
+  <!-- 体節 -->
+  <g stroke="#2E3A22" stroke-width="0.8" opacity="0.6">
+    <line x1="26" y1="36" x2="38" y2="36"/>
+    <line x1="26" y1="42" x2="38" y2="42"/>
+    <line x1="26" y1="48" x2="38" y2="48"/>
+  </g>
+  <!-- 胸部 -->
+  <ellipse cx="32" cy="24" rx="9" ry="7" fill="url(#yagoBody)" stroke="#2E3A22" stroke-width="1.8"/>
+  <!-- 頭部 (横長、大きい複眼が両側に張り出す) -->
+  <ellipse cx="32" cy="14" rx="11" ry="6" fill="url(#yagoBody)" stroke="#2E3A22" stroke-width="1.8"/>
+  <!-- 複眼 -->
+  <circle cx="23" cy="14" r="3.5" fill="#1A1A1A"/>
+  <circle cx="41" cy="14" r="3.5" fill="#1A1A1A"/>
+  <circle cx="22" cy="13" r="1" fill="#FFFDF4" opacity="0.6"/>
+  <circle cx="40" cy="13" r="1" fill="#FFFDF4" opacity="0.6"/>
+  <!-- 脚 (3 対) -->
+  <g stroke="#2E3A22" stroke-width="1.6" stroke-linecap="round" fill="none">
+    <path d="M 24 22 L 16 26 L 12 30"/>
+    <path d="M 40 22 L 48 26 L 52 30"/>
+    <path d="M 24 26 L 16 32 L 14 38"/>
+    <path d="M 40 26 L 48 32 L 50 38"/>
+    <path d="M 25 30 L 18 38"/>
+    <path d="M 39 30 L 46 38"/>
+  </g>
+  <!-- 尾鰓 (3 本) -->
+  <g stroke="#2E3A22" stroke-width="1.4" stroke-linecap="round" fill="#5A6E42">
+    <path d="M 32 56 L 32 62"/>
+    <path d="M 28 55 L 25 62"/>
+    <path d="M 36 55 L 39 62"/>
+  </g>
+</svg>

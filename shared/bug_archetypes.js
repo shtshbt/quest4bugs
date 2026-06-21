@@ -67,16 +67,50 @@
 
   /* 絵文字 fallback (SVG 未制作時): ステージ→絵文字 */
   function stageEmoji(stage){
-    if(stage==="egg")    return "🥚"; /* 🥚 */
-    if(stage==="larva")  return "🐛"; /* 🐛 */
-    if(stage==="pupa")   return "🛌"; /* 🛌 */
-    if(stage==="nymph")  return "🦗"; /* 🦗 */
+    if(stage==="egg")    return "🥚";
+    if(stage==="larva")  return "🐛";
+    if(stage==="pupa")   return "🛌";
+    if(stage==="nymph")  return "🦗";
     return "";
+  }
+
+  /* 制作済 SVG の whitelist (assets/larva_svg/ に存在するもの)。
+     未収載のものは emoji にフォールバック。Phase 6.5 で随時拡充。 */
+  var SVG_AVAILABLE={
+    egg:1, koganemushi:1, imomushi:1, kabuto_pupa:1, yago:1
+    /* 追加予定: kuwagata, kamikiri, zoumushi, mizu_kouchu, kemushi, hachi, uji,
+       chou_pupa, ga_pupa, hachi_pupa, batta, kamakiri, semi, kamemushi_nymph, gokiburi */
+  };
+
+  /* archetype name → SVG ファイル URL (HTML からの相対パスは呼び出し側で解決) */
+  function svgUrl(name, basePath){
+    if(!name || !SVG_AVAILABLE[name]) return null;
+    var base = basePath || "./assets/larva_svg/";
+    return base + name + ".svg";
+  }
+
+  /* 卵カード/孵化アニメ用 visual: stage + sp から archetype を引いて
+     {svgUrl, emoji, archetype} を返す。svgUrl が null なら emoji を使う側で判断。
+     basePath は呼び出し側 (ホーム / 教科ページ) のドキュメントルートに合わせる。 */
+  function stageVisualFor(stage, sp, basePath){
+    if(stage === "egg"){
+      return {archetype:"egg", svgUrl:svgUrl("egg",basePath), emoji:"🥚"};
+    }
+    if(stage === "adult"){
+      /* 成虫: archetype ではなく Q4BRender.species を使う側でハンドル */
+      return {archetype:null, svgUrl:null, emoji:""};
+    }
+    var arch = archetypesFor(sp);
+    var name = arch[stage] || null;
+    return {archetype:name, svgUrl:svgUrl(name,basePath), emoji:stageEmoji(stage)};
   }
 
   global.Q4BArchetypes={
     archetypesFor:archetypesFor,
     stageEmoji:stageEmoji,
+    stageVisualFor:stageVisualFor,
+    svgUrl:svgUrl,
+    SVG_AVAILABLE:SVG_AVAILABLE,
     RULES:ARCHETYPE_RULES
   };
 })(typeof window!=="undefined"?window:globalThis);
