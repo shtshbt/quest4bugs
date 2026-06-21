@@ -18,12 +18,60 @@
   }
   var PANEL_OPEN = _loadPanelOpen();
 
-  /* バトルセーブから撃破ボスを読み込む（図鑑表示前に await する） */
+  /* バトルセーブから撃破ボスを読み込む（図鑑表示前に await する）。
+     legacy: 旧版で coll.catches[boss_id] にしか書かれていない撃破履歴を
+     bt.bosses に load-time backfill する (battle.html を経由しなくても
+     教科側のボスセクションで表示される)。 */
   function load(profileId){
     if(!global.QuestSave || !profileId){ BOSSES = {}; loaded = true; return Promise.resolve(); }
-    return global.QuestSave.load("battle", profileId).then(function(bt){
-      BOSSES = (bt && bt.bosses) || {}; loaded = true;
+    return Promise.all([
+      global.QuestSave.load("battle",   profileId),
+      global.QuestSave.load("keisan",   profileId),
+      global.QuestSave.load("kanji",    profileId),
+      global.QuestSave.load("eitango",  profileId)
+    ]).then(function(rs){
+      var bt = rs[0] || {};
+      bt.bosses = bt.bosses || {};
+      var colls = {
+        keisan:  rs[1] && rs[1].coll ? rs[1].coll : null,
+        kanji:   rs[2] && rs[2].coll ? rs[2].coll : null,
+        eitango: rs[3] && rs[3].catches ? {catches: rs[3].catches} : null
+      };
+      var changed = bossesBackfill(bt.bosses, colls);
+      if(changed && global.QuestSave.save){
+        try{ global.QuestSave.save("battle", profileId, bt); }catch(_){}
+      }
+      BOSSES = bt.bosses; loaded = true;
     }).catch(function(){ BOSSES = {}; loaded = true; });
+  }
+  /* coll.catches[boss_id] が存在しているのに bt.bosses[id] が未登録 (または records 等が
+     欠落している) ボスに対し、in-place で補完する。既存値があれば尊重 (max 比較)。 */
+  function bossesBackfill(bossesMap, collsByGame){
+    var B = global.Q4BBattle, RW = global.Q4BReward;
+    if(!B || !B.roster || !RW || !RW.gameFor) return false;
+    var byId = byIdMap();
+    var changed = false;
+    B.roster.forEach(function(r){
+      if(r.predator || !r.id || !byId[r.id]) return;
+      var sp = byId[r.id];
+      var game = RW.gameFor(sp);
+      var coll = collsByGame[game];
+      if(!coll || !coll.catches || !coll.catches[r.id]) return;
+      var cat = coll.catches[r.id];
+      var be = bossesMap[r.id];
+      if(!be){ bossesMap[r.id] = be = {n:0}; changed = true; }
+      if(typeof cat.n === "number" && cat.n > (be.n||0)){ be.n = cat.n; changed = true; }
+      if(!be.firstSex){
+        var rec0 = cat.records && cat.records[0];
+        if(rec0 && (rec0.sex === "m" || rec0.sex === "f")){ be.firstSex = rec0.sex; changed = true; }
+      }
+      if(!be.records && cat.records){ be.records = cat.records.slice(); changed = true; }
+      if(be.max == null && cat.max != null){ be.max = cat.max; changed = true; }
+      if(be.min == null && cat.min != null){ be.min = cat.min; changed = true; }
+      if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
+      if(be.eggGranted === undefined && (be.n||0) >= 10){ be.eggGranted = true; changed = true; }
+    });
+    return changed;
   }
   function ready(){ return loaded; }
 
