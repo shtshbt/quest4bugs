@@ -192,7 +192,7 @@
       +     brBadge
       +   '</div>'
       +   '<div style="margin:-2px 0 8px">'+rearedCounter
-      +     (br && br.next ? '<span style="font-size:11px;color:#A89876;margin-left:8px">つぎ '+esc(br.next.short)+' まで '+(br.next.threshold-(opts.totalReared||0))+'</span>' : '')
+      +     (br && br.next ? '<span style="font-size:11px;color:#A89876;margin-left:8px">つぎ '+esc(br.next.label)+' まで '+(br.next.threshold-(opts.totalReared||0))+'</span>' : '')
       +   '</div>'
       +   pendBanner
       +   legacyBanner
