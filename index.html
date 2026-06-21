@@ -310,7 +310,7 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./shared/bugs.js?v=0.4.10"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./zukan_config/zukan_catalog.js?v=0.1.0"></script>
-<script src="./shared/zukan_render.js?v=0.1.0"></script>
+<script src="./shared/zukan_render.js?v=0.2.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.5.1"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
@@ -1344,27 +1344,8 @@ if(window.QuestSave&&QuestSave.syncDown){ QuestSave.syncDown().then(renderProfil
 else { renderProfiles(); }
 </script>
 <script>
-/* 全体表示モード (museum / svg) のトグル。設定は localStorage q4b_zukan_mode に保存され、
-   battle/eitango/kanji/keisan の全画面で zukan_render.js が読む。切替後は location.reload() で
-   現在の home を再描画して即時反映する。 */
-(function(){
-  if(!window.Q4BRender || !Q4BRender.zukanGetMode) return;
-  var btn = document.createElement("button");
-  btn.id = "q4b-zukan-mode-toggle";
-  btn.title = "museum / SVG ひょうじ きりかえ";
-  btn.style.cssText = "position:fixed;bottom:14px;right:14px;z-index:9999;"
-    + "background:rgba(255,253,244,.94);border:1.5px solid #c8b884;border-radius:16px;"
-    + "padding:6px 12px;font-size:12px;cursor:pointer;color:#56714e;"
-    + "box-shadow:0 2px 6px rgba(0,0,0,.12);font-family:inherit;font-weight:600";
-  function refresh(){ btn.innerHTML = Q4BRender.zukanGetMode() === "svg" ? "🎨 SVGで みる" : "📷 ひょうほんで みる"; }
-  refresh();
-  btn.addEventListener("click", function(){
-    Q4BRender.zukanToggleMode();
-    refresh();
-    setTimeout(function(){ location.reload(); }, 80);
-  });
-  document.body.appendChild(btn);
-})();
+/* ホーム画面には ずかんきりかえボタンを置かない (図鑑そのものが無いため)。
+   各図鑑ページ (kanji/keisan/eitango/battle) で Q4BRender.mountZukanModeToggle() を呼ぶ。 */
 </script>
 </body>
 </html>

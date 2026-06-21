@@ -327,7 +327,7 @@
 <script src="./shared/eitango_data.js?v=0.5.1"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./zukan_config/zukan_catalog.js?v=0.1.0"></script>
-<script src="./shared/zukan_render.js?v=0.1.0"></script>
+<script src="./shared/zukan_render.js?v=0.2.0"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.5.1"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
@@ -1945,6 +1945,8 @@ function quitBattle(){
   renderHome();
   if(location.hash==="#tani"&&taniDiscovered()) setTimeout(focusTaniEntry,120);
 }).catch(function(e){ renderHome(); });
+/* ずかんきりかえ (イラスト/しゃしん) を右上にマウント */
+if(window.Q4BRender&&Q4BRender.mountZukanModeToggle) Q4BRender.mountZukanModeToggle();
 </script>
 </body>
 </html>

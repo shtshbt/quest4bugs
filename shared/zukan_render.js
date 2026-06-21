@@ -139,5 +139,38 @@
     global.Q4BRender.zukanGetMode = getMode;
     global.Q4BRender.zukanSetMode = setMode;
     global.Q4BRender.zukanToggleMode = toggleMode;
+    /* ずかんきりかえトグル: 各図鑑ページの右上に表示。子供向け文言 (イラスト/しゃしん)。
+       使い方: Q4BRender.mountZukanModeToggle(); で document.body に絶対配置でマウント。
+       既存ボタンがあれば再利用。クリックでモード切替 + ページ再読込。 */
+    global.Q4BRender.mountZukanModeToggle = function(){
+      var doc = global.document; if(!doc || !doc.body) return;
+      var existing = doc.getElementById("q4b-zukan-mode-toggle");
+      if(existing) return existing;
+      var btn = doc.createElement("button");
+      btn.id = "q4b-zukan-mode-toggle";
+      btn.type = "button";
+      btn.title = "ずかんの 見た目を きりかえる";
+      /* 右上に固定、ホームボタン (右上 z-index:9999) と並んで見える位置 */
+      btn.style.cssText = "position:fixed;top:54px;right:8px;z-index:9998;"
+        + "background:rgba(255,253,244,.94);border:2px solid #CFDDB2;border-radius:14px;"
+        + "padding:6px 10px;font-size:12px;cursor:pointer;color:#2A3D2C;"
+        + "box-shadow:0 2px 0 #CFDDB2;font-family:inherit;font-weight:700;line-height:1.25;text-align:left";
+      function refresh(){
+        var m = getMode();
+        /* 子供向け: 「ずかんきりかえ：イラスト/しゃしん」現在のモードを強調 */
+        var illust = m === "svg" ? "<b>イラスト</b>" : "イラスト";
+        var photo  = m === "svg" ? "しゃしん" : "<b>しゃしん</b>";
+        btn.innerHTML = '<div style="font-size:10px;color:#6B7A5E;margin-bottom:1px">ずかん きりかえ</div>'
+          + '<div style="font-size:13px">'+illust+' / '+photo+'</div>';
+      }
+      refresh();
+      btn.addEventListener("click", function(){
+        toggleMode();
+        refresh();
+        setTimeout(function(){ global.location.reload(); }, 80);
+      });
+      doc.body.appendChild(btn);
+      return btn;
+    };
   }
 })(window);
