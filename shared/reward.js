@@ -496,7 +496,10 @@
     get: function(){ return _memBreed; },
     save: function(s){ _memBreed = s; return true; }
   };
-  function setEggStore(s){ eggStore = s || eggStore; }
+  function setEggStore(s){
+    eggStore = s || eggStore;
+    if(_dbg()) console.log("[setEggStore] wired", typeof s, s && (typeof s.get === "function" ? "get✓" : "get✗"), s && (typeof s.save === "function" ? "save✓" : "save✗"));
+  }
   function _bs(){ return eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
   function _saveBs(s){ return eggStore.save(s); }
 
@@ -591,6 +594,13 @@
   /* feedEgg 後の UI フック (breeding.js が toast 表示用に登録する) */
   var _feedHook = null;
   function setFeedHook(fn){ _feedHook = fn; }
+  /* ?debug=1 ログ用 */
+  function _dbg(){
+    try{
+      return typeof window !== "undefined" && window.location
+        && /[?&]debug=1\b/.test(window.location.search||"");
+    }catch(_){ return false; }
+  }
   /* 学習問題正解で該当教科の卵 +1 (全卵対象、3倍効率は許容)。
      onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。
      ステージ遷移時に egg.stageHistory[] に日付を記録する (UI で「いつ幼虫になったか」を表示)。
@@ -598,17 +608,17 @@
   function feedEgg(game){
     var bs = _bs();
     var fed = [];
+    var skipReason = "";
     for(var i=0;i<bs.eggs.length;i++){
       var egg = bs.eggs[i];
-      if(egg.game !== game) continue;
-      if((egg.progress||0) >= egg.target) continue;
+      if(egg.game !== game){ skipReason = "game mismatch ("+egg.game+" vs "+game+")"; continue; }
+      if((egg.progress||0) >= egg.target){ skipReason = "already at target"; continue; }
       var sp = spById(egg.id);
       var prevStage = sp ? currentStage(egg, sp) : null;
       egg.progress = (egg.progress||0) + 1;
       var newStage = sp ? currentStage(egg, sp) : null;
       if(prevStage !== newStage && newStage){
         egg.stageHistory = egg.stageHistory || [];
-        /* bornAt の egg ステージ自体は履歴に重複させない (生成時に bornAt が分かる) */
         if(newStage !== "egg"){
           egg.stageHistory.push({stage:newStage, d:todayStr()});
         }
@@ -616,6 +626,10 @@
       fed.push(egg);
     }
     if(fed.length) _saveBs(bs);
+    if(_dbg()){
+      var snapshot = bs.eggs.map(function(e){return e.id+"("+e.game+"):"+e.progress+"/"+e.target;}).join(", ");
+      console.log("[feedEgg]", game, "→ fed:", fed.length, "/", bs.eggs.length, "eggs |", snapshot || "(no eggs)", fed.length===0 && bs.eggs.length>0 ? " ← skip reason: "+skipReason : "");
+    }
     if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }
     return fed.length > 0;
   }
