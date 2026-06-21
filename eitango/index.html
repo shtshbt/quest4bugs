@@ -243,9 +243,9 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/breeding.js?v=0.5.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
 <script src="../shared/zukan_detail.js?v=0.2.2"></script>
-<script src="../shared/zukan_lightbox.js?v=0.1.0"></script>
+<script src="../shared/zukan_lightbox.js?v=0.2.0"></script>
 <script src="../shared/battle.js?v=0.5.1"></script>
-<script src="../shared/boss_zukan.js?v=0.6.0"></script>
+<script src="../shared/boss_zukan.js?v=0.6.1"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script src="../shared/colloc.js?v=0.3.0"></script>
@@ -827,8 +827,9 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zReared=false, zPlural=false, zMasterOpen=true;
-function setEitangoMasterOpen(v){ zMasterOpen=!!v; }
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zReared=false, zPlural=false;
+let zMasterOpen=(()=>{try{const v=localStorage.getItem("q4b_eitango_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
+function setEitangoMasterOpen(v){ zMasterOpen=!!v; try{localStorage.setItem("q4b_eitango_master_open",v?"1":"0");}catch(_){} }
 
 async function boot(){
   buildSpecies();
@@ -1012,9 +1013,10 @@ function eitangoMasterSection(){
   const cells=ms.map(sp=>{ const ok=Q4BReward.masterObtained(tmp,sp.id); const fd=fieldById(sp.master.key);
     return `<button type="button" class="zc" onclick="openMasterBugE('${sp.id}')" style="--rc:#E0A32E${ok?'':';opacity:.55'}"><span class="ze">${ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'🎓'}</span><span class="zn">${ok?(Engine.esc(sp.jaName)+' 🎓'):(fd?Engine.esc(fd.name):'')}</span><span class="zs" style="color:#E0A32E">${ok?'マスター':'ぜんぶ習得で'}</span></button>`;
   }).join('');
-  return `<details${zMasterOpen?' open':''} style="margin-top:8px" ontoggle="setEitangoMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;padding:4px 0">🎓 マスター虫 <span style="color:#E0A32E">${got} / ${ms.length}</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>
-    <div class="note" style="margin:4px 0 6px">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
-    <div class="zgrid">${cells}</div></details>`;
+  const arrowE=zMasterOpen?'▼':'▶';
+  return `<details${zMasterOpen?' open':''} style="margin-top:8px;border:2px solid #E0A32E;border-radius:14px;background:linear-gradient(180deg,rgba(245,232,255,.7) 0%,rgba(255,253,244,.6) 100%);padding:0" ontoggle="setEitangoMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:14px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;background:rgba(245,232,255,.5);border-radius:12px 12px 0 0"><span style="font-size:22px;color:#A06BD8;display:inline-block;width:22px;text-align:center">${arrowE}</span>🎓 マスター虫 <span style="color:#E0A32E;font-size:14px">${got} / ${ms.length}</span><span style="margin-left:auto;font-size:11px;color:#A06BD8;font-weight:700">タップで ${zMasterOpen?'とじる':'ひらく'}</span></summary>
+    <div style="padding:0 14px 14px"><div class="note" style="margin:8px 0">そのフィールドを ぜんぶ習得すると もらえる特別な虫</div>
+    <div class="zgrid">${cells}</div></div></details>`;
 }
 function openMasterBugE(spId){
   if(!window.Q4BReward||!Q4BReward.masterBugsFor||!P||!P.catches) return;

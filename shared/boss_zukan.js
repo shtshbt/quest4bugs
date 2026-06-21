@@ -5,7 +5,18 @@
   "use strict";
   var BOSSES = {};      /* 現在プロフィールの撃破マップ {speciesId:{n}} */
   var loaded = false;
-  var PANEL_OPEN = {};  /* ボス節の折りたたみ状態をゲーム別に保持 (フィルタ再描画でリセットしない) */
+  /* ボス節の折りたたみ状態を localStorage に永続化 (デフォルト open) */
+  var PANEL_LS_KEY = "q4b_boss_panel_open";
+  function _loadPanelOpen(){
+    try{
+      var s = global.localStorage && localStorage.getItem(PANEL_LS_KEY);
+      return s ? JSON.parse(s) : {};
+    }catch(_){ return {}; }
+  }
+  function _savePanelOpen(state){
+    try{ if(global.localStorage) localStorage.setItem(PANEL_LS_KEY, JSON.stringify(state)); }catch(_){}
+  }
+  var PANEL_OPEN = _loadPanelOpen();
 
   /* バトルセーブから撃破ボスを読み込む（図鑑表示前に await する） */
   function load(profileId){
@@ -39,9 +50,13 @@
     var cells = list.map(function(r){ return cellHTML(game, r, byId[r.id], !!BOSSES[r.id]); }).join("");
     /* 折りたたみ状態の保持: フィルタ再描画でリセットされないようゲーム別に保存 */
     var panelOpen = PANEL_OPEN[game] !== false;   /* 初回は true */
-    return '<details class="card"' + (panelOpen ? ' open' : '') + ' style="padding:0" ontoggle="Q4BBossZukan._panel(\'' + game + '\',this.open)">'
-      + '<summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">👑 ボス昆虫 <span style="color:#E8B33C">' + got + ' / ' + list.length + '</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
-      + '<div style="padding:0 14px 14px"><p style="margin:2px 0 8px;font-size:13px;color:#888">ずかんバトルで たおすと あらわれる 強いボス</p>'
+    var arrow = panelOpen ? "▼" : "▶";
+    return '<details class="card"' + (panelOpen ? ' open' : '') + ' style="padding:0;border:2px solid #E8B33C;background:linear-gradient(180deg,rgba(255,247,219,.85) 0%,rgba(255,253,244,.6) 100%)" ontoggle="Q4BBossZukan._panel(\'' + game + '\',this.open)">'
+      + '<summary style="list-style:none;cursor:pointer;padding:14px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;background:rgba(255,247,219,.5);border-radius:12px 12px 0 0">'
+      + '<span style="font-size:22px;color:#CF7F14;display:inline-block;width:22px;text-align:center" class="q4b-toggle-arrow">' + arrow + '</span>'
+      + '👑 ボス昆虫 <span style="color:#E8B33C;font-size:14px">' + got + ' / ' + list.length + '</span>'
+      + '<span style="margin-left:auto;font-size:11px;color:#CF7F14;font-weight:700">タップで ' + (panelOpen ? "とじる" : "ひらく") + '</span></summary>'
+      + '<div style="padding:0 14px 14px"><p style="margin:8px 0;font-size:13px;color:#6B7A5E">ずかんバトルで たおすと あらわれる 強いボス</p>'
       + '<div class="' + gridClass + '">' + cells + '</div></div></details>';
   }
 
@@ -216,7 +231,7 @@
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function jsStr(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }
 
-  function _panel(game, open){ PANEL_OPEN[game] = !!open; }
+  function _panel(game, open){ PANEL_OPEN[game] = !!open; _savePanelOpen(PANEL_OPEN); }
   global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail, _panel:_panel,
     layEgg:layEgg, hatchEgg:hatchEgg, abandonEgg:abandonEgg };
 })(window);

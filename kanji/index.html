@@ -179,9 +179,9 @@ input[type=range]{width:100%}
 <script src="../shared/breeding.js?v=0.5.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
 <script src="../shared/zukan_detail.js?v=0.2.2"></script>
-<script src="../shared/zukan_lightbox.js?v=0.1.0"></script>
+<script src="../shared/zukan_lightbox.js?v=0.2.0"></script>
 <script src="../shared/battle.js?v=0.5.1"></script>
-<script src="../shared/boss_zukan.js?v=0.6.0"></script>
+<script src="../shared/boss_zukan.js?v=0.6.1"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script>
@@ -262,8 +262,8 @@ function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
 var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false,BUG_HIDE_UNK=false,BUG_REARED=false,BUG_PLURAL=false;
-var KANJI_MASTER_OPEN=true;  /* フィルタ再描画でも折りたたみ状態を保持 */
-function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; }
+var KANJI_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_kanji_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
+function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_kanji_master_open",v?"1":"0");}catch(_){} }
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
 function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
@@ -1073,8 +1073,9 @@ function kanjiMasterSection(){
    +'<div class="nm">'+(ok?(sp.jaName+' 🎓'):(GLAB[sp.master.key]||'')+' ？')+'</div>'
    +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></button>';
  }).join('');
- return '<details class="card"'+(KANJI_MASTER_OPEN?' open':'')+' style="padding:0" ontoggle="setKanjiMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">🎓 マスター虫 <span style="color:var(--gold)">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
-  +'<div style="padding:0 14px 14px"><div style="font-size:12px;color:#56714e;margin-bottom:8px">そのはんいを <b>ぜんぶ習得</b>すると もらえる特別な虫だよ</div>'
+ var arrow=KANJI_MASTER_OPEN?'▼':'▶';
+ return '<details class="card"'+(KANJI_MASTER_OPEN?' open':'')+' style="padding:0;border:2px solid var(--gold);background:linear-gradient(180deg,rgba(245,232,255,.7) 0%,rgba(255,253,244,.6) 100%)" ontoggle="setKanjiMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:14px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;background:rgba(245,232,255,.5);border-radius:12px 12px 0 0"><span style="font-size:22px;color:#A06BD8;display:inline-block;width:22px;text-align:center">'+arrow+'</span>🎓 マスター虫 <span style="color:var(--gold);font-size:14px">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:11px;color:#A06BD8;font-weight:700">タップで '+(KANJI_MASTER_OPEN?'とじる':'ひらく')+'</span></summary>'
+  +'<div style="padding:0 14px 14px"><div style="font-size:13px;color:#56714e;margin:8px 0">そのはんいを <b>ぜんぶ習得</b>すると もらえる特別な虫だよ</div>'
   +'<div class="bugs">'+cells+'</div></div></details>';
 }
 function openKanjiMasterBug(spId){
@@ -1368,6 +1369,7 @@ function renderBugs(){
     +favBadge
     +rearedBadge
     +sexUnknownBadge
+    +'<span style="position:absolute;bottom:2px;left:4px;font-size:11px;font-weight:700;color:#2A3D2C;background:rgba(255,253,244,.85);border-radius:6px;padding:1px 5px;line-height:1;pointer-events:none">×'+(entry.n||1)+'</span>'
     +Q4BReward.svg(sp,showSh)
     +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'
     +'<div class="rar">'+tierLabel+'</div>'

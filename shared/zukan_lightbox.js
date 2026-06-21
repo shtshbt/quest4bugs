@@ -34,21 +34,36 @@
   }
 
   /* attach: root 配下の data-zukan SVG にクリックハンドラを装着 (冪等)。
-     wrapper (svg の親要素) に cursor:zoom-in + role=button + click を付与。
-     既に装着済なら何もしない。各教科のモーダル open 直後にホストから呼ぶ。 */
+     詳細モーダル内 (.mcard / .modal / [data-zukan-zoom-zone="1"] 配下) の svg だけが対象。
+     グリッドカード一覧の svg は除外 (タップで詳細モーダルを開く既存導線を妨げない)。 */
   function attach(root){
     if(!root || !isMuseum()) return;
+    if(!root.querySelectorAll) return;
     var svgs = root.querySelectorAll('svg[data-zukan="1"][data-zukan-spid]');
     for(var i=0;i<svgs.length;i++){
       var svg = svgs[i];
+      /* 詳細モーダル内限定: 祖先に .mcard / .modal / 明示マーカー があるもののみ */
+      if(!svg.closest) continue;
+      var inDetail = svg.closest('.mcard, #modal, #q4bHomeZukanOv, [data-zukan-zoom-zone="1"]');
+      if(!inDetail) continue;
       var wrap = svg.parentNode;
       if(!wrap || wrap.nodeType !== 1) continue;
       if(wrap.dataset.zukanZoomable === "1") continue;     // 冪等ガード
       wrap.dataset.zukanZoomable = "1";
       wrap.style.cursor = "zoom-in";
+      if(!wrap.style.position) wrap.style.position = "relative";
       wrap.setAttribute("role", "button");
       wrap.setAttribute("tabindex", "0");
       wrap.setAttribute("aria-label", "しゃしんを 大きく みる");
+      /* 🔍 マーク (右下に重ねる) — 拡大できることを視覚的に示す */
+      if(!wrap.querySelector('[data-zukan-zoom-mark="1"]')){
+        var mark = document.createElement("span");
+        mark.setAttribute("data-zukan-zoom-mark", "1");
+        mark.setAttribute("aria-hidden", "true");
+        mark.textContent = "🔍";
+        mark.style.cssText = "position:absolute;bottom:2px;right:2px;background:rgba(255,253,244,.94);border:1px solid #CFDDB2;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:13px;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.25);line-height:1";
+        wrap.appendChild(mark);
+      }
       (function(s){
         function handler(ev){
           ev.stopPropagation();

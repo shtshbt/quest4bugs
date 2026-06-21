@@ -6,8 +6,8 @@
 "use strict";
 var DB={v:1, act:null, profiles:[]};
 var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false, KZ_REARED=false, KZ_PLURAL=false;
-var KEISAN_MASTER_OPEN=true;  /* フィルタ再描画でも折りたたみ状態を保持 */
-function setKeisanMasterOpen(v){ KEISAN_MASTER_OPEN=!!v; }
+var KEISAN_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_keisan_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
+function setKeisanMasterOpen(v){ KEISAN_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_keisan_master_open",v?"1":"0");}catch(_){} }
 
 /* ---------- insect data is loaded from ../shared/bugs.js ---------- */
 /* ---------- bug SVG archetypes ---------- */
@@ -689,8 +689,9 @@ function keisanMasterSection(){
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
   return '<button type="button" class="zc" onclick="openMasterBugK(\''+sp.id+'\')" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></button>';
  }).join("");
- return '<details class="card"'+(KEISAN_MASTER_OPEN?' open':'')+' style="padding:0" ontoggle="setKeisanMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">🎓 マスター虫 <span style="color:var(--amber-d)">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
-   +'<div style="padding:0 14px 14px"><p class="note" style="margin:2px 0 8px">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div></details>';
+ var arrow=KEISAN_MASTER_OPEN?'▼':'▶';
+ return '<details class="card"'+(KEISAN_MASTER_OPEN?' open':'')+' style="padding:0;border:2px solid var(--amber-d);background:linear-gradient(180deg,rgba(245,232,255,.7) 0%,rgba(255,253,244,.6) 100%)" ontoggle="setKeisanMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:14px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;background:rgba(245,232,255,.5);border-radius:12px 12px 0 0"><span style="font-size:22px;color:#A06BD8;display:inline-block;width:22px;text-align:center">'+arrow+'</span>🎓 マスター虫 <span style="color:var(--amber-d);font-size:14px">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:11px;color:#A06BD8;font-weight:700">タップで '+(KEISAN_MASTER_OPEN?'とじる':'ひらく')+'</span></summary>'
+   +'<div style="padding:0 14px 14px"><p class="note" style="margin:8px 0">そのスキルを <b>ぜんぶ習得</b>すると もらえる特別な虫</p><div class="zgrid">'+cells+'</div></div></details>';
 }
 function openMasterBugK(spId){
   var p=P(); ensureColl(p);
@@ -788,7 +789,7 @@ function showZukan(){
     if(isFav) h+='<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>';
     if(Q4BReward.hasReared&&Q4BReward.hasReared(p.coll,sp.id)) h+='<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>';
     if(rec&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(rec,sp)) h+='<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1;z-index:2" title="♂♀ をきめてね">!</span>';
-    if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
+    if(rec)h+='<span class="cnt">×'+(rec.n||1)+'</span>';
     if(rec){
       /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */
       var recNormal=(rec.normal!=null?rec.normal:1);
@@ -1610,104 +1611,168 @@ function gFrac(lv){
   }
 }
 /* まちがいさがし: Lv ごとに使う演算種・式の形を変えて 10段階化。
-   旧実装は Lv 引数を受け取らず pat=1 (a×b+c×d) / pat=2 (括弧式) の2形式固定だった。
-   3行ステップ式に1か所だけ ±1〜±3 のミスを入れる枠組みは維持。 */
+   ミスは「式と整合的な値だが計算すると違う」もの (九九の隣接段 / くり上がり1個ミス /
+   小数1桁ズレ / 分子±1) を入れ、見た目だけで検出できないようにする。
+   さらに 25% の確率で「ぜんぶ正しい」変種を混入 (q.ans=lines.length が「ぜんぶOK」index)。
+   ミス対象は全行 (restatement も含む) に拡張し、どの行も信用できない構造にする。 */
 function gMachi(lv){
   if(lv==null) lv=ri(1,10);
   if(lv===10) lv=ri(1,9);              /* 総合: Lv1-9 からランダム */
-  var kk=ri(0,2), dl=pick([-3,-2,-1,1,2,3]);
-  var lines=null, expr="", fix=0, a,b,c,d,v0,v1,v2;
-  function mark(i,base){ return (kk===i)?(base+dl):base; }
+  var lines=null, expr="", fix=0, a,b,c,d,v0,v1,v2, kk, errs, vals, disp;
+  var noError = (ri(1,4)===1);         /* 約 25%: ぜんぶ正しい問題 */
+  /* mulErr: a*b に対し「九九を1段ずれて読んだ」ミス幅 (+a / -a / +b / -b)。
+     正解との差は小さくないが「九九として一見もっともらしい」値になる。 */
+  function mulErr(x,y){
+    var c=[];
+    if(y>1) c.push(-x);
+    c.push(+x);
+    if(x>1 && y!==x) c.push(-y);
+    if(y!==x) c.push(+y);
+    return pick(c);
+  }
+  /* carryErr: 加減算で「くり上がり/くり下がり1個落とした」ミス幅 (±10) 主体、
+     稀に桁スリップ (±1) を混ぜる。結果が 1 未満にならないよう範囲を絞る。 */
+  function carryErr(val){
+    var cs=[];
+    [-10,+10,-10,+10,-1,+1].forEach(function(d){ if(val+d>=1) cs.push(d); });
+    return cs.length?pick(cs):+1;
+  }
+  /* decErr: 小数 (内部は ×10 整数) に対する ±0.1 / ±1.0 ミス。
+     ±10 (=1.0) はくり上がり忘れ、±1 (=0.1) は桁スリップ。 */
+  function decErr(intVal){
+    var cs=[];
+    [-1,+1,-10,+10].forEach(function(d){ if(intVal+d>=1) cs.push(d); });
+    return cs.length?pick(cs):+1;
+  }
+  /* fracNumErr: 分子 ±1。分母固定で見た目に近い値にする。 */
+  function fracNumErr(n){
+    var cs=[];
+    if(n-1>=1) cs.push(-1);
+    cs.push(+1);
+    return pick(cs);
+  }
   function bld(idx){ return ["①","②","③","④"][idx]; }
+  function applyErr(values, errors, hitIdx){
+    return values.map(function(x,i){ return (noError||i!==hitIdx)?x:(x+errors[i]); });
+  }
 
   if(lv<=1){
-    /* Lv1: 九九 — a×b の3ステップ和 (a,b∈[2,5]) */
+    /* Lv1: 九九 — a×b の3ステップ和 (a,b∈[2,5])。ミスは九九の隣接段。 */
     a=ri(2,5); b=ri(2,5); c=ri(2,5); d=ri(2,5);
     v0=a*b; v1=c*d; v2=v0+v1;
+    kk=ri(0,2);
     expr=a+"×"+b+"＋"+c+"×"+d;
-    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"×"+d+"＝"+mark(1,v1),"③ "+v0+"＋"+v1+"＝"+mark(2,v2)];
-    fix=[v0,v1,v2][kk];
+    vals=[v0,v1,v2];
+    errs=[mulErr(a,b), mulErr(c,d), carryErr(v2)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"×"+b+"＝"+disp[0],"② "+c+"×"+d+"＝"+disp[1],"③ "+v0+"＋"+v1+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===2){
-    /* Lv2: 加算 — 2桁同士の加算3項 (a,b,c∈[10,40]) */
+    /* Lv2: 加算 — 2桁同士の加算3項。ミスは くり上がり1個落とし (±10) 主体。 */
     a=ri(10,40); b=ri(10,40); c=ri(10,40);
     v0=a+b; v1=v0+c;
+    kk=ri(0,2);
     expr=a+"＋"+b+"＋"+c;
-    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ あわせて "+v1+" になる",
-           "● せいかいは ①②のうち どちらか（③は ②の言いかえ）"];
-    /* 3行式が必要なので "③" 行は v1 と同値を別表現 → 最後の説明行はミス対象外。kk は 0/1 のみに制限 */
-    kk=ri(0,1);
-    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ "+a+"＋"+b+"＋"+c+"＝"+v1];
-    fix=[v0,v1][kk];
+    vals=[v0,v1,v1];
+    errs=[carryErr(v0), carryErr(v1), carryErr(v1)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"＋"+b+"＝"+disp[0],"② "+v0+"＋"+c+"＝"+disp[1],"③ "+a+"＋"+b+"＋"+c+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===3){
-    /* Lv3: 減算 — 連続2回の減算 */
+    /* Lv3: 減算 — 連続2回の減算。ミスは くり下がり1個落とし。 */
     a=ri(50,99); b=ri(10,a-20); c=ri(5,b-1);
     v0=a-b; v1=v0-c;
+    kk=ri(0,2);
     expr=a+"−"+b+"−"+c;
-    kk=ri(0,1);
-    lines=["① "+a+"−"+b+"＝"+mark(0,v0),"② "+v0+"−"+c+"＝"+mark(1,v1),"③ "+a+"−"+b+"−"+c+"＝"+v1];
-    fix=[v0,v1][kk];
+    vals=[v0,v1,v1];
+    errs=[carryErr(v0), carryErr(v1), carryErr(v1)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"−"+b+"＝"+disp[0],"② "+v0+"−"+c+"＝"+disp[1],"③ "+a+"−"+b+"−"+c+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===4){
-    /* Lv4: 符号 — 加減と乗を混ぜた3ステップ */
+    /* Lv4: 符号 — 乗加減 混合3ステップ。乗算行は九九ミス、加減行はくり上がりミス。 */
     a=ri(3,9); b=ri(3,9); c=ri(10,30);
     v0=a*b; v1=v0+c; v2=v1-ri(3,Math.max(4,v1-5));
     var dminus=v1-v2;
+    kk=ri(0,2);
     expr=a+"×"+b+"＋"+c+"−"+dminus;
-    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+v0+"＋"+c+"＝"+mark(1,v1),"③ "+v1+"−"+dminus+"＝"+mark(2,v2)];
-    fix=[v0,v1,v2][kk];
+    vals=[v0,v1,v2];
+    errs=[mulErr(a,b), carryErr(v1), carryErr(v2)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"×"+b+"＝"+disp[0],"② "+v0+"＋"+c+"＝"+disp[1],"③ "+v1+"−"+dminus+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===5){
-    /* Lv5: 順序 — 演算の優先順位を意識した3ステップ (× を先に処理) */
+    /* Lv5: 順序 — × を先に処理する 3ステップ。 */
     a=ri(2,9); b=ri(2,9); c=ri(10,40); d=ri(2,9);
-    v0=a*b; v1=c+v0; v2=d*v1;        /* (c + a*b) * d 相当の段階分解 */
+    v0=a*b; v1=c+v0;
+    kk=ri(0,2);
     expr=c+"＋"+a+"×"+b;
-    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"＋"+v0+"＝"+mark(1,v1),"③ ぜんぶで "+v1,"※ ① の × を 先に やる"];
-    kk=ri(0,1);
-    lines=["① "+a+"×"+b+"＝"+mark(0,v0),"② "+c+"＋"+v0+"＝"+mark(1,v1),"③ "+c+"＋"+a+"×"+b+"＝"+v1];
-    fix=[v0,v1][kk];
+    vals=[v0,v1,v1];
+    errs=[mulErr(a,b), carryErr(v1), carryErr(v1)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"×"+b+"＝"+disp[0],"② "+c+"＋"+v0+"＝"+disp[1],"③ "+c+"＋"+a+"×"+b+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===6){
-    /* Lv6: かっこ — 旧 pat=2 を流用 (a+b)×c-d */
+    /* Lv6: かっこ — (a+b)×c-d。中央行は (v0)×c なので v0 連動の乗算ミスを使う。 */
     a=ri(5,30); b=ri(5,30); c=ri(2,6);
     v0=a+b; v1=v0*c;
     d=ri(5,Math.max(6,v1-1)); if(d>=v1)d=v1-1;
     v2=v1-d;
+    kk=ri(0,2);
     expr="（"+a+"＋"+b+"）×"+c+"−"+d;
-    lines=["① "+a+"＋"+b+"＝"+mark(0,v0),"② "+v0+"×"+c+"＝"+mark(1,v1),"③ "+v1+"−"+d+"＝"+mark(2,v2)];
-    fix=[v0,v1,v2][kk];
+    vals=[v0,v1,v2];
+    errs=[carryErr(v0), mulErr(v0,c), carryErr(v2)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"＋"+b+"＝"+disp[0],"② "+v0+"×"+c+"＝"+disp[1],"③ "+v1+"−"+d+"＝"+disp[2]];
+    fix=vals[kk];
   } else if(lv===7){
-    /* Lv7: 小数 — 小数加減の3ステップ */
+    /* Lv7: 小数 — ±0.1 / ±1.0 (くり上がり忘れ) 主体。 */
     var ax=ri(20,80), bx=ri(20,60), cx=ri(10,40);  /* /10 で小数化 */
     var av=ax/10, bv=bx/10, cv=cx/10;
-    var u0=(ax+bx)/10, u1=(ax+bx-cx)/10;
+    var u0i=(ax+bx), u1i=(ax+bx-cx);
+    var u0=u0i/10, u1=u1i/10;
+    kk=ri(0,2);
     expr=av.toFixed(1)+"＋"+bv.toFixed(1)+"−"+cv.toFixed(1);
-    kk=ri(0,1);
-    lines=["① "+av.toFixed(1)+"＋"+bv.toFixed(1)+"＝"+(kk===0?(u0+dl/10).toFixed(1):u0.toFixed(1)),
-           "② "+u0.toFixed(1)+"−"+cv.toFixed(1)+"＝"+(kk===1?(u1+dl/10).toFixed(1):u1.toFixed(1)),
-           "③ こたえ "+u1.toFixed(1)];
-    fix=[u0.toFixed(1),u1.toFixed(1)][kk];
+    var ints=[u0i, u1i, u1i];
+    errs=[decErr(u0i), decErr(u1i), decErr(u1i)];
+    var dispInt=applyErr(ints,errs,kk);
+    lines=["① "+av.toFixed(1)+"＋"+bv.toFixed(1)+"＝"+(dispInt[0]/10).toFixed(1),
+           "② "+u0.toFixed(1)+"−"+cv.toFixed(1)+"＝"+(dispInt[1]/10).toFixed(1),
+           "③ こたえ "+(dispInt[2]/10).toFixed(1)];
+    fix=(ints[kk]/10).toFixed(1);
   } else if(lv===8){
-    /* Lv8: 分数 — 同分母加減の3ステップ。 a/d + b/d - c/d */
+    /* Lv8: 分数 — 同分母加減。ミスは分子 ±1。 */
     var dd=pick([5,6,7,8]);
     var na=ri(1,dd-1), nb=ri(1,dd-1), nc=ri(1,Math.min(na+nb-1,dd-1));
     var k0=na+nb, k1=k0-nc;
+    kk=ri(0,2);
     expr=na+"/"+dd+"＋"+nb+"/"+dd+"−"+nc+"/"+dd;
-    kk=ri(0,1);
-    lines=["① "+na+"/"+dd+"＋"+nb+"/"+dd+"＝"+(kk===0?(k0+dl):k0)+"/"+dd,
-           "② "+k0+"/"+dd+"−"+nc+"/"+dd+"＝"+(kk===1?(k1+dl):k1)+"/"+dd,
-           "③ こたえ "+k1+"/"+dd];
-    fix=[(k0)+"/"+dd, (k1)+"/"+dd][kk];
+    var nums=[k0,k1,k1];
+    errs=[fracNumErr(k0), fracNumErr(k1), fracNumErr(k1)];
+    var dispN=applyErr(nums,errs,kk);
+    lines=["① "+na+"/"+dd+"＋"+nb+"/"+dd+"＝"+dispN[0]+"/"+dd,
+           "② "+k0+"/"+dd+"−"+nc+"/"+dd+"＝"+dispN[1]+"/"+dd,
+           "③ こたえ "+dispN[2]+"/"+dd];
+    fix=nums[kk]+"/"+dd;
   } else {
-    /* Lv9: 複数行 — 4行式 (a×b + c×d + e) */
+    /* Lv9: 複数行 — 4行式 (a×b + c×d + e)。乗算は九九ミス・加算はくり上がりミス。 */
     a=ri(3,9); b=ri(3,9); c=ri(3,9); d=ri(3,9); var e=ri(10,50);
     v0=a*b; v1=c*d; v2=v0+v1; var v3=v2+e;
-    expr=a+"×"+b+"＋"+c+"×"+d+"＋"+e;
     kk=ri(0,3);
-    lines=["① "+a+"×"+b+"＝"+(kk===0?v0+dl:v0),
-           "② "+c+"×"+d+"＝"+(kk===1?v1+dl:v1),
-           "③ "+v0+"＋"+v1+"＝"+(kk===2?v2+dl:v2),
-           "④ "+v2+"＋"+e+"＝"+(kk===3?v3+dl:v3)];
-    fix=[v0,v1,v2,v3][kk];
+    expr=a+"×"+b+"＋"+c+"×"+d+"＋"+e;
+    vals=[v0,v1,v2,v3];
+    errs=[mulErr(a,b), mulErr(c,d), carryErr(v2), carryErr(v3)];
+    disp=applyErr(vals,errs,kk);
+    lines=["① "+a+"×"+b+"＝"+disp[0],
+           "② "+c+"×"+d+"＝"+disp[1],
+           "③ "+v0+"＋"+v1+"＝"+disp[2],
+           "④ "+v2+"＋"+e+"＝"+disp[3]];
+    fix=vals[kk];
   }
-  return {cat:"machigai",kind:"choice",text:expr,say:null,ans:kk,lines:lines,
-    fixmsg:"ほんとうは "+bld(kk)+" ＝ "+fix};
+  var ansIdx = noError ? lines.length : kk;
+  var fixmsg = noError ? "ほんとうは ぜんぶ ただしいよ" : ("ほんとうは "+bld(kk)+" ＝ "+fix);
+  return {cat:"machigai",kind:"choice",text:expr,say:null,
+    ans:ansIdx, lines:lines, noError:noError, fixmsg:fixmsg};
 }
 function gWarizan(lv){
   if(lv==null)lv=ri(1,10);
@@ -5469,10 +5534,12 @@ function renderQ(q){
       +'<div class="note" id="nmsg" style="min-height:20px"></div>'
       +padHTML(false,"frSubmit()","frPad")+'</div>';
   }else if(q.kind==="choice" && q.lines){
-    /* 旧仕様: machigai用のミス行選択 */
+    /* machigai: ミス行を選ぶ＋「ぜんぶOK」選択肢。
+       「ぜんぶ正しい」問題が混ざるので、各行を検算しないと当てられない構造にする。 */
     h+='<div class="qcard"><div class="qtext mid">'+q.text+'</div>'
-      +'<p style="font-weight:700;margin:6px 0">まちがっている 行は どれ？</p><div class="lines">';
+      +'<p style="font-weight:700;margin:6px 0">どこが まちがい？　ぜんぶ正しければ 🆗</p><div class="lines">';
     q.lines.forEach(function(L,i){h+='<button onclick="choiceTap('+i+')">'+L+'</button>';});
+    h+='<button onclick="choiceTap('+q.lines.length+')">🆗 ぜんぶ正しい</button>';
     h+='</div></div>';
   }else if(q.kind==="choice" && q.choices){
     /* 新仕様: 九九暗唱・K5DEV新27カテゴリ用の4択選択。
