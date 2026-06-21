@@ -108,9 +108,21 @@
      復習は高頻度に周回できるため、据え置きだと量でSSが溜まりやすい。SSは通常プレイ/
      テスト合格など achievement で出すものとし、復習では出にくくする。 */
   var SS_REVIEW_MUL = 0.3;
+  /* 3 段階 boost 制:
+     - boost > 1 (復習・発展): SR/SSR を boost 倍に増やし、SS は SS_REVIEW_MUL=0.3 で抑制
+     - boost == 1 (適正・上位): TIER_WEIGHT そのまま (デフォルト)
+     - boost < 1 (既習): SR/SSR/SS を全部 boost 倍に減らす → 自然に N/R が相対的に優勢
+     既習範囲を周回しても レアな虫が出にくく、こはくだけ稼げる構造を実現する。 */
+  var BOOST_LOW = 0.4;     /* 既習範囲 (mastered) */
+  var BOOST_NORMAL = 1.0;  /* 適正レベル / 新規上位 */
+  var BOOST_HIGH = REVIEW_BOOST;  /* 復習 = 2.0 (既存維持) */
   function weightsWith(boost){
-    if(!boost || boost<=1) return TIER_WEIGHT;
-    return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : (t===4 ? w*SS_REVIEW_MUL : w); });
+    if(!boost || boost === 1) return TIER_WEIGHT;
+    if(boost > 1){
+      return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : (t===4 ? w*SS_REVIEW_MUL : w); });
+    }
+    /* boost < 1: SR/SSR/SS を boost 倍で抑制 */
+    return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
   }
   /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先するが、
      捕獲済みも再出現を許容する（サイズ差・✨色違いのバリエーションがあるため、
@@ -285,11 +297,11 @@
   function setAmberStore(s){ amberStore = s; }
   function earnAmber(coll, n){ if(amberStore) amberStore.add(n); else coll.amber = (coll.amber||0) + n; }
   function amberOf(coll){ return amberStore ? amberStore.get() : ((coll && coll.amber) || 0); }
-  function spendForCatch(coll, game){
+  function spendForCatch(coll, game, boost){
     if(!coll.catches) coll.catches = {};
     if(amberStore){ if(!amberStore.spend(AMBER_CATCH_COST)) return null; }
     else { if((coll.amber||0) < AMBER_CATCH_COST) return null; coll.amber -= AMBER_CATCH_COST; }
-    var sp = rollFromPool(pool(game), coll.catches);
+    var sp = rollFromPool(pool(game), coll.catches, boost);
     return sp ? record(coll, sp) : null;
   }
 
@@ -871,6 +883,9 @@
     AMBER_CATCH_COST: AMBER_CATCH_COST,
     REVIEW_BOOST: REVIEW_BOOST,
     HATTEN_BOOST: HATTEN_BOOST,
+    BOOST_LOW: BOOST_LOW,
+    BOOST_NORMAL: BOOST_NORMAL,
+    BOOST_HIGH: BOOST_HIGH,
     record: record,
     collectedCount: collectedCount,
     rank: rank,

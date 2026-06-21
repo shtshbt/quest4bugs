@@ -238,7 +238,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../zukan_config/zukan_catalog.js?v=0.2.0"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.6.0"></script>
+<script src="../shared/reward.js?v=0.7.0"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -1164,8 +1164,14 @@ function scrHome(){
         progTxt=`がくしゅうちゅう ${started}/${words.length}・しゅうとく ${m}`;
       }
     }
+    /* 既習度バッジ: 習得率 80%+ なら「📉 レア度ひかえめ」、それ以外は表示なし */
+    const _boost = (window.Q4BReward && prog >= 0.8) ? Q4BReward.BOOST_LOW : 1;
+    const boostBadge = _boost < 1
+      ? '<div style="position:absolute;top:6px;left:8px;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:700;color:#6B7A5E">📉 レア度ひかえめ</div>'
+      : '';
     h+=f.open
-      ? `<button class="field ${f.cls}" onclick="enterField(${f.id})">
+      ? `<button class="field ${f.cls}" style="position:relative" onclick="enterField(${f.id})">
+          ${boostBadge}
           <div class="fn">${f.name}</div><div class="fs">${f.sub} ・ ${progTxt}</div>
           <div class="fp"><i style="width:${Math.round(prog*100)}%"></i></div>
           <div class="fz">📖 ずかん ${caught}/${zk.length}しゅるい</div>
@@ -1265,12 +1271,27 @@ function scrZukan(){
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
+/* 現在の練習フィールド (GFID) の既習度から boost を決定。
+   80%+ 習得 → BOOST_LOW (0.4)、それ以外 → 1.0。復習チャレンジは別途 BOOST_HIGH。 */
+function eitangoFieldBoost(fid){
+  if(!window.Q4BReward) return 1;
+  fid = fid || GFID || 1;
+  var f = fieldById(fid); if(!f) return 1;
+  var words = WordDB.byField(fid);
+  if(!words.length) return 1;
+  var m = 0;
+  if(f.kids){ words.forEach(function(w){var k=P.kids[w.key]; if(k&&k[1]>=2)m++;}); }
+  else { words.forEach(function(w){var s=P.srs[w.key]; if(s&&s[0]>=3)m++;}); }
+  return (m/words.length >= 0.8) ? Q4BReward.BOOST_LOW : 1;
+}
 function eitangoAmberCatch(){
   if(!P) return;
   if(eAmber() < 30){ UI.toast('🔶こはくが たりないよ（30こ いるよ）'); return; }
-  /* Q4BReward.spendForCatch が共有ウォレットから30消費（catches は同一参照で更新）*/
+  /* Q4BReward.spendForCatch が共有ウォレットから30消費（catches は同一参照で更新）。
+     現在の練習フィールドが既習なら boost LOW で レア度ひかえめ */
   var tmp={catches:P.catches};
-  var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango') : null;
+  var _b=eitangoFieldBoost();
+  var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango',_b) : null;
   if(!got){ UI.toast('🔶 むしが みつからなかった…'); return; }
   touchP();
   /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して UI.specCard に渡す */
@@ -2223,7 +2244,8 @@ function afterAnswer(item,ok,title,detail){
     if(ok&&window.Q4BReward){
       const coll={gauge:P.reviewGauge||0, total:0, catches:P.catches,
         recent:(P.recent||(P.recent=[])), acc:P.reviewAcc||0};
-      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.REVIEW_BOOST,item.w.key,(P.srs[item.w.key]&&P.srs[item.w.key][0]>=3?0.4:1));
+      /* 復習モード: REVIEW_BOOST (=2.0) のレアブースト。フィールドの既習度に関わらず復習特典 */
+      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.BOOST_HIGH,item.w.key,(P.srs[item.w.key]&&P.srs[item.w.key][0]>=3?0.4:1));
       P.reviewGauge=coll.gauge;
       P.reviewAcc=coll.acc;  /* 新しさ係数の端数を保持 */
       P.amberTotal=(P.amberTotal||0)+1;
