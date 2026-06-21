@@ -76,7 +76,8 @@
       + '</button>';
   }
 
-  /* Boss detail modal. Reuse each game's modal shell when available. */
+  /* Boss detail modal. 撃破済みは Q4BZukan.detailHTML を使って通常図鑑と同じ書式
+     (ヒストグラム / ♂♀ 表 / 卵生成 / 標本情報) を表示する。 */
   function detail(id){
     var B = global.Q4BBattle, RW = global.Q4BReward, R = global.Q4BRender, byId = byIdMap();
     var sp = byId[id]; if(!sp || !RW || !R) return;
@@ -85,7 +86,6 @@
     var got = !!BOSSES[id], rec = (BOSSES[id]) || {}, n = rec.n || 0, shiny = !!rec.shiny;
     var tier = RW.tierOf(sp), tname = RW.TIERNAME[tier];
     var g = RW.gameFor(sp), hp = r ? r.hp : (B && B.bugHP ? B.bugHP(sp.rarity) : "");
-    var fam = [sp.familyJa, sp.groupJa].filter(Boolean).join(' / ');
     var inner;
     if(!got){
       inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + artHTML(sp, false) + '</div>'
@@ -94,19 +94,85 @@
         + (hp ? '<span style="margin-left:6px;color:#777;font-size:13px">HP' + hp + '</span>' : '')
         + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
     }else{
-      var sz = RW.sizeRange(sp);
-      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto">' + artHTML(sp, shiny) + '</div>'
-        + '<h3>👑 ' + esc(sp.jaName) + (shiny ? ' ✨' : '') + '</h3>'
-        + '<p>' + badgeHTML(TYPE_JA[g], "#5b7") + ' ' + badgeHTML(tname, "#E8B33C")
-        + (hp ? ' HP' + hp : '') + (n ? '　たおした ×' + n : '') + '</p>'
-        + '<p style="font-size:13px;color:#777">おおきさ ' + sz[0] + '〜' + sz[1] + 'mm</p>'
-        + (sp.scientificName ? '<p style="font-size:12px;color:#999"><i>' + esc(sp.scientificName) + '</i></p>' : "")
-        + (fam ? '<p style="font-size:12px;color:#999">' + esc(fam) + '</p>' : "")
-        + (sp.caution ? '<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:13px;color:#c98f1e;font-weight:800">' + esc(sp.caution) + '</p>' : "")
-        + (sp.note ? '<p style="background:#eef6e0;border-radius:12px;padding:10px;font-size:14px">' + esc(sp.note) + '</p>' : "")
-        + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
+      /* 撃破済: Q4BZukan.detailHTML 統合で histogram/♂♀表/卵/標本を全部表示 */
+      var fam = [sp.familyJa, sp.groupJa].filter(Boolean).join(' / ');
+      var head = '<div style="text-align:center;position:relative;padding-bottom:6px">'
+        + '<div style="width:120px;height:120px;margin:0 auto">' + artHTML(sp, shiny) + '</div>'
+        + '<h3 style="margin:6px 0 2px">👑 ' + esc(sp.jaName) + (shiny ? ' ✨' : '') + '</h3>'
+        + '<div style="font-size:12px">' + badgeHTML(TYPE_JA[g], "#5b7") + ' ' + badgeHTML(tname, "#E8B33C")
+        + (hp ? ' <span style="color:#888">HP' + hp + '</span>' : '') + (n ? ' <span style="color:#888">たおした ×' + n + '</span>' : '') + '</div>'
+        + (sp.scientificName ? '<div style="font-size:12px;color:#999;margin-top:2px"><i>' + esc(sp.scientificName) + '</i></div>' : "")
+        + (fam ? '<div style="font-size:12px;color:#999">' + esc(fam) + '</div>' : "")
+        + (sp.caution ? '<div style="background:#FFF1DE;border-radius:12px;padding:6px 10px;font-size:13px;color:#c98f1e;font-weight:800;margin:6px 0">' + esc(sp.caution) + '</div>' : "")
+        + (sp.note ? '<div style="background:#eef6e0;border-radius:12px;padding:8px 10px;font-size:13px;margin:6px 0;text-align:left">' + esc(sp.note) + '</div>' : "")
+        + '</div>';
+      /* coll-like wrapper を作って Q4BZukan.detailHTML を呼ぶ。
+         BATTLE.bosses[id] が catches[id] と同じ shape (n/max/min/shiny/records) を満たす。 */
+      var bossColl = {catches:{}};
+      bossColl.catches[id] = rec;
+      var detailBody = "";
+      if(global.Q4BZukan && global.Q4BZukan.detailHTML){
+        detailBody = global.Q4BZukan.detailHTML(rec, sp, {
+          coll: bossColl,
+          favCallback: "",
+          saveFn: function(){},
+          onLayEgg: "Q4BBossZukan.layEgg",
+          onHatchEgg: "Q4BBossZukan.hatchEgg",
+          onAbandonEgg: "Q4BBossZukan.abandonEgg"
+        });
+      }
+      inner = head + detailBody
+        + '<div style="margin-top:14px;text-align:center"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div>';
     }
     showDetail(detailCardHTML(inner));
+  }
+
+  /* ボス専用の卵生成 / 孵化 / 放棄 ハンドラ (detailHTML から呼ばれる) */
+  function _saveBattleBosses(){
+    /* PROF 取得は battle.html 側にあるので、QuestSave に直接書く。
+       現在 active な battle 名前空間に BATTLE 全体を保存する必要があるため、
+       ここでは BATTLE.bosses だけは window.BATTLE 参照で更新済み。 */
+    if(global.QuestSave && global.QuestSave.currentProfile){
+      var pid = global.QuestSave.currentProfile();
+      if(pid && global.BATTLE){
+        global.QuestSave.load("battle", pid).then(function(bt){
+          bt = bt || {};
+          bt.bosses = global.BATTLE.bosses;
+          global.QuestSave.save("battle", pid, bt);
+        });
+      }
+    }
+  }
+  function layEgg(spId){
+    var RW = global.Q4BReward, byId = byIdMap();
+    var sp = byId[spId]; if(!sp || !RW || !global.Q4BBreeding) return;
+    var bossColl = {catches:{}}; bossColl.catches[spId] = BOSSES[spId] || {};
+    global.Q4BBreeding.openLayConfirm(sp, {onConfirm:function(sp){
+      var egg = RW.layEgg(bossColl, sp);
+      if(egg){
+        closeDetail();
+      } else {
+        alert("たまごを 産めませんでした (前提未充足)");
+      }
+    }});
+  }
+  function hatchEgg(spId){
+    var RW = global.Q4BReward;
+    if(!RW) return;
+    var bossColl = {catches:{}}; bossColl.catches[spId] = BOSSES[spId] || {};
+    var r = RW.hatchEgg(bossColl, spId);
+    if(!r){ alert("孵化できませんでした"); return; }
+    BOSSES[spId] = bossColl.catches[spId];
+    _saveBattleBosses();
+    closeDetail();
+    if(global.Q4BBreeding){
+      global.Q4BBreeding.playHatchAnimation({egg:r.egg, sp:r.sp, size:r.size, onClose:function(){}, onViewZukan:function(){}});
+    }
+  }
+  function abandonEgg(spId){
+    if(!confirm("この たまごを すてる? (返金なし)")) return;
+    if(!confirm("ほんとうに すてる?")) return;
+    if(global.Q4BReward && global.Q4BReward.abandonEgg(spId)) closeDetail();
   }
 
   var activeDetail = null;
@@ -151,5 +217,6 @@
   function jsStr(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }
 
   function _panel(game, open){ PANEL_OPEN[game] = !!open; }
-  global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail, _panel:_panel };
+  global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail, _panel:_panel,
+    layEgg:layEgg, hatchEgg:hatchEgg, abandonEgg:abandonEgg };
 })(window);

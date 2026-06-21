@@ -331,9 +331,9 @@
 <script src="./shared/bespoke.js?v=0.3.0"></script>
 <script src="./shared/reward.js?v=0.5.1"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.2.0"></script>
+<script src="./shared/breeding.js?v=0.2.1"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
-<script src="./shared/zukan_detail.js?v=0.2.0"></script>
+<script src="./shared/zukan_detail.js?v=0.2.1"></script>
 <script src="./shared/battle.js?v=0.5.1"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <!-- ボス戦の計算問題を 30+カテゴリーの本格生成器で出題するため keisan/app.js を再利用。boot()は抑止。 -->
@@ -1881,19 +1881,30 @@ function finish(win){
   var rew = win ? B.bossReward(st.r, CLEARED[st.r.stage]) : null;
   if(win){
     if(rew && rew.kind==="species" && rew.speciesId){
-      /* 卵育成: 段階的アンロック (1回撃破=個体, 10回撃破=反対性別の卵)
-         BATTLE.bosses[id] = {n: 累計回数, firstSex: 1回目で確定した性別} */
+      /* 卵育成: 段階的アンロック (1回撃破=個体追加, 10回撃破=反対性別の卵)
+         BATTLE.bosses[id] = {n, firstSex, records:[{d,s,sex,shiny}], max, min, shiny}
+         records は Q4BZukan.detailHTML がヒストグラム/♂♀表で表示する。 */
       BATTLE.bosses=BATTLE.bosses||{};
-      if(window.Q4BReward&&Q4BReward.bossKillReward){
+      var spBoss = window.Q4BReward ? Q4BReward.spById(rew.speciesId) : null;
+      if(window.Q4BReward&&Q4BReward.bossKillReward&&spBoss){
+        var prevN = (BATTLE.bosses[rew.speciesId]&&BATTLE.bosses[rew.speciesId].n)||0;
         var killRew = Q4BReward.bossKillReward(rew.speciesId, BATTLE.bosses);
-        /* 1 回目: bossesMap[id].n=1, firstSex 確定。図鑑には species record として残る */
+        if(killRew && killRew.kind==="specimen" && prevN===0){
+          /* 1 回目: 個体 1 匹を records に追加 (ヒストグラム表示用) */
+          var bsex = killRew.sex;
+          var bsz  = Q4BReward.rollSize(spBoss, bsex);
+          var bshi = Q4BReward.rollShiny();
+          var brec = {d:(new Date()).toISOString().slice(0,10), s:bsz, sex:bsex, shiny:bshi};
+          BATTLE.bosses[rew.speciesId].records = BATTLE.bosses[rew.speciesId].records || [];
+          BATTLE.bosses[rew.speciesId].records.push(brec);
+          BATTLE.bosses[rew.speciesId].max = bsz;
+          BATTLE.bosses[rew.speciesId].min = bsz;
+          if(bshi) BATTLE.bosses[rew.speciesId].shiny = 1;
+        }
         if(killRew && killRew.kind==="egg"){
-          /* 10 回撃破 → 反対性別の卵を授与 */
-          var spChild = Q4BReward.spById(rew.speciesId);
-          if(spChild){ Q4BReward.awardBossEgg(null, spChild, killRew.sex); }
+          Q4BReward.awardBossEgg(null, spBoss, killRew.sex);
         }
       } else {
-        /* fallback: 旧挙動 */
         BATTLE.bosses[rew.speciesId] = BATTLE.bosses[rew.speciesId] || {n:1};
       }
     }

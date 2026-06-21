@@ -188,7 +188,7 @@
       } else if(slotFull){
         msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🥚🥚🥚</div>いま 3つとも たまご そだち中だよ。<br>1ぴき かえすと あたらしい たまごが 産めるよ</div>';
       } else {
-        msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🔶</div>かけらが たりないよ。<br>学習で 1日 30問 せいかいすると<br>かけらが もらえるよ</div>';
+        msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🪨</div>かけらが たりないよ。<br>学習で 1日 30問 せいかいすると<br>かけらが もらえるよ</div>';
       }
       bodyHTML = msg;
     } else {
@@ -210,7 +210,7 @@
           +   '<div style="flex:1;min-width:0">'
           +     '<div style="font-weight:800;font-size:14px;color:#2A3D2C">'+esc(sp.jaName||sp.id)+'</div>'
           +     '<div style="font-size:11px;color:#6B7A5E">'+esc(sp.rarity)+' / '+target+'問</div>'
-          +     '<div style="font-size:11px;color:#2A3D2C">コスト 🔶 '+cost+' &nbsp; ♂'+nM+' / ♀'+nF+'</div>'
+          +     '<div style="font-size:11px;color:#2A3D2C">コスト 🪨 '+cost+' &nbsp; ♂'+nM+' / ♀'+nF+'</div>'
           +     disabledNote
           +   '</div>'
           + '</button>';
@@ -225,7 +225,7 @@
       +       '<span style="font-size:22px">🥚</span>'
       +       '<span style="font-size:16px;font-weight:800;color:#2A3D2C">どの たまごを 産ませる？</span>'
       +     '</div>'
-      +     '<div style="font-size:12px;color:#6B7A5E">持ってる かけら: 🔶 '+fossilNow+'</div>'
+      +     '<div style="font-size:12px;color:#6B7A5E">持ってる かけら: 🪨 '+fossilNow+'</div>'
       +   '</div>'
       +   '<div style="padding:10px 14px;flex:1;min-height:0">'+bodyHTML+'</div>'
       +   '<div style="padding:10px 18px;border-top:1px solid #EAEFE0;text-align:right">'
@@ -253,7 +253,7 @@
       +   '<div style="font-size:48px;margin-bottom:4px">🥚</div>'
       +   '<div style="font-size:18px;font-weight:800;color:#2A3D2C;margin-bottom:6px">'+esc(sp.jaName||sp.id)+'の<br>たまごを 産ませる?</div>'
       +   '<div style="font-size:13px;color:#6B7A5E;margin-bottom:14px">'
-      +     'コスト: 🔶 '+cost+'<br>'
+      +     'コスト: 🪨 '+cost+'<br>'
       +     '必要せいかい数: '+target+'問'
       +   '</div>'
       +   '<button id="q4bLayOk" type="button" style="display:block;width:100%;border:none;border-radius:12px;padding:12px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer;margin-bottom:8px">産ませる</button>'

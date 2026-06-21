@@ -377,7 +377,7 @@
       btn = '<button type="button"'+(disabled?' disabled':'')
         + ' onclick="'+layCb+'(\''+spIdStr+'\')"'
         + ' style="display:block;width:100%;margin:8px 0 0;border:none;border-radius:12px;padding:11px;font-size:15px;font-weight:800;font-family:inherit;color:#fff;background:'+(disabled?'#B9C4A8':'#F2A33C')+';box-shadow:0 3px 0 '+(disabled?'#9CA88A':'#CF7F14')+';cursor:'+(disabled?'not-allowed':'pointer')+';opacity:'+(disabled?'.85':'1')+'">'
-        + '🥚 たまごを 産ませる (🔶 '+cost+')'
+        + '🥚 たまごを 産ませる (🪨 '+cost+')'
         + '</button>'
         + (disabled && disabledReason ? '<div style="font-size:11px;color:#CF7F14;margin-top:2px;text-align:center">'+disabledReason+'</div>' : '');
     }
