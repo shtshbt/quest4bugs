@@ -312,9 +312,9 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./zukan_config/zukan_catalog.js?v=0.1.0"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
-<script src="./shared/reward.js?v=0.5.2"></script>
+<script src="./shared/reward.js?v=0.5.3"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.4.0"></script>
+<script src="./shared/breeding.js?v=0.5.0"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
 <script src="./shared/zukan_detail.js?v=0.2.2"></script>
 <script src="./shared/zukan_lightbox.js?v=0.1.0"></script>
@@ -557,6 +557,7 @@ function breedingPanelHTML(pid){
     onTap: "homeEggTap",
     onAdd: "homeEggAdd",
     onHatch: "homeEggHatch",
+    onAdvance: "homeEggAdvance",
     onAcceptPending: "homeEggAcceptPending"
   });
 }
@@ -1147,6 +1148,7 @@ function homeEggTap(id){
       Q4BBreeding.openEggInfoModal({
         egg: egg,
         onHatch: function(spId){ homeEggHatch(spId); },
+        onAdvance: function(spId){ homeEggAdvance(spId); },
         onAbandon: function(spId){ Q4BReward.abandonEgg(spId); _refreshDashIfActive(); },
         onViewParent: function(spId){ openParentZukan(spId); }
       });
@@ -1279,6 +1281,23 @@ function homeEggHatch(id){
       });
     });
   });
+}
+/* ステージ進行 (egg→larva, larva→pupa, nymph etc) — 一段階ずつタップで進める */
+function homeEggAdvance(id){
+  var pid=_hPid(); if(!pid) return;
+  var bs=QuestSave.breedingOf(pid);
+  var egg=(bs.eggs||[]).find(function(e){return e.id===id;});
+  if(!egg) return;
+  var sp=Q4BReward.spById(id); if(!sp) return;
+  var prev=Q4BReward.displayStage(egg, sp);
+  var r=Q4BReward.advanceStage(null, id);
+  if(!r) return;
+  _refreshDashIfActive();
+  if(window.Q4BBreeding && Q4BBreeding.playStageAdvanceAnimation){
+    var bs2=QuestSave.breedingOf(pid);
+    var updated=bs2.eggs.find(function(e){return e.id===id;});
+    Q4BBreeding.playStageAdvanceAnimation({egg:updated||egg, sp:sp, prevStage:prev, nextStage:r.next, onClose:function(){ _refreshDashIfActive(); }});
+  }
 }
 /* 保留卵を受けとる */
 function homeEggAcceptPending(){

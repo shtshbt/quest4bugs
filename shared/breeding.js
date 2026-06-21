@@ -59,16 +59,29 @@
     return sp.metamorphosis === "complete" ? "完全変態" : "不完全変態";
   }
 
+  /* ステージ → 次ステージ移行時の子供向け CTA 文言 */
+  var NEXT_STAGE_LABEL = {
+    larva:  "ようちゅうに タップ",
+    pupa:   "さなぎに タップ",
+    nymph:  "わかむしに タップ",
+    adult:  "タップでかえす"
+  };
+
   /* --- 卵カード HTML (1枚分) ---
-     opts: {onTap: 関数名 string, mode: 'normal'|'kids' (将来), idx: スロット位置} */
+     opts: {onTap, onHatch, onAdvance} */
   function eggCardHTML(egg, opts){
     opts = opts || {};
     var r = R(); if(!r) return "";
     var sp = r.spById(egg.id);
     if(!sp) return emptySlotHTML(opts);
-    var stage = r.currentStage(egg, sp);
-    var v = stageVisual(stage, sp);
+    var dispStage = r.displayStage ? r.displayStage(egg, sp) : r.currentStage(egg, sp);
+    var v = stageVisual(dispStage, sp);
+    var canAdv = r.canAdvanceStage ? r.canAdvanceStage(egg, sp) : false;
+    var nextStage = r.nextStageFor ? r.nextStageFor(egg, sp) : null;
+    var nextIsAdult = nextStage === "adult";
     var ready = r.isHatchReady(egg);
+    /* CTA: 次が adult なら hatch、それ以外は advance */
+    var showCta = canAdv && (nextIsAdult ? ready : true);
     var p = pct(egg.progress, egg.target);
     var color = GAME_COLOR[egg.game] || "#888";
     var sexMark = egg.sex === "m" ? "♂" : egg.sex === "f" ? "♀" : "";
@@ -76,16 +89,25 @@
     var onTapAttr = opts.onTap ? ' onclick="'+opts.onTap+'(\''+egg.id+'\')"' : '';
     var idAttr = ' data-eggid="'+esc(egg.id)+'"';
     var name = sp.jaName || egg.id;
-    var ctaBtn = ready && opts.onHatch
-      ? '<button class="q4b-egg-cta" onclick="event.stopPropagation();'+opts.onHatch+'(\''+egg.id+'\')" style="display:block;width:100%;border:none;border-radius:8px;padding:8px 6px;margin-top:6px;font-size:13px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer">✨ タップでかえす</button>'
-      : '';
+    var ctaLabel = NEXT_STAGE_LABEL[nextStage||""] || "つぎへ";
+    var ctaBtn = "";
+    if(showCta){
+      var ctaFn = nextIsAdult ? opts.onHatch : opts.onAdvance;
+      if(ctaFn){
+        ctaBtn = '<button class="q4b-egg-cta" onclick="event.stopPropagation();'+ctaFn+'(\''+egg.id+'\')" style="display:block;width:100%;border:none;border-radius:8px;padding:8px 6px;margin-top:6px;font-size:13px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer">✨ '+ctaLabel+'</button>';
+      }
+    }
     var visualHTML = v.svgUrl
       ? '<img src="'+v.svgUrl+'" alt="" style="width:42px;height:42px;display:block;margin:0 auto" onerror="this.style.display=\'none\'">'
       : '<div style="font-size:36px;line-height:1.1">'+v.emoji+'</div>';
+    var glow = showCta;
+    var readyLine = canAdv
+      ? '<div style="font-size:10px;color:#F2A33C;text-align:center;font-weight:800;margin-top:3px">✨ つぎに すすめるよ!</div>'
+      : '';
     return ''
-      + '<div class="q4b-egg-card'+(ready?' q4b-egg-ready':'')+'"'+idAttr+onTapAttr
-      +   ' style="background:#FFFDF4;border:2.5px solid '+(ready?'#F2A33C':'#CFDDB2')+';border-radius:14px;padding:8px 6px;cursor:pointer;'
-      +   (ready?'box-shadow:0 0 0 3px rgba(242,163,60,.25),0 2px 6px rgba(0,0,0,.08);animation:q4bEggGlow 1.6s ease-in-out infinite;':'')
+      + '<div class="q4b-egg-card'+(glow?' q4b-egg-ready':'')+'"'+idAttr+onTapAttr
+      +   ' style="background:#FFFDF4;border:2.5px solid '+(glow?'#F2A33C':'#CFDDB2')+';border-radius:14px;padding:8px 6px;cursor:pointer;'
+      +   (glow?'box-shadow:0 0 0 3px rgba(242,163,60,.25),0 2px 6px rgba(0,0,0,.08);animation:q4bEggGlow 1.6s ease-in-out infinite;':'')
       +   '">'
       +   '<div style="text-align:center;margin-bottom:2px;min-height:44px;display:flex;align-items:center;justify-content:center">'+visualHTML+'</div>'
       +   '<div style="font-size:12px;font-weight:800;color:#2A3D2C;text-align:center;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center">'+esc(name)+shinyMark+'</div>'
@@ -94,7 +116,7 @@
       +   '<div style="font-size:10px;color:#6B7A5E;text-align:center">'+egg.progress+'/'+egg.target+'</div>'
       +   '<div style="font-size:10px;text-align:center;margin-top:1px">'+(GAME_EMOJI[egg.game]||"")+'<span style="color:'+color+';font-weight:700">'+(GAME_LABEL[egg.game]||egg.game)+'</span></div>'
       +   (sp.metamorphosis ? '<div style="font-size:9px;color:#9CA88A;text-align:center;margin-top:1px">'+metaLabel(sp)+'</div>' : '')
-      +   (ready ? '<div style="font-size:10px;color:#F2A33C;text-align:center;font-weight:800;margin-top:3px">✨ かえる準備OK!</div>' : '')
+      +   readyLine
       +   ctaBtn
       + '</div>';
   }
@@ -121,7 +143,7 @@
     var i;
     for(i=0;i<max;i++){
       if(i < eggs.length){
-        cards.push(eggCardHTML(eggs[i], {onTap: opts.onTap, onHatch: opts.onHatch}));
+        cards.push(eggCardHTML(eggs[i], {onTap: opts.onTap, onHatch: opts.onHatch, onAdvance: opts.onAdvance}));
       } else if(eggs.length < max){
         cards.push(emptySlotHTML({onAdd: opts.onAdd}));
       }
@@ -459,6 +481,84 @@
     setTimeout(nextStage, stepMs);
   }
 
+  /* --- ステージ移行アニメ (egg→larva, larva→pupa, nymph 等) ---
+     成虫化 (hatch) より軽量。prev→next の transformation を ~600ms で見せる。
+     opts: {egg, sp, prevStage, nextStage, onClose} */
+  function playStageAdvanceAnimation(opts){
+    opts = opts || {};
+    var sp = opts.sp, egg = opts.egg;
+    if(!sp || !egg) return;
+    var doc = global.document; if(!doc) return;
+    var prevV = stageVisual(opts.prevStage, sp);
+    var nextV = stageVisual(opts.nextStage, sp);
+    function vHTML(v){
+      if(v.svgUrl) return '<img src="'+v.svgUrl+'" alt="" style="width:110px;height:110px;display:block" onerror="this.style.display=\'none\'">';
+      return '<div style="font-size:80px;line-height:1">'+(v.emoji||"")+'</div>';
+    }
+    var STAGE_JA = {egg:"たまご", larva:"ようちゅう", pupa:"さなぎ", nymph:"わかむし", adult:"せいちゅう"};
+    var reduce = global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var ov = doc.createElement("div");
+    ov.id = "q4bAdvanceOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.7);display:flex;align-items:center;justify-content:center;z-index:325;padding:14px";
+    var card = doc.createElement("div");
+    card.style.cssText = "background:#FFFDF4;border-radius:22px;max-width:340px;width:96%;padding:24px 22px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.4);position:relative";
+    card.innerHTML = ''
+      + '<div id="q4bAdvVis" style="line-height:1;margin-bottom:10px;min-height:120px;display:flex;align-items:center;justify-content:center">'+vHTML(prevV)+'</div>'
+      + '<div id="q4bAdvLabel" style="font-size:14px;color:#F2A33C;font-weight:800;min-height:24px"></div>'
+      + '<div id="q4bAdvBtn" style="margin-top:14px;display:none">'
+      +   '<button type="button" id="q4bAdvClose" style="border:none;background:#3FA86B;color:#fff;border-radius:12px;padding:10px 22px;font-weight:800;font-family:inherit;cursor:pointer">やったー！</button>'
+      + '</div>';
+    ov.appendChild(card);
+    doc.body.appendChild(ov);
+
+    function blip(freq){
+      if(reduce) return;
+      try{
+        var Ctx = global.AudioContext || global.webkitAudioContext;
+        if(!Ctx) return;
+        var ctx = global.__q4bAudio || (global.__q4bAudio = new Ctx());
+        if(ctx.state === "suspended") try{ ctx.resume(); }catch(_){}
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = freq;
+        g.gain.value = 0.0001;
+        o.connect(g); g.connect(ctx.destination);
+        var now = ctx.currentTime;
+        g.gain.exponentialRampToValueAtTime(0.15, now+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now+0.18);
+        o.start(now); o.stop(now+0.22);
+      }catch(_){}
+    }
+    blip(400);
+    var visEl = card.querySelector("#q4bAdvVis");
+    var labelEl = card.querySelector("#q4bAdvLabel");
+    var btnWrap = card.querySelector("#q4bAdvBtn");
+    /* 0.5s 後に next stage 表示 + ラベル + sparkle */
+    setTimeout(function(){
+      visEl.innerHTML = vHTML(nextV);
+      labelEl.textContent = "✨ " + (STAGE_JA[opts.nextStage]||opts.nextStage) + "に なったよ！";
+      blip(600);
+      btnWrap.style.display = "block";
+      /* 軽い sparkle 3 個 */
+      if(!reduce){
+        var symbols = ["✨","⭐","💫"];
+        for(var k=0;k<3;k++){
+          var s = doc.createElement("span");
+          s.style.cssText = "position:absolute;font-size:22px;pointer-events:none;left:50%;top:30%;animation:q4bSparkleFloat 1.2s ease-out forwards";
+          s.style.setProperty("--qx", ((k-1)*40)+"px");
+          s.style.setProperty("--qy", (-30 - k*8)+"px");
+          s.textContent = symbols[k];
+          card.appendChild(s);
+          setTimeout(function(el){ return function(){ if(el.parentNode) el.remove(); }; }(s), 1300);
+        }
+      }
+    }, reduce ? 200 : 500);
+    card.querySelector("#q4bAdvClose").onclick = function(){
+      if(ov.parentNode) ov.parentNode.removeChild(ov);
+      if(opts.onClose) opts.onClose();
+    };
+  }
+
   /* --- 学習画面の +1 フィードバック HTML ---
      学習リザルトに該当教科の卵リスト + 進捗 + 孵化準備済ボタンを返す */
   function feedFeedbackHTML(game, opts){
@@ -537,7 +637,7 @@
     function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }
     ov.onclick = function(e){ if(e.target === ov) close(); };
 
-    var stage = r.currentStage(egg, sp);
+    var stage = r.displayStage ? r.displayStage(egg, sp) : r.currentStage(egg, sp);
     var v = stageVisual(stage, sp);
     var visualHTML = v.svgUrl
       ? '<img src="'+v.svgUrl+'" alt="" style="width:96px;height:96px;display:block;margin:0 auto" onerror="this.style.display=\'none\'">'
@@ -566,9 +666,18 @@
         + '</div>';
     }).join("");
 
-    var ctaBtn = (ready && opts.onHatch)
-      ? '<button type="button" id="q4bEggHatch" style="display:block;width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 4px 0 #CF7F14;cursor:pointer;margin-bottom:8px">✨ タップで かえす</button>'
-      : '';
+    var canAdv = r.canAdvanceStage ? r.canAdvanceStage(egg, sp) : false;
+    var nextSt = r.nextStageFor ? r.nextStageFor(egg, sp) : null;
+    var nextIsAdult = nextSt === "adult";
+    var ctaLabel = NEXT_STAGE_LABEL[nextSt||""] || "つぎへ";
+    var ctaBtn = "";
+    if(canAdv){
+      if(nextIsAdult && ready && opts.onHatch){
+        ctaBtn = '<button type="button" id="q4bEggHatch" style="display:block;width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 4px 0 #CF7F14;cursor:pointer;margin-bottom:8px">✨ '+ctaLabel+'</button>';
+      } else if(!nextIsAdult && opts.onAdvance){
+        ctaBtn = '<button type="button" id="q4bEggAdvance" style="display:block;width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 4px 0 #CF7F14;cursor:pointer;margin-bottom:8px">✨ '+ctaLabel+'</button>';
+      }
+    }
     var parentBtn = opts.onViewParent
       ? '<button type="button" id="q4bEggParent" style="display:block;width:100%;border:none;border-radius:12px;padding:10px;font-size:14px;font-weight:700;font-family:inherit;color:#fff;background:#3FA86B;cursor:pointer;margin-bottom:6px">📖 おやの ずかんを みる</button>'
       : '';
@@ -594,8 +703,11 @@
       + '</div>';
     doc.body.appendChild(ov);
 
-    if(ready && opts.onHatch){
+    if(canAdv && nextIsAdult && ready && opts.onHatch){
       ov.querySelector("#q4bEggHatch").onclick = function(){ close(); opts.onHatch(egg.id); };
+    }
+    if(canAdv && !nextIsAdult && opts.onAdvance){
+      ov.querySelector("#q4bEggAdvance").onclick = function(){ close(); opts.onAdvance(egg.id); };
     }
     if(opts.onViewParent){
       ov.querySelector("#q4bEggParent").onclick = function(){ close(); opts.onViewParent(egg.id); };
@@ -706,6 +818,7 @@
     openEggInfoModal: openEggInfoModal,
     notifyEggLaid: notifyEggLaid,
     playHatchAnimation: playHatchAnimation,
+    playStageAdvanceAnimation: playStageAdvanceAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
     showFeedToast: showFeedToast,
     metaLabel: metaLabel,

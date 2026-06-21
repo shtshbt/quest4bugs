@@ -719,8 +719,8 @@
     return e && e.records ? e.records.filter(function(r){ return !!r.reared; }) : [];
   }
 
-  /* 進捗→ステージ変換 (UI 共通ヘルパ)。完全変態 4 段階 / 不完全変態 3 段階。 */
-  function currentStage(egg, sp){
+  /* 進捗→ステージ変換 (自然な変換 — 進捗率だけで決まる)。完全変態 4 段階 / 不完全変態 3 段階。 */
+  function naturalStage(egg, sp){
     var ratio = egg.target>0 ? egg.progress / egg.target : 0;
     if(sp && sp.metamorphosis === "complete"){
       if(ratio < 0.25) return "egg";
@@ -733,7 +733,65 @@
       return "adult";
     }
   }
+  /* 後方互換 alias: 既存呼出元のため currentStage = naturalStage */
+  function currentStage(egg, sp){ return naturalStage(egg, sp); }
+
+  function stageOrderFor(sp){
+    return (sp && sp.metamorphosis === "complete")
+      ? ["egg","larva","pupa","adult"]
+      : ["egg","nymph","adult"];
+  }
+  /* 表示中のステージ。一段階ずつユーザーがタップで進める設計のため、
+     egg.shownStage を尊重 (なければ自然ステージ)。
+     ただし shownStage が natural より進んでいる事はあり得ない (cap)。 */
+  function displayStage(egg, sp){
+    var nat = naturalStage(egg, sp);
+    if(!egg.shownStage) return nat;       // 旧データ互換: 自然進行
+    var order = stageOrderFor(sp);
+    var iNat = order.indexOf(nat);
+    var iShown = order.indexOf(egg.shownStage);
+    if(iShown < 0) return nat;
+    return iShown <= iNat ? egg.shownStage : nat;
+  }
+  /* 次に進める stage がある? (natural が shown より先) */
+  function canAdvanceStage(egg, sp){
+    var order = stageOrderFor(sp);
+    var iNat = order.indexOf(naturalStage(egg, sp));
+    var iShown = order.indexOf(displayStage(egg, sp));
+    return iNat > iShown;
+  }
+  function nextStageFor(egg, sp){
+    var order = stageOrderFor(sp);
+    var iShown = order.indexOf(displayStage(egg, sp));
+    if(iShown < 0 || iShown >= order.length-1) return null;
+    return order[iShown+1];
+  }
+  /* shownStage を 1 段階進める (adult への advance は呼び出し側が hatchEgg を使う)。
+     成功時 stageHistory に新ステージの遷移日を追記。 */
+  function advanceStage(coll, id){
+    var bs = _bs();
+    var egg = bs.eggs.find(function(e){return e.id===id;});
+    if(!egg) return null;
+    var sp = spById(id); if(!sp) return null;
+    if(!canAdvanceStage(egg, sp)) return null;
+    var next = nextStageFor(egg, sp);
+    if(!next) return null;
+    egg.shownStage = next;
+    egg.stageHistory = egg.stageHistory || [];
+    /* 同 stage が既に履歴にあれば追加しない (idempotent) */
+    var already = egg.stageHistory.some(function(h){ return h.stage === next; });
+    if(!already) egg.stageHistory.push({stage:next, d:todayStr()});
+    _saveBs(bs);
+    return {egg: egg, next: next, isAdult: next === "adult"};
+  }
   function isHatchReady(egg){ return egg && egg.progress >= egg.target; }
+  /* UI が「タップで かえす」を出すべきか: 自然 stage が adult かつ shown も adult 手前 */
+  function canHatchNow(egg, sp){
+    if(!egg) return false;
+    if(!isHatchReady(egg)) return false;
+    var shown = displayStage(egg, sp);
+    return shown !== "adult";    // shown が既に adult なら hatchEgg 実行で消える
+  }
 
   /* レガシー sex='u' マスター虫の検出 (C フローのトリガー判定) */
   function isLegacyMasterUnknownSex(entry, sp){
@@ -813,7 +871,13 @@
     hasReared: hasReared,
     rearedRecords: rearedRecords,
     currentStage: currentStage,
+    naturalStage: naturalStage,
+    displayStage: displayStage,
+    canAdvanceStage: canAdvanceStage,
+    nextStageFor: nextStageFor,
+    advanceStage: advanceStage,
     isHatchReady: isHatchReady,
+    canHatchNow: canHatchNow,
     isLegacyMasterUnknownSex: isLegacyMasterUnknownSex,
     listLegacyMasterPending: listLegacyMasterPending,
     rollSex: rollSex,
