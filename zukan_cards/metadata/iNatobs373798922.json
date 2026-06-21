@@ -1,0 +1,82 @@
+{
+  "species_id": "nanahoshi_tentou",
+  "species_ja": "ナナホシテントウ",
+  "scientific_name": "Coccinella septempunctata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "macromatt (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_373798922",
+    "occurrenceId": "https://www.inaturalist.org/observations/373798922",
+    "persistentId": "https://www.inaturalist.org/observations/373798922",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "macromatt",
+    "eventDate": "2026-06-20",
+    "eventYear": 2026,
+    "country": "USA",
+    "localityVerbatim": null,
+    "localityNormalized": "Estes Park, CO 80517, USA, USA",
+    "preparations": null,
+    "decimalLatitude": 40.4319462997,
+    "decimalLongitude": -105.5033157997,
+    "coordinatesObscured": false,
+    "iNatObservationId": "373798922",
+    "iNatPhotoId": "683165554",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/373798922",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/683165554/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs373798922_original.jpg",
+    "segmented": "processed/iNatobs373798922_L1_segmented.png",
+    "display": "processed/iNatobs373798922_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs373798922_54.webp",
+      "108": "thumb/iNatobs373798922_108.webp",
+      "216": "thumb/iNatobs373798922_216.webp"
+    }
+  },
+  "original_sha256": "60a03f0749e2a3f8fa24abb88db912135458d636236985938ba9f3ff3f20228a",
+  "processing": {
+    "cropBox": [
+      138,
+      194,
+      515,
+      674
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs373798922_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.59), rotate 90 CCW"
+}

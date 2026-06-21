@@ -1,0 +1,77 @@
+{
+  "species_id": "akiakane",
+  "species_ja": "アキアカネ",
+  "scientific_name": "Sympetrum frequens",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390781",
+    "occurrenceId": "http://n2t.net/ark:/65665/36d77e5dd-9542-46ab-afed-301155e0ad13",
+    "persistentId": "http://n2t.net/ark:/65665/36d77e5dd-9542-46ab-afed-301155e0ad13",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Flint",
+    "eventDate": "2007-08-18",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kamikawa-cho, Ukishima Marsh, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 43.9283,
+    "decimalLongitude": 142.982
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319677275",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319677275",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16325145&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00390781_original.jpg",
+    "segmented": "processed/USNMENT00390781_L1_segmented.png",
+    "display": "processed/USNMENT00390781_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390781_54.webp",
+      "108": "thumb/USNMENT00390781_108.webp",
+      "216": "thumb/USNMENT00390781_216.webp"
+    }
+  },
+  "original_sha256": "f7f6a64a3d18f0c0a000e7b246e43809b4a50ec32d360c1b5dfc8b9acdea9615",
+  "processing": {
+    "cropBox": [
+      409,
+      425,
+      960,
+      1114
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390781_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

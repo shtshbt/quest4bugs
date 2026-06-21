@@ -1,0 +1,81 @@
+{
+  "species_id": "monshirochou",
+  "species_ja": "モンシロチョウ",
+  "scientific_name": "Pieris rapae",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "drew_baxter (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_373754427",
+    "occurrenceId": "https://www.inaturalist.org/observations/373754427",
+    "persistentId": "https://www.inaturalist.org/observations/373754427",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "drew_baxter",
+    "eventDate": "2026-06-20",
+    "eventYear": 2026,
+    "country": "Canada",
+    "localityVerbatim": null,
+    "localityNormalized": "David A. Balfour Park Trail, Toronto, ON, Canada, Canada",
+    "preparations": null,
+    "decimalLatitude": 43.6845736788,
+    "decimalLongitude": -79.3851645269,
+    "coordinatesObscured": false,
+    "iNatObservationId": "373754427",
+    "iNatPhotoId": "683076265",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/373754427",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/683076265/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs373754427_original.jpg",
+    "segmented": "processed/iNatobs373754427_L1_segmented.png",
+    "display": "processed/iNatobs373754427_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs373754427_54.webp",
+      "108": "thumb/iNatobs373754427_108.webp",
+      "216": "thumb/iNatobs373754427_216.webp"
+    }
+  },
+  "original_sha256": "00653a6dc451e15fc5cd28822f2c341aa35ee6fee7b5cec2bbaebab3ba4e3265",
+  "processing": {
+    "cropBox": [
+      722,
+      503,
+      1301,
+      1529
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs373754427_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,78 @@
+{
+  "species_id": "nokogiri_kuwagata",
+  "species_ja": "ノコギリクワガタ",
+  "scientific_name": "Prosopocoilus inclinatus",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0589057",
+    "occurrenceId": "ETHZ-ENT0589057",
+    "persistentId": "ETHZ-ENT0589057",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1963-08-07",
+    "eventYear": 1963,
+    "country": "Japan",
+    "localityVerbatim": "Kyose / Tokyo : Japan",
+    "localityNormalized": "Kiyose, Japan",
+    "preparations": "pinned",
+    "decimalLatitude": 35.780661,
+    "decimalLongitude": 139.521838
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761585143",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761585143",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/840102/b59469ab7ca86be52a8d19e3d22cf34ef983001f0da1fbef8f4029ba242a5c26/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZENT0589057_original.jpg",
+    "segmented": "processed/ETHZENT0589057_L1_segmented.png",
+    "display": "processed/ETHZENT0589057_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0589057_54.webp",
+      "108": "thumb/ETHZENT0589057_108.webp",
+      "216": "thumb/ETHZENT0589057_216.webp"
+    }
+  },
+  "original_sha256": "b59469ab7ca86be52a8d19e3d22cf34ef983001f0da1fbef8f4029ba242a5c26",
+  "processing": {
+    "cropBox": [
+      1361,
+      3041,
+      2344,
+      5043
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0589057_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.64), rotate 270 CCW"
+}

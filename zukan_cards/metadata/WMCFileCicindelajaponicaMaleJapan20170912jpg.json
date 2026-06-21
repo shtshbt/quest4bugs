@@ -1,0 +1,76 @@
+{
+  "species_id": "hanmyou",
+  "species_ja": "ハンミョウ",
+  "scientific_name": "Cicindela japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "TekuraDF",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cicindela japonica(Male,Japan,2017.09.12).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cicindela_japonica(Male,Japan,2017.09.12).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cicindela_japonica(Male,Japan,2017.09.12).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "TekuraDF",
+    "eventDate": "2017-09-12 17:12:25",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "ハンミョウ（ナミハンミョウ）雄　広島県",
+    "localityNormalized": "ハンミョウ（ナミハンミョウ）雄　広島県",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cicindela_japonica(Male,Japan,2017.09.12).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Cicindela_japonica%28Male%2CJapan%2C2017.09.12%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileCicindelajaponicaMaleJapan20170912jpg_original.jpg",
+    "segmented": "processed/WMCFileCicindelajaponicaMaleJapan20170912jpg_L1_segmented.png",
+    "display": "processed/WMCFileCicindelajaponicaMaleJapan20170912jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_54.webp",
+      "108": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_108.webp",
+      "216": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_216.webp"
+    }
+  },
+  "original_sha256": "e7134a3b3de8d0aae9284ffd42eb46652c7454c5278b7b253a09b7ad22251874",
+  "processing": {
+    "cropBox": [
+      316,
+      244,
+      2456,
+      1916
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCicindelajaponicaMaleJapan20170912jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.20), rotate 180 CCW"
+}

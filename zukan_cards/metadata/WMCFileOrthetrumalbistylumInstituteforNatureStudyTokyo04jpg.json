@@ -1,0 +1,75 @@
+{
+  "species_id": "shiokara_tonbo",
+  "species_ja": "シオカラトンボ",
+  "scientific_name": "Orthetrum albistylum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Syrio",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Orthetrum albistylum, Institute for Nature Study, Tokyo 04.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Orthetrum_albistylum,_Institute_for_Nature_Study,_Tokyo_04.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Orthetrum_albistylum,_Institute_for_Nature_Study,_Tokyo_04.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Syrio",
+    "eventDate": "2017-08-08 04:13:51",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Orthetrum albistylum photographed at the Institute for Nature Study, Tokyo",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Orthetrum_albistylum,_Institute_for_Nature_Study,_Tokyo_04.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Orthetrum_albistylum%2C_Institute_for_Nature_Study%2C_Tokyo_04.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_original.jpg",
+    "segmented": "processed/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_L1_segmented.png",
+    "display": "processed/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_54.webp",
+      "108": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_108.webp",
+      "216": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_216.webp"
+    }
+  },
+  "original_sha256": "05189b0dd2a3b9a11f4935b2b0781a24eb93beca316e20a25a3eb68f7e3bb49f",
+  "processing": {
+    "cropBox": [
+      391,
+      175,
+      3901,
+      2398
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

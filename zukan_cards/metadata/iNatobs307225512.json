@@ -1,0 +1,81 @@
+{
+  "species_id": "shouryou_batta",
+  "species_ja": "ショウリョウバッタ",
+  "scientific_name": "Acrida cinerea",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "hanwen-zhang (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_307225512",
+    "occurrenceId": "https://www.inaturalist.org/observations/307225512",
+    "persistentId": "https://www.inaturalist.org/observations/307225512",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "hanwen-zhang",
+    "eventDate": "2025-07-18",
+    "eventYear": 2025,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Enoshima, Fujisawa, Kanagawa 251-0036, Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.2991657514,
+    "decimalLongitude": 139.4764212268,
+    "coordinatesObscured": false,
+    "iNatObservationId": "307225512",
+    "iNatPhotoId": "554122053",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/307225512",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/554122053/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs307225512_original.jpg",
+    "segmented": "processed/iNatobs307225512_L1_segmented.png",
+    "display": "processed/iNatobs307225512_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs307225512_54.webp",
+      "108": "thumb/iNatobs307225512_108.webp",
+      "216": "thumb/iNatobs307225512_216.webp"
+    }
+  },
+  "original_sha256": "2d14fa9a363be3275500161814f01be215179bb3c6697ef333740c61f670645b",
+  "processing": {
+    "cropBox": [
+      1050,
+      205,
+      1635,
+      1277
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs307225512_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

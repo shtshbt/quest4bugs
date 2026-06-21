@@ -1,0 +1,77 @@
+{
+  "species_id": "hayashi_midorishijimi",
+  "species_ja": "ハヤシミドリシジミ",
+  "scientific_name": "Favonius ultramarinus",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 755351",
+    "occurrenceId": "urn:uuid:656f9075-0cf0-4b53-ad20-eb490cdaa13c",
+    "persistentId": "urn:uuid:656f9075-0cf0-4b53-ad20-eb490cdaa13c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1940-07-05",
+    "eventYear": 1940,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Gunma, Honshu, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.627702,
+    "decimalLongitude": 138.943623
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039097012",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-755351",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:33981ab1-5dea-43a3-83c1-02452539dbc2/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT755351_original.jpg",
+    "segmented": "processed/YPMENT755351_L1_segmented.png",
+    "display": "processed/YPMENT755351_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT755351_54.webp",
+      "108": "thumb/YPMENT755351_108.webp",
+      "216": "thumb/YPMENT755351_216.webp"
+    }
+  },
+  "original_sha256": "2ffeacb72fc319fc01fdaf891ca277b35d1ede9baf8570c4ee1a1a0190ad334e",
+  "processing": {
+    "cropBox": [
+      250,
+      63,
+      936,
+      1443
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT755351_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

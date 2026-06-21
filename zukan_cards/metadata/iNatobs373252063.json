@@ -1,0 +1,81 @@
+{
+  "species_id": "ookamakiri",
+  "species_ja": "オオカマキリ",
+  "scientific_name": "Tenodera aridifolia",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "mrssparverius (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_373252063",
+    "occurrenceId": "https://www.inaturalist.org/observations/373252063",
+    "persistentId": "https://www.inaturalist.org/observations/373252063",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "mrssparverius",
+    "eventDate": "2026-06-19",
+    "eventYear": 2026,
+    "country": "United States",
+    "localityVerbatim": null,
+    "localityNormalized": "United States, United States",
+    "preparations": null,
+    "decimalLatitude": 39.7454522838,
+    "decimalLongitude": -75.6421987487,
+    "coordinatesObscured": true,
+    "iNatObservationId": "373252063",
+    "iNatPhotoId": "682119485",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/373252063",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/682119485/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs373252063_original.jpg",
+    "segmented": "processed/iNatobs373252063_L1_segmented.png",
+    "display": "processed/iNatobs373252063_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs373252063_54.webp",
+      "108": "thumb/iNatobs373252063_108.webp",
+      "216": "thumb/iNatobs373252063_216.webp"
+    }
+  },
+  "original_sha256": "b68a97ed465e712801226e0ca1594ce5f3ab7fac7a918830d939f4fe97edbd20",
+  "processing": {
+    "cropBox": [
+      0,
+      640,
+      737,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs373252063_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

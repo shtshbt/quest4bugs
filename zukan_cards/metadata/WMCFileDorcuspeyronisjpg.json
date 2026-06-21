@@ -1,0 +1,75 @@
+{
+  "species_id": "ookuwagata",
+  "species_ja": "オオクワガタ",
+  "scientific_name": "Dorcus hopei binodulosus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Reiche &amp; Saulcy",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dorcus peyronis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dorcus_peyronis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dorcus_peyronis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Reiche &amp; Saulcy",
+    "eventDate": "1856",
+    "eventYear": 1856,
+    "country": null,
+    "localityVerbatim": "Dorcus peyronis",
+    "localityNormalized": "Dorcus peyronis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dorcus_peyronis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Dorcus_peyronis.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileDorcuspeyronisjpg_original.jpg",
+    "segmented": "processed/WMCFileDorcuspeyronisjpg_L1_segmented.png",
+    "display": "processed/WMCFileDorcuspeyronisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDorcuspeyronisjpg_54.webp",
+      "108": "thumb/WMCFileDorcuspeyronisjpg_108.webp",
+      "216": "thumb/WMCFileDorcuspeyronisjpg_216.webp"
+    }
+  },
+  "original_sha256": "010945fa1ebf51e6238b7e75a64d40eb85dd6c88e834199230add19b97fc5694",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      600,
+      396
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDorcuspeyronisjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.06), rotate 0 CCW"
+}

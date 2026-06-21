@@ -1,0 +1,75 @@
+{
+  "species_id": "mikado_ageha",
+  "species_ja": "ミカドアゲハ",
+  "scientific_name": "Graphium doson",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012824350",
+    "occurrenceId": "73d3de85-ca5a-4942-8d0d-8f1d1bb7499d",
+    "persistentId": "73d3de85-ca5a-4942-8d0d-8f1d1bb7499d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2236803472",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/73d3de85-ca5a-4942-8d0d-8f1d1bb7499d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c142cafd-9f05-4d71-9c4b-30ac28a560f5",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012824350_original.jpg",
+    "segmented": "processed/NHMUK012824350_L1_segmented.png",
+    "display": "processed/NHMUK012824350_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012824350_54.webp",
+      "108": "thumb/NHMUK012824350_108.webp",
+      "216": "thumb/NHMUK012824350_216.webp"
+    }
+  },
+  "original_sha256": "3a379ab5be6aa9242a4728b10e5652443bbdeb402680033300288ed8bd4432da",
+  "processing": {
+    "cropBox": [
+      178,
+      97,
+      929,
+      879
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012824350_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

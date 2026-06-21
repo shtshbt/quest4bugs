@@ -1,0 +1,77 @@
+{
+  "species_id": "kumabachi",
+  "species_ja": "クマバチ",
+  "scientific_name": "Xylocopa appendiculata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01610275",
+    "occurrenceId": "http://n2t.net/ark:/65665/385535a43-4a3b-4d4e-8003-6d34742e36bb",
+    "persistentId": "http://n2t.net/ark:/65665/385535a43-4a3b-4d4e-8003-6d34742e36bb",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "K. Tsuneki",
+    "eventDate": "1953-05-17",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Fukui, Japan",
+    "preparations": "Pinned",
+    "decimalLatitude": 36.0467,
+    "decimalLongitude": 136.215
+  },
+  "source": {
+    "gbifOccurrenceKey": "2900455805",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2900455805",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=14938170&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT01610275_original.jpg",
+    "segmented": "processed/USNMENT01610275_L1_segmented.png",
+    "display": "processed/USNMENT01610275_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01610275_54.webp",
+      "108": "thumb/USNMENT01610275_108.webp",
+      "216": "thumb/USNMENT01610275_216.webp"
+    }
+  },
+  "original_sha256": "b99ca012ed63b8cfa797c8b83e4a7a17000643c296c7af5a7b8b4abaccfc4194",
+  "processing": {
+    "cropBox": [
+      548,
+      514,
+      937,
+      1080
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01610275_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

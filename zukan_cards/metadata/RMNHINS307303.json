@@ -1,0 +1,77 @@
+{
+  "species_id": "banana_seseri",
+  "species_ja": "バナナセセリ",
+  "scientific_name": "Erionota torus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.307303",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.307303",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.307303",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": "WholeOrganism (Air dried)",
+    "decimalLatitude": -7.257472,
+    "decimalLongitude": 112.752088
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444080256",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444080256",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.307303_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS307303_original.jpg",
+    "segmented": "processed/RMNHINS307303_L1_segmented.png",
+    "display": "processed/RMNHINS307303_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS307303_54.webp",
+      "108": "thumb/RMNHINS307303_108.webp",
+      "216": "thumb/RMNHINS307303_216.webp"
+    }
+  },
+  "original_sha256": "fd0821249661cceb276a6fb9a8c8b5969f001b5f616437e7bfdbf1582a1c8928",
+  "processing": {
+    "cropBox": [
+      0,
+      195,
+      1920,
+      1169
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS307303_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

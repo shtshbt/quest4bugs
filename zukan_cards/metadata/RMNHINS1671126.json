@@ -1,0 +1,77 @@
+{
+  "species_id": "ryukyu_asagimadara",
+  "species_ja": "リュウキュウアサギマダラ",
+  "scientific_name": "Ideopsis similis",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1671126",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1671126",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1671126",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Imago",
+    "recordedBy": null,
+    "eventDate": "1931-06-01/1931-06-30",
+    "eventYear": 1931,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Bosnik (Bosnek), Indonesia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": -1.141014,
+    "decimalLongitude": 136.215418
+  },
+  "source": {
+    "gbifOccurrenceKey": "4993100958",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4993100958",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1671126_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS1671126_original.jpg",
+    "segmented": "processed/RMNHINS1671126_L1_segmented.png",
+    "display": "processed/RMNHINS1671126_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1671126_54.webp",
+      "108": "thumb/RMNHINS1671126_108.webp",
+      "216": "thumb/RMNHINS1671126_216.webp"
+    }
+  },
+  "original_sha256": "b36e9dcb3018de4a39cce9abe346febccca71d29f778d96f394a807cbed55e94",
+  "processing": {
+    "cropBox": [
+      662,
+      505,
+      1384,
+      959
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1671126_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

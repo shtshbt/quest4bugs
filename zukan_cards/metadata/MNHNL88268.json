@@ -1,0 +1,76 @@
+{
+  "species_id": "kabutomushi",
+  "species_ja": "カブトムシ",
+  "scientific_name": "Trypoxylus dichotomus",
+  "credit_line": "National Museum of Natural History, Luxembourg",
+  "creator": "National Museum of Natural History, Luxembourg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Luxembourg",
+    "institutionCode": "MNHNL",
+    "collectionCode": null,
+    "catalogNumber": "MNHNL88268",
+    "occurrenceId": "DSS0043900002TH2::DSS00439000020CE::",
+    "persistentId": "DSS0043900002TH2::DSS00439000020CE::",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unknown",
+    "eventDate": "1899-12-30",
+    "eventYear": 1899,
+    "country": null,
+    "localityVerbatim": "unknown",
+    "localityNormalized": "Africa",
+    "preparations": "pinned specimen"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1891612253",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1891612253",
+    "sourceMediaUrl": "https://archimg.mnhn.lu/Collections/Invertebrate-zoology/Arthropoda-specimens/MNHNL88268-2.jpg",
+    "datasetKey": "962f59bc-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/MNHNL88268_original.jpg",
+    "segmented": "processed/MNHNL88268_L1_segmented.png",
+    "display": "processed/MNHNL88268_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MNHNL88268_54.webp",
+      "108": "thumb/MNHNL88268_108.webp",
+      "216": "thumb/MNHNL88268_216.webp"
+    }
+  },
+  "original_sha256": "eb2b5d4cb0a88b4bc4952c2cdc1f4b9862e6c4c4872c86b9d4429ae4d9f922e5",
+  "processing": {
+    "cropBox": [
+      0,
+      702,
+      5184,
+      3201
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/MNHNL88268_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.10), rotate 90 CCW"
+}

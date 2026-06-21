@@ -1,0 +1,75 @@
+{
+  "species_id": "shouryou_batta",
+  "species_ja": "ショウリョウバッタ",
+  "scientific_name": "Acrida cinerea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "TekuraDF",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Acrida cinerea(Female,Japan,2017.09.19).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Acrida_cinerea(Female,Japan,2017.09.19).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Acrida_cinerea(Female,Japan,2017.09.19).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "TekuraDF",
+    "eventDate": "2017-09-18 15:18:28",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "ショウリョウバッタ雌　広島県",
+    "localityNormalized": "ショウリョウバッタ雌　広島県",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Acrida_cinerea(Female,Japan,2017.09.19).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Acrida_cinerea%28Female%2CJapan%2C2017.09.19%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileAcridacinereaFemaleJapan20170919jpg_original.jpg",
+    "segmented": "processed/WMCFileAcridacinereaFemaleJapan20170919jpg_L1_segmented.png",
+    "display": "processed/WMCFileAcridacinereaFemaleJapan20170919jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAcridacinereaFemaleJapan20170919jpg_54.webp",
+      "108": "thumb/WMCFileAcridacinereaFemaleJapan20170919jpg_108.webp",
+      "216": "thumb/WMCFileAcridacinereaFemaleJapan20170919jpg_216.webp"
+    }
+  },
+  "original_sha256": "ee13babb963cb265354344f879ccb694502bf5a4b5e663bc043e62f890c82236",
+  "processing": {
+    "cropBox": [
+      280,
+      0,
+      2387,
+      1875
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAcridacinereaFemaleJapan20170919jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

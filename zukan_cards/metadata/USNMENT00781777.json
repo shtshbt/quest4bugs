@@ -1,0 +1,75 @@
+{
+  "species_id": "monshirochou",
+  "species_ja": "モンシロチョウ",
+  "scientific_name": "Pieris rapae",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781777",
+    "occurrenceId": "http://n2t.net/ark:/65665/35215a454-11e9-4a79-8655-ccbe3c62bdc5",
+    "persistentId": "http://n2t.net/ark:/65665/35215a454-11e9-4a79-8655-ccbe3c62bdc5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319058461",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319058461",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10485600&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00781777_original.jpg",
+    "segmented": "processed/USNMENT00781777_L1_segmented.png",
+    "display": "processed/USNMENT00781777_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781777_54.webp",
+      "108": "thumb/USNMENT00781777_108.webp",
+      "216": "thumb/USNMENT00781777_216.webp"
+    }
+  },
+  "original_sha256": "5192c82d6b2c522ce096920297a74f0de6e5fe574d48e6ede8885ae0f5927e5b",
+  "processing": {
+    "cropBox": [
+      299,
+      265,
+      1693,
+      1265
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781777_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

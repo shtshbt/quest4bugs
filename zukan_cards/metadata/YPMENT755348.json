@@ -1,0 +1,77 @@
+{
+  "species_id": "urajiro_midorishijimi",
+  "species_ja": "ウラジロミドリシジミ",
+  "scientific_name": "Favonius saphirinus",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 755348",
+    "occurrenceId": "urn:uuid:aeed711c-e3e3-4a94-bd70-2251e2f5dac7",
+    "persistentId": "urn:uuid:aeed711c-e3e3-4a94-bd70-2251e2f5dac7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-05-20",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Achi, Shiga, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.235093,
+    "decimalLongitude": 136.139272
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039148544",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-755348",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:4581d005-7030-41ef-98da-80514542473f/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT755348_original.jpg",
+    "segmented": "processed/YPMENT755348_L1_segmented.png",
+    "display": "processed/YPMENT755348_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT755348_54.webp",
+      "108": "thumb/YPMENT755348_108.webp",
+      "216": "thumb/YPMENT755348_216.webp"
+    }
+  },
+  "original_sha256": "9f855422327aa377cc05b8cda959dec2aa819377417fe0a02142c18162bf31c5",
+  "processing": {
+    "cropBox": [
+      268,
+      101,
+      907,
+      1408
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT755348_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,81 @@
+{
+  "species_id": "yamato_tamamushi",
+  "species_ja": "ヤマトタマムシ",
+  "scientific_name": "Chrysochroa fulgidissima",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "unipon (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_363065237",
+    "occurrenceId": "https://www.inaturalist.org/observations/363065237",
+    "persistentId": "https://www.inaturalist.org/observations/363065237",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unipon",
+    "eventDate": "2026-05-05",
+    "eventYear": 2026,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.6729452019,
+    "decimalLongitude": 139.4376289235,
+    "coordinatesObscured": true,
+    "iNatObservationId": "363065237",
+    "iNatPhotoId": "662708599",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/363065237",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/662708599/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs363065237_original.jpg",
+    "segmented": "processed/iNatobs363065237_L1_segmented.png",
+    "display": "processed/iNatobs363065237_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs363065237_54.webp",
+      "108": "thumb/iNatobs363065237_108.webp",
+      "216": "thumb/iNatobs363065237_216.webp"
+    }
+  },
+  "original_sha256": "8e4420c32f79245a99dc1ec65e0a8caced70ecfda7cdaf1d7d62e3778d724d55",
+  "processing": {
+    "cropBox": [
+      479,
+      926,
+      816,
+      1132
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs363065237_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.18), rotate 0 CCW"
+}

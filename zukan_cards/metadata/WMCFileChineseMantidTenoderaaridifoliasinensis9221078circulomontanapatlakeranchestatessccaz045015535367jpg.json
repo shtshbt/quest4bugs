@@ -1,0 +1,75 @@
+{
+  "species_id": "ookamakiri",
+  "species_ja": "オオカマキリ",
+  "scientific_name": "Tenodera aridifolia",
+  "credit_line": "Wikimedia Commons",
+  "creator": "ALAN SCHMIERER",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chinese Mantid (Tenodera aridifolia sinensis) (9-22-10) 78 circulo montana, pat lake ranch estates, scc, az -04 (5015535367).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chinese_Mantid_(Tenodera_aridifolia_sinensis)_(9-22-10)_78_circulo_montana,_pat_lake_ranch_estates,_scc,_az_-04_(5015535367).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chinese_Mantid_(Tenodera_aridifolia_sinensis)_(9-22-10)_78_circulo_montana,_pat_lake_ranch_estates,_scc,_az_-04_(5015535367).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ALAN SCHMIERER",
+    "eventDate": "2010-09-22 15:29:45",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "\"Bugs\"",
+    "localityNormalized": "\"Bugs\"",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chinese_Mantid_(Tenodera_aridifolia_sinensis)_(9-22-10)_78_circulo_montana,_pat_lake_ranch_estates,_scc,_az_-04_(5015535367).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Chinese_Mantid_%28Tenodera_aridifolia_sinensis%29_%289-22-10%29_78_circulo_montana%2C_pat_lake_ranch_estates%2C_scc%2C_az_-04_%285015535367%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_original.jpg",
+    "segmented": "processed/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_L1_segmented.png",
+    "display": "processed/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_54.webp",
+      "108": "thumb/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_108.webp",
+      "216": "thumb/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_216.webp"
+    }
+  },
+  "original_sha256": "514674d4389d43b42619bbc26128bdd8c5d373a187829b5ad8b4cc71c14f0137",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3260,
+      2956
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChineseMantidTenoderaaridifoliasinensis9221078circulomontanapatlakeranchestatessccaz045015535367jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

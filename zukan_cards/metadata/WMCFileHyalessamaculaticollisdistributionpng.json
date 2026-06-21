@@ -1,0 +1,75 @@
+{
+  "species_id": "minminzemi",
+  "species_ja": "ミンミンゼミ",
+  "scientific_name": "Hyalessa maculaticollis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "The Nature Box",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hyalessa maculaticollis distribution.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hyalessa_maculaticollis_distribution.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hyalessa_maculaticollis_distribution.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "The Nature Box",
+    "eventDate": "2024-01-05",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Very rough map (not highly accurate) indicating the distribution of Hyalessa maculaticollis.\nOwn work based on https://commons.wikimedia.org/wiki/File:World_map_at_2006.png",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hyalessa_maculaticollis_distribution.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hyalessa_maculaticollis_distribution.png",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileHyalessamaculaticollisdistributionpng_original.jpg",
+    "segmented": "processed/WMCFileHyalessamaculaticollisdistributionpng_L1_segmented.png",
+    "display": "processed/WMCFileHyalessamaculaticollisdistributionpng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHyalessamaculaticollisdistributionpng_54.webp",
+      "108": "thumb/WMCFileHyalessamaculaticollisdistributionpng_108.webp",
+      "216": "thumb/WMCFileHyalessamaculaticollisdistributionpng_216.webp"
+    }
+  },
+  "original_sha256": "84c1b6e19118872d3791f0d13b26f5c2e822dbf2817e935e7373f109b5699b04",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1032,
+      1150
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHyalessamaculaticollisdistributionpng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

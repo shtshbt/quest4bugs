@@ -1,0 +1,75 @@
+{
+  "species_id": "aino_midorishijimi",
+  "species_ja": "アイノミドリシジミ",
+  "scientific_name": "Chrysozephyrus brillantinus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Macrolepidoptera01seitz 0153.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0153.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0153.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz",
+    "eventDate": "1906",
+    "eventYear": 1906,
+    "country": null,
+    "localityVerbatim": "Plate from Seitz, A. Ed., 1900-1909 Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart Die Großschmetterlinge des palaearktischen Faunengebietes(The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera) Band 1: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Tagfalter. read text (in German)\nSee The Global Lepidoptera Names Index for valid names\na\n\nerrore Satyrium percomis (Leech, 1894)\nSatyrium v-album (Oberthür, 1886)\nSatyrium ilicis (Esper, 1779)\nSatyrium ilicis ab. auronitens Seitz, 1908\nSatyrium esculi mauretanica (Staudinger, 1892)\nb\n\nSatyrium esculi mauretanica (Staudinger, 1892)\nSatyrium esculi (Hübner, [1803-1804])\nThecla caudatula Zeller, 1847 = Satyrium ilicis (Esper, 1779)\nSatyrium acaciae (Fabricius, 1787)\nc\n\nSatyrium abdominalis (Gerhard, 1850)\nThecla acaciae var. gerhardi Staudinger, [1895] = Satyrium abdominalis (Gerhard, 1850)\nSatyrium oenone Leech, [1893]\nSatyrium mera (Janson, 1877)\nd\n\nerrore Satyrium rubicundula (Leech, 1890)\nSatyrium pruni (Linnaeus, 1758)\nSatyrium prunoides (Staudinger, 1887)\nSatyrium herzi (Fixsen, 1887)\ne\n\nSatyrium thalia (Leech, [1893])\nSatyrium ledereri (Boisduval, 1848)\nSatyrium lunulata (Erschoff, 1874)\nSatyrium acaudata (Staudinger, 1901)\nSatyrium sassanides (Kollar, [1849])\nNeolycaena sinensis (Alphéraky, 1881)\nf\n\nsinensis (Alphéraky, 1881) see  e\nNeolycaena rhymnus (Eversmann, 1832)\nNeolycaena pretiosa (Lang, 1884)\nNeolycaena carbonaria (Grum-Grshimailo, 1890) in Romanoff\nNeolycaena davidi (Oberthur, 1881)\nNeolycaena tengstroemi (Erschoff, 1874)\nerrore Neolycaena davidi tangutica (Grum-Grshimailo, 1891)\ng\n\nFavonius orientalis (Murray, 1875)\nChrysozephyrus brillantinus (Staudinger, 1887)\nFavonius taxila (Bremer, 1861)\njankowskii Seitz form. nov. of Neozephyrus coruscans (Leech, 1894)\nFavonius ultramarina suffusa (Leech, 1894)\nNeozephyrus coruscans (Leech, 1894)\nChrysozephyrus scintillans (Leech, 1894)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0153.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Macrolepidoptera01seitz_0153.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileMacrolepidoptera01seitz0153jpg_original.jpg",
+    "segmented": "processed/WMCFileMacrolepidoptera01seitz0153jpg_L1_segmented.png",
+    "display": "processed/WMCFileMacrolepidoptera01seitz0153jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_54.webp",
+      "108": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_108.webp",
+      "216": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_216.webp"
+    }
+  },
+  "original_sha256": "e65ea3b1b41d86e4f5d3dfbf2daa4dad964dbd026cce3e601eed1fbaccdd5bb9",
+  "processing": {
+    "cropBox": [
+      65,
+      116,
+      2409,
+      3402
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMacrolepidoptera01seitz0153jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

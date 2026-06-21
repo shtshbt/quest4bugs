@@ -1,0 +1,77 @@
+{
+  "species_id": "oo_midorishijimi",
+  "species_ja": "オオミドリシジミ",
+  "scientific_name": "Favonius orientalis",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 753652",
+    "occurrenceId": "urn:uuid:47383d7a-f66d-4a4e-b3b7-7cea0070cae3",
+    "persistentId": "urn:uuid:47383d7a-f66d-4a4e-b3b7-7cea0070cae3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-06-20",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shiga, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.219388,
+    "decimalLongitude": 136.136525
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039075268",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-753652",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:8ca12e82-fcab-4307-b578-b9b0b0b9504f/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT753652_original.jpg",
+    "segmented": "processed/YPMENT753652_L1_segmented.png",
+    "display": "processed/YPMENT753652_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT753652_54.webp",
+      "108": "thumb/YPMENT753652_108.webp",
+      "216": "thumb/YPMENT753652_216.webp"
+    }
+  },
+  "original_sha256": "26f5a4e5496324a6a61e7293b4834e40eb42b08f48bedf5d11c631d4f9ca6b60",
+  "processing": {
+    "cropBox": [
+      212,
+      12,
+      941,
+      1456
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT753652_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

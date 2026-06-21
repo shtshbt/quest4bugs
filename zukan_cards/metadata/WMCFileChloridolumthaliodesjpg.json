@@ -1,0 +1,76 @@
+{
+  "species_id": "ooao_kamikiri",
+  "species_ja": "オオアオカミキリ",
+  "scientific_name": "Chloridolum thaliodes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Samuele Papeschi",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chloridolum thaliodes.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chloridolum_thaliodes.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chloridolum_thaliodes.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Samuele Papeschi",
+    "eventDate": "2022-08-19",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Chloridolum thaliodes. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chloridolum_thaliodes.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Chloridolum_thaliodes.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileChloridolumthaliodesjpg_original.jpg",
+    "segmented": "processed/WMCFileChloridolumthaliodesjpg_L1_segmented.png",
+    "display": "processed/WMCFileChloridolumthaliodesjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChloridolumthaliodesjpg_54.webp",
+      "108": "thumb/WMCFileChloridolumthaliodesjpg_108.webp",
+      "216": "thumb/WMCFileChloridolumthaliodesjpg_216.webp"
+    }
+  },
+  "original_sha256": "985a90cd52be46c90e75bd067ad67b5e3b0ae1a0f55157b4f76abd752c4a8d9b",
+  "processing": {
+    "cropBox": [
+      823,
+      559,
+      1427,
+      1520
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChloridolumthaliodesjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.85), rotate 180 CCW"
+}

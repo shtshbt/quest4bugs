@@ -1,0 +1,81 @@
+{
+  "species_id": "minminzemi",
+  "species_ja": "ミンミンゼミ",
+  "scientific_name": "Hyalessa maculaticollis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "conebread (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_371387202",
+    "occurrenceId": "https://www.inaturalist.org/observations/371387202",
+    "persistentId": "https://www.inaturalist.org/observations/371387202",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "conebread",
+    "eventDate": "2023-08-05",
+    "eventYear": 2023,
+    "country": "KR",
+    "localityVerbatim": null,
+    "localityNormalized": "Seongjung-gil, Seoul, Seoul, KR, KR",
+    "preparations": null,
+    "decimalLatitude": 37.5696567837,
+    "decimalLongitude": 126.9006937564,
+    "coordinatesObscured": false,
+    "iNatObservationId": "371387202",
+    "iNatPhotoId": "678544464",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/371387202",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/678544464/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs371387202_original.jpg",
+    "segmented": "processed/iNatobs371387202_L1_segmented.png",
+    "display": "processed/iNatobs371387202_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs371387202_54.webp",
+      "108": "thumb/iNatobs371387202_108.webp",
+      "216": "thumb/iNatobs371387202_216.webp"
+    }
+  },
+  "original_sha256": "902e413b41f0c7a4180ebc38c5e4e0dd63ff88b0ca1f27f50390d7385b5ecbf0",
+  "processing": {
+    "cropBox": [
+      480,
+      439,
+      1080,
+      1546
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs371387202_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

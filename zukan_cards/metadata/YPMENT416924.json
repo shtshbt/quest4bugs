@@ -1,0 +1,77 @@
+{
+  "species_id": "suminagashi",
+  "species_ja": "スミナガシ",
+  "scientific_name": "Dichorragia nesimachus",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Maggie Sullivan",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 416924",
+    "occurrenceId": "urn:uuid:e3981b6d-cc52-4c14-97ae-b1ec2a696a95",
+    "persistentId": "urn:uuid:e3981b6d-cc52-4c14-97ae-b1ec2a696a95",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1946-06-27",
+    "eventYear": 1946,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Tondano, Indonesia",
+    "preparations": null,
+    "decimalLatitude": 1.3038,
+    "decimalLongitude": 124.9112
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039185017",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-416924",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:d2f4e63f-731b-43fb-be68-18020550c65d/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT416924_original.jpg",
+    "segmented": "processed/YPMENT416924_L1_segmented.png",
+    "display": "processed/YPMENT416924_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT416924_54.webp",
+      "108": "thumb/YPMENT416924_108.webp",
+      "216": "thumb/YPMENT416924_216.webp"
+    }
+  },
+  "original_sha256": "848d587e128c7be64fe63c1eb24f23b2f7044090ef730b12293525de7172ffc6",
+  "processing": {
+    "cropBox": [
+      117,
+      0,
+      1079,
+      1557
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT416924_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "tsukutsukuboushi",
+  "species_ja": "ツクツクボウシ",
+  "scientific_name": "Meimuna opalifera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "No machine-readable author provided. Takahashi assumed (based on copyright claims).",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Meimuna opalifera female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Meimuna_opalifera_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Meimuna_opalifera_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "No machine-readable author provided. Takahashi assumed (based on copyright claims).",
+    "eventDate": "23 November 2005 (original upload date)",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Description: Meimuna opalifera (WALKER,1850), female (Hemiptera, Cicadidae)\n\nLoc.: Yokohama, Kanagawa, Japan.\nDate: 2005-09-11\nPhoto: User:Takahashi\nja: ツクツクボウシ（雌）(カメムシ目セミ科）神奈川県横浜市にて撮影",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Meimuna_opalifera_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Meimuna_opalifera_female.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileMeimunaopaliferafemalejpg_original.jpg",
+    "segmented": "processed/WMCFileMeimunaopaliferafemalejpg_L1_segmented.png",
+    "display": "processed/WMCFileMeimunaopaliferafemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMeimunaopaliferafemalejpg_54.webp",
+      "108": "thumb/WMCFileMeimunaopaliferafemalejpg_108.webp",
+      "216": "thumb/WMCFileMeimunaopaliferafemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "8e69b6a891a563b5e3c9657ba53949c2789f957decd3062e2c2c5606ea06fec5",
+  "processing": {
+    "cropBox": [
+      62,
+      187,
+      335,
+      932
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMeimunaopaliferafemalejpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

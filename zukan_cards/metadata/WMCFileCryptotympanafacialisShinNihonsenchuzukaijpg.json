@@ -1,0 +1,75 @@
+{
+  "species_id": "kumazemi",
+  "species_ja": "クマゼミ",
+  "scientific_name": "Cryptotympana facialis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Matsumura, Shōnen 1872-1960",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cryptotympana facialis (Shin Nihon senchu zukai).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cryptotympana_facialis_(Shin_Nihon_senchu_zukai).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cryptotympana_facialis_(Shin_Nihon_senchu_zukai).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Matsumura, Shōnen 1872-1960",
+    "eventDate": "1921",
+    "eventYear": 1921,
+    "country": null,
+    "localityVerbatim": "Cryptotympana facialis (Walker, 1858)",
+    "localityNormalized": "Cryptotympana facialis (Walker, 1858)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cryptotympana_facialis_(Shin_Nihon_senchu_zukai).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Cryptotympana_facialis_%28Shin_Nihon_senchu_zukai%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_original.jpg",
+    "segmented": "processed/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_L1_segmented.png",
+    "display": "processed/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_54.webp",
+      "108": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_108.webp",
+      "216": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_216.webp"
+    }
+  },
+  "original_sha256": "12072a3d83d8ee7672fb527462dfcdc263b6ac48a65f7923b2d107217ce6499c",
+  "processing": {
+    "cropBox": [
+      56,
+      0,
+      611,
+      1170
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

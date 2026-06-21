@@ -1,0 +1,75 @@
+{
+  "species_id": "suzumushi",
+  "species_ja": "スズムシ",
+  "scientific_name": "Meloimorpha japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ishizaki Yūshi",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Naturalis Biodiversity Center - RMNH.ART.591 - Homoeogryllus japonicus - Yūshi Ishizaki - Cock Blomhoff Collection - pencil drawing - water colour.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Naturalis_Biodiversity_Center_-_RMNH.ART.591_-_Homoeogryllus_japonicus_-_Y%C5%ABshi_Ishizaki_-_Cock_Blomhoff_Collection_-_pencil_drawing_-_water_colour.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Naturalis_Biodiversity_Center_-_RMNH.ART.591_-_Homoeogryllus_japonicus_-_Y%C5%ABshi_Ishizaki_-_Cock_Blomhoff_Collection_-_pencil_drawing_-_water_colour.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ishizaki Yūshi",
+    "eventDate": "2015-07-21 02:45:40",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Homoeogryllus japonicus (=Meloimorpha japonica)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Naturalis_Biodiversity_Center_-_RMNH.ART.591_-_Homoeogryllus_japonicus_-_Y%C5%ABshi_Ishizaki_-_Cock_Blomhoff_Collection_-_pencil_drawing_-_water_colour.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Naturalis_Biodiversity_Center_-_RMNH.ART.591_-_Homoeogryllus_japonicus_-_Y%C5%ABshi_Ishizaki_-_Cock_Blomhoff_Collection_-_pencil_drawing_-_water_colour.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_original.jpg",
+    "segmented": "processed/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L1_segmented.png",
+    "display": "processed/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_54.webp",
+      "108": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_108.webp",
+      "216": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_216.webp"
+    }
+  },
+  "original_sha256": "885614058ef9cfcdbdf5995b92ce8e0fb177e06445c8b4fbc77a257b075deea0",
+  "processing": {
+    "cropBox": [
+      607,
+      522,
+      1327,
+      1216
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

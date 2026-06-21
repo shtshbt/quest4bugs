@@ -1,0 +1,75 @@
+{
+  "species_id": "maimaikaburi",
+  "species_ja": "マイマイカブリ",
+  "scientific_name": "Damaster blaptoides",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Alpsdake",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Damaster blaptoides on Eubotryoides grayana.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Damaster_blaptoides_on_Eubotryoides_grayana.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Damaster_blaptoides_on_Eubotryoides_grayana.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alpsdake",
+    "eventDate": "2015-06-16 14:41:57",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Damaster blaptoides blaptoides on Eubotryoides grayana in Mount Ibuki, Maibara, Shiga prefecture, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Damaster_blaptoides_on_Eubotryoides_grayana.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Damaster_blaptoides_on_Eubotryoides_grayana.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_original.jpg",
+    "segmented": "processed/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_L1_segmented.png",
+    "display": "processed/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_54.webp",
+      "108": "thumb/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_108.webp",
+      "216": "thumb/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_216.webp"
+    }
+  },
+  "original_sha256": "5ef4195a97970d527ec70751e987a2d62c0467cffe066ac019cc8a5b433b8912",
+  "processing": {
+    "cropBox": [
+      237,
+      995,
+      2670,
+      2273
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDamasterblaptoidesonEubotryoidesgrayanajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

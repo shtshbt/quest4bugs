@@ -1,0 +1,76 @@
+{
+  "species_id": "yamato_tamamushi",
+  "species_ja": "ヤマトタマムシ",
+  "scientific_name": "Chrysochroa fulgidissima",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Insects Unlocked",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tamamushi (Jewel Beetle) (Buprestidae, Chrysochroa fulgidissima) (27404641765).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tamamushi_(Jewel_Beetle)_(Buprestidae,_Chrysochroa_fulgidissima)_(27404641765).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tamamushi_(Jewel_Beetle)_(Buprestidae,_Chrysochroa_fulgidissima)_(27404641765).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Insects Unlocked",
+    "eventDate": "2016-06-01 16:02",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Japan, Ibaraki Prefecture: Tsukuba\nMt. Tsukuba\n\n10-viii-1956",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tamamushi_(Jewel_Beetle)_(Buprestidae,_Chrysochroa_fulgidissima)_(27404641765).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Tamamushi_%28Jewel_Beetle%29_%28Buprestidae%2C_Chrysochroa_fulgidissima%29_%2827404641765%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_original.jpg",
+    "segmented": "processed/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_L1_segmented.png",
+    "display": "processed/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_54.webp",
+      "108": "thumb/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_108.webp",
+      "216": "thumb/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_216.webp"
+    }
+  },
+  "original_sha256": "0cb53dd2d6953866dd6414ccdba4986d2dd077be0746509da43bd21ef595724c",
+  "processing": {
+    "cropBox": [
+      834,
+      125,
+      2563,
+      5300
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTamamushiJewelBeetleBuprestidaeChrysochroafulgidissima27404641765jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.05), rotate 270 CCW"
+}

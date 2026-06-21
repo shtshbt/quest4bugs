@@ -1,0 +1,81 @@
+{
+  "species_id": "tsukutsukuboushi",
+  "species_ja": "ツクツクボウシ",
+  "scientific_name": "Meimuna opalifera",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "ellyne (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_365125616",
+    "occurrenceId": "https://www.inaturalist.org/observations/365125616",
+    "persistentId": "https://www.inaturalist.org/observations/365125616",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ellyne",
+    "eventDate": "2026-05-12",
+    "eventYear": 2026,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Minato, Wakayama, 640-8404, Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 34.2176177952,
+    "decimalLongitude": 135.1448822022,
+    "coordinatesObscured": false,
+    "iNatObservationId": "365125616",
+    "iNatPhotoId": "666602381",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/365125616",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/666602381/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs365125616_original.jpg",
+    "segmented": "processed/iNatobs365125616_L1_segmented.png",
+    "display": "processed/iNatobs365125616_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs365125616_54.webp",
+      "108": "thumb/iNatobs365125616_108.webp",
+      "216": "thumb/iNatobs365125616_216.webp"
+    }
+  },
+  "original_sha256": "a63accb427072ee96c8c6a569e65e54a94f369749e79957de44c3de9335e82eb",
+  "processing": {
+    "cropBox": [
+      0,
+      405,
+      2048,
+      1092
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs365125616_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

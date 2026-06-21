@@ -1,0 +1,76 @@
+{
+  "species_id": "hannoao_kamikiri",
+  "species_ja": "ハンノアオカミキリ",
+  "scientific_name": "Eutetrapha chrysochloris chrysochloris",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Vihljun",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Unidentified Cerambycidae (female) 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Unidentified_Cerambycidae_(female)_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Unidentified_Cerambycidae_(female)_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Vihljun",
+    "eventDate": "2010-07-24",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Eutetrapha chrysochloris (Bates, 1879) det. F. Vitali (female), in the forest near Santa Hotel, Yuzhno-Sakhalinsk",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Unidentified_Cerambycidae_(female)_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Unidentified_Cerambycidae_%28female%29_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileUnidentifiedCerambycidaefemale2jpg_original.jpg",
+    "segmented": "processed/WMCFileUnidentifiedCerambycidaefemale2jpg_L1_segmented.png",
+    "display": "processed/WMCFileUnidentifiedCerambycidaefemale2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_54.webp",
+      "108": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_108.webp",
+      "216": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_216.webp"
+    }
+  },
+  "original_sha256": "504355ac817eb0b7387265090bcc05118ca091425fa4bf8d3222938260f382a6",
+  "processing": {
+    "cropBox": [
+      933,
+      58,
+      2810,
+      2480
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileUnidentifiedCerambycidaefemale2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.94), rotate 90 CCW"
+}

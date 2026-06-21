@@ -1,0 +1,75 @@
+{
+  "species_id": "kuro_ooari",
+  "species_ja": "クロオオアリ",
+  "scientific_name": "Camponotus japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ryan Perry",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Camponotus japonicus casent0249983 h 1 high.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Camponotus_japonicus_casent0249983_h_1_high.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Camponotus_japonicus_casent0249983_h_1_high.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ryan Perry",
+    "eventDate": "2012-03-15",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "​日本弓背蚁",
+    "localityNormalized": "​日本弓背蚁",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Camponotus_japonicus_casent0249983_h_1_high.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Camponotus_japonicus_casent0249983_h_1_high.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileCamponotusjaponicuscasent0249983h1highjpg_original.jpg",
+    "segmented": "processed/WMCFileCamponotusjaponicuscasent0249983h1highjpg_L1_segmented.png",
+    "display": "processed/WMCFileCamponotusjaponicuscasent0249983h1highjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_54.webp",
+      "108": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_108.webp",
+      "216": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_216.webp"
+    }
+  },
+  "original_sha256": "ad8fea1b615376a95d46fc304cc639e644deb865548d315785c0778aa877f55d",
+  "processing": {
+    "cropBox": [
+      19,
+      0,
+      975,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCamponotusjaponicuscasent0249983h1highjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

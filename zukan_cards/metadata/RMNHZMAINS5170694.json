@@ -1,0 +1,77 @@
+{
+  "species_id": "usuiro_konomachou",
+  "species_ja": "ウスイロコノマチョウ",
+  "scientific_name": "Melanitis leda",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.5170694",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5170694",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5170694",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Imago",
+    "recordedBy": "Cleary D.F.R. (Danny)",
+    "eventDate": "1997-03-17",
+    "eventYear": 1997,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Wanariset, Indonesia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": -0.983333,
+    "decimalLongitude": 116.95
+  },
+  "source": {
+    "gbifOccurrenceKey": "4863279536",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4863279536",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.5170694_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS5170694_original.jpg",
+    "segmented": "processed/RMNHZMAINS5170694_L1_segmented.png",
+    "display": "processed/RMNHZMAINS5170694_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS5170694_54.webp",
+      "108": "thumb/RMNHZMAINS5170694_108.webp",
+      "216": "thumb/RMNHZMAINS5170694_216.webp"
+    }
+  },
+  "original_sha256": "cb97d90026479e6e078d82fa37ba25e3035714585cae8b8cc90a2ac8683b7c5c",
+  "processing": {
+    "cropBox": [
+      591,
+      268,
+      1317,
+      870
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS5170694_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}
