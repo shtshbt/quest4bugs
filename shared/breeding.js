@@ -128,7 +128,7 @@
     var pendBadge = (opts.pendingCount > 0)
       ? '<span style="position:absolute;top:-4px;right:-4px;background:#F2A33C;color:#fff;border:2px solid #FFFDF4;border-radius:99px;font-size:10px;font-weight:900;padding:1px 5px;min-width:18px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.25);z-index:2">📬'+opts.pendingCount+'</span>'
       : '';
-    var label = (opts.pendingCount > 0) ? 'たまごのす<br>を ひらく' : 'あたらしい<br>たまご';
+    var label = (opts.pendingCount > 0) ? 'たまごリスト<br>を ひらく' : 'あたらしい<br>たまご';
     return ''
       + '<div class="q4b-egg-empty"'+onTapAttr
       +   ' style="position:relative;background:rgba(207,221,178,.25);border:2.5px dashed #CFDDB2;border-radius:14px;padding:8px 6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:130px">'
@@ -855,7 +855,7 @@
       + '<div style="background:#FFFDF4;border-radius:18px;max-width:460px;width:96%;padding:18px 16px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
       +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
       +     '<span style="font-size:22px">🥚</span>'
-      +     '<span style="font-size:17px;font-weight:800;color:#2A3D2C;flex:1">たまごのす</span>'
+      +     '<span style="font-size:17px;font-weight:800;color:#2A3D2C;flex:1">たまごリスト</span>'
       +     '<button type="button" id="q4bNestClose" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:8px;padding:6px 12px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
       +   '</div>'
       +   '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">まちの たまご: '+pendingEggs.length+'こ　／　あき スロット: '+slotsAvailable+'</div>'

@@ -112,7 +112,7 @@
          true にする (null 返却時は維持 → 次回 retry)。 */
       if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && RW.awardBossEgg){
         var opp = be.firstSex === "m" ? "f" : "m";
-        var egg = RW.awardBossEgg(null, sp, opp);
+        var egg = RW.awardBossEgg(null, sp, opp, {forceQueue:true});  /* legacy 救済は pendingEggs に */
         if(egg){
           be.eggGranted = true; changed = true;
           granted.push({sp: sp, sex: opp, egg: egg, queued: !!egg.queuedAt});

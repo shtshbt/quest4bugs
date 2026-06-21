@@ -1046,6 +1046,10 @@ function renderDashboard(pid,name){
     if(hatched && hatched.length && window.Q4BBreeding && Q4BBreeding.notifyAutoHatched){
       setTimeout(function(){ Q4BBreeding.notifyAutoHatched(hatched); }, 400);
     }
+    /* migration: 旧版で勝手に eggs に入った legacy 卵 (progress=0) を pendingEggs に戻す */
+    if(window.Q4BReward && Q4BReward.migrateUnstartedLegacyEggsToPending){
+      try{ Q4BReward.migrateUnstartedLegacyEggsToPending(); }catch(_){}
+    }
     /* ボス legacy 救済を全教科ぶん発動 (ホームに来た瞬間に kanji/keisan/eitango 全ボス処理) */
     return (window.Q4BBossZukan && Q4BBossZukan.load ? Q4BBossZukan.load(pid) : Promise.resolve()).then(function(){
     return Promise.all([
@@ -1275,7 +1279,7 @@ function openZukanDetailFromHome(entry, sp, coll){
     + '</div>';
   document.body.appendChild(ov);
 }
-/* 「+」スロットタップ → pendingEggs があれば たまごのす Modal、無ければ直接産卵 picker */
+/* 「+」スロットタップ → pendingEggs があれば たまごリスト Modal、無ければ直接産卵 picker */
 function homeEggAdd(){
   var pid=_hPid(); if(!pid){alert("プロフィールが選ばれていません");return;}
   var bs = QuestSave.breedingOf ? QuestSave.breedingOf(pid) : {eggs:[],pendingEggs:[]};
@@ -1285,7 +1289,7 @@ function homeEggAdd(){
     _homeEggOpenLayPicker(pid);
     return;
   }
-  /* 待機卵あり → たまごのす Modal で選択肢を提示 */
+  /* 待機卵あり → たまごリスト Modal で選択肢を提示 */
   var eggsIds = {};
   (bs.eggs||[]).forEach(function(e){ eggsIds[e.id]=true; });
   Q4BBreeding.openEggNestModal({

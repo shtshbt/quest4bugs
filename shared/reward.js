@@ -568,7 +568,8 @@
   /* マスター卵 / ボス卵を授与。空きあり→eggs、満杯/同種育成中→pendingEggs。
      冪等ガード: 同 id + 同 origin の卵が eggs/pendingEggs に既存ならスキップ。
      かけら消費なし (達成自体が対価)。 */
-  function awardEgg(sp, sex, origin){
+  function awardEgg(sp, sex, origin, opts){
+    opts = opts || {};
     if(!sp || !sp.metamorphosis) return null;        // 卵対象外 order
     var bs = _bs();
     var i;
@@ -588,10 +589,11 @@
       bornAt: todayStr(),
       shiny: rollShiny()
     };
-    /* 空きあり (かつ同種育成中でない) → eggs に直接追加、それ以外は pendingEggs に保留 */
+    /* 空きあり (かつ同種育成中でない) → eggs に直接追加、それ以外は pendingEggs に保留。
+       forceQueue=true なら 強制的に pendingEggs (legacy 救済はユーザに選ばせるため必須)。 */
     var sameIdInEggs = false;
     for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===sp.id){ sameIdInEggs=true; break; } }
-    if(bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
+    if(!opts.forceQueue && bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
       bs.eggs.push(egg);
     } else {
       egg.queuedAt = todayStr();
@@ -600,8 +602,8 @@
     _saveBs(bs);
     return egg;
   }
-  function awardMasterEgg(coll, sp, sex){ return awardEgg(sp, sex, "master_pair"); }
-  function awardBossEgg(coll, sp, sex){ return awardEgg(sp, sex, "boss_pair"); }
+  function awardMasterEgg(coll, sp, sex, opts){ return awardEgg(sp, sex, "master_pair", opts); }
+  function awardBossEgg(coll, sp, sex, opts){ return awardEgg(sp, sex, "boss_pair", opts); }
 
   /* feedEgg 後の UI フック (breeding.js が toast 表示用に登録する) */
   var _feedHook = null;
@@ -732,6 +734,35 @@
     return egg;
   }
 
+  /* migration: ユーザの意図なく eggs に入った legacy 卵 (boss_pair / master_pair で
+     progress=0) を pendingEggs に戻す。ホーム描画時に 1 度走らせる用。
+     戻した数を返す。重複 (同 id+origin が pending にも存在) は破棄。 */
+  function migrateUnstartedLegacyEggsToPending(){
+    var bs = _bs(); if(!bs) return 0;
+    var moved = 0;
+    var keep = [];
+    bs.eggs.forEach(function(e){
+      var isLegacy = (e.origin === "boss_pair" || e.origin === "master_pair");
+      var fresh = (e.progress||0) === 0;
+      if(isLegacy && fresh){
+        var dup = bs.pendingEggs.some(function(p){return p.id===e.id && p.origin===e.origin;});
+        if(!dup){
+          var copy = Object.assign({}, e);
+          copy.queuedAt = todayStr();
+          bs.pendingEggs.push(copy);
+        }
+        moved++;
+        return;  /* eggs から落とす */
+      }
+      keep.push(e);
+    });
+    if(moved > 0){
+      bs.eggs = keep;
+      _saveBs(bs);
+    }
+    return moved;
+  }
+
   /* pendingEggs から指定 id の卵を eggs に昇格 (Egg Nest Modal で選択 promote)。
      ・eggs が満杯ならエラー (null)
      ・同 species が育成中ならエラー (null) */
@@ -787,7 +818,7 @@
      in-place 更新 (awardMaster は呼ばない、冪等ガード回避)。
      sizeBySexMm が定義された種は size を chosen 性別レンジで再抽選 + max/min を更新。
      反対性別の卵を授与 (空きあり→eggs、満杯→pendingEggs)。 */
-  function setMasterSex(coll, sp, chosen){
+  function setMasterSex(coll, sp, chosen, eggOpts){
     if(!coll || !coll.catches) return false;
     var e = coll.catches[sp.id];
     if(!e || !e.records || !e.records.length) return false;
@@ -806,7 +837,7 @@
       }
     }
     /* max/min/normal/master/n カウンタは保持 */
-    var egg = awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m");
+    var egg = awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m", eggOpts);
     return egg || true;  /* 戻り値: 卵オブジェクト (新規授与時) or true (冪等スキップ時) */
   }
 
@@ -956,7 +987,7 @@
     ids.forEach(function(id){
       var sp = spById(id); if(!sp) return;
       var sex = rollSex(sp);
-      var ret = setMasterSex(coll, sp, sex);
+      var ret = setMasterSex(coll, sp, sex, {forceQueue:true});  /* legacy 救済は pendingEggs に */
       if(ret){
         var egg = (ret !== true) ? ret : null;
         out.push({sp: sp, sex: sex, egg: egg, queued: !!(egg && egg.queuedAt)});
@@ -1036,6 +1067,7 @@
     acceptPendingEgg: acceptPendingEgg,
     promotePendingEgg: promotePendingEgg,
     discardPendingEgg: discardPendingEgg,
+    migrateUnstartedLegacyEggsToPending: migrateUnstartedLegacyEggsToPending,
     abandonEgg: abandonEgg,
     breederRank: breederRank,
     totalReared: totalReared,
