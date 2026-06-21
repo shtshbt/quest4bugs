@@ -555,6 +555,7 @@ function breedingPanelHTML(pid){
     pendingCount: (bs.pendingEggs||[]).length,
     legacyMasterCount: window.__q4bLegacyMasterCount||0,
     legacyByGame: window.__q4bLegacyByGame||{},
+    totalReared: (bs.stats&&bs.stats.totalReared)||0,
     onTap: "homeEggTap",
     onAdd: "homeEggAdd",
     onHatch: "homeEggHatch",
@@ -1181,7 +1182,12 @@ function _autoHatchReadyEggs(pid){
       var hatched = [];
       byGame[ns].forEach(function(id){
         var r = Q4BReward.hatchEgg(coll, id);
-        if(r) hatched.push({id:id, sp:r.sp, size:r.size});
+        if(r){
+          hatched.push({id:id, sp:r.sp, size:r.size});
+          if(r.leveledUp && r.newTier && window.Q4BBreeding && Q4BBreeding.notifyBreederLevelUp){
+            Q4BBreeding.notifyBreederLevelUp(r.newTier);
+          }
+        }
       });
       if(ns === 'eitango'){ profile.catches = coll.catches; profile.total = coll.total; }
       else { profile.coll = coll; }
@@ -1322,6 +1328,10 @@ function homeEggHatch(id){
     }
     var r=Q4BReward.hatchEgg(coll, id);
     if(!r){ alert("孵化できませんでした (進捗が target に達していない可能性)"); return; }
+    /* 称号アップ toast */
+    if(r.leveledUp && r.newTier && window.Q4BBreeding && Q4BBreeding.notifyBreederLevelUp){
+      Q4BBreeding.notifyBreederLevelUp(r.newTier);
+    }
     /* coll を書き戻し (commit 順序: アニメ前に save) */
     if(game==="eitango"){
       profile.catches=coll.catches; profile.total=coll.total;

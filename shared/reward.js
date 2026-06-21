@@ -682,9 +682,42 @@
     var size = rollSize(sp, egg.sex);
     record(coll, sp, {sex: egg.sex, size: size, shiny: egg.shiny, reared: true, bornAt: egg.bornAt});
     bs.eggs.splice(idx, 1);
+    /* 称号: totalReared 累積カウンタ。階級アップは prev/now の tier 差を呼び出し側で見て toast。 */
+    if(!bs.stats) bs.stats = {totalAbandoned:0};
+    var prevReared = bs.stats.totalReared || 0;
+    bs.stats.totalReared = prevReared + 1;
+    var prevTier = breederRank(prevReared);
+    var newTier = breederRank(bs.stats.totalReared);
+    var leveledUp = (newTier.tier.threshold > prevTier.tier.threshold);
     /* 保留卵があれば空き枠の通知バナーは index.html 側で出す (ここでは自動転送しない) */
     _saveBs(bs);
-    return {egg: egg, sp: sp, size: size};
+    return {egg: egg, sp: sp, size: size, totalReared: bs.stats.totalReared, prevTier: prevTier.tier, newTier: newTier.tier, leveledUp: leveledUp};
+  }
+
+  /* ブリーダー称号: 累積 reared 数 → tier
+     30/100/300/1000 をしきい値とし、1 匹目で「かけだしブリーダー」昇格。 */
+  var BREEDER_TIERS = [
+    {threshold: 0,    label: '',                short: '',         emoji: ''},
+    {threshold: 1,    label: 'かけだしブリーダー', short: 'かけだし',  emoji: '🐣'},
+    {threshold: 30,   label: 'みならいブリーダー', short: 'みならい',  emoji: '🥚'},
+    {threshold: 100,  label: 'せんぱいブリーダー', short: 'せんぱい',  emoji: '🦋'},
+    {threshold: 300,  label: 'ベテランブリーダー', short: 'ベテラン',  emoji: '🏅'},
+    {threshold: 1000, label: 'マスターブリーダー', short: 'マスター',  emoji: '👑'}
+  ];
+  function breederRank(total){
+    total = total || 0;
+    var i, cur = BREEDER_TIERS[0], next = null;
+    for(i=0;i<BREEDER_TIERS.length;i++){
+      if(total >= BREEDER_TIERS[i].threshold) cur = BREEDER_TIERS[i];
+    }
+    for(i=0;i<BREEDER_TIERS.length;i++){
+      if(BREEDER_TIERS[i].threshold > total){ next = BREEDER_TIERS[i]; break; }
+    }
+    return {tier: cur, next: next, total: total};
+  }
+  function totalReared(){
+    var bs = _bs();
+    return (bs && bs.stats && bs.stats.totalReared) || 0;
   }
 
   /* 保留卵 (pendingEggs[0]) を eggs の空き枠へ転送。ホームバナー「受けとる」タップ時に呼ぶ。 */
@@ -944,6 +977,9 @@
     hatchEgg: hatchEgg,
     acceptPendingEgg: acceptPendingEgg,
     abandonEgg: abandonEgg,
+    breederRank: breederRank,
+    totalReared: totalReared,
+    BREEDER_TIERS: BREEDER_TIERS,
     setMasterSex: setMasterSex,
     bossKillReward: bossKillReward,
     hasReared: hasReared,

@@ -173,13 +173,26 @@
         + legacyBreakdown
         + '</div>'
       : '';
+    /* ブリーダー称号: opts.totalReared から段階を計算してヘッダーに表示 */
+    var rwd = R();
+    var br = (rwd && rwd.breederRank) ? rwd.breederRank(opts.totalReared||0) : null;
+    var brBadge = '';
+    if(br && br.tier && br.tier.threshold > 0){
+      brBadge = '<span style="display:inline-flex;align-items:center;gap:3px;background:#FFF6E0;border:1.5px solid #E0A32E;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:800;color:#8A5C2C;margin-left:auto" title="そだてた虫 '+(opts.totalReared||0)+'匹">'
+        + br.tier.emoji + ' ' + esc(br.tier.short) + '</span>';
+    }
+    var rearedCounter = '<span style="font-size:12px;color:#6B7A5E;margin-left:2px">🐣そだてた ×'+(opts.totalReared||0)+'</span>';
     return ''
       + '<style>@keyframes q4bEggGlow{0%,100%{box-shadow:0 0 0 3px rgba(242,163,60,.25),0 2px 6px rgba(0,0,0,.08)}50%{box-shadow:0 0 0 6px rgba(242,163,60,.4),0 4px 10px rgba(0,0,0,.12)}}</style>'
       + '<div class="card" style="background:linear-gradient(180deg,#FFFDF4 0%,#F8F4E4 100%);border:2px solid #CFDDB2;border-radius:18px;padding:14px 12px;margin-bottom:12px">'
-      +   '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">'
+      +   '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
       +     '<span style="font-size:22px">🥚</span>'
       +     '<span style="font-size:16px;font-weight:800;color:#2A3D2C">そだてている むし</span>'
       +     '<span style="font-size:13px;color:#6B7A5E;margin-left:4px">('+eggs.length+'/'+max+')</span>'
+      +     brBadge
+      +   '</div>'
+      +   '<div style="margin:-2px 0 8px">'+rearedCounter
+      +     (br && br.next ? '<span style="font-size:11px;color:#A89876;margin-left:8px">つぎ '+esc(br.next.short)+' まで '+(br.next.threshold-(opts.totalReared||0))+'</span>' : '')
       +   '</div>'
       +   pendBanner
       +   legacyBanner
@@ -819,6 +832,21 @@
     });
   }
 
+  /* ブリーダー称号アップ toast (累積孵化数の階段) */
+  function notifyBreederLevelUp(newTier){
+    if(!newTier) return;
+    var doc = global.document; if(!doc || !doc.body) return;
+    var existing = doc.getElementById("q4bBreederToast");
+    if(existing) existing.remove();
+    var t = doc.createElement("div");
+    t.id = "q4bBreederToast";
+    t.style.cssText = "position:fixed;left:50%;top:24px;transform:translateX(-50%);background:linear-gradient(180deg,#FFF6E0 0%,#FFEFC4 100%);border:2.5px solid #E0A32E;border-radius:14px;padding:14px 20px;z-index:9999;box-shadow:0 8px 22px rgba(0,0,0,.28);max-width:88vw;font-family:inherit;text-align:center;animation:q4bToastSlideTop .35s ease-out";
+    t.innerHTML = '<div style="font-size:13px;color:#8A5C2C;font-weight:800;margin-bottom:4px">🎉 称号アップ!</div>'
+      + '<div style="font-size:20px;font-weight:900;color:#5C3D14">'+newTier.emoji+' '+esc(newTier.label)+'</div>';
+    doc.body.appendChild(t);
+    setTimeout(function(){ if(t.parentNode){ t.style.transition="opacity .4s"; t.style.opacity="0"; setTimeout(function(){ if(t.parentNode) t.remove(); }, 420); } }, 5500);
+  }
+
   /* マスター ♂♀ 確定後の toast (反対性別卵の授与結果を明示) */
   function notifyMasterEggGranted(sp, opts){
     opts = opts || {};
@@ -942,6 +970,7 @@
     openMasterSexPickerModal: openMasterSexPickerModal,
     openLegacyMasterListModal: openLegacyMasterListModal,
     notifyMasterEggGranted: notifyMasterEggGranted,
+    notifyBreederLevelUp: notifyBreederLevelUp,
     openEggInfoModal: openEggInfoModal,
     notifyEggLaid: notifyEggLaid,
     notifyAutoHatched: notifyAutoHatched,
