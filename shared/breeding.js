@@ -596,6 +596,36 @@
       + '</div>';
   }
 
+  /* --- 自動孵化通知 (ホーム表示時) ---
+     成虫まで育った卵が複数まとめて自動孵化された場合のお祝いトースト。
+     opts.hatched = [{id, sp, size}, ...] (id, sp object, size mm) */
+  function notifyAutoHatched(hatched){
+    if(!hatched || !hatched.length) return;
+    var doc = global.document; if(!doc || !doc.body) return;
+    var existing = doc.getElementById("q4bAutoHatchedToast");
+    if(existing) existing.remove();
+    var ov = doc.createElement("div");
+    ov.id = "q4bAutoHatchedToast";
+    ov.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#FFFDF4;border:3px solid #F2A33C;border-radius:18px;padding:16px 18px;z-index:9998;box-shadow:0 8px 26px rgba(0,0,0,.3);max-width:88vw;width:340px;font-family:inherit;animation:q4bToastSlide .35s ease-out";
+    var rows = hatched.slice(0, 5).map(function(h){
+      var name = (h.sp && (h.sp.jaName || h.sp.id)) || h.id;
+      return '<div style="font-size:13px;color:#2A3D2C;padding:3px 0">🪲 '+esc(name)+' ('+h.size+'mm)</div>';
+    }).join("");
+    var moreNote = hatched.length > 5 ? '<div style="font-size:11px;color:#6B7A5E;margin-top:4px">…ほか '+(hatched.length-5)+'匹</div>' : '';
+    ov.innerHTML = ''
+      + '<div style="font-size:16px;font-weight:800;color:#CF7F14;margin-bottom:6px">🎉 せいちゅうに なったよ!</div>'
+      + '<div style="font-size:11px;color:#6B7A5E;margin-bottom:6px">'+hatched.length+'匹 の むしが ずかんに きろくされたよ</div>'
+      + rows
+      + moreNote
+      + '<div style="text-align:right;margin-top:8px">'
+      +   '<button type="button" id="q4bAutoHatchedClose" style="border:none;background:#F2A33C;color:#fff;border-radius:10px;padding:6px 16px;font-weight:700;font-family:inherit;cursor:pointer">やったー!</button>'
+      + '</div>';
+    doc.body.appendChild(ov);
+    var btn = ov.querySelector("#q4bAutoHatchedClose");
+    if(btn) btn.onclick = function(){ if(ov.parentNode) ov.parentNode.removeChild(ov); };
+    setTimeout(function(){ if(ov.parentNode){ ov.style.transition="opacity .3s"; ov.style.opacity="0"; setTimeout(function(){ if(ov.parentNode) ov.remove(); }, 320); } }, 12000);
+  }
+
   /* --- 産卵成功通知トースト ---
      各教科の layEgg 成功直後に呼ぶ。ホームへの誘導ボタン付き。
      呼出側パスは ../index.html (各教科は 1 階層下) を既定。 */
@@ -817,6 +847,7 @@
     openMasterSexPickerModal: openMasterSexPickerModal,
     openEggInfoModal: openEggInfoModal,
     notifyEggLaid: notifyEggLaid,
+    notifyAutoHatched: notifyAutoHatched,
     playHatchAnimation: playHatchAnimation,
     playStageAdvanceAnimation: playStageAdvanceAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
