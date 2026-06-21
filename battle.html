@@ -926,6 +926,19 @@ function loadAll(){
     PROF = QuestSave.currentProfile();
     PROFOBJ=null; if(plist)for(var pi=0;pi<plist.length;pi++)if(plist[pi].id===PROF)PROFOBJ=plist[pi];
     if(!PROF) return null;
+    /* 卵育成: ボス撃破時の awardBossEgg のために eggStore を wire-up */
+    if(window.Q4BReward&&Q4BReward.setEggStore){
+      Q4BReward.setEggStore({
+        get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(PROF):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
+        save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(PROF,s):false;}
+      });
+    }
+    if(window.Q4BReward&&Q4BReward.setFossilStore){
+      Q4BReward.setFossilStore({
+        get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(PROF):0;},
+        spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(PROF,n):false;}
+      });
+    }
     return Promise.all([
       QuestSave.load("keisan",PROF),       /* 計算は per-profile（"keisan <id>"）に統一 */
       QuestSave.load("kanji",PROF),
@@ -1867,9 +1880,25 @@ function finish(win){
   var bt=document.getElementById("battle");
   var rew = win ? B.bossReward(st.r, CLEARED[st.r.stage]) : null;
   if(win){
+    if(rew && rew.kind==="species" && rew.speciesId){
+      /* 卵育成: 段階的アンロック (1回撃破=個体, 10回撃破=反対性別の卵)
+         BATTLE.bosses[id] = {n: 累計回数, firstSex: 1回目で確定した性別} */
+      BATTLE.bosses=BATTLE.bosses||{};
+      if(window.Q4BReward&&Q4BReward.bossKillReward){
+        var killRew = Q4BReward.bossKillReward(rew.speciesId, BATTLE.bosses);
+        /* 1 回目: bossesMap[id].n=1, firstSex 確定。図鑑には species record として残る */
+        if(killRew && killRew.kind==="egg"){
+          /* 10 回撃破 → 反対性別の卵を授与 */
+          var spChild = Q4BReward.spById(rew.speciesId);
+          if(spChild){ Q4BReward.awardBossEgg(null, spChild, killRew.sex); }
+        }
+      } else {
+        /* fallback: 旧挙動 */
+        BATTLE.bosses[rew.speciesId] = BATTLE.bosses[rew.speciesId] || {n:1};
+      }
+    }
     if(rew && rew.first){
-      if(rew.kind==="species" && rew.speciesId){ BATTLE.bosses=BATTLE.bosses||{}; BATTLE.bosses[rew.speciesId]={n:1}; }
-      else if(rew.kind==="amber"){ if(window.QuestSave&&QuestSave.amberAdd&&PROF)QuestSave.amberAdd(PROF, rew.amber||0);
+      if(rew.kind==="amber"){ if(window.QuestSave&&QuestSave.amberAdd&&PROF)QuestSave.amberAdd(PROF, rew.amber||0);
         if(rew.badge){ BATTLE.badges=BATTLE.badges||{}; BATTLE.badges[rew.badge]=1; } }
     } else if(rew && !rew.first && rew.kind==="amber" && rew.amber){
       /* 再戦琥珀（昆虫10/天敵浅層15/深層20/モズ30） */

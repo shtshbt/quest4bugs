@@ -889,6 +889,17 @@ function eitangoAbandonEgg(spId){
   if(!confirm('ほんとうに すてる?')) return;
   if(Q4BReward.abandonEgg(spId)){ touchP(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
 }
+function eitangoHatchEgg(spId){
+  if(!P) return;
+  var coll={catches:P.catches||{},total:P.total||0};
+  var r=Q4BReward.hatchEgg(coll, spId);
+  if(!r){ alert('孵化できませんでした'); return; }
+  P.catches=coll.catches; P.total=coll.total; touchP();
+  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+  if(window.Q4BBreeding){
+    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+  }
+}
 /* 既存catchのサイズを 旧レンジ→新(実寸)レンジへ一度だけ移行 */
 function migrateCatchSizes(p){
   if(!p||!p.catches||p._sizeMig===2) return false;
@@ -926,12 +937,50 @@ function masterMetE(sp){
 }
 function checkMastersE(){
   if(!window.Q4BReward||!Q4BReward.masterBugsFor||!P||!P.catches) return;
-  const tmp={catches:P.catches}, awarded=[];
+  const tmp={catches:P.catches}, awarded=[], queue=[];
   Q4BReward.masterBugsFor('eitango').forEach(sp=>{
     if(Q4BReward.masterObtained(tmp,sp.id)) return;
-    if(masterMetE(sp)){ if(Q4BReward.awardMaster(tmp,sp)) awarded.push(sp); }
+    if(masterMetE(sp)){
+      if(window.Q4BBreeding && Q4BBreeding.openMasterSexPickerModal){ queue.push(sp); }
+      else { if(Q4BReward.awardMaster(tmp,sp)) awarded.push(sp); }
+    }
   });
   if(awarded.length){ touchP(); showMasterCelebrationE(awarded); }
+  if(queue.length){ processEitangoMasterQueue(queue, tmp); }
+}
+function processEitangoMasterQueue(queue, tmp){
+  if(!queue.length) return;
+  const sp = queue.shift();
+  Q4BBreeding.openMasterSexPickerModal({
+    sp: sp, isLegacy: false, allowCancel: true,
+    onPick: function(sex){
+      Q4BReward.awardMaster(tmp, sp, sex);
+      Q4BReward.awardMasterEgg(tmp, sp, sex==='m'?'f':'m');
+      P.catches = tmp.catches;
+      touchP();
+      showMasterCelebrationE([sp]);
+      processEitangoMasterQueue(queue, tmp);
+    },
+    onCancel: function(){
+      Q4BReward.awardMaster(tmp, sp);
+      P.catches = tmp.catches; touchP();
+      processEitangoMasterQueue(queue, tmp);
+    }
+  });
+}
+function eitangoPickMasterSex(spId){
+  if(!P||!P.catches) return;
+  const coll = {catches:P.catches};
+  const sp = Q4BReward.spById(spId); if(!sp) return;
+  Q4BBreeding.openMasterSexPickerModal({
+    sp: sp, isLegacy: true, allowCancel: true,
+    onPick: function(sex){
+      if(Q4BReward.setMasterSex(coll, sp, sex)){
+        P.catches = coll.catches; touchP();
+        if(typeof closeModal==='function') closeModal();
+      }
+    }
+  });
 }
 function showMasterCelebrationE(list){ const sp=list[0];
   $('#modal').innerHTML=`<div class="mcard">${zukanDetailHTML(`
@@ -1182,8 +1231,12 @@ function scrZukan(){
     const szl=(c.min!=null&&c.min<c.max)?`${c.min}〜${c.max}mm`:`${c.max}mm`;
     const isFav=(P.favorites&&P.favorites[s[0]])?true:false;
     const favBadge=isFav?'<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>':'';
+    const collE={catches:P.catches};
+    const rearedBadge=(Q4BReward.hasReared&&Q4BReward.hasReared(collE,s[0]))?`<span style="position:absolute;top:2px;right:${isFav?'22px':'4px'};font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>`:'';
+    const spForLegacy=Q4BReward.spById?Q4BReward.spById(s[0]):null;
+    const sexUnknownBadge=(spForLegacy&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(c,spForLegacy))?'<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1;z-index:2" title="♂♀ をきめてね">!</span>':'';
     return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]});position:relative" onclick="showSpec('${s[0]}')">
-      ${favBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
+      ${favBadge}${rearedBadge}${sexUnknownBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
@@ -1219,7 +1272,7 @@ function showSpec(id){
     ${UI.specCard({sp:s,size:c.max,shiny:baseShiny,isNew:false,isRecord:false})}
     ${both?`<div style="margin-top:4px"><span style="display:inline-block;width:54px;height:54px;vertical-align:middle">${spSVG(s,30,1)}</span> <span class="small">✨いろちがいも ゲットずみ</span></div>`:''}
     <div class="small" style="margin-top:10px">かつどう: ${['ひる','よる','ひる・よる'][s[5]]} ／ つかまえた おおきさ: ${caught} ／ かず: ${c.n}ひき<br>この虫の さいだいきゅう: ${s[7]}mm</div>
-    ${window.Q4BZukan?Q4BZukan.detailHTML(c, Object.assign({id:id},SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}),{coll:{catches:P.catches,favorites:P.favorites||{}},favCallback:'eitangoFavTap',saveFn:touchP,onLayEgg:'eitangoLayEgg',onAbandonEgg:'eitangoAbandonEgg'}):''}
+    ${window.Q4BZukan?Q4BZukan.detailHTML(c, Object.assign({id:id},SPECIES_SRC[id]||{sizeMm:[s[6],s[7]]}),{coll:{catches:P.catches,favorites:P.favorites||{}},favCallback:'eitangoFavTap',saveFn:touchP,onLayEgg:'eitangoLayEgg',onAbandonEgg:'eitangoAbandonEgg',onHatchEgg:'eitangoHatchEgg',onPickSex:'eitangoPickMasterSex'}):''}
     <button class="btn sub" onclick="closeModal()">とじる</button></div>`;
   $('#modal').classList.add('show');
 }

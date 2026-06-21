@@ -274,6 +274,17 @@ function keisanAbandonEgg(spId){
   if(!confirm('ほんとうに すてる?')) return;
   if(Q4BReward.abandonEgg(spId)){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
 }
+function keisanHatchEgg(spId){
+  var p=P(); if(!p) return;
+  if(!p.coll) p.coll={catches:{},total:0};
+  var r=Q4BReward.hatchEgg(p.coll, spId);
+  if(!r){ alert('孵化できませんでした'); return; }
+  save();
+  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+  if(window.Q4BBreeding){
+    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+  }
+}
 
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
@@ -603,16 +614,50 @@ function masterMetK(key){
 var KMASTERLAB={add:"たし算ひっさん",sub:"ひき算ひっさん",mul:"九九",div:"暗算",all:"ぜんぶ"};
 function checkMastersK(){
  var p=P(); if(!p||!window.Q4BReward||!Q4BReward.masterBugsFor)return; ensureColl(p);
- var awarded=[];
+ var queue=[], awarded=[];
  Q4BReward.masterBugsFor("keisan").forEach(function(sp){
   if(Q4BReward.masterObtained(p.coll,sp.id))return;
-  /* k5(ビギナー)モードの子は k5key 条件で達成判定。k5keyが無いマスター虫(共通5種等)はk10と同じkey判定。
-     これによりk5の子も k10と同じマスター虫を取得可能（達成パスは年齢相応の k5カテゴリ）。 */
   var checkKey=sp.master.key;
   if(p.type==="k5" && sp.master.k5key){ checkKey=sp.master.k5key; }
-  if(masterMetK(checkKey)){ if(Q4BReward.awardMaster(p.coll,sp))awarded.push(sp); }
+  if(masterMetK(checkKey)){
+   if(window.Q4BBreeding && Q4BBreeding.openMasterSexPickerModal){ queue.push(sp); }
+   else { if(Q4BReward.awardMaster(p.coll,sp))awarded.push(sp); }
+  }
  });
  if(awarded.length){ save(); showMasterCelebrationK(awarded); }
+ if(queue.length){ processKeisanMasterQueue(queue, p); }
+}
+function processKeisanMasterQueue(queue, p){
+ if(!queue.length) return;
+ var sp = queue.shift();
+ Q4BBreeding.openMasterSexPickerModal({
+  sp: sp, isLegacy: false, allowCancel: true,
+  onPick: function(sex){
+   Q4BReward.awardMaster(p.coll, sp, sex);
+   Q4BReward.awardMasterEgg(p.coll, sp, sex==='m'?'f':'m');
+   save();
+   showMasterCelebrationK([sp]);
+   processKeisanMasterQueue(queue, p);
+  },
+  onCancel: function(){
+   Q4BReward.awardMaster(p.coll, sp);
+   save();
+   processKeisanMasterQueue(queue, p);
+  }
+ });
+}
+function keisanPickMasterSex(spId){
+ var p=P(); if(!p||!p.coll) return;
+ var sp = Q4BReward.spById(spId); if(!sp) return;
+ Q4BBreeding.openMasterSexPickerModal({
+  sp: sp, isLegacy: true, allowCancel: true,
+  onPick: function(sex){
+   if(Q4BReward.setMasterSex(p.coll, sp, sex)){
+    save();
+    if(typeof closeModal==='function') closeModal();
+   }
+  }
+ });
 }
 function showMasterCelebrationK(list){ var sp=list[0];
  var inner='<div style="font-size:14px;color:var(--amber-d);font-weight:800">🎓 ぜんぶ習得！</div>'
@@ -726,6 +771,8 @@ function showZukan(){
     var isFav=Q4BReward.isFavorite(p.coll,sp.id);
     h+='<div class="zc r'+tier+(rec?"":" ")+'" style="position:relative" onclick="openBugNew(\''+sp.id+'\')">';
     if(isFav) h+='<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>';
+    if(Q4BReward.hasReared&&Q4BReward.hasReared(p.coll,sp.id)) h+='<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>';
+    if(rec&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(rec,sp)) h+='<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1;z-index:2" title="♂♀ をきめてね">!</span>';
     if(rec&&rec.n>1)h+='<span class="cnt">×'+rec.n+'</span>';
     if(rec){
       /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */
@@ -775,7 +822,7 @@ function openBugNew(spId){
       +'<p class="note">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
       +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"")
-      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:P()&&P().coll,favCallback:'keisanFavTap',saveFn:save,onLayEgg:'keisanLayEgg',onAbandonEgg:'keisanAbandonEgg'}):"");
+      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:P()&&P().coll,favCallback:'keisanFavTap',saveFn:save,onLayEgg:'keisanLayEgg',onAbandonEgg:'keisanAbandonEgg',onHatchEgg:'keisanHatchEgg',onPickSex:'keisanPickMasterSex'}):"");
   }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');

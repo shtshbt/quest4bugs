@@ -269,6 +269,10 @@
       global.Q4BReward.backfillRecords(opts.coll, sp);
       if(typeof opts.saveFn === 'function') opts.saveFn();
     }
+    /* レガシーマスター虫 (sex='u') 検出: スタブ表示 (♂♀ をきめるボタン主体) */
+    if(global.Q4BReward && global.Q4BReward.isLegacyMasterUnknownSex && global.Q4BReward.isLegacyMasterUnknownSex(entry, sp)){
+      return masterStubHTML(entry, sp, opts);
+    }
     var records = entry.records || [];
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
     var html = '';
@@ -283,6 +287,10 @@
       html += breedingActionsHTML(entry, sp, opts);
       return html;
     }
+    /* masterOnly 種は通常 detailHTML 上部にも常時 🎓 マスター達成記念バッジを表示 */
+    if(sp && sp.masterOnly){
+      html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800;color:#6B4A99;margin:0 0 6px">🎓 マスター達成</div>';
+    }
     html += sexSummary(records);
     html += bestWorstHTML(records, sp);       /* SVG プレビュー + dimorphism note */
     html += bestTableHTML(records);           /* 2x2 ベスト表 (オス×メス × 大・小) */
@@ -292,6 +300,32 @@
     /* 自家育成セクション + 卵生成/放棄ボタン (前提クリア時のみ active) */
     html += rearedSectionHTML(opts.coll, sp);
     html += breedingActionsHTML(entry, sp, opts);
+    return html;
+  }
+
+  /* レガシー sex='u' マスター虫 救済 UI (案2: ♂♀ をきめるボタン主体) */
+  function masterStubHTML(entry, sp, opts){
+    var name = (sp && sp.jaName) || (sp && sp.id) || "";
+    var maxSize = (entry && entry.max) || 0;
+    var pickCb = opts.onPickSex || "";
+    var spId = (sp && sp.id) || "";
+    var html = '';
+    if(opts.coll && opts.favCallback){
+      var fav = global.Q4BReward.favoriteButtonHTML(opts.coll, spId, opts.favCallback+"('"+spId+"')");
+      if(fav) html += '<div style="position:absolute;top:6px;right:8px;z-index:5">'+fav+'</div>';
+    }
+    html += '<div style="text-align:center;padding:14px 6px">';
+    html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 14px;font-size:13px;font-weight:800;color:#6B4A99;margin-bottom:8px">🎓 マスター達成記念</div>';
+    html += '<div style="font-size:18px;font-weight:800;color:#2A3D2C;margin-bottom:4px">'+esc(name)+'</div>';
+    if(sp && sp.rarity) html += '<div style="font-size:13px;color:#6B7A5E;margin-bottom:4px">'+esc(sp.rarity)+'</div>';
+    if(maxSize) html += '<div style="font-size:13px;color:#6B7A5E;margin-bottom:10px">つかまえた おおきさ: '+maxSize+'mm</div>';
+    if(pickCb){
+      html += '<button type="button" onclick="'+pickCb+'(\''+spId+'\')" style="border:none;border-radius:12px;padding:12px 24px;font-size:15px;font-weight:800;font-family:inherit;color:#fff;background:#A06BD8;box-shadow:0 3px 0 #6B4A99;cursor:pointer">♂♀ をきめる</button>';
+      html += '<div style="font-size:11px;color:#6B7A5E;margin-top:8px">きめると 反対せいべつの たまごが もらえるよ</div>';
+    } else {
+      html += '<div style="font-size:13px;color:#CF7F14">(♂♀ 選択 ハンドラが 設定されていません)</div>';
+    }
+    html += '</div>';
     return html;
   }
 
@@ -347,16 +381,32 @@
         + '</button>'
         + (disabled && disabledReason ? '<div style="font-size:11px;color:#CF7F14;margin-top:2px;text-align:center">'+disabledReason+'</div>' : '');
     }
-    /* 卵をすてる: 当該種の育成中卵がある時のみ表示 */
-    var abandonBtn = '';
-    if(opts.onAbandonEgg){
-      var bs = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
-      var hasOwn = bs && bs.eggs && bs.eggs.some(function(e){return e.id===spIdStr;});
-      if(hasOwn){
-        abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
+    /* 当該種の卵が育成中: 孵化サブ動線 / 進捗表示 / 放棄ボタン */
+    var ownEgg = null;
+    var bs = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
+    if(bs && bs.eggs){
+      for(var i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===spIdStr){ ownEgg = bs.eggs[i]; break; } }
+    }
+    var hatchBtn = '';
+    var progressLine = '';
+    if(ownEgg){
+      var p = ownEgg.target>0 ? Math.min(100,Math.round((ownEgg.progress/ownEgg.target)*100)) : 0;
+      var ready = ownEgg.progress >= ownEgg.target;
+      progressLine = '<div style="background:#F4F8E8;border-radius:10px;padding:6px 10px;margin:6px 0;font-size:12px;color:#2A3D2C">'
+        + '🥚 そだち中: '+ownEgg.progress+'/'+ownEgg.target+' ('+p+'%)'
+        + '<div style="background:#EAEFE0;border-radius:99px;height:6px;margin-top:3px;overflow:hidden"><div style="width:'+p+'%;height:100%;background:#F2A33C"></div></div>'
+        + '</div>';
+      if(ready && opts.onHatchEgg){
+        hatchBtn = '<button type="button" onclick="'+opts.onHatchEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:none;border-radius:12px;padding:11px;font-size:15px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer">✨ タップでかえす</button>';
       }
     }
-    return btn + abandonBtn;
+    var abandonBtn = '';
+    if(opts.onAbandonEgg && ownEgg){
+      abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
+    }
+    /* 既に育成中なら産卵ボタンは出さない (canLayEgg で false になるが UI は出ない方が分かりやすい) */
+    if(ownEgg) btn = '';
+    return progressLine + hatchBtn + btn + abandonBtn;
   }
 
   global.Q4BZukan = {

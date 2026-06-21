@@ -358,6 +358,49 @@
       + '</div>';
   }
 
+  /* --- マスター ♂♀ 選択モーダル ---
+     B (新規マスター達成) と C (レガシー救済) で共用。
+     opts: {sp, isLegacy: bool, onPick: function(sex), onCancel?: function} */
+  function openMasterSexPickerModal(opts){
+    opts = opts || {};
+    var sp = opts.sp; if(!sp) return;
+    var doc = global.document; if(!doc) return;
+    var ov = doc.createElement("div");
+    ov.id = "q4bMasterSexOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:340;padding:14px";
+    function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }
+    /* キャンセル時挙動: 新規 (isLegacy=false) は外タップ無効、X 必須 (誤キャンセル防止) */
+    var canCancel = !!opts.isLegacy || opts.allowCancel;
+    if(canCancel){
+      ov.onclick = function(e){ if(e.target === ov){ close(); if(opts.onCancel) opts.onCancel(); } };
+    }
+    var name = esc(sp.jaName || sp.id);
+    var label = opts.isLegacy ? "♂♀ を きめよう" : "🎓 マスター達成！どちらに する?";
+    var sub = opts.isLegacy
+      ? "きめると 反対せいべつの たまごが もらえるよ"
+      : name+" を つかまえたよ! ♂♀ を えらぶと、はんたいの たまごも もらえるよ";
+    ov.innerHTML = ''
+      + '<div style="background:#FFFDF4;border-radius:18px;max-width:340px;width:96%;padding:20px 22px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
+      +   '<div style="font-size:18px;font-weight:800;color:#2A3D2C;margin-bottom:6px">'+label+'</div>'
+      +   '<div style="font-size:14px;color:#6B7A5E;margin-bottom:14px">'+esc(sub)+'</div>'
+      +   '<div style="display:flex;gap:10px;margin-bottom:10px">'
+      +     '<button type="button" data-sex="m" style="flex:1;border:none;border-radius:14px;padding:14px;font-size:22px;font-weight:800;font-family:inherit;background:#5B8DE0;color:#fff;box-shadow:0 3px 0 #2F65BA;cursor:pointer">♂ オス</button>'
+      +     '<button type="button" data-sex="f" style="flex:1;border:none;border-radius:14px;padding:14px;font-size:22px;font-weight:800;font-family:inherit;background:#E08BB9;color:#fff;box-shadow:0 3px 0 #B36192;cursor:pointer">♀ メス</button>'
+      +   '</div>'
+      +   (canCancel ? '<button type="button" id="q4bMasterCancel" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px 18px;font-weight:700;font-family:inherit;cursor:pointer">あとで きめる</button>' : '')
+      + '</div>';
+    doc.body.appendChild(ov);
+    Array.prototype.forEach.call(ov.querySelectorAll("button[data-sex]"), function(b){
+      b.onclick = function(){
+        var sex = b.getAttribute("data-sex");
+        close();
+        if(opts.onPick) opts.onPick(sex);
+      };
+    });
+    var c = ov.querySelector("#q4bMasterCancel");
+    if(c){ c.onclick = function(){ close(); if(opts.onCancel) opts.onCancel(); }; }
+  }
+
   /* --- feed toast ---
      feedEgg が成功するたびに小さい toast を画面下部に出す。
      fed: progress +1 された egg の配列 */
@@ -407,6 +450,7 @@
     homeBreedingPanelHTML: homeBreedingPanelHTML,
     openEggPickerModal: openEggPickerModal,
     openLayConfirm: openLayConfirm,
+    openMasterSexPickerModal: openMasterSexPickerModal,
     playHatchAnimation: playHatchAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
     showFeedToast: showFeedToast,

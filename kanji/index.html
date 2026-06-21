@@ -535,6 +535,16 @@ function kanjiAbandonEgg(spId){
   if(!confirm('ほんとうに すてる?')) return;
   if(Q4BReward.abandonEgg(spId)){ saveST(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
 }
+function kanjiHatchEgg(spId){
+  if(!ST.coll) ST.coll={catches:{},total:0};
+  var r=Q4BReward.hatchEgg(ST.coll, spId);
+  if(!r){ alert('孵化できませんでした'); return; }
+  saveST();
+  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+  if(window.Q4BBreeding){
+    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+  }
+}
 
 /* ================= ホーム ================= */
 function countIntroduced(){ var n=0; itemPool().forEach(function(key){ if(introduced(key))n++ }); return n }
@@ -987,12 +997,59 @@ function masterMet(sp){
 }
 function checkMasters(){
  if(!window.Q4BReward||!ST||!ST.coll)return;
- var awarded=[];
+ var awarded=[], legacyQueue=[];
  Q4BReward.masterBugsFor('kanji').forEach(function(sp){
   if(Q4BReward.masterObtained(ST.coll,sp.id))return;
-  if(masterMet(sp)){ if(Q4BReward.awardMaster(ST.coll,sp))awarded.push(sp); }
+  if(masterMet(sp)){
+   /* 新規達成: ♂♀ 選択モーダル → awardMaster(chosen) + 反対卵授与 */
+   if(window.Q4BBreeding && Q4BBreeding.openMasterSexPickerModal){
+    legacyQueue.push(sp);
+   } else {
+    /* fallback: 旧挙動 (sex='u', size=max) */
+    if(Q4BReward.awardMaster(ST.coll,sp))awarded.push(sp);
+   }
+  }
  });
  if(awarded.length){ saveST(); showMasterCelebration(awarded); }
+ /* 新規達成者は順次モーダルで処理 */
+ if(legacyQueue.length){ processKanjiMasterQueue(legacyQueue); }
+}
+function processKanjiMasterQueue(queue){
+ if(!queue.length) return;
+ var sp = queue.shift();
+ Q4BBreeding.openMasterSexPickerModal({
+  sp: sp,
+  isLegacy: false,
+  allowCancel: true,
+  onPick: function(sex){
+   /* 選んだ性別で awardMaster */
+   Q4BReward.awardMaster(ST.coll, sp, sex);
+   /* 反対性別の卵を授与 (空きあり→eggs、満杯→pendingEggs) */
+   Q4BReward.awardMasterEgg(ST.coll, sp, sex === 'm' ? 'f' : 'm');
+   saveST();
+   showMasterCelebration([sp]);
+   processKanjiMasterQueue(queue);
+  },
+  onCancel: function(){
+   /* キャンセル時は sex='u' 仮授与 → C フローに自動フォールバック */
+   Q4BReward.awardMaster(ST.coll, sp);
+   saveST();
+   processKanjiMasterQueue(queue);
+  }
+ });
+}
+/* レガシー sex='u' マスター虫の救済 (zukan_detail.js の masterStubHTML から呼ばれる) */
+function kanjiPickMasterSex(spId){
+ var sp = Q4BReward.spById(spId); if(!sp) return;
+ Q4BBreeding.openMasterSexPickerModal({
+  sp: sp, isLegacy: true, allowCancel: true,
+  onPick: function(sex){
+   if(Q4BReward.setMasterSex(ST.coll, sp, sex)){
+    saveST();
+    if(typeof closeModal==='function') closeModal();
+   }
+  }
+ });
 }
 function kanjiMasterSection(){
  if(!window.Q4BReward||!Q4BReward.masterBugsFor)return '';
@@ -1031,7 +1088,9 @@ function openKanjiMasterBug(spId){
    +([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).length?'<div style="font-size:12px;color:#56714e">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</div>':'')
    +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[tier]+'　'+esc(label)+' マスター</div>'
    +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught+'</b>　（この虫の範囲: '+sz[0]+'〜'+sz[1]+'mm）</div>'
-   +(sp.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+esc(sp.note)+'</div>':'');
+   +(sp.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+esc(sp.note)+'</div>':'')
+   /* 卵育成: detailHTML 経由で 性別分布/ヒストグラム/卵生成/レガシー救済を統合表示 */
+   +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:ST.coll,favCallback:'kanjiFavTap',saveFn:saveST,onLayEgg:'kanjiLayEgg',onAbandonEgg:'kanjiAbandonEgg',onHatchEgg:'kanjiHatchEgg',onPickSex:'kanjiPickMasterSex'}):'');
  }
  modal(zukanDetailHTML(inner+'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'));
 }
@@ -1288,8 +1347,13 @@ function renderBugs(){
    var szlabel=(entry.min!=null&&entry.min<entry.max)?(entry.min+'〜'+entry.max+'mm'):(entry.max+'mm');
    var isFav=Q4BReward.isFavorite(ST.coll,sp.id);
    var favBadge=isFav?'<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1">♥</span>':'';
+   var rearedBadge=(Q4BReward.hasReared&&Q4BReward.hasReared(ST.coll,sp.id))?'<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1" title="そだてた子">🐣</span>':'';
+   /* レガシー sex='u' マスター虫の「!」バッジ (C フローへの誘導) */
+   var sexUnknownBadge=(Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(entry,sp))?'<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1" title="♂♀ をきめてね">!</span>':'';
    h+='<div class="bug" data-spid="'+sp.id+'" style="position:relative">'
     +favBadge
+    +rearedBadge
+    +sexUnknownBadge
     +Q4BReward.svg(sp,showSh)
     +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'
     +'<div class="rar">'+tierLabel+'</div>'
@@ -1333,7 +1397,7 @@ function renderBugs(){
     +'<div style="font-size:13px;margin:4px 0">'+Q4BReward.TIERNAME[Q4BReward.tierOf(sp2)]+'　×'+entry2.n+'かい</div>'
     +'<div style="font-size:13px;color:#56714e;margin:2px 0">つかまえた おおきさ <b>'+caught2+'</b>　（この虫の範囲: '+szr[0]+'〜'+szr[1]+'mm）</div>'
     +(sp2.note?'<div style="font-size:12px;color:#56714e;margin-top:4px">'+sp2.note+'</div>':'')
-    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2,{coll:ST.coll,favCallback:'kanjiFavTap',saveFn:saveST,onLayEgg:'kanjiLayEgg',onAbandonEgg:'kanjiAbandonEgg'}):'')
+    +(window.Q4BZukan?Q4BZukan.detailHTML(entry2,sp2,{coll:ST.coll,favCallback:'kanjiFavTap',saveFn:saveST,onLayEgg:'kanjiLayEgg',onAbandonEgg:'kanjiAbandonEgg',onHatchEgg:'kanjiHatchEgg',onPickSex:'kanjiPickMasterSex'}):'')
     +'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>');
    modal(mh);
   });
