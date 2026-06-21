@@ -1,0 +1,76 @@
+{
+  "species_id": "yokoyama_higenaga_kamikiri",
+  "species_ja": "ヨコヤマヒゲナガカミキリ",
+  "scientific_name": "Dolichoprosopus yokoyamai",
+  "credit_line": "iNaturalist (CC0 exception)",
+  "creator": "unipon (iNaturalist)",
+  "fetched_date": "2026-06-20",
+  "specimen": {
+    "institution": "iNaturalist (CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_photo_650431134",
+    "occurrenceId": "https://www.inaturalist.org/observations/356660691",
+    "persistentId": "https://www.inaturalist.org/observations/356660691",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unipon",
+    "eventDate": "2024-07-14",
+    "eventYear": 2024,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/356660691",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/650431134/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatphoto650431134_original.jpg",
+    "segmented": "processed/iNatphoto650431134_L1_segmented.png",
+    "display": "processed/iNatphoto650431134_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatphoto650431134_54.webp",
+      "108": "thumb/iNatphoto650431134_108.webp",
+      "216": "thumb/iNatphoto650431134_216.webp"
+    }
+  },
+  "original_sha256": "99a5e421dcb8dbd856fa65f32800b7515356c762ff4115a6cdd073fe78dc558a",
+  "processing": {
+    "cropBox": [
+      752,
+      839,
+      1456,
+      2023
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatphoto650431134_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "iNat CC0 exception (unipon 2024-07-14 Japan). Endemic Japanese Cerambycidae の museum specimen photo は世界 portal exhaustive 確認で acceptable license 0 件"
+}
