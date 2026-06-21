@@ -68,20 +68,26 @@
     var rec = BOSSES[r.id] || {}, shiny = got && !!rec.shiny;
     var art = artHTML(sp, shiny);
     var click = 'Q4BBossZukan.detail(\'' + id + '\')';
+    /* 体長範囲: 通常種と同じ書式 ("35〜85mm")。未撃破でも種の生物学情報は出して構わない。
+       撃破済で個体記録 (rec.max/min) があれば「つかまえた おおきさ」も付加。 */
+    var szRange = RW.sizeRange(sp);
+    var sizeLabel = (szRange && szRange[1] > szRange[0])
+      ? szRange[0] + '〜' + szRange[1] + 'mm'
+      : (szRange && szRange[0] ? szRange[0] + 'mm' : '');
     if(game === "kanji"){
       return '<button type="button" class="bug' + (got ? '' : ' no') + '" onclick="' + click + '"'
         + ' style="width:100%;font:inherit;cursor:pointer;appearance:none;-webkit-appearance:none">'
         + (got ? art : '<div style="font-size:44px;line-height:64px">❓</div>')
         + '<div class="nm">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</div>'
         + '<div class="rar">' + tierName + '</div>'
-        + '<div style="font-size:10px;color:#888">' + (r.hp ? 'HP' + r.hp : 'ボス') + '</div>'
+        + '<div style="font-size:10px;color:#888">' + (sizeLabel || 'ボス') + '</div>'
         + '</button>';
     }
     if(game === "eitango"){
       return '<button type="button" class="zc' + (got ? '' : ' un') + '" style="--rc:var(--rar' + tier + ')" onclick="' + click + '">'
         + '<span class="ze" style="width:64px;height:64px;margin:0 auto;display:block">' + art + '</span>'
         + '<span class="zn">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</span>'
-        + '<span class="zs">' + (got && r.hp ? 'HP' + r.hp + ' ' : '') + tierName + '</span>'
+        + '<span class="zs">' + (sizeLabel ? sizeLabel + ' ' : '') + tierName + '</span>'
         + '</button>';
     }
     return '<button type="button" class="zc r' + tier + '" onclick="' + click + '"'
@@ -100,13 +106,18 @@
     var r = null; if(B && B.roster) B.roster.forEach(function(x){ if(x.id === id) r = x; });
     var got = !!BOSSES[id], rec = (BOSSES[id]) || {}, n = rec.n || 0, shiny = !!rec.shiny;
     var tier = RW.tierOf(sp), tname = RW.TIERNAME[tier];
-    var g = RW.gameFor(sp), hp = r ? r.hp : (B && B.bugHP ? B.bugHP(sp.rarity) : "");
+    var g = RW.gameFor(sp);
+    /* 体長範囲 — HP の代わりに使う子供向け生物学情報 */
+    var szRange = RW.sizeRange(sp);
+    var sizeLabel = (szRange && szRange[1] > szRange[0])
+      ? szRange[0] + '〜' + szRange[1] + 'mm'
+      : (szRange && szRange[0] ? szRange[0] + 'mm' : '');
     var inner;
     if(!got){
       inner = '<div class="center"><div data-zukan-uncaught="1" style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + artHTML(sp, false) + '</div>'
         + '<h3>？？？</h3><p style="color:#777;font-size:13px">まだ たおしていない…<br>ずかんバトルで かちにいこう！</p>'
         + badgeHTML(TYPE_JA[g], "#777") + ' ' + badgeHTML(tname, "#bbb")
-        + (hp ? '<span style="margin-left:6px;color:#777;font-size:13px">HP' + hp + '</span>' : '')
+        + (sizeLabel ? '<div style="margin-top:6px;color:#777;font-size:13px">大きさ ' + sizeLabel + '</div>' : '')
         + '<div style="margin-top:14px"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div></div>';
     }else{
       /* 撃破済: Q4BZukan.detailHTML 統合で histogram/♂♀表/卵/標本を全部表示 */
@@ -115,7 +126,7 @@
         + '<div style="width:120px;height:120px;margin:0 auto">' + artHTML(sp, shiny) + '</div>'
         + '<h3 style="margin:6px 0 2px">👑 ' + esc(sp.jaName) + (shiny ? ' ✨' : '') + '</h3>'
         + '<div style="font-size:12px">' + badgeHTML(TYPE_JA[g], "#5b7") + ' ' + badgeHTML(tname, "#E8B33C")
-        + (hp ? ' <span style="color:#888">HP' + hp + '</span>' : '') + (n ? ' <span style="color:#888">たおした ×' + n + '</span>' : '') + '</div>'
+        + (sizeLabel ? ' <span style="color:#888">' + sizeLabel + '</span>' : '') + (n ? ' <span style="color:#888">たおした ×' + n + '</span>' : '') + '</div>'
         + (sp.scientificName ? '<div style="font-size:12px;color:#999;margin-top:2px"><i>' + esc(sp.scientificName) + '</i></div>' : "")
         + (fam ? '<div style="font-size:12px;color:#999">' + esc(fam) + '</div>' : "")
         + (sp.caution ? '<div style="background:#FFF1DE;border-radius:12px;padding:6px 10px;font-size:13px;color:#c98f1e;font-weight:800;margin:6px 0">' + esc(sp.caution) + '</div>' : "")
