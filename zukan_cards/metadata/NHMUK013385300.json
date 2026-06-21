@@ -1,0 +1,75 @@
+{
+  "species_id": "emperor_cicada",
+  "species_ja": "テイオウゼミ",
+  "scientific_name": "Megapomponia imperatoria",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-20",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013385300",
+    "occurrenceId": "1f82cc81-afc5-4c1c-aa3b-5d3f05746ab7",
+    "persistentId": "1f82cc81-afc5-4c1c-aa3b-5d3f05746ab7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1847649861",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/1f82cc81-afc5-4c1c-aa3b-5d3f05746ab7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9794628c-d46c-4349-a67d-c799d200838e",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK013385300_original.jpg",
+    "segmented": "processed/NHMUK013385300_L1_segmented.png",
+    "display": "processed/NHMUK013385300_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013385300_54.webp",
+      "108": "thumb/NHMUK013385300_108.webp",
+      "216": "thumb/NHMUK013385300_216.webp"
+    }
+  },
+  "original_sha256": "f0981ce82560901602cd1fb10fde973777e08194c4670912998ddb116e23730a",
+  "processing": {
+    "cropBox": [
+      119,
+      30,
+      1384,
+      544
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013385300_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "Natural History Museum, London NHMUK013385300, tier 2"
+}
