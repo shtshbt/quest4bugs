@@ -1617,7 +1617,9 @@ function gFrac(lv){
    ミス対象は全行 (restatement も含む) に拡張し、どの行も信用できない構造にする。 */
 function gMachi(lv){
   if(lv==null) lv=ri(1,10);
-  if(lv===10) lv=ri(1,9);              /* 総合: Lv1-9 からランダム */
+  var origLv = lv;
+  /* Lv10 (総合) は 1-9 のランダム化だが、2段階提出が分数入力を必要としないよう Lv8 を除外。 */
+  if(lv===10) lv=pick([1,2,3,4,5,6,7,9]);
   var lines=null, expr="", fix=0, a,b,c,d,v0,v1,v2, kk, errs, vals, disp;
   var noError = (ri(1,4)===1);         /* 約 25%: ぜんぶ正しい問題 */
   /* mulErr: a*b に対し「九九を1段ずれて読んだ」ミス幅 (+a / -a / +b / -b)。
@@ -1740,6 +1742,7 @@ function gMachi(lv){
            "② "+u0.toFixed(1)+"−"+cv.toFixed(1)+"＝"+(dispInt[1]/10).toFixed(1),
            "③ こたえ "+(dispInt[2]/10).toFixed(1)];
     fix=(ints[kk]/10).toFixed(1);
+    vals=ints.map(function(x){return x/10;});   /* 真値 (number) を 2段階提出用に保持 */
   } else if(lv===8){
     /* Lv8: 分数 — 同分母加減。ミスは分子 ±1。 */
     var dd=pick([5,6,7,8]);
@@ -1771,8 +1774,12 @@ function gMachi(lv){
   }
   var ansIdx = noError ? lines.length : kk;
   var fixmsg = noError ? "ほんとうは ぜんぶ ただしいよ" : ("ほんとうは "+bld(kk)+" ＝ "+fix);
+  /* requireValue (origLv===10): 行タップだけで終わらせず「ほんとうの値」も入力させる 2段階提出。
+     trueVals は各行の真値配列。Lv7 (小数) のとき dot を有効にして小数点キーを出す。
+     Lv8 (分数) は origLv===10 から除外しているのでここに来ない (Lv 練習で直接 8 選択時は除外しない)。 */
   return {cat:"machigai",kind:"choice",text:expr,say:null,
-    ans:ansIdx, lines:lines, noError:noError, fixmsg:fixmsg};
+    ans:ansIdx, lines:lines, noError:noError, fixmsg:fixmsg,
+    requireValue:(origLv===10), trueVals:vals, dot:(lv===7), origLv:origLv};
 }
 function gWarizan(lv){
   if(lv==null)lv=ri(1,10);
@@ -5701,10 +5708,58 @@ function frSubmit(){
     afterJudge(W*a.q===a.p,q,{ansHTML:fmtFrac(a.p,a.q)});
   }
 }
+/* machigai 2段階提出 (Lv10 限定) の状態。
+   行タップで pickedIdx を保持し、数値入力画面へ遷移。submitMachiVerify で行+値を判定。 */
+var MCH=null;
 function choiceTap(i){
   if(JLOCK)return;
   var q=curQ();
+  /* Lv10 (q.requireValue) で「ぜんぶOK」以外の行タップなら 2段階フェーズへ。 */
+  if(q.requireValue && i < q.lines.length){
+    MCH={pickedIdx:i};
+    renderMachiVerify(q,i);
+    return;
+  }
   afterJudge(i===q.ans,q,{fix:q.fixmsg});
+}
+/* machigai 2段階提出: 「① の ほんとうの こたえは？」プロンプト＋数値入力。
+   topBar/qmeta は renderQ と同じ構造で組み直す (フル再描画で実装簡略化)。 */
+function renderMachiVerify(q,idx){
+  JLOCK=false; BUF="";
+  var p=P(), h='<div class="scr qwrap">';
+  h+='<div class="top"><button class="backbtn" onclick="quitQuiz()">✕ やめる</button><span class="sp"></span>';
+  if(Q.timed)h+='<span class="chip fire">⏱ <span id="tleft">'+Math.max(0,Math.ceil((Q.end-Date.now())/1000))+'</span>秒</span><span class="chip kago">'+Q.ok+'問</span>';
+  else h+='<span class="chip">'+(Q.i+1)+' / '+Q.list.length+'</span>';
+  h+='</div>';
+  var nowLv=(Q&&Q.lv)?Q.lv:((p.lv&&p.lv[q.cat])||1), stage=lvLabel(q.cat,nowLv);
+  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(stage?'　Lv'+clampLv(nowLv)+'：'+esc(stage):'')+'　🔢 2だんかいめ</span></div>';
+  var mark=["①","②","③","④"][idx]||"●";
+  h+='<div class="qcard"><div class="qtext mid">'+q.text+'</div>'
+    +'<p style="font-weight:700;margin:6px 0">'+mark+' の ほんとうの こたえは？</p>'
+    +'<div>こたえ <span class="ansline" id="ansl">？</span></div>'
+    +'<div class="note" id="nmsg" style="min-height:20px"></div>'
+    +padHTML(!!q.dot,"submitMachiVerify()")
+    +'</div>';
+  h+='</div>';
+  render(h);
+}
+function submitMachiVerify(){
+  if(JLOCK)return;
+  if(BUF===""){flashMsg("こたえを いれてね");return;}
+  var q=curQ(), idx=(MCH?MCH.pickedIdx:-1);
+  var mark=["①","②","③","④"][idx]||"●";
+  var u=parseFloat(BUF);
+  var lineOk=(idx===q.ans);
+  var trueV=(q.trueVals&&idx>=0&&idx<q.trueVals.length)?q.trueVals[idx]:null;
+  var valOk=(trueV!=null)&&(Math.abs(u-trueV)<1e-6);
+  var ok=lineOk&&valOk;
+  /* fixmsg を 2段階用に補強: 「行違い」「行は合ってたが値違い」を区別。 */
+  var fix2=q.fixmsg;
+  if(!ok && lineOk && !valOk){
+    fix2=mark+" は あっていた！　ほんとうの こたえは "+(q.dot?trueV.toFixed(1):String(trueV));
+  }
+  MCH=null;
+  afterJudge(ok,q,{fix:fix2});
 }
 /* 新仕様: index ベースの4択選択（九九暗唱・K5DEV新27カテゴリ用） */
 function k5ChoiceTap(idx){
