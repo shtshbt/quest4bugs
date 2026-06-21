@@ -258,6 +258,22 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
     save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(pidNow(),s):false;}
   });
 }
+/* 卵生成 / 放棄 ハンドラ (Q4BZukan.detailHTML の opts.onLayEgg/onAbandonEgg から呼ばれる) */
+function keisanLayEgg(spId){
+  var p=P(); if(!p||!p.coll) return;
+  var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
+  if(!window.Q4BBreeding) return;
+  Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
+    var egg=Q4BReward.layEgg(p.coll,sp);
+    if(egg){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+    else { alert('たまごを 産めませんでした'); }
+  }});
+}
+function keisanAbandonEgg(spId){
+  if(!confirm('この たまごを すてる? (返金なし)')) return;
+  if(!confirm('ほんとうに すてる?')) return;
+  if(Q4BReward.abandonEgg(spId)){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+}
 
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",
@@ -759,7 +775,7 @@ function openBugNew(spId){
       +'<p class="note">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
       +(sp.caution?'<p style="background:#FFF1DE;border-radius:12px;padding:8px;font-size:14px;color:var(--amber-d);font-weight:800">'+esc(sp.caution)+'</p>':"")
       +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"")
-      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:P()&&P().coll,favCallback:'keisanFavTap',saveFn:save}):"");
+      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:P()&&P().coll,favCallback:'keisanFavTap',saveFn:save,onLayEgg:'keisanLayEgg',onAbandonEgg:'keisanAbandonEgg'}):"");
   }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button></div></div>');

@@ -280,6 +280,7 @@
     }
     if(records.length===0){
       html += '<div style="font-size:12px;color:#888;margin:6px 0">これからの捕獲で きろくが たまるよ</div>';
+      html += breedingActionsHTML(entry, sp, opts);
       return html;
     }
     html += sexSummary(records);
@@ -288,7 +289,74 @@
     html += histogramHTML(records, sizeMm);
     html += recentListHTML(records, 5);
     html += specimenInfoHTML(sp);
+    /* 自家育成セクション + 卵生成/放棄ボタン (前提クリア時のみ active) */
+    html += rearedSectionHTML(opts.coll, sp);
+    html += breedingActionsHTML(entry, sp, opts);
     return html;
+  }
+
+  /* 自家育成個体 (reared:true) のサマリセクション */
+  function rearedSectionHTML(coll, sp){
+    if(!coll || !sp || !global.Q4BReward || !global.Q4BReward.rearedRecords) return "";
+    var recs = global.Q4BReward.rearedRecords(coll, sp.id);
+    if(!recs.length) return "";
+    var rows = recs.slice(0,8).map(function(r){
+      var sex = r.sex==="m"?"♂":r.sex==="f"?"♀":"";
+      var bornAt = r.bornAt||"";
+      var d = r.d||"";
+      var span = "";
+      if(bornAt && d){
+        var d1=new Date(bornAt), d2=new Date(d);
+        var days=Math.max(0, Math.round((d2-d1)/86400000));
+        if(days>0) span = ' ('+days+'日間)';
+      }
+      return '<div style="font-size:12px;color:#2A3D2C;padding:2px 0">🐛→🪲 '+sex+' '+r.s+'mm　'+(bornAt?bornAt+' 産卵 → ':'')+d+' 孵化'+span+'</div>';
+    }).join("");
+    return ''
+      + '<div style="background:#EAF6E0;border-radius:10px;padding:8px 10px;margin:8px 0">'
+      +   '<div style="font-size:13px;font-weight:800;color:#4A9B3A;margin-bottom:4px">🐣 きみが そだてた子: '+recs.length+'匹</div>'
+      +   rows
+      + '</div>';
+  }
+
+  /* 卵生成 / 放棄 ボタン (Q4BReward + Q4BBreeding が必要) */
+  function breedingActionsHTML(entry, sp, opts){
+    if(!global.Q4BReward || !global.Q4BBreeding) return "";
+    if(!opts.coll || !sp) return "";
+    var R = global.Q4BReward;
+    if(!sp.metamorphosis) return "";   /* 卵対象外 order */
+    var canLay = R.canLayEgg(opts.coll, sp);
+    var fossilNow = R.fossilOf();
+    var cost = R.eggCost(sp);
+    var hasM = entry.records && entry.records.some(function(r){return r.sex==="m";});
+    var hasF = entry.records && entry.records.some(function(r){return r.sex==="f";});
+    var hasPair = hasM && hasF;
+    var disabledReason = null;
+    if(!hasPair) disabledReason = "♂と♀の りょうほうの きろくが ひつようだよ";
+    else if(fossilNow < cost) disabledReason = "かけらが "+(cost-fossilNow)+" たりない";
+    else if(!canLay) disabledReason = "いま 同じむしを そだててるか、上限 3 に とどいてるよ";
+    var spIdStr = (sp && sp.id) || "";
+    var layCb = opts.onLayEgg || "";
+    var btn = '';
+    if(layCb){
+      var disabled = !canLay;
+      btn = '<button type="button"'+(disabled?' disabled':'')
+        + ' onclick="'+layCb+'(\''+spIdStr+'\')"'
+        + ' style="display:block;width:100%;margin:8px 0 0;border:none;border-radius:12px;padding:11px;font-size:15px;font-weight:800;font-family:inherit;color:#fff;background:'+(disabled?'#B9C4A8':'#F2A33C')+';box-shadow:0 3px 0 '+(disabled?'#9CA88A':'#CF7F14')+';cursor:'+(disabled?'not-allowed':'pointer')+';opacity:'+(disabled?'.85':'1')+'">'
+        + '🥚 たまごを 産ませる (🔶 '+cost+')'
+        + '</button>'
+        + (disabled && disabledReason ? '<div style="font-size:11px;color:#CF7F14;margin-top:2px;text-align:center">'+disabledReason+'</div>' : '');
+    }
+    /* 卵をすてる: 当該種の育成中卵がある時のみ表示 */
+    var abandonBtn = '';
+    if(opts.onAbandonEgg){
+      var bs = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
+      var hasOwn = bs && bs.eggs && bs.eggs.some(function(e){return e.id===spIdStr;});
+      if(hasOwn){
+        abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
+      }
+    }
+    return btn + abandonBtn;
   }
 
   global.Q4BZukan = {
