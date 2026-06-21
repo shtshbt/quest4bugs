@@ -5,6 +5,7 @@
   "use strict";
   var BOSSES = {};      /* 現在プロフィールの撃破マップ {speciesId:{n}} */
   var loaded = false;
+  var PANEL_OPEN = {};  /* ボス節の折りたたみ状態をゲーム別に保持 (フィルタ再描画でリセットしない) */
 
   /* バトルセーブから撃破ボスを読み込む（図鑑表示前に await する） */
   function load(profileId){
@@ -36,7 +37,10 @@
     var got = list.filter(function(r){ return BOSSES[r.id]; }).length;
     var gridClass = game === "kanji" ? "bugs" : "zgrid";
     var cells = list.map(function(r){ return cellHTML(game, r, byId[r.id], !!BOSSES[r.id]); }).join("");
-    return '<details class="card" open style="padding:0"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">👑 ボス昆虫 <span style="color:#E8B33C">' + got + ' / ' + list.length + '</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
+    /* 折りたたみ状態の保持: フィルタ再描画でリセットされないようゲーム別に保存 */
+    var panelOpen = PANEL_OPEN[game] !== false;   /* 初回は true */
+    return '<details class="card"' + (panelOpen ? ' open' : '') + ' style="padding:0" ontoggle="Q4BBossZukan._panel(\'' + game + '\',this.open)">'
+      + '<summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">👑 ボス昆虫 <span style="color:#E8B33C">' + got + ' / ' + list.length + '</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
       + '<div style="padding:0 14px 14px"><p style="margin:2px 0 8px;font-size:13px;color:#888">ずかんバトルで たおすと あらわれる 強いボス</p>'
       + '<div class="' + gridClass + '">' + cells + '</div></div></details>';
   }
@@ -146,5 +150,6 @@
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function jsStr(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }
 
-  global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail };
+  function _panel(game, open){ PANEL_OPEN[game] = !!open; }
+  global.Q4BBossZukan = { load:load, ready:ready, sectionHTML:sectionHTML, bossesFor:bossesFor, detail:detail, closeDetail:closeDetail, _panel:_panel };
 })(window);

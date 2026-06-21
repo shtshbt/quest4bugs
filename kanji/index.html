@@ -258,6 +258,8 @@ function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
 var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false;
+var KANJI_MASTER_OPEN=true;  /* フィルタ再描画でも折りたたみ状態を保持 */
+function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; }
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
 function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
@@ -972,7 +974,7 @@ function kanjiMasterSection(){
    +'<div class="nm">'+(ok?(sp.jaName+' 🎓'):(GLAB[sp.master.key]||'')+' ？')+'</div>'
    +'<div class="rar" style="color:var(--gold)">'+(ok?'マスター':'ぜんぶ習得で')+'</div></button>';
  }).join('');
- return '<details class="card" open style="padding:0"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">🎓 マスター虫 <span style="color:var(--gold)">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
+ return '<details class="card"'+(KANJI_MASTER_OPEN?' open':'')+' style="padding:0" ontoggle="setKanjiMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:12px 14px;font-weight:bold;display:flex;align-items:center;gap:6px">🎓 マスター虫 <span style="color:var(--gold)">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:13px;color:#888">▾</span></summary>'
   +'<div style="padding:0 14px 14px"><div style="font-size:12px;color:#56714e;margin-bottom:8px">そのはんいを <b>ぜんぶ習得</b>すると もらえる特別な虫だよ</div>'
   +'<div class="bugs">'+cells+'</div></div></details>';
 }
