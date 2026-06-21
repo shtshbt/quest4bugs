@@ -508,6 +508,57 @@
     schedulePush();
     return {ok:true,added:n,state:clone(r.entry.data)};
   }
+  /* 卵育成: かけらを消費 (restoreEquipment 以外の出口)。
+     残高不足なら false を返し state を変更しない。 */
+  function spendFossilFragments(pid,n){
+    var r, data;
+    if(!pid)return false;
+    n=Math.max(0,Math.floor(n)||0);
+    if(!n) return true;
+    r=rewardEntry(pid);
+    data=normalizeRewardData(r.entry.data,todayKey());
+    if((data.fossilFragments||0)<n) return false;
+    data.fossilFragments-=n;
+    r.entry.updated=now();
+    r.entry.data=normalizeRewardData(data,todayKey());
+    persist();
+    schedulePush();
+    return true;
+  }
+  function fossilFragmentsOf(pid){
+    if(!pid)return 0;
+    var r=rewardEntry(pid);
+    var data=normalizeRewardData(r.entry.data,todayKey());
+    return data.fossilFragments||0;
+  }
+
+  /* ---------------- 卵育成 (breeding namespace shared kv) -----------
+     coll.eggs / coll.pendingEggs / coll.stats.breeding を per-game coll から外し、
+     fossilFragments と同様に shared kv (breeding <pid>) に置く。
+     mergeStore が自動で per-kv LWW を適用する。 */
+  function breedingKey(pid){ return "breeding"+SEP+pid; }
+  function blankBreeding(){ return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
+  function normalizeBreeding(data){
+    data=data&&typeof data==="object"?data:{};
+    if(!Array.isArray(data.eggs))data.eggs=[];
+    if(!Array.isArray(data.pendingEggs))data.pendingEggs=[];
+    if(!data.stats||typeof data.stats!=="object")data.stats={};
+    if(typeof data.stats.totalAbandoned!=="number")data.stats.totalAbandoned=0;
+    return data;
+  }
+  function breedingOf(pid){
+    if(!pid)return blankBreeding();
+    var e=loadStore().kv[breedingKey(pid)];
+    return normalizeBreeding(e&&e.data?clone(e.data):blankBreeding());
+  }
+  function breedingSet(pid,data){
+    if(!pid)return false;
+    var store=loadStore();
+    store.kv[breedingKey(pid)]={v:1,updated:now(),data:normalizeBreeding(data)};
+    persist();
+    schedulePush();
+    return true;
+  }
   /* しずく取得通知を「見た」マーク。同日2回目以降の通知を全端末で抑制する。
      localStorage のみの旧抑制は端末別だった→ プロフィールデータに保存して同期。 */
   function markDropSeen(pid,date){
@@ -795,7 +846,10 @@
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
-    spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments, markDropSeen:markDropSeen,
+    spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments,
+    spendFossil:spendFossilFragments, fossilOf:fossilFragmentsOf,
+    breedingOf:breedingOf, breedingSet:breedingSet,
+    markDropSeen:markDropSeen,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,

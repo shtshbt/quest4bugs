@@ -1,0 +1,81 @@
+{
+  "species_id": "banana_seseri",
+  "species_ja": "バナナセセリ",
+  "scientific_name": "Erionota torus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "ritagu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_217209883",
+    "occurrenceId": "https://www.inaturalist.org/observations/217209883",
+    "persistentId": "https://www.inaturalist.org/observations/217209883",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ritagu",
+    "eventDate": "2024-05-21",
+    "eventYear": 2024,
+    "country": "TW",
+    "localityVerbatim": null,
+    "localityNormalized": "臺灣島, 中山區, TPE, TW, TW",
+    "preparations": null,
+    "decimalLatitude": 25.0868638333,
+    "decimalLongitude": 121.5541916667,
+    "coordinatesObscured": false,
+    "iNatObservationId": "217209883",
+    "iNatPhotoId": "384232986",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/217209883",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/384232986/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs217209883_original.jpg",
+    "segmented": "processed/iNatobs217209883_L1_segmented.png",
+    "display": "processed/iNatobs217209883_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs217209883_54.webp",
+      "108": "thumb/iNatobs217209883_108.webp",
+      "216": "thumb/iNatobs217209883_216.webp"
+    }
+  },
+  "original_sha256": "5bd7daa9f90457f2e0d8b8870f46f0a68355c656d8522fb69d4a2d8ce0c2eebf",
+  "processing": {
+    "cropBox": [
+      444,
+      116,
+      731,
+      1580
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs217209883_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -245,6 +245,19 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
     spend:function(n){return QuestSave.amberSpend(pidNow(),n);}
   });
 }
+/* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
+if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
+  Q4BReward.setFossilStore({
+    get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(pidNow()):0;},
+    spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(pidNow(),n):false;}
+  });
+}
+if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
+  Q4BReward.setEggStore({
+    get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(pidNow()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
+    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(pidNow(),s):false;}
+  });
+}
 
 /* ---------- labels ---------- */
 var CATL={hissan:"たし算のひっさん", hikizan:"ひき算のひっさん", kuku:"九九", anzan:"あんざん",

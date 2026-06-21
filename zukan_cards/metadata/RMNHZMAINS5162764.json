@@ -1,0 +1,77 @@
+{
+  "species_id": "tsumabenichou",
+  "species_ja": "ツマベニチョウ",
+  "scientific_name": "Hebomoia glaucippe",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.5162764",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5162764",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5162764",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Imago",
+    "recordedBy": null,
+    "eventDate": "1974-08-16",
+    "eventYear": 1974,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Cameron Highlands, Malaysia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": 4.47212,
+    "decimalLongitude": 101.380144
+  },
+  "source": {
+    "gbifOccurrenceKey": "4508921828",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4508921828",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.5162764_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS5162764_original.jpg",
+    "segmented": "processed/RMNHZMAINS5162764_L1_segmented.png",
+    "display": "processed/RMNHZMAINS5162764_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS5162764_54.webp",
+      "108": "thumb/RMNHZMAINS5162764_108.webp",
+      "216": "thumb/RMNHZMAINS5162764_216.webp"
+    }
+  },
+  "original_sha256": "1edd715fb4320de7b258239325a8810e08457e7d7f5da345e829980a6bc8501d",
+  "processing": {
+    "cropBox": [
+      481,
+      295,
+      1517,
+      1096
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS5162764_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

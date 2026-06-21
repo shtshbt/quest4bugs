@@ -1,0 +1,82 @@
+{
+  "species_id": "nishiki_hanmyou",
+  "species_ja": "ニシキハンミョウ",
+  "scientific_name": "Sophiodela japonica",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "unipon (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_347195157",
+    "occurrenceId": "https://www.inaturalist.org/observations/347195157",
+    "persistentId": "https://www.inaturalist.org/observations/347195157",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unipon",
+    "eventDate": "2024-08-05",
+    "eventYear": 2024,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Kagoshima, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 31.750954575,
+    "decimalLongitude": 130.5387647404,
+    "coordinatesObscured": true,
+    "iNatObservationId": "347195157",
+    "iNatPhotoId": "633012984",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/347195157",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/633012984/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs347195157_original.jpg",
+    "segmented": "processed/iNatobs347195157_L1_segmented.png",
+    "display": "processed/iNatobs347195157_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs347195157_54.webp",
+      "108": "thumb/iNatobs347195157_108.webp",
+      "216": "thumb/iNatobs347195157_216.webp"
+    }
+  },
+  "original_sha256": "4e4ceb0277f28c33abfd4b7b6850cf01d722bbf74fe1157141c18fde545e2676",
+  "processing": {
+    "cropBox": [
+      160,
+      575,
+      1159,
+      1683
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs347195157_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.22), rotate 270 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "oomurasaki",
+  "species_ja": "オオムラサキ",
+  "scientific_name": "Sasakia charonda",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.375499",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.375499",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.375499",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443646910",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443646910",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.375499_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS375499_original.jpg",
+    "segmented": "processed/RMNHINS375499_L1_segmented.png",
+    "display": "processed/RMNHINS375499_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS375499_54.webp",
+      "108": "thumb/RMNHINS375499_108.webp",
+      "216": "thumb/RMNHINS375499_216.webp"
+    }
+  },
+  "original_sha256": "29428a792e719dc34416cd20c0972697dd261d220ba2638870e854530067b1b3",
+  "processing": {
+    "cropBox": [
+      0,
+      125,
+      1920,
+      1112
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS375499_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

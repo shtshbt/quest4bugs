@@ -1,0 +1,77 @@
+{
+  "species_id": "ryukyu_asagimadara",
+  "species_ja": "リュウキュウアサギマダラ",
+  "scientific_name": "Ideopsis similis",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 721716",
+    "occurrenceId": "urn:uuid:c26a078a-4d0c-4003-b665-3e5210374186",
+    "persistentId": "urn:uuid:c26a078a-4d0c-4003-b665-3e5210374186",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "R. W. Elliott",
+    "eventDate": "1966-09-09",
+    "eventYear": 1966,
+    "country": "Hong Kong",
+    "localityVerbatim": null,
+    "localityNormalized": "Victoria Peak, Hong Kong",
+    "preparations": null,
+    "decimalLatitude": 22.283333,
+    "decimalLongitude": 114.15
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039161691",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-721716",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:b0349a04-36cc-41db-bcbb-3d3adafcca20/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT721716_original.jpg",
+    "segmented": "processed/YPMENT721716_L1_segmented.png",
+    "display": "processed/YPMENT721716_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT721716_54.webp",
+      "108": "thumb/YPMENT721716_108.webp",
+      "216": "thumb/YPMENT721716_216.webp"
+    }
+  },
+  "original_sha256": "056c261cac413787152c36748b53e73b32dfe0fc48ed068887b95d176a3044cc",
+  "processing": {
+    "cropBox": [
+      110,
+      0,
+      1041,
+      1504
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT721716_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

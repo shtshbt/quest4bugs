@@ -223,21 +223,36 @@
     entry.records = records;
     return entry;
   }
-  function awardMaster(coll, sp){
+  function rollShiny(){ return Math.random() < SHINY_CHANCE; }
+  /* awardMaster(coll, sp, chosen?):
+       chosen = 'm' | 'f' | 'u' (省略時 'u' で従来挙動: 性別不明 + 最大サイズ)
+       chosen が 'm'/'f' の場合は rollSize(sp, chosen) で抽選し、size を変動させる。 */
+  function awardMaster(coll, sp, chosen){
     if(!coll.catches) coll.catches={};
     if(coll.catches[sp.id]) return null;          // 既に授与済み（一回限り）
-    var sz = sizeRange(sp)[1];                     // マスターは最大サイズで記録
+    var sex = chosen || "u";
+    var sz = (sex==="u") ? sizeRange(sp)[1] : rollSize(sp, sex);
     coll.catches[sp.id] = { n:1, max:sz, min:sz, shiny:0, normal:1, master:1, records:[] };
-    /* マスター個体は性別不明 (u) で履歴に記録。学習達成の象徴的1個体。 */
-    pushRecord(coll.catches[sp.id], sz, "u", false);
+    /* マスター個体: chosen 指定なら ♂/♀、未指定なら 'u' (性別不明)。学習達成の象徴的1個体 (reared:false)。 */
+    pushRecord(coll.catches[sp.id], sz, sex, false);
     coll.total = (coll.total||0) + 1;
-    return { sp:sp, size:sz, isNew:true, master:true };
+    return { sp:sp, size:sz, sex:sex, isNew:true, master:true };
   }
-  function record(coll, sp){
+  /* record(coll, sp, opts?):
+       opts.reared:bool         - 自家育成個体なら true (孵化フロー E 経由のみ)。既定 false。
+       opts.bornAt:string       - 卵生成日 (reared:true 個体のみ意味あり)。
+       opts.sex:string          - 'm'/'f'/'u' 指定 (孵化時は egg.sex を渡す)。未指定なら rollSex。
+       opts.size:number         - サイズ指定 (孵化時は rollSize 結果を渡す)。未指定なら rollSize。
+       opts.shiny:bool          - shiny 指定 (孵化時は egg.shiny を渡す)。未指定なら rollShiny。
+     後方互換: opts 省略時は従来通りの挙動 (採集ロール) */
+  function record(coll, sp, opts){
+    opts = opts || {};
     var prev = coll.catches[sp.id];
-    var sex = rollSex(sp);
-    var size = rollSize(sp, sex);    /* sex を先に決めて、性別別レンジが使える種では分布が分かれる */
-    var shiny = Math.random() < SHINY_CHANCE;
+    var sex = opts.sex || rollSex(sp);
+    var size = (opts.size!=null) ? opts.size : rollSize(sp, sex);
+    var shiny = (opts.shiny!=null) ? !!opts.shiny : rollShiny();
+    var reared = !!opts.reared;
+    var bornAt = opts.bornAt || null;
     var isNew = !prev;
     var isRecord = !isNew && size > prev.max;
     var prevMin = prev ? (prev.min!=null ? prev.min : prev.max) : size;
@@ -251,9 +266,13 @@
       normal: (prevNormal || (shiny?0:1)) ? 1 : 0,
       records: prevRecords
     };
-    pushRecord(coll.catches[sp.id], size, sex, shiny);
+    /* records[i] に reared/bornAt を含めて push。reared:false の record には field を追加しない (LWW 安全)。 */
+    var rec = {d:todayStr(), s:size, sex:sex, shiny:!!shiny};
+    if(reared){ rec.reared=true; if(bornAt) rec.bornAt=bornAt; }
+    if(!coll.catches[sp.id].records) coll.catches[sp.id].records=[];
+    coll.catches[sp.id].records.push(rec);
     coll.total = (coll.total||0) + 1;
-    return { sp:sp, size:size, shiny:shiny, sex:sex, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
+    return { sp:sp, size:size, shiny:shiny, sex:sex, reared:reared, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
   }
 
   /* 🔶 こはく(amber): a soft currency earned per correct answer, spendable on
@@ -297,6 +316,9 @@
   function onCorrect(coll, game, need, boost, itemId, value){
     if(!coll.catches) coll.catches = {};
     earnAmber(coll, AMBER_PER_CORRECT);   // 🔶救済通路は満額のまま温存（共有ウォレット対応）
+    /* 卵育成: 該当教科の卵に +1 (eggStore が設定されていれば)。
+       同教科の卵が複数並ぶ場合は全て +1 (3倍効率は子供の戦略性として許容)。 */
+    feedEgg(game);
     var v = (value==null) ? 1 : Math.max(0, Math.min(1, value));
     coll.acc = (coll.acc||0) + freshnessOf(coll, itemId) * v;
     if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持
@@ -447,6 +469,273 @@
       + '</div>';
   }
 
+  /* =========================================================================
+     卵育成 (breeding) API
+     -------------------------------------------------------------------------
+     詳細: docs/breeding_eggs_plan.md
+     - eggs / pendingEggs / stats は breeding namespace の shared kv に置く (per-game coll から外す)
+     - eggStore: {get:()->{eggs,pendingEggs,stats}, save:(state)->bool}
+     - fossilStore: {get:()->n, spend:(n)->bool}  (egg コスト消費)
+     ========================================================================= */
+  var EGG_COST   = [20, 60, 200, 600, 2000];   // N / R / SR / SSR / SS
+  var EGG_TARGET = [10, 30, 100, 300, 1000];
+  var EGG_SLOT_MAX = 3;
+  function eggCost(sp){ return EGG_COST[tierOf(sp)]; }
+  function eggTarget(sp){ return EGG_TARGET[tierOf(sp)]; }
+  /* 教科決定: masterOnly は sp.master.game を優先 (grand は kanji 既定)、通常虫は gameFor(sp) */
+  function eggGameFor(sp){
+    if(sp && sp.masterOnly && sp.master && sp.master.game){
+      if(sp.master.game === "grand") return "kanji";
+      return sp.master.game;
+    }
+    return gameFor(sp);
+  }
+  /* in-memory fallback (eggStore 未設定でも crash しないため) */
+  var _memBreed = {eggs:[], pendingEggs:[], stats:{totalAbandoned:0}};
+  var eggStore = {
+    get: function(){ return _memBreed; },
+    save: function(s){ _memBreed = s; return true; }
+  };
+  function setEggStore(s){ eggStore = s || eggStore; }
+  function _bs(){ return eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
+  function _saveBs(s){ return eggStore.save(s); }
+
+  /* fossilFragments を消費する store (egg コスト消費用)。
+     setFossilStore({get:()->n, spend:(n)->bool}) で wire-up。 */
+  var fossilStore = null;
+  function setFossilStore(s){ fossilStore = s; }
+  function fossilOf(){ return fossilStore ? fossilStore.get() : 0; }
+  function spendForEgg(sp){
+    if(!fossilStore) return false;
+    return fossilStore.spend(eggCost(sp));
+  }
+
+  /* 産卵可能判定: ♂♀ あり + かけら充足 + 上限到達でない + 同種育成中/保留中でない + 卵対象 order */
+  function canLayEgg(coll, sp){
+    if(!sp || !sp.metamorphosis) return false;      // 卵対象外 order
+    var e = coll && coll.catches ? coll.catches[sp.id] : null;
+    if(!e || !e.records) return false;
+    var hasM = false, hasF = false, i;
+    for(i=0;i<e.records.length;i++){ if(e.records[i].sex==="m") hasM=true; else if(e.records[i].sex==="f") hasF=true; }
+    if(!(hasM && hasF)) return false;
+    var bs = _bs();
+    if(bs.eggs.length >= EGG_SLOT_MAX) return false;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id === sp.id) return false; }
+    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id === sp.id) return false; }
+    if(fossilOf() < eggCost(sp)) return false;
+    return true;
+  }
+  function layableSpecies(coll){
+    return BUGS.filter(function(sp){ return canLayEgg(coll, sp); });
+  }
+
+  /* 卵生成 (フロー A)。前提チェック + かけら消費 + sex/shiny 抽選 + eggs に追加。
+     返り値: 生成した egg または null。 */
+  function layEgg(coll, sp){
+    if(!canLayEgg(coll, sp)) return null;
+    if(!spendForEgg(sp)) return null;
+    var egg = {
+      id: sp.id,
+      sex: rollSex(sp),
+      progress: 0,
+      target: eggTarget(sp),
+      game: eggGameFor(sp),
+      origin: "lay",
+      bornAt: todayStr(),
+      shiny: rollShiny()
+    };
+    var bs = _bs();
+    bs.eggs.push(egg);
+    _saveBs(bs);
+    return egg;
+  }
+
+  /* マスター卵 / ボス卵を授与。空きあり→eggs、満杯/同種育成中→pendingEggs。
+     冪等ガード: 同 id + 同 origin の卵が eggs/pendingEggs に既存ならスキップ。
+     かけら消費なし (達成自体が対価)。 */
+  function awardEgg(sp, sex, origin){
+    if(!sp || !sp.metamorphosis) return null;        // 卵対象外 order
+    var bs = _bs();
+    var i;
+    for(i=0;i<bs.eggs.length;i++){
+      if(bs.eggs[i].id===sp.id && bs.eggs[i].origin===origin) return null; // 既存
+    }
+    for(i=0;i<bs.pendingEggs.length;i++){
+      if(bs.pendingEggs[i].id===sp.id && bs.pendingEggs[i].origin===origin) return null;
+    }
+    var egg = {
+      id: sp.id,
+      sex: sex,
+      progress: 0,
+      target: eggTarget(sp),
+      game: eggGameFor(sp),
+      origin: origin,
+      bornAt: todayStr(),
+      shiny: rollShiny()
+    };
+    /* 空きあり (かつ同種育成中でない) → eggs に直接追加、それ以外は pendingEggs に保留 */
+    var sameIdInEggs = false;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===sp.id){ sameIdInEggs=true; break; } }
+    if(bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
+      bs.eggs.push(egg);
+    } else {
+      egg.queuedAt = todayStr();
+      bs.pendingEggs.push(egg);
+    }
+    _saveBs(bs);
+    return egg;
+  }
+  function awardMasterEgg(coll, sp, sex){ return awardEgg(sp, sex, "master_pair"); }
+  function awardBossEgg(coll, sp, sex){ return awardEgg(sp, sex, "boss_pair"); }
+
+  /* 学習問題正解で該当教科の卵 +1 (全卵対象、3倍効率は許容)。
+     onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。 */
+  function feedEgg(game){
+    var bs = _bs();
+    var changed = false;
+    for(var i=0;i<bs.eggs.length;i++){
+      if(bs.eggs[i].game === game){
+        bs.eggs[i].progress = (bs.eggs[i].progress||0) + 1;
+        if(bs.eggs[i].progress > bs.eggs[i].target) bs.eggs[i].progress = bs.eggs[i].target;
+        changed = true;
+      }
+    }
+    if(changed) _saveBs(bs);
+    return changed;
+  }
+
+  /* 卵を孵化 (フロー E)。progress >= target でない場合は null。
+     id ベース (同期不一致で別の卵を孵化させないため)。
+     呼び出し側責任: hatchEgg 後に save() を同期実行してから孵化アニメを再生 (commit 順序)。 */
+  function hatchEgg(coll, id){
+    var bs = _bs();
+    var idx = -1, i;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+    if(idx < 0) return null;
+    var egg = bs.eggs[idx];
+    if(egg.progress < egg.target) return null;
+    var sp = spById(id);
+    if(!sp) return null;
+    /* records に reared:true で追加。rollSize/rollShiny の代わりに egg.sex/egg.shiny を渡す。 */
+    var size = rollSize(sp, egg.sex);
+    record(coll, sp, {sex: egg.sex, size: size, shiny: egg.shiny, reared: true, bornAt: egg.bornAt});
+    bs.eggs.splice(idx, 1);
+    /* 保留卵があれば空き枠の通知バナーは index.html 側で出す (ここでは自動転送しない) */
+    _saveBs(bs);
+    return {egg: egg, sp: sp, size: size};
+  }
+
+  /* 保留卵 (pendingEggs[0]) を eggs の空き枠へ転送。ホームバナー「受けとる」タップ時に呼ぶ。 */
+  function acceptPendingEgg(){
+    var bs = _bs();
+    if(bs.eggs.length >= EGG_SLOT_MAX) return null;
+    if(!bs.pendingEggs.length) return null;
+    var egg = bs.pendingEggs.shift();
+    delete egg.queuedAt;
+    bs.eggs.push(egg);
+    _saveBs(bs);
+    return egg;
+  }
+
+  /* 卵を放棄。返金なし。stats.totalAbandoned を +1。 */
+  function abandonEgg(id){
+    var bs = _bs();
+    var idx = -1, i;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+    if(idx < 0) return false;
+    bs.eggs.splice(idx, 1);
+    bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+    _saveBs(bs);
+    return true;
+  }
+
+  /* マスター虫の性別を確定 (新規達成 + レガシー救済 共用)。
+     in-place 更新 (awardMaster は呼ばない、冪等ガード回避)。
+     sizeBySexMm が定義された種は size を chosen 性別レンジで再抽選 + max/min を更新。
+     反対性別の卵を授与 (空きあり→eggs、満杯→pendingEggs)。 */
+  function setMasterSex(coll, sp, chosen){
+    if(!coll || !coll.catches) return false;
+    var e = coll.catches[sp.id];
+    if(!e || !e.records || !e.records.length) return false;
+    if(chosen !== "m" && chosen !== "f") return false;
+    e.records[0].sex = chosen;
+    if(sp.sizeBySexMm){
+      e.records[0].s = rollSize(sp, chosen);
+      e.max = e.records[0].s;
+      e.min = e.records[0].s;
+    }
+    /* max/min/normal/master/n カウンタは保持 */
+    awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m");
+    return true;
+  }
+
+  /* ボス撃破時の報酬計算 (案D 段階的アンロック)。
+     1回撃破 → {kind:'specimen', sex:rolled} (bossesMap[id].firstSex に保存)
+     10回撃破 → {kind:'egg', sex:opposite(firstSex)}
+     11回目以降 → null (生涯1卵)
+     天敵 (sp.boss.predator) は null を返す (defence-in-depth)。 */
+  function bossKillReward(spId, bossesMap){
+    var sp = spById(spId);
+    if(!sp) return null;
+    if(sp.boss && sp.boss.predator) return null;
+    bossesMap[spId] = bossesMap[spId] || {n:0};
+    bossesMap[spId].n = (bossesMap[spId].n||0) + 1;
+    var n = bossesMap[spId].n;
+    if(n === 1){
+      var firstSex = rollSex(sp);
+      bossesMap[spId].firstSex = firstSex;
+      return {kind:"specimen", sex: firstSex};
+    }
+    if(n === 10){
+      var fs = bossesMap[spId].firstSex || "m";
+      return {kind:"egg", sex: fs === "m" ? "f" : "m"};
+    }
+    return null;
+  }
+
+  /* 自家育成 (reared:true) 判定ヘルパ */
+  function hasReared(coll, id){
+    var e = coll && coll.catches ? coll.catches[id] : null;
+    return !!(e && e.records && e.records.some(function(r){ return !!r.reared; }));
+  }
+  function rearedRecords(coll, id){
+    var e = coll && coll.catches ? coll.catches[id] : null;
+    return e && e.records ? e.records.filter(function(r){ return !!r.reared; }) : [];
+  }
+
+  /* 進捗→ステージ変換 (UI 共通ヘルパ)。完全変態 4 段階 / 不完全変態 3 段階。 */
+  function currentStage(egg, sp){
+    var ratio = egg.target>0 ? egg.progress / egg.target : 0;
+    if(sp && sp.metamorphosis === "complete"){
+      if(ratio < 0.25) return "egg";
+      if(ratio < 0.50) return "larva";
+      if(ratio < 0.85) return "pupa";
+      return "adult";
+    } else {
+      if(ratio < 0.35) return "egg";
+      if(ratio < 0.85) return "nymph";
+      return "adult";
+    }
+  }
+  function isHatchReady(egg){ return egg && egg.progress >= egg.target; }
+
+  /* レガシー sex='u' マスター虫の検出 (C フローのトリガー判定) */
+  function isLegacyMasterUnknownSex(entry, sp){
+    if(!sp || !sp.masterOnly) return false;
+    if(!entry || !entry.records || !entry.records.length) return false;
+    return entry.records.every(function(r){ return r.sex === "u"; });
+  }
+  function listLegacyMasterPending(coll){
+    if(!coll || !coll.catches) return [];
+    var out = [], id, sp;
+    for(id in coll.catches){
+      if(!Object.prototype.hasOwnProperty.call(coll.catches,id)) continue;
+      sp = spById(id);
+      if(isLegacyMasterUnknownSex(coll.catches[id], sp)) out.push(id);
+    }
+    return out;
+  }
+
   global.Q4BReward = {
     bugs: BUGS,
     gameFor: gameFor,
@@ -483,6 +772,37 @@
     svg: svg,
     netSwing: netSwing,
     statusHTML: statusHTML,
-    NEED_DEFAULT: NEED_DEFAULT
+    NEED_DEFAULT: NEED_DEFAULT,
+    /* ---- 卵育成 (breeding) API ---- */
+    eggCost: eggCost,
+    eggTarget: eggTarget,
+    eggGameFor: eggGameFor,
+    EGG_SLOT_MAX: EGG_SLOT_MAX,
+    setEggStore: setEggStore,
+    setFossilStore: setFossilStore,
+    fossilOf: fossilOf,
+    spendForEgg: spendForEgg,
+    canLayEgg: canLayEgg,
+    layableSpecies: layableSpecies,
+    layEgg: layEgg,
+    awardMasterEgg: awardMasterEgg,
+    awardBossEgg: awardBossEgg,
+    feedEgg: feedEgg,
+    hatchEgg: hatchEgg,
+    acceptPendingEgg: acceptPendingEgg,
+    abandonEgg: abandonEgg,
+    setMasterSex: setMasterSex,
+    bossKillReward: bossKillReward,
+    hasReared: hasReared,
+    rearedRecords: rearedRecords,
+    currentStage: currentStage,
+    isHatchReady: isHatchReady,
+    isLegacyMasterUnknownSex: isLegacyMasterUnknownSex,
+    listLegacyMasterPending: listLegacyMasterPending,
+    rollSex: rollSex,
+    rollSize: rollSize,
+    rollShiny: rollShiny,
+    spById: spById
   };
 })(window);
+

@@ -1,0 +1,82 @@
+{
+  "species_id": "ootorafu_kogane",
+  "species_ja": "オオトラフコガネ",
+  "scientific_name": "Paratrichius doenitzi",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_232006560",
+    "occurrenceId": "https://www.inaturalist.org/observations/232006560",
+    "persistentId": "https://www.inaturalist.org/observations/232006560",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2020-08-01",
+    "eventYear": 2020,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8926750588,
+    "decimalLongitude": 137.9638797337,
+    "coordinatesObscured": true,
+    "iNatObservationId": "232006560",
+    "iNatPhotoId": "412131815",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/232006560",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/412131815/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs232006560_original.jpg",
+    "segmented": "processed/iNatobs232006560_L1_segmented.png",
+    "display": "processed/iNatobs232006560_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs232006560_54.webp",
+      "108": "thumb/iNatobs232006560_108.webp",
+      "216": "thumb/iNatobs232006560_216.webp"
+    }
+  },
+  "original_sha256": "9aba4ec6a57f788168658db04923768f1a8ec94576a8b6c61c762d36a9f10924",
+  "processing": {
+    "cropBox": [
+      186,
+      495,
+      1732,
+      1371
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs232006560_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.91), rotate 180 CCW"
+}

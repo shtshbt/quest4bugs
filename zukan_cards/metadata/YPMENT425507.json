@@ -1,0 +1,77 @@
+{
+  "species_id": "oomurasaki",
+  "species_ja": "オオムラサキ",
+  "scientific_name": "Sasakia charonda",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Maggie Sullivan",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 425507",
+    "occurrenceId": "urn:uuid:d68514b2-644a-4ef5-adab-51e2673a3941",
+    "persistentId": "urn:uuid:d68514b2-644a-4ef5-adab-51e2673a3941",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "M Tomonaga",
+    "eventDate": "1975-07-09",
+    "eventYear": 1975,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Nirasaki, Amayama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.749443,
+    "decimalLongitude": 138.414294
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039176543",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-425507",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:69a0c46b-e70b-4092-982a-f9a00021b1e0/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT425507_original.jpg",
+    "segmented": "processed/YPMENT425507_L1_segmented.png",
+    "display": "processed/YPMENT425507_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT425507_54.webp",
+      "108": "thumb/YPMENT425507_108.webp",
+      "216": "thumb/YPMENT425507_216.webp"
+    }
+  },
+  "original_sha256": "7c904243065846594e488ae36205b68a966cb9104edd2582687b3be4369d4884",
+  "processing": {
+    "cropBox": [
+      25,
+      0,
+      1175,
+      1628
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT425507_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

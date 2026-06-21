@@ -1,0 +1,81 @@
+{
+  "species_id": "tagame",
+  "species_ja": "タガメ",
+  "scientific_name": "Kirkaldyia deyrolli",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_232444162",
+    "occurrenceId": "https://www.inaturalist.org/observations/232444162",
+    "persistentId": "https://www.inaturalist.org/observations/232444162",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-09-14",
+    "eventYear": 2023,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Tochigi, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.5007747055,
+    "decimalLongitude": 139.8785251426,
+    "coordinatesObscured": true,
+    "iNatObservationId": "232444162",
+    "iNatPhotoId": "412960616",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/232444162",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/412960616/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs232444162_original.jpg",
+    "segmented": "processed/iNatobs232444162_L1_segmented.png",
+    "display": "processed/iNatobs232444162_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs232444162_54.webp",
+      "108": "thumb/iNatobs232444162_108.webp",
+      "216": "thumb/iNatobs232444162_216.webp"
+    }
+  },
+  "original_sha256": "50297d2fdc0fd6ab099b054a929b5f9954c1973c01cb07138b0a6be604444569",
+  "processing": {
+    "cropBox": [
+      434,
+      511,
+      1955,
+      1379
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs232444162_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

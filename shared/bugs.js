@@ -13,6 +13,15 @@
     Anura:"カエル目", Passeriformes:"スズメ目"
   };
 
+  /* 卵育成: order ベースで変態タイプを派生。卵対象外 order は undefined を返し canLayEgg が false にする。
+     非昆虫 (Scorpiones/Araneae/Anura/Squamata/Passeriformes/Scolopendromorpha/Scutigeromorpha/Isopoda) は完全/不完全二分法に該当しないため除外。 */
+  var METAMORPHOSIS_BY_ORDER={
+    Coleoptera:"complete", Lepidoptera:"complete", Hymenoptera:"complete",
+    Diptera:"complete", Megaloptera:"complete", Neuroptera:"complete", Trichoptera:"complete",
+    Orthoptera:"incomplete", Hemiptera:"incomplete", Odonata:"incomplete",
+    Mantodea:"incomplete", Phasmatodea:"incomplete"
+  };
+
   var LEP_MOTH_FAMS={Sphingidae:1,Saturniidae:1,Bombycidae:1,Limacodidae:1,Erebidae:1,Noctuidae:1,Geometridae:1,Arctiidae:1,Lasiocampidae:1,Epicopeiidae:1,Tortricidae:1,Zygaenidae:1,Notodontidae:1,Lymantriidae:1,Cossidae:1,Sesiidae:1};
   /* refine the butterfly/moth silhouette from family so 200+ Lepidoptera are not all one shape */
   function refineRenderer(o){
@@ -78,7 +87,9 @@
       masterOnly:!!o.masterOnly,
       bossOnly:!!o.bossOnly,
       master:o.master||null,
-      boss:o.boss||null
+      boss:o.boss||null,
+      /* 卵育成: 完全変態(4段階)/不完全変態(3段階)。卵対象外 order は undefined。 */
+      metamorphosis:METAMORPHOSIS_BY_ORDER[o.order]||null
     };
   }
 

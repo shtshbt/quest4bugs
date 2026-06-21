@@ -175,6 +175,9 @@ input[type=range]{width:100%}
 <script src="../shared/zukan_render.js?v=0.1.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.4.8"></script>
+<script src="../shared/bug_archetypes.js?v=0.1.0"></script>
+<script src="../shared/breeding.js?v=0.1.0"></script>
+<script src="../shared/breeding_debug.js?v=0.1.0"></script>
 <script src="../shared/zukan_detail.js?v=0.1.0"></script>
 <script src="../shared/battle.js?v=0.5.1"></script>
 <script src="../shared/boss_zukan.js?v=0.5.3"></script>
@@ -502,6 +505,19 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
     get:function(){return QuestSave.amberOf(kPidNow());},
     add:function(n){return QuestSave.amberAdd(kPidNow(),n);},
     spend:function(n){return QuestSave.amberSpend(kPidNow(),n);}
+  });
+}
+/* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
+if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
+  Q4BReward.setFossilStore({
+    get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(kPidNow()):0;},
+    spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(kPidNow(),n):false;}
+  });
+}
+if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
+  Q4BReward.setEggStore({
+    get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(kPidNow()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
+    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(kPidNow(),s):false;}
   });
 }
 
