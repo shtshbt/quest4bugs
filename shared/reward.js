@@ -605,17 +605,36 @@
      onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。
      ステージ遷移時に egg.stageHistory[] に日付を記録する (UI で「いつ幼虫になったか」を表示)。
      返り値: progress が +1 された卵の配列 (UI が表示する) */
-  function feedEgg(game){
+  /* feedEgg(game, value, opts):
+       value (0..1): その問題の「学習価値」。既習語の周回は 0.3 程度を渡して、
+                     卵 progress に蓄積される速度を抑える。default 1 (満額)。
+       opts.itemId: 連続正解抑制 (freshness) を効かせる場合に渡す。
+     value < 0.25 のとき skip (= grinding 防止)。
+     0.25-1 のとき egg.progressAcc に加算し、>= 1 で progress += 1。 */
+  /* 0.05 未満は skip (freshness で激減した spam を排除)。0.05〜1.0 は acc に蓄積され
+     >= 1 で progress += 1。既習語 value=0.2 なら 5 回正解で 1 進む = 5倍ペナルティ。 */
+  var FEED_MIN_VALUE = 0.05;
+  function feedEgg(game, value, opts){
     var bs = _bs();
+    var v = (value == null) ? 1 : Math.max(0, Math.min(1, value));
+    /* itemId が渡されれば freshness で更にダンプ */
+    if(opts && opts.itemId && opts.coll){
+      v = v * freshnessOf(opts.coll, opts.itemId);
+    }
     var fed = [];
     var skipReason = "";
     for(var i=0;i<bs.eggs.length;i++){
       var egg = bs.eggs[i];
       if(egg.game !== game){ skipReason = "game mismatch ("+egg.game+" vs "+game+")"; continue; }
       if((egg.progress||0) >= egg.target){ skipReason = "already at target"; continue; }
+      if(v < FEED_MIN_VALUE){ skipReason = "value too low ("+v.toFixed(2)+", < "+FEED_MIN_VALUE+")"; continue; }
+      egg.progressAcc = (egg.progressAcc||0) + v;
+      var inc = Math.floor(egg.progressAcc);
+      if(inc < 1) continue;   // 蓄積中だが整数まで届かず
+      egg.progressAcc -= inc;
       var sp = spById(egg.id);
       var prevStage = sp ? currentStage(egg, sp) : null;
-      egg.progress = (egg.progress||0) + 1;
+      egg.progress = Math.min((egg.progress||0) + inc, egg.target);
       var newStage = sp ? currentStage(egg, sp) : null;
       if(prevStage !== newStage && newStage){
         egg.stageHistory = egg.stageHistory || [];
@@ -625,10 +644,11 @@
       }
       fed.push(egg);
     }
-    if(fed.length) _saveBs(bs);
+    /* progressAcc を更新したケースも save する必要あり (整数進行に達してなくても) */
+    _saveBs(bs);
     if(_dbg()){
-      var snapshot = bs.eggs.map(function(e){return e.id+"("+e.game+"):"+e.progress+"/"+e.target;}).join(", ");
-      console.log("[feedEgg]", game, "→ fed:", fed.length, "/", bs.eggs.length, "eggs |", snapshot || "(no eggs)", fed.length===0 && bs.eggs.length>0 ? " ← skip reason: "+skipReason : "");
+      var snapshot = bs.eggs.map(function(e){return e.id+"("+e.game+"):"+e.progress+"/"+e.target+(e.progressAcc?" +"+e.progressAcc.toFixed(2):"");}).join(", ");
+      console.log("[feedEgg]", game, "value:", v.toFixed(2), "→ fed:", fed.length, "/", bs.eggs.length, "eggs |", snapshot || "(no eggs)", fed.length===0 && bs.eggs.length>0 ? " ← skip: "+skipReason : "");
     }
     if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }
     return fed.length > 0;

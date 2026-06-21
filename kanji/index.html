@@ -174,7 +174,7 @@ input[type=range]{width:100%}
 <script src="../zukan_config/zukan_catalog.js?v=0.2.0"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.5.5"></script>
+<script src="../shared/reward.js?v=0.6.0"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.5.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -639,10 +639,10 @@ function answered(ok){ var p=SES.q[SES.i];
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  if(ok){ SES.ok++;
   if(window.QuestSave&&QuestSave.recordCorrect&&CUR&&CUR.id)QuestSave.recordCorrect(CUR.id,'kanji',1);
-  if(window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg('kanji');
   // 採集ゲージ: learn/practice/review のみ（test は finishTest で別途処理）
+  var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 既習スキル(box>=3)は 0.4 で抑制
+  if(window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', kval, {itemId:iid, coll:ST.coll});
   if(SES.mode!=='test'&&window.Q4BReward){
-   var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 連打検知＋既習スキルの周回は採集鈍化
    var got=(SES.mode==='review')
     ? Q4BReward.onCorrect(ST.coll,'kanji',8,Q4BReward.REVIEW_BOOST,iid,kval)
     : Q4BReward.onCorrect(ST.coll,'kanji',8,1,iid,kval);

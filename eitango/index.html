@@ -238,7 +238,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../zukan_config/zukan_catalog.js?v=0.2.0"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.5.5"></script>
+<script src="../shared/reward.js?v=0.6.0"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.5.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -2182,7 +2182,18 @@ function afterAnswer(item,ok,title,detail){
   S.answered++;
   if(ok) S.correct++;
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(ePid(),'eitango',1);
-  if(ok&&window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg('eitango');
+  if(ok&&window.Q4BReward&&Q4BReward.feedEgg){
+    /* 既習語の grinding を抑制: SRS box / kids mode の習熟度で value 重み付け
+       box>=3 (覚えた) or kids 80%+ 8回以上: 0.2 / box==2: 0.5 / box<=1: 1.0 */
+    let _v=1; const _k=item&&item.w&&item.w.key;
+    if(_k){
+      const srs=P.srs&&P.srs[_k], kd=P.kids&&P.kids[_k];
+      if(srs && srs[0]>=3) _v=0.2;
+      else if(srs && srs[0]===2) _v=0.5;
+      if(kd && kd[0]>=8 && kd[1]/kd[0]>0.8) _v=Math.min(_v,0.2);
+    }
+    Q4BReward.feedEgg('eitango', _v, {itemId:_k, coll:{recent:(P.recent||(P.recent=[]))}});
+  }
   if(!item.retry){
     const wasKids=item.type==='kids';
     const prevStage=growthStage(item.w,wasKids).stage; /* 更新前の段階 */

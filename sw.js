@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v51";  /* v51: ?debug=1 時に feedEgg/setEggStore の診断ログを出力 */
+var CACHE = "q4b-cache-v52";  /* v52: 既習語の grinding 抑制 (feedEgg に value 重み + progressAcc) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
