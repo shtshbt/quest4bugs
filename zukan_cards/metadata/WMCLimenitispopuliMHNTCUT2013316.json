@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_ichimonji",
+  "species_ja": "オオイチモンジ",
+  "scientific_name": "Limenitis populi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens / Muséum de Toulouse",
+  "fetched_date": "2026-06-20",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "WMC_Limenitis_populi_MHNT_CUT_2013_316",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Limenitis_populi_MHNT_CUT_2013_316_Condat_(Cantal)_Dos.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Limenitis_populi_MHNT_CUT_2013_316_Condat_(Cantal)_Dos.jpg",
+    "basisOfRecord": "PreservedSpecimen (Wikimedia)",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Limenitis_populi_MHNT_CUT_2013_316_Condat_(Cantal)_Dos.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Limenitis_populi_MHNT_CUT_2013_316_Condat_%28Cantal%29_Dos.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "files": {
+    "original": "original/WMCLimenitispopuliMHNTCUT2013316_original.jpg",
+    "segmented": "processed/WMCLimenitispopuliMHNTCUT2013316_L1_segmented.png",
+    "display": "processed/WMCLimenitispopuliMHNTCUT2013316_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCLimenitispopuliMHNTCUT2013316_54.webp",
+      "108": "thumb/WMCLimenitispopuliMHNTCUT2013316_108.webp",
+      "216": "thumb/WMCLimenitispopuliMHNTCUT2013316_216.webp"
+    }
+  },
+  "original_sha256": "6d88f5600d2a0ac6e0b229b1ea25e6256141631e36aa2ab04ca9c6ce4f3d85b7",
+  "processing": {
+    "cropBox": [
+      26,
+      157,
+      5950,
+      4405
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCLimenitispopuliMHNTCUT2013316_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "Wikimedia Commons tier 5, creator: Didier Descouens / Muséum de Toulouse"
+}
