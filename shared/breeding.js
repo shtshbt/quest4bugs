@@ -358,6 +358,49 @@
       + '</div>';
   }
 
+  /* --- feed toast ---
+     feedEgg が成功するたびに小さい toast を画面下部に出す。
+     fed: progress +1 された egg の配列 */
+  var _toastTimer = null;
+  function showFeedToast(game, fed){
+    var doc = global.document; if(!doc || !doc.body) return;
+    var r = R(); if(!r) return;
+    var a = A();
+    var existing = doc.getElementById("q4bFeedToast");
+    if(existing) existing.remove();
+    if(_toastTimer){ clearTimeout(_toastTimer); _toastTimer = null; }
+    var rows = fed.map(function(egg){
+      var sp = r.spById(egg.id); if(!sp) return "";
+      var stage = r.currentStage(egg, sp);
+      var em = a ? a.stageEmoji(stage) : "🥚";
+      var ready = r.isHatchReady(egg);
+      var name = sp.jaName || egg.id;
+      var readyTxt = ready ? ' <span style="color:#F2A33C;font-weight:800">✨ かえる準備OK!</span>' : '';
+      return '<div style="font-size:13px;color:#2A3D2C;padding:1px 0">'+em+' '+esc(name)+' +1 ('+egg.progress+'/'+egg.target+')'+readyTxt+'</div>';
+    }).join("");
+    if(!rows) return;
+    var toast = doc.createElement("div");
+    toast.id = "q4bFeedToast";
+    toast.style.cssText = "position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#F4F8E8;border:1.5px solid #CFDDB2;border-radius:14px;padding:10px 14px;font-family:inherit;z-index:9999;box-shadow:0 4px 18px rgba(0,0,0,.2);max-width:88vw;animation:q4bToastSlide .3s ease-out";
+    toast.innerHTML = '<div style="font-size:11px;color:#6B7A5E;font-weight:700;margin-bottom:3px">🥚 そだち中:</div>'+rows;
+    if(!doc.getElementById("q4bToastCss")){
+      var st = doc.createElement("style"); st.id = "q4bToastCss";
+      st.textContent = "@keyframes q4bToastSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}";
+      (doc.head||doc.body).appendChild(st);
+    }
+    doc.body.appendChild(toast);
+    _toastTimer = setTimeout(function(){
+      if(toast.parentNode) toast.style.transition = "opacity .3s";
+      if(toast.parentNode) toast.style.opacity = "0";
+      setTimeout(function(){ if(toast.parentNode) toast.remove(); }, 320);
+    }, 2400);
+  }
+
+  /* feedEgg hook を Q4BReward に登録 (自動 toast 表示) */
+  if(global.Q4BReward && global.Q4BReward.setFeedHook){
+    global.Q4BReward.setFeedHook(showFeedToast);
+  }
+
   global.Q4BBreeding = {
     eggCardHTML: eggCardHTML,
     emptySlotHTML: emptySlotHTML,
@@ -366,6 +409,7 @@
     openLayConfirm: openLayConfirm,
     playHatchAnimation: playHatchAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
+    showFeedToast: showFeedToast,
     metaLabel: metaLabel,
     stageVisual: stageVisual,
     GAME_COLOR: GAME_COLOR,

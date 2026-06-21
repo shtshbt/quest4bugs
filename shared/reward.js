@@ -588,20 +588,26 @@
   function awardMasterEgg(coll, sp, sex){ return awardEgg(sp, sex, "master_pair"); }
   function awardBossEgg(coll, sp, sex){ return awardEgg(sp, sex, "boss_pair"); }
 
+  /* feedEgg 後の UI フック (breeding.js が toast 表示用に登録する) */
+  var _feedHook = null;
+  function setFeedHook(fn){ _feedHook = fn; }
   /* 学習問題正解で該当教科の卵 +1 (全卵対象、3倍効率は許容)。
-     onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。 */
+     onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。
+     返り値: progress が +1 された卵の配列 (UI が表示する) */
   function feedEgg(game){
     var bs = _bs();
-    var changed = false;
+    var fed = [];
     for(var i=0;i<bs.eggs.length;i++){
       if(bs.eggs[i].game === game){
-        bs.eggs[i].progress = (bs.eggs[i].progress||0) + 1;
-        if(bs.eggs[i].progress > bs.eggs[i].target) bs.eggs[i].progress = bs.eggs[i].target;
-        changed = true;
+        if((bs.eggs[i].progress||0) < bs.eggs[i].target){
+          bs.eggs[i].progress = (bs.eggs[i].progress||0) + 1;
+          fed.push(bs.eggs[i]);
+        }
       }
     }
-    if(changed) _saveBs(bs);
-    return changed;
+    if(fed.length) _saveBs(bs);
+    if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }
+    return fed.length > 0;
   }
 
   /* 卵を孵化 (フロー E)。progress >= target でない場合は null。
@@ -780,6 +786,7 @@
     EGG_SLOT_MAX: EGG_SLOT_MAX,
     setEggStore: setEggStore,
     setFossilStore: setFossilStore,
+    setFeedHook: setFeedHook,
     fossilOf: fossilOf,
     spendForEgg: spendForEgg,
     canLayEgg: canLayEgg,
