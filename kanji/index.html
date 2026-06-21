@@ -172,7 +172,7 @@ input[type=range]{width:100%}
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../zukan_config/zukan_catalog.js?v=0.1.0"></script>
-<script src="../shared/zukan_render.js?v=0.2.0"></script>
+<script src="../shared/zukan_render.js?v=0.3.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.5.1"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
@@ -1510,6 +1510,14 @@ QuestSave.onStatus(function(st){ var c=$('hSync');
 <script>
 /* ずかんきりかえ (イラスト/しゃしん) を右上にマウント */
 if(window.Q4BRender&&Q4BRender.mountZukanModeToggle) Q4BRender.mountZukanModeToggle();
+/* 切替時の画面状態を維持: 現在表示中の screen に応じて再描画 (location.reload を回避) */
+window.Q4BZukanRerender=function(){
+  var zk=document.getElementById('scr-zukan');
+  if(zk && getComputedStyle(zk).display!=='none' && typeof renderZukan==='function'){ renderZukan(); return; }
+  var hm=document.getElementById('scr-home');
+  if(hm && getComputedStyle(hm).display!=='none' && typeof renderHome==='function'){ renderHome(); return; }
+  /* それ以外の画面なら何もしない (次回画面遷移時に新モードで描画される) */
+};
 </script>
 </body>
 </html>

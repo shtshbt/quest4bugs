@@ -17,7 +17,7 @@
 <script src="../shared/bugs.js?v=0.4.10"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
 <script src="../zukan_config/zukan_catalog.js?v=0.1.0"></script>
-<script src="../shared/zukan_render.js?v=0.2.0"></script>
+<script src="../shared/zukan_render.js?v=0.3.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
 <script src="../shared/reward.js?v=0.5.1"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
@@ -33,6 +33,16 @@
 <script>
 /* ずかんきりかえ (イラスト/しゃしん) を右上にマウント */
 if(window.Q4BRender&&Q4BRender.mountZukanModeToggle) Q4BRender.mountZukanModeToggle();
+/* 切替時の画面状態を維持 (location.reload を回避)。
+   keisan は SPA で screen 変数を持つので、現在画面の再描画を呼ぶ。 */
+window.Q4BZukanRerender=function(){
+  /* 現在表示中の画面を innerHTML から推定して再描画 */
+  var appEl=document.getElementById('app');
+  if(!appEl) return;
+  var html=appEl.innerHTML||'';
+  if(/むしずかん/.test(html) && typeof showZukan==='function'){ showZukan(); return; }
+  if(typeof showHome==='function') showHome();
+};
 </script>
 </body>
 </html>

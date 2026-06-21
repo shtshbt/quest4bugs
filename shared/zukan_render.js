@@ -167,7 +167,13 @@
       btn.addEventListener("click", function(){
         toggleMode();
         refresh();
-        setTimeout(function(){ global.location.reload(); }, 80);
+        /* 各教科が登録した再描画フックがあれば呼び (画面状態を維持)、
+           無ければ location.reload() で全体再描画 (fallback)。 */
+        if(typeof global.Q4BZukanRerender === "function"){
+          try{ global.Q4BZukanRerender(); }catch(_){ setTimeout(function(){ global.location.reload(); }, 80); }
+        } else {
+          setTimeout(function(){ global.location.reload(); }, 80);
+        }
       });
       doc.body.appendChild(btn);
       return btn;
