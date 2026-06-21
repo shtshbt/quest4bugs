@@ -1670,59 +1670,7 @@
         eventDate: "1906",
         eventYear: 1906,
         country: null,
-        localityVerbatim: "Plate from Seitz, A. Ed., 1900-1909 Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart Die Großschmetterlinge des palaearktischen Faunengebietes(The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera) Band 1: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Tagfalter. read text (in German)
-See The Global Lepidoptera Names Index for valid names
-a
-
-errore Satyrium percomis (Leech, 1894)
-Satyrium v-album (Oberthür, 1886)
-Satyrium ilicis (Esper, 1779)
-Satyrium ilicis ab. auronitens Seitz, 1908
-Satyrium esculi mauretanica (Staudinger, 1892)
-b
-
-Satyrium esculi mauretanica (Staudinger, 1892)
-Satyrium esculi (Hübner, [1803-1804])
-Thecla caudatula Zeller, 1847 = Satyrium ilicis (Esper, 1779)
-Satyrium acaciae (Fabricius, 1787)
-c
-
-Satyrium abdominalis (Gerhard, 1850)
-Thecla acaciae var. gerhardi Staudinger, [1895] = Satyrium abdominalis (Gerhard, 1850)
-Satyrium oenone Leech, [1893]
-Satyrium mera (Janson, 1877)
-d
-
-errore Satyrium rubicundula (Leech, 1890)
-Satyrium pruni (Linnaeus, 1758)
-Satyrium prunoides (Staudinger, 1887)
-Satyrium herzi (Fixsen, 1887)
-e
-
-Satyrium thalia (Leech, [1893])
-Satyrium ledereri (Boisduval, 1848)
-Satyrium lunulata (Erschoff, 1874)
-Satyrium acaudata (Staudinger, 1901)
-Satyrium sassanides (Kollar, [1849])
-Neolycaena sinensis (Alphéraky, 1881)
-f
-
-sinensis (Alphéraky, 1881) see  e
-Neolycaena rhymnus (Eversmann, 1832)
-Neolycaena pretiosa (Lang, 1884)
-Neolycaena carbonaria (Grum-Grshimailo, 1890) in Romanoff
-Neolycaena davidi (Oberthur, 1881)
-Neolycaena tengstroemi (Erschoff, 1874)
-errore Neolycaena davidi tangutica (Grum-Grshimailo, 1891)
-g
-
-Favonius orientalis (Murray, 1875)
-Chrysozephyrus brillantinus (Staudinger, 1887)
-Favonius taxila (Bremer, 1861)
-jankowskii Seitz form. nov. of Neozephyrus coruscans (Leech, 1894)
-Favonius ultramarina suffusa (Leech, 1894)
-Neozephyrus coruscans (Leech, 1894)
-Chrysozephyrus scintillans (Leech, 1894)",
+        localityVerbatim: "Plate from Seitz, A. Ed., 1900-1909 Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart Die Großschmetterlinge des palaearktischen Faunengebietes(The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera) Band 1: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Tagfalter. read text (in German) See The Global Lepidoptera Names Index for valid names a errore Satyrium percomis (Leech, 1894) Satyrium v-album (Oberthür, 1886) Satyrium ilicis (Esper, 1779) Satyrium ilicis ab. auronitens Seitz, 1908 Satyrium esculi mauretanica (Staudinger, 1892) b Satyrium esculi mauretanica (Staudinger, 1892) Satyrium esculi (Hübner, [1803-1804]) Thecla caudatula Zeller, 1847 = Satyrium ilicis (Esper, 1779) Satyrium acaciae (Fabricius, 1787) c Satyrium abdominalis (Gerhard, 1850) Thecla acaciae var. gerhardi Staudinger, [1895] = Satyrium abdominalis (Gerhard, 1850) Satyrium oenone Leech, [1893] Satyrium mera (Janson, 1877) d errore Satyrium rubicundula (Leech, 1890) Satyrium pruni (Linnaeus, 1758) Satyrium prunoides (Staudinger, 1887) Satyrium herzi (Fixsen, 1887) e Satyrium thalia (Leech, [1893]) Satyrium ledereri (Boisduval, 1848) Satyrium lunulata (Erschoff, 1874) Satyrium acaudata (Staudinger, 1901) Satyrium sassanides (Kollar, [1849]) Neolycaena sinensis (Alphéraky, 1881) f sinensis (Alphéraky, 1881) see e Neolycaena rhymnus (Eversmann, 1832) Neolycaena pretiosa (Lang, 1884) Neolycaena carbonaria (Grum-Grshimailo, 1890) in Romanoff Neolycaena davidi (Oberthur, 1881) Neolycaena tengstroemi (Erschoff, 1874) errore Neolycaena davidi tangutica (Grum-Grshimailo, 1891) g Favonius orientalis (Murray, 1875) Chrysozephyrus brillantinus (Staudinger, 1887) Favonius taxila (Bremer, 1861) jankowskii Seitz form. nov. of Neozephyrus coruscans (Leech, 1894) Favonius ultramarina suffusa (Leech, 1894) Neozephyrus coruscans (Leech, 1894) Chrysozephyrus scintillans (Leech, 1894)",
         localityNormalized: null,
         preparations: null,
       },
@@ -2488,8 +2436,7 @@ Chrysozephyrus scintillans (Leech, 1894)",
         eventDate: "2024-01-05",
         eventYear: 2024,
         country: null,
-        localityVerbatim: "Very rough map (not highly accurate) indicating the distribution of Hyalessa maculaticollis.
-Own work based on https://commons.wikimedia.org/wiki/File:World_map_at_2006.png",
+        localityVerbatim: "Very rough map (not highly accurate) indicating the distribution of Hyalessa maculaticollis. Own work based on https://commons.wikimedia.org/wiki/File:World_map_at_2006.png",
         localityNormalized: null,
         preparations: null,
       },
@@ -3400,12 +3347,7 @@ Own work based on https://commons.wikimedia.org/wiki/File:World_map_at_2006.png"
         eventDate: "23 November 2005 (original upload date)",
         eventYear: 2005,
         country: null,
-        localityVerbatim: "Description: Meimuna opalifera (WALKER,1850), female (Hemiptera, Cicadidae)
-
-Loc.: Yokohama, Kanagawa, Japan.
-Date: 2005-09-11
-Photo: User:Takahashi
-ja: ツクツクボウシ（雌）(カメムシ目セミ科）神奈川県横浜市にて撮影",
+        localityVerbatim: "Description: Meimuna opalifera (WALKER,1850), female (Hemiptera, Cicadidae) Loc.: Yokohama, Kanagawa, Japan. Date: 2005-09-11 Photo: User:Takahashi ja: ツクツクボウシ（雌）(カメムシ目セミ科）神奈川県横浜市にて撮影",
         localityNormalized: null,
         preparations: null,
       },
@@ -3693,10 +3635,7 @@ ja: ツクツクボウシ（雌）(カメムシ目セミ科）神奈川県横浜
         eventDate: "2016-06-01 16:02",
         eventYear: 2016,
         country: null,
-        localityVerbatim: "Japan, Ibaraki Prefecture: Tsukuba
-Mt. Tsukuba
-
-10-viii-1956",
+        localityVerbatim: "Japan, Ibaraki Prefecture: Tsukuba Mt. Tsukuba 10-viii-1956",
         localityNormalized: null,
         preparations: null,
       },
