@@ -179,11 +179,20 @@
         + "box-shadow:0 2px 0 #CFDDB2;font-family:inherit;font-weight:700;line-height:1.25;text-align:left";
       function refresh(){
         var m = getMode();
-        /* 子供向け: 「ずかんきりかえ：イラスト/しゃしん」現在のモードを強調 */
-        var illust = m === "svg" ? "<b>イラスト</b>" : "イラスト";
-        var photo  = m === "svg" ? "しゃしん" : "<b>しゃしん</b>";
-        btn.innerHTML = '<div style="font-size:10px;color:#6B7A5E;margin-bottom:1px">ずかん きりかえ</div>'
-          + '<div style="font-size:13px">'+illust+' / '+photo+'</div>';
+        /* 現在のモードを (1)色付き背景チップ + (2)太字 + (3)下線 で目立たせる。
+           他方は薄色の取り消し風表示で対比を明確化。 */
+        function active(label){
+          return '<span style="background:#F2A33C;color:#fff;font-weight:900;'
+            + 'padding:2px 8px;border-radius:8px;text-decoration:underline;text-underline-offset:2px;'
+            + 'box-shadow:0 1px 0 #CF7F14">'+label+'</span>';
+        }
+        function inactive(label){
+          return '<span style="color:#9CA88A;font-weight:600;padding:2px 4px">'+label+'</span>';
+        }
+        var illust = m === "svg" ? active("イラスト") : inactive("イラスト");
+        var photo  = m === "svg" ? inactive("しゃしん") : active("しゃしん");
+        btn.innerHTML = '<div style="font-size:10px;color:#6B7A5E;margin-bottom:2px">ずかん きりかえ</div>'
+          + '<div style="font-size:13px;display:flex;align-items:center;gap:4px">'+illust+'<span style="color:#9CA88A">/</span>'+photo+'</div>';
       }
       refresh();
       btn.addEventListener("click", function(){
