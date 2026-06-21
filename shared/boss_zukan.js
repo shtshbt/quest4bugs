@@ -65,26 +65,31 @@
       var sp = byId[r.id];
       var game = RW.gameFor(sp);
       var coll = collsByGame[game];
-      if(!coll || !coll.catches || !coll.catches[r.id]) return;
-      var cat = coll.catches[r.id];
+      var cat = (coll && coll.catches) ? coll.catches[r.id] : null;
       var be = bossesMap[r.id];
+      /* 撃破経験なし (両側に entry なし) はスキップ */
+      if(!be && !cat) return;
       if(!be){ bossesMap[r.id] = be = {n:0}; changed = true; }
-      if(typeof cat.n === "number" && cat.n > (be.n||0)){ be.n = cat.n; changed = true; }
+      /* coll.catches から n を取り込み (新版データは BATTLE.bosses 側にしか入っていない) */
+      if(cat && typeof cat.n === "number" && cat.n > (be.n||0)){ be.n = cat.n; changed = true; }
+      /* firstSex: records[0].sex 採用 → 不明なら rollSex で自動確定 */
       if(!be.firstSex){
-        var rec0 = cat.records && cat.records[0];
+        var rec0 = cat && cat.records && cat.records[0];
         if(rec0 && (rec0.sex === "m" || rec0.sex === "f")){
           be.firstSex = rec0.sex; changed = true;
         } else if(RW.rollSex){
-          /* legacy: records[0].sex='u' or 不明 → rollSex で自動確定 */
           be.firstSex = RW.rollSex(sp); changed = true;
         }
       }
-      if(!be.records && cat.records){ be.records = cat.records.slice(); changed = true; }
-      if(be.max == null && cat.max != null){ be.max = cat.max; changed = true; }
-      if(be.min == null && cat.min != null){ be.min = cat.min; changed = true; }
-      if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
-      /* legacy 救済: eggGranted 未済 + 撃破経験あり (n>=1) なら相方卵を 1 度だけ授与。
-         本来の n=10 ライフタイム卵と同じ origin='boss_pair' を使う (一括 idempotent)。 */
+      /* coll.catches 側に records / max / min / shiny がある場合のみ補完 */
+      if(cat){
+        if(!be.records && cat.records){ be.records = cat.records.slice(); changed = true; }
+        if(be.max == null && cat.max != null){ be.max = cat.max; changed = true; }
+        if(be.min == null && cat.min != null){ be.min = cat.min; changed = true; }
+        if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
+      }
+      /* legacy 救済: eggGranted 未済 + 撃破経験あり (n>=1) で相方卵 1 度だけ授与。
+         旧版 n=10 用 origin='boss_pair' を使う (idempotent)。 */
       if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && RW.awardBossEgg){
         var opp = be.firstSex === "m" ? "f" : "m";
         var egg = RW.awardBossEgg(null, sp, opp);
