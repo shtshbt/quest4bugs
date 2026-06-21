@@ -238,9 +238,9 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../zukan_config/zukan_catalog.js?v=0.1.0"></script>
 <script src="../shared/zukan_render.js?v=0.4.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.5.1"></script>
+<script src="../shared/reward.js?v=0.5.2"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="../shared/breeding.js?v=0.3.0"></script>
+<script src="../shared/breeding.js?v=0.4.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
 <script src="../shared/zukan_detail.js?v=0.2.2"></script>
 <script src="../shared/zukan_lightbox.js?v=0.1.0"></script>
@@ -883,7 +883,11 @@ function eitangoLayEgg(spId){
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
     var egg=Q4BReward.layEgg(coll,sp);
-    if(egg){ touchP(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+    if(egg){
+      touchP();
+      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+    }
     else { alert('たまごを 産めませんでした'); }
   }});
 }
@@ -1024,13 +1028,15 @@ function openMasterBugE(spId){
   }else{
     const sz=Q4BReward.sizeRange(sp);
     const caught=(rec.min!=null&&rec.min<rec.max)?`${rec.min}〜${rec.max}mm`:`${rec.max}mm`;
+    const collE={catches:P.catches,favorites:P.favorites||{}};
     inner=`<div style="width:112px;height:112px;margin:0 auto">${Q4BReward.svg(sp,0)}</div>
       <div style="font-weight:bold;font-size:16px;color:#2b2417">${Engine.esc(sp.jaName)} 🎓</div>
       ${sp.scientificName?`<div style="font-size:12px;color:#888;font-style:italic">${Engine.esc(sp.scientificName)}</div>`:''}
       ${sp.familyJa?`<div style="font-size:12px;color:#6f6450">${Engine.esc(sp.familyJa)}</div>`:''}
       <div style="font-size:13px;margin:4px 0">${Q4BReward.TIERNAME[tier]}　${Engine.esc(label)} マスター</div>
       <div style="font-size:13px;color:#6f6450;margin:2px 0">つかまえた おおきさ <b>${caught}</b>　（この虫の範囲: ${sz[0]}〜${sz[1]}mm）</div>
-      ${sp.note?`<div style="font-size:12px;color:#6f6450;margin-top:4px">${Engine.esc(sp.note)}</div>`:''}`;
+      ${sp.note?`<div style="font-size:12px;color:#6f6450;margin-top:4px">${Engine.esc(sp.note)}</div>`:''}
+      ${window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:collE,favCallback:'eitangoFavTap',saveFn:touchP,onLayEgg:'eitangoLayEgg',onAbandonEgg:'eitangoAbandonEgg',onHatchEgg:'eitangoHatchEgg',onPickSex:'eitangoPickMasterSex'}):''}`;
   }
   $('#modal').innerHTML=`<div class="mcard">${zukanDetailHTML(inner+'<button class="btn sub" style="margin-top:12px" onclick="closeModal()">とじる</button>')}</div>`;
   $('#modal').classList.add('show');

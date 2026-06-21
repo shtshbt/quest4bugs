@@ -593,17 +593,27 @@
   function setFeedHook(fn){ _feedHook = fn; }
   /* 学習問題正解で該当教科の卵 +1 (全卵対象、3倍効率は許容)。
      onCorrect から自動呼出されるため、各ゲームが追加で呼ぶ必要なし。
+     ステージ遷移時に egg.stageHistory[] に日付を記録する (UI で「いつ幼虫になったか」を表示)。
      返り値: progress が +1 された卵の配列 (UI が表示する) */
   function feedEgg(game){
     var bs = _bs();
     var fed = [];
     for(var i=0;i<bs.eggs.length;i++){
-      if(bs.eggs[i].game === game){
-        if((bs.eggs[i].progress||0) < bs.eggs[i].target){
-          bs.eggs[i].progress = (bs.eggs[i].progress||0) + 1;
-          fed.push(bs.eggs[i]);
+      var egg = bs.eggs[i];
+      if(egg.game !== game) continue;
+      if((egg.progress||0) >= egg.target) continue;
+      var sp = spById(egg.id);
+      var prevStage = sp ? currentStage(egg, sp) : null;
+      egg.progress = (egg.progress||0) + 1;
+      var newStage = sp ? currentStage(egg, sp) : null;
+      if(prevStage !== newStage && newStage){
+        egg.stageHistory = egg.stageHistory || [];
+        /* bornAt の egg ステージ自体は履歴に重複させない (生成時に bornAt が分かる) */
+        if(newStage !== "egg"){
+          egg.stageHistory.push({stage:newStage, d:todayStr()});
         }
       }
+      fed.push(egg);
     }
     if(fed.length) _saveBs(bs);
     if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }

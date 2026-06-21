@@ -174,9 +174,9 @@ input[type=range]{width:100%}
 <script src="../zukan_config/zukan_catalog.js?v=0.1.0"></script>
 <script src="../shared/zukan_render.js?v=0.4.0"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.5.1"></script>
+<script src="../shared/reward.js?v=0.5.2"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="../shared/breeding.js?v=0.3.0"></script>
+<script src="../shared/breeding.js?v=0.4.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
 <script src="../shared/zukan_detail.js?v=0.2.2"></script>
 <script src="../shared/zukan_lightbox.js?v=0.1.0"></script>
@@ -529,7 +529,11 @@ function kanjiLayEgg(spId){
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
     var egg=Q4BReward.layEgg(ST.coll,sp);
-    if(egg){ saveST(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+    if(egg){
+      saveST();
+      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+    }
     else { alert('たまごを 産めませんでした'); }
   }});
 }

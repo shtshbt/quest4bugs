@@ -267,7 +267,11 @@ function keisanLayEgg(spId){
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
     var egg=Q4BReward.layEgg(p.coll,sp);
-    if(egg){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+    if(egg){
+      save();
+      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+    }
     else { alert('たまごを 産めませんでした'); }
   }});
 }
@@ -707,7 +711,9 @@ function openMasterBugK(spId){
       +'<p style="font-size:14px;color:var(--sub)">つかまえた おおきさ <b>'+caught+'</b>　（種の範囲: '+sz[0]+'〜'+sz[1]+'mm）</p>'
       +(sp.scientificName?'<p class="note"><i>'+esc(sp.scientificName)+'</i></p>':"")
       +'<p class="note">'+esc([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(' / '))+'</p>'
-      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"");
+      +(sp.note?'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note)+'</p>':"")
+      /* 新書式統合: 性別分布/ヒストグラム/卵生成/レガシー救済/標本情報 */
+      +(window.Q4BZukan?Q4BZukan.detailHTML(rec,sp,{coll:p.coll,favCallback:'keisanFavTap',saveFn:save,onLayEgg:'keisanLayEgg',onAbandonEgg:'keisanAbandonEgg',onHatchEgg:'keisanHatchEgg',onPickSex:'keisanPickMasterSex'}):'');
   }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+zukanDetailHTMLK(inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button>')+'</div></div>');

@@ -496,6 +496,120 @@
       + '</div>';
   }
 
+  /* --- 産卵成功通知トースト ---
+     各教科の layEgg 成功直後に呼ぶ。ホームへの誘導ボタン付き。
+     呼出側パスは ../index.html (各教科は 1 階層下) を既定。 */
+  function notifyEggLaid(sp, opts){
+    opts = opts || {};
+    var doc = global.document; if(!doc || !doc.body) return;
+    var existing = doc.getElementById("q4bEggLaidToast");
+    if(existing) existing.remove();
+    var homeHref = opts.homeHref || "../index.html";
+    var t = doc.createElement("div");
+    t.id = "q4bEggLaidToast";
+    t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#FFF6E0;border:2px solid #F2A33C;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:300px;font-family:inherit;animation:q4bToastSlide .3s ease-out";
+    t.innerHTML = ''
+      + '<div style="font-size:14px;font-weight:800;color:#8A5C2C;margin-bottom:4px">🥚 '+esc(sp.jaName||sp.id)+' の たまごを 産んだよ!</div>'
+      + '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">御神木の 「そだてている むし」 パネルで みられるよ</div>'
+      + '<div style="display:flex;gap:6px">'
+      +   '<a href="'+esc(homeHref)+'" style="flex:1;border:none;border-radius:10px;background:#F2A33C;color:#fff;padding:10px;font-weight:800;font-family:inherit;text-decoration:none;text-align:center;font-size:13px">いま みる</a>'
+      +   '<button type="button" id="q4bEggLaidLater" style="border:none;border-radius:10px;background:#EAEFE0;color:#2A3D2C;padding:10px 12px;font-weight:700;font-family:inherit;cursor:pointer;font-size:13px">あとで</button>'
+      + '</div>';
+    doc.body.appendChild(t);
+    var laterBtn = t.querySelector("#q4bEggLaidLater");
+    if(laterBtn) laterBtn.onclick = function(){ if(t.parentNode) t.remove(); };
+    setTimeout(function(){ if(t.parentNode){ t.style.transition="opacity .3s"; t.style.opacity="0"; setTimeout(function(){ if(t.parentNode) t.remove(); }, 320); } }, 8000);
+  }
+
+  /* --- 卵詳細モーダル ---
+     卵カードタップで開く。
+     表示: ステージアート + 種名 + 性別 + 産卵日 / ステージ遷移日 + 進捗 + アクション (孵化/捨てる/親図鑑)
+     opts: {egg, onHatch, onAbandon, onViewParent} */
+  function openEggInfoModal(opts){
+    opts = opts || {};
+    var egg = opts.egg; if(!egg) return;
+    var r = R(); if(!r) return;
+    var sp = r.spById(egg.id); if(!sp) return;
+    var doc = global.document; if(!doc) return;
+    var ov = doc.createElement("div");
+    ov.id = "q4bEggInfoOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:305;padding:14px";
+    function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }
+    ov.onclick = function(e){ if(e.target === ov) close(); };
+
+    var stage = r.currentStage(egg, sp);
+    var v = stageVisual(stage, sp);
+    var visualHTML = v.svgUrl
+      ? '<img src="'+v.svgUrl+'" alt="" style="width:96px;height:96px;display:block;margin:0 auto" onerror="this.style.display=\'none\'">'
+      : '<div style="font-size:72px;line-height:1;text-align:center">'+v.emoji+'</div>';
+    var name = sp.jaName || egg.id;
+    var sexMark = egg.sex === "m" ? "♂ オス" : egg.sex === "f" ? "♀ メス" : "";
+    var shinyMark = egg.shiny ? ' ✨' : '';
+    var ready = r.isHatchReady(egg);
+    var p = pct(egg.progress, egg.target);
+    var color = GAME_COLOR[egg.game] || "#888";
+    var gameLabel = (GAME_EMOJI[egg.game]||"") + " " + (GAME_LABEL[egg.game]||egg.game);
+
+    /* ステージごとの日本語ラベル + 絵文字 */
+    var STAGE_LABEL = {egg:"🥚 たまご", larva:"🐛 ようちゅう", pupa:"🛌 さなぎ", nymph:"🦗 わかむし", adult:"🪲 せいちゅう"};
+    /* ステージ履歴: bornAt = egg ステージの開始日 (生成日)、stageHistory[] に遷移日 */
+    var history = [{stage:"egg", d:egg.bornAt||""}];
+    if(egg.stageHistory && egg.stageHistory.length){
+      egg.stageHistory.forEach(function(h){ history.push({stage:h.stage, d:h.d}); });
+    }
+    var historyRows = history.map(function(h, i){
+      var isCurrent = h.stage === stage;
+      var label = STAGE_LABEL[h.stage] || h.stage;
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:'+(isCurrent?'#FFF6E0':'#F4F8E8')+';border-radius:8px;margin:3px 0;font-size:13px">'
+        + '<span style="font-weight:'+(isCurrent?'800':'600')+';color:'+(isCurrent?'#CF7F14':'#2A3D2C')+'">'+label+(isCurrent?' ← いま':'')+'</span>'
+        + '<span style="font-size:12px;color:#6B7A5E">'+(h.d||'?')+'</span>'
+        + '</div>';
+    }).join("");
+
+    var ctaBtn = (ready && opts.onHatch)
+      ? '<button type="button" id="q4bEggHatch" style="display:block;width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 4px 0 #CF7F14;cursor:pointer;margin-bottom:8px">✨ タップで かえす</button>'
+      : '';
+    var parentBtn = opts.onViewParent
+      ? '<button type="button" id="q4bEggParent" style="display:block;width:100%;border:none;border-radius:12px;padding:10px;font-size:14px;font-weight:700;font-family:inherit;color:#fff;background:#3FA86B;cursor:pointer;margin-bottom:6px">📖 おやの ずかんを みる</button>'
+      : '';
+    var abandonBtn = opts.onAbandon
+      ? '<button type="button" id="q4bEggAbandon" style="display:block;width:100%;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer;margin-bottom:6px">🥚 たまごを すてる (返金なし)</button>'
+      : '';
+
+    ov.innerHTML = ''
+      + '<div style="background:#FFFDF4;border-radius:22px;max-width:340px;width:96%;max-height:90vh;overflow-y:auto;padding:18px 20px;box-shadow:0 14px 44px rgba(0,0,0,.32)">'
+      +   '<div style="text-align:center;margin-bottom:10px">'+visualHTML+'</div>'
+      +   '<div style="font-size:18px;font-weight:800;color:#2A3D2C;text-align:center;margin-bottom:2px">'+esc(name)+shinyMark+'</div>'
+      +   '<div style="font-size:13px;color:#6B7A5E;text-align:center;margin-bottom:8px">'+sexMark+'　'+esc(gameLabel)+'</div>'
+      +   '<div style="background:#EAEFE0;border-radius:99px;height:8px;margin:6px 0;overflow:hidden"><div style="width:'+p+'%;height:100%;background:'+color+';transition:width .3s"></div></div>'
+      +   '<div style="font-size:12px;color:#2A3D2C;text-align:center;margin-bottom:10px">'+egg.progress+' / '+egg.target+' もん '+(ready?' ✨ かえる準備OK！':'')+'</div>'
+      +   '<div style="font-size:12px;color:#6B7A5E;font-weight:700;margin-bottom:4px">📅 そだちの きろく</div>'
+      +   historyRows
+      +   '<div style="margin-top:12px">'
+      +     ctaBtn
+      +     parentBtn
+      +     abandonBtn
+      +     '<button type="button" id="q4bEggClose" style="display:block;width:100%;border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
+      +   '</div>'
+      + '</div>';
+    doc.body.appendChild(ov);
+
+    if(ready && opts.onHatch){
+      ov.querySelector("#q4bEggHatch").onclick = function(){ close(); opts.onHatch(egg.id); };
+    }
+    if(opts.onViewParent){
+      ov.querySelector("#q4bEggParent").onclick = function(){ close(); opts.onViewParent(egg.id); };
+    }
+    if(opts.onAbandon){
+      ov.querySelector("#q4bEggAbandon").onclick = function(){
+        if(!confirm("この たまごを すてる? (返金なし)")) return;
+        if(!confirm("ほんとうに すてる?")) return;
+        close(); opts.onAbandon(egg.id);
+      };
+    }
+    ov.querySelector("#q4bEggClose").onclick = close;
+  }
+
   /* --- マスター ♂♀ 選択モーダル ---
      B (新規マスター達成) と C (レガシー救済) で共用。
      opts: {sp, isLegacy: bool, onPick: function(sex), onCancel?: function} */
@@ -589,6 +703,8 @@
     openEggPickerModal: openEggPickerModal,
     openLayConfirm: openLayConfirm,
     openMasterSexPickerModal: openMasterSexPickerModal,
+    openEggInfoModal: openEggInfoModal,
+    notifyEggLaid: notifyEggLaid,
     playHatchAnimation: playHatchAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
     showFeedToast: showFeedToast,
