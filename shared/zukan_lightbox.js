@@ -46,6 +46,12 @@
       if(!svg.closest) continue;
       var inDetail = svg.closest('.mcard, #modal, #q4bHomeZukanOv, [data-zukan-zoom-zone="1"]');
       if(!inDetail) continue;
+      /* 未取得 species は lightbox 対象外。各教科で未取得時 wrapper に
+         .sil (keisan/eitango) / .un (eitango) / .no (kanji) の silhouette class が付与される。
+         また data-zukan-uncaught="1" の明示マーカーにも対応。
+         これにより「未取得なのに写真だけ見えてしまう」事故を防ぐ。 */
+      var uncaught = svg.closest('.sil, .un, .no, [data-zukan-uncaught="1"]');
+      if(uncaught) continue;
       var wrap = svg.parentNode;
       if(!wrap || wrap.nodeType !== 1) continue;
       if(wrap.dataset.zukanZoomable === "1") continue;     // 冪等ガード

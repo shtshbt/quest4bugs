@@ -103,7 +103,7 @@
     var g = RW.gameFor(sp), hp = r ? r.hp : (B && B.bugHP ? B.bugHP(sp.rarity) : "");
     var inner;
     if(!got){
-      inner = '<div class="center"><div style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + artHTML(sp, false) + '</div>'
+      inner = '<div class="center"><div data-zukan-uncaught="1" style="width:140px;height:140px;margin:0 auto;filter:brightness(0) opacity(.32)">' + artHTML(sp, false) + '</div>'
         + '<h3>？？？</h3><p style="color:#777;font-size:13px">まだ たおしていない…<br>ずかんバトルで かちにいこう！</p>'
         + badgeHTML(TYPE_JA[g], "#777") + ' ' + badgeHTML(tname, "#bbb")
         + (hp ? '<span style="margin-left:6px;color:#777;font-size:13px">HP' + hp + '</span>' : '')
