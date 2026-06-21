@@ -732,16 +732,55 @@
     return egg;
   }
 
-  /* 卵を放棄。返金なし。stats.totalAbandoned を +1。 */
+  /* pendingEggs から指定 id の卵を eggs に昇格 (Egg Nest Modal で選択 promote)。
+     ・eggs が満杯ならエラー (null)
+     ・同 species が育成中ならエラー (null) */
+  function promotePendingEgg(id){
+    var bs = _bs();
+    if(bs.eggs.length >= EGG_SLOT_MAX) return null;
+    var i;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id) return null; }
+    var idx = -1;
+    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+    if(idx < 0) return null;
+    var egg = bs.pendingEggs.splice(idx, 1)[0];
+    delete egg.queuedAt;
+    bs.eggs.push(egg);
+    _saveBs(bs);
+    return egg;
+  }
+
+  /* pendingEggs から指定 id の卵を破棄 (返金なし、totalAbandoned++) */
+  function discardPendingEgg(id){
+    var bs = _bs();
+    var idx = -1, i;
+    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+    if(idx < 0) return false;
+    bs.pendingEggs.splice(idx, 1);
+    bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+    _saveBs(bs);
+    return true;
+  }
+
+  /* 卵を放棄。返金なし。stats.totalAbandoned を +1。eggs と pendingEggs 両方検索。 */
   function abandonEgg(id){
     var bs = _bs();
     var idx = -1, i;
     for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
-    if(idx < 0) return false;
-    bs.eggs.splice(idx, 1);
-    bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
-    _saveBs(bs);
-    return true;
+    if(idx >= 0){
+      bs.eggs.splice(idx, 1);
+      bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+      _saveBs(bs);
+      return true;
+    }
+    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+    if(idx >= 0){
+      bs.pendingEggs.splice(idx, 1);
+      bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+      _saveBs(bs);
+      return true;
+    }
+    return false;
   }
 
   /* マスター虫の性別を確定 (新規達成 + レガシー救済 共用)。
@@ -995,6 +1034,8 @@
     feedEgg: feedEgg,
     hatchEgg: hatchEgg,
     acceptPendingEgg: acceptPendingEgg,
+    promotePendingEgg: promotePendingEgg,
+    discardPendingEgg: discardPendingEgg,
     abandonEgg: abandonEgg,
     breederRank: breederRank,
     totalReared: totalReared,

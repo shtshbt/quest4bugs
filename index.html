@@ -1275,24 +1275,57 @@ function openZukanDetailFromHome(entry, sp, coll){
     + '</div>';
   document.body.appendChild(ov);
 }
-/* 「+」スロットタップ → 卵選択モーダル → 産卵 */
+/* 「+」スロットタップ → pendingEggs があれば たまごのす Modal、無ければ直接産卵 picker */
 function homeEggAdd(){
   var pid=_hPid(); if(!pid){alert("プロフィールが選ばれていません");return;}
-  /* 3教科の coll を統合した「仮想 coll.catches」を作る */
+  var bs = QuestSave.breedingOf ? QuestSave.breedingOf(pid) : {eggs:[],pendingEggs:[]};
+  var pendingEggs = bs.pendingEggs || [];
+  if(pendingEggs.length === 0){
+    /* 待機卵が無ければ従来通り直接 産卵 picker */
+    _homeEggOpenLayPicker(pid);
+    return;
+  }
+  /* 待機卵あり → たまごのす Modal で選択肢を提示 */
+  var eggsIds = {};
+  (bs.eggs||[]).forEach(function(e){ eggsIds[e.id]=true; });
+  Q4BBreeding.openEggNestModal({
+    pendingEggs: pendingEggs,
+    slotsAvailable: Math.max(0, 3 - (bs.eggs||[]).length),
+    eggsIds: eggsIds,
+    onPickPending: 'homeEggPromotePending',
+    onDiscardPending: 'homeEggDiscardPending',
+    onOpenLayPicker: function(){ _homeEggOpenLayPicker(pid); }
+  });
+}
+function _homeEggOpenLayPicker(pid){
   Promise.all([
     QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid)
   ]).then(function(rs){
     var virtCatches={};
-    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ /* 統合: records を結合 */ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
+    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
     if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
     if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
     if(rs[2]&&rs[2].catches) merge(rs[2].catches);
     var virtColl={catches:virtCatches};
-    Q4BBreeding.openEggPickerModal({
-      coll: virtColl,
-      onPick: "homeEggPicked"
-    });
+    Q4BBreeding.openEggPickerModal({ coll: virtColl, onPick: "homeEggPicked" });
   });
+}
+function homeEggPromotePending(eggId){
+  if(!Q4BReward.promotePendingEgg) return;
+  var promoted = Q4BReward.promotePendingEgg(eggId);
+  if(!promoted){
+    alert('そだてられないよ (スロットが いっぱい か、同じ虫を そだて中)');
+    return;
+  }
+  _refreshDashIfActive();
+}
+function homeEggDiscardPending(eggId){
+  if(!Q4BReward.discardPendingEgg) return;
+  if(!Q4BReward.discardPendingEgg(eggId)){
+    alert('すてられなかったよ');
+    return;
+  }
+  _refreshDashIfActive();
 }
 window.homeEggPickPending=null;  /* 産卵候補の sp.id を保持 */
 function homeEggPicked(spId){

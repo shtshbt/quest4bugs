@@ -124,11 +124,17 @@
   function emptySlotHTML(opts){
     opts = opts || {};
     var onTapAttr = opts.onAdd ? ' onclick="'+opts.onAdd+'()"' : '';
+    /* 保留卵 N 個ある時は + ボタンにバッジを重ねる (📬N) */
+    var pendBadge = (opts.pendingCount > 0)
+      ? '<span style="position:absolute;top:-4px;right:-4px;background:#F2A33C;color:#fff;border:2px solid #FFFDF4;border-radius:99px;font-size:10px;font-weight:900;padding:1px 5px;min-width:18px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.25);z-index:2">📬'+opts.pendingCount+'</span>'
+      : '';
+    var label = (opts.pendingCount > 0) ? 'たまごのす<br>を ひらく' : 'あたらしい<br>たまご';
     return ''
       + '<div class="q4b-egg-empty"'+onTapAttr
-      +   ' style="background:rgba(207,221,178,.25);border:2.5px dashed #CFDDB2;border-radius:14px;padding:8px 6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:130px">'
+      +   ' style="position:relative;background:rgba(207,221,178,.25);border:2.5px dashed #CFDDB2;border-radius:14px;padding:8px 6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:130px">'
+      +   pendBadge
       +   '<div style="font-size:32px;color:#9CA88A;line-height:1">＋</div>'
-      +   '<div style="font-size:11px;color:#6B7A5E;font-weight:700;margin-top:3px">あたらしい<br>たまご</div>'
+      +   '<div style="font-size:11px;color:#6B7A5E;font-weight:700;margin-top:3px">'+label+'</div>'
       + '</div>';
   }
 
@@ -145,7 +151,9 @@
       if(i < eggs.length){
         cards.push(eggCardHTML(eggs[i], {onTap: opts.onTap, onHatch: opts.onHatch, onAdvance: opts.onAdvance}));
       } else if(eggs.length < max){
-        cards.push(emptySlotHTML({onAdd: opts.onAdd}));
+        /* 最初の空きスロットだけバッジを表示 (2 つ並ぶと冗長) */
+        var firstEmpty = (i === eggs.length);
+        cards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: firstEmpty ? (opts.pendingCount||0) : 0}));
       }
     }
     var pendBanner = opts.pendingCount > 0
@@ -782,6 +790,98 @@
     ov.querySelector("#q4bEggClose").onclick = close;
   }
 
+  /* --- たまごの巣 (Egg Nest) モーダル ---
+     待機卵 (pendingEggs) を可視化し、選んでスロットに promote / 個別に discard できる。
+     新規産卵は「あたらしく うむ」ボタンから openEggPickerModal を起動。
+     opts: {pendingEggs, slotsAvailable, eggsIds (育成中の id 集合),
+            onPickPending(id), onDiscardPending(id), onOpenLayPicker} */
+  function openEggNestModal(opts){
+    opts = opts || {};
+    var pendingEggs = opts.pendingEggs || [];
+    var slotsAvailable = opts.slotsAvailable || 0;
+    var eggsIds = opts.eggsIds || {};
+    var r = R();
+    var doc = global.document; if(!doc) return;
+    var ov = doc.createElement("div");
+    ov.id = "q4bEggNestOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:330;padding:12px";
+    function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }
+    ov.onclick = function(e){ if(e.target === ov) close(); };
+    function cardHTML(egg, order){
+      var sp = r ? r.spById(egg.id) : null;
+      var name = esc(sp && sp.jaName ? sp.jaName : egg.id);
+      var sexEmoji = egg.sex === 'm' ? '♂' : (egg.sex === 'f' ? '♀' : '?');
+      var sexColor = egg.sex === 'm' ? '#5B8DE0' : (egg.sex === 'f' ? '#E08BB9' : '#6B7A5E');
+      var shinyMark = egg.shiny ? ' ✨' : '';
+      var originLabelMap = {master_pair:'🎓 マスター', boss_pair:'👑 ボス', lay:'🥚 産卵'};
+      var originColorMap = {master_pair:'#A06BD8', boss_pair:'#E8B33C', lay:'#4A9B3A'};
+      var originLabel = originLabelMap[egg.origin] || '';
+      var originColor = originColorMap[egg.origin] || '#6B7A5E';
+      var tier = sp && sp.rarity ? String(sp.rarity).toUpperCase() : '';
+      var bornDate = egg.bornAt ? esc(egg.bornAt) : '';
+      var canPromote = (slotsAvailable > 0) && !eggsIds[egg.id];
+      var promoteDisabled = canPromote ? '' : ' disabled';
+      var promoteStyle = canPromote ? 'background:#4A9B3A;color:#fff;cursor:pointer' : 'background:#CFDDB2;color:#6B7A5E;cursor:not-allowed';
+      var hintHTML = '';
+      if(!canPromote && eggsIds[egg.id]){
+        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">いま 同じ虫を そだててるよ</div>';
+      } else if(!canPromote){
+        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">スロットが いっぱい</div>';
+      }
+      return '<div class="q4bNestCard" style="background:#fff;border:1.5px solid #E0D4F2;border-radius:12px;padding:10px;margin-bottom:8px">'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
+        +   '<span style="background:'+originColor+';color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:1px 7px">'+originLabel+'</span>'
+        +   (tier?'<span style="background:#EAEFE0;color:#2A3D2C;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px">'+esc(tier)+'</span>':'')
+        +   '<span style="font-size:14px;font-weight:700;color:#2A3D2C;flex:1">'+name+shinyMark+'</span>'
+        +   '<span style="color:'+sexColor+';font-size:18px;font-weight:900">'+sexEmoji+'</span>'
+        + '</div>'
+        + '<div style="font-size:10px;color:#6B7A5E;margin-bottom:8px">#'+order+(bornDate?'　・　うんだ日: '+bornDate:'')+'</div>'
+        + '<div style="display:flex;gap:6px">'
+        +   '<button type="button" data-act="promote" data-egg-id="'+esc(egg.id)+'"'+promoteDisabled
+        +     ' style="flex:1;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:800;font-family:inherit;'+promoteStyle+'">そだてる ▶</button>'
+        +   '<button type="button" data-act="discard" data-egg-id="'+esc(egg.id)+'"'
+        +     ' style="border:none;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:700;font-family:inherit;background:#EAEFE0;color:#6B7A5E;cursor:pointer">すてる</button>'
+        + '</div>'
+        + hintHTML
+        + '</div>';
+    }
+    var listHTML = pendingEggs.length
+      ? pendingEggs.map(function(e,i){return cardHTML(e,i+1);}).join('')
+      : '<div style="text-align:center;padding:24px;color:#6B7A5E;font-size:13px">📭 まちの たまごは ないよ</div>';
+    var layBtn = opts.onOpenLayPicker
+      ? '<button type="button" id="q4bNestNewLay" style="margin-top:8px;width:100%;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:800;font-family:inherit;background:#F2A33C;color:#fff;cursor:pointer;box-shadow:0 3px 0 #CF7F14">🥚 あたらしく うむ</button>'
+      : '';
+    ov.innerHTML = ''
+      + '<div style="background:#FFFDF4;border-radius:18px;max-width:460px;width:96%;padding:18px 16px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
+      +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
+      +     '<span style="font-size:22px">🥚</span>'
+      +     '<span style="font-size:17px;font-weight:800;color:#2A3D2C;flex:1">たまごのす</span>'
+      +     '<button type="button" id="q4bNestClose" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:8px;padding:6px 12px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
+      +   '</div>'
+      +   '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">まちの たまご: '+pendingEggs.length+'こ　／　あき スロット: '+slotsAvailable+'</div>'
+      +   '<div style="overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin:-2px;padding:2px">'+listHTML+'</div>'
+      +   layBtn
+      + '</div>';
+    doc.body.appendChild(ov);
+    ov.querySelector('#q4bNestClose').onclick = close;
+    if(opts.onOpenLayPicker){
+      var lb = ov.querySelector('#q4bNestNewLay');
+      if(lb) lb.onclick = function(){ close(); opts.onOpenLayPicker(); };
+    }
+    Array.prototype.forEach.call(ov.querySelectorAll('button[data-act]'), function(b){
+      b.onclick = function(){
+        var id = b.getAttribute('data-egg-id');
+        var act = b.getAttribute('data-act');
+        if(act === 'promote' && opts.onPickPending){
+          close(); opts.onPickPending(id);
+        } else if(act === 'discard' && opts.onDiscardPending){
+          if(!global.confirm || !global.confirm('この たまごを すてる? (もどせないよ)')) return;
+          close(); opts.onDiscardPending(id);
+        }
+      };
+    });
+  }
+
   /* --- レガシーマスター一覧モーダル ---
      ホーム legacyBanner タップで開く。3 教科横断の sex='u' マスター虫を一覧 → 各エントリの
      「♂♀ をきめる」ボタンで openMasterSexPickerModal を起動する救済導線。
@@ -969,6 +1069,7 @@
     emptySlotHTML: emptySlotHTML,
     homeBreedingPanelHTML: homeBreedingPanelHTML,
     openEggPickerModal: openEggPickerModal,
+    openEggNestModal: openEggNestModal,
     openLayConfirm: openLayConfirm,
     openMasterSexPickerModal: openMasterSexPickerModal,
     openLegacyMasterListModal: openLegacyMasterListModal,
