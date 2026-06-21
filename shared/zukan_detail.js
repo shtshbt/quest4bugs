@@ -166,12 +166,11 @@
     if(!entry) return "";
     var spec = entry.specimen || {};
     var src = entry.source || {};
+    var isObservation = spec.basisOfRecord === "HumanObservation";
     var rows = [];
     /* add(label, value, opts):
          opts.raw       — true なら value をそのまま (HTML) 挿入
-         opts.fallback  — value が null/空でも、この文言を薄色で表示する。
-                          採集日/採集地/採集者 のような「ラベルから未転記」を示したい
-                          重要 field で使う。それ以外の field は null なら省略。 */
+         opts.fallback  — value が null/空でも、この文言を薄色で表示する。 */
     function add(label, value, opts){
       opts = opts || {};
       if(value == null || value === ""){
@@ -182,16 +181,38 @@
       }
       rows.push([label, opts.raw ? value : esc(value), !!opts.raw]);
     }
+
     add("提供", entry.creditLine || spec.institution);
-    add("標本番号", spec.catalogNumber);
-    add("採集日", spec.eventDate || spec.eventYear, {fallback: "ラベルから未転記"});
-    var locParts = [spec.localityVerbatim || spec.localityNormalized || null, spec.country].filter(Boolean);
-    add("採集地", locParts.length ? locParts.join(", ") : null, {fallback: "ラベルから未転記"});
-    add("採集者", spec.recordedBy, {fallback: "ラベルから未転記"});
-    if(spec.sex) add("性別", spec.sex === "Male" ? "オス" : spec.sex === "Female" ? "メス" : spec.sex);
-    if(spec.lifeStage) add("ステージ", spec.lifeStage === "Adult" ? "成虫" : spec.lifeStage);
-    if(spec.preparations) add("保存", spec.preparations === "Pinned" ? "ピン留め" : spec.preparations);
-    if(spec.typeStatus) add("タイプ", spec.typeStatus);
+
+    if(isObservation){
+      /* iNat 観察用 field set */
+      add("撮影者", spec.recordedBy || entry.creator);
+      add("撮影日", spec.eventDate || spec.eventYear, {fallback: "未記録"});
+      /* coordinatesObscured が true なら座標は隠して「(大まか)」表示 */
+      var locParts = [spec.localityVerbatim || spec.localityNormalized || null, spec.country].filter(Boolean);
+      var locStr = locParts.length ? locParts.join(", ") : null;
+      if(spec.coordinatesObscured && locStr){
+        locStr = locStr + " (大まか — iNat 自動 obfuscation)";
+      }
+      add("観察地", locStr, {fallback: "未記録"});
+      if(spec.qualityGrade){
+        var qLabel = spec.qualityGrade === "research" ? "Research grade (community 2+ 同意)" : spec.qualityGrade;
+        add("観察品質", qLabel);
+      }
+      if(spec.iNatObservationId) add("iNat 観察 ID", spec.iNatObservationId);
+    } else {
+      /* PreservedSpecimen (museum) 用 field set */
+      add("標本番号", spec.catalogNumber);
+      add("採集日", spec.eventDate || spec.eventYear, {fallback: "ラベルから未転記"});
+      var locParts2 = [spec.localityVerbatim || spec.localityNormalized || null, spec.country].filter(Boolean);
+      add("採集地", locParts2.length ? locParts2.join(", ") : null, {fallback: "ラベルから未転記"});
+      add("採集者", spec.recordedBy, {fallback: "ラベルから未転記"});
+      if(spec.sex) add("性別", spec.sex === "Male" ? "オス" : spec.sex === "Female" ? "メス" : spec.sex);
+      if(spec.lifeStage) add("ステージ", spec.lifeStage === "Adult" ? "成虫" : spec.lifeStage);
+      if(spec.preparations) add("保存", spec.preparations === "Pinned" ? "ピン留め" : spec.preparations);
+      if(spec.typeStatus) add("タイプ", spec.typeStatus);
+    }
+
     if(src.mediaLicense){
       var lic = src.licenseUrl
         ? '<a href="'+esc(src.licenseUrl)+'" target="_blank" rel="noopener">'+esc(src.mediaLicense)+'</a>'
@@ -200,7 +221,8 @@
     }
     if((entry.modifications||[]).length) add("加工", entry.modifications.join("、"));
     if(src.institutionRecordUrl){
-      add("原レコード", '<a href="'+esc(src.institutionRecordUrl)+'" target="_blank" rel="noopener">📖 開く</a>', {raw: true});
+      var recordLabel = isObservation ? "観察ページ" : "原レコード";
+      add(recordLabel, '<a href="'+esc(src.institutionRecordUrl)+'" target="_blank" rel="noopener">📖 開く</a>', {raw: true});
     }
     if(rows.length === 0) return "";
     var rowsHTML = rows.map(function(r){
@@ -209,11 +231,14 @@
         +   '<td style="padding:4px 8px;color:#333;word-break:break-word">'+r[1]+'</td>'
         + '</tr>';
     }).join("");
+    /* observation は緑系 (野外感)、museum は茶系 (curated 感) で button 色を分ける */
+    var summaryStyle = isObservation
+      ? 'cursor:pointer;display:inline-block;background:rgba(232,244,225,.85);border:1px solid #8fb05a;border-radius:14px;padding:4px 12px;font-size:11px;color:#3e6b2e;list-style:none;-webkit-user-select:none;user-select:none'
+      : 'cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:#56714e;list-style:none;-webkit-user-select:none;user-select:none';
+    var summaryLabel = isObservation ? '📷 やせいのきろく' : '📋 ひょうほんの情報';
     return ''
       + '<details class="zukan-specimen-info" style="margin:10px 0 0;text-align:right">'
-      +   '<summary style="cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:#56714e;list-style:none;-webkit-user-select:none;user-select:none">'
-      +     '📋 ひょうほんの情報'
-      +   '</summary>'
+      +   '<summary style="'+summaryStyle+'">'+summaryLabel+'</summary>'
       +   '<table style="margin-top:8px;border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px;font-size:11px;text-align:left">'
       +     '<tbody>'+rowsHTML+'</tbody>'
       +   '</table>'

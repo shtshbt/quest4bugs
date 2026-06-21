@@ -2,14 +2,14 @@
   "species_id": "yokoyama_higenaga_kamikiri",
   "species_ja": "ヨコヤマヒゲナガカミキリ",
   "scientific_name": "Dolichoprosopus yokoyamai",
-  "credit_line": "iNaturalist (CC0 exception)",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
   "creator": "unipon (iNaturalist)",
   "fetched_date": "2026-06-20",
   "specimen": {
-    "institution": "iNaturalist (CC0 exception)",
+    "institution": "iNaturalist (Research grade CC0 exception)",
     "institutionCode": "iNat",
     "collectionCode": null,
-    "catalogNumber": "iNat_photo_650431134",
+    "catalogNumber": "iNat_obs_356660691",
     "occurrenceId": "https://www.inaturalist.org/observations/356660691",
     "persistentId": "https://www.inaturalist.org/observations/356660691",
     "basisOfRecord": "HumanObservation",
@@ -21,8 +21,14 @@
     "eventYear": 2024,
     "country": "Japan",
     "localityVerbatim": null,
-    "localityNormalized": "Japan",
-    "preparations": null
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.7197873381,
+    "decimalLongitude": 139.2059747498,
+    "coordinatesObscured": true,
+    "iNatObservationId": "356660691",
+    "iNatPhotoId": "650431134",
+    "qualityGrade": "research"
   },
   "source": {
     "gbifOccurrenceKey": null,
@@ -72,5 +78,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "iNat CC0 exception (unipon 2024-07-14 Japan). Endemic Japanese Cerambycidae の museum specimen photo は世界 portal exhaustive 確認で acceptable license 0 件"
+  "notes": "tier 7 iNat CC0 exception — museum specimen photo 全 tier 0 hit 確認後の唯一手段"
 }
