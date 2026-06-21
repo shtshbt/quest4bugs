@@ -37,20 +37,29 @@
         kanji:   rs[2] && rs[2].coll ? rs[2].coll : null,
         eitango: rs[3] && rs[3].catches ? {catches: rs[3].catches} : null
       };
-      var changed = bossesBackfill(bt.bosses, colls);
-      if(changed && global.QuestSave.save){
+      var res = bossesBackfill(bt.bosses, colls);
+      if(res.changed && global.QuestSave.save){
         try{ global.QuestSave.save("battle", profileId, bt); }catch(_){}
       }
       BOSSES = bt.bosses; loaded = true;
+      /* legacy 救済で相方卵が新規授与された場合は toast 表示 (子供向け feedback) */
+      if(res.granted && res.granted.length && global.Q4BBreeding && global.Q4BBreeding.notifyMasterEggGranted){
+        var n = res.granted.length;
+        global.Q4BBreeding.notifyMasterEggGranted(
+          {jaName: 'ボス昆虫 ' + n + '匹'},
+          {batch:true, queued:false}
+        );
+      }
     }).catch(function(){ BOSSES = {}; loaded = true; });
   }
   /* coll.catches[boss_id] が存在しているのに bt.bosses[id] が未登録 (または records 等が
      欠落している) ボスに対し、in-place で補完する。既存値があれば尊重 (max 比較)。 */
   function bossesBackfill(bossesMap, collsByGame){
     var B = global.Q4BBattle, RW = global.Q4BReward;
-    if(!B || !B.roster || !RW || !RW.gameFor) return false;
+    if(!B || !B.roster || !RW || !RW.gameFor) return {changed:false, granted:[]};
     var byId = byIdMap();
     var changed = false;
+    var granted = [];  /* legacy 救済で相方卵を授与したボス [{sp, sex, egg, queued}, ...] */
     B.roster.forEach(function(r){
       if(r.predator || !r.id || !byId[r.id]) return;
       var sp = byId[r.id];
@@ -63,15 +72,27 @@
       if(typeof cat.n === "number" && cat.n > (be.n||0)){ be.n = cat.n; changed = true; }
       if(!be.firstSex){
         var rec0 = cat.records && cat.records[0];
-        if(rec0 && (rec0.sex === "m" || rec0.sex === "f")){ be.firstSex = rec0.sex; changed = true; }
+        if(rec0 && (rec0.sex === "m" || rec0.sex === "f")){
+          be.firstSex = rec0.sex; changed = true;
+        } else if(RW.rollSex){
+          /* legacy: records[0].sex='u' or 不明 → rollSex で自動確定 */
+          be.firstSex = RW.rollSex(sp); changed = true;
+        }
       }
       if(!be.records && cat.records){ be.records = cat.records.slice(); changed = true; }
       if(be.max == null && cat.max != null){ be.max = cat.max; changed = true; }
       if(be.min == null && cat.min != null){ be.min = cat.min; changed = true; }
       if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
-      if(be.eggGranted === undefined && (be.n||0) >= 10){ be.eggGranted = true; changed = true; }
+      /* legacy 救済: eggGranted 未済 + 撃破経験あり (n>=1) なら相方卵を 1 度だけ授与。
+         本来の n=10 ライフタイム卵と同じ origin='boss_pair' を使う (一括 idempotent)。 */
+      if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && RW.awardBossEgg){
+        var opp = be.firstSex === "m" ? "f" : "m";
+        var egg = RW.awardBossEgg(null, sp, opp);
+        be.eggGranted = true; changed = true;
+        if(egg) granted.push({sp: sp, sex: opp, egg: egg, queued: !!egg.queuedAt});
+      }
     });
-    return changed;
+    return {changed: changed, granted: granted};
   }
   function ready(){ return loaded; }
 

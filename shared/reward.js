@@ -907,6 +907,24 @@
     if(!entry || !entry.records || !entry.records.length) return false;
     return entry.records.every(function(r){ return r.sex === "u"; });
   }
+  /* legacy master 自動確定: sex='u' のマスター虫すべてを rollSex で確定 + 相方卵授与。
+     load 時に呼ぶ用。授与した卵オブジェクトの配列を返す ([{sp, egg, queued}, ...])。 */
+  function autoFinalizeLegacyMasterAll(coll){
+    if(!coll || !coll.catches) return [];
+    var ids = listLegacyMasterPending(coll);
+    if(!ids.length) return [];
+    var out = [];
+    ids.forEach(function(id){
+      var sp = spById(id); if(!sp) return;
+      var sex = rollSex(sp);
+      var ret = setMasterSex(coll, sp, sex);
+      if(ret){
+        var egg = (ret !== true) ? ret : null;
+        out.push({sp: sp, sex: sex, egg: egg, queued: !!(egg && egg.queuedAt)});
+      }
+    });
+    return out;
+  }
   function listLegacyMasterPending(coll){
     if(!coll || !coll.catches) return [];
     var out = [], id, sp;
@@ -994,6 +1012,7 @@
     canHatchNow: canHatchNow,
     isLegacyMasterUnknownSex: isLegacyMasterUnknownSex,
     listLegacyMasterPending: listLegacyMasterPending,
+    autoFinalizeLegacyMasterAll: autoFinalizeLegacyMasterAll,
     rollSex: rollSex,
     rollSize: rollSize,
     rollShiny: rollShiny,

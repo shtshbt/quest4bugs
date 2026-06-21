@@ -858,7 +858,10 @@
     t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#F5E8FF;border:2px solid #A06BD8;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:320px;font-family:inherit";
     var name = esc(sp && sp.jaName ? sp.jaName : (sp && sp.id ? sp.id : ""));
     var head, body;
-    if(opts.skipped){
+    if(opts.batch){
+      head = '🥚 '+name+' に はんたいせいべつ の たまごを 一気に もらったよ!';
+      body = '御神木の 「そだてている むし」 パネルで みよう';
+    } else if(opts.skipped){
       head = '✅ '+name+' の せいべつを かくていしたよ';
       body = 'たまごは すでに もらっているよ';
     } else if(opts.queued){

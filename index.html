@@ -1110,19 +1110,29 @@ function renderDashboard(pid,name){
     var psLine=ps.length?'<div class="note" style="background:var(--green-l);border-radius:10px;padding:6px 8px;margin:0 0 8px">📊 '+ps.join('　/　')+'</div>':'';
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
-    /* 卵育成パネル: 全教科の coll を合算して legacy master sex='u' をチェック (御神木 panel 内に表示) */
+    /* legacy master 自動確定: sex='u' マスター虫を rollSex で確定 + 相方卵を一括授与。
+       残存 (= 0 のはず) は legacyMasterCount として homeBreedingPanel に表示する。 */
     try{
       window.__q4bLegacyMasterCount=0;
       window.__q4bLegacyByGame={kanji:0,keisan:0,eitango:0};
-      window.__q4bLegacyEntries=[];  /* homeReviewLegacyMasters で参照 */
+      window.__q4bLegacyEntries=[];
+      var _autoTotal = 0;
       var _legacyGames=[
-        {game:'keisan', coll: kp&&kp.coll, pid:pid},
-        {game:'kanji',  coll: ks&&ks.coll, pid:pid},
-        {game:'eitango',coll: es,          pid:pid}
+        {game:'keisan', coll: kp&&kp.coll, data: kp, isEi: false},
+        {game:'kanji',  coll: ks&&ks.coll, data: ks, isEi: false},
+        {game:'eitango',coll: (es && es.catches) ? {catches: es.catches} : null, data: es, isEi: true}
       ];
       _legacyGames.forEach(function(it){
-        var c=it.coll; if(!c||!window.Q4BReward||!c.catches) return;
-        var ids=(Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(c):[]);
+        if(!it.coll || !window.Q4BReward) return;
+        var granted = Q4BReward.autoFinalizeLegacyMasterAll ? Q4BReward.autoFinalizeLegacyMasterAll(it.coll) : [];
+        if(granted && granted.length){
+          _autoTotal += granted.length;
+          if(it.isEi){ if(it.data) it.data.catches = it.coll.catches; }
+          else { if(it.data) it.data.coll = it.coll; }
+          if(it.data) QuestSave.save(it.game, pid, it.data);
+        }
+        /* 残存 legacy (autoFinalize 後はほぼ 0) を集計 */
+        var ids=(Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(it.coll):[]);
         window.__q4bLegacyMasterCount += ids.length;
         window.__q4bLegacyByGame[it.game] = (window.__q4bLegacyByGame[it.game]||0) + ids.length;
         ids.forEach(function(spId){
@@ -1130,6 +1140,12 @@ function renderDashboard(pid,name){
           if(sp) window.__q4bLegacyEntries.push({game:it.game, spId:spId, sp:sp, pid:pid});
         });
       });
+      /* 一括 toast (delay 800ms で描画後に出す) */
+      if(_autoTotal > 0 && window.Q4BBreeding && Q4BBreeding.notifyMasterEggGranted){
+        setTimeout(function(){
+          Q4BBreeding.notifyMasterEggGranted({jaName: 'マスター虫 '+_autoTotal+'匹'}, {batch:true});
+        }, 800);
+      }
     }catch(_){ window.__q4bLegacyMasterCount=0; window.__q4bLegacyByGame={}; window.__q4bLegacyEntries=[]; }
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
