@@ -955,6 +955,32 @@ function loadAll(){
         keisan:  (kp && kp.coll) ? kp.coll : null,
         eitango: (es && es.catches) ? {catches: es.catches} : null
       };
+      /* ボス load-time backfill: 旧版では eitango.catches/coll.catches だけに書かれた
+         ボス撃破履歴を BATTLE.bosses に同期する (display 用)。
+         例: ni_idolomantis_diabolica が catches[id].n=2 なのに BATTLE.bosses 未登録 → 復元。 */
+      (bt = bt || {}).bosses = bt.bosses || {};
+      if(window.B && B.roster){
+        B.roster.forEach(function(r){
+          if(r.predator || !r.id) return;
+          var sp = byId[r.id]; if(!sp) return;
+          var game = (window.Q4BReward && Q4BReward.gameFor) ? Q4BReward.gameFor(sp) : null;
+          if(!game) return;
+          var coll = BATTLE_COLLS[game];
+          if(!coll || !coll.catches || !coll.catches[r.id]) return;
+          var cat = coll.catches[r.id];
+          var be = bt.bosses[r.id] = bt.bosses[r.id] || {n:0};
+          if(typeof cat.n === 'number' && cat.n > (be.n||0)) be.n = cat.n;
+          if(!be.firstSex){
+            var rec0 = cat.records && cat.records[0];
+            if(rec0 && (rec0.sex==='m'||rec0.sex==='f')) be.firstSex = rec0.sex;
+          }
+          if(!be.records && cat.records) be.records = cat.records.slice();
+          if(be.max == null && cat.max != null) be.max = cat.max;
+          if(be.min == null && cat.min != null) be.min = cat.min;
+          if(be.shiny == null && cat.shiny != null) be.shiny = cat.shiny;
+          if(be.eggGranted === undefined && (be.n||0) >= 10) be.eggGranted = true;
+        });
+      }
       var ids={}, caught=0;
       function add(c){ if(c)Object.keys(c).forEach(function(id){ids[id]=1;}); }
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }

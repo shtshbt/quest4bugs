@@ -164,10 +164,23 @@
     /* ずかんきりかえトグル: 各図鑑ページの右上に表示。子供向け文言 (イラスト/しゃしん)。
        使い方: Q4BRender.mountZukanModeToggle(); で document.body に絶対配置でマウント。
        既存ボタンがあれば再利用。クリックでモード切替 + ページ再読込。 */
+    /* 問題を解いている間 (body[data-q4b-session="1"]) は切り替えボタンを非表示にする */
+    global.Q4BRender.setSessionActive = function(active){
+      var doc = global.document; if(!doc || !doc.body) return;
+      if(active) doc.body.dataset.q4bSession = "1";
+      else delete doc.body.dataset.q4bSession;
+    };
     global.Q4BRender.mountZukanModeToggle = function(){
       var doc = global.document; if(!doc || !doc.body) return;
       var existing = doc.getElementById("q4b-zukan-mode-toggle");
       if(existing) return existing;
+      /* CSS: 問題セッション中 (body[data-q4b-session="1"]) は切り替えボタンを隠す */
+      if(!doc.getElementById("q4b-zukan-toggle-style")){
+        var st = doc.createElement("style");
+        st.id = "q4b-zukan-toggle-style";
+        st.textContent = 'body[data-q4b-session="1"] #q4b-zukan-mode-toggle{display:none!important}';
+        doc.head.appendChild(st);
+      }
       var btn = doc.createElement("button");
       btn.id = "q4b-zukan-mode-toggle";
       btn.type = "button";

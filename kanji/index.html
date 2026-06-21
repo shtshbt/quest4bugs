@@ -591,6 +591,7 @@ function kanjiHatchEgg(spId){
 /* ================= ホーム ================= */
 function countIntroduced(){ var n=0; itemPool().forEach(function(key){ if(introduced(key))n++ }); return n }
 function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr();
+ if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(false);
  var night=!!(window.Q4BReward&&Q4BReward.isNightNow&&Q4BReward.isNightNow());
  if(window.Q4BReward&&Q4BReward.setNight)Q4BReward.setNight(night);
  document.body.classList.toggle('night',night);
@@ -725,6 +726,7 @@ function kanaOptions(ch){ var dis=(SIM[ch]||'').split('').filter(function(c){ret
  return shuffle([ch].concat(dis.slice(0,2))) }
 
 function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
+ if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
  var h=dotsHtml(); var ch,x;
  if(p.key[0]==='h'){ ch=p.key.slice(2);
   if(p.sk==='y'){

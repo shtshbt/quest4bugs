@@ -1747,6 +1747,7 @@ function startSession(fid){
   GFID=fid; GFIELD=fieldById(fid)||FIELDS[0]; KIDS=!!GFIELD.kids;
   GWORDS=WordDB.byField(fid);
   S=null; pendingCatch=null;
+  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(false);
   renderStart();
   window.scrollTo(0,0);
 }
@@ -1999,6 +2000,7 @@ function startNushi(){
 function nextQ(first){
   if(pendingCatch){ const r=pendingCatch; pendingCatch=null; showCatch(r,()=>nextQ()); return; }
   if(!S||S.i>=S.queue.length){ endSession(); return; }
+  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
   const item=S.queue[S.i];
   if(item.type==='kids') renderKids(item);
   else if(item.type==='jukugo_mc'||item.type==='jukugo_cloze') renderJukugo(item);
@@ -2309,6 +2311,7 @@ function closeCatch(){
 
 /* ---------- end ---------- */
 function endSession(){
+  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(false);
   let bonus=0;
   if(S.mode==='main'){ bonus=5; if(window.QuestSave){QuestSave.amberAdd(ePid(),5);}else{P.amber+=5;} P.amberTotal+=5; }
   let nushiHtml='';

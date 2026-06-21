@@ -566,6 +566,7 @@ function keisanCatBoost(p, cat){
 }
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
+  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(false);
   var t=todayStr(), d=p.daily[t], done=d&&d.md;
   var due=dueMissed(p).length;
   ensureColl(p);
@@ -5404,6 +5405,7 @@ function quitQuiz(){
 function curQ(){return Q.timed?Q.cur:Q.list[Q.i];}
 function nextQ(){
   if(Q.i>=Q.list.length){finishSet();return;}
+  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
   renderQ(Q.list[Q.i]);
 }
 function nextTimed(){
