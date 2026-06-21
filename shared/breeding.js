@@ -153,8 +153,25 @@
         + (opts.onAcceptPending ? ' onclick="'+opts.onAcceptPending+'()"' : '')
         + '>📬 たまごが '+opts.pendingCount+'こ まっているよ! タップで うけとる</div>'
       : '';
+    /* 教科別内訳: opts.legacyByGame = {kanji:N, keisan:N, eitango:N} 形式 */
+    var legacyByGame = opts.legacyByGame || {};
+    var legacyBreakdown = '';
+    var gameLabels = {kanji:'漢字', keisan:'計算', eitango:'英語'};
+    var gks = Object.keys(legacyByGame).filter(function(g){return legacyByGame[g]>0;});
+    if(gks.length){
+      legacyBreakdown = '<div style="font-size:11px;font-weight:600;color:#6B4A99;margin-top:4px">内訳: '
+        + gks.map(function(g){return (gameLabels[g]||g)+' '+legacyByGame[g]+'匹';}).join(' / ')
+        + '</div>';
+    }
     var legacyBanner = opts.legacyMasterCount > 0
-      ? '<div class="q4b-egg-legacy-banner" style="background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#6B4A99">🎓 まだ ♂♀ をきめてない とくべつな虫が '+opts.legacyMasterCount+'匹 いるよ</div>'
+      ? '<div class="q4b-egg-legacy-banner"'
+        + (opts.onReviewLegacy ? ' onclick="'+opts.onReviewLegacy+'()"' : '')
+        + ' style="background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#6B4A99'
+        + (opts.onReviewLegacy ? ';cursor:pointer' : '')
+        + '">🎓 まだ ♂♀ をきめてない とくべつな虫が '+opts.legacyMasterCount+'匹 いるよ'
+        + (opts.onReviewLegacy ? '<span style="float:right">▶</span>' : '')
+        + legacyBreakdown
+        + '</div>'
       : '';
     return ''
       + '<style>@keyframes q4bEggGlow{0%,100%{box-shadow:0 0 0 3px rgba(242,163,60,.25),0 2px 6px rgba(0,0,0,.08)}50%{box-shadow:0 0 0 6px rgba(242,163,60,.4),0 4px 10px rgba(0,0,0,.12)}}</style>'
@@ -752,6 +769,84 @@
     ov.querySelector("#q4bEggClose").onclick = close;
   }
 
+  /* --- レガシーマスター一覧モーダル ---
+     ホーム legacyBanner タップで開く。3 教科横断の sex='u' マスター虫を一覧 → 各エントリの
+     「♂♀ をきめる」ボタンで openMasterSexPickerModal を起動する救済導線。
+     opts: {entries:[{spId, sp, gameLabel, onPickSex:function(sex)}], onClose} */
+  function openLegacyMasterListModal(opts){
+    opts = opts || {};
+    var entries = opts.entries || [];
+    if(!entries.length) return;
+    var doc = global.document; if(!doc) return;
+    var ov = doc.createElement("div");
+    ov.id = "q4bLegacyListOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:330;padding:12px";
+    function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); if(opts.onClose) opts.onClose(); }
+    ov.onclick = function(e){ if(e.target === ov) close(); };
+    var rows = entries.map(function(en, idx){
+      var sp = en.sp;
+      var name = esc(sp && sp.jaName ? sp.jaName : (en.spId||""));
+      var glabel = esc(en.gameLabel || "");
+      var gcolor = GAME_COLOR[en.game] || "#A06BD8";
+      return '<div data-idx="'+idx+'" class="q4bLegRow" style="display:flex;align-items:center;gap:10px;padding:10px;border:1.5px solid #E0D4F2;border-radius:12px;margin-bottom:8px;background:#fff;cursor:pointer">'
+        + '<span style="background:'+gcolor+';color:#fff;font-size:11px;font-weight:800;border-radius:99px;padding:2px 8px">'+glabel+'</span>'
+        + '<span style="flex:1;font-size:15px;font-weight:700;color:#2A3D2C">🎓 '+name+'</span>'
+        + '<span style="background:#A06BD8;color:#fff;font-size:12px;font-weight:800;border-radius:8px;padding:6px 10px">♂♀ をきめる ▶</span>'
+        + '</div>';
+    }).join("");
+    ov.innerHTML = ''
+      + '<div style="background:#FFFDF4;border-radius:18px;max-width:420px;width:96%;padding:18px 16px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 14px 44px rgba(0,0,0,.4)">'
+      +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">'
+      +     '<span style="font-size:22px">🎓</span>'
+      +     '<span style="font-size:17px;font-weight:800;color:#2A3D2C;flex:1">♂♀ をきめてない とくべつな虫</span>'
+      +     '<button type="button" id="q4bLegClose" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:8px;padding:6px 12px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
+      +   '</div>'
+      +   '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">♂♀ をきめると、反対せいべつの たまごが もらえるよ</div>'
+      +   '<div style="overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch">'+rows+'</div>'
+      + '</div>';
+    doc.body.appendChild(ov);
+    ov.querySelector("#q4bLegClose").onclick = close;
+    Array.prototype.forEach.call(ov.querySelectorAll(".q4bLegRow"), function(row){
+      row.onclick = function(){
+        var idx = +row.getAttribute("data-idx");
+        var en = entries[idx]; if(!en) return;
+        close();
+        openMasterSexPickerModal({
+          sp: en.sp, isLegacy: true, allowCancel: true,
+          onPick: function(sex){ if(en.onPickSex) en.onPickSex(sex); }
+        });
+      };
+    });
+  }
+
+  /* マスター ♂♀ 確定後の toast (反対性別卵の授与結果を明示) */
+  function notifyMasterEggGranted(sp, opts){
+    opts = opts || {};
+    var doc = global.document; if(!doc || !doc.body) return;
+    var existing = doc.getElementById("q4bMasterEggToast");
+    if(existing) existing.remove();
+    var t = doc.createElement("div");
+    t.id = "q4bMasterEggToast";
+    t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#F5E8FF;border:2px solid #A06BD8;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:320px;font-family:inherit";
+    var name = esc(sp && sp.jaName ? sp.jaName : (sp && sp.id ? sp.id : ""));
+    var head, body;
+    if(opts.skipped){
+      head = '✅ '+name+' の せいべつを かくていしたよ';
+      body = 'たまごは すでに もらっているよ';
+    } else if(opts.queued){
+      head = '📬 '+name+' の はんたいせいべつ たまごを 保留に いれたよ';
+      body = 'たまごスロットを 空けると うけとれるよ';
+    } else {
+      head = '🥚 '+name+' の はんたいせいべつ たまごを もらったよ!';
+      body = '御神木の 「そだてている むし」 パネルで みられるよ';
+    }
+    t.innerHTML = ''
+      + '<div style="font-size:14px;font-weight:800;color:#6B4A99;margin-bottom:4px">'+head+'</div>'
+      + '<div style="font-size:12px;color:#6B7A5E">'+body+'</div>';
+    doc.body.appendChild(t);
+    setTimeout(function(){ if(t.parentNode){ t.style.transition="opacity .3s"; t.style.opacity="0"; setTimeout(function(){ if(t.parentNode) t.remove(); }, 320); } }, 4500);
+  }
+
   /* --- マスター ♂♀ 選択モーダル ---
      B (新規マスター達成) と C (レガシー救済) で共用。
      opts: {sp, isLegacy: bool, onPick: function(sex), onCancel?: function} */
@@ -845,6 +940,8 @@
     openEggPickerModal: openEggPickerModal,
     openLayConfirm: openLayConfirm,
     openMasterSexPickerModal: openMasterSexPickerModal,
+    openLegacyMasterListModal: openLegacyMasterListModal,
+    notifyMasterEggGranted: notifyMasterEggGranted,
     openEggInfoModal: openEggInfoModal,
     notifyEggLaid: notifyEggLaid,
     notifyAutoHatched: notifyAutoHatched,

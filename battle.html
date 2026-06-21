@@ -349,7 +349,7 @@ var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
 var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"むぞくせい"};
 
 /* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
-var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
+var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, BATTLE_COLLS={kanji:null,keisan:null,eitango:null}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
 var PROG={kanji:null,keisan:null,eitango:null};  /* 各教科のper-profileデータ（本物連動の出題用） */
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 /* ===== 装備効果（遠征モード=かせきのたに でのみ有効） =====
@@ -949,6 +949,12 @@ function loadAll(){
     ]).then(function(r){
       var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4];
       var i; if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===PROF)kp=book.profiles[i];
+      /* bossKillReward の legacy backfill 用に 3 教科 coll を stash */
+      BATTLE_COLLS = {
+        kanji:   (ks && ks.coll) ? ks.coll : null,
+        keisan:  (kp && kp.coll) ? kp.coll : null,
+        eitango: (es && es.catches) ? {catches: es.catches} : null
+      };
       var ids={}, caught=0;
       function add(c){ if(c)Object.keys(c).forEach(function(id){ids[id]=1;}); }
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
@@ -1889,7 +1895,10 @@ function finish(win){
       var spBoss = window.Q4BReward ? Q4BReward.spById(rew.speciesId) : null;
       if(window.Q4BReward&&Q4BReward.bossKillReward&&spBoss){
         var prevN = (BATTLE.bosses[rew.speciesId]&&BATTLE.bosses[rew.speciesId].n)||0;
-        var killRew = Q4BReward.bossKillReward(rew.speciesId, BATTLE.bosses);
+        /* legacy backfill: ボス種が属する教科の coll を渡し、過去撃破回数を bossesMap に統合 */
+        var bossGame = (window.Q4BReward&&Q4BReward.gameFor)?Q4BReward.gameFor(spBoss):'kanji';
+        var bossColl = BATTLE_COLLS && BATTLE_COLLS[bossGame];
+        var killRew = Q4BReward.bossKillReward(rew.speciesId, BATTLE.bosses, bossColl);
         if(killRew && killRew.kind==="specimen" && prevN===0){
           /* 1 回目: 個体 1 匹を records に追加 (ヒストグラム表示用) */
           var bsex = killRew.sex;

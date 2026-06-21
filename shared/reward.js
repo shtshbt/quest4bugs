@@ -721,35 +721,64 @@
     if(!e || !e.records || !e.records.length) return false;
     if(chosen !== "m" && chosen !== "f") return false;
     e.records[0].sex = chosen;
-    if(sp.sizeBySexMm){
-      e.records[0].s = rollSize(sp, chosen);
-      e.max = e.records[0].s;
-      e.min = e.records[0].s;
+    /* sizeBySexMm 種は、既存 size が新性別レンジ外なら再抽選。
+       範囲内ならユーザの過去記録 (max/min) を保持して書き換えない。 */
+    if(sp.sizeBySexMm && sp.sizeBySexMm[chosen]){
+      var r = sp.sizeBySexMm[chosen];
+      var cur = e.records[0].s;
+      var inRange = (typeof cur === "number") && cur >= r[0]-0.5 && cur <= r[1]+0.5;
+      if(!inRange){
+        e.records[0].s = rollSize(sp, chosen);
+        e.max = e.records[0].s;
+        e.min = e.records[0].s;
+      }
     }
     /* max/min/normal/master/n カウンタは保持 */
-    awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m");
-    return true;
+    var egg = awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m");
+    return egg || true;  /* 戻り値: 卵オブジェクト (新規授与時) or true (冪等スキップ時) */
   }
 
   /* ボス撃破時の報酬計算 (案D 段階的アンロック)。
      1回撃破 → {kind:'specimen', sex:rolled} (bossesMap[id].firstSex に保存)
      10回撃破 → {kind:'egg', sex:opposite(firstSex)}
      11回目以降 → null (生涯1卵)
-     天敵 (sp.boss.predator) は null を返す (defence-in-depth)。 */
-  function bossKillReward(spId, bossesMap){
+     天敵 (sp.boss.predator) は null を返す (defence-in-depth)。
+     coll を渡せば legacy backfill: breeding 実装前の撃破回数 (coll.catches[id].n) を
+     bossesMap.n に取り込み、過去 10 回以上の legacy boss にも卵を 1 度だけ授与する。 */
+  function bossKillReward(spId, bossesMap, coll){
     var sp = spById(spId);
     if(!sp) return null;
     if(sp.boss && sp.boss.predator) return null;
-    bossesMap[spId] = bossesMap[spId] || {n:0};
-    bossesMap[spId].n = (bossesMap[spId].n||0) + 1;
-    var n = bossesMap[spId].n;
-    if(n === 1){
+    var entry = bossesMap[spId] = bossesMap[spId] || {n:0};
+    /* eggGranted 後方互換: 既存 n>=10 はすでに卵授与済みと推定 (誤グラント防止) */
+    if(entry.eggGranted === undefined && entry.n >= 10){
+      entry.eggGranted = true;
+    }
+    /* firstSex 未設定なら coll.catches.records[0].sex を採用 */
+    if(!entry.firstSex && coll && coll.catches && coll.catches[spId]){
+      var rec0 = coll.catches[spId].records && coll.catches[spId].records[0];
+      if(rec0 && (rec0.sex === "m" || rec0.sex === "f")){
+        entry.firstSex = rec0.sex;
+      }
+    }
+    /* legacy backfill: coll.catches[spId].n を bossesMap.n に統合 (未追跡分) */
+    if(coll && coll.catches && coll.catches[spId] && typeof coll.catches[spId].n === "number"){
+      if(coll.catches[spId].n > entry.n){
+        entry.n = coll.catches[spId].n;
+      }
+    }
+    var hadSpecimen = !!(coll && coll.catches && coll.catches[spId]);
+    entry.n = (entry.n||0) + 1;
+    var n = entry.n;
+    if(n === 1 && !hadSpecimen){
       var firstSex = rollSex(sp);
-      bossesMap[spId].firstSex = firstSex;
+      entry.firstSex = firstSex;
       return {kind:"specimen", sex: firstSex};
     }
-    if(n === 10){
-      var fs = bossesMap[spId].firstSex || "m";
+    if(n >= 10 && !entry.eggGranted){
+      entry.eggGranted = true;
+      if(!entry.firstSex) entry.firstSex = rollSex(sp);
+      var fs = entry.firstSex;
       return {kind:"egg", sex: fs === "m" ? "f" : "m"};
     }
     return null;

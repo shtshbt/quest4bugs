@@ -678,9 +678,13 @@ function keisanPickMasterSex(spId){
  Q4BBreeding.openMasterSexPickerModal({
   sp: sp, isLegacy: true, allowCancel: true,
   onPick: function(sex){
-   if(Q4BReward.setMasterSex(p.coll, sp, sex)){
+   var ret=Q4BReward.setMasterSex(p.coll, sp, sex);
+   if(ret){
     save();
     if(typeof closeModal==='function') closeModal();
+    var grantedEgg=(ret!==true)?ret:null;
+    var queued=!!(grantedEgg&&grantedEgg.queuedAt);
+    if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
    }
   }
  });
@@ -804,7 +808,7 @@ function showZukan(){
     h+='<div class="zc r'+tier+(rec?"":" ")+'" style="position:relative" onclick="openBugNew(\''+sp.id+'\')">';
     if(isFav) h+='<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>';
     if(Q4BReward.hasReared&&Q4BReward.hasReared(p.coll,sp.id)) h+='<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>';
-    if(rec&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(rec,sp)) h+='<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1;z-index:2" title="♂♀ をきめてね">!</span>';
+    if(rec&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(rec,sp)) h+='<span class="q4b-legacy-badge" style="position:absolute;top:-4px;left:-4px;width:22px;height:22px;background:#A06BD8;color:#fff;font-size:15px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(160,107,216,.55),0 0 0 2px #fff;pointer-events:none;line-height:1;z-index:3" title="♂♀ をきめてね">!</span>';
     if(rec)h+='<span class="cnt">×'+(rec.n||1)+'</span>';
     if(rec){
       /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */

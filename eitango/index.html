@@ -994,9 +994,13 @@ function eitangoPickMasterSex(spId){
   Q4BBreeding.openMasterSexPickerModal({
     sp: sp, isLegacy: true, allowCancel: true,
     onPick: function(sex){
-      if(Q4BReward.setMasterSex(coll, sp, sex)){
+      const ret=Q4BReward.setMasterSex(coll, sp, sex);
+      if(ret){
         P.catches = coll.catches; touchP();
         if(typeof closeModal==='function') closeModal();
+        const grantedEgg=(ret!==true)?ret:null;
+        const queued=!!(grantedEgg&&grantedEgg.queuedAt);
+        if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
       }
     }
   });
@@ -1265,7 +1269,7 @@ function scrZukan(){
     const collE={catches:P.catches};
     const rearedBadge=(Q4BReward.hasReared&&Q4BReward.hasReared(collE,s[0]))?`<span style="position:absolute;top:2px;right:${isFav?'22px':'4px'};font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>`:'';
     const spForLegacy=Q4BReward.spById?Q4BReward.spById(s[0]):null;
-    const sexUnknownBadge=(spForLegacy&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(c,spForLegacy))?'<span style="position:absolute;top:2px;left:4px;font-size:14px;color:#A06BD8;pointer-events:none;line-height:1;z-index:2" title="♂♀ をきめてね">!</span>':'';
+    const sexUnknownBadge=(spForLegacy&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(c,spForLegacy))?'<span class="q4b-legacy-badge" style="position:absolute;top:-4px;left:-4px;width:22px;height:22px;background:#A06BD8;color:#fff;font-size:15px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(160,107,216,.55),0 0 0 2px #fff;pointer-events:none;line-height:1;z-index:3" title="♂♀ をきめてね">!</span>':'';
     return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]});position:relative" onclick="showSpec('${s[0]}')">
       ${favBadge}${rearedBadge}${sexUnknownBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>

@@ -554,11 +554,13 @@ function breedingPanelHTML(pid){
     eggs: bs.eggs||[],
     pendingCount: (bs.pendingEggs||[]).length,
     legacyMasterCount: window.__q4bLegacyMasterCount||0,
+    legacyByGame: window.__q4bLegacyByGame||{},
     onTap: "homeEggTap",
     onAdd: "homeEggAdd",
     onHatch: "homeEggHatch",
     onAdvance: "homeEggAdvance",
-    onAcceptPending: "homeEggAcceptPending"
+    onAcceptPending: "homeEggAcceptPending",
+    onReviewLegacy: "homeReviewLegacyMasters"
   });
 }
 function openEquipmentCard(id){
@@ -1110,11 +1112,24 @@ function renderDashboard(pid,name){
     /* 卵育成パネル: 全教科の coll を合算して legacy master sex='u' をチェック (御神木 panel 内に表示) */
     try{
       window.__q4bLegacyMasterCount=0;
-      [kp&&kp.coll,ks&&ks.coll,es].forEach(function(c){
-        if(!c||!window.Q4BReward)return;
-        if(c.catches){ window.__q4bLegacyMasterCount += (Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(c):[]).length; }
+      window.__q4bLegacyByGame={kanji:0,keisan:0,eitango:0};
+      window.__q4bLegacyEntries=[];  /* homeReviewLegacyMasters で参照 */
+      var _legacyGames=[
+        {game:'keisan', coll: kp&&kp.coll, pid:pid},
+        {game:'kanji',  coll: ks&&ks.coll, pid:pid},
+        {game:'eitango',coll: es,          pid:pid}
+      ];
+      _legacyGames.forEach(function(it){
+        var c=it.coll; if(!c||!window.Q4BReward||!c.catches) return;
+        var ids=(Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(c):[]);
+        window.__q4bLegacyMasterCount += ids.length;
+        window.__q4bLegacyByGame[it.game] = (window.__q4bLegacyByGame[it.game]||0) + ids.length;
+        ids.forEach(function(spId){
+          var sp = Q4BReward.spById?Q4BReward.spById(spId):null;
+          if(sp) window.__q4bLegacyEntries.push({game:it.game, spId:spId, sp:sp, pid:pid});
+        });
       });
-    }catch(_){ window.__q4bLegacyMasterCount=0; }
+    }catch(_){ window.__q4bLegacyMasterCount=0; window.__q4bLegacyByGame={}; window.__q4bLegacyEntries=[]; }
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
@@ -1348,6 +1363,39 @@ function homeEggAcceptPending(){
   if(accepted){
     _refreshDashIfActive();
   }
+}
+/* ホーム legacyBanner タップ: 全教科横断 legacy master 一覧モーダルを開く */
+function homeReviewLegacyMasters(){
+  if(!window.Q4BBreeding||!Q4BBreeding.openLegacyMasterListModal) return;
+  var entries=(window.__q4bLegacyEntries||[]);
+  if(!entries.length) return;
+  var pid=QuestSave.currentProfile();
+  var gameLabelMap={kanji:"漢字", keisan:"計算", eitango:"英語"};
+  /* 各エントリに sex 決定 callback を bind: game ごとに対応する coll に setMasterSex →
+     QuestSave.save → home 再描画 + toast 表示 */
+  var modalEntries = entries.map(function(en){
+    return {
+      spId: en.spId, sp: en.sp, game: en.game, gameLabel: gameLabelMap[en.game]||en.game,
+      onPickSex: function(sex){ _legacyPickAndSave(en.game, en.spId, en.sp, sex, pid); }
+    };
+  });
+  Q4BBreeding.openLegacyMasterListModal({entries: modalEntries, onClose: function(){ _refreshDashIfActive(); }});
+}
+function _legacyPickAndSave(game, spId, sp, sex, pid){
+  if(!window.Q4BReward||!window.QuestSave) return;
+  QuestSave.load(game, pid).then(function(data){
+    if(!data) return;
+    var coll = (game==='eitango') ? {catches:data.catches} : (data.coll||{});
+    var ret = Q4BReward.setMasterSex(coll, sp, sex);
+    if(!ret) return;
+    /* eitango は per-game コレクション構造が異なる: data.catches を直接書き戻し */
+    if(game==='eitango'){ data.catches = coll.catches; }
+    QuestSave.save(game, pid, data);
+    var grantedEgg = (ret !== true) ? ret : null;
+    var queued = !!(grantedEgg && grantedEgg.queuedAt);
+    Q4BBreeding.notifyMasterEggGranted(sp, {skipped: !grantedEgg, queued: queued});
+    _refreshDashIfActive();
+  });
 }
 function editProf(id){ openProfEditor(id); }
 /* タップで選べるアイコングリッド付きの プロフィール エディタ（新規・編集 共通） */
