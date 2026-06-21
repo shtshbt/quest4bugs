@@ -1,0 +1,76 @@
+{
+  "species_id": "caucasus_beetle",
+  "species_ja": "コーカサスオオカブト",
+  "scientific_name": "Chalcosoma chiron",
+  "credit_line": "National Museum of Natural History, Luxembourg",
+  "creator": "National Museum of Natural History, Luxembourg",
+  "fetched_date": "2026-06-20",
+  "specimen": {
+    "institution": "National Museum of Natural History, Luxembourg",
+    "institutionCode": "MNHNL",
+    "collectionCode": null,
+    "catalogNumber": "MNHNL89482",
+    "occurrenceId": "DSS0043900002TGP::DSS00439000020C1::",
+    "persistentId": "DSS0043900002TGP::DSS00439000020C1::",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unknown",
+    "eventDate": "1899-12-30",
+    "eventYear": 1899,
+    "country": null,
+    "localityVerbatim": "unknown",
+    "localityNormalized": "Africa",
+    "preparations": "pinned specimen"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1891612075",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1891612075",
+    "sourceMediaUrl": "https://archimg.mnhn.lu/Collections/Invertebrate-zoology/Arthropoda-specimens/MNHNL89482-2.jpg",
+    "datasetKey": "962f59bc-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/MNHNL89482_original.jpg",
+    "segmented": "processed/MNHNL89482_L1_segmented.png",
+    "display": "processed/MNHNL89482_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MNHNL89482_54.webp",
+      "108": "thumb/MNHNL89482_108.webp",
+      "216": "thumb/MNHNL89482_216.webp"
+    }
+  },
+  "original_sha256": "7fb79d336cb201f553896db14e3f307c9372054b1bf172d5cbd2072b3df4181a",
+  "processing": {
+    "cropBox": [
+      0,
+      284,
+      5184,
+      3645
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/MNHNL89482_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.33), rotate 270 CCW | manual rotate=90"
+}

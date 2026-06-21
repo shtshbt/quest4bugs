@@ -1,0 +1,41 @@
+{
+  "catalogNumber": "MCZooichimonji",
+  "speciesId": "oo_ichimonji",
+  "speciesJa": "オオイチモンジ",
+  "scientificName": "Limenitis populi",
+  "source": {
+    "institutionCode": "MCZ",
+    "url": "https://iiif.mcz.harvard.edu/iiif/3/3776760/full/max/0/default.jpg",
+    "license": "CC0_1_0",
+    "fetchedDate": "2026-06-20",
+    "originalSha256": "00db47004867a1c1c26fd7b1282371201e78928a482ee11b2891bca4460ea80e"
+  },
+  "files": {
+    "original": "original/MCZooichimonji_original.jpg",
+    "segmented": "processed/MCZooichimonji_L1_segmented.png",
+    "display": "processed/MCZooichimonji_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MCZooichimonji_54.webp",
+      "108": "thumb/MCZooichimonji_108.webp",
+      "216": "thumb/MCZooichimonji_216.webp"
+    }
+  },
+  "processing": {
+    "cropBox": [
+      571,
+      2918,
+      3124,
+      4629
+    ],
+    "rotationDegrees": 0.0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "notes": "unknown taxon — no rotation"
+}

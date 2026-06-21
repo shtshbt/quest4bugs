@@ -1,0 +1,77 @@
+{
+  "species_id": "oo_ichimonji",
+  "species_ja": "オオイチモンジ",
+  "scientific_name": "Limenitis populi",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-20",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 709169",
+    "occurrenceId": "urn:uuid:0d4650e5-689d-4a3c-9dfe-c37a3f24bd56",
+    "persistentId": "urn:uuid:0d4650e5-689d-4a3c-9dfe-c37a3f24bd56",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "Lars G. Crabo",
+    "eventDate": "1981-07-08",
+    "eventYear": 1981,
+    "country": "Sweden",
+    "localityVerbatim": null,
+    "localityNormalized": "Vstm, Urberget, Sweden",
+    "preparations": null,
+    "decimalLatitude": 60.423826,
+    "decimalLongitude": 15.710333
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039034583",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-709169",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:d8556e49-9bbb-43c0-bd75-a9117f80d664/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT709169_original.jpg",
+    "segmented": "processed/YPMENT709169_L1_segmented.png",
+    "display": "processed/YPMENT709169_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT709169_54.webp",
+      "108": "thumb/YPMENT709169_108.webp",
+      "216": "thumb/YPMENT709169_216.webp"
+    }
+  },
+  "original_sha256": "264ff273d79d10e4c96e52eba5d461782c6eb91d13dbba11e8c948bbd48fdb04",
+  "processing": {
+    "cropBox": [
+      148,
+      0,
+      1086,
+      1569
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT709169_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

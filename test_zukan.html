@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>zukan render test (Phase A + B pilot)</title>
+<style>
+  body { font-family: system-ui, sans-serif; padding: 16px; background: #f6f0e3; color: #333; }
+  h1 { font-size: 16px; margin: 0 0 6px; }
+  h2 { font-size: 14px; margin: 18px 0 6px; color: #56714e; border-bottom: 1px solid #c8b884; padding-bottom: 4px; }
+  h3 { font-size: 12px; margin: 10px 0 4px; color: #56714e; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .cell { width: 220px; padding: 8px; background: #fff; border: 1px solid #c8b884; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .cell .svg-wrap { width: 200px; height: 200px; background: #efe8d3; border-radius: 6px; padding: 4px; }
+  .cell .svg-wrap svg { width: 100%; height: 100%; display: block; }
+  .label { font-size: 11px; color: #555; margin-top: 4px; text-align: center; }
+  .info-zone { background: #fff; border-radius: 8px; padding: 12px; margin-top: 8px; border: 1px solid #c8b884; max-width: 540px; }
+  pre { font-size: 11px; background: #f0eada; padding: 6px 8px; border-radius: 4px; overflow-x: auto; max-width: 620px; }
+  #mode-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; padding: 8px 12px; background: #fff; border: 1px solid #c8b884; border-radius: 8px; max-width: 540px; }
+  #mode-bar button { background: rgba(255,253,244,.94); border: 1.5px solid #c8b884; border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer; color: #56714e; font-family: inherit; font-weight: 600; }
+  .species-section { margin: 20px 0 24px; padding: 12px; background: rgba(255,255,255,.5); border-radius: 10px; }
+  .species-title { font-size: 15px; font-weight: 700; color: #2a3d2c; margin: 0 0 6px; }
+  .meta-line { font-size: 11px; color: #777; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>quest4bugs zukan render debug (Phase A + Phase B pilot)</h1>
+
+<div id="mode-bar">
+  <span>現在モード: <b id="mode-cur">…</b></span>
+  <button id="mode-toggle">切替 → reload</button>
+  <span style="color:#aaa">(localStorage <code>q4b_zukan_mode</code>)</span>
+</div>
+
+<div id="species-stack"></div>
+
+<script src="./shared/storage.js?v=0.4.18"></script>
+<script src="./shared/equipment_data.js?v=0.3.1"></script>
+<script src="./shared/bugs.js?v=0.4.9"></script>
+<script src="./shared/render.js?v=0.5.0"></script>
+<script src="./zukan_config/zukan_catalog.js?v=0.1.0"></script>
+<script src="./shared/zukan_render.js?v=0.1.0"></script>
+<script src="./shared/bespoke.js?v=0.3.0"></script>
+<script src="./shared/reward.js?v=0.4.8"></script>
+<script src="./shared/zukan_detail.js?v=0.1.0"></script>
+<script src="./shared/battle.js?v=0.5.1"></script>
+<script>
+(function(){
+  document.getElementById('mode-cur').textContent = Q4BRender.zukanGetMode();
+  document.getElementById('mode-toggle').addEventListener('click', function(){
+    Q4BRender.zukanToggleMode();
+    location.reload();
+  });
+
+  function cell(parent, label, svg){
+    var c = document.createElement('div'); c.className='cell';
+    var w = document.createElement('div'); w.className='svg-wrap';
+    w.innerHTML = svg;
+    var l = document.createElement('div'); l.className='label'; l.textContent = label;
+    c.appendChild(w); c.appendChild(l);
+    parent.appendChild(c);
+  }
+
+  /* sp は bugs.js の本物オブジェクトを使う (sexDimorphism や rarity を正確に拾うため) */
+  function findSp(id){
+    if(window.Q4B_BUGS){
+      for(var i=0;i<Q4B_BUGS.length;i++){ if(Q4B_BUGS[i].id===id) return Q4B_BUGS[i]; }
+    }
+    if(window.BUGS){
+      for(var j=0;j<BUGS.length;j++){ if(BUGS[j].id===id) return BUGS[j]; }
+    }
+    return null;
+  }
+
+  var section = function(sp, note){
+    var d = document.createElement('div');
+    d.className = 'species-section';
+    var title = document.createElement('div'); title.className = 'species-title';
+    title.textContent = sp.jaName + '  (' + sp.scientificName + ')  rarity=' + sp.rarity;
+    var meta = document.createElement('div'); meta.className = 'meta-line';
+    var entry = Q4B_ZUKAN_INDEX[sp.id];
+    meta.textContent = note + '   |   sexCovered=' + (entry ? entry.sexCovered : 'n/a') + '   |   bossRoster=' + !!(window.Q4B_BOSS_IDS && Q4B_BOSS_IDS[sp.id]);
+    d.appendChild(title); d.appendChild(meta);
+
+    var spLine = document.createElement('h3'); spLine.textContent = 'species (枠なし)';
+    var spRow = document.createElement('div'); spRow.className = 'row';
+    cell(spRow, 'species ♂', Q4BRender.species(sp, false, 'm'));
+    cell(spRow, 'species ♀', Q4BRender.species(sp, false, 'f'));
+    cell(spRow, 'species shiny ♂ (= SVG fallback)', Q4BRender.species(sp, true, 'm'));
+    d.appendChild(spLine); d.appendChild(spRow);
+
+    var decoLine = document.createElement('h3'); decoLine.textContent = 'deco (枠付き)';
+    var decoRow = document.createElement('div'); decoRow.className = 'row';
+    cell(decoRow, 'deco ♂', Q4BRender.deco(sp, false, 'm'));
+    cell(decoRow, 'deco ♀', Q4BRender.deco(sp, false, 'f'));
+    cell(decoRow, 'deco shiny ♂', Q4BRender.deco(sp, true, 'm'));
+    d.appendChild(decoLine); d.appendChild(decoRow);
+
+    var infoLine = document.createElement('h3'); infoLine.textContent = '📋 ひょうほんの情報';
+    var infoBox = document.createElement('div'); infoBox.className = 'info-zone';
+    infoBox.innerHTML = Q4BZukan.specimenInfoHTML(sp);
+    d.appendChild(infoLine); d.appendChild(infoBox);
+
+    return d;
+  };
+
+  var stack = document.getElementById('species-stack');
+  var sps = ['hercules_beetle', 'queen_alexandras_birdwing', 'bhutan_glory', 'rainbow_stag_beetle', 'goliath_beetle', 'morpho_butterfly', 'apollo', 'emperor_cicada', 'kumoma_benihikage', 'caucasus_beetle', 'oo_ruri_osamushi', 'chousen_akashijimi'];
+  var notes = {
+    hercules_beetle: 'NHMUK BMNH(E)668002 / CC-BY 4.0 (skeletal record)',
+    queen_alexandras_birdwing: 'NHMUK BMNH(E)102811 ♂ + BMNH(E)102817 ♀ / 1907 A.S. Meek / Papua New Guinea Kumusi R. / CC-BY 4.0',
+    bhutan_glory: 'RMNH.INS.986686 / 1979-09-03 Naturalis / Chiang Dao Thailand ♀ / CC0 (lateral→upright)',
+    rainbow_stag_beetle: 'AM K.556427 / 2019 D.C.F. Rentz / Kuranda QLD Australia / CC-BY 4.0 (Joycelyn Goh)',
+    goliath_beetle: 'MNHNL89483 / 1899 Africa / Luxembourg national museum / CC0',
+    morpho_butterfly: 'NHMUK 808215 / Paratype M. menelaus laurellae / Venezuela / CC-BY 4.0',
+    apollo: 'NHMUK 014168924 / Syntype Parnassius apollo / CC-BY 4.0 (skeletal record)',
+    emperor_cicada: 'NHMUK013385300 / Male / Malaysia / CC-BY 4.0 (zukan-fetch skill SSR batch 初成功例)',
+    kumoma_benihikage: 'NHMUK BMNH(E)501693 / Galashiels UK 座標(55.6N -2.8W) / CC-BY 4.0'
+  };
+  sps.forEach(function(id){
+    var sp = findSp(id);
+    if(!sp){
+      var w = document.createElement('div'); w.style.color='red'; w.textContent='species not found: '+id;
+      stack.appendChild(w);
+      return;
+    }
+    stack.appendChild(section(sp, notes[id] || ''));
+  });
+})();
+</script>
+</body>
+</html>

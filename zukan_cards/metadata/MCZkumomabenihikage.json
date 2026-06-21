@@ -1,0 +1,41 @@
+{
+  "catalogNumber": "MCZkumomabenihikage",
+  "speciesId": "kumoma_benihikage",
+  "speciesJa": "クモマベニヒカゲ",
+  "scientificName": "Erebia ligea",
+  "source": {
+    "institutionCode": "MCZ",
+    "url": "https://iiif.mcz.harvard.edu/iiif/3/1431442/full/max/0/default.jpg",
+    "license": "CC0_1_0",
+    "fetchedDate": "2026-06-20",
+    "originalSha256": "5e4287ea33659e37418024e29a12c7919b0cbc588be12257ee82c90672007d5d"
+  },
+  "files": {
+    "original": "original/MCZkumomabenihikage_original.jpg",
+    "segmented": "processed/MCZkumomabenihikage_L1_segmented.png",
+    "display": "processed/MCZkumomabenihikage_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MCZkumomabenihikage_54.webp",
+      "108": "thumb/MCZkumomabenihikage_108.webp",
+      "216": "thumb/MCZkumomabenihikage_216.webp"
+    }
+  },
+  "processing": {
+    "cropBox": [
+      912,
+      2682,
+      2014,
+      3455
+    ],
+    "rotationDegrees": 0.0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "notes": "unknown taxon — no rotation"
+}
