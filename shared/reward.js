@@ -316,9 +316,9 @@
   function onCorrect(coll, game, need, boost, itemId, value){
     if(!coll.catches) coll.catches = {};
     earnAmber(coll, AMBER_PER_CORRECT);   // 🔶救済通路は満額のまま温存（共有ウォレット対応）
-    /* 卵育成: 該当教科の卵に +1 (eggStore が設定されていれば)。
-       同教科の卵が複数並ぶ場合は全て +1 (3倍効率は子供の戦略性として許容)。 */
-    feedEgg(game);
+    /* 卵育成: feedEgg は各教科の「正解判定箇所」(QuestSave.recordCorrect の隣) で
+       直接呼ぶ設計に変更 (旧: onCorrect から自動呼出。kanji test/eitango 通常モード
+       など onCorrect 非経由のパスで卵が進まない不具合があった)。 */
     var v = (value==null) ? 1 : Math.max(0, Math.min(1, value));
     coll.acc = (coll.acc||0) + freshnessOf(coll, itemId) * v;
     if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持

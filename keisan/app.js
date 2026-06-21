@@ -5822,6 +5822,7 @@ function afterJudge(ok,q,o){
   if(ok)Q.ok++;
   recordStat(q.cat,ok,ms);
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(pidNow(),"keisan",1);
+  if(ok&&window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg("keisan");
   handleMissed(q,ok,o);
   /* 適応レベル: 10問ごとに直近10問で判定（8↑でLv+1 / 6↓でLv-1、最大10/最小1）。特殊進行カテゴリは下で個別処理。 */
   if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && !(Q&&Q.lv)){
