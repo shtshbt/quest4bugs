@@ -1223,7 +1223,7 @@ function _autoHatchReadyEggs(pid){
 /* ===== 卵育成: ホーム画面ハンドラ ===== */
 function _hPid(){ return window.QuestSave&&QuestSave.currentProfile(); }
 function _refreshDashIfActive(){
-  if(window.__q4bDashCtx) renderDash(window.__q4bDashCtx.pid, window.__q4bDashCtx.name);
+  if(window.__q4bDashCtx) renderDashboard(window.__q4bDashCtx.pid, window.__q4bDashCtx.name);
 }
 /* 卵カードタップ: 該当種の図鑑詳細をモーダル表示 (3教科のどれかから coll を取得) */
 function homeEggTap(id){
