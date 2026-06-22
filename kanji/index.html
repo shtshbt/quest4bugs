@@ -220,6 +220,16 @@ var KANJI=(window.Q4B_KANJI||[]).slice();  /* データは ../shared/kanji_data.
 KANJI=KANJI.filter(function(x){return x.u>0});
 var UNITS={}; var KMAP={};
 KANJI.forEach(function(x){(UNITS[x.u]=UNITS[x.u]||[]).push(x.k);KMAP[x.k]=x});
+/* 送り仮名データ正規化 (#3): 3年生の一部に「送り仮名サフィックスだけ」を ok/ng
+   に持ち、 r が漢字読みの本体のみという旧形式が混在する。 新形式 (例: 悪い/悪るい,
+   r:わるい) に揃える。 ok 内に対象漢字が含まれていれば既に新形式なのでスキップ。 */
+KANJI.forEach(function(x){
+ if(!x.oku) return;
+ var k=x.k, ok=x.oku.ok||'', ng=x.oku.ng||'', r=x.oku.r||'';
+ if(ok.indexOf(k)>=0) return;          /* already normalized */
+ var rFull = (r.length>=ok.length && r.slice(-ok.length)===ok) ? r : (r+ok);
+ x.oku = { r: rFull, ok: k+ok, ng: k+ng };
+});
 
 var BUGS=[
 {id:'mitsubachi',n:'ミツバチ',hn:'みつばち',r:1},
@@ -326,7 +336,7 @@ function setBugC(v){BUG_C=v||'';renderBugs()}
 
 /* ================= SRS ================= */
 var INT=[0,1,3,7,21,60];
-function rec(key,sk){ var a=ST.srs[key]||(ST.srs[key]={}); return a[sk]||(a[sk]={s:0,due:todayStr(),la:''}) }
+function rec(key,sk){ var a=ST.srs[key]||(ST.srs[key]={}); return a[sk]||(a[sk]={s:0,due:todayStr(),la:'',seen:0}) }
 function stageVal(key,sk){ var a=ST.srs&&ST.srs[key], r=a&&a[sk]; return (r&&typeof r.s==='number')?r.s:0 }
 function skillsOf(key){ if(key[0]==='h') return ['y','w']; var x=KMAP[key.slice(2)]; var a=['y','r','w','j']; if(x.oku)a.push('o'); return a }
 function stageOfItem(key){ var m=99; skillsOf(key).forEach(function(s){ m=Math.min(m,stageVal(key,s)) }); return m===99?0:m }
@@ -337,7 +347,14 @@ function gatedSkills(key){ var ry=rec(key,'y'); var out=['y'];
     おまかせが よみ偏重にならず バランス良く混ざるようにする */
  if(ry.s>=1){ sks.forEach(function(s){ if(s!=='y') out.push(s) }) }
  return out }
-function introduced(key){ return skillsOf(key).some(function(s){ return stageVal(key,s)>0 }) }
+function introduced(key){
+ /* 一度でも出題・回答した字は導入済み (stage 0 のままでも seen が立つ) →
+    初回誤答で何度も「新規導入数」を消費しないように。 */
+ return skillsOf(key).some(function(s){
+  var r = ST.srs && ST.srs[key] && ST.srs[key][s];
+  return r && ((r.s||0) > 0 || r.seen);
+ });
+}
 /* 範囲の既習度。80%+ なら BOOST_LOW (レア度ひかえめ) */
 function kanjiRangeKey(key){
  if(!key) return null;
@@ -360,12 +377,23 @@ function kanjiRangeBoost(key){
  var rk=kanjiRangeKey(key); if(!rk) return 1;
  return kanjiRangeMasteryRate(rk)>=0.8 ? Q4BReward.BOOST_LOW : 1;
 }
-function applyAnswer(key,sk,ok,mode){
+function applyAnswer(key,sk,ok,mode,rq){
  var r=rec(key,sk), t=todayStr();
+ /* seen フラグ: 一度でも出題された印 (正誤問わず立てる)。 introduced() で参照。
+    rq:true (誤答後の再出題) でも見たことは見たので seen は立てる。 */
+ if(!r.seen) r.seen = 1;
+ /* rq:true (誤答→再出題) は SRS を変更しない統計扱い。 これで 「誤答で box-1
+    → 即座に再出題で box+1」 の相殺を防ぐ。 */
+ if(rq){
+   var lgRq=ST.log[t]||(ST.log[t]={a:0,n:0}); lgRq.a++;
+   if(!ok){
+     ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
+   }
+   return;
+ }
  /* れんしゅう/ふくしゅうでは 正解で box+1、 ただし 「初回 (s===0) または due 到来後」
     のみ昇格する due gate を適用。 期限前正解は 練習・復習統計だけ反映し、 box/due
-    は据置 → 復習チャレンジ等で 偶然 due 前に出題されても 4日 → 3日 のような
-    迂回 promotion が起きない (英語 SRS と同じ原則)。
+    は据置 → 復習チャレンジ等で 偶然 due 前に出題されても 迂回 promotion 不可。
     テストは進級判定だけの「関門」なので、 正誤どちらでも SRS は変更しない。
     まちがいは従来通り 1 段階もどす + 誤答一覧に記録。 */
  if(mode === 'test'){
@@ -373,12 +401,9 @@ function applyAnswer(key,sk,ok,mode){
      ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
    }
  } else if(ok){
-   /* due gate: 初回 (s===0) または 期限到来 (r.due <= t) のみ昇格。
-      la 同日制限も併用 (短期間連打で 0→1→2 を防止)。 */
    if(r.la !== t && (r.s === 0 || !r.due || r.due <= t)){
      r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]);
    }
-   /* 期限前正解: box/due は据置、 ST.log だけ加算 */
  } else {
    if(r.s>0){ r.s=Math.max(1,r.s-1); }
    r.due=t; r.la='';
@@ -386,11 +411,16 @@ function applyAnswer(key,sk,ok,mode){
  }
  var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.a++;
 }
+/* コース別の出題プール。 一度両コースを解放しても、 現在のコース外の文字は
+   「今日の学習」「ふくしゅう」「dueCounts」に混ぜない (#1)。 */
 function itemPool(){ var out=[];
- if(unOK('hira')) HIRA.forEach(function(c){out.push('h:'+c)});
- Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
-  if(unOK('u'+g)) UNITS[g].forEach(function(c){out.push('k:'+c)});
- });
+ if(CUR.mode==='small'){
+  if(unOK('hira')) HIRA.forEach(function(c){out.push('h:'+c)});
+ } else {
+  Object.keys(UNITS).map(Number).sort(function(a,b){return a-b}).forEach(function(g){
+   if(unOK('u'+g)) UNITS[g].forEach(function(c){out.push('k:'+c)});
+  });
+ }
  return out }
 function buildDaily(){
  var t=todayStr(), dues=[], news2=[], newsChar=[];
@@ -404,16 +434,36 @@ function buildDaily(){
  dues.sort(function(a,b){return a.due<b.due?-1:1});
  var lg=ST.log[t]||{a:0,n:0};
  var cap=(CUR.mode==='small'?CFG.newS:CFG.newB);
- var allow=Math.max(0,cap-(lg.n||0));
+ /* コース別新規カウンタ。 旧 lg.n は片方の互換用に残す (#2) */
+ var nKey=(CUR.mode==='small'?'nS':'nB');
+ var used=(lg[nKey]||0);
+ var allow=Math.max(0,cap-used);
  var q=dues.slice(0,10), i;
  for(i=0;i<news2.length&&q.length<10;i++) q.push(news2[i]);
  for(i=0;i<newsChar.length&&q.length<10&&allow>0;i++){ q.push(newsChar[i]); allow--; }
  return shuffle(q);
 }
-function dueCounts(){ var t=todayStr(), due=0, hun=0;
- itemPool().forEach(function(key){ gatedSkills(key).forEach(function(sk){
-  var r=rec(key,sk); if(r.s>0&&r.due<=t){ due++; if(r.due<t)hun++ } }) });
- return {due:due,hun:hun} }
+/* due / 新規の内訳を返す。 ホーム表示の「ふくしゅう N + あたらしい M」分割用 (#10)。
+   newCap は当日の残り新規枠で、 「あと何問あたらしいのを出せるか」を示す。 */
+function dueCounts(){ var t=todayStr(), due=0, hun=0, freshIntroducedSkills=0, freshChars=0;
+ itemPool().forEach(function(key){
+  var intro=introduced(key);
+  gatedSkills(key).forEach(function(sk){
+   var r=rec(key,sk);
+   if(r.s>0){
+    if(r.due<=t){ due++; if(r.due<t)hun++ }
+   } else if(intro){
+    freshIntroducedSkills++;
+   }
+  });
+  if(!intro) freshChars++;
+ });
+ var lg=ST.log[t]||{a:0,n:0};
+ var cap=(CUR.mode==='small'?CFG.newS:CFG.newB);
+ var nKey=(CUR.mode==='small'?'nS':'nB');
+ var newCap=Math.max(0,cap-(lg[nKey]||0));
+ var freshTotal=freshIntroducedSkills + Math.min(freshChars,newCap);
+ return {due:due,hun:hun,fresh:freshTotal,newCap:newCap} }
 function streak(){ var n=0,d=todayStr(); if(!(ST.log[d]&&ST.log[d].a))d=addDays(d,-1);
  while(ST.log[d]&&ST.log[d].a>0){n++;d=addDays(d,-1)} return n }
 
@@ -616,7 +666,9 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  var night=!!(window.Q4BReward&&Q4BReward.isNightNow&&Q4BReward.isNightNow());
  if(window.Q4BReward&&Q4BReward.setNight)Q4BReward.setNight(night);
  document.body.classList.toggle('night',night);
- var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+dc.due+'<span style="font-size:16px"> もん</span></div>'+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ /* ミッション表示: ふくしゅう (due) と あたらしい (fresh) を分けて見せる (#10) */
+ var missionBreak='<div class="small" style="margin-top:2px">🔁 ふくしゅう <b>'+dc.due+'</b>　＋　🌱 あたらしい <b>'+dc.fresh+'</b></div>';
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+(dc.due+dc.fresh)+'<span style="font-size:16px"> もん</span></div>'+missionBreak+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  if(ST.re&&ST.re.d<=t&&TESTS[ST.re.t])h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[ST.re.t].label+'」に もういちど ちょうせんしよう</div>';
  // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
  var introCount=countIntroduced();
@@ -677,8 +729,14 @@ function startTest(id){ var tdef=TESTS[id]; var items=tdef.items(); var pairs=[]
  closeModal(); SES={mode:'test',q:q,i:0,ok:0,res:[],wrongs:[],test:id}; nextQ() }
 function nextQ(){ if(!SES)return; if(SES.i>=SES.q.length){ endSession(); return } renderQ(SES.q[SES.i]) }
 function answered(ok){ var p=SES.q[SES.i];
- if(p.nw&&!p.cnt){ p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.n=(lg.n||0)+1 }
- applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'));
+ if(p.nw&&!p.cnt){
+  p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0});
+  /* コース別新規枠カウンタ (#2)。 旧 lg.n も互換のため累積。 */
+  var nKey=(CUR.mode==='small'?'nS':'nB');
+  lg[nKey]=(lg[nKey]||0)+1;
+  lg.n=(lg.n||0)+1;
+ }
+ applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'), !!p.rq);
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  if(ok){ SES.ok++;
@@ -715,10 +773,17 @@ function showCatchModal(got){
   +'</div>';
  modal(h);
 }
-function answerInfo(p){ if(p.key[0]==='h'){ var c=p.key.slice(2); return {disp:c,say:c} }
+function answerInfo(p){
+ if(p.key[0]==='h'){ var c=p.key.slice(2); return {disp:c,say:c} }
  var x=KMAP[p.key.slice(2)];
+ /* よみ: 出題で熟語 jk を使った場合は語全体を表示 (誤答時に「学校 がっこう」と
+    正解表示するための整合性)。 */
+ if(p.sk==='y' && p.jk) return {disp: p.jk.w, say: p.jk.r};
  if(p.sk==='y')return {disp:x.main,say:x.main};
  if(p.sk==='o')return {disp:x.oku.ok,say:x.oku.r};
+ /* じゅくご (skill 'j') も jk があれば語全体 */
+ if(p.sk==='j' && p.jk) return {disp: p.jk.w, say: p.jk.r};
+ if(p.sk==='w' && p.jk) return {disp: p.jk.w, say: p.jk.r};
  return {disp:x.k,say:x.main} }
 function showCorrect(p){ var a=answerInfo(p); var s=$('scr-quiz');
  var d=document.createElement('div'); d.className='card center';
@@ -740,7 +805,29 @@ function bindChoices(cont,correct){ var bs=cont.querySelectorAll('.choices butto
  for(var i=0;i<bs.length;i++){ (function(b){ b.addEventListener('click',function(){
   var bs2=cont.querySelectorAll('.choices button'); for(var j=0;j<bs2.length;j++)bs2[j].disabled=true;
   answered(b.getAttribute('data-v')===correct) }) })(bs[i]) } }
-function distinct3(correct,pool){ var d=shuffle(pool.filter(function(x){return x!==correct})).slice(0,2);
+function distinct3(correct,pool,gradeKey){
+ /* 表示文字列で 完全 dedup + 学年絞り (gradeKey='hira'|'u1'..'u6')。
+    候補不足時は学年制限を外す (最低限 3 択を保つ)。 */
+ var seen={}; seen[correct]=1;
+ var filtered=[];
+ var gradeFilter = (gradeKey && gradeKey[0]==='u')
+   ? (function(c){ var k=KMAP[c]; return k && ('u'+k.u) === gradeKey; })
+   : null;
+ pool.forEach(function(x){
+  if(seen[x]) return;
+  if(gradeFilter && !gradeFilter(x)) return;
+  seen[x]=1; filtered.push(x);
+ });
+ /* 不足時は学年制限なしで補充 */
+ if(filtered.length < 2){
+  var seen2 = {}; Object.keys(seen).forEach(function(k){seen2[k]=1;});
+  filtered = [];
+  pool.forEach(function(x){
+   if(seen2[x]) return;
+   seen2[x]=1; filtered.push(x);
+  });
+ }
+ var d=shuffle(filtered).slice(0,2);
  return shuffle([correct].concat(d)) }
 function kanaOptions(ch){ var dis=(SIM[ch]||'').split('').filter(function(c){return HIRA.indexOf(c)>=0});
  if(dis.length<2)dis=dis.concat(shuffle(HIRA.filter(function(c){return c!==ch&&dis.indexOf(c)<0})).slice(0,2-dis.length));
@@ -751,11 +838,14 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
  var h=dotsHtml(); var ch,x;
  if(p.key[0]==='h'){ ch=p.key.slice(2);
   if(p.sk==='y'){
-   if(CFG.tts){
+   /* テスト中は CFG.tts に関係なく音声経路を強制。 音声OFF + 同じ字探しは
+      「読みを理解していなくても正解できる」 状態で関門として無効化される。 */
+   if(CFG.tts || test){
     h+='<div class="card center"><div class="small">きこえた じは どれ？</div><div class="speak" id="bSay">🔊</div>'+choiceHtml(kanaOptions(ch),true)+'</div>';
     s.innerHTML=h; $('bSay').addEventListener('click',function(){ T.say(ch,true) });
     bindChoices(s,ch); showScr('quiz'); setTimeout(function(){ T.say(ch,true) },300); return;
    } else {
+    /* 通常練習で 音声OFF: 「同じ字探し」 (易しい入門モード)。テスト時には来ない。 */
     h+='<div class="card center"><div class="qbig glyph">'+ch+'</div><div class="small" style="margin-bottom:10px">おなじ じを えらぼう</div>'+choiceHtml(kanaOptions(ch),true)+'</div>';
     s.innerHTML=h; bindChoices(s,ch); showScr('quiz'); return;
    }
@@ -763,17 +853,25 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
   renderWrite(s,h,ch,test,true); return;
  }
  x=KMAP[p.key.slice(2)]; ch=x.k;
+ var _gradeKey = 'u' + x.u;  /* この字の学年で選択肢を絞る (#7) */
  if(p.sk==='y'){
-  h+='<div class="card center"><div class="qbig glyph">'+ch+'</div><div class="small" style="margin-bottom:10px">なんと よむ？</div>'+choiceHtml(distinct3(x.main,KANJI.map(function(z){return z.main})),false)+'</div>';
-  s.innerHTML=h; bindChoices(s,x.main);
+  /* よみ: 単独漢字を出すと「し / こう / か」 など複数正解が成立する。 熟語 jk.w を
+     表示して語全体の読みを選ばせる方が問題として妥当 (#3)。 jk を p に保持して
+     answerInfo / 誤答表示で語全体を使えるようにする (#11)。 */
+  var jkY = pickOne(x.jk); p.jk = jkY;
+  h+='<div class="card center"><div class="qmid">「<b>'+esc(jkY.w)+'</b>」の よみは？</div>'+choiceHtml(distinct3(jkY.r, KANJI.flatMap(function(z){return (z.jk||[]).map(function(j){return j.r;});}), null),false)+'</div>';
+  s.innerHTML=h; bindChoices(s,jkY.r);
   if(!test&&CUR.mode==='small')T.say('なんと よむ？');
   showScr('quiz'); return }
  if(p.sk==='r'){
-  h+='<div class="card center"><div class="qmid">「<b>'+x.main+'</b>」は どれ？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k})),true)+'</div>';
-  s.innerHTML=h; bindChoices(s,ch); if(!test)T.say(x.main); showScr('quiz'); return }
- if(p.sk==='j'){ var jk=pickOne(x.jk);
-  var sent=esc(jk.s).split(ch).join('<span class="blank">◻</span>');
-  h+='<div class="card center"><div class="qword">'+sent+'</div><div class="small" style="margin-bottom:10px">◻に はいる かんじは？（よみ：<b>'+jk.r+'</b>）</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k})),true)+'</div>';
+  /* えらぶ: 同じ読みの漢字が複数ある可能性に備え、 jk.w を文脈として併記。 */
+  var jkR = pickOne(x.jk); p.jk = jkR;
+  h+='<div class="card center"><div class="qmid">「<b>'+esc(jkR.w)+'</b>」(<b>'+esc(jkR.r)+'</b>) に はいる かんじは？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
+  s.innerHTML=h; bindChoices(s,ch); if(!test)T.say(jkR.r); showScr('quiz'); return }
+ if(p.sk==='j'){ var jk=pickOne(x.jk); p.jk = jk;
+  /* 熟語問題で対象漢字が複数回ある場合の空欄重複を防ぐため replace で 1 個だけ (#13) */
+  var sent=esc(jk.s).replace(ch,'<span class="blank">◻</span>');
+  h+='<div class="card center"><div class="qword">'+sent+'</div><div class="small" style="margin-bottom:10px">◻に はいる かんじは？（よみ：<b>'+jk.r+'</b>）</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test&&CUR.mode==='small')T.say(jk.r); showScr('quiz'); return }
  if(p.sk==='o'){
   h+='<div class="card center"><div class="qmid">「<b>'+x.oku.r+'</b>」を かんじで かくと？</div>'+choiceHtml(shuffle([x.oku.ok,x.oku.ng]),true)+'</div>';
@@ -785,7 +883,8 @@ function renderWrite(s,h,ch,test,isKana){
  var cue;
  if(isKana){ cue='<div class="qword center">「<b>'+ch+'</b>」を かこう</div>' }
  else { var jk=KMAP[ch].jk[0];
-  cue='<div class="qword center">「<b>'+jk.r+'</b>」と かこう<br><span class="small">'+esc(jk.s).split(ch).join('◻')+'</span></div>' }
+  /* 例文中に対象漢字が複数回あっても 1 個だけ空欄に (#13) */
+  cue='<div class="qword center">「<b>'+jk.r+'</b>」と かこう<br><span class="small">'+esc(jk.s).replace(ch,'◻')+'</span></div>' }
  h+='<div class="card center">'+cue+'<div id="hwbox"></div><div id="wBtns" style="margin-top:10px"></div></div>';
  s.innerHTML=h; showScr('quiz');
  if(!test){ if(isKana)T.say(ch); else T.say(KMAP[ch].jk[0].r) }
@@ -856,7 +955,13 @@ function traceUI(box,ch,test){
  var wb=$('wBtns');
  wb.innerHTML='<div class="row" style="margin-bottom:8px"><button class="btn sub" id="bClr">けす</button>'+(test?'<button class="btn sub" id="bAns">こたえを みる</button>':'')+'</div><div class="row"><button class="btn" id="bGood">かけた ⭕</button><button class="btn soil" id="bBad">まちがえた</button></div><div id="wNote" class="small" style="margin-top:6px;min-height:18px;color:var(--soil)"></div>';
  $('bClr').addEventListener('click',function(){ bg(test?0:0.16); strokes=0; var nt=$('wNote'); if(nt)nt.textContent=''; });
- if(test)$('bAns').addEventListener('click',function(){ bg(0.3) });
+ if(test){
+  var _aBtn=$('bAns'); _aBtn.addEventListener('click',function(){
+   bg(0.3);
+   /* テスト中の答え覗き見を抑制: 1回押したら disabled (#6) */
+   _aBtn.disabled=true; _aBtn.style.opacity='0.4'; _aBtn.style.pointerEvents='none';
+  });
+ }
  $('bGood').addEventListener('click',function(){
   var nt=$('wNote');
   var kaku=HIRA_KAKU[ch];           // ひらがなのみ画数チェック(漢字フォールバックは対象外)
@@ -995,14 +1100,29 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
  head(); showScr('result') }
 /* ================= ふくしゅうチャレンジ ================= */
 function startReview(){
- // 既習（introduced済み）の項目から復習問題を最大5問組む
- var pool=itemPool().filter(function(key){ return introduced(key) });
- if(!pool.length){ modal('<div class="center">まだ ふくしゅうできる もじが ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
- var pairs=[];
- shuffle(pool).forEach(function(key){
-  var sks=shuffle(gatedSkills(key));
-  if(sks.length){ pairs.push({key:key,sk:sks[0]}) }
+ /* ふくしゅう: 既習スキル (stage > 0) のみを対象に、 due 到来分を優先して 5 問組む。
+    未経験スキルを初出で混ぜると新規導入扱いになりリズムを乱すため除外 (新規#4)。
+    同字内でも due 済みスキルがあればそれを優先採用 (#9)。 */
+ var t=todayStr();
+ var dueList=[], otherList=[];
+ itemPool().forEach(function(key){
+  if(!introduced(key)) return;
+  gatedSkills(key).forEach(function(sk){
+   var st=stageVal(key,sk); if(st<=0) return;
+   var r=rec(key,sk);
+   if(r.due && r.due<=t) dueList.push({key:key,sk:sk,due:r.due});
+   else otherList.push({key:key,sk:sk});
+  });
  });
+ if(!dueList.length && !otherList.length){
+  modal('<div class="center">まだ ふくしゅうできる もじが ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return;
+ }
+ dueList.sort(function(a,b){return a.due<b.due?-1:1});
+ var pairs=[]; var seenKey={};
+ /* 同じ字を重複させず 5 個取る (due → other 順) */
+ function pushUniq(p){ if(seenKey[p.key]) return; seenKey[p.key]=1; pairs.push({key:p.key,sk:p.sk}); }
+ dueList.forEach(pushUniq);
+ if(pairs.length<5) shuffle(otherList).forEach(pushUniq);
  pairs=pairs.slice(0,5);
  if(!pairs.length){ modal('<div class="center">ふくしゅうできる もじが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal();
@@ -1268,13 +1388,36 @@ function pairsFor(keys){ var out=[];
   sks.forEach(function(sk){ out.push({key:key,sk:sk}) });
  });
  return out }
-function weakPairs(){ var keys={};
- ST.wrong.forEach(function(w){ keys[w.k]=1 });
- itemPool().forEach(function(key){ if(introduced(key)&&stageOfItem(key)<=2)keys[key]=1 });
- return pairsFor(Object.keys(keys)) }
+function weakPairs(){
+ /* スキル単位で 「にがて」 を抽出: 字の全 skill 最小 (stageOfItem) を使うと、
+    読みだけ box1 で他 skill 未着手 (box 0) の字まで「にがて」 になっていた。
+    修正: 字単位ではなく {key, sk} のスキル単位で stage 1-2 を抽出。
+    現在 stage>=3 (習得済み) の skill は ST.wrong に過去誤答が残っていても除外。 */
+ var pairs = [];
+ var seen = {};
+ /* 1) 過去誤答 (ST.wrong) のうち、 現状 stage<3 のものを優先 */
+ ST.wrong.forEach(function(w){
+  if(stageVal(w.k, w.sk) < 3){
+   var key = w.k + '|' + w.sk;
+   if(!seen[key]){ pairs.push({key:w.k, sk:w.sk}); seen[key]=1; }
+  }
+ });
+ /* 2) 解放済み skill のうち stage 1-2 を追加 (未着手 stage 0 は除外) */
+ itemPool().forEach(function(key){
+  if(!introduced(key)) return;
+  gatedSkills(key).forEach(function(sk){
+   var st = stageVal(key, sk);
+   if(st >= 1 && st <= 2){
+    var k = key + '|' + sk;
+    if(!seen[k]){ pairs.push({key:key, sk:sk}); seen[k]=1; }
+   }
+  });
+ });
+ return pairs;
+}
 function renderRange(){ var s=$('scr-range');
  var h='<button class="btn sub mini" id="bBk1">← ホーム</button>'
- +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">はんいを えらんで れんしゅう</div><div class="small" style="margin-bottom:6px">せいかいで すこし すすむよ！まちがえても 1つ もどるだけ 😊</div>';
+ +'<div class="card"><div style="font-weight:bold;margin-bottom:8px">はんいを えらんで れんしゅう</div><div class="small" style="margin-bottom:6px">れんしゅうすると ことばが つよくなるよ！ふくしゅうの ひに せいかいすると せいちょう 😊</div>';
  /* 出題形式セレクタ（範囲ボタンに適用） */
  h+='<div class="small" style="margin:2px 0 4px;font-weight:700">出題の かたち（とくに ✏️かき が だいじ）</div>'
    +'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">'
