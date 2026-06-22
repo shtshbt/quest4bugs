@@ -22,24 +22,39 @@
     var st = doc.createElement("style");
     st.id = "q4b-zukan-detail-night-style";
     st.textContent =
-      /* CSS variable を body.night [data-q4b-zd] にスコープ限定 + コンテナ自体に
-         ダーク背景を強制 (modal が hardcoded 白背景でも内容が読めるように)。 */
+      /* 夜モード: ラップ全体をダーク panel + 局所背景 (egg row, master badge, chip) も
+         ダーク系に置き換え。背景色も variable 化することで、明色テキストとの
+         コントラストを必ず確保する。 */
       'body.night [data-q4b-zd]{'
       +   'background:#1a2740;'
       +   'color:#e8ecdf;'
       +   'border-radius:12px;'
       +   'padding:10px;'
-      +   '--zd-faint:#9aa68f;'
-      +   '--zd-sub:#b0c0a0;'
-      +   '--zd-strong:#e8ecdf;'
-      +   '--zd-male:#9ebef0;'
-      +   '--zd-female:#f0b5cf;'
-      +   '--zd-amber:#e0c378;'
-      +   '--zd-purple:#c79cf0;'
-      +   '--zd-chip-on:#b8d09a;'
+      +   'margin:-8px -4px;'
+      +   '--zd-faint:#b8c2a8;'
+      +   '--zd-sub:#cdd6bc;'
+      +   '--zd-strong:#f0f4e6;'
+      +   '--zd-male:#a8caf0;'
+      +   '--zd-female:#f4c2d8;'
+      +   '--zd-amber:#f0d590;'
+      +   '--zd-purple:#d4adf4;'
+      +   '--zd-chip-on:#c8dca6;'
+      +   '--zd-egg-bg:#3a2f1a;'             /* 元 #FFF6E0 の夜版 */
+      +   '--zd-egg-pending-bg:#2d1f3a;'     /* 元 #F5E8FF の夜版 */
+      +   '--zd-master-bg:#2d1f3a;'          /* 元 #F5E8FF の夜版 */
+      +   '--zd-chip-bg:rgba(70,90,110,.65);'/* 元 rgba(255,255,255,.7) */
+      +   '--zd-chip-observation-bg:rgba(60,90,55,.6);'/* 元 rgba(232,244,225,.85) */
+      +   '--zd-table-bg:rgba(255,255,255,.06);'
       + '}'
       + 'body.night [data-q4b-zd] table th{color:var(--zd-sub)!important}'
-      + 'body.night [data-q4b-zd] table td{color:var(--zd-strong)!important}';
+      + 'body.night [data-q4b-zd] table td{color:var(--zd-strong)!important}'
+      /* 局所バッジに白系背景が inline で残るのを overlay で打ち消す */
+      + 'body.night [data-q4b-zd] .zd-egg-row{background:var(--zd-egg-bg)!important;border-color:#7a5a30!important}'
+      + 'body.night [data-q4b-zd] .zd-egg-pending-row{background:var(--zd-egg-pending-bg)!important;border-color:#7050a0!important}'
+      + 'body.night [data-q4b-zd] .zd-master-badge{background:var(--zd-master-bg)!important;border-color:#a06bd8!important}'
+      + 'body.night [data-q4b-zd] .zd-spec-summary{background:var(--zd-chip-bg)!important;border-color:#7a8898!important}'
+      + 'body.night [data-q4b-zd] .zd-spec-summary-obs{background:var(--zd-chip-observation-bg)!important;border-color:#7a9070!important}'
+      + 'body.night [data-q4b-zd] .zd-spec-table{background:var(--zd-table-bg)!important}';
     doc.head.appendChild(st);
   }
   /* detailHTML / masterStubHTML が返す html を wrap して上記 scope に乗せる */
@@ -265,14 +280,15 @@
         + '</tr>';
     }).join("");
     /* observation は緑系 (野外感)、museum は茶系 (curated 感) で button 色を分ける */
+    var summaryClass = isObservation ? 'zd-spec-summary-obs' : 'zd-spec-summary';
     var summaryStyle = isObservation
       ? 'cursor:pointer;display:inline-block;background:rgba(232,244,225,.85);border:1px solid #8fb05a;border-radius:14px;padding:4px 12px;font-size:11px;color:var(--zd-chip-on,#3e6b2e);list-style:none;-webkit-user-select:none;user-select:none'
       : 'cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:var(--zd-sub,#56714e);list-style:none;-webkit-user-select:none;user-select:none';
     var summaryLabel = isObservation ? '📷 やせいのきろく' : '📋 ひょうほんの情報';
     return ''
       + '<details class="zukan-specimen-info" style="margin:10px 0 0;text-align:right">'
-      +   '<summary style="'+summaryStyle+'">'+summaryLabel+'</summary>'
-      +   '<table style="margin-top:8px;border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px;font-size:11px;text-align:left">'
+      +   '<summary class="'+summaryClass+'" style="'+summaryStyle+'">'+summaryLabel+'</summary>'
+      +   '<table class="zd-spec-table" style="margin-top:8px;border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px;font-size:11px;text-align:left">'
       +     '<tbody>'+rowsHTML+'</tbody>'
       +   '</table>'
       + '</details>';
@@ -303,7 +319,7 @@
     var rows = [];
     inc.forEach(function(e){
       var p = e.target ? Math.round(100*e.progress/e.target) : 0;
-      rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#FFF6E0;border:1px solid #E8B33C40;border-radius:8px;padding:4px 8px;margin-top:3px">'
+      rows.push('<div class="zd-egg-row" style="display:flex;align-items:center;gap:6px;font-size:11px;background:#FFF6E0;border:1px solid #E8B33C40;border-radius:8px;padding:4px 8px;margin-top:3px">'
         + '<span style="font-weight:800;color:var(--zd-amber,#8A5C2C)">🐣 そだてちゅう</span>'
         + sexMark(e.sex)
         + (e.shiny?'<span style="color:#f5b800">✨</span>':'')
@@ -313,7 +329,7 @@
     });
     pen.forEach(function(e){
       var originLabel = {master_pair:'🎓', boss_pair:'👑', lay:'🥚'}[e.origin] || '';
-      rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#F5E8FF;border:1px solid #A06BD840;border-radius:8px;padding:4px 8px;margin-top:3px">'
+      rows.push('<div class="zd-egg-pending-row" style="display:flex;align-items:center;gap:6px;font-size:11px;background:#F5E8FF;border:1px solid #A06BD840;border-radius:8px;padding:4px 8px;margin-top:3px">'
         + '<span style="font-weight:800;color:var(--zd-purple,#6B4A99)">📬 まちのたまご</span>'
         + '<span style="font-size:11px">'+originLabel+'</span>'
         + sexMark(e.sex)
@@ -378,7 +394,7 @@
     }
     /* masterOnly 種は通常 detailHTML 上部にも常時 🎓 マスター達成記念バッジを表示 */
     if(sp && sp.masterOnly){
-      html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800;color:var(--zd-purple,#6B4A99);margin:0 0 6px">🎓 マスター達成</div>';
+      html += '<div class="zd-master-badge" style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800;color:var(--zd-purple,#6B4A99);margin:0 0 6px">🎓 マスター達成</div>';
     }
     html += sexSummary(records);
     html += bestWorstHTML(records, sp);       /* SVG プレビュー + dimorphism note */
@@ -405,7 +421,7 @@
       if(fav) html += '<div style="position:absolute;top:6px;right:8px;z-index:5">'+fav+'</div>';
     }
     html += '<div style="text-align:center;padding:14px 6px">';
-    html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 14px;font-size:13px;font-weight:800;color:var(--zd-purple,#6B4A99);margin-bottom:8px">🎓 マスター達成記念</div>';
+    html += '<div class="zd-master-badge" style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 14px;font-size:13px;font-weight:800;color:var(--zd-purple,#6B4A99);margin-bottom:8px">🎓 マスター達成記念</div>';
     html += '<div style="font-size:18px;font-weight:800;color:var(--zd-strong,#2A3D2C);margin-bottom:4px">'+esc(name)+'</div>';
     if(sp && sp.rarity) html += '<div style="font-size:13px;color:var(--zd-sub,#6B7A5E);margin-bottom:4px">'+esc(sp.rarity)+'</div>';
     if(maxSize) html += '<div style="font-size:13px;color:var(--zd-sub,#6B7A5E);margin-bottom:10px">つかまえた おおきさ: '+maxSize+'mm</div>';
