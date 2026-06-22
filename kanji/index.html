@@ -1038,10 +1038,32 @@ function breakdownHTML(keys){
 }
 /* ===== マスター虫（全習得限定）===== */
 function masterMet(sp){
- var key=sp.master.key, keys;
- if(key==='hira') keys=HIRA.map(function(c){return 'h:'+c});
- else { var g=parseInt(key.slice(1),10); if(!UNITS[g]||!UNITS[g].length)return false; keys=UNITS[g].map(function(c){return 'k:'+c}); }
- var r=calcFullMastered(keys); return r.total>0 && r.mastered>=r.total;
+ var key=sp.master.key, keys, r;
+ if(key==='hira'){
+  keys=HIRA.map(function(c){return 'h:'+c});
+  r=calcFullMastered(keys);
+  if(r.total>0 && r.mastered>=r.total) return true;
+ } else {
+  var g=parseInt(key.slice(1),10);
+  if(UNITS[g] && UNITS[g].length){
+   keys=UNITS[g].map(function(c){return 'k:'+c});
+   r=calcFullMastered(keys);
+   if(r.total>0 && r.mastered>=r.total) return true;
+  }
+ }
+ /* 代替経路: altKey (テスト) 合格 + altRequire 条件。big スタートの子が
+    hira を学習しなくても master_monarch を取れる救済路 (k5key 相当)。 */
+ var alt=sp.master.altKey;
+ if(alt && passed(alt)){
+  var req=sp.master.altRequire;
+  if(req==='all_grades_unlocked'){
+   var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
+   if(grades.length && grades.every(function(g){return unOK('u'+g);})) return true;
+  } else {
+   return true;  /* require 無しなら altKey 合格のみで OK */
+  }
+ }
+ return false;
 }
 function checkMasters(){
  if(!window.Q4BReward||!ST||!ST.coll)return;

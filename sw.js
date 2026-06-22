@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v84";  /* v84: 「そだてた子」セクションを黒系テキスト固定 + 夜モード対応クラス */
+var CACHE = "q4b-cache-v85";  /* v85: master_monarch に altKey (t_exam + 全 grade unOK) 代替経路 (big スタート救済) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
