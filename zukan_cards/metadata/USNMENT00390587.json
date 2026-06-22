@@ -1,0 +1,77 @@
+{
+  "species_id": "noshime_tonbo",
+  "species_ja": "ノシメトンボ",
+  "scientific_name": "Sympetrum infuscatum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390587",
+    "occurrenceId": "http://n2t.net/ark:/65665/3be0a636e-bb6a-4a7c-bba8-cfe69fccb516",
+    "persistentId": "http://n2t.net/ark:/65665/3be0a636e-bb6a-4a7c-bba8-cfe69fccb516",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "2007-07-27",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Eniwa-shi; Izarigawa, Eniwa, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 42.8783,
+    "decimalLongitude": 141.572
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321500069",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321500069",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16318879&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00390587_original.jpg",
+    "segmented": "processed/USNMENT00390587_L1_segmented.png",
+    "display": "processed/USNMENT00390587_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390587_54.webp",
+      "108": "thumb/USNMENT00390587_108.webp",
+      "216": "thumb/USNMENT00390587_216.webp"
+    }
+  },
+  "original_sha256": "1901280b84d20b5a313bdc0afe962beb8a78440ef910c4b9881e58762db9f4e3",
+  "processing": {
+    "cropBox": [
+      905,
+      545,
+      1490,
+      1134
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390587_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileEugnathusdistinctusmatingYokohamajpg_original.jpg",
-    "segmented": "processed/WMCFileEugnathusdistinctusmatingYokohamajpg_L1_segmented.png",
     "display": "processed/WMCFileEugnathusdistinctusmatingYokohamajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_54.webp",
       "108": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_108.webp",
       "216": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEugnathusdistinctusmatingYokohamajpg_resized.jpg"
   },
   "original_sha256": "d734fe05c78d22277a3826afd8fce3ee7b30157e9aef7495c68ec5a0cc001434",
   "processing": {

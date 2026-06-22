@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileBananenfalterCaligomemnon2014jpg_original.jpg",
-    "segmented": "processed/WMCFileBananenfalterCaligomemnon2014jpg_L1_segmented.png",
     "display": "processed/WMCFileBananenfalterCaligomemnon2014jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_54.webp",
       "108": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_108.webp",
       "216": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileBananenfalterCaligomemnon2014jpg_resized.jpg"
   },
   "original_sha256": "840c432a256419b9f18a49fd2cc4a644764d28db0d6d9fcb7e9494d90e64bd8a",
   "processing": {

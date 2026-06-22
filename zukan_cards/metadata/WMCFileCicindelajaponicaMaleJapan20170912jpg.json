@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileCicindelajaponicaMaleJapan20170912jpg_original.jpg",
-    "segmented": "processed/WMCFileCicindelajaponicaMaleJapan20170912jpg_L1_segmented.png",
     "display": "processed/WMCFileCicindelajaponicaMaleJapan20170912jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_54.webp",
       "108": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_108.webp",
       "216": "thumb/WMCFileCicindelajaponicaMaleJapan20170912jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCicindelajaponicaMaleJapan20170912jpg_resized.jpg"
   },
   "original_sha256": "e7134a3b3de8d0aae9284ffd42eb46652c7454c5278b7b253a09b7ad22251874",
   "processing": {

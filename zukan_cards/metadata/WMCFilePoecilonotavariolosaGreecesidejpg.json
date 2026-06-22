@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFilePoecilonotavariolosaGreecesidejpg_original.jpg",
-    "segmented": "processed/WMCFilePoecilonotavariolosaGreecesidejpg_L1_segmented.png",
     "display": "processed/WMCFilePoecilonotavariolosaGreecesidejpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_54.webp",
       "108": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_108.webp",
       "216": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePoecilonotavariolosaGreecesidejpg_resized.jpg"
   },
   "original_sha256": "bb8a5d1fc92a04a9246e223aa74b412940d8f2b7c6590a6bddb780594de689d8",
   "processing": {

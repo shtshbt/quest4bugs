@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFile127NiphandafuscaJPG_original.jpg",
-    "segmented": "processed/WMCFile127NiphandafuscaJPG_L1_segmented.png",
     "display": "processed/WMCFile127NiphandafuscaJPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFile127NiphandafuscaJPG_54.webp",
       "108": "thumb/WMCFile127NiphandafuscaJPG_108.webp",
       "216": "thumb/WMCFile127NiphandafuscaJPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFile127NiphandafuscaJPG_resized.jpg"
   },
   "original_sha256": "28cd8c8784a774b42e200f4cd3c3fb5b5a8752f6ac1e7d3c038ae9c4142cd617",
   "processing": {

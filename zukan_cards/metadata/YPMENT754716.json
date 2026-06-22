@@ -1,0 +1,76 @@
+{
+  "species_id": "murasaki_shijimi",
+  "species_ja": "ムラサキシジミ",
+  "scientific_name": "Arhopala japonica",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 754716",
+    "occurrenceId": "urn:uuid:d56d98a1-80dc-4628-8132-6b2bc03a3335",
+    "persistentId": "urn:uuid:d56d98a1-80dc-4628-8132-6b2bc03a3335",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-10-10",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shikoku, Susaki, Japan",
+    "preparations": null,
+    "decimalLatitude": 33.399294,
+    "decimalLongitude": 133.283037
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039175726",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-754716",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:c616c00f-2a4c-4202-9e9c-c146b473de87/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT754716_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT754716_54.webp",
+      "108": "thumb/YPMENT754716_108.webp",
+      "216": "thumb/YPMENT754716_216.webp"
+    },
+    "resized": "original/YPMENT754716_resized.jpg"
+  },
+  "original_sha256": "c4c41a15a520ca2d43e183e43e2e41d628303f8d99e61288b990a9040b3b57d9",
+  "processing": {
+    "cropBox": [
+      253,
+      70,
+      921,
+      1421
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT754716_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

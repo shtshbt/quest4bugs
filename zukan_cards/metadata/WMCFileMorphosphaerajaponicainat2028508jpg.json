@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileMorphosphaerajaponicainat2028508jpg_original.jpg",
-    "segmented": "processed/WMCFileMorphosphaerajaponicainat2028508jpg_L1_segmented.png",
     "display": "processed/WMCFileMorphosphaerajaponicainat2028508jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_54.webp",
       "108": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_108.webp",
       "216": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMorphosphaerajaponicainat2028508jpg_resized.jpg"
   },
   "original_sha256": "fdafa426faada31b5d5d0e426f92e6aa35ee01ebbfdfdcb7c55ef7f90480ff15",
   "processing": {

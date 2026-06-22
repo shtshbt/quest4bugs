@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileChloridolumjaponicummatingestablished05cjpg_original.jpg",
-    "segmented": "processed/WMCFileChloridolumjaponicummatingestablished05cjpg_L1_segmented.png",
     "display": "processed/WMCFileChloridolumjaponicummatingestablished05cjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_54.webp",
       "108": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_108.webp",
       "216": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChloridolumjaponicummatingestablished05cjpg_resized.jpg"
   },
   "original_sha256": "775b8547fabc6eeba566639b820f0b0f7edc051ee7357c7af0fa94f6ec5c9886",
   "processing": {

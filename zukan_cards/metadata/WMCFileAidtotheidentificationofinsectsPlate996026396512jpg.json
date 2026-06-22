@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_original.jpg",
-    "segmented": "processed/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_L1_segmented.png",
     "display": "processed/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_54.webp",
       "108": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_108.webp",
       "216": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_resized.jpg"
   },
   "original_sha256": "822a989941a5fdb9802df8960bd72870550e196134376e9e2f330f096a757da3",
   "processing": {

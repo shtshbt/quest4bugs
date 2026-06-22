@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_original.jpg",
-    "segmented": "processed/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_L1_segmented.png",
     "display": "processed/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_54.webp",
       "108": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_108.webp",
       "216": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_resized.jpg"
   },
   "original_sha256": "9532e1a79939155fe7721d300fb672df19f17eae78473231ffd8eb1a7fd9b422",
   "processing": {

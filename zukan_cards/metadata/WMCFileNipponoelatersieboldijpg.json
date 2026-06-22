@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileNipponoelatersieboldijpg_original.jpg",
-    "segmented": "processed/WMCFileNipponoelatersieboldijpg_L1_segmented.png",
     "display": "processed/WMCFileNipponoelatersieboldijpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileNipponoelatersieboldijpg_54.webp",
       "108": "thumb/WMCFileNipponoelatersieboldijpg_108.webp",
       "216": "thumb/WMCFileNipponoelatersieboldijpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileNipponoelatersieboldijpg_resized.jpg"
   },
   "original_sha256": "080f6926f91c209fd26c9139768a4fbad3b47da2ed1e4a002cef858c823b9463",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_original.jpg",
-    "segmented": "processed/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L1_segmented.png",
     "display": "processed/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_54.webp",
       "108": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_108.webp",
       "216": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_resized.jpg"
   },
   "original_sha256": "13b0f179d9d0394ca6d11a455a6e8c2f16e6ea179d7e614dfe770e3455503e27",
   "processing": {

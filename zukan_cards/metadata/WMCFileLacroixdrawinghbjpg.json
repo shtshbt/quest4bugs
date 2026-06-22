@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileLacroixdrawinghbjpg_original.jpg",
-    "segmented": "processed/WMCFileLacroixdrawinghbjpg_L1_segmented.png",
     "display": "processed/WMCFileLacroixdrawinghbjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLacroixdrawinghbjpg_54.webp",
       "108": "thumb/WMCFileLacroixdrawinghbjpg_108.webp",
       "216": "thumb/WMCFileLacroixdrawinghbjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLacroixdrawinghbjpg_resized.jpg"
   },
   "original_sha256": "9e53263e35f83015d4d2e2172ef33ef577470899bf9216d738e2eba18aaec4d2",
   "processing": {

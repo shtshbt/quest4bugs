@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
   "files": {
-    "original": "original/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_original.jpg",
-    "segmented": "processed/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_L1_segmented.png",
     "display": "processed/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_54.webp",
       "108": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_108.webp",
       "216": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_resized.jpg"
   },
   "original_sha256": "730b19df2249d2fdc180685de023f56f71afa7e92a0dd8ee7d65b399dc4f4ba4",
   "processing": {

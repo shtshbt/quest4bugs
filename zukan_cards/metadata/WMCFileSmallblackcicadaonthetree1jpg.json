@@ -1,0 +1,75 @@
+{
+  "species_id": "chicchi_zemi",
+  "species_ja": "チッチゼミ",
+  "scientific_name": "Kosemia radiator",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Small black cicada on the tree - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Small_black_cicada_on_the_tree_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Small_black_cicada_on_the_tree_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3",
+    "eventDate": "2023-09-05 00:42:53",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "チッチゼミと思われます。愛知県小牧市で撮影。",
+    "localityNormalized": "チッチゼミと思われます。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Small_black_cicada_on_the_tree_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Small_black_cicada_on_the_tree_-_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSmallblackcicadaonthetree1jpg_original.jpg",
+    "segmented": "processed/WMCFileSmallblackcicadaonthetree1jpg_L1_segmented.png",
+    "display": "processed/WMCFileSmallblackcicadaonthetree1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSmallblackcicadaonthetree1jpg_54.webp",
+      "108": "thumb/WMCFileSmallblackcicadaonthetree1jpg_108.webp",
+      "216": "thumb/WMCFileSmallblackcicadaonthetree1jpg_216.webp"
+    }
+  },
+  "original_sha256": "c6543f2057602d850d8aa76a136f2292dd8f65138eb5e4d5d63713ddc167732e",
+  "processing": {
+    "cropBox": [
+      209,
+      7,
+      1388,
+      2044
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSmallblackcicadaonthetree1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

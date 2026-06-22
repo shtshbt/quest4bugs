@@ -1,0 +1,75 @@
+{
+  "species_id": "onaga_sanae",
+  "species_ja": "オナガサナエ",
+  "scientific_name": "Onychogomphus viridicostus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pokopong",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Melligomphus viridicostus f.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Melligomphus_viridicostus_f.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Melligomphus_viridicostus_f.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pokopong",
+    "eventDate": "2016-08-13",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "産卵中のオナガサナエのメス",
+    "localityNormalized": "産卵中のオナガサナエのメス",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Melligomphus_viridicostus_f.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Melligomphus_viridicostus_f.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMelligomphusviridicostusfjpg_original.jpg",
+    "segmented": "processed/WMCFileMelligomphusviridicostusfjpg_L1_segmented.png",
+    "display": "processed/WMCFileMelligomphusviridicostusfjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMelligomphusviridicostusfjpg_54.webp",
+      "108": "thumb/WMCFileMelligomphusviridicostusfjpg_108.webp",
+      "216": "thumb/WMCFileMelligomphusviridicostusfjpg_216.webp"
+    }
+  },
+  "original_sha256": "e4657a8662f2f84d6be293cb311a3127f2d2b0e515256143312b7168ce7160ad",
+  "processing": {
+    "cropBox": [
+      281,
+      215,
+      960,
+      554
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMelligomphusviridicostusfjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFilePrionusinsularisinsularis223601485jpg_original.jpg",
-    "segmented": "processed/WMCFilePrionusinsularisinsularis223601485jpg_L1_segmented.png",
     "display": "processed/WMCFilePrionusinsularisinsularis223601485jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_54.webp",
       "108": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_108.webp",
       "216": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePrionusinsularisinsularis223601485jpg_resized.jpg"
   },
   "original_sha256": "cd58ef5058848e8a2af4f6446d75b206f25e7e882c7661e047525d459b0f6b2b",
   "processing": {

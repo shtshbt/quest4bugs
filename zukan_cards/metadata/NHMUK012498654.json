@@ -1,0 +1,75 @@
+{
+  "species_id": "kuruma_batta",
+  "species_ja": "クルマバッタ",
+  "scientific_name": "Gastrimargus marmoratus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498654",
+    "occurrenceId": "61bb7686-9397-4635-9573-1a98b473c89c",
+    "persistentId": "61bb7686-9397-4635-9573-1a98b473c89c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826420145",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/61bb7686-9397-4635-9573-1a98b473c89c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/1574c179-58c1-415d-b4fc-3c33eb2bbdef",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012498654_original.jpg",
+    "segmented": "processed/NHMUK012498654_L1_segmented.png",
+    "display": "processed/NHMUK012498654_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498654_54.webp",
+      "108": "thumb/NHMUK012498654_108.webp",
+      "216": "thumb/NHMUK012498654_216.webp"
+    }
+  },
+  "original_sha256": "90d5b4fd5cf1f6bdfa5e7aa1c444146f8b6d2ebe5251e6773ca9eea51163e616",
+  "processing": {
+    "cropBox": [
+      351,
+      254,
+      827,
+      744
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498654_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

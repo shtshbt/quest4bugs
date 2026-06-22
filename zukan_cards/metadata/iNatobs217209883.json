@@ -40,14 +40,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/iNatobs217209883_original.jpg",
-    "segmented": "processed/iNatobs217209883_L1_segmented.png",
     "display": "processed/iNatobs217209883_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/iNatobs217209883_54.webp",
       "108": "thumb/iNatobs217209883_108.webp",
       "216": "thumb/iNatobs217209883_216.webp"
-    }
+    },
+    "resized": "original/iNatobs217209883_resized.jpg"
   },
   "original_sha256": "5bd7daa9f90457f2e0d8b8870f46f0a68355c656d8522fb69d4a2d8ce0c2eebf",
   "processing": {

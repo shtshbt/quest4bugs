@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileMicadinaphluctainoidess2jpg_original.jpg",
-    "segmented": "processed/WMCFileMicadinaphluctainoidess2jpg_L1_segmented.png",
     "display": "processed/WMCFileMicadinaphluctainoidess2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMicadinaphluctainoidess2jpg_54.webp",
       "108": "thumb/WMCFileMicadinaphluctainoidess2jpg_108.webp",
       "216": "thumb/WMCFileMicadinaphluctainoidess2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMicadinaphluctainoidess2jpg_resized.jpg"
   },
   "original_sha256": "0ed7eb9983368ee7329c2b4b99d435552e1dc7048c1b3ed972ae2508d07ec993",
   "processing": {

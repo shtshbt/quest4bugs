@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_original.jpg",
-    "segmented": "processed/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_L1_segmented.png",
     "display": "processed/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_54.webp",
       "108": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_108.webp",
       "216": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_resized.jpg"
   },
   "original_sha256": "51323189af04ba09c1ceff4e859f7f82f667eeff5c6359ed8111e47f05f36ae9",
   "processing": {

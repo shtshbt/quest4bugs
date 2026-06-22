@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileParapodismatanzawaensis001Malejpg_original.jpg",
-    "segmented": "processed/WMCFileParapodismatanzawaensis001Malejpg_L1_segmented.png",
     "display": "processed/WMCFileParapodismatanzawaensis001Malejpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileParapodismatanzawaensis001Malejpg_54.webp",
       "108": "thumb/WMCFileParapodismatanzawaensis001Malejpg_108.webp",
       "216": "thumb/WMCFileParapodismatanzawaensis001Malejpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileParapodismatanzawaensis001Malejpg_resized.jpg"
   },
   "original_sha256": "d3bb55473d35fb1b0475c5dee3d524d2c5806c3ec1566b5eb0c09a245dfed808",
   "processing": {

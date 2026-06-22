@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFilePhytomiazonataonPyruscalleryanas2jpg_original.jpg",
-    "segmented": "processed/WMCFilePhytomiazonataonPyruscalleryanas2jpg_L1_segmented.png",
     "display": "processed/WMCFilePhytomiazonataonPyruscalleryanas2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePhytomiazonataonPyruscalleryanas2jpg_54.webp",
       "108": "thumb/WMCFilePhytomiazonataonPyruscalleryanas2jpg_108.webp",
       "216": "thumb/WMCFilePhytomiazonataonPyruscalleryanas2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePhytomiazonataonPyruscalleryanas2jpg_resized.jpg"
   },
   "original_sha256": "9c0e4fa936972450040e9a275c56fb1f8453402202bc01f757fe60f312e3983f",
   "processing": {

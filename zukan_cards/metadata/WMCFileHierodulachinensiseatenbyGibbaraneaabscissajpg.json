@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_original.jpg",
-    "segmented": "processed/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_L1_segmented.png",
     "display": "processed/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_54.webp",
       "108": "thumb/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_108.webp",
       "216": "thumb/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg_resized.jpg"
   },
   "original_sha256": "5c1de13f6dda232927d8944dcbc635811d58c958ffb28ec23439a7e077fad577",
   "processing": {

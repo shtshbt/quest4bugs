@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_original.jpg",
-    "segmented": "processed/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_L1_segmented.png",
     "display": "processed/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_54.webp",
       "108": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_108.webp",
       "216": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_resized.jpg"
   },
   "original_sha256": "0f42b4238de2da971e3f6d7064325509f294c24286b48e5cf55be8665576d7b5",
   "processing": {

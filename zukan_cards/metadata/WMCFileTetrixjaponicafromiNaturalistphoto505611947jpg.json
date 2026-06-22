@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_original.jpg",
-    "segmented": "processed/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_L1_segmented.png",
     "display": "processed/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_54.webp",
       "108": "thumb/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_108.webp",
       "216": "thumb/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTetrixjaponicafromiNaturalistphoto505611947jpg_resized.jpg"
   },
   "original_sha256": "f0a32d0ea4757a537e9cf95d5b4bd597bc73f2b504979afc6507052ed4b3d94d",
   "processing": {

@@ -1,0 +1,75 @@
+{
+  "species_id": "kimadara_kamemushi",
+  "species_ja": "キマダラカメムシ",
+  "scientific_name": "Erthesina fullo",
+  "credit_line": "Wikimedia Commons",
+  "creator": "AuguMaugu",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Erthesina fullo (stink bug) in Japan photo 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Erthesina_fullo_(stink_bug)_in_Japan_photo_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Erthesina_fullo_(stink_bug)_in_Japan_photo_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "AuguMaugu",
+    "eventDate": "2024-07-03 18:10:25",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Erthesina fullo mating on tree",
+    "localityNormalized": "Erthesina fullo mating on tree",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Erthesina_fullo_(stink_bug)_in_Japan_photo_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Erthesina_fullo_%28stink_bug%29_in_Japan_photo_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileErthesinafullostinkbuginJapanphoto1jpg_original.jpg",
+    "segmented": "processed/WMCFileErthesinafullostinkbuginJapanphoto1jpg_L1_segmented.png",
+    "display": "processed/WMCFileErthesinafullostinkbuginJapanphoto1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_54.webp",
+      "108": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_108.webp",
+      "216": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_216.webp"
+    }
+  },
+  "original_sha256": "9d4fba0b4244cc932fa726d5dd75934e7d7d54144bad0fefa03f35f02578f8db",
+  "processing": {
+    "cropBox": [
+      1033,
+      683,
+      2170,
+      3024
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileErthesinafullostinkbuginJapanphoto1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

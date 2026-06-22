@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_original.jpg",
-    "segmented": "processed/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_L1_segmented.png",
     "display": "processed/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_54.webp",
       "108": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_108.webp",
       "216": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_resized.jpg"
   },
   "original_sha256": "e02b34ca173eac71c4f64523b6eadc3cfed461a0e6bf2000e5f0195a8351ea16",
   "processing": {

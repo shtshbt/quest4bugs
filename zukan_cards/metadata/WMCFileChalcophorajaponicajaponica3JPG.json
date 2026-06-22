@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileChalcophorajaponicajaponica3JPG_original.jpg",
-    "segmented": "processed/WMCFileChalcophorajaponicajaponica3JPG_L1_segmented.png",
     "display": "processed/WMCFileChalcophorajaponicajaponica3JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChalcophorajaponicajaponica3JPG_54.webp",
       "108": "thumb/WMCFileChalcophorajaponicajaponica3JPG_108.webp",
       "216": "thumb/WMCFileChalcophorajaponicajaponica3JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChalcophorajaponicajaponica3JPG_resized.jpg"
   },
   "original_sha256": "9024b6edbc6d74579162a00e160c0fbbf0b7147cdd280630e232b87c9267979f",
   "processing": {

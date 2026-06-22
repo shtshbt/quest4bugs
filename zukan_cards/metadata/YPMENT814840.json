@@ -1,0 +1,76 @@
+{
+  "species_id": "kitateha",
+  "species_ja": "キタテハ",
+  "scientific_name": "Polygonia c-aureum",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Paul Shamble",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 814840",
+    "occurrenceId": "urn:uuid:2c7ffb95-0ce6-4831-a736-e39a045c7e61",
+    "persistentId": "urn:uuid:2c7ffb95-0ce6-4831-a736-e39a045c7e61",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "Takashi Shirozu",
+    "eventDate": "1949-07-12",
+    "eventYear": 1949,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Fukuoka, Kyushu Region, Japan",
+    "preparations": null,
+    "decimalLatitude": 33.581697,
+    "decimalLongitude": 130.42216
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039056354",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-814840",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:b30396e1-a831-4432-a6f2-cf865e94ae06/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT814840_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT814840_54.webp",
+      "108": "thumb/YPMENT814840_108.webp",
+      "216": "thumb/YPMENT814840_216.webp"
+    },
+    "resized": "original/YPMENT814840_resized.jpg"
+  },
+  "original_sha256": "e3355f7062f4799f53bb1be7d8da62497c7e84bb2ac18a454e4225acb9230e38",
+  "processing": {
+    "cropBox": [
+      93,
+      0,
+      1089,
+      1589
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT814840_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

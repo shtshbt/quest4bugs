@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
   "files": {
-    "original": "original/WMCFileEuceraspurcatipes8651901788jpg_original.jpg",
-    "segmented": "processed/WMCFileEuceraspurcatipes8651901788jpg_L1_segmented.png",
     "display": "processed/WMCFileEuceraspurcatipes8651901788jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEuceraspurcatipes8651901788jpg_54.webp",
       "108": "thumb/WMCFileEuceraspurcatipes8651901788jpg_108.webp",
       "216": "thumb/WMCFileEuceraspurcatipes8651901788jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEuceraspurcatipes8651901788jpg_resized.jpg"
   },
   "original_sha256": "4569bf270dfc72bb95fe24b736c6a9edcc6ee33e37af4239cfd9d39383610d12",
   "processing": {

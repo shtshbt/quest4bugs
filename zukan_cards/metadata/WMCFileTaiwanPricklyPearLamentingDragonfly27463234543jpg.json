@@ -1,0 +1,74 @@
+{
+  "species_id": "taiwan_uchiwa_yanma",
+  "species_ja": "タイワンウチワヤンマ",
+  "scientific_name": "Ictinogomphus pertinax",
+  "credit_line": "Wikimedia Commons",
+  "creator": "neil.dalphin",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Taiwan Prickly Pear Lamenting Dragonfly (27463234543).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Taiwan_Prickly_Pear_Lamenting_Dragonfly_(27463234543).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Taiwan_Prickly_Pear_Lamenting_Dragonfly_(27463234543).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "neil.dalphin",
+    "eventDate": "2016-07-03 15:09:40",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Male, Okinawa\nIctinogomphus Pertinax",
+    "localityNormalized": "Male, Okinawa\nIctinogomphus Pertinax",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Taiwan_Prickly_Pear_Lamenting_Dragonfly_(27463234543).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Taiwan_Prickly_Pear_Lamenting_Dragonfly_%2827463234543%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_54.webp",
+      "108": "thumb/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_108.webp",
+      "216": "thumb/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_216.webp"
+    },
+    "resized": "original/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_resized.jpg"
+  },
+  "original_sha256": "b5137a8ae59f2619caa87e798901cb28c28cb00bb78378c98aedc4cdfb93cb8e",
+  "processing": {
+    "cropBox": [
+      1009,
+      446,
+      3290,
+      1792
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTaiwanPricklyPearLamentingDragonfly27463234543jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

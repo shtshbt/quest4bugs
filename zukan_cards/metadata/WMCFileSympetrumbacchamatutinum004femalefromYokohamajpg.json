@@ -1,0 +1,75 @@
+{
+  "species_id": "konoshime_tonbo",
+  "species_ja": "コノシメトンボ",
+  "scientific_name": "Sympetrum baccha matutinum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "PD files",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sympetrum baccha matutinum 004 female from Yokohama.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sympetrum_baccha_matutinum_004_female_from_Yokohama.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sympetrum_baccha_matutinum_004_female_from_Yokohama.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "PD files",
+    "eventDate": "2013-07-06",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Ko-Noshime-Tombo Sympetrum baccha matutinum Ris, 1911 (Libellulidae). Female from Yokohama, Kanagawa, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sympetrum_baccha_matutinum_004_female_from_Yokohama.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Sympetrum_baccha_matutinum_004_female_from_Yokohama.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_original.jpg",
+    "segmented": "processed/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_L1_segmented.png",
+    "display": "processed/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_54.webp",
+      "108": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_108.webp",
+      "216": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_216.webp"
+    }
+  },
+  "original_sha256": "59e616114ee1e085a8e819f938a74fd1f4db11edd5de977b36e19ae80c7ae734",
+  "processing": {
+    "cropBox": [
+      187,
+      492,
+      2926,
+      1852
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

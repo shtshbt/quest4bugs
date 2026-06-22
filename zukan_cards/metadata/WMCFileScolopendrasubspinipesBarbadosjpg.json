@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileScolopendrasubspinipesBarbadosjpg_original.jpg",
-    "segmented": "processed/WMCFileScolopendrasubspinipesBarbadosjpg_L1_segmented.png",
     "display": "processed/WMCFileScolopendrasubspinipesBarbadosjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_54.webp",
       "108": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_108.webp",
       "216": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileScolopendrasubspinipesBarbadosjpg_resized.jpg"
   },
   "original_sha256": "46866735f4e1c442963c12a9a781912cc07467c09698c54ffc2b8c7a2996748b",
   "processing": {

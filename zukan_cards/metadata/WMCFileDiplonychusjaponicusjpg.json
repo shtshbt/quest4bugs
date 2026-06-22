@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileDiplonychusjaponicusjpg_original.jpg",
-    "segmented": "processed/WMCFileDiplonychusjaponicusjpg_L1_segmented.png",
     "display": "processed/WMCFileDiplonychusjaponicusjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileDiplonychusjaponicusjpg_54.webp",
       "108": "thumb/WMCFileDiplonychusjaponicusjpg_108.webp",
       "216": "thumb/WMCFileDiplonychusjaponicusjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileDiplonychusjaponicusjpg_resized.jpg"
   },
   "original_sha256": "7520efb2ca8d0c129f3378c5ddcb636df2e81b389441f6720396698a1c0b6bf5",
   "processing": {

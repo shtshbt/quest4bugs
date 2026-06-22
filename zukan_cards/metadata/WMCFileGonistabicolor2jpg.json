@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileGonistabicolor2jpg_original.jpg",
-    "segmented": "processed/WMCFileGonistabicolor2jpg_L1_segmented.png",
     "display": "processed/WMCFileGonistabicolor2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGonistabicolor2jpg_54.webp",
       "108": "thumb/WMCFileGonistabicolor2jpg_108.webp",
       "216": "thumb/WMCFileGonistabicolor2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGonistabicolor2jpg_resized.jpg"
   },
   "original_sha256": "21370ec17b1bac8d997a43f5c76ae2fab83687b72c86cecd3cfe910b3a3a679a",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_original.jpg",
-    "segmented": "processed/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_L1_segmented.png",
     "display": "processed/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_54.webp",
       "108": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_108.webp",
       "216": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_resized.jpg"
   },
   "original_sha256": "eb897a01dcee1626fb9fd704ca00a4ffe7bc3b427ff2f7caf9b431d525e8121b",
   "processing": {

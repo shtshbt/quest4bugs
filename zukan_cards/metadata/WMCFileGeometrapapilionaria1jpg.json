@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "files": {
-    "original": "original/WMCFileGeometrapapilionaria1jpg_original.jpg",
-    "segmented": "processed/WMCFileGeometrapapilionaria1jpg_L1_segmented.png",
     "display": "processed/WMCFileGeometrapapilionaria1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGeometrapapilionaria1jpg_54.webp",
       "108": "thumb/WMCFileGeometrapapilionaria1jpg_108.webp",
       "216": "thumb/WMCFileGeometrapapilionaria1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGeometrapapilionaria1jpg_resized.jpg"
   },
   "original_sha256": "5888f7dfa7c4a6970505692595eb4ded5cf04781d13d5b1b2a57e2dd0d479072",
   "processing": {

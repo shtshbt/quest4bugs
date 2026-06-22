@@ -1,0 +1,77 @@
+{
+  "species_id": "oo_osamushi",
+  "species_ja": "オオオサムシ",
+  "scientific_name": "Carabus dehaanii",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0321107",
+    "occurrenceId": "ETHZ-ENT0321107",
+    "persistentId": "ETHZ-ENT0321107",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": "Japan",
+    "localityNormalized": "Japan, Japan",
+    "preparations": "pinned",
+    "decimalLatitude": 36.69884,
+    "decimalLongitude": 138.846173
+  },
+  "source": {
+    "gbifOccurrenceKey": "5939020267",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5939020267",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/1017510/16f37568df22b8cf0855c9266fe50d6f9786309201da15566e874b9d65898835/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/ETHZENT0321107_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0321107_54.webp",
+      "108": "thumb/ETHZENT0321107_108.webp",
+      "216": "thumb/ETHZENT0321107_216.webp"
+    },
+    "resized": "original/ETHZENT0321107_resized.jpg"
+  },
+  "original_sha256": "16f37568df22b8cf0855c9266fe50d6f9786309201da15566e874b9d65898835",
+  "processing": {
+    "cropBox": [
+      1669,
+      4232,
+      2467,
+      5728
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0321107_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.34), rotate 270 CCW"
+}

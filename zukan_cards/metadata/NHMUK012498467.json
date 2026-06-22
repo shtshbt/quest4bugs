@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
-    "original": "original/NHMUK012498467_original.jpg",
-    "segmented": "processed/NHMUK012498467_L1_segmented.png",
     "display": "processed/NHMUK012498467_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUK012498467_54.webp",
       "108": "thumb/NHMUK012498467_108.webp",
       "216": "thumb/NHMUK012498467_216.webp"
-    }
+    },
+    "resized": "original/NHMUK012498467_resized.jpg"
   },
   "original_sha256": "85a32795505b8eee0aff76b7b9bc9749832b701581a7a83f12eb923e504418f6",
   "processing": {

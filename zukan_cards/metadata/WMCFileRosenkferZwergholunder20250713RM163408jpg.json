@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileRosenkferZwergholunder20250713RM163408jpg_original.jpg",
-    "segmented": "processed/WMCFileRosenkferZwergholunder20250713RM163408jpg_L1_segmented.png",
     "display": "processed/WMCFileRosenkferZwergholunder20250713RM163408jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_54.webp",
       "108": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_108.webp",
       "216": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileRosenkferZwergholunder20250713RM163408jpg_resized.jpg"
   },
   "original_sha256": "2d7cc39d142ecf070c1aebfc1beedd37ca43d798871a1f1e005dd242d1eef79b",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileHyalessamaculaticollisdistributionpng_original.jpg",
-    "segmented": "processed/WMCFileHyalessamaculaticollisdistributionpng_L1_segmented.png",
     "display": "processed/WMCFileHyalessamaculaticollisdistributionpng_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileHyalessamaculaticollisdistributionpng_54.webp",
       "108": "thumb/WMCFileHyalessamaculaticollisdistributionpng_108.webp",
       "216": "thumb/WMCFileHyalessamaculaticollisdistributionpng_216.webp"
-    }
+    },
+    "resized": "original/WMCFileHyalessamaculaticollisdistributionpng_resized.jpg"
   },
   "original_sha256": "84c1b6e19118872d3791f0d13b26f5c2e822dbf2817e935e7373f109b5699b04",
   "processing": {

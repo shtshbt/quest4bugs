@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileAnoplophorachinensispinnedanterior1jpg_original.jpg",
-    "segmented": "processed/WMCFileAnoplophorachinensispinnedanterior1jpg_L1_segmented.png",
     "display": "processed/WMCFileAnoplophorachinensispinnedanterior1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_54.webp",
       "108": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_108.webp",
       "216": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAnoplophorachinensispinnedanterior1jpg_resized.jpg"
   },
   "original_sha256": "2d5b74182237c6e3df3793e800e1133778e8ca7aa015078fac7c7c78c06b96ed",
   "processing": {

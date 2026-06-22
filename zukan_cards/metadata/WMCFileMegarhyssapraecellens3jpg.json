@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileMegarhyssapraecellens3jpg_original.jpg",
-    "segmented": "processed/WMCFileMegarhyssapraecellens3jpg_L1_segmented.png",
     "display": "processed/WMCFileMegarhyssapraecellens3jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMegarhyssapraecellens3jpg_54.webp",
       "108": "thumb/WMCFileMegarhyssapraecellens3jpg_108.webp",
       "216": "thumb/WMCFileMegarhyssapraecellens3jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMegarhyssapraecellens3jpg_resized.jpg"
   },
   "original_sha256": "d2546ec2cdc98c4a4e450056c62dd21328210fbd7f6fc86d2dc7d0d7604a6be5",
   "processing": {

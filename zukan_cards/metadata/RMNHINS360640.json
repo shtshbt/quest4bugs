@@ -1,6 +1,6 @@
 {
-  "species_id": "sakahachichou",
-  "species_ja": "サカハチチョウ",
+  "species_id": "araschnia_sakahachi_aki",
+  "species_ja": "サカハチチョウ（夏型）",
   "scientific_name": "Araschnia burejana",
   "credit_line": "Naturalis Biodiversity Center",
   "creator": "Naturalis Biodiversity Center",
@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/RMNHINS360640_original.jpg",
-    "segmented": "processed/RMNHINS360640_L1_segmented.png",
     "display": "processed/RMNHINS360640_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/RMNHINS360640_54.webp",
       "108": "thumb/RMNHINS360640_108.webp",
       "216": "thumb/RMNHINS360640_216.webp"
-    }
+    },
+    "resized": "original/RMNHINS360640_resized.jpg"
   },
   "original_sha256": "954fb84cf19a1fc13589c6a7cdd4e4199fbaf63f6eb385a5547b10675ad42064",
   "processing": {
@@ -71,5 +70,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "butterfly dorsal — head up by convention, no rotation"
+  "notes": "unknown taxon — no rotation"
 }

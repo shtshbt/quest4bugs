@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMootabusuzumebachi_original.jpg",
-    "segmented": "processed/USNMootabusuzumebachi_L1_segmented.png",
     "display": "processed/USNMootabusuzumebachi_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMootabusuzumebachi_54.webp",
       "108": "thumb/USNMootabusuzumebachi_108.webp",
       "216": "thumb/USNMootabusuzumebachi_216.webp"
-    }
+    },
+    "resized": "original/USNMootabusuzumebachi_resized.jpg"
   },
   "original_sha256": "e16ab3e8dac35bbb87c0cd6bf032fdf72ae1c2acc336ad94f66a2e17e3cc64c3",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileAquariuspaludumHamburgjpg_original.jpg",
-    "segmented": "processed/WMCFileAquariuspaludumHamburgjpg_L1_segmented.png",
     "display": "processed/WMCFileAquariuspaludumHamburgjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAquariuspaludumHamburgjpg_54.webp",
       "108": "thumb/WMCFileAquariuspaludumHamburgjpg_108.webp",
       "216": "thumb/WMCFileAquariuspaludumHamburgjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAquariuspaludumHamburgjpg_resized.jpg"
   },
   "original_sha256": "01f4f8b614124c77c6efdd41fbf668eded64f14125414282f8066b254170081b",
   "processing": {

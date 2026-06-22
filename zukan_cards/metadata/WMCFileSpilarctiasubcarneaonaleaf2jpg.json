@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileSpilarctiasubcarneaonaleaf2jpg_original.jpg",
-    "segmented": "processed/WMCFileSpilarctiasubcarneaonaleaf2jpg_L1_segmented.png",
     "display": "processed/WMCFileSpilarctiasubcarneaonaleaf2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_54.webp",
       "108": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_108.webp",
       "216": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSpilarctiasubcarneaonaleaf2jpg_resized.jpg"
   },
   "original_sha256": "309c165cacc13b90cd3951cbc49f76c5e37b6a45181914479ad341c326ea638d",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_original.jpg",
-    "segmented": "processed/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_L1_segmented.png",
     "display": "processed/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_54.webp",
       "108": "thumb/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_108.webp",
       "216": "thumb/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePseudorhynchusjaponicusfromiNaturalistphoto26278295jpg_resized.jpg"
   },
   "original_sha256": "c00bccb25a3e2781d022e1a41e5e089d6584263139ef7eef9a051a7d90dd832d",
   "processing": {

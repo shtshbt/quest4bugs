@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileChrysomelavigintipunctata01fwsjpg_original.jpg",
-    "segmented": "processed/WMCFileChrysomelavigintipunctata01fwsjpg_L1_segmented.png",
     "display": "processed/WMCFileChrysomelavigintipunctata01fwsjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_54.webp",
       "108": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_108.webp",
       "216": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChrysomelavigintipunctata01fwsjpg_resized.jpg"
   },
   "original_sha256": "970d517e949223816eaae279576d1edf8ef685b48edd071b209e7e2dda1084b9",
   "processing": {

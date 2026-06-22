@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_original.jpg",
-    "segmented": "processed/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_L1_segmented.png",
     "display": "processed/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_54.webp",
       "108": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_108.webp",
       "216": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_resized.jpg"
   },
   "original_sha256": "bce49644db276202522b780828f078ddddd9c0715085967106b873a8cbeac0f0",
   "processing": {

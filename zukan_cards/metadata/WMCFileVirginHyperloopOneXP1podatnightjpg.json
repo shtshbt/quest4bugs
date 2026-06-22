@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileVirginHyperloopOneXP1podatnightjpg_original.jpg",
-    "segmented": "processed/WMCFileVirginHyperloopOneXP1podatnightjpg_L1_segmented.png",
     "display": "processed/WMCFileVirginHyperloopOneXP1podatnightjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_54.webp",
       "108": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_108.webp",
       "216": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileVirginHyperloopOneXP1podatnightjpg_resized.jpg"
   },
   "original_sha256": "21d1b8a4e65975d80917c4e7de7a881d32ff2fcdcba69c7caf17fae09f513736",
   "processing": {

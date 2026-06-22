@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
   "files": {
-    "original": "original/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_original.jpg",
-    "segmented": "processed/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_L1_segmented.png",
     "display": "processed/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_54.webp",
       "108": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_108.webp",
       "216": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_resized.jpg"
   },
   "original_sha256": "7bad4ef3f18df0648610eaad3e79cac25e052707b77044e80f59746e25c1c80c",
   "processing": {

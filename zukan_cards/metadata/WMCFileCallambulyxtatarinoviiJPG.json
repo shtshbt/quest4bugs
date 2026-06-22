@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileCallambulyxtatarinoviiJPG_original.jpg",
-    "segmented": "processed/WMCFileCallambulyxtatarinoviiJPG_L1_segmented.png",
     "display": "processed/WMCFileCallambulyxtatarinoviiJPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCallambulyxtatarinoviiJPG_54.webp",
       "108": "thumb/WMCFileCallambulyxtatarinoviiJPG_108.webp",
       "216": "thumb/WMCFileCallambulyxtatarinoviiJPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCallambulyxtatarinoviiJPG_resized.jpg"
   },
   "original_sha256": "87d81472cb3ef2762fb27762470a2006567adcd6643836e84a195e1e2abfdd58",
   "processing": {

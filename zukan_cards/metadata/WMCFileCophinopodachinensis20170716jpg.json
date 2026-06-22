@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileCophinopodachinensis20170716jpg_original.jpg",
-    "segmented": "processed/WMCFileCophinopodachinensis20170716jpg_L1_segmented.png",
     "display": "processed/WMCFileCophinopodachinensis20170716jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCophinopodachinensis20170716jpg_54.webp",
       "108": "thumb/WMCFileCophinopodachinensis20170716jpg_108.webp",
       "216": "thumb/WMCFileCophinopodachinensis20170716jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCophinopodachinensis20170716jpg_resized.jpg"
   },
   "original_sha256": "de1c05c4c1e65037a442b70bb315f930a633b9dd6d5556e91e812b4c4ed9f961",
   "processing": {

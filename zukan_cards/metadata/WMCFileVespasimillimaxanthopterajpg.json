@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileVespasimillimaxanthopterajpg_original.jpg",
-    "segmented": "processed/WMCFileVespasimillimaxanthopterajpg_L1_segmented.png",
     "display": "processed/WMCFileVespasimillimaxanthopterajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileVespasimillimaxanthopterajpg_54.webp",
       "108": "thumb/WMCFileVespasimillimaxanthopterajpg_108.webp",
       "216": "thumb/WMCFileVespasimillimaxanthopterajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileVespasimillimaxanthopterajpg_resized.jpg"
   },
   "original_sha256": "3cdd3550220b281f53d176df6902a7b3321efab8d5fe05fbf6812dc2966d6c46",
   "processing": {

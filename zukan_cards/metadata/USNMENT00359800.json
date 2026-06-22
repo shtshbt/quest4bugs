@@ -1,0 +1,74 @@
+{
+  "species_id": "marutan_yanma",
+  "species_ja": "マルタンヤンマ",
+  "scientific_name": "Anaciaeschna martini",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00359800",
+    "occurrenceId": "http://n2t.net/ark:/65665/3dad57c39-c607-451f-8730-b05bf0f669c0",
+    "persistentId": "http://n2t.net/ark:/65665/3dad57c39-c607-451f-8730-b05bf0f669c0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "F. Fraser",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "Ooli (?) Lake, India",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322148872",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322148872",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16378152&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00359800_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00359800_54.webp",
+      "108": "thumb/USNMENT00359800_108.webp",
+      "216": "thumb/USNMENT00359800_216.webp"
+    },
+    "resized": "original/USNMENT00359800_resized.jpg"
+  },
+  "original_sha256": "fbd3ac6f238306d97fea3ce7bfa4b060d22bdd9d5dc558dca98a0504fd0d0090",
+  "processing": {
+    "cropBox": [
+      520,
+      102,
+      1616,
+      999
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00359800_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

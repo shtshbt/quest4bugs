@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_original.jpg",
-    "segmented": "processed/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_L1_segmented.png",
     "display": "processed/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_54.webp",
       "108": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_108.webp",
       "216": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_resized.jpg"
   },
   "original_sha256": "5975308a9b0afc012e5189b9ccb60d21cb07c408f4d0c1f6367dd117498090ff",
   "processing": {

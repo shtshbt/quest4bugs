@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileHydroglyphusjaponicusinat287501128jpg_original.jpg",
-    "segmented": "processed/WMCFileHydroglyphusjaponicusinat287501128jpg_L1_segmented.png",
     "display": "processed/WMCFileHydroglyphusjaponicusinat287501128jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_54.webp",
       "108": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_108.webp",
       "216": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileHydroglyphusjaponicusinat287501128jpg_resized.jpg"
   },
   "original_sha256": "41524d090eec835cf35451456395afccc727d22c5bd35b83c32ea90699ac8ca2",
   "processing": {

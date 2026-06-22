@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileNihonogomphusviridis198093413jpg_original.jpg",
-    "segmented": "processed/WMCFileNihonogomphusviridis198093413jpg_L1_segmented.png",
     "display": "processed/WMCFileNihonogomphusviridis198093413jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileNihonogomphusviridis198093413jpg_54.webp",
       "108": "thumb/WMCFileNihonogomphusviridis198093413jpg_108.webp",
       "216": "thumb/WMCFileNihonogomphusviridis198093413jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileNihonogomphusviridis198093413jpg_resized.jpg"
   },
   "original_sha256": "98432ce6d48e196d766233f9479fd527185b4757a201a2242b43fbe613eb75f7",
   "processing": {

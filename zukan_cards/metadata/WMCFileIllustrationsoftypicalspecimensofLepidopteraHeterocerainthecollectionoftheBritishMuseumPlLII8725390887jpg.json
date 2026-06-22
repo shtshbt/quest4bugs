@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_original.jpg",
-    "segmented": "processed/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_L1_segmented.png",
     "display": "processed/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_54.webp",
       "108": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_108.webp",
       "216": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_resized.jpg"
   },
   "original_sha256": "e55745401d35ea96892660c24cd6b15d4960771f5afc150d5b70a8a3cc85105e",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/WMCChrysozephyrushisamatsusanusNMStDSC06810_original.jpg",
-    "segmented": "processed/WMCChrysozephyrushisamatsusanusNMStDSC06810_L1_segmented.png",
     "display": "processed/WMCChrysozephyrushisamatsusanusNMStDSC06810_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCChrysozephyrushisamatsusanusNMStDSC06810_54.webp",
       "108": "thumb/WMCChrysozephyrushisamatsusanusNMStDSC06810_108.webp",
       "216": "thumb/WMCChrysozephyrushisamatsusanusNMStDSC06810_216.webp"
-    }
+    },
+    "resized": "original/WMCChrysozephyrushisamatsusanusNMStDSC06810_resized.jpg"
   },
   "original_sha256": "a02b08bd27e50ebe4212c1fb1197fd63c4cbeaf1371e121f661baebaf47b984b",
   "processing": {

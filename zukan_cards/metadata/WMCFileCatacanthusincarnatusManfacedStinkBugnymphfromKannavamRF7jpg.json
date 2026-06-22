@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_original.jpg",
-    "segmented": "processed/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_L1_segmented.png",
     "display": "processed/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_54.webp",
       "108": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_108.webp",
       "216": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_resized.jpg"
   },
   "original_sha256": "093f3c6de0439e7c4a29dbf068f9cb99a2ec781e3c6beaee03f48b0fb43791dd",
   "processing": {

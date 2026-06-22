@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileJuodalepturajpg_original.jpg",
-    "segmented": "processed/WMCFileJuodalepturajpg_L1_segmented.png",
     "display": "processed/WMCFileJuodalepturajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileJuodalepturajpg_54.webp",
       "108": "thumb/WMCFileJuodalepturajpg_108.webp",
       "216": "thumb/WMCFileJuodalepturajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileJuodalepturajpg_resized.jpg"
   },
   "original_sha256": "7646134326748a62a8485c425c747559535efe9f04bcfacd17dc9c4b6cce3cdf",
   "processing": {

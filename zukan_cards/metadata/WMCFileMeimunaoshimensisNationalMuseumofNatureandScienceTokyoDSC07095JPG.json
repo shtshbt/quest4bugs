@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_original.jpg",
-    "segmented": "processed/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_L1_segmented.png",
     "display": "processed/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_54.webp",
       "108": "thumb/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_108.webp",
       "216": "thumb/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMeimunaoshimensisNationalMuseumofNatureandScienceTokyoDSC07095JPG_resized.jpg"
   },
   "original_sha256": "4064900360f357b2cfd7608eb8ca33cc7083d3520a1097cb44f9344458126b23",
   "processing": {

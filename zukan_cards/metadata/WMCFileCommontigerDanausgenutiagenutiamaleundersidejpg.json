@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_original.jpg",
-    "segmented": "processed/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_L1_segmented.png",
     "display": "processed/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_54.webp",
       "108": "thumb/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_108.webp",
       "216": "thumb/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCommontigerDanausgenutiagenutiamaleundersidejpg_resized.jpg"
   },
   "original_sha256": "a04dbc76d438ccf858a00440dbbb62216da5174a137d43e96eab15cbaf05de77",
   "processing": {

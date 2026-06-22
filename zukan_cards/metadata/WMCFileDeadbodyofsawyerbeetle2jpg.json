@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileDeadbodyofsawyerbeetle2jpg_original.jpg",
-    "segmented": "processed/WMCFileDeadbodyofsawyerbeetle2jpg_L1_segmented.png",
     "display": "processed/WMCFileDeadbodyofsawyerbeetle2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_54.webp",
       "108": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_108.webp",
       "216": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileDeadbodyofsawyerbeetle2jpg_resized.jpg"
   },
   "original_sha256": "1ebdf6dcf6c85051be2363f720b49e0f6d86f471312d824a7b6172ca94d9281a",
   "processing": {

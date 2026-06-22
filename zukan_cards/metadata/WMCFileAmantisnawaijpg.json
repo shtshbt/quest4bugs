@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileAmantisnawaijpg_original.jpg",
-    "segmented": "processed/WMCFileAmantisnawaijpg_L1_segmented.png",
     "display": "processed/WMCFileAmantisnawaijpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAmantisnawaijpg_54.webp",
       "108": "thumb/WMCFileAmantisnawaijpg_108.webp",
       "216": "thumb/WMCFileAmantisnawaijpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAmantisnawaijpg_resized.jpg"
   },
   "original_sha256": "63e70b9edb5329ede4814bf7c09a6179ff0792d63f997db6d4ead609a20a0586",
   "processing": {

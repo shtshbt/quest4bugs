@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_original.jpg",
-    "segmented": "processed/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_L1_segmented.png",
     "display": "processed/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_54.webp",
       "108": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_108.webp",
       "216": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_resized.jpg"
   },
   "original_sha256": "641fb8dbe4e985261409fd489cb47e6a0d3477cd2a425b154b02e894333d6618",
   "processing": {

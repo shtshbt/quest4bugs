@@ -1,0 +1,76 @@
+{
+  "species_id": "tappi_shijimi",
+  "species_ja": "タッパンルリシジミ",
+  "scientific_name": "Udara dilecta",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1338085",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1338085",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1338085",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "v. Groenendael",
+    "eventDate": "1936-10-01/1936-10-31",
+    "eventYear": 1936,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Nanggala, Indonesia",
+    "preparations": "WholeOrganism (air dried)",
+    "decimalLatitude": -2.97988,
+    "decimalLongitude": 119.997177
+  },
+  "source": {
+    "gbifOccurrenceKey": "4879798365",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4879798365",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1338085_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/RMNHZMAINS1338085_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1338085_54.webp",
+      "108": "thumb/RMNHZMAINS1338085_108.webp",
+      "216": "thumb/RMNHZMAINS1338085_216.webp"
+    },
+    "resized": "original/RMNHZMAINS1338085_resized.jpg"
+  },
+  "original_sha256": "35730fb017c7714c839d63f390e15da85d44676c8052f810c8884083c5a81494",
+  "processing": {
+    "cropBox": [
+      193,
+      0,
+      1920,
+      1514
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1338085_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_original.jpg",
-    "segmented": "processed/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_L1_segmented.png",
     "display": "processed/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_54.webp",
       "108": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_108.webp",
       "216": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_resized.jpg"
   },
   "original_sha256": "cb2d9ff6f8fc55faa54100d76823bc1268f9192d1d5f2b333158d2c743ee90c2",
   "processing": {

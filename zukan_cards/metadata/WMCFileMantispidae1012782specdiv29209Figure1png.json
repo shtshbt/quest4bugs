@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileMantispidae1012782specdiv29209Figure1png_original.jpg",
-    "segmented": "processed/WMCFileMantispidae1012782specdiv29209Figure1png_L1_segmented.png",
     "display": "processed/WMCFileMantispidae1012782specdiv29209Figure1png_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_54.webp",
       "108": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_108.webp",
       "216": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMantispidae1012782specdiv29209Figure1png_resized.jpg"
   },
   "original_sha256": "2337d61a9f085f9fdfdcff4163d32e8193b6d31a098a8301013bd0ae31ad9947",
   "processing": {

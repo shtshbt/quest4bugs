@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_original.jpg",
-    "segmented": "processed/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_L1_segmented.png",
     "display": "processed/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_54.webp",
       "108": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_108.webp",
       "216": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_resized.jpg"
   },
   "original_sha256": "e014c9aafc3fd4ce635f13f9d165b02cf16dd55ed71b921375cf1eaf18b810a8",
   "processing": {

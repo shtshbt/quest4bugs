@@ -1,0 +1,76 @@
+{
+  "species_id": "kurosuji_ginyanma",
+  "species_ja": "クロスジギンヤンマ",
+  "scientific_name": "Anax nigrofasciatus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827292",
+    "occurrenceId": "http://n2t.net/ark:/65665/3d04c5c20-26b7-49ec-88f2-0fc2e8a9499a",
+    "persistentId": "http://n2t.net/ark:/65665/3d04c5c20-26b7-49ec-88f2-0fc2e8a9499a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly & A. Donnelly",
+    "eventDate": "2011-05-12",
+    "eventYear": 2011,
+    "country": "Viet Nam",
+    "localityVerbatim": null,
+    "localityNormalized": "Hoang Lien Nat. Park, forest, meadow, streams, Viet Nam",
+    "preparations": "Envelope",
+    "decimalLatitude": 22.35,
+    "decimalLongitude": 103.771
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321911457",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321911457",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16322761&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00827292_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827292_54.webp",
+      "108": "thumb/USNMENT00827292_108.webp",
+      "216": "thumb/USNMENT00827292_216.webp"
+    },
+    "resized": "original/USNMENT00827292_resized.jpg"
+  },
+  "original_sha256": "951dad73750d30cb7f47d1c16e3888ed88d88720d12ddb8131fc7f863b6f8ee0",
+  "processing": {
+    "cropBox": [
+      418,
+      168,
+      1565,
+      1087
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827292_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

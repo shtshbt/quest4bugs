@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileAiolocariahexaspilotajpeg_original.jpg",
-    "segmented": "processed/WMCFileAiolocariahexaspilotajpeg_L1_segmented.png",
     "display": "processed/WMCFileAiolocariahexaspilotajpeg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAiolocariahexaspilotajpeg_54.webp",
       "108": "thumb/WMCFileAiolocariahexaspilotajpeg_108.webp",
       "216": "thumb/WMCFileAiolocariahexaspilotajpeg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAiolocariahexaspilotajpeg_resized.jpg"
   },
   "original_sha256": "7fe863dcbaa89f48e5f10567d1a8011ef77dbb62c3366d1c513eb234ce808b4d",
   "processing": {

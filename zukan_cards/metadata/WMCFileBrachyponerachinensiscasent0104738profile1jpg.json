@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileBrachyponerachinensiscasent0104738profile1jpg_original.jpg",
-    "segmented": "processed/WMCFileBrachyponerachinensiscasent0104738profile1jpg_L1_segmented.png",
     "display": "processed/WMCFileBrachyponerachinensiscasent0104738profile1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileBrachyponerachinensiscasent0104738profile1jpg_54.webp",
       "108": "thumb/WMCFileBrachyponerachinensiscasent0104738profile1jpg_108.webp",
       "216": "thumb/WMCFileBrachyponerachinensiscasent0104738profile1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileBrachyponerachinensiscasent0104738profile1jpg_resized.jpg"
   },
   "original_sha256": "2eb6080e90af087d4ff7f412fe969dd4472011989904118a78c5ed5db75717df",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileLucanusmaculifemoratusJacobsonpng_original.jpg",
-    "segmented": "processed/WMCFileLucanusmaculifemoratusJacobsonpng_L1_segmented.png",
     "display": "processed/WMCFileLucanusmaculifemoratusJacobsonpng_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_54.webp",
       "108": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_108.webp",
       "216": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLucanusmaculifemoratusJacobsonpng_resized.jpg"
   },
   "original_sha256": "6e4b39200cddcde6c6c15e19552138c01929fde10822a7a8a4a24b38c0acfa5a",
   "processing": {

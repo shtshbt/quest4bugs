@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileRubrofemoratusjpg_original.jpg",
-    "segmented": "processed/WMCFileRubrofemoratusjpg_L1_segmented.png",
     "display": "processed/WMCFileRubrofemoratusjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileRubrofemoratusjpg_54.webp",
       "108": "thumb/WMCFileRubrofemoratusjpg_108.webp",
       "216": "thumb/WMCFileRubrofemoratusjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileRubrofemoratusjpg_resized.jpg"
   },
   "original_sha256": "709ca969c86bf7f606ac609059ba0c7a226e0669c5ace9abdc80dba9f23c3e0e",
   "processing": {

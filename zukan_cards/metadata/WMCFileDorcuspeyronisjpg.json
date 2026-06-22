@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileDorcuspeyronisjpg_original.jpg",
-    "segmented": "processed/WMCFileDorcuspeyronisjpg_L1_segmented.png",
     "display": "processed/WMCFileDorcuspeyronisjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileDorcuspeyronisjpg_54.webp",
       "108": "thumb/WMCFileDorcuspeyronisjpg_108.webp",
       "216": "thumb/WMCFileDorcuspeyronisjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileDorcuspeyronisjpg_resized.jpg"
   },
   "original_sha256": "010945fa1ebf51e6238b7e75a64d40eb85dd6c88e834199230add19b97fc5694",
   "processing": {

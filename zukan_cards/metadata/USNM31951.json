@@ -36,14 +36,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNM31951_original.jpg",
-    "segmented": "processed/USNM31951_L1_segmented.png",
     "display": "processed/USNM31951_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNM31951_54.webp",
       "108": "thumb/USNM31951_108.webp",
       "216": "thumb/USNM31951_216.webp"
-    }
+    },
+    "resized": "original/USNM31951_resized.jpg"
   },
   "original_sha256": "440658e06f595a7adb39c1f323a97b27de79b727c06204eccd35850f9e6140bc",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileChlorophorusquinquefasciatus01JPG_original.jpg",
-    "segmented": "processed/WMCFileChlorophorusquinquefasciatus01JPG_L1_segmented.png",
     "display": "processed/WMCFileChlorophorusquinquefasciatus01JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_54.webp",
       "108": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_108.webp",
       "216": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChlorophorusquinquefasciatus01JPG_resized.jpg"
   },
   "original_sha256": "b65bebbe2357d1b2a02a37e0854dc78449eff58a779f18921b02bfd4ecabe723",
   "processing": {

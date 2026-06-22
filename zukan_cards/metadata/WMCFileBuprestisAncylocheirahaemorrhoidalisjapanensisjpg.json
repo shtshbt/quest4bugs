@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_original.jpg",
-    "segmented": "processed/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_L1_segmented.png",
     "display": "processed/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_54.webp",
       "108": "thumb/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_108.webp",
       "216": "thumb/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileBuprestisAncylocheirahaemorrhoidalisjapanensisjpg_resized.jpg"
   },
   "original_sha256": "96a780f31bc42bdaeb9242d011c08c2a108665b400fdb425415e3341b1dd7358",
   "processing": {

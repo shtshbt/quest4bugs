@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_original.jpg",
-    "segmented": "processed/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_L1_segmented.png",
     "display": "processed/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_54.webp",
       "108": "thumb/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_108.webp",
       "216": "thumb/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTannajaponensisNationalMuseumofNatureandScienceTokyoDSC06843JPG_resized.jpg"
   },
   "original_sha256": "d1f61a84c2a0b2dfae8c93c157b3298233c35875a2eb7b0d940bb4d33344141f",
   "processing": {

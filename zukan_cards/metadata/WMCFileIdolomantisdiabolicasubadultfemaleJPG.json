@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileIdolomantisdiabolicasubadultfemaleJPG_original.jpg",
-    "segmented": "processed/WMCFileIdolomantisdiabolicasubadultfemaleJPG_L1_segmented.png",
     "display": "processed/WMCFileIdolomantisdiabolicasubadultfemaleJPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileIdolomantisdiabolicasubadultfemaleJPG_54.webp",
       "108": "thumb/WMCFileIdolomantisdiabolicasubadultfemaleJPG_108.webp",
       "216": "thumb/WMCFileIdolomantisdiabolicasubadultfemaleJPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileIdolomantisdiabolicasubadultfemaleJPG_resized.jpg"
   },
   "original_sha256": "75b9570ce9fdd2bb01a279f158f660f2918addeff16681eb18c159733ddf8fee",
   "processing": {

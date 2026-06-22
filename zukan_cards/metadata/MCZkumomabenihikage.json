@@ -11,14 +11,13 @@
     "originalSha256": "5e4287ea33659e37418024e29a12c7919b0cbc588be12257ee82c90672007d5d"
   },
   "files": {
-    "original": "original/MCZkumomabenihikage_original.jpg",
-    "segmented": "processed/MCZkumomabenihikage_L1_segmented.png",
     "display": "processed/MCZkumomabenihikage_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/MCZkumomabenihikage_54.webp",
       "108": "thumb/MCZkumomabenihikage_108.webp",
       "216": "thumb/MCZkumomabenihikage_216.webp"
-    }
+    },
+    "resized": "original/MCZkumomabenihikage_resized.jpg"
   },
   "processing": {
     "cropBox": [

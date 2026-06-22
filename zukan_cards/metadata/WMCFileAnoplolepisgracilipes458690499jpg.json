@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileAnoplolepisgracilipes458690499jpg_original.jpg",
-    "segmented": "processed/WMCFileAnoplolepisgracilipes458690499jpg_L1_segmented.png",
     "display": "processed/WMCFileAnoplolepisgracilipes458690499jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_54.webp",
       "108": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_108.webp",
       "216": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAnoplolepisgracilipes458690499jpg_resized.jpg"
   },
   "original_sha256": "ec087cec3ce2ce37023032bb2ddc114233cfdfb7e4f7f6554173f924f38baddb",
   "processing": {

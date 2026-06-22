@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileAphodiussolskyiJacobsonpng_original.jpg",
-    "segmented": "processed/WMCFileAphodiussolskyiJacobsonpng_L1_segmented.png",
     "display": "processed/WMCFileAphodiussolskyiJacobsonpng_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAphodiussolskyiJacobsonpng_54.webp",
       "108": "thumb/WMCFileAphodiussolskyiJacobsonpng_108.webp",
       "216": "thumb/WMCFileAphodiussolskyiJacobsonpng_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAphodiussolskyiJacobsonpng_resized.jpg"
   },
   "original_sha256": "15f658618267bde3d61a1c0a630ec2e1dd58f9bda822a13a42e502727033f7a6",
   "processing": {

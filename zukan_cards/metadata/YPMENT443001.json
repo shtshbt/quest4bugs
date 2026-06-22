@@ -1,0 +1,76 @@
+{
+  "species_id": "mizuiro_onaga_shijimi",
+  "species_ja": "ミズイロオナガシジミ",
+  "scientific_name": "Antigius attilia",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 443001",
+    "occurrenceId": "urn:uuid:4a08a1d9-325b-4c37-92c5-4b13811887a8",
+    "persistentId": "urn:uuid:4a08a1d9-325b-4c37-92c5-4b13811887a8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "Taro Hayano",
+    "eventDate": "1953-06-10",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shinohara, Yokohama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.465408,
+    "decimalLongitude": 139.622253
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039077312",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-443001",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:7f67b6f9-1ceb-4323-a318-1e5cee49332c/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT443001_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT443001_54.webp",
+      "108": "thumb/YPMENT443001_108.webp",
+      "216": "thumb/YPMENT443001_216.webp"
+    },
+    "resized": "original/YPMENT443001_resized.jpg"
+  },
+  "original_sha256": "12447e3a6d94cb290baa3f374ba6b67295a5665cb07291601684987a82131285",
+  "processing": {
+    "cropBox": [
+      316,
+      118,
+      903,
+      1431
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT443001_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

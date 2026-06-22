@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileRhopaloceranihonicaBHL22784752jpg_original.jpg",
-    "segmented": "processed/WMCFileRhopaloceranihonicaBHL22784752jpg_L1_segmented.png",
     "display": "processed/WMCFileRhopaloceranihonicaBHL22784752jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_54.webp",
       "108": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_108.webp",
       "216": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileRhopaloceranihonicaBHL22784752jpg_resized.jpg"
   },
   "original_sha256": "16e1cee588233245bee3ba0025977d475e881213ef2e8eb3dc0199a63c77fd1d",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_original.jpg",
-    "segmented": "processed/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_L1_segmented.png",
     "display": "processed/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_54.webp",
       "108": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_108.webp",
       "216": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_resized.jpg"
   },
   "original_sha256": "a8d928c7b9771283eeb547cbcd37d8c87b1146dc73962b4e83fc649836269cf1",
   "processing": {

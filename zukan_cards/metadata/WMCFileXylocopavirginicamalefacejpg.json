@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileXylocopavirginicamalefacejpg_original.jpg",
-    "segmented": "processed/WMCFileXylocopavirginicamalefacejpg_L1_segmented.png",
     "display": "processed/WMCFileXylocopavirginicamalefacejpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileXylocopavirginicamalefacejpg_54.webp",
       "108": "thumb/WMCFileXylocopavirginicamalefacejpg_108.webp",
       "216": "thumb/WMCFileXylocopavirginicamalefacejpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileXylocopavirginicamalefacejpg_resized.jpg"
   },
   "original_sha256": "90b84484347ce2830e9eb5454c8c367d034e4053912039dc6d08b11bd33cd943",
   "processing": {

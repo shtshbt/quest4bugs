@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileLaccotrephesjaponensis400160129jpg_original.jpg",
-    "segmented": "processed/WMCFileLaccotrephesjaponensis400160129jpg_L1_segmented.png",
     "display": "processed/WMCFileLaccotrephesjaponensis400160129jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_54.webp",
       "108": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_108.webp",
       "216": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLaccotrephesjaponensis400160129jpg_resized.jpg"
   },
   "original_sha256": "69730d75d7f9be50e97bd95f429bfbe6c7cdb9089ab07a07ffb347d9245fd36a",
   "processing": {

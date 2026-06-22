@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileMacrolepidoptera01seitz0153jpg_original.jpg",
-    "segmented": "processed/WMCFileMacrolepidoptera01seitz0153jpg_L1_segmented.png",
     "display": "processed/WMCFileMacrolepidoptera01seitz0153jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_54.webp",
       "108": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_108.webp",
       "216": "thumb/WMCFileMacrolepidoptera01seitz0153jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMacrolepidoptera01seitz0153jpg_resized.jpg"
   },
   "original_sha256": "e65ea3b1b41d86e4f5d3dfbf2daa4dad964dbd026cce3e601eed1fbaccdd5bb9",
   "processing": {

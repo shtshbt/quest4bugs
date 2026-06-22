@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileSympetrumpedemontanumelatummaleJPG_original.jpg",
-    "segmented": "processed/WMCFileSympetrumpedemontanumelatummaleJPG_L1_segmented.png",
     "display": "processed/WMCFileSympetrumpedemontanumelatummaleJPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_54.webp",
       "108": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_108.webp",
       "216": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSympetrumpedemontanumelatummaleJPG_resized.jpg"
   },
   "original_sha256": "aa66d28b91f5e3d8975e45dc5c404639c5d14c8a2c0563528b457747b59c10aa",
   "processing": {

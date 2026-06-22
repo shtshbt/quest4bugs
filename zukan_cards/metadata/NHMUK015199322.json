@@ -1,0 +1,74 @@
+{
+  "species_id": "futasujichou",
+  "species_ja": "フタスジチョウ",
+  "scientific_name": "Neptis rivularis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Robyn Crowther",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015199322",
+    "occurrenceId": "811bddd2-d25c-4515-b555-930d7af899bc",
+    "persistentId": "811bddd2-d25c-4515-b555-930d7af899bc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "4101616087",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/811bddd2-d25c-4515-b555-930d7af899bc",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/31f7f7a6-c095-42cc-8d06-9969e4686a74",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK015199322_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015199322_54.webp",
+      "108": "thumb/NHMUK015199322_108.webp",
+      "216": "thumb/NHMUK015199322_216.webp"
+    },
+    "resized": "original/NHMUK015199322_resized.jpg"
+  },
+  "original_sha256": "354a55ee5d4308bd984849a43ee5ac084012ef4ecfeebaf2f7ea5d874243e1f6",
+  "processing": {
+    "cropBox": [
+      36,
+      330,
+      881,
+      841
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015199322_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

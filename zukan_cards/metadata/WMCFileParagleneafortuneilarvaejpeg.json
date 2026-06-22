@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileParagleneafortuneilarvaejpeg_original.jpg",
-    "segmented": "processed/WMCFileParagleneafortuneilarvaejpeg_L1_segmented.png",
     "display": "processed/WMCFileParagleneafortuneilarvaejpeg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileParagleneafortuneilarvaejpeg_54.webp",
       "108": "thumb/WMCFileParagleneafortuneilarvaejpeg_108.webp",
       "216": "thumb/WMCFileParagleneafortuneilarvaejpeg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileParagleneafortuneilarvaejpeg_resized.jpg"
   },
   "original_sha256": "76f9f1851f5a40a1160495e94daf05d3d4644e99c970b56c33ad6d9ccc6eb894",
   "processing": {

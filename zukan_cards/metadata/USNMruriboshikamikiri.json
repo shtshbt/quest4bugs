@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMruriboshikamikiri_original.jpg",
-    "segmented": "processed/USNMruriboshikamikiri_L1_segmented.png",
     "display": "processed/USNMruriboshikamikiri_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMruriboshikamikiri_54.webp",
       "108": "thumb/USNMruriboshikamikiri_108.webp",
       "216": "thumb/USNMruriboshikamikiri_216.webp"
-    }
+    },
+    "resized": "original/USNMruriboshikamikiri_resized.jpg"
   },
   "original_sha256": "b5508fb707f2e3d17bf12f93587268b4a7b6a02bc4cada3ba750ed9f269c4eef",
   "processing": {

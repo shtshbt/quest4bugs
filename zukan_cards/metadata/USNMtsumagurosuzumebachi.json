@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMtsumagurosuzumebachi_original.jpg",
-    "segmented": "processed/USNMtsumagurosuzumebachi_L1_segmented.png",
     "display": "processed/USNMtsumagurosuzumebachi_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMtsumagurosuzumebachi_54.webp",
       "108": "thumb/USNMtsumagurosuzumebachi_108.webp",
       "216": "thumb/USNMtsumagurosuzumebachi_216.webp"
-    }
+    },
+    "resized": "original/USNMtsumagurosuzumebachi_resized.jpg"
   },
   "original_sha256": "255862ceb76a36442d14226981d579ab62f8382bef6cf141cf7895fb3a1843dc",
   "processing": {

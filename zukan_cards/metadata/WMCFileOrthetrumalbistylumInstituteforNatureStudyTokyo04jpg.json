@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_original.jpg",
-    "segmented": "processed/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_L1_segmented.png",
     "display": "processed/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_54.webp",
       "108": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_108.webp",
       "216": "thumb/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileOrthetrumalbistylumInstituteforNatureStudyTokyo04jpg_resized.jpg"
   },
   "original_sha256": "05189b0dd2a3b9a11f4935b2b0781a24eb93beca316e20a25a3eb68f7e3bb49f",
   "processing": {

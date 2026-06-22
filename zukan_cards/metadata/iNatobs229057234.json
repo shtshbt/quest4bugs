@@ -1,0 +1,80 @@
+{
+  "species_id": "karasu_shijimi",
+  "species_ja": "カラスシジミ",
+  "scientific_name": "Fixsenia w-album",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "harukano (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_229057234",
+    "occurrenceId": "https://www.inaturalist.org/observations/229057234",
+    "persistentId": "https://www.inaturalist.org/observations/229057234",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "harukano",
+    "eventDate": "2024-07-12",
+    "eventYear": 2024,
+    "country": "Bulgaria",
+    "localityVerbatim": null,
+    "localityNormalized": "Kosanin dolMladost, Pancharevo, Bulgaria, Bulgaria",
+    "preparations": null,
+    "decimalLatitude": 42.6014380603,
+    "decimalLongitude": 23.3834636584,
+    "coordinatesObscured": false,
+    "iNatObservationId": "229057234",
+    "iNatPhotoId": "406549464",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/229057234",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/406549464/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs229057234_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs229057234_54.webp",
+      "108": "thumb/iNatobs229057234_108.webp",
+      "216": "thumb/iNatobs229057234_216.webp"
+    },
+    "resized": "original/iNatobs229057234_resized.jpg"
+  },
+  "original_sha256": "7ed293e7cf78be488845779e1c0fef5040b4e79c43ea27a6774bbdb2920d5764",
+  "processing": {
+    "cropBox": [
+      691,
+      599,
+      1441,
+      1310
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs229057234_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

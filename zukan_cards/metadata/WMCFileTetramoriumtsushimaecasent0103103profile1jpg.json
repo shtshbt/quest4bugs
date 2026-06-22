@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_original.jpg",
-    "segmented": "processed/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_L1_segmented.png",
     "display": "processed/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_54.webp",
       "108": "thumb/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_108.webp",
       "216": "thumb/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTetramoriumtsushimaecasent0103103profile1jpg_resized.jpg"
   },
   "original_sha256": "3f2e24c8c9c7c14cb6a29fea77a7523d4fdbf5376ea84d96e09d42185d6c82d6",
   "processing": {

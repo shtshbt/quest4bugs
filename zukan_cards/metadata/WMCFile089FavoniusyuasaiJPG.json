@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_midorishijimi",
+  "species_ja": "クロミドリシジミ",
+  "scientific_name": "Favonius yuasai",
+  "credit_line": "Wikimedia Commons",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:089- Favonius yuasai.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:089-_Favonius_yuasai.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:089-_Favonius_yuasai.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 10:24:10",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "クロミドリシジミ",
+    "localityNormalized": "クロミドリシジミ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:089-_Favonius_yuasai.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/089-_Favonius_yuasai.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFile089FavoniusyuasaiJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile089FavoniusyuasaiJPG_54.webp",
+      "108": "thumb/WMCFile089FavoniusyuasaiJPG_108.webp",
+      "216": "thumb/WMCFile089FavoniusyuasaiJPG_216.webp"
+    },
+    "resized": "original/WMCFile089FavoniusyuasaiJPG_resized.jpg"
+  },
+  "original_sha256": "80baf226d58cf4ff3e69066c2109900a09c1f0a80087d31ecd8d1c9028805ccd",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3799,
+      3096
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile089FavoniusyuasaiJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

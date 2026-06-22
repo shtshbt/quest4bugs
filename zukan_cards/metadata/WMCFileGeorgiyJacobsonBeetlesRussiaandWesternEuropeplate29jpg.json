@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_original.jpg",
-    "segmented": "processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_L1_segmented.png",
     "display": "processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_54.webp",
       "108": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_108.webp",
       "216": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_resized.jpg"
   },
   "original_sha256": "e41c19a9754812b48e1f048ceaa78edc6ade9870bdf7bfcc17c15ec7cb518549",
   "processing": {

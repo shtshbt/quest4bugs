@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_original.jpg",
-    "segmented": "processed/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_L1_segmented.png",
     "display": "processed/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_54.webp",
       "108": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_108.webp",
       "216": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_resized.jpg"
   },
   "original_sha256": "effcf9de25d56106389cb33b95eed02ad3b9863ad53e4c7c7573ece84dfc7278",
   "processing": {

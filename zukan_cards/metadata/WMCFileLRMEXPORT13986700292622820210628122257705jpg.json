@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileLRMEXPORT13986700292622820210628122257705jpg_original.jpg",
-    "segmented": "processed/WMCFileLRMEXPORT13986700292622820210628122257705jpg_L1_segmented.png",
     "display": "processed/WMCFileLRMEXPORT13986700292622820210628122257705jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_54.webp",
       "108": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_108.webp",
       "216": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLRMEXPORT13986700292622820210628122257705jpg_resized.jpg"
   },
   "original_sha256": "696b23a18d6d69e91b5cd47b0c326d476449cb6072808599599d743d77e79c6c",
   "processing": {

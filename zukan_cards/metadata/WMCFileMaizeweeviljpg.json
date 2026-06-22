@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileMaizeweeviljpg_original.jpg",
-    "segmented": "processed/WMCFileMaizeweeviljpg_L1_segmented.png",
     "display": "processed/WMCFileMaizeweeviljpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMaizeweeviljpg_54.webp",
       "108": "thumb/WMCFileMaizeweeviljpg_108.webp",
       "216": "thumb/WMCFileMaizeweeviljpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMaizeweeviljpg_resized.jpg"
   },
   "original_sha256": "2da461abc9af87ff42dd52553843503c45f692467ff4fe2fb8eaafad08b44c48",
   "processing": {

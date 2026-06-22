@@ -1,0 +1,74 @@
+{
+  "species_id": "ezosujiguro_shirochou",
+  "species_ja": "エゾスジグロシロチョウ",
+  "scientific_name": "Pieris napi",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781073",
+    "occurrenceId": "http://n2t.net/ark:/65665/3ce707bb4-6d13-4659-b3de-c62c3627415d",
+    "persistentId": "http://n2t.net/ark:/65665/3ce707bb4-6d13-4659-b3de-c62c3627415d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1909-07-20",
+    "eventYear": 1909,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "[not stated], United States of America",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321869499",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321869499",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10385243&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00781073_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781073_54.webp",
+      "108": "thumb/USNMENT00781073_108.webp",
+      "216": "thumb/USNMENT00781073_216.webp"
+    },
+    "resized": "original/USNMENT00781073_resized.jpg"
+  },
+  "original_sha256": "697188c0d754284f8cb0a40830a22c8f5eb2acc605f4ca765275eb46e6a68b6e",
+  "processing": {
+    "cropBox": [
+      388,
+      513,
+      1558,
+      1264
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781073_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

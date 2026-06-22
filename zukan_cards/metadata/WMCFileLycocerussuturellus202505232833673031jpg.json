@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileLycocerussuturellus202505232833673031jpg_original.jpg",
-    "segmented": "processed/WMCFileLycocerussuturellus202505232833673031jpg_L1_segmented.png",
     "display": "processed/WMCFileLycocerussuturellus202505232833673031jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLycocerussuturellus202505232833673031jpg_54.webp",
       "108": "thumb/WMCFileLycocerussuturellus202505232833673031jpg_108.webp",
       "216": "thumb/WMCFileLycocerussuturellus202505232833673031jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLycocerussuturellus202505232833673031jpg_resized.jpg"
   },
   "original_sha256": "32c788d98503e89a6298233a3626b77d4daf03dba144ef19277c28f2639d21d2",
   "processing": {

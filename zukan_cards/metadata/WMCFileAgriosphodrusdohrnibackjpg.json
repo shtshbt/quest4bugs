@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileAgriosphodrusdohrnibackjpg_original.jpg",
-    "segmented": "processed/WMCFileAgriosphodrusdohrnibackjpg_L1_segmented.png",
     "display": "processed/WMCFileAgriosphodrusdohrnibackjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAgriosphodrusdohrnibackjpg_54.webp",
       "108": "thumb/WMCFileAgriosphodrusdohrnibackjpg_108.webp",
       "216": "thumb/WMCFileAgriosphodrusdohrnibackjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAgriosphodrusdohrnibackjpg_resized.jpg"
   },
   "original_sha256": "c907ddf4c753fd515629b2f24ace6e79ddc73239b7195d7206da2526568ffdd0",
   "processing": {

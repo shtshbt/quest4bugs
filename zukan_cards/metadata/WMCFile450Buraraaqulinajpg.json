@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFile450Buraraaqulinajpg_original.jpg",
-    "segmented": "processed/WMCFile450Buraraaqulinajpg_L1_segmented.png",
     "display": "processed/WMCFile450Buraraaqulinajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFile450Buraraaqulinajpg_54.webp",
       "108": "thumb/WMCFile450Buraraaqulinajpg_108.webp",
       "216": "thumb/WMCFile450Buraraaqulinajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFile450Buraraaqulinajpg_resized.jpg"
   },
   "original_sha256": "c50d53379af455670a64a2280e5fcc57183b064b1f9aa1d773713f2f5ca2d2a5",
   "processing": {

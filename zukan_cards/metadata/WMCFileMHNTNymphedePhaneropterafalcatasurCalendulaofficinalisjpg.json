@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_original.jpg",
-    "segmented": "processed/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_L1_segmented.png",
     "display": "processed/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_54.webp",
       "108": "thumb/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_108.webp",
       "216": "thumb/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg_resized.jpg"
   },
   "original_sha256": "f1563d10cffd659f645a26a8915642cb66edd593c697538313311448610dad3f",
   "processing": {

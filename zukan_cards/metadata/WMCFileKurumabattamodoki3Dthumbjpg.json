@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileKurumabattamodoki3Dthumbjpg_original.jpg",
-    "segmented": "processed/WMCFileKurumabattamodoki3Dthumbjpg_L1_segmented.png",
     "display": "processed/WMCFileKurumabattamodoki3Dthumbjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileKurumabattamodoki3Dthumbjpg_54.webp",
       "108": "thumb/WMCFileKurumabattamodoki3Dthumbjpg_108.webp",
       "216": "thumb/WMCFileKurumabattamodoki3Dthumbjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileKurumabattamodoki3Dthumbjpg_resized.jpg"
   },
   "original_sha256": "d028b8ae8d48c81b7cb4a8126840ee1845653b0c379369527df9ae756da405c4",
   "processing": {

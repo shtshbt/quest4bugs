@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileGeishadistinctissima01JPG_original.jpg",
-    "segmented": "processed/WMCFileGeishadistinctissima01JPG_L1_segmented.png",
     "display": "processed/WMCFileGeishadistinctissima01JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGeishadistinctissima01JPG_54.webp",
       "108": "thumb/WMCFileGeishadistinctissima01JPG_108.webp",
       "216": "thumb/WMCFileGeishadistinctissima01JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGeishadistinctissima01JPG_resized.jpg"
   },
   "original_sha256": "affc4066892325b9b9878df53f46e9deb3c7a2662065a5879e56cf3d539f4aa0",
   "processing": {

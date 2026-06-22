@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileSclerogrylluspunctatuskumasuzums02jpg_original.jpg",
-    "segmented": "processed/WMCFileSclerogrylluspunctatuskumasuzums02jpg_L1_segmented.png",
     "display": "processed/WMCFileSclerogrylluspunctatuskumasuzums02jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_54.webp",
       "108": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_108.webp",
       "216": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSclerogrylluspunctatuskumasuzums02jpg_resized.jpg"
   },
   "original_sha256": "d77b63bd7a026023d5473e1ef4d2e0a0a9daaecd3fff4d6cb0e5f0b606927cb3",
   "processing": {

@@ -1,0 +1,74 @@
+{
+  "species_id": "taiwan_shirochou",
+  "species_ja": "タイワンシロチョウ",
+  "scientific_name": "Appias albina",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781707",
+    "occurrenceId": "http://n2t.net/ark:/65665/3314e0bf4-1a88-4bea-bd26-6de1d99da1fb",
+    "persistentId": "http://n2t.net/ark:/65665/3314e0bf4-1a88-4bea-bd26-6de1d99da1fb",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318317247",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318317247",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10482134&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00781707_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781707_54.webp",
+      "108": "thumb/USNMENT00781707_108.webp",
+      "216": "thumb/USNMENT00781707_216.webp"
+    },
+    "resized": "original/USNMENT00781707_resized.jpg"
+  },
+  "original_sha256": "0f020bb264a38ce8047d92592a1f4f019086fd35b4a8fe1d63e2a7c5dc16c7bc",
+  "processing": {
+    "cropBox": [
+      257,
+      158,
+      1723,
+      1289
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781707_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

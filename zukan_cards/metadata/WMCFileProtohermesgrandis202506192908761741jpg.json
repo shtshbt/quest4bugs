@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileProtohermesgrandis202506192908761741jpg_original.jpg",
-    "segmented": "processed/WMCFileProtohermesgrandis202506192908761741jpg_L1_segmented.png",
     "display": "processed/WMCFileProtohermesgrandis202506192908761741jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileProtohermesgrandis202506192908761741jpg_54.webp",
       "108": "thumb/WMCFileProtohermesgrandis202506192908761741jpg_108.webp",
       "216": "thumb/WMCFileProtohermesgrandis202506192908761741jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileProtohermesgrandis202506192908761741jpg_resized.jpg"
   },
   "original_sha256": "553c86f28060394a1714c99d5d75c7b53ab216840636999ffe35a081de1ff7ca",
   "processing": {

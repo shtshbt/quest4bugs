@@ -1,0 +1,75 @@
+{
+  "species_id": "koezo_zemi",
+  "species_ja": "コエゾゼミ",
+  "scientific_name": "Lyristes bihamatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Σ64",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lyristes bihamatus 01.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lyristes_bihamatus_01.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lyristes_bihamatus_01.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Σ64",
+    "eventDate": "2018-08-19",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Auritibicen bihamatus(Tibicen bihamatus)　Location:Mount Mizuhikinyudo, Zao Mountains, Miyagi Pref., Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lyristes_bihamatus_01.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Lyristes_bihamatus_01.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLyristesbihamatus01jpg_original.jpg",
+    "segmented": "processed/WMCFileLyristesbihamatus01jpg_L1_segmented.png",
+    "display": "processed/WMCFileLyristesbihamatus01jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLyristesbihamatus01jpg_54.webp",
+      "108": "thumb/WMCFileLyristesbihamatus01jpg_108.webp",
+      "216": "thumb/WMCFileLyristesbihamatus01jpg_216.webp"
+    }
+  },
+  "original_sha256": "d23e6127351f6eb9085cf41f87855c202523a8bffd60f1890b57b9c40e67afbd",
+  "processing": {
+    "cropBox": [
+      2521,
+      1171,
+      3666,
+      3313
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLyristesbihamatus01jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

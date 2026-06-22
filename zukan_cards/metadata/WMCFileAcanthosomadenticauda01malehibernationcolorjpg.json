@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_original.jpg",
-    "segmented": "processed/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_L1_segmented.png",
     "display": "processed/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_54.webp",
       "108": "thumb/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_108.webp",
       "216": "thumb/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAcanthosomadenticauda01malehibernationcolorjpg_resized.jpg"
   },
   "original_sha256": "c730509d393cc408fe64126b5c7d6f4e343f565e6ff68c6af4d5c6238c23cf53",
   "processing": {

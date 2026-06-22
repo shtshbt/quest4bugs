@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMchairosuzumebachi_original.jpg",
-    "segmented": "processed/USNMchairosuzumebachi_L1_segmented.png",
     "display": "processed/USNMchairosuzumebachi_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMchairosuzumebachi_54.webp",
       "108": "thumb/USNMchairosuzumebachi_108.webp",
       "216": "thumb/USNMchairosuzumebachi_216.webp"
-    }
+    },
+    "resized": "original/USNMchairosuzumebachi_resized.jpg"
   },
   "original_sha256": "c5da986bc068a373d7db8ee0a99d20b1aae68d864bbeb1555f7f2d87d2f79b85",
   "processing": {

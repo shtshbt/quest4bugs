@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileHenosepilachnavigintioctopunctata31070855jpg_original.jpg",
-    "segmented": "processed/WMCFileHenosepilachnavigintioctopunctata31070855jpg_L1_segmented.png",
     "display": "processed/WMCFileHenosepilachnavigintioctopunctata31070855jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileHenosepilachnavigintioctopunctata31070855jpg_54.webp",
       "108": "thumb/WMCFileHenosepilachnavigintioctopunctata31070855jpg_108.webp",
       "216": "thumb/WMCFileHenosepilachnavigintioctopunctata31070855jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileHenosepilachnavigintioctopunctata31070855jpg_resized.jpg"
   },
   "original_sha256": "1447375e8eba7b85b981a5eac319bb9af6dcabfca77b3ae694ddb40cab1cdd99",
   "processing": {

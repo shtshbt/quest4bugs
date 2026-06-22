@@ -1,0 +1,74 @@
+{
+  "species_id": "eltateha",
+  "species_ja": "エルタテハ",
+  "scientific_name": "Nymphalis vaualbum",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.364633",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.364633",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.364633",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Austria",
+    "localityVerbatim": null,
+    "localityNormalized": "Austria",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443638824",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443638824",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.364633_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/RMNHINS364633_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS364633_54.webp",
+      "108": "thumb/RMNHINS364633_108.webp",
+      "216": "thumb/RMNHINS364633_216.webp"
+    },
+    "resized": "original/RMNHINS364633_resized.jpg"
+  },
+  "original_sha256": "6b27dd83fd94a6a3da0d379d203a5445b2be0ade9b9de34d13cec9c68a95ae01",
+  "processing": {
+    "cropBox": [
+      0,
+      147,
+      1920,
+      1155
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS364633_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

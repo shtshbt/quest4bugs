@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_original.jpg",
-    "segmented": "processed/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_L1_segmented.png",
     "display": "processed/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_54.webp",
       "108": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_108.webp",
       "216": "thumb/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCryptotympanafacialisShinNihonsenchuzukaijpg_resized.jpg"
   },
   "original_sha256": "12072a3d83d8ee7672fb527462dfcdc263b6ac48a65f7923b2d107217ce6499c",
   "processing": {

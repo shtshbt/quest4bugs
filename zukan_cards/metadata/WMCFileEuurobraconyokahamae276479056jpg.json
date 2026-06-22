@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileEuurobraconyokahamae276479056jpg_original.jpg",
-    "segmented": "processed/WMCFileEuurobraconyokahamae276479056jpg_L1_segmented.png",
     "display": "processed/WMCFileEuurobraconyokahamae276479056jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEuurobraconyokahamae276479056jpg_54.webp",
       "108": "thumb/WMCFileEuurobraconyokahamae276479056jpg_108.webp",
       "216": "thumb/WMCFileEuurobraconyokahamae276479056jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEuurobraconyokahamae276479056jpg_resized.jpg"
   },
   "original_sha256": "e5ad151111cabf18259d4da340cea76635713ea745f65158fac4cbf25503b72d",
   "processing": {

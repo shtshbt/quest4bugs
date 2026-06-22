@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_original.jpg",
-    "segmented": "processed/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_L1_segmented.png",
     "display": "processed/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_54.webp",
       "108": "thumb/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_108.webp",
       "216": "thumb/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAulacophoraindica1JPGPhotobyVCBalakrishnanjpg_resized.jpg"
   },
   "original_sha256": "28ff4b968a0cc149b21a1634d6240a6457866d01d851ca9c7637d9034c0705cc",
   "processing": {

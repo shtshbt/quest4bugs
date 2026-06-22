@@ -34,18 +34,22 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
-    "original": "original/NHMUK013602430_original.jpg",
-    "segmented": "processed/NHMUK013602430_L1_segmented.png",
     "display": "processed/NHMUK013602430_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUK013602430_54.webp",
       "108": "thumb/NHMUK013602430_108.webp",
       "216": "thumb/NHMUK013602430_216.webp"
-    }
+    },
+    "resized": "original/NHMUK013602430_resized.jpg"
   },
   "originalSha256": "0359d92d4959084e872f8ac28def3eb0b4d61dd740cc8a2446510b092d3bc182",
   "processing": {
-    "cropBox": [10, 20, 1430, 800],
+    "cropBox": [
+      10,
+      20,
+      1430,
+      800
+    ],
     "rotationDegrees": 0,
     "padding": 0.1,
     "canvas": 512,
@@ -56,7 +60,11 @@
     "colorGradeVersion": "q4b-l2-v1",
     "manualMaskCorrection": false
   },
-  "modifications": ["cropped", "background removed", "color adjusted"],
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
   "raw": {
     "originalImage": "original/NHMUK013602430_original.jpg",
     "verbatimLabelText": null,

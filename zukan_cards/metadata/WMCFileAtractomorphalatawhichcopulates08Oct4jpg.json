@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_original.jpg",
-    "segmented": "processed/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_L1_segmented.png",
     "display": "processed/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_54.webp",
       "108": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_108.webp",
       "216": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_resized.jpg"
   },
   "original_sha256": "225133c9c281be8b3c0142308a0a9742a15dc1ed83fc582ff33547a3b7cb9d1d",
   "processing": {

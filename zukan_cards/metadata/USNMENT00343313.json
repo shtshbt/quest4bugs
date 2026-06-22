@@ -36,14 +36,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMENT00343313_original.jpg",
-    "segmented": "processed/USNMENT00343313_L1_segmented.png",
     "display": "processed/USNMENT00343313_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMENT00343313_54.webp",
       "108": "thumb/USNMENT00343313_108.webp",
       "216": "thumb/USNMENT00343313_216.webp"
-    }
+    },
+    "resized": "original/USNMENT00343313_resized.jpg"
   },
   "original_sha256": "ecf55105673bc84ab691e6a51463822806ab524482787ecb940e3b98a2cce5c0",
   "processing": {

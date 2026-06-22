@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFilePolyergussamuraicasent0173324profile1jpg_original.jpg",
-    "segmented": "processed/WMCFilePolyergussamuraicasent0173324profile1jpg_L1_segmented.png",
     "display": "processed/WMCFilePolyergussamuraicasent0173324profile1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePolyergussamuraicasent0173324profile1jpg_54.webp",
       "108": "thumb/WMCFilePolyergussamuraicasent0173324profile1jpg_108.webp",
       "216": "thumb/WMCFilePolyergussamuraicasent0173324profile1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePolyergussamuraicasent0173324profile1jpg_resized.jpg"
   },
   "original_sha256": "a575b1c84c2564bce182e00f9f88f2ec7e9ae9f28278936922d23a8e7f9ba25f",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileGraphosomarubrolineatum070708aJPG_original.jpg",
-    "segmented": "processed/WMCFileGraphosomarubrolineatum070708aJPG_L1_segmented.png",
     "display": "processed/WMCFileGraphosomarubrolineatum070708aJPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_54.webp",
       "108": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_108.webp",
       "216": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGraphosomarubrolineatum070708aJPG_resized.jpg"
   },
   "original_sha256": "f8c445286a2550a7e2efaf5e700f0b786369c1f51b873ef06cbeff42e2551c92",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/"
   },
   "files": {
-    "original": "original/WMCProsopocoilusgiraffaborobudur3247571651_original.jpg",
-    "segmented": "processed/WMCProsopocoilusgiraffaborobudur3247571651_L1_segmented.png",
     "display": "processed/WMCProsopocoilusgiraffaborobudur3247571651_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCProsopocoilusgiraffaborobudur3247571651_54.webp",
       "108": "thumb/WMCProsopocoilusgiraffaborobudur3247571651_108.webp",
       "216": "thumb/WMCProsopocoilusgiraffaborobudur3247571651_216.webp"
-    }
+    },
+    "resized": "original/WMCProsopocoilusgiraffaborobudur3247571651_resized.jpg"
   },
   "original_sha256": "31f050801d0e7bd7461ec82c5879fba6d92da2991ddb363da55bbd4c1ecc1b58",
   "processing": {

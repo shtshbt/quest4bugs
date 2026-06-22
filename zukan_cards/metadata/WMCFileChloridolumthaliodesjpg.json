@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileChloridolumthaliodesjpg_original.jpg",
-    "segmented": "processed/WMCFileChloridolumthaliodesjpg_L1_segmented.png",
     "display": "processed/WMCFileChloridolumthaliodesjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileChloridolumthaliodesjpg_54.webp",
       "108": "thumb/WMCFileChloridolumthaliodesjpg_108.webp",
       "216": "thumb/WMCFileChloridolumthaliodesjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileChloridolumthaliodesjpg_resized.jpg"
   },
   "original_sha256": "985a90cd52be46c90e75bd067ad67b5e3b0ae1a0f55157b4f76abd752c4a8d9b",
   "processing": {

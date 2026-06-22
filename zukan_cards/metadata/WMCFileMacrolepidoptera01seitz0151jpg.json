@@ -1,0 +1,74 @@
+{
+  "species_id": "kotsubame",
+  "species_ja": "コツバメ",
+  "scientific_name": "Callophrys ferrea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Macrolepidoptera01seitz 0151.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0151.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0151.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz",
+    "eventDate": "1906",
+    "eventYear": 1906,
+    "country": null,
+    "localityVerbatim": "Plate from Seitz, A. Ed., 1900-1909 Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart Die Großschmetterlinge des palaearktischen Faunengebietes(The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera) Band 1: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Tagfalter. read text (in German)\nSee The Global Lepidoptera Names Index for valid names\na\n\nRapala nissa (Kollar, [1844])\nRapala nissa ab. maculata ab. nov. Seitz\nRapala repercussa Leech, 1890\nab. betuloides Leech (72a) \"is the form with a large red discal patch on the forewing already mentioned by Blanchard\" = Thecla betuloides Blanchard, 1871 = ab. Rapala caerulea (Bremer &amp; Grey)\nb\n\nRapala arata (Bremer, 1861)\nDeudorix epijarbas (Moore, 1857)\nPapilio melampus Stoll, [1781] = Rapala iarbus iarbus(Fabricius, 1787)\nRapala selira (Moore, 1874)\nc\n\nHoraga onyx (Moore, [1858])\nChliaria othona (Hewitson, 1865)\nTajuria cippus longinus (Fabricius, 1798)\nPratapa icetas (Hewitson, 1865)\nAncema ctesia (Hewitson, 1865)\nd\n\nTajuria luculentus (Leech, 1890)\nLaeosopis roboris (Esper, 1794)\nLaeosopis roboris lusitanica Staudinger, [1892]\ne\n\nNiphanda fusca (Bremer &amp; Grey, 1853)\nNiphanda fusca ab. lasurea Graeser, 1888\nerrore Orthomiella sinensis (Elwes, 1887)\nCallophrys rubi (Linnaeus, 1758)\nCallophrys rubi ab. immaculata Fuchs, 1891ě\nf\n\nCallophrys suaveola (Staudinger, 1881)\nCallophrys rubi fervida Staudinger, 1901\nAhlbergia ferrea (Butler, 1866)\nAhlbergia frivaldszkyi (Lederer, 1855)\nSatsuma pratti Leech (72f). Larger, the upperside duller, dusted with pale iron-grey at the base, the scent-patch of the  malebeing dark, instead of yellow. Distal margin more distinctly dentate; the hindwing beneath darker, with conspicuous white markings. — In Central and West China, at I-chang, singly, in June and July. = Satsuma pratti Leech, 1890; Entomologist 23: 44; TL: Ichang in Ahlbergia?\nAhlbergia nicevillei (Leech, 1893)\nAhlbergia circe (Leech, 1893)\ng\n\ncirce\nAhlbergia chalybeia (Leech, 1890)\nAhlbergia pluto (Leech, 1893)\nSatyrium spini (Fabricius, 1775)\nPapilio quercus lynceus Esper, 1779 = Satyrium spini (Fabricius, 1775)\nh\n\nLycaena melantho Klug, [1834] = Satyrium spini (Fabricius, 1775)\nSatyrium latior (Fixsen, 1887)\nSatyrium w-album Knoch, 1782\nSatyrium patrius (Leech, 1891)\nSatyrium eximia (Fixsen, 1887)\ni\n\nSatyrium eximia (Fixsen, 1887)\nThecla eximia fixseni (var.) Leech, [1893] =Satyrium eximia (Fixsen, 1887)\nSatyrium lais Leech, 1893.\nSatyrium ornata (Leech, 1890)\nSatyrium grandis Felder, C. &amp; Felder, R., 1862",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0151.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Macrolepidoptera01seitz_0151.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileMacrolepidoptera01seitz0151jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMacrolepidoptera01seitz0151jpg_54.webp",
+      "108": "thumb/WMCFileMacrolepidoptera01seitz0151jpg_108.webp",
+      "216": "thumb/WMCFileMacrolepidoptera01seitz0151jpg_216.webp"
+    },
+    "resized": "original/WMCFileMacrolepidoptera01seitz0151jpg_resized.jpg"
+  },
+  "original_sha256": "c6af85797d59bb7ccabae01b0a6ee8a06f07455d09263efcf4ba39d591f99400",
+  "processing": {
+    "cropBox": [
+      83,
+      128,
+      2434,
+      3406
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMacrolepidoptera01seitz0151jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

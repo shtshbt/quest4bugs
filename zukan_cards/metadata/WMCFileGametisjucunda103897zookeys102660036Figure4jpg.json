@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_original.jpg",
-    "segmented": "processed/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_L1_segmented.png",
     "display": "processed/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_54.webp",
       "108": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_108.webp",
       "216": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_resized.jpg"
   },
   "original_sha256": "034d2ba2ca50d0d42899e1ffe2fbd3d07f1f0ce9af997abef75f660117825b5b",
   "processing": {

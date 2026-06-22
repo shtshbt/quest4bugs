@@ -1,0 +1,74 @@
+{
+  "species_id": "onaga_shijimi",
+  "species_ja": "オナガシジミ",
+  "scientific_name": "Araragi enthea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Macrolepidoptera01seitz 0155.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0155.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0155.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz",
+    "eventDate": "1906",
+    "eventYear": 1906,
+    "country": null,
+    "localityVerbatim": "Plate from Seitz, A. Ed., 1900-1909 Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart Die Großschmetterlinge des palaearktischen Faunengebietes(The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera) Band 1: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Tagfalter. read text (in German)\nSee The Global Lepidoptera Names Index for valid names\na\n\nThermozephyrus ataxus (Westwood, 1851)\nChrysozephyrus duma desgodinsi (Oberthür, 1886)\nFavonius saphirinus pedius (Leech, 1894\nb\n\nerrore Teratozephyrus hecale (Leech, 1894)\nEsakiozephyrus tsangkie (Oberthür, 1886)\nZephyra coelistis Leech = Thecla coelestis Leech = Howarthia caelestis Leech, 1890\nc\n\nWagimo signata (Butler, [1882])\nWagimo signata quercivora (Staudinger, 1887)\nEsakiozephyrus bieti (Oberthür, 1886)\nFavonius quercus (Linnaeus, 1758)\nd\n\nFavonius quercus (Linnaeus, 1758)\nThecla quercus var. bellus Gerhard, 1850 = Favonius quercus (Linnaeus, 1758)\nThecla quercus iberica (Staudinger, 1901)\nAntigius attilia (Bremer, 1861)\ne\n\nAraragi enthea (Janson, 1877)\nGonerilia thespis (Leech, 1890)\nShirozua melpomene (Leech, 1890\nf\n\nJaponica saepestriata (Hewitson, 1865)\nJaponica lutea (Hewitson, 1865)\nCordelia comes (Leech, 1890)\nCordelia minerva (Leech, 1890)\ng\n\nThecla betulae elwesi Leech, [1893]\nThecla betulae crassa Leech, [1893].\nUssuriana michaelis gabrielis (Leech, [1893])\nType locality: Western China, Moupin.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Macrolepidoptera01seitz_0155.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Macrolepidoptera01seitz_0155.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileMacrolepidoptera01seitz0155jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMacrolepidoptera01seitz0155jpg_54.webp",
+      "108": "thumb/WMCFileMacrolepidoptera01seitz0155jpg_108.webp",
+      "216": "thumb/WMCFileMacrolepidoptera01seitz0155jpg_216.webp"
+    },
+    "resized": "original/WMCFileMacrolepidoptera01seitz0155jpg_resized.jpg"
+  },
+  "original_sha256": "9f4b441a531d86d7ec9b310127a573a54dfeb3b49e5fcb891f6b52998ff60907",
+  "processing": {
+    "cropBox": [
+      82,
+      110,
+      2447,
+      3396
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMacrolepidoptera01seitz0155jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

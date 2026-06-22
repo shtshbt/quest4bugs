@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileLoxoblemmusdoenitzi241778332jpg_original.jpg",
-    "segmented": "processed/WMCFileLoxoblemmusdoenitzi241778332jpg_L1_segmented.png",
     "display": "processed/WMCFileLoxoblemmusdoenitzi241778332jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLoxoblemmusdoenitzi241778332jpg_54.webp",
       "108": "thumb/WMCFileLoxoblemmusdoenitzi241778332jpg_108.webp",
       "216": "thumb/WMCFileLoxoblemmusdoenitzi241778332jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLoxoblemmusdoenitzi241778332jpg_resized.jpg"
   },
   "original_sha256": "af42b012bab3414667aeb1edba3190366a10535ffa53c08fa8f5bcd261826865",
   "processing": {

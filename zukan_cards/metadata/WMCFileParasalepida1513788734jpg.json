@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileParasalepida1513788734jpg_original.jpg",
-    "segmented": "processed/WMCFileParasalepida1513788734jpg_L1_segmented.png",
     "display": "processed/WMCFileParasalepida1513788734jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileParasalepida1513788734jpg_54.webp",
       "108": "thumb/WMCFileParasalepida1513788734jpg_108.webp",
       "216": "thumb/WMCFileParasalepida1513788734jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileParasalepida1513788734jpg_resized.jpg"
   },
   "original_sha256": "bdb593af6c52f07b897c426513a9390d2bedd32c6903c26b7165d78d6816170b",
   "processing": {

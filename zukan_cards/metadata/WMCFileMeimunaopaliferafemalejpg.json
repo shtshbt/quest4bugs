@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileMeimunaopaliferafemalejpg_original.jpg",
-    "segmented": "processed/WMCFileMeimunaopaliferafemalejpg_L1_segmented.png",
     "display": "processed/WMCFileMeimunaopaliferafemalejpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMeimunaopaliferafemalejpg_54.webp",
       "108": "thumb/WMCFileMeimunaopaliferafemalejpg_108.webp",
       "216": "thumb/WMCFileMeimunaopaliferafemalejpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMeimunaopaliferafemalejpg_resized.jpg"
   },
   "original_sha256": "8e69b6a891a563b5e3c9657ba53949c2789f957decd3062e2c2c5606ea06fec5",
   "processing": {

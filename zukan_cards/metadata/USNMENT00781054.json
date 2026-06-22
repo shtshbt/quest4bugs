@@ -1,0 +1,74 @@
+{
+  "species_id": "kita_kichou",
+  "species_ja": "キタキチョウ",
+  "scientific_name": "Eurema mandarina",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781054",
+    "occurrenceId": "http://n2t.net/ark:/65665/3a44a71ff-8450-4d68-9ab0-e91ef9cee86c",
+    "persistentId": "http://n2t.net/ark:/65665/3a44a71ff-8450-4d68-9ab0-e91ef9cee86c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Mixed",
+    "lifeStage": null,
+    "recordedBy": "W. Abbott",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Tanzania, United Republic of",
+    "localityVerbatim": null,
+    "localityNormalized": "[Not Stated], Tanzania, United Republic of",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320916675",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320916675",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10385174&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00781054_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781054_54.webp",
+      "108": "thumb/USNMENT00781054_108.webp",
+      "216": "thumb/USNMENT00781054_216.webp"
+    },
+    "resized": "original/USNMENT00781054_resized.jpg"
+  },
+  "original_sha256": "94f1a1fe3798577ab08459a433b4f2fc4bc77710f70ad981cacefc7415933b24",
+  "processing": {
+    "cropBox": [
+      248,
+      208,
+      1802,
+      1204
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781054_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

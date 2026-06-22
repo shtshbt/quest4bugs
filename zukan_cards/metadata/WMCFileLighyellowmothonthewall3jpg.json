@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileLighyellowmothonthewall3jpg_original.jpg",
-    "segmented": "processed/WMCFileLighyellowmothonthewall3jpg_L1_segmented.png",
     "display": "processed/WMCFileLighyellowmothonthewall3jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLighyellowmothonthewall3jpg_54.webp",
       "108": "thumb/WMCFileLighyellowmothonthewall3jpg_108.webp",
       "216": "thumb/WMCFileLighyellowmothonthewall3jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLighyellowmothonthewall3jpg_resized.jpg"
   },
   "original_sha256": "69ccbe831c7c8558a80bbe0de58bc52b4975b611c959fc14353a17e306f3bf98",
   "processing": {

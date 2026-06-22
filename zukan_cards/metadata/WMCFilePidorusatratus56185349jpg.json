@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFilePidorusatratus56185349jpg_original.jpg",
-    "segmented": "processed/WMCFilePidorusatratus56185349jpg_L1_segmented.png",
     "display": "processed/WMCFilePidorusatratus56185349jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePidorusatratus56185349jpg_54.webp",
       "108": "thumb/WMCFilePidorusatratus56185349jpg_108.webp",
       "216": "thumb/WMCFilePidorusatratus56185349jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePidorusatratus56185349jpg_resized.jpg"
   },
   "original_sha256": "e61b5970be1e9c9ceac26118d0adc6653e6b5ea06d77427569f56d3c558876c7",
   "processing": {

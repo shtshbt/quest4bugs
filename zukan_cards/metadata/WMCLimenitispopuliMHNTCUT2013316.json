@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   "files": {
-    "original": "original/WMCLimenitispopuliMHNTCUT2013316_original.jpg",
-    "segmented": "processed/WMCLimenitispopuliMHNTCUT2013316_L1_segmented.png",
     "display": "processed/WMCLimenitispopuliMHNTCUT2013316_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCLimenitispopuliMHNTCUT2013316_54.webp",
       "108": "thumb/WMCLimenitispopuliMHNTCUT2013316_108.webp",
       "216": "thumb/WMCLimenitispopuliMHNTCUT2013316_216.webp"
-    }
+    },
+    "resized": "original/WMCLimenitispopuliMHNTCUT2013316_resized.jpg"
   },
   "original_sha256": "6d88f5600d2a0ac6e0b229b1ea25e6256141631e36aa2ab04ca9c6ce4f3d85b7",
   "processing": {

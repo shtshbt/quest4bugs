@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "files": {
-    "original": "original/WMCFileDynastesneptunus1jpg_original.jpg",
-    "segmented": "processed/WMCFileDynastesneptunus1jpg_L1_segmented.png",
     "display": "processed/WMCFileDynastesneptunus1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileDynastesneptunus1jpg_54.webp",
       "108": "thumb/WMCFileDynastesneptunus1jpg_108.webp",
       "216": "thumb/WMCFileDynastesneptunus1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileDynastesneptunus1jpg_resized.jpg"
   },
   "original_sha256": "8c694cc699b42f43421b10d8ca2de7a5203b14af9f3bc73fb89b2667228b932a",
   "processing": {

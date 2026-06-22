@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_original.jpg",
-    "segmented": "processed/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_L1_segmented.png",
     "display": "processed/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_54.webp",
       "108": "thumb/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_108.webp",
       "216": "thumb/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_resized.jpg"
   },
   "original_sha256": "dc28e1b4e74ebecebf8ca9935a58e1cbb4d3c3489b674616c86a7394ee2a2290",
   "processing": {

@@ -1,0 +1,75 @@
+{
+  "species_id": "haguro_tonbo",
+  "species_ja": "ハグロトンボ",
+  "scientific_name": "Calopteryx atrata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Navian",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Calopteryx atrata 20100710.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Calopteryx_atrata_20100710.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Calopteryx_atrata_20100710.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Navian",
+    "eventDate": "2010-07-10",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Calopteryx atrata at at Shimanto City,Kochi Pref,Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Calopteryx_atrata_20100710.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Calopteryx_atrata_20100710.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileCalopteryxatrata20100710jpg_original.jpg",
+    "segmented": "processed/WMCFileCalopteryxatrata20100710jpg_L1_segmented.png",
+    "display": "processed/WMCFileCalopteryxatrata20100710jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCalopteryxatrata20100710jpg_54.webp",
+      "108": "thumb/WMCFileCalopteryxatrata20100710jpg_108.webp",
+      "216": "thumb/WMCFileCalopteryxatrata20100710jpg_216.webp"
+    }
+  },
+  "original_sha256": "de372d0ba9fd6c8f876a8892c9817f5f74a265332151896cd66ac803487aa038",
+  "processing": {
+    "cropBox": [
+      309,
+      106,
+      1574,
+      1305
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCalopteryxatrata20100710jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

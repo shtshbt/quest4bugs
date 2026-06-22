@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileAtlasMothSpecimenjpg_original.jpg",
-    "segmented": "processed/WMCFileAtlasMothSpecimenjpg_L1_segmented.png",
     "display": "processed/WMCFileAtlasMothSpecimenjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileAtlasMothSpecimenjpg_54.webp",
       "108": "thumb/WMCFileAtlasMothSpecimenjpg_108.webp",
       "216": "thumb/WMCFileAtlasMothSpecimenjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileAtlasMothSpecimenjpg_resized.jpg"
   },
   "original_sha256": "d668ce0ea1ce5178616014139d0594ea04feb9fd3c175ef63f34bd9f4c10b229",
   "processing": {

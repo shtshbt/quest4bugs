@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_original.jpg",
-    "segmented": "processed/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_L1_segmented.png",
     "display": "processed/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_54.webp",
       "108": "thumb/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_108.webp",
       "216": "thumb/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileParoplapoderuspardalisgomadaraotsbm03jpg_resized.jpg"
   },
   "original_sha256": "9d88d0b3a06ca0f1ce823b8e6bac627e30e5e2659fc3e257bbd3e1a6ad3bb88a",
   "processing": {

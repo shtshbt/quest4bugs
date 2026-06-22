@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/USNMookibausubakamikiri_original.jpg",
-    "segmented": "processed/USNMookibausubakamikiri_L1_segmented.png",
     "display": "processed/USNMookibausubakamikiri_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMookibausubakamikiri_54.webp",
       "108": "thumb/USNMookibausubakamikiri_108.webp",
       "216": "thumb/USNMookibausubakamikiri_216.webp"
-    }
+    },
+    "resized": "original/USNMookibausubakamikiri_resized.jpg"
   },
   "original_sha256": "a5417f0d93ffd45d2243c83e40c793eb2989957445d466acd6c9973995815f2c",
   "processing": {

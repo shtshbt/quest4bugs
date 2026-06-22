@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_original.jpg",
-    "segmented": "processed/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_L1_segmented.png",
     "display": "processed/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_54.webp",
       "108": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_108.webp",
       "216": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_resized.jpg"
   },
   "original_sha256": "645ed0e1999b394786c2748ddbcb9cf5a07c49779923689ce2287cb79249ce67",
   "processing": {

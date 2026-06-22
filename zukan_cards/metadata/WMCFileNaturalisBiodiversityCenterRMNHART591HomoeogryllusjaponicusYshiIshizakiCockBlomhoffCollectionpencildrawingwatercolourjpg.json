@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_original.jpg",
-    "segmented": "processed/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L1_segmented.png",
     "display": "processed/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_54.webp",
       "108": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_108.webp",
       "216": "thumb/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_resized.jpg"
   },
   "original_sha256": "885614058ef9cfcdbdf5995b92ce8e0fb177e06445c8b4fbc77a257b075deea0",
   "processing": {

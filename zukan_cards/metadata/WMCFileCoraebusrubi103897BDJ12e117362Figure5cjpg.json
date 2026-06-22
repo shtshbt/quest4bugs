@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_original.jpg",
-    "segmented": "processed/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_L1_segmented.png",
     "display": "processed/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_54.webp",
       "108": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_108.webp",
       "216": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_resized.jpg"
   },
   "original_sha256": "64ceed756fa682d487c84b08627fcd48f797261278057d491f24dd57e5ed212c",
   "processing": {

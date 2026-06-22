@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_original.jpg",
-    "segmented": "processed/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_L1_segmented.png",
     "display": "processed/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_54.webp",
       "108": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_108.webp",
       "216": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_resized.jpg"
   },
   "original_sha256": "b53360c06abbc103e487f9edeffc983b035f204dc775540e4fc739c8311a17ba",
   "processing": {

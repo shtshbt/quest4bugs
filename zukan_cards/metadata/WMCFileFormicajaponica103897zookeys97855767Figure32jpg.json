@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_original.jpg",
-    "segmented": "processed/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_L1_segmented.png",
     "display": "processed/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_54.webp",
       "108": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_108.webp",
       "216": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_resized.jpg"
   },
   "original_sha256": "3f8ff43caf3cbd9dcf823ae5c18d34abe5d8033147dfcb84a451a27d2224a70c",
   "processing": {

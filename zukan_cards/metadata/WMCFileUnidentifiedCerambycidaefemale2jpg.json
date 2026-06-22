@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileUnidentifiedCerambycidaefemale2jpg_original.jpg",
-    "segmented": "processed/WMCFileUnidentifiedCerambycidaefemale2jpg_L1_segmented.png",
     "display": "processed/WMCFileUnidentifiedCerambycidaefemale2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_54.webp",
       "108": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_108.webp",
       "216": "thumb/WMCFileUnidentifiedCerambycidaefemale2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileUnidentifiedCerambycidaefemale2jpg_resized.jpg"
   },
   "original_sha256": "504355ac817eb0b7387265090bcc05118ca091425fa4bf8d3222938260f382a6",
   "processing": {

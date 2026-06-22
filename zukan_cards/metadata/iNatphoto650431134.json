@@ -40,14 +40,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/iNatphoto650431134_original.jpg",
-    "segmented": "processed/iNatphoto650431134_L1_segmented.png",
     "display": "processed/iNatphoto650431134_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/iNatphoto650431134_54.webp",
       "108": "thumb/iNatphoto650431134_108.webp",
       "216": "thumb/iNatphoto650431134_216.webp"
-    }
+    },
+    "resized": "original/iNatphoto650431134_resized.jpg"
   },
   "original_sha256": "99a5e421dcb8dbd856fa65f32800b7515356c762ff4115a6cdd073fe78dc558a",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileTerpnosianigricosta01jpg_original.jpg",
-    "segmented": "processed/WMCFileTerpnosianigricosta01jpg_L1_segmented.png",
     "display": "processed/WMCFileTerpnosianigricosta01jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTerpnosianigricosta01jpg_54.webp",
       "108": "thumb/WMCFileTerpnosianigricosta01jpg_108.webp",
       "216": "thumb/WMCFileTerpnosianigricosta01jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTerpnosianigricosta01jpg_resized.jpg"
   },
   "original_sha256": "49a35636b0ebd1eb3057ddaf2d50ca93096a26f43bc822dfb91479f6abe42b3f",
   "processing": {

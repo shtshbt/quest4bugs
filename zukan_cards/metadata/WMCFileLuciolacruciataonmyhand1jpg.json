@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileLuciolacruciataonmyhand1jpg_original.jpg",
-    "segmented": "processed/WMCFileLuciolacruciataonmyhand1jpg_L1_segmented.png",
     "display": "processed/WMCFileLuciolacruciataonmyhand1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLuciolacruciataonmyhand1jpg_54.webp",
       "108": "thumb/WMCFileLuciolacruciataonmyhand1jpg_108.webp",
       "216": "thumb/WMCFileLuciolacruciataonmyhand1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLuciolacruciataonmyhand1jpg_resized.jpg"
   },
   "original_sha256": "081bd0ac103446e71f47d821cb52d8ee383e166d86cfd18050d760e467af50cc",
   "processing": {

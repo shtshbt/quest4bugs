@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_original.jpg",
-    "segmented": "processed/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_L1_segmented.png",
     "display": "processed/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_54.webp",
       "108": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_108.webp",
       "216": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_resized.jpg"
   },
   "original_sha256": "c4f544ccff14833ae7d37d88ee530d54146214da11640867b15a7fac32a17c1b",
   "processing": {

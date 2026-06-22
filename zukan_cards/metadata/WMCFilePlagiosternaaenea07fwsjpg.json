@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFilePlagiosternaaenea07fwsjpg_original.jpg",
-    "segmented": "processed/WMCFilePlagiosternaaenea07fwsjpg_L1_segmented.png",
     "display": "processed/WMCFilePlagiosternaaenea07fwsjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePlagiosternaaenea07fwsjpg_54.webp",
       "108": "thumb/WMCFilePlagiosternaaenea07fwsjpg_108.webp",
       "216": "thumb/WMCFilePlagiosternaaenea07fwsjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePlagiosternaaenea07fwsjpg_resized.jpg"
   },
   "original_sha256": "7871a718b1d9c416258f6cc7c6b31024f3365e89d8d5ce7ed8225ab0bbe69b64",
   "processing": {

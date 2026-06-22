@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileDorcushopeijpg_original.jpg",
-    "segmented": "processed/WMCFileDorcushopeijpg_L1_segmented.png",
     "display": "processed/WMCFileDorcushopeijpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileDorcushopeijpg_54.webp",
       "108": "thumb/WMCFileDorcushopeijpg_108.webp",
       "216": "thumb/WMCFileDorcushopeijpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileDorcushopeijpg_resized.jpg"
   },
   "original_sha256": "527d7f792aae8246b8ee7f5cc4e06abeb8ae12d05c184ffcf3a54b6c2a236e33",
   "processing": {

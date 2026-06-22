@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_original.jpg",
-    "segmented": "processed/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_L1_segmented.png",
     "display": "processed/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_54.webp",
       "108": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_108.webp",
       "216": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_resized.jpg"
   },
   "original_sha256": "c5aa1b126124cdb6c1893588c08bf5582010767255ecde749fb3d4c84dfe31a2",
   "processing": {

@@ -1,0 +1,75 @@
+{
+  "species_id": "aomadara_tamamushi",
+  "species_ja": "アオマダラタマムシ",
+  "scientific_name": "Nipponobuprestis amabilis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Keisotyo",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Nipponobuprestis amabilis aomadaratmms01.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Nipponobuprestis_amabilis_aomadaratmms01.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Nipponobuprestis_amabilis_aomadaratmms01.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Keisotyo",
+    "eventDate": "2022-06-04",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "2022/05/25\n和歌山県田辺市：Tanabe City, Wakayama Pref. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Nipponobuprestis_amabilis_aomadaratmms01.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Nipponobuprestis_amabilis_aomadaratmms01.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_54.webp",
+      "108": "thumb/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_108.webp",
+      "216": "thumb/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_216.webp"
+    },
+    "resized": "original/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_resized.jpg"
+  },
+  "original_sha256": "2ede903947b816bf54d4fc8f5126f9da1d3155fd0c6a7aea869f0ffc2835b862",
+  "processing": {
+    "cropBox": [
+      145,
+      155,
+      962,
+      686
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNipponobuprestisamabilisaomadaratmms01jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.75), rotate 90 CCW"
+}

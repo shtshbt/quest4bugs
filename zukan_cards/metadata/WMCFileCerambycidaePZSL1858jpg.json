@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileCerambycidaePZSL1858jpg_original.jpg",
-    "segmented": "processed/WMCFileCerambycidaePZSL1858jpg_L1_segmented.png",
     "display": "processed/WMCFileCerambycidaePZSL1858jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCerambycidaePZSL1858jpg_54.webp",
       "108": "thumb/WMCFileCerambycidaePZSL1858jpg_108.webp",
       "216": "thumb/WMCFileCerambycidaePZSL1858jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCerambycidaePZSL1858jpg_resized.jpg"
   },
   "original_sha256": "cb1da66ac22eb535d94643c80302e2701d5a0a20bed12acc2785c4906ebee61b",
   "processing": {

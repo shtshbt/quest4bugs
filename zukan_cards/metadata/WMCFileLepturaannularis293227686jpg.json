@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileLepturaannularis293227686jpg_original.jpg",
-    "segmented": "processed/WMCFileLepturaannularis293227686jpg_L1_segmented.png",
     "display": "processed/WMCFileLepturaannularis293227686jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLepturaannularis293227686jpg_54.webp",
       "108": "thumb/WMCFileLepturaannularis293227686jpg_108.webp",
       "216": "thumb/WMCFileLepturaannularis293227686jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLepturaannularis293227686jpg_resized.jpg"
   },
   "original_sha256": "78f71b3b88056aebc1752f6b108b54f206d320543483658fa7cda38c7fea7685",
   "processing": {

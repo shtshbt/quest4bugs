@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_original.jpg",
-    "segmented": "processed/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_L1_segmented.png",
     "display": "processed/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_54.webp",
       "108": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_108.webp",
       "216": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_resized.jpg"
   },
   "original_sha256": "de6ef54a52be166c5ef19b4431e2abaf9a703285244b0320f9a7ec19c93f1fa4",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_original.jpg",
-    "segmented": "processed/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_L1_segmented.png",
     "display": "processed/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_54.webp",
       "108": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_108.webp",
       "216": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_resized.jpg"
   },
   "original_sha256": "5190be93b00aa2e0e3082ae727a5588c68e6b2fe5dba11289fa7751f0bac3267",
   "processing": {

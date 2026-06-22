@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileLepidoptera103897evolsyst563435Plate13jpg_original.jpg",
-    "segmented": "processed/WMCFileLepidoptera103897evolsyst563435Plate13jpg_L1_segmented.png",
     "display": "processed/WMCFileLepidoptera103897evolsyst563435Plate13jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_54.webp",
       "108": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_108.webp",
       "216": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileLepidoptera103897evolsyst563435Plate13jpg_resized.jpg"
   },
   "original_sha256": "47f99f9a1055adaa5249d518fedcb0d07f8ff9e6b8cad23f4d0b4b8e0cdf9d82",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileOdontomachusmonticolacasent0179010head1jpg_original.jpg",
-    "segmented": "processed/WMCFileOdontomachusmonticolacasent0179010head1jpg_L1_segmented.png",
     "display": "processed/WMCFileOdontomachusmonticolacasent0179010head1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileOdontomachusmonticolacasent0179010head1jpg_54.webp",
       "108": "thumb/WMCFileOdontomachusmonticolacasent0179010head1jpg_108.webp",
       "216": "thumb/WMCFileOdontomachusmonticolacasent0179010head1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileOdontomachusmonticolacasent0179010head1jpg_resized.jpg"
   },
   "original_sha256": "4737e1a59db2b8e52462d72ec883c3ac63b51bd01a760a0f557fc07fe9da2454",
   "processing": {

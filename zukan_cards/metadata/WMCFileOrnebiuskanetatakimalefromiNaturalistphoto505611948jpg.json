@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_original.jpg",
-    "segmented": "processed/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_L1_segmented.png",
     "display": "processed/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_54.webp",
       "108": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_108.webp",
       "216": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_resized.jpg"
   },
   "original_sha256": "b5ff7735da271be668b72f503a253eecb51fdf2790071db17548c5e9dc0c44f1",
   "processing": {

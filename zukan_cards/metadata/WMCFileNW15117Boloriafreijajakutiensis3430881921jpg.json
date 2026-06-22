@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_original.jpg",
-    "segmented": "processed/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_L1_segmented.png",
     "display": "processed/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_54.webp",
       "108": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_108.webp",
       "216": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_resized.jpg"
   },
   "original_sha256": "a16d450125f228cf063d15f36ac54428882e20ec246f704c15f30e04eeca0197",
   "processing": {

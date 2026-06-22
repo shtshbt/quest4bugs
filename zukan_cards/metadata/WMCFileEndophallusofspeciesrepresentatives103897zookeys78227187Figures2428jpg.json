@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_gomimushi",
+  "species_ja": "オオゴミムシ",
+  "scientific_name": "Lesticus magnus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Zhu P, Shi H, Liang H (2018) Four new species of Lesticus (Carabidae, Pterostichinae) from China and supplementary comments on the genus. ZooKeys 782: 129-162. https://doi.org/10.3897/zookeys.782.27187",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Endophallus of species representatives (10.3897-zookeys.782.27187) Figures 24–28.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Endophallus_of_species_representatives_(10.3897-zookeys.782.27187)_Figures_24%E2%80%9328.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Endophallus_of_species_representatives_(10.3897-zookeys.782.27187)_Figures_24%E2%80%9328.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Zhu P, Shi H, Liang H (2018) Four new species of Lesticus (Carabidae, Pterostichinae) from China and supplementary comments on the genus. ZooKeys 782: 129-162. https://doi.org/10.3897/zookeys.782.27187",
+    "eventDate": "2018-08-27",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Figures 24–28; Endophallus of species representatives. A left lateral view B dorsal view C right lateral view 24 Trigonotoma lewisi Bates from Yunnan (type I) 25 Lesticus perniger Roux &amp; Shi from Yunnan (type I) 26 Lesticus magnus (Motschulsky) from Liaoning (type III) 27 Lesticus auricollis Tschitschérine from Fujian (type I) 28 Lesticus insignis Gestro from Sabah (type IV).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Endophallus_of_species_representatives_(10.3897-zookeys.782.27187)_Figures_24%E2%80%9328.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Endophallus_of_species_representatives_%2810.3897-zookeys.782.27187%29_Figures_24%E2%80%9328.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_54.webp",
+      "108": "thumb/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_108.webp",
+      "216": "thumb/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_216.webp"
+    },
+    "resized": "original/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_resized.jpg"
+  },
+  "original_sha256": "4fa10ae485e4980d7b92f12a0472cf221d6eecdbfd4ee43619038598e5e1804c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      1354
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.14), rotate 90 CCW"
+}

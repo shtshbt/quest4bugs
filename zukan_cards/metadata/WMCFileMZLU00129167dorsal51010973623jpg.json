@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileMZLU00129167dorsal51010973623jpg_original.jpg",
-    "segmented": "processed/WMCFileMZLU00129167dorsal51010973623jpg_L1_segmented.png",
     "display": "processed/WMCFileMZLU00129167dorsal51010973623jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_54.webp",
       "108": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_108.webp",
       "216": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMZLU00129167dorsal51010973623jpg_resized.jpg"
   },
   "original_sha256": "d33f927255d8d962f06565f14d24831eacff188a37ef22246c514dc82d7284d0",
   "processing": {

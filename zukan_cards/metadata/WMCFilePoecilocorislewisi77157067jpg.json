@@ -1,0 +1,75 @@
+{
+  "species_id": "akasuji_kin_kamemushi",
+  "species_ja": "アカスジキンカメムシ",
+  "scientific_name": "Poecilocoris lewisi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Yasunori Yamamoto",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Poecilocoris lewisi 77157067.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Poecilocoris_lewisi_77157067.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Poecilocoris_lewisi_77157067.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Yasunori Yamamoto",
+    "eventDate": "2020-06-06",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Clown Stink Bug (Poecilocoris lewisi)",
+    "localityNormalized": "Clown Stink Bug (Poecilocoris lewisi)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Poecilocoris_lewisi_77157067.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Poecilocoris_lewisi_77157067.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFilePoecilocorislewisi77157067jpg_original.jpg",
+    "segmented": "processed/WMCFilePoecilocorislewisi77157067jpg_L1_segmented.png",
+    "display": "processed/WMCFilePoecilocorislewisi77157067jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePoecilocorislewisi77157067jpg_54.webp",
+      "108": "thumb/WMCFilePoecilocorislewisi77157067jpg_108.webp",
+      "216": "thumb/WMCFilePoecilocorislewisi77157067jpg_216.webp"
+    }
+  },
+  "original_sha256": "c37ed60e808677f987732f81dad73b917073549a83d964fb82c382a2c1a44d00",
+  "processing": {
+    "cropBox": [
+      438,
+      139,
+      1200,
+      1201
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePoecilocorislewisi77157067jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

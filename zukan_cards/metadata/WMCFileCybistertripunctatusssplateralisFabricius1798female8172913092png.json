@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
   "files": {
-    "original": "original/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_original.jpg",
-    "segmented": "processed/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_L1_segmented.png",
     "display": "processed/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_54.webp",
       "108": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_108.webp",
       "216": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_resized.jpg"
   },
   "original_sha256": "d84322c15708ea455ffac01c13d1fda73cc3cde27a924a95aacfe7f1c8c74913",
   "processing": {

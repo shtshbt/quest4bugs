@@ -1,0 +1,74 @@
+{
+  "species_id": "ezo_shirochou",
+  "species_ja": "エゾシロチョウ",
+  "scientific_name": "Aporia crataegi",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00804014",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c8ea4150-e50b-42dc-a4eb-d491dafdc610",
+    "persistentId": "http://n2t.net/ark:/65665/3c8ea4150-e50b-42dc-a4eb-d491dafdc610",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321745201",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321745201",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10482003&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00804014_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00804014_54.webp",
+      "108": "thumb/USNMENT00804014_108.webp",
+      "216": "thumb/USNMENT00804014_216.webp"
+    },
+    "resized": "original/USNMENT00804014_resized.jpg"
+  },
+  "original_sha256": "c78e2f7b33dd2582c593706f64f12688a1a95f3797a3e0c14f5ae07a4c0f3d9f",
+  "processing": {
+    "cropBox": [
+      222,
+      180,
+      1778,
+      1282
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00804014_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

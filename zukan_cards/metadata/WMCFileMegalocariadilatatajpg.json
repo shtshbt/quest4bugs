@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileMegalocariadilatatajpg_original.jpg",
-    "segmented": "processed/WMCFileMegalocariadilatatajpg_L1_segmented.png",
     "display": "processed/WMCFileMegalocariadilatatajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMegalocariadilatatajpg_54.webp",
       "108": "thumb/WMCFileMegalocariadilatatajpg_108.webp",
       "216": "thumb/WMCFileMegalocariadilatatajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMegalocariadilatatajpg_resized.jpg"
   },
   "original_sha256": "dc695b04a19fb8857461bbe36b308535eff38a8a42d400274bca8a7069ee78c9",
   "processing": {

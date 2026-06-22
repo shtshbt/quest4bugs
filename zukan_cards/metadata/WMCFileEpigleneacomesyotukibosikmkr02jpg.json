@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileEpigleneacomesyotukibosikmkr02jpg_original.jpg",
-    "segmented": "processed/WMCFileEpigleneacomesyotukibosikmkr02jpg_L1_segmented.png",
     "display": "processed/WMCFileEpigleneacomesyotukibosikmkr02jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_54.webp",
       "108": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_108.webp",
       "216": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEpigleneacomesyotukibosikmkr02jpg_resized.jpg"
   },
   "original_sha256": "cdf39bd9ad1423d8e106d062c0a34b4c012b9399fbbefafb16ebbcfd556a6652",
   "processing": {

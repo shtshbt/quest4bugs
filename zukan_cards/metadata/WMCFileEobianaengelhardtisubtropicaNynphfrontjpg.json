@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_original.jpg",
-    "segmented": "processed/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_L1_segmented.png",
     "display": "processed/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_54.webp",
       "108": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_108.webp",
       "216": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_resized.jpg"
   },
   "original_sha256": "9ece0f0c92639900e2952eaf9b0df0e72fb42197e3bc49b9a998746b75c9fff6",
   "processing": {

@@ -36,14 +36,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "original": "original/YPMENT761022_original.jpg",
-    "segmented": "processed/YPMENT761022_L1_segmented.png",
     "display": "processed/YPMENT761022_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/YPMENT761022_54.webp",
       "108": "thumb/YPMENT761022_108.webp",
       "216": "thumb/YPMENT761022_216.webp"
-    }
+    },
+    "resized": "original/YPMENT761022_resized.jpg"
   },
   "original_sha256": "04bb6c08df3eafcb7bb930f3f2970ca81bfa7c381dab0402da63c1577819f5e9",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_original.jpg",
-    "segmented": "processed/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_L1_segmented.png",
     "display": "processed/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_54.webp",
       "108": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_108.webp",
       "216": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_resized.jpg"
   },
   "original_sha256": "5442e445fad64cd3bcff093755ab65461b16dae1ca9588057edd3d7ca59bc612",
   "processing": {

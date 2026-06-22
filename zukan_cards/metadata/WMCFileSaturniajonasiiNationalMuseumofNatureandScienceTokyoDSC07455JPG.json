@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_original.jpg",
-    "segmented": "processed/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_L1_segmented.png",
     "display": "processed/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_54.webp",
       "108": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_108.webp",
       "216": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_resized.jpg"
   },
   "original_sha256": "f68eaa48621256a57b7a13cef171eec13e0e074b9efca4fda0ca5be2619b09e9",
   "processing": {

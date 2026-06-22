@@ -1,0 +1,75 @@
+{
+  "species_id": "kobane_inago",
+  "species_ja": "コバネイナゴ",
+  "scientific_name": "Oxya yezoensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "池田正樹 (talk)masaki ikeda",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Oxya yezoensis 08Oct7.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Oxya_yezoensis_08Oct7.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Oxya_yezoensis_08Oct7.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "池田正樹 (talk)masaki ikeda",
+    "eventDate": "2008-10-07",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Locust (Oxya yezoensis)",
+    "localityNormalized": "Locust (Oxya yezoensis)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Oxya_yezoensis_08Oct7.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Oxya_yezoensis_08Oct7.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileOxyayezoensis08Oct7jpg_original.jpg",
+    "segmented": "processed/WMCFileOxyayezoensis08Oct7jpg_L1_segmented.png",
+    "display": "processed/WMCFileOxyayezoensis08Oct7jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOxyayezoensis08Oct7jpg_54.webp",
+      "108": "thumb/WMCFileOxyayezoensis08Oct7jpg_108.webp",
+      "216": "thumb/WMCFileOxyayezoensis08Oct7jpg_216.webp"
+    }
+  },
+  "original_sha256": "c0b023a83efb3195073d338d73dcd77cc8612ef4f02e08c8fdddf353f624f691",
+  "processing": {
+    "cropBox": [
+      308,
+      708,
+      2905,
+      1651
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOxyayezoensis08Oct7jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

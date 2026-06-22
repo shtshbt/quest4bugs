@@ -1,0 +1,74 @@
+{
+  "species_id": "urakuro_shijimi",
+  "species_ja": "ウラクロシジミ",
+  "scientific_name": "Iratsume orsedice",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Charles Owen Waterhouse; Henry James Stovin Pryer",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Orsedice inWaterhouse and Pryer1886.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Orsedice_inWaterhouse_and_Pryer1886.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Orsedice_inWaterhouse_and_Pryer1886.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Charles Owen Waterhouse; Henry James Stovin Pryer",
+    "eventDate": "1886",
+    "eventYear": 1886,
+    "country": null,
+    "localityVerbatim": "'Iratsume orsedice from two authors.",
+    "localityNormalized": "'Iratsume orsedice from two authors.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Orsedice_inWaterhouse_and_Pryer1886.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Orsedice_inWaterhouse_and_Pryer1886.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileOrsediceinWaterhouseandPryer1886jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOrsediceinWaterhouseandPryer1886jpg_54.webp",
+      "108": "thumb/WMCFileOrsediceinWaterhouseandPryer1886jpg_108.webp",
+      "216": "thumb/WMCFileOrsediceinWaterhouseandPryer1886jpg_216.webp"
+    },
+    "resized": "original/WMCFileOrsediceinWaterhouseandPryer1886jpg_resized.jpg"
+  },
+  "original_sha256": "72846d5407c0eb5ac399eb4ec7b7d9d4d9e3a1e831575eb9d1a2a35b7f52c79d",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      846,
+      1232
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOrsediceinWaterhouseandPryer1886jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

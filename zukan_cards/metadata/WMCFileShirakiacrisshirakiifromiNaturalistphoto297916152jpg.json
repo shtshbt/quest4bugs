@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_original.jpg",
-    "segmented": "processed/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_L1_segmented.png",
     "display": "processed/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_54.webp",
       "108": "thumb/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_108.webp",
       "216": "thumb/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileShirakiacrisshirakiifromiNaturalistphoto297916152jpg_resized.jpg"
   },
   "original_sha256": "3b518f711392f0fbfe34c2bf131c493a79b6fcb0b20a312ce1d4fa2ed7b938b4",
   "processing": {

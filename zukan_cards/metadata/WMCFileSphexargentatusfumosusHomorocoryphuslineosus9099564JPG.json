@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_original.jpg",
-    "segmented": "processed/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_L1_segmented.png",
     "display": "processed/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_54.webp",
       "108": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_108.webp",
       "216": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_resized.jpg"
   },
   "original_sha256": "a901e5736c7c0575d7982d0e97964ac61839e72b93b458e194f4880c0b1f01ed",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_original.jpg",
-    "segmented": "processed/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_L1_segmented.png",
     "display": "processed/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_54.webp",
       "108": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_108.webp",
       "216": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_216.webp"
-    }
+    },
+    "resized": "original/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_resized.jpg"
   },
   "original_sha256": "28e6fdfd04623e09c44e28b5dabb95f8c0ae1733ef6734453cab2a6f0cbf1eb9",
   "processing": {

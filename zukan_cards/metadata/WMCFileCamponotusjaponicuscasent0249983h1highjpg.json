@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileCamponotusjaponicuscasent0249983h1highjpg_original.jpg",
-    "segmented": "processed/WMCFileCamponotusjaponicuscasent0249983h1highjpg_L1_segmented.png",
     "display": "processed/WMCFileCamponotusjaponicuscasent0249983h1highjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_54.webp",
       "108": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_108.webp",
       "216": "thumb/WMCFileCamponotusjaponicuscasent0249983h1highjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCamponotusjaponicuscasent0249983h1highjpg_resized.jpg"
   },
   "original_sha256": "ad8fea1b615376a95d46fc304cc639e644deb865548d315785c0778aa877f55d",
   "processing": {

@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
   },
   "files": {
-    "original": "original/WMCFilePachyerannisobliquaria1jpg_original.jpg",
-    "segmented": "processed/WMCFilePachyerannisobliquaria1jpg_L1_segmented.png",
     "display": "processed/WMCFilePachyerannisobliquaria1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFilePachyerannisobliquaria1jpg_54.webp",
       "108": "thumb/WMCFilePachyerannisobliquaria1jpg_108.webp",
       "216": "thumb/WMCFilePachyerannisobliquaria1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFilePachyerannisobliquaria1jpg_resized.jpg"
   },
   "original_sha256": "9c3244f5bc780789b52f0eb1e1763afc9a52b8c576978f7218cad607e7044a39",
   "processing": {

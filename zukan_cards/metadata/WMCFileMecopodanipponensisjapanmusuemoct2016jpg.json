@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_original.jpg",
-    "segmented": "processed/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_L1_segmented.png",
     "display": "processed/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_54.webp",
       "108": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_108.webp",
       "216": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_resized.jpg"
   },
   "original_sha256": "07f7f367d77a4f87e6e3c28bdfb7cfc8ef557fa641a504038d8088824a2a56dc",
   "processing": {

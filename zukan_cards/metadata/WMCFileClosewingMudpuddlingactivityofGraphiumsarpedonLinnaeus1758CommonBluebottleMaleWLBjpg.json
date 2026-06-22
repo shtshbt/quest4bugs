@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_original.jpg",
-    "segmented": "processed/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_L1_segmented.png",
     "display": "processed/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_54.webp",
       "108": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_108.webp",
       "216": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_resized.jpg"
   },
   "original_sha256": "e128da05df304d03655c292841d0814430abfdef41c658818897bc779c8592da",
   "processing": {

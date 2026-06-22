@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileActiasaliena114010469jpg_original.jpg",
-    "segmented": "processed/WMCFileActiasaliena114010469jpg_L1_segmented.png",
     "display": "processed/WMCFileActiasaliena114010469jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileActiasaliena114010469jpg_54.webp",
       "108": "thumb/WMCFileActiasaliena114010469jpg_108.webp",
       "216": "thumb/WMCFileActiasaliena114010469jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileActiasaliena114010469jpg_resized.jpg"
   },
   "original_sha256": "1e4e1e5763d4e5a502111ef286766eaaf2e3cd6fab781ba416cfb9fec6726494",
   "processing": {

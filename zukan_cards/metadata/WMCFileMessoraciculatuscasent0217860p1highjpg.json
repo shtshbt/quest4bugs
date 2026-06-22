@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "files": {
-    "original": "original/WMCFileMessoraciculatuscasent0217860p1highjpg_original.jpg",
-    "segmented": "processed/WMCFileMessoraciculatuscasent0217860p1highjpg_L1_segmented.png",
     "display": "processed/WMCFileMessoraciculatuscasent0217860p1highjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_54.webp",
       "108": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_108.webp",
       "216": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMessoraciculatuscasent0217860p1highjpg_resized.jpg"
   },
   "original_sha256": "e609e72cb6908d61b52897972de1a0a502d2332db44ac7349df80ce2b0d5feb8",
   "processing": {

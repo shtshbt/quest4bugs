@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileBigJapanesekatydidonthewhitewall2jpg_original.jpg",
-    "segmented": "processed/WMCFileBigJapanesekatydidonthewhitewall2jpg_L1_segmented.png",
     "display": "processed/WMCFileBigJapanesekatydidonthewhitewall2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileBigJapanesekatydidonthewhitewall2jpg_54.webp",
       "108": "thumb/WMCFileBigJapanesekatydidonthewhitewall2jpg_108.webp",
       "216": "thumb/WMCFileBigJapanesekatydidonthewhitewall2jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileBigJapanesekatydidonthewhitewall2jpg_resized.jpg"
   },
   "original_sha256": "67b73ded6b2cdbfd130f4211b1d71f51da30264bef97ceea3ba91be73a1714fe",
   "processing": {

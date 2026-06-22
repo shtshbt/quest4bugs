@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
   },
   "files": {
-    "original": "original/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_original.jpg",
-    "segmented": "processed/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_L1_segmented.png",
     "display": "processed/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_54.webp",
       "108": "thumb/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_108.webp",
       "216": "thumb/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTeleogryllusemmafromiNaturalistphoto570943835jpg_resized.jpg"
   },
   "original_sha256": "ccb5fb036d3b7854a158ff7c05f8a394be16743857fb2596975445bd06ca9d2a",
   "processing": {
