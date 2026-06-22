@@ -1340,11 +1340,13 @@ function _maybeReopenEggNest(){
     setTimeout(homeEggAdd, 250);
   }
 }
-/* 育成中の卵を pendingEggs に戻す (進捗保持) */
+/* こうたい: 育成中の卵を pendingEggs に戻して、すぐに たまごリスト を開く (進捗保持) */
 function homeEggDemote(eggId){
   if(!Q4BReward.demoteEggToPending) return;
-  if(!Q4BReward.demoteEggToPending(eggId)){ alert('ひっこめられなかったよ'); return; }
+  if(!Q4BReward.demoteEggToPending(eggId)){ alert('こうたいできなかったよ'); return; }
   _refreshDashIfActive();
+  /* 即座に たまごリスト Modal を開いて 別の卵を選ばせる */
+  setTimeout(homeEggAdd, 250);
 }
 window.homeEggPickPending=null;  /* 産卵候補の sp.id を保持 */
 function homeEggPicked(spId){

@@ -752,9 +752,10 @@
     var abandonBtn = opts.onAbandon
       ? '<button type="button" id="q4bEggAbandon" style="display:block;width:100%;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer;margin-bottom:6px">🥚 たまごを すてる (返金なし)</button>'
       : '';
-    /* ひっこめる: 育成中の卵を pendingEggs に戻す (進捗保持) */
+    /* こうたい: 育成中の卵を pendingEggs に戻し、すぐに別の卵に切り替えられるよう
+       たまごリスト Modal を自動オープン (進捗は保持) */
     var demoteBtn = opts.onDemote
-      ? '<button type="button" id="q4bEggDemote" style="display:block;width:100%;border:1.5px solid #CFDDB2;border-radius:10px;padding:8px;font-size:13px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#F8F4E4;cursor:pointer;margin-bottom:6px">📥 ひっこめる (たまごリストに もどす)</button>'
+      ? '<button type="button" id="q4bEggDemote" style="display:block;width:100%;border:1.5px solid #CFDDB2;border-radius:10px;padding:8px;font-size:13px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#F8F4E4;cursor:pointer;margin-bottom:6px">🔄 こうたい (べつの たまごに きりかえ)</button>'
       : '';
 
     ov.innerHTML = ''
