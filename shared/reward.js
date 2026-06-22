@@ -735,10 +735,12 @@
   }
 
   /* migration: ユーザの意図なく eggs に入った legacy 卵 (boss_pair / master_pair で
-     progress=0) を pendingEggs に戻す。ホーム描画時に 1 度走らせる用。
-     戻した数を返す。重複 (同 id+origin が pending にも存在) は破棄。 */
+     progress=0) を pendingEggs に戻す。プロファイルあたり 1 度だけ実行。
+     2 度目以降スキップする (ユーザが意図的に promote した卵が再度戻されるのを防ぐ)。 */
   function migrateUnstartedLegacyEggsToPending(){
     var bs = _bs(); if(!bs) return 0;
+    if(!bs.stats) bs.stats = {totalAbandoned:0};
+    if(bs.stats.legacyMigrated) return 0;  /* 1 度限り */
     var moved = 0;
     var keep = [];
     bs.eggs.forEach(function(e){
@@ -756,10 +758,9 @@
       }
       keep.push(e);
     });
-    if(moved > 0){
-      bs.eggs = keep;
-      _saveBs(bs);
-    }
+    if(moved > 0) bs.eggs = keep;
+    bs.stats.legacyMigrated = true;  /* 移動 0 件でもフラグ立てる (再実行防止) */
+    _saveBs(bs);
     return moved;
   }
 
