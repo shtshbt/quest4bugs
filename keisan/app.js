@@ -527,10 +527,11 @@ function setCourse(id,t){
   var p=null,i; for(i=0;i<DB.profiles.length;i++)if(DB.profiles[i].id===id)p=DB.profiles[i];
   if(!p)return;
   p.type=t; p.speech=(t==="k5"); save();
-  if(window.QuestSave)QuestSave.profiles().then(function(reg){
-    var r=null,j; for(j=0;j<reg.length;j++)if(reg[j].id===id)r=reg[j];
-    if(r){ r.icon=profIcon(t); QuestSave.saveProfiles(reg); }
-  });
+  /* M5: 旧 saveProfiles 直書きは p.updated を更新せず、 別端末の古いアイコンが
+     LWW で勝ち戻る経路があった。 updateProfile 経由で updated も進める。 */
+  if(window.QuestSave && QuestSave.updateProfile){
+    QuestSave.updateProfile(id, {icon:profIcon(t)});
+  }
   showHome();
 }
 
@@ -641,18 +642,20 @@ function showHome(){
 }
 
 /* ===== マスター虫（全習得限定）===== */
+/* M3: 「Lv10 に一度でも到達」 をマスター条件にする。 旧版は p.lv (現在 Lv) のみ
+   見ており、 セッション中に Lv10 到達 → その後降格 → ホーム帰還で取り逃しが起きる
+   (= タイミング依存) 問題を解消。 reachedLv は p.lv と p.maxLv の最大値。 */
+function reachedLv(p, cat){
+ return Math.max((p.lv&&p.lv[cat])||0, (p.maxLv&&p.maxLv[cat])||0);
+}
 function masterMetK(key){
  var p=P(); if(!p)return false;
- if(key==="add") return ((p.lv&&p.lv.hissan)||legacyHsToLv(p.hsMax||p.hsLevel||1))>=10;
- if(key==="sub") return ((p.lv&&p.lv.hikizan)||legacyHsToLv(p.hkMax||p.hkLevel||1))>=10;
- if(key==="mul") return ((p.lv&&p.lv.kuku)||legacyKukuToLv(p))>=10;
- /* 暗算マスター (K-add #7): 旧条件は anzan/sougou/mix のいずれかが 50 問・90%
-    だけで成立し、 Lv1 の一桁加減算を 50 回繰り返すだけでも取れた。 名称と尺度を
-    合わせ、 暗算 Lv10 到達 (= 解放最高 Lv も 10) を要件にする。 */
- if(key==="div") return ((p.lv&&p.lv.anzan)||0)>=10 || ((p.maxLv&&p.maxLv.anzan)||0)>=10;
+ if(key==="add") return Math.max(reachedLv(p,"hissan"), legacyHsToLv(p.hsMax||p.hsLevel||1))>=10;
+ if(key==="sub") return Math.max(reachedLv(p,"hikizan"), legacyHsToLv(p.hkMax||p.hkLevel||1))>=10;
+ if(key==="mul") return Math.max(reachedLv(p,"kuku"), legacyKukuToLv(p))>=10;
+ if(key==="div") return reachedLv(p,"anzan")>=10;
  if(key==="all") return masterMetK("add")&&masterMetK("sub")&&masterMetK("mul")&&masterMetK("div");
- /* per-category マスター: そのカテゴリの Lv が10(制覇)に到達したら獲得 */
- if(LVL_CATS[key]) return ((p.lv&&p.lv[key])||0)>=10;
+ if(LVL_CATS[key]) return reachedLv(p,key)>=10;
  return false;
 }
 var KMASTERLAB={add:"たし算ひっさん",sub:"ひき算ひっさん",mul:"九九",div:"暗算",all:"ぜんぶ"};
@@ -5533,10 +5536,13 @@ function showLevels(cat){
   var p=P(), mx=hsMaxOf(p,cat), label=CATL[cat];
   /* N6: 加算と減算で実問題が異なる (ひき算 Lv5 = 3 桁 -2 桁、 Lv10 = 4 桁 -4 桁 等)
      のに共通の desc を使っていた。 cat 別に実装と一致する説明を持つ。 */
+  /* M7: 加算 Lv の実装と表示文言を完全一致させる。 旧版 (N6 修正後でも) Lv4-9 が
+     ずれていた (例: Lv4 表示「3けた+1けた」 実装「2けた+2けた くりあがり1回」)。 */
   var DESC={
     hissan: {1:"2けた+1けた",2:"2けた+2けた くりあがりなし",3:"2けた+2けた くりあがり",
-             4:"3けた+1けた",5:"3けた+2けた",6:"3けた+3けた",7:"3けた+3けた くりあがり",
-             8:"4けた+2けた",9:"4けた+3けた",10:"4けた+4けた"},
+             4:"2けた+2けた くりあがり 1回",5:"2けた+2けた くりあがり 2回",
+             6:"3けた+1けた",7:"3けた+2けた くりあがり",8:"3けた+3けた くりあがり",
+             9:"3けた+3けた くりあがり 2回",10:"4けた+4けた"},
     hikizan: {1:"2けた-1けた",2:"2けた-2けた くりさがりなし",3:"2けた-2けた くりさがり",
               4:"2けた-2けた くりさがり 1回",5:"3けた-2けた くりさがり 2回",
               6:"3けた-1けた",7:"3けた-2けた くりさがり",8:"3けた-3けた くりさがり",
@@ -5635,8 +5641,13 @@ function padHTML(dot,okCall,fn){
 /* K10適応レベルの可視化: 現在Lv＋この10問の進み（●正解/✗ミス/○未）。次の判定までを体感できる。 */
 function lvDotsHTML(p,cat){
   if(!LVL_CATS[cat])return"";
-  var n=(p.stats[cat]&&p.stats[cat].n)||0, inblk=n%10;
-  var rec=inblk>0?(p.recent[cat]||[]).slice(-inblk):[];
+  /* M4: 適応 Lv 判定は p.adapt[cat] に分離済 (K-add #4)。 ドット表示も同じバッファ
+     を見ないと「画面では あと 1 問なのに 実際は 7 問」 のような乖離が起きる。 */
+  var aBuf = (p.adapt && p.adapt[cat]);
+  var n = aBuf ? aBuf.n : ((p.stats[cat]&&p.stats[cat].n)||0);
+  var inblk = n % 10;
+  var src = aBuf ? aBuf.recent : (p.recent[cat]||[]);
+  var rec = inblk > 0 ? src.slice(-inblk) : [];
   var dots=""; for(var i=0;i<10;i++){ dots+=(i<inblk)?(rec[i]?"●":"✗"):"○"; }
   return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+dots+'</span>';
 }
@@ -5990,7 +6001,9 @@ function choiceTap(i){
     renderMachiVerify(q,i);
     return;
   }
-  afterJudge(i===q.ans,q,{fix:q.fixmsg});
+  /* M1: 行タップ誤答時にも、 正解の行 (ans=index) を fix で表示する。
+     fixmsg が無いケースで「❌ ざんねん」 だけにならないよう ansHTML も付与。 */
+  afterJudge(i===q.ans,q,{ansHTML:'せいかいの ぎょう：'+(["①","②","③","④"][q.ans]||'?'), fix:q.fixmsg});
 }
 /* machigai 2段階提出: 「① の ほんとうの こたえは？」プロンプト＋数値入力。
    topBar/qmeta は renderQ と同じ構造で組み直す (フル再描画で実装簡略化)。 */
@@ -6038,7 +6051,9 @@ function k5ChoiceTap(idx){
   if(!q||!q.choices)return;
   var picked=q.choices[idx];
   var ok=String(picked)===String(q.ans);
-  afterJudge(ok,q,{fix:q.fixmsg});
+  /* M1: 旧版は fix のみで K5DEV / kukuyomi に fixmsg が無いため誤答時に正解を
+     一切表示せず学習効果を損なっていた。 ansHTML で必ず正解を見せる。 */
+  afterJudge(ok,q,{ansHTML:esc(String(q.ans)),fix:q.fixmsg});
 }
 
 /* ---------- judge / record ---------- */
@@ -6132,7 +6147,15 @@ function afterJudge(ok,q,o){
        freshnessOf に通すと初見でも 1→0.5。 caller で 1 回 peek して両 API に
        value 反映で渡し、 itemId は null にして内部 push を抑止 (K1)。 */
     var _kv=1;
-    if(p.lv && p.lv[q.cat] && p.lv[q.cat] >= 10) _kv=0.4;
+    var _curLv = (p.lv && p.lv[q.cat]) || 1;
+    if(_curLv >= 10) _kv=0.4;
+    /* M2: 易しい固定 Lv 練習 (Q.lv < 現在 Lv) も習熟扱いで価値を下げる。 旧コードは
+       現在 Lv のみ見ており、 Lv9 の子が Lv1 を周回しても毎回満額になっていた。 */
+    if(Q && Q.lv && Q.lv < _curLv) _kv = Math.min(_kv, 0.4);
+    /* 九九チャレンジ: クリア済の段は習熟済みなので 0.4。 旧コードは段の進捗を見ず満額。 */
+    if(Q && Q.mode==='kuku' && Q.dan && p.kukuClear && p.kukuClear[Q.dan]){
+      _kv = Math.min(_kv, 0.4);
+    }
     var _iid=q.cat+':'+(q.text||q.say||'');
     ensureColl(p);
     var _fresh = (Q4BReward.freshnessPeek ? Q4BReward.freshnessPeek(p.coll, _iid) : 1);
@@ -6186,6 +6209,7 @@ function afterJudge(ok,q,o){
       if(p.kukuHits>=8){
         p.kukuClear[ktarget]=1; p.kukuIdx++; p.kukuHits=0;
         if(!p.lv)p.lv={}; p.lv.kuku=legacyKukuToLv(p);
+        bumpMaxLv(p,"kuku",p.lv.kuku);   /* M3: 最高到達 Lv も追従 */
         o.lvup="🎉 "+ktarget+"の段 マスター！"+(p.kukuIdx<ORDER.length?"つぎは "+ORDER[p.kukuIdx]+"の段！":"九九 ぜんぶ クリア！🏆");
       }
     }
@@ -6275,7 +6299,12 @@ function keiCatchDone(){
 /* ---------- finish ---------- */
 function fmtSec(ms){return (Math.round(ms/100)/10).toFixed(1)+"秒";}
 function best5Key(q,p){
-  if(q.mode==="practice")return q.cat;
+  if(q.mode==="practice"){
+    /* M6: 固定 Lv 練習は Lv 別に best を保存する。 旧版は cat だけで Lv1 と Lv10 を
+       同じ枠に入れており、 難度上昇後の成長指標として機能しなかった。 */
+    if(q.lv) return q.cat+"_lv"+q.lv;
+    return q.cat;
+  }
   if(q.mode==="mission")return "mission_"+p.type;
   return null;
 }
@@ -6311,6 +6340,7 @@ function finishSet(){
         p.kukuClear[dan]=1; p.kukuIdx++;
         p.kukuHits=0;                       /* 通常学習の途中カウントを次段へ持ち越さない (K5) */
         if(!p.lv)p.lv={}; p.lv.kuku=legacyKukuToLv(p);
+        bumpMaxLv(p,"kuku",p.lv.kuku);     /* M3 */
         msg=dan+"の段 クリア！"+(p.kukuIdx<ORDER.length?" つぎは "+ORDER[p.kukuIdx]+"の段！":" 🏆ぜんだんマスター！");
       }else msg=dan+"の段 ばっちり！";
       updateProgressSummary(p);

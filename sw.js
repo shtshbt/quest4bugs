@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v111";  /* v111: keisan 新規 7 件 — K5DEV 5問セットの重複 96% 問題を pool shuffle+exclude で解消, missedKey に lv/patternId を反映 (別 Lv の弱点を上書きしない), まちがいさがし Lv3 で v0-c<0 ガード (Lv10 で入力不能だった負数), K5DEV データ欠落時は null を返し nextQ で fail-closed (1+1 で全発展 Lv10 ルート遮断), 割り算音声に「の しょうは？」「の あまりは？」 を残す (商/余りの区別が聞こえる), gFrac 末尾に fallback 追加 (sougou path で undefined 例外回避), 割り算 Lv6 を qq<=99 で商 2 桁に制限 */
+var CACHE = "q4b-cache-v112";  /* v112: keisan 新規 7 件 — K5DEV/九九暗唱の選択式で誤答時にも正解を見せる (ansHTML), 低Lv 固定練習・既クリア九九段の報酬価値を 0.4 倍に, マスター判定を p.lv ではなく max(lv,maxLv) で「最高到達 Lv 基準」 に (タイミング依存解消), lvDotsHTML を p.adapt 参照に統一 (適応 Lv 判定と画面表示の乖離解消), setCourse のアイコン変更を QuestSave.updateProfile 経由に (LWW で巻き戻り防止), 練習タイムを cat+lv 別キーで保存 (Lv1 8 秒記録が Lv10 を覆い隠す問題), 加算 Lv4-9 の説明文を実装通りに修正 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
