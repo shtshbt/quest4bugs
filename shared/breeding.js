@@ -59,13 +59,33 @@
     return sp.metamorphosis === "complete" ? "完全変態" : "不完全変態";
   }
 
-  /* ステージ → 次ステージ移行時の子供向け CTA 文言 */
+  /* ステージ → 次ステージ移行時の子供向け CTA 文言 (生物学用語ベース) */
   var NEXT_STAGE_LABEL = {
-    larva:  "ようちゅうに タップ",
-    pupa:   "さなぎに タップ",
-    nymph:  "わかむしに タップ",
-    adult:  "タップでかえす"
+    larva:  "✨ ふかさせる！",       /* 卵 → 幼虫 (孵化) */
+    nymph:  "✨ ふかさせる！",       /* 卵 → 若虫 (孵化) */
+    pupa:   "✨ さなぎに する！",   /* 幼虫 → 蛹 (蛹化) */
+    adult:  "✨ うかさせる！"        /* 蛹/若虫 → 成虫 (羽化) */
   };
+  /* 次ステージへの移行完了時の文言 (アニメのキャプション) */
+  var STAGE_DONE_LABEL = {
+    larva:  "ふかした！",
+    nymph:  "ふかした！",
+    pupa:   "さなぎに なった！",
+    adult:  "うかして せいちゅうに なったよ！"
+  };
+  /* 進捗 100% に達した時の「準備OK」表示 (次ステージで何が起こるかを子供向けに) */
+  var STAGE_READY_LABEL = {
+    larva:  "✨ ふかの じゅんびOK！",
+    nymph:  "✨ ふかの じゅんびOK！",
+    pupa:   "✨ さなぎに なる じゅんびOK！",
+    adult:  "✨ うかの じゅんびOK！"
+  };
+  /* 卵 egg, 種 sp から次ステージの「準備OK」文言を返す */
+  function readyLabelFor(egg, sp){
+    var r = R(); if(!r) return "✨ じゅんびOK！";
+    var next = r.nextStageFor ? r.nextStageFor(egg, sp) : null;
+    return STAGE_READY_LABEL[next] || "✨ じゅんびOK！";
+  }
 
   /* --- 卵カード HTML (1枚分) ---
      opts: {onTap, onHatch, onAdvance} */
@@ -492,7 +512,7 @@
         blip(523.25, 0.18, "triangle");    /* C5 */
         setTimeout(function(){ blip(659.25, 0.18, "triangle"); }, 130); /* E5 */
         setTimeout(function(){ blip(783.99, 0.32, "triangle"); }, 260); /* G5 */
-        sparkleEl.textContent = "✨ かえったよ！ ✨";
+        sparkleEl.textContent = "✨ うかして せいちゅうに なったよ！ ✨";
         ov.querySelector("#q4bHatchName").style.display = "block";
         ov.querySelector("#q4bHatchSize").style.display = "block";
         ov.querySelector("#q4bHatchMsg").style.display = "block";
@@ -574,7 +594,7 @@
     /* 0.5s 後に next stage 表示 + ラベル + sparkle */
     setTimeout(function(){
       visEl.innerHTML = vHTML(nextV);
-      labelEl.textContent = "✨ " + (STAGE_JA[opts.nextStage]||opts.nextStage) + "に なったよ！";
+      labelEl.textContent = "✨ " + (STAGE_DONE_LABEL[opts.nextStage] || ((STAGE_JA[opts.nextStage]||opts.nextStage)+"に なったよ！"));
       blip(600);
       btnWrap.style.display = "block";
       /* 軽い sparkle 3 個 */
@@ -624,7 +644,7 @@
       var cta = (ready && opts.onHatchNow)
         ? ' <button type="button" onclick="'+opts.onHatchNow+'(\''+egg.id+'\')" style="border:none;background:#F2A33C;color:#fff;border-radius:8px;padding:4px 10px;font-weight:700;font-family:inherit;font-size:12px;cursor:pointer;margin-left:6px">いま かえす?</button>'
         : '';
-      var readyTxt = ready ? '<span style="color:#F2A33C;font-weight:800;font-size:12px;margin-left:6px">✨ かえる準備OK！</span>'+cta : '';
+      var readyTxt = ready ? '<span style="color:#F2A33C;font-weight:800;font-size:12px;margin-left:6px">'+esc(readyLabelFor(egg, sp))+'</span>'+cta : '';
       return '<div style="font-size:13px;color:#2A3D2C;padding:2px 0">'+em+' '+esc(name)+' +1 ('+egg.progress+'/'+egg.target+')'+readyTxt+'</div>';
     }).join("");
     return ''
@@ -764,7 +784,7 @@
       +   '<div style="font-size:18px;font-weight:800;color:#2A3D2C;text-align:center;margin-bottom:2px">'+esc(name)+shinyMark+'</div>'
       +   '<div style="font-size:13px;color:#6B7A5E;text-align:center;margin-bottom:8px">'+sexMark+'　'+esc(gameLabel)+'</div>'
       +   '<div style="background:#EAEFE0;border-radius:99px;height:8px;margin:6px 0;overflow:hidden"><div style="width:'+p+'%;height:100%;background:'+color+';transition:width .3s"></div></div>'
-      +   '<div style="font-size:12px;color:#2A3D2C;text-align:center;margin-bottom:10px">'+egg.progress+' / '+egg.target+' もん '+(ready?' ✨ かえる準備OK！':'')+'</div>'
+      +   '<div style="font-size:12px;color:#2A3D2C;text-align:center;margin-bottom:10px">'+egg.progress+' / '+egg.target+' もん '+(ready?' '+esc(readyLabelFor(egg, sp)):'')+'</div>'
       +   '<div style="font-size:12px;color:#6B7A5E;font-weight:700;margin-bottom:4px">📅 そだちの きろく</div>'
       +   historyRows
       +   '<div style="margin-top:12px">'
@@ -1087,7 +1107,7 @@
       var em = a ? a.stageEmoji(stage) : "🥚";
       var ready = r.isHatchReady(egg);
       var name = sp.jaName || egg.id;
-      var readyTxt = ready ? ' <span style="color:#F2A33C;font-weight:800">✨ かえる準備OK!</span>' : '';
+      var readyTxt = ready ? ' <span style="color:#F2A33C;font-weight:800">'+esc(readyLabelFor(egg, sp))+'</span>' : '';
       return '<div style="font-size:13px;color:#2A3D2C;padding:1px 0">'+em+' '+esc(name)+' +1 ('+egg.progress+'/'+egg.target+')'+readyTxt+'</div>';
     }).join("");
     if(!rows) return;
