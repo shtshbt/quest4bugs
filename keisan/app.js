@@ -5855,17 +5855,17 @@ function afterJudge(ok,q,o){
     Q4BReward.feedEgg("keisan", _kv, {itemId:_iid, coll:p.coll});
   }
   handleMissed(q,ok,o);
-  /* 適応レベル: 10問ごとに直近10問で判定（9↑でLv+1 / 6↓でLv-1、最大10/最小1）。
-     8/10 (旧) → 9/10 (新) に厳格化: SS 取得までの学習量を kanji/eitango と
-     近いオーダーに揃える。 down は 6/10 据置 ('安定ゾーン' を 7-8 問に広げて
-     長く遊べる)。特殊進行カテゴリ (hissan/hikizan/kuku) は下で個別処理。 */
+  /* 適応レベル: 10問ごとに直近10問で判定（9↑でLv+1 / 5↓でLv-1、最大10/最小1）。
+     up=9 (90%) で厳しく / down=5 (50%以下) で緩める → 安定ゾーン 6-8 問 (3問幅)。
+     上がりにくく下がりにくいので、ちょうど良い Lv で長く遊べる。
+     特殊進行カテゴリ (hissan/hikizan/kuku) は下で個別処理。 */
   if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && !(Q&&Q.lv)){
     if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
     var s10=p.stats[q.cat];
     if(s10 && s10.n>0 && s10.n%10===0){
       var ok10=(p.recent[q.cat]||[]).slice(-10).reduce(function(x,y){return x+y;},0);
       if(ok10>=9 && p.lv[q.cat]<10){ p.lv[q.cat]++; o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
-      else if(ok10<=6 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
+      else if(ok10<=5 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
     }
   }
   /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習 Q.lv では行わない） */

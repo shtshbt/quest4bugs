@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v86";  /* v86: keisan Lv up 判定を 8/10 → 9/10 に厳格化 (kanji/eitango との難易度ギャップ縮小) */
+var CACHE = "q4b-cache-v87";  /* v87: keisan Lv 判定 down を 6/10 → 5/10 に緩和 (安定ゾーン 6-8 問の 3 問幅) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
