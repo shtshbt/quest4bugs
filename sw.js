@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v101";  /* v101: kanji 一括修正 — seen flag/introduced(), applyAnswer rq, weakPairs skill-unit, テスト中の y は音声強制, answerInfo の jk 対応, distinct3 学年フィルタ+重複排除, 熟語空欄を 1 箇所のみ (split→replace), テスト「こたえをみる」一回 disable, 復習を既習スキル限定+due 優先, ホームミッションを due/fresh 分割, itemPool を CUR.mode 限定, 新規枠を nS/nB 別カウンタ, 送り仮名旧形式の正規化 */
+var CACHE = "q4b-cache-v102";  /* v102: kanji さらなる修正 — answered() 連打ロック (書字 ⭕/❌ で次問を勝手に正解扱いするバグ), 再テスト ST.re 期限を一覧で尊重 (待機中は disable + 残日数表示), 認定テストを 1 文字 1 問構成に (書字 2 問先取り + 残りは別漢字から非書字スキル抽選), テスト中は feedEgg/onCorrect を発火させない (合格報酬のみに限定) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

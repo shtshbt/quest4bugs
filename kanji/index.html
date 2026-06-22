@@ -721,14 +721,45 @@ function startPractice(pairs,label){
  pairs=shuffle(pairs).slice(0,10);
  if(!pairs.length){ modal('<div class="center">れんしゅうできる ものが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal(); SES={mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}; nextQ() }
-function startTest(id){ var tdef=TESTS[id]; var items=tdef.items(); var pairs=[];
- items.forEach(function(key){ skillsOf(key).forEach(function(sk){ if(sk!=='w')pairs.push({key:key,sk:sk}) }) });
- pairs=shuffle(pairs);
- var wr=shuffle(items).slice(0,2).map(function(key){ return {key:key,sk:'w'} });
- var q=shuffle(pairs.slice(0,Math.max(1,tdef.n-wr.length)).concat(wr));
+function startTest(id){ var tdef=TESTS[id]; var items=tdef.items();
+ /* 認定テストは「学年範囲の代表性」を確保するため 1 文字 1 問に統一する (新#3)。
+    先に書字 2 問用の漢字を選び、 残りはそれ以外の漢字から各 1 問ずつ非書字スキルを
+    ランダムに抽出する。 items が少ない場合は重複を許して埋める fallback も用意。 */
+ var shuffled=shuffle(items.slice());
+ var writeN=Math.min(2, shuffled.length);
+ var writeKeys=shuffled.slice(0, writeN);
+ var rest=shuffled.slice(writeN);
+ var need=Math.max(1, tdef.n - writeN);
+ var q=[];
+ writeKeys.forEach(function(key){ q.push({key:key,sk:'w'}) });
+ for(var i=0;i<rest.length && q.length < (writeN+need); i++){
+  var key=rest[i];
+  var sks=skillsOf(key).filter(function(sk){ return sk!=='w' });
+  if(!sks.length) continue;
+  q.push({key:key, sk: sks[Math.floor(Math.random()*sks.length)]});
+ }
+ /* items が tdef.n より少ない場合は重複ありで埋める (例: t_hira 等) */
+ while(q.length < (writeN+need) && items.length){
+  var k2=items[Math.floor(Math.random()*items.length)];
+  var sks2=skillsOf(k2).filter(function(sk){ return sk!=='w' });
+  if(!sks2.length) break;
+  q.push({key:k2, sk: sks2[Math.floor(Math.random()*sks2.length)]});
+ }
+ q=shuffle(q);
  closeModal(); SES={mode:'test',q:q,i:0,ok:0,res:[],wrongs:[],test:id}; nextQ() }
-function nextQ(){ if(!SES)return; if(SES.i>=SES.q.length){ endSession(); return } renderQ(SES.q[SES.i]) }
-function answered(ok){ var p=SES.q[SES.i];
+function nextQ(){
+ if(!SES)return;
+ SES.answerLocked=0;                          /* 次画面に進むタイミングでロック解除 (新#1) */
+ if(SES.i>=SES.q.length){ endSession(); return }
+ renderQ(SES.q[SES.i])
+}
+function answered(ok){
+ /* 連打ガード: 書字フォールバックの「かけた ⭕」「まちがえた」を含む全形式共通の
+    1問1解ロック。 次画面 (nextQ) で解除される。 これがないと 800ms の遷移待ちの
+    間に未表示の次問を勝手に正解処理してしまう (新#1)。 */
+ if(!SES || SES.answerLocked) return;
+ SES.answerLocked = 1;
+ var p=SES.q[SES.i];
  if(p.nw&&!p.cnt){
   p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0});
   /* コース別新規枠カウンタ (#2)。 旧 lg.n も互換のため累積。 */
@@ -741,10 +772,12 @@ function answered(ok){ var p=SES.q[SES.i];
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  if(ok){ SES.ok++;
   if(window.QuestSave&&QuestSave.recordCorrect&&CUR&&CUR.id)QuestSave.recordCorrect(CUR.id,'kanji',1);
-  // 採集ゲージ: learn/practice/review のみ（test は finishTest で別途処理）
+  // 採集ゲージ＆卵給餌: learn/practice/review のみ。 test は合格時の確定報酬のみ
+  // 受け取らせる (新#4)。 旧コードはコメントどおりでなく test でも feedEgg を実行
+  // していた結果、 不合格テストの再周回で卵が無限育成できる経路になっていた。
   var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 既習スキル(box>=3)は 0.4 で抑制
-  if(window.Q4BReward&&Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', kval, {itemId:iid, coll:ST.coll});
   if(SES.mode!=='test'&&window.Q4BReward){
+   if(Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', kval, {itemId:iid, coll:ST.coll});
    var _kboost = (SES.mode==='review') ? Q4BReward.REVIEW_BOOST : kanjiRangeBoost(p.key);
    var got=Q4BReward.onCorrect(ST.coll,'kanji',8,_kboost,iid,kval);
    if(got){ saveST(); setTimeout(function(){ Q4BReward.netSwing(function(){ showCatchModal(got) }) },650); }
@@ -789,7 +822,10 @@ function showCorrect(p){ var a=answerInfo(p); var s=$('scr-quiz');
  var d=document.createElement('div'); d.className='card center';
  d.innerHTML='<div class="small">こたえ</div><div class="qmid glyph" style="font-size:48px">'+a.disp+'</div><button class="btn" id="bNext">つぎへ</button>';
  s.appendChild(d); T.say(a.say);
- $('bNext').addEventListener('click',function(){ SES.i++; nextQ() }) }
+ var _nx=$('bNext'); _nx.addEventListener('click',function(){
+  if(_nx.disabled) return; _nx.disabled=true;     /* 連打防止 (新#1 補完) */
+  SES.i++; nextQ();
+ }) }
 
 function dotsHtml(){
  var h='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><button class="btn sub mini" onclick="quitSession()" style="flex:none">← やめる</button><div class="dots" style="flex:1">';
@@ -1470,10 +1506,19 @@ function renderTests(){ var s=$('scr-test');
  // チェーン順(hira→学年昇順)＋t_all＋t_exam の順に表示
  var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
  var testOrder=['t_hira'].concat(grades.map(function(g){return 't_u'+g})).concat(['t_all','t_exam']);
+ var _today=todayStr();
  testOrder.forEach(function(id){ var td=TESTS[id]; if(!td)return; var open=td.need(); var best=bestOf(id);
-  var icon=td.isExam?'📝':(open?'🏆':'🔒');
-  h+='<div class="card"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:30px">'+icon+'</div><div style="flex:1"><div style="font-weight:bold">'+td.label+'</div><div class="small">'+(best>=0?'さいこう：'+best+'てん'+(goldOf(id)?' 🥇':''):'まだ ちょうせんしていない')+(td.memo?'<br>'+td.memo:'')+'</div></div></div>'
-  +(open?'<button class="btn '+(td.isExam?'soil':'gold')+'" data-t="'+id+'" style="margin-top:10px">ちょうせんする</button>':'')+'</div>' });
+  /* 不合格直後の再テスト待機: ST.re.d が今日より先なら一覧上もちょうせんを止める (新#2) */
+  var retryLock = ST.re && ST.re.t===id && ST.re.d > _today;
+  var icon=td.isExam?'📝':(open?(retryLock?'⏳':'🏆'):'🔒');
+  var waitMsg='';
+  if(retryLock){
+   var days=0; var d=_today;
+   while(d < ST.re.d){ days++; d=addDays(d,1); if(days>30)break; }
+   waitMsg='<br>⏳ あと '+days+' にちで さいチャレンジ できるよ';
+  }
+  h+='<div class="card"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:30px">'+icon+'</div><div style="flex:1"><div style="font-weight:bold">'+td.label+'</div><div class="small">'+(best>=0?'さいこう：'+best+'てん'+(goldOf(id)?' 🥇':''):'まだ ちょうせんしていない')+(td.memo?'<br>'+td.memo:'')+waitMsg+'</div></div></div>'
+  +(open && !retryLock ? '<button class="btn '+(td.isExam?'soil':'gold')+'" data-t="'+id+'" style="margin-top:10px">ちょうせんする</button>':'')+'</div>' });
  s.innerHTML=h;
  $('bBk2').addEventListener('click',renderHome);
  var bs=s.querySelectorAll('button[data-t]');
