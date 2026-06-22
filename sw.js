@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v109";  /* v109: 残課題 7 件 — keisan 筆算の不要メモを誤答扱いに (旧: 警告のみで満額正解), eitango freshness 二重消費 (Reward.freshnessPeek 公開+caller 1 回計算), kanji/keisan 名前変更を QuestSave.updateProfile 経由に統一 (共有レジストリに伝播), keisan ミッションを全 6 基本カテゴリ (kukuyomi/warizan 含む) から「久しく触っていない」順で選択, missed (にがし虫) 履歴を cat+kind+lv+fix キーで重複統合 (FIFO 消失防止), 平均算 Lv2/4/5 のテスト得点を 0-100 に制限 (160-180 が混ざる現状を解消), 親画面で「同じ子を 2 台で同時使用は進捗消失リスク」 を赤字で明示 */
+var CACHE = "q4b-cache-v110";  /* v110: keisan 新規 6 件 — 暗算 Lv5 で a+b<c の負数組合せを排除 (数字パッドに − が無く入力不能だった), 復習対象に発展カテゴリ (K5DEV/K10DEV) を含める (和差算・つるかめ等 を学んでも復習に出ない問題を解消), タイムアタックの解放を p.timedUnlocked[cat] で永続化 (再ロックを停止), リセット時に keisan/_book と keisan/_legacy も削除 (_book backfill で消去データが復活する経路を遮断), 九九暗唱 2 の段の「ににんがに」→「にいちがに」 訂正+穴埋め分割を「が」「じゅう」 基準の構造的に, 筆算 Lv 説明 (showLevels の desc) を加算・減算別の実装通り文言に */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

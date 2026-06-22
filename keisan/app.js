@@ -601,10 +601,18 @@ function showHome(){
     });
     h+='</div></div>';
   }
-  /* timed */
+  /* timed: 解放は永続化 (N3)。 旧コードは常に直近 20 問の現在値で再計算しており、
+     タイムアタックで数問間違えると次回解放が消える、 復習や九九チャレンジの成績でも
+     unlock 状態が動く、 という不安定さがあった。 一度達成したら p.timedUnlocked[c]
+     を永続化して再ロックしない。 */
+  if(!p.timedUnlocked) p.timedUnlocked={};
   var th=""; TIMED_OK[p.type].forEach(function(c){
-    var rec=p.recent[c]||[], n=rec.length, okn=rec.reduce(function(s,x){return s+x;},0);
-    var unlocked=(n>=20&&okn>=19);
+    /* 適応バッファ p.adapt があればそちら優先 (timed/review の自己汚染を排除) */
+    var adapt=(p.adapt&&p.adapt[c]);
+    var rec = adapt ? adapt.recent : (p.recent[c]||[]);
+    var n=rec.length, okn=rec.reduce(function(s,x){return s+x;},0);
+    if(n>=20&&okn>=19){ p.timedUnlocked[c]=1; }
+    var unlocked=!!p.timedUnlocked[c];
     var best=p.best[c];
     th+='<div class="row"><span>'+CATL[c]+(best?'<span class="note">　ベスト '+best+'問</span>':"")+'</span><span class="sp"></span>'
       +(unlocked?'<button class="backbtn" onclick="startTimed(\''+c+'\')">⏱ 60秒</button>'
@@ -612,7 +620,9 @@ function showHome(){
   });
   h+='<div class="card"><h3>⏱ タイムアタック</h3>'+th+'</div>';
   // 復習ボタン（抜き打ち + 常設小ボタン）
-  var revLearned=(p.type==="k5"?K5CATS:K10CATS).filter(function(c){return p.stats[c]&&p.stats[c].n>0;});
+  /* N2: 発展カテゴリ (K5DEV/K10DEV) も復習対象に含める。 旧コードは基本のみで、
+     発展しか触っていない子に「復習チャンス」 バナーが出なかった。 */
+  var revLearned=courseCats(p).filter(function(c){return p.stats[c]&&p.stats[c].n>0;});
   var showRevBanner=(revLearned.length>=2||dueMissed(p).length>=1)&&Math.random()<0.25;
   if(showRevBanner){
     h+='<div class="card" style="border-color:var(--amber);background:#FFF8ED">'
@@ -1231,9 +1241,9 @@ function doImp(){
 }
 function resetAll(){
   if(confirm("ほんとうに【全ハンターの 計算データ】を消しますか？\n（漢字 / えいご / 共有のかけら などは のこります）\n元に戻せません")){
-    /* 各プロフィールの keisan kv を明示的に削除し、 共有プロフィール自体は残す (K7)。
-       旧コードは DB={profiles:[]} の後 save() を呼んでいたが、 P()===null では何も
-       保存されず、 再読込で keisan/<id> が復活していた。 */
+    /* 各プロフィールの keisan kv に加え、 旧 _book / _legacy も削除 (N4)。
+       これがないと 起動時の book backfill ロジック (parts[i] が null なら _book から
+       採用) で 消したはずの進捗が復活する。 */
     try{
       if(window.QuestSave && QuestSave.profiles){
         QuestSave.profiles().then(function(pids){
@@ -1241,6 +1251,10 @@ function resetAll(){
             if(prof && prof.id) QuestSave.save("keisan", prof.id, null);
           });
         });
+      }
+      if(window.QuestSave && QuestSave.save){
+        QuestSave.save("keisan", "_book", null);
+        QuestSave.save("keisan", "_legacy", null);
       }
     }catch(_){}
     DB={v:1,act:null,profiles:[]}; save(); showProfiles();
@@ -1405,7 +1419,13 @@ function gAnzan(lv){
     }
     if(lv===5){ /* 2段階計算 (a+b)±c や a×b+c */
       var s=ri(0,2);
-      if(s===0){a=ri(5,20);b=ri(5,20);c=ri(3,15);return {t:a+"＋"+b+"−"+c, ans:a+b-c};}
+      if(s===0){
+        /* 負数の答えが出ると数字パッドに − キーが無く入力できない (N1)。
+           c ≤ a+b に制限して 答えが必ず 0 以上になるようにする。 */
+        a=ri(5,20); b=ri(5,20);
+        c=ri(3, Math.min(15, a+b));
+        return {t:a+"＋"+b+"−"+c, ans:a+b-c};
+      }
       if(s===1){a=ri(2,9);b=ri(2,9);c=ri(10,30);return {t:a+"×"+b+"＋"+c, ans:a*b+c};}
       a=ri(2,9);b=ri(2,9);c=ri(2,9);return {t:a+"＋"+b+"×"+c, ans:a+b*c};
     }
@@ -2289,7 +2309,7 @@ function gKukuYomi(lv){
   /* 九九暗唱表: 各段9個ずつ。読み(全文)で記憶 */
   var KUKU={
     1:["いんいちがいち","いんにがに","いんさんがさん","いんしがし","いんごがご","いんろくがろく","いんしちがしち","いんはちがはち","いんくがく"],
-    2:["ににんがに","ににんがし","にさんがろく","にしがはち","にごじゅう","にろくじゅうに","にしちじゅうし","にはちじゅうろく","にくじゅうはち"],
+    2:["にいちがに","ににんがし","にさんがろく","にしがはち","にごじゅう","にろくじゅうに","にしちじゅうし","にはちじゅうろく","にくじゅうはち"],  /* N5: 旧「ににんがに」は 2×1 の正規読み 「にいちがに」 に訂正 */
     3:["さんいちがさん","さんにがろく","さざんがく","さんしじゅうに","さんごじゅうご","さぶろくじゅうはち","さんしちにじゅういち","さんぱにじゅうし","さんくにじゅうしち"],
     4:["しいちがし","しにがはち","しさんじゅうに","ししじゅうろく","しごにじゅう","しろくにじゅうし","ししちにじゅうはち","しはさんじゅうに","しくさんじゅうろく"],
     5:["ごいちがご","ごにじゅう","ごさんじゅうご","ごしにじゅう","ごごにじゅうご","ごろくさんじゅう","ごしちさんじゅうご","ごはしじゅう","ごっくしじゅうご"],
@@ -2309,17 +2329,23 @@ function gKukuYomi(lv){
   var pattern=Math.floor(Math.random()*4);
   /* 4つの出題パターン: A: 結果穴埋め / B: 段の名前穴埋め / C: フレーズ→値 / D: 値→フレーズ */
   if(pattern===0){
-    /* A: 結果穴埋め "ににん___" → 選択肢に正解＋紛らわしいもの */
-    var head=phrase.replace(/(が|じゅう|に|さん|し|ご|ろく|しち|はち|く)?(に|し|さん|ろく|はち|じゅう|に|し|ご|ろく|しち|はち|く|いち|さんじゅう|しじゅう|ごじゅう|ろくじゅう|しちじゅう|はちじゅう)+$/,"");
-    /* 簡易: フレーズを末尾2-4文字で切る */
-    var cutLen=phrase.length>=5?3:2;
-    var headSimple=phrase.substring(0, phrase.length-cutLen);
-    var tail=phrase.substring(phrase.length-cutLen);
-    /* 同じ段の他のフレーズから末尾候補を集める */
-    var tails=KUKU[dan].map(function(p){return p.substring(Math.max(0,p.length-cutLen));}).filter(function(t,i,a){return a.indexOf(t)===i&&t!==tail;});
-    if(tails.length<3){ /* 他段からも借りる */
+    /* A: 結果穴埋め "ににんが____" → 選択肢に正解＋紛らわしいもの。
+       旧版は末尾 2-3 文字を機械的に切っており「にに-んがし」 のような無意味な分割
+       になっていた (N5)。 「が」 直後 / 「じゅう」 直前を 意味のある切れ目として優先。 */
+    function splitKukuPhrase(ph){
+      var gIdx=ph.indexOf('が');
+      if(gIdx>=0 && gIdx+1<ph.length) return {head:ph.substring(0,gIdx+1), tail:ph.substring(gIdx+1)};
+      var jIdx=ph.indexOf('じゅう');
+      if(jIdx>0) return {head:ph.substring(0,jIdx), tail:ph.substring(jIdx)};
+      return {head:ph.substring(0, Math.max(1,ph.length-2)), tail:ph.substring(Math.max(1,ph.length-2))};
+    }
+    var sp=splitKukuPhrase(phrase);
+    var headSimple=sp.head, tail=sp.tail;
+    /* 同段の他フレーズから「同じ切り方」 の tail 候補を集める */
+    var tails=KUKU[dan].map(function(p){return splitKukuPhrase(p).tail;}).filter(function(t,i,a){return a.indexOf(t)===i&&t!==tail;});
+    if(tails.length<3){
       var others=dans.filter(function(d){return d!==dan;}).slice(0,3);
-      others.forEach(function(od){ KUKU[od].forEach(function(p){var t=p.substring(Math.max(0,p.length-cutLen));if(tails.indexOf(t)<0&&t!==tail)tails.push(t);}); });
+      others.forEach(function(od){ KUKU[od].forEach(function(p){var t=splitKukuPhrase(p).tail;if(tails.indexOf(t)<0&&t!==tail)tails.push(t);}); });
     }
     tails=shuffle(tails).slice(0,3);
     var choicesA=shuffle([tail].concat(tails));
@@ -5376,7 +5402,10 @@ function startPractice(cat,lv){
 }
 function startReview(){
   var p=P();
-  var cats=(p.type==="k5")?K5CATS:K10CATS;
+  /* N2: 発展カテゴリ (K5DEV/K10DEV) も復習対象に。 旧 K5CATS のみだと和差算・
+     つるかめ算・濃度等を大量に学んでも 復習に出ない / 「復習できる問題がない」と
+     表示される問題が出ていた。 */
+  var cats=courseCats(p);
   // 既習カテゴリ（stats[cat].n > 0）
   var learned=cats.filter(function(c){ return p.stats[c]&&p.stats[c].n>0; });
   var due=dueMissed(p);
@@ -5426,8 +5455,18 @@ function hsMaxOf(p,cat){
 }
 function showLevels(cat){
   var p=P(), mx=hsMaxOf(p,cat), label=CATL[cat];
-  var desc={1:"2けた基礎",2:"2けた基礎",3:"2けた基礎",4:"2けた",5:"2けた",
-    6:"3けた入門",7:"3けた入門",8:"3けた入門",9:"3けた発展",10:"3けた発展"};
+  /* N6: 加算と減算で実問題が異なる (ひき算 Lv5 = 3 桁 -2 桁、 Lv10 = 4 桁 -4 桁 等)
+     のに共通の desc を使っていた。 cat 別に実装と一致する説明を持つ。 */
+  var DESC={
+    hissan: {1:"2けた+1けた",2:"2けた+2けた くりあがりなし",3:"2けた+2けた くりあがり",
+             4:"3けた+1けた",5:"3けた+2けた",6:"3けた+3けた",7:"3けた+3けた くりあがり",
+             8:"4けた+2けた",9:"4けた+3けた",10:"4けた+4けた"},
+    hikizan: {1:"2けた-1けた",2:"2けた-2けた くりさがりなし",3:"2けた-2けた くりさがり",
+              4:"2けた-2けた くりさがり 1回",5:"3けた-2けた くりさがり 2回",
+              6:"3けた-1けた",7:"3けた-2けた くりさがり",8:"3けた-3けた くりさがり",
+              9:"3けた-3けた くりさがり 2回",10:"4けた-4けた"}
+  };
+  var desc=DESC[cat]||{};
   var h='<div class="scr">'+topBar("showHome()");
   h+='<div class="card"><h3>'+label+'：レベルを えらぶ</h3>'
     +'<p class="note">クリアすると つぎの レベルが ひらくよ。やさしい レベルで なんども れんしゅうも できる！</p><div class="tagrow">';
