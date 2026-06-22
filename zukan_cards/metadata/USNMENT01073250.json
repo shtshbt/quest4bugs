@@ -1,0 +1,77 @@
+{
+  "species_id": "hime_tonbo",
+  "species_ja": "ヒメトンボ",
+  "scientific_name": "Diplacodes trivialis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01073250",
+    "occurrenceId": "http://n2t.net/ark:/65665/3f5a03767-d377-4d12-9a99-2b98f580f0e6",
+    "persistentId": "http://n2t.net/ark:/65665/3f5a03767-d377-4d12-9a99-2b98f580f0e6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1987-10-31",
+    "eventYear": 1987,
+    "country": "Singapore",
+    "localityVerbatim": null,
+    "localityNormalized": "East Coast Park, Singapore",
+    "preparations": "Envelope",
+    "decimalLatitude": 1.3,
+    "decimalLongitude": 103.908
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322754572",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322754572",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16399891&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT01073250_original.jpg",
+    "segmented": "processed/USNMENT01073250_L1_segmented.png",
+    "display": "processed/USNMENT01073250_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01073250_54.webp",
+      "108": "thumb/USNMENT01073250_108.webp",
+      "216": "thumb/USNMENT01073250_216.webp"
+    }
+  },
+  "original_sha256": "5d79c6de87a681d0a4dbefb9ef7310866d21d7b6448e51013156fdd733d1bc5b",
+  "processing": {
+    "cropBox": [
+      886,
+      636,
+      1349,
+      995
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01073250_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

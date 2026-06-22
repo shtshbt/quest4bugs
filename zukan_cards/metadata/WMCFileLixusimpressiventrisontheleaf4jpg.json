@@ -1,0 +1,75 @@
+{
+  "species_id": "obo_no_zou",
+  "species_ja": "カツオゾウムシ",
+  "scientific_name": "Lixus impressiventris",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lixus impressiventris on the leaf - 4.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lixus_impressiventris_on_the_leaf_-_4.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lixus_impressiventris_on_the_leaf_-_4.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2021-06-01 17:43:52",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "カツオゾウムシ。愛知県春日井市の弥勒山で撮影。",
+    "localityNormalized": "カツオゾウムシ。愛知県春日井市の弥勒山で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lixus_impressiventris_on_the_leaf_-_4.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Lixus_impressiventris_on_the_leaf_-_4.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLixusimpressiventrisontheleaf4jpg_original.jpg",
+    "segmented": "processed/WMCFileLixusimpressiventrisontheleaf4jpg_L1_segmented.png",
+    "display": "processed/WMCFileLixusimpressiventrisontheleaf4jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLixusimpressiventrisontheleaf4jpg_54.webp",
+      "108": "thumb/WMCFileLixusimpressiventrisontheleaf4jpg_108.webp",
+      "216": "thumb/WMCFileLixusimpressiventrisontheleaf4jpg_216.webp"
+    }
+  },
+  "original_sha256": "de3672a53c334e042a51131b8c57f8f0d130573b89fc976480827bb9dbcbd27b",
+  "processing": {
+    "cropBox": [
+      2017,
+      1491,
+      3197,
+      2291
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLixusimpressiventrisontheleaf4jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

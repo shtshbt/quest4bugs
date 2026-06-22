@@ -1,0 +1,77 @@
+{
+  "species_id": "taiwan_kuroboshi_shijimi",
+  "species_ja": "タイワンクロボシシジミ",
+  "scientific_name": "Megisba malaya",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1038241",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1038241",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1038241",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "A.M.R. Wegner",
+    "eventDate": "1965-10-01",
+    "eventYear": 1965,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Bantimurung, Indonesia",
+    "preparations": "WholeOrganism (air dried)",
+    "decimalLatitude": -4.972899,
+    "decimalLongitude": 119.684681
+  },
+  "source": {
+    "gbifOccurrenceKey": "4879813800",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4879813800",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1038241_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS1038241_original.jpg",
+    "segmented": "processed/RMNHINS1038241_L1_segmented.png",
+    "display": "processed/RMNHINS1038241_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1038241_54.webp",
+      "108": "thumb/RMNHINS1038241_108.webp",
+      "216": "thumb/RMNHINS1038241_216.webp"
+    }
+  },
+  "original_sha256": "e9ff2a24d0a6dbff866f0225de9cfb1a3d2c0f6f0eae334d368aa01db36c2277",
+  "processing": {
+    "cropBox": [
+      717,
+      0,
+      1920,
+      1148
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1038241_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "miyama_akane",
+  "species_ja": "ミヤマアカネ",
+  "scientific_name": "Sympetrum pedemontanum elatum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Alpsdake",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sympetrum pedemontanum elatum (male).JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sympetrum_pedemontanum_elatum_(male).JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sympetrum_pedemontanum_elatum_(male).JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alpsdake",
+    "eventDate": "2014-11-11 12:10:51",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Male of Sympetrum pedemontanum elatum, in Gifu prefecture, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sympetrum_pedemontanum_elatum_(male).JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Sympetrum_pedemontanum_elatum_%28male%29.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSympetrumpedemontanumelatummaleJPG_original.jpg",
+    "segmented": "processed/WMCFileSympetrumpedemontanumelatummaleJPG_L1_segmented.png",
+    "display": "processed/WMCFileSympetrumpedemontanumelatummaleJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_54.webp",
+      "108": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_108.webp",
+      "216": "thumb/WMCFileSympetrumpedemontanumelatummaleJPG_216.webp"
+    }
+  },
+  "original_sha256": "aa66d28b91f5e3d8975e45dc5c404639c5d14c8a2c0563528b457747b59c10aa",
+  "processing": {
+    "cropBox": [
+      55,
+      0,
+      3389,
+      3340
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSympetrumpedemontanumelatummaleJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

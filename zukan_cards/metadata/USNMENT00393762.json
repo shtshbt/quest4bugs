@@ -1,0 +1,77 @@
+{
+  "species_id": "ki_tonbo",
+  "species_ja": "キトンボ",
+  "scientific_name": "Sympetrum croceolum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00393762",
+    "occurrenceId": "http://n2t.net/ark:/65665/36da77323-a1f7-4b41-81e1-f3eea3eca4cf",
+    "persistentId": "http://n2t.net/ark:/65665/36da77323-a1f7-4b41-81e1-f3eea3eca4cf",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "2011-09-19",
+    "eventYear": 2011,
+    "country": "Russian Federation",
+    "localityVerbatim": null,
+    "localityNormalized": "Lake Khanka, Lake Khanka Nature Reserve, Russian Federation",
+    "preparations": "Envelope",
+    "decimalLatitude": 44.655,
+    "decimalLongitude": 132.563
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319681496",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319681496",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16345341&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00393762_original.jpg",
+    "segmented": "processed/USNMENT00393762_L1_segmented.png",
+    "display": "processed/USNMENT00393762_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00393762_54.webp",
+      "108": "thumb/USNMENT00393762_108.webp",
+      "216": "thumb/USNMENT00393762_216.webp"
+    }
+  },
+  "original_sha256": "f55eee6167cc71fd69c56ef9077101ea640d2c94ce31c0bd22da121b2b2495db",
+  "processing": {
+    "cropBox": [
+      712,
+      443,
+      1365,
+      1034
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00393762_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

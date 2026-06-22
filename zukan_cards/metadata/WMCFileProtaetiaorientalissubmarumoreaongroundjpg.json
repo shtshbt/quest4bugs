@@ -1,0 +1,76 @@
+{
+  "species_id": "shiroten_hanamuguri",
+  "species_ja": "シロテンハナムグリ",
+  "scientific_name": "Protaetia orientalis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "E. Jones",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Protaetia orientalis submarumorea on ground.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Protaetia_orientalis_submarumorea_on_ground.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Protaetia_orientalis_submarumorea_on_ground.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "E. Jones",
+    "eventDate": "2020-05-23 13:44:10",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Protaetia orientalis submarumorea, at Mount Takao, Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Protaetia_orientalis_submarumorea_on_ground.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Protaetia_orientalis_submarumorea_on_ground.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_original.jpg",
+    "segmented": "processed/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_L1_segmented.png",
+    "display": "processed/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_54.webp",
+      "108": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_108.webp",
+      "216": "thumb/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_216.webp"
+    }
+  },
+  "original_sha256": "641fb8dbe4e985261409fd489cb47e6a0d3477cd2a425b154b02e894333d6618",
+  "processing": {
+    "cropBox": [
+      392,
+      330,
+      1982,
+      1905
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileProtaetiaorientalissubmarumoreaongroundjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.81), rotate 270 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "shouryou_batta_modoki",
+  "species_ja": "ショウリョウバッタモドキ",
+  "scientific_name": "Gonista bicolor",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Gonista bicolor - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Gonista_bicolor_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Gonista_bicolor_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-09-06 01:15:43",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "ショウリョウバッタモドキ。愛知県小牧市で撮影。",
+    "localityNormalized": "ショウリョウバッタモドキ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Gonista_bicolor_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Gonista_bicolor_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileGonistabicolor2jpg_original.jpg",
+    "segmented": "processed/WMCFileGonistabicolor2jpg_L1_segmented.png",
+    "display": "processed/WMCFileGonistabicolor2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGonistabicolor2jpg_54.webp",
+      "108": "thumb/WMCFileGonistabicolor2jpg_108.webp",
+      "216": "thumb/WMCFileGonistabicolor2jpg_216.webp"
+    }
+  },
+  "original_sha256": "21370ec17b1bac8d997a43f5c76ae2fab83687b72c86cecd3cfe910b3a3a679a",
+  "processing": {
+    "cropBox": [
+      402,
+      285,
+      1702,
+      3251
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGonistabicolor2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

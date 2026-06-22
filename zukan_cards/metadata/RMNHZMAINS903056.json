@@ -1,0 +1,75 @@
+{
+  "species_id": "yomogi_ediba",
+  "species_ja": "ヨモギエダシャク",
+  "scientific_name": "Ascotis selenaria",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.903056",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.903056",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.903056",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "A. Riemis",
+    "eventDate": "1983-06-18",
+    "eventYear": 1983,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": "Hockai, Liege",
+    "preparations": "(microscopic slide)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443994270",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443994270",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.903056/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS903056_original.jpg",
+    "segmented": "processed/RMNHZMAINS903056_L1_segmented.png",
+    "display": "processed/RMNHZMAINS903056_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS903056_54.webp",
+      "108": "thumb/RMNHZMAINS903056_108.webp",
+      "216": "thumb/RMNHZMAINS903056_216.webp"
+    }
+  },
+  "original_sha256": "0051d3eaaac185ae99b72423fd33c4d8ead3f31478370f7a52d6480ecc4ca9f0",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1825,
+      586
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS903056_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "master_jinmen_kamemushi",
+  "species_ja": "ジンメンカメムシ",
+  "scientific_name": "Catacanthus incarnatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Vinayaraj",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Catacanthus incarnatus - Man-faced Stink Bug - nymph from Kannavam RF (7).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Catacanthus_incarnatus_-_Man-faced_Stink_Bug_-_nymph_from_Kannavam_RF_(7).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Catacanthus_incarnatus_-_Man-faced_Stink_Bug_-_nymph_from_Kannavam_RF_(7).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Vinayaraj",
+    "eventDate": "2018-04-28 14:39",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Photos from Peravoor and around 2019   - by Vinayaraj",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Catacanthus_incarnatus_-_Man-faced_Stink_Bug_-_nymph_from_Kannavam_RF_(7).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Catacanthus_incarnatus_-_Man-faced_Stink_Bug_-_nymph_from_Kannavam_RF_%287%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_original.jpg",
+    "segmented": "processed/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_L1_segmented.png",
+    "display": "processed/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_54.webp",
+      "108": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_108.webp",
+      "216": "thumb/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_216.webp"
+    }
+  },
+  "original_sha256": "093f3c6de0439e7c4a29dbf068f9cb99a2ec781e3c6beaee03f48b0fb43791dd",
+  "processing": {
+    "cropBox": [
+      866,
+      324,
+      3433,
+      3264
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCatacanthusincarnatusManfacedStinkBugnymphfromKannavamRF7jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

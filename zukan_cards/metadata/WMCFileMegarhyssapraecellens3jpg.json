@@ -1,0 +1,75 @@
+{
+  "species_id": "ooke_himebachi",
+  "species_ja": "オオホシオナガバチ",
+  "scientific_name": "Megarhyssa praecellens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Johnsonwang6688",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Megarhyssa praecellens 3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Megarhyssa_praecellens_3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Megarhyssa_praecellens_3.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Johnsonwang6688",
+    "eventDate": "2022-06-05 12:23:31",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "​斑翅馬尾姬蜂 Megarhyssa praecellens",
+    "localityNormalized": "​斑翅馬尾姬蜂 Megarhyssa praecellens",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Megarhyssa_praecellens_3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Megarhyssa_praecellens_3.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMegarhyssapraecellens3jpg_original.jpg",
+    "segmented": "processed/WMCFileMegarhyssapraecellens3jpg_L1_segmented.png",
+    "display": "processed/WMCFileMegarhyssapraecellens3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMegarhyssapraecellens3jpg_54.webp",
+      "108": "thumb/WMCFileMegarhyssapraecellens3jpg_108.webp",
+      "216": "thumb/WMCFileMegarhyssapraecellens3jpg_216.webp"
+    }
+  },
+  "original_sha256": "d2546ec2cdc98c4a4e450056c62dd21328210fbd7f6fc86d2dc7d0d7604a6be5",
+  "processing": {
+    "cropBox": [
+      1450,
+      245,
+      3396,
+      3557
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMegarhyssapraecellens3jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

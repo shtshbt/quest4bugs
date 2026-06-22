@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_geji",
+  "species_ja": "オオゲジ",
+  "scientific_name": "Thereuopoda clunifera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "heikindai_87",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Thereuopoda clunifera 118290435.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Thereuopoda_clunifera_118290435.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Thereuopoda_clunifera_118290435.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2014-10-25",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Thereuopoda clunifera",
+    "localityNormalized": "Thereuopoda clunifera",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Thereuopoda_clunifera_118290435.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Thereuopoda_clunifera_118290435.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileThereuopodaclunifera118290435jpg_original.jpg",
+    "segmented": "processed/WMCFileThereuopodaclunifera118290435jpg_L1_segmented.png",
+    "display": "processed/WMCFileThereuopodaclunifera118290435jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileThereuopodaclunifera118290435jpg_54.webp",
+      "108": "thumb/WMCFileThereuopodaclunifera118290435jpg_108.webp",
+      "216": "thumb/WMCFileThereuopodaclunifera118290435jpg_216.webp"
+    }
+  },
+  "original_sha256": "416fac12aca47b30354b6e74b76a5555233bc7194d741ceecc46bb799f90690f",
+  "processing": {
+    "cropBox": [
+      156,
+      0,
+      1792,
+      1291
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileThereuopodaclunifera118290435jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "oonaga_kometsuki",
+  "species_ja": "オオナガコメツキ",
+  "scientific_name": "Nipponoelater sieboldi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Timur Kalininsky",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Nipponoelater sieboldi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Nipponoelater_sieboldi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Nipponoelater_sieboldi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Timur Kalininsky",
+    "eventDate": "2024-07-14",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Nipponoelater sieboldi. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Nipponoelater_sieboldi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Nipponoelater_sieboldi.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileNipponoelatersieboldijpg_original.jpg",
+    "segmented": "processed/WMCFileNipponoelatersieboldijpg_L1_segmented.png",
+    "display": "processed/WMCFileNipponoelatersieboldijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNipponoelatersieboldijpg_54.webp",
+      "108": "thumb/WMCFileNipponoelatersieboldijpg_108.webp",
+      "216": "thumb/WMCFileNipponoelatersieboldijpg_216.webp"
+    }
+  },
+  "original_sha256": "080f6926f91c209fd26c9139768a4fbad3b47da2ed1e4a002cef858c823b9463",
+  "processing": {
+    "cropBox": [
+      385,
+      587,
+      1598,
+      1196
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNipponoelatersieboldijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

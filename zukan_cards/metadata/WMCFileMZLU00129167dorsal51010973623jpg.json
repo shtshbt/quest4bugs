@@ -1,0 +1,75 @@
+{
+  "species_id": "oochabane_seseri",
+  "species_ja": "オオチャバネセセリ",
+  "scientific_name": "Polytremis pellucida",
+  "credit_line": "Wikimedia Commons",
+  "creator": "NSG group from Lund, Sweden",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:MZLU-00129167 dorsal (51010973623).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:MZLU-00129167_dorsal_(51010973623).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:MZLU-00129167_dorsal_(51010973623).jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "NSG group from Lund, Sweden",
+    "eventDate": "2021-03-06 19:35",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "MZLU-00129167_dorsal\n\n   Hesperiidae\n   Hesperiinae\n   Polytremis\n   pellucida\n\n    Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:MZLU-00129167_dorsal_(51010973623).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/40/MZLU-00129167_dorsal_%2851010973623%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileMZLU00129167dorsal51010973623jpg_original.jpg",
+    "segmented": "processed/WMCFileMZLU00129167dorsal51010973623jpg_L1_segmented.png",
+    "display": "processed/WMCFileMZLU00129167dorsal51010973623jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_54.webp",
+      "108": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_108.webp",
+      "216": "thumb/WMCFileMZLU00129167dorsal51010973623jpg_216.webp"
+    }
+  },
+  "original_sha256": "d33f927255d8d962f06565f14d24831eacff188a37ef22246c514dc82d7284d0",
+  "processing": {
+    "cropBox": [
+      758,
+      0,
+      3547,
+      1710
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMZLU00129167dorsal51010973623jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

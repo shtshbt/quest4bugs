@@ -1,0 +1,77 @@
+{
+  "species_id": "mumon_akashijimi",
+  "species_ja": "ムモンアカシジミ",
+  "scientific_name": "Shirozua jonasi",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 755324",
+    "occurrenceId": "urn:uuid:97236f1a-067f-48d2-b2aa-a065903aaf49",
+    "persistentId": "urn:uuid:97236f1a-067f-48d2-b2aa-a065903aaf49",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-08-12",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Yatsu, Nagano, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.986158,
+    "decimalLongitude": 138.366513
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039132171",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-755324",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:56293ea1-6fc8-4120-95cc-480d817f4186/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT755324_original.jpg",
+    "segmented": "processed/YPMENT755324_L1_segmented.png",
+    "display": "processed/YPMENT755324_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT755324_54.webp",
+      "108": "thumb/YPMENT755324_108.webp",
+      "216": "thumb/YPMENT755324_216.webp"
+    }
+  },
+  "original_sha256": "39a2b97562b5700ee0a275876f22a7f87a541209ffe464e1414ae5037b9fed4c",
+  "processing": {
+    "cropBox": [
+      85,
+      0,
+      1076,
+      1540
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT755324_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

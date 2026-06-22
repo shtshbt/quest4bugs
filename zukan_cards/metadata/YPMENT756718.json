@@ -1,0 +1,77 @@
+{
+  "species_id": "torafu_shijimi",
+  "species_ja": "トラフシジミ",
+  "scientific_name": "Rapala arata",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 756718",
+    "occurrenceId": "urn:uuid:990b3d67-fdce-4daf-9aff-19a7d3f26684",
+    "persistentId": "urn:uuid:990b3d67-fdce-4daf-9aff-19a7d3f26684",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kyoto, Uzi, Kowata, Japan",
+    "preparations": null,
+    "decimalLatitude": 34.984613,
+    "decimalLongitude": 135.758343
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039132784",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-756718",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:eb6db1eb-0145-4b27-a3eb-43484a7b5216/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT756718_original.jpg",
+    "segmented": "processed/YPMENT756718_L1_segmented.png",
+    "display": "processed/YPMENT756718_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT756718_54.webp",
+      "108": "thumb/YPMENT756718_108.webp",
+      "216": "thumb/YPMENT756718_216.webp"
+    }
+  },
+  "original_sha256": "9756770dfd828745b6fc87d096696356e26917f80492974de9f01a209edc3dab",
+  "processing": {
+    "cropBox": [
+      207,
+      4,
+      960,
+      1395
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT756718_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

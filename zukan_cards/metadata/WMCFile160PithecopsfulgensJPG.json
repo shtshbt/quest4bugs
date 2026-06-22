@@ -1,0 +1,75 @@
+{
+  "species_id": "ryukyu_uraboshi_shijimi",
+  "species_ja": "リュウキュウウラボシシジミ",
+  "scientific_name": "Pithecops fulgens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:160-Pithecops fulgens.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:160-Pithecops_fulgens.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:160-Pithecops_fulgens.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 10:33:55",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "ツシマウラボシシジミ",
+    "localityNormalized": "ツシマウラボシシジミ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:160-Pithecops_fulgens.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/160-Pithecops_fulgens.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFile160PithecopsfulgensJPG_original.jpg",
+    "segmented": "processed/WMCFile160PithecopsfulgensJPG_L1_segmented.png",
+    "display": "processed/WMCFile160PithecopsfulgensJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile160PithecopsfulgensJPG_54.webp",
+      "108": "thumb/WMCFile160PithecopsfulgensJPG_108.webp",
+      "216": "thumb/WMCFile160PithecopsfulgensJPG_216.webp"
+    }
+  },
+  "original_sha256": "c471948cbaafccb7bd40bd8a056f177262317a76fe8454ffeab331a9128fad71",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      4449,
+      3074
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile160PithecopsfulgensJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "ao_iro_hamushi",
+  "species_ja": "アオバネサルハムシ",
+  "scientific_name": "Basilepta fulvipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kosuke Onoda",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Basilepta fulvipes 536881664.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Basilepta_fulvipes_536881664.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Basilepta_fulvipes_536881664.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kosuke Onoda",
+    "eventDate": "2025-07-02",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Basilepta fulvipes in Japan",
+    "localityNormalized": "Basilepta fulvipes in Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Basilepta_fulvipes_536881664.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Basilepta_fulvipes_536881664.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileBasileptafulvipes536881664jpg_original.jpg",
+    "segmented": "processed/WMCFileBasileptafulvipes536881664jpg_L1_segmented.png",
+    "display": "processed/WMCFileBasileptafulvipes536881664jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBasileptafulvipes536881664jpg_54.webp",
+      "108": "thumb/WMCFileBasileptafulvipes536881664jpg_108.webp",
+      "216": "thumb/WMCFileBasileptafulvipes536881664jpg_216.webp"
+    }
+  },
+  "original_sha256": "5bcefaf9dc58e8a0cf4250d3be959079c626c2b6d53ec9bcbe1c7f0336dfcba1",
+  "processing": {
+    "cropBox": [
+      426,
+      243,
+      1520,
+      1132
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBasileptafulvipes536881664jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

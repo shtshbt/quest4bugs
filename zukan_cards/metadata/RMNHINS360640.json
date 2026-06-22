@@ -1,0 +1,75 @@
+{
+  "species_id": "sakahachichou",
+  "species_ja": "サカハチチョウ",
+  "scientific_name": "Araschnia burejana",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.360640",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.360640",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.360640",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443637430",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443637430",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.360640_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS360640_original.jpg",
+    "segmented": "processed/RMNHINS360640_L1_segmented.png",
+    "display": "processed/RMNHINS360640_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS360640_54.webp",
+      "108": "thumb/RMNHINS360640_108.webp",
+      "216": "thumb/RMNHINS360640_216.webp"
+    }
+  },
+  "original_sha256": "954fb84cf19a1fc13589c6a7cdd4e4199fbaf63f6eb385a5547b10675ad42064",
+  "processing": {
+    "cropBox": [
+      28,
+      8,
+      1838,
+      874
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS360640_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

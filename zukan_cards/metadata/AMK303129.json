@@ -1,0 +1,77 @@
+{
+  "species_id": "oosukashiba",
+  "species_ja": "オオスカシバ",
+  "scientific_name": "Cephonodes hylas",
+  "credit_line": "Australian Museum",
+  "creator": "Kelly Wright",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.303129",
+    "occurrenceId": "d59cbb65-f8ee-4f7c-90e8-c0f8c5b0b532",
+    "persistentId": "d59cbb65-f8ee-4f7c-90e8-c0f8c5b0b532",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Masters",
+    "eventDate": "1870",
+    "eventYear": 1870,
+    "country": "Australia",
+    "localityVerbatim": "Gayndah",
+    "localityNormalized": "Gayndah, Australia",
+    "preparations": null,
+    "decimalLatitude": -25.624166,
+    "decimalLongitude": 151.60834
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100278628",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100278628",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=ac6a5541-cba4-48f7-8ff5-b13121871679",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK303129_original.jpg",
+    "segmented": "processed/AMK303129_L1_segmented.png",
+    "display": "processed/AMK303129_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK303129_54.webp",
+      "108": "thumb/AMK303129_108.webp",
+      "216": "thumb/AMK303129_216.webp"
+    }
+  },
+  "original_sha256": "7a685d951f0b1b0227d13b23fdd6b237cb9cefa5bedd105995ca38134e509180",
+  "processing": {
+    "cropBox": [
+      40,
+      0,
+      397,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK303129_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

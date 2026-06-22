@@ -1,0 +1,75 @@
+{
+  "species_id": "yotsuboshi_ookisui",
+  "species_ja": "ヨツボシオオキスイ",
+  "scientific_name": "Helota gemmata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Waterhouse, Charles Owen",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aid to the identification of insects (Plate 133) (7796349036).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_133)_(7796349036).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_133)_(7796349036).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Waterhouse, Charles Owen",
+    "eventDate": "1880-90.",
+    "eventYear": 1880,
+    "country": null,
+    "localityVerbatim": "Aid. \n133. \n1^ \n• t \n'••«' \nw \n1. Helota cereopunctata, Lewce, Enb. Mo. McLq.,XVIL(l881.) p. Z55- Japan. \n2. Helota gemmata, Gorharru, Trojts.ETvb.Soc, .I814-)p. 441. Japan. \n3. Trygaeus princeps, Sharp, Trazis.Ervb.Soo., (1814.Jp. 421. Japan \n4 Nodinus leucofasciatus. Z&amp;w;:^.^?^. kMcuj. Ncu Hist., IVfI879.)p.460. Japan. \n5. Clytus Balyi,Pasco&amp;, Trcuzs. Ertb. Soc.y. fI859.p21. India. ^ \n6 Thelyphassa diaphana, Pascoe. Arav.lMcug. Noub.Hu&amp;t.XVlllI lQT6.jp 58^ N Zealano. \n7 : Cupes clathratus, SoWh/, Hor.Soo. EnP. Ross., VU. f 1810) p. 310. Japan. \n\n8. Syntelia histeroides \\Q.\\i\\zX.&amp;To\\^QZ,LewLB,EvJu.Mo.Mcu^.,XlX. .1883.)p.l38. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_133)_(7796349036).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Aid_to_the_identification_of_insects_%28Plate_133%29_%287796349036%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_original.jpg",
+    "segmented": "processed/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_L1_segmented.png",
+    "display": "processed/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_54.webp",
+      "108": "thumb/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_108.webp",
+      "216": "thumb/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_216.webp"
+    }
+  },
+  "original_sha256": "6432c950925a946bee0490ade86111ad4154bfa94202601b386fa92e4f8cace4",
+  "processing": {
+    "cropBox": [
+      107,
+      121,
+      1044,
+      1362
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

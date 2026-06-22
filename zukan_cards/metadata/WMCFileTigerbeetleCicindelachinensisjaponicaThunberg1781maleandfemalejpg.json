@@ -1,0 +1,76 @@
+{
+  "species_id": "nishiki_hanmyou",
+  "species_ja": "ニシキハンミョウ",
+  "scientific_name": "Sophiodela japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Gubin Olexander",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tiger beetle Cicindela chinensis japonica Thunberg, 1781, male and female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_Cicindela_chinensis_japonica_Thunberg,_1781,_male_and_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_Cicindela_chinensis_japonica_Thunberg,_1781,_male_and_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Gubin Olexander",
+    "eventDate": "2017-09-25 19:51:38",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Tiger beetle Cicindela chinensis japonica Thunberg, 1781 (Coleoptera, Carabidae), male and female. Japan. Inhabits the islands of Honshu, Shikoku, Kyushu, Tsushima and Yakushima.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_Cicindela_chinensis_japonica_Thunberg,_1781,_male_and_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Tiger_beetle_Cicindela_chinensis_japonica_Thunberg%2C_1781%2C_male_and_female.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_original.jpg",
+    "segmented": "processed/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_L1_segmented.png",
+    "display": "processed/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_54.webp",
+      "108": "thumb/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_108.webp",
+      "216": "thumb/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "e8a77e03e2d6ad36d85923bb64af535091f555cc327c42bddc4e547d1870f623",
+  "processing": {
+    "cropBox": [
+      387,
+      0,
+      4175,
+      4249
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTigerbeetleCicindelachinensisjaponicaThunberg1781maleandfemalejpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.79), rotate 180 CCW"
+}

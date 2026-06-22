@@ -1,0 +1,75 @@
+{
+  "species_id": "kuma_suzu",
+  "species_ja": "クマスズムシ",
+  "scientific_name": "Sclerogryllus punctatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Keisotyo",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sclerogryllus punctatus kumasuzums02.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sclerogryllus_punctatus_kumasuzums02.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sclerogryllus_punctatus_kumasuzums02.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Keisotyo",
+    "eventDate": "2025-10-23",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "2025/10/09\n和歌山県田辺市：Tanabe City, Wakayama Pref. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sclerogryllus_punctatus_kumasuzums02.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Sclerogryllus_punctatus_kumasuzums02.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSclerogrylluspunctatuskumasuzums02jpg_original.jpg",
+    "segmented": "processed/WMCFileSclerogrylluspunctatuskumasuzums02jpg_L1_segmented.png",
+    "display": "processed/WMCFileSclerogrylluspunctatuskumasuzums02jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_54.webp",
+      "108": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_108.webp",
+      "216": "thumb/WMCFileSclerogrylluspunctatuskumasuzums02jpg_216.webp"
+    }
+  },
+  "original_sha256": "d77b63bd7a026023d5473e1ef4d2e0a0a9daaecd3fff4d6cb0e5f0b606927cb3",
+  "processing": {
+    "cropBox": [
+      273,
+      52,
+      748,
+      693
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSclerogrylluspunctatuskumasuzums02jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "oouraginsuji_hyoumon",
+  "species_ja": "オオウラギンスジヒョウモン",
+  "scientific_name": "Argyronome ruslana",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.388160",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.388160",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.388160",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Austria",
+    "localityVerbatim": null,
+    "localityNormalized": "Austria",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444158888",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444158888",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.388160_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS388160_original.jpg",
+    "segmented": "processed/RMNHINS388160_L1_segmented.png",
+    "display": "processed/RMNHINS388160_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS388160_54.webp",
+      "108": "thumb/RMNHINS388160_108.webp",
+      "216": "thumb/RMNHINS388160_216.webp"
+    }
+  },
+  "original_sha256": "637191fb1258e679f55e312d4ff89cebee8b3b77979a7865e741ad4074d48acb",
+  "processing": {
+    "cropBox": [
+      0,
+      35,
+      1901,
+      945
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS388160_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

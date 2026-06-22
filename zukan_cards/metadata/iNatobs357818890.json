@@ -1,0 +1,81 @@
+{
+  "species_id": "se_aka_jokai",
+  "species_ja": "セアカハネナガジョウカイ",
+  "scientific_name": "Lycocerus vitellinus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "konoda (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_357818890",
+    "occurrenceId": "https://www.inaturalist.org/observations/357818890",
+    "persistentId": "https://www.inaturalist.org/observations/357818890",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "konoda",
+    "eventDate": "2026-05-01",
+    "eventYear": 2026,
+    "country": "日本、神奈川県横浜市金沢区",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、神奈川県横浜市金沢区, 日本、神奈川県横浜市金沢区",
+    "preparations": null,
+    "decimalLatitude": 35.3379744881,
+    "decimalLongitude": 139.6117612857,
+    "coordinatesObscured": false,
+    "iNatObservationId": "357818890",
+    "iNatPhotoId": "652678141",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/357818890",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/652678141/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs357818890_original.jpg",
+    "segmented": "processed/iNatobs357818890_L1_segmented.png",
+    "display": "processed/iNatobs357818890_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs357818890_54.webp",
+      "108": "thumb/iNatobs357818890_108.webp",
+      "216": "thumb/iNatobs357818890_216.webp"
+    }
+  },
+  "original_sha256": "4f14ddd8bee32b374baefe797505c9b685d313a5bf6eb0a4c32b462cdfcb4260",
+  "processing": {
+    "cropBox": [
+      115,
+      0,
+      1826,
+      1195
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs357818890_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

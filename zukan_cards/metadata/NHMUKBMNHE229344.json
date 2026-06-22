@@ -1,0 +1,75 @@
+{
+  "species_id": "daimyo_seseri",
+  "species_ja": "ダイミョウセセリ",
+  "scientific_name": "Daimio tethys",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Blanca Huertas",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)229344",
+    "occurrenceId": "d54a291a-3336-477b-be79-922bc122f438",
+    "persistentId": "d54a291a-3336-477b-be79-922bc122f438",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826194741",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/d54a291a-3336-477b-be79-922bc122f438",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d44c9097-590b-4bb3-be10-85816dfbbc58",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE229344_original.jpg",
+    "segmented": "processed/NHMUKBMNHE229344_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE229344_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE229344_54.webp",
+      "108": "thumb/NHMUKBMNHE229344_108.webp",
+      "216": "thumb/NHMUKBMNHE229344_216.webp"
+    }
+  },
+  "original_sha256": "34c235e009ef8e587e8266fe55b82e66f1587051fb95d532d6571829d384810f",
+  "processing": {
+    "cropBox": [
+      507,
+      230,
+      962,
+      552
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE229344_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

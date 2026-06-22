@@ -1,0 +1,75 @@
+{
+  "species_id": "onki_ageha",
+  "species_ja": "オキナワカラスアゲハ",
+  "scientific_name": "Papilio ryukyuensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "M108t",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Papilio bianor in Banna Park, Ishigaki, Okinawa.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Papilio_bianor_in_Banna_Park,_Ishigaki,_Okinawa.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Papilio_bianor_in_Banna_Park,_Ishigaki,_Okinawa.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "M108t",
+    "eventDate": "2025-03-29 14:32:44",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "ヤエヤマカラスアゲハ雌個体（2025年3月 沖縄県石垣市 バンナ公園）",
+    "localityNormalized": "ヤエヤマカラスアゲハ雌個体（2025年3月 沖縄県石垣市 バンナ公園）",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Papilio_bianor_in_Banna_Park,_Ishigaki,_Okinawa.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Papilio_bianor_in_Banna_Park%2C_Ishigaki%2C_Okinawa.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_original.jpg",
+    "segmented": "processed/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_L1_segmented.png",
+    "display": "processed/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_54.webp",
+      "108": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_108.webp",
+      "216": "thumb/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_216.webp"
+    }
+  },
+  "original_sha256": "e02b34ca173eac71c4f64523b6eadc3cfed461a0e6bf2000e5f0195a8351ea16",
+  "processing": {
+    "cropBox": [
+      114,
+      0,
+      4000,
+      2724
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePapiliobianorinBannaParkIshigakiOkinawajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

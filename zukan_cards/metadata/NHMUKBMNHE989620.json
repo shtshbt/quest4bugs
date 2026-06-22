@@ -1,0 +1,75 @@
+{
+  "species_id": "akama_dara_hanamuguri",
+  "species_ja": "ムラサキツヤハナムグリ",
+  "scientific_name": "Protaetia cuprea",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)989620",
+    "occurrenceId": "afcf9bb2-00f0-4277-9677-7fdb4e7e7665",
+    "persistentId": "afcf9bb2-00f0-4277-9677-7fdb4e7e7665",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Larva",
+    "recordedBy": null,
+    "eventDate": "1935-05-01",
+    "eventYear": 1935,
+    "country": "Germany",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Werder; Township: Berlin, Germany",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057132208",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/afcf9bb2-00f0-4277-9677-7fdb4e7e7665",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/568b7b9c-4399-4d1f-9433-dcf6e95fb148",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE989620_original.jpg",
+    "segmented": "processed/NHMUKBMNHE989620_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE989620_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE989620_54.webp",
+      "108": "thumb/NHMUKBMNHE989620_108.webp",
+      "216": "thumb/NHMUKBMNHE989620_216.webp"
+    }
+  },
+  "original_sha256": "5729c3cb4859d9d8cff8c1b9f3d6015034991db75c1c5cc1f5795fa731aaa6f6",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1440,
+      961
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE989620_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.75), rotate 0 CCW"
+}

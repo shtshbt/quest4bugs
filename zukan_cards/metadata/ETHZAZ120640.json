@@ -1,0 +1,77 @@
+{
+  "species_id": "kin_uwaba_tsutoga",
+  "species_ja": "キバラケンモン",
+  "scientific_name": "Acronicta vulpina",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "AZ12-0640",
+    "occurrenceId": "AZ12-0640",
+    "persistentId": "AZ12-0640",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Zheludev, Andrey",
+    "eventDate": "2012-07-01/2012-07-31",
+    "eventYear": 2012,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Osaru River, Date, Japan",
+    "preparations": null,
+    "decimalLatitude": 42.64033,
+    "decimalLongitude": 141.05065
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761412435",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761412435",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/855053/4d8f47292f3389a2021ba2e4f0eda810df51772bea3ccb96ec852687a81866fa/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZAZ120640_original.jpg",
+    "segmented": "processed/ETHZAZ120640_L1_segmented.png",
+    "display": "processed/ETHZAZ120640_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZAZ120640_54.webp",
+      "108": "thumb/ETHZAZ120640_108.webp",
+      "216": "thumb/ETHZAZ120640_216.webp"
+    }
+  },
+  "original_sha256": "4d8f47292f3389a2021ba2e4f0eda810df51772bea3ccb96ec852687a81866fa",
+  "processing": {
+    "cropBox": [
+      0,
+      79,
+      2352,
+      1635
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZAZ120640_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

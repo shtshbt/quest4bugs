@@ -1,0 +1,76 @@
+{
+  "species_id": "yanagi_tamamushi",
+  "species_ja": "ヤナギタマムシ",
+  "scientific_name": "Poecilonota variolosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Siga",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Poecilonota variolosa Greece side.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Poecilonota_variolosa_Greece_side.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Poecilonota_variolosa_Greece_side.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Siga",
+    "eventDate": "2019-06-21 14:48:50",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Poecilonota variolosa auf kranker Pappel, Griechenland",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Poecilonota_variolosa_Greece_side.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Poecilonota_variolosa_Greece_side.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFilePoecilonotavariolosaGreecesidejpg_original.jpg",
+    "segmented": "processed/WMCFilePoecilonotavariolosaGreecesidejpg_L1_segmented.png",
+    "display": "processed/WMCFilePoecilonotavariolosaGreecesidejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_54.webp",
+      "108": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_108.webp",
+      "216": "thumb/WMCFilePoecilonotavariolosaGreecesidejpg_216.webp"
+    }
+  },
+  "original_sha256": "bb8a5d1fc92a04a9246e223aa74b412940d8f2b7c6590a6bddb780594de689d8",
+  "processing": {
+    "cropBox": [
+      70,
+      261,
+      2911,
+      2705
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePoecilonotavariolosaGreecesidejpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.92), rotate 180 CCW"
+}

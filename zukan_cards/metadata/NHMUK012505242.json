@@ -1,0 +1,75 @@
+{
+  "species_id": "konoha_mushi",
+  "species_ja": "コノハムシ",
+  "scientific_name": "Phyllium pulchrifolium",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012505242",
+    "occurrenceId": "8d56f49c-6b27-4fd8-a257-0e4b7a7c70da",
+    "persistentId": "8d56f49c-6b27-4fd8-a257-0e4b7a7c70da",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3116765469",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/8d56f49c-6b27-4fd8-a257-0e4b7a7c70da",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/83e2190d-854c-4b33-9d3c-ee81a1222501",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012505242_original.jpg",
+    "segmented": "processed/NHMUK012505242_L1_segmented.png",
+    "display": "processed/NHMUK012505242_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012505242_54.webp",
+      "108": "thumb/NHMUK012505242_108.webp",
+      "216": "thumb/NHMUK012505242_216.webp"
+    }
+  },
+  "original_sha256": "0948d05e2f443a605d0de17e013a59a74aae6086bc0d3512de4d6ba3b9564077",
+  "processing": {
+    "cropBox": [
+      570,
+      0,
+      894,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012505242_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

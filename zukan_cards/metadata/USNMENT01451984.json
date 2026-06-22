@@ -1,0 +1,77 @@
+{
+  "species_id": "kubinaga_otoshibumi",
+  "species_ja": "クビナガオトシブミ",
+  "scientific_name": "Trachelophorus giraffa",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01451984",
+    "occurrenceId": "http://n2t.net/ark:/65665/36eb2b691-9eb4-4d86-a191-5332a6479e95",
+    "persistentId": "http://n2t.net/ark:/65665/36eb2b691-9eb4-4d86-a191-5332a6479e95",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "E. Cashatt",
+    "eventDate": "1962-10-10",
+    "eventYear": 1962,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "2 kilometers east of Perinet, Madagascar",
+    "preparations": "Pinned",
+    "decimalLatitude": -18.9273,
+    "decimalLongitude": 48.4332
+  },
+  "source": {
+    "gbifOccurrenceKey": "2986758348",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2986758348",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16461602&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT01451984_original.jpg",
+    "segmented": "processed/USNMENT01451984_L1_segmented.png",
+    "display": "processed/USNMENT01451984_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01451984_54.webp",
+      "108": "thumb/USNMENT01451984_108.webp",
+      "216": "thumb/USNMENT01451984_216.webp"
+    }
+  },
+  "original_sha256": "f62947f2c754bdbbead202cde9260e616abbddeb97a9cd70a2edc4fec42189a4",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      640,
+      421
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01451984_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

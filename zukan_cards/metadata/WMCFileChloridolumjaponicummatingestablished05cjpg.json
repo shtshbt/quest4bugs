@@ -1,0 +1,76 @@
+{
+  "species_id": "akaashi_ooao_kamikiri",
+  "species_ja": "アカアシオオアオカミキリ",
+  "scientific_name": "Chloridolum japonicum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Nmspec",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chloridolum japonicum mating established 05c.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chloridolum_japonicum_mating_established_05c.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chloridolum_japonicum_mating_established_05c.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Nmspec",
+    "eventDate": "2024-06-27 01:22:32",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "アカアシオオアオカミキリの交尾 サイドビュー",
+    "localityNormalized": "アカアシオオアオカミキリの交尾 サイドビュー",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chloridolum_japonicum_mating_established_05c.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Chloridolum_japonicum_mating_established_05c.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileChloridolumjaponicummatingestablished05cjpg_original.jpg",
+    "segmented": "processed/WMCFileChloridolumjaponicummatingestablished05cjpg_L1_segmented.png",
+    "display": "processed/WMCFileChloridolumjaponicummatingestablished05cjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_54.webp",
+      "108": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_108.webp",
+      "216": "thumb/WMCFileChloridolumjaponicummatingestablished05cjpg_216.webp"
+    }
+  },
+  "original_sha256": "775b8547fabc6eeba566639b820f0b0f7edc051ee7357c7af0fa94f6ec5c9886",
+  "processing": {
+    "cropBox": [
+      922,
+      0,
+      2498,
+      3019
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChloridolumjaponicummatingestablished05cjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.25), rotate 90 CCW"
+}

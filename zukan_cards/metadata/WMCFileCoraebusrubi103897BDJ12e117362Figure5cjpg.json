@@ -1,0 +1,75 @@
+{
+  "species_id": "ruri_hosotama",
+  "species_ja": "ルリナカボソタマムシ",
+  "scientific_name": "Coraebus rubi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Forbicioni et al. (2024)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Coraebus rubi (10.3897-BDJ.12.e117362) Figure 5c.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Coraebus_rubi_(10.3897-BDJ.12.e117362)_Figure_5c.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Coraebus_rubi_(10.3897-BDJ.12.e117362)_Figure_5c.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Forbicioni et al. (2024)",
+    "eventDate": "2024-02-21",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Figure 5 c\nCoraebus rubi (Linnaeus, 1767) - scale bar: 3.0 mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Coraebus_rubi_(10.3897-BDJ.12.e117362)_Figure_5c.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Coraebus_rubi_%2810.3897-BDJ.12.e117362%29_Figure_5c.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_original.jpg",
+    "segmented": "processed/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_L1_segmented.png",
+    "display": "processed/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_54.webp",
+      "108": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_108.webp",
+      "216": "thumb/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_216.webp"
+    }
+  },
+  "original_sha256": "64ceed756fa682d487c84b08627fcd48f797261278057d491f24dd57e5ed212c",
+  "processing": {
+    "cropBox": [
+      236,
+      198,
+      1622,
+      2852
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCoraebusrubi103897BDJ12e117362Figure5cjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

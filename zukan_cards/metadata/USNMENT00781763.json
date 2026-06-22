@@ -1,0 +1,75 @@
+{
+  "species_id": "oomon_shirochou",
+  "species_ja": "オオモンシロチョウ",
+  "scientific_name": "Pieris brassicae",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781763",
+    "occurrenceId": "http://n2t.net/ark:/65665/381837cf7-69d0-4ef9-800f-958e27cce15c",
+    "persistentId": "http://n2t.net/ark:/65665/381837cf7-69d0-4ef9-800f-958e27cce15c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320130671",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320130671",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10485270&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00781763_original.jpg",
+    "segmented": "processed/USNMENT00781763_L1_segmented.png",
+    "display": "processed/USNMENT00781763_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781763_54.webp",
+      "108": "thumb/USNMENT00781763_108.webp",
+      "216": "thumb/USNMENT00781763_216.webp"
+    }
+  },
+  "original_sha256": "dcfbe4fff21904d57b5c6cd29b21a279785d326996a9f537a84cbf6672cd3ded",
+  "processing": {
+    "cropBox": [
+      148,
+      162,
+      1844,
+      1328
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781763_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "monkiageha",
+  "species_ja": "モンキアゲハ",
+  "scientific_name": "Papilio helenus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012824357",
+    "occurrenceId": "6b24b2b4-dd95-4968-ab8c-8fd1f496e9d3",
+    "persistentId": "6b24b2b4-dd95-4968-ab8c-8fd1f496e9d3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2236803835",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6b24b2b4-dd95-4968-ab8c-8fd1f496e9d3",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/36330886-c4ca-4f67-bb1a-45f456a7d800",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012824357_original.jpg",
+    "segmented": "processed/NHMUK012824357_L1_segmented.png",
+    "display": "processed/NHMUK012824357_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012824357_54.webp",
+      "108": "thumb/NHMUK012824357_108.webp",
+      "216": "thumb/NHMUK012824357_216.webp"
+    }
+  },
+  "original_sha256": "924b9f63af459dbe427816863337f26c7f2f8a0b4dfadfb4a604855a53e5859d",
+  "processing": {
+    "cropBox": [
+      6,
+      54,
+      955,
+      952
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012824357_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

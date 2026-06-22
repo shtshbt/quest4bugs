@@ -1,0 +1,75 @@
+{
+  "species_id": "haru_zemi",
+  "species_ja": "ハルゼミ",
+  "scientific_name": "Terpnosia vacua",
+  "credit_line": "Wikimedia Commons",
+  "creator": "renshuchu",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Yezoterpnosia vacua from iNaturalist photo 289251579.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Yezoterpnosia_vacua_from_iNaturalist_photo_289251579.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Yezoterpnosia_vacua_from_iNaturalist_photo_289251579.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2017-06",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Yezoterpnosia vacua",
+    "localityNormalized": "Yezoterpnosia vacua",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Yezoterpnosia_vacua_from_iNaturalist_photo_289251579.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Yezoterpnosia_vacua_from_iNaturalist_photo_289251579.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_original.jpg",
+    "segmented": "processed/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_L1_segmented.png",
+    "display": "processed/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_54.webp",
+      "108": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_108.webp",
+      "216": "thumb/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_216.webp"
+    }
+  },
+  "original_sha256": "0f42b4238de2da971e3f6d7064325509f294c24286b48e5cf55be8665576d7b5",
+  "processing": {
+    "cropBox": [
+      621,
+      581,
+      1525,
+      1303
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileYezoterpnosiavacuafromiNaturalistphoto289251579jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

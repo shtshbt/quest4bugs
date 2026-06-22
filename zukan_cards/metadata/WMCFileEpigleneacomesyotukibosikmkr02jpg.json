@@ -1,0 +1,75 @@
+{
+  "species_id": "yotsukiboshi_kamikiri",
+  "species_ja": "ヨツキボシカミキリ",
+  "scientific_name": "Epiglenea comes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Keisotyo",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Epiglenea comes yotukibosikmkr02.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Epiglenea_comes_yotukibosikmkr02.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Epiglenea_comes_yotukibosikmkr02.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Keisotyo",
+    "eventDate": "2022-06-06",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "2022/05/14\n和歌山県田辺市：Tanabe City, Wakayama Pref. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Epiglenea_comes_yotukibosikmkr02.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Epiglenea_comes_yotukibosikmkr02.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileEpigleneacomesyotukibosikmkr02jpg_original.jpg",
+    "segmented": "processed/WMCFileEpigleneacomesyotukibosikmkr02jpg_L1_segmented.png",
+    "display": "processed/WMCFileEpigleneacomesyotukibosikmkr02jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_54.webp",
+      "108": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_108.webp",
+      "216": "thumb/WMCFileEpigleneacomesyotukibosikmkr02jpg_216.webp"
+    }
+  },
+  "original_sha256": "cdf39bd9ad1423d8e106d062c0a34b4c012b9399fbbefafb16ebbcfd556a6652",
+  "processing": {
+    "cropBox": [
+      152,
+      0,
+      698,
+      667
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEpigleneacomesyotukibosikmkr02jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.79), rotate 0 CCW"
+}

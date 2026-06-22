@@ -1,0 +1,75 @@
+{
+  "species_id": "kimadara_modoki",
+  "species_ja": "キマダラモドキ",
+  "scientific_name": "Kirinia epaminondas",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.356404",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.356404",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.356404",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Korea (Democratic People’s Republic of)",
+    "localityVerbatim": null,
+    "localityNormalized": "Korea (Democratic People’s Republic of)",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443630020",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443630020",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.356404_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS356404_original.jpg",
+    "segmented": "processed/RMNHINS356404_L1_segmented.png",
+    "display": "processed/RMNHINS356404_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS356404_54.webp",
+      "108": "thumb/RMNHINS356404_108.webp",
+      "216": "thumb/RMNHINS356404_216.webp"
+    }
+  },
+  "original_sha256": "42bc4e4e1427112880401a8540616695c055eaaf05a17dcb5adeeaa09e0346c6",
+  "processing": {
+    "cropBox": [
+      0,
+      9,
+      1920,
+      947
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS356404_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

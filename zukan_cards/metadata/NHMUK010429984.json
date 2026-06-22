@@ -1,0 +1,75 @@
+{
+  "species_id": "nettaiaka_seseri",
+  "species_ja": "ネッタイアカセセリ",
+  "scientific_name": "Telicota colon",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010429984",
+    "occurrenceId": "a295a8f3-757f-4b6f-b3d6-4453520e1507",
+    "persistentId": "a295a8f3-757f-4b6f-b3d6-4453520e1507",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1837857497",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/a295a8f3-757f-4b6f-b3d6-4453520e1507",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/41da3774-21c9-47c5-a3ce-39af06e4fabf",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010429984_original.jpg",
+    "segmented": "processed/NHMUK010429984_L1_segmented.png",
+    "display": "processed/NHMUK010429984_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010429984_54.webp",
+      "108": "thumb/NHMUK010429984_108.webp",
+      "216": "thumb/NHMUK010429984_216.webp"
+    }
+  },
+  "original_sha256": "67322aee942f20f3e6a93a5a90365b8c53ffb8c3968452e6524d90d14c6336ce",
+  "processing": {
+    "cropBox": [
+      289,
+      267,
+      791,
+      556
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010429984_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

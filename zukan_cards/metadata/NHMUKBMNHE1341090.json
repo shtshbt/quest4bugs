@@ -1,0 +1,77 @@
+{
+  "species_id": "jumonji_hamushi",
+  "species_ja": "ジュウシホシクビナガハムシ",
+  "scientific_name": "Crioceris quatuordecimpunctata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1341090",
+    "occurrenceId": "255c434c-6607-43f1-aae7-646ff26a24c9",
+    "persistentId": "255c434c-6607-43f1-aae7-646ff26a24c9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1952-05-11",
+    "eventYear": 1952,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Harbin district, China",
+    "preparations": null,
+    "decimalLatitude": 45.8038,
+    "decimalLongitude": 126.535
+  },
+  "source": {
+    "gbifOccurrenceKey": "1269985198",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/255c434c-6607-43f1-aae7-646ff26a24c9",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9b8574f9-a43e-48a9-ac98-9cc816213135",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE1341090_original.jpg",
+    "segmented": "processed/NHMUKBMNHE1341090_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE1341090_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1341090_54.webp",
+      "108": "thumb/NHMUKBMNHE1341090_108.webp",
+      "216": "thumb/NHMUKBMNHE1341090_216.webp"
+    }
+  },
+  "original_sha256": "803b6dd054576a642a0f803740e636dbc81cc2dc82b15d1c5263961f314eba7f",
+  "processing": {
+    "cropBox": [
+      803,
+      600,
+      1070,
+      894
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1341090_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

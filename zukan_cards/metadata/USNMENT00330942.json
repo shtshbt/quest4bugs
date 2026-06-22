@@ -1,0 +1,75 @@
+{
+  "species_id": "kiito_tonbo",
+  "species_ja": "キイトトンボ",
+  "scientific_name": "Ceriagrion melanurum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00330942",
+    "occurrenceId": "http://n2t.net/ark:/65665/309dbb1a2-32ab-43ee-a2f5-822cbd6cbdea",
+    "persistentId": "http://n2t.net/ark:/65665/309dbb1a2-32ab-43ee-a2f5-822cbd6cbdea",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1935-08-08",
+    "eventYear": 1935,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Osaka, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317425159",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317425159",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16338896&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00330942_original.jpg",
+    "segmented": "processed/USNMENT00330942_L1_segmented.png",
+    "display": "processed/USNMENT00330942_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00330942_54.webp",
+      "108": "thumb/USNMENT00330942_108.webp",
+      "216": "thumb/USNMENT00330942_216.webp"
+    }
+  },
+  "original_sha256": "5b10f12e35f5ae5357a452f1af906a3b86d1d732e21b0cf69cb72ebb099ee429",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2000,
+      1539
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00330942_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

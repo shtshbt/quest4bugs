@@ -1,0 +1,75 @@
+{
+  "species_id": "onaga_ageha",
+  "species_ja": "オナガアゲハ",
+  "scientific_name": "Papilio macilentus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.333324",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.333324",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.333324",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444098838",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444098838",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.333324_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS333324_original.jpg",
+    "segmented": "processed/RMNHINS333324_L1_segmented.png",
+    "display": "processed/RMNHINS333324_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS333324_54.webp",
+      "108": "thumb/RMNHINS333324_108.webp",
+      "216": "thumb/RMNHINS333324_216.webp"
+    }
+  },
+  "original_sha256": "1f5be08eccbc1c0febc1b9965d894c355be1b2b6d9d704435b5b17367f11df54",
+  "processing": {
+    "cropBox": [
+      0,
+      180,
+      1920,
+      1153
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS333324_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

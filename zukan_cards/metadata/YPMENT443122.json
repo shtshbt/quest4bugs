@@ -1,0 +1,77 @@
+{
+  "species_id": "akashijimi",
+  "species_ja": "アカシジミ",
+  "scientific_name": "Japonica lutea",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 443122",
+    "occurrenceId": "urn:uuid:070993d9-c611-4d6e-9208-d7b9b6200dd1",
+    "persistentId": "urn:uuid:070993d9-c611-4d6e-9208-d7b9b6200dd1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "I Hayano",
+    "eventDate": "1953-06-12",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shinohara, Yokohama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.465408,
+    "decimalLongitude": 139.622253
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039030557",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-443122",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:b4dd6747-02c6-4468-a539-b762f3baab63/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT443122_original.jpg",
+    "segmented": "processed/YPMENT443122_L1_segmented.png",
+    "display": "processed/YPMENT443122_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT443122_54.webp",
+      "108": "thumb/YPMENT443122_108.webp",
+      "216": "thumb/YPMENT443122_216.webp"
+    }
+  },
+  "original_sha256": "5a26baf81ca7d9d9c4554bcec69a2ea5560e262f79768870135a7df149b53abf",
+  "processing": {
+    "cropBox": [
+      98,
+      0,
+      1104,
+      1514
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT443122_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

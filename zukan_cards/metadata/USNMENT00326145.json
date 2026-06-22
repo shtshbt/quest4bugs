@@ -1,0 +1,75 @@
+{
+  "species_id": "ooki_tonbo",
+  "species_ja": "オオキトンボ",
+  "scientific_name": "Sympetrum uniforme",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00326145",
+    "occurrenceId": "http://n2t.net/ark:/65665/3d04357df-ac23-47bb-b31c-c0e8befa1013",
+    "persistentId": "http://n2t.net/ark:/65665/3d04357df-ac23-47bb-b31c-c0e8befa1013",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Werner",
+    "eventDate": "1945-10-21",
+    "eventYear": 1945,
+    "country": "Korea, Republic of",
+    "localityVerbatim": null,
+    "localityNormalized": "Yongdungpo, Korea, Republic of",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321910600",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321910600",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16405807&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00326145_original.jpg",
+    "segmented": "processed/USNMENT00326145_L1_segmented.png",
+    "display": "processed/USNMENT00326145_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00326145_54.webp",
+      "108": "thumb/USNMENT00326145_108.webp",
+      "216": "thumb/USNMENT00326145_216.webp"
+    }
+  },
+  "original_sha256": "8497bc9f8948bd15272535d8444443fc1180c3f05ba22047f7574ddcba2ee1f4",
+  "processing": {
+    "cropBox": [
+      908,
+      617,
+      1606,
+      1192
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00326145_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

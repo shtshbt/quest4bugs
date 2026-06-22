@@ -1,0 +1,75 @@
+{
+  "species_id": "yonagunisan",
+  "species_ja": "ヨナグニサン",
+  "scientific_name": "Attacus atlas ryukyuensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Fred Cherrygarden",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Atlas Moth Specimen.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Atlas_Moth_Specimen.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Atlas_Moth_Specimen.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Fred Cherrygarden",
+    "eventDate": "2023-07-04 14:33:17",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "A specimen of a female Atlas moth (Attacus atlas ryukyuensis), exhibited at Intermediatheque.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Atlas_Moth_Specimen.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Atlas_Moth_Specimen.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileAtlasMothSpecimenjpg_original.jpg",
+    "segmented": "processed/WMCFileAtlasMothSpecimenjpg_L1_segmented.png",
+    "display": "processed/WMCFileAtlasMothSpecimenjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAtlasMothSpecimenjpg_54.webp",
+      "108": "thumb/WMCFileAtlasMothSpecimenjpg_108.webp",
+      "216": "thumb/WMCFileAtlasMothSpecimenjpg_216.webp"
+    }
+  },
+  "original_sha256": "d668ce0ea1ce5178616014139d0594ea04feb9fd3c175ef63f34bd9f4c10b229",
+  "processing": {
+    "cropBox": [
+      0,
+      32,
+      5442,
+      3772
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAtlasMothSpecimenjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

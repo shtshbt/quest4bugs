@@ -1,0 +1,75 @@
+{
+  "species_id": "yama_yabukiri",
+  "species_ja": "ヤマヤブキリ",
+  "scientific_name": "Tettigonia ussuriana",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Alexey Yakovlev",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tettigonia ussuriana male.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tettigonia_ussuriana_male.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tettigonia_ussuriana_male.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alexey Yakovlev",
+    "eventDate": "2015-08-07",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Tettigonia ussuriana, male. IVO Partizansk town, Partizanskiy District, Primorsky Krai, the Russian Far East, Russia.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tettigonia_ussuriana_male.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Tettigonia_ussuriana_male.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileTettigoniaussurianamalejpg_original.jpg",
+    "segmented": "processed/WMCFileTettigoniaussurianamalejpg_L1_segmented.png",
+    "display": "processed/WMCFileTettigoniaussurianamalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTettigoniaussurianamalejpg_54.webp",
+      "108": "thumb/WMCFileTettigoniaussurianamalejpg_108.webp",
+      "216": "thumb/WMCFileTettigoniaussurianamalejpg_216.webp"
+    }
+  },
+  "original_sha256": "0a6db065e361abb33920ec0e3ee1e0270ba06494d5b0f0944a562a85a4f97adc",
+  "processing": {
+    "cropBox": [
+      860,
+      0,
+      2271,
+      2006
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTettigoniaussurianamalejpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

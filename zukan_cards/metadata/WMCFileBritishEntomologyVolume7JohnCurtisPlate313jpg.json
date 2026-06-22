@@ -1,0 +1,75 @@
+{
+  "species_id": "tsunozemi_marubane",
+  "species_ja": "マルツノゼミ",
+  "scientific_name": "Gargara genistae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "John Curtis",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:British Entomology Volume 7 (John Curtis) Plate 313.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:British_Entomology_Volume_7_(John_Curtis)_Plate_313.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:British_Entomology_Volume_7_(John_Curtis)_Plate_313.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "John Curtis",
+    "eventDate": "1836",
+    "eventYear": 1836,
+    "country": null,
+    "localityVerbatim": "John Curtis British Entomology (1824-1840) Folio 313 Centrotus genistae synonym of Gargara genistae (the Broom Tree-hopper).The plant is Genista tinctoria (Dyer's Green-weed)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:British_Entomology_Volume_7_(John_Curtis)_Plate_313.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/British_Entomology_Volume_7_%28John_Curtis%29_Plate_313.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_original.jpg",
+    "segmented": "processed/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_L1_segmented.png",
+    "display": "processed/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_54.webp",
+      "108": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_108.webp",
+      "216": "thumb/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_216.webp"
+    }
+  },
+  "original_sha256": "c4f544ccff14833ae7d37d88ee530d54146214da11640867b15a7fac32a17c1b",
+  "processing": {
+    "cropBox": [
+      363,
+      195,
+      1468,
+      2362
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

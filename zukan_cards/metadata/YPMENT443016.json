@@ -1,0 +1,77 @@
+{
+  "species_id": "uragomadara_shijimi",
+  "species_ja": "ウラゴマダラシジミ",
+  "scientific_name": "Artopoetes pryeri",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 443016",
+    "occurrenceId": "urn:uuid:a1494dbb-f78b-470f-9678-1b998c638e4b",
+    "persistentId": "urn:uuid:a1494dbb-f78b-470f-9678-1b998c638e4b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "I Hayano",
+    "eventDate": "1953-06-20",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Tokyo, Kizigo-ji, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.723479,
+    "decimalLongitude": 139.383895
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039139349",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-443016",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:401fac43-6fef-49cf-9989-27cb3e71fa98/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT443016_original.jpg",
+    "segmented": "processed/YPMENT443016_L1_segmented.png",
+    "display": "processed/YPMENT443016_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT443016_54.webp",
+      "108": "thumb/YPMENT443016_108.webp",
+      "216": "thumb/YPMENT443016_216.webp"
+    }
+  },
+  "original_sha256": "b0a5647ffe6c3720bbaa594c29f0abe39b619ca9983a22344a0a5eacadd509a5",
+  "processing": {
+    "cropBox": [
+      183,
+      45,
+      1045,
+      1431
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT443016_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

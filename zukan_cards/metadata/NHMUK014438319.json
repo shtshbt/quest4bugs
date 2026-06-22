@@ -1,0 +1,77 @@
+{
+  "species_id": "himeshijimi",
+  "species_ja": "ヒメシジミ",
+  "scientific_name": "Plebejus argus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014438319",
+    "occurrenceId": "ef4fd4c3-0ce5-4641-a26e-72203a85fd66",
+    "persistentId": "ef4fd4c3-0ce5-4641-a26e-72203a85fd66",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Sue Taylor",
+    "eventDate": "2021-06-25",
+    "eventYear": 2021,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Upton Towans, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 50.210201,
+    "decimalLongitude": -5.3967
+  },
+  "source": {
+    "gbifOccurrenceKey": "3387327844",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ef4fd4c3-0ce5-4641-a26e-72203a85fd66",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/fd10d07f-7119-43a6-aa05-743806d2a50a",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK014438319_original.jpg",
+    "segmented": "processed/NHMUK014438319_L1_segmented.png",
+    "display": "processed/NHMUK014438319_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014438319_54.webp",
+      "108": "thumb/NHMUK014438319_108.webp",
+      "216": "thumb/NHMUK014438319_216.webp"
+    }
+  },
+  "original_sha256": "623d6dfd79f44a3d981fe987a4e3b705df3ff8fb4ce6bce28378d1e44fa996f4",
+  "processing": {
+    "cropBox": [
+      155,
+      52,
+      654,
+      964
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014438319_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "eurosternus_noko_kuwagata",
+  "species_ja": "ユーロステルノコギリクワガタ",
+  "scientific_name": "Prosopocoilus zebra",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Hillside Books",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lacroix drawing hb.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lacroix_drawing_hb.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lacroix_drawing_hb.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hillside Books",
+    "eventDate": "2010-10-13 15:20:24",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "A drawing of Lucanidae by Jean-Pierre Lacroix",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lacroix_drawing_hb.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Lacroix_drawing_hb.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileLacroixdrawinghbjpg_original.jpg",
+    "segmented": "processed/WMCFileLacroixdrawinghbjpg_L1_segmented.png",
+    "display": "processed/WMCFileLacroixdrawinghbjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLacroixdrawinghbjpg_54.webp",
+      "108": "thumb/WMCFileLacroixdrawinghbjpg_108.webp",
+      "216": "thumb/WMCFileLacroixdrawinghbjpg_216.webp"
+    }
+  },
+  "original_sha256": "9e53263e35f83015d4d2e2172ef33ef577470899bf9216d738e2eba18aaec4d2",
+  "processing": {
+    "cropBox": [
+      27,
+      44,
+      327,
+      492
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLacroixdrawinghbjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.63), rotate 0 CCW"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "kohyoumonmodoki",
+  "species_ja": "コヒョウモンモドキ",
+  "scientific_name": "Melitaea ambigua",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0034052",
+    "occurrenceId": "ETHZ-ENT0034052",
+    "persistentId": "ETHZ-ENT0034052",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "Zaugg, Paul (1913-1985)",
+    "eventDate": "1969-07-16",
+    "eventYear": 1969,
+    "country": "Japan",
+    "localityVerbatim": "Japan: Sanjiira: Nagano",
+    "localityNormalized": "Sanjiro, Nagano, Japan",
+    "preparations": "pinned",
+    "decimalLatitude": 36.208008,
+    "decimalLongitude": 138.103379
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761363974",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761363974",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/78330/7f69e526fd2629aa34a1399ca6a82f7eec2360243fca599bbd48d108708cf591/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZENT0034052_original.jpg",
+    "segmented": "processed/ETHZENT0034052_L1_segmented.png",
+    "display": "processed/ETHZENT0034052_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0034052_54.webp",
+      "108": "thumb/ETHZENT0034052_108.webp",
+      "216": "thumb/ETHZENT0034052_216.webp"
+    }
+  },
+  "original_sha256": "7f69e526fd2629aa34a1399ca6a82f7eec2360243fca599bbd48d108708cf591",
+  "processing": {
+    "cropBox": [
+      1377,
+      3746,
+      2781,
+      4678
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0034052_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

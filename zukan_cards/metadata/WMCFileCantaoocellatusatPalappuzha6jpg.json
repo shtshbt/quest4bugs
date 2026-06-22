@@ -1,0 +1,75 @@
+{
+  "species_id": "aka_giku_kamemushi",
+  "species_ja": "アカギカメムシ",
+  "scientific_name": "Cantao ocellatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Vinayaraj",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cantao ocellatus at Palappuzha (6).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cantao_ocellatus_at_Palappuzha_(6).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cantao_ocellatus_at_Palappuzha_(6).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Vinayaraj",
+    "eventDate": "2018-05-26 14:12",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Photos by Vinayaraj",
+    "localityNormalized": "Photos by Vinayaraj",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cantao_ocellatus_at_Palappuzha_(6).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Cantao_ocellatus_at_Palappuzha_%286%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileCantaoocellatusatPalappuzha6jpg_original.jpg",
+    "segmented": "processed/WMCFileCantaoocellatusatPalappuzha6jpg_L1_segmented.png",
+    "display": "processed/WMCFileCantaoocellatusatPalappuzha6jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCantaoocellatusatPalappuzha6jpg_54.webp",
+      "108": "thumb/WMCFileCantaoocellatusatPalappuzha6jpg_108.webp",
+      "216": "thumb/WMCFileCantaoocellatusatPalappuzha6jpg_216.webp"
+    }
+  },
+  "original_sha256": "91bbe54a4b560cd35187ea70b3dfc1147c80e1e39aec55030c3e4fb78281d5c1",
+  "processing": {
+    "cropBox": [
+      1542,
+      127,
+      3340,
+      2582
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCantaoocellatusatPalappuzha6jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

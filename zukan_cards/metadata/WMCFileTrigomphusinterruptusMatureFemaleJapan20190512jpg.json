@@ -1,0 +1,75 @@
+{
+  "species_id": "futasuji_sanae",
+  "species_ja": "フタスジサナエ",
+  "scientific_name": "Trigomphus interruptus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "TekuraDF",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Trigomphus interruptus(Mature Female , Japan , 2019.05.12).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Trigomphus_interruptus(Mature_Female_,_Japan_,_2019.05.12).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Trigomphus_interruptus(Mature_Female_,_Japan_,_2019.05.12).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "TekuraDF",
+    "eventDate": "2019-05-12 13:39:16",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "フタスジサナエ雌　広島県　2019.05.12",
+    "localityNormalized": "フタスジサナエ雌　広島県　2019.05.12",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Trigomphus_interruptus(Mature_Female_,_Japan_,_2019.05.12).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/Trigomphus_interruptus%28Mature_Female_%2C_Japan_%2C_2019.05.12%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_original.jpg",
+    "segmented": "processed/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_L1_segmented.png",
+    "display": "processed/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_54.webp",
+      "108": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_108.webp",
+      "216": "thumb/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_216.webp"
+    }
+  },
+  "original_sha256": "cb2d9ff6f8fc55faa54100d76823bc1268f9192d1d5f2b333158d2c743ee90c2",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2962,
+      2000
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTrigomphusinterruptusMatureFemaleJapan20190512jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

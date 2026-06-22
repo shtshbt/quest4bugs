@@ -1,0 +1,77 @@
+{
+  "species_id": "oomaru_hanabachi",
+  "species_ja": "トラマルハナバチ",
+  "scientific_name": "Bombus diversus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00996511",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b410953a-ddfe-441a-8931-d8c9dab1457c",
+    "persistentId": "http://n2t.net/ark:/65665/3b410953a-ddfe-441a-8931-d8c9dab1457c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "K. Tsuneki",
+    "eventDate": "1957-07-31",
+    "eventYear": 1957,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Haku, Japan",
+    "preparations": "Pinned",
+    "decimalLatitude": 36.1553,
+    "decimalLongitude": 136.761
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321274066",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321274066",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10709484&h=1680",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00996511_original.jpg",
+    "segmented": "processed/USNMENT00996511_L1_segmented.png",
+    "display": "processed/USNMENT00996511_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00996511_54.webp",
+      "108": "thumb/USNMENT00996511_108.webp",
+      "216": "thumb/USNMENT00996511_216.webp"
+    }
+  },
+  "original_sha256": "d6447cf6b3f81983318c5096b2c425216f95e9c6b1ac2174e772b3ef413687f7",
+  "processing": {
+    "cropBox": [
+      337,
+      567,
+      604,
+      872
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00996511_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

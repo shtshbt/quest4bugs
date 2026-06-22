@@ -1,0 +1,75 @@
+{
+  "species_id": "ie_bae",
+  "species_ja": "イエバエ",
+  "scientific_name": "Musca domestica",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Nigel Wyatt",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)914353",
+    "occurrenceId": "eb3fdebd-e262-4676-b60f-f3427e56176d",
+    "persistentId": "eb3fdebd-e262-4676-b60f-f3427e56176d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "Dr Doreen Werner",
+    "eventDate": "1983-09-20",
+    "eventYear": 1983,
+    "country": "Türkiye",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Marmaris, Türkiye",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057178920",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/eb3fdebd-e262-4676-b60f-f3427e56176d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/53ff984b-c9e4-4394-bbb8-f37cc4c61287",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE914353_original.jpg",
+    "segmented": "processed/NHMUKBMNHE914353_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE914353_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE914353_54.webp",
+      "108": "thumb/NHMUKBMNHE914353_108.webp",
+      "216": "thumb/NHMUKBMNHE914353_216.webp"
+    }
+  },
+  "original_sha256": "e503265cf428577b5199bd4d316f8f9229306a52a89db47124e7bdd8350bbc42",
+  "processing": {
+    "cropBox": [
+      594,
+      95,
+      1219,
+      926
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE914353_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

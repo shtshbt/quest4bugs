@@ -1,0 +1,75 @@
+{
+  "species_id": "aka_obi_ringo",
+  "species_ja": "アカハラゴマダラヒトリ",
+  "scientific_name": "Spilarctia subcarnea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Spilarctia subcarnea on a leaf - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Spilarctia_subcarnea_on_a_leaf_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Spilarctia_subcarnea_on_a_leaf_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "7 May 2026, 23:21:03",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "オビヒトリ。愛知県春日井市を流れる八田川沿いで撮影。",
+    "localityNormalized": "オビヒトリ。愛知県春日井市を流れる八田川沿いで撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Spilarctia_subcarnea_on_a_leaf_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Spilarctia_subcarnea_on_a_leaf_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSpilarctiasubcarneaonaleaf2jpg_original.jpg",
+    "segmented": "processed/WMCFileSpilarctiasubcarneaonaleaf2jpg_L1_segmented.png",
+    "display": "processed/WMCFileSpilarctiasubcarneaonaleaf2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_54.webp",
+      "108": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_108.webp",
+      "216": "thumb/WMCFileSpilarctiasubcarneaonaleaf2jpg_216.webp"
+    }
+  },
+  "original_sha256": "309c165cacc13b90cd3951cbc49f76c5e37b6a45181914479ad341c326ea638d",
+  "processing": {
+    "cropBox": [
+      1284,
+      1236,
+      2631,
+      3350
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSpilarctiasubcarneaonaleaf2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

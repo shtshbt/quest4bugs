@@ -1,0 +1,76 @@
+{
+  "species_id": "sanagora_gomimushidamashi",
+  "species_ja": "ユミアシゴミムシダマシ",
+  "scientific_name": "Promethis valgipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "江国彬",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Promethis valgipes.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Promethis_valgipes.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Promethis_valgipes.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "江国彬",
+    "eventDate": "2023-08-10",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Promethis valgipes. Species of insect.",
+    "localityNormalized": "Promethis valgipes. Species of insect.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Promethis_valgipes.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Promethis_valgipes.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFilePromethisvalgipesjpg_original.jpg",
+    "segmented": "processed/WMCFilePromethisvalgipesjpg_L1_segmented.png",
+    "display": "processed/WMCFilePromethisvalgipesjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePromethisvalgipesjpg_54.webp",
+      "108": "thumb/WMCFilePromethisvalgipesjpg_108.webp",
+      "216": "thumb/WMCFilePromethisvalgipesjpg_216.webp"
+    }
+  },
+  "original_sha256": "25878707db50e168439284bea82da95939102558731af032bd8f5c334be6c9f0",
+  "processing": {
+    "cropBox": [
+      440,
+      95,
+      1685,
+      1251
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePromethisvalgipesjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.54), rotate 180 CCW"
+}

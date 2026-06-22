@@ -1,0 +1,75 @@
+{
+  "species_id": "kobane_ashinaga_bachi",
+  "species_ja": "コバネアシナガバチ",
+  "scientific_name": "Polistes sagittarius",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)650240",
+    "occurrenceId": "7e4c5c96-8d1c-4627-b592-f8d53289d3de",
+    "persistentId": "7e4c5c96-8d1c-4627-b592-f8d53289d3de",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "M E. Walsh",
+    "eventDate": "1938-05-30",
+    "eventYear": 1938,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Djakarta, Java, Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1056973308",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/7e4c5c96-8d1c-4627-b592-f8d53289d3de",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/0e4af334-971f-4a8e-bf5d-00b986992358",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE650240_original.jpg",
+    "segmented": "processed/NHMUKBMNHE650240_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE650240_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE650240_54.webp",
+      "108": "thumb/NHMUKBMNHE650240_108.webp",
+      "216": "thumb/NHMUKBMNHE650240_216.webp"
+    }
+  },
+  "original_sha256": "12d5124fabab04f3458e085370c260151ca4aa6e73ca3ec4373beb8cb097e03f",
+  "processing": {
+    "cropBox": [
+      145,
+      208,
+      1269,
+      632
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE650240_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "maimaikaburi_ezo",
+  "species_ja": "エゾマイマイカブリ",
+  "scientific_name": "Damaster blaptoides rugipennis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "A) A. Matalin ; B) Makarov K.V. &amp; Sundukov Yu.N.",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Imago and larvae of Carabus blaptoides rugipennis.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Imago_and_larvae_of_Carabus_blaptoides_rugipennis.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Imago_and_larvae_of_Carabus_blaptoides_rugipennis.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "A) A. Matalin ; B) Makarov K.V. &amp; Sundukov Yu.N.",
+    "eventDate": "2016",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Carabus blaptoides rugipennis on Kunashir Island (Kuril Archipelago, Russia) : A – male on an oak trunk ; B – larva feeding on a snail.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Imago_and_larvae_of_Carabus_blaptoides_rugipennis.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Imago_and_larvae_of_Carabus_blaptoides_rugipennis.png",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_original.jpg",
+    "segmented": "processed/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_L1_segmented.png",
+    "display": "processed/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_54.webp",
+      "108": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_108.webp",
+      "216": "thumb/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_216.webp"
+    }
+  },
+  "original_sha256": "28e6fdfd04623e09c44e28b5dabb95f8c0ae1733ef6734453cab2a6f0cbf1eb9",
+  "processing": {
+    "cropBox": [
+      0,
+      56,
+      2126,
+      2964
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileImagoandlarvaeofCarabusblaptoidesrugipennispng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

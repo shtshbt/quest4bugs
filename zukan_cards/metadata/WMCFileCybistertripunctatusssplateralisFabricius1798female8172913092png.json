@@ -1,0 +1,76 @@
+{
+  "species_id": "kogatano_gengorou",
+  "species_ja": "コガタノゲンゴロウ",
+  "scientific_name": "Cybister tripunctatus lateralis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cybister tripunctatus ssp. lateralis (Fabricius, 1798) female (8172913092).png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cybister_tripunctatus_ssp._lateralis_(Fabricius,_1798)_female_(8172913092).png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cybister_tripunctatus_ssp._lateralis_(Fabricius,_1798)_female_(8172913092).png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2012-11-10 20:58",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Familie: Dytiscidae\nGroesse: 22 mm\nFundort: Indonesien, Sulawesi, Togian Inseln, Kaldiri Island, Paradise Island Resort, 50 m\nleg. J.Haft, 12.-15.II.1997; det. Hendrich, 2011\n\nPhoto: U.Schmidt, 2012",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cybister_tripunctatus_ssp._lateralis_(Fabricius,_1798)_female_(8172913092).png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Cybister_tripunctatus_ssp._lateralis_%28Fabricius%2C_1798%29_female_%288172913092%29.png",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "original": "original/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_original.jpg",
+    "segmented": "processed/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_L1_segmented.png",
+    "display": "processed/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_54.webp",
+      "108": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_108.webp",
+      "216": "thumb/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_216.webp"
+    }
+  },
+  "original_sha256": "d84322c15708ea455ffac01c13d1fda73cc3cde27a924a95aacfe7f1c8c74913",
+  "processing": {
+    "cropBox": [
+      0,
+      3,
+      4815,
+      3055
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCybistertripunctatusssplateralisFabricius1798female8172913092png_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.69), rotate 270 CCW"
+}

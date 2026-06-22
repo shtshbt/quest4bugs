@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_mizukamakiri",
+  "species_ja": "ヒメミズカマキリ",
+  "scientific_name": "Ranatra unicolor",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kosuke Onoda (konoda)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ranatra unicolor from iNaturalist photo 224712925.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ranatra_unicolor_from_iNaturalist_photo_224712925.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ranatra_unicolor_from_iNaturalist_photo_224712925.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kosuke Onoda (konoda)",
+    "eventDate": "2022-08-23",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Ranatra unicolor ヒメミズカマキリ",
+    "localityNormalized": "Ranatra unicolor ヒメミズカマキリ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ranatra_unicolor_from_iNaturalist_photo_224712925.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Ranatra_unicolor_from_iNaturalist_photo_224712925.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_original.jpg",
+    "segmented": "processed/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_L1_segmented.png",
+    "display": "processed/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_54.webp",
+      "108": "thumb/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_108.webp",
+      "216": "thumb/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_216.webp"
+    }
+  },
+  "original_sha256": "5bb9f42b5873c9d0a3035ff1abb52146f8013bef1d11c6d04249115baf6a15ad",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2026,
+      1365
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRanatraunicolorfromiNaturalistphoto224712925jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

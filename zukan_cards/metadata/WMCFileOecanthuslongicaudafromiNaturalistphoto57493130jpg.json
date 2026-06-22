@@ -1,0 +1,75 @@
+{
+  "species_id": "kantan",
+  "species_ja": "カンタン",
+  "scientific_name": "Oecanthus longicauda",
+  "credit_line": "Wikimedia Commons",
+  "creator": "alexey_tat",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Oecanthus longicauda from iNaturalist photo 57493130.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Oecanthus_longicauda_from_iNaturalist_photo_57493130.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Oecanthus_longicauda_from_iNaturalist_photo_57493130.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "alexey_tat",
+    "eventDate": "2006-10-01",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Oecanthus longicauda カンタン",
+    "localityNormalized": "Oecanthus longicauda カンタン",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Oecanthus_longicauda_from_iNaturalist_photo_57493130.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Oecanthus_longicauda_from_iNaturalist_photo_57493130.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_original.jpg",
+    "segmented": "processed/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_L1_segmented.png",
+    "display": "processed/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_54.webp",
+      "108": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_108.webp",
+      "216": "thumb/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_216.webp"
+    }
+  },
+  "original_sha256": "a8d928c7b9771283eeb547cbcd37d8c87b1146dc73962b4e83fc649836269cf1",
+  "processing": {
+    "cropBox": [
+      14,
+      61,
+      1925,
+      1011
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOecanthuslongicaudafromiNaturalistphoto57493130jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

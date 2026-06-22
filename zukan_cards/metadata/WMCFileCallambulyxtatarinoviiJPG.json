@@ -1,0 +1,75 @@
+{
+  "species_id": "unmonsuzume",
+  "species_ja": "ウンモンスズメ",
+  "scientific_name": "Callambulyx tatarinovii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Brian Adler 09:50, 26 July 2007 (UTC)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Callambulyx tatarinovii.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Callambulyx_tatarinovii.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Callambulyx_tatarinovii.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Brian Adler 09:50, 26 July 2007 (UTC)",
+    "eventDate": "2007-07-06",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "A photo of Callambulyx tatarinovii taken with a Canon Power Shot SD450 Digital Elph camera and modified using a Paint Shop program on a laptop computer.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Callambulyx_tatarinovii.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/07/Callambulyx_tatarinovii.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileCallambulyxtatarinoviiJPG_original.jpg",
+    "segmented": "processed/WMCFileCallambulyxtatarinoviiJPG_L1_segmented.png",
+    "display": "processed/WMCFileCallambulyxtatarinoviiJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCallambulyxtatarinoviiJPG_54.webp",
+      "108": "thumb/WMCFileCallambulyxtatarinoviiJPG_108.webp",
+      "216": "thumb/WMCFileCallambulyxtatarinoviiJPG_216.webp"
+    }
+  },
+  "original_sha256": "87d81472cb3ef2762fb27762470a2006567adcd6643836e84a195e1e2abfdd58",
+  "processing": {
+    "cropBox": [
+      50,
+      0,
+      959,
+      730
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCallambulyxtatarinoviiJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

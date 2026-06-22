@@ -1,0 +1,75 @@
+{
+  "species_id": "aodougane",
+  "species_ja": "アオドウガネ",
+  "scientific_name": "Anomala albopilosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "PD files",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anomala albopilosa fom Tama City, Tokyo.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_fom_Tama_City,_Tokyo.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_fom_Tama_City,_Tokyo.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "PD files",
+    "eventDate": "2022-07-15 14:07:40",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Anomala albopilosa albopilosa (Hope, 1839) (Scarabaeidae) fom Tama, Tokyo.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_fom_Tama_City,_Tokyo.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Anomala_albopilosa_fom_Tama_City%2C_Tokyo.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_original.jpg",
+    "segmented": "processed/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_L1_segmented.png",
+    "display": "processed/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_54.webp",
+      "108": "thumb/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_108.webp",
+      "216": "thumb/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_216.webp"
+    }
+  },
+  "original_sha256": "394d49b57f3156074fe3770d9f0b178e5cba1a07172cfd3144455457f69088cb",
+  "processing": {
+    "cropBox": [
+      283,
+      404,
+      1874,
+      1378
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnomalaalbopilosafomTamaCityTokyojpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

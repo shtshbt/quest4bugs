@@ -1,0 +1,75 @@
+{
+  "species_id": "master_jungle_nymph",
+  "species_ja": "ジャングルニンフ",
+  "scientific_name": "Heteropteryx dilatata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012497512",
+    "occurrenceId": "5d0ffe26-6e3f-4719-9452-d1bc74ccdc2a",
+    "persistentId": "5d0ffe26-6e3f-4719-9452-d1bc74ccdc2a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826412214",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5d0ffe26-6e3f-4719-9452-d1bc74ccdc2a",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c8320889-2519-4688-9e6d-df9f2fb69913",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012497512_original.jpg",
+    "segmented": "processed/NHMUK012497512_L1_segmented.png",
+    "display": "processed/NHMUK012497512_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012497512_54.webp",
+      "108": "thumb/NHMUK012497512_108.webp",
+      "216": "thumb/NHMUK012497512_216.webp"
+    }
+  },
+  "original_sha256": "1cc1eb2b72b2138f0a59b3769e1b12b9015d26abf2421f6e191487b134f753c2",
+  "processing": {
+    "cropBox": [
+      0,
+      403,
+      1154,
+      1679
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012497512_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

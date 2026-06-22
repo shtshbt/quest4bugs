@@ -1,0 +1,75 @@
+{
+  "species_id": "amenbo",
+  "species_ja": "アメンボ",
+  "scientific_name": "Aquarius paludum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Aiwok",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aquarius paludum Hamburg.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aquarius_paludum_Hamburg.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aquarius_paludum_Hamburg.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Aiwok",
+    "eventDate": "2010-09-19 22:31:12",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Waterstrider couple in Bahrenfeld, Hamburg.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aquarius_paludum_Hamburg.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Aquarius_paludum_Hamburg.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileAquariuspaludumHamburgjpg_original.jpg",
+    "segmented": "processed/WMCFileAquariuspaludumHamburgjpg_L1_segmented.png",
+    "display": "processed/WMCFileAquariuspaludumHamburgjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAquariuspaludumHamburgjpg_54.webp",
+      "108": "thumb/WMCFileAquariuspaludumHamburgjpg_108.webp",
+      "216": "thumb/WMCFileAquariuspaludumHamburgjpg_216.webp"
+    }
+  },
+  "original_sha256": "01f4f8b614124c77c6efdd41fbf668eded64f14125414282f8066b254170081b",
+  "processing": {
+    "cropBox": [
+      1425,
+      328,
+      4158,
+      2198
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAquariuspaludumHamburgjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

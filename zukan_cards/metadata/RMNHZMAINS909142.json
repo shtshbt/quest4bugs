@@ -1,0 +1,75 @@
+{
+  "species_id": "tenguchou",
+  "species_ja": "テングチョウ",
+  "scientific_name": "Libythea celtis",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.909142",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.909142",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.909142",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": "waidozuch",
+    "preparations": "(microscopic slide)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443530063",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443530063",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.909142/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS909142_original.jpg",
+    "segmented": "processed/RMNHZMAINS909142_L1_segmented.png",
+    "display": "processed/RMNHZMAINS909142_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS909142_54.webp",
+      "108": "thumb/RMNHZMAINS909142_108.webp",
+      "216": "thumb/RMNHZMAINS909142_216.webp"
+    }
+  },
+  "original_sha256": "e19ca4c7245e10ffe72dc15610600d5d25b57cfeeeea9e2f6a97f4b17b38a409",
+  "processing": {
+    "cropBox": [
+      540,
+      99,
+      718,
+      589
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS909142_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

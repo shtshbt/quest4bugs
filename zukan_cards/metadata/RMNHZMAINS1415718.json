@@ -1,0 +1,75 @@
+{
+  "species_id": "kobatateha",
+  "species_ja": "コヒオドシ",
+  "scientific_name": "Aglais urticae",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1415718",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1415718",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1415718",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "C. H. Didden",
+    "eventDate": "1964-08-27",
+    "eventYear": 1964,
+    "country": "Netherlands",
+    "localityVerbatim": null,
+    "localityNormalized": "Doorwerth, Netherlands",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "5201273823",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5201273823",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1415718_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS1415718_original.jpg",
+    "segmented": "processed/RMNHZMAINS1415718_L1_segmented.png",
+    "display": "processed/RMNHZMAINS1415718_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1415718_54.webp",
+      "108": "thumb/RMNHZMAINS1415718_108.webp",
+      "216": "thumb/RMNHZMAINS1415718_216.webp"
+    }
+  },
+  "original_sha256": "7d6723f29b943fbc7b8639e8503be4c2aa7fc8b3a50cd39740508943a6f465c8",
+  "processing": {
+    "cropBox": [
+      70,
+      0,
+      1920,
+      1773
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1415718_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

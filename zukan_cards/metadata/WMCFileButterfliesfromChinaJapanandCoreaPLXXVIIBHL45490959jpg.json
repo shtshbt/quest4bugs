@@ -1,0 +1,75 @@
+{
+  "species_id": "uramisuji_shijimi",
+  "species_ja": "ウラミスジシジミ",
+  "scientific_name": "Wagimo signatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Leech, John Henry",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Butterflies from China, Japan, and Corea (PL. XXVII) BHL45490959.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(PL._XXVII)_BHL45490959.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(PL._XXVII)_BHL45490959.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Leech, John Henry",
+    "eventDate": "2015-10-31 02:56:53",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Leech, J. H., 1892-1893. Butterflies from China, Japan and Corea 3 volumes 1 map; 43 pls. London. PLATE XXVII W.Purkiss del. Litho. Wilhelm Greve,Berlin Plate text read main text\nSee The Global Lepidoptera Names Index for valid names eg.\n\n1 female, 2 male Zephyrus hecale = ESAKIOZEPHYRUS hecale Leech, 1893\n3 Zephyrus pedius female = CHRYSOZEPHYRUS pedius Leech, 1893\n4 Zephyrus icana male ESAKIOZEPHYRUS icana Moore, 1874\n5 male, 6 female Zephyrus ataxus = CHRYSOZEPHYRUS ataxus Westwood, [1851]\n7 female. 8 male Zephyrus coruscans = NEOZEPHYRUS coruscans Leech, 1893\n9 Zephyrus coelestis male = Howarthia caelestis Leech, 1893\n10 female, 11 male Zephyrus scintillans = Chrysozephyrus scintillans Leech, 1893\n12 Zephyrus signata female = WAGIMO signata Butler, 1881\n13 Rapala micans var. betuloides male = RAPALA betuloides Butler, 1881\n14 Zephyrus orientalis var. suffusa = FAVONIUS orientalis ssp. suffusaLeech, 1893\n15 Zephyrus quercivora female = THECLA quercivora Staudinger, 1887",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(PL._XXVII)_BHL45490959.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Butterflies_from_China%2C_Japan%2C_and_Corea_%28PL._XXVII%29_BHL45490959.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_original.jpg",
+    "segmented": "processed/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_L1_segmented.png",
+    "display": "processed/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_54.webp",
+      "108": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_108.webp",
+      "216": "thumb/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_216.webp"
+    }
+  },
+  "original_sha256": "de6ef54a52be166c5ef19b4431e2abaf9a703285244b0320f9a7ec19c93f1fa4",
+  "processing": {
+    "cropBox": [
+      48,
+      86,
+      2317,
+      3512
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

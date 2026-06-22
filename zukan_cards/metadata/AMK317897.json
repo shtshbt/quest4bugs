@@ -1,0 +1,77 @@
+{
+  "species_id": "kiri_suzume",
+  "species_ja": "キイロスズメ",
+  "scientific_name": "Theretra nessus",
+  "credit_line": "Australian Museum",
+  "creator": "Karen Shore",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.317897",
+    "occurrenceId": "e8e98d6f-2257-4461-9a5c-b19a951ca7f0",
+    "persistentId": "e8e98d6f-2257-4461-9a5c-b19a951ca7f0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "F.J. Dodd",
+    "eventDate": "1947-12-22",
+    "eventYear": 1947,
+    "country": "Australia",
+    "localityVerbatim": "Coffs Harbour",
+    "localityNormalized": "Coffs Harbour, Australia",
+    "preparations": null,
+    "decimalLatitude": -30.315277,
+    "decimalLongitude": 153.11778
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100288546",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100288546",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=81599f83-5501-42d8-86b2-86c3e81bc132",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK317897_original.jpg",
+    "segmented": "processed/AMK317897_L1_segmented.png",
+    "display": "processed/AMK317897_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK317897_54.webp",
+      "108": "thumb/AMK317897_108.webp",
+      "216": "thumb/AMK317897_216.webp"
+    }
+  },
+  "original_sha256": "46eaf39d9b66c585a3939d5d75a9c7fdfea23c8cfd46309d3bb316813c123855",
+  "processing": {
+    "cropBox": [
+      30,
+      0,
+      525,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK317897_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

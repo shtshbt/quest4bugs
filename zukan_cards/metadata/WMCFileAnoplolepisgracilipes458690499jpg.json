@@ -1,0 +1,75 @@
+{
+  "species_id": "ito_ari",
+  "species_ja": "アシナガキアリ",
+  "scientific_name": "Anoplolepis gracilipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Philipp Hoenle",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anoplolepis gracilipes 458690499.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anoplolepis_gracilipes_458690499.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anoplolepis_gracilipes_458690499.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Philipp Hoenle",
+    "eventDate": "2024-11-27",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Yellow Crazy Ant (Anoplolepis gracilipes) in Malaysia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anoplolepis_gracilipes_458690499.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/Anoplolepis_gracilipes_458690499.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileAnoplolepisgracilipes458690499jpg_original.jpg",
+    "segmented": "processed/WMCFileAnoplolepisgracilipes458690499jpg_L1_segmented.png",
+    "display": "processed/WMCFileAnoplolepisgracilipes458690499jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_54.webp",
+      "108": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_108.webp",
+      "216": "thumb/WMCFileAnoplolepisgracilipes458690499jpg_216.webp"
+    }
+  },
+  "original_sha256": "ec087cec3ce2ce37023032bb2ddc114233cfdfb7e4f7f6554173f924f38baddb",
+  "processing": {
+    "cropBox": [
+      0,
+      176,
+      2048,
+      1400
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnoplolepisgracilipes458690499jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

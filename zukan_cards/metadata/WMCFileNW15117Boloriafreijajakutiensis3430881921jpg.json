@@ -1,0 +1,75 @@
+{
+  "species_id": "asahi_hyoumon",
+  "species_ja": "アサヒヒョウモン",
+  "scientific_name": "Clossiana freija",
+  "credit_line": "Wikimedia Commons",
+  "creator": "NSG group from Lund, Sweden",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:NW151-17 Boloria freija jakutiensis (3430881921).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:NW151-17_Boloria_freija_jakutiensis_(3430881921).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:NW151-17_Boloria_freija_jakutiensis_(3430881921).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "NSG group from Lund, Sweden",
+    "eventDate": "2007-05-24 14:19",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "RUSSIA.  Chita region, Chara distr. Udokan Mts, vill. Narninga,  SysBiodiv 2010,  Exemplar,  &lt;a href=\"http://nymphalidae.utu.fi/story.php?code=NW151-17\" rel=\"nofollow\"&gt;see in our database&lt;/a&gt;",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:NW151-17_Boloria_freija_jakutiensis_(3430881921).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/NW151-17_Boloria_freija_jakutiensis_%283430881921%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_original.jpg",
+    "segmented": "processed/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_L1_segmented.png",
+    "display": "processed/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_54.webp",
+      "108": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_108.webp",
+      "216": "thumb/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_216.webp"
+    }
+  },
+  "original_sha256": "a16d450125f228cf063d15f36ac54428882e20ec246f704c15f30e04eeca0197",
+  "processing": {
+    "cropBox": [
+      253,
+      539,
+      1167,
+      1519
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNW15117Boloriafreijajakutiensis3430881921jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "ichimonji_hamushi",
+  "species_ja": "イチモンジハムシ",
+  "scientific_name": "Morphosphaera japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "{{{name}}}",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Morphosphaera japonica - inat 2028508.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Morphosphaera_japonica_-_inat_2028508.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Morphosphaera_japonica_-_inat_2028508.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "{{{name}}}",
+    "eventDate": "2015-06-20",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Morphosphaera japonica, nagata, Kobe-shi, Hyogo Prefecture, Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Morphosphaera_japonica_-_inat_2028508.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Morphosphaera_japonica_-_inat_2028508.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMorphosphaerajaponicainat2028508jpg_original.jpg",
+    "segmented": "processed/WMCFileMorphosphaerajaponicainat2028508jpg_L1_segmented.png",
+    "display": "processed/WMCFileMorphosphaerajaponicainat2028508jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_54.webp",
+      "108": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_108.webp",
+      "216": "thumb/WMCFileMorphosphaerajaponicainat2028508jpg_216.webp"
+    }
+  },
+  "original_sha256": "fdafa426faada31b5d5d0e426f92e6aa35ee01ebbfdfdcb7c55ef7f90480ff15",
+  "processing": {
+    "cropBox": [
+      635,
+      266,
+      1331,
+      1163
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMorphosphaerajaponicainat2028508jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

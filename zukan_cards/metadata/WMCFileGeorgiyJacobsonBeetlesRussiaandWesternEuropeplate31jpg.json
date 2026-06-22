@@ -1,0 +1,75 @@
+{
+  "species_id": "douganebuibui",
+  "species_ja": "ドウガネブイブイ",
+  "scientific_name": "Anomala cuprea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "see in description",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 31.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Georgiy_Jacobson_-_Beetles_Russia_and_Western_Europe_-_plate_31.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Georgiy_Jacobson_-_Beetles_Russia_and_Western_Europe_-_plate_31.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "see in description",
+    "eventDate": "between 1905 and 1915<div style=\"display: none;\">date QS:P,+1950-00-00T00:00:00Z/7,P1319,+1905-00-00T00:00:00Z/9,P1326,+1915-00-00T00:00:00Z/9</div>",
+    "eventYear": 1905,
+    "country": null,
+    "localityVerbatim": "Illustration of monographs Georgiy Jacobson \"Beetles Russia and Western Europe\". Publisher: Devriena company. The first issue was released in 1905, the last - in 1915. Illustrations were mostly taken from the publication CG Calwers Kaeferbuch. Part of illustrations drawn O. Somina",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Georgiy_Jacobson_-_Beetles_Russia_and_Western_Europe_-_plate_31.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Georgiy_Jacobson_-_Beetles_Russia_and_Western_Europe_-_plate_31.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_original.jpg",
+    "segmented": "processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_L1_segmented.png",
+    "display": "processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_54.webp",
+      "108": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_108.webp",
+      "216": "thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_216.webp"
+    }
+  },
+  "original_sha256": "663a9e6b8ca06881f7940fb871cc9e3bd0c833449a4df5986011867eaa9a0e11",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2160,
+      3394
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

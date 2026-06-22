@@ -1,0 +1,75 @@
+{
+  "species_id": "master_claudina",
+  "species_ja": "クラウディナタテハ",
+  "scientific_name": "Diaethria clymena",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.383092",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.383092",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.383092",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Brazil",
+    "localityVerbatim": null,
+    "localityNormalized": "Brazil",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443659671",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443659671",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.383092_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS383092_original.jpg",
+    "segmented": "processed/RMNHINS383092_L1_segmented.png",
+    "display": "processed/RMNHINS383092_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS383092_54.webp",
+      "108": "thumb/RMNHINS383092_108.webp",
+      "216": "thumb/RMNHINS383092_216.webp"
+    }
+  },
+  "original_sha256": "36c03fdaa91d7ceee12a4b16d8e6674803a2de39d2ab0a4ea4789703c162a949",
+  "processing": {
+    "cropBox": [
+      0,
+      136,
+      1920,
+      1200
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS383092_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

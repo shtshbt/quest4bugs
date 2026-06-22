@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_kibara_gomimushi",
+  "species_ja": "オオキバゴミムシ",
+  "scientific_name": "Galerita orientalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)989601",
+    "occurrenceId": "2415dedf-817b-4a24-ba02-4e2db01adb1a",
+    "persistentId": "2415dedf-817b-4a24-ba02-4e2db01adb1a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1056238544",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/2415dedf-817b-4a24-ba02-4e2db01adb1a",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/2eccfc94-5e6e-4e39-bdcc-aeb10fb6b651",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE989601_original.jpg",
+    "segmented": "processed/NHMUKBMNHE989601_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE989601_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE989601_54.webp",
+      "108": "thumb/NHMUKBMNHE989601_108.webp",
+      "216": "thumb/NHMUKBMNHE989601_216.webp"
+    }
+  },
+  "original_sha256": "d23cd90bae419ea50f6521b589e43348c446f087cb7a638668a48212d5eb2788",
+  "processing": {
+    "cropBox": [
+      142,
+      0,
+      1378,
+      1108
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE989601_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.06), rotate 0 CCW"
+}

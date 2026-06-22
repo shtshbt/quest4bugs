@@ -1,0 +1,75 @@
+{
+  "species_id": "ichimonjichou",
+  "species_ja": "イチモンジチョウ",
+  "scientific_name": "Limenitis camilla",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bouke ten Cate",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Kleine ijsvogelvlinder - white admiral - Limenitis camilla.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Kleine_ijsvogelvlinder_-_white_admiral_-_Limenitis_camilla.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Kleine_ijsvogelvlinder_-_white_admiral_-_Limenitis_camilla.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bouke ten Cate",
+    "eventDate": "2022-07-08 15:15:16",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "White Admiral (Limenitis camilla) near Brummen - the Netherlands",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Kleine_ijsvogelvlinder_-_white_admiral_-_Limenitis_camilla.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Kleine_ijsvogelvlinder_-_white_admiral_-_Limenitis_camilla.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_original.jpg",
+    "segmented": "processed/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_L1_segmented.png",
+    "display": "processed/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_54.webp",
+      "108": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_108.webp",
+      "216": "thumb/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_216.webp"
+    }
+  },
+  "original_sha256": "9532e1a79939155fe7721d300fb672df19f17eae78473231ffd8eb1a7fd9b422",
+  "processing": {
+    "cropBox": [
+      491,
+      1069,
+      1759,
+      1795
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileKleineijsvogelvlinderwhiteadmiralLimenitiscamillajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "yotsusuji_tora_kamikiri",
+  "species_ja": "ヨツスジトラカミキリ",
+  "scientific_name": "Chlorophorus quinquefasciatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "投稿者",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chlorophorus quinquefasciatus 01.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chlorophorus_quinquefasciatus_01.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chlorophorus_quinquefasciatus_01.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "投稿者",
+    "eventDate": "2005-08-01",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "ヨツスジトラカミキリ Chlorophorus quinquefasciatus (Castelnau et, Gory, 1841)（Cerambycidae）, 神奈川県横浜市（Yokohama, Kanagawa pref., Japan.）",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chlorophorus_quinquefasciatus_01.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/37/Chlorophorus_quinquefasciatus_01.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileChlorophorusquinquefasciatus01JPG_original.jpg",
+    "segmented": "processed/WMCFileChlorophorusquinquefasciatus01JPG_L1_segmented.png",
+    "display": "processed/WMCFileChlorophorusquinquefasciatus01JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_54.webp",
+      "108": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_108.webp",
+      "216": "thumb/WMCFileChlorophorusquinquefasciatus01JPG_216.webp"
+    }
+  },
+  "original_sha256": "b65bebbe2357d1b2a02a37e0854dc78449eff58a779f18921b02bfd4ecabe723",
+  "processing": {
+    "cropBox": [
+      432,
+      430,
+      1893,
+      1405
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChlorophorusquinquefasciatus01JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.66), rotate 180 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "hoshibeni_kamikiri",
+  "species_ja": "ホシベニカミキリ",
+  "scientific_name": "Eupromus ruber",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Catherine Spooner",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:CerambycidaePZSL1858.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:CerambycidaePZSL1858.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:CerambycidaePZSL1858.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Catherine Spooner",
+    "eventDate": "1858",
+    "eventYear": 1858,
+    "country": null,
+    "localityVerbatim": "Monohammus Bowringii = Anoplophora bowringii (White, 1858)\n[Monohammus] Championi = Eupromus ruber (Dalman, 1817)\nPhymasterna leucostictica = Freopsis leucostictica (White, 1858)\nDiastocera Catherina = Cochliopalpus catherina catherina (White, 1858)\nAnoplosthæta Jardinei = Calothyrza jardinei jardinei (White, 1858)\nBatocera Una = Batocera una (White, 1858) (with head from frontal)\nCereopsius Helena = Cereopsius helena White, 1858\nAcmocera ferruginosa = Emphreus ferruginosus (White, 1858)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:CerambycidaePZSL1858.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/CerambycidaePZSL1858.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileCerambycidaePZSL1858jpg_original.jpg",
+    "segmented": "processed/WMCFileCerambycidaePZSL1858jpg_L1_segmented.png",
+    "display": "processed/WMCFileCerambycidaePZSL1858jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCerambycidaePZSL1858jpg_54.webp",
+      "108": "thumb/WMCFileCerambycidaePZSL1858jpg_108.webp",
+      "216": "thumb/WMCFileCerambycidaePZSL1858jpg_216.webp"
+    }
+  },
+  "original_sha256": "cb1da66ac22eb535d94643c80302e2701d5a0a20bed12acc2785c4906ebee61b",
+  "processing": {
+    "cropBox": [
+      0,
+      81,
+      1964,
+      3113
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCerambycidaePZSL1858jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.48), rotate 0 CCW"
+}

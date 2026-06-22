@@ -1,0 +1,76 @@
+{
+  "species_id": "gomadara_kamikiri",
+  "species_ja": "ゴマダラカミキリ",
+  "scientific_name": "Anoplophora malasiaca",
+  "credit_line": "Wikimedia Commons",
+  "creator": "0959kedi",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anoplophora chinensis pinned anterior 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anoplophora_chinensis_pinned_anterior_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anoplophora_chinensis_pinned_anterior_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "0959kedi",
+    "eventDate": "2024-06-24",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Adult Citrus Longhorn Beetle (Anoplophora chinensis) from Istanbul, Turkey.\niNaturalist observation: https://www.inaturalist.org/observations/224814556\n\nPicture: https://www.inaturalist.org/photos/398505024",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anoplophora_chinensis_pinned_anterior_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Anoplophora_chinensis_pinned_anterior_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileAnoplophorachinensispinnedanterior1jpg_original.jpg",
+    "segmented": "processed/WMCFileAnoplophorachinensispinnedanterior1jpg_L1_segmented.png",
+    "display": "processed/WMCFileAnoplophorachinensispinnedanterior1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_54.webp",
+      "108": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_108.webp",
+      "216": "thumb/WMCFileAnoplophorachinensispinnedanterior1jpg_216.webp"
+    }
+  },
+  "original_sha256": "2d5b74182237c6e3df3793e800e1133778e8ca7aa015078fac7c7c78c06b96ed",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1930,
+      1634
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnoplophorachinensispinnedanterior1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.54), rotate 180 CCW"
+}

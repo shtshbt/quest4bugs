@@ -1,0 +1,77 @@
+{
+  "species_id": "karasu_ageha",
+  "species_ja": "カラスアゲハ",
+  "scientific_name": "Papilio dehaanii",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "AZ12-1399",
+    "occurrenceId": "AZ12-1399",
+    "persistentId": "AZ12-1399",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "Zheludev, Andrey",
+    "eventDate": "2006-07-01/2006-07-31",
+    "eventYear": 2006,
+    "country": "Korea, Republic of",
+    "localityVerbatim": null,
+    "localityNormalized": "Daejeon, Korea, Republic of",
+    "preparations": null,
+    "decimalLatitude": 36.3383,
+    "decimalLongitude": 127.39326
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761463662",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761463662",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/812700/9a917802d74d1d72ac041a450e1c3c0f09ece51195d89acdcece9e6f6da588ef/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZAZ121399_original.jpg",
+    "segmented": "processed/ETHZAZ121399_L1_segmented.png",
+    "display": "processed/ETHZAZ121399_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZAZ121399_54.webp",
+      "108": "thumb/ETHZAZ121399_108.webp",
+      "216": "thumb/ETHZAZ121399_216.webp"
+    }
+  },
+  "original_sha256": "9a917802d74d1d72ac041a450e1c3c0f09ece51195d89acdcece9e6f6da588ef",
+  "processing": {
+    "cropBox": [
+      276,
+      19,
+      2132,
+      1704
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZAZ121399_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "toge_batta",
+  "species_ja": "トノサマバッタモドキ",
+  "scientific_name": "Trilophidia annulata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498467",
+    "occurrenceId": "ec4e7bde-5367-4f3a-8c9e-06fa5b3d2f93",
+    "persistentId": "ec4e7bde-5367-4f3a-8c9e-06fa5b3d2f93",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417390",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ec4e7bde-5367-4f3a-8c9e-06fa5b3d2f93",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b2ab6f5a-29ab-4ef9-8886-56884961bf20",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012498467_original.jpg",
+    "segmented": "processed/NHMUK012498467_L1_segmented.png",
+    "display": "processed/NHMUK012498467_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498467_54.webp",
+      "108": "thumb/NHMUK012498467_108.webp",
+      "216": "thumb/NHMUK012498467_216.webp"
+    }
+  },
+  "original_sha256": "85a32795505b8eee0aff76b7b9bc9749832b701581a7a83f12eb923e504418f6",
+  "processing": {
+    "cropBox": [
+      623,
+      254,
+      965,
+      665
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498467_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "akaboshi_gomadara",
+  "species_ja": "アカボシゴマダラ",
+  "scientific_name": "Hestina assimilis",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.377504",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.377504",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.377504",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "China",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443650131",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443650131",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.377504_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS377504_original.jpg",
+    "segmented": "processed/RMNHINS377504_L1_segmented.png",
+    "display": "processed/RMNHINS377504_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS377504_54.webp",
+      "108": "thumb/RMNHINS377504_108.webp",
+      "216": "thumb/RMNHINS377504_216.webp"
+    }
+  },
+  "original_sha256": "d09477b0af32374e54aef0505ae5867dd4f374b96aa3fd892887f5f0f1cbe88d",
+  "processing": {
+    "cropBox": [
+      0,
+      27,
+      1882,
+      940
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS377504_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

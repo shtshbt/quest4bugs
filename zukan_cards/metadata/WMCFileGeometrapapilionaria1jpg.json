@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_aki_aoshaku",
+  "species_ja": "オオアオシャク",
+  "scientific_name": "Geometra papilionaria",
+  "credit_line": "Wikimedia Commons",
+  "creator": "User:Chrkl",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Geometra papilionaria1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Geometra_papilionaria1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Geometra_papilionaria1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "User:Chrkl",
+    "eventDate": "2005-06-15",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Geometra papilionaria (en:Large emerald, de:Grünes Blatt)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Geometra_papilionaria1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Geometra_papilionaria1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "original": "original/WMCFileGeometrapapilionaria1jpg_original.jpg",
+    "segmented": "processed/WMCFileGeometrapapilionaria1jpg_L1_segmented.png",
+    "display": "processed/WMCFileGeometrapapilionaria1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGeometrapapilionaria1jpg_54.webp",
+      "108": "thumb/WMCFileGeometrapapilionaria1jpg_108.webp",
+      "216": "thumb/WMCFileGeometrapapilionaria1jpg_216.webp"
+    }
+  },
+  "original_sha256": "5888f7dfa7c4a6970505692595eb4ded5cf04781d13d5b1b2a57e2dd0d479072",
+  "processing": {
+    "cropBox": [
+      116,
+      114,
+      633,
+      437
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGeometrapapilionaria1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "goma_fu_kamikiri",
+  "species_ja": "ゴマフカミキリ",
+  "scientific_name": "Mesosa myops",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Karpiński L, Szczepański WT, Boldgiv B, Walczak M (2018) New data on the longhorn beetles of Mongolia with particular emphasis on the genus Eodorcadion Breuning, 1947 (Coleoptera, Cerambycidae). ZooKeys 739: 107-150. https://doi.org/10.3897/zookeys.739.23675",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Longhorn beetles (10.3897-zookeys.739.23675) Figure 16.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Longhorn_beetles_(10.3897-zookeys.739.23675)_Figure_16.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Longhorn_beetles_(10.3897-zookeys.739.23675)_Figure_16.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Karpiński L, Szczepański WT, Boldgiv B, Walczak M (2018) New data on the longhorn beetles of Mongolia with particular emphasis on the genus Eodorcadion Breuning, 1947 (Coleoptera, Cerambycidae). ZooKeys 739: 107-150. https://doi.org/10.3897/zookeys.739.23675",
+    "eventDate": "2018-02-22",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Figure 16; Field photos of imagines in nature, their immature stages and habitats of typical Mongolian cerambycid species: A newly emerged male of Mesosa myops B larva of M. myops C one of the last pupal instars of M. myops D pupa of M. myops in thick layer of cambium under the bark of broken birch trunk E broken trunk of the birch in light taiga, the microhabitat of M. myops F adults emergence holes of M. myops G Stictoleptura variicornis on Chamaenerion angustifolium H Leptura annularis on Chamaenerion angustifolium.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Longhorn_beetles_(10.3897-zookeys.739.23675)_Figure_16.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Longhorn_beetles_%2810.3897-zookeys.739.23675%29_Figure_16.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_original.jpg",
+    "segmented": "processed/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_L1_segmented.png",
+    "display": "processed/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_54.webp",
+      "108": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_108.webp",
+      "216": "thumb/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_216.webp"
+    }
+  },
+  "original_sha256": "b53360c06abbc103e487f9edeffc983b035f204dc775540e4fc739c8311a17ba",
+  "processing": {
+    "cropBox": [
+      67,
+      75,
+      1332,
+      2026
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLonghornbeetles103897zookeys73923675Figure16jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.30), rotate 0 CCW"
+}

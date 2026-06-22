@@ -1,0 +1,75 @@
+{
+  "species_id": "owl_butterfly",
+  "species_ja": "フクロウチョウ",
+  "scientific_name": "Caligo memnon",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tuxyso",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Bananenfalter Caligo memnon 2014.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Bananenfalter_Caligo_memnon_2014.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Bananenfalter_Caligo_memnon_2014.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tuxyso",
+    "eventDate": "2014-09-08",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Owl butterfly, Caligo memnon photographed in butterfly house Vlindertuin Vlindorado near Waarland, North Holland",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Bananenfalter_Caligo_memnon_2014.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/98/Bananenfalter_Caligo_memnon_2014.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileBananenfalterCaligomemnon2014jpg_original.jpg",
+    "segmented": "processed/WMCFileBananenfalterCaligomemnon2014jpg_L1_segmented.png",
+    "display": "processed/WMCFileBananenfalterCaligomemnon2014jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_54.webp",
+      "108": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_108.webp",
+      "216": "thumb/WMCFileBananenfalterCaligomemnon2014jpg_216.webp"
+    }
+  },
+  "original_sha256": "840c432a256419b9f18a49fd2cc4a644764d28db0d6d9fcb7e9494d90e64bd8a",
+  "processing": {
+    "cropBox": [
+      526,
+      160,
+      3740,
+      3624
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBananenfalterCaligomemnon2014jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

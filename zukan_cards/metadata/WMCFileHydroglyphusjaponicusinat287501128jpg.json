@@ -1,0 +1,75 @@
+{
+  "species_id": "chibi_gengoro",
+  "species_ja": "チビゲンゴロウ",
+  "scientific_name": "Hydroglyphus japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "{{{name}}}",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hydroglyphus japonicus - inat 287501128.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hydroglyphus_japonicus_-_inat_287501128.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hydroglyphus_japonicus_-_inat_287501128.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "{{{name}}}",
+    "eventDate": "2023-06-05",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Hydroglyphus japonicus, Kyoto, JP",
+    "localityNormalized": "Hydroglyphus japonicus, Kyoto, JP",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hydroglyphus_japonicus_-_inat_287501128.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Hydroglyphus_japonicus_-_inat_287501128.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileHydroglyphusjaponicusinat287501128jpg_original.jpg",
+    "segmented": "processed/WMCFileHydroglyphusjaponicusinat287501128jpg_L1_segmented.png",
+    "display": "processed/WMCFileHydroglyphusjaponicusinat287501128jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_54.webp",
+      "108": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_108.webp",
+      "216": "thumb/WMCFileHydroglyphusjaponicusinat287501128jpg_216.webp"
+    }
+  },
+  "original_sha256": "41524d090eec835cf35451456395afccc727d22c5bd35b83c32ea90699ac8ca2",
+  "processing": {
+    "cropBox": [
+      39,
+      32,
+      1906,
+      1788
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHydroglyphusjaponicusinat287501128jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "katori_yanma",
+  "species_ja": "カトリヤンマ",
+  "scientific_name": "Gynacantha japonica",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00360834",
+    "occurrenceId": "http://n2t.net/ark:/65665/3a8eaf7a8-ba64-433d-9853-a6a66c05c8c9",
+    "persistentId": "http://n2t.net/ark:/65665/3a8eaf7a8-ba64-433d-9853-a6a66c05c8c9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "G. Bohart & C. Harnage",
+    "eventDate": "1945-09-01/1945-09-10",
+    "eventYear": 1945,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Okinawa Island: Chizuka, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321021515",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321021515",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16317534&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00360834_original.jpg",
+    "segmented": "processed/USNMENT00360834_L1_segmented.png",
+    "display": "processed/USNMENT00360834_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00360834_54.webp",
+      "108": "thumb/USNMENT00360834_108.webp",
+      "216": "thumb/USNMENT00360834_216.webp"
+    }
+  },
+  "original_sha256": "482b76441f446653206c7c903810f99592c7814fb958fbba4fca39d32c9434a2",
+  "processing": {
+    "cropBox": [
+      618,
+      302,
+      1637,
+      1120
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00360834_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

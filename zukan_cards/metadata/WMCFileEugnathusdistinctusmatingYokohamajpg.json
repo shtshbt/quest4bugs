@@ -1,0 +1,76 @@
+{
+  "species_id": "kofuki_zoumushi",
+  "species_ja": "コフキゾウムシ",
+  "scientific_name": "Eugnathus distinctus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ryuichiro Kasatani",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Eugnathus distinctus mating Yokohama.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Eugnathus_distinctus_mating_Yokohama.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Eugnathus_distinctus_mating_Yokohama.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ryuichiro Kasatani",
+    "eventDate": "2025-06-24 06:29:45",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "OLYMPUS DIGITAL CAMERA",
+    "localityNormalized": "OLYMPUS DIGITAL CAMERA",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Eugnathus_distinctus_mating_Yokohama.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Eugnathus_distinctus_mating_Yokohama.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileEugnathusdistinctusmatingYokohamajpg_original.jpg",
+    "segmented": "processed/WMCFileEugnathusdistinctusmatingYokohamajpg_L1_segmented.png",
+    "display": "processed/WMCFileEugnathusdistinctusmatingYokohamajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_54.webp",
+      "108": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_108.webp",
+      "216": "thumb/WMCFileEugnathusdistinctusmatingYokohamajpg_216.webp"
+    }
+  },
+  "original_sha256": "d734fe05c78d22277a3826afd8fce3ee7b30157e9aef7495c68ec5a0cc001434",
+  "processing": {
+    "cropBox": [
+      282,
+      357,
+      591,
+      681
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEugnathusdistinctusmatingYokohamajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.87), rotate 180 CCW"
+}

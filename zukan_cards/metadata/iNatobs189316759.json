@@ -1,0 +1,81 @@
+{
+  "species_id": "maruke_gengoro",
+  "species_ja": "マルガタゲンゴロウ",
+  "scientific_name": "Graphoderus adamsii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_189316759",
+    "occurrenceId": "https://www.inaturalist.org/observations/189316759",
+    "persistentId": "https://www.inaturalist.org/observations/189316759",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2022-07-01",
+    "eventYear": 2022,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Chiba, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8302660118,
+    "decimalLongitude": 140.1962007663,
+    "coordinatesObscured": true,
+    "iNatObservationId": "189316759",
+    "iNatPhotoId": "331601549",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/189316759",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/331601549/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs189316759_original.jpg",
+    "segmented": "processed/iNatobs189316759_L1_segmented.png",
+    "display": "processed/iNatobs189316759_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs189316759_54.webp",
+      "108": "thumb/iNatobs189316759_108.webp",
+      "216": "thumb/iNatobs189316759_216.webp"
+    }
+  },
+  "original_sha256": "94715ae9ccd368aca8fa55cbe41b2bac10ecf790690596ec8207e34f3afb0153",
+  "processing": {
+    "cropBox": [
+      847,
+      172,
+      1499,
+      1129
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs189316759_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "oogomadara",
+  "species_ja": "オオゴマダラ",
+  "scientific_name": "Idea leuconoe",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1672932",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1672932",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1672932",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Imago",
+    "recordedBy": "Jongerling E.",
+    "eventDate": "1965-09-29",
+    "eventYear": 1965,
+    "country": "Chinese Taipei",
+    "localityVerbatim": null,
+    "localityNormalized": "Taiwan, Chinese Taipei",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": 23.69781,
+    "decimalLongitude": 120.960515
+  },
+  "source": {
+    "gbifOccurrenceKey": "4993120543",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4993120543",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1672932_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS1672932_original.jpg",
+    "segmented": "processed/RMNHINS1672932_L1_segmented.png",
+    "display": "processed/RMNHINS1672932_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1672932_54.webp",
+      "108": "thumb/RMNHINS1672932_108.webp",
+      "216": "thumb/RMNHINS1672932_216.webp"
+    }
+  },
+  "original_sha256": "9eca6b0da442f92094b5bc83490b310d489e21390e6b074f8fe2ef0626f76260",
+  "processing": {
+    "cropBox": [
+      516,
+      419,
+      1606,
+      1152
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1672932_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

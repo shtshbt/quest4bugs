@@ -1,0 +1,75 @@
+{
+  "species_id": "yokozuna_sashigame",
+  "species_ja": "ヨコヅナサシガメ",
+  "scientific_name": "Agriosphodrus dohrni",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Phonon.b",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Agriosphodrus dohrni back.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Agriosphodrus_dohrni_back.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Agriosphodrus_dohrni_back.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Phonon.b",
+    "eventDate": "2020-05-17 12:22:43",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "ヨコヅナサシガメの背面\n日本、東海地方",
+    "localityNormalized": "ヨコヅナサシガメの背面\n日本、東海地方",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Agriosphodrus_dohrni_back.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Agriosphodrus_dohrni_back.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileAgriosphodrusdohrnibackjpg_original.jpg",
+    "segmented": "processed/WMCFileAgriosphodrusdohrnibackjpg_L1_segmented.png",
+    "display": "processed/WMCFileAgriosphodrusdohrnibackjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAgriosphodrusdohrnibackjpg_54.webp",
+      "108": "thumb/WMCFileAgriosphodrusdohrnibackjpg_108.webp",
+      "216": "thumb/WMCFileAgriosphodrusdohrnibackjpg_216.webp"
+    }
+  },
+  "original_sha256": "c907ddf4c753fd515629b2f24ace6e79ddc73239b7195d7206da2526568ffdd0",
+  "processing": {
+    "cropBox": [
+      0,
+      189,
+      2063,
+      1866
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAgriosphodrusdohrnibackjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

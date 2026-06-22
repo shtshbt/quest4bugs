@@ -1,0 +1,75 @@
+{
+  "species_id": "nanahoshi_kin_kamemushi",
+  "species_ja": "ナナホシキンカメムシ",
+  "scientific_name": "Calliphara excellens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mmsmr",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:ナナホシキンカメムシ Calliphara excellens 交尾 沖縄島 2017-5-06.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%83%8A%E3%83%8A%E3%83%9B%E3%82%B7%E3%82%AD%E3%83%B3%E3%82%AB%E3%83%A1%E3%83%A0%E3%82%B7_Calliphara_excellens_%E4%BA%A4%E5%B0%BE_%E6%B2%96%E7%B8%84%E5%B3%B6_2017-5-06.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%83%8A%E3%83%8A%E3%83%9B%E3%82%B7%E3%82%AD%E3%83%B3%E3%82%AB%E3%83%A1%E3%83%A0%E3%82%B7_Calliphara_excellens_%E4%BA%A4%E5%B0%BE_%E6%B2%96%E7%B8%84%E5%B3%B6_2017-5-06.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mmsmr",
+    "eventDate": "6 May 2017",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Jewel bug, Calliphara excellens. Copulation. Okinawa Is., Japan. 2017-5-06",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%83%8A%E3%83%8A%E3%83%9B%E3%82%B7%E3%82%AD%E3%83%B3%E3%82%AB%E3%83%A1%E3%83%A0%E3%82%B7_Calliphara_excellens_%E4%BA%A4%E5%B0%BE_%E6%B2%96%E7%B8%84%E5%B3%B6_2017-5-06.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%E3%83%8A%E3%83%8A%E3%83%9B%E3%82%B7%E3%82%AD%E3%83%B3%E3%82%AB%E3%83%A1%E3%83%A0%E3%82%B7_Calliphara_excellens_%E4%BA%A4%E5%B0%BE_%E6%B2%96%E7%B8%84%E5%B3%B6_2017-5-06.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileCallipharaexcellens2017506jpg_original.jpg",
+    "segmented": "processed/WMCFileCallipharaexcellens2017506jpg_L1_segmented.png",
+    "display": "processed/WMCFileCallipharaexcellens2017506jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCallipharaexcellens2017506jpg_54.webp",
+      "108": "thumb/WMCFileCallipharaexcellens2017506jpg_108.webp",
+      "216": "thumb/WMCFileCallipharaexcellens2017506jpg_216.webp"
+    }
+  },
+  "original_sha256": "a7e4a5b60392a110f04339986eb939a6453922d08548488a152ca7ef48c50b1f",
+  "processing": {
+    "cropBox": [
+      436,
+      8,
+      2325,
+      2659
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCallipharaexcellens2017506jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

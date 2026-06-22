@@ -1,0 +1,75 @@
+{
+  "species_id": "kuroyama_ari",
+  "species_ja": "クロヤマアリ",
+  "scientific_name": "Formica japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Liu C, Fischer G, Garcia FH, Yamane S, Liu Q, Peng YQ, Economo EP, Guénard B, Pierce NE (2020) Ants of the Hengduan Mountains: a new altitudinal survey and updated checklist for Yunnan Province highlight an understudied insect biodiversity hotspot. ZooKeys 978: 1-171.",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Formica japonica (10.3897-zookeys.978.55767) Figure 32.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Formica_japonica_(10.3897-zookeys.978.55767)_Figure_32.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Formica_japonica_(10.3897-zookeys.978.55767)_Figure_32.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Liu C, Fischer G, Garcia FH, Yamane S, Liu Q, Peng YQ, Economo EP, Guénard B, Pierce NE (2020) Ants of the Hengduan Mountains: a new altitudinal survey and updated checklist for Yunnan Province highlight an understudied insect biodiversity hotspot. ZooKeys 978: 1-171.",
+    "eventDate": "2020-10-26",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Figure 32; Formica japonica worker (MCZ-ENT00760066) A mesosoma in profile view B mesosoma in dorsal view C head in front view D global distribution map.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Formica_japonica_(10.3897-zookeys.978.55767)_Figure_32.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Formica_japonica_%2810.3897-zookeys.978.55767%29_Figure_32.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_original.jpg",
+    "segmented": "processed/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_L1_segmented.png",
+    "display": "processed/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_54.webp",
+      "108": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_108.webp",
+      "216": "thumb/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_216.webp"
+    }
+  },
+  "original_sha256": "3f8ff43caf3cbd9dcf823ae5c18d34abe5d8033147dfcb84a451a27d2224a70c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      2159
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

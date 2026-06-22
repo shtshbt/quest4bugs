@@ -1,0 +1,77 @@
+{
+  "species_id": "himeakatateha",
+  "species_ja": "ヒメアカタテハ",
+  "scientific_name": "Vanessa cardui",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1059518",
+    "occurrenceId": "c34da67d-1f0a-4f05-902c-c08216dc279c",
+    "persistentId": "c34da67d-1f0a-4f05-902c-c08216dc279c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "R W. Watson",
+    "eventDate": "1977-08-29",
+    "eventYear": 1977,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Township: Stockbridge, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.1166,
+    "decimalLongitude": -1.4843
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291178480",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c34da67d-1f0a-4f05-902c-c08216dc279c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/961deb3b-dda4-447b-8a7f-a42dac10f029",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE1059518_original.jpg",
+    "segmented": "processed/NHMUKBMNHE1059518_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE1059518_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1059518_54.webp",
+      "108": "thumb/NHMUKBMNHE1059518_108.webp",
+      "216": "thumb/NHMUKBMNHE1059518_216.webp"
+    }
+  },
+  "original_sha256": "493252e42542b7993f35efe2d7b306bbf550acbecd4c962d3c85ec7a16c05f51",
+  "processing": {
+    "cropBox": [
+      376,
+      100,
+      1353,
+      1442
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1059518_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

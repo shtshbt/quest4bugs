@@ -1,0 +1,75 @@
+{
+  "species_id": "sentou_kamikiri",
+  "species_ja": "センノカミキリ",
+  "scientific_name": "Acalolepta luxuriosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Longicorn beetle with long antenna on the wall - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Longicorn_beetle_with_long_antenna_on_the_wall_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Longicorn_beetle_with_long_antenna_on_the_wall_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2021-07-06 00:23:24",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "センノカミキリではと思われます。愛知県小牧市で撮影。",
+    "localityNormalized": "センノカミキリではと思われます。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Longicorn_beetle_with_long_antenna_on_the_wall_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Longicorn_beetle_with_long_antenna_on_the_wall_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_original.jpg",
+    "segmented": "processed/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_L1_segmented.png",
+    "display": "processed/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_54.webp",
+      "108": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_108.webp",
+      "216": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_216.webp"
+    }
+  },
+  "original_sha256": "c5aa1b126124cdb6c1893588c08bf5582010767255ecde749fb3d4c84dfe31a2",
+  "processing": {
+    "cropBox": [
+      269,
+      276,
+      3207,
+      1725
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.71), rotate 0 CCW"
+}

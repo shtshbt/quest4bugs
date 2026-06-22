@@ -1,0 +1,75 @@
+{
+  "species_id": "kanetataki",
+  "species_ja": "カネタタキ",
+  "scientific_name": "Ornebius kanetataki",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Rainer Breitling (rainerbreitling)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ornebius kanetataki male from iNaturalist photo 505611948.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ornebius_kanetataki_male_from_iNaturalist_photo_505611948.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ornebius_kanetataki_male_from_iNaturalist_photo_505611948.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Rainer Breitling (rainerbreitling)",
+    "eventDate": "2016-09-05",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Ornebius kanetataki カネタタキのオス",
+    "localityNormalized": "Ornebius kanetataki カネタタキのオス",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ornebius_kanetataki_male_from_iNaturalist_photo_505611948.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Ornebius_kanetataki_male_from_iNaturalist_photo_505611948.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_original.jpg",
+    "segmented": "processed/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_L1_segmented.png",
+    "display": "processed/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_54.webp",
+      "108": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_108.webp",
+      "216": "thumb/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_216.webp"
+    }
+  },
+  "original_sha256": "b5ff7735da271be668b72f503a253eecb51fdf2790071db17548c5e9dc0c44f1",
+  "processing": {
+    "cropBox": [
+      177,
+      121,
+      1730,
+      1536
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOrnebiuskanetatakimalefromiNaturalistphoto505611948jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

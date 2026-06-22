@@ -1,0 +1,77 @@
+{
+  "species_id": "nihon_hikigaeru",
+  "species_ja": "ニホンヒキガエル",
+  "scientific_name": "Bufo japonicus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "James A. Poindexter II",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "HERP",
+    "catalogNumber": "USNM 31951",
+    "occurrenceId": "http://n2t.net/ark:/65665/3da99e131-1fc3-49ab-850b-3e9a6ddf59f3",
+    "persistentId": "http://n2t.net/ark:/65665/3da99e131-1fc3-49ab-850b-3e9a6ddf59f3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1903-05-11",
+    "eventYear": 1903,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kochi, Japan",
+    "preparations": "Ethanol",
+    "decimalLatitude": 33.5828,
+    "decimalLongitude": 133.51
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322143794",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322143794",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10344970&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNM31951_original.jpg",
+    "segmented": "processed/USNM31951_L1_segmented.png",
+    "display": "processed/USNM31951_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNM31951_54.webp",
+      "108": "thumb/USNM31951_108.webp",
+      "216": "thumb/USNM31951_216.webp"
+    }
+  },
+  "original_sha256": "440658e06f595a7adb39c1f323a97b27de79b727c06204eccd35850f9e6140bc",
+  "processing": {
+    "cropBox": [
+      100,
+      0,
+      572,
+      416
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNM31951_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

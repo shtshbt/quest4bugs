@@ -1,0 +1,75 @@
+{
+  "species_id": "ooyokobai_aobaha",
+  "species_ja": "アオバハゴロモ",
+  "scientific_name": "Geisha distinctissima",
+  "credit_line": "Wikimedia Commons",
+  "creator": "me",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Geisha distinctissima 01.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Geisha_distinctissima_01.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Geisha_distinctissima_01.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "me",
+    "eventDate": "2005-09-01",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Geisha distinctissima (Walker, 1858) (Flatidae: Fulgoroidea: Fulgoromorpha: Auchenorrhyncha: Hemiptera) feeding on Ambrosia trifida L., 1753\nabout 10mm long (including wings)\nLoc: Yokohama, Honshu, Japan. Sept 1 2005\nDistribution: China, Japan（Honshu, Shikoku, Kyushu, Okinawa), korea, Taiwan.\nja:\n\nアオバハゴロモ（オオブタクサの茎上）\n分類：カメムシ目・頚吻亜目・ハゴロモ下目・ハゴロモ上科・アオバハゴロモ科\n体長8～11㎜（翅端まで）\n横浜市にて撮影。2005年9月1日\n分布：中国、日本（本州・四国・九州・沖縄）、朝鮮半島、台湾。",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Geisha_distinctissima_01.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Geisha_distinctissima_01.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileGeishadistinctissima01JPG_original.jpg",
+    "segmented": "processed/WMCFileGeishadistinctissima01JPG_L1_segmented.png",
+    "display": "processed/WMCFileGeishadistinctissima01JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGeishadistinctissima01JPG_54.webp",
+      "108": "thumb/WMCFileGeishadistinctissima01JPG_108.webp",
+      "216": "thumb/WMCFileGeishadistinctissima01JPG_216.webp"
+    }
+  },
+  "original_sha256": "affc4066892325b9b9878df53f46e9deb3c7a2662065a5879e56cf3d539f4aa0",
+  "processing": {
+    "cropBox": [
+      383,
+      92,
+      591,
+      637
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGeishadistinctissima01JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

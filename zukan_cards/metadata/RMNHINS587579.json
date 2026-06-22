@@ -1,0 +1,75 @@
+{
+  "species_id": "mesuguro_hyoumon",
+  "species_ja": "メスグロヒョウモン",
+  "scientific_name": "Damora sagana",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.587579",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.587579",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.587579",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "von Siebold",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444172214",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444172214",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.587579_LAB_4/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS587579_original.jpg",
+    "segmented": "processed/RMNHINS587579_L1_segmented.png",
+    "display": "processed/RMNHINS587579_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS587579_54.webp",
+      "108": "thumb/RMNHINS587579_108.webp",
+      "216": "thumb/RMNHINS587579_216.webp"
+    }
+  },
+  "original_sha256": "876d5cd22669e8607f964f1c2a7d386559d15fbf78d96f04abcfa5c6f9f6468f",
+  "processing": {
+    "cropBox": [
+      439,
+      0,
+      1407,
+      1169
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS587579_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

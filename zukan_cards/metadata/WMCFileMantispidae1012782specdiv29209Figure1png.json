@@ -1,0 +1,75 @@
+{
+  "species_id": "kibara_kamakirimodoki",
+  "species_ja": "キカマキリモドキ",
+  "scientific_name": "Eumantispa harmandi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Hiroshi Nakamine (A, E), Hibiki Hoshito (B), Seiya Kudo (C), Kazuma Chiyoda (D), Rikio Matsumoto (F).",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mantispidae (10.12782-specdiv.29.209) Figure 1.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mantispidae_(10.12782-specdiv.29.209)_Figure_1.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mantispidae_(10.12782-specdiv.29.209)_Figure_1.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hiroshi Nakamine (A, E), Hibiki Hoshito (B), Seiya Kudo (C), Kazuma Chiyoda (D), Rikio Matsumoto (F).",
+    "eventDate": "2021-12-03",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Fig. 1. Photographs of living mantispids from Japan. A, Austroclimaciella quadrituberculata (Westwood, 1852) (MPIM-HN-001); B, Euclimacia badia Okamoto, 1910 (HH-20210603); C, Eumantispa harmandi (Navás, 1909) (SK-20210914); D, Tuberonotha strenua (Gerstaecker, 1894) (KC-20190923); E, Mantispilla japonica (McLachlan, 1875) (MPIM-HN-010); F, Mantispilla transversa Stitz, 1913 (OMNH-N000009473). Scale bars: 5.0mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mantispidae_(10.12782-specdiv.29.209)_Figure_1.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/Mantispidae_%2810.12782-specdiv.29.209%29_Figure_1.png",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMantispidae1012782specdiv29209Figure1png_original.jpg",
+    "segmented": "processed/WMCFileMantispidae1012782specdiv29209Figure1png_L1_segmented.png",
+    "display": "processed/WMCFileMantispidae1012782specdiv29209Figure1png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_54.webp",
+      "108": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_108.webp",
+      "216": "thumb/WMCFileMantispidae1012782specdiv29209Figure1png_216.webp"
+    }
+  },
+  "original_sha256": "2337d61a9f085f9fdfdcff4163d32e8193b6d31a098a8301013bd0ae31ad9947",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2445,
+      2513
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMantispidae1012782specdiv29209Figure1png_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

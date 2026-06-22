@@ -1,0 +1,75 @@
+{
+  "species_id": "esaki_monki_tsuno_kamemushi",
+  "species_ja": "エサキモンキツノカメムシ",
+  "scientific_name": "Sastragala esakii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sastragala esakii on the grass - 3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sastragala_esakii_on_the_grass_-_3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sastragala_esakii_on_the_grass_-_3.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2022-06-06 16:16:14",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "エサキモンキツノカメムシ。愛知県春日井市で撮影。",
+    "localityNormalized": "エサキモンキツノカメムシ。愛知県春日井市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sastragala_esakii_on_the_grass_-_3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Sastragala_esakii_on_the_grass_-_3.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSastragalaesakiionthegrass3jpg_original.jpg",
+    "segmented": "processed/WMCFileSastragalaesakiionthegrass3jpg_L1_segmented.png",
+    "display": "processed/WMCFileSastragalaesakiionthegrass3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSastragalaesakiionthegrass3jpg_54.webp",
+      "108": "thumb/WMCFileSastragalaesakiionthegrass3jpg_108.webp",
+      "216": "thumb/WMCFileSastragalaesakiionthegrass3jpg_216.webp"
+    }
+  },
+  "original_sha256": "bd63253ea35867be831ccc23e5d4923113732d3816289184e33b897bbf546db5",
+  "processing": {
+    "cropBox": [
+      1074,
+      840,
+      2666,
+      1485
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSastragalaesakiionthegrass3jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

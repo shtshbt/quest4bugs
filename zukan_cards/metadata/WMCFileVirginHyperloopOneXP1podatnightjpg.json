@@ -1,0 +1,75 @@
+{
+  "species_id": "budou_tora_kamikiri",
+  "species_ja": "ブドウトラカミキリ",
+  "scientific_name": "Xylotrechus pyrrhoderus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Z22",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Virgin Hyperloop One XP-1 pod at night.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Virgin_Hyperloop_One_XP-1_pod_at_night.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Virgin_Hyperloop_One_XP-1_pod_at_night.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Z22",
+    "eventDate": "2019-09-27 19:14:37",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Virgin Hyperloop One XP-1 test pod on display at Rockefeller Center on September 27, 2019",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Virgin_Hyperloop_One_XP-1_pod_at_night.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Virgin_Hyperloop_One_XP-1_pod_at_night.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileVirginHyperloopOneXP1podatnightjpg_original.jpg",
+    "segmented": "processed/WMCFileVirginHyperloopOneXP1podatnightjpg_L1_segmented.png",
+    "display": "processed/WMCFileVirginHyperloopOneXP1podatnightjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_54.webp",
+      "108": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_108.webp",
+      "216": "thumb/WMCFileVirginHyperloopOneXP1podatnightjpg_216.webp"
+    }
+  },
+  "original_sha256": "21d1b8a4e65975d80917c4e7de7a881d32ff2fcdcba69c7caf17fae09f513736",
+  "processing": {
+    "cropBox": [
+      17,
+      0,
+      4032,
+      2835
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVirginHyperloopOneXP1podatnightjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.82), rotate 0 CCW"
+}

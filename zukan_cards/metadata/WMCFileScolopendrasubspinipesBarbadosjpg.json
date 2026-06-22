@@ -1,0 +1,75 @@
+{
+  "species_id": "tobizu_mukade",
+  "species_ja": "トビズムカデ",
+  "scientific_name": "Scolopendra subspinipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "GregPelka",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Scolopendra subspinipes (Barbados).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Scolopendra_subspinipes_(Barbados).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Scolopendra_subspinipes_(Barbados).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "GregPelka",
+    "eventDate": "2007-11-30 18:20:56",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Scolopendra subspinipes - young specimen from Barbados",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Scolopendra_subspinipes_(Barbados).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Scolopendra_subspinipes_%28Barbados%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileScolopendrasubspinipesBarbadosjpg_original.jpg",
+    "segmented": "processed/WMCFileScolopendrasubspinipesBarbadosjpg_L1_segmented.png",
+    "display": "processed/WMCFileScolopendrasubspinipesBarbadosjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_54.webp",
+      "108": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_108.webp",
+      "216": "thumb/WMCFileScolopendrasubspinipesBarbadosjpg_216.webp"
+    }
+  },
+  "original_sha256": "46866735f4e1c442963c12a9a781912cc07467c09698c54ffc2b8c7a2996748b",
+  "processing": {
+    "cropBox": [
+      49,
+      199,
+      1108,
+      467
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileScolopendrasubspinipesBarbadosjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

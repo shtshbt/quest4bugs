@@ -1,0 +1,76 @@
+{
+  "species_id": "nokogiri_kamikiri",
+  "species_ja": "ノコギリカミキリ",
+  "scientific_name": "Prionus insularis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Yasunori Yamamoto",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Prionus insularis insularis 223601485.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Prionus_insularis_insularis_223601485.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Prionus_insularis_insularis_223601485.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Yasunori Yamamoto",
+    "eventDate": "2022-08-11",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Prionus insularis insularis",
+    "localityNormalized": "Prionus insularis insularis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Prionus_insularis_insularis_223601485.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Prionus_insularis_insularis_223601485.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFilePrionusinsularisinsularis223601485jpg_original.jpg",
+    "segmented": "processed/WMCFilePrionusinsularisinsularis223601485jpg_L1_segmented.png",
+    "display": "processed/WMCFilePrionusinsularisinsularis223601485jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_54.webp",
+      "108": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_108.webp",
+      "216": "thumb/WMCFilePrionusinsularisinsularis223601485jpg_216.webp"
+    }
+  },
+  "original_sha256": "cd58ef5058848e8a2af4f6446d75b206f25e7e882c7661e047525d459b0f6b2b",
+  "processing": {
+    "cropBox": [
+      209,
+      215,
+      1092,
+      1189
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePrionusinsularisinsularis223601485jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.67), rotate 90 CCW"
+}

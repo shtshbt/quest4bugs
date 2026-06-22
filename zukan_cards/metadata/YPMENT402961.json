@@ -1,0 +1,77 @@
+{
+  "species_id": "yamamayu",
+  "species_ja": "ヤママユ",
+  "scientific_name": "Antheraea yamamai",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 402961",
+    "occurrenceId": "urn:uuid:8eac4627-be96-43eb-be6b-f9d401199c61",
+    "persistentId": "urn:uuid:8eac4627-be96-43eb-be6b-f9d401199c61",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hisatoshi Kezuka",
+    "eventDate": "1955-08-17",
+    "eventYear": 1955,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Nippara Cave, Okutama-machi, Honshu-Tokyo, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.841495,
+    "decimalLongitude": 139.049982
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039125906",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-402961",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:0bd7650c-0d36-4d4e-b429-976ef527b32c/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT402961_original.jpg",
+    "segmented": "processed/YPMENT402961_L1_segmented.png",
+    "display": "processed/YPMENT402961_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT402961_54.webp",
+      "108": "thumb/YPMENT402961_108.webp",
+      "216": "thumb/YPMENT402961_216.webp"
+    }
+  },
+  "original_sha256": "8de537ad8801451f8b60d0da2a104b811afead7c1bf4c6c223784cce17422e0e",
+  "processing": {
+    "cropBox": [
+      61,
+      0,
+      1119,
+      1547
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT402961_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

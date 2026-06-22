@@ -1,0 +1,75 @@
+{
+  "species_id": "gunbai_tonbo",
+  "species_ja": "グンバイトンボ",
+  "scientific_name": "Platycnemis foliacea",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00350493",
+    "occurrenceId": "http://n2t.net/ark:/65665/336b7bb1b-c415-450e-811b-cf1bdcf65f7b",
+    "persistentId": "http://n2t.net/ark:/65665/336b7bb1b-c415-450e-811b-cf1bdcf65f7b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "E. Suenson",
+    "eventDate": "1936-07-03/1936-07-06",
+    "eventYear": 1936,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "South Shensi Prov., China",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318439496",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318439496",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16343135&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00350493_original.jpg",
+    "segmented": "processed/USNMENT00350493_L1_segmented.png",
+    "display": "processed/USNMENT00350493_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00350493_54.webp",
+      "108": "thumb/USNMENT00350493_108.webp",
+      "216": "thumb/USNMENT00350493_216.webp"
+    }
+  },
+  "original_sha256": "4c194e03ab599af89c4288c24d83b314135e1a446c9f4ed9a233e6582503dfe6",
+  "processing": {
+    "cropBox": [
+      0,
+      4,
+      2000,
+      1539
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00350493_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

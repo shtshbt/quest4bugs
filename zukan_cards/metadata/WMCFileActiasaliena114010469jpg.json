@@ -1,0 +1,75 @@
+{
+  "species_id": "oomizuao",
+  "species_ja": "オオミズアオ",
+  "scientific_name": "Actias aliena",
+  "credit_line": "Wikimedia Commons",
+  "creator": "heikindai_87",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Actias aliena 114010469.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Actias_aliena_114010469.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Actias_aliena_114010469.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2015-04-25",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Actias aliena",
+    "localityNormalized": "Actias aliena",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Actias_aliena_114010469.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/94/Actias_aliena_114010469.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileActiasaliena114010469jpg_original.jpg",
+    "segmented": "processed/WMCFileActiasaliena114010469jpg_L1_segmented.png",
+    "display": "processed/WMCFileActiasaliena114010469jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileActiasaliena114010469jpg_54.webp",
+      "108": "thumb/WMCFileActiasaliena114010469jpg_108.webp",
+      "216": "thumb/WMCFileActiasaliena114010469jpg_216.webp"
+    }
+  },
+  "original_sha256": "1e4e1e5763d4e5a502111ef286766eaaf2e3cd6fab781ba416cfb9fec6726494",
+  "processing": {
+    "cropBox": [
+      105,
+      667,
+      1470,
+      1736
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileActiasaliena114010469jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

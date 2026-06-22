@@ -1,0 +1,75 @@
+{
+  "species_id": "kurosuji_fuyu_eda_shaku",
+  "species_ja": "クロスジフユエダシャク",
+  "scientific_name": "Pachyerannis obliquaria",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KENPEI",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pachyerannis obliquaria1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pachyerannis_obliquaria1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pachyerannis_obliquaria1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KENPEI",
+    "eventDate": "2006-12-02",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "クロスジフユエダシャク",
+    "localityNormalized": "クロスジフユエダシャク",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pachyerannis_obliquaria1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pachyerannis_obliquaria1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "original": "original/WMCFilePachyerannisobliquaria1jpg_original.jpg",
+    "segmented": "processed/WMCFilePachyerannisobliquaria1jpg_L1_segmented.png",
+    "display": "processed/WMCFilePachyerannisobliquaria1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePachyerannisobliquaria1jpg_54.webp",
+      "108": "thumb/WMCFilePachyerannisobliquaria1jpg_108.webp",
+      "216": "thumb/WMCFilePachyerannisobliquaria1jpg_216.webp"
+    }
+  },
+  "original_sha256": "9c3244f5bc780789b52f0eb1e1763afc9a52b8c576978f7218cad607e7044a39",
+  "processing": {
+    "cropBox": [
+      58,
+      5,
+      632,
+      728
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePachyerannisobliquaria1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

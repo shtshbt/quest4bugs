@@ -1,0 +1,75 @@
+{
+  "species_id": "taiwan_kutsuwamushi",
+  "species_ja": "タイワンクツワムシ",
+  "scientific_name": "Mecopoda elongata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496573",
+    "occurrenceId": "781bd410-048e-4a3a-9b74-7d6c27ddb1e3",
+    "persistentId": "781bd410-048e-4a3a-9b74-7d6c27ddb1e3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "China",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826404771",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/781bd410-048e-4a3a-9b74-7d6c27ddb1e3",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d3c7acd4-1980-41b4-8347-bce5054434fc",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012496573_original.jpg",
+    "segmented": "processed/NHMUK012496573_L1_segmented.png",
+    "display": "processed/NHMUK012496573_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496573_54.webp",
+      "108": "thumb/NHMUK012496573_108.webp",
+      "216": "thumb/NHMUK012496573_216.webp"
+    }
+  },
+  "original_sha256": "84dd1fb52f3703c8e8662d85fab2e636498e6be01f9e9c5a014221e67cb8b8e1",
+  "processing": {
+    "cropBox": [
+      578,
+      59,
+      830,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496573_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

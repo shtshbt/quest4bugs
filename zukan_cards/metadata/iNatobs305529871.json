@@ -1,0 +1,81 @@
+{
+  "species_id": "amami_nokogiri_kuwagata",
+  "species_ja": "アマミノコギリクワガタ",
+  "scientific_name": "Prosopocoilus dissimilis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "unipon (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_305529871",
+    "occurrenceId": "https://www.inaturalist.org/observations/305529871",
+    "persistentId": "https://www.inaturalist.org/observations/305529871",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unipon",
+    "eventDate": "2025-08-09",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Kagoshima, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 28.3920466474,
+    "decimalLongitude": 129.9477370037,
+    "coordinatesObscured": true,
+    "iNatObservationId": "305529871",
+    "iNatPhotoId": "550887857",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/305529871",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/550887857/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs305529871_original.jpg",
+    "segmented": "processed/iNatobs305529871_L1_segmented.png",
+    "display": "processed/iNatobs305529871_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs305529871_54.webp",
+      "108": "thumb/iNatobs305529871_108.webp",
+      "216": "thumb/iNatobs305529871_216.webp"
+    }
+  },
+  "original_sha256": "b93372ac2484b1b43700ea0e7143d0da60f0aec626e5af1bc5ae378379496764",
+  "processing": {
+    "cropBox": [
+      46,
+      58,
+      746,
+      592
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs305529871_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.68), rotate 0 CCW"
+}

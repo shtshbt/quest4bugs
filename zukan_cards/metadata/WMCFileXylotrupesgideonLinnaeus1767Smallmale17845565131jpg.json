@@ -1,0 +1,76 @@
+{
+  "species_id": "tairiku_akadama_kabuto",
+  "species_ja": "ヒメカブト",
+  "scientific_name": "Xylotrupes gideon",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Len Worthington",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Xylotrupes gideon (Linnaeus,1767) Small male (17845565131).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Xylotrupes_gideon_(Linnaeus,1767)_Small_male_(17845565131).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Xylotrupes_gideon_(Linnaeus,1767)_Small_male_(17845565131).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Len Worthington",
+    "eventDate": "2014-06-13 14:55",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Phu Laen Kha N.P.\nChaiyaphum\n\nThailand",
+    "localityNormalized": "Phu Laen Kha N.P.\nChaiyaphum\n\nThailand",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Xylotrupes_gideon_(Linnaeus,1767)_Small_male_(17845565131).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Xylotrupes_gideon_%28Linnaeus%2C1767%29_Small_male_%2817845565131%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "original": "original/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_original.jpg",
+    "segmented": "processed/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_L1_segmented.png",
+    "display": "processed/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_54.webp",
+      "108": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_108.webp",
+      "216": "thumb/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_216.webp"
+    }
+  },
+  "original_sha256": "7bad4ef3f18df0648610eaad3e79cac25e052707b77044e80f59746e25c1c80c",
+  "processing": {
+    "cropBox": [
+      138,
+      188,
+      1636,
+      1874
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileXylotrupesgideonLinnaeus1767Smallmale17845565131jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.94), rotate 180 CCW"
+}

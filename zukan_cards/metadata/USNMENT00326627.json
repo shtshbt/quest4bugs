@@ -1,0 +1,75 @@
+{
+  "species_id": "beni_tonbo",
+  "species_ja": "ベニトンボ",
+  "scientific_name": "Trithemis aurora",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00326627",
+    "occurrenceId": "http://n2t.net/ark:/65665/37531eee6-d961-4289-ab75-6d567d93637d",
+    "persistentId": "http://n2t.net/ark:/65665/37531eee6-d961-4289-ab75-6d567d93637d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "G. Hevel & M. Ahmad",
+    "eventDate": "1977-10-18",
+    "eventYear": 1977,
+    "country": "Pakistan",
+    "localityVerbatim": null,
+    "localityNormalized": "12 mi. North of Marden, Pakistan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319852010",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319852010",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16349277&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00326627_original.jpg",
+    "segmented": "processed/USNMENT00326627_L1_segmented.png",
+    "display": "processed/USNMENT00326627_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00326627_54.webp",
+      "108": "thumb/USNMENT00326627_108.webp",
+      "216": "thumb/USNMENT00326627_216.webp"
+    }
+  },
+  "original_sha256": "1a13d0b40cf8a1b45cf439d7721f86e658eb5ca44357223dd42732d7c5b27ea0",
+  "processing": {
+    "cropBox": [
+      691,
+      481,
+      1176,
+      1149
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00326627_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

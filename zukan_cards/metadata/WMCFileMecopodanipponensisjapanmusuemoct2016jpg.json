@@ -1,0 +1,75 @@
+{
+  "species_id": "kutsuwamushi",
+  "species_ja": "クツワムシ",
+  "scientific_name": "Mecopoda nipponensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Nesnad",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mecopoda nipponensis - japan - musuem - oct 2016.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mecopoda_nipponensis_-_japan_-_musuem_-_oct_2016.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mecopoda_nipponensis_-_japan_-_musuem_-_oct_2016.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Nesnad",
+    "eventDate": "2016-10",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "クツワムシ（轡虫, mecopoda nipponensis）",
+    "localityNormalized": "クツワムシ（轡虫, mecopoda nipponensis）",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mecopoda_nipponensis_-_japan_-_musuem_-_oct_2016.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/Mecopoda_nipponensis_-_japan_-_musuem_-_oct_2016.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_original.jpg",
+    "segmented": "processed/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_L1_segmented.png",
+    "display": "processed/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_54.webp",
+      "108": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_108.webp",
+      "216": "thumb/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_216.webp"
+    }
+  },
+  "original_sha256": "07f7f367d77a4f87e6e3c28bdfb7cfc8ef557fa641a504038d8088824a2a56dc",
+  "processing": {
+    "cropBox": [
+      0,
+      4,
+      1927,
+      2055
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMecopodanipponensisjapanmusuemoct2016jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

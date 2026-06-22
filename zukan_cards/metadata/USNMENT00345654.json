@@ -1,0 +1,77 @@
+{
+  "species_id": "aoito_tonbo",
+  "species_ja": "アオイトトンボ",
+  "scientific_name": "Lestes sponsa",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00345654",
+    "occurrenceId": "http://n2t.net/ark:/65665/333bef90c-a968-46b7-9238-a3d6f61237fc",
+    "persistentId": "http://n2t.net/ark:/65665/333bef90c-a968-46b7-9238-a3d6f61237fc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Flint",
+    "eventDate": "1998-09-07",
+    "eventYear": 1998,
+    "country": "Slovenia",
+    "localityVerbatim": null,
+    "localityNormalized": "Crno Jezero, Osankarica, 8 kilometers northeast of Lukanja, Slovenia",
+    "preparations": "Envelope",
+    "decimalLatitude": 46.4494,
+    "decimalLongitude": 15.4303
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318372336",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318372336",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16381862&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00345654_original.jpg",
+    "segmented": "processed/USNMENT00345654_L1_segmented.png",
+    "display": "processed/USNMENT00345654_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00345654_54.webp",
+      "108": "thumb/USNMENT00345654_108.webp",
+      "216": "thumb/USNMENT00345654_216.webp"
+    }
+  },
+  "original_sha256": "99a6c1f652542c962a9f59d5b1cd16530c2ab758da5eb56ed3d92d1aa068c7d6",
+  "processing": {
+    "cropBox": [
+      216,
+      762,
+      769,
+      1154
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00345654_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

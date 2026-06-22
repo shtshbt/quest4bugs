@@ -1,0 +1,75 @@
+{
+  "species_id": "kameno_ko_hamushi",
+  "species_ja": "カメノコハムシ",
+  "scientific_name": "Cassida nebulosa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010134208",
+    "occurrenceId": "4db5e79f-84bb-49d5-b201-9c5bcc5ff00d",
+    "persistentId": "4db5e79f-84bb-49d5-b201-9c5bcc5ff00d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291320710",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/4db5e79f-84bb-49d5-b201-9c5bcc5ff00d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8bf3961b-b1a6-417f-b24f-b7ba448b05d3",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010134208_original.jpg",
+    "segmented": "processed/NHMUK010134208_L1_segmented.png",
+    "display": "processed/NHMUK010134208_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010134208_54.webp",
+      "108": "thumb/NHMUK010134208_108.webp",
+      "216": "thumb/NHMUK010134208_216.webp"
+    }
+  },
+  "original_sha256": "4137e8cccf3c3f50813c62ea0d7256bb72d639111d385ce0d0a80dc6979573af",
+  "processing": {
+    "cropBox": [
+      219,
+      6,
+      1324,
+      440
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010134208_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "ubatamamushi",
+  "species_ja": "ウバタマムシ",
+  "scientific_name": "Chalcophora japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "BrianAdler",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:ウバタマムシ Chalcophora japonica japonica 3.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%A6%E3%83%90%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7_Chalcophora_japonica_japonica_3.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%A6%E3%83%90%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7_Chalcophora_japonica_japonica_3.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "BrianAdler",
+    "eventDate": "2009-05-02",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Nipponobuprestis amabilis, or Ubatamamushi (ウバタマムシ) in Japanese. Picture was taken with a Canon Power Shot SD850 camera.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%A6%E3%83%90%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7_Chalcophora_japonica_japonica_3.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/%E3%82%A6%E3%83%90%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7_Chalcophora_japonica_japonica_3.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileChalcophorajaponicajaponica3JPG_original.jpg",
+    "segmented": "processed/WMCFileChalcophorajaponicajaponica3JPG_L1_segmented.png",
+    "display": "processed/WMCFileChalcophorajaponicajaponica3JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChalcophorajaponicajaponica3JPG_54.webp",
+      "108": "thumb/WMCFileChalcophorajaponicajaponica3JPG_108.webp",
+      "216": "thumb/WMCFileChalcophorajaponicajaponica3JPG_216.webp"
+    }
+  },
+  "original_sha256": "9024b6edbc6d74579162a00e160c0fbbf0b7147cdd280630e232b87c9267979f",
+  "processing": {
+    "cropBox": [
+      457,
+      589,
+      1627,
+      1145
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChalcophorajaponicajaponica3JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.80), rotate 90 CCW"
+}

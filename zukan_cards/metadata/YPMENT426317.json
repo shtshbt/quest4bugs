@@ -1,0 +1,77 @@
+{
+  "species_id": "karafuto_hyoumon",
+  "species_ja": "カラフトヒョウモン",
+  "scientific_name": "Boloria iphigenia",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Paul Shamble",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 426317",
+    "occurrenceId": "urn:uuid:d75901bc-9842-4da6-8108-b8778cd5d4e9",
+    "persistentId": "urn:uuid:d75901bc-9842-4da6-8108-b8778cd5d4e9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "T. Akaishi",
+    "eventDate": "1957-06-16",
+    "eventYear": 1957,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Arashiyama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.010774,
+    "decimalLongitude": 135.666733
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039177074",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-426317",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:664d1911-7a42-4d59-bb06-82e0bf6aec6a/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT426317_original.jpg",
+    "segmented": "processed/YPMENT426317_L1_segmented.png",
+    "display": "processed/YPMENT426317_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT426317_54.webp",
+      "108": "thumb/YPMENT426317_108.webp",
+      "216": "thumb/YPMENT426317_216.webp"
+    }
+  },
+  "original_sha256": "578eaefbf503799cea9ef0e4b4972a7a25fccd6a7d30f3cde619554a8020e977",
+  "processing": {
+    "cropBox": [
+      59,
+      11,
+      1112,
+      1582
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT426317_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

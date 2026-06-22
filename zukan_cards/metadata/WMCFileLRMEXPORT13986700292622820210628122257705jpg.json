@@ -1,0 +1,75 @@
+{
+  "species_id": "hanenaga_kirigirisu",
+  "species_ja": "ハネナガキリギリス",
+  "scientific_name": "Gampsocleis ussuriensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Shahzaib Damn Cruze",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:LRM EXPORT139867002926228 20210628 122257705.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:LRM_EXPORT139867002926228_20210628_122257705.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:LRM_EXPORT139867002926228_20210628_122257705.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Shahzaib Damn Cruze",
+    "eventDate": "2021-05-29 12:57:47",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Grasshoppers are typically ground-dwelling insects with powerful hind legs which allow them to escape from threats by leaping vigorously. Have typical insect body plan of head, thorax &amp; abdomen. The head is held vertically at an angle to the body, with mouth at the bottom. Head bears a large pair of compound eyes which give all-round vision, three simple eyes which can detect light &amp; dark, a pair of thread-like antennae, sensitive to touch &amp; smell. The downward-directed mouth-parts are modified for chewing &amp; there are two sensory palps in front of the jaws.\nFacts\n1. They are among the most ancient living group of chewing herbivorous insects, dating back to the early Triassic ear, around 250 million years ago.\n2. They are plant-eaters, with a few species at times becoming serious pests of cereals, vegetables &amp; pasture, especially when they are in millions, destroy crops over wide areas, causing famine.\n3. They protect themselves from predators by camouflage; when detected, attempt to startle the predator with a brilliantly-colored wing-flash.\n4. Had a long relationship with humans, People have been consuming them for centuries as food in countries i.e Mexico &amp; Indonesia. They feature in art, symbolism &amp; literature.\n5. An adult goes through the stages egg, nymph &amp; adult, &amp; has a lifespan of approx 1 year.\n6. Can leap 20 times the length of its own body.\n7. Female are larger than males &amp; have sharp points at the end of their abdomen.\n8. Can grow to 2 inches (5 cm), with some growing as big as 5 inches (12.7cm).\nSpecs;\nScientific name: Acridomorpha.\nClass: Insecta\nOrder: Orthoptera \nSpecies: 8000 approx.\nType: Insect.\nLegs: Pair of 3.\nEyes: Compound, 360 angle view.\nWings: 2 inches long (not suitable for flight).\nAntennae: 2.\nLifespan : 1 year \nLength: 2-5 inches approx.\nBlood type: Cold Blooded &amp; Possess White blood because lack of hemoglobin.\n\nDiet: herbivore, plants, leaves, flowers, stems &amp; seeds. Also scavenge dead insects for protein.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:LRM_EXPORT139867002926228_20210628_122257705.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/LRM_EXPORT139867002926228_20210628_122257705.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLRMEXPORT13986700292622820210628122257705jpg_original.jpg",
+    "segmented": "processed/WMCFileLRMEXPORT13986700292622820210628122257705jpg_L1_segmented.png",
+    "display": "processed/WMCFileLRMEXPORT13986700292622820210628122257705jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_54.webp",
+      "108": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_108.webp",
+      "216": "thumb/WMCFileLRMEXPORT13986700292622820210628122257705jpg_216.webp"
+    }
+  },
+  "original_sha256": "696b23a18d6d69e91b5cd47b0c326d476449cb6072808599599d743d77e79c6c",
+  "processing": {
+    "cropBox": [
+      0,
+      910,
+      4032,
+      2828
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLRMEXPORT13986700292622820210628122257705jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

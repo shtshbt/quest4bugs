@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_midorishijimi",
+  "species_ja": "ヒメミドリシジミ",
+  "scientific_name": "Neozephyrus japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:072-Neozephyrus japonicus.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:072-Neozephyrus_japonicus.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:072-Neozephyrus_japonicus.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 10:22:05",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "ミドリシジミ",
+    "localityNormalized": "ミドリシジミ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:072-Neozephyrus_japonicus.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/072-Neozephyrus_japonicus.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFile072NeozephyrusjaponicusJPG_original.jpg",
+    "segmented": "processed/WMCFile072NeozephyrusjaponicusJPG_L1_segmented.png",
+    "display": "processed/WMCFile072NeozephyrusjaponicusJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile072NeozephyrusjaponicusJPG_54.webp",
+      "108": "thumb/WMCFile072NeozephyrusjaponicusJPG_108.webp",
+      "216": "thumb/WMCFile072NeozephyrusjaponicusJPG_216.webp"
+    }
+  },
+  "original_sha256": "d360cb3831e13dcf06da23400c3461a01757166354293365c8bbe5dbb1ca6833",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3650,
+      2909
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile072NeozephyrusjaponicusJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "tatehamodoki",
+  "species_ja": "タテハモドキ",
+  "scientific_name": "Junonia almana",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.996985",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.996985",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.996985",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "HC Siebersdon",
+    "eventDate": "1934-07-27",
+    "eventYear": 1934,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "mount Lawu, Sarangan, Indonesia",
+    "preparations": "WholeOrganism (air dried)",
+    "decimalLatitude": -7.6275,
+    "decimalLongitude": 111.194167
+  },
+  "source": {
+    "gbifOccurrenceKey": "4879773004",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4879773004",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.996985_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS996985_original.jpg",
+    "segmented": "processed/RMNHINS996985_L1_segmented.png",
+    "display": "processed/RMNHINS996985_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS996985_54.webp",
+      "108": "thumb/RMNHINS996985_108.webp",
+      "216": "thumb/RMNHINS996985_216.webp"
+    }
+  },
+  "original_sha256": "5f051315ee01c033538c28399fffcc61d94d6498a9cccc1bec7779ce362a6daf",
+  "processing": {
+    "cropBox": [
+      94,
+      0,
+      1888,
+      1712
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS996985_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

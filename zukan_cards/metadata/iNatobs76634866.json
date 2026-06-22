@@ -1,0 +1,81 @@
+{
+  "species_id": "yamato_eda_shaku",
+  "species_ja": "ヤマトエダシャク",
+  "scientific_name": "Peratophyga grata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_76634866",
+    "occurrenceId": "https://www.inaturalist.org/observations/76634866",
+    "persistentId": "https://www.inaturalist.org/observations/76634866",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2015-06-27",
+    "eventYear": 2015,
+    "country": "日本、〒781-5233 高知県香南市野市町大谷",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒781-5233 高知県香南市野市町大谷, 日本、〒781-5233 高知県香南市野市町大谷",
+    "preparations": null,
+    "decimalLatitude": 33.568804,
+    "decimalLongitude": 133.701531,
+    "coordinatesObscured": false,
+    "iNatObservationId": "76634866",
+    "iNatPhotoId": "125186403",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/76634866",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/125186403/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs76634866_original.jpg",
+    "segmented": "processed/iNatobs76634866_L1_segmented.png",
+    "display": "processed/iNatobs76634866_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs76634866_54.webp",
+      "108": "thumb/iNatobs76634866_108.webp",
+      "216": "thumb/iNatobs76634866_216.webp"
+    }
+  },
+  "original_sha256": "94f5ec743772310e9e908e7ec85c1c351e627edc96cbe540853b9d9d401837c7",
+  "processing": {
+    "cropBox": [
+      539,
+      143,
+      1548,
+      1222
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs76634866_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

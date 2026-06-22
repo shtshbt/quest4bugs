@@ -1,0 +1,75 @@
+{
+  "species_id": "tobimon_ooedashaku",
+  "species_ja": "トビモンオオエダシャク",
+  "scientific_name": "Biston robustum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Caterpillar with the body parts looks like rabbit ears on my hand - 3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Caterpillar_with_the_body_parts_looks_like_rabbit_ears_on_my_hand_-_3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Caterpillar_with_the_body_parts_looks_like_rabbit_ears_on_my_hand_-_3.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "15 June 2026, 17:38:04",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "トビモンオオエダシャクの幼虫。愛知県小牧市で撮影。",
+    "localityNormalized": "トビモンオオエダシャクの幼虫。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Caterpillar_with_the_body_parts_looks_like_rabbit_ears_on_my_hand_-_3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Caterpillar_with_the_body_parts_looks_like_rabbit_ears_on_my_hand_-_3.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_original.jpg",
+    "segmented": "processed/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_L1_segmented.png",
+    "display": "processed/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_54.webp",
+      "108": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_108.webp",
+      "216": "thumb/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_216.webp"
+    }
+  },
+  "original_sha256": "645ed0e1999b394786c2748ddbcb9cf5a07c49779923689ce2287cb79249ce67",
+  "processing": {
+    "cropBox": [
+      693,
+      295,
+      1905,
+      2491
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

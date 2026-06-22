@@ -1,0 +1,75 @@
+{
+  "species_id": "futamon_ashinagabachi",
+  "species_ja": "フタモンアシナガバチ",
+  "scientific_name": "Polistes chinensis antennalis",
+  "credit_line": "Australian Museum",
+  "creator": "Elaine Tan",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.655633",
+    "occurrenceId": "b797b00c-bcbc-444b-893d-765aaa28eac6",
+    "persistentId": "b797b00c-bcbc-444b-893d-765aaa28eac6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "6259588326",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/6259588326",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=fdc617bc-85d7-4184-81dd-573034eb211c",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK655633_original.jpg",
+    "segmented": "processed/AMK655633_L1_segmented.png",
+    "display": "processed/AMK655633_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK655633_54.webp",
+      "108": "thumb/AMK655633_108.webp",
+      "216": "thumb/AMK655633_216.webp"
+    }
+  },
+  "original_sha256": "75ba86ebda2b236267563a0204a4c38c54f1732d4a50a0d9e75449d738fe4d4a",
+  "processing": {
+    "cropBox": [
+      111,
+      0,
+      438,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK655633_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

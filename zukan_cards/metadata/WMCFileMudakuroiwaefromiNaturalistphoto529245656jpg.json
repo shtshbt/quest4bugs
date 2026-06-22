@@ -1,0 +1,75 @@
+{
+  "species_id": "kuro_iwa_zemi",
+  "species_ja": "クロイワゼミ",
+  "scientific_name": "Muda kuroiwae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Takaaki Hattori (genjitsu)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Muda kuroiwae from iNaturalist photo 529245656.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Muda_kuroiwae_from_iNaturalist_photo_529245656.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Muda_kuroiwae_from_iNaturalist_photo_529245656.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Takaaki Hattori (genjitsu)",
+    "eventDate": "2025-06",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Muda kuroiwae クロイワゼミ",
+    "localityNormalized": "Muda kuroiwae クロイワゼミ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Muda_kuroiwae_from_iNaturalist_photo_529245656.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Muda_kuroiwae_from_iNaturalist_photo_529245656.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_original.jpg",
+    "segmented": "processed/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_L1_segmented.png",
+    "display": "processed/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_54.webp",
+      "108": "thumb/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_108.webp",
+      "216": "thumb/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_216.webp"
+    }
+  },
+  "original_sha256": "bc5f51529cd625810b0a89873f05a3eb98c3a22a4a9af8e45a0e254370b46f02",
+  "processing": {
+    "cropBox": [
+      805,
+      0,
+      1469,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMudakuroiwaefromiNaturalistphoto529245656jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "hoshimisuji",
+  "species_ja": "ホシミスジ",
+  "scientific_name": "Neptis pryeri",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 420429",
+    "occurrenceId": "urn:uuid:7c13e037-9471-4378-9873-d6a203088b3b",
+    "persistentId": "urn:uuid:7c13e037-9471-4378-9873-d6a203088b3b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1955-06-11",
+    "eventYear": 1955,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shikishima Park, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.424755,
+    "decimalLongitude": 139.042181
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039113127",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-420429",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:a6f8fb14-37a7-4f53-8b48-112aa0ff6571/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT420429_original.jpg",
+    "segmented": "processed/YPMENT420429_L1_segmented.png",
+    "display": "processed/YPMENT420429_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT420429_54.webp",
+      "108": "thumb/YPMENT420429_108.webp",
+      "216": "thumb/YPMENT420429_216.webp"
+    }
+  },
+  "original_sha256": "0676f17d4efffbec23f7634587cdc3b38e885fc90ef749253f62739838543a63",
+  "processing": {
+    "cropBox": [
+      48,
+      0,
+      1176,
+      1554
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT420429_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

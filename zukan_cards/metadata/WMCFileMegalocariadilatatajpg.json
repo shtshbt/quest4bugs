@@ -1,0 +1,75 @@
+{
+  "species_id": "ooten_tentou",
+  "species_ja": "オオテントウ",
+  "scientific_name": "Megalocaria dilatata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "ganjarcahyadi",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Megalocaria dilatata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Megalocaria_dilatata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Megalocaria_dilatata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ganjarcahyadi",
+    "eventDate": "2024-01-08",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "A Megalocaria dilatata sits on the stem of a green plant. The beetle is round in shape and deep amber in color with many black spots symmetrically spread over its thorax and abdomen.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Megalocaria_dilatata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Megalocaria_dilatata.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMegalocariadilatatajpg_original.jpg",
+    "segmented": "processed/WMCFileMegalocariadilatatajpg_L1_segmented.png",
+    "display": "processed/WMCFileMegalocariadilatatajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMegalocariadilatatajpg_54.webp",
+      "108": "thumb/WMCFileMegalocariadilatatajpg_108.webp",
+      "216": "thumb/WMCFileMegalocariadilatatajpg_216.webp"
+    }
+  },
+  "original_sha256": "dc695b04a19fb8857461bbe36b308535eff38a8a42d400274bca8a7069ee78c9",
+  "processing": {
+    "cropBox": [
+      297,
+      250,
+      546,
+      521
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMegalocariadilatatajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.17), rotate 0 CCW"
+}

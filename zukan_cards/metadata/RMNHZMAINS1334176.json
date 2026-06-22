@@ -1,0 +1,75 @@
+{
+  "species_id": "iwakawa_shijimi",
+  "species_ja": "クロマダラソテツシジミ",
+  "scientific_name": "Chilades pandava",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1334176",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1334176",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1334176",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1933-01-30",
+    "eventYear": 1933,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Jampang, Indonesia",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3497090355",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3497090355",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1334176_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS1334176_original.jpg",
+    "segmented": "processed/RMNHZMAINS1334176_L1_segmented.png",
+    "display": "processed/RMNHZMAINS1334176_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1334176_54.webp",
+      "108": "thumb/RMNHZMAINS1334176_108.webp",
+      "216": "thumb/RMNHZMAINS1334176_216.webp"
+    }
+  },
+  "original_sha256": "52e899c286726be4065befa3fcf5ac00b2147d516d360c0eff1cdb04f0341772",
+  "processing": {
+    "cropBox": [
+      36,
+      0,
+      1920,
+      1282
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1334176_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

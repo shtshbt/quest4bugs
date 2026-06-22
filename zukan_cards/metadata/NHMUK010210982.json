@@ -1,0 +1,75 @@
+{
+  "species_id": "kera",
+  "species_ja": "ケラ",
+  "scientific_name": "Gryllotalpa orientalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010210982",
+    "occurrenceId": "5bc6f5f8-8d8b-485d-be5a-82adc392694e",
+    "persistentId": "5bc6f5f8-8d8b-485d-be5a-82adc392694e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417121",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5bc6f5f8-8d8b-485d-be5a-82adc392694e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/5ed51e51-3bb6-4b7c-9b4f-4d95678f2ec1",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010210982_original.jpg",
+    "segmented": "processed/NHMUK010210982_L1_segmented.png",
+    "display": "processed/NHMUK010210982_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010210982_54.webp",
+      "108": "thumb/NHMUK010210982_108.webp",
+      "216": "thumb/NHMUK010210982_216.webp"
+    }
+  },
+  "original_sha256": "86215ac326c4fcd94b22548c830aedc4fbc0eb41d81e7e207a3531f2a1feda4f",
+  "processing": {
+    "cropBox": [
+      653,
+      248,
+      868,
+      693
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010210982_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

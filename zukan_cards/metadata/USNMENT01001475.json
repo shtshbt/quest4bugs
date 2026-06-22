@@ -1,0 +1,75 @@
+{
+  "species_id": "koma_ru_hana_bachi",
+  "species_ja": "コマルハナバチ",
+  "scientific_name": "Bombus ardens",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01001475",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b5ebe49b-0d1b-407a-9352-815589c8a09d",
+    "persistentId": "http://n2t.net/ark:/65665/3b5ebe49b-0d1b-407a-9352-815589c8a09d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "K. Tsuneki",
+    "eventDate": "1957-05-09",
+    "eventYear": 1957,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Hino, Takefu, Japan",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321315958",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321315958",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10703885&h=1728",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT01001475_original.jpg",
+    "segmented": "processed/USNMENT01001475_L1_segmented.png",
+    "display": "processed/USNMENT01001475_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01001475_54.webp",
+      "108": "thumb/USNMENT01001475_108.webp",
+      "216": "thumb/USNMENT01001475_216.webp"
+    }
+  },
+  "original_sha256": "9842eff5d6ab253938a9351787247245c295619c12dc83a61a7e2562acca8f45",
+  "processing": {
+    "cropBox": [
+      228,
+      493,
+      730,
+      991
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01001475_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "kujakuchou",
+  "species_ja": "クジャクチョウ",
+  "scientific_name": "Aglais io",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1061212",
+    "occurrenceId": "57b98792-6286-43d5-b66e-fb764185a5ad",
+    "persistentId": "57b98792-6286-43d5-b66e-fb764185a5ad",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "R W. Watson",
+    "eventDate": "1975-08",
+    "eventYear": 1975,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Township: Boldre, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 50.7821,
+    "decimalLongitude": -1.5533
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291257767",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/57b98792-6286-43d5-b66e-fb764185a5ad",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/cff1770f-8c1d-4c69-bf91-8952f64c797f",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE1061212_original.jpg",
+    "segmented": "processed/NHMUKBMNHE1061212_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE1061212_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1061212_54.webp",
+      "108": "thumb/NHMUKBMNHE1061212_108.webp",
+      "216": "thumb/NHMUKBMNHE1061212_216.webp"
+    }
+  },
+  "original_sha256": "b7ec860550b26ed47217f01eb4d8d443fbb1934864681923fb447aa1f9171c7f",
+  "processing": {
+    "cropBox": [
+      264,
+      79,
+      1330,
+      1575
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1061212_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

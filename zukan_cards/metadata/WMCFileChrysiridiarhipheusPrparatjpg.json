@@ -1,0 +1,75 @@
+{
+  "species_id": "master_urania",
+  "species_ja": "ウラニアガ",
+  "scientific_name": "Chrysiridia rhipheus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Petwoe",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chrysiridia rhipheus (Präparat).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chrysiridia_rhipheus_(Pr%C3%A4parat).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chrysiridia_rhipheus_(Pr%C3%A4parat).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Petwoe",
+    "eventDate": "2023-11-17",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Präparat eines Chrysiridia rhipheus, Regenbogenfalter oder Madagaskar-Sonnenuntergangsmotte.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chrysiridia_rhipheus_(Pr%C3%A4parat).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Chrysiridia_rhipheus_%28Pr%C3%A4parat%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileChrysiridiarhipheusPrparatjpg_original.jpg",
+    "segmented": "processed/WMCFileChrysiridiarhipheusPrparatjpg_L1_segmented.png",
+    "display": "processed/WMCFileChrysiridiarhipheusPrparatjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChrysiridiarhipheusPrparatjpg_54.webp",
+      "108": "thumb/WMCFileChrysiridiarhipheusPrparatjpg_108.webp",
+      "216": "thumb/WMCFileChrysiridiarhipheusPrparatjpg_216.webp"
+    }
+  },
+  "original_sha256": "9faa7ea3383cc11aa780dd9e4d3d98d3bc563e32e8b7d84b9d4059382094eed7",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      4304,
+      3847
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChrysiridiarhipheusPrparatjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

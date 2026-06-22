@@ -1,0 +1,75 @@
+{
+  "species_id": "himeyamamayu",
+  "species_ja": "ヒメヤママユ",
+  "scientific_name": "Saturnia jonasii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Daderot",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Saturnia jonasii - National Museum of Nature and Science, Tokyo - DSC07455.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Saturnia_jonasii_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC07455.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Saturnia_jonasii_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC07455.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Daderot",
+    "eventDate": "2013-09-05 00:05:39",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Exhibit in the National Museum of Nature and Science, Tokyo, Japan. Photography was permitted in the museum without restriction.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Saturnia_jonasii_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC07455.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturnia_jonasii_-_National_Museum_of_Nature_and_Science%2C_Tokyo_-_DSC07455.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_original.jpg",
+    "segmented": "processed/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_L1_segmented.png",
+    "display": "processed/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_54.webp",
+      "108": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_108.webp",
+      "216": "thumb/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_216.webp"
+    }
+  },
+  "original_sha256": "f68eaa48621256a57b7a13cef171eec13e0e074b9efca4fda0ca5be2619b09e9",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3315,
+      2172
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSaturniajonasiiNationalMuseumofNatureandScienceTokyoDSC07455JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

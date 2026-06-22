@@ -1,0 +1,75 @@
+{
+  "species_id": "kurogetsuya_oo_ari",
+  "species_ja": "クロナガアリ",
+  "scientific_name": "Messor aciculatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Shannon Hartman",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Messor aciculatus casent0217860 p 1 high.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Messor_aciculatus_casent0217860_p_1_high.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Messor_aciculatus_casent0217860_p_1_high.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Shannon Hartman",
+    "eventDate": "2011-05-04",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "​针毛收获蚁",
+    "localityNormalized": "​针毛收获蚁",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Messor_aciculatus_casent0217860_p_1_high.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Messor_aciculatus_casent0217860_p_1_high.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "original": "original/WMCFileMessoraciculatuscasent0217860p1highjpg_original.jpg",
+    "segmented": "processed/WMCFileMessoraciculatuscasent0217860p1highjpg_L1_segmented.png",
+    "display": "processed/WMCFileMessoraciculatuscasent0217860p1highjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_54.webp",
+      "108": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_108.webp",
+      "216": "thumb/WMCFileMessoraciculatuscasent0217860p1highjpg_216.webp"
+    }
+  },
+  "original_sha256": "e609e72cb6908d61b52897972de1a0a502d2332db44ac7349df80ce2b0d5feb8",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1157,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMessoraciculatuscasent0217860p1highjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

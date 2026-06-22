@@ -1,0 +1,77 @@
+{
+  "species_id": "himegifuchou",
+  "species_ja": "ヒメギフチョウ",
+  "scientific_name": "Luehdorfia puziloi",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 717147",
+    "occurrenceId": "urn:uuid:27b81cf4-bc2d-4946-90dd-a47624b024b2",
+    "persistentId": "urn:uuid:27b81cf4-bc2d-4946-90dd-a47624b024b2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "M. Shulgin",
+    "eventDate": "1956-04-10",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, Japan",
+    "preparations": null,
+    "decimalLatitude": 32.9,
+    "decimalLongitude": 131.933333
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039052986",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-717147",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:7a98cd90-31f7-42a0-9e72-843a42facea6/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT717147_original.jpg",
+    "segmented": "processed/YPMENT717147_L1_segmented.png",
+    "display": "processed/YPMENT717147_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT717147_54.webp",
+      "108": "thumb/YPMENT717147_108.webp",
+      "216": "thumb/YPMENT717147_216.webp"
+    }
+  },
+  "original_sha256": "0be6cfa22eac9bdfa5bbe9781859a4998f1cf99d7ab40238affe1a5ca254d70f",
+  "processing": {
+    "cropBox": [
+      154,
+      0,
+      1041,
+      1520
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT717147_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

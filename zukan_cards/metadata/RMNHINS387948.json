@@ -1,0 +1,75 @@
+{
+  "species_id": "uraginsuji_hyoumon",
+  "species_ja": "ウラギンスジヒョウモン",
+  "scientific_name": "Argyronome laodice",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.387948",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.387948",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.387948",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "China",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443656155",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443656155",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.387948_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS387948_original.jpg",
+    "segmented": "processed/RMNHINS387948_L1_segmented.png",
+    "display": "processed/RMNHINS387948_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS387948_54.webp",
+      "108": "thumb/RMNHINS387948_108.webp",
+      "216": "thumb/RMNHINS387948_216.webp"
+    }
+  },
+  "original_sha256": "1f3fc57b1ff6b76b6e03536adcdb8e3fd8ae37940d163c0b0b39545a42a18d34",
+  "processing": {
+    "cropBox": [
+      0,
+      36,
+      1901,
+      945
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS387948_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

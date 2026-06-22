@@ -1,0 +1,82 @@
+{
+  "species_id": "shiraobi_goma_kamikiri",
+  "species_ja": "シロオビゴマフカミキリ",
+  "scientific_name": "Falsomesosella gracilior",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_357361741",
+    "occurrenceId": "https://www.inaturalist.org/observations/357361741",
+    "persistentId": "https://www.inaturalist.org/observations/357361741",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2026-04-25",
+    "eventYear": 2026,
+    "country": "日本、〒362-0065 埼玉県上尾市畔吉",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒362-0065 埼玉県上尾市畔吉, 日本、〒362-0065 埼玉県上尾市畔吉",
+    "preparations": null,
+    "decimalLatitude": 35.9575785588,
+    "decimalLongitude": 139.5462602651,
+    "coordinatesObscured": false,
+    "iNatObservationId": "357361741",
+    "iNatPhotoId": "651782595",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/357361741",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/651782595/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs357361741_original.jpg",
+    "segmented": "processed/iNatobs357361741_L1_segmented.png",
+    "display": "processed/iNatobs357361741_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs357361741_54.webp",
+      "108": "thumb/iNatobs357361741_108.webp",
+      "216": "thumb/iNatobs357361741_216.webp"
+    }
+  },
+  "original_sha256": "143d31df7e59afedd15434083d115a6b8489955d2a3b5ca5df14066b9aa47e17",
+  "processing": {
+    "cropBox": [
+      577,
+      406,
+      1424,
+      1398
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs357361741_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.80), rotate 180 CCW"
+}

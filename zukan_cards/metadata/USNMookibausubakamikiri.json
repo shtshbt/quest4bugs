@@ -1,0 +1,75 @@
+{
+  "species_id": "ookiba_usuba_kamikiri",
+  "species_ja": "オオキバウスバカミキリ",
+  "scientific_name": "Macrodontia cervicornis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Eugenio Nearns",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": null,
+    "occurrenceId": "http://n2t.net/ark:/65665/3482a62b4-6d6d-4e00-9852-fae0c63566ed",
+    "persistentId": "http://n2t.net/ark:/65665/3482a62b4-6d6d-4e00-9852-fae0c63566ed",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "F. Tippmann",
+    "eventDate": "1938-05-12",
+    "eventYear": 1938,
+    "country": "Peru",
+    "localityVerbatim": null,
+    "localityNormalized": "Umgebung Iquitos; (Peru) ca. 150m, Peru",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318834258",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318834258",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10507293&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMookibausubakamikiri_original.jpg",
+    "segmented": "processed/USNMookibausubakamikiri_L1_segmented.png",
+    "display": "processed/USNMookibausubakamikiri_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMookibausubakamikiri_54.webp",
+      "108": "thumb/USNMookibausubakamikiri_108.webp",
+      "216": "thumb/USNMookibausubakamikiri_216.webp"
+    }
+  },
+  "original_sha256": "a5417f0d93ffd45d2243c83e40c793eb2989957445d466acd6c9973995815f2c",
+  "processing": {
+    "cropBox": [
+      414,
+      63,
+      1662,
+      1210
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMookibausubakamikiri_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.13), rotate 0 CCW"
+}

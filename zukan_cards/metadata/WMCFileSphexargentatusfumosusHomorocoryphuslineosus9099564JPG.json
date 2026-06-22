@@ -1,0 +1,75 @@
+{
+  "species_id": "kusakiri",
+  "species_ja": "クサキリ",
+  "scientific_name": "Ruspolia lineosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "松岡明芳",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sphex argentatus fumosus、Homorocoryphus lineosus、9099564、クロアナバチがクサキリを捕獲.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sphex_argentatus_fumosus%E3%80%81Homorocoryphus_lineosus%E3%80%819099564%E3%80%81%E3%82%AF%E3%83%AD%E3%82%A2%E3%83%8A%E3%83%90%E3%83%81%E3%81%8C%E3%82%AF%E3%82%B5%E3%82%AD%E3%83%AA%E3%82%92%E6%8D%95%E7%8D%B2.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sphex_argentatus_fumosus%E3%80%81Homorocoryphus_lineosus%E3%80%819099564%E3%80%81%E3%82%AF%E3%83%AD%E3%82%A2%E3%83%8A%E3%83%90%E3%83%81%E3%81%8C%E3%82%AF%E3%82%B5%E3%82%AD%E3%83%AA%E3%82%92%E6%8D%95%E7%8D%B2.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "松岡明芳",
+    "eventDate": "2007年9月9日、10:54",
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": "Sphex argentatus fumosus with caught Homorocoryphus lineosus to be parasitized. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sphex_argentatus_fumosus%E3%80%81Homorocoryphus_lineosus%E3%80%819099564%E3%80%81%E3%82%AF%E3%83%AD%E3%82%A2%E3%83%8A%E3%83%90%E3%83%81%E3%81%8C%E3%82%AF%E3%82%B5%E3%82%AD%E3%83%AA%E3%82%92%E6%8D%95%E7%8D%B2.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Sphex_argentatus_fumosus%E3%80%81Homorocoryphus_lineosus%E3%80%819099564%E3%80%81%E3%82%AF%E3%83%AD%E3%82%A2%E3%83%8A%E3%83%90%E3%83%81%E3%81%8C%E3%82%AF%E3%82%B5%E3%82%AD%E3%83%AA%E3%82%92%E6%8D%95%E7%8D%B2.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_original.jpg",
+    "segmented": "processed/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_L1_segmented.png",
+    "display": "processed/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_54.webp",
+      "108": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_108.webp",
+      "216": "thumb/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_216.webp"
+    }
+  },
+  "original_sha256": "a901e5736c7c0575d7982d0e97964ac61839e72b93b458e194f4880c0b1f01ed",
+  "processing": {
+    "cropBox": [
+      320,
+      70,
+      1280,
+      908
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSphexargentatusfumosusHomorocoryphuslineosus9099564JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

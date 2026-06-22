@@ -1,0 +1,76 @@
+{
+  "species_id": "aka_ashi_kuwagata",
+  "species_ja": "アカアシクワガタ",
+  "scientific_name": "Dorcus rubrofemoratus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "D.S.3.14",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rubrofemoratus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rubrofemoratus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rubrofemoratus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D.S.3.14",
+    "eventDate": "2010-01-02",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "2010年1月2日撮影",
+    "localityNormalized": "2010年1月2日撮影",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rubrofemoratus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Rubrofemoratus.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileRubrofemoratusjpg_original.jpg",
+    "segmented": "processed/WMCFileRubrofemoratusjpg_L1_segmented.png",
+    "display": "processed/WMCFileRubrofemoratusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRubrofemoratusjpg_54.webp",
+      "108": "thumb/WMCFileRubrofemoratusjpg_108.webp",
+      "216": "thumb/WMCFileRubrofemoratusjpg_216.webp"
+    }
+  },
+  "original_sha256": "709ca969c86bf7f606ac609059ba0c7a226e0669c5ace9abdc80dba9f23c3e0e",
+  "processing": {
+    "cropBox": [
+      193,
+      0,
+      2295,
+      1721
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRubrofemoratusjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.40), rotate 90 CCW"
+}

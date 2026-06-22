@@ -1,0 +1,76 @@
+{
+  "species_id": "maguso_kogane",
+  "species_ja": "マグソコガネ",
+  "scientific_name": "Aphodius rectus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Georgiy Jacobson",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aphodius solskyi Jacobson.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aphodius_solskyi_Jacobson.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aphodius_solskyi_Jacobson.png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Georgiy Jacobson",
+    "eventDate": "2014-02-13 22:32:43",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "This image has been extracted from another file",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aphodius_solskyi_Jacobson.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Aphodius_solskyi_Jacobson.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileAphodiussolskyiJacobsonpng_original.jpg",
+    "segmented": "processed/WMCFileAphodiussolskyiJacobsonpng_L1_segmented.png",
+    "display": "processed/WMCFileAphodiussolskyiJacobsonpng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAphodiussolskyiJacobsonpng_54.webp",
+      "108": "thumb/WMCFileAphodiussolskyiJacobsonpng_108.webp",
+      "216": "thumb/WMCFileAphodiussolskyiJacobsonpng_216.webp"
+    }
+  },
+  "original_sha256": "15f658618267bde3d61a1c0a630ec2e1dd58f9bda822a13a42e502727033f7a6",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      306,
+      471
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAphodiussolskyiJacobsonpng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.61), rotate 180 CCW"
+}

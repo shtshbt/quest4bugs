@@ -1,0 +1,75 @@
+{
+  "species_id": "tama_oshi_zou",
+  "species_ja": "ヤサイゾウムシ",
+  "scientific_name": "Listroderes costirostris",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010134100",
+    "occurrenceId": "ba536877-2f2b-4c0d-910b-3de0427171e9",
+    "persistentId": "ba536877-2f2b-4c0d-910b-3de0427171e9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291322848",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ba536877-2f2b-4c0d-910b-3de0427171e9",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/544e7d85-1624-4490-af59-27cc8f0ce2c3",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010134100_original.jpg",
+    "segmented": "processed/NHMUK010134100_L1_segmented.png",
+    "display": "processed/NHMUK010134100_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010134100_54.webp",
+      "108": "thumb/NHMUK010134100_108.webp",
+      "216": "thumb/NHMUK010134100_216.webp"
+    }
+  },
+  "original_sha256": "179b24193eaee3e99d3b6bce535afaed83998d73d321d08dd8fb4e0140d7cf70",
+  "processing": {
+    "cropBox": [
+      263,
+      39,
+      1321,
+      491
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010134100_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "asamashijimi",
+  "species_ja": "アサマシジミ",
+  "scientific_name": "Plebejus subsolanus",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 758902",
+    "occurrenceId": "urn:uuid:2fdf19fb-fafa-4885-9e31-8ccc947c7de2",
+    "persistentId": "urn:uuid:2fdf19fb-fafa-4885-9e31-8ccc947c7de2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-07-10",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Yatsu, Nagano, Japan",
+    "preparations": null,
+    "decimalLatitude": 34.882844,
+    "decimalLongitude": 136.052948
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039059010",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-758902",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:bb92d165-64a9-48a6-8d2c-45b4c1d8b316/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT758902_original.jpg",
+    "segmented": "processed/YPMENT758902_L1_segmented.png",
+    "display": "processed/YPMENT758902_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT758902_54.webp",
+      "108": "thumb/YPMENT758902_108.webp",
+      "216": "thumb/YPMENT758902_216.webp"
+    }
+  },
+  "original_sha256": "75ef2c0123fb05b4b0c1341bbd4a3e08c6b35dd94b2e728a1163976195681a49",
+  "processing": {
+    "cropBox": [
+      170,
+      0,
+      1014,
+      1427
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT758902_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

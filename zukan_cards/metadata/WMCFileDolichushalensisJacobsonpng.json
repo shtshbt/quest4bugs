@@ -1,0 +1,76 @@
+{
+  "species_id": "se_aka_kebuka_gomimushi",
+  "species_ja": "セアカヒラタゴミムシ",
+  "scientific_name": "Dolichus halensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Georgiy Jacobson",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dolichus halensis Jacobson.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dolichus_halensis_Jacobson.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dolichus_halensis_Jacobson.png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Georgiy Jacobson",
+    "eventDate": "2013-10-15 10:58:22",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "This image has been extracted from another file",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dolichus_halensis_Jacobson.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Dolichus_halensis_Jacobson.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileDolichushalensisJacobsonpng_original.jpg",
+    "segmented": "processed/WMCFileDolichushalensisJacobsonpng_L1_segmented.png",
+    "display": "processed/WMCFileDolichushalensisJacobsonpng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDolichushalensisJacobsonpng_54.webp",
+      "108": "thumb/WMCFileDolichushalensisJacobsonpng_108.webp",
+      "216": "thumb/WMCFileDolichushalensisJacobsonpng_216.webp"
+    }
+  },
+  "original_sha256": "7cd66ea1c0fc177c5fb086e1be65d46a9de1d92f1019768b1ca485df3e921a6e",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      231,
+      500
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDolichushalensisJacobsonpng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.79), rotate 180 CCW"
+}

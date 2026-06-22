@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_botan_zou",
+  "species_ja": "ヒメシロコブゾウムシ",
+  "scientific_name": "Episomus turritus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Episomus turritus with most of their bodies black - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Episomus_turritus_with_most_of_their_bodies_black_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Episomus_turritus_with_most_of_their_bodies_black_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-06-28 22:41:58",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "体の大部分が黒いシロコブゾウムシ。愛知県小牧市で撮影。",
+    "localityNormalized": "体の大部分が黒いシロコブゾウムシ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Episomus_turritus_with_most_of_their_bodies_black_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Episomus_turritus_with_most_of_their_bodies_black_-_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_original.jpg",
+    "segmented": "processed/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_L1_segmented.png",
+    "display": "processed/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_54.webp",
+      "108": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_108.webp",
+      "216": "thumb/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_216.webp"
+    }
+  },
+  "original_sha256": "5190be93b00aa2e0e3082ae727a5588c68e6b2fe5dba11289fa7751f0bac3267",
+  "processing": {
+    "cropBox": [
+      431,
+      376,
+      1761,
+      2203
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEpisomusturrituswithmostoftheirbodiesblack1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

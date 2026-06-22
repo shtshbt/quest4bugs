@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_kamakiri",
+  "species_ja": "ヒメカマキリ",
+  "scientific_name": "Acromantis japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Fungus Guy",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Japanese boxer mantis (Acromantis japonica), Entomica.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Japanese_boxer_mantis_(Acromantis_japonica),_Entomica.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Japanese_boxer_mantis_(Acromantis_japonica),_Entomica.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Fungus Guy",
+    "eventDate": "2022-12-18 12:07:52",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Japanese boxer mantis (Acromantis japonica), Entomica",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Japanese_boxer_mantis_(Acromantis_japonica),_Entomica.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Japanese_boxer_mantis_%28Acromantis_japonica%29%2C_Entomica.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_original.jpg",
+    "segmented": "processed/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_L1_segmented.png",
+    "display": "processed/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_54.webp",
+      "108": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_108.webp",
+      "216": "thumb/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_216.webp"
+    }
+  },
+  "original_sha256": "eb897a01dcee1626fb9fd704ca00a4ffe7bc3b427ff2f7caf9b431d525e8121b",
+  "processing": {
+    "cropBox": [
+      359,
+      1298,
+      2392,
+      2476
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileJapaneseboxermantisAcromantisjaponicaEntomicajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

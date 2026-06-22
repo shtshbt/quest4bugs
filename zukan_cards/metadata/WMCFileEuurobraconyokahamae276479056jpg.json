@@ -1,0 +1,75 @@
+{
+  "species_id": "umaoi_himebachi",
+  "species_ja": "ウマノオバチ",
+  "scientific_name": "Euurobracon yokahamae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "岸本年郎",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Euurobracon yokahamae 276479056.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Euurobracon_yokahamae_276479056.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Euurobracon_yokahamae_276479056.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "岸本年郎",
+    "eventDate": "2023-05-03",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Euurobracon yokahamae in Japan",
+    "localityNormalized": "Euurobracon yokahamae in Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Euurobracon_yokahamae_276479056.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Euurobracon_yokahamae_276479056.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileEuurobraconyokahamae276479056jpg_original.jpg",
+    "segmented": "processed/WMCFileEuurobraconyokahamae276479056jpg_L1_segmented.png",
+    "display": "processed/WMCFileEuurobraconyokahamae276479056jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEuurobraconyokahamae276479056jpg_54.webp",
+      "108": "thumb/WMCFileEuurobraconyokahamae276479056jpg_108.webp",
+      "216": "thumb/WMCFileEuurobraconyokahamae276479056jpg_216.webp"
+    }
+  },
+  "original_sha256": "e5ad151111cabf18259d4da340cea76635713ea745f65158fac4cbf25503b72d",
+  "processing": {
+    "cropBox": [
+      519,
+      0,
+      1029,
+      1999
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEuurobraconyokahamae276479056jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

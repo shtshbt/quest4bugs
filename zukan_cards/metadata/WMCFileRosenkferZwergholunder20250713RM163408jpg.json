@@ -1,0 +1,76 @@
+{
+  "species_id": "hanamuguri",
+  "species_ja": "ハナムグリ",
+  "scientific_name": "Cetonia pilifera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Reinhold Möller Ermell",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rosenkäfer Zwergholunder-20250713-RM-163408.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rosenk%C3%A4fer_Zwergholunder-20250713-RM-163408.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rosenk%C3%A4fer_Zwergholunder-20250713-RM-163408.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Reinhold Möller Ermell",
+    "eventDate": "2025-07-13",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Rose beetle on the fruit of a dwarf elder tree",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rosenk%C3%A4fer_Zwergholunder-20250713-RM-163408.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Rosenk%C3%A4fer_Zwergholunder-20250713-RM-163408.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileRosenkferZwergholunder20250713RM163408jpg_original.jpg",
+    "segmented": "processed/WMCFileRosenkferZwergholunder20250713RM163408jpg_L1_segmented.png",
+    "display": "processed/WMCFileRosenkferZwergholunder20250713RM163408jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_54.webp",
+      "108": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_108.webp",
+      "216": "thumb/WMCFileRosenkferZwergholunder20250713RM163408jpg_216.webp"
+    }
+  },
+  "original_sha256": "2d7cc39d142ecf070c1aebfc1beedd37ca43d798871a1f1e005dd242d1eef79b",
+  "processing": {
+    "cropBox": [
+      257,
+      831,
+      3903,
+      3326
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRosenkferZwergholunder20250713RM163408jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.91), rotate 180 CCW"
+}

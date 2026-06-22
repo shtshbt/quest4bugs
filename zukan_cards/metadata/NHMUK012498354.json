@@ -1,0 +1,75 @@
+{
+  "species_id": "hanenaga_inago",
+  "species_ja": "ハネナガイナゴ",
+  "scientific_name": "Oxya japonica",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498354",
+    "occurrenceId": "a36166de-87d4-4f79-8b99-28d7f87ab798",
+    "persistentId": "a36166de-87d4-4f79-8b99-28d7f87ab798",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417160",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/a36166de-87d4-4f79-8b99-28d7f87ab798",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/e03f706c-824f-4c32-9d08-69b7fadaa29c",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012498354_original.jpg",
+    "segmented": "processed/NHMUK012498354_L1_segmented.png",
+    "display": "processed/NHMUK012498354_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498354_54.webp",
+      "108": "thumb/NHMUK012498354_108.webp",
+      "216": "thumb/NHMUK012498354_216.webp"
+    }
+  },
+  "original_sha256": "6a72107f244aa0c6e0d504305736e33c58b69e2bd1ded4641a56afa0f42461a4",
+  "processing": {
+    "cropBox": [
+      707,
+      193,
+      823,
+      660
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498354_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

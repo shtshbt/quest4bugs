@@ -1,0 +1,75 @@
+{
+  "species_id": "kiiro_suzumebachi",
+  "species_ja": "キイロスズメバチ",
+  "scientific_name": "Vespa simillima xanthoptera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mmsmr",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:キイロスズメバチVespa simillima xanthoptera羽虫を捕獲 山梨県.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%AD%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%BA%E3%83%A1%E3%83%90%E3%83%81Vespa_simillima_xanthoptera%E7%BE%BD%E8%99%AB%E3%82%92%E6%8D%95%E7%8D%B2_%E5%B1%B1%E6%A2%A8%E7%9C%8C.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%AD%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%BA%E3%83%A1%E3%83%90%E3%83%81Vespa_simillima_xanthoptera%E7%BE%BD%E8%99%AB%E3%82%92%E6%8D%95%E7%8D%B2_%E5%B1%B1%E6%A2%A8%E7%9C%8C.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mmsmr",
+    "eventDate": "2005-04-13 19:51:07",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "キイロスズメバチVespa simillima xanthopteraの働きバチが、右の後ろ脚だけで葉っぱにぶら下がって、つかまえた小さなハチ？を肉団子にしているところ　山梨県",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%AD%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%BA%E3%83%A1%E3%83%90%E3%83%81Vespa_simillima_xanthoptera%E7%BE%BD%E8%99%AB%E3%82%92%E6%8D%95%E7%8D%B2_%E5%B1%B1%E6%A2%A8%E7%9C%8C.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/%E3%82%AD%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%BA%E3%83%A1%E3%83%90%E3%83%81Vespa_simillima_xanthoptera%E7%BE%BD%E8%99%AB%E3%82%92%E6%8D%95%E7%8D%B2_%E5%B1%B1%E6%A2%A8%E7%9C%8C.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileVespasimillimaxanthopterajpg_original.jpg",
+    "segmented": "processed/WMCFileVespasimillimaxanthopterajpg_L1_segmented.png",
+    "display": "processed/WMCFileVespasimillimaxanthopterajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVespasimillimaxanthopterajpg_54.webp",
+      "108": "thumb/WMCFileVespasimillimaxanthopterajpg_108.webp",
+      "216": "thumb/WMCFileVespasimillimaxanthopterajpg_216.webp"
+    }
+  },
+  "original_sha256": "3cdd3550220b281f53d176df6902a7b3321efab8d5fe05fbf6812dc2966d6c46",
+  "processing": {
+    "cropBox": [
+      249,
+      72,
+      575,
+      498
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVespasimillimaxanthopterajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "usubaki_tonbo",
+  "species_ja": "ウスバキトンボ",
+  "scientific_name": "Pantala flavescens",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386306",
+    "occurrenceId": "http://n2t.net/ark:/65665/3607f5b9c-29a5-45e4-9624-696905f1351d",
+    "persistentId": "http://n2t.net/ark:/65665/3607f5b9c-29a5-45e4-9624-696905f1351d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "R. Murphy",
+    "eventDate": "2002-01-13",
+    "eventYear": 2002,
+    "country": "Malawi",
+    "localityVerbatim": null,
+    "localityNormalized": "Mughese Forest Reserve, Malawi",
+    "preparations": "Envelope",
+    "decimalLatitude": -9.65,
+    "decimalLongitude": 33.53
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319383786",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319383786",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16321848&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00386306_original.jpg",
+    "segmented": "processed/USNMENT00386306_L1_segmented.png",
+    "display": "processed/USNMENT00386306_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386306_54.webp",
+      "108": "thumb/USNMENT00386306_108.webp",
+      "216": "thumb/USNMENT00386306_216.webp"
+    }
+  },
+  "original_sha256": "299133629ae78353f4aa4a3940dd8113bc6ea71f69df2447ac85f5f52b90292a",
+  "processing": {
+    "cropBox": [
+      151,
+      443,
+      946,
+      1138
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386306_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

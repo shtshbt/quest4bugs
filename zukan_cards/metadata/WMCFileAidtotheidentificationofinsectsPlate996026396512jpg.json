@@ -1,0 +1,75 @@
+{
+  "species_id": "ki_tsunotonbo",
+  "species_ja": "キバネツノトンボ",
+  "scientific_name": "Libelloides ramburi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Waterhouse, Charles Owen",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aid to the identification of insects (Plate 99) (6026396512).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_99)_(6026396512).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_99)_(6026396512).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Waterhouse, Charles Owen",
+    "eventDate": "1880-90.",
+    "eventYear": 1880,
+    "country": null,
+    "localityVerbatim": "Aid. \n99, \nAscalaphus Rambun , \nM'^LrjjMxxn,, Trans Ent. SocyJIS 78),p. J 77 \n\nJapan .",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_99)_(6026396512).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Aid_to_the_identification_of_insects_%28Plate_99%29_%286026396512%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_original.jpg",
+    "segmented": "processed/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_L1_segmented.png",
+    "display": "processed/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_54.webp",
+      "108": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_108.webp",
+      "216": "thumb/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_216.webp"
+    }
+  },
+  "original_sha256": "822a989941a5fdb9802df8960bd72870550e196134376e9e2f330f096a757da3",
+  "processing": {
+    "cropBox": [
+      252,
+      846,
+      1854,
+      1912
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

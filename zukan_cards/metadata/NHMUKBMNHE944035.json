@@ -1,0 +1,76 @@
+{
+  "species_id": "titan_kamikiri",
+  "species_ja": "タイタンオオウスバカミキリ",
+  "scientific_name": "Titanus giganteus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Hillery Warner",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)944035",
+    "occurrenceId": "e6d89807-1206-4e74-a366-5533bd2f08b8",
+    "persistentId": "e6d89807-1206-4e74-a366-5533bd2f08b8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "French Guiana",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Kaw, French Guiana",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1056076114",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/e6d89807-1206-4e74-a366-5533bd2f08b8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ecc28d62-6742-4c1a-845f-69710acfbe97",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE944035_original.jpg",
+    "segmented": "processed/NHMUKBMNHE944035_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE944035_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE944035_54.webp",
+      "108": "thumb/NHMUKBMNHE944035_108.webp",
+      "216": "thumb/NHMUKBMNHE944035_216.webp"
+    }
+  },
+  "original_sha256": "ef358184f083fda63b2c9e1d4b15651037ae87529c65d62744e53958afde603e",
+  "processing": {
+    "cropBox": [
+      0,
+      181,
+      1440,
+      1985
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE944035_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.20), rotate 270 CCW"
+}

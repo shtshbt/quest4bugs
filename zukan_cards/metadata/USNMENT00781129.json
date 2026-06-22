@@ -1,0 +1,77 @@
+{
+  "species_id": "kiageha",
+  "species_ja": "キアゲハ",
+  "scientific_name": "Papilio machaon",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781129",
+    "occurrenceId": "http://n2t.net/ark:/65665/3481b3752-ca54-4db5-ab69-2e1da53a7bee",
+    "persistentId": "http://n2t.net/ark:/65665/3481b3752-ca54-4db5-ab69-2e1da53a7bee",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "W. Peters",
+    "eventDate": "1901",
+    "eventYear": 1901,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Koyukuk River, United States of America",
+    "preparations": "Pinned",
+    "decimalLatitude": 64.9233,
+    "decimalLongitude": -157.554
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318833568",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318833568",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10283770&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00781129_original.jpg",
+    "segmented": "processed/USNMENT00781129_L1_segmented.png",
+    "display": "processed/USNMENT00781129_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781129_54.webp",
+      "108": "thumb/USNMENT00781129_108.webp",
+      "216": "thumb/USNMENT00781129_216.webp"
+    }
+  },
+  "original_sha256": "c5a66993dac4776d58e6b1b06e142f5ffa823c63e1812a9d9e924434fb603ed6",
+  "processing": {
+    "cropBox": [
+      613,
+      382,
+      1424,
+      1007
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781129_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

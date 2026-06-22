@@ -1,0 +1,75 @@
+{
+  "species_id": "monkichou",
+  "species_ja": "モンキチョウ",
+  "scientific_name": "Colias erate",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781364",
+    "occurrenceId": "http://n2t.net/ark:/65665/312079a02-6e20-42a0-ad66-e64b7627c1f6",
+    "persistentId": "http://n2t.net/ark:/65665/312079a02-6e20-42a0-ad66-e64b7627c1f6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317610131",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317610131",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10486783&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00781364_original.jpg",
+    "segmented": "processed/USNMENT00781364_L1_segmented.png",
+    "display": "processed/USNMENT00781364_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781364_54.webp",
+      "108": "thumb/USNMENT00781364_108.webp",
+      "216": "thumb/USNMENT00781364_216.webp"
+    }
+  },
+  "original_sha256": "b0709c65d3feb33d7bc0c0dc6410bf393c757528755ef14a9c08bd3d4847b891",
+  "processing": {
+    "cropBox": [
+      286,
+      229,
+      1665,
+      1192
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781364_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

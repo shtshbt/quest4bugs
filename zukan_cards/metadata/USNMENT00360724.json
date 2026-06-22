@@ -1,0 +1,75 @@
+{
+  "species_id": "yama_sanae",
+  "species_ja": "ヤマサナエ",
+  "scientific_name": "Asiagomphus melaenops",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00360724",
+    "occurrenceId": "http://n2t.net/ark:/65665/387dbc12a-bd30-49fa-8aa9-8ae107b85bc1",
+    "persistentId": "http://n2t.net/ark:/65665/387dbc12a-bd30-49fa-8aa9-8ae107b85bc1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "S. Asahina",
+    "eventDate": "1958-05-19",
+    "eventYear": 1958,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mitsukoji, Kanazawa, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320274009",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320274009",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16333197&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00360724_original.jpg",
+    "segmented": "processed/USNMENT00360724_L1_segmented.png",
+    "display": "processed/USNMENT00360724_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00360724_54.webp",
+      "108": "thumb/USNMENT00360724_108.webp",
+      "216": "thumb/USNMENT00360724_216.webp"
+    }
+  },
+  "original_sha256": "4096cacdc330536ff29864464d25d5199beb0fa2820eb89a45caba3c67f7927d",
+  "processing": {
+    "cropBox": [
+      454,
+      112,
+      1406,
+      949
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00360724_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

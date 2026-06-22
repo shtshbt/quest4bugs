@@ -1,0 +1,82 @@
+{
+  "species_id": "maguso_kuwagata",
+  "species_ja": "マグソクワガタ",
+  "scientific_name": "Nicagus japonicus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "unipon (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_348915045",
+    "occurrenceId": "https://www.inaturalist.org/observations/348915045",
+    "persistentId": "https://www.inaturalist.org/observations/348915045",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "unipon",
+    "eventDate": "2026-04-11",
+    "eventYear": 2026,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.5012832026,
+    "decimalLongitude": 139.299226676,
+    "coordinatesObscured": true,
+    "iNatObservationId": "348915045",
+    "iNatPhotoId": "636422916",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/348915045",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/636422916/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs348915045_original.jpg",
+    "segmented": "processed/iNatobs348915045_L1_segmented.png",
+    "display": "processed/iNatobs348915045_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs348915045_54.webp",
+      "108": "thumb/iNatobs348915045_108.webp",
+      "216": "thumb/iNatobs348915045_216.webp"
+    }
+  },
+  "original_sha256": "7d87c680e70a213ab543d2227c0c0fe104bfc0ba74288d540ccc807cdef43360",
+  "processing": {
+    "cropBox": [
+      498,
+      810,
+      904,
+      1428
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs348915045_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.50), rotate 90 CCW"
+}

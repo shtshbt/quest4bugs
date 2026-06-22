@@ -1,0 +1,81 @@
+{
+  "species_id": "kantan_hime",
+  "species_ja": "ヒロバネカンタン",
+  "scientific_name": "Oecanthus euryelytra",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_154413336",
+    "occurrenceId": "https://www.inaturalist.org/observations/154413336",
+    "persistentId": "https://www.inaturalist.org/observations/154413336",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2016-10-16",
+    "eventYear": 2016,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8424134814,
+    "decimalLongitude": 139.5450511847,
+    "coordinatesObscured": true,
+    "iNatObservationId": "154413336",
+    "iNatPhotoId": "266804557",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/154413336",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/266804557/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs154413336_original.jpg",
+    "segmented": "processed/iNatobs154413336_L1_segmented.png",
+    "display": "processed/iNatobs154413336_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs154413336_54.webp",
+      "108": "thumb/iNatobs154413336_108.webp",
+      "216": "thumb/iNatobs154413336_216.webp"
+    }
+  },
+  "original_sha256": "2ab1d5c799fd1ce712ea5ab1cdfa808bba174432f9e09896e8ecb95a68bad7d2",
+  "processing": {
+    "cropBox": [
+      623,
+      412,
+      1576,
+      1204
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs154413336_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

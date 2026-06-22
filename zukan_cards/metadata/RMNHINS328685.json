@@ -1,0 +1,75 @@
+{
+  "species_id": "himeuranami_janome",
+  "species_ja": "ヒメウラナミジャノメ",
+  "scientific_name": "Ypthima argus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.328685",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.328685",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.328685",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444098376",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444098376",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.328685_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS328685_original.jpg",
+    "segmented": "processed/RMNHINS328685_L1_segmented.png",
+    "display": "processed/RMNHINS328685_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS328685_54.webp",
+      "108": "thumb/RMNHINS328685_108.webp",
+      "216": "thumb/RMNHINS328685_216.webp"
+    }
+  },
+  "original_sha256": "1c31d687794849f0216c0e7d3162c1545c2b961a194fd4fb6451ff9cbe8f49ab",
+  "processing": {
+    "cropBox": [
+      0,
+      35,
+      1920,
+      998
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS328685_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

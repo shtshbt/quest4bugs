@@ -1,0 +1,76 @@
+{
+  "species_id": "yotsuboshi_kamikiri",
+  "species_ja": "ヨツボシカミキリ",
+  "scientific_name": "Stenygrinum quadrinotatum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01584828",
+    "occurrenceId": "http://n2t.net/ark:/65665/36a1a92d5-b06c-4e4a-9d95-a903c52c361d",
+    "persistentId": "http://n2t.net/ark:/65665/36a1a92d5-b06c-4e4a-9d95-a903c52c361d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1967-07-01/1967-07-31",
+    "eventYear": 1967,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kanagawa, Kawasaki, Japan",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3758751442",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3758751442",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16538429&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT01584828_original.jpg",
+    "segmented": "processed/USNMENT01584828_L1_segmented.png",
+    "display": "processed/USNMENT01584828_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01584828_54.webp",
+      "108": "thumb/USNMENT01584828_108.webp",
+      "216": "thumb/USNMENT01584828_216.webp"
+    }
+  },
+  "original_sha256": "6c018115da7ec24a9b519d1e6e2028a9c636833a53ea6e92ee5957ec2480646f",
+  "processing": {
+    "cropBox": [
+      535,
+      0,
+      1516,
+      1500
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01584828_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.21), rotate 90 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "hotaruga",
+  "species_ja": "ホタルガ",
+  "scientific_name": "Pidorus atratus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kai Löhr",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pidorus atratus 56185349.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pidorus_atratus_56185349.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pidorus_atratus_56185349.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kai Löhr",
+    "eventDate": "2019-09-29",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Pidorus atratus",
+    "localityNormalized": "Pidorus atratus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pidorus_atratus_56185349.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Pidorus_atratus_56185349.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFilePidorusatratus56185349jpg_original.jpg",
+    "segmented": "processed/WMCFilePidorusatratus56185349jpg_L1_segmented.png",
+    "display": "processed/WMCFilePidorusatratus56185349jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePidorusatratus56185349jpg_54.webp",
+      "108": "thumb/WMCFilePidorusatratus56185349jpg_108.webp",
+      "216": "thumb/WMCFilePidorusatratus56185349jpg_216.webp"
+    }
+  },
+  "original_sha256": "e61b5970be1e9c9ceac26118d0adc6653e6b5ea06d77427569f56d3c558876c7",
+  "processing": {
+    "cropBox": [
+      596,
+      205,
+      1224,
+      1628
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePidorusatratus56185349jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.87), rotate 0 CCW"
+}

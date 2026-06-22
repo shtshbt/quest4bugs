@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_giis",
+  "species_ja": "ヒメギス",
+  "scientific_name": "Eobiana engelhardti subtropica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Phonon.b",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Eobiana engelhardti subtropica Nynph front.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Eobiana_engelhardti_subtropica_Nynph_front.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Eobiana_engelhardti_subtropica_Nynph_front.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Phonon.b",
+    "eventDate": "2020-05-09 12:52:47",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "ヒメギスの幼生\n日本、東海地方",
+    "localityNormalized": "ヒメギスの幼生\n日本、東海地方",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Eobiana_engelhardti_subtropica_Nynph_front.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Eobiana_engelhardti_subtropica_Nynph_front.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_original.jpg",
+    "segmented": "processed/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_L1_segmented.png",
+    "display": "processed/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_54.webp",
+      "108": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_108.webp",
+      "216": "thumb/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_216.webp"
+    }
+  },
+  "original_sha256": "9ece0f0c92639900e2952eaf9b0df0e72fb42197e3bc49b9a998746b75c9fff6",
+  "processing": {
+    "cropBox": [
+      0,
+      14,
+      3382,
+      2502
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEobianaengelhardtisubtropicaNynphfrontjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "kurohikage",
+  "species_ja": "クロヒカゲ",
+  "scientific_name": "Lethe diana",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.356443",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.356443",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.356443",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Russian Federation",
+    "localityVerbatim": null,
+    "localityNormalized": "Russian Federation",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444130702",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444130702",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.356443_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS356443_original.jpg",
+    "segmented": "processed/RMNHINS356443_L1_segmented.png",
+    "display": "processed/RMNHINS356443_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS356443_54.webp",
+      "108": "thumb/RMNHINS356443_108.webp",
+      "216": "thumb/RMNHINS356443_216.webp"
+    }
+  },
+  "original_sha256": "b8ed0e6a0ea7f733feea1eb422ce9304fde35f67247f0677b4369944fbefa28e",
+  "processing": {
+    "cropBox": [
+      0,
+      9,
+      1920,
+      947
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS356443_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

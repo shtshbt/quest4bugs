@@ -1,0 +1,75 @@
+{
+  "species_id": "onbu_batta",
+  "species_ja": "オンブバッタ",
+  "scientific_name": "Atractomorpha lata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "池田正樹 (talk) masaki ikeda",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Atractomorpha lata which copulates 08Oct4.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Atractomorpha_lata_which_copulates_08Oct4.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Atractomorpha_lata_which_copulates_08Oct4.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "池田正樹 (talk) masaki ikeda",
+    "eventDate": "2008-10-04",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Smaller longheaded locust, Mating",
+    "localityNormalized": "Smaller longheaded locust, Mating",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Atractomorpha_lata_which_copulates_08Oct4.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Atractomorpha_lata_which_copulates_08Oct4.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_original.jpg",
+    "segmented": "processed/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_L1_segmented.png",
+    "display": "processed/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_54.webp",
+      "108": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_108.webp",
+      "216": "thumb/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_216.webp"
+    }
+  },
+  "original_sha256": "225133c9c281be8b3c0142308a0a9742a15dc1ed83fc582ff33547a3b7cb9d1d",
+  "processing": {
+    "cropBox": [
+      178,
+      246,
+      1371,
+      2700
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAtractomorphalatawhichcopulates08Oct4jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

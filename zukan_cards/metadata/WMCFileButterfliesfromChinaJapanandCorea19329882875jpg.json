@@ -1,0 +1,75 @@
+{
+  "species_id": "usubashirochou",
+  "species_ja": "ウスバシロチョウ",
+  "scientific_name": "Parnassius citrinarius",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Leech, John Henry",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Butterflies from China, Japan, and Corea (19329882875).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(19329882875).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(19329882875).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Leech, John Henry",
+    "eventDate": "1892-94.",
+    "eventYear": 1892,
+    "country": null,
+    "localityVerbatim": "Leech, J. H., 1892-1893. Butterflies from China, Japan and Corea 3 volumes 1 map; 43 pls. London. PLATE XXXIII W.Purkiss del. Litho. Wilhelm Greve,Berlin Plate text read main text\nSee The Global Lepidoptera Names Index for valid names eg.\n\n1 Luehdorfia japonica var. chinensis female (pouch figured below) = Luehdorfia chinensis Leech, 1893\n2 Luehdorfia japonica female (pouch figured below) = Luehdorfia japonica Leech, 1889\n3 Parnassius jacquemonti var. thibetanus male (pouch of female figured below) = Parnassius jacquemonti Boisduval, 1836\n4 Parnassius delphius var. elwesi male = Parnassius delphius Eversmann, 1843\n5 Parnassius citrinarius var. female (pouch figured below) = Parnassius glacialis Butler, 1866\n6 Parnassius citrinarius male = Parnassius glacialis Butler, 1866\n7 Sericinus telamon var. telmona male =Sericinus montela Gray, 1852 f. telamon Donovan, 1798\n8 Sericinus telamon var. greyi female = =Sericinus montela Gray, 1852\n9 Davidina armandi male = Davidina armandi Oberthür, 1879\n10 Aporia procris male = Aporia procris Leech, 1890",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Butterflies_from_China,_Japan,_and_Corea_(19329882875).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Butterflies_from_China%2C_Japan%2C_and_Corea_%2819329882875%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_original.jpg",
+    "segmented": "processed/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_L1_segmented.png",
+    "display": "processed/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_54.webp",
+      "108": "thumb/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_108.webp",
+      "216": "thumb/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_216.webp"
+    }
+  },
+  "original_sha256": "120d5ef2e468cf911fd7c1c8bc00750efd027adb749ce00c3179753fcbded7cc",
+  "processing": {
+    "cropBox": [
+      95,
+      68,
+      1187,
+      1816
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

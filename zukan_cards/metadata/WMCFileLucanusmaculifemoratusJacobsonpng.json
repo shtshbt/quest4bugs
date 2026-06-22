@@ -1,0 +1,76 @@
+{
+  "species_id": "miyama_kuwagata",
+  "species_ja": "ミヤマクワガタ",
+  "scientific_name": "Lucanus maculifemoratus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Georgiy Jacobson",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lucanus maculifemoratus Jacobson.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lucanus_maculifemoratus_Jacobson.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lucanus_maculifemoratus_Jacobson.png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Georgiy Jacobson",
+    "eventDate": "2014-02-13 22:33:34",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "This image has been extracted from another file",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lucanus_maculifemoratus_Jacobson.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Lucanus_maculifemoratus_Jacobson.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileLucanusmaculifemoratusJacobsonpng_original.jpg",
+    "segmented": "processed/WMCFileLucanusmaculifemoratusJacobsonpng_L1_segmented.png",
+    "display": "processed/WMCFileLucanusmaculifemoratusJacobsonpng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_54.webp",
+      "108": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_108.webp",
+      "216": "thumb/WMCFileLucanusmaculifemoratusJacobsonpng_216.webp"
+    }
+  },
+  "original_sha256": "6e4b39200cddcde6c6c15e19552138c01929fde10822a7a8a4a24b38c0acfa5a",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      790,
+      1367
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLucanusmaculifemoratusJacobsonpng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.01), rotate 270 CCW"
+}

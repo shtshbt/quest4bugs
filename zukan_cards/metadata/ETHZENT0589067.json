@@ -1,0 +1,77 @@
+{
+  "species_id": "parry_futamata_kuwagata",
+  "species_ja": "パリーフタマタクワガタ",
+  "scientific_name": "Hexarthrius parryi",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0589067",
+    "occurrenceId": "ETHZ-ENT0589067",
+    "persistentId": "ETHZ-ENT0589067",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Brupbacher-Grau, H.",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": "Sumatra mont.",
+    "localityNormalized": "Barisan Mountains, Indonesia",
+    "preparations": "pinned",
+    "decimalLatitude": -0.434841,
+    "decimalLongitude": 100.253333
+  },
+  "source": {
+    "gbifOccurrenceKey": "5939010551",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5939010551",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/865052/7f4b55fa891d3eaefb7160fa9c76e10729de8e8a8fcf60fb9253c6233cebbafa/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZENT0589067_original.jpg",
+    "segmented": "processed/ETHZENT0589067_L1_segmented.png",
+    "display": "processed/ETHZENT0589067_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0589067_54.webp",
+      "108": "thumb/ETHZENT0589067_108.webp",
+      "216": "thumb/ETHZENT0589067_216.webp"
+    }
+  },
+  "original_sha256": "7f4b55fa891d3eaefb7160fa9c76e10729de8e8a8fcf60fb9253c6233cebbafa",
+  "processing": {
+    "cropBox": [
+      1571,
+      3381,
+      2373,
+      5040
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0589067_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.36), rotate 0 CCW"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "tarandus_kuwagata",
+  "species_ja": "タランドゥスオオツヤクワガタ",
+  "scientific_name": "Mesotopus tarandus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "keusju",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Trandus.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Trandus.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Trandus.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "keusju",
+    "eventDate": "2008-09-20",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "mesotopus tarandus",
+    "localityNormalized": "mesotopus tarandus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Trandus.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Trandus.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileTrandusJPG_original.jpg",
+    "segmented": "processed/WMCFileTrandusJPG_L1_segmented.png",
+    "display": "processed/WMCFileTrandusJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTrandusJPG_54.webp",
+      "108": "thumb/WMCFileTrandusJPG_108.webp",
+      "216": "thumb/WMCFileTrandusJPG_216.webp"
+    }
+  },
+  "original_sha256": "411e1ca70d7825184a3ed4b4be7197efcbd02039374634d9462fb3e0dd98aa82",
+  "processing": {
+    "cropBox": [
+      108,
+      66,
+      1029,
+      1965
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTrandusJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.39), rotate 180 CCW"
+}

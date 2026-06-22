@@ -1,0 +1,75 @@
+{
+  "species_id": "bekko_tonbo",
+  "species_ja": "ベッコウトンボ",
+  "scientific_name": "Libellula angelina",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00274420",
+    "occurrenceId": "http://n2t.net/ark:/65665/3bc83476e-6548-4246-a807-630ab4982c06",
+    "persistentId": "http://n2t.net/ark:/65665/3bc83476e-6548-4246-a807-630ab4982c06",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "S. Eda",
+    "eventDate": "1955-05-13",
+    "eventYear": 1955,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mobara, Chiba-Ken, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321465575",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321465575",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16390253&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00274420_original.jpg",
+    "segmented": "processed/USNMENT00274420_L1_segmented.png",
+    "display": "processed/USNMENT00274420_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00274420_54.webp",
+      "108": "thumb/USNMENT00274420_108.webp",
+      "216": "thumb/USNMENT00274420_216.webp"
+    }
+  },
+  "original_sha256": "eb6341b91f2f917f5c513b56452d9028b6c1bdfe9cb7d5799f432633f874e234",
+  "processing": {
+    "cropBox": [
+      946,
+      387,
+      1609,
+      1058
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00274420_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

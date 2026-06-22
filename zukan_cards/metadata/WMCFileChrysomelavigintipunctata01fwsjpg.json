@@ -1,0 +1,75 @@
+{
+  "species_id": "yanagi_hamushi",
+  "species_ja": "ヤナギハムシ",
+  "scientific_name": "Chrysomela vigintipunctata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Francisco Welter-Schultes",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chrysomela-vigintipunctata-01-fws.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chrysomela-vigintipunctata-01-fws.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chrysomela-vigintipunctata-01-fws.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Francisco Welter-Schultes",
+    "eventDate": "2018-05-26",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Chrysomela vigintipunctata (Scopoli, 1763). Germany: Niedersachsen, Landkreis Göttingen, Bursfelde.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chrysomela-vigintipunctata-01-fws.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Chrysomela-vigintipunctata-01-fws.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileChrysomelavigintipunctata01fwsjpg_original.jpg",
+    "segmented": "processed/WMCFileChrysomelavigintipunctata01fwsjpg_L1_segmented.png",
+    "display": "processed/WMCFileChrysomelavigintipunctata01fwsjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_54.webp",
+      "108": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_108.webp",
+      "216": "thumb/WMCFileChrysomelavigintipunctata01fwsjpg_216.webp"
+    }
+  },
+  "original_sha256": "970d517e949223816eaae279576d1edf8ef685b48edd071b209e7e2dda1084b9",
+  "processing": {
+    "cropBox": [
+      18,
+      20,
+      1405,
+      1129
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChrysomelavigintipunctata01fwsjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

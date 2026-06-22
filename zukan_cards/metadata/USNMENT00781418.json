@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_shirochou",
+  "species_ja": "ヒメシロチョウ",
+  "scientific_name": "Leptidea amurensis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781418",
+    "occurrenceId": "http://n2t.net/ark:/65665/3e0be5c18-b0b9-4840-b21b-e3bd1ee573f4",
+    "persistentId": "http://n2t.net/ark:/65665/3e0be5c18-b0b9-4840-b21b-e3bd1ee573f4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322282714",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322282714",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10488312&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00781418_original.jpg",
+    "segmented": "processed/USNMENT00781418_L1_segmented.png",
+    "display": "processed/USNMENT00781418_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781418_54.webp",
+      "108": "thumb/USNMENT00781418_108.webp",
+      "216": "thumb/USNMENT00781418_216.webp"
+    }
+  },
+  "original_sha256": "e80cd6b13144e4a1ae4c61b31bdbd4f0719948c63472e110f3c3526c86179a22",
+  "processing": {
+    "cropBox": [
+      216,
+      201,
+      1774,
+      1136
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781418_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

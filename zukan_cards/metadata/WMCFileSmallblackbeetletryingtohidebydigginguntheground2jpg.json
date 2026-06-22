@@ -1,0 +1,76 @@
+{
+  "species_id": "senchi_kogane",
+  "species_ja": "センチコガネ",
+  "scientific_name": "Phelotrupes laevistriatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Small black beetle trying to hide by digging un the ground - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Small_black_beetle_trying_to_hide_by_digging_un_the_ground_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Small_black_beetle_trying_to_hide_by_digging_un_the_ground_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2020-10-01 17:36:14",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "地面の下に隠れようとしてた黒くて小さい甲虫。センチコガネと思われます。愛知県春日井市の西高森山で撮影。",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Small_black_beetle_trying_to_hide_by_digging_un_the_ground_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/94/Small_black_beetle_trying_to_hide_by_digging_un_the_ground_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_original.jpg",
+    "segmented": "processed/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_L1_segmented.png",
+    "display": "processed/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_54.webp",
+      "108": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_108.webp",
+      "216": "thumb/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_216.webp"
+    }
+  },
+  "original_sha256": "bce49644db276202522b780828f078ddddd9c0715085967106b873a8cbeac0f0",
+  "processing": {
+    "cropBox": [
+      250,
+      875,
+      1762,
+      2245
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSmallblackbeetletryingtohidebydigginguntheground2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.40), rotate 180 CCW"
+}

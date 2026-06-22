@@ -1,0 +1,75 @@
+{
+  "species_id": "hosoba_seseri",
+  "species_ja": "ホソバセセリ",
+  "scientific_name": "Isoteinon lamprospilus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Peellden",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Isoteinon lamprospilus formosanus 20140525.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Isoteinon_lamprospilus_formosanus_20140525.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Isoteinon_lamprospilus_formosanus_20140525.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Peellden",
+    "eventDate": "2014-05-25 13:15:06",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "​白斑弄蝶 Isoteinon lamprospilus formosanus",
+    "localityNormalized": "​白斑弄蝶 Isoteinon lamprospilus formosanus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Isoteinon_lamprospilus_formosanus_20140525.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Isoteinon_lamprospilus_formosanus_20140525.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileIsoteinonlamprospilusformosanus20140525jpg_original.jpg",
+    "segmented": "processed/WMCFileIsoteinonlamprospilusformosanus20140525jpg_L1_segmented.png",
+    "display": "processed/WMCFileIsoteinonlamprospilusformosanus20140525jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileIsoteinonlamprospilusformosanus20140525jpg_54.webp",
+      "108": "thumb/WMCFileIsoteinonlamprospilusformosanus20140525jpg_108.webp",
+      "216": "thumb/WMCFileIsoteinonlamprospilusformosanus20140525jpg_216.webp"
+    }
+  },
+  "original_sha256": "f495df56f24a8003e168252e9eeddcdcd52261d8adb433f95499126bb6fc0861",
+  "processing": {
+    "cropBox": [
+      222,
+      200,
+      1916,
+      2060
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileIsoteinonlamprospilusformosanus20140525jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

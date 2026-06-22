@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_ito_tonbo",
+  "species_ja": "オオイトトンボ",
+  "scientific_name": "Paracercion sieboldii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00331215",
+    "occurrenceId": "http://n2t.net/ark:/65665/3a776286b-e7c4-4f86-bfac-a6cec25c17a6",
+    "persistentId": "http://n2t.net/ark:/65665/3a776286b-e7c4-4f86-bfac-a6cec25c17a6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "H. Yamamoto",
+    "eventDate": "1935-06-09",
+    "eventYear": 1935,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "[Not Stated], Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320988620",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320988620",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16350309&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00331215_original.jpg",
+    "segmented": "processed/USNMENT00331215_L1_segmented.png",
+    "display": "processed/USNMENT00331215_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00331215_54.webp",
+      "108": "thumb/USNMENT00331215_108.webp",
+      "216": "thumb/USNMENT00331215_216.webp"
+    }
+  },
+  "original_sha256": "7a6252cda3acca33eaaac903f0309a3524afcf3f8e29a318ab79092c0049a968",
+  "processing": {
+    "cropBox": [
+      13,
+      0,
+      2000,
+      1536
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00331215_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,82 @@
+{
+  "species_id": "kuro_osamushi",
+  "species_ja": "クロオサムシ",
+  "scientific_name": "Carabus albrechti",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_231800374",
+    "occurrenceId": "https://www.inaturalist.org/observations/231800374",
+    "persistentId": "https://www.inaturalist.org/observations/231800374",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2020-02-15",
+    "eventYear": 2020,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8787930569,
+    "decimalLongitude": 137.9705937715,
+    "coordinatesObscured": true,
+    "iNatObservationId": "231800374",
+    "iNatPhotoId": "411745850",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/231800374",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/411745850/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs231800374_original.jpg",
+    "segmented": "processed/iNatobs231800374_L1_segmented.png",
+    "display": "processed/iNatobs231800374_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs231800374_54.webp",
+      "108": "thumb/iNatobs231800374_108.webp",
+      "216": "thumb/iNatobs231800374_216.webp"
+    }
+  },
+  "original_sha256": "802a1ad5dab9403f5b185fb0e64dac2724f8c6538bc636c71253b4eed30843b9",
+  "processing": {
+    "cropBox": [
+      339,
+      434,
+      1501,
+      1349
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs231800374_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.89), rotate 180 CCW"
+}

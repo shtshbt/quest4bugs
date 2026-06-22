@@ -1,0 +1,75 @@
+{
+  "species_id": "koao_hanamuguri",
+  "species_ja": "コアオハナムグリ",
+  "scientific_name": "Gametis jucunda",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Lynette Clennell",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Gametis jucunda (10.3897-zookeys.1026.60036) Figure 4.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Gametis_jucunda_(10.3897-zookeys.1026.60036)_Figure_4.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Gametis_jucunda_(10.3897-zookeys.1026.60036)_Figure_4.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Lynette Clennell",
+    "eventDate": "2021-03-25",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Figure 4. \nGametis jucunda (Faldermann, 1835): dorsal (left) and side (right) views of typical specimens observed at Taipa (11 Mar 2019) and Coloane (8 Apr 2020), respectively.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Gametis_jucunda_(10.3897-zookeys.1026.60036)_Figure_4.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Gametis_jucunda_%2810.3897-zookeys.1026.60036%29_Figure_4.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_original.jpg",
+    "segmented": "processed/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_L1_segmented.png",
+    "display": "processed/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_54.webp",
+      "108": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_108.webp",
+      "216": "thumb/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_216.webp"
+    }
+  },
+  "original_sha256": "034d2ba2ca50d0d42899e1ffe2fbd3d07f1f0ce9af997abef75f660117825b5b",
+  "processing": {
+    "cropBox": [
+      141,
+      24,
+      1444,
+      629
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGametisjucunda103897zookeys102660036Figure4jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.61), rotate 0 CCW"
+}

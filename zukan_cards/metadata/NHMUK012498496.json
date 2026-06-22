@@ -1,0 +1,75 @@
+{
+  "species_id": "toge_himo_batta",
+  "species_ja": "タイワンツチイナゴ",
+  "scientific_name": "Patanga succincta",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498496",
+    "occurrenceId": "5686a93d-895f-4552-ab01-ff8017ce4ff8",
+    "persistentId": "5686a93d-895f-4552-ab01-ff8017ce4ff8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417522",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5686a93d-895f-4552-ab01-ff8017ce4ff8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/107fb1d1-b9f2-49ae-b00c-d653b0b1917f",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK012498496_original.jpg",
+    "segmented": "processed/NHMUK012498496_L1_segmented.png",
+    "display": "processed/NHMUK012498496_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498496_54.webp",
+      "108": "thumb/NHMUK012498496_108.webp",
+      "216": "thumb/NHMUK012498496_216.webp"
+    }
+  },
+  "original_sha256": "ea1669aece07cec3902d1302e422210331edb7be2fbb134775d39c108c987802",
+  "processing": {
+    "cropBox": [
+      137,
+      177,
+      1137,
+      915
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498496_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

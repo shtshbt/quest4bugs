@@ -1,0 +1,77 @@
+{
+  "species_id": "uranami_akashijimi",
+  "species_ja": "ウラナミアカシジミ",
+  "scientific_name": "Japonica saepestriata",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 754890",
+    "occurrenceId": "urn:uuid:c7ff53b4-1c26-46c6-8662-1a2f8df1749f",
+    "persistentId": "urn:uuid:c7ff53b4-1c26-46c6-8662-1a2f8df1749f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "I Hayano",
+    "eventDate": "1953-06-17",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shinohara, Yokohama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.465408,
+    "decimalLongitude": 139.622253
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039165930",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-754890",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:60c267ee-889a-4861-a3cd-360eef50ac8b/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT754890_original.jpg",
+    "segmented": "processed/YPMENT754890_L1_segmented.png",
+    "display": "processed/YPMENT754890_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT754890_54.webp",
+      "108": "thumb/YPMENT754890_108.webp",
+      "216": "thumb/YPMENT754890_216.webp"
+    }
+  },
+  "original_sha256": "c27618e3262e511079298774f4f11e4680f1c5c315ebefd777b28fce01b39ed6",
+  "processing": {
+    "cropBox": [
+      151,
+      0,
+      1032,
+      1457
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT754890_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

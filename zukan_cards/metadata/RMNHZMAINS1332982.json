@@ -1,0 +1,77 @@
+{
+  "species_id": "tomon_ageha",
+  "species_ja": "タイワンモンキアゲハ",
+  "scientific_name": "Papilio nephelus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1332982",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1332982",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1332982",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "J.M.A. van Groenendeal",
+    "eventDate": "1941-05-10",
+    "eventYear": 1941,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Gunung Gede, Indonesia",
+    "preparations": "WholeOrganism (air dried)",
+    "decimalLatitude": -6.787778,
+    "decimalLongitude": 106.981944
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443944847",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443944847",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1332982_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHZMAINS1332982_original.jpg",
+    "segmented": "processed/RMNHZMAINS1332982_L1_segmented.png",
+    "display": "processed/RMNHZMAINS1332982_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1332982_54.webp",
+      "108": "thumb/RMNHZMAINS1332982_108.webp",
+      "216": "thumb/RMNHZMAINS1332982_216.webp"
+    }
+  },
+  "original_sha256": "902520117f9c354b99cfb203b32b7f84cc73529e2216ad6eabca9ab88833cfdb",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1920,
+      1282
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1332982_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

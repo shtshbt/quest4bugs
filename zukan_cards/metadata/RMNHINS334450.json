@@ -1,0 +1,75 @@
+{
+  "species_id": "kojanome",
+  "species_ja": "コジャノメ",
+  "scientific_name": "Mycalesis francisca",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.334450",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.334450",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.334450",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443608947",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443608947",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.334450_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS334450_original.jpg",
+    "segmented": "processed/RMNHINS334450_L1_segmented.png",
+    "display": "processed/RMNHINS334450_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS334450_54.webp",
+      "108": "thumb/RMNHINS334450_108.webp",
+      "216": "thumb/RMNHINS334450_216.webp"
+    }
+  },
+  "original_sha256": "074fd544a7378c05ff3889c34d89611631a30289c55965333abc673a833834ef",
+  "processing": {
+    "cropBox": [
+      0,
+      42,
+      1920,
+      1002
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS334450_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

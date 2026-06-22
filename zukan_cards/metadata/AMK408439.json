@@ -1,0 +1,77 @@
+{
+  "species_id": "kuro_hira_taabu",
+  "species_ja": "クロヒラタアブ",
+  "scientific_name": "Betasyrphus serarius",
+  "credit_line": "Australian Museum",
+  "creator": "Clare Forte",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.408439",
+    "occurrenceId": "842114e8-f79e-405e-9d0a-a43fcb624ee0",
+    "persistentId": "842114e8-f79e-405e-9d0a-a43fcb624ee0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.A. Holloway, J. Holloway (nee Walsh) & A. Holloway",
+    "eventDate": "1984-04-24",
+    "eventYear": 1984,
+    "country": "Australia",
+    "localityVerbatim": "90 km N of Grafton",
+    "localityNormalized": "90 km N of Grafton, Australia",
+    "preparations": null,
+    "decimalLatitude": -28.942778,
+    "decimalLongitude": 153.00667
+  },
+  "source": {
+    "gbifOccurrenceKey": "1253330129",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1253330129",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=0fa6910d-c71f-409a-84ea-c5f8d2ed94e4",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK408439_original.jpg",
+    "segmented": "processed/AMK408439_L1_segmented.png",
+    "display": "processed/AMK408439_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK408439_54.webp",
+      "108": "thumb/AMK408439_108.webp",
+      "216": "thumb/AMK408439_216.webp"
+    }
+  },
+  "original_sha256": "1801c2c6d800fa97399d5595a8dcdf30937b049a5bf8bdf5f6a3e438b74eb60d",
+  "processing": {
+    "cropBox": [
+      10,
+      18,
+      622,
+      414
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK408439_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

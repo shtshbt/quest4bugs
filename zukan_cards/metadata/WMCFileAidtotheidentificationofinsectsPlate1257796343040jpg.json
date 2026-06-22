@@ -1,0 +1,76 @@
+{
+  "species_id": "oo_ruri_osamushi",
+  "species_ja": "オオルリオサムシ",
+  "scientific_name": "Damaster gehinii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Waterhouse, Charles Owen",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aid to the identification of insects (Plate 125) (7796343040).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_125)_(7796343040).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_125)_(7796343040).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Waterhouse, Charles Owen",
+    "eventDate": "1880-90.",
+    "eventYear": 1880,
+    "country": null,
+    "localityVerbatim": "Aid. \n125. \n1 . Cychrus convexus  =Cychrus morawitzi morawitzi \n2 . Cymindis daimio, \n3 . Mouhotia Batesi , \n4 . Carabus Gehini , = Carabus gehinii gehinii \n5 . Damaster capito = Carabus blaptoides capito \nEdwTru Wilson., del et lith. \nMor^awiM,Merw.Ao Sex-. 5* Peier^sb .,V1 , (1863).p 7. \nBoies , TroThS. Etxt . Soc, \nL ewis , Erdu . Mo .Mag ., JV, \nFaznmcucrey, P&amp;bJb NouyeIZ&amp; EnL., II , \nL ewis, Enl. . Mo . Moug, XVII , \n(1873). p. 310 \n(1879), p. 186. \n(I876j,p.37. \n(1881), .p. 197. \nJapan. \nJapan. \nBuriTLcLh. \nJapan \nJapan. \n\nMinterri Bi-os . imp",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aid_to_the_identification_of_insects_(Plate_125)_(7796343040).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Aid_to_the_identification_of_insects_%28Plate_125%29_%287796343040%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_original.jpg",
+    "segmented": "processed/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_L1_segmented.png",
+    "display": "processed/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_54.webp",
+      "108": "thumb/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_108.webp",
+      "216": "thumb/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_216.webp"
+    }
+  },
+  "original_sha256": "e702ae52aba67fa46704b0a9ea172645a0df1f28c86a722c860933762d251bf3",
+  "processing": {
+    "cropBox": [
+      48,
+      209,
+      1007,
+      1229
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.10), rotate 180 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "ao_metsuka_abu_dummy",
+  "species_ja": "アオメアブ",
+  "scientific_name": "Cophinopoda chinensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "R78G addz",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cophinopoda chinensis,2017-07-16.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cophinopoda_chinensis,2017-07-16.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cophinopoda_chinensis,2017-07-16.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "R78G addz",
+    "eventDate": "2017-07-16 10:28:03",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "アオメアブ、広島県",
+    "localityNormalized": "アオメアブ、広島県",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cophinopoda_chinensis,2017-07-16.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Cophinopoda_chinensis%2C2017-07-16.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileCophinopodachinensis20170716jpg_original.jpg",
+    "segmented": "processed/WMCFileCophinopodachinensis20170716jpg_L1_segmented.png",
+    "display": "processed/WMCFileCophinopodachinensis20170716jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCophinopodachinensis20170716jpg_54.webp",
+      "108": "thumb/WMCFileCophinopodachinensis20170716jpg_108.webp",
+      "216": "thumb/WMCFileCophinopodachinensis20170716jpg_216.webp"
+    }
+  },
+  "original_sha256": "de1c05c4c1e65037a442b70bb315f930a633b9dd6d5556e91e812b4c4ed9f961",
+  "processing": {
+    "cropBox": [
+      246,
+      125,
+      532,
+      488
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCophinopodachinensis20170716jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

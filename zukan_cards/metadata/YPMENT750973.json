@@ -1,0 +1,77 @@
+{
+  "species_id": "goishi_shijimi",
+  "species_ja": "ゴイシシジミ",
+  "scientific_name": "Taraka hamada",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 750973",
+    "occurrenceId": "urn:uuid:5b4a3bfc-47d6-4f77-95f8-260957ed21d8",
+    "persistentId": "urn:uuid:5b4a3bfc-47d6-4f77-95f8-260957ed21d8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1953-08-27",
+    "eventYear": 1953,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Shinohara, Yokohama, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.465408,
+    "decimalLongitude": 139.622253
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039090030",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-750973",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:1ab57c94-f22e-471d-9e0b-ebe99838783d/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT750973_original.jpg",
+    "segmented": "processed/YPMENT750973_L1_segmented.png",
+    "display": "processed/YPMENT750973_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT750973_54.webp",
+      "108": "thumb/YPMENT750973_108.webp",
+      "216": "thumb/YPMENT750973_216.webp"
+    }
+  },
+  "original_sha256": "7390ceba18532e2d432224bd53d2d1675b1f2f59c6c758fd8e75f08b975f93b9",
+  "processing": {
+    "cropBox": [
+      165,
+      86,
+      1063,
+      1363
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT750973_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

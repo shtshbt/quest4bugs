@@ -1,0 +1,75 @@
+{
+  "species_id": "hina_kamakiri",
+  "species_ja": "ヒナカマキリ",
+  "scientific_name": "Amantis nawai",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mmsmr",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:ヒナカマキリAmantis nawai 奄美大島大和村.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%83%92%E3%83%8A%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AAAmantis_nawai_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E5%A4%A7%E5%92%8C%E6%9D%91.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%83%92%E3%83%8A%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AAAmantis_nawai_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E5%A4%A7%E5%92%8C%E6%9D%91.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mmsmr",
+    "eventDate": "2012-09-19",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "ヒナカマキリAmantis nawai　奄美大島大和村",
+    "localityNormalized": "ヒナカマキリAmantis nawai　奄美大島大和村",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%83%92%E3%83%8A%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AAAmantis_nawai_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E5%A4%A7%E5%92%8C%E6%9D%91.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/%E3%83%92%E3%83%8A%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AAAmantis_nawai_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E5%A4%A7%E5%92%8C%E6%9D%91.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileAmantisnawaijpg_original.jpg",
+    "segmented": "processed/WMCFileAmantisnawaijpg_L1_segmented.png",
+    "display": "processed/WMCFileAmantisnawaijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAmantisnawaijpg_54.webp",
+      "108": "thumb/WMCFileAmantisnawaijpg_108.webp",
+      "216": "thumb/WMCFileAmantisnawaijpg_216.webp"
+    }
+  },
+  "original_sha256": "63e70b9edb5329ede4814bf7c09a6179ff0792d63f997db6d4ead609a20a0586",
+  "processing": {
+    "cropBox": [
+      567,
+      617,
+      3109,
+      1951
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAmantisnawaijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

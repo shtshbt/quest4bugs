@@ -1,0 +1,77 @@
+{
+  "species_id": "komurasaki",
+  "species_ja": "コムラサキ",
+  "scientific_name": "Apatura metis",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0027780",
+    "occurrenceId": "ETHZ-ENT0027780",
+    "persistentId": "ETHZ-ENT0027780",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1983-08-03",
+    "eventYear": 1983,
+    "country": "Croatia",
+    "localityVerbatim": "Erdut bei Sonta,: Slawonien, Kroatien",
+    "localityNormalized": "Erdut, Croatia",
+    "preparations": "pinned",
+    "decimalLatitude": 45.523611,
+    "decimalLongitude": 19.057222
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761678355",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761678355",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/68270/150e2e962967d528e93a2a38b323988363cf41ee7a75b14bb36c62026a383c9f/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/ETHZENT0027780_original.jpg",
+    "segmented": "processed/ETHZENT0027780_L1_segmented.png",
+    "display": "processed/ETHZENT0027780_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0027780_54.webp",
+      "108": "thumb/ETHZENT0027780_108.webp",
+      "216": "thumb/ETHZENT0027780_216.webp"
+    }
+  },
+  "original_sha256": "150e2e962967d528e93a2a38b323988363cf41ee7a75b14bb36c62026a383c9f",
+  "processing": {
+    "cropBox": [
+      1315,
+      3943,
+      2814,
+      5062
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0027780_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

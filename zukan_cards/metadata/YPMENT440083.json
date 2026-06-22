@@ -1,0 +1,77 @@
+{
+  "species_id": "uraginshijimi",
+  "species_ja": "ウラギンシジミ",
+  "scientific_name": "Curetis acuta",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 440083",
+    "occurrenceId": "urn:uuid:d3ecba0e-940b-436a-baed-04a92609c2e7",
+    "persistentId": "urn:uuid:d3ecba0e-940b-436a-baed-04a92609c2e7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "M. Shulgin",
+    "eventDate": "1956-09-18",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Takanawa, Japan",
+    "preparations": null,
+    "decimalLatitude": 33.945,
+    "decimalLongitude": 132.847174
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039174221",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-440083",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:0c1c2d78-1bc5-4075-abd2-ec7cf19ac91b/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/YPMENT440083_original.jpg",
+    "segmented": "processed/YPMENT440083_L1_segmented.png",
+    "display": "processed/YPMENT440083_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT440083_54.webp",
+      "108": "thumb/YPMENT440083_108.webp",
+      "216": "thumb/YPMENT440083_216.webp"
+    }
+  },
+  "original_sha256": "6ca6f12f3c05bb96a2b65cd06e5fa21f3f0c2919084926d8527f19582225b364",
+  "processing": {
+    "cropBox": [
+      170,
+      0,
+      1025,
+      1504
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT440083_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

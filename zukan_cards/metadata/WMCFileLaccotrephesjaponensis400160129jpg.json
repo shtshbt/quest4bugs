@@ -1,0 +1,75 @@
+{
+  "species_id": "taikouchi",
+  "species_ja": "タイコウチ",
+  "scientific_name": "Laccotrephes japonensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "renshuchu",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Laccotrephes japonensis 400160129.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Laccotrephes_japonensis_400160129.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Laccotrephes_japonensis_400160129.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-09-18",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Japanese Water Scorpion (Laccotrephes japonensis) in Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Laccotrephes_japonensis_400160129.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Laccotrephes_japonensis_400160129.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileLaccotrephesjaponensis400160129jpg_original.jpg",
+    "segmented": "processed/WMCFileLaccotrephesjaponensis400160129jpg_L1_segmented.png",
+    "display": "processed/WMCFileLaccotrephesjaponensis400160129jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_54.webp",
+      "108": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_108.webp",
+      "216": "thumb/WMCFileLaccotrephesjaponensis400160129jpg_216.webp"
+    }
+  },
+  "original_sha256": "69730d75d7f9be50e97bd95f429bfbe6c7cdb9089ab07a07ffb347d9245fd36a",
+  "processing": {
+    "cropBox": [
+      409,
+      329,
+      1855,
+      1259
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLaccotrephesjaponensis400160129jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

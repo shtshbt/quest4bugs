@@ -1,0 +1,75 @@
+{
+  "species_id": "kooimushi",
+  "species_ja": "コオイムシ",
+  "scientific_name": "Appasus japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Dieno",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Diplonychusjaponicus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Diplonychusjaponicus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Diplonychusjaponicus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dieno",
+    "eventDate": "2007-06-04",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Diplonychus japonicus\nコオイムシ\n\nko:물자라",
+    "localityNormalized": "Diplonychus japonicus\nコオイムシ\n\nko:물자라",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Diplonychusjaponicus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Diplonychusjaponicus.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileDiplonychusjaponicusjpg_original.jpg",
+    "segmented": "processed/WMCFileDiplonychusjaponicusjpg_L1_segmented.png",
+    "display": "processed/WMCFileDiplonychusjaponicusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDiplonychusjaponicusjpg_54.webp",
+      "108": "thumb/WMCFileDiplonychusjaponicusjpg_108.webp",
+      "216": "thumb/WMCFileDiplonychusjaponicusjpg_216.webp"
+    }
+  },
+  "original_sha256": "7520efb2ca8d0c129f3378c5ddcb636df2e81b389441f6720396698a1c0b6bf5",
+  "processing": {
+    "cropBox": [
+      86,
+      45,
+      324,
+      271
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDiplonychusjaponicusjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

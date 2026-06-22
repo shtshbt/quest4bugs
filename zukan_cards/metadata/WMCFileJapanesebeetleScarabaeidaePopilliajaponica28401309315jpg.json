@@ -1,0 +1,76 @@
+{
+  "species_id": "mametsuchi_kogane",
+  "species_ja": "マメコガネ",
+  "scientific_name": "Popillia japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Insects Unlocked",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Japanese beetle (Scarabaeidae, Popillia japonica) (28401309315).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Japanese_beetle_(Scarabaeidae,_Popillia_japonica)_(28401309315).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Japanese_beetle_(Scarabaeidae,_Popillia_japonica)_(28401309315).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Insects Unlocked",
+    "eventDate": "2016-07-18 17:23",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "USA, VA, Radford\nRest stop\n\n15-vii-2016",
+    "localityNormalized": "USA, VA, Radford\nRest stop\n\n15-vii-2016",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Japanese_beetle_(Scarabaeidae,_Popillia_japonica)_(28401309315).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Japanese_beetle_%28Scarabaeidae%2C_Popillia_japonica%29_%2828401309315%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_original.jpg",
+    "segmented": "processed/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_L1_segmented.png",
+    "display": "processed/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_54.webp",
+      "108": "thumb/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_108.webp",
+      "216": "thumb/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_216.webp"
+    }
+  },
+  "original_sha256": "1b5db5f408a6045e5ce57b766522f300dabafb318f3aa1bfe004b0fc1747c3df",
+  "processing": {
+    "cropBox": [
+      485,
+      99,
+      2520,
+      2481
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileJapanesebeetleScarabaeidaePopilliajaponica28401309315jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.62), rotate 180 CCW"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "ezo_zemi",
+  "species_ja": "エゾゼミ",
+  "scientific_name": "Lyristes japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Daderot",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tibicen japonicus - National Museum of Nature and Science, Tokyo - DSC06840.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tibicen_japonicus_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC06840.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tibicen_japonicus_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC06840.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Daderot",
+    "eventDate": "2013-09-04 21:00:57",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Exhibit in the National Museum of Nature and Science, Tokyo, Japan. Photography was permitted in the museum without restriction.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tibicen_japonicus_-_National_Museum_of_Nature_and_Science,_Tokyo_-_DSC06840.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Tibicen_japonicus_-_National_Museum_of_Nature_and_Science%2C_Tokyo_-_DSC06840.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_original.jpg",
+    "segmented": "processed/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_L1_segmented.png",
+    "display": "processed/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_54.webp",
+      "108": "thumb/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_108.webp",
+      "216": "thumb/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_216.webp"
+    }
+  },
+  "original_sha256": "0b650fb91f35c804ea20ed9c7c129d0adfd76efdcf7653eb46ee12def377028f",
+  "processing": {
+    "cropBox": [
+      302,
+      23,
+      2590,
+      2644
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTibicenjaponicusNationalMuseumofNatureandScienceTokyoDSC06840JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

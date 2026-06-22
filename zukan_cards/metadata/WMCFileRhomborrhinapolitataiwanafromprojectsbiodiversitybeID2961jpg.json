@@ -1,0 +1,75 @@
+{
+  "species_id": "kuro_kanabun",
+  "species_ja": "クロカナブン",
+  "scientific_name": "Rhomborrhina polita",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Noël Mal",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhomborrhina polita taiwana (from projects.biodiversity.be) ID-2961.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_polita_taiwana_(from_projects.biodiversity.be)_ID-2961.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_polita_taiwana_(from_projects.biodiversity.be)_ID-2961.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Noël Mal",
+    "eventDate": "2025-04-30 11:57:14",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_polita_taiwana_(from_projects.biodiversity.be)_ID-2961.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Rhomborrhina_polita_taiwana_%28from_projects.biodiversity.be%29_ID-2961.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_original.jpg",
+    "segmented": "processed/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_L1_segmented.png",
+    "display": "processed/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_54.webp",
+      "108": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_108.webp",
+      "216": "thumb/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_216.webp"
+    }
+  },
+  "original_sha256": "51323189af04ba09c1ceff4e859f7f82f667eeff5c6359ed8111e47f05f36ae9",
+  "processing": {
+    "cropBox": [
+      88,
+      78,
+      361,
+      563
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhomborrhinapolitataiwanafromprojectsbiodiversitybeID2961jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.53), rotate 0 CCW"
+}

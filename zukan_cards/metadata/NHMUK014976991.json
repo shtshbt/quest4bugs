@@ -1,0 +1,75 @@
+{
+  "species_id": "yamaimo_hamushi",
+  "species_ja": "ヤマイモハムシ",
+  "scientific_name": "Lema diversa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014976991",
+    "occurrenceId": "d6ea275a-f9a0-4b88-a32d-0431851a8c1c",
+    "persistentId": "d6ea275a-f9a0-4b88-a32d-0431851a8c1c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3901817953",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/d6ea275a-f9a0-4b88-a32d-0431851a8c1c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f72d75af-66f0-43cd-bc29-428da5771aad",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK014976991_original.jpg",
+    "segmented": "processed/NHMUK014976991_L1_segmented.png",
+    "display": "processed/NHMUK014976991_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014976991_54.webp",
+      "108": "thumb/NHMUK014976991_108.webp",
+      "216": "thumb/NHMUK014976991_216.webp"
+    }
+  },
+  "original_sha256": "9c77715daf81fbf865e16e7dc59f77c7a6261afef9bb80aac61bbd87b3047c71",
+  "processing": {
+    "cropBox": [
+      680,
+      319,
+      844,
+      789
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014976991_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

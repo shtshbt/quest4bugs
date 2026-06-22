@@ -1,0 +1,75 @@
+{
+  "species_id": "miyama_chabane_seseri",
+  "species_ja": "ミヤマチャバネセセリ",
+  "scientific_name": "Pelopidas jansonis",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.986663",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986663",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986663",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1979-05-05",
+    "eventYear": 1979,
+    "country": "Korea (Democratic People’s Republic of)",
+    "localityVerbatim": null,
+    "localityNormalized": "Pyongyang, Korea (Democratic People’s Republic of)",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3497087316",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3497087316",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.986663_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/RMNHINS986663_original.jpg",
+    "segmented": "processed/RMNHINS986663_L1_segmented.png",
+    "display": "processed/RMNHINS986663_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS986663_54.webp",
+      "108": "thumb/RMNHINS986663_108.webp",
+      "216": "thumb/RMNHINS986663_216.webp"
+    }
+  },
+  "original_sha256": "e54c5521876c8919559d32817849356d39a78999cfbb77ce6f18319db6bfbf82",
+  "processing": {
+    "cropBox": [
+      213,
+      0,
+      1920,
+      1282
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS986663_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

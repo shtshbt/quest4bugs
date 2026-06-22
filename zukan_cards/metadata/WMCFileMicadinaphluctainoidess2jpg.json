@@ -1,0 +1,75 @@
+{
+  "species_id": "shirabui_nanafushi_dummy",
+  "species_ja": "シラキトビナナフシ",
+  "scientific_name": "Micadina phluctainoides",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Alpsdake",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Micadina phluctainoides s2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Micadina_phluctainoides_s2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Micadina_phluctainoides_s2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alpsdake",
+    "eventDate": "Taken on 20 November 2021, 13:33:39",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Micadina phluctainoides in Suzuka Mountains, Higashiomi, Shiga Prefecture, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Micadina_phluctainoides_s2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Micadina_phluctainoides_s2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileMicadinaphluctainoidess2jpg_original.jpg",
+    "segmented": "processed/WMCFileMicadinaphluctainoidess2jpg_L1_segmented.png",
+    "display": "processed/WMCFileMicadinaphluctainoidess2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMicadinaphluctainoidess2jpg_54.webp",
+      "108": "thumb/WMCFileMicadinaphluctainoidess2jpg_108.webp",
+      "216": "thumb/WMCFileMicadinaphluctainoidess2jpg_216.webp"
+    }
+  },
+  "original_sha256": "0ed7eb9983368ee7329c2b4b99d435552e1dc7048c1b3ed972ae2508d07ec993",
+  "processing": {
+    "cropBox": [
+      986,
+      64,
+      2523,
+      3940
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMicadinaphluctainoidess2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

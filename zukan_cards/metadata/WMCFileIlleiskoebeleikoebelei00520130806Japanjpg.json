@@ -1,0 +1,75 @@
+{
+  "species_id": "kibara_tentou",
+  "species_ja": "キイロテントウ",
+  "scientific_name": "Illeis koebelei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "PD files",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Illeis koebelei koebelei 005 20130806 Japan.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Illeis_koebelei_koebelei_005_20130806_Japan.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Illeis_koebelei_koebelei_005_20130806_Japan.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "PD files",
+    "eventDate": "2013-08-06",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Illeis koebelei koebelei Timberlake,1943 (Coccinellidae: Coccinellinae: Coccinellini) from \nYokohama, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Illeis_koebelei_koebelei_005_20130806_Japan.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Illeis_koebelei_koebelei_005_20130806_Japan.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_original.jpg",
+    "segmented": "processed/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_L1_segmented.png",
+    "display": "processed/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_54.webp",
+      "108": "thumb/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_108.webp",
+      "216": "thumb/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_216.webp"
+    }
+  },
+  "original_sha256": "e177d3cbb8cf26fa3279cc4afec4565fd82269ab7acd9ca25258ef23db82bede",
+  "processing": {
+    "cropBox": [
+      368,
+      226,
+      2286,
+      1763
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileIlleiskoebeleikoebelei00520130806Japanjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.06), rotate 0 CCW"
+}

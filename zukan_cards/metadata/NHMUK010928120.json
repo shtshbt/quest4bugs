@@ -1,0 +1,75 @@
+{
+  "species_id": "tobiiro_suzume",
+  "species_ja": "トビイロスズメ",
+  "scientific_name": "Clanis bilineata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010928120",
+    "occurrenceId": "7d7a8d4c-3f3d-48d4-bd59-1323bb7f9b64",
+    "persistentId": "7d7a8d4c-3f3d-48d4-bd59-1323bb7f9b64",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "2014-09-11",
+    "eventYear": 2014,
+    "country": "Viet Nam",
+    "localityVerbatim": null,
+    "localityNormalized": "Viet Nam",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826388279",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/7d7a8d4c-3f3d-48d4-bd59-1323bb7f9b64",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ff0ffdf3-d776-4116-be7e-146de63c0801",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010928120_original.jpg",
+    "segmented": "processed/NHMUK010928120_L1_segmented.png",
+    "display": "processed/NHMUK010928120_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010928120_54.webp",
+      "108": "thumb/NHMUK010928120_108.webp",
+      "216": "thumb/NHMUK010928120_216.webp"
+    }
+  },
+  "original_sha256": "54995188d7d6d95e6b5d1982adaa4659273101fb03225f9eee510a2629138925",
+  "processing": {
+    "cropBox": [
+      26,
+      265,
+      1025,
+      800
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010928120_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

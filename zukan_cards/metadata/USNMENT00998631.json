@@ -1,0 +1,77 @@
+{
+  "species_id": "seiyou_oomaru_hanabachi",
+  "species_ja": "セイヨウオオマルハナバチ",
+  "scientific_name": "Bombus terrestris",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00998631",
+    "occurrenceId": "http://n2t.net/ark:/65665/35c27275f-8a99-428d-bbd9-3c13a96f4ac0",
+    "persistentId": "http://n2t.net/ark:/65665/35c27275f-8a99-428d-bbd9-3c13a96f4ac0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "F. Fosberg",
+    "eventDate": "1949-03-01",
+    "eventYear": 1949,
+    "country": "New Zealand",
+    "localityVerbatim": null,
+    "localityNormalized": "Buller Gorge, New Zealand",
+    "preparations": "Pinned",
+    "decimalLatitude": -41.7678,
+    "decimalLongitude": 172.193
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319285461",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319285461",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10740812&h=1680",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00998631_original.jpg",
+    "segmented": "processed/USNMENT00998631_L1_segmented.png",
+    "display": "processed/USNMENT00998631_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00998631_54.webp",
+      "108": "thumb/USNMENT00998631_108.webp",
+      "216": "thumb/USNMENT00998631_216.webp"
+    }
+  },
+  "original_sha256": "7c2460377c5bddd8a19c69c3ef4dc1789fb75042b9044896bc728046aa963281",
+  "processing": {
+    "cropBox": [
+      304,
+      410,
+      666,
+      879
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00998631_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "aosuji_ageha",
+  "species_ja": "アオスジアゲハ",
+  "scientific_name": "Graphium sarpedon",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Anitava Roy",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Close wing Mud puddling activity of Graphium sarpedon (Linnaeus, 1758) - Common Bluebottle (Male) WLB.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Close_wing_Mud_puddling_activity_of_Graphium_sarpedon_(Linnaeus,_1758)_-_Common_Bluebottle_(Male)_WLB.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Close_wing_Mud_puddling_activity_of_Graphium_sarpedon_(Linnaeus,_1758)_-_Common_Bluebottle_(Male)_WLB.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Anitava Roy",
+    "eventDate": "2015-10-28 11:32:01",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Close wing Mud puddling activity of Graphium sarpedon (Linnaeus, 1758) - Common Bluebottle (Male).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Close_wing_Mud_puddling_activity_of_Graphium_sarpedon_(Linnaeus,_1758)_-_Common_Bluebottle_(Male)_WLB.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/78/Close_wing_Mud_puddling_activity_of_Graphium_sarpedon_%28Linnaeus%2C_1758%29_-_Common_Bluebottle_%28Male%29_WLB.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_original.jpg",
+    "segmented": "processed/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_L1_segmented.png",
+    "display": "processed/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_54.webp",
+      "108": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_108.webp",
+      "216": "thumb/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_216.webp"
+    }
+  },
+  "original_sha256": "e128da05df304d03655c292841d0814430abfdef41c658818897bc779c8592da",
+  "processing": {
+    "cropBox": [
+      2611,
+      523,
+      5880,
+      4231
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileClosewingMudpuddlingactivityofGraphiumsarpedonLinnaeus1758CommonBluebottleMaleWLBjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "kumogata_hyoumon",
+  "species_ja": "クモガタヒョウモン",
+  "scientific_name": "Nephargynnis anadyomene",
+  "credit_line": "Wikimedia Commons",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:275-Nephargynnis anadyomene.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:275-Nephargynnis_anadyomene.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:275-Nephargynnis_anadyomene.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 10:49:21",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "クモガタヒョウモン",
+    "localityNormalized": "クモガタヒョウモン",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:275-Nephargynnis_anadyomene.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/275-Nephargynnis_anadyomene.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFile275NephargynnisanadyomeneJPG_original.jpg",
+    "segmented": "processed/WMCFile275NephargynnisanadyomeneJPG_L1_segmented.png",
+    "display": "processed/WMCFile275NephargynnisanadyomeneJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile275NephargynnisanadyomeneJPG_54.webp",
+      "108": "thumb/WMCFile275NephargynnisanadyomeneJPG_108.webp",
+      "216": "thumb/WMCFile275NephargynnisanadyomeneJPG_216.webp"
+    }
+  },
+  "original_sha256": "1f3fdde59d631962c6c33a607d31e7376aa444d00d045819820e46012f8f74d7",
+  "processing": {
+    "cropBox": [
+      0,
+      127,
+      4125,
+      3005
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile275NephargynnisanadyomeneJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

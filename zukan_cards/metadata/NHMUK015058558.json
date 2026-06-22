@@ -1,10 +1,10 @@
 {
-  "species_id": "nami_tentou",
-  "species_ja": "ナミテントウ",
+  "species_id": "naden_tentou",
+  "species_ja": "ナミテントウ黒型",
   "scientific_name": "Harmonia axyridis",
   "credit_line": "Natural History Museum, London",
   "creator": "Natural History Museum, London",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",

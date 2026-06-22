@@ -1,0 +1,75 @@
+{
+  "species_id": "oo_tobikera",
+  "species_ja": "ヒゲナガカワトビケラ",
+  "scientific_name": "Stenopsyche marmorata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014423411",
+    "occurrenceId": "5053a9f0-859a-45ae-9a9a-0646c8549011",
+    "persistentId": "5053a9f0-859a-45ae-9a9a-0646c8549011",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1894-09-22",
+    "eventYear": 1894,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330243670",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5053a9f0-859a-45ae-9a9a-0646c8549011",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/23825078-e4de-4e46-970e-88415c4540a6",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK014423411_original.jpg",
+    "segmented": "processed/NHMUK014423411_L1_segmented.png",
+    "display": "processed/NHMUK014423411_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014423411_54.webp",
+      "108": "thumb/NHMUK014423411_108.webp",
+      "216": "thumb/NHMUK014423411_216.webp"
+    }
+  },
+  "original_sha256": "83c9c12677f05febb4c81df7312eef4166ff30f4fa6c9c8f7f05bae8516b7bed",
+  "processing": {
+    "cropBox": [
+      276,
+      639,
+      1055,
+      1014
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014423411_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

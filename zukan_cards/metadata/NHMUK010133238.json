@@ -1,0 +1,76 @@
+{
+  "species_id": "saikabuto",
+  "species_ja": "サイカブト",
+  "scientific_name": "Oryctes rhinoceros",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010133238",
+    "occurrenceId": "feaaef3a-3667-4a5e-aff2-7c43fc4862fc",
+    "persistentId": "feaaef3a-3667-4a5e-aff2-7c43fc4862fc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291320591",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/feaaef3a-3667-4a5e-aff2-7c43fc4862fc",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/28d3d3b4-6fb6-42de-900d-e906ed823dc5",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010133238_original.jpg",
+    "segmented": "processed/NHMUK010133238_L1_segmented.png",
+    "display": "processed/NHMUK010133238_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010133238_54.webp",
+      "108": "thumb/NHMUK010133238_108.webp",
+      "216": "thumb/NHMUK010133238_216.webp"
+    }
+  },
+  "original_sha256": "5286aebc5dbfcb8e89558ff78fc13cdd37aaec52f3edb58706b735b4283cb934",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1336,
+      468
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010133238_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.28), rotate 180 CCW"
+}

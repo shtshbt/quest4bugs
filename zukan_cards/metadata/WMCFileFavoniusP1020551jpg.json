@@ -1,0 +1,75 @@
+{
+  "species_id": "fuji_midorishijimi",
+  "species_ja": "フジミドリシジミ",
+  "scientific_name": "Sibataniozephyrus fujisanus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Notafly",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:FavoniusP1020551.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Notafly",
+    "eventDate": "2023-10-08",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Various Lycaenidae from the East Palearctic\nAntigius butleri (Fenton, 1882)\neuthea Smart BOW = Araragi enthea (Janson, 1877)\nArtopoetes pryeri (Murray, 1873)\nChrysozephyrus kabrua niitakanus Kano, 1928\nChrysozephyrus nishikaze (Araki &amp; Sibatani, 1941)\nChrysozephyrus smaragdinus (Bremer, 1861)\nFavonius cognatus (Staudinger, 1892)\nFavonius fujisanus Matsumura, 1910 now Sibataniozephyrus fujisanus (Matsumura, 1910)\nFavonius jezoensis (Matsumura, 1915)\nJaponica lutea (Hewitson, 1865)\nJaponica saepestriata (Hewitson, 1865)\nLycaena sultan (Lang, 1884)\nLycaena pang (Oberthür, 1886)\nLycaena phlaeas daimio (Seitz, [1909])\nLycaena margelanica Staudinger, 1881\nLycaena standfussi (Grum-Grshimailo, 1891)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/FavoniusP1020551.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileFavoniusP1020551jpg_original.jpg",
+    "segmented": "processed/WMCFileFavoniusP1020551jpg_L1_segmented.png",
+    "display": "processed/WMCFileFavoniusP1020551jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFavoniusP1020551jpg_54.webp",
+      "108": "thumb/WMCFileFavoniusP1020551jpg_108.webp",
+      "216": "thumb/WMCFileFavoniusP1020551jpg_216.webp"
+    }
+  },
+  "original_sha256": "75629e89f4cfa3de30abdbe866f5eb867e20ffd45e18be19efaeff0268de149c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3525,
+      2378
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFavoniusP1020551jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

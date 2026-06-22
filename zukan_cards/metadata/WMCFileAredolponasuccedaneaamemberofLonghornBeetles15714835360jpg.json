@@ -1,0 +1,76 @@
+{
+  "species_id": "akahana_kamikiri",
+  "species_ja": "アカハナカミキリ",
+  "scientific_name": "Stictoleptura succedanea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "harum.koh from Kobe city, Japan",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aredolpona succedanea, a member of Longhorn Beetles (15714835360).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aredolpona_succedanea,_a_member_of_Longhorn_Beetles_(15714835360).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aredolpona_succedanea,_a_member_of_Longhorn_Beetles_(15714835360).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "harum.koh from Kobe city, Japan",
+    "eventDate": "2014-08-17 11:53",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "アカハナカミキリ. \n\nwww.inaturalist.org/calendar/harumkoh/2014/8/17",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aredolpona_succedanea,_a_member_of_Longhorn_Beetles_(15714835360).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Aredolpona_succedanea%2C_a_member_of_Longhorn_Beetles_%2815714835360%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "original": "original/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_original.jpg",
+    "segmented": "processed/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_L1_segmented.png",
+    "display": "processed/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_54.webp",
+      "108": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_108.webp",
+      "216": "thumb/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_216.webp"
+    }
+  },
+  "original_sha256": "730b19df2249d2fdc180685de023f56f71afa7e92a0dd8ee7d65b399dc4f4ba4",
+  "processing": {
+    "cropBox": [
+      1235,
+      347,
+      3072,
+      2976
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAredolponasuccedaneaamemberofLonghornBeetles15714835360jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.89), rotate 270 CCW"
+}

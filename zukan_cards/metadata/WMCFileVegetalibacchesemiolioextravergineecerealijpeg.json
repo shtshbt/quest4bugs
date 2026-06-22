@@ -1,0 +1,76 @@
+{
+  "species_id": "oo_hanaabu_oddball_dummy",
+  "species_ja": "シマハナアブ",
+  "scientific_name": "Eristalis cerealis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Sarica.24",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Vegetali, bacche, semi olio extravergine e cereali.jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Vegetali,_bacche,_semi_olio_extravergine_e_cereali.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Vegetali,_bacche,_semi_olio_extravergine_e_cereali.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Sarica.24",
+    "eventDate": "2013-08-22",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "foto",
+    "localityNormalized": "foto",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Vegetali,_bacche,_semi_olio_extravergine_e_cereali.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/77/Vegetali%2C_bacche%2C_semi_olio_extravergine_e_cereali.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_original.jpg",
+    "segmented": "processed/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_L1_segmented.png",
+    "display": "processed/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_54.webp",
+      "108": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_108.webp",
+      "216": "thumb/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_216.webp"
+    }
+  },
+  "original_sha256": "effcf9de25d56106389cb33b95eed02ad3b9863ad53e4c7c7573ece84dfc7278",
+  "processing": {
+    "cropBox": [
+      0,
+      199,
+      3138,
+      2134
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVegetalibacchesemiolioextravergineecerealijpeg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.55), rotate 180 CCW"
+}

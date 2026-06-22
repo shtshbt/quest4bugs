@@ -1,0 +1,76 @@
+{
+  "species_id": "shirosuji_kamikiri",
+  "species_ja": "シロスジカミキリ",
+  "scientific_name": "Batocera lineolata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)990030",
+    "occurrenceId": "08511642-5fec-4ffa-824b-4e6258aad096",
+    "persistentId": "08511642-5fec-4ffa-824b-4e6258aad096",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1056104923",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/08511642-5fec-4ffa-824b-4e6258aad096",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ec87b540-9025-4422-ad3a-f97cbd2d3acf",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUKBMNHE990030_original.jpg",
+    "segmented": "processed/NHMUKBMNHE990030_L1_segmented.png",
+    "display": "processed/NHMUKBMNHE990030_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE990030_54.webp",
+      "108": "thumb/NHMUKBMNHE990030_108.webp",
+      "216": "thumb/NHMUKBMNHE990030_216.webp"
+    }
+  },
+  "original_sha256": "349b80f74a2398de603e68fabb0063f4801828dc8573683257613821284ac948",
+  "processing": {
+    "cropBox": [
+      151,
+      23,
+      617,
+      972
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE990030_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.44), rotate 90 CCW"
+}

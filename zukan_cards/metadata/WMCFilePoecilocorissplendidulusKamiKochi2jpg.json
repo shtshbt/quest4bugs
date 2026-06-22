@@ -1,0 +1,75 @@
+{
+  "species_id": "akasuji_kin_himekinkamemushi",
+  "species_ja": "ニシキキンカメムシ",
+  "scientific_name": "Poecilocoris splendidulus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "no rights reserved",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Poecilocoris splendidulus, Kami, Kochi 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Poecilocoris_splendidulus,_Kami,_Kochi_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Poecilocoris_splendidulus,_Kami,_Kochi_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "no rights reserved",
+    "eventDate": "2015-06-21",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Photo of Poecilocoris splendidulus uploaded from iNaturalist.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Poecilocoris_splendidulus,_Kami,_Kochi_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Poecilocoris_splendidulus%2C_Kami%2C_Kochi_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFilePoecilocorissplendidulusKamiKochi2jpg_original.jpg",
+    "segmented": "processed/WMCFilePoecilocorissplendidulusKamiKochi2jpg_L1_segmented.png",
+    "display": "processed/WMCFilePoecilocorissplendidulusKamiKochi2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePoecilocorissplendidulusKamiKochi2jpg_54.webp",
+      "108": "thumb/WMCFilePoecilocorissplendidulusKamiKochi2jpg_108.webp",
+      "216": "thumb/WMCFilePoecilocorissplendidulusKamiKochi2jpg_216.webp"
+    }
+  },
+  "original_sha256": "49d5fed883d826aa64c3c65acdc25a319ca38be5f9e0342324632fa1ff42649e",
+  "processing": {
+    "cropBox": [
+      343,
+      203,
+      1534,
+      1164
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePoecilocorissplendidulusKamiKochi2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,77 @@
+{
+  "species_id": "jigabachi",
+  "species_ja": "ジガバチ",
+  "scientific_name": "Ammophila sabulosa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015556781",
+    "occurrenceId": "88d80f86-c68b-49e4-bf48-22468df6adf7",
+    "persistentId": "88d80f86-c68b-49e4-bf48-22468df6adf7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "Mr Steven J. Falk",
+    "eventDate": "2023-07-09",
+    "eventYear": 2023,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Whiteford Burrows, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.633099,
+    "decimalLongitude": -4.2494
+  },
+  "source": {
+    "gbifOccurrenceKey": "4413256078",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/88d80f86-c68b-49e4-bf48-22468df6adf7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/79da47ba-7641-4150-ab70-92719871365b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK015556781_original.jpg",
+    "segmented": "processed/NHMUK015556781_L1_segmented.png",
+    "display": "processed/NHMUK015556781_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015556781_54.webp",
+      "108": "thumb/NHMUK015556781_108.webp",
+      "216": "thumb/NHMUK015556781_216.webp"
+    }
+  },
+  "original_sha256": "184757306191297a80e2b3812188bb5866b6d32bb0f08a0f40c6a9fdd98cf567",
+  "processing": {
+    "cropBox": [
+      0,
+      140,
+      1212,
+      882
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015556781_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

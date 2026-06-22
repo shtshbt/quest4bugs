@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_shaku",
+  "species_ja": "ウメエダシャク",
+  "scientific_name": "Cystidia couaggaria",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Yellow and black spotted caterpillar on the grass.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Yellow_and_black_spotted_caterpillar_on_the_grass.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Yellow_and_black_spotted_caterpillar_on_the_grass.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2025-05-02 06:50:16",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "ウメエダシャクの幼虫ではと思われます。愛知県小牧市で撮影。",
+    "localityNormalized": "ウメエダシャクの幼虫ではと思われます。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Yellow_and_black_spotted_caterpillar_on_the_grass.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Yellow_and_black_spotted_caterpillar_on_the_grass.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_original.jpg",
+    "segmented": "processed/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_L1_segmented.png",
+    "display": "processed/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_54.webp",
+      "108": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_108.webp",
+      "216": "thumb/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_216.webp"
+    }
+  },
+  "original_sha256": "e014c9aafc3fd4ce635f13f9d165b02cf16dd55ed71b921375cf1eaf18b810a8",
+  "processing": {
+    "cropBox": [
+      1148,
+      1768,
+      2783,
+      3236
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileYellowandblackspottedcaterpillaronthegrassjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

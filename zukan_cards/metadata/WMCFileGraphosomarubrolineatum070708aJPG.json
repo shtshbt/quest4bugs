@@ -1,0 +1,75 @@
+{
+  "species_id": "akasuji_kamemushi",
+  "species_ja": "アカスジカメムシ",
+  "scientific_name": "Graphosoma rubrolineatum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pseudoanas (talk)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Graphosoma rubrolineatum 070708a.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Graphosoma_rubrolineatum_070708a.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Graphosoma_rubrolineatum_070708a.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pseudoanas (talk)",
+    "eventDate": "2007-07-08",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "アカスジカメムシ",
+    "localityNormalized": "アカスジカメムシ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Graphosoma_rubrolineatum_070708a.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Graphosoma_rubrolineatum_070708a.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileGraphosomarubrolineatum070708aJPG_original.jpg",
+    "segmented": "processed/WMCFileGraphosomarubrolineatum070708aJPG_L1_segmented.png",
+    "display": "processed/WMCFileGraphosomarubrolineatum070708aJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_54.webp",
+      "108": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_108.webp",
+      "216": "thumb/WMCFileGraphosomarubrolineatum070708aJPG_216.webp"
+    }
+  },
+  "original_sha256": "f8c445286a2550a7e2efaf5e700f0b786369c1f51b873ef06cbeff42e2551c92",
+  "processing": {
+    "cropBox": [
+      624,
+      344,
+      1130,
+      897
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGraphosomarubrolineatum070708aJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

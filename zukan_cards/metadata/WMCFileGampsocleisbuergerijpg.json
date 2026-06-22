@@ -1,0 +1,75 @@
+{
+  "species_id": "kirigirisu",
+  "species_ja": "キリギリス",
+  "scientific_name": "Gampsocleis buergeri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mmsmr",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:ニシキリギリス Gampsocleis buergeri 奄美大島龍郷町.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%83%8B%E3%82%B7%E3%82%AD%E3%83%AA%E3%82%AE%E3%83%AA%E3%82%B9_Gampsocleis_buergeri_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E9%BE%8D%E9%83%B7%E7%94%BA.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%83%8B%E3%82%B7%E3%82%AD%E3%83%AA%E3%82%AE%E3%83%AA%E3%82%B9_Gampsocleis_buergeri_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E9%BE%8D%E9%83%B7%E7%94%BA.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mmsmr",
+    "eventDate": "2013-06-23",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Japanese katydid, Gampsocleis buergeri, Tettigoniidae. Amami Is., Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%83%8B%E3%82%B7%E3%82%AD%E3%83%AA%E3%82%AE%E3%83%AA%E3%82%B9_Gampsocleis_buergeri_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E9%BE%8D%E9%83%B7%E7%94%BA.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/%E3%83%8B%E3%82%B7%E3%82%AD%E3%83%AA%E3%82%AE%E3%83%AA%E3%82%B9_Gampsocleis_buergeri_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E9%BE%8D%E9%83%B7%E7%94%BA.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "original": "original/WMCFileGampsocleisbuergerijpg_original.jpg",
+    "segmented": "processed/WMCFileGampsocleisbuergerijpg_L1_segmented.png",
+    "display": "processed/WMCFileGampsocleisbuergerijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGampsocleisbuergerijpg_54.webp",
+      "108": "thumb/WMCFileGampsocleisbuergerijpg_108.webp",
+      "216": "thumb/WMCFileGampsocleisbuergerijpg_216.webp"
+    }
+  },
+  "original_sha256": "4caba8cda2f2cf8db369ea65e1c963a56d1671d32aa1114226395c4baf9d7d91",
+  "processing": {
+    "cropBox": [
+      481,
+      3,
+      2379,
+      1557
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGampsocleisbuergerijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

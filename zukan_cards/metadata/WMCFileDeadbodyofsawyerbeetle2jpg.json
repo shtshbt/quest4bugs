@@ -1,0 +1,76 @@
+{
+  "species_id": "usuba_kamikiri",
+  "species_ja": "ウスバカミキリ",
+  "scientific_name": "Aegosoma sinicum sinicum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dead body of sawyer beetle - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dead_body_of_sawyer_beetle_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dead_body_of_sawyer_beetle_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-07-20 06:52:18",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "カミキリムシの死骸。ウスバカマキリと思われます。愛知県小牧市で撮影。",
+    "localityNormalized": "カミキリムシの死骸。ウスバカマキリと思われます。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dead_body_of_sawyer_beetle_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Dead_body_of_sawyer_beetle_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileDeadbodyofsawyerbeetle2jpg_original.jpg",
+    "segmented": "processed/WMCFileDeadbodyofsawyerbeetle2jpg_L1_segmented.png",
+    "display": "processed/WMCFileDeadbodyofsawyerbeetle2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_54.webp",
+      "108": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_108.webp",
+      "216": "thumb/WMCFileDeadbodyofsawyerbeetle2jpg_216.webp"
+    }
+  },
+  "original_sha256": "1ebdf6dcf6c85051be2363f720b49e0f6d86f471312d824a7b6172ca94d9281a",
+  "processing": {
+    "cropBox": [
+      787,
+      307,
+      2836,
+      2018
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDeadbodyofsawyerbeetle2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.66), rotate 180 CCW"
+}

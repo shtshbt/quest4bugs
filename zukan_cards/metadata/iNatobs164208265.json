@@ -1,0 +1,82 @@
+{
+  "species_id": "kibatora_kamikiri",
+  "species_ja": "キイロトラカミキリ",
+  "scientific_name": "Grammographus notabilis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_164208265",
+    "occurrenceId": "https://www.inaturalist.org/observations/164208265",
+    "persistentId": "https://www.inaturalist.org/observations/164208265",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-05-27",
+    "eventYear": 2023,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.0383095971,
+    "decimalLongitude": 139.1410281303,
+    "coordinatesObscured": true,
+    "iNatObservationId": "164208265",
+    "iNatPhotoId": "284076482",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/164208265",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/284076482/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs164208265_original.jpg",
+    "segmented": "processed/iNatobs164208265_L1_segmented.png",
+    "display": "processed/iNatobs164208265_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs164208265_54.webp",
+      "108": "thumb/iNatobs164208265_108.webp",
+      "216": "thumb/iNatobs164208265_216.webp"
+    }
+  },
+  "original_sha256": "890346228391ca12e98e711b8f167e4b1af58739094a7f9b7c282a94ddbb6f4f",
+  "processing": {
+    "cropBox": [
+      538,
+      228,
+      1599,
+      1376
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs164208265_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.27), rotate 90 CCW"
+}

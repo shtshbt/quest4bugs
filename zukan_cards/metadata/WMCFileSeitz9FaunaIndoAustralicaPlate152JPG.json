@@ -1,0 +1,75 @@
+{
+  "species_id": "sokorabe_ruri_shijimi",
+  "species_ja": "サツマシジミ",
+  "scientific_name": "Celastrina albocaerulea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "of plate unknown",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Seitz9FaunaIndoAustralicaPlate152.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Seitz9FaunaIndoAustralicaPlate152.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Seitz9FaunaIndoAustralicaPlate152.JPG",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "of plate unknown",
+    "eventDate": "1910",
+    "eventYear": 1910,
+    "country": null,
+    "localityVerbatim": "Adalbert Seitz  Ed. Die Großschmetterlinge der Erde Band 9: Abt. 2, Die exotischen Großschmetterlinge, Die indo-australischen Tagfalter, [1927] text , 1197 Seiten 177 Tafeln Verlag Alfred Kernen, Stuttgart Taf 152\nSee The Global Lepidoptera Names Index for valid names\na\n\nLampides hyphasis = Jamides coritus [Jamides coritus (Guérin-Méneville), [1831]  =Jamides coritus (Guérin-Méneville), [1831]].\nLampides euchylas f. corana Fruhstorfer, 1915J = Jamides aruensis minor (Rothschild, 191\nJamides bochus formosanus\nJamides phaseli (Mathew, 1889)\nb\n\nphaseli\nJamides amarauge Druce, 1891\nChilades lajus (Stoll, [1780])\nLuthrodes cleotas kaiphas Fruhstorfer, 1915\nChilades laius calyptra Fruhstorfer, 1916= Chilades lajus athena (C. &amp; R. Felder, [1865])\nc\n\ncalptra see athena b\nAcytolepis puspa hermione (Fruhstorfer, 1910).\nAcytolepis najara (Fruhstorfer, 1910)\nAcytolepis puspa contilia (Fruhstorfer, 1910)\nUdara akasa catullus (Fruhstorfer, 1910)\nd\n\nPtox corythus (de Nicéville, 1895)\nPlautella cossaea (de Nicéville, 1895)\nPlautella cossaea hegesias (Fruhstorfer, 1910)\nLycaenopsis haraldus (Fabricius, 1787)\nCelatoxia carna (de Nicéville, 1895)\nOreolyce quadriplaga nearcha Fruhstorfer, 1917\ne\n\nOreolyce quadriplaga (Snellen, 1892)\nLycaenopsis nedda artinia Fruhstorfer, 1917\nCelastrina philippina gradeniga (Fruhstorfer, 1910)\nSancterila hermarchus vesontia (Fruhstorfer, 1917)\nSancterila shelfordii Lionel de Nicéville, 1902\nUranobothria celebica (Fruhstorfer, 1917\nUdara aristius (Fruhstorfer, 1910)\nLestranicus transpectus (Moore, 1879)\nf\n\nLestranicus transpectus\nUdara albocaerulea (Moore, 1879)\nCelastrina lavendularis hermesianax (Fruhstorfer, 1910)\nUdara placidula lyseas (Grose-Smith, 1895)\nCyaniris placida de Nicéville, [1884]= Celastrina lavendularis limbata (Moore, 1879)\nUdara singalensis (Felder, 1868)\nUdara dilecta thoria (Fruhstorfer, 1910)\ng\n\nthoria\nUdara tenella (Miskin, 1891)\nUdara camenae (de Nicéville, 1895)\nUdara camenae euphon (Fruhstorfer, 1910)\nAcytolepis ripte (Druce, 1895)\nCallenya melaena (Doherty, 1889)\nCebrella pellecebra  (Fruhstorfer, 1910)\nMonodontides cara (de Nicéville, 1898)\nh\n\nMonodontides musina (Snellen, 1892)\nNacaduba sericina thaumas Fruhstorfer, 1916\nNacaduba angusta kerriana  Distant, 1886\nNacaduba berenice carnania Fruhstorfer, 1916\nNacaduba berenice icena Fruhstorfer, 1916\ni\n\nTheclinesthes onycha (Hewitson, 1865)\nTheclinesthes miskini gaura (Doherty, 1891)\nNacaduba pactolus pactolides Fruhstorfer, 1916\nNacaduba pactolus hainani Bethune-Baker, 1914\nNacaduba subperusia lysa Fruhstorfer, 1916\nj\n\nNacaduba kurava therasia Fruhstorfer, 1916\nNacaduba kurava laurina Fruhstorfer, 1916\nNacaduba beroe neon Fruhstorfer, 1916\nNacaduba palmyra eugenea Fruhstorfer, 1916 = Erysichton lineata cythora(Fruhstorfer, 1916)\nNacaduba palmyra thadmor Fruhstorfer, 1916 = Erysichton lineata meiranganus (Röber, 1886)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Seitz9FaunaIndoAustralicaPlate152.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Seitz9FaunaIndoAustralicaPlate152.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_original.jpg",
+    "segmented": "processed/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_L1_segmented.png",
+    "display": "processed/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_54.webp",
+      "108": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_108.webp",
+      "216": "thumb/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_216.webp"
+    }
+  },
+  "original_sha256": "5442e445fad64cd3bcff093755ab65461b16dae1ca9588057edd3d7ca59bc612",
+  "processing": {
+    "cropBox": [
+      61,
+      21,
+      2843,
+      3993
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

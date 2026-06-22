@@ -1,0 +1,77 @@
+{
+  "species_id": "asahina_kawa_tonbo",
+  "species_ja": "アサヒナカワトンボ",
+  "scientific_name": "Mnais pruinosa",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386336",
+    "occurrenceId": "http://n2t.net/ark:/65665/37b30380f-4df5-4b9c-ae32-25cec009d1ae",
+    "persistentId": "http://n2t.net/ark:/65665/37b30380f-4df5-4b9c-ae32-25cec009d1ae",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Ward",
+    "eventDate": "2003-06-20",
+    "eventYear": 2003,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Monamien, Tomita, Takagi-mura, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 35.4743,
+    "decimalLongitude": 137.892
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319987108",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319987108",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16352177&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00386336_original.jpg",
+    "segmented": "processed/USNMENT00386336_L1_segmented.png",
+    "display": "processed/USNMENT00386336_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386336_54.webp",
+      "108": "thumb/USNMENT00386336_108.webp",
+      "216": "thumb/USNMENT00386336_216.webp"
+    }
+  },
+  "original_sha256": "200fbf545420253edbb262356c2a294688bdf1bf013851d5d75360094317ff4d",
+  "processing": {
+    "cropBox": [
+      621,
+      395,
+      1304,
+      1102
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386336_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "kuwa_hamushi",
+  "species_ja": "クワハムシ",
+  "scientific_name": "Fleutiauxia armata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "karliatje",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Fleutiauxia-armata-2025-05-20-282613837-2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Fleutiauxia-armata-2025-05-20-282613837-2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Fleutiauxia-armata-2025-05-20-282613837-2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "karliatje",
+    "eventDate": "2025-05-20",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Fleutiauxia armata (Izu, Japan)",
+    "localityNormalized": "Fleutiauxia armata (Izu, Japan)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Fleutiauxia-armata-2025-05-20-282613837-2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/Fleutiauxia-armata-2025-05-20-282613837-2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileFleutiauxiaarmata202505202826138372jpg_original.jpg",
+    "segmented": "processed/WMCFileFleutiauxiaarmata202505202826138372jpg_L1_segmented.png",
+    "display": "processed/WMCFileFleutiauxiaarmata202505202826138372jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFleutiauxiaarmata202505202826138372jpg_54.webp",
+      "108": "thumb/WMCFileFleutiauxiaarmata202505202826138372jpg_108.webp",
+      "216": "thumb/WMCFileFleutiauxiaarmata202505202826138372jpg_216.webp"
+    }
+  },
+  "original_sha256": "e42567f13893c3b9ec2186e31ecbea80ced992e59b69034565de72af6c4d2b4e",
+  "processing": {
+    "cropBox": [
+      447,
+      394,
+      734,
+      1062
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFleutiauxiaarmata202505202826138372jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

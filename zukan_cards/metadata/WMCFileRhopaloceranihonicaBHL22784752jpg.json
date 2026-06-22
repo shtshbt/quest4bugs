@@ -1,0 +1,75 @@
+{
+  "species_id": "usuiro_onaga_shijimi",
+  "species_ja": "ウスイロオナガシジミ",
+  "scientific_name": "Antigius butleri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pryer, Henry James Stovin",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhopalocera nihonica BHL22784752.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784752.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784752.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pryer, Henry James Stovin",
+    "eventDate": "2015-10-31 03:18:59",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Rhopalocera nihonica: a description of the butterflies of Japan. By H. Pryer.\nLycaenidae\n\n1a, 1b Curetis acuta Moore\n2 Niphanda fusca (Bremer &amp; Grey, 1853)\n3 Japonica saepestriata Hewitson, 1865 Original Combination\tDIPSAS Hewitson, 1865\n4 Japonica lutea (Hewitson, 1865)\n5 Shirozua jonasi Janson, 1877\n6a, 6b Chrysozephyrus smaragdinus (Bremer, 1861)\n7a, 7b, 7c 7d Neozephyrus japonica (Murray, 1875)\n8a, 8b  Favonius orientalis (Murray, 1875)\n9a, 9b Favonius saphirinus (Staudinger, 1887)\n10 Rapala arata (Bremer, 1861\n11 Antigius  attilia Bremer, 1861\n12 Araragi enthea Janson, 1877\n[13 below]\n14 Satyrium w-album (Knoch, 1782)\n15 Satyrium pruni (Linnaeus, 1758)\n16 Satyrium mera (Janson, 1877)\n17 Iratsume orsedice Butler, 1881\n18 Thecla ibara Butler, [1882] = Ussuriana stygiana (Butler, 1881)\n13 (sic) Antigius butleri (Fenton, [1882])\n19 Wagimo signata (Butler, [1882])\n20 Ahlbergia frivaldszkyi (Lederer, 1855)\n21 Lycaena phlaeas  (Linnaeus, 1761\n22 Lampides boeticus (Linnaeus, 1767)\n23 A, B  Cupido argiades (Pallas, 1771)\n24 A B argia Men =  Pseudozizeeria maha Kollar, 1848\n25 AB Celastrina argiolus (Linnaeus, 1758)\nPlate Text",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784752.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Rhopalocera_nihonica_BHL22784752.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileRhopaloceranihonicaBHL22784752jpg_original.jpg",
+    "segmented": "processed/WMCFileRhopaloceranihonicaBHL22784752jpg_L1_segmented.png",
+    "display": "processed/WMCFileRhopaloceranihonicaBHL22784752jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_54.webp",
+      "108": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_108.webp",
+      "216": "thumb/WMCFileRhopaloceranihonicaBHL22784752jpg_216.webp"
+    }
+  },
+  "original_sha256": "16e1cee588233245bee3ba0025977d475e881213ef2e8eb3dc0199a63c77fd1d",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2476,
+      3496
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhopaloceranihonicaBHL22784752jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

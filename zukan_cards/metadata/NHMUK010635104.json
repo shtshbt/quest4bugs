@@ -1,0 +1,77 @@
+{
+  "species_id": "ki_obi_ke_hira_abu",
+  "species_ja": "キアシマメヒラタアブ",
+  "scientific_name": "Sphaerophoria scripta",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010635104",
+    "occurrenceId": "c7cff9b5-48c1-4918-a487-e398b669fc57",
+    "persistentId": "c7cff9b5-48c1-4918-a487-e398b669fc57",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Dr Gavin R. Broad",
+    "eventDate": "2020-08-27",
+    "eventYear": 2020,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Hever castle, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.187,
+    "decimalLongitude": 0.119
+  },
+  "source": {
+    "gbifOccurrenceKey": "3031182120",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c7cff9b5-48c1-4918-a487-e398b669fc57",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f1d88a99-b85e-4dd7-acae-71ad0faf9df2",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK010635104_original.jpg",
+    "segmented": "processed/NHMUK010635104_L1_segmented.png",
+    "display": "processed/NHMUK010635104_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010635104_54.webp",
+      "108": "thumb/NHMUK010635104_108.webp",
+      "216": "thumb/NHMUK010635104_216.webp"
+    }
+  },
+  "original_sha256": "bb2353ee795d523fd4055571b9acc5e6c277effecfdf1ed2378d362f9b77649f",
+  "processing": {
+    "cropBox": [
+      368,
+      735,
+      1008,
+      1043
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010635104_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

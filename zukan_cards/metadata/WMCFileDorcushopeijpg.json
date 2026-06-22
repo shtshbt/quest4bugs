@@ -1,0 +1,76 @@
+{
+  "species_id": "hopei_ookuwagata",
+  "species_ja": "ホペイオオクワガタ",
+  "scientific_name": "Dorcus hopei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Matsumura, Shonen",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dorcus hopei.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dorcus_hopei.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dorcus_hopei.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Matsumura, Shonen",
+    "eventDate": "between 1904 and 1907<div style=\"display: none;\">date QS:P,+1904-00-00T00:00:00Z/8,P1319,+1904-00-00T00:00:00Z/9,P1326,+1907-00-00T00:00:00Z/9</div>",
+    "eventYear": 1904,
+    "country": null,
+    "localityVerbatim": "Dorcus hopei",
+    "localityNormalized": "Dorcus hopei",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dorcus_hopei.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Dorcus_hopei.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileDorcushopeijpg_original.jpg",
+    "segmented": "processed/WMCFileDorcushopeijpg_L1_segmented.png",
+    "display": "processed/WMCFileDorcushopeijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDorcushopeijpg_54.webp",
+      "108": "thumb/WMCFileDorcushopeijpg_108.webp",
+      "216": "thumb/WMCFileDorcushopeijpg_216.webp"
+    }
+  },
+  "original_sha256": "527d7f792aae8246b8ee7f5cc4e06abeb8ae12d05c184ffcf3a54b6c2a236e33",
+  "processing": {
+    "cropBox": [
+      9,
+      20,
+      849,
+      1101
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDorcushopeijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.09), rotate 270 CCW"
+}

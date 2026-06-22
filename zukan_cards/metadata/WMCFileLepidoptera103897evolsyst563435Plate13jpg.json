@@ -1,0 +1,75 @@
+{
+  "species_id": "oogomashijimi",
+  "species_ja": "オオゴマシジミ",
+  "scientific_name": "Phengaris arionides",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Zahiri R, Nazari V, Rajaei H, Wiemers M, Fatahi M, Seidel M, Dalsgaard T, Husemann M (2021) ﻿An illustrated catalogue of the type specimens of Lepidoptera housed in the Zoological Museum Hamburg (ZMH): Part II. superfamily Papilionoidea. Evolutionary Systematics 5(2): 193-261.",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lepidoptera (10.3897-evolsyst.5.63435) Plate 13.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lepidoptera_(10.3897-evolsyst.5.63435)_Plate_13.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lepidoptera_(10.3897-evolsyst.5.63435)_Plate_13.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Zahiri R, Nazari V, Rajaei H, Wiemers M, Fatahi M, Seidel M, Dalsgaard T, Husemann M (2021) ﻿An illustrated catalogue of the type specimens of Lepidoptera housed in the Zoological Museum Hamburg (ZMH): Part II. superfamily Papilionoidea. Evolutionary Systematics 5(2): 193-261.",
+    "eventDate": "2021-08-20",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Plate 13; 85. Phengaris alcon f. lunulata (Warnecke, 1942); 86. Phengaris arionides f. selzeri (Warnecke, 1924); 87. Phengaris euphemus peninsulae (Verity, 1923); 88. Cupido argiades ab. depuncta (Hirschke, 1903); 89. Polyommatus (Agrodiaetus) damon ausonia (Verity, 1913); 90. Polyommatus (Agrodiaetus) pfeifferi (Brandt, 1938); 91. Polyommatus (Agrodiaetus) alcestis (Zerny, 1932); 92. Polyommatus (Agrodiaetus) ardschira (Brandt, 1938); 93. Polyommatus daphnis macra f. squalida Verity, 1920; 94. Polyommatus dorylas r. correpta (Verity, 1920). a. Dorsal view, b. ventral view.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lepidoptera_(10.3897-evolsyst.5.63435)_Plate_13.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Lepidoptera_%2810.3897-evolsyst.5.63435%29_Plate_13.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileLepidoptera103897evolsyst563435Plate13jpg_original.jpg",
+    "segmented": "processed/WMCFileLepidoptera103897evolsyst563435Plate13jpg_L1_segmented.png",
+    "display": "processed/WMCFileLepidoptera103897evolsyst563435Plate13jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_54.webp",
+      "108": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_108.webp",
+      "216": "thumb/WMCFileLepidoptera103897evolsyst563435Plate13jpg_216.webp"
+    }
+  },
+  "original_sha256": "47f99f9a1055adaa5249d518fedcb0d07f8ff9e6b8cad23f4d0b4b8e0cdf9d82",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1865,
+      2638
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLepidoptera103897evolsyst563435Plate13jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "hime_aka_hoshi_tentou",
+  "species_ja": "ヒメアカホシテントウ",
+  "scientific_name": "Chilocorus kuwanae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tim McCabe, USDA-ARS",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chilocorus kuwanae eating Unaspis euonymi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chilocorus_kuwanae_eating_Unaspis_euonymi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chilocorus_kuwanae_eating_Unaspis_euonymi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tim McCabe, USDA-ARS",
+    "eventDate": "1992",
+    "eventYear": 1992,
+    "country": null,
+    "localityVerbatim": "Red-spotted ladybug, Chilocorus kuwanae, devours euonymus scale insects (Unaspis euonymi). (K-2848-4)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chilocorus_kuwanae_eating_Unaspis_euonymi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Chilocorus_kuwanae_eating_Unaspis_euonymi.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_original.jpg",
+    "segmented": "processed/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_L1_segmented.png",
+    "display": "processed/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_54.webp",
+      "108": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_108.webp",
+      "216": "thumb/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_216.webp"
+    }
+  },
+  "original_sha256": "5975308a9b0afc012e5189b9ccb60d21cb07c408f4d0c1f6367dd117498090ff",
+  "processing": {
+    "cropBox": [
+      467,
+      252,
+      1561,
+      1094
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChilocoruskuwanaeeatingUnaspiseuonymijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.17), rotate 270 CCW"
+}

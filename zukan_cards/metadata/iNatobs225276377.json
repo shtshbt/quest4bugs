@@ -1,0 +1,81 @@
+{
+  "species_id": "miyama_karasu_shijimi",
+  "species_ja": "ミヤマカラスシジミ",
+  "scientific_name": "Fixsenia mera",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_225276377",
+    "occurrenceId": "https://www.inaturalist.org/observations/225276377",
+    "persistentId": "https://www.inaturalist.org/observations/225276377",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-08-14",
+    "eventYear": 2018,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.8577052924,
+    "decimalLongitude": 139.4060644379,
+    "coordinatesObscured": true,
+    "iNatObservationId": "225276377",
+    "iNatPhotoId": "399387898",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/225276377",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/399387898/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs225276377_original.jpg",
+    "segmented": "processed/iNatobs225276377_L1_segmented.png",
+    "display": "processed/iNatobs225276377_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs225276377_54.webp",
+      "108": "thumb/iNatobs225276377_108.webp",
+      "216": "thumb/iNatobs225276377_216.webp"
+    }
+  },
+  "original_sha256": "75a2efbfb79c735091a40cfe17a95c8157b9b16a8d52f29f86caa8d0992dee82",
+  "processing": {
+    "cropBox": [
+      455,
+      162,
+      1820,
+      1171
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs225276377_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

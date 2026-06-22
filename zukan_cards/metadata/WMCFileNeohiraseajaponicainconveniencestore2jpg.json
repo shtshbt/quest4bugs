@@ -1,0 +1,75 @@
+{
+  "species_id": "toge_nanafushi",
+  "species_ja": "トゲナナフシ",
+  "scientific_name": "Neohirasea japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Neohirasea japonica in convenience store - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Neohirasea_japonica_in_convenience_store_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Neohirasea_japonica_in_convenience_store_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-11-10 18:46:27",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "コンビニにいたトゲナナフシ。愛知県春日井市で撮影。",
+    "localityNormalized": "コンビニにいたトゲナナフシ。愛知県春日井市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Neohirasea_japonica_in_convenience_store_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Neohirasea_japonica_in_convenience_store_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "original": "original/WMCFileNeohiraseajaponicainconveniencestore2jpg_original.jpg",
+    "segmented": "processed/WMCFileNeohiraseajaponicainconveniencestore2jpg_L1_segmented.png",
+    "display": "processed/WMCFileNeohiraseajaponicainconveniencestore2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNeohiraseajaponicainconveniencestore2jpg_54.webp",
+      "108": "thumb/WMCFileNeohiraseajaponicainconveniencestore2jpg_108.webp",
+      "216": "thumb/WMCFileNeohiraseajaponicainconveniencestore2jpg_216.webp"
+    }
+  },
+  "original_sha256": "370805c3de6f91331b37d49252b7802d741ef6c6ee451b7914c91652ad3af4b3",
+  "processing": {
+    "cropBox": [
+      866,
+      39,
+      3411,
+      2940
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNeohiraseajaponicainconveniencestore2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,82 @@
+{
+  "species_id": "tobiiro_kamikiri",
+  "species_ja": "トビイロカミキリ",
+  "scientific_name": "Allotraeus sphaerioninus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_228609844",
+    "occurrenceId": "https://www.inaturalist.org/observations/228609844",
+    "persistentId": "https://www.inaturalist.org/observations/228609844",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2019-06-23",
+    "eventYear": 2019,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8609732779,
+    "decimalLongitude": 137.954410508,
+    "coordinatesObscured": true,
+    "iNatObservationId": "228609844",
+    "iNatPhotoId": "405695624",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/228609844",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/405695624/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/iNatobs228609844_original.jpg",
+    "segmented": "processed/iNatobs228609844_L1_segmented.png",
+    "display": "processed/iNatobs228609844_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs228609844_54.webp",
+      "108": "thumb/iNatobs228609844_108.webp",
+      "216": "thumb/iNatobs228609844_216.webp"
+    }
+  },
+  "original_sha256": "993572c182d6dbac36b6f39374372966d8bcf088c9026f5b2a8a552d6bfbd805",
+  "processing": {
+    "cropBox": [
+      449,
+      447,
+      1300,
+      1429
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs228609844_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.57), rotate 180 CCW"
+}

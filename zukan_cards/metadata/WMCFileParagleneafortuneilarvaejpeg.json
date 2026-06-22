@@ -1,0 +1,76 @@
+{
+  "species_id": "ramie_kamikiri",
+  "species_ja": "ラミーカミキリ",
+  "scientific_name": "Paraglenea fortunei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Loasa",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Paraglenea fortunei larvae.jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Paraglenea_fortunei_larvae.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Paraglenea_fortunei_larvae.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Loasa",
+    "eventDate": "2008-01-27",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Paraglenea fortunei larvae in stem of Boehmeria nivea var. nipononivea. Odawara-city Kanagawa.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Paraglenea_fortunei_larvae.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Paraglenea_fortunei_larvae.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileParagleneafortuneilarvaejpeg_original.jpg",
+    "segmented": "processed/WMCFileParagleneafortuneilarvaejpeg_L1_segmented.png",
+    "display": "processed/WMCFileParagleneafortuneilarvaejpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileParagleneafortuneilarvaejpeg_54.webp",
+      "108": "thumb/WMCFileParagleneafortuneilarvaejpeg_108.webp",
+      "216": "thumb/WMCFileParagleneafortuneilarvaejpeg_216.webp"
+    }
+  },
+  "original_sha256": "76f9f1851f5a40a1160495e94daf05d3d4644e99c970b56c33ad6d9ccc6eb894",
+  "processing": {
+    "cropBox": [
+      637,
+      538,
+      1600,
+      871
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileParagleneafortuneilarvaejpeg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.68), rotate 180 CCW"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "dandara_tentou",
+  "species_ja": "ダンダラテントウ",
+  "scientific_name": "Cheilomenes sexmaculata",
+  "credit_line": "Australian Museum",
+  "creator": "Linda Mott",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.606837",
+    "occurrenceId": "3945cd03-2505-42bb-97eb-dc266cc720b8",
+    "persistentId": "3945cd03-2505-42bb-97eb-dc266cc720b8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276586398",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276586398",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=6f8186a0-59f8-46e1-8075-9a66d2396118",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/AMK606837_original.jpg",
+    "segmented": "processed/AMK606837_L1_segmented.png",
+    "display": "processed/AMK606837_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK606837_54.webp",
+      "108": "thumb/AMK606837_108.webp",
+      "216": "thumb/AMK606837_216.webp"
+    }
+  },
+  "original_sha256": "997bf7fd075a3e455443a1a5765779691470e29152c4e1d9e9bdc64b85441ceb",
+  "processing": {
+    "cropBox": [
+      170,
+      0,
+      637,
+      426
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK606837_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.53), rotate 270 CCW"
+}

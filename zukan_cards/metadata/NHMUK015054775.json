@@ -1,0 +1,77 @@
+{
+  "species_id": "shitateha",
+  "species_ja": "シータテハ",
+  "scientific_name": "Polygonia c-album",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015054775",
+    "occurrenceId": "5d6da217-86e6-4401-85da-12fbd885ca2d",
+    "persistentId": "5d6da217-86e6-4401-85da-12fbd885ca2d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Dr David C. Lees",
+    "eventDate": "2022-06-28",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Bure Marshes NNR, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 52.6925,
+    "decimalLongitude": 1.4594
+  },
+  "source": {
+    "gbifOccurrenceKey": "3993997416",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5d6da217-86e6-4401-85da-12fbd885ca2d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8ff1d7b5-06fa-4fc5-97d2-a7c0835775f1",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "original": "original/NHMUK015054775_original.jpg",
+    "segmented": "processed/NHMUK015054775_L1_segmented.png",
+    "display": "processed/NHMUK015054775_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015054775_54.webp",
+      "108": "thumb/NHMUK015054775_108.webp",
+      "216": "thumb/NHMUK015054775_216.webp"
+    }
+  },
+  "original_sha256": "a5fc59727a5518f03c7754bf7a909605c09c6fe71297c7908d6813d359e70319",
+  "processing": {
+    "cropBox": [
+      141,
+      0,
+      1276,
+      768
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015054775_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

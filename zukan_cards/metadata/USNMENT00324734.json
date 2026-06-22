@@ -1,0 +1,75 @@
+{
+  "species_id": "natsuakane",
+  "species_ja": "ナツアカネ",
+  "scientific_name": "Sympetrum darwinianum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-21",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00324734",
+    "occurrenceId": "http://n2t.net/ark:/65665/32f4cf91a-8447-4070-a57b-86669700cfd2",
+    "persistentId": "http://n2t.net/ark:/65665/32f4cf91a-8447-4070-a57b-86669700cfd2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "D. Graham",
+    "eventDate": "1933-08-08/1933-08-10",
+    "eventYear": 1933,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Szechwan Province; 30 mi. N. of Chengtu; Beh Luh Din, China",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318271915",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318271915",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16406579&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "original": "original/USNMENT00324734_original.jpg",
+    "segmented": "processed/USNMENT00324734_L1_segmented.png",
+    "display": "processed/USNMENT00324734_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00324734_54.webp",
+      "108": "thumb/USNMENT00324734_108.webp",
+      "216": "thumb/USNMENT00324734_216.webp"
+    }
+  },
+  "original_sha256": "4db447c7173b3e5875294c0dca7e0728e098355273661a4803cc47230f0df5ce",
+  "processing": {
+    "cropBox": [
+      854,
+      154,
+      1530,
+      745
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00324734_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

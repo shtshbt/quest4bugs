@@ -1,0 +1,75 @@
+{
+  "species_id": "hoshichabane_seseri",
+  "species_ja": "ホシチャバネセセリ",
+  "scientific_name": "Aeromachus inachus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pryer, Henry James Stovin",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhopalocera nihonica BHL22784764.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784764.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784764.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pryer, Henry James Stovin",
+    "eventDate": "2015-10-31 03:24:43",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Rhopalocera nihonica: a description of the butterflies of Japan. By H. Pryer. Plate 10\nPlate Text\nPlate 10\n\n1 Pronophila schrenkii Men = Ninguta schrenckii (Ménétriés, 1859)\n2 Neope calipteris Butler= Lethe callipteris (Butler, 1877)\n3 Coenonympha  oedipus  Fab.= Coenonympha oedippus (Fabricius, 1787)\n4 Ismene benjamani= Guer. =  Ismene benjamini; Moore, 1878= Hesperia benjaminii Guérin-Méneville, 1843 = Choaspes benjaminii (Guérin-Méneville, 1843\n5A Pythauria  chrysaeglia  But. =  Bibasis aquilina chrysaeglia (Butler, [1882])\n5B Pythauria  chrysoeglia  But.\n6 Daimio tethys  Murray = Daimio tethys (MÉNÉTRIÉS, 1857).\n7 Pamphila mathias  Fab. =Pelopidas mathias (Fabricius, 1798)\n8 Pamphila lamprospilus Feld =Isoteinon lamprospilus C. &amp; R. Felder, 1862\n9 Pamphila varia Murray = Thoressa varia (Murray, 1875)\n10 Pamphila guttata Brem.  = Eudamus guttatus Bremer &amp; Grey, [1852] = Parnara guttatus (Bremer &amp; Grey, [1852])\n11 Pamphila pellucida Murray= Polytremis pellucida (Murray, 1875)\n12 Pamphila jansonis But. =Pelopidas jansonis (Butler, 1878)\n13A Hesperia sylvanus Esp. = Ochlodes sylvanus (Esper, 1777)\n13B Hesperia sylvanus Esp.\n14A Hesperia comma Linn. = Hesperia comma (Linnaeus, 1758)\n14B Hesperia comma Linn.\n15 Hesperia leonine But. = Thymelicus leonina (Butler, 1878)\n16A Hesperia rikuchina But. rikuchina Butler, 1878 =Ochlodes ochracea (Bremer, 1861)\n16B Hesperia rikuchina But.\n17 Hesperia flava Murray =  Potanthus flava (Murray, 1875)\n18 Hesperia sp.\n19 Cyclopides ornatus Brem. = Leptalina unicolor (Bremer &amp; Grey, [1852])\n20 Pyrgus inachus  Men.= Aeromachus inachus (Ménétriés, 1859)\n21 Syrichthus maculatus Bremer and Grey = Pyrgus maculatus (Bremer &amp; Grey, 1853)\n22 Syrichthus sinicus =  Pyrgus sinicus Butler, 1877= = Pyrgus maculatus (Bremer &amp; Grey, 1853)\n23 Nisoniades montanus Brem. = Erynnis montanus (Bremer, 1861)\n24 Melanitis n.sp",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhopalocera_nihonica_BHL22784764.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Rhopalocera_nihonica_BHL22784764.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "original": "original/WMCFileRhopaloceranihonicaBHL22784764jpg_original.jpg",
+    "segmented": "processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L1_segmented.png",
+    "display": "processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhopaloceranihonicaBHL22784764jpg_54.webp",
+      "108": "thumb/WMCFileRhopaloceranihonicaBHL22784764jpg_108.webp",
+      "216": "thumb/WMCFileRhopaloceranihonicaBHL22784764jpg_216.webp"
+    }
+  },
+  "original_sha256": "9aa4c1507147c31c48d80cb91bf21b1a20763072b1b9a1d63deab0e5b6c346c8",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2704,
+      3484
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhopaloceranihonicaBHL22784764jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}
