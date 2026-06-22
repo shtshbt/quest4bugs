@@ -22,9 +22,13 @@
     var st = doc.createElement("style");
     st.id = "q4b-zukan-detail-night-style";
     st.textContent =
-      /* CSS variable を body.night に直接定義。inline color:var(--zd-*, fallback) は
-         夜モード時にこれらの値で解決される (ラップ不要)。 */
-      'body.night{'
+      /* CSS variable を body.night [data-q4b-zd] にスコープ限定 + コンテナ自体に
+         ダーク背景を強制 (modal が hardcoded 白背景でも内容が読めるように)。 */
+      'body.night [data-q4b-zd]{'
+      +   'background:#1a2740;'
+      +   'color:#e8ecdf;'
+      +   'border-radius:12px;'
+      +   'padding:10px;'
       +   '--zd-faint:#9aa68f;'
       +   '--zd-sub:#b0c0a0;'
       +   '--zd-strong:#e8ecdf;'
@@ -33,9 +37,13 @@
       +   '--zd-amber:#e0c378;'
       +   '--zd-purple:#c79cf0;'
       +   '--zd-chip-on:#b8d09a;'
-      + '}';
+      + '}'
+      + 'body.night [data-q4b-zd] table th{color:var(--zd-sub)!important}'
+      + 'body.night [data-q4b-zd] table td{color:var(--zd-strong)!important}';
     doc.head.appendChild(st);
   }
+  /* detailHTML / masterStubHTML が返す html を wrap して上記 scope に乗せる */
+  function _wrap(html){ return '<div data-q4b-zd>'+html+'</div>'; }
 
   /* サイズヒストグラム: bin 数 6-8、bar は積み上げ(オス/メス) */
   function histogramHTML(records, range){
@@ -333,7 +341,7 @@
     }
     /* レガシーマスター虫 (sex='u') 検出: スタブ表示 (♂♀ をきめるボタン主体) */
     if(global.Q4BReward && global.Q4BReward.isLegacyMasterUnknownSex && global.Q4BReward.isLegacyMasterUnknownSex(entry, sp)){
-      return masterStubHTML(entry, sp, opts);
+      return _wrap(masterStubHTML(entry, sp, opts));
     }
     var records = entry.records || [];
     var sizeMm = (sp && sp.sizeMm) ? sp.sizeMm : (global.Q4BReward && global.Q4BReward.sizeRange ? global.Q4BReward.sizeRange(sp) : [0, 100]);
@@ -366,7 +374,7 @@
       html += eggInfoHTML(sp);
       html += specimenInfoHTML(sp);
       html += breedingActionsHTML(entry, sp, opts);
-      return html;
+      return _wrap(html);
     }
     /* masterOnly 種は通常 detailHTML 上部にも常時 🎓 マスター達成記念バッジを表示 */
     if(sp && sp.masterOnly){
@@ -382,7 +390,7 @@
     /* 自家育成セクション + 卵生成/放棄ボタン (前提クリア時のみ active) */
     html += rearedSectionHTML(opts.coll, sp);
     html += breedingActionsHTML(entry, sp, opts);
-    return html;
+    return _wrap(html);
   }
 
   /* レガシー sex='u' マスター虫 救済 UI (案2: ♂♀ をきめるボタン主体) */
