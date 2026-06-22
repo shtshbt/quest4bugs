@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v113";  /* v113: notifyEggLaid (かけら消費の通常卵) のトースト文言を世界観整合に — 「かせきのかけらを つかって、 しいくかんきょうが ととのった！ / オスとメスが たまごを うんだ！」 の三段構成。 master_pair / boss_pair は別経路で影響なし。 */
+var CACHE = "q4b-cache-v114";  /* v114: keisan 新規 5 件 — 0 問セットで報酬抽選される経路を fail-closed (startPractice で len<5 ならセッション開始しない + finishSet にも N==0 ガード), 復習補充の null クラッシュ防止 (genBy が null なら復習中止), dueMissed を courseCats で フィルタしてコース変更後の苦手混入を遮断, Lv10 クリアを p.lv/maxLv に反映 (画面では「クリア」 と出るのに マスター未達だった), 成績画面の正解率に発展カテゴリを含めかつ Lv 推移は実データありのみ */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

@@ -536,7 +536,22 @@ function setCourse(id,t){
 }
 
 /* ---------- home ---------- */
-function dueMissed(p){var t=todayStr(); return p.missed.filter(function(m){return m.due<=t;});}
+/* P3: missed を現在コース (k5 / k10) で許可された cat に限定する。 これがないと
+   コース変更後に前コースの「にがした虫」がミッション・復習に混入する。 過去コース
+   の missed は配列に残し、 コースを戻したら再利用できるようにする (フィルタのみ)。 */
+function dueMissed(p){
+  var t=todayStr();
+  var allowed={};
+  courseCats(p).forEach(function(c){ allowed[c]=true; });
+  /* 計算ホームの sougou 等もコース別で扱う ── sougou は K10 経路に内含されるため
+     courseCats が "sougou" を含むかは元の定義に従う。 */
+  return p.missed.filter(function(m){
+    if(!m || m.due>t) return false;
+    if(!m.pay) return false;
+    if(!allowed[m.pay.cat]) return false;
+    return true;
+  });
+}
 /* Lvに応じてボタン背景を 薄緑(Lv1)→濃緑(Lv10) に濃くする＝進捗がひと目で分かる */
 function lvBg(lv){ var t=Math.max(0,Math.min(1,(lv-1)/9)); function mix(a,b){return Math.round(a+(b-a)*t);}
   return 'rgb('+mix(0xEC,0x2C)+','+mix(0xF2,0x5F)+','+mix(0xDB,0x2D)+')'; }
@@ -974,6 +989,11 @@ function lvTrendSection(p){
   var cats=courseCats(p), rows="", any=false;
   cats.forEach(function(c){
     var log=p.lvlog&&p.lvlog[c];
+    /* P5: 旧版は未学習カテゴリにも 仮 Lv1 を作って表示しており、 触ったことのない
+       発展 27 カテゴリの折れ線がずらりと並んでいた。 実データ (lvlog または stats)
+       が無いカテゴリは出さない。 */
+    var s = p.stats && p.stats[c];
+    if((!log || !log.length) && (!s || !s.n)) return;
     if(!log||!log.length){
       var currentLv=clampLv(p.lv&&p.lv[c]);
       log=[[todayStr(),currentLv]];
@@ -1035,8 +1055,9 @@ function showStats(){
   }
   h+='<div class="card"><h3>📅 がんばりカレンダー（10週間）</h3><div class="hm">'+cells+'</div>'
     +'<p class="note">こい色ほど たくさん といた日</p></div>';
-  /* accuracy bars */
-  var bars=""; var cats=(p.type==="k5")?K5CATS:K10CATS;
+  /* accuracy bars: 発展カテゴリも含めて表示 (P5)。 旧 K5CATS/K10CATS のみだと
+     和差算・濃度等を何百問解いても 永久に出ない問題があった。 */
+  var bars=""; var cats=courseCats(p);
   cats.forEach(function(c){
     if(c==="sougou")return;
     var s=p.stats[c]; if(!s||!s.n)return;
@@ -5476,7 +5497,17 @@ function startMission(){
   nextQ();
 }
 function startPractice(cat,lv){
-  Q={mode:"practice",cat:cat,lv:lv||null,list:buildPractice(cat,P(),lv),i:0,ok:0,ms:0,balanceBoost:isBalanceCat(P(),cat)};
+  /* P1: K5DEV データ欠落 等で buildPractice が 5 問未満を返すと、 0 問でも
+     finishSet → ceil(0*0.8)=0, Q.ok>=0 を満たして 30% 抽選に入り 無料で虫が
+     取れていた。 5 問揃わなければセッションを開始しない (fail-closed)。 */
+  var practiceList = buildPractice(cat,P(),lv);
+  if(!practiceList || practiceList.length < 5){
+    Q=null;
+    alert("もんだいデータを よみこめませんでした. ページを よみなおしてね");
+    showHome();
+    return;
+  }
+  Q={mode:"practice",cat:cat,lv:lv||null,list:practiceList,i:0,ok:0,ms:0,balanceBoost:isBalanceCat(P(),cat)};
   nextQ();
 }
 function startReview(){
@@ -5507,11 +5538,26 @@ function startReview(){
   if(learned.length){
     var pool=[];
     for(i=0;i<remain;i++) pool.push(pick(learned));
+    /* P2: K5DEV データ欠落で genBy が null を返すと旧版で `fillP._reviewFiller=true`
+       が例外になっていた。 null を検出したら復習自体を中止 (fail-closed)。 */
+    var dataMissing=false;
     pool.forEach(function(c){
+      if(dataMissing) return;
       var fillP=genBy(c,p);
+      if(!fillP){ dataMissing=true; return; }
       fillP._reviewFiller = true;             /* マーカ: ブーストしない (K3) */
       list.push(fillP);
     });
+    if(dataMissing){
+      Q=null;
+      alert("ふくしゅう問題を よみこめませんでした. ページを よみなおしてね");
+      showHome();
+      return;
+    }
+  }
+  if(!list.length){
+    alert("ふくしゅう問題が ありません");
+    return;
   }
   Q={mode:"review", list:shuffle(list), i:0, ok:0, ms:0, review:true};
   nextQ();
@@ -6323,6 +6369,11 @@ function updateBest5(p,q,N){
 }
 function finishSet(){
   var p=P(), t=todayStr(), N=Q.list.length;
+  /* P1: 0 問セットでクリア扱い → 報酬抽選を防ぐ最終ガード。 通常経路では
+     startPractice が阻止するが、 中途で abort された場合等の安全網。 */
+  if(!N || Q.aborted){
+    Q=null; showHome(); return;
+  }
   var scoreLine="せいかい "+Q.ok+"／"+N+"　⏱ "+Math.round(Q.ms/1000)+"秒";
   var best5Line=updateBest5(p,Q,N);
   if(Q.mode==="review"){
@@ -6374,16 +6425,33 @@ function finishSet(){
     }
     return;
   }
-  /* レベル選択練習: クリア(4/5以上)で つぎのレベルを解放。再挑戦は同レベル */
+  /* レベル選択練習: クリア(4/5以上)で つぎのレベルを解放。再挑戦は同レベル。
+     P4: 旧版は `Q.lv < 10` ガードがあり、 Lv10 クリアが p.lv / p.maxLv に
+     反映されなかった (画面では「Lv10 クリア！」 と出るのに マスター未達)。
+     Lv10 でも reached=10 を bumpMaxLv で記録、 unlocked 表示は Lv<10 のときだけ。 */
   if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
-    var cleared=(Q.ok>=4), key=Q.cat, unlocked=false;
+    var cleared=(Q.ok>=4), key=Q.cat, unlocked=false, allLvCleared=false;
     if(!p.lv)p.lv={};
-    if(cleared&&Q.lv>=((p.lv&&p.lv[key])||1)&&Q.lv<10){ p.lv[key]=Q.lv+1; syncLegacyFromLv(p); bumpMaxLv(p,key,p.lv[key]); logLv(p,key); unlocked=true; }
+    var curLvHere = (p.lv&&p.lv[key])||1;
+    if(cleared && Q.lv>=curLvHere){
+      var reached = Math.min(10, Q.lv+1);
+      if(Q.lv===10){
+        bumpMaxLv(p, key, 10);
+        allLvCleared = true;
+      } else {
+        p.lv[key] = reached;
+        syncLegacyFromLv(p);
+        bumpMaxLv(p, key, reached);
+        logLv(p, key);
+        unlocked = true;
+      }
+    }
     updateProgressSummary(p);
     save();
     var msgs=[scoreLine];
-    if(unlocked)msgs.push("🎉 Lv"+(Q.lv+1)+"が ひらいたよ！");
-    else if(!cleared)msgs.push("5問中4問で つぎが ひらくよ。もういちど！");
+    if(unlocked) msgs.push("🎉 Lv"+(Q.lv+1)+"が ひらいたよ！");
+    else if(allLvCleared) msgs.push("🏆 ぜんレベル クリア！ マスターを めざそう！");
+    else if(!cleared) msgs.push("5問中4問で つぎが ひらくよ。もういちど！");
     showSetResult(cleared?("Lv"+Q.lv+" クリア！"):"もうすこし！",msgs,"showLevels('"+Q.cat+"')");
     return;
   }
