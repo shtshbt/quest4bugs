@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v106";  /* v106: 学習尺度・UI 整合 7 件 — 図鑑タブ切替時に現タブを保持, マスター演出キューを「やったー！」 押下後に進める, 漢字リセットの文言を「漢字の記録だけ」に明示, お手本「みる」を押した書字は hinted で SRS 進めず・報酬半額, 複数用例 jk seen 管理 (各 jk を 1 度ずつ正解するまで box 3 へ進めない+未 seen 用例を優先抽選), stageBreakdown を stageOfItem (全 skill 最小) と一致させ 1 字 1 段階に統一, storage.js mergeStore タイブレークを「同 timestamp ローカル優先」に変更 */
+var CACHE = "q4b-cache-v107";  /* v107: keisan critical 8 件 — freshness 二重消費 (feedEgg+onCorrect の caller 1 回 peek), ひき算筆算 Lv5 を 3桁−2桁・くり下がり 2 回に再定義 (2 桁同士は数学的に不可能), 復習で既習なし時はブロック+取りこぼし (_mid) のみ REVIEW_BOOST, 適応 Lv 進行を review/timed/kuku/取りこぼし から除外, 九九チャレンジ合格時に kukuHits=0 リセット, 音声認識の古い callback ガード+数字確定で VOICE_REC.abort, resetAll で各プロフィールの keisan kv を明示削除, ひき算筆算で最上位の連続空欄を 0 扱い許可 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

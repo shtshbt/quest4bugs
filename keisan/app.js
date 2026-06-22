@@ -1217,7 +1217,19 @@ function doImp(){
   }catch(e){alert("読み込めませんでした．文字列を確認してください");}
 }
 function resetAll(){
-  if(confirm("ほんとうに全ハンターのデータを消しますか？元に戻せません")){
+  if(confirm("ほんとうに【全ハンターの 計算データ】を消しますか？\n（漢字 / えいご / 共有のかけら などは のこります）\n元に戻せません")){
+    /* 各プロフィールの keisan kv を明示的に削除し、 共有プロフィール自体は残す (K7)。
+       旧コードは DB={profiles:[]} の後 save() を呼んでいたが、 P()===null では何も
+       保存されず、 再読込で keisan/<id> が復活していた。 */
+    try{
+      if(window.QuestSave && QuestSave.profiles){
+        QuestSave.profiles().then(function(pids){
+          (pids||[]).forEach(function(prof){
+            if(prof && prof.id) QuestSave.save("keisan", prof.id, null);
+          });
+        });
+      }
+    }catch(_){}
     DB={v:1,act:null,profiles:[]}; save(); showProfiles();
   }
 }
@@ -1314,8 +1326,11 @@ function gHikizan(p,lvOv){
     } else if(lv===4){ /* 2桁−2桁・くり下がり 1回 */
       a=ri(21,99); b=ri(11,a-1);
       good=(borrowCount(a,b)===1)&&(a>=b);
-    } else if(lv===5){ /* 2桁−2桁・くり下がり 2回 (一の位＋十の位/百の位) */
-      a=ri(21,99); b=ri(11,a-1);
+    } else if(lv===5){ /* 3桁−2桁・くり下がり 2回 (連続くり下がり)
+       旧: 「2桁−2桁・くり下がり2回」は数学的に不可能 (borrowCount の最大=1)。
+       500 回失敗で条件外の問題が返り、 Lv5 がチートに見える状態だった (K2)。
+       3 桁−2 桁で十の位→百の位への連続くり下がり (例: 100−27, 102−15) を要求。 */
+      a=ri(100,199); b=ri(11,99);
       good=(borrowCount(a,b)>=2)&&(a>=b);
     } else if(lv===6){ /* 3桁−1桁 */
       a=ri(100,899); b=ri(2,9);
@@ -5335,21 +5350,31 @@ function startReview(){
   var cats=(p.type==="k5")?K5CATS:K10CATS;
   // 既習カテゴリ（stats[cat].n > 0）
   var learned=cats.filter(function(c){ return p.stats[c]&&p.stats[c].n>0; });
-  // missed から優先的に1〜2問
-  var list=[], i, due=dueMissed(p);
-  // missed優先（最大2問、ただし5問の範囲内）
+  var due=dueMissed(p);
+  /* 既習もミス回も 0 なら復習はブロック (K3)。 旧コードは新規問題を生成しつつ
+     review=true を立て全問に REVIEW_BOOST が乗っていた。 */
+  if(learned.length===0 && due.length===0){
+    alert("まだ ふくしゅう できる もんだいが ないよ！\nミッション や れんしゅう で とりくんでみよう");
+    return;
+  }
+  var list=[], i;
   var missSlots=Math.min(due.length, learned.length>=2?2:1, 5);
   var missUsed=shuffle(due).slice(0,missSlots);
-  missUsed.forEach(function(m){ list.push(fromMissed(m)); });
-  // 残りを既習カテゴリからランダムに埋める
+  missUsed.forEach(function(m){
+    var prob=fromMissed(m);
+    /* fromMissed が _mid を保つ前提でブースト判定に使う (handleMissed→afterJudge)。 */
+    list.push(prob);
+  });
+  // 残りを既習カテゴリからランダムに埋める (これらは通常 boost = レアブースト無し)
   var remain=5-list.length;
-  if(learned.length===0){
-    // 既習なしの場合は通常ミッション相当
-    for(i=0;i<remain;i++) list.push(genBy(pick(cats),p));
-  } else {
+  if(learned.length){
     var pool=[];
     for(i=0;i<remain;i++) pool.push(pick(learned));
-    pool.forEach(function(c){ list.push(genBy(c,p)); });
+    pool.forEach(function(c){
+      var fillP=genBy(c,p);
+      fillP._reviewFiller = true;             /* マーカ: ブーストしない (K3) */
+      list.push(fillP);
+    });
   }
   Q={mode:"review", list:shuffle(list), i:0, ok:0, ms:0, review:true};
   nextQ();
@@ -5525,17 +5550,25 @@ function startKukuVoice(){
   if(!C||!q||q.cat!=="kuku"){flashMsg("音声こたえあわせは使えません");return;}
   try{ if(VOICE_REC)VOICE_REC.abort(); }catch(e){}
   var rec=new C(); VOICE_REC=rec;
+  /* 古いコールバックが次の問題を勝手に判定するレースを封じる (K6)。
+     - 開始時の Q (セッション) と q (問題インスタンス) を捕捉
+     - onresult で「自分が現在の音声 rec か」「同じセッション・同じ問題か」を確認 */
+  var _capturedQ = q;
+  var _capturedSession = Q;
   rec.lang="ja-JP"; rec.interimResults=false; rec.maxAlternatives=3;
   var msg=$("nmsg"); if(msg){msg.textContent="きいています…"; msg.style.color="var(--green-d)";}
   rec.onerror=function(){ if($("nmsg"))$("nmsg").textContent="ききとれませんでした。数字でもこたえられます"; };
   rec.onend=function(){ if(VOICE_REC===rec)VOICE_REC=null; };
   rec.onresult=function(ev){
+    if(VOICE_REC!==rec) return;                    /* 後発の rec に置き換えられた */
+    if(!Q || Q!==_capturedSession) return;          /* セッション破棄 / 新セッション */
+    if(curQ()!==_capturedQ) return;                 /* 既に次問へ進んでいる */
     var texts=[], i, res=ev.results&&ev.results[0];
     if(res)for(i=0;i<res.length;i++)texts.push(res[i].transcript||"");
     var raw=texts.join(" "), cand=voiceCandidates(raw);
-    var ok=!!(cand[q.dan]&&cand[q.b]&&cand[q.ans]);
+    var ok=!!(cand[_capturedQ.dan]&&cand[_capturedQ.b]&&cand[_capturedQ.ans]);
     if($("ansl"))$("ansl").textContent=raw||"？";
-    afterJudge(ok,q,{ansHTML:String(q.ans),top:ok?"こえで 3つ ききとれた！":"きこえたこと："+esc(raw||"")});
+    afterJudge(ok,_capturedQ,{ansHTML:String(_capturedQ.ans),top:ok?"こえで 3つ ききとれた！":"きこえたこと："+esc(raw||"")});
   };
   try{rec.start();}catch(e){flashMsg("音声を開始できませんでした");}
 }
@@ -5610,6 +5643,9 @@ function padPress(d){
 }
 function submitNum(){
   if(JLOCK)return;
+  /* 数字確定で音声認識の動作中インスタンスを停止し、 古い voice callback が
+     次問を勝手に判定するレースを遮断 (K6 と組合せ)。 */
+  try{ if(VOICE_REC){ VOICE_REC.abort(); VOICE_REC=null; } }catch(_){}
   var q=curQ();
   if(BUF===""){flashMsg("こたえを いれてね");return;}
   var u=parseFloat(BUF);
@@ -5699,9 +5735,24 @@ function hsSubmit(){
     flashMsg(sub?"✏️ うえの けたを タップして くりさがりしてね！":"✏️ くりあがりを かいてから こたえあわせ！");
     return;
   }
-  for(i=0;i<HS.cols;i++)if(HS.ans[i]===""){flashMsg("こたえの けたを ぜんぶ いれてね");return;}
+  /* ひき算筆算では「最上位の連続する空欄」を許す (K8)。 100−99=1 を「001」と
+     ゼロパディングしないと出せないのは通常の筆算表記ではない。 加算は最上位桁が
+     0 になることがないので従来通り全枠必須。 */
+  if(sub){
+    var firstFilled = -1;
+    for(i=HS.cols-1; i>=0; i--){
+      if(HS.ans[i] !== ""){ firstFilled = i; break; }
+    }
+    if(firstFilled < 0){ flashMsg("こたえの けたを いれてね"); return; }
+    /* 先頭の空欄を 0 扱い + 中間 / 一の位の空欄はエラー */
+    for(i=0; i<=firstFilled; i++){
+      if(HS.ans[i] === ""){ flashMsg("こたえの けたを ぜんぶ いれてね"); return; }
+    }
+  } else {
+    for(i=0;i<HS.cols;i++)if(HS.ans[i]===""){flashMsg("こたえの けたを ぜんぶ いれてね");return;}
+  }
   var s="";
-  for(i=HS.cols-1;i>=0;i--)s+=HS.ans[i];
+  for(i=HS.cols-1;i>=0;i--) s += (HS.ans[i]===""?"0":HS.ans[i]);
   var ok=(parseInt(s,10)===HS.sum), warn=null;  /* 数値比較: 先頭0(例 09)も正解に（"09"==="9"問題の修正） */
   if(extra){warn="✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"が ない けたに メモが あるよ"; if(!HS.counted){p.carryMiss++;HS.counted=true;}}
   afterJudge(ok,q,{ansHTML:String(HS.sum),warn:warn});
@@ -5855,18 +5906,27 @@ function afterJudge(ok,q,o){
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(pidNow(),"keisan",1);
   if(ok&&window.Q4BReward&&Q4BReward.feedEgg){
     /* keisan は問題が auto-generated で itemId 一致がほぼ無いので freshness で十分。
-       category 別 Lv が max(10) のときは習熟扱いで value=0.4 に下げる。 */
+       category 別 Lv が max(10) のときは習熟扱いで value=0.4 に下げる。
+       freshness 二重消費の回避: feedEgg と onCorrect が同じ itemId を内部で
+       freshnessOf に通すと初見でも 1→0.5。 caller で 1 回 peek して両 API に
+       value 反映で渡し、 itemId は null にして内部 push を抑止 (K1)。 */
     var _kv=1;
     if(p.lv && p.lv[q.cat] && p.lv[q.cat] >= 10) _kv=0.4;
     var _iid=q.cat+':'+(q.text||q.say||'');
-    Q4BReward.feedEgg("keisan", _kv, {itemId:_iid, coll:p.coll});
+    ensureColl(p);
+    var _fresh = (Q4BReward.freshnessPeek ? Q4BReward.freshnessPeek(p.coll, _iid) : 1);
+    Q._keisanIid = _iid;
+    Q._keisanEffective = _kv * _fresh;       /* 下の onCorrect ブロックで再利用 */
+    Q4BReward.feedEgg("keisan", Q._keisanEffective, {coll:p.coll});
   }
   handleMissed(q,ok,o);
-  /* 適応レベル: 10問ごとに直近10問で判定（9↑でLv+1 / 5↓でLv-1、最大10/最小1）。
-     up=9 (90%) で厳しく / down=5 (50%以下) で緩める → 安定ゾーン 6-8 問 (3問幅)。
-     上がりにくく下がりにくいので、ちょうど良い Lv で長く遊べる。
-     特殊進行カテゴリ (hissan/hikizan/kuku) は下で個別処理。 */
-  if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && !(Q&&Q.lv)){
+  /* 適応 Lv 進行は ミッション / おまかせ練習 限定。 復習 (review) / タイムアタック
+     / 九九チャレンジ / 取りこぼし再挑戦 (_mid) / レベル選択練習 (Q.lv) は除外 (K4)。
+     旧コードは「!Q.lv」 だけで判定し、 復習からも進級していたためコメントと実装が
+     乖離していた。 */
+  var _lvUpdateAllowed = !(Q&&Q.lv) && !(Q&&Q.mode==='review') && !(Q&&Q.timed)
+                       && !(Q&&Q.mode==='kuku') && !q._mid;
+  if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && _lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
     var s10=p.stats[q.cat];
     if(s10 && s10.n>0 && s10.n%10===0){
@@ -5875,15 +5935,15 @@ function afterJudge(ok,q,o){
       else if(ok10<=5 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
     }
   }
-  /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習 Q.lv では行わない） */
-  if(q.cat==="hissan"&&p.type==="k5"&&!(Q&&Q.lv)){
+  /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習・復習・タイム・取りこぼしは除外） */
+  if(q.cat==="hissan"&&p.type==="k5"&&_lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv.hissan==null)p.lv.hissan=1;
     if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
       if(p.hsRun>=5&&p.lv.hissan<10){p.lv.hissan++;p.hsRun=0;syncLegacyFromLv(p);o.lvup="📈 たし算ひっさん Lv"+p.lv.hissan+"に アップ！";}}
     else{p.hsRun=(p.hsRun<=0)?p.hsRun-1:-1;
       if(p.hsRun<=-3&&p.lv.hissan>1){p.lv.hissan--;p.hsRun=0;syncLegacyFromLv(p);}}
   }
-  if(q.cat==="hikizan"&&p.type==="k5"&&!(Q&&Q.lv)){
+  if(q.cat==="hikizan"&&p.type==="k5"&&_lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv.hikizan==null)p.lv.hikizan=1;
     if(p.hkLevel==null){p.hkLevel=1;} if(p.hkRun==null){p.hkRun=0;}
     if(ok){p.hkRun=(p.hkRun>=0)?p.hkRun+1:1;
@@ -5893,7 +5953,7 @@ function afterJudge(ok,q,o){
   }
   /* 九九: ミッション/おまかせ練習の周回で「いまの目標の段」を8回正解したら次の段へ進級（5歳）。
      専用の九九チャレンジ(Q.mode==='kuku')は別ロジックで進級するため除外し二重進級を防ぐ。 */
-  if(q.cat==="kuku"&&p.type==="k5"&&!(Q&&Q.lv)&&!(Q&&Q.mode==='kuku')&&p.kukuIdx<ORDER.length){
+  if(q.cat==="kuku"&&p.type==="k5"&&_lvUpdateAllowed&&!(Q&&Q.mode==='kuku')&&p.kukuIdx<ORDER.length){
     if(p.kukuHits==null)p.kukuHits=0;
     var ktarget=ORDER[Math.min(p.kukuIdx,ORDER.length-1)];
     if(ok && q.dan===ktarget){
@@ -5908,16 +5968,21 @@ function afterJudge(ok,q,o){
   /* 正解時に採集エンジンを進める（タイムアタック中は行わない） */
   if(ok && window.Q4BReward){
     ensureColl(p);
-    var iid=q.cat+':'+(q.text||q.say||'');  // 同じ問題の連打を検知（新しさ係数）
-    /* レアブースト: 復習=2.0、発展(難問)=1.5、まんべんなく=2.0、通常=1.0、既習(Lv>=8)=0.4 */
+    /* レアブースト: 取りこぼし (_mid) のみ復習 BOOST、 発展(難問)=HATTEN、
+       balanceBoost=REVIEW、 既習(Lv>=8)=BOOST_LOW、 それ以外=通常。
+       旧 `Q.review` で全問ブーストしていたが、 復習からの新規導入問題まで
+       高ブースト + 追加捕獲抽選になっていたため _mid 限定へ (K3)。 */
     var _isHatten=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);
     var _boost;
-    if(Q&&Q.review) _boost=Q4BReward.REVIEW_BOOST;
+    if(q._mid) _boost=Q4BReward.REVIEW_BOOST;
     else if(_isHatten) _boost=Q4BReward.HATTEN_BOOST;
     else if(Q&&Q.balanceBoost) _boost=Q4BReward.REVIEW_BOOST;
-    else _boost=keisanCatBoost(p, q.cat);  /* Lv>=8 → BOOST_LOW */
-    var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, iid);
+    else _boost=keisanCatBoost(p, q.cat);
+    /* freshness 二重消費の回避 (K1): feedEgg と同じ係数を再利用、 itemId=null。 */
+    var _effective = (Q&&Q._keisanEffective!=null) ? Q._keisanEffective : 1;
+    var got=Q4BReward.onCorrect(p.coll,'keisan', 8, _boost, null, _effective);
     if(got) o.capture=got;
+    if(Q){ Q._keisanIid=null; Q._keisanEffective=null; }
   }
   logLv(p,q.cat);  /* この問題のカテゴリの現在Lvを記録（推移グラフ用・同日上書き） */
   save();
@@ -6019,6 +6084,7 @@ function finishSet(){
     if(pass){
       if(p.kukuIdx<ORDER.length&&ORDER[p.kukuIdx]===dan){
         p.kukuClear[dan]=1; p.kukuIdx++;
+        p.kukuHits=0;                       /* 通常学習の途中カウントを次段へ持ち越さない (K5) */
         if(!p.lv)p.lv={}; p.lv.kuku=legacyKukuToLv(p);
         msg=dan+"の段 クリア！"+(p.kukuIdx<ORDER.length?" つぎは "+ORDER[p.kukuIdx]+"の段！":" 🏆ぜんだんマスター！");
       }else msg=dan+"の段 ばっちり！";
