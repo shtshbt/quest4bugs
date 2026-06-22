@@ -362,17 +362,23 @@ function kanjiRangeBoost(key){
 }
 function applyAnswer(key,sk,ok,mode){
  var r=rec(key,sk), t=todayStr();
- /* れんしゅう/ふくしゅうでは 正解で すすむ(1日1回まで)、 まちがいは 1 段階もどる。
+ /* れんしゅう/ふくしゅうでは 正解で box+1、 ただし 「初回 (s===0) または due 到来後」
+    のみ昇格する due gate を適用。 期限前正解は 練習・復習統計だけ反映し、 box/due
+    は据置 → 復習チャレンジ等で 偶然 due 前に出題されても 4日 → 3日 のような
+    迂回 promotion が起きない (英語 SRS と同じ原則)。
     テストは進級判定だけの「関門」なので、 正誤どちらでも SRS は変更しない。
-    結果と誤答一覧 (ST.wrong / ST.log) だけ記録 → 正解で box が上がらず誤答で
-    box が下がる非対称を解消。 */
+    まちがいは従来通り 1 段階もどす + 誤答一覧に記録。 */
  if(mode === 'test'){
-   /* 誤答時の誤答一覧記録は維持 (にがて指導用) */
    if(!ok){
      ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
    }
  } else if(ok){
-   if(r.la !== t){ r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]); }
+   /* due gate: 初回 (s===0) または 期限到来 (r.due <= t) のみ昇格。
+      la 同日制限も併用 (短期間連打で 0→1→2 を防止)。 */
+   if(r.la !== t && (r.s === 0 || !r.due || r.due <= t)){
+     r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]);
+   }
+   /* 期限前正解: box/due は据置、 ST.log だけ加算 */
  } else {
    if(r.s>0){ r.s=Math.max(1,r.s-1); }
    r.due=t; r.la='';
