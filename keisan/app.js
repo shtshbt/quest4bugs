@@ -1186,7 +1186,17 @@ function showLevelGuide(){
   h+='</div>';
   render(h);
 }
-function renameP(){var p=P(); var n=prompt("あたらしい なまえ",p.name); if(n&&n.trim()){p.name=n.trim().slice(0,10); save(); showSettings();}}
+function renameP(){
+ var p=P(); var n=prompt("あたらしい なまえ",p.name);
+ if(n&&n.trim()){
+  var nm=n.trim().slice(0,10);
+  p.name=nm;
+  /* 共有レジストリにも反映 → 他教科・ポータルでも同じ名前に (K19)。
+     QuestSave.updateProfile が p.updated を打つので LWW でも勝つ。 */
+  if(window.QuestSave && QuestSave.updateProfile) QuestSave.updateProfile(p.id, {name: nm});
+  save(); showSettings();
+ }
+}
 function toggHissan(){var p=P(); p.hissanInput=(p.hissanInput==="app")?"paper":"app"; save(); showSettings();}
 function toggSpeech(){var p=P(); p.speech=!p.speech; save(); showSettings();}
 function expShow(){
@@ -3103,16 +3113,17 @@ function gHeikin(lv){
     }
     else if(lv===2){
       // 単純平均（4〜5個、範囲拡大）：個数増で質的に難化
+      // K22: テストの点は 0..100 に制限 (旧: hi2*2=160 で 100 点超が混ざっていた)
       var n2=ri(4,5), hi2=80;
       var avg2=ri(5,hi2);
       var vals2=[], rem2=avg2*n2, ok2=true;
       for(var k=0;k<n2-1;k++){
         var up2=rem2-(n2-1-k);
         if(up2<1){ok2=false;break;}
-        var v2=ri(1, Math.min(up2, hi2*2));
+        var v2=ri(1, Math.min(up2, 100));
         vals2.push(v2); rem2-=v2;
       }
-      if(!ok2||rem2<1) continue;
+      if(!ok2||rem2<1||rem2>100) continue;
       vals2.push(rem2);
       ans=avg2;
       if(ans<=0) continue;
@@ -3127,11 +3138,12 @@ function gHeikin(lv){
     }
     else if(lv===4){
       // 欠けた1つを逆算（3〜4教科）：合計-既知＝欠け
+      // K22: 既知点も 0..100 に制限
       var n4=ri(3,4), avg4=ri(20,80);
       var total4=avg4*n4;
       var known4=[], ksum4=0, ok4=true;
       for(var k=0;k<n4-1;k++){
-        var maxk4=Math.min(avg4*2, total4-ksum4-(n4-1-k));
+        var maxk4=Math.min(100, total4-ksum4-(n4-1-k));
         if(maxk4<1){ok4=false;break;}
         var v4=ri(1,maxk4);
         known4.push(v4); ksum4+=v4;
@@ -3143,11 +3155,12 @@ function gHeikin(lv){
     }
     else if(lv===5){
       // 欠けた1つを逆算（5〜6教科、範囲拡大）：個数増で質的に難化
+      // K22: 既知点も 0..100 に制限 (旧: avg5*2 で 180 点が混ざっていた)
       var n5=ri(5,6), avg5=ri(30,90);
       var total5=avg5*n5;
       var known5=[], ksum5=0, ok5=true;
       for(var k=0;k<n5-1;k++){
-        var maxk5=Math.min(avg5*2, total5-ksum5-(n5-1-k));
+        var maxk5=Math.min(100, total5-ksum5-(n5-1-k));
         if(maxk5<1){ok5=false;break;}
         var v5=ri(1,maxk5);
         known5.push(v5); ksum5+=v5;
@@ -5325,10 +5338,23 @@ function buildMission(p){
   var list=[], due=dueMissed(p), cap=(p.type==="k5")?2:2, total=5;
   due.slice(0,cap).forEach(function(m){list.push(fromMissed(m));});
   var r=total-list.length, cats;
-  if(p.type==="k5"){cats=shuffle(["hissan","hikizan","kuku","kuku","anzan"]).slice(0,r);}
-  else{cats=["mix","kufuu","deci","frac","machigai"];
+  if(p.type==="k5"){
+    /* K20: 旧 ["hissan","hikizan","kuku","kuku","anzan"] では kukuyomi / warizan が
+       永久に出ず、 九九が二重に入っていた。 全 6 基本カテゴリから「久しく触っていない」
+       順に優先選択 → ミッションだけで全カテゴリを満遍なくカバー。 */
+    var base=["hissan","hikizan","kuku","kukuyomi","anzan","warizan"];
+    base.sort(function(a,b){
+      var la=(p.lastDone&&p.lastDone[a])||"";
+      var lb=(p.lastDone&&p.lastDone[b])||"";
+      if(la===lb) return Math.random()-0.5;  /* 同じ日付ならランダム */
+      return la<lb?-1:1;                     /* 古い日付 (空文字含む) 優先 */
+    });
+    cats=base.slice(0,r);
+  } else {
+    cats=["mix","kufuu","deci","frac","machigai"];
     while(cats.length<r)cats.push(pick(["mix","kufuu","deci","frac"]));
-    cats=cats.slice(0,r);}
+    cats=cats.slice(0,r);
+  }
   shuffle(cats).forEach(function(c){list.push(genBy(c,p));});
   return list;
 }
@@ -5779,8 +5805,15 @@ function hsSubmit(){
   }
   var s="";
   for(i=HS.cols-1;i>=0;i--) s += (HS.ans[i]===""?"0":HS.ans[i]);
-  var ok=(parseInt(s,10)===HS.sum), warn=null;  /* 数値比較: 先頭0(例 09)も正解に（"09"==="9"問題の修正） */
-  if(extra){warn="✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"が ない けたに メモが あるよ"; if(!HS.counted){p.carryMiss++;HS.counted=true;}}
+  var numericallyOk=(parseInt(s,10)===HS.sum), warn=null;
+  /* 不要なくり上がり/くり下がりメモも誤答扱い (K10)。 旧版は警告だけで ok=true の
+     まま SRS / Lv 進行・報酬が満額入り、 全桁に「1」 と書いても通る抜け道だった。
+     筆算手順の習得尺度として「メモが正しい」 ことも要件にする。 */
+  var ok = numericallyOk && !extra;
+  if(extra){
+    warn="✏️ "+(HS.op==="sub"?"くりさがり":"くりあがり")+"が ない けたに メモが あるよ。けいさんを みなおそう";
+    if(!HS.counted){p.carryMiss++;HS.counted=true;}
+  }
   afterJudge(ok,q,{ansHTML:String(HS.sum),warn:warn});
 }
 function frBoxesHTML(){
@@ -5902,6 +5935,17 @@ function recordAdaptStat(cat,ok){
   a.n++; a.recent.push(ok?1:0);
   while(a.recent.length>20) a.recent.shift();
 }
+/* K21: 同じ概念で複数回間違えた場合に missed が別エントリで埋まり、 古い未解決
+   問題が FIFO で押し出される問題を解消。 cat + kind + lv (+ text の特徴) で
+   重複統合し、 同概念ヒット時は tries++ / due 更新 / payload 差し替えにとどめる。 */
+function missedKey(q){
+  /* 数値そのものではなく問題のパターンを特徴づける identifier。
+     ランダム数値だけ違う「同じ概念」 を 1 つのエントリに統合する。 */
+  var lv = (q.lv!=null) ? q.lv : '';
+  var dan = (q.dan!=null) ? q.dan : '';
+  var fix = q.fixmsg ? '#'+String(q.fixmsg).slice(0,8) : '';
+  return (q.cat||'')+'|'+(q.kind||'')+'|'+lv+'|'+dan+fix;
+}
 function handleMissed(q,ok,o){
   var p=P(), t=todayStr(), i;
   if(q._mid){
@@ -5914,7 +5958,17 @@ function handleMissed(q,ok,o){
     }
   }else if(!ok){
     var pay=JSON.parse(JSON.stringify(q)); delete pay._mid;
-    p.missed.push({id:Date.now()+""+ri(100,999),pay:pay,due:dShift(t,1),tries:0});
+    var pkey = missedKey(q);
+    /* 既存に同パターンがあれば差し替え (FIFO 消失防止 K21)。 */
+    for(i=0;i<p.missed.length;i++){
+      if(p.missed[i].pkey === pkey){
+        p.missed[i].pay = pay;
+        p.missed[i].due = dShift(t,1);
+        p.missed[i].tries = (p.missed[i].tries||0) + 1;
+        return;
+      }
+    }
+    p.missed.push({id:Date.now()+""+ri(100,999), pkey:pkey, pay:pay, due:dShift(t,1), tries:0});
     while(p.missed.length>40)p.missed.shift();
   }
 }

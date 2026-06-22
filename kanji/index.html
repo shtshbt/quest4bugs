@@ -2011,6 +2011,9 @@ function renameProf(id){ var p=null,i;
  if(nm){
   p.name=nm.trim()||p.name;
   p.updated = Date.now();              /* 別端末の旧名に LWW で巻き戻されないように (新追加#8) */
+  /* 共有レジストリにも反映 (K19): saveProfiles だけでは他教科 / ポータルに伝播しない
+     ケースがあるため、 updateProfile API 経由で 1 元化。 */
+  if(QuestSave.updateProfile) QuestSave.updateProfile(p.id, {name: p.name});
   QuestSave.saveProfiles(PROFILES); head(); renderParent();
  } }
 function renderParent(){ var s=$('scr-parent');

@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v108";  /* v108: keisan critical 追加 7 件 — ミッションは 3/5 以上で報酬 (0 点クリアの farming 封じ), 九九音声 UI から正解併記を削除+最後の数を答え判定, 解放最高 Lv (p.maxLv) を現在 Lv と分離 (失敗で下がっても 過去クリア Lv が再ロックされない), タイムアタックを適応バッファ p.adapt から除外 (10 問目判定スキップ・直近 10 問汚染を解消), バックアップ復元に restore モード追加 (updated 打ち直し+registry まるごと置換) → kanji UI で「マージ取り込み / 強制復元」分離, 年齢算フォールバック ans=15→20 (40+x=2(10+x)), 暗算マスター条件を p.lv.anzan>=10 (or maxLv) に変更 (Lv1 50問 farming 封じ) */
+var CACHE = "q4b-cache-v109";  /* v109: 残課題 7 件 — keisan 筆算の不要メモを誤答扱いに (旧: 警告のみで満額正解), eitango freshness 二重消費 (Reward.freshnessPeek 公開+caller 1 回計算), kanji/keisan 名前変更を QuestSave.updateProfile 経由に統一 (共有レジストリに伝播), keisan ミッションを全 6 基本カテゴリ (kukuyomi/warizan 含む) から「久しく触っていない」順で選択, missed (にがし虫) 履歴を cat+kind+lv+fix キーで重複統合 (FIFO 消失防止), 平均算 Lv2/4/5 のテスト得点を 0-100 に制限 (160-180 が混ざる現状を解消), 親画面で「同じ子を 2 台で同時使用は進捗消失リスク」 を赤字で明示 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

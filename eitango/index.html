@@ -664,20 +664,33 @@ const SRS = {
 const Reward = {
   NEED: 8,
   RARNAME: ['ノーマル', 'レア', 'スーパーレア', 'ウルトラレア', 'でんせつ'],
-  onAnswer(p, ok, field, itemId) {
+  /* freshness を caller (afterAnswer) で 1 回計算 → feedEgg と onAnswer に同じ
+     係数を渡すパターン (K15)。 旧コードは feedEgg が `coll.recent` (= P.recent) に
+     push してから onAnswer 内でも reps を数えていたため、 初見語でも係数 0.5 に
+     なりゲージが半減していた。 prefresh を渡せば内部の push+rep 計算は skip。 */
+  freshnessPeek(p, itemId) {
+    if (itemId == null) return 1;
+    if (!p.recent) p.recent = [];
+    let reps = 0;
+    for (let i = 0; i < p.recent.length; i++) if (p.recent[i] === itemId) reps++;
+    p.recent.push(itemId);
+    if (p.recent.length > 12) p.recent = p.recent.slice(-12);
+    return reps === 0 ? 1 : Math.max(0.2, Math.pow(0.5, reps));
+  },
+  onAnswer(p, ok, field, itemId, prefresh) {
     const t = Engine.todayKey();
     const c = p.cal[t] || (p.cal[t] = { q: 0, c: 0 });
     c.q++;
     Engine.touchStreak(p);
     if (!ok) return null;
     c.c++; if(window.QuestSave){QuestSave.amberAdd(ePid(),1);}else{p.amber++;} p.amberTotal++;  // 🔶共有ウォレットへ
-    // 新しさ係数: 同じ語の連打でゲージの進みを逓減（最低0.2、違う語は満額1）
-    let fresh = 1;
-    if (itemId != null) {
-      if (!p.recent) p.recent = [];
-      let reps = 0; for (let i = 0; i < p.recent.length; i++) if (p.recent[i] === itemId) reps++;
-      p.recent.push(itemId); if (p.recent.length > 12) p.recent = p.recent.slice(-12);
-      fresh = reps === 0 ? 1 : Math.max(0.2, Math.pow(0.5, reps));
+    let fresh;
+    if (prefresh != null) {
+      fresh = prefresh;             /* caller が 1 回 peek 済み (二重消費回避) */
+    } else if (itemId != null) {
+      fresh = this.freshnessPeek(p, itemId);
+    } else {
+      fresh = 1;
     }
     /* 学習価値: 既マスター語(box>=3)の周回はゲージ伸びを鈍化（薄いフィールド乱獲の抑制） */
     let val = 1; if (itemId && p.srs[itemId] && p.srs[itemId][0] >= 3) val = 0.4;
@@ -2322,18 +2335,23 @@ function afterAnswer(item,ok,title,detail){
   if(ok) S.correct++;
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(ePid(),'eitango',1);
   /* 卵給餌は learn/practice/review のみ。 ヌシ戦は kanji の認定テストと同じ「関門」
-     なので、 正解で卵に餌を与えない (audit #19)。 ヌシ捕獲が確定報酬。 */
+     なので、 正解で卵に餌を与えない (audit #19)。 ヌシ捕獲が確定報酬。
+     freshness 二重消費を回避するため caller 側で 1 回計算してから両 API に渡す
+     (K15)。 itemId は null にして feedEgg 内部の push を抑止。 */
+  const _ekey = item&&item.w&&item.w.key;
+  let _ePrefresh = 1;
+  if(ok && _ekey){ _ePrefresh = Reward.freshnessPeek(P, _ekey); }
   if(ok&&window.Q4BReward&&Q4BReward.feedEgg&&S&&S.mode!=='nushi'){
     /* 既習語の grinding を抑制: SRS box / kids mode の習熟度で value 重み付け
        box>=3 (覚えた) or kids 80%+ 8回以上: 0.2 / box==2: 0.5 / box<=1: 1.0 */
-    let _v=1; const _k=item&&item.w&&item.w.key;
-    if(_k){
-      const srs=P.srs&&P.srs[_k], kd=P.kids&&P.kids[_k];
+    let _v=1;
+    if(_ekey){
+      const srs=P.srs&&P.srs[_ekey], kd=P.kids&&P.kids[_ekey];
       if(srs && srs[0]>=3) _v=0.2;
       else if(srs && srs[0]===2) _v=0.5;
       if(kd && kd[0]>=8 && kd[1]/kd[0]>0.8) _v=Math.min(_v,0.2);
     }
-    Q4BReward.feedEgg('eitango', _v, {itemId:_k, coll:{recent:(P.recent||(P.recent=[]))}});
+    Q4BReward.feedEgg('eitango', _v * _ePrefresh, {coll:{recent:[]}});
   }
   if(!item.retry){
     const wasKids=item.type==='kids';
@@ -2405,7 +2423,7 @@ function afterAnswer(item,ok,title,detail){
     const tc=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
     tc.q++; if(ok){tc.c++;} Engine.touchStreak(P);
   } else {
-    res=Reward.onAnswer(P,ok,GFID,item.w.key);  // 同じ語の連打を検知（新しさ係数）
+    res=Reward.onAnswer(P,ok,GFID,item.w.key, _ePrefresh);  // freshness を caller で 1 回計算済み (K15)
   }
   if(res){ S.caught.push(res); pendingCatch=res; }
   if(!ok&&!item.retry&&S.mode==='main'&&!S.retried[item.w.key]){
