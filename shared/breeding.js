@@ -752,6 +752,10 @@
     var abandonBtn = opts.onAbandon
       ? '<button type="button" id="q4bEggAbandon" style="display:block;width:100%;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer;margin-bottom:6px">🥚 たまごを すてる (返金なし)</button>'
       : '';
+    /* ひっこめる: 育成中の卵を pendingEggs に戻す (進捗保持) */
+    var demoteBtn = opts.onDemote
+      ? '<button type="button" id="q4bEggDemote" style="display:block;width:100%;border:1.5px solid #CFDDB2;border-radius:10px;padding:8px;font-size:13px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#F8F4E4;cursor:pointer;margin-bottom:6px">📥 ひっこめる (たまごリストに もどす)</button>'
+      : '';
 
     ov.innerHTML = ''
       + '<div style="background:#FFFDF4;border-radius:22px;max-width:340px;width:96%;max-height:90vh;overflow-y:auto;padding:18px 20px;box-shadow:0 14px 44px rgba(0,0,0,.32)">'
@@ -765,6 +769,7 @@
       +   '<div style="margin-top:12px">'
       +     ctaBtn
       +     parentBtn
+      +     demoteBtn
       +     abandonBtn
       +     '<button type="button" id="q4bEggClose" style="display:block;width:100%;border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
       +   '</div>'
@@ -785,6 +790,11 @@
         if(!confirm("この たまごを すてる? (返金なし)")) return;
         if(!confirm("ほんとうに すてる?")) return;
         close(); opts.onAbandon(egg.id);
+      };
+    }
+    if(opts.onDemote){
+      ov.querySelector("#q4bEggDemote").onclick = function(){
+        close(); opts.onDemote(egg.id);
       };
     }
     ov.querySelector("#q4bEggClose").onclick = close;
@@ -817,7 +827,11 @@
       var originColorMap = {master_pair:'#A06BD8', boss_pair:'#E8B33C', lay:'#4A9B3A'};
       var originLabel = originLabelMap[egg.origin] || '';
       var originColor = originColorMap[egg.origin] || '#6B7A5E';
-      var tier = sp && sp.rarity ? String(sp.rarity).toUpperCase() : '';
+      /* レア度は日本語ラベルで表示 (子供向け). N→ノーマル, R→レア, SR→スーパーレア, SSR→ウルトラレア, SS→でんせつ */
+      var rarityLabelMap = {N:'ノーマル', R:'レア', SR:'スーパーレア', SSR:'ウルトラレア', SS:'でんせつ'};
+      var rarityColorMap = {N:'#9CA88A', R:'#5B8DE0', SR:'#A06BD8', SSR:'#E08BB9', SS:'#E8B33C'};
+      var tier = sp && sp.rarity ? (rarityLabelMap[sp.rarity] || sp.rarity) : '';
+      var tierBg = sp && sp.rarity ? (rarityColorMap[sp.rarity] || '#EAEFE0') : '#EAEFE0';
       var bornDate = egg.bornAt ? esc(egg.bornAt) : '';
       var canPromote = (slotsAvailable > 0) && !eggsIds[egg.id];
       var promoteDisabled = canPromote ? '' : ' disabled';
@@ -831,7 +845,7 @@
       return '<div class="q4bNestCard" style="background:#fff;border:1.5px solid #E0D4F2;border-radius:12px;padding:10px;margin-bottom:8px">'
         + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
         +   '<span style="background:'+originColor+';color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:1px 7px">'+originLabel+'</span>'
-        +   (tier?'<span style="background:#EAEFE0;color:#2A3D2C;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px">'+esc(tier)+'</span>':'')
+        +   (tier?'<span style="background:'+tierBg+';color:#fff;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px">'+esc(tier)+'</span>':'')
         +   '<span style="font-size:14px;font-weight:700;color:#2A3D2C;flex:1">'+name+shinyMark+'</span>'
         +   '<span style="color:'+sexColor+';font-size:18px;font-weight:900">'+sexEmoji+'</span>'
         + '</div>'
@@ -863,20 +877,25 @@
       +   layBtn
       + '</div>';
     doc.body.appendChild(ov);
+    /* callback 呼び出しヘルパ: 関数 or 関数名 (string) の両対応 */
+    function _call(cb, arg){
+      if(typeof cb === 'function') cb(arg);
+      else if(typeof cb === 'string' && typeof global[cb] === 'function') global[cb](arg);
+    }
     ov.querySelector('#q4bNestClose').onclick = close;
     if(opts.onOpenLayPicker){
       var lb = ov.querySelector('#q4bNestNewLay');
-      if(lb) lb.onclick = function(){ close(); opts.onOpenLayPicker(); };
+      if(lb) lb.onclick = function(){ close(); _call(opts.onOpenLayPicker); };
     }
     Array.prototype.forEach.call(ov.querySelectorAll('button[data-act]'), function(b){
       b.onclick = function(){
         var id = b.getAttribute('data-egg-id');
         var act = b.getAttribute('data-act');
         if(act === 'promote' && opts.onPickPending){
-          close(); opts.onPickPending(id);
+          close(); _call(opts.onPickPending, id);
         } else if(act === 'discard' && opts.onDiscardPending){
           if(!global.confirm || !global.confirm('この たまごを すてる? (もどせないよ)')) return;
-          close(); opts.onDiscardPending(id);
+          close(); _call(opts.onDiscardPending, id);
         }
       };
     });

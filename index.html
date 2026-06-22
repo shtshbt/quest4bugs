@@ -1238,6 +1238,7 @@ function homeEggTap(id){
         onHatch: function(spId){ homeEggHatch(spId); },
         onAdvance: function(spId){ homeEggAdvance(spId); },
         onAbandon: function(spId){ Q4BReward.abandonEgg(spId); _refreshDashIfActive(); },
+        onDemote: function(spId){ homeEggDemote(spId); },
         onViewParent: function(spId){ openParentZukan(spId); }
       });
       return;
@@ -1322,13 +1323,27 @@ function homeEggPromotePending(eggId){
     return;
   }
   _refreshDashIfActive();
+  _maybeReopenEggNest();
 }
 function homeEggDiscardPending(eggId){
   if(!Q4BReward.discardPendingEgg) return;
-  if(!Q4BReward.discardPendingEgg(eggId)){
-    alert('すてられなかったよ');
-    return;
+  if(!Q4BReward.discardPendingEgg(eggId)){ alert('すてられなかったよ'); return; }
+  _refreshDashIfActive();
+  _maybeReopenEggNest();
+}
+/* 連続操作: 待機卵 + 空きスロットがまだあれば たまごリスト モーダルを再オープン */
+function _maybeReopenEggNest(){
+  var pid = _hPid(); if(!pid) return;
+  if(!QuestSave.breedingOf) return;
+  var bs = QuestSave.breedingOf(pid);
+  if((bs.pendingEggs||[]).length > 0 && (bs.eggs||[]).length < 3){
+    setTimeout(homeEggAdd, 250);
   }
+}
+/* 育成中の卵を pendingEggs に戻す (進捗保持) */
+function homeEggDemote(eggId){
+  if(!Q4BReward.demoteEggToPending) return;
+  if(!Q4BReward.demoteEggToPending(eggId)){ alert('ひっこめられなかったよ'); return; }
   _refreshDashIfActive();
 }
 window.homeEggPickPending=null;  /* 産卵候補の sp.id を保持 */

@@ -781,6 +781,25 @@
     return egg;
   }
 
+  /* 育成中の卵を pendingEggs に戻す (進捗保持)。スロットを別の卵に切り替えたい時用。
+     progress は維持して queuedAt をスタンプ。 */
+  function demoteEggToPending(id){
+    var bs = _bs();
+    var idx = -1, i;
+    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+    if(idx < 0) return false;
+    var egg = bs.eggs.splice(idx, 1)[0];
+    egg.queuedAt = todayStr();
+    /* dedup: pendingEggs に同 id+origin あれば重複回避 */
+    var dup = false;
+    for(i=0;i<bs.pendingEggs.length;i++){
+      if(bs.pendingEggs[i].id===egg.id && bs.pendingEggs[i].origin===egg.origin){ dup = true; break; }
+    }
+    if(!dup) bs.pendingEggs.push(egg);
+    _saveBs(bs);
+    return true;
+  }
+
   /* pendingEggs から指定 id の卵を破棄 (返金なし、totalAbandoned++) */
   function discardPendingEgg(id){
     var bs = _bs();
@@ -1067,6 +1086,7 @@
     acceptPendingEgg: acceptPendingEgg,
     promotePendingEgg: promotePendingEgg,
     discardPendingEgg: discardPendingEgg,
+    demoteEggToPending: demoteEggToPending,
     migrateUnstartedLegacyEggsToPending: migrateUnstartedLegacyEggsToPending,
     abandonEgg: abandonEgg,
     breederRank: breederRank,
