@@ -522,8 +522,9 @@ function equipmentHTML(g){
     +'<div class="hint">かせきのかけらと しずくで復元するよ。こだいこんちゅうの ちからを かりられる。復元できるパーツ：'+ready+'こ</div>'
     +'<details class="equip-more"><summary>かせきパーツを ひらく</summary><div class="equip-grid">'+h+'</div></details></div>';
 }
-function goshinHTML(pid,amber,bt){
+function goshinHTML(pid,amber,bt,opts){
   if(!window.QuestSave||!QuestSave.goshinOf)return "";
+  opts = opts || {};
   var g=QuestSave.goshinOf(pid), d=g.daily||{}, subs=(d.subjects||{}), order=["keisan","kanji","eitango"];
   function card(s,icon){
     var x=subs[s]||{correct:0,fragment:false}, p=pct50(x.correct);
@@ -532,10 +533,27 @@ function goshinHTML(pid,amber,bt){
       +'<div class="goshin-bar"><i style="width:'+p+'%"></i></div>'
       +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,30-(x.correct||0))+'もん')+'</div></div>';
   }
+  /* あゆみ section: 虫とりマスター称号 + 3 教科 progressSummary を御神木パネル内に統合 */
+  var ayumiHTML = '';
+  if(opts.gRank || opts.progressSummary){
+    var rankLine = opts.gRank
+      ? '<div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#5C3D14;margin-bottom:3px">'
+        + '<span style="font-size:14px">🏅</span><span>'+esc(opts.gRank)+'</span>'
+        + (opts.gCaught!=null?'<span style="font-weight:500;color:#7A6B4B"> (つうさん '+opts.gCaught+'ひき)</span>':'')
+        + (opts.gNext?'<span style="font-weight:500;color:#7A6B4B;margin-left:auto">つぎ「'+esc(opts.gNext.name)+'」まで あと '+opts.gNext.need+'ひき</span>':'')
+        + '</div>'
+      : '';
+    var progLine = opts.progressSummary
+      ? '<div style="font-size:11px;color:#5C3D14;line-height:1.5">📊 '+opts.progressSummary+'</div>'
+      : '';
+    ayumiHTML = '<div class="goshin-ayumi" style="border:1px solid #D8C892;background:#FFFDF7;border-radius:12px;padding:7px 10px;margin-bottom:8px">'
+      + rankLine + progLine + '</div>';
+  }
   return '<div class="goshin" id="goshinboku-panel">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
     +'<div class="goshin-board-grid"><div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div>'
     +'<div class="goshin-board"><b>きょう達成したこと</b><br>'+esc(goshinDoneText(g))+'</div></div></div>'
+    +ayumiHTML
     +'<div class="goshin-wallet">'
     +'<div class="goshin-chip"><b>🔶 こはく</b><strong>'+amber+'</strong><span>30こで虫をよぼう</span></div>'
     +'<div class="goshin-chip"><b>🪨 かせきのかけら</b><strong>'+g.fossilFragments+'</strong><span>おおむかしの虫のかせきだ</span></div>'
@@ -1114,7 +1132,8 @@ function renderDashboard(pid,name){
     if(ks&&ks.progressSummary)ps.push(esc(ks.progressSummary));
     if(kp&&kp.progressSummary)ps.push(esc(kp.progressSummary));
     if(es&&es.progressSummary)ps.push(esc(es.progressSummary));
-    var psLine=ps.length?'<div class="note" style="background:var(--green-l);border-radius:10px;padding:6px 8px;margin:0 0 8px">📊 '+ps.join('　/　')+'</div>':'';
+    /* psLine: progressSummary は 御神木パネル「あゆみ」セクションに移したため、
+       ここでは ps 配列を保持するだけで HTML 文字列は出力しない。 */
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
     /* legacy master 自動確定: sex='u' マスター虫を rollSex で確定 + 相方卵を一括授与。
@@ -1159,12 +1178,9 @@ function renderDashboard(pid,name){
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
       +homeMapHTML(taniOpen)
-      +goshinHTML(pid,amber,bt)
-      +'<div class="note" style="display:flex;align-items:center;gap:8px;background:var(--green-l);border-radius:10px;padding:6px 10px;margin:0 0 8px">'
-      +'<span style="font-size:18px">🏅</span><span style="font-weight:800">'+esc(gRank)+'</span>'
-      +'<span style="color:var(--sub)">（つうさん '+gCaught+'ひき）</span>'
-      +(gNext?'<span style="color:var(--sub);margin-left:auto">つぎ「'+esc(gNext.name)+'」まで あと'+gNext.need+'ひき</span>':'')+'</div>'
-      +psLine
+      /* 「虫とりマスター 称号」と 「📊 progressSummary」 は 御神木パネルの「あゆみ」
+         セクションに統合 (旧: 御神木の下に独立パネル → ごちゃつき解消) */
+      +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext, progressSummary:ps.join('　/　')})
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（'+rangeLabel+'・'+totalQ+'もん）</div>'
       +tabsHTML
       +'<div style="display:flex;align-items:flex-end;gap:'+gapPx+'px;height:48px">'+bars+'</div>'+legend
