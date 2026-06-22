@@ -379,9 +379,10 @@ function kanjiRangeBoost(key){
 }
 function applyAnswer(key,sk,ok,mode,rq){
  var r=rec(key,sk), t=todayStr();
- /* seen フラグ: 一度でも出題された印 (正誤問わず立てる)。 introduced() で参照。
-    rq:true (誤答後の再出題) でも見たことは見たので seen は立てる。 */
- if(!r.seen) r.seen = 1;
+ /* seen は「通常導入で見た」印。 テストで観察しただけで導入済み扱いにはしない
+    (新#2)。 これがないと 学年テストを 12 問受けるだけで 12 字が introduced 扱いに
+    なり、 翌日以降 newCharCap (newS/newB) を消費せず通常学習に紛れ込む。 */
+ if(!r.seen && mode !== 'test') r.seen = 1;
  /* rq:true (誤答→再出題) は SRS を変更しない統計扱い。 これで 「誤答で box-1
     → 即座に再出題で box+1」 の相殺を防ぐ。 */
  if(rq){
@@ -393,20 +394,25 @@ function applyAnswer(key,sk,ok,mode,rq){
  }
  /* れんしゅう/ふくしゅうでは 正解で box+1、 ただし 「初回 (s===0) または due 到来後」
     のみ昇格する due gate を適用。 期限前正解は 練習・復習統計だけ反映し、 box/due
-    は据置 → 復習チャレンジ等で 偶然 due 前に出題されても 迂回 promotion 不可。
-    テストは進級判定だけの「関門」なので、 正誤どちらでも SRS は変更しない。
-    まちがいは従来通り 1 段階もどす + 誤答一覧に記録。 */
+    は据置。 テストは関門なので 正誤どちらでも SRS は変更せず、 誤答も ST.wrong に
+    入れない (新#6) ── 入れると未学習範囲の模試が苦手履歴を 60 件枠から押し出す。 */
  if(mode === 'test'){
-   if(!ok){
-     ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
-   }
+   /* SRS / ST.wrong / r.la いずれも変更しない。 ログのみ末尾で a++。 */
  } else if(ok){
    if(r.la !== t && (r.s === 0 || !r.due || r.due <= t)){
      r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]);
    }
  } else {
-   if(r.s>0){ r.s=Math.max(1,r.s-1); }
-   r.due=t; r.la='';
+   /* 誤答時の同日ロック維持 (新#1): 既習スキルは r.la=t に固定し、 due を翌日に
+      送る。 これがないと わざと間違えて r.la を消し、 同日 box+1 を稼ぐ抜け道に
+      なる。 未学習 (s===0) のときだけ 当日中の再練習を許す。 */
+   if(r.s>0){
+     r.s=Math.max(1,r.s-1);
+     r.la=t;
+     r.due=addDays(t,1);
+   } else {
+     r.due=t; r.la='';
+   }
    ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
  }
  var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.a++;
@@ -559,9 +565,27 @@ var TESTS=(function(){
  t.t_exam={label:'じゅけんテスト（もぎ）',need:function(){return grades.some(function(g){return unOK('u'+g)})},items:function(){var a=[];grades.forEach(function(g){if(unOK('u'+g))a=a.concat(UNITS[g].map(function(c){return 'k:'+c}))});return a},n:20,reward:null,memo:'かいほうずみの ぜんがくねんから しゅつだい・80てんで ごうかく',isExam:true};
  return t;
 })();
-function passed(id){ return ST.tests.some(function(x){return x.t===id&&x.sc>=80}) }
-function goldOf(id){ return ST.tests.some(function(x){return x.t===id&&x.sc>=95}) }
-function bestOf(id){ var m=-1; ST.tests.forEach(function(x){ if(x.t===id&&x.sc>m)m=x.sc }); return m }
+/* テスト合格情報は履歴 (ST.tests, 40 件上限) と独立した永続サマリーで管理する。
+   履歴が押し出されると合格・金・最高点が消えて再ロックや初回報酬の再取得が起こる
+   ため (新#4)。 初回起動時に旧履歴から 1 度だけ backfill。 */
+function ensureTestPersist(){
+ if(!ST.testBest) ST.testBest = {};
+ if(!ST.testPassed) ST.testPassed = {};
+ if(!ST.testGold) ST.testGold = {};
+ if(!ST._testPersistMigrated && ST.tests && ST.tests.length){
+  ST.tests.forEach(function(x){
+   if(!x||!x.t)return;
+   var sc=x.sc||0;
+   if(sc > (ST.testBest[x.t]||0)) ST.testBest[x.t]=sc;
+   if(sc>=80) ST.testPassed[x.t]=1;
+   if(sc>=95) ST.testGold[x.t]=1;
+  });
+  ST._testPersistMigrated=1;
+ }
+}
+function passed(id){ ensureTestPersist(); return !!ST.testPassed[id] }
+function goldOf(id){ ensureTestPersist(); return !!ST.testGold[id] }
+function bestOf(id){ ensureTestPersist(); var b=ST.testBest[id]; return (typeof b==='number') ? b : -1 }
 // grantBug: 旧採集エンジン用（Q4BReward 移行後は不使用）
 function grantBug(id){ return [] }
 function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲') }
@@ -600,6 +624,7 @@ function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
  var bz=window.Q4BBossZukan?Q4BBossZukan.load(p.id):Promise.resolve();
  Promise.all([bz, ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); })]).then(function(r){ var d=r[1]; ST=d||newState();
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
+  ensureTestPersist();
   // 後方互換: 旧 coll (配列) を新形式に移行
   if(!ST.coll||Array.isArray(ST.coll))ST.coll={gauge:0,total:0,catches:{}};
   // 旧・ゲーム別amberを共有ウォレットへ一度だけ移行（即保存して再移行=二重計上を防ぐ）
@@ -814,8 +839,10 @@ function answerInfo(p){
  if(p.sk==='y' && p.jk) return {disp: p.jk.w, say: p.jk.r};
  if(p.sk==='y')return {disp:x.main,say:x.main};
  if(p.sk==='o')return {disp:x.oku.ok,say:x.oku.r};
- /* じゅくご (skill 'j') も jk があれば語全体 */
+ /* じゅくご (skill 'j') / えらぶ (skill 'r') / かき (skill 'w') も jk があれば
+    語全体で正解表示 ── 出題時に空欄/置換した形と整合させる (新#7)。 */
  if(p.sk==='j' && p.jk) return {disp: p.jk.w, say: p.jk.r};
+ if(p.sk==='r' && p.jk) return {disp: p.jk.w, say: p.jk.r};
  if(p.sk==='w' && p.jk) return {disp: p.jk.w, say: p.jk.r};
  return {disp:x.k,say:x.main} }
 function showCorrect(p){ var a=answerInfo(p); var s=$('scr-quiz');
@@ -900,9 +927,12 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
   if(!test&&CUR.mode==='small')T.say('なんと よむ？');
   showScr('quiz'); return }
  if(p.sk==='r'){
-  /* えらぶ: 同じ読みの漢字が複数ある可能性に備え、 jk.w を文脈として併記。 */
+  /* えらぶ: 熟語 jk を文脈にしつつ、 対象漢字を空欄にしないと「学校 (がっこう) に
+     はいる かんじは？」のように答えが見えてしまう (新#3)。 jk.w 内の対象漢字を
+     1 箇所だけマスクして表示。 */
   var jkR = pickOne(x.jk); p.jk = jkR;
-  h+='<div class="card center"><div class="qmid">「<b>'+esc(jkR.w)+'</b>」(<b>'+esc(jkR.r)+'</b>) に はいる かんじは？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
+  var wMasked = esc(jkR.w).replace(ch, '<span class="blank">◻</span>');
+  h+='<div class="card center"><div class="qmid">「'+wMasked+'」(<b>'+esc(jkR.r)+'</b>) に はいる ◻ の かんじは？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test)T.say(jkR.r); showScr('quiz'); return }
  if(p.sk==='j'){ var jk=pickOne(x.jk); p.jk = jk;
   /* 熟語問題で対象漢字が複数回ある場合の空欄重複を防ぐため replace で 1 個だけ (#13) */
@@ -912,13 +942,17 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
  if(p.sk==='o'){
   h+='<div class="card center"><div class="qmid">「<b>'+x.oku.r+'</b>」を かんじで かくと？</div>'+choiceHtml(shuffle([x.oku.ok,x.oku.ng]),true)+'</div>';
   s.innerHTML=h; bindChoices(s,x.oku.ok); if(!test)T.say(x.oku.r); showScr('quiz'); return }
- renderWrite(s,h,ch,test,false);
+ /* 書字 (skill 'w'): 出題に使う熟語を p.jk に保持して answerInfo が語全体を出せる
+    ようにする。 これがないと renderWrite が KMAP[ch].jk[0] 固定で、 answerInfo の
+    'w' && p.jk 分岐に到達できない (新#7)。 */
+ if(p.sk==='w'){ p.jk = pickOne(x.jk); }
+ renderWrite(s,h,ch,test,false,p.jk);
 }
 
-function renderWrite(s,h,ch,test,isKana){
+function renderWrite(s,h,ch,test,isKana,jkOverride){
  var cue;
  if(isKana){ cue='<div class="qword center">「<b>'+ch+'</b>」を かこう</div>' }
- else { var jk=KMAP[ch].jk[0];
+ else { var jk = jkOverride || KMAP[ch].jk[0];
   /* 例文中に対象漢字が複数回あっても 1 個だけ空欄に (#13) */
   cue='<div class="qword center">「<b>'+jk.r+'</b>」と かこう<br><span class="small">'+esc(jk.s).replace(ch,'◻')+'</span></div>' }
  h+='<div class="card center">'+cue+'<div id="hwbox"></div><div id="wBtns" style="margin-top:10px"></div></div>';
@@ -1015,8 +1049,12 @@ function traceUI(box,ch,test){
 }
 
 /* ================= ことばつくり ================= */
-function startKotoba(){ closeModal(); SES={mode:'kotoba',q:shuffle(WORDS).slice(0,5),i:0,ok:0,res:[]}; nextKot() }
-function nextKot(){ if(SES.i>=SES.q.length){ endSession(); return }
+function startKotoba(){ closeModal(); SES={mode:'kotoba',q:shuffle(WORDS).slice(0,5),i:0,ok:0,res:[],answerLocked:0}; nextKot() }
+function nextKot(){
+ /* 中途で「やめる」した場合 setTimeout で遅延発火しても SES.i 参照しないよう guard (新#5) */
+ if(!SES || SES.mode!=='kotoba') return;
+ SES.answerLocked=0;                              /* 次問の入力を再許可 */
+ if(SES.i>=SES.q.length){ endSession(); return }
  var w=SES.q[SES.i]; var s=$('scr-quiz');
  var pic=(w.p.indexOf('bug:')===0)? bugSVG(w.p.slice(4),72) : '<span style="font-size:64px">'+w.p+'</span>';
  var slots=''; for(var i=0;i<w.w.length;i++)slots+='<div class="slot"></div>';
@@ -1027,16 +1065,24 @@ function nextKot(){ if(SES.i>=SES.q.length){ endSession(); return }
  showScr('quiz'); setTimeout(function(){ T.say(w.w,true) },250);
  var fill=[]; var slotEls=document.querySelectorAll('#kSlots .slot');
  var bs=document.querySelectorAll('#kBank button');
- function resetK(){ fill=[]; for(var a=0;a<slotEls.length;a++)slotEls[a].textContent='';
+ function resetK(){
+  if(SES&&SES.answerLocked) return;              /* 正解確定後は受け付けない */
+  fill=[]; for(var a=0;a<slotEls.length;a++)slotEls[a].textContent='';
   for(var b=0;b<bs.length;b++)bs[b].disabled=false }
  $('bRes').addEventListener('click',resetK);
  for(var i2=0;i2<bs.length;i2++){ (function(btn){ btn.addEventListener('click',function(){
-  if(fill.length>=w.w.length)return;
+  if(!SES || SES.answerLocked) return;            /* 連打 / SES 消失中はスルー (新#5) */
+  if(fill.length>=w.w.length) return;
   btn.disabled=true; slotEls[fill.length].textContent=btn.textContent; fill.push(btn.textContent);
   if(fill.length===w.w.length){ var ok=(fill.join('')===w.w); fbShow(ok);
-   if(ok){ SES.ok++; SES.res.push({ok:true});
+   if(ok){
+    SES.answerLocked=1;                            /* 900ms 待機中の二重発火と やりなおす を抑止 */
+    for(var c=0;c<bs.length;c++) bs[c].disabled=true;
+    var bRes=$('bRes'); if(bRes) bRes.disabled=true;
+    SES.ok++; SES.res.push({ok:true});
     var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.a++; saveST();
-    T.say(w.w); SES.i++; setTimeout(nextKot,900) }
+    T.say(w.w); SES.i++; setTimeout(nextKot,900);
+   }
    else { setTimeout(resetK,750) } } }) })(bs[i2]) }
 }
 
@@ -1063,13 +1109,21 @@ function endSession(){
 
 function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.res.length;
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
+ ensureTestPersist();
  var wasPassed=passed(id); /* この回より前に すでに合格済みか（周回判定）。unshift の前に捕捉 */
  ST.tests.unshift({d:t,t:id,sc:sc,n:total,w:SES.wrongs.map(function(p){return p.key})});
  if(ST.tests.length>40)ST.tests.length=40;
  var pass=(sc>=80), gold=(sc>=95), gainedCatches=[];
+ /* 履歴 40 件枠と独立した永続サマリーへ反映 (新#4)。 これがないと 40 件押し出しで
+    合格・金・最高点が消失し、 isExam 再ロックや初回報酬の再取得が起こる。 */
+ if(sc > (ST.testBest[id]||0)) ST.testBest[id]=sc;
+ if(pass) ST.testPassed[id]=1;
+ if(gold) ST.testGold[id]=1;
  // 受験テストは合格点80点判定のみ（解放チェーン進行なし）
  var isExam=(TESTS[id]&&TESTS[id].isExam);
- if(pass){ if(!isExam)ST.pp=(ST.pp||0)+1; if(ST.re&&ST.re.t===id)ST.re=null;
+ /* あいぼう成長 ST.pp は「同じテストの周回」では伸ばさず、 初回合格時のみ +1 (新#9)。
+    これがないと t_u1 を 3 回受けるだけで成虫🪲 になる。 */
+ if(pass){ if(!isExam && !wasPassed) ST.pp=(ST.pp||0)+1; if(ST.re&&ST.re.t===id)ST.re=null;
   // 解放チェーン一般化: 合格したテストIDに対応するチェーンキーを探し、次のキーを解放
   if(!isExam){
    var chainKeyMap={t_hira:'hira'};

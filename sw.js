@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v102";  /* v102: kanji さらなる修正 — answered() 連打ロック (書字 ⭕/❌ で次問を勝手に正解扱いするバグ), 再テスト ST.re 期限を一覧で尊重 (待機中は disable + 残日数表示), 認定テストを 1 文字 1 問構成に (書字 2 問先取り + 残りは別漢字から非書字スキル抽選), テスト中は feedEgg/onCorrect を発火させない (合格報酬のみに限定) */
+var CACHE = "q4b-cache-v103";  /* v103: kanji 重大バグ修正 — 誤答の同日昇格ロック解除を封じる (誤答時 r.la=t 維持 + due 翌日), テスト中は seen を立てない (新出 30 字/日 迂回封じ), 「えらぶ」で対象漢字を熟語表示中に空欄化 (答えが見えていた), テスト合格情報の永続サマリー (ST.testBest/testPassed/testGold) 新設で 40 件履歴押し出しによる再ロック・初回報酬再取得を防止, ことばつくりの連打/タイマー競合ロック (nextKot guard + SES.answerLocked), テスト誤答を ST.wrong に入れず苦手履歴汚染を停止, 書字 (skill 'w') にも p.jk を保持して正解フィードバック整合, answerInfo に 'r' 分岐追加, 送り仮名旧形式 41 字を shared/kanji_data.js 本体で正規化, ST.pp 加算を初回合格のみに限定 (周回ボツアップ封じ) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
