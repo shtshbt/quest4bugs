@@ -80,10 +80,24 @@
     migrateLegacy(mem);
     return mem;
   }
+  /* localStorage への永続化。 setItem 失敗 (quota / privatemode 等) を黙殺すると
+     画面上は正常でも、 リロード後にすべて消える状態が起きる。 ok を返し、 連続失敗時
+     には degraded フラグを立てて上位 UI から警告できるようにする (新追加#1)。 */
+  var __saveDegraded = false;
   function persist(){
-    if(!mem)return;
-    safeSet(STORE_KEY,JSON.stringify(mem));
+    if(!mem) return true;
+    var ok = safeSet(STORE_KEY, JSON.stringify(mem));
+    if(!ok){
+      __saveDegraded = true;
+      try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] localStorage.setItem failed — data may be lost on reload."); }catch(_){}
+      try{ window.dispatchEvent(new CustomEvent("q4b-storage-degraded")); }catch(_){}
+    } else if(__saveDegraded){
+      __saveDegraded = false;
+      try{ window.dispatchEvent(new CustomEvent("q4b-storage-recovered")); }catch(_){}
+    }
+    return ok;
   }
+  function isDegraded(){ return __saveDegraded; }
 
   /* ---------------- status ---------------- */
   function setStatus(s){
@@ -868,7 +882,7 @@
     breedingOf:breedingOf, breedingSet:breedingSet,
     markDropSeen:markDropSeen,
     // status / connection
-    getStatus:getStatus, onStatus:onStatus, autoConnect:autoConnect,
+    getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,
     firebaseSignIn:firebaseSignIn, disconnect:disconnect,
     // config

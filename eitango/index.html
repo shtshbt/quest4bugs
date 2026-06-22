@@ -2143,6 +2143,8 @@ function renderKids(item){
   Speech.say(w.en);
 }
 function ansKids(i,key){
+  /* 連打ガード: sibling ansSpell/ansColloc/ansJukugo と同じく S.__locked で 1 問 1 解 */
+  if(S.__locked) return; S.__locked=true;
   const item=S.queue[S.i], w=item.w, ok=key===w.key;
   document.querySelectorAll('.kcard').forEach(b=>b.onclick=null);
   $('#kc'+i).classList.add(ok?'ok':'ng');
@@ -2223,6 +2225,9 @@ function ansColloc(i){
   Speech.say(w.en);
 }
 function ansSRS(i){
+  /* 連打ガード: sibling 関数群と同じく S.__locked で 1 問 1 解 (audit #1)。
+     これがないと SRS.grade / feedEgg / Reward.onAnswer / tc.q++ が二重発火する。 */
+  if(S.__locked) return; S.__locked=true;
   const item=S.queue[S.i], w=item.w, ok=S.cards[i].key===w.key;
   document.querySelectorAll('.opt').forEach(b=>b.onclick=null);
   $('#op'+i).classList.add(ok?'ok':'ng');
@@ -2316,7 +2321,9 @@ function afterAnswer(item,ok,title,detail){
   S.answered++;
   if(ok) S.correct++;
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(ePid(),'eitango',1);
-  if(ok&&window.Q4BReward&&Q4BReward.feedEgg){
+  /* 卵給餌は learn/practice/review のみ。 ヌシ戦は kanji の認定テストと同じ「関門」
+     なので、 正解で卵に餌を与えない (audit #19)。 ヌシ捕獲が確定報酬。 */
+  if(ok&&window.Q4BReward&&Q4BReward.feedEgg&&S&&S.mode!=='nushi'){
     /* 既習語の grinding を抑制: SRS box / kids mode の習熟度で value 重み付け
        box>=3 (覚えた) or kids 80%+ 8回以上: 0.2 / box==2: 0.5 / box<=1: 1.0 */
     let _v=1; const _k=item&&item.w&&item.w.key;
@@ -2409,14 +2416,22 @@ function afterAnswer(item,ok,title,detail){
   showFB(ok,title,detail);
 }
 function showFB(ok,title,detail){
+  /* つぎへ ▶ の二度押し封じ (audit #2): closeFB を 1 回呼んだら以降は無視。
+     id を付けて click ハンドラ側で disabled フラグも立てる。 */
   $('#fbwrap').innerHTML=`<div class="fb ${ok?'good':'bad'}" id="fb">
     <div class="ft">${title}</div><div class="fd">${detail}</div>
-    <button onclick="closeFB()">つぎへ ▶</button></div>`;
+    <button id="fbNext" onclick="closeFB()">つぎへ ▶</button></div>`;
   requestAnimationFrame(()=>$('#fb').classList.add('show'));
 }
+let __fbClosing=false;
 function closeFB(){
+  if(__fbClosing) return;
+  __fbClosing=true;
+  const b=document.getElementById('fbNext'); if(b) b.disabled=true;
   $('#fbwrap').innerHTML='';
+  if(!S){ __fbClosing=false; return; }
   S.i++;
+  __fbClosing=false;                  /* 次画面 render 前に解除 (renderSRS が S.__locked=false する) */
   nextQ();
 }
 

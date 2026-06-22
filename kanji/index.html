@@ -278,6 +278,10 @@ var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-0
 function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
 function unOK(part){ return CFG.all ? true : !!ST.un[part] }
+/* マスター条件等「永続データの達成判定」では CFG.all (動作確認用 全解放) を無視し、
+   実 ST.un を見る (新追加#7)。 これがないとデバッグ ON のままマスター虫を獲得し
+   実プロフィールに永続記録される事故が起きる。 */
+function unRealOK(part){ return !!(ST.un && ST.un[part]) }
 function saveST(){ QuestSave.save('kanji',CUR.id,ST) }
 /* 図鑑詳細モーダル内のお気に入りハートをタップしたとき: トグル → 保存 → ボタンだけ差し替え。
    モーダル全体を再描画すると入力やスクロール位置が消えるためボタンのみ更新。 */
@@ -715,7 +719,11 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  if(dc.dueBacklog>0) backlogParts.push('ふくしゅう '+dc.dueBacklog);
  if(dc.freshBacklog>0) backlogParts.push('あたらしい '+dc.freshBacklog);
  var backlogLine=backlogParts.length ? '<div class="small">📚 のこっている: '+backlogParts.join('・')+'</div>' : '';
- var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">こんかいの ミッション</div><div class="num">'+dc.queueN+'<span style="font-size:16px"> もん</span></div>'+missionBreak+backlogLine+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ /* 保存劣化バナー: localStorage への書き込みが失敗している間 (容量超過 / private
+    モード 等) は「進捗が消える」恐れを赤バナーで明示 (新追加#1)。 */
+ var degraded = (window.QuestSave && QuestSave.isDegraded && QuestSave.isDegraded());
+ var degradedBanner = degraded ? '<div class="banner" style="background:#ffebee;color:#b71c1c;font-weight:bold">⚠ きろくが ほぞんできていません！ ブラウザを とじると きえます。 おうちのひとに れんらくしてね。</div>' : '';
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+degradedBanner+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">こんかいの ミッション</div><div class="num">'+dc.queueN+'<span style="font-size:16px"> もん</span></div>'+missionBreak+backlogLine+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  /* 再テスト到来バナー: 辞書化された ST.retests から「今日以前」かつ「未合格」の id を拾う (新追加#5) */
  if(ST.retests){
   var _retDue=null;
@@ -783,7 +791,26 @@ function startLearn(){ var q=buildDaily();
  nextQ() }
 function startPractice(pairs,label){
  if(!pairs||!pairs.length){ modal('<div class="center"><div style="font-size:32px">🔍</div><div style="font-weight:bold;margin:8px 0">この はんい・かたちの もんだいが ないよ</div><div class="small">べつの かたち（おまかせ等）や はんいを えらんでね</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
- pairs=shuffle(pairs).slice(0,10);
+ /* どの入口から練習しても新出文字の上限を 30/日 (newS/newB) で守る (新追加#3)。
+    pairsFor / 範囲練習 / 漢字一覧個別練習 / テスト後練習 などからの問題に nw が
+    付かないため、 初出字が無制限に「導入済み」になっていた。 ここで新出字を
+    p.nw=1 でマーク + capacity を超える分は除外。 */
+ var t=todayStr();
+ var lg=ST.log[t]||{a:0,n:0};
+ var capS=CFG.newS, capB=CFG.newB;
+ var remainS = Math.max(0, capS - (lg.nS||0));
+ var remainB = Math.max(0, capB - (lg.nB||0));
+ var consumedHere = {};
+ var filtered = [];
+ pairs.forEach(function(p){
+  if(introduced(p.key)){ filtered.push(p); return; }
+  var courseKey = p.key[0]==='h' ? 'S' : 'B';
+  if(consumedHere[p.key]){ p.nw=1; filtered.push(p); return; }  /* 既に同セッションで新出枠を予約済み */
+  if(courseKey==='S' && remainS>0){ remainS--; consumedHere[p.key]=1; p.nw=1; filtered.push(p); }
+  else if(courseKey==='B' && remainB>0){ remainB--; consumedHere[p.key]=1; p.nw=1; filtered.push(p); }
+  /* 残り 0 ならその字は今日は出さない */
+ });
+ pairs = shuffle(filtered).slice(0,10);
  if(!pairs.length){ modal('<div class="center">れんしゅうできる ものが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal(); SES=startSession({mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}); nextQ() }
 function startTest(id){ var tdef=TESTS[id]; var items=tdef.items();
@@ -832,28 +859,38 @@ function answered(ok){
  var kval = (p.rewardValue != null) ? p.rewardValue : (stageBefore >= 3 ? 0.4 : 1);
  if(p.nw&&!p.cnt){
   p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0});
-  /* コース別新規枠カウンタ (#2)。 旧 lg.n も互換のため累積。 */
-  var nKey=(CUR.mode==='small'?'nS':'nB');
+  /* コース別新規枠カウンタ。 キー由来 (h:/k:) で決め、 ひらがな練習中に漢字キーの
+     新出を扱う場合 (混合経路) でも正しく計上する (新追加#3)。 旧 lg.n も互換維持。 */
+  var nKey = (p.key && p.key[0]==='h') ? 'nS' : 'nB';
   lg[nKey]=(lg[nKey]||0)+1;
   lg.n=(lg.n||0)+1;
  }
  applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'), !!p.rq);
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
+ /* 再出題 (rq) 時は applyAnswer で SRS 不変だが、 報酬経路 (recordCorrect /
+    feedEgg / onCorrect / amber) はそのまま発火していた。 これがあると毎問わざと
+    誤答→再出題で +10 正解分の報酬を稼げる抜け道になる (新追加#2)。 rq 時は
+    報酬・正解カウンタ・QuestSave.recordCorrect も全て skip する。 */
+ var rewardEligible = ok && !p.rq && SES.mode !== 'test';
  if(ok){ SES.ok++;
-  if(window.QuestSave&&QuestSave.recordCorrect&&CUR&&CUR.id)QuestSave.recordCorrect(CUR.id,'kanji',1);
-  // 採集ゲージ＆卵給餌: learn/practice/review のみ。 test は合格時の確定報酬のみ
-  // 受け取らせる (新#4)。 旧コードはコメントどおりでなく test でも feedEgg を実行
-  // していた結果、 不合格テストの再周回で卵が無限育成できる経路になっていた。
+  if(rewardEligible && window.QuestSave && QuestSave.recordCorrect && CUR && CUR.id)
+   QuestSave.recordCorrect(CUR.id,'kanji',1);
+  // 採集ゲージ＆卵給餌: learn/practice/review のみ かつ rq でないとき (新追加#2)。
+  // test は合格時の確定報酬のみ (新#4)。
   var iid=p.key+'|'+p.sk;
-  if(SES.mode!=='test'&&window.Q4BReward){
+  if(rewardEligible && window.Q4BReward){
    /* freshness 二重消費を回避 (今回新#1)。 feedEgg と onCorrect が両方内部で
       freshnessOf を呼ぶと初回答ですら 1 → 0.5 と削られる。 caller 側で 1 回だけ
       peek (push 込) して係数を取り、 両 API には itemId=null + value 反映で渡す。 */
    var fresh = (Q4BReward.freshnessPeek ? Q4BReward.freshnessPeek(ST.coll, iid) : 1);
    var effective = kval * fresh;
    if(Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', effective, {coll:ST.coll});
-   var _kboost = (SES.mode==='review') ? Q4BReward.REVIEW_BOOST : kanjiRangeBoost(p.key);
+   /* REVIEW_BOOST は復習で「期限到来済み」だった問題に限定 (新追加#6)。
+      期限前 stage 1-2 filler に高 boost をかけると周回経路になる。 */
+   var _kboost;
+   if(SES.mode==='review' && p.wasDue) _kboost = Q4BReward.REVIEW_BOOST;
+   else _kboost = kanjiRangeBoost(p.key);
    var got=Q4BReward.onCorrect(ST.coll,'kanji',8,_kboost,null,effective);
    if(got){
     saveST();
@@ -1222,6 +1259,15 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
  if(!(id in ST.testBest) || sc > ST.testBest[id]) ST.testBest[id]=sc;
  if(pass) ST.testPassed[id]=1;
  if(gold) ST.testGold[id]=1;
+ /* t_exam (受験テスト・もぎ) は出題範囲が「受験時に解放されている学年」だけ。
+    マスター条件の「全学年解放後の合格」を判定するため、 合格時に「全学年が
+    実際に解放されていたか」を別フラグで永続する (新追加#5)。 CFG.all のデバッグ
+    全解放では立てない (新追加#7)。 */
+ if(pass && id==='t_exam' && !CFG.all){
+  var _grades = Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
+  var _allOpen = _grades.length && _grades.every(function(g){ return unRealOK('u'+g); });
+  if(_allOpen) ST.testExamScopeAll = 1;
+ }
  // 受験テストは合格点80点判定のみ（解放チェーン進行なし）
  var isExam=(TESTS[id]&&TESTS[id].isExam);
  /* あいぼう成長 ST.pp は「同じテストの周回」では伸ばさず、 初回合格時のみ +1 (新#9)。
@@ -1321,10 +1367,15 @@ function startReview(){
  }
  dueList.sort(function(a,b){return a.due<b.due?-1:1});
  var pairs=[]; var seenKey={};
- /* 同じ字を重複させず 5 個取る (due → other 順) */
- function pushUniq(p){ if(seenKey[p.key]) return; seenKey[p.key]=1; pairs.push({key:p.key,sk:p.sk}); }
- dueList.forEach(pushUniq);
- if(pairs.length<5) shuffle(otherList).forEach(pushUniq);
+ /* 重複排除単位を key|sk に (新追加#6)。 字単位だと同字で「よみ due」「かき due」
+    「熟語 due」のうち 1 つしか採用されず、 残り 4 枠が non-due filler で埋まる。
+    さらに due 問題が 5 個未満のときだけ filler を入れる (= due があれば優先消化)。 */
+ function pushUniq(p){
+  var k=p.key+'|'+p.sk; if(seenKey[k]) return;
+  seenKey[k]=1; pairs.push({key:p.key, sk:p.sk, wasDue: !!p.due});
+ }
+ dueList.forEach(function(p){ pushUniq(p); });
+ if(pairs.length<5) shuffle(otherList).forEach(function(p){ pushUniq(p); });
  pairs=pairs.slice(0,5);
  if(!pairs.length){ modal('<div class="center">ふくしゅうできる もじが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal();
@@ -1396,8 +1447,11 @@ function masterMet(sp){
  if(alt && passed(alt)){
   var req=sp.master.altRequire;
   if(req==='all_grades_unlocked'){
-   var grades=Object.keys(UNITS).map(Number).sort(function(a,b){return a-b});
-   if(grades.length && grades.every(function(g){return unOK('u'+g);})) return true;
+   /* 旧: 「現在 全学年が解放済」だけで OK だった (新追加#5)。 これだと t_exam を
+      1 年生だけの段階で 合格 → 後で 6 年生まで解放、 でマスター条件成立する抜け道。
+      修正: 「t_exam を 全学年解放後に合格していた」 (ST.testExamScopeAll) を要求。
+      CFG.all (デバッグ全解放) ではマスター達成しない (新追加#7)。 */
+   if(ST.testExamScopeAll && !CFG.all) return true;
   } else {
    return true;  /* require 無しなら altKey 合格のみで OK */
   }
@@ -1586,7 +1640,12 @@ function renderProgress(){
 var RANGEFMT='mix';  /* 出題形式フィルタ: mix(おまかせ)/y(よみ)/r(えらぶ)/w(かき)/j(じゅくご)/o(おくりがな) */
 function pairsFor(keys){ var out=[];
  keys.forEach(function(key){
-  var sks = (RANGEFMT==='mix') ? gatedSkills(key) : (skillsOf(key).indexOf(RANGEFMT)>=0 ? [RANGEFMT] : []);
+  /* 形式指定でも未解放スキル (よみ box<1 で他形式) は出さない (新追加#4)。
+     旧コードは skillsOf を使い未解放を素通しさせ、 読みを一度も解かずに書字や
+     熟語を進められる抜け道だった。 RANGEFMT が gatedSkills に含まれていれば
+     その 1 スキル、 そうでなければ空 (= その字は出題対象外)。 */
+  var avail = gatedSkills(key);
+  var sks = (RANGEFMT==='mix') ? avail : (avail.indexOf(RANGEFMT)>=0 ? [RANGEFMT] : []);
   sks.forEach(function(sk){ out.push({key:key,sk:sk}) });
  });
  return out }
@@ -1902,7 +1961,11 @@ function weakTop(){ var m={}; ST.wrong.forEach(function(w){ var c=w.k.slice(2); 
 function renameProf(id){ var p=null,i;
  for(i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)p=PROFILES[i];
  if(!p)return; var nm=prompt('新しい名前',p.name);
- if(nm){ p.name=nm.trim()||p.name; QuestSave.saveProfiles(PROFILES); head(); renderParent() } }
+ if(nm){
+  p.name=nm.trim()||p.name;
+  p.updated = Date.now();              /* 別端末の旧名に LWW で巻き戻されないように (新追加#8) */
+  QuestSave.saveProfiles(PROFILES); head(); renderParent();
+ } }
 function renderParent(){ var s=$('scr-parent');
  var ist='width:100%;margin:6px 0;padding:10px;border-radius:10px;border:2px solid #b9cfa6;font-size:14px;box-sizing:border-box';
  var h='<button class="btn sub mini" id="bBk5">← ホーム</button>'

@@ -5837,6 +5837,13 @@ function afterJudge(ok,q,o){
   var p=P();
   if(Q.timed){
     Q.n++; if(ok)Q.ok++;
+    /* タイムアタック中も recordStat と recordCorrect は実行する (audit #22)。
+       旧コードは return で早期離脱し、 stats/recent/daily/lastDone が更新されず、
+       60 秒で 30 問正解しても daily 進捗・カテゴリ統計に一切反映されなかった。
+       採集ゲージ・卵給餌・レベル上げは「関門」性質なので skip 維持。 */
+    recordStat(q.cat,ok,ms);
+    if(ok&&window.QuestSave&&QuestSave.recordCorrect) QuestSave.recordCorrect(pidNow(),"keisan",1);
+    save();        /* タイムアタックでも 現プロフィールを保存 (audit #22) */
     var fb=document.createElement("div"); fb.className="fb";
     fb.innerHTML='<div class="fbmark '+(ok?"ok":"ng")+'" style="font-size:90px">'+(ok?"⭕":"❌")+'</div>';
     document.body.appendChild(fb);
@@ -5938,14 +5945,20 @@ function showFB(ok,q,o,ms){
   app.insertAdjacentHTML("beforeend",h);
 }
 var __keiCatch=null;
+var __fbNextLock=false;
 function fbNext(){
+  /* つぎへ ▶ の二度押し封じ (audit #4): 二回目のタップで捕獲モーダルを飛ばして
+     Q.i++ が 2 進む race を遮断。 */
+  if(__fbNextLock) return;
+  __fbNextLock=true;
+  var btn=document.querySelector('.fb button'); if(btn) btn.disabled=true;
   var f=document.querySelector(".fb"); if(f)f.remove();
   if(__keiCatch&&window.Q4BReward){
     var got=__keiCatch; __keiCatch=null;
     Q4BReward.netSwing(function(){ showKeiCatch(got); });
-    return; /* keiCatchDone() が つぎへ すすむ */
+    return; /* keiCatchDone() が つぎへ すすむ + ロック解除 */
   }
-  JLOCK=false; Q.i++; nextQ();
+  JLOCK=false; Q.i++; __fbNextLock=false; nextQ();
 }
 function showKeiCatch(got){
   var sp=got.sp, tags=[];
@@ -5959,7 +5972,15 @@ function showKeiCatch(got){
     +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"")
     +'<button class="btn" style="margin-top:12px" onclick="keiCatchDone()">つづける ▶</button></div></div>');
 }
-function keiCatchDone(){ var m=$("md"); if(m)m.remove(); JLOCK=false; Q.i++; nextQ(); }
+var __keiCatchDoneLock=false;
+function keiCatchDone(){
+  /* つづける ▶ の二度押し封じ (audit #5): 二回目で Q.i++ が 2 進む race を遮断。 */
+  if(__keiCatchDoneLock) return;
+  __keiCatchDoneLock=true;
+  var btn=document.querySelector('#md button'); if(btn) btn.disabled=true;
+  var m=$("md"); if(m)m.remove();
+  JLOCK=false; Q.i++; __fbNextLock=false; __keiCatchDoneLock=false; nextQ();
+}
 
 /* ---------- finish ---------- */
 function fmtSec(ms){return (Math.round(ms/100)/10).toFixed(1)+"秒";}

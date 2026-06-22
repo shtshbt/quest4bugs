@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v104";  /* v104: kanji さらに 13 件修正 — プロフィール非同期競合 (PROFILE_LOAD_SEQ), 古い問題タイマー/書字 onComplete 侵入 (SESSION_SEQ + isCurSes), switchMode で p.updated 更新, weakPairs にコース/ロック/有効キーフィルタ, 再テスト待機を ST.retests[id] 辞書化 (旧 ST.re マイグレ), 既合格テスト腕試し失敗はロック対象外, 出題ミッションを planDaily で実出題数+バックログ別表示, 報酬 freshness 二重消費を caller 1 回 peek で回避, 報酬価値を applyAnswer 前の段階で固定+再出題コピー引き継ぎ, 「えらぶ/熟語/書字」例文の空欄を語句単位でマスク, 書字の音声を実用例 jk.r で再生, 再出題で同じ用例を維持, 初回金ボーナスを wasGold で独立判定, 0 点でも最高点を保存 */
+var CACHE = "q4b-cache-v105";  /* v105: 横断 15 件修正 — eitango: ansSRS/ansKids/closeFB 連打ロック+ヌシ戦 feedEgg gate, keisan: fbNext/keiCatchDone 連打ロック+timed mode の recordStat/save 復活, kanji: 再出題 rq の二重報酬 (recordCorrect/feedEgg/onCorrect) を遮断, 全入口で新出 cap を消費 (startPractice 側でフィルタ), 形式指定でもスキルゲート維持 (pairsFor が gatedSkills 経由), 復習チャレンジを key|sk 単位重複排除+due 優先消化+REVIEW_BOOST を wasDue 限定, t_exam の全学年解放後合格を ST.testExamScopeAll で固定 (1年生時 合格→6年生まで開放→マスター達成 の抜け道封じ), CFG.all デバッグ全解放ではマスター達成しない, 名前変更で p.updated 更新, localStorage save 失敗を検知し QuestSave.isDegraded() で赤バナー表示 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
