@@ -206,7 +206,9 @@
     mergeRegistry(store,remote); // tombstones/profiles をマージ
     var rk=remote.kv||{},k,inc,ex;
     for(k in rk){ inc=rk[k]; if(!inc||typeof inc!=="object")continue;
-      ex=store.kv[k]; if(!ex||(inc.updated||0)>=(ex.updated||0))store.kv[k]=inc; }
+      /* 同 timestamp ではローカル優先 (旧コードは >= でリモート優先となり、 直前の
+         ローカル save が一瞬で消える経路があった - audit #23)。 */
+      ex=store.kv[k]; if(!ex||(inc.updated||0)>(ex.updated||0))store.kv[k]=inc; }
     // 削除済みプロフィールの kv を掃除（リモートから再流入した分も含む）
     var alive={}; store.profiles.forEach(function(pp){alive[pp.id]=1;});
     for(k in store.kv){ var pid=k.split(SEP)[1]; if(store.tombstones&&store.tombstones[pid]&&!alive[pid])delete store.kv[k]; }

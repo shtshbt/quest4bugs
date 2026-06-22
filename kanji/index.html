@@ -404,7 +404,20 @@ function applyAnswer(key,sk,ok,mode,rq){
    /* SRS / ST.wrong / r.la いずれも変更しない。 ログのみ末尾で a++。 */
  } else if(ok){
    if(r.la !== t && (r.s === 0 || !r.due || r.due <= t)){
-     r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]);
+     /* 用例 seen の Gate: y/j/r/w スキルは複数 jk から抽選される。 全用例を
+        少なくとも 1 回ずつ正解しないと box 3 (=「習得」) に進めない (前回新#8)。
+        同じ簡単な熟語ばかり 3 回当てて習得扱いになるのを防ぐ。 */
+     var canPromote = true;
+     if(r.s === 2 && (sk==='y' || sk==='j' || sk==='r' || sk==='w')){
+       var x_ = KMAP[key.slice(2)];
+       if(x_ && x_.jk && x_.jk.length > 1){
+         var seenJk = r.jkSeen || {};
+         var allSeen = x_.jk.every(function(j){ return seenJk[j.w]; });
+         if(!allSeen) canPromote = false;
+       }
+     }
+     if(canPromote){ r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]); }
+     else { r.la=t; r.due=addDays(t,INT[Math.min(5,r.s+1)]); /* 学習日は記録、 box は据置 */ }
    }
  } else {
    /* 誤答時の同日ロック維持 (新#1): 既習スキルは r.la=t に固定し、 due を翌日に
@@ -854,9 +867,11 @@ function answered(ok){
  var p=SES.q[SES.i];
  /* 報酬価値は applyAnswer 前の段階で決め、 誤答再出題コピーにも引き継ぐ (今回新#4)。
     これがないと box 2→3 への重要な正解が更新後 box 3 扱いで 0.4 倍、 さらに わざと
-    誤答→再出題で reset し満額にする抜け道ができる。 */
+    誤答→再出題で reset し満額にする抜け道ができる。
+    お手本を見た書字は半額 (前回新#7)。 「答えを見た直後の正解」を満額にしない。 */
  var stageBefore = stageVal(p.key, p.sk);
  var kval = (p.rewardValue != null) ? p.rewardValue : (stageBefore >= 3 ? 0.4 : 1);
+ if(p.hinted) kval = kval * 0.5;
  if(p.nw&&!p.cnt){
   p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0});
   /* コース別新規枠カウンタ。 キー由来 (h:/k:) で決め、 ひらがな練習中に漢字キーの
@@ -865,7 +880,17 @@ function answered(ok){
   lg[nKey]=(lg[nKey]||0)+1;
   lg.n=(lg.n||0)+1;
  }
- applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'), !!p.rq);
+ /* お手本を見た書字での正解は SRS を進めない (前回新#7): rq:true と同じ扱いで
+    applyAnswer に渡す。 ログ +a と wrong 蓄積だけ反映、 box は据置。 */
+ applyAnswer(p.key,p.sk,ok, SES.mode==='learn'?'learn':(SES.mode==='test'?'test':'practice'), !!p.rq || !!(ok && p.hinted));
+ /* 用例 seen 記録: 正解した jk.w を rec に貯める (前回新#8)。 SES.mode が test
+    でも rq でも、 出題された語が解けたことは事実として記録する (Gate は applyAnswer
+    が見るので promotion とは独立)。 */
+ if(ok && p.jk && p.jk.w){
+  var __r = rec(p.key, p.sk);
+  if(!__r.jkSeen) __r.jkSeen = {};
+  __r.jkSeen[p.jk.w] = 1;
+ }
  fbShow(ok);
  SES.res.push({key:p.key,sk:p.sk,ok:ok});
  /* 再出題 (rq) 時は applyAnswer で SRS 不変だが、 報酬経路 (recordCorrect /
@@ -1033,11 +1058,19 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
   if(s2.indexOf(w) >= 0) return s2.replace(w, maskedW);
   return s2.replace(k, '<span class="blank">◻</span>');
  }
+ /* 未 seen jk があれば優先抽選するヘルパ (前回新#8)。 SRS 段階を上げるには 全 jk
+    を 1 回ずつ通す必要があるため、 未通過のものを先に出す。 */
+ function pickJk(p, x, sk){
+  if(p.jk) return p.jk;                /* 誤答再出題では維持 */
+  var r_=rec(p.key, sk), seen=(r_ && r_.jkSeen) || {};
+  var unseen = (x.jk||[]).filter(function(j){ return !seen[j.w]; });
+  return pickOne(unseen.length ? unseen : x.jk);
+ }
  if(p.sk==='y'){
   /* よみ: 単独漢字を出すと「し / こう / か」 など複数正解が成立する。 熟語 jk.w を
      表示して語全体の読みを選ばせる方が問題として妥当 (#3)。 誤答再出題では同じ
-     用例を維持 (今回新#5)。 */
-  var jkY = p.jk || pickOne(x.jk); p.jk = jkY;
+     用例を維持 (今回新#5)。 未 seen 用例を優先 (前回新#8)。 */
+  var jkY = pickJk(p, x, 'y'); p.jk = jkY;
   h+='<div class="card center"><div class="qmid">「<b>'+esc(jkY.w)+'</b>」の よみは？</div>'+choiceHtml(distinct3(jkY.r, KANJI.flatMap(function(z){return (z.jk||[]).map(function(j){return j.r;});}), null),false)+'</div>';
   s.innerHTML=h; bindChoices(s,jkY.r);
   if(!test&&CUR.mode==='small')T.say('なんと よむ？');
@@ -1045,7 +1078,7 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
  if(p.sk==='r'){
   /* えらぶ: 熟語 jk を文脈にしつつ、 対象漢字を空欄にしないと「学校 (がっこう) に
      はいる かんじは？」のように答えが見えてしまう (新#3)。 用例維持 (今回新#5)。 */
-  var jkR = p.jk || pickOne(x.jk); p.jk = jkR;
+  var jkR = pickJk(p, x, 'r'); p.jk = jkR;
   var wMasked = esc(jkR.w).replace(ch, '<span class="blank">◻</span>');
   h+='<div class="card center"><div class="qmid">「'+wMasked+'」(<b>'+esc(jkR.r)+'</b>) に はいる ◻ の かんじは？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test)T.say(jkR.r); showScr('quiz'); return }
@@ -1053,7 +1086,7 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
   /* 熟語: 例文内の対象「語」を見つけて 語内の漢字 1 文字だけマスク (今回新#2)。
      これがないと例文に対象熟語と単独漢字が両方ある場合、 単独側だけ消えて出題の
      熟語が見えてしまう。 用例維持 (今回新#5)。 */
-  var jk = p.jk || pickOne(x.jk); p.jk = jk;
+  var jk = pickJk(p, x, 'j'); p.jk = jk;
   var sent = maskSentenceForJk(jk.s, jk, ch);
   h+='<div class="card center"><div class="qword">'+sent+'</div><div class="small" style="margin-bottom:10px">◻に はいる かんじは？（よみ：<b>'+jk.r+'</b>）</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test&&CUR.mode==='small')T.say(jk.r); showScr('quiz'); return }
@@ -1063,7 +1096,7 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
  /* 書字 (skill 'w'): 出題に使う熟語を p.jk に保持して answerInfo が語全体を出せる
     ようにする。 これがないと renderWrite が KMAP[ch].jk[0] 固定で、 answerInfo の
     'w' && p.jk 分岐に到達できない (新#7)。 誤答再出題で同じ用例を維持 (今回新#5)。 */
- if(p.sk==='w'){ p.jk = p.jk || pickOne(x.jk); }
+ if(p.sk==='w'){ p.jk = pickJk(p, x, 'w'); }
  renderWrite(s,h,ch,test,false,p.jk);
 }
 
@@ -1099,8 +1132,14 @@ function renderWrite(s,h,ch,test,isKana,jkOverride){
   try{ w.quiz(qopts) }catch(e){ traceUI(box,ch,test); return }
   if(!test){ var bb=document.createElement('button'); bb.className='btn sub mini'; bb.textContent='▶ おてほんを みる';
    $('wBtns').appendChild(bb);
-   bb.addEventListener('click',function(){ try{ w.cancelQuiz() }catch(e){}
-    try{ w.animateCharacter({onComplete:function(){ if(!isCurSes(_wSid,_wI)) return; try{ w.quiz(qopts) }catch(e2){} }}) }catch(e3){} }) }
+   bb.addEventListener('click',function(){
+    /* お手本を見たら hinted フラグを立てる (前回新#7)。 直後の正解は SRS を
+       進めず 報酬価値も半額に。 「答えを見た直後に書ける」を「記憶から書ける」
+       と区別する。 */
+    if(SES && SES.q && SES.q[SES.i]) SES.q[SES.i].hinted = 1;
+    try{ w.cancelQuiz() }catch(e){}
+    try{ w.animateCharacter({onComplete:function(){ if(!isCurSes(_wSid,_wI)) return; try{ w.quiz(qopts) }catch(e2){} }}) }catch(e3){}
+   }) }
  }).catch(function(){ if(isCurSes(_wSid,_wI)) traceUI(box,ch,test) });
 }
 function traceUI(box,ch,test){
@@ -1408,13 +1447,14 @@ function calcFullMastered(keys){
  });
  return {mastered:mastered,total:total,pct: total?Math.round(100*mastered/total):0}
 }
-/* 学年内訳: その学年の文字を stageOfItem で 4段に分類して 🥚n 🐛n 🟤n 🦋n を返す。
-   既存ロジック非依存・追加のみ。box0=卵🥚 / box1=幼虫🐛 / box2=蛹🟤 / box>=3=成虫🦋(習得)。 */
+/* 学年内訳: 漢字一覧 (zukan) のセルと同じ stageOfItem (= 全 skill 最小値) で
+   4 段に分類 (audit/前回新#11-15)。 旧版は「よみ」だけで判定していたため、 同じ字が
+   一覧では🥚なのに内訳では🐛 という乖離が起きていた。 1 字 1 段階に統一。 */
 function stageBreakdown(keys){
  var c=[0,0,0,0];
  keys.forEach(function(key){
-  var st=stageVal(key,'y');   // 「よみ」の進み具合で4区分
-  var i = st>=3 ? 3 : (st<=0 ? 0 : st);  // 0/1/2/3+ の4区分
+  var st=stageOfItem(key);
+  var i = st>=3 ? 3 : (st<=0 ? 0 : st);
   c[i]++;
  });
  return c;
@@ -1490,8 +1530,10 @@ function processKanjiMasterQueue(queue){
    /* 反対性別の卵を授与 (空きあり→eggs、満杯→pendingEggs) */
    Q4BReward.awardMasterEgg(ST.coll, sp, sex === 'm' ? 'f' : 'm');
    saveST();
-   showMasterCelebration([sp]);
-   processKanjiMasterQueue(queue);
+   /* 演出キューを上書きしない: 「やったー！」 確認後に次の sex picker を出す
+      (前回新#12)。 すぐ processKanjiMasterQueue を呼ぶと次のモーダルが直ちに
+      開いて獲得画面を消してしまう。 */
+   showMasterCelebration([sp], function(){ processKanjiMasterQueue(queue); });
   },
   onCancel: function(){
    /* キャンセル時は sex='u' 仮授与 → C フローに自動フォールバック */
@@ -1563,13 +1605,18 @@ function openKanjiMasterBug(spId){
  }
  modal(zukanDetailHTML(inner+'<button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button>'));
 }
-function showMasterCelebration(list){ var sp=list[0];
+function showMasterCelebration(list, onClose){ var sp=list[0];
+ /* 「やったー！」押下後に onClose を実行 → 次のキューが進む (前回新#12)。 */
+ var btn = (typeof onClose === 'function')
+  ? '<button class="btn" style="margin-top:12px" onclick="(function(){var cb=window.__masterCloseCb;window.__masterCloseCb=null;closeModal();if(cb)setTimeout(cb,0);})()">やったー！</button>'
+  : '<button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button>';
+ if(typeof onClose === 'function') window.__masterCloseCb = onClose;
  modal(zukanDetailHTML('<div style="font-size:14px;color:#b9821a;font-weight:800">🎓 ぜんぶ習得！</div>'
   +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp)+'</div>'
   +'<div style="font-weight:bold;font-size:18px;color:#2e5d28">マスター虫「'+esc(sp.jaName||sp.id)+'」をゲット！</div>'
   +'<div style="font-size:13px;color:#56714e;margin-top:4px">'+esc(sp.note||'')+'</div>'
   +(list.length>1?'<div style="font-size:13px;color:#56714e">ほかにも '+(list.length-1)+'匹！</div>':'')
-  +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やったー！</button>'));
+  +btn));
 }
 
 function updateProgressSummary(){
@@ -1772,7 +1819,7 @@ function skillBadges(key){ var names={y:'よみ',r:'えらぶ',w:'かき',j:'じ
   var cls=(st===0)?'':(st<=2?' s12':(st<=4?' s34':' s5'));
   h+='<span class="'+cls+'">'+names[sk]+' '+stEmoji(st)+'</span>' });
  return h }
-function renderZukan(tab){ var s=$('scr-zukan');
+function renderZukan(tab){ _zukanCurTab = tab || _zukanCurTab || (CUR && CUR.mode==='small' ? 'h' : 'k'); tab = _zukanCurTab; var s=$('scr-zukan');
  var h='<button class="btn sub mini" id="bBk3">← ホーム</button>'
  +'<div class="tabs"><button id="tabH" class="'+(tab==='h'?'on':'')+'">ひらがな</button><button id="tabK" class="'+(tab==='k'?'on':'')+'">かんじ</button></div>'
  +'<div class="legend"><span><i style="background:var(--egg)"></i>たまご</span><span><i style="background:var(--larva)"></i>ようちゅう</span><span><i style="background:var(--pupa)"></i>さなぎ</span><span><i style="background:var(--adult)"></i>せいちゅう</span></div>'
@@ -1989,7 +2036,7 @@ function renderParent(){ var s=$('scr-parent');
  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">データ</div>'
  +'<textarea id="taX" placeholder="エクスポート結果がここに出ます／インポート時はJSONを貼り付け"></textarea>'
  +'<div class="row" style="margin-top:8px"><button class="btn sub" id="dEx">エクスポート</button><button class="btn sub" id="dIm">インポート</button></div>'
- +'<button class="btn soil" id="dRs" style="margin-top:8px">このプロフィールをリセット</button></div>';
+ +'<button class="btn soil" id="dRs" style="margin-top:8px">漢字の記録だけ リセット</button></div>';
  s.innerHTML=h;
  $('bBk5').addEventListener('click',renderHome);
  $('cTts').addEventListener('change',function(){ CFG.tts=this.checked?1:0; saveCFG() });
@@ -2012,8 +2059,13 @@ function renderParent(){ var s=$('scr-parent');
  $('dIm').addEventListener('click',function(){ QuestSave.importAll($('taX').value)
   .then(function(n){ alert(n+'件 取り込みました'); selectProfile(CUR) })
   .catch(function(e){ alert('失敗：'+(e&&e.message?e.message:e)) }) });
- $('dRs').addEventListener('click',function(){ if(confirm(CUR.name+' の記録を全消去します．よいですか？')){
-  ST=newState(); initUn(); saveST(); alert('リセットしました'); renderHome() } });
+ $('dRs').addEventListener('click',function(){
+  /* 実際に消すのは kanji namespace の ST だけ。 共有琥珀 / 化石 / 卵 / 他教科 / ボス
+     図鑑 などは残るので、 ボタンと確認文言を「漢字の記録だけ」に明示 (前回新#8)。 */
+  if(confirm(CUR.name+' の【漢字の記録だけ】を全消去します．\n（共有のかけら・卵・他の教科の記録は のこります）\nよいですか？')){
+   ST=newState(); initUn(); saveST(); alert('漢字の記録を リセットしました'); renderHome();
+  }
+ });
  showScr('parent') }
 
 /* ================= 起動 ================= */
@@ -2044,9 +2096,14 @@ QuestSave.onStatus(function(st){ var c=$('hSync');
 /* ずかんきりかえ (イラスト/しゃしん) を右上にマウント */
 if(window.Q4BRender&&Q4BRender.mountZukanModeToggle) Q4BRender.mountZukanModeToggle();
 /* 切替時の画面状態を維持: 現在表示中の screen に応じて再描画 (location.reload を回避) */
+var _zukanCurTab=null;
 window.Q4BZukanRerender=function(){
   var zk=document.getElementById('scr-zukan');
-  if(zk && getComputedStyle(zk).display!=='none' && typeof renderZukan==='function'){ renderZukan(); return; }
+  if(zk && getComputedStyle(zk).display!=='none' && typeof renderZukan==='function'){
+   /* 表示モード切替時に引数なしで呼ばれると 漢字タブにジャンプする問題を解消
+      (前回新#11)。 現在表示中のタブを保持して再描画。 */
+   renderZukan(_zukanCurTab || (CUR && CUR.mode==='small' ? 'h' : 'k')); return;
+  }
   var hm=document.getElementById('scr-home');
   if(hm && getComputedStyle(hm).display!=='none' && typeof renderHome==='function'){ renderHome(); return; }
   /* それ以外の画面なら何もしない (次回画面遷移時に新モードで描画される) */
