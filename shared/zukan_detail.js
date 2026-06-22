@@ -12,6 +12,31 @@
   }); }
   function pct(n,d){ return d>0 ? Math.round(n/d*100) : 0; }
 
+  /* 夜モード対応 CSS を 1 回だけ inject。
+     [data-q4b-zd] でラップした detailHTML 内の inline grey 系色を body.night 時に
+     明色で強制上書きする (inline style に勝つため !important)。♂♀ の色相 (青/桜) は
+     意味があるので body.night 用に補正色を当て直す。 */
+  function ensureNightStyle(){
+    var doc = global.document; if(!doc || !doc.head) return;
+    if(doc.getElementById("q4b-zukan-detail-night-style")) return;
+    var st = doc.createElement("style");
+    st.id = "q4b-zukan-detail-night-style";
+    st.textContent =
+      /* CSS variable を body.night に直接定義。inline color:var(--zd-*, fallback) は
+         夜モード時にこれらの値で解決される (ラップ不要)。 */
+      'body.night{'
+      +   '--zd-faint:#9aa68f;'
+      +   '--zd-sub:#b0c0a0;'
+      +   '--zd-strong:#e8ecdf;'
+      +   '--zd-male:#9ebef0;'
+      +   '--zd-female:#f0b5cf;'
+      +   '--zd-amber:#e0c378;'
+      +   '--zd-purple:#c79cf0;'
+      +   '--zd-chip-on:#b8d09a;'
+      + '}';
+    doc.head.appendChild(st);
+  }
+
   /* サイズヒストグラム: bin 数 6-8、bar は積み上げ(オス/メス) */
   function histogramHTML(records, range){
     if(!records || records.length===0) return "";
@@ -52,16 +77,16 @@
         +     (fH>0 ? '<div title="メス '+d.f+'匹" style="background:#e08bb9;height:'+fH+'px"></div>' : '')
         +     (uH>0 ? '<div title="ふめい '+d.u+'匹" style="background:#bbb;height:'+uH+'px"></div>' : '')
         +   '</div>'
-        +   '<div style="font-size:9px;color:#666;margin-top:2px">'+Math.round(d.lo)+'</div>'
+        +   '<div style="font-size:9px;color:var(--zd-faint,#666);margin-top:2px">'+Math.round(d.lo)+'</div>'
         + '</div>';
     }).join("");
-    var legend = '<div style="display:flex;gap:8px;justify-content:center;font-size:11px;color:#666;margin-top:4px">'
+    var legend = '<div style="display:flex;gap:8px;justify-content:center;font-size:11px;color:var(--zd-faint,#666);margin-top:4px">'
       + '<span><span style="display:inline-block;width:10px;height:10px;background:#5b8de0;vertical-align:middle"></span> オス</span>'
       + '<span><span style="display:inline-block;width:10px;height:10px;background:#e08bb9;vertical-align:middle"></span> メス</span>'
       + '</div>';
     return ''
       + '<div style="margin:10px 0">'
-      +   '<div style="font-size:12px;color:#56714e;margin-bottom:4px">サイズの分布</div>'
+      +   '<div style="font-size:12px;color:var(--zd-sub,#56714e);margin-bottom:4px">サイズの分布</div>'
       +   '<div style="display:flex;align-items:flex-end;gap:2px;height:'+(BAR_H+22)+'px;padding-top:14px">'+bars+'</div>'
       +   legend
       + '</div>';
@@ -79,9 +104,9 @@
     if(m===0 && f===0) return "";        /* 性別記録がないなら省略 */
     var total=m+f+u;
     var parts=[];
-    if(m>0) parts.push('<span style="color:#3a5fa5">♂ オス '+m+'</span>');
-    if(f>0) parts.push('<span style="color:#a0497a">♀ メス '+f+'</span>');
-    if(u>0) parts.push('<span style="color:#888">？ '+u+'</span>');
+    if(m>0) parts.push('<span style="color:var(--zd-male,#3a5fa5)">♂ オス '+m+'</span>');
+    if(f>0) parts.push('<span style="color:var(--zd-female,#a0497a)">♀ メス '+f+'</span>');
+    if(u>0) parts.push('<span style="color:var(--zd-faint,#888)">？ '+u+'</span>');
     return '<div style="font-size:12px;margin:4px 0">'+parts.join(' / ')+' （ぜんぶで '+total+'ひき）</div>';
   }
 
@@ -89,8 +114,8 @@
   function sexPreviewHTML(sp){
     if(!sp || !sp.sexDimorphism || !global.Q4BRender || !global.Q4BRender.species) return "";
     var html = '<div style="display:flex;gap:14px;justify-content:center;margin:6px 0">'
-      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'m')+'</div><div style="font-size:11px;color:#3a5fa5">♂ オス</div></div>'
-      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:#a0497a">♀ メス</div></div>'
+      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'m')+'</div><div style="font-size:11px;color:var(--zd-male,#3a5fa5)">♂ オス</div></div>'
+      + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:var(--zd-female,#a0497a)">♀ メス</div></div>'
       + '</div>';
     if(sp.sexDimorphismNote){
       html += '<div style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0">💡 '+sp.sexDimorphismNote+'</div>';
@@ -117,17 +142,17 @@
     });
     function cell(r){
       return '<td style="text-align:center;padding:4px 6px">'
-        + (r ? '<b>'+r.s+'</b><span style="font-size:10px;color:#888">mm</span>'
-             : '<span style="color:#bbb">-</span>')
+        + (r ? '<b>'+r.s+'</b><span style="font-size:10px;color:var(--zd-faint,#888)">mm</span>'
+             : '<span style="color:var(--zd-faint,#bbb)">-</span>')
         + '</td>';
     }
     return ''
       + '<table style="border-collapse:collapse;width:100%;font-size:12px;margin:6px 0">'
       +   '<tr><th></th>'
-      +     '<th style="color:#56714e;font-weight:normal;font-size:11px">🏆 さいだい</th>'
-      +     '<th style="color:#56714e;font-weight:normal;font-size:11px">🌱 さいしょう</th></tr>'
-      +   '<tr><td style="color:#3a5fa5;font-weight:bold;padding:2px 6px;font-size:13px">♂ オス</td>'+cell(bestM)+cell(smallM)+'</tr>'
-      +   '<tr><td style="color:#a0497a;font-weight:bold;padding:2px 6px;font-size:13px">♀ メス</td>'+cell(bestF)+cell(smallF)+'</tr>'
+      +     '<th style="color:var(--zd-sub,#56714e);font-weight:normal;font-size:11px">🏆 さいだい</th>'
+      +     '<th style="color:var(--zd-sub,#56714e);font-weight:normal;font-size:11px">🌱 さいしょう</th></tr>'
+      +   '<tr><td style="color:var(--zd-male,#3a5fa5);font-weight:bold;padding:2px 6px;font-size:13px">♂ オス</td>'+cell(bestM)+cell(smallM)+'</tr>'
+      +   '<tr><td style="color:var(--zd-female,#a0497a);font-weight:bold;padding:2px 6px;font-size:13px">♀ メス</td>'+cell(bestF)+cell(smallF)+'</tr>'
       + '</table>';
   }
   /* 最近 N 件の表 (日付・サイズ・性別) */
@@ -144,15 +169,15 @@
       return ad < bd ? 1 : -1;
     }).slice(0, n);
     var rows = sorted.map(function(r){
-      return '<tr style="font-size:11px;color:#444">'
-        + '<td style="padding:1px 4px">'+(r.d||'<span style="color:#bbb">きろくなし</span>')+'</td>'
+      return '<tr style="font-size:11px;color:var(--zd-strong,#444)">'
+        + '<td style="padding:1px 4px">'+(r.d||'<span style="color:var(--zd-faint,#bbb)">きろくなし</span>')+'</td>'
         + '<td style="padding:1px 4px;text-align:right"><b>'+r.s+'mm</b></td>'
         + '<td style="padding:1px 4px;text-align:center">'+sexIcon(r.sex)+(r.shiny?' ✨':'')+'</td>'
         + '</tr>';
     }).join('');
     return ''
       + '<div style="margin:6px 0">'
-      +   '<div style="font-size:11px;color:#56714e;margin-bottom:2px">🕒 さいきんの きろく ('+n+'けん)</div>'
+      +   '<div style="font-size:11px;color:var(--zd-sub,#56714e);margin-bottom:2px">🕒 さいきんの きろく ('+n+'けん)</div>'
       +   '<table style="border-collapse:collapse;width:100%;background:rgba(0,0,0,.04);border-radius:6px"><tbody>'+rows+'</tbody></table>'
       + '</div>';
   }
@@ -175,7 +200,7 @@
       opts = opts || {};
       if(value == null || value === ""){
         if(opts.fallback){
-          rows.push([label, '<span style="color:#aaa">'+esc(opts.fallback)+'</span>', true]);
+          rows.push([label, '<span style="color:var(--zd-faint,#aaa)">'+esc(opts.fallback)+'</span>', true]);
         }
         return;
       }
@@ -227,14 +252,14 @@
     if(rows.length === 0) return "";
     var rowsHTML = rows.map(function(r){
       return '<tr>'
-        +   '<th style="text-align:right;padding:4px 8px;color:#56714e;font-weight:normal;white-space:nowrap;vertical-align:top">'+esc(r[0])+'</th>'
-        +   '<td style="padding:4px 8px;color:#333;word-break:break-word">'+r[1]+'</td>'
+        +   '<th style="text-align:right;padding:4px 8px;color:var(--zd-sub,#56714e);font-weight:normal;white-space:nowrap;vertical-align:top">'+esc(r[0])+'</th>'
+        +   '<td style="padding:4px 8px;color:var(--zd-strong,#333);word-break:break-word">'+r[1]+'</td>'
         + '</tr>';
     }).join("");
     /* observation は緑系 (野外感)、museum は茶系 (curated 感) で button 色を分ける */
     var summaryStyle = isObservation
-      ? 'cursor:pointer;display:inline-block;background:rgba(232,244,225,.85);border:1px solid #8fb05a;border-radius:14px;padding:4px 12px;font-size:11px;color:#3e6b2e;list-style:none;-webkit-user-select:none;user-select:none'
-      : 'cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:#56714e;list-style:none;-webkit-user-select:none;user-select:none';
+      ? 'cursor:pointer;display:inline-block;background:rgba(232,244,225,.85);border:1px solid #8fb05a;border-radius:14px;padding:4px 12px;font-size:11px;color:var(--zd-chip-on,#3e6b2e);list-style:none;-webkit-user-select:none;user-select:none'
+      : 'cursor:pointer;display:inline-block;background:rgba(255,255,255,.7);border:1px solid #c8b884;border-radius:14px;padding:4px 12px;font-size:11px;color:var(--zd-sub,#56714e);list-style:none;-webkit-user-select:none;user-select:none';
     var summaryLabel = isObservation ? '📷 やせいのきろく' : '📋 ひょうほんの情報';
     return ''
       + '<details class="zukan-specimen-info" style="margin:10px 0 0;text-align:right">'
@@ -266,30 +291,30 @@
     if(!bs) return "";
     var inc = (bs.eggs||[]).filter(function(e){return e.id===sp.id;});
     var pen = (bs.pendingEggs||[]).filter(function(e){return e.id===sp.id;});
-    function sexMark(s){ return s==='m' ? '<span style="color:#5B8DE0;font-weight:800">♂</span>' : s==='f' ? '<span style="color:#E08BB9;font-weight:800">♀</span>' : ''; }
+    function sexMark(s){ return s==='m' ? '<span style="color:var(--zd-male,#5B8DE0);font-weight:800">♂</span>' : s==='f' ? '<span style="color:var(--zd-female,#E08BB9);font-weight:800">♀</span>' : ''; }
     var rows = [];
     inc.forEach(function(e){
       var p = e.target ? Math.round(100*e.progress/e.target) : 0;
       rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#FFF6E0;border:1px solid #E8B33C40;border-radius:8px;padding:4px 8px;margin-top:3px">'
-        + '<span style="font-weight:800;color:#8A5C2C">🐣 そだてちゅう</span>'
+        + '<span style="font-weight:800;color:var(--zd-amber,#8A5C2C)">🐣 そだてちゅう</span>'
         + sexMark(e.sex)
         + (e.shiny?'<span style="color:#f5b800">✨</span>':'')
-        + '<span style="color:#6B7A5E;flex:1">'+e.progress+'/'+e.target+' ('+p+'%)</span>'
-        + (e.bornAt?'<span style="color:#A89876;font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
+        + '<span style="color:var(--zd-sub,#6B7A5E);flex:1">'+e.progress+'/'+e.target+' ('+p+'%)</span>'
+        + (e.bornAt?'<span style="color:var(--zd-faint,#A89876);font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
         + '</div>');
     });
     pen.forEach(function(e){
       var originLabel = {master_pair:'🎓', boss_pair:'👑', lay:'🥚'}[e.origin] || '';
       rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#F5E8FF;border:1px solid #A06BD840;border-radius:8px;padding:4px 8px;margin-top:3px">'
-        + '<span style="font-weight:800;color:#6B4A99">📬 まちのたまご</span>'
+        + '<span style="font-weight:800;color:var(--zd-purple,#6B4A99)">📬 まちのたまご</span>'
         + '<span style="font-size:11px">'+originLabel+'</span>'
         + sexMark(e.sex)
         + (e.shiny?'<span style="color:#f5b800">✨</span>':'')
-        + '<span style="color:#6B7A5E;flex:1"></span>'
-        + (e.bornAt?'<span style="color:#A89876;font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
+        + '<span style="color:var(--zd-sub,#6B7A5E);flex:1"></span>'
+        + (e.bornAt?'<span style="color:var(--zd-faint,#A89876);font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
         + '</div>');
     });
-    return '<div style="margin-top:10px"><div style="font-size:12px;color:#6B7A5E;font-weight:700;margin-bottom:2px">🥚 たまご ('+counts.total+'こ)</div>'+rows.join('')+'</div>';
+    return '<div style="margin-top:10px"><div style="font-size:12px;color:var(--zd-sub,#6B7A5E);font-weight:700;margin-bottom:2px">🥚 たまご ('+counts.total+'こ)</div>'+rows.join('')+'</div>';
   }
 
   /* 全部まとめた詳細 HTML を返す。entry: catches[id], sp: 種データ
@@ -297,6 +322,7 @@
      opts.favCallback: window 直下に登録したお気に入りトグル関数名 (例: "kanjiFavTap") */
   function detailHTML(entry, sp, opts){
     if(!entry) return "";
+    ensureNightStyle();
     opts = opts || {};
     /* レガシー記録(records なし)を自動 backfill:
        既存の n/max/min/shiny から仮想 records を生成して、ヒストグラム表示を維持する。
@@ -331,12 +357,12 @@
         html += '<div style="text-align:center;margin:8px 0"><div style="width:140px;height:140px;margin:0 auto">'+artHTML+'</div></div>';
       }
       if(sp && sp.jaName){
-        html += '<div style="font-size:18px;font-weight:800;color:#2A3D2C;text-align:center;margin:2px 0">'+esc(sp.jaName)+'</div>';
+        html += '<div style="font-size:18px;font-weight:800;color:var(--zd-strong,#2A3D2C);text-align:center;margin:2px 0">'+esc(sp.jaName)+'</div>';
       }
       if(sp && sp.scientificName){
-        html += '<div style="font-size:11px;font-style:italic;color:#6B7A5E;text-align:center;margin-bottom:6px">'+esc(sp.scientificName)+'</div>';
+        html += '<div style="font-size:11px;font-style:italic;color:var(--zd-sub,#6B7A5E);text-align:center;margin-bottom:6px">'+esc(sp.scientificName)+'</div>';
       }
-      html += '<div style="font-size:12px;color:#6B7A5E;margin:6px 0;text-align:center">まだ つかまえてないよ。これから きろくが たまるよ</div>';
+      html += '<div style="font-size:12px;color:var(--zd-sub,#6B7A5E);margin:6px 0;text-align:center">まだ つかまえてないよ。これから きろくが たまるよ</div>';
       html += eggInfoHTML(sp);
       html += specimenInfoHTML(sp);
       html += breedingActionsHTML(entry, sp, opts);
@@ -344,7 +370,7 @@
     }
     /* masterOnly 種は通常 detailHTML 上部にも常時 🎓 マスター達成記念バッジを表示 */
     if(sp && sp.masterOnly){
-      html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800;color:#6B4A99;margin:0 0 6px">🎓 マスター達成</div>';
+      html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800;color:var(--zd-purple,#6B4A99);margin:0 0 6px">🎓 マスター達成</div>';
     }
     html += sexSummary(records);
     html += bestWorstHTML(records, sp);       /* SVG プレビュー + dimorphism note */
@@ -371,13 +397,13 @@
       if(fav) html += '<div style="position:absolute;top:6px;right:8px;z-index:5">'+fav+'</div>';
     }
     html += '<div style="text-align:center;padding:14px 6px">';
-    html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 14px;font-size:13px;font-weight:800;color:#6B4A99;margin-bottom:8px">🎓 マスター達成記念</div>';
-    html += '<div style="font-size:18px;font-weight:800;color:#2A3D2C;margin-bottom:4px">'+esc(name)+'</div>';
-    if(sp && sp.rarity) html += '<div style="font-size:13px;color:#6B7A5E;margin-bottom:4px">'+esc(sp.rarity)+'</div>';
-    if(maxSize) html += '<div style="font-size:13px;color:#6B7A5E;margin-bottom:10px">つかまえた おおきさ: '+maxSize+'mm</div>';
+    html += '<div style="display:inline-block;background:#F5E8FF;border:1.5px solid #A06BD8;border-radius:99px;padding:3px 14px;font-size:13px;font-weight:800;color:var(--zd-purple,#6B4A99);margin-bottom:8px">🎓 マスター達成記念</div>';
+    html += '<div style="font-size:18px;font-weight:800;color:var(--zd-strong,#2A3D2C);margin-bottom:4px">'+esc(name)+'</div>';
+    if(sp && sp.rarity) html += '<div style="font-size:13px;color:var(--zd-sub,#6B7A5E);margin-bottom:4px">'+esc(sp.rarity)+'</div>';
+    if(maxSize) html += '<div style="font-size:13px;color:var(--zd-sub,#6B7A5E);margin-bottom:10px">つかまえた おおきさ: '+maxSize+'mm</div>';
     if(pickCb){
       html += '<button type="button" onclick="'+pickCb+'(\''+spId+'\')" style="border:none;border-radius:12px;padding:12px 24px;font-size:15px;font-weight:800;font-family:inherit;color:#fff;background:#A06BD8;box-shadow:0 3px 0 #6B4A99;cursor:pointer">♂♀ をきめる</button>';
-      html += '<div style="font-size:11px;color:#6B7A5E;margin-top:8px">きめると 反対せいべつの たまごが もらえるよ</div>';
+      html += '<div style="font-size:11px;color:var(--zd-sub,#6B7A5E);margin-top:8px">きめると 反対せいべつの たまごが もらえるよ</div>';
     } else {
       html += '<div style="font-size:13px;color:#CF7F14">(♂♀ 選択 ハンドラが 設定されていません)</div>';
     }
@@ -400,7 +426,7 @@
         var days=Math.max(0, Math.round((d2-d1)/86400000));
         if(days>0) span = ' ('+days+'日間)';
       }
-      return '<div style="font-size:12px;color:#2A3D2C;padding:2px 0">🐛→🪲 '+sex+' '+r.s+'mm　'+(bornAt?bornAt+' 産卵 → ':'')+d+' 孵化'+span+'</div>';
+      return '<div style="font-size:12px;color:var(--zd-strong,#2A3D2C);padding:2px 0">🐛→🪲 '+sex+' '+r.s+'mm　'+(bornAt?bornAt+' 産卵 → ':'')+d+' 孵化'+span+'</div>';
     }).join("");
     return ''
       + '<div style="background:#EAF6E0;border-radius:10px;padding:8px 10px;margin:8px 0">'
@@ -448,7 +474,7 @@
     if(ownEgg){
       var p = ownEgg.target>0 ? Math.min(100,Math.round((ownEgg.progress/ownEgg.target)*100)) : 0;
       var ready = ownEgg.progress >= ownEgg.target;
-      progressLine = '<div style="background:#F4F8E8;border-radius:10px;padding:6px 10px;margin:6px 0;font-size:12px;color:#2A3D2C">'
+      progressLine = '<div style="background:#F4F8E8;border-radius:10px;padding:6px 10px;margin:6px 0;font-size:12px;color:var(--zd-strong,#2A3D2C)">'
         + '🥚 そだち中: '+ownEgg.progress+'/'+ownEgg.target+' ('+p+'%)'
         + '<div style="background:#EAEFE0;border-radius:99px;height:6px;margin-top:3px;overflow:hidden"><div style="width:'+p+'%;height:100%;background:#F2A33C"></div></div>'
         + '</div>';
@@ -458,7 +484,7 @@
     }
     var abandonBtn = '';
     if(opts.onAbandonEgg && ownEgg){
-      abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:#6B7A5E;background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
+      abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:var(--zd-sub,#6B7A5E);background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
     }
     /* 既に育成中なら産卵ボタンは出さない (canLayEgg で false になるが UI は出ない方が分かりやすい) */
     if(ownEgg) btn = '';
