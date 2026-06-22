@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v89";  /* v89: zukan_render.js originalImageHref も image.resized 対応 (v88 で漏れていた lightbox 高解像度 URL 解決を修正) */
+var CACHE = "q4b-cache-v90";  /* v90: catalog.js の multiline string 修復 (Wikimedia plate description が改行込みで localityVerbatim に転写されて JS syntax error → 全 page 死亡を修正) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

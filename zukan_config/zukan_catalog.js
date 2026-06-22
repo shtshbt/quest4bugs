@@ -3593,30 +3593,7 @@
         eventDate: "1880-90.",
         eventYear: 1880,
         country: null,
-        localityVerbatim: "Aid. 
-125. 
-1 . Cychrus convexus  =Cychrus morawitzi morawitzi 
-2 . Cymindis daimio, 
-3 . Mouhotia Batesi , 
-4 . Carabus Gehini , = Carabus gehinii gehinii 
-5 . Damaster capito = Carabus blaptoides capito 
-EdwTru Wilson., del et lith. 
-Mor^awiM,Merw.Ao Sex-. 5* Peier^sb .,V1 , (1863).p 7. 
-Boies , TroThS. Etxt . Soc, 
-L ewis , Erdu . Mo .Mag ., JV, 
-Faznmcucrey, P&amp;bJb NouyeIZ&amp; EnL., II , 
-L ewis, Enl. . Mo . Moug, XVII , 
-(1873). p. 310 
-(1879), p. 186. 
-(I876j,p.37. 
-(1881), .p. 197. 
-Japan. 
-Japan. 
-BuriTLcLh. 
-Japan 
-Japan. 
-
-Minterri Bi-os . imp",
+        localityVerbatim: "Aid. 125. 1 . Cychrus convexus =Cychrus morawitzi morawitzi 2 . Cymindis daimio, 3 . Mouhotia Batesi , 4 . Carabus Gehini , = Carabus gehinii gehinii 5 . Damaster capito = Carabus blaptoides capito EdwTru Wilson., del et lith. Mor^awiM,Merw.Ao Sex-. 5* Peier^sb .,V1 , (1863).p 7. Boies , TroThS. Etxt . Soc, L ewis , Erdu . Mo .Mag ., JV, Faznmcucrey, P&amp;bJb NouyeIZ&amp; EnL., II , L ewis, Enl. . Mo . Moug, XVII , (1873). p. 310 (1879), p. 186. (I876j,p.37. (1881), .p. 197. Japan. Japan. BuriTLcLh. Japan Japan. Minterri Bi-os . imp",
         localityNormalized: null,
         preparations: null,
       },
