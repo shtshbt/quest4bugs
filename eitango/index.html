@@ -603,12 +603,28 @@ const WordDB = {
 const SRS = {
   IV: [0, 1, 3, 7, 14, 30],
   NEW_PER_DAY: 50,  /* 新出/日 緩和(2026-06-17): 25→50 ＝ 30問/日ループで飽きにくく */
+  /* box 昇格は box===0 (初回) または today>=due (復習期到来) のみ。期限前正解は
+     seen のみ加算し box/due は据置 → SRS Leitner 本来の「間隔を空けた復習で
+     習熟度を測る」原則に回帰。同日多段昇格・1日 500 問でも box 3 (習得) に最低
+     4 日かかる (Day0→Day1→Day4)。 Kanji の `r.la!==t` と同思想だがより厳格。 */
   grade(p, key, ok) {
     const s = p.srs[key] || [0, 0, 0, 0];
     let [box, due, seen, wrong] = s;
     seen++;
-    if (ok) box = Math.min(5, box + 1); else { box = 1; wrong++; }
-    due = Engine.addDays(Engine.todayKey(), this.IV[box]);
+    const t = Engine.todayKey();
+    if (ok) {
+      const isFirst = (box === 0);
+      const isDue   = (due && due <= t);
+      if (isFirst || isDue) {
+        box = Math.min(5, box + 1);
+        due = Engine.addDays(t, this.IV[box]);
+      }
+      /* 期限前正解は seen のみ加算、 box/due 据置 (報酬や練習統計には別ロジックで反映) */
+    } else {
+      box = 1;
+      wrong++;
+      due = Engine.addDays(t, this.IV[1]);
+    }
     p.srs[key] = [box, due, seen, wrong];
   },
   dueList(p, words) {
