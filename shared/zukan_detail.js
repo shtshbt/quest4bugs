@@ -54,7 +54,12 @@
       + 'body.night [data-q4b-zd] .zd-master-badge{background:var(--zd-master-bg)!important;border-color:#a06bd8!important}'
       + 'body.night [data-q4b-zd] .zd-spec-summary{background:var(--zd-chip-bg)!important;border-color:#7a8898!important}'
       + 'body.night [data-q4b-zd] .zd-spec-summary-obs{background:var(--zd-chip-observation-bg)!important;border-color:#7a9070!important}'
-      + 'body.night [data-q4b-zd] .zd-spec-table{background:var(--zd-table-bg)!important}';
+      + 'body.night [data-q4b-zd] .zd-spec-table{background:var(--zd-table-bg)!important}'
+      /* そだてた子: 昼=薄緑 bg + 黒系 text、夜=深緑 bg + 明緑系 text で必ずコントラスト確保 */
+      + 'body.night [data-q4b-zd] .zd-reared{background:#1f3a23!important}'
+      + 'body.night [data-q4b-zd] .zd-reared-title{color:#a8d088!important}'
+      + 'body.night [data-q4b-zd] .zd-reared-row{color:#d4e8c0!important}'
+      + 'body.night [data-q4b-zd] .zd-dimorphism-note{background:rgba(120,90,40,.4)!important;color:#f0d590!important}';
     doc.head.appendChild(st);
   }
   /* detailHTML / masterStubHTML が返す html を wrap して上記 scope に乗せる */
@@ -141,7 +146,8 @@
       + '<div style="text-align:center"><div style="width:80px;height:80px;margin:0 auto">'+global.Q4BRender.species(sp,false,'f')+'</div><div style="font-size:11px;color:var(--zd-female,#a0497a)">♀ メス</div></div>'
       + '</div>';
     if(sp.sexDimorphismNote){
-      html += '<div style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0">💡 '+sp.sexDimorphismNote+'</div>';
+      /* 薄黄背景に黒系テキスト固定 + 夜モード用 class で背景もダーク化 */
+      html += '<div class="zd-dimorphism-note" style="background:rgba(255,200,100,.15);border-radius:8px;padding:5px 8px;font-size:12px;margin:4px 0;color:#5C3D14">💡 '+sp.sexDimorphismNote+'</div>';
     }
     return html;
   }
@@ -450,11 +456,12 @@
         var days=Math.max(0, Math.round((d2-d1)/86400000));
         if(days>0) span = ' ('+days+'日間)';
       }
-      return '<div style="font-size:12px;color:var(--zd-strong,#2A3D2C);padding:2px 0">🐛→🪲 '+sex+' '+r.s+'mm　'+(bornAt?bornAt+' 産卵 → ':'')+d+' 孵化'+span+'</div>';
+      /* 背景が薄緑固定なのでテキストは固定暗色 (黒系) で読みやすく */
+      return '<div class="zd-reared-row" style="font-size:12px;color:#1f3022;padding:2px 0">🐛→🪲 '+sex+' '+r.s+'mm　'+(bornAt?bornAt+' 産卵 → ':'')+d+' 孵化'+span+'</div>';
     }).join("");
     return ''
-      + '<div style="background:#EAF6E0;border-radius:10px;padding:8px 10px;margin:8px 0">'
-      +   '<div style="font-size:13px;font-weight:800;color:#4A9B3A;margin-bottom:4px">🐣 きみが そだてた子: '+recs.length+'匹</div>'
+      + '<div class="zd-reared" style="background:#EAF6E0;border-radius:10px;padding:8px 10px;margin:8px 0">'
+      +   '<div class="zd-reared-title" style="font-size:13px;font-weight:800;color:#2d6b1f;margin-bottom:4px">🐣 きみが そだてた子: '+recs.length+'匹</div>'
       +   rows
       + '</div>';
   }
