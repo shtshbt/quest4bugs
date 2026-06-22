@@ -283,7 +283,25 @@
       if(fav) html += '<div style="position:absolute;top:6px;right:8px;z-index:5">'+fav+'</div>';
     }
     if(records.length===0){
-      html += '<div style="font-size:12px;color:#888;margin:6px 0">これからの捕獲で きろくが たまるよ</div>';
+      /* 未捕獲 (records 無し) でも 親図鑑として種の代表アートを表示する。
+         育成中の卵の「📖 おやの ずかんを みる」遷移ではここに来る。 */
+      var artHTML = '';
+      if(global.Q4BRender && global.Q4BRender.species){
+        artHTML = global.Q4BRender.species(sp, false);
+      } else if(global.Q4BReward && global.Q4BReward.svg){
+        artHTML = global.Q4BReward.svg(sp);
+      }
+      if(artHTML){
+        html += '<div style="text-align:center;margin:8px 0"><div style="width:140px;height:140px;margin:0 auto">'+artHTML+'</div></div>';
+      }
+      if(sp && sp.jaName){
+        html += '<div style="font-size:18px;font-weight:800;color:#2A3D2C;text-align:center;margin:2px 0">'+esc(sp.jaName)+'</div>';
+      }
+      if(sp && sp.scientificName){
+        html += '<div style="font-size:11px;font-style:italic;color:#6B7A5E;text-align:center;margin-bottom:6px">'+esc(sp.scientificName)+'</div>';
+      }
+      html += '<div style="font-size:12px;color:#6B7A5E;margin:6px 0;text-align:center">まだ つかまえてないよ。これから きろくが たまるよ</div>';
+      html += specimenInfoHTML(sp);
       html += breedingActionsHTML(entry, sp, opts);
       return html;
     }
