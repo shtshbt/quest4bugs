@@ -636,7 +636,10 @@ function masterMetK(key){
  if(key==="add") return ((p.lv&&p.lv.hissan)||legacyHsToLv(p.hsMax||p.hsLevel||1))>=10;
  if(key==="sub") return ((p.lv&&p.lv.hikizan)||legacyHsToLv(p.hkMax||p.hkLevel||1))>=10;
  if(key==="mul") return ((p.lv&&p.lv.kuku)||legacyKukuToLv(p))>=10;
- if(key==="div") return ["anzan","sougou","mix"].some(function(c){var s=p.stats[c];return s&&s.n>=50&&(s.ok/s.n)>=0.9;});
+ /* 暗算マスター (K-add #7): 旧条件は anzan/sougou/mix のいずれかが 50 問・90%
+    だけで成立し、 Lv1 の一桁加減算を 50 回繰り返すだけでも取れた。 名称と尺度を
+    合わせ、 暗算 Lv10 到達 (= 解放最高 Lv も 10) を要件にする。 */
+ if(key==="div") return ((p.lv&&p.lv.anzan)||0)>=10 || ((p.maxLv&&p.maxLv.anzan)||0)>=10;
  if(key==="all") return masterMetK("add")&&masterMetK("sub")&&masterMetK("mul")&&masterMetK("div");
  /* per-category マスター: そのカテゴリの Lv が10(制覇)に到達したら獲得 */
  if(LVL_CATS[key]) return ((p.lv&&p.lv[key])||0)>=10;
@@ -3622,9 +3625,9 @@ function gNenrei(lv){
     }
     if(ans>0 && ans===Math.floor(ans)) break;
   }
-  // fallback (well-posed)
+  // fallback (well-posed). 40+x = 2(10+x) ⇒ x=20 (K-add #6: 旧 ans=15 は誤答)
   if(!t){
-    ans=15;
+    ans=20;
     t="お父さんは 40歳、子どもは 10歳です。お父さんが 子どもの 2倍に なるのは 何年後？";
   }
   return {cat:"nenrei", kind:"num", text:t, say:null, ans:ans};
@@ -5379,8 +5382,22 @@ function startReview(){
   Q={mode:"review", list:shuffle(list), i:0, ok:0, ms:0, review:true};
   nextQ();
 }
-/* 筆算のレベル選択（クリア順に解放・易しいレベルへ戻って反復可） */
-function hsMaxOf(p,cat){ ensureLvProgress(p); return clampLv((p.lv&&p.lv[cat])||1); }
+/* 筆算のレベル選択 (クリア順に解放・易しいレベルへ戻って反復可)。
+   現在 Lv (p.lv[cat]) と 解放済み最高 Lv (p.maxLv[cat]) を分離 (K-add #3)。
+   失敗で現在 Lv は下がるが、 解放履歴は維持されるので 一度クリアした Lv が
+   再ロックされない。 */
+function bumpMaxLv(p,cat,lv){
+ if(!p.maxLv) p.maxLv={};
+ var cur=p.maxLv[cat]||0;
+ if(lv>cur) p.maxLv[cat]=clampLv(lv);
+}
+function hsMaxOf(p,cat){
+ ensureLvProgress(p);
+ var live = clampLv((p.lv&&p.lv[cat])||1);
+ var maxV = clampLv((p.maxLv&&p.maxLv[cat])||0);
+ /* 最初の起動・互換: maxLv 未設定なら live を最低限の解放ラインとして採用 */
+ return Math.max(live, maxV);
+}
 function showLevels(cat){
   var p=P(), mx=hsMaxOf(p,cat), label=CATL[cat];
   var desc={1:"2けた基礎",2:"2けた基礎",3:"2けた基礎",4:"2けた",5:"2けた",
@@ -5504,8 +5521,10 @@ function speechRecCtor(){ return window.SpeechRecognition||window.webkitSpeechRe
 function voiceKukuHTML(q){
   if(!q||q.cat!=="kuku")return "";
   if(!speechRecCtor())return '<p class="note">このブラウザでは 音声こたえあわせは使えません</p>';
+  /* 旧: 「2 3 6」 のように正解を併記していたため音声問題として成立せず (K-add #2)。
+     例示は「式」だけで、 答えは口頭で言わせる。 */
   return '<div class="voicebox"><button class="btn sm amber" onclick="startKukuVoice()">🎙 こえでこたえる</button>'
-    +'<span class="note">「'+q.dan+' '+q.b+' '+q.ans+'」のように言ってね</span></div>';
+    +'<span class="note">しきと こたえを こえで 言ってね（れい：「'+q.dan+' かける '+q.b+' は …」）</span></div>';
 }
 function normVoiceText(s){
   return String(s||"").toLowerCase()
@@ -5566,7 +5585,14 @@ function startKukuVoice(){
     var texts=[], i, res=ev.results&&ev.results[0];
     if(res)for(i=0;i<res.length;i++)texts.push(res[i].transcript||"");
     var raw=texts.join(" "), cand=voiceCandidates(raw);
-    var ok=!!(cand[_capturedQ.dan]&&cand[_capturedQ.b]&&cand[_capturedQ.ans]);
+    /* 集合判定の補強: 「式 (段・かける数) を含む」 かつ 「最後に発話された数値が
+       答え」 を要求 (K-add #2)。 例: 1×7=7 で「1、 7」だけ言うと旧判定は通って
+       いたが、 厳密判定では順序: 段→かける数→答え を要する。 */
+    var spaced = String(raw||"").replace(/[０-９]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);});
+    var nums = (spaced.match(/\d+/g)||[]).map(function(s){return parseInt(s,10);});
+    var hasOperands = !!(cand[_capturedQ.dan] && cand[_capturedQ.b]);
+    var lastNumIsAns = (nums.length>0 && nums[nums.length-1] === _capturedQ.ans);
+    var ok = hasOperands && (lastNumIsAns || (cand[_capturedQ.ans] && nums.length===0));
     if($("ansl"))$("ansl").textContent=raw||"？";
     afterJudge(ok,_capturedQ,{ansHTML:String(_capturedQ.ans),top:ok?"こえで 3つ ききとれた！":"きこえたこと："+esc(raw||"")});
   };
@@ -5865,6 +5891,17 @@ function recordStat(cat,ok,ms){
   d.n++; if(ok)d.ok++; d.ms=(d.ms||0)+ms;
   p.lastDone=p.lastDone||{}; p.lastDone[cat]=t;  /* まんべんなく学習: カテゴリ別の最終学習日 */
 }
+/* 適応 Lv 判定専用統計 (K-add #4)。 タイムアタック / 復習 / 取りこぼし / 固定 Lv
+   練習を除外して、 ミッションと現 Lv のおまかせ練習だけを集計。 これがないと
+   timed が p.stats.n を消費して 10 問目の Lv 判定が永久に飛ぶ + 直近 10 問に
+   timed 結果が混入する。 */
+function recordAdaptStat(cat,ok){
+  var p=P();
+  if(!p.adapt) p.adapt={};
+  var a = p.adapt[cat] || (p.adapt[cat]={n:0, recent:[]});
+  a.n++; a.recent.push(ok?1:0);
+  while(a.recent.length>20) a.recent.shift();
+}
 function handleMissed(q,ok,o){
   var p=P(), t=todayStr(), i;
   if(q._mid){
@@ -5926,12 +5963,16 @@ function afterJudge(ok,q,o){
      乖離していた。 */
   var _lvUpdateAllowed = !(Q&&Q.lv) && !(Q&&Q.mode==='review') && !(Q&&Q.timed)
                        && !(Q&&Q.mode==='kuku') && !q._mid;
+  if(_lvUpdateAllowed) recordAdaptStat(q.cat, ok);   /* 適応用バッファに分離記録 (K-add #4) */
   if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && _lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
-    var s10=p.stats[q.cat];
-    if(s10 && s10.n>0 && s10.n%10===0){
-      var ok10=(p.recent[q.cat]||[]).slice(-10).reduce(function(x,y){return x+y;},0);
-      if(ok10>=9 && p.lv[q.cat]<10){ p.lv[q.cat]++; o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
+    /* 判定は適応バッファ (timed/review/kuku/取りこぼし を除外) を見る。 これがないと
+       タイムアタックが p.stats.n を消費して 10 問目を飛ばす + 直近 10 問に timed
+       結果が混入する。 */
+    var aBuf=(p.adapt && p.adapt[q.cat]);
+    if(aBuf && aBuf.n>0 && aBuf.n%10===0){
+      var ok10=aBuf.recent.slice(-10).reduce(function(x,y){return x+y;},0);
+      if(ok10>=9 && p.lv[q.cat]<10){ p.lv[q.cat]++; bumpMaxLv(p,q.cat,p.lv[q.cat]); o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
       else if(ok10<=5 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
     }
   }
@@ -5939,7 +5980,7 @@ function afterJudge(ok,q,o){
   if(q.cat==="hissan"&&p.type==="k5"&&_lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv.hissan==null)p.lv.hissan=1;
     if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
-      if(p.hsRun>=5&&p.lv.hissan<10){p.lv.hissan++;p.hsRun=0;syncLegacyFromLv(p);o.lvup="📈 たし算ひっさん Lv"+p.lv.hissan+"に アップ！";}}
+      if(p.hsRun>=5&&p.lv.hissan<10){p.lv.hissan++;p.hsRun=0;syncLegacyFromLv(p);bumpMaxLv(p,"hissan",p.lv.hissan);o.lvup="📈 たし算ひっさん Lv"+p.lv.hissan+"に アップ！";}}
     else{p.hsRun=(p.hsRun<=0)?p.hsRun-1:-1;
       if(p.hsRun<=-3&&p.lv.hissan>1){p.lv.hissan--;p.hsRun=0;syncLegacyFromLv(p);}}
   }
@@ -5947,7 +5988,7 @@ function afterJudge(ok,q,o){
     if(!p.lv)p.lv={}; if(p.lv.hikizan==null)p.lv.hikizan=1;
     if(p.hkLevel==null){p.hkLevel=1;} if(p.hkRun==null){p.hkRun=0;}
     if(ok){p.hkRun=(p.hkRun>=0)?p.hkRun+1:1;
-      if(p.hkRun>=5&&p.lv.hikizan<10){p.lv.hikizan++;p.hkRun=0;syncLegacyFromLv(p);o.lvup="📈 ひき算ひっさん Lv"+p.lv.hikizan+"に アップ！";}}
+      if(p.hkRun>=5&&p.lv.hikizan<10){p.lv.hikizan++;p.hkRun=0;syncLegacyFromLv(p);bumpMaxLv(p,"hikizan",p.lv.hikizan);o.lvup="📈 ひき算ひっさん Lv"+p.lv.hikizan+"に アップ！";}}
     else{p.hkRun=(p.hkRun<=0)?p.hkRun-1:-1;
       if(p.hkRun<=-3&&p.lv.hikizan>1){p.lv.hikizan--;p.hkRun=0;syncLegacyFromLv(p);}}
   }
@@ -6100,21 +6141,30 @@ function finishSet(){
     return;
   }
   if(Q.mode==="mission"&&Q.first){
+    /* 0 点でも「クリア」 + 虫獲得 + 連続記録 になっていた。 3/5 以上を要件に
+       した上で 報酬と連続記録を付与。 未達は記録だけ残して再挑戦可能に (K-add #1)。 */
+    var passMission = (Q.ok >= 3);
     var d=p.daily[t]||(p.daily[t]={n:0,ok:0});
-    d.md=1;
-    if(p.streak.last===dShift(t,-1))p.streak.n++;
-    else if(p.streak.last!==t)p.streak.n=1;
-    p.streak.last=t;
-    updateProgressSummary(p);
-    save();
-    showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
+    if(passMission){
+     d.md=1;
+     if(p.streak.last===dShift(t,-1))p.streak.n++;
+     else if(p.streak.last!==t)p.streak.n=1;
+     p.streak.last=t;
+     updateProgressSummary(p);
+     save();
+     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
+    } else {
+     updateProgressSummary(p);
+     save();
+     showSetResult("もうすこし！",[scoreLine,"5問中3問で クリア！もういちど ちょうせん してみよう"],"startMission()");
+    }
     return;
   }
   /* レベル選択練習: クリア(4/5以上)で つぎのレベルを解放。再挑戦は同レベル */
   if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
     var cleared=(Q.ok>=4), key=Q.cat, unlocked=false;
     if(!p.lv)p.lv={};
-    if(cleared&&Q.lv>=((p.lv&&p.lv[key])||1)&&Q.lv<10){ p.lv[key]=Q.lv+1; syncLegacyFromLv(p); logLv(p,key); unlocked=true; }
+    if(cleared&&Q.lv>=((p.lv&&p.lv[key])||1)&&Q.lv<10){ p.lv[key]=Q.lv+1; syncLegacyFromLv(p); bumpMaxLv(p,key,p.lv[key]); logLv(p,key); unlocked=true; }
     updateProgressSummary(p);
     save();
     var msgs=[scoreLine];

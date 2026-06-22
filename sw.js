@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v107";  /* v107: keisan critical 8 件 — freshness 二重消費 (feedEgg+onCorrect の caller 1 回 peek), ひき算筆算 Lv5 を 3桁−2桁・くり下がり 2 回に再定義 (2 桁同士は数学的に不可能), 復習で既習なし時はブロック+取りこぼし (_mid) のみ REVIEW_BOOST, 適応 Lv 進行を review/timed/kuku/取りこぼし から除外, 九九チャレンジ合格時に kukuHits=0 リセット, 音声認識の古い callback ガード+数字確定で VOICE_REC.abort, resetAll で各プロフィールの keisan kv を明示削除, ひき算筆算で最上位の連続空欄を 0 扱い許可 */
+var CACHE = "q4b-cache-v108";  /* v108: keisan critical 追加 7 件 — ミッションは 3/5 以上で報酬 (0 点クリアの farming 封じ), 九九音声 UI から正解併記を削除+最後の数を答え判定, 解放最高 Lv (p.maxLv) を現在 Lv と分離 (失敗で下がっても 過去クリア Lv が再ロックされない), タイムアタックを適応バッファ p.adapt から除外 (10 問目判定スキップ・直近 10 問汚染を解消), バックアップ復元に restore モード追加 (updated 打ち直し+registry まるごと置換) → kanji UI で「マージ取り込み / 強制復元」分離, 年齢算フォールバック ans=15→20 (40+x=2(10+x)), 暗算マスター条件を p.lv.anzan>=10 (or maxLv) に変更 (Lv1 50問 farming 封じ) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

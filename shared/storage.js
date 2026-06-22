@@ -795,18 +795,40 @@
       profiles:store.profiles,current:store.current,kv:store.kv,
       tombstones:store.tombstones||{}});
   }
-  function importAll(input){
+  /* バックアップ取り込み (K-add #5)。
+     mode='merge' (既定): LWW で新しい方を採用。 過去バックアップは取り込まれない。
+     mode='restore': 入力 KV の updated を「現在時刻」 で打ち直して 強制上書き。
+       profiles は registry まるごと obj.profiles で置換 (削除済の復元も可能)。 */
+  function importAll(input, mode){
     var obj=input;
     if(typeof input==="string"){try{obj=JSON.parse(input);}catch(e){return Promise.reject(new Error("JSON を読めませんでした"));}}
     if(!obj||typeof obj!=="object")return Promise.reject(new Error("バックアップ形式が不正です"));
-    var store=loadStore(), n=0, k;
-    if(Array.isArray(obj.profiles))mergeRegistry(store,obj);
+    mode = mode || 'merge';
+    var store=loadStore(), n=0, k, tNow=now();
+    if(Array.isArray(obj.profiles)){
+      if(mode==='restore'){
+        /* registry を入力でまるごと置換。 tombstones は維持 (戻したい profile が
+           tombstone に残っていれば消す)。 */
+        store.profiles = obj.profiles.slice();
+        store.profiles.forEach(function(p){
+         if(p && p.id && store.tombstones) delete store.tombstones[p.id];
+        });
+      } else {
+        mergeRegistry(store,obj);
+      }
+    }
     if(obj.kv&&typeof obj.kv==="object"){
       for(k in obj.kv){
         var inc=obj.kv[k];
         if(!inc||typeof inc!=="object")continue;
-        var ex=store.kv[k];
-        if(!ex||(inc.updated||0)>=(ex.updated||0)){store.kv[k]=inc;n++;}
+        if(mode==='restore'){
+          /* 入力値で強制上書き。 updated を現在時刻に打ち直して LWW で他端末にも勝つ。 */
+          store.kv[k]={v:inc.v||1, updated:tNow, data:inc.data};
+          n++;
+        } else {
+          var ex=store.kv[k];
+          if(!ex||(inc.updated||0)>=(ex.updated||0)){store.kv[k]=inc;n++;}
+        }
       }
     }else{
       // legacy flat backup: {"q4b_keisan_v1":"...json string..."}
@@ -814,7 +836,7 @@
         if(k.indexOf("q4b_")!==0||typeof obj[k]!=="string")continue;
         var gid=k.replace(/^q4b_/,"").replace(/_v[0-9]+$/,"");
         var val=null; try{val=JSON.parse(obj[k]);}catch(e){val=obj[k];}
-        store.kv[gid+SEP+"_legacy"]={v:1,updated:now(),data:val};n++;
+        store.kv[gid+SEP+"_legacy"]={v:1,updated:(mode==='restore'?tNow:now()),data:val};n++;
       }
     }
     persist();

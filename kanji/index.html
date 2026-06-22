@@ -2035,7 +2035,8 @@ function renderParent(){ var s=$('scr-parent');
  +'<div class="small" style="margin-top:6px">弱点（誤答が多い字）：'+weakTop()+'</div></div>'
  +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">データ</div>'
  +'<textarea id="taX" placeholder="エクスポート結果がここに出ます／インポート時はJSONを貼り付け"></textarea>'
- +'<div class="row" style="margin-top:8px"><button class="btn sub" id="dEx">エクスポート</button><button class="btn sub" id="dIm">インポート</button></div>'
+ +'<div class="row" style="margin-top:8px"><button class="btn sub" id="dEx">エクスポート</button><button class="btn sub" id="dIm">マージで取り込み</button><button class="btn soil" id="dRst">強制復元</button></div>'
+ +'<div class="small" style="margin-top:4px">マージ＝新しい方を採用 / 強制復元＝バックアップを 上書き</div>'
  +'<button class="btn soil" id="dRs" style="margin-top:8px">漢字の記録だけ リセット</button></div>';
  s.innerHTML=h;
  $('bBk5').addEventListener('click',renderHome);
@@ -2056,9 +2057,22 @@ function renderParent(){ var s=$('scr-parent');
   try{ var bl=new Blob([j],{type:'application/json'}); var a=document.createElement('a');
    a.href=URL.createObjectURL(bl); a.download='quest4bugs_backup_'+todayStr()+'.json';
    document.body.appendChild(a); a.click(); a.remove(); }catch(e){} });
- $('dIm').addEventListener('click',function(){ QuestSave.importAll($('taX').value)
-  .then(function(n){ alert(n+'件 取り込みました'); selectProfile(CUR) })
+ $('dIm').addEventListener('click',function(){ QuestSave.importAll($('taX').value, 'merge')
+  .then(function(n){ alert(n+'件 取り込みました（新しい方を採用）'); selectProfile(CUR) })
   .catch(function(e){ alert('失敗：'+(e&&e.message?e.message:e)) }) });
+ /* 強制復元 (K-add #5): プロフィール一覧もバックアップで置換し、 KV updated を
+    現在時刻に打ち直して LWW で他端末にも勝つ。 元データは消えるため二段階確認。 */
+ var _rstEl=$('dRst');
+ if(_rstEl) _rstEl.addEventListener('click',function(){
+  if(!confirm('【強制復元】 現在のデータを 上書きします．元には戻せません．よいですか？')) return;
+  if(!confirm('もう一度確認: ほんとうに 強制復元 しますか？')) return;
+  QuestSave.importAll($('taX').value, 'restore')
+   .then(function(n){
+    alert(n+'件 強制復元しました（ページを 再よみこみします）');
+    setTimeout(function(){ try{ location.reload(); }catch(_){} }, 300);
+   })
+   .catch(function(e){ alert('失敗：'+(e&&e.message?e.message:e)) });
+ });
  $('dRs').addEventListener('click',function(){
   /* 実際に消すのは kanji namespace の ST だけ。 共有琥珀 / 化石 / 卵 / 他教科 / ボス
      図鑑 などは残るので、 ボタンと確認文言を「漢字の記録だけ」に明示 (前回新#8)。 */
