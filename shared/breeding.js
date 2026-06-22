@@ -159,7 +159,7 @@
     var pendBanner = opts.pendingCount > 0
       ? '<div class="q4b-egg-pending-banner" style="background:#FFF6E0;border:1.5px solid #F2A33C;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#8A5C2C;cursor:pointer"'
         + (opts.onAcceptPending ? ' onclick="'+opts.onAcceptPending+'()"' : '')
-        + '>📬 たまごが '+opts.pendingCount+'こ まっているよ! タップで うけとる</div>'
+        + '>📬 たまごリストに '+opts.pendingCount+'こ まっているよ <span style="float:right">▶</span></div>'
       : '';
     /* 教科別内訳: opts.legacyByGame = {kanji:N, keisan:N, eitango:N} 形式 */
     var legacyByGame = opts.legacyByGame || {};
