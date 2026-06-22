@@ -1,0 +1,76 @@
+{
+  "species_id": "haiiro_maru_hanabachi",
+  "species_ja": "ハイイロマルハナバチ",
+  "scientific_name": "Bombus deuteronymus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00997548",
+    "occurrenceId": "http://n2t.net/ark:/65665/30a206b5e-9db3-4389-8ef9-9e2c7d998f30",
+    "persistentId": "http://n2t.net/ark:/65665/30a206b5e-9db3-4389-8ef9-9e2c7d998f30",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "M. Matsumura",
+    "eventDate": "1896-12",
+    "eventYear": 1896,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Sapporo Agricultural College, Japan",
+    "preparations": "Pinned",
+    "decimalLatitude": 43.0781,
+    "decimalLongitude": 141.34
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317431247",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317431247",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10710156&h=1680",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00997548_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00997548_54.webp",
+      "108": "thumb/USNMENT00997548_108.webp",
+      "216": "thumb/USNMENT00997548_216.webp"
+    },
+    "resized": "original/USNMENT00997548_resized.jpg"
+  },
+  "original_sha256": "030f4559344ed7133c854f4d13e36ba0160479292ff2e526e051a6916f36d95b",
+  "processing": {
+    "cropBox": [
+      373,
+      361,
+      1324,
+      898
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00997548_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

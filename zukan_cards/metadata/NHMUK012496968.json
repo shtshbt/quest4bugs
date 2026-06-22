@@ -1,0 +1,74 @@
+{
+  "species_id": "hatake_korogi",
+  "species_ja": "ハタケコオロギ",
+  "scientific_name": "Modicogryllus siamensis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496968",
+    "occurrenceId": "c68fe534-7989-4de8-8892-0ce97ff01bf8",
+    "persistentId": "c68fe534-7989-4de8-8892-0ce97ff01bf8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Holotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Thailand",
+    "localityVerbatim": null,
+    "localityNormalized": "Thailand",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826412952",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c68fe534-7989-4de8-8892-0ce97ff01bf8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c6c96f6e-11c3-4ff4-a650-599c859845e8",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK012496968_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496968_54.webp",
+      "108": "thumb/NHMUK012496968_108.webp",
+      "216": "thumb/NHMUK012496968_216.webp"
+    },
+    "resized": "original/NHMUK012496968_resized.jpg"
+  },
+  "original_sha256": "2715658ed91d9daaec25f99ff5c4834debe21ded74c6a96e8a2f816427d1f38e",
+  "processing": {
+    "cropBox": [
+      363,
+      262,
+      588,
+      721
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496968_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

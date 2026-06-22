@@ -1,0 +1,74 @@
+{
+  "species_id": "agehamodoki",
+  "species_ja": "アゲハモドキ",
+  "scientific_name": "Epicopeia hainesii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Unknown. (Editor: Adalbert Seitz)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Diegrossschmette02seit 0027.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0027.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0027.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Unknown. (Editor: Adalbert Seitz)",
+    "eventDate": "circa 1909<div style=\"display: none;\">date QS:P,+1909-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "eventYear": 1909,
+    "country": null,
+    "localityVerbatim": "Plate 10 from  Seitz,1912- 1913  A. Ed. Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart  Band 2: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Spinner und Schwärmer, 1912- 1913 The Macrolepidoptera of the world : a systematic account of all the known Macrolepidoptera Volume 2 (1912-1916) text online read text See The Global Lepidoptera Names Index for valid names\n\n10a\nEpicopeia hainesii Holland, 1889\nEpicopeia sinicaria Leech ?\nEpicopeia mencia Moore, [1875]\n\n10b\nEpicopeia excisa Butler ?\nEpicopeia caroli Janet ?\n\n10c\nNola cucullatella (Linnaeus, 1758)\nAntennola impura (Mann, 1862) (syn.: Nola impura)\nNola phaea Hampson, 1900\nMeganola togatulalis (Hübner, 1796) (syn.: Roeselia togatulalis)\nMeganola albula (Denis &amp; Schiffermüller, 1775) (syn.: Roeselia albula)\n\n10d\nMeganola scripta (Moore, 1888) (syn.: Roeselia scripta)\nMeganola gigantula (Staudinger, 1879) (syn.: Roeselia gigantula)\nMeganola maculata (Staudinger in Romanoff, 1887)Roeselia maculata)\nMeganola nitida (Hampson, 1894) (syn.: Roeselia nitida)\nMeganola fumosa (Butler, 1879) (syn.: Roeselia fumosa)\nMeganola bryophilalis (Staudinger, 1887) (syn.: Roeselia bryophilalis)\nMeganola triangulalis (Leech, 1888) (syn.:Roeselia triangulalis)\nNola karelica tigranula Püngeler, 1902 (syn.: Roeselia tigranula)\n\n10e\nMeganola costalis (Staudinger, 1887) (syn.: Roeselia costalis)\nNola acutula Püngeler, 1902 (syn.: Roeselia acutula)\nMeganola strigula (Denis &amp; Schiffermüller, 1775) (syn.: Roeselia strigula)\nEvonima mandschuriana (Oberthür, 1880) (syn.: Mimerastria mandschuriana)\nMeganola longiventris (Poujade, 1886) Mimerastria longiventris)\nNola cicatricalis (Treitschke, 1835) (syn.: Celama cicatricalis)\nNola ancipitalis (Herrich-Schäffer, [1851]) (syn.: Celama ancipitalis)\n\n10f\nNola confusalis (Herrich-Schäffer, [1851]) (syn.: Celama confusalis)\nNola aerugula (Hübner, 1793) (syn.: Celema centonalis)\nNola aerugula (Hübner, 1793) (syn.: Glaphyra atomosa Bremer, 1861)\nNola cristatula (Hübner, 1793) (syn.: Celema cristatula)\nNola chlamitulalis (Hübner, [1813]) (syn.: Celema chlamitulalis)\n\n10g\nNola chlamitulalis (Hübner, [1813]) (forma minutalis Leech)\nNola taeniata Snellen, 1875 (syn.: Celema candida)\nNola angulata (Moore, 1888) (syn.: Celema angulata)\nNola squalida Staudinger, 1870 (syn.: Celema squalida)\nNola innocua Butler, 1880 (syn.: Celema innocua)\nNola flexuosa Poujade, 1886 (syn.: Celema flexuosa)\nNola aegyptiaca Snellen, 1875 (syn.: Celema aegyptiaca)\n\nNola thymula Millière, 1868 (syn.: Celema thymula)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0027.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Diegrossschmette02seit_0027.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileDiegrossschmette02seit0027jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDiegrossschmette02seit0027jpg_54.webp",
+      "108": "thumb/WMCFileDiegrossschmette02seit0027jpg_108.webp",
+      "216": "thumb/WMCFileDiegrossschmette02seit0027jpg_216.webp"
+    },
+    "resized": "original/WMCFileDiegrossschmette02seit0027jpg_resized.jpg"
+  },
+  "original_sha256": "54ab1ee66bf2ff87d382647030f0e85904b3d55d9d745d5d98c8f3639ff6c44d",
+  "processing": {
+    "cropBox": [
+      74,
+      209,
+      2467,
+      2108
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDiegrossschmette02seit0027jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

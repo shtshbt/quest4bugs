@@ -1,0 +1,81 @@
+{
+  "species_id": "hime_kogane_hamushi",
+  "species_ja": "ヒメキバネサルハムシ",
+  "scientific_name": "Pagria signata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "agnestrekker (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_224179027",
+    "occurrenceId": "https://www.inaturalist.org/observations/224179027",
+    "persistentId": "https://www.inaturalist.org/observations/224179027",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "agnestrekker",
+    "eventDate": "2024-06-21",
+    "eventYear": 2024,
+    "country": "曹公潭",
+    "localityVerbatim": null,
+    "localityNormalized": "曹公潭, 曹公潭",
+    "preparations": null,
+    "decimalLatitude": 22.3798929838,
+    "decimalLongitude": 114.1087346524,
+    "coordinatesObscured": false,
+    "iNatObservationId": "224179027",
+    "iNatPhotoId": "397291064",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/224179027",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/397291064/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs224179027_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs224179027_54.webp",
+      "108": "thumb/iNatobs224179027_108.webp",
+      "216": "thumb/iNatobs224179027_216.webp"
+    },
+    "resized": "original/iNatobs224179027_resized.jpg"
+  },
+  "original_sha256": "6201095a17e6c17868e095a9d1741667bb63c6daec4cb10af509a881b76b9b28",
+  "processing": {
+    "cropBox": [
+      412,
+      571,
+      995,
+      1392
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs224179027_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.84), rotate 270 CCW"
+}

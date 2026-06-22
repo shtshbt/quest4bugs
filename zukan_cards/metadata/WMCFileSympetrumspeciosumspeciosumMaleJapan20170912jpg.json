@@ -1,0 +1,74 @@
+{
+  "species_id": "neki_tonbo",
+  "species_ja": "ネキトンボ",
+  "scientific_name": "Sympetrum speciosum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "TekuraDF",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sympetrum speciosum speciosum(Male,Japan,2017.09.12).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sympetrum_speciosum_speciosum(Male,Japan,2017.09.12).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sympetrum_speciosum_speciosum(Male,Japan,2017.09.12).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "TekuraDF",
+    "eventDate": "Taken on 12 September 2017, 12:44:56",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "ネキトンボ雄　広島県",
+    "localityNormalized": "ネキトンボ雄　広島県",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sympetrum_speciosum_speciosum(Male,Japan,2017.09.12).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Sympetrum_speciosum_speciosum%28Male%2CJapan%2C2017.09.12%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_54.webp",
+      "108": "thumb/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_108.webp",
+      "216": "thumb/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_216.webp"
+    },
+    "resized": "original/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_resized.jpg"
+  },
+  "original_sha256": "6f885b93622da13c6e0c2c845ac7434ff2dc233a4c3f24a9cd814020cfc4f5e7",
+  "processing": {
+    "cropBox": [
+      40,
+      606,
+      2800,
+      1574
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSympetrumspeciosumspeciosumMaleJapan20170912jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

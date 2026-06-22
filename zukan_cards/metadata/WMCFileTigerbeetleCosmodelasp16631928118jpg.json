@@ -1,0 +1,74 @@
+{
+  "species_id": "harabiro_hanmyo",
+  "species_ja": "ハラビロハンミョウ",
+  "scientific_name": "Cosmodela sp.",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pavel Kirillov from St.Petersburg, Russia",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tiger beetle (Cosmodela sp?) (16631928118).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_(Cosmodela_sp%3F)_(16631928118).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_(Cosmodela_sp%3F)_(16631928118).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pavel Kirillov from St.Petersburg, Russia",
+    "eventDate": "2015-01-01 12:02",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Tiger beetle (Cosmodela sp?)",
+    "localityNormalized": "Tiger beetle (Cosmodela sp?)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tiger_beetle_(Cosmodela_sp%3F)_(16631928118).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Tiger_beetle_%28Cosmodela_sp%3F%29_%2816631928118%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "display": "processed/WMCFileTigerbeetleCosmodelasp16631928118jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTigerbeetleCosmodelasp16631928118jpg_54.webp",
+      "108": "thumb/WMCFileTigerbeetleCosmodelasp16631928118jpg_108.webp",
+      "216": "thumb/WMCFileTigerbeetleCosmodelasp16631928118jpg_216.webp"
+    },
+    "resized": "original/WMCFileTigerbeetleCosmodelasp16631928118jpg_resized.jpg"
+  },
+  "original_sha256": "ff7ef502b59a4005cf04c3de3f6b9e72d4e2e0b5c76abbbd52398f3bb79bb980",
+  "processing": {
+    "cropBox": [
+      183,
+      610,
+      2006,
+      2751
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTigerbeetleCosmodelasp16631928118jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

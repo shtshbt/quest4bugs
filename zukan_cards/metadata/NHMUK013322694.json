@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_fuchi_shiroeda_shaku",
+  "species_ja": "クロフシロエダシャク",
+  "scientific_name": "Dilophodes elegans",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013322694",
+    "occurrenceId": "546e17f4-b37c-49a3-b124-aed98c4686e2",
+    "persistentId": "546e17f4-b37c-49a3-b124-aed98c4686e2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1836106394",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/546e17f4-b37c-49a3-b124-aed98c4686e2",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/a8de15c6-970c-43b9-8dc9-1aa00c4cd633",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK013322694_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013322694_54.webp",
+      "108": "thumb/NHMUK013322694_108.webp",
+      "216": "thumb/NHMUK013322694_216.webp"
+    },
+    "resized": "original/NHMUK013322694_resized.jpg"
+  },
+  "original_sha256": "697a0d273d5163c2a0406b345649921cf6604e54ee34c3a996d8e5d8d6cd9590",
+  "processing": {
+    "cropBox": [
+      160,
+      219,
+      890,
+      617
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013322694_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

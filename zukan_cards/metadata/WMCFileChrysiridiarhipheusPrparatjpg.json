@@ -1,6 +1,6 @@
 {
-  "species_id": "master_urania",
-  "species_ja": "ウラニアガ",
+  "species_id": "nishiki_tsubamega",
+  "species_ja": "ニシキオオツバメガ",
   "scientific_name": "Chrysiridia rhipheus",
   "credit_line": "Wikimedia Commons",
   "creator": "Petwoe",
@@ -70,5 +70,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "unknown taxon — no rotation"
+  "notes": "butterfly dorsal — head up by convention, no rotation"
 }

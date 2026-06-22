@@ -1,0 +1,76 @@
+{
+  "species_id": "usutabiga",
+  "species_ja": "ウスタビガ",
+  "scientific_name": "Rhodinia fugax",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 745597",
+    "occurrenceId": "urn:uuid:da04a8dd-d96a-40ae-bf8f-52aae8f4c7a0",
+    "persistentId": "urn:uuid:da04a8dd-d96a-40ae-bf8f-52aae8f4c7a0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Issei Oshima",
+    "eventDate": "1969-11-03",
+    "eventYear": 1969,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kawaguchi, Daimon, Ippongi, Japan",
+    "preparations": null,
+    "decimalLatitude": 44.081376,
+    "decimalLongitude": 143.941786
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039178989",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-745597",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:83baea97-4937-4bd0-9395-1d141decbf12/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT745597_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT745597_54.webp",
+      "108": "thumb/YPMENT745597_108.webp",
+      "216": "thumb/YPMENT745597_216.webp"
+    },
+    "resized": "original/YPMENT745597_resized.jpg"
+  },
+  "original_sha256": "1063fa73c35417f3a05befb8a34c9d9d5562a8084ebad35a44b35c60ad7d8ca4",
+  "processing": {
+    "cropBox": [
+      102,
+      0,
+      1093,
+      1549
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT745597_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

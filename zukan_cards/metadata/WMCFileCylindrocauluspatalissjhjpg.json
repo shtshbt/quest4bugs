@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_tsuyamushi",
+  "species_ja": "クロツヤムシ",
+  "scientific_name": "Cylindrocaulus patalis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "No machine-readable author provided. Kugamazog~commonswiki assumed (based on copyright claims).",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cylindrocaulus patalis sjh.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cylindrocaulus_patalis_sjh.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cylindrocaulus_patalis_sjh.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "No machine-readable author provided. Kugamazog~commonswiki assumed (based on copyright claims).",
+    "eventDate": "2007-04-06 03:58:53",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Cylindrocaulus patalis adult taken by Shawn Hanrahan at the Texas A&amp;M University Insect Collection  in College Station, Texas.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cylindrocaulus_patalis_sjh.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Cylindrocaulus_patalis_sjh.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.5",
+    "mediaLicense": "CC-BY-SA-2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  "files": {
+    "display": "processed/WMCFileCylindrocauluspatalissjhjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCylindrocauluspatalissjhjpg_54.webp",
+      "108": "thumb/WMCFileCylindrocauluspatalissjhjpg_108.webp",
+      "216": "thumb/WMCFileCylindrocauluspatalissjhjpg_216.webp"
+    },
+    "resized": "original/WMCFileCylindrocauluspatalissjhjpg_resized.jpg"
+  },
+  "original_sha256": "46a27563f31b5016582ee7ace3548f8dc56e391a3a8521186ad1b32c4859e8d9",
+  "processing": {
+    "cropBox": [
+      335,
+      34,
+      726,
+      610
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCylindrocauluspatalissjhjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

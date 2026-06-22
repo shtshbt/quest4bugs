@@ -1,0 +1,74 @@
+{
+  "species_id": "master_giant_weta",
+  "species_ja": "ジャイアントウェタ",
+  "scientific_name": "Deinacrida heteracantha",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Auckland Museum",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Deinacrida heteracantha (female) Holotype specimen from the Auckland Museum.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Deinacrida_heteracantha_(female)_Holotype_specimen_from_the_Auckland_Museum.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Deinacrida_heteracantha_(female)_Holotype_specimen_from_the_Auckland_Museum.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Auckland Museum",
+    "eventDate": "2004-09-03 11:39:20",
+    "eventYear": 2004,
+    "country": null,
+    "localityVerbatim": "A female Deinacrida heteracantha. Holotype specimen held at Auckland Museum Image licensed under CC BY 4.0 .",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Deinacrida_heteracantha_(female)_Holotype_specimen_from_the_Auckland_Museum.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Deinacrida_heteracantha_%28female%29_Holotype_specimen_from_the_Auckland_Museum.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_54.webp",
+      "108": "thumb/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_108.webp",
+      "216": "thumb/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_216.webp"
+    },
+    "resized": "original/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_resized.jpg"
+  },
+  "original_sha256": "a4e8aca60358ded60ac1a8d453e2f387e7592bbecf39cc90abe3e53a11d15529",
+  "processing": {
+    "cropBox": [
+      1382,
+      178,
+      6423,
+      9841
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDeinacridaheteracanthafemaleHolotypespecimenfromtheAucklandMuseumjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

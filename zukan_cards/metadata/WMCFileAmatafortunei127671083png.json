@@ -1,0 +1,74 @@
+{
+  "species_id": "kanokoga",
+  "species_ja": "カノコガ",
+  "scientific_name": "Amata fortunei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "rdclark86",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Amata fortunei 127671083.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Amata_fortunei_127671083.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Amata_fortunei_127671083.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "rdclark86",
+    "eventDate": "2004-06-20",
+    "eventYear": 2004,
+    "country": null,
+    "localityVerbatim": "Japanese Nine-spotted Moth (Amata fortunei)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Amata_fortunei_127671083.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Amata_fortunei_127671083.png",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileAmatafortunei127671083png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAmatafortunei127671083png_54.webp",
+      "108": "thumb/WMCFileAmatafortunei127671083png_108.webp",
+      "216": "thumb/WMCFileAmatafortunei127671083png_216.webp"
+    },
+    "resized": "original/WMCFileAmatafortunei127671083png_resized.jpg"
+  },
+  "original_sha256": "c092b9e0bbd9cf7b531a6b175ad9b93dc78207c59048a949d9701f7f153b7963",
+  "processing": {
+    "cropBox": [
+      37,
+      19,
+      352,
+      312
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAmatafortunei127671083png_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

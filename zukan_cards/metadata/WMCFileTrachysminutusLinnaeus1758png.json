@@ -1,0 +1,74 @@
+{
+  "species_id": "chibi_tamamushi",
+  "species_ja": "チビタマムシ",
+  "scientific_name": "Trachys minutus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "URSchmidt",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Trachys minutus (Linnaeus, 1758).png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Trachys_minutus_(Linnaeus,_1758).png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Trachys_minutus_(Linnaeus,_1758).png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "URSchmidt",
+    "eventDate": "2020-11-07",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Trachys minutus (Linnaeus, 1758) \nFamilie: Buprestidae \nGroesse: 3,5 mm (2,8 bis 3,5 mm) \nVerbreitung: Europa bis zur Mandschurei\nÖkologie: Larve miniert in den Blättern verschiedener Laubbäume\nFundort: Deutschland, Bayern, Oberfranken, Selbitz, Foehrig \nleg. U.Schmidt, 1.V.2004; det. Niehuis, 2008 \n\nFoto: U.Schmidt, 2020",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Trachys_minutus_(Linnaeus,_1758).png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Trachys_minutus_%28Linnaeus%2C_1758%29.png",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileTrachysminutusLinnaeus1758png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTrachysminutusLinnaeus1758png_54.webp",
+      "108": "thumb/WMCFileTrachysminutusLinnaeus1758png_108.webp",
+      "216": "thumb/WMCFileTrachysminutusLinnaeus1758png_216.webp"
+    },
+    "resized": "original/WMCFileTrachysminutusLinnaeus1758png_resized.jpg"
+  },
+  "original_sha256": "13ec3cf0ceae9b1e843952365e825c5d18b968538304feb4e2c78dab2f621105",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1600,
+      1092
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTrachysminutusLinnaeus1758png_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.06), rotate 0 CCW"
+}

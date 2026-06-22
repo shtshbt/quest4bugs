@@ -1,0 +1,74 @@
+{
+  "species_id": "ashiguro_tsuyumushi",
+  "species_ja": "アシグロツユムシ",
+  "scientific_name": "Phaneroptera nigroantennata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Σ64",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Asigurotuyumusi.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Asigurotuyumusi.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Asigurotuyumusi.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Σ64",
+    "eventDate": "2006-09-03",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "アシグロツユムシ(Phaneroptera nigroantennata)",
+    "localityNormalized": "アシグロツユムシ(Phaneroptera nigroantennata)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Asigurotuyumusi.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Asigurotuyumusi.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileAsigurotuyumusiJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAsigurotuyumusiJPG_54.webp",
+      "108": "thumb/WMCFileAsigurotuyumusiJPG_108.webp",
+      "216": "thumb/WMCFileAsigurotuyumusiJPG_216.webp"
+    },
+    "resized": "original/WMCFileAsigurotuyumusiJPG_resized.jpg"
+  },
+  "original_sha256": "b975c91aa6801b81bdcc68e8054181b6d381f1e4d67f18dcadde9d243475f4f4",
+  "processing": {
+    "cropBox": [
+      0,
+      109,
+      1574,
+      1048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAsigurotuyumusiJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

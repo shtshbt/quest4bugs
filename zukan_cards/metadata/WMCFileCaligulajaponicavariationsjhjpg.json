@@ -1,0 +1,74 @@
+{
+  "species_id": "kususan",
+  "species_ja": "クスサン",
+  "scientific_name": "Caligula japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Shawn Hanrahan",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Caligula japonica variation sjh.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Caligula_japonica_variation_sjh.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Caligula_japonica_variation_sjh.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Shawn Hanrahan",
+    "eventDate": "2009-07-18",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Caligula japonica adult variation from the Texas A&amp;M University Insect Collection",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Caligula_japonica_variation_sjh.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Caligula_japonica_variation_sjh.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "display": "processed/WMCFileCaligulajaponicavariationsjhjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCaligulajaponicavariationsjhjpg_54.webp",
+      "108": "thumb/WMCFileCaligulajaponicavariationsjhjpg_108.webp",
+      "216": "thumb/WMCFileCaligulajaponicavariationsjhjpg_216.webp"
+    },
+    "resized": "original/WMCFileCaligulajaponicavariationsjhjpg_resized.jpg"
+  },
+  "original_sha256": "d464db09ec63092af49adbec4eda17a42edad04225d63776c11499da04e93362",
+  "processing": {
+    "cropBox": [
+      2,
+      0,
+      2494,
+      2140
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCaligulajaponicavariationsjhjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

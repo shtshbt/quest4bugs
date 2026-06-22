@@ -1,0 +1,74 @@
+{
+  "species_id": "hosohari_hamushi",
+  "species_ja": "トゲハムシ",
+  "scientific_name": "Dactylispa subquadrata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "{{{name}}}",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dactylispa subquadrata - inat 409701433.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dactylispa_subquadrata_-_inat_409701433.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dactylispa_subquadrata_-_inat_409701433.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "{{{name}}}",
+    "eventDate": "2019-08-16",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Dactylispa subquadrata, Japan",
+    "localityNormalized": "Dactylispa subquadrata, Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dactylispa_subquadrata_-_inat_409701433.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Dactylispa_subquadrata_-_inat_409701433.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileDactylispasubquadratainat409701433jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDactylispasubquadratainat409701433jpg_54.webp",
+      "108": "thumb/WMCFileDactylispasubquadratainat409701433jpg_108.webp",
+      "216": "thumb/WMCFileDactylispasubquadratainat409701433jpg_216.webp"
+    },
+    "resized": "original/WMCFileDactylispasubquadratainat409701433jpg_resized.jpg"
+  },
+  "original_sha256": "c1b999e6686d7fba2db112684fbc6a4f5c0c2e9faf4f5c0ac90c3ac24d8a6003",
+  "processing": {
+    "cropBox": [
+      811,
+      637,
+      1327,
+      869
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDactylispasubquadratainat409701433jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

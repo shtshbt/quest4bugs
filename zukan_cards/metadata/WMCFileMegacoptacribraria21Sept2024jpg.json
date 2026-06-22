@@ -1,0 +1,74 @@
+{
+  "species_id": "tochukasou_replaced_marukamemushi",
+  "species_ja": "マルカメムシ",
+  "scientific_name": "Megacopta punctatissima",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Skyemears",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Megacopta cribraria 21 Sept 2024.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Megacopta_cribraria_21_Sept_2024.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Megacopta_cribraria_21_Sept_2024.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Skyemears",
+    "eventDate": "2021-09-15 18:44:01",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Megacopta cribraria | 21 Sept 2024 | S. Mears | (Fabricius)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Megacopta_cribraria_21_Sept_2024.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Megacopta_cribraria_21_Sept_2024.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileMegacoptacribraria21Sept2024jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMegacoptacribraria21Sept2024jpg_54.webp",
+      "108": "thumb/WMCFileMegacoptacribraria21Sept2024jpg_108.webp",
+      "216": "thumb/WMCFileMegacoptacribraria21Sept2024jpg_216.webp"
+    },
+    "resized": "original/WMCFileMegacoptacribraria21Sept2024jpg_resized.jpg"
+  },
+  "original_sha256": "427e3285278f462a2b07f866a6d65bb192104e168af5a91a2a25856eaa77c505",
+  "processing": {
+    "cropBox": [
+      506,
+      228,
+      2247,
+      2180
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMegacoptacribraria21Sept2024jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

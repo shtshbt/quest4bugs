@@ -1,0 +1,74 @@
+{
+  "species_id": "yashi_oo_zoumushi",
+  "species_ja": "ヤシオオオサゾウムシ",
+  "scientific_name": "Rhynchophorus ferrugineus",
+  "credit_line": "Australian Museum",
+  "creator": "Monique Cooper",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.620259",
+    "occurrenceId": "f9ce2632-dd74-40c2-b562-7c505c6fc4c2",
+    "persistentId": "f9ce2632-dd74-40c2-b562-7c505c6fc4c2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276628304",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276628304",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=5140bdb5-c3d2-4953-9c49-bc5a559d9339",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/AMK620259_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK620259_54.webp",
+      "108": "thumb/AMK620259_108.webp",
+      "216": "thumb/AMK620259_216.webp"
+    },
+    "resized": "original/AMK620259_resized.jpg"
+  },
+  "original_sha256": "65f1a7cf429d77e50c3bf0ae7704fad93e6d3da152665fa825ce41ec7c5c9ecc",
+  "processing": {
+    "cropBox": [
+      141,
+      8,
+      300,
+      352
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK620259_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.42), rotate 0 CCW"
+}

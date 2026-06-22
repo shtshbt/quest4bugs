@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileOxyayezoensis08Oct7jpg_original.jpg",
-    "segmented": "processed/WMCFileOxyayezoensis08Oct7jpg_L1_segmented.png",
     "display": "processed/WMCFileOxyayezoensis08Oct7jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileOxyayezoensis08Oct7jpg_54.webp",
       "108": "thumb/WMCFileOxyayezoensis08Oct7jpg_108.webp",
       "216": "thumb/WMCFileOxyayezoensis08Oct7jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileOxyayezoensis08Oct7jpg_resized.jpg"
   },
   "original_sha256": "c0b023a83efb3195073d338d73dcd77cc8612ef4f02e08c8fdddf353f624f691",
   "processing": {

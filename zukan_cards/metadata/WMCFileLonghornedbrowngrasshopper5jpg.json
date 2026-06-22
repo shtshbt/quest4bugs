@@ -1,0 +1,74 @@
+{
+  "species_id": "oo_sasakiri",
+  "species_ja": "オナガササキリ",
+  "scientific_name": "Conocephalus exemptus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Long horned brown grasshopper - 5.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Long_horned_brown_grasshopper_-_5.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Long_horned_brown_grasshopper_-_5.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2020-09-17 16:07:53",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "非常に長い触角を持っていた茶色いササキリ。オナガササキリの幼虫（オス）ではと思われます。愛知県小牧市で撮影。",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Long_horned_brown_grasshopper_-_5.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Long_horned_brown_grasshopper_-_5.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileLonghornedbrowngrasshopper5jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLonghornedbrowngrasshopper5jpg_54.webp",
+      "108": "thumb/WMCFileLonghornedbrowngrasshopper5jpg_108.webp",
+      "216": "thumb/WMCFileLonghornedbrowngrasshopper5jpg_216.webp"
+    },
+    "resized": "original/WMCFileLonghornedbrowngrasshopper5jpg_resized.jpg"
+  },
+  "original_sha256": "20676eebc9a64b9b7e57cad365a31e688da74dced0fd647cd8173677933925b8",
+  "processing": {
+    "cropBox": [
+      402,
+      46,
+      3000,
+      2295
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLonghornedbrowngrasshopper5jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

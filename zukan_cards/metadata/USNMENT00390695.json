@@ -1,0 +1,76 @@
+{
+  "species_id": "karakane_tonbo",
+  "species_ja": "カラカネトンボ",
+  "scientific_name": "Cordulia aenea amurensis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390695",
+    "occurrenceId": "http://n2t.net/ark:/65665/361a4bd65-9adf-44ac-8e2e-50bbec7a9174",
+    "persistentId": "http://n2t.net/ark:/65665/361a4bd65-9adf-44ac-8e2e-50bbec7a9174",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "2007-07-30",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Toyotomi-cho; Kabutonuma, auto camping, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 45.22,
+    "decimalLongitude": 141.702
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319409458",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319409458",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16366138&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00390695_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390695_54.webp",
+      "108": "thumb/USNMENT00390695_108.webp",
+      "216": "thumb/USNMENT00390695_216.webp"
+    },
+    "resized": "original/USNMENT00390695_resized.jpg"
+  },
+  "original_sha256": "6815a149e289e1115a51eea195305813ddc3648634a5cb74695c2598e4054b78",
+  "processing": {
+    "cropBox": [
+      827,
+      512,
+      1421,
+      1197
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390695_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

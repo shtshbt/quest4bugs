@@ -1,0 +1,74 @@
+{
+  "species_id": "satsumanishiki",
+  "species_ja": "サツマニシキ",
+  "scientific_name": "Erasmia pulchella",
+  "credit_line": "Wikimedia Commons",
+  "creator": "heikindai_87",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Erasmia pulchella 115788759.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Erasmia_pulchella_115788759.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Erasmia_pulchella_115788759.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "Taken on 13 July 2013",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Erasmia pulchella",
+    "localityNormalized": "Erasmia pulchella",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Erasmia_pulchella_115788759.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Erasmia_pulchella_115788759.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileErasmiapulchella115788759jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileErasmiapulchella115788759jpg_54.webp",
+      "108": "thumb/WMCFileErasmiapulchella115788759jpg_108.webp",
+      "216": "thumb/WMCFileErasmiapulchella115788759jpg_216.webp"
+    },
+    "resized": "original/WMCFileErasmiapulchella115788759jpg_resized.jpg"
+  },
+  "original_sha256": "4a1b6bcbca32ef84d93611ac15f2da599deae74f21f6bb50cefae3d40708e1d8",
+  "processing": {
+    "cropBox": [
+      65,
+      0,
+      1897,
+      1344
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileErasmiapulchella115788759jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

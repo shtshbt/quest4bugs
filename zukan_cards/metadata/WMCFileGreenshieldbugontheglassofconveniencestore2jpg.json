@@ -1,0 +1,74 @@
+{
+  "species_id": "tsuya_aokamemushi",
+  "species_ja": "ツヤアオカメムシ",
+  "scientific_name": "Glaucias subpunctatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Green shield bug on the glass of convenience store - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Green_shield_bug_on_the_glass_of_convenience_store_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Green_shield_bug_on_the_glass_of_convenience_store_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "29 May 2026, 00:16:17",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "ツヤアオカメムシではと思われます。愛知県春日井市で撮影。",
+    "localityNormalized": "ツヤアオカメムシではと思われます。愛知県春日井市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Green_shield_bug_on_the_glass_of_convenience_store_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Green_shield_bug_on_the_glass_of_convenience_store_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_54.webp",
+      "108": "thumb/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_108.webp",
+      "216": "thumb/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_216.webp"
+    },
+    "resized": "original/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_resized.jpg"
+  },
+  "original_sha256": "7d747385f9581a7e059bc987861983a71e1b9c2a71446feffc84b41e49f50262",
+  "processing": {
+    "cropBox": [
+      598,
+      314,
+      1774,
+      1548
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileGreenshieldbugontheglassofconveniencestore2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

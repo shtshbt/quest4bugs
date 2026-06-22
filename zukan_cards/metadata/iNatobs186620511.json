@@ -1,0 +1,80 @@
+{
+  "species_id": "benimon_yaga",
+  "species_ja": "ベニモンヨトウ",
+  "scientific_name": "Sesamia inferens",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "konoda (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_186620511",
+    "occurrenceId": "https://www.inaturalist.org/observations/186620511",
+    "persistentId": "https://www.inaturalist.org/observations/186620511",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "konoda",
+    "eventDate": "2023-09-22",
+    "eventYear": 2023,
+    "country": "日本 〒386-0015",
+    "localityVerbatim": null,
+    "localityNormalized": "日本 〒386-0015, 日本 〒386-0015",
+    "preparations": null,
+    "decimalLatitude": 36.3896752354,
+    "decimalLongitude": 138.2663807273,
+    "coordinatesObscured": false,
+    "iNatObservationId": "186620511",
+    "iNatPhotoId": "326171284",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/186620511",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/326171284/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs186620511_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs186620511_54.webp",
+      "108": "thumb/iNatobs186620511_108.webp",
+      "216": "thumb/iNatobs186620511_216.webp"
+    },
+    "resized": "original/iNatobs186620511_resized.jpg"
+  },
+  "original_sha256": "fe0390d507cb8ab2196dd2fe169b880d0ce9e93b139ffed67eb4763f2c721034",
+  "processing": {
+    "cropBox": [
+      340,
+      0,
+      1443,
+      1978
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs186620511_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

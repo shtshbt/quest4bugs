@@ -1,0 +1,74 @@
+{
+  "species_id": "hoshihoujaku",
+  "species_ja": "ホシホウジャク",
+  "scientific_name": "Macroglossum pyrrhosticta",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Macroglossum pyrrhosticta MHNT CUT 2010 0 410 Assam, Shillong, Indes, male dorsal.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Macroglossum_pyrrhosticta_MHNT_CUT_2010_0_410_Assam,_Shillong,_Indes,_male_dorsal.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Macroglossum_pyrrhosticta_MHNT_CUT_2010_0_410_Assam,_Shillong,_Indes,_male_dorsal.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "Taken on 10 June 2020",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Macroglossum pyrrhosticta - Dorsal side\nCollection of the Mathematician Laurent Schwartz",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Macroglossum_pyrrhosticta_MHNT_CUT_2010_0_410_Assam,_Shillong,_Indes,_male_dorsal.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Macroglossum_pyrrhosticta_MHNT_CUT_2010_0_410_Assam%2C_Shillong%2C_Indes%2C_male_dorsal.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_54.webp",
+      "108": "thumb/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_108.webp",
+      "216": "thumb/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_216.webp"
+    },
+    "resized": "original/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_resized.jpg"
+  },
+  "original_sha256": "76624bd6fbf72efe1495bbc1edeacc7a89e89ef26c2e717e191fe392c10034d6",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      5044,
+      3656
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMacroglossumpyrrhostictaMHNTCUT20100410AssamShillongIndesmaledorsaljpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

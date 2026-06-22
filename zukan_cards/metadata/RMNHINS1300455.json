@@ -1,0 +1,74 @@
+{
+  "species_id": "shinjusan",
+  "species_ja": "シンジュサン",
+  "scientific_name": "Samia cynthia",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1300455",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1300455",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1300455",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "J.H. Jurriaanse",
+    "eventDate": "1921-06-04",
+    "eventYear": 1921,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Peking, China",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3418465318",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3418465318",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1300455_5/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/RMNHINS1300455_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1300455_54.webp",
+      "108": "thumb/RMNHINS1300455_108.webp",
+      "216": "thumb/RMNHINS1300455_216.webp"
+    },
+    "resized": "original/RMNHINS1300455_resized.jpg"
+  },
+  "original_sha256": "640c16ffd99ceb33a533750657b259008bda891b30de2a8ece49ed89f73b6526",
+  "processing": {
+    "cropBox": [
+      0,
+      124,
+      1920,
+      1172
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1300455_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

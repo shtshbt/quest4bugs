@@ -1,0 +1,74 @@
+{
+  "species_id": "kuwago",
+  "species_ja": "クワコ",
+  "scientific_name": "Bombyx mandarina",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Bombyx mandarina on the wall - 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Bombyx_mandarina_on_the_wall_-_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Bombyx_mandarina_on_the_wall_-_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2020-12-05 00:31:34",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "クワコ（クワゴ）と思われます。愛知県小牧市で撮影。",
+    "localityNormalized": "クワコ（クワゴ）と思われます。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Bombyx_mandarina_on_the_wall_-_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Bombyx_mandarina_on_the_wall_-_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileBombyxmandarinaonthewall2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBombyxmandarinaonthewall2jpg_54.webp",
+      "108": "thumb/WMCFileBombyxmandarinaonthewall2jpg_108.webp",
+      "216": "thumb/WMCFileBombyxmandarinaonthewall2jpg_216.webp"
+    },
+    "resized": "original/WMCFileBombyxmandarinaonthewall2jpg_resized.jpg"
+  },
+  "original_sha256": "de18dbfa5cada8aaa8870c5e47d20e7b776b496316dca4a3e08811556c520426",
+  "processing": {
+    "cropBox": [
+      0,
+      98,
+      4261,
+      2180
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBombyxmandarinaonthewall2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

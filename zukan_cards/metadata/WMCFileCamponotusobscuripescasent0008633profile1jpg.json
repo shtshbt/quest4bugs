@@ -1,0 +1,74 @@
+{
+  "species_id": "muneaka_ooari",
+  "species_ja": "ムネアカオオアリ",
+  "scientific_name": "Camponotus obscuripes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Camponotus obscuripes casent0008633 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Camponotus_obscuripes_casent0008633_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Camponotus_obscuripes_casent0008633_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2008-03-11 10:30:15",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Camponotus obscuripes specimen casent0008633.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Camponotus_obscuripes_casent0008633_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Camponotus_obscuripes_casent0008633_profile_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileCamponotusobscuripescasent0008633profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCamponotusobscuripescasent0008633profile1jpg_54.webp",
+      "108": "thumb/WMCFileCamponotusobscuripescasent0008633profile1jpg_108.webp",
+      "216": "thumb/WMCFileCamponotusobscuripescasent0008633profile1jpg_216.webp"
+    },
+    "resized": "original/WMCFileCamponotusobscuripescasent0008633profile1jpg_resized.jpg"
+  },
+  "original_sha256": "6f11edc764a3078070215cfb7c0e2dccbd2597c6aed730b0fe64feb9a215f96e",
+  "processing": {
+    "cropBox": [
+      49,
+      11,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCamponotusobscuripescasent0008633profile1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

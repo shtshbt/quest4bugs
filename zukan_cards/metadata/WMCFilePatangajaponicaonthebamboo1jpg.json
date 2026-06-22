@@ -1,0 +1,74 @@
+{
+  "species_id": "tsuchi_inago",
+  "species_ja": "ツチイナゴ",
+  "scientific_name": "Patanga japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Patanga japonica on the bamboo - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Patanga_japonica_on_the_bamboo_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Patanga_japonica_on_the_bamboo_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-05-06 20:02:47",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "竹の棒につかまっていたツチイナゴ。愛知県小牧市で撮影。",
+    "localityNormalized": "竹の棒につかまっていたツチイナゴ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Patanga_japonica_on_the_bamboo_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Patanga_japonica_on_the_bamboo_-_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePatangajaponicaonthebamboo1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePatangajaponicaonthebamboo1jpg_54.webp",
+      "108": "thumb/WMCFilePatangajaponicaonthebamboo1jpg_108.webp",
+      "216": "thumb/WMCFilePatangajaponicaonthebamboo1jpg_216.webp"
+    },
+    "resized": "original/WMCFilePatangajaponicaonthebamboo1jpg_resized.jpg"
+  },
+  "original_sha256": "9173b20116c784a9808402fc35e7f3424ee48f1fb461dcdc36e060d903c50995",
+  "processing": {
+    "cropBox": [
+      416,
+      31,
+      1854,
+      2875
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePatangajaponicaonthebamboo1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

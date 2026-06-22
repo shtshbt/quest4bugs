@@ -1,0 +1,74 @@
+{
+  "species_id": "hoshi_sasakiri",
+  "species_ja": "ホシササキリ",
+  "scientific_name": "Conocephalus maculatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496628",
+    "occurrenceId": "9ec3f34e-d3e6-4dbb-a9f9-ed20c40d9960",
+    "persistentId": "9ec3f34e-d3e6-4dbb-a9f9-ed20c40d9960",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Larva",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826404814",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/9ec3f34e-d3e6-4dbb-a9f9-ed20c40d9960",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/80927ea9-6105-40a3-b1ab-ed7645883b12",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK012496628_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496628_54.webp",
+      "108": "thumb/NHMUK012496628_108.webp",
+      "216": "thumb/NHMUK012496628_216.webp"
+    },
+    "resized": "original/NHMUK012496628_resized.jpg"
+  },
+  "original_sha256": "40a2801977b18109031b550dc1a146f154988b4d519e07c81ac5f9621c1fcc6a",
+  "processing": {
+    "cropBox": [
+      512,
+      410,
+      631,
+      787
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496628_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

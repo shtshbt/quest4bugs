@@ -1,0 +1,74 @@
+{
+  "species_id": "shiro_hitori",
+  "species_ja": "シロヒトリ",
+  "scientific_name": "Chionarctia nivea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KENPEI",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chionarctia nivea1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chionarctia_nivea1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chionarctia_nivea1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KENPEI",
+    "eventDate": "2009-08-13",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "シロヒトリ",
+    "localityNormalized": "シロヒトリ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chionarctia_nivea1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Chionarctia_nivea1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "display": "processed/WMCFileChionarctianivea1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChionarctianivea1jpg_54.webp",
+      "108": "thumb/WMCFileChionarctianivea1jpg_108.webp",
+      "216": "thumb/WMCFileChionarctianivea1jpg_216.webp"
+    },
+    "resized": "original/WMCFileChionarctianivea1jpg_resized.jpg"
+  },
+  "original_sha256": "bd33762108ffe1b88b73fe6e39899171c69c63c4d2266ff881bd4f189458c149",
+  "processing": {
+    "cropBox": [
+      767,
+      133,
+      1961,
+      3083
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChionarctianivea1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,10 +1,10 @@
 {
-  "species_id": "hatakeno_umaoi",
-  "species_ja": "ハタケノウマオイ",
+  "species_id": "umaoi",
+  "species_ja": "ウマオイ",
   "scientific_name": "Hexacentrus japonicus",
   "credit_line": "Wikimedia Commons",
   "creator": "Ishizaki Yūshi",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Wikimedia Commons",
     "institutionCode": "WMC",

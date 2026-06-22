@@ -1,0 +1,80 @@
+{
+  "species_id": "esaki_amenbo",
+  "species_ja": "エサキアメンボ",
+  "scientific_name": "Limnoporus esakii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_154274564",
+    "occurrenceId": "https://www.inaturalist.org/observations/154274564",
+    "persistentId": "https://www.inaturalist.org/observations/154274564",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2016-04-04",
+    "eventYear": 2016,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.2962706605,
+    "decimalLongitude": 139.6539292759,
+    "coordinatesObscured": true,
+    "iNatObservationId": "154274564",
+    "iNatPhotoId": "266549035",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/154274564",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/266549035/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs154274564_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs154274564_54.webp",
+      "108": "thumb/iNatobs154274564_108.webp",
+      "216": "thumb/iNatobs154274564_216.webp"
+    },
+    "resized": "original/iNatobs154274564_resized.jpg"
+  },
+  "original_sha256": "61c827ce14900b9f836c6fcb8af4bc67ed93b87cd98328d97cee15af893cab99",
+  "processing": {
+    "cropBox": [
+      205,
+      197,
+      1903,
+      1292
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs154274564_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

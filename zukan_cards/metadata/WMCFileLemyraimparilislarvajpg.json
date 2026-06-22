@@ -1,0 +1,74 @@
+{
+  "species_id": "akahige_dokuga",
+  "species_ja": "クワゴマダラヒトリ",
+  "scientific_name": "Lemyra imparilis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "V. Benno MEYER-ROCHOW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lemyra imparilis larva.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lemyra_imparilis_larva.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lemyra_imparilis_larva.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "V. Benno MEYER-ROCHOW",
+    "eventDate": "2016",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Lemyra imparilis larva",
+    "localityNormalized": "Lemyra imparilis larva",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lemyra_imparilis_larva.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Lemyra_imparilis_larva.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileLemyraimparilislarvajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLemyraimparilislarvajpg_54.webp",
+      "108": "thumb/WMCFileLemyraimparilislarvajpg_108.webp",
+      "216": "thumb/WMCFileLemyraimparilislarvajpg_216.webp"
+    },
+    "resized": "original/WMCFileLemyraimparilislarvajpg_resized.jpg"
+  },
+  "original_sha256": "669ca04abe0d2da03f3a6134885192cad2692c53a4f5a9b8e2b64ea9afce951f",
+  "processing": {
+    "cropBox": [
+      48,
+      148,
+      732,
+      466
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLemyraimparilislarvajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

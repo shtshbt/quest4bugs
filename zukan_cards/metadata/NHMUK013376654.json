@@ -1,0 +1,74 @@
+{
+  "species_id": "kibanena_shijimi",
+  "species_ja": "キマダラルリツバメ",
+  "scientific_name": "Spindasis takanonis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013376654",
+    "occurrenceId": "029a4e76-d543-455e-9990-b1eca9abaece",
+    "persistentId": "029a4e76-d543-455e-9990-b1eca9abaece",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2236803459",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/029a4e76-d543-455e-9990-b1eca9abaece",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/5ea52a32-7a42-4538-8663-22086034d4df",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK013376654_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013376654_54.webp",
+      "108": "thumb/NHMUK013376654_108.webp",
+      "216": "thumb/NHMUK013376654_216.webp"
+    },
+    "resized": "original/NHMUK013376654_resized.jpg"
+  },
+  "original_sha256": "cfbb022129626d8bbf1df21b661f41a04a969a092ef88bc6d018c5845b0f301c",
+  "processing": {
+    "cropBox": [
+      224,
+      253,
+      716,
+      650
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013376654_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

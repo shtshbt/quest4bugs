@@ -1,0 +1,74 @@
+{
+  "species_id": "koashinaga_bachi",
+  "species_ja": "コアシナガバチ",
+  "scientific_name": "Polistes snelleni",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013384145",
+    "occurrenceId": "5af044d5-978f-4909-95af-8ff408112557",
+    "persistentId": "5af044d5-978f-4909-95af-8ff408112557",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "India",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1843513784",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5af044d5-978f-4909-95af-8ff408112557",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/7826e8f8-3db3-49c5-9047-5a68d9290177",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK013384145_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013384145_54.webp",
+      "108": "thumb/NHMUK013384145_108.webp",
+      "216": "thumb/NHMUK013384145_216.webp"
+    },
+    "resized": "original/NHMUK013384145_resized.jpg"
+  },
+  "original_sha256": "d78eda4c24f04487589da219267cd8f04eac935975cf4919b7efa2c6f4f6e7cc",
+  "processing": {
+    "cropBox": [
+      156,
+      211,
+      580,
+      526
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013384145_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

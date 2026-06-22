@@ -1,0 +1,75 @@
+{
+  "species_id": "haiiro_gengorou",
+  "species_ja": "ハイイロゲンゴロウ",
+  "scientific_name": "Eretes griseus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Arjomandi E, Zawal A, Hajiqanbar H, Filip E, Szenejko M (2019) New record of a parasitising species of Hydrachna (Acari, Hydrachnidia) on water beetles Eretes griseus (Fabricius, 1781) (Coleoptera, Dytiscidae, Dytiscinae, Eretini). ZooKeys 865: 31-38. https://doi.org/10.3897/zookeys.865.34532",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hydrachna (10.3897-zookeys.865.34532) Figures 3–10.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hydrachna_(10.3897-zookeys.865.34532)_Figures_3%E2%80%9310.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hydrachna_(10.3897-zookeys.865.34532)_Figures_3%E2%80%9310.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Arjomandi E, Zawal A, Hajiqanbar H, Filip E, Szenejko M (2019) New record of a parasitising species of Hydrachna (Acari, Hydrachnidia) on water beetles Eretes griseus (Fabricius, 1781) (Coleoptera, Dytiscidae, Dytiscinae, Eretini). ZooKeys 865: 31-38. https://doi.org/10.3897/zookeys.865.34532",
+    "eventDate": "2019-07-22",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Figures 3–10; Hydrachna sp. 3 dorsal plate 4 ventral side 5 gnathosoma ventral side 6 gnathosoma dorsal side 7 pedipalp 8 I-leg-5 9 II-leg-5 10 III-leg-5.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hydrachna_(10.3897-zookeys.865.34532)_Figures_3%E2%80%9310.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Hydrachna_%2810.3897-zookeys.865.34532%29_Figures_3%E2%80%9310.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileHydrachna103897zookeys86534532Figures310jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHydrachna103897zookeys86534532Figures310jpg_54.webp",
+      "108": "thumb/WMCFileHydrachna103897zookeys86534532Figures310jpg_108.webp",
+      "216": "thumb/WMCFileHydrachna103897zookeys86534532Figures310jpg_216.webp"
+    },
+    "resized": "original/WMCFileHydrachna103897zookeys86534532Figures310jpg_resized.jpg"
+  },
+  "original_sha256": "db1cadad7ab304e317d890bde06846c2d2f0cbd857f7d3c945a3c13f1bdc18bf",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      1282
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHydrachna103897zookeys86534532Figures310jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.55), rotate 180 CCW"
+}

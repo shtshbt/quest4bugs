@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileCalopteryxatrata20100710jpg_original.jpg",
-    "segmented": "processed/WMCFileCalopteryxatrata20100710jpg_L1_segmented.png",
     "display": "processed/WMCFileCalopteryxatrata20100710jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileCalopteryxatrata20100710jpg_54.webp",
       "108": "thumb/WMCFileCalopteryxatrata20100710jpg_108.webp",
       "216": "thumb/WMCFileCalopteryxatrata20100710jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileCalopteryxatrata20100710jpg_resized.jpg"
   },
   "original_sha256": "de372d0ba9fd6c8f876a8892c9817f5f74a265332151896cd66ac803487aa038",
   "processing": {

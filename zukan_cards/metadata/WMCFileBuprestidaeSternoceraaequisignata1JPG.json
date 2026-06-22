@@ -1,0 +1,75 @@
+{
+  "species_id": "master_sternocera_tamamushi",
+  "species_ja": "スターンセラタマムシ",
+  "scientific_name": "Sternocera aequisignata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Hectonichus",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Buprestidae - Sternocera aequisignata-1.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Buprestidae_-_Sternocera_aequisignata-1.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Buprestidae_-_Sternocera_aequisignata-1.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hectonichus",
+    "eventDate": "2011-12-15",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Sternocera aequisignata from Myanmar",
+    "localityNormalized": "Sternocera aequisignata from Myanmar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Buprestidae_-_Sternocera_aequisignata-1.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Buprestidae_-_Sternocera_aequisignata-1.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "display": "processed/WMCFileBuprestidaeSternoceraaequisignata1JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBuprestidaeSternoceraaequisignata1JPG_54.webp",
+      "108": "thumb/WMCFileBuprestidaeSternoceraaequisignata1JPG_108.webp",
+      "216": "thumb/WMCFileBuprestidaeSternoceraaequisignata1JPG_216.webp"
+    },
+    "resized": "original/WMCFileBuprestidaeSternoceraaequisignata1JPG_resized.jpg"
+  },
+  "original_sha256": "fc634d921ea6a80c76774c9979798b154b5cdb8ce02a546f4d9eab828f70dcee",
+  "processing": {
+    "cropBox": [
+      235,
+      47,
+      729,
+      1218
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBuprestidaeSternoceraaequisignata1JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.29), rotate 180 CCW"
+}

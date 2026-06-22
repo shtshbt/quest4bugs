@@ -1,0 +1,76 @@
+{
+  "species_id": "onagamizuao",
+  "species_ja": "オナガミズアオ",
+  "scientific_name": "Actias gnoma",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 402743",
+    "occurrenceId": "urn:uuid:202c36bd-c99e-4026-9df7-3c205004dd78",
+    "persistentId": "urn:uuid:202c36bd-c99e-4026-9df7-3c205004dd78",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1967-06-08",
+    "eventYear": 1967,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "near Furano, Japan",
+    "preparations": null,
+    "decimalLatitude": 43.383333,
+    "decimalLongitude": 142.55
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039048573",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-402743",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:3b0c38d6-c8e6-4d95-8d11-a48da175de92/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT402743_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT402743_54.webp",
+      "108": "thumb/YPMENT402743_108.webp",
+      "216": "thumb/YPMENT402743_216.webp"
+    },
+    "resized": "original/YPMENT402743_resized.jpg"
+  },
+  "original_sha256": "00515227ee7fd88d8470437d696bf81be077c43c931e4405c30d5649c943c900",
+  "processing": {
+    "cropBox": [
+      258,
+      0,
+      942,
+      1572
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT402743_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

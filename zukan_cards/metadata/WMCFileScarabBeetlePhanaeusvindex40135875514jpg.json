@@ -1,0 +1,74 @@
+{
+  "species_id": "master_niji_daikoku",
+  "species_ja": "ニジダイコクコガネ",
+  "scientific_name": "Phanaeus vindex",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Insects Unlocked from USA",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Scarab Beetle (Phanaeus vindex) (40135875514).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Scarab_Beetle_(Phanaeus_vindex)_(40135875514).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Scarab_Beetle_(Phanaeus_vindex)_(40135875514).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Insects Unlocked from USA",
+    "eventDate": "2018-03-16 12:39",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Bastrop, Texas, USA.\na public domain image by Joshua Gervais &amp; Caryssa Aguirre, part of the University of Texas at Austin's \"Insects Unlocked\" project.\n\n\n\n\n\n\nThis image was created as part of the Insects Unlocked project at the University of Texas at Austin.\nBased in the UT insect collection at Brackenridge Field Laboratory, part of the Department of Integrative Biology.\nSee also https://twitter.com/InsectsUnlocked\n\n.mw-parser-output .messagebox{margin:4px 0;width:auto;border-collapse:collapse;border:2px solid var(--border-color-progressive,#6485d1);background-color:var(--background-color-neutral-subtle,#fbfcff);color:var(--color-base,#202122);box-sizing:border-box;border-inline-start-width:8px}.mw-parser-output .messagebox.mbox-small{font-size:88%;line-height:1.25em}.mw-parser-output .mbox-warning,.mw-parser-output .mbox-speedy{border:2px solid var(--border-color-error,#b22222);background:var(--background-color-error-subtle,#ffdbdb);border-inline-start-width:8px}.mw-parser-output .mbox-serious,.mw-parser-output .mbox-delete,.mw-parser-output .mbox-stop{border:2px solid var(--border-color-error,#b22222);border-inline-start-width:8px}.mw-parser-output .mbox-issue,.mw-parser-output .mbox-content{border:2px solid #f28500;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-query,.mw-parser-output .mbox-style{border:2px solid #f4c430;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-shit{border:2px solid #960;border-inline-start-width:8px}.mw-parser-output .mbox-license{border:2px solid #88a;border-inline-start-width:initial}.mw-parser-output .mbox-legal{border:2px solid var(--border-color-notice,#666);background:var(--background-color-base,#fff);border-inline-start-width:8px}.mw-parser-output .mbox-honor{border:2px solid #ca3;background:var(--background-color-warning-subtle,#fcf4db);border-inline-start-width:8px}.mw-parser-output .mbox-growth{border:2px solid #8d4;background:var(--background-color-success-subtle,#d5fdf4);border-inline-start-width:8px}.mw-parser-output .mbox-move{border:2px solid #93c;border-inline-start-width:8px}.mw-parser-output .mbox-protection,.mw-parser-output .mbox-message{border:2px solid var(--border-color-base,#aaa);border-inline-start-width:8px}.mw-parser-output .messagebox .mbox-text{border:none;padding:0.25em 0.9em;width:100%}.mw-parser-output .messagebox .mbox-image{border:none;padding:2px 0 2px 0.9em;text-align:center}.mw-parser-output .messagebox .mbox-imageright{border:none;padding:2px 0.9em 2px 0;text-align:center}.mw-parser-output .messagebox .mbox-empty-cell{border:none;padding:0;width:1px}.mw-parser-output .messagebox .mbox-invalid-type{text-align:center}@media(min-width:720px){.mw-parser-output .messagebox{margin:4px 10%}.mw-parser-output .messagebox.mbox-small{clear:right;float:right;margin:4px 0 4px 1em;width:238px}}body.skin--responsive .mw-parser-output table.messagebox img{max-width:none!important}Do not crop: This image is used on one or more sister projects (where its entire contents are wanted), or has archival significance.\nIf you crop it, please save the new image separately, and do not overwrite this one.العربية ∙ Boarisch ∙ বাংলা ∙ čeština ∙ Deutsch ∙ English ∙ español ∙ français ∙ magyar ∙ Bahasa Indonesia ∙ 日本語 ∙ македонски ∙ മലയാളം ∙ Nederlands ∙ português ∙ русский ∙ svenska ∙ українська ∙ 中文 ∙ +/−",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Scarab_Beetle_(Phanaeus_vindex)_(40135875514).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Scarab_Beetle_%28Phanaeus_vindex%29_%2840135875514%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_54.webp",
+      "108": "thumb/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_108.webp",
+      "216": "thumb/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_216.webp"
+    },
+    "resized": "original/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_resized.jpg"
+  },
+  "original_sha256": "2d3b304551771ebb3c56ede3c734de945e4d30aba425feaa12a88b499f22f185",
+  "processing": {
+    "cropBox": [
+      241,
+      254,
+      4143,
+      3554
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileScarabBeetlePhanaeusvindex40135875514jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

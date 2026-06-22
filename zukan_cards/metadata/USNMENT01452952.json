@@ -1,0 +1,75 @@
+{
+  "species_id": "kuro_gomimushidamashi_oosuji",
+  "species_ja": "オオスナハラゴミムシ",
+  "scientific_name": "Diplocheila zeelandica",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01452952",
+    "occurrenceId": "http://n2t.net/ark:/65665/3603325de-c688-40c4-a38c-9c5f2e31b4f1",
+    "persistentId": "http://n2t.net/ark:/65665/3603325de-c688-40c4-a38c-9c5f2e31b4f1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1971-07-01/1971-07-31",
+    "eventYear": 1971,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Tasukawa, Wakayama, Japan",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2986755331",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2986755331",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16460990&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT01452952_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01452952_54.webp",
+      "108": "thumb/USNMENT01452952_108.webp",
+      "216": "thumb/USNMENT01452952_216.webp"
+    },
+    "resized": "original/USNMENT01452952_resized.jpg"
+  },
+  "original_sha256": "4302314542f892b5591bd95b3632b38bf73af7d1de15236ba1e5d8afcbb67cc5",
+  "processing": {
+    "cropBox": [
+      0,
+      448,
+      2000,
+      1003
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01452952_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.78), rotate 180 CCW"
+}

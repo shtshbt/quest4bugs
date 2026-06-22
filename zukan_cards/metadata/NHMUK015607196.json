@@ -1,0 +1,74 @@
+{
+  "species_id": "madara_batta",
+  "species_ja": "マダラバッタ",
+  "scientific_name": "Aiolopus thalassinus tamulus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Gavin Broad",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015607196",
+    "occurrenceId": "43d0f064-fc45-4d5d-b4c4-a40d52b6f780",
+    "persistentId": "43d0f064-fc45-4d5d-b4c4-a40d52b6f780",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "His Royal Highness the Prince of Chumpon",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Thailand",
+    "localityVerbatim": null,
+    "localityNormalized": "Thailand",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "4418948758",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/43d0f064-fc45-4d5d-b4c4-a40d52b6f780",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/70b0bcdd-1fdd-4b2d-a873-ea289da58e99",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK015607196_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015607196_54.webp",
+      "108": "thumb/NHMUK015607196_108.webp",
+      "216": "thumb/NHMUK015607196_216.webp"
+    },
+    "resized": "original/NHMUK015607196_resized.jpg"
+  },
+  "original_sha256": "5606587d5734784833ba2ee19d923869d80c9dc2572c007a8823357c7bfa57ac",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1440,
+      1084
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015607196_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

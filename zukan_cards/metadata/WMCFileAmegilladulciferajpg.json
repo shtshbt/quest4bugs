@@ -1,0 +1,74 @@
+{
+  "species_id": "aoki_kumabachi",
+  "species_ja": "アオスジコシブトハナバチ",
+  "scientific_name": "Amegilla dulcifera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mmsmr",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:アオスジフトハナバチ, Amegilla dulcifera, アマクサギの花から盗蜜 奄美大島住用.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%82%B9%E3%82%B8%E3%83%95%E3%83%88%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81,_Amegilla_dulcifera,_%E3%82%A2%E3%83%9E%E3%82%AF%E3%82%B5%E3%82%AE%E3%81%AE%E8%8A%B1%E3%81%8B%E3%82%89%E7%9B%97%E8%9C%9C_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E4%BD%8F%E7%94%A8.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%82%B9%E3%82%B8%E3%83%95%E3%83%88%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81,_Amegilla_dulcifera,_%E3%82%A2%E3%83%9E%E3%82%AF%E3%82%B5%E3%82%AE%E3%81%AE%E8%8A%B1%E3%81%8B%E3%82%89%E7%9B%97%E8%9C%9C_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E4%BD%8F%E7%94%A8.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mmsmr",
+    "eventDate": "2012-08-16",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Blue-banded bee, Amegilla dulcifera, (Anthophorinae, Apidae), robbing nectar of flower of Clerodendrum trichotomum var. fargesii",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%82%B9%E3%82%B8%E3%83%95%E3%83%88%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81,_Amegilla_dulcifera,_%E3%82%A2%E3%83%9E%E3%82%AF%E3%82%B5%E3%82%AE%E3%81%AE%E8%8A%B1%E3%81%8B%E3%82%89%E7%9B%97%E8%9C%9C_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E4%BD%8F%E7%94%A8.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4f/%E3%82%A2%E3%82%AA%E3%82%B9%E3%82%B8%E3%83%95%E3%83%88%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81%2C_Amegilla_dulcifera%2C_%E3%82%A2%E3%83%9E%E3%82%AF%E3%82%B5%E3%82%AE%E3%81%AE%E8%8A%B1%E3%81%8B%E3%82%89%E7%9B%97%E8%9C%9C_%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6%E4%BD%8F%E7%94%A8.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileAmegilladulciferajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAmegilladulciferajpg_54.webp",
+      "108": "thumb/WMCFileAmegilladulciferajpg_108.webp",
+      "216": "thumb/WMCFileAmegilladulciferajpg_216.webp"
+    },
+    "resized": "original/WMCFileAmegilladulciferajpg_resized.jpg"
+  },
+  "original_sha256": "041d8bcb105a5ca9cfee6dd8752b81a215a9ac1a84516a00fc2124fe3eb03e4b",
+  "processing": {
+    "cropBox": [
+      349,
+      228,
+      1431,
+      1141
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAmegilladulciferajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

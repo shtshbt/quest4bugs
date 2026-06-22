@@ -1,0 +1,76 @@
+{
+  "species_id": "hon_sanae",
+  "species_ja": "ホンサナエ",
+  "scientific_name": "Shaogomphus postocularis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386350",
+    "occurrenceId": "http://n2t.net/ark:/65665/392c07752-c31a-4932-8d53-2f5c0aa4f386",
+    "persistentId": "http://n2t.net/ark:/65665/392c07752-c31a-4932-8d53-2f5c0aa4f386",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "D. Ruiter",
+    "eventDate": "2003-06-21",
+    "eventYear": 2003,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Tomakomai-SHi; Bibigawa, Daini-Bibi-Bashi, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 42.74,
+    "decimalLongitude": 141.715
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320520206",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320520206",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16349755&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00386350_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386350_54.webp",
+      "108": "thumb/USNMENT00386350_108.webp",
+      "216": "thumb/USNMENT00386350_216.webp"
+    },
+    "resized": "original/USNMENT00386350_resized.jpg"
+  },
+  "original_sha256": "745e9e241ab734419707dc5ba38aa4a9c43b8ae0d6616c9f1af6c05906391e6b",
+  "processing": {
+    "cropBox": [
+      831,
+      348,
+      1542,
+      871
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386350_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

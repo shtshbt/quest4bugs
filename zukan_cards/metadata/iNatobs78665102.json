@@ -1,0 +1,80 @@
+{
+  "species_id": "higashi_kirigirisu",
+  "species_ja": "ヒガシキリギリス",
+  "scientific_name": "Gampsocleis mikado",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_78665102",
+    "occurrenceId": "https://www.inaturalist.org/observations/78665102",
+    "persistentId": "https://www.inaturalist.org/observations/78665102",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2015-07-13",
+    "eventYear": 2015,
+    "country": "日本、〒783-0093 高知県南国市物部  高知大学物部キャンパス",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒783-0093 高知県南国市物部  高知大学物部キャンパス, 日本、〒783-0093 高知県南国市物部  高知大学物部キャンパス",
+    "preparations": null,
+    "decimalLatitude": 33.5517156582,
+    "decimalLongitude": 133.6784089837,
+    "coordinatesObscured": false,
+    "iNatObservationId": "78665102",
+    "iNatPhotoId": "128751586",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/78665102",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/128751586/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs78665102_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs78665102_54.webp",
+      "108": "thumb/iNatobs78665102_108.webp",
+      "216": "thumb/iNatobs78665102_216.webp"
+    },
+    "resized": "original/iNatobs78665102_resized.jpg"
+  },
+  "original_sha256": "6704c6b60591f986b579aecbb5547ac68bfa9bbd30ca84ac2c9b738be120f849",
+  "processing": {
+    "cropBox": [
+      183,
+      149,
+      1957,
+      1235
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs78665102_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "kosukashiba",
+  "species_ja": "コスカシバ",
+  "scientific_name": "Synanthedon hector",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "konoda (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_151008609",
+    "occurrenceId": "https://www.inaturalist.org/observations/151008609",
+    "persistentId": "https://www.inaturalist.org/observations/151008609",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "konoda",
+    "eventDate": "2022-09-13",
+    "eventYear": 2022,
+    "country": "日本、〒386-0015 長野県上田市常入",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒386-0015 長野県上田市常入, 日本、〒386-0015 長野県上田市常入",
+    "preparations": null,
+    "decimalLatitude": 36.3925670868,
+    "decimalLongitude": 138.2695454413,
+    "coordinatesObscured": false,
+    "iNatObservationId": "151008609",
+    "iNatPhotoId": "260484554",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/151008609",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/260484554/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs151008609_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs151008609_54.webp",
+      "108": "thumb/iNatobs151008609_108.webp",
+      "216": "thumb/iNatobs151008609_216.webp"
+    },
+    "resized": "original/iNatobs151008609_resized.jpg"
+  },
+  "original_sha256": "248b4d9d456e8c2e1c4e9b88d4ff55bd6416f64c083f22057fe54c575afc7b9b",
+  "processing": {
+    "cropBox": [
+      600,
+      175,
+      1513,
+      1100
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs151008609_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

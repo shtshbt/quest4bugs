@@ -1,0 +1,74 @@
+{
+  "species_id": "hime_nagakamemushi",
+  "species_ja": "ヒメナガカメムシ",
+  "scientific_name": "Nysius plebeius",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Roberto Teixeira",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1340092",
+    "occurrenceId": "ef187ce8-27f7-4cde-a59a-9c7fc29a50a4",
+    "persistentId": "ef187ce8-27f7-4cde-a59a-9c7fc29a50a4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "Edward Whymper",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Ecuador",
+    "localityVerbatim": null,
+    "localityNormalized": "Machachi, 9000'-10000', Ecuador",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055695495",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ef187ce8-27f7-4cde-a59a-9c7fc29a50a4",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/eb58629a-9d04-4520-ae04-380526b3ea7f",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUKBMNHE1340092_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1340092_54.webp",
+      "108": "thumb/NHMUKBMNHE1340092_108.webp",
+      "216": "thumb/NHMUKBMNHE1340092_216.webp"
+    },
+    "resized": "original/NHMUKBMNHE1340092_resized.jpg"
+  },
+  "original_sha256": "03bfe67a28efe1f97dfc70411de607ed96836d908044de6487437595f5736bf3",
+  "processing": {
+    "cropBox": [
+      117,
+      0,
+      1198,
+      1080
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1340092_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

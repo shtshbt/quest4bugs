@@ -1,0 +1,75 @@
+{
+  "species_id": "tsuya_koganemushi",
+  "species_ja": "ツヤコガネ",
+  "scientific_name": "Mimela testaceoviridis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Min-Hsuan NI",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mimela testaceoviridis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mimela_testaceoviridis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mimela_testaceoviridis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Min-Hsuan NI",
+    "eventDate": "2022-06-30",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Mimela testaceoviridis. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mimela_testaceoviridis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Mimela_testaceoviridis.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileMimelatestaceoviridisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMimelatestaceoviridisjpg_54.webp",
+      "108": "thumb/WMCFileMimelatestaceoviridisjpg_108.webp",
+      "216": "thumb/WMCFileMimelatestaceoviridisjpg_216.webp"
+    },
+    "resized": "original/WMCFileMimelatestaceoviridisjpg_resized.jpg"
+  },
+  "original_sha256": "d1fc0f20a0b6d59ed495dad4c4f4559ae4e2fd92fc7dfa9816ffd1ebd6b9d1e5",
+  "processing": {
+    "cropBox": [
+      397,
+      176,
+      1029,
+      948
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMimelatestaceoviridisjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.72), rotate 90 CCW"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "kintaki_matsumushi",
+  "species_ja": "コガタコオロギ",
+  "scientific_name": "Comidoblemmus nipponensis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_183465023",
+    "occurrenceId": "https://www.inaturalist.org/observations/183465023",
+    "persistentId": "https://www.inaturalist.org/observations/183465023",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-09-11",
+    "eventYear": 2021,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.8594102265,
+    "decimalLongitude": 139.532933133,
+    "coordinatesObscured": true,
+    "iNatObservationId": "183465023",
+    "iNatPhotoId": "320081322",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/183465023",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/320081322/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs183465023_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs183465023_54.webp",
+      "108": "thumb/iNatobs183465023_108.webp",
+      "216": "thumb/iNatobs183465023_216.webp"
+    },
+    "resized": "original/iNatobs183465023_resized.jpg"
+  },
+  "original_sha256": "017e8e9697a38f6253f2a6cc3a5e5233a5e0c7049349257e6ee0e94ee7cb2768",
+  "processing": {
+    "cropBox": [
+      698,
+      0,
+      1747,
+      1156
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs183465023_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

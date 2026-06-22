@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileMelligomphusviridicostusfjpg_original.jpg",
-    "segmented": "processed/WMCFileMelligomphusviridicostusfjpg_L1_segmented.png",
     "display": "processed/WMCFileMelligomphusviridicostusfjpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileMelligomphusviridicostusfjpg_54.webp",
       "108": "thumb/WMCFileMelligomphusviridicostusfjpg_108.webp",
       "216": "thumb/WMCFileMelligomphusviridicostusfjpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileMelligomphusviridicostusfjpg_resized.jpg"
   },
   "original_sha256": "e4657a8662f2f84d6be293cb311a3127f2d2b0e515256143312b7168ce7160ad",
   "processing": {

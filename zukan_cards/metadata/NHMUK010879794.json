@@ -1,0 +1,76 @@
+{
+  "species_id": "seiyou_mitsubachi",
+  "species_ja": "セイヨウミツバチ",
+  "scientific_name": "Apis mellifera",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Harry Taylor NHM photo unit",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010879794",
+    "occurrenceId": "018abbdd-dbc4-42e4-b26f-a3899c595a1a",
+    "persistentId": "018abbdd-dbc4-42e4-b26f-a3899c595a1a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Mr David M. Appleton",
+    "eventDate": "1971-10-13",
+    "eventYear": 1971,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Township: Fareham, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 50.8548,
+    "decimalLongitude": -1.1866
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826341094",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/018abbdd-dbc4-42e4-b26f-a3899c595a1a",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ef8b464f-db5c-4616-98e5-303a4a2c8028",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK010879794_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010879794_54.webp",
+      "108": "thumb/NHMUK010879794_108.webp",
+      "216": "thumb/NHMUK010879794_216.webp"
+    },
+    "resized": "original/NHMUK010879794_resized.jpg"
+  },
+  "original_sha256": "38fe3d57a4c1ed03a1b8c4f1cc58c9788483da3d38d229c8b228f6c61fc33087",
+  "processing": {
+    "cropBox": [
+      81,
+      53,
+      1358,
+      1260
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010879794_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

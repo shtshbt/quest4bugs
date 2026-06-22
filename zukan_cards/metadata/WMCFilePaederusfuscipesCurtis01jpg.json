@@ -1,0 +1,74 @@
+{
+  "species_id": "ari_suaba_kakushi",
+  "species_ja": "アオバアリガタハネカクシ",
+  "scientific_name": "Paederus fuscipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Punlop Anusonpornperm",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Paederus fuscipes Curtis 01.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Paederus_fuscipes_Curtis_01.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Paederus_fuscipes_Curtis_01.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Punlop Anusonpornperm",
+    "eventDate": "2017-12-12 06:41:30",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Paederus fuscipes Curtis",
+    "localityNormalized": "Paederus fuscipes Curtis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Paederus_fuscipes_Curtis_01.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Paederus_fuscipes_Curtis_01.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePaederusfuscipesCurtis01jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePaederusfuscipesCurtis01jpg_54.webp",
+      "108": "thumb/WMCFilePaederusfuscipesCurtis01jpg_108.webp",
+      "216": "thumb/WMCFilePaederusfuscipesCurtis01jpg_216.webp"
+    },
+    "resized": "original/WMCFilePaederusfuscipesCurtis01jpg_resized.jpg"
+  },
+  "original_sha256": "1ab5a3bbcb70eeba74ba6c74ff381f5ccd9c0fc1f7594ef14ad87f5d28968d74",
+  "processing": {
+    "cropBox": [
+      0,
+      426,
+      2945,
+      1675
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePaederusfuscipesCurtis01jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

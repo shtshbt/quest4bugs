@@ -1,0 +1,74 @@
+{
+  "species_id": "ruri_monhana_bachi",
+  "species_ja": "ルリモンハナバチ",
+  "scientific_name": "Thyreus decorus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013385001",
+    "occurrenceId": "3a9a9511-f04f-4faf-8d87-2913315c0997",
+    "persistentId": "3a9a9511-f04f-4faf-8d87-2913315c0997",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "China",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1843513672",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/3a9a9511-f04f-4faf-8d87-2913315c0997",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8633443e-2c7e-4046-b999-10747cef6604",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK013385001_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013385001_54.webp",
+      "108": "thumb/NHMUK013385001_108.webp",
+      "216": "thumb/NHMUK013385001_216.webp"
+    },
+    "resized": "original/NHMUK013385001_resized.jpg"
+  },
+  "original_sha256": "48c0c35f7b18031f663781a07fab8516b79986175c2f3d93014253842a7bc8a5",
+  "processing": {
+    "cropBox": [
+      291,
+      133,
+      675,
+      381
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013385001_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

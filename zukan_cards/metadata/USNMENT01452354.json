@@ -1,0 +1,74 @@
+{
+  "species_id": "hosokubi_zou",
+  "species_ja": "ホソクビゾウムシ",
+  "scientific_name": "Cylas formicarius",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01452354",
+    "occurrenceId": "http://n2t.net/ark:/65665/3bee28dc9-fb85-432e-a63b-f0f3dcde4591",
+    "persistentId": "http://n2t.net/ark:/65665/3bee28dc9-fb85-432e-a63b-f0f3dcde4591",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Wappes",
+    "eventDate": "1978-07-08",
+    "eventYear": 1978,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Sabal Palm Grove, United States of America",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2986777391",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2986777391",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16461700&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT01452354_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01452354_54.webp",
+      "108": "thumb/USNMENT01452354_108.webp",
+      "216": "thumb/USNMENT01452354_216.webp"
+    },
+    "resized": "original/USNMENT01452354_resized.jpg"
+  },
+  "original_sha256": "f8f2c7f0e03d99fbb716b7987eac694f288bba2b02dbd46583374694b216c14e",
+  "processing": {
+    "cropBox": [
+      0,
+      243,
+      2000,
+      1422
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01452354_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

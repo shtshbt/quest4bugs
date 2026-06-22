@@ -1,0 +1,74 @@
+{
+  "species_id": "hoshihime_houjaku",
+  "species_ja": "ホシヒメホウジャク",
+  "scientific_name": "Neogurelca himachala",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Noroi",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Neogurelca himachala resting on wall.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Neogurelca_himachala_resting_on_wall.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Neogurelca_himachala_resting_on_wall.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Noroi",
+    "eventDate": "2023-07-05 08:46:32",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Neogurelca himachala sangaica, taken in Luzhu dist. Taoyuan City",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Neogurelca_himachala_resting_on_wall.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Neogurelca_himachala_resting_on_wall.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileNeogurelcahimachalarestingonwalljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNeogurelcahimachalarestingonwalljpg_54.webp",
+      "108": "thumb/WMCFileNeogurelcahimachalarestingonwalljpg_108.webp",
+      "216": "thumb/WMCFileNeogurelcahimachalarestingonwalljpg_216.webp"
+    },
+    "resized": "original/WMCFileNeogurelcahimachalarestingonwalljpg_resized.jpg"
+  },
+  "original_sha256": "85b51e549fd0bb1a6c020fa48ba9bd5b0b5a7fb4353e373656f1e2d5efc69ac5",
+  "processing": {
+    "cropBox": [
+      680,
+      1109,
+      1632,
+      1813
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNeogurelcahimachalarestingonwalljpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "seaka_gokegumo",
+  "species_ja": "セアカゴケグモ",
+  "scientific_name": "Latrodectus hasselti",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Latrodectus hasselti feigning death - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Latrodectus_hasselti_feigning_death_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Latrodectus_hasselti_feigning_death_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2021-01-02 01:26:57",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "死んだふりをしているセアカゴケグモのメス。愛知県小牧市の桃花台中央公園で撮影。",
+    "localityNormalized": "死んだふりをしているセアカゴケグモのメス。愛知県小牧市の桃花台中央公園で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Latrodectus_hasselti_feigning_death_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Latrodectus_hasselti_feigning_death_-_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileLatrodectushasseltifeigningdeath1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLatrodectushasseltifeigningdeath1jpg_54.webp",
+      "108": "thumb/WMCFileLatrodectushasseltifeigningdeath1jpg_108.webp",
+      "216": "thumb/WMCFileLatrodectushasseltifeigningdeath1jpg_216.webp"
+    },
+    "resized": "original/WMCFileLatrodectushasseltifeigningdeath1jpg_resized.jpg"
+  },
+  "original_sha256": "7469cd2bc2d160b995e6b39168f1067166e0584d26b003accae596f02721f5c1",
+  "processing": {
+    "cropBox": [
+      1476,
+      1031,
+      2051,
+      1522
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLatrodectushasseltifeigningdeath1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

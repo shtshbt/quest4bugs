@@ -1,0 +1,74 @@
+{
+  "species_id": "matsumushi",
+  "species_ja": "マツムシ",
+  "scientific_name": "Xenogryllus marmoratus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "renshuchu",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Xenogryllus marmoratus from iNaturalist photo 320079756.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Xenogryllus_marmoratus_from_iNaturalist_photo_320079756.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Xenogryllus_marmoratus_from_iNaturalist_photo_320079756.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-08",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Xenogryllus marmoratus マツムシ",
+    "localityNormalized": "Xenogryllus marmoratus マツムシ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Xenogryllus_marmoratus_from_iNaturalist_photo_320079756.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/75/Xenogryllus_marmoratus_from_iNaturalist_photo_320079756.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_54.webp",
+      "108": "thumb/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_108.webp",
+      "216": "thumb/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_216.webp"
+    },
+    "resized": "original/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_resized.jpg"
+  },
+  "original_sha256": "3a8ee9b7f505f5bd3be606bb29214e5ca9525052c3b90f8ae373e9ece6bb0062",
+  "processing": {
+    "cropBox": [
+      303,
+      79,
+      2048,
+      1348
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileXenogryllusmarmoratusfromiNaturalistphoto320079756jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

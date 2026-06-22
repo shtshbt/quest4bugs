@@ -1,0 +1,74 @@
+{
+  "species_id": "kubikiri_gisu",
+  "species_ja": "クビキリギス",
+  "scientific_name": "Euconocephalus thunbergi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pieria (Uploader and Photographer)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Euconocephalus thunbergi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Euconocephalus_thunbergi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Euconocephalus_thunbergi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pieria (Uploader and Photographer)",
+    "eventDate": "published on 28. May. 2006",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "クビキリギス",
+    "localityNormalized": "クビキリギス",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Euconocephalus_thunbergi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Euconocephalus_thunbergi.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileEuconocephalusthunbergijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEuconocephalusthunbergijpg_54.webp",
+      "108": "thumb/WMCFileEuconocephalusthunbergijpg_108.webp",
+      "216": "thumb/WMCFileEuconocephalusthunbergijpg_216.webp"
+    },
+    "resized": "original/WMCFileEuconocephalusthunbergijpg_resized.jpg"
+  },
+  "original_sha256": "bbca480e7e98cd446218bd61796218080abecd66078df2c5660f70f3e990a84c",
+  "processing": {
+    "cropBox": [
+      56,
+      34,
+      800,
+      464
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEuconocephalusthunbergijpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

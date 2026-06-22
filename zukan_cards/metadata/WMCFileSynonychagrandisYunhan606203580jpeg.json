@@ -1,0 +1,75 @@
+{
+  "species_id": "haraguro_oo_tentou",
+  "species_ja": "ハラグロオオテントウ",
+  "scientific_name": "Synonycha grandis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Yunhan",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Synonycha grandis - Yunhan - 606203580.jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Synonycha_grandis_-_Yunhan_-_606203580.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Synonycha_grandis_-_Yunhan_-_606203580.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Yunhan",
+    "eventDate": "2026-01-07",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "Synonycha grandis, Chatuchak, Bangkok 10900, Thailand, 2026-01-07 (iNaturalist).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Synonycha_grandis_-_Yunhan_-_606203580.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Synonycha_grandis_-_Yunhan_-_606203580.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileSynonychagrandisYunhan606203580jpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSynonychagrandisYunhan606203580jpeg_54.webp",
+      "108": "thumb/WMCFileSynonychagrandisYunhan606203580jpeg_108.webp",
+      "216": "thumb/WMCFileSynonychagrandisYunhan606203580jpeg_216.webp"
+    },
+    "resized": "original/WMCFileSynonychagrandisYunhan606203580jpeg_resized.jpg"
+  },
+  "original_sha256": "655b8c32bcec395208fbf7ecc87a495bf2e9db4c01f79bf5f89126a9941f6277",
+  "processing": {
+    "cropBox": [
+      393,
+      173,
+      1528,
+      1059
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSynonychagrandisYunhan606203580jpeg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.49), rotate 270 CCW"
+}

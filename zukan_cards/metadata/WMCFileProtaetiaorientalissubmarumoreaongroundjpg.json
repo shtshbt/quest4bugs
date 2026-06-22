@@ -1,6 +1,6 @@
 {
-  "species_id": "shiroten_hanamuguri",
-  "species_ja": "シロテンハナムグリ",
+  "species_id": "oo_hana_muguri",
+  "species_ja": "オオハナムグリ",
   "scientific_name": "Protaetia orientalis",
   "credit_line": "Wikimedia Commons",
   "creator": "E. Jones",
@@ -50,7 +50,7 @@
       1982,
       1905
     ],
-    "rotationDegrees": 270,
+    "rotationDegrees": 0,
     "padding": 0.1,
     "canvas": 512,
     "minSize": 20,
@@ -62,7 +62,6 @@
   },
   "modifications": [
     "cropped",
-    "rotated",
     "background removed",
     "color adjusted"
   ],
@@ -71,5 +70,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "beetle head=left (heuristic conf=0.81), rotate 270 CCW"
+  "notes": "unknown taxon — no rotation"
 }

@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_mesuji_suzume",
+  "species_ja": "クロメンガタスズメ",
+  "scientific_name": "Acherontia lachesis",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1235598",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1235598",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1235598",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1935-04-08",
+    "eventYear": 1935,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Blawan, Indonesia",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "4993125170",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4993125170",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1235598_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/RMNHINS1235598_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1235598_54.webp",
+      "108": "thumb/RMNHINS1235598_108.webp",
+      "216": "thumb/RMNHINS1235598_216.webp"
+    },
+    "resized": "original/RMNHINS1235598_resized.jpg"
+  },
+  "original_sha256": "3e3d41ad0b114c56a21c0738207e0b608282c84f2c081d02626cf2da23e24bd8",
+  "processing": {
+    "cropBox": [
+      154,
+      547,
+      706,
+      893
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1235598_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

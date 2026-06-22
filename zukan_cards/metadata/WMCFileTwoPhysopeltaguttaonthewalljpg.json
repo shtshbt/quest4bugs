@@ -1,0 +1,74 @@
+{
+  "species_id": "oohoshi_kamemushi",
+  "species_ja": "オオホシカメムシ",
+  "scientific_name": "Physopelta gutta",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Two Physopelta gutta on the wall.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Two_Physopelta_gutta_on_the_wall.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Two_Physopelta_gutta_on_the_wall.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-08-26 00:26:51",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "オオホシカメムシ。愛知県小牧市で撮影。",
+    "localityNormalized": "オオホシカメムシ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Two_Physopelta_gutta_on_the_wall.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Two_Physopelta_gutta_on_the_wall.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileTwoPhysopeltaguttaonthewalljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTwoPhysopeltaguttaonthewalljpg_54.webp",
+      "108": "thumb/WMCFileTwoPhysopeltaguttaonthewalljpg_108.webp",
+      "216": "thumb/WMCFileTwoPhysopeltaguttaonthewalljpg_216.webp"
+    },
+    "resized": "original/WMCFileTwoPhysopeltaguttaonthewalljpg_resized.jpg"
+  },
+  "original_sha256": "b95e15406b4c4ae113d7c98cf073bf3e6410599c8c1bacad0b944ffbb6ad2af7",
+  "processing": {
+    "cropBox": [
+      62,
+      238,
+      2116,
+      2475
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTwoPhysopeltaguttaonthewalljpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

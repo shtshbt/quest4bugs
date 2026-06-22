@@ -1,0 +1,74 @@
+{
+  "species_id": "koshiaki_tonbo",
+  "species_ja": "コシアキトンボ",
+  "scientific_name": "Pseudothemis zonata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00327507",
+    "occurrenceId": "http://n2t.net/ark:/65665/3745be334-21bb-413b-87da-b87f8793ab1a",
+    "persistentId": "http://n2t.net/ark:/65665/3745be334-21bb-413b-87da-b87f8793ab1a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Kellogg",
+    "eventDate": "1930",
+    "eventYear": 1930,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "plains region around Foochow, China",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319833047",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319833047",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16407774&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00327507_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00327507_54.webp",
+      "108": "thumb/USNMENT00327507_108.webp",
+      "216": "thumb/USNMENT00327507_216.webp"
+    },
+    "resized": "original/USNMENT00327507_resized.jpg"
+  },
+  "original_sha256": "97aad0f4cc877a1d4a00677eb7ba4384b2b6c49be9b02761f5be1f44f4ca727a",
+  "processing": {
+    "cropBox": [
+      643,
+      243,
+      1360,
+      1157
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00327507_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

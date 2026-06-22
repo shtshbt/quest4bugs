@@ -1,0 +1,74 @@
+{
+  "species_id": "akahoshi_kamemushi",
+  "species_ja": "アカホシカメムシ",
+  "scientific_name": "Dysdercus cingulatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Rushenb",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dysdercus Cingulatus-Fabricius - Red cotton stainer bug.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dysdercus_Cingulatus-Fabricius_-_Red_cotton_stainer_bug.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dysdercus_Cingulatus-Fabricius_-_Red_cotton_stainer_bug.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Rushenb",
+    "eventDate": "2013-02-21",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Dysdercus Cingulatus-Fabricius, Red cotton stainer bug - Kaeng Krachan National Park.\nPhoto by Rushenb",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dysdercus_Cingulatus-Fabricius_-_Red_cotton_stainer_bug.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Dysdercus_Cingulatus-Fabricius_-_Red_cotton_stainer_bug.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "display": "processed/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_54.webp",
+      "108": "thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_108.webp",
+      "216": "thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_216.webp"
+    },
+    "resized": "original/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_resized.jpg"
+  },
+  "original_sha256": "f3a12e2ff37cd2fadeba90bfc70c3d3a2215878ddb245acaf038bcf2b6b8ad94",
+  "processing": {
+    "cropBox": [
+      462,
+      223,
+      3555,
+      2163
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_suginma_kamikiri",
+  "species_ja": "スギカミキリ",
+  "scientific_name": "Semanotus japonicus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Eugenio Nearns",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": null,
+    "occurrenceId": "http://n2t.net/ark:/65665/351828452-2673-49f1-8d18-7452b2dbd9f6",
+    "persistentId": "http://n2t.net/ark:/65665/351828452-2673-49f1-8d18-7452b2dbd9f6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1890-04-18",
+    "eventYear": 1890,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Yokohama; Homoku, Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319045352",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319045352",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10508446&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMhimesuginmakamikiri_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMhimesuginmakamikiri_54.webp",
+      "108": "thumb/USNMhimesuginmakamikiri_108.webp",
+      "216": "thumb/USNMhimesuginmakamikiri_216.webp"
+    },
+    "resized": "original/USNMhimesuginmakamikiri_resized.jpg"
+  },
+  "original_sha256": "ec959c6495f2c7e501eae46826ee0ed264f85bb68f3285ca429f2524c0569d5f",
+  "processing": {
+    "cropBox": [
+      0,
+      99,
+      1903,
+      1853
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMhimesuginmakamikiri_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.31), rotate 270 CCW"
+}

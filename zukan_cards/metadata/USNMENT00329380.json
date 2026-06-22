@@ -1,0 +1,74 @@
+{
+  "species_id": "hosomi_ito_tonbo",
+  "species_ja": "ホソミイトトンボ",
+  "scientific_name": "Aciagrion migratum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00329380",
+    "occurrenceId": "http://n2t.net/ark:/65665/343cee68e-90ca-4c32-9f7b-c7c6ebb5bf5f",
+    "persistentId": "http://n2t.net/ark:/65665/343cee68e-90ca-4c32-9f7b-c7c6ebb5bf5f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "C. Kellogg",
+    "eventDate": "1929",
+    "eventYear": 1929,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Fukien Province; plains near Foochow. Date:1929?, China",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318735920",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318735920",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16375585&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00329380_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00329380_54.webp",
+      "108": "thumb/USNMENT00329380_108.webp",
+      "216": "thumb/USNMENT00329380_216.webp"
+    },
+    "resized": "original/USNMENT00329380_resized.jpg"
+  },
+  "original_sha256": "b93f447c5fce8422202811c7cbc59e3645886e4dc5bdf8b137aa34e4b475c808",
+  "processing": {
+    "cropBox": [
+      0,
+      9,
+      2000,
+      1538
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00329380_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

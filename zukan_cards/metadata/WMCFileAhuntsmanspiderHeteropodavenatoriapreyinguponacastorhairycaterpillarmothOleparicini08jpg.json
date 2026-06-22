@@ -1,0 +1,74 @@
+{
+  "species_id": "ashidaka_gumo",
+  "species_ja": "アシダカグモ",
+  "scientific_name": "Heteropoda venatoria",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kingshuk Mondal",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:A huntsman spider (Heteropoda venatoria) preying upon a castor hairy caterpillar moth (Olepa ricini) 08.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:A_huntsman_spider_(Heteropoda_venatoria)_preying_upon_a_castor_hairy_caterpillar_moth_(Olepa_ricini)_08.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:A_huntsman_spider_(Heteropoda_venatoria)_preying_upon_a_castor_hairy_caterpillar_moth_(Olepa_ricini)_08.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kingshuk Mondal",
+    "eventDate": "2023-09-16 22:39:18",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Heteropoda venatoria is a species of spider in the family Sparassidae, the huntsman spiders. It is native to the tropical regions of the world, and it is present in some subtropical areas as an introduced species. Its common names include giant crab spider, pantropical huntsman spider or cane spider. Adults have a flat, brown body 2.2 to 2.8 cm (0.87 to 1.10 in) long, with leg spans of 7 to 10 cm (2.8 to 3.9 in). The female may be slightly larger than the male, particularly in the abdomen, but the male has longer legs and larger tips on its pedipalps.\nOlepa ricini is a moth of the family Erebidae first described by Johan Christian Fabricius in 1775. It is found in Bangladesh, India, Nepal, and Sri Lanka. An older treatment placed the species in the genus Pericallia. Head and thorax dark grey-brown; collar fringed with crimson and with a pair of pale-ringed black spots; tegulae with two pairs and vertex of thorax with one similar spot; abdomen crimson, with a series of short dorsal black bands and lateral spots.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:A_huntsman_spider_(Heteropoda_venatoria)_preying_upon_a_castor_hairy_caterpillar_moth_(Olepa_ricini)_08.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/A_huntsman_spider_%28Heteropoda_venatoria%29_preying_upon_a_castor_hairy_caterpillar_moth_%28Olepa_ricini%29_08.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_54.webp",
+      "108": "thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_108.webp",
+      "216": "thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_216.webp"
+    },
+    "resized": "original/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_resized.jpg"
+  },
+  "original_sha256": "152c13b3067beec85012b935220fabeb0aab6f03d805229239cd9942259d0564",
+  "processing": {
+    "cropBox": [
+      211,
+      256,
+      3076,
+      2018
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

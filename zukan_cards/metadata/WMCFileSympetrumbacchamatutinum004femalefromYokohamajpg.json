@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
-    "original": "original/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_original.jpg",
-    "segmented": "processed/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_L1_segmented.png",
     "display": "processed/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_54.webp",
       "108": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_108.webp",
       "216": "thumb/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileSympetrumbacchamatutinum004femalefromYokohamajpg_resized.jpg"
   },
   "original_sha256": "59e616114ee1e085a8e819f938a74fd1f4db11edd5de977b36e19ae80c7ae734",
   "processing": {

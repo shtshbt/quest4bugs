@@ -34,14 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
-    "original": "original/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_original.jpg",
-    "segmented": "processed/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_L1_segmented.png",
     "display": "processed/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_54.webp",
       "108": "thumb/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_108.webp",
       "216": "thumb/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileTrilophidiajaponicaontheconcretewalllikegravel1jpg_resized.jpg"
   },
   "original_sha256": "8e0359385d09428e0e12e4646817c04aed47d7f03b80f8ad8ad9f94f275ff301",
   "processing": {

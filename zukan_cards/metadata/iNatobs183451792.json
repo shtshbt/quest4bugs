@@ -1,0 +1,80 @@
+{
+  "species_id": "hime_sanae",
+  "species_ja": "ヒメサナエ",
+  "scientific_name": "Sinogomphus flavolimbatus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_183451792",
+    "occurrenceId": "https://www.inaturalist.org/observations/183451792",
+    "persistentId": "https://www.inaturalist.org/observations/183451792",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-08-01",
+    "eventYear": 2021,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.9808077298,
+    "decimalLongitude": 139.1150616219,
+    "coordinatesObscured": true,
+    "iNatObservationId": "183451792",
+    "iNatPhotoId": "320052606",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/183451792",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/320052606/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs183451792_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs183451792_54.webp",
+      "108": "thumb/iNatobs183451792_108.webp",
+      "216": "thumb/iNatobs183451792_216.webp"
+    },
+    "resized": "original/iNatobs183451792_resized.jpg"
+  },
+  "original_sha256": "2eab2984d7b03a698ce01e6329720ef93878d71afe2a4ee93101b771b7d6a513",
+  "processing": {
+    "cropBox": [
+      508,
+      471,
+      1349,
+      1386
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs183451792_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

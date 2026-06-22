@@ -1,0 +1,74 @@
+{
+  "species_id": "hiki_zou_mushi",
+  "species_ja": "ヒゲナガゾウムシ",
+  "scientific_name": "Exechesops leucopis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "urasimaru",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:エゴヒゲナガゾウムシ Exechesops leucopis ♀.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%A8%E3%82%B4%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%82%BE%E3%82%A6%E3%83%A0%E3%82%B7_Exechesops_leucopis_%E2%99%80.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%A8%E3%82%B4%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%82%BE%E3%82%A6%E3%83%A0%E3%82%B7_Exechesops_leucopis_%E2%99%80.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "urasimaru",
+    "eventDate": "2014-07-21 15:55:49",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Exechesops leucopis ♀",
+    "localityNormalized": "Exechesops leucopis ♀",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%A8%E3%82%B4%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%82%BE%E3%82%A6%E3%83%A0%E3%82%B7_Exechesops_leucopis_%E2%99%80.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/%E3%82%A8%E3%82%B4%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%82%BE%E3%82%A6%E3%83%A0%E3%82%B7_Exechesops_leucopis_%E2%99%80.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "display": "processed/WMCFileExechesopsleucopisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileExechesopsleucopisjpg_54.webp",
+      "108": "thumb/WMCFileExechesopsleucopisjpg_108.webp",
+      "216": "thumb/WMCFileExechesopsleucopisjpg_216.webp"
+    },
+    "resized": "original/WMCFileExechesopsleucopisjpg_resized.jpg"
+  },
+  "original_sha256": "b4b949c2763642e9d3b17e374e26839f88f11b8082435e8468629a6f632d3b22",
+  "processing": {
+    "cropBox": [
+      122,
+      187,
+      584,
+      655
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileExechesopsleucopisjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "akahige_kogane",
+  "species_ja": "アカマダラコガネ",
+  "scientific_name": "Poecilophilides rusticola",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kei fumishima",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Akamadarakogane P8020291.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Akamadarakogane_P8020291.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Akamadarakogane_P8020291.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kei fumishima",
+    "eventDate": "2019-08-02",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "クヌギの幹を這うキヅタの上にとまるアカマダラハナムグリ",
+    "localityNormalized": "クヌギの幹を這うキヅタの上にとまるアカマダラハナムグリ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Akamadarakogane_P8020291.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/70/Akamadarakogane_P8020291.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileAkamadarakoganeP8020291jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAkamadarakoganeP8020291jpg_54.webp",
+      "108": "thumb/WMCFileAkamadarakoganeP8020291jpg_108.webp",
+      "216": "thumb/WMCFileAkamadarakoganeP8020291jpg_216.webp"
+    },
+    "resized": "original/WMCFileAkamadarakoganeP8020291jpg_resized.jpg"
+  },
+  "original_sha256": "879815ad3c89a47eb413d98029d7fd1d4ef01218a9ca6791fc10b7a27a05c248",
+  "processing": {
+    "cropBox": [
+      525,
+      279,
+      1253,
+      1024
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAkamadarakoganeP8020291jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.45), rotate 0 CCW"
+}

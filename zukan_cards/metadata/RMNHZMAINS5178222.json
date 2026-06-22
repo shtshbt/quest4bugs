@@ -1,10 +1,10 @@
 {
-  "species_id": "kurokonomachou",
-  "species_ja": "クロコノマチョウ",
+  "species_id": "kono_maron",
+  "species_ja": "コノマチョウ",
   "scientific_name": "Melanitis phedima",
   "credit_line": "Naturalis Biodiversity Center",
   "creator": "Naturalis Biodiversity Center",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Naturalis Biodiversity Center",
     "institutionCode": "RMNH",
@@ -72,5 +72,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "butterfly dorsal — head up by convention, no rotation"
+  "notes": "unknown taxon — no rotation"
 }

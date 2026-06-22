@@ -1,0 +1,74 @@
+{
+  "species_id": "taiwan_tsubame_shijimi",
+  "species_ja": "タイワンツバメシジミ",
+  "scientific_name": "Everes lacturnus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1334132",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1334132",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1334132",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1935-05-29",
+    "eventYear": 1935,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Bojong Soka, Indonesia",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3497101354",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3497101354",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1334132_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/RMNHZMAINS1334132_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1334132_54.webp",
+      "108": "thumb/RMNHZMAINS1334132_108.webp",
+      "216": "thumb/RMNHZMAINS1334132_216.webp"
+    },
+    "resized": "original/RMNHZMAINS1334132_resized.jpg"
+  },
+  "original_sha256": "2887b63c23013c4cbc19a5a04b3a67c5855c080137b1229fe29f57a693612f53",
+  "processing": {
+    "cropBox": [
+      722,
+      0,
+      1920,
+      1282
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1334132_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

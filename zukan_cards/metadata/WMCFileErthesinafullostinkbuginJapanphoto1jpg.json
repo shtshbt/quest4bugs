@@ -34,14 +34,13 @@
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   "files": {
-    "original": "original/WMCFileErthesinafullostinkbuginJapanphoto1jpg_original.jpg",
-    "segmented": "processed/WMCFileErthesinafullostinkbuginJapanphoto1jpg_L1_segmented.png",
     "display": "processed/WMCFileErthesinafullostinkbuginJapanphoto1jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_54.webp",
       "108": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_108.webp",
       "216": "thumb/WMCFileErthesinafullostinkbuginJapanphoto1jpg_216.webp"
-    }
+    },
+    "resized": "original/WMCFileErthesinafullostinkbuginJapanphoto1jpg_resized.jpg"
   },
   "original_sha256": "9d4fba0b4244cc932fa726d5dd75934e7d7d54144bad0fefa03f35f02578f8db",
   "processing": {

@@ -1,0 +1,76 @@
+{
+  "species_id": "minami_aokamemushi",
+  "species_ja": "ミナミアオカメムシ",
+  "scientific_name": "Nezara viridula",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014444886",
+    "occurrenceId": "3e5713fc-0dc1-49e7-8626-90922775ea1d",
+    "persistentId": "3e5713fc-0dc1-49e7-8626-90922775ea1d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Juvenile",
+    "recordedBy": "Maxwell V.L. Barclay",
+    "eventDate": "2020-09-10",
+    "eventYear": 2020,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Bagley's Lane, Fulham, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.474077,
+    "decimalLongitude": -0.187609
+  },
+  "source": {
+    "gbifOccurrenceKey": "3031128108",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/3e5713fc-0dc1-49e7-8626-90922775ea1d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/36095938-82a5-45a7-8402-a94e64770755",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK014444886_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014444886_54.webp",
+      "108": "thumb/NHMUK014444886_108.webp",
+      "216": "thumb/NHMUK014444886_216.webp"
+    },
+    "resized": "original/NHMUK014444886_resized.jpg"
+  },
+  "original_sha256": "856a88d92b8a4d8bd9b66c03938a12c0d6646227dc9f9c04709d24537b93eca5",
+  "processing": {
+    "cropBox": [
+      294,
+      295,
+      1211,
+      815
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014444886_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

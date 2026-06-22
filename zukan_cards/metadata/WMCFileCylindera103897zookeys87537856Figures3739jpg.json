@@ -1,0 +1,74 @@
+{
+  "species_id": "eliza_hanmyo",
+  "species_ja": "エリザハンミョウ",
+  "scientific_name": "Cylindera elisae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Chou M-H, Yeh W-B (2019) Delineation of two new, highly similar species of Taiwanese Cylindera tiger beetles (Coleoptera, Carabidae, Cicindelinae) based on morphological and molecular evidence. ZooKeys 875: 31-62. https://doi.org/10.3897/zookeys.875.37856",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cylindera (10.3897-zookeys.875.37856) Figures 37–39.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cylindera_(10.3897-zookeys.875.37856)_Figures_37%E2%80%9339.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cylindera_(10.3897-zookeys.875.37856)_Figures_37%E2%80%9339.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Chou M-H, Yeh W-B (2019) Delineation of two new, highly similar species of Taiwanese Cylindera tiger beetles (Coleoptera, Carabidae, Cicindelinae) based on morphological and molecular evidence. ZooKeys 875: 31-62. https://doi.org/10.3897/zookeys.875.37856",
+    "eventDate": "2019-09-11",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Figures 37–39; Line drawings of labra of Taiwanese Cylindera (female) 37 C. kaleea 38 C. elisae reductelineata 39 C. shirakii.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cylindera_(10.3897-zookeys.875.37856)_Figures_37%E2%80%9339.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Cylindera_%2810.3897-zookeys.875.37856%29_Figures_37%E2%80%9339.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileCylindera103897zookeys87537856Figures3739jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCylindera103897zookeys87537856Figures3739jpg_54.webp",
+      "108": "thumb/WMCFileCylindera103897zookeys87537856Figures3739jpg_108.webp",
+      "216": "thumb/WMCFileCylindera103897zookeys87537856Figures3739jpg_216.webp"
+    },
+    "resized": "original/WMCFileCylindera103897zookeys87537856Figures3739jpg_resized.jpg"
+  },
+  "original_sha256": "9850fa81e7b45221dcb98c5ec663d1e0197ee0ec12360495307c2fadb8d7e0b1",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      1340
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCylindera103897zookeys87537856Figures3739jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

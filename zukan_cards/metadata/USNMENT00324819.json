@@ -1,0 +1,74 @@
+{
+  "species_id": "konaga_aka_tombo",
+  "species_ja": "マイコアカネ",
+  "scientific_name": "Sympetrum kunckeli",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00324819",
+    "occurrenceId": "http://n2t.net/ark:/65665/3d6dcd107-a1a7-46c3-b096-f192386136ed",
+    "persistentId": "http://n2t.net/ark:/65665/3d6dcd107-a1a7-46c3-b096-f192386136ed",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "Narumi",
+    "eventDate": "1937-09-02",
+    "eventYear": 1937,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Aomori Pref.; Aseiohikawara, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322059096",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322059096",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16378721&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00324819_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00324819_54.webp",
+      "108": "thumb/USNMENT00324819_108.webp",
+      "216": "thumb/USNMENT00324819_216.webp"
+    },
+    "resized": "original/USNMENT00324819_resized.jpg"
+  },
+  "original_sha256": "d883cc7d15ad7048e16d6831b105b047be4858ffe2462891649f551ac0dfe120",
+  "processing": {
+    "cropBox": [
+      687,
+      616,
+      1035,
+      1181
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00324819_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

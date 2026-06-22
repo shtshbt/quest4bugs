@@ -1,0 +1,74 @@
+{
+  "species_id": "hosomi_otsunen_tonbo",
+  "species_ja": "ホソミオツネントンボ",
+  "scientific_name": "Indolestes peregrinus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "TekuraDF",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Indolestes peregrinus(Female,Japan,2018.06.12).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Indolestes_peregrinus(Female,Japan,2018.06.12).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Indolestes_peregrinus(Female,Japan,2018.06.12).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "TekuraDF",
+    "eventDate": "2018-06-12 15:46:58",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "ホソミオツネントンボ雌　広島県",
+    "localityNormalized": "ホソミオツネントンボ雌　広島県",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Indolestes_peregrinus(Female,Japan,2018.06.12).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Indolestes_peregrinus%28Female%2CJapan%2C2018.06.12%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_54.webp",
+      "108": "thumb/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_108.webp",
+      "216": "thumb/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_216.webp"
+    },
+    "resized": "original/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_resized.jpg"
+  },
+  "original_sha256": "0bca421e29b6deeb70f81ef59ce310740139c4da3498c1b1ec3bde0bbb31b5d5",
+  "processing": {
+    "cropBox": [
+      0,
+      602,
+      3328,
+      1427
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileIndolestesperegrinusFemaleJapan20180612jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

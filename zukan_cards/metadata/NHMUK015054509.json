@@ -1,0 +1,76 @@
+{
+  "species_id": "naminami_eda_shaku",
+  "species_ja": "ナミスジエダシャク",
+  "scientific_name": "Hypomecis punctinalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015054509",
+    "occurrenceId": "ed657750-a5ab-4a97-9dd6-922e8a01648d",
+    "persistentId": "ed657750-a5ab-4a97-9dd6-922e8a01648d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Adrian J. Gardiner",
+    "eventDate": "2022-06-28",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Winterton Dunes, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 52.729,
+    "decimalLongitude": 1.6858
+  },
+  "source": {
+    "gbifOccurrenceKey": "3993992328",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ed657750-a5ab-4a97-9dd6-922e8a01648d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/1a406965-80a2-44c8-87b5-08943340fe31",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK015054509_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015054509_54.webp",
+      "108": "thumb/NHMUK015054509_108.webp",
+      "216": "thumb/NHMUK015054509_216.webp"
+    },
+    "resized": "original/NHMUK015054509_resized.jpg"
+  },
+  "original_sha256": "e5f44f6afa9ed180832bd6bb1c6f335e280de59aaf9dffa6a2132f3d2bcf6e77",
+  "processing": {
+    "cropBox": [
+      351,
+      0,
+      1038,
+      884
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015054509_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

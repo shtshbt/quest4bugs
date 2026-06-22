@@ -1,0 +1,76 @@
+{
+  "species_id": "hime_gengoro",
+  "species_ja": "ヒメゲンゴロウ",
+  "scientific_name": "Rhantus suturalis",
+  "credit_line": "Australian Museum",
+  "creator": "Rebecca Harris",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.216663",
+    "occurrenceId": "55c64201-e845-48b5-9bc0-df57d706f869",
+    "persistentId": "55c64201-e845-48b5-9bc0-df57d706f869",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "N. Geary",
+    "eventDate": "1938-10-10",
+    "eventYear": 1938,
+    "country": "Australia",
+    "localityVerbatim": "Cunnamulla",
+    "localityNormalized": "Cunnamulla, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.973612,
+    "decimalLongitude": 145.92778
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100228203",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100228203",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=1ba3e369-5e18-4edd-9553-b1340f36001b",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/AMK216663_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK216663_54.webp",
+      "108": "thumb/AMK216663_108.webp",
+      "216": "thumb/AMK216663_216.webp"
+    },
+    "resized": "original/AMK216663_resized.jpg"
+  },
+  "original_sha256": "cb9bdd292904f4dc5673487b3b828f47455a5cd1b29998f8076ac2486f802a0f",
+  "processing": {
+    "cropBox": [
+      158,
+      116,
+      269,
+      354
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK216663_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

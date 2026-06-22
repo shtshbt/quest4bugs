@@ -1,0 +1,74 @@
+{
+  "species_id": "master_nanbei_tagame",
+  "species_ja": "ナンベイオオタガメ",
+  "scientific_name": "Lethocerus grandis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ebastia1",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Belostoma - Print - Iconographia Zoologica - Special Collections University of Amsterdam - UBAINV0274 041 11 0003.tif",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Belostoma_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_041_11_0003.tif",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Belostoma_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_041_11_0003.tif",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ebastia1",
+    "eventDate": "2017-02-17 17:49:53",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Lethocerus grandis",
+    "localityNormalized": "Lethocerus grandis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Belostoma_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_041_11_0003.tif",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Belostoma_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_041_11_0003.tif",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_54.webp",
+      "108": "thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_108.webp",
+      "216": "thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_216.webp"
+    },
+    "resized": "original/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_resized.jpg"
+  },
+  "original_sha256": "d306030c4e75cb3ce5f36063d11dd471df74d4de518bc57a626c384f151a558a",
+  "processing": {
+    "cropBox": [
+      203,
+      468,
+      1109,
+      1731
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

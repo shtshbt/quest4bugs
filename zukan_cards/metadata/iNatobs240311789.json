@@ -1,0 +1,80 @@
+{
+  "species_id": "shiba_suzu",
+  "species_ja": "シバスズ",
+  "scientific_name": "Polionemobius mikado",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "agnestrekker (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_240311789",
+    "occurrenceId": "https://www.inaturalist.org/observations/240311789",
+    "persistentId": "https://www.inaturalist.org/observations/240311789",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "agnestrekker",
+    "eventDate": "2024-09-07",
+    "eventYear": 2024,
+    "country": "蠔涌古道",
+    "localityVerbatim": null,
+    "localityNormalized": "蠔涌古道, 蠔涌古道",
+    "preparations": null,
+    "decimalLatitude": 22.3525571196,
+    "decimalLongitude": 114.2460459843,
+    "coordinatesObscured": false,
+    "iNatObservationId": "240311789",
+    "iNatPhotoId": "428127177",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/240311789",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/428127177/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs240311789_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs240311789_54.webp",
+      "108": "thumb/iNatobs240311789_108.webp",
+      "216": "thumb/iNatobs240311789_216.webp"
+    },
+    "resized": "original/iNatobs240311789_resized.jpg"
+  },
+  "original_sha256": "ac5b76d713f60b72a01b91d3f07917fd116b69908d1acdc8ebaffac886036c19",
+  "processing": {
+    "cropBox": [
+      243,
+      169,
+      874,
+      1438
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs240311789_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "shitaba_benishitaba",
+  "species_ja": "ベニシタバ",
+  "scientific_name": "Catocala electa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)503622",
+    "occurrenceId": "24c5a023-49e9-48af-83fd-e79f7f23f2f7",
+    "persistentId": "24c5a023-49e9-48af-83fd-e79f7f23f2f7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Imago",
+    "recordedBy": null,
+    "eventDate": "1892-08",
+    "eventYear": 1892,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Near Dedham, Charles River, United States of America",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3881042576",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/24c5a023-49e9-48af-83fd-e79f7f23f2f7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d676c5f7-36a7-46bf-aa05-8cc2d681e83b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUKBMNHE503622_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE503622_54.webp",
+      "108": "thumb/NHMUKBMNHE503622_108.webp",
+      "216": "thumb/NHMUKBMNHE503622_216.webp"
+    },
+    "resized": "original/NHMUKBMNHE503622_resized.jpg"
+  },
+  "original_sha256": "dbe0ea709b29d0f965dfb5d67a4baae412b606d30adad81a7dca5c1157b126c5",
+  "processing": {
+    "cropBox": [
+      11,
+      50,
+      596,
+      391
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE503622_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

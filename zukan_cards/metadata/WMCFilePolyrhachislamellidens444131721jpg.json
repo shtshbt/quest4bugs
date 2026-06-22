@@ -1,0 +1,74 @@
+{
+  "species_id": "itoge_ari",
+  "species_ja": "トゲアリ",
+  "scientific_name": "Polyrhachis lamellidens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "りなべる",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Polyrhachis lamellidens 444131721.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Polyrhachis_lamellidens_444131721.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Polyrhachis_lamellidens_444131721.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "りなべる",
+    "eventDate": "2024-10-20",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Polyrhachis lamellidens in Japan",
+    "localityNormalized": "Polyrhachis lamellidens in Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Polyrhachis_lamellidens_444131721.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Polyrhachis_lamellidens_444131721.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePolyrhachislamellidens444131721jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePolyrhachislamellidens444131721jpg_54.webp",
+      "108": "thumb/WMCFilePolyrhachislamellidens444131721jpg_108.webp",
+      "216": "thumb/WMCFilePolyrhachislamellidens444131721jpg_216.webp"
+    },
+    "resized": "original/WMCFilePolyrhachislamellidens444131721jpg_resized.jpg"
+  },
+  "original_sha256": "23324af093ec374d6537a1b5b6793e681db28c8a3331e8305167ed3315937f8f",
+  "processing": {
+    "cropBox": [
+      515,
+      25,
+      1563,
+      1536
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePolyrhachislamellidens444131721jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

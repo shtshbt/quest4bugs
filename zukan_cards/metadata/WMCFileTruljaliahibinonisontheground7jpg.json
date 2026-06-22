@@ -1,0 +1,74 @@
+{
+  "species_id": "aomatsumushi",
+  "species_ja": "アオマツムシ",
+  "scientific_name": "Truljalia hibinonis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Truljalia hibinonis on the ground - 7.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Truljalia_hibinonis_on_the_ground_-_7.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Truljalia_hibinonis_on_the_ground_-_7.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2020-11-21 01:16:47",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "アオマツムシ。愛知県小牧市で撮影。",
+    "localityNormalized": "アオマツムシ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Truljalia_hibinonis_on_the_ground_-_7.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Truljalia_hibinonis_on_the_ground_-_7.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileTruljaliahibinonisontheground7jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTruljaliahibinonisontheground7jpg_54.webp",
+      "108": "thumb/WMCFileTruljaliahibinonisontheground7jpg_108.webp",
+      "216": "thumb/WMCFileTruljaliahibinonisontheground7jpg_216.webp"
+    },
+    "resized": "original/WMCFileTruljaliahibinonisontheground7jpg_resized.jpg"
+  },
+  "original_sha256": "4afff748607b05e7ff637a95bd64ef9ac68629d2d0a1bfc6f1471098b4292c86",
+  "processing": {
+    "cropBox": [
+      64,
+      0,
+      4335,
+      2386
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTruljaliahibinonisontheground7jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "eda_nanafushi",
+  "species_ja": "エダナナフシ",
+  "scientific_name": "Phraortes elongatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "りなべる",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Phraortes elongatus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Phraortes_elongatus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Phraortes_elongatus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "りなべる",
+    "eventDate": "2024-06-16",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Phraortes elongatus. Species of insect.",
+    "localityNormalized": "Phraortes elongatus. Species of insect.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Phraortes_elongatus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Phraortes_elongatus.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePhraorteselongatusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePhraorteselongatusjpg_54.webp",
+      "108": "thumb/WMCFilePhraorteselongatusjpg_108.webp",
+      "216": "thumb/WMCFilePhraorteselongatusjpg_216.webp"
+    },
+    "resized": "original/WMCFilePhraorteselongatusjpg_resized.jpg"
+  },
+  "original_sha256": "a0588b2bfff7960ec321c754356f559832f3de4ce26b9a79dbf0e3d70de2c84a",
+  "processing": {
+    "cropBox": [
+      164,
+      290,
+      1490,
+      898
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePhraorteselongatusjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

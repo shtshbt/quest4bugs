@@ -1,0 +1,76 @@
+{
+  "species_id": "elephas_zou_kabuto",
+  "species_ja": "エレファスゾウカブト",
+  "scientific_name": "Megasoma elephas",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Danny A. Brass",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 451431",
+    "occurrenceId": "urn:uuid:01478780-f1bb-4a9f-a10e-c29f5b21ee58",
+    "persistentId": "urn:uuid:01478780-f1bb-4a9f-a10e-c29f5b21ee58",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "J. Monzon, Maishe A. Dickman",
+    "eventDate": "1988-05-15",
+    "eventYear": 1988,
+    "country": "Costa Rica",
+    "localityVerbatim": null,
+    "localityNormalized": "Puerto Viejo, Costa Rica",
+    "preparations": null,
+    "decimalLatitude": 10.400078,
+    "decimalLongitude": -85.819319
+  },
+  "source": {
+    "gbifOccurrenceKey": "1146738242",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-451431",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:f1f99d94-15b5-49b7-9a4d-af8fdaff6c4f/full/full/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/YPMENT451431_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT451431_54.webp",
+      "108": "thumb/YPMENT451431_108.webp",
+      "216": "thumb/YPMENT451431_216.webp"
+    },
+    "resized": "original/YPMENT451431_resized.jpg"
+  },
+  "original_sha256": "71281534602995159faf1c90fdde13f79a15924bfe1b584a70711c06276ecfde",
+  "processing": {
+    "cropBox": [
+      26,
+      0,
+      1022,
+      1848
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT451431_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.53), rotate 0 CCW"
+}

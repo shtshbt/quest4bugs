@@ -1,0 +1,74 @@
+{
+  "species_id": "oomonkuro_bekkou",
+  "species_ja": "オオモンクロベッコウ",
+  "scientific_name": "Anoplius samariensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Eastolany",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anoplius samariensis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anoplius_samariensis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anoplius_samariensis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Eastolany",
+    "eventDate": "2024-06-23 20:38:28",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Spider WASP: Lophopompilus samariensis (Pallas, 1771)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anoplius_samariensis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Anoplius_samariensis.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileAnopliussamariensisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnopliussamariensisjpg_54.webp",
+      "108": "thumb/WMCFileAnopliussamariensisjpg_108.webp",
+      "216": "thumb/WMCFileAnopliussamariensisjpg_216.webp"
+    },
+    "resized": "original/WMCFileAnopliussamariensisjpg_resized.jpg"
+  },
+  "original_sha256": "03a77eab157abab6d24921d21ea9da8de5ab2f7c4f6793e3d975569cf06bc28b",
+  "processing": {
+    "cropBox": [
+      412,
+      527,
+      2860,
+      1905
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnopliussamariensisjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

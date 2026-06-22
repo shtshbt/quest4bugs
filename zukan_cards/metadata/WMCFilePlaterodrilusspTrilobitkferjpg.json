@@ -1,0 +1,74 @@
+{
+  "species_id": "sanyou_benibotaru",
+  "species_ja": "サンヨウベニボタル",
+  "scientific_name": "Platerodrilus sp.",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Holger Krisp",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Platerodrilus sp Trilobitkäfer.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Platerodrilus_sp_Trilobitk%C3%A4fer.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Platerodrilus_sp_Trilobitk%C3%A4fer.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Holger Krisp",
+    "eventDate": "2024-04-04 14:32:51",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Trilobite beetle, Platerodrilus sp.",
+    "localityNormalized": "Trilobite beetle, Platerodrilus sp.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Platerodrilus_sp_Trilobitk%C3%A4fer.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Platerodrilus_sp_Trilobitk%C3%A4fer.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePlaterodrilusspTrilobitkferjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePlaterodrilusspTrilobitkferjpg_54.webp",
+      "108": "thumb/WMCFilePlaterodrilusspTrilobitkferjpg_108.webp",
+      "216": "thumb/WMCFilePlaterodrilusspTrilobitkferjpg_216.webp"
+    },
+    "resized": "original/WMCFilePlaterodrilusspTrilobitkferjpg_resized.jpg"
+  },
+  "original_sha256": "8de9e71b21500c5a1b0f1ef9a9ac1ae364c3ce77ed05bcd4391619dd917119e1",
+  "processing": {
+    "cropBox": [
+      484,
+      442,
+      2294,
+      3753
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePlaterodrilusspTrilobitkferjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

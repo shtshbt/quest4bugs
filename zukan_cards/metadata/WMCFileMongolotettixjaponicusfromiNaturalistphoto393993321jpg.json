@@ -1,0 +1,74 @@
+{
+  "species_id": "naki_inago",
+  "species_ja": "ナキイナゴ",
+  "scientific_name": "Mongolotettix japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "renshuchu",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mongolotettix japonicus from iNaturalist photo 393993321.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mongolotettix_japonicus_from_iNaturalist_photo_393993321.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mongolotettix_japonicus_from_iNaturalist_photo_393993321.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-07",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Mongolotettix japonicus ナキイナゴ",
+    "localityNormalized": "Mongolotettix japonicus ナキイナゴ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mongolotettix_japonicus_from_iNaturalist_photo_393993321.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Mongolotettix_japonicus_from_iNaturalist_photo_393993321.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_54.webp",
+      "108": "thumb/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_108.webp",
+      "216": "thumb/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_216.webp"
+    },
+    "resized": "original/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_resized.jpg"
+  },
+  "original_sha256": "745a202b5b13b3248a8429573e52803ede762c6c4f2018ceed219330ef79c526",
+  "processing": {
+    "cropBox": [
+      613,
+      382,
+      1515,
+      1045
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMongolotettixjaponicusfromiNaturalistphoto393993321jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

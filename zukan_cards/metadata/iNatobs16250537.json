@@ -1,0 +1,80 @@
+{
+  "species_id": "yotsubishi_kamemushi",
+  "species_ja": "ヨツボシカメムシ",
+  "scientific_name": "Homalogonia obtusa",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "andy71 (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_16250537",
+    "occurrenceId": "https://www.inaturalist.org/observations/16250537",
+    "persistentId": "https://www.inaturalist.org/observations/16250537",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "andy71",
+    "eventDate": "2018-08-26",
+    "eventYear": 2018,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Haidian, Beijing, China, China",
+    "preparations": null,
+    "decimalLatitude": 40.0158957715,
+    "decimalLongitude": 116.1973944944,
+    "coordinatesObscured": false,
+    "iNatObservationId": "16250537",
+    "iNatPhotoId": "24395598",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/16250537",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/24395598/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs16250537_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs16250537_54.webp",
+      "108": "thumb/iNatobs16250537_108.webp",
+      "216": "thumb/iNatobs16250537_216.webp"
+    },
+    "resized": "original/iNatobs16250537_resized.jpg"
+  },
+  "original_sha256": "39ddba5c3a551742db2188fe98afbb6dc0a452571129a21244d50b47172950f6",
+  "processing": {
+    "cropBox": [
+      414,
+      757,
+      1219,
+      1377
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs16250537_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

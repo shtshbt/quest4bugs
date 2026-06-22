@@ -1,0 +1,75 @@
+{
+  "species_id": "scarabe_sacer",
+  "species_ja": "スカラベ",
+  "scientific_name": "Scarabaeus sacer",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Arrow, G. J. (Gilbert John)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Scarabaeus sacer From G J Arrow.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Scarabaeus_sacer_From_G_J_Arrow.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Scarabaeus_sacer_From_G_J_Arrow.JPG",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Arrow, G. J. (Gilbert John)",
+    "eventDate": "2012-06-09",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Morphological illustration of Sacred scarab from  G J Arrow, early 20th century",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Scarabaeus_sacer_From_G_J_Arrow.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Scarabaeus_sacer_From_G_J_Arrow.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileScarabaeussacerFromGJArrowJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileScarabaeussacerFromGJArrowJPG_54.webp",
+      "108": "thumb/WMCFileScarabaeussacerFromGJArrowJPG_108.webp",
+      "216": "thumb/WMCFileScarabaeussacerFromGJArrowJPG_216.webp"
+    },
+    "resized": "original/WMCFileScarabaeussacerFromGJArrowJPG_resized.jpg"
+  },
+  "original_sha256": "ab54fd43c1bd5cdc14afd969bb44a15b5fd9937fdeb2ae026eeb103670b0a22e",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1584,
+      1857
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileScarabaeussacerFromGJArrowJPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.51), rotate 270 CCW"
+}

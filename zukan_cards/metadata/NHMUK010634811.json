@@ -1,0 +1,74 @@
+{
+  "species_id": "eupholus_zou",
+  "species_ja": "ユーフォルス",
+  "scientific_name": "Eupholus schoenherri",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010634811",
+    "occurrenceId": "2d7ee644-16e0-44d9-ad57-6d03811abbd6",
+    "persistentId": "2d7ee644-16e0-44d9-ad57-6d03811abbd6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "2248066148",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/2d7ee644-16e0-44d9-ad57-6d03811abbd6",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/99dbfa5d-97c7-4222-b344-732e6147cd35",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK010634811_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010634811_54.webp",
+      "108": "thumb/NHMUK010634811_108.webp",
+      "216": "thumb/NHMUK010634811_216.webp"
+    },
+    "resized": "original/NHMUK010634811_resized.jpg"
+  },
+  "original_sha256": "4c3d9c075471642843d604e9767d252a3ab3b2dfa43638271d55bfc7138273e2",
+  "processing": {
+    "cropBox": [
+      383,
+      745,
+      1161,
+      1408
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010634811_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

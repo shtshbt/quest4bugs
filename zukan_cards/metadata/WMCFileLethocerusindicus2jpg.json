@@ -1,0 +1,74 @@
+{
+  "species_id": "taiwan_oo_tagame",
+  "species_ja": "タイワンオオタガメ",
+  "scientific_name": "Lethocerus indicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "lovelymonlamin",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lethocerus indicus 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lethocerus_indicus_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lethocerus_indicus_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "lovelymonlamin",
+    "eventDate": "2020-05-20",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "タイワンタガメ",
+    "localityNormalized": "タイワンタガメ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lethocerus_indicus_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/Lethocerus_indicus_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileLethocerusindicus2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLethocerusindicus2jpg_54.webp",
+      "108": "thumb/WMCFileLethocerusindicus2jpg_108.webp",
+      "216": "thumb/WMCFileLethocerusindicus2jpg_216.webp"
+    },
+    "resized": "original/WMCFileLethocerusindicus2jpg_resized.jpg"
+  },
+  "original_sha256": "e96b9a77fef734938135a05807f7f4e2f86d8ab7fa8f652418e4a8dc042194d1",
+  "processing": {
+    "cropBox": [
+      15,
+      5,
+      477,
+      432
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLethocerusindicus2jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "suna_akane",
+  "species_ja": "スナアカネ",
+  "scientific_name": "Sympetrum fonscolombii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00279004",
+    "occurrenceId": "http://n2t.net/ark:/65665/332de4d18-6bfe-446b-9f51-0473b470cc60",
+    "persistentId": "http://n2t.net/ark:/65665/332de4d18-6bfe-446b-9f51-0473b470cc60",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Moore",
+    "eventDate": "1963-10-06",
+    "eventYear": 1963,
+    "country": "South Africa",
+    "localityVerbatim": null,
+    "localityNormalized": "2 Miles east of Rustenberg, South Africa",
+    "preparations": "Envelope",
+    "decimalLatitude": -25.696,
+    "decimalLongitude": 27.2744
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318352452",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318352452",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16325265&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00279004_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00279004_54.webp",
+      "108": "thumb/USNMENT00279004_108.webp",
+      "216": "thumb/USNMENT00279004_216.webp"
+    },
+    "resized": "original/USNMENT00279004_resized.jpg"
+  },
+  "original_sha256": "6f96e975f36965a0d31201cfdc11f3af408731965b93ce953a15cec3da3d0708",
+  "processing": {
+    "cropBox": [
+      496,
+      275,
+      965,
+      1025
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00279004_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

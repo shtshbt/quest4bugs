@@ -1,0 +1,77 @@
+{
+  "species_id": "master_kiniro_osamushi",
+  "species_ja": "キンイロオサムシ",
+  "scientific_name": "Carabus auronitens",
+  "credit_line": "National Museum of Natural History, Luxembourg",
+  "creator": "National Museum of Natural History, Luxembourg",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Luxembourg",
+    "institutionCode": "MNHNL",
+    "collectionCode": null,
+    "catalogNumber": "MNHNL88215",
+    "occurrenceId": "DSS0043900002SC0::::LUXNATFUND555195",
+    "persistentId": "DSS0043900002SC0::::LUXNATFUND555195",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Georges Rothe",
+    "eventDate": "1959-03-28",
+    "eventYear": 1959,
+    "country": "France",
+    "localityVerbatim": null,
+    "localityNormalized": "Forêt de Guessling-Hemering, France",
+    "preparations": null,
+    "decimalLatitude": 49.0333,
+    "decimalLongitude": 6.65
+  },
+  "source": {
+    "gbifOccurrenceKey": "1950555025",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1950555025",
+    "sourceMediaUrl": "https://archimg.mnhn.lu/Collections/Invertebrate-zoology/Arthropoda-specimens/MNHNL88215-1.jpg",
+    "datasetKey": "962f59bc-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/MNHNL88215_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MNHNL88215_54.webp",
+      "108": "thumb/MNHNL88215_108.webp",
+      "216": "thumb/MNHNL88215_216.webp"
+    },
+    "resized": "original/MNHNL88215_resized.jpg"
+  },
+  "original_sha256": "20fd224baa67d4219fa0096500cfda14096c4586d94db5a695d56db614f834ba",
+  "processing": {
+    "cropBox": [
+      307,
+      0,
+      3497,
+      5184
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/MNHNL88215_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.74), rotate 180 CCW"
+}

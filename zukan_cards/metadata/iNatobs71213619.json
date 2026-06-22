@@ -1,0 +1,80 @@
+{
+  "species_id": "niji_gomidamashi",
+  "species_ja": "ニジゴミムシダマシ",
+  "scientific_name": "Tetraphyllus paykullii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_71213619",
+    "occurrenceId": "https://www.inaturalist.org/observations/71213619",
+    "persistentId": "https://www.inaturalist.org/observations/71213619",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2013-09-20",
+    "eventYear": 2013,
+    "country": "日本、高知県高知市朝倉",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、高知県高知市朝倉, 日本、高知県高知市朝倉",
+    "preparations": null,
+    "decimalLatitude": 33.5595679827,
+    "decimalLongitude": 133.4774472801,
+    "coordinatesObscured": false,
+    "iNatObservationId": "71213619",
+    "iNatPhotoId": "115882179",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/71213619",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/115882179/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs71213619_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs71213619_54.webp",
+      "108": "thumb/iNatobs71213619_108.webp",
+      "216": "thumb/iNatobs71213619_216.webp"
+    },
+    "resized": "original/iNatobs71213619_resized.jpg"
+  },
+  "original_sha256": "e3585e6737b7f2d6de613f700ae58e8e5c0d81aaa1726a87525efbcc310a1e8a",
+  "processing": {
+    "cropBox": [
+      632,
+      555,
+      1260,
+      1007
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs71213619_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

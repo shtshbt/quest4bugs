@@ -1,0 +1,74 @@
+{
+  "species_id": "aohada_tonbo",
+  "species_ja": "アオハダトンボ",
+  "scientific_name": "Calopteryx japonica",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00328452",
+    "occurrenceId": "http://n2t.net/ark:/65665/318faab96-2526-4eae-b72d-9fdbaf48cad1",
+    "persistentId": "http://n2t.net/ark:/65665/318faab96-2526-4eae-b72d-9fdbaf48cad1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1951-06-01",
+    "eventYear": 1951,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Okayama, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317767308",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317767308",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16338712&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00328452_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00328452_54.webp",
+      "108": "thumb/USNMENT00328452_108.webp",
+      "216": "thumb/USNMENT00328452_216.webp"
+    },
+    "resized": "original/USNMENT00328452_resized.jpg"
+  },
+  "original_sha256": "c94970a28c9379ea8a3d355659c715986d7c12a111a56f26ba40b1c46e5c0f55",
+  "processing": {
+    "cropBox": [
+      865,
+      730,
+      1697,
+      1099
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00328452_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

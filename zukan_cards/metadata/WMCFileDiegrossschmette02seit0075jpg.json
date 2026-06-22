@@ -1,0 +1,74 @@
+{
+  "species_id": "kurousutabiga",
+  "species_ja": "クロウスタビガ",
+  "scientific_name": "Rhodinia jankowskii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Unknown. (Editor: Adalbert Seitz)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Diegrossschmette02seit 0075.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0075.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0075.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Unknown. (Editor: Adalbert Seitz)",
+    "eventDate": "circa 1909<div style=\"display: none;\">date QS:P,+1909-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "eventYear": 1909,
+    "country": null,
+    "localityVerbatim": "Plate 34  from Die Gross-Schmetterlinge der Erde (The Macrolepidoptera of the World) Pars 1 Vol. 2 [Seitz, A. Ed. Die Großschmetterlinge der Erde, Verlag Alfred Kernen, Stuttgart   Band 2: Abt. 1, Die Großschmetterlinge des palaearktischen Faunengebietes, Die palaearktischen Spinner und Schwärmer, 1912- 1913  GLI The Global Lepidoptera Names Index searched for valid names.\n\nActias felicis Oberthür, 1896\nCaligula thibeta Westwood\nmorosa Butler 1881  forma of Antheraea yamamai Guérin-Meneville, 1861\nSalassa thespis Leech, 1890\nfentoni  junior synonym of Antheraea yamamai Guérin-Meneville, 1861\nAntheraea yamamai Guérin-Meneville, 1861\nRhodinia  fugax diana Oberthür, 1886\nRhodinia fugax Butler, 1877\nAntheraea pernyi Guérin-Meneville, 1855\nSalassa  olivacea Oberthür, 1890\nRhodinia  davidi Oberthür, 1886\nRhodinia  jankowskii Oberthür, 1881",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Diegrossschmette02seit_0075.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Diegrossschmette02seit_0075.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileDiegrossschmette02seit0075jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDiegrossschmette02seit0075jpg_54.webp",
+      "108": "thumb/WMCFileDiegrossschmette02seit0075jpg_108.webp",
+      "216": "thumb/WMCFileDiegrossschmette02seit0075jpg_216.webp"
+    },
+    "resized": "original/WMCFileDiegrossschmette02seit0075jpg_resized.jpg"
+  },
+  "original_sha256": "442ac2cf0d6f844a24709c76b257f845da99a614c372476d4f9520c17c3f0af7",
+  "processing": {
+    "cropBox": [
+      47,
+      143,
+      2442,
+      3286
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDiegrossschmette02seit0075jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,10 +1,10 @@
 {
-  "species_id": "kuro_ooari",
-  "species_ja": "クロオオアリ",
+  "species_id": "oo_kuro_ari",
+  "species_ja": "オオクロアリ",
   "scientific_name": "Camponotus japonicus",
   "credit_line": "Wikimedia Commons",
   "creator": "Ryan Perry",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Wikimedia Commons",
     "institutionCode": "WMC",

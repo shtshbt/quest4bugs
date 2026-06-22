@@ -1,0 +1,74 @@
+{
+  "species_id": "tsumaguro_oyokobai",
+  "species_ja": "ツマグロオオヨコバイ",
+  "scientific_name": "Bothrogonia ferruginea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "me",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Bothrogonia ferruginea Yokohama 20060326.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Bothrogonia_ferruginea_Yokohama_20060326.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Bothrogonia_ferruginea_Yokohama_20060326.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "me",
+    "eventDate": "2006-03-26",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "짝짓기하는 끝검은말매미충입니다.",
+    "localityNormalized": "짝짓기하는 끝검은말매미충입니다.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Bothrogonia_ferruginea_Yokohama_20060326.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Bothrogonia_ferruginea_Yokohama_20060326.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileBothrogoniaferrugineaYokohama20060326JPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBothrogoniaferrugineaYokohama20060326JPG_54.webp",
+      "108": "thumb/WMCFileBothrogoniaferrugineaYokohama20060326JPG_108.webp",
+      "216": "thumb/WMCFileBothrogoniaferrugineaYokohama20060326JPG_216.webp"
+    },
+    "resized": "original/WMCFileBothrogoniaferrugineaYokohama20060326JPG_resized.jpg"
+  },
+  "original_sha256": "f8e16380efa7a836985f35fddc4f08e3a6f6df225674b46463e503785de603ec",
+  "processing": {
+    "cropBox": [
+      104,
+      203,
+      868,
+      680
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBothrogoniaferrugineaYokohama20060326JPG_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

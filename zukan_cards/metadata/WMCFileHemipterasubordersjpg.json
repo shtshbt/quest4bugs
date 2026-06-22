@@ -1,0 +1,74 @@
+{
+  "species_id": "tsuno_kamemushi_esaki_replaced",
+  "species_ja": "ハサミツノカメムシ",
+  "scientific_name": "Acanthosoma labiduroides",
+  "credit_line": "Wikimedia Commons",
+  "creator": "see his respective owners",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hemiptera suborders.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hemiptera_suborders.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hemiptera_suborders.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "see his respective owners",
+    "eventDate": "2021-08-27",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Hemiptera from the four suborders: Heteroptera, Coleorrhyncha, Sternorrhyncha, Auchenorrhyncha, the animals are: Scissors turtle bug (Acanthosoma labiduroides), Xenophyes forsteri, Aphids (Aphidoidea), and Pharaoh cicada (Magicicada septendecim).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hemiptera_suborders.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Hemiptera_suborders.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileHemipterasubordersjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHemipterasubordersjpg_54.webp",
+      "108": "thumb/WMCFileHemipterasubordersjpg_108.webp",
+      "216": "thumb/WMCFileHemipterasubordersjpg_216.webp"
+    },
+    "resized": "original/WMCFileHemipterasubordersjpg_resized.jpg"
+  },
+  "original_sha256": "e6e5fe8cb83f91f15c0720fadcbf2ca392b18ea83f8598fa2bd0061dfd6137cc",
+  "processing": {
+    "cropBox": [
+      0,
+      38,
+      660,
+      500
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHemipterasubordersjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

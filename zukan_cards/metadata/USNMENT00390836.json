@@ -1,0 +1,76 @@
+{
+  "species_id": "yotsuboshi_tonbo",
+  "species_ja": "ヨツボシトンボ",
+  "scientific_name": "Libellula quadrimaculata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390836",
+    "occurrenceId": "http://n2t.net/ark:/65665/354c74826-157b-44f3-9ac5-b10d7848e658",
+    "persistentId": "http://n2t.net/ark:/65665/354c74826-157b-44f3-9ac5-b10d7848e658",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "2007-08-09",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kushiro-shi, Ibeshibetsu Fish Hatchery, head of Akan Lake, N Akan, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 43.4783,
+    "decimalLongitude": 144.123
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319119032",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319119032",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16350291&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00390836_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390836_54.webp",
+      "108": "thumb/USNMENT00390836_108.webp",
+      "216": "thumb/USNMENT00390836_216.webp"
+    },
+    "resized": "original/USNMENT00390836_resized.jpg"
+  },
+  "original_sha256": "d554ad16a7b1816c7d64bfd7205846ff4cd4b25ca660f3e0f8dc323f255d269e",
+  "processing": {
+    "cropBox": [
+      305,
+      566,
+      1021,
+      1151
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390836_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

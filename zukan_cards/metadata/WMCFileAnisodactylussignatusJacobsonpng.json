@@ -1,0 +1,75 @@
+{
+  "species_id": "hime_gomimushi",
+  "species_ja": "ヒメゴミムシ",
+  "scientific_name": "Anisodactylus signatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Georgiy Jacobson",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anisodactylus signatus Jacobson.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anisodactylus_signatus_Jacobson.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anisodactylus_signatus_Jacobson.png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Georgiy Jacobson",
+    "eventDate": "2013-10-08 15:04:47",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "This image has been extracted from another file",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anisodactylus_signatus_Jacobson.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Anisodactylus_signatus_Jacobson.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileAnisodactylussignatusJacobsonpng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnisodactylussignatusJacobsonpng_54.webp",
+      "108": "thumb/WMCFileAnisodactylussignatusJacobsonpng_108.webp",
+      "216": "thumb/WMCFileAnisodactylussignatusJacobsonpng_216.webp"
+    },
+    "resized": "original/WMCFileAnisodactylussignatusJacobsonpng_resized.jpg"
+  },
+  "original_sha256": "510a4ad9b95bcfe9e3bdf9e21c6d46c4cc254683b8b1d5f6cae5fb76c6a6fc79",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      183,
+      318
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnisodactylussignatusJacobsonpng_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.14), rotate 270 CCW"
+}

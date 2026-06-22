@@ -1,0 +1,74 @@
+{
+  "species_id": "madara_kamado_uma",
+  "species_ja": "マダラカマドウマ",
+  "scientific_name": "Diestrammena japanica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Diestrammena japanica eating a bug - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Diestrammena_japanica_eating_a_bug_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Diestrammena_japanica_eating_a_bug_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2020-09-21 00:43:41",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "小さな昆虫を捕まえて食べていたマダラカマドウマ。愛知県小牧市で撮影。",
+    "localityNormalized": "小さな昆虫を捕まえて食べていたマダラカマドウマ。愛知県小牧市で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Diestrammena_japanica_eating_a_bug_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Diestrammena_japanica_eating_a_bug_-_1.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileDiestrammenajapanicaeatingabug1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDiestrammenajapanicaeatingabug1jpg_54.webp",
+      "108": "thumb/WMCFileDiestrammenajapanicaeatingabug1jpg_108.webp",
+      "216": "thumb/WMCFileDiestrammenajapanicaeatingabug1jpg_216.webp"
+    },
+    "resized": "original/WMCFileDiestrammenajapanicaeatingabug1jpg_resized.jpg"
+  },
+  "original_sha256": "b076b7f9406806041a4b97235b4bf3c8603f48ba7faa1e3ecece2a6dff9ea5a9",
+  "processing": {
+    "cropBox": [
+      650,
+      295,
+      3840,
+      1973
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDiestrammenajapanicaeatingabug1jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

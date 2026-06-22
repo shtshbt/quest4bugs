@@ -1,0 +1,76 @@
+{
+  "species_id": "futahoshi_tentou",
+  "species_ja": "フタホシテントウ",
+  "scientific_name": "Adalia bipunctata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014440628",
+    "occurrenceId": "516cd080-c897-4854-bf44-c37a64926128",
+    "persistentId": "516cd080-c897-4854-bf44-c37a64926128",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Danae Vassiliades",
+    "eventDate": "2022-05-25",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Kensington, Wetherby Gardens, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.49,
+    "decimalLongitude": -0.185
+  },
+  "source": {
+    "gbifOccurrenceKey": "3981034716",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/516cd080-c897-4854-bf44-c37a64926128",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/2608277f-d28c-402a-84e7-9ee0d535c2c8",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK014440628_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014440628_54.webp",
+      "108": "thumb/NHMUK014440628_108.webp",
+      "216": "thumb/NHMUK014440628_216.webp"
+    },
+    "resized": "original/NHMUK014440628_resized.jpg"
+  },
+  "original_sha256": "95527e1208a1b1fff8c988cd087d41faa7d01d8c49fe227327477735a212ae9b",
+  "processing": {
+    "cropBox": [
+      424,
+      269,
+      790,
+      548
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014440628_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.35), rotate 0 CCW"
+}

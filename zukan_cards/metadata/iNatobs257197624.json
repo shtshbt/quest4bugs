@@ -1,0 +1,80 @@
+{
+  "species_id": "chabane_fuyu_eda_shaku",
+  "species_ja": "チャバネフユエダシャク",
+  "scientific_name": "Erannis golda",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_257197624",
+    "occurrenceId": "https://www.inaturalist.org/observations/257197624",
+    "persistentId": "https://www.inaturalist.org/observations/257197624",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2025-01-02",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9259675562,
+    "decimalLongitude": 139.6435581006,
+    "coordinatesObscured": true,
+    "iNatObservationId": "257197624",
+    "iNatPhotoId": "461331437",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/257197624",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/461331437/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs257197624_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs257197624_54.webp",
+      "108": "thumb/iNatobs257197624_108.webp",
+      "216": "thumb/iNatobs257197624_216.webp"
+    },
+    "resized": "original/iNatobs257197624_resized.jpg"
+  },
+  "original_sha256": "7bbf888bfb25a1ede9abad7095ba5941c6e63ec952e7c58966f059482a120eaa",
+  "processing": {
+    "cropBox": [
+      644,
+      338,
+      1132,
+      1088
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs257197624_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

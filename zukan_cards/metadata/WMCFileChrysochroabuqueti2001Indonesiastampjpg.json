@@ -1,0 +1,75 @@
+{
+  "species_id": "chrysochroa_tamamushi",
+  "species_ja": "クリソクロア",
+  "scientific_name": "Chrysochroa buqueti",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Unknown authorUnknown author",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chrysochroa buqueti 2001 Indonesia stamp.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chrysochroa_buqueti_2001_Indonesia_stamp.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chrysochroa_buqueti_2001_Indonesia_stamp.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Unknown authorUnknown author",
+    "eventDate": "2001",
+    "eventYear": 2001,
+    "country": null,
+    "localityVerbatim": "Chrysochroa buqueti",
+    "localityNormalized": "Chrysochroa buqueti",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chrysochroa_buqueti_2001_Indonesia_stamp.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Chrysochroa_buqueti_2001_Indonesia_stamp.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileChrysochroabuqueti2001Indonesiastampjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChrysochroabuqueti2001Indonesiastampjpg_54.webp",
+      "108": "thumb/WMCFileChrysochroabuqueti2001Indonesiastampjpg_108.webp",
+      "216": "thumb/WMCFileChrysochroabuqueti2001Indonesiastampjpg_216.webp"
+    },
+    "resized": "original/WMCFileChrysochroabuqueti2001Indonesiastampjpg_resized.jpg"
+  },
+  "original_sha256": "858d27fc5f820b9d03aedbcefb0ca4e48c961638171d17f9cba5ebae68f576a4",
+  "processing": {
+    "cropBox": [
+      53,
+      32,
+      386,
+      662
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChrysochroabuqueti2001Indonesiastampjpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.71), rotate 270 CCW"
+}

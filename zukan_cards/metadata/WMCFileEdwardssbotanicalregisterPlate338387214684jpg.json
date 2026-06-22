@@ -1,0 +1,75 @@
+{
+  "species_id": "kuro_gengorou",
+  "species_ja": "クロゲンゴロウ",
+  "scientific_name": "Cybister brevis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Lindley, John; Ridgway, James",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Edwards's botanical register (Plate 33) (8387214684).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Edwards%27s_botanical_register_(Plate_33)_(8387214684).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Edwards%27s_botanical_register_(Plate_33)_(8387214684).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Lindley, John; Ridgway, James",
+    "eventDate": "1840",
+    "eventYear": 1840,
+    "country": null,
+    "localityVerbatim": "Sprekelia cybister (today Hippeastrum cybister)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Edwards%27s_botanical_register_(Plate_33)_(8387214684).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Edwards%27s_botanical_register_%28Plate_33%29_%288387214684%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "display": "processed/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_54.webp",
+      "108": "thumb/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_108.webp",
+      "216": "thumb/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_216.webp"
+    },
+    "resized": "original/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_resized.jpg"
+  },
+  "original_sha256": "8fe343cf7b9a5d93d6d9e92a298817726144a29225118052b58f47792f4dc3ce",
+  "processing": {
+    "cropBox": [
+      0,
+      2,
+      1315,
+      2199
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.53), rotate 180 CCW"
+}

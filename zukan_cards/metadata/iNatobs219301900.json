@@ -1,0 +1,80 @@
+{
+  "species_id": "oo_aoboshi_kamikiri",
+  "species_ja": "アオバホソハナカミキリ",
+  "scientific_name": "Anastrangalia scotodes",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_219301900",
+    "occurrenceId": "https://www.inaturalist.org/observations/219301900",
+    "persistentId": "https://www.inaturalist.org/observations/219301900",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-05-05",
+    "eventYear": 2018,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Shizuoka, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 34.827547517,
+    "decimalLongitude": 139.0411064679,
+    "coordinatesObscured": true,
+    "iNatObservationId": "219301900",
+    "iNatPhotoId": "388152750",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/219301900",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/388152750/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs219301900_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs219301900_54.webp",
+      "108": "thumb/iNatobs219301900_108.webp",
+      "216": "thumb/iNatobs219301900_216.webp"
+    },
+    "resized": "original/iNatobs219301900_resized.jpg"
+  },
+  "original_sha256": "93700915362230d0e57f08d139ea2daa32110901e450538dd3974ea7e724a6bf",
+  "processing": {
+    "cropBox": [
+      707,
+      489,
+      1370,
+      1056
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs219301900_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.34), rotate 0 CCW"
+}

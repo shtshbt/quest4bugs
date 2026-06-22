@@ -1,0 +1,76 @@
+{
+  "species_id": "hanebiro_tonbo",
+  "species_ja": "ハネビロトンボ",
+  "scientific_name": "Tramea virginia",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827183",
+    "occurrenceId": "http://n2t.net/ark:/65665/32a5aa3a5-e16c-4d7b-a37c-63eea4053d80",
+    "persistentId": "http://n2t.net/ark:/65665/32a5aa3a5-e16c-4d7b-a37c-63eea4053d80",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly & A. Donnelly",
+    "eventDate": "2000-06-17",
+    "eventYear": 2000,
+    "country": "Hong Kong",
+    "localityVerbatim": null,
+    "localityNormalized": "Sha Lo Tung, 4 kilometers north Tai Po, Hong Kong",
+    "preparations": "Envelope",
+    "decimalLatitude": 22.47,
+    "decimalLongitude": 114.18
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318160364",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318160364",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16394300&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00827183_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827183_54.webp",
+      "108": "thumb/USNMENT00827183_108.webp",
+      "216": "thumb/USNMENT00827183_216.webp"
+    },
+    "resized": "original/USNMENT00827183_resized.jpg"
+  },
+  "original_sha256": "b116a98cb98b74c6d214eb9ffcf647d5dbf2c0ae3b82375b5d692c372c9be05d",
+  "processing": {
+    "cropBox": [
+      852,
+      185,
+      1655,
+      1163
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827183_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

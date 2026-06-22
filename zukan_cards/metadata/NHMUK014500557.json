@@ -1,0 +1,74 @@
+{
+  "species_id": "tobikera_ninfa_dummy",
+  "species_ja": "ニンギョウトビケラ",
+  "scientific_name": "Goera japonica",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014500557",
+    "occurrenceId": "61426126-1fd1-4a01-a0be-0f135d778708",
+    "persistentId": "61426126-1fd1-4a01-a0be-0f135d778708",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1886-04",
+    "eventYear": 1886,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3387327323",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/61426126-1fd1-4a01-a0be-0f135d778708",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/57a494c1-cff3-4d17-85cc-5fb6557e25cb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK014500557_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014500557_54.webp",
+      "108": "thumb/NHMUK014500557_108.webp",
+      "216": "thumb/NHMUK014500557_216.webp"
+    },
+    "resized": "original/NHMUK014500557_resized.jpg"
+  },
+  "original_sha256": "a4a2196c63442dfa16c9ca45ae7fe22484224e10450fb027e3220a1e02c0f877",
+  "processing": {
+    "cropBox": [
+      612,
+      561,
+      978,
+      979
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014500557_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

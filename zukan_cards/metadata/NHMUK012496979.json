@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_koorogi",
+  "species_ja": "クロコオロギ",
+  "scientific_name": "Teleogryllus mitratus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496979",
+    "occurrenceId": "157aa581-f098-4c3c-b6b7-a73ec2902017",
+    "persistentId": "157aa581-f098-4c3c-b6b7-a73ec2902017",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826413067",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/157aa581-f098-4c3c-b6b7-a73ec2902017",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/6725e68b-28ed-4dc2-8474-0c91d603703e",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK012496979_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496979_54.webp",
+      "108": "thumb/NHMUK012496979_108.webp",
+      "216": "thumb/NHMUK012496979_216.webp"
+    },
+    "resized": "original/NHMUK012496979_resized.jpg"
+  },
+  "original_sha256": "d3f859333b89ee972dd5abd26ad7dded62ab906b79ddf327b222bc40acf85cdf",
+  "processing": {
+    "cropBox": [
+      331,
+      11,
+      958,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496979_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

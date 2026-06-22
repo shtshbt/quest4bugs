@@ -1,0 +1,77 @@
+{
+  "species_id": "halmus_aoba_tentou",
+  "species_ja": "アオバテントウ",
+  "scientific_name": "Halmus chalybeus",
+  "credit_line": "Australian Museum",
+  "creator": "Diana Gershwin",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.362787",
+    "occurrenceId": "f10da2de-3f9a-42e6-b84e-b96e42b91ee3",
+    "persistentId": "f10da2de-3f9a-42e6-b84e-b96e42b91ee3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.M. Stoyles",
+    "eventDate": "1935-11",
+    "eventYear": 1935,
+    "country": "Australia",
+    "localityVerbatim": "Tamborine",
+    "localityNormalized": "Tamborine, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.889723,
+    "decimalLongitude": 153.15555
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100313737",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100313737",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=987dbccd-f29a-4bd7-90d6-802249231767",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/AMK362787_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK362787_54.webp",
+      "108": "thumb/AMK362787_108.webp",
+      "216": "thumb/AMK362787_216.webp"
+    },
+    "resized": "original/AMK362787_resized.jpg"
+  },
+  "original_sha256": "298e07eb9893a86d5985ca66169981f6437c74e96c1af1c924445e1556422208",
+  "processing": {
+    "cropBox": [
+      68,
+      0,
+      649,
+      395
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK362787_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.44), rotate 270 CCW"
+}

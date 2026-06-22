@@ -1,0 +1,77 @@
+{
+  "species_id": "shiro_juni_hoshi_tentou",
+  "species_ja": "シロジュウシホシテントウ",
+  "scientific_name": "Calvia quatuordecimguttata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014439762",
+    "occurrenceId": "887a7c08-2752-4569-a9ff-c607fbc990e5",
+    "persistentId": "887a7c08-2752-4569-a9ff-c607fbc990e5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Maxwell V.L. Barclay",
+    "eventDate": "2021-08-03",
+    "eventYear": 2021,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Chelsea Harbour, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.47,
+    "decimalLongitude": -0.18
+  },
+  "source": {
+    "gbifOccurrenceKey": "3387314786",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/887a7c08-2752-4569-a9ff-c607fbc990e5",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/936b2053-a517-40f7-9877-1b2174afbc1c",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK014439762_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014439762_54.webp",
+      "108": "thumb/NHMUK014439762_108.webp",
+      "216": "thumb/NHMUK014439762_216.webp"
+    },
+    "resized": "original/NHMUK014439762_resized.jpg"
+  },
+  "original_sha256": "590b571d77224d4863a421e9793df44a8a1d0d75d40c1fddb2dc0a005d84192a",
+  "processing": {
+    "cropBox": [
+      657,
+      599,
+      1004,
+      885
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014439762_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.24), rotate 90 CCW"
+}

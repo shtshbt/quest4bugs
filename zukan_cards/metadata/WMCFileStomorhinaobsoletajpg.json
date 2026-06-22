@@ -1,0 +1,74 @@
+{
+  "species_id": "tsumaguro_hana_abu",
+  "species_ja": "ツマグロキンバエ",
+  "scientific_name": "Stomorhina obsoleta",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Show ryu",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Stomorhina obsoleta.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Stomorhina_obsoleta.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Stomorhina_obsoleta.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Show ryu",
+    "eventDate": "2011-07-20",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Stomorhina obsoleta",
+    "localityNormalized": "Stomorhina obsoleta",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Stomorhina_obsoleta.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Stomorhina_obsoleta.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "display": "processed/WMCFileStomorhinaobsoletajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileStomorhinaobsoletajpg_54.webp",
+      "108": "thumb/WMCFileStomorhinaobsoletajpg_108.webp",
+      "216": "thumb/WMCFileStomorhinaobsoletajpg_216.webp"
+    },
+    "resized": "original/WMCFileStomorhinaobsoletajpg_resized.jpg"
+  },
+  "original_sha256": "fe4b4335c1bc2001ce6644fb3186d335e11cd1ecaa492a0121731da5db89805a",
+  "processing": {
+    "cropBox": [
+      1388,
+      691,
+      2990,
+      2394
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileStomorhinaobsoletajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

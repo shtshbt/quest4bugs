@@ -1,0 +1,75 @@
+{
+  "species_id": "gomimushidamashi_kohira",
+  "species_ja": "コクヌストモドキ",
+  "scientific_name": "Tribolium castaneum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015915118",
+    "occurrenceId": "a6edd399-703e-4dda-ba44-efcd54d2cb56",
+    "persistentId": "a6edd399-703e-4dda-ba44-efcd54d2cb56",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Nigeria",
+    "localityVerbatim": null,
+    "localityNormalized": "Nigeria",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "5839654616",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/a6edd399-703e-4dda-ba44-efcd54d2cb56",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/fbf22842-0fc5-4bc7-b7bf-65626592999c",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK015915118_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015915118_54.webp",
+      "108": "thumb/NHMUK015915118_108.webp",
+      "216": "thumb/NHMUK015915118_216.webp"
+    },
+    "resized": "original/NHMUK015915118_resized.jpg"
+  },
+  "original_sha256": "117cda2a6a9bd8d6b47e8076fd269a4328f6a0994961167e06f888f15bd0ad12",
+  "processing": {
+    "cropBox": [
+      36,
+      19,
+      1418,
+      449
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015915118_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.13), rotate 180 CCW"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "shioya_abu",
+  "species_ja": "シオヤアブ",
+  "scientific_name": "Promachus yesonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Textheavy",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Promachus-yesonicus in fukuoka.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Promachus-yesonicus_in_fukuoka.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Promachus-yesonicus_in_fukuoka.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Textheavy",
+    "eventDate": "2021-07-11",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Male in Fukuoka",
+    "localityNormalized": "Male in Fukuoka",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Promachus-yesonicus_in_fukuoka.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Promachus-yesonicus_in_fukuoka.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePromachusyesonicusinfukuokajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePromachusyesonicusinfukuokajpg_54.webp",
+      "108": "thumb/WMCFilePromachusyesonicusinfukuokajpg_108.webp",
+      "216": "thumb/WMCFilePromachusyesonicusinfukuokajpg_216.webp"
+    },
+    "resized": "original/WMCFilePromachusyesonicusinfukuokajpg_resized.jpg"
+  },
+  "original_sha256": "872d0f22b6bee3d87ca434cc5866069191eadcf2c6da3ce5007a473b0f56ee02",
+  "processing": {
+    "cropBox": [
+      159,
+      276,
+      2560,
+      1981
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePromachusyesonicusinfukuokajpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

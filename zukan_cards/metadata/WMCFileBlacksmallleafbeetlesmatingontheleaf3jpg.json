@@ -1,0 +1,74 @@
+{
+  "species_id": "hagetaka_hamushi",
+  "species_ja": "バラルリツツハムシ",
+  "scientific_name": "Cryptocephalus approximatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "KKPCW",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Black small leaf beetles mating on the leaf - 3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Black_small_leaf_beetles_mating_on_the_leaf_-_3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Black_small_leaf_beetles_mating_on_the_leaf_-_3.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "KKPCW",
+    "eventDate": "2021-04-21 16:39:30",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "バラルリツツハムシではと思われます。愛知県小牧市を流れる八田川沿いで撮影。",
+    "localityNormalized": "バラルリツツハムシではと思われます。愛知県小牧市を流れる八田川沿いで撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Black_small_leaf_beetles_mating_on_the_leaf_-_3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Black_small_leaf_beetles_mating_on_the_leaf_-_3.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_54.webp",
+      "108": "thumb/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_108.webp",
+      "216": "thumb/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_216.webp"
+    },
+    "resized": "original/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_resized.jpg"
+  },
+  "original_sha256": "66f1b3ae8704013dcaa4c71eba670cd328c445b94d011a361cea5601983b1c86",
+  "processing": {
+    "cropBox": [
+      1795,
+      787,
+      2288,
+      1308
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBlacksmallleafbeetlesmatingontheleaf3jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

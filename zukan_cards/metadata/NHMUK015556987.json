@@ -1,0 +1,76 @@
+{
+  "species_id": "ao_yaga",
+  "species_ja": "アオバヤガ",
+  "scientific_name": "Anaplectoides prasina",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015556987",
+    "occurrenceId": "bdf874a6-1cfd-4029-aee2-ee84fb95c7ae",
+    "persistentId": "bdf874a6-1cfd-4029-aee2-ee84fb95c7ae",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Mr Mick Acourt",
+    "eventDate": "2022-06-29",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Bure Marshes NNR, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 52.6925,
+    "decimalLongitude": 1.4594
+  },
+  "source": {
+    "gbifOccurrenceKey": "4440085676",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/bdf874a6-1cfd-4029-aee2-ee84fb95c7ae",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d4ad09c1-b41d-4900-8ca2-ad455a4999eb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK015556987_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015556987_54.webp",
+      "108": "thumb/NHMUK015556987_108.webp",
+      "216": "thumb/NHMUK015556987_216.webp"
+    },
+    "resized": "original/NHMUK015556987_resized.jpg"
+  },
+  "original_sha256": "468e22f7b306d6505968a30acb29bd758d4cc6b0842aa18b501f6a1fe3b19e14",
+  "processing": {
+    "cropBox": [
+      250,
+      69,
+      1269,
+      650
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015556987_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

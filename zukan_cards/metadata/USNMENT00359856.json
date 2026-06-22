@@ -1,0 +1,74 @@
+{
+  "species_id": "ao_yanma",
+  "species_ja": "アオヤンマ",
+  "scientific_name": "Aeschnophlebia longistigma",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00359856",
+    "occurrenceId": "http://n2t.net/ark:/65665/3569f85bd-71ea-40e7-9bd0-d9ca0692a2ae",
+    "persistentId": "http://n2t.net/ark:/65665/3569f85bd-71ea-40e7-9bd0-d9ca0692a2ae",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "H. Yamamoto",
+    "eventDate": "1935-08-08",
+    "eventYear": 1935,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Osaka, Japan",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319160632",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319160632",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16372076&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00359856_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00359856_54.webp",
+      "108": "thumb/USNMENT00359856_108.webp",
+      "216": "thumb/USNMENT00359856_216.webp"
+    },
+    "resized": "original/USNMENT00359856_resized.jpg"
+  },
+  "original_sha256": "fad9e35ef0dc854e685cd1ce042aaed1273304373c7483edcc1ae465d57fa24e",
+  "processing": {
+    "cropBox": [
+      335,
+      464,
+      1484,
+      1185
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00359856_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

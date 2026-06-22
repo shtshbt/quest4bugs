@@ -1,0 +1,76 @@
+{
+  "species_id": "mukashi_tonbo",
+  "species_ja": "ムカシトンボ",
+  "scientific_name": "Epiophlebia superstes",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386349",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c2b2c6f0-7428-4473-994a-106c743725ab",
+    "persistentId": "http://n2t.net/ark:/65665/3c2b2c6f0-7428-4473-994a-106c743725ab",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "R. Wisseman",
+    "eventDate": "2003-06-21",
+    "eventYear": 2003,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Chitose-Shi; Bifue-no-taki, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 42.7233,
+    "decimalLongitude": 141.193
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321605258",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321605258",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16341541&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00386349_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386349_54.webp",
+      "108": "thumb/USNMENT00386349_108.webp",
+      "216": "thumb/USNMENT00386349_216.webp"
+    },
+    "resized": "original/USNMENT00386349_resized.jpg"
+  },
+  "original_sha256": "025c925697ff930f1b7c645179ae846c5147b21ecd0ac68cb44a2efa760e94cd",
+  "processing": {
+    "cropBox": [
+      729,
+      575,
+      1448,
+      1208
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386349_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

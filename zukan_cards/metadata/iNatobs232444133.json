@@ -1,0 +1,80 @@
+{
+  "species_id": "yama_kudamaki",
+  "species_ja": "ヤマクダマキモドキ",
+  "scientific_name": "Holochlora longifissa",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_232444133",
+    "occurrenceId": "https://www.inaturalist.org/observations/232444133",
+    "persistentId": "https://www.inaturalist.org/observations/232444133",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-09-11",
+    "eventYear": 2023,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Tochigi, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.7167617024,
+    "decimalLongitude": 139.8074336798,
+    "coordinatesObscured": true,
+    "iNatObservationId": "232444133",
+    "iNatPhotoId": "412959793",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/232444133",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/412959793/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs232444133_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs232444133_54.webp",
+      "108": "thumb/iNatobs232444133_108.webp",
+      "216": "thumb/iNatobs232444133_216.webp"
+    },
+    "resized": "original/iNatobs232444133_resized.jpg"
+  },
+  "original_sha256": "92e2648dd295809b562aa9cd3bf114d0e8b89137764c3350d83b9171c1a6b438",
+  "processing": {
+    "cropBox": [
+      505,
+      385,
+      1799,
+      1292
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs232444133_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

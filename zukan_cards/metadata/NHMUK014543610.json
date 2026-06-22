@@ -1,0 +1,76 @@
+{
+  "species_id": "mino_ke_buka_abu",
+  "species_ja": "ビロウドツリアブ",
+  "scientific_name": "Bombylius major",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014543610",
+    "occurrenceId": "72447f9b-5b49-4c4b-9d3d-f1c8e5c0c93c",
+    "persistentId": "72447f9b-5b49-4c4b-9d3d-f1c8e5c0c93c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Andrew J. Cunningham (UKBOL collector)",
+    "eventDate": "2022-04-26",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Tiverton: Snake's Wood & Manley Bridge, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 50.897611,
+    "decimalLongitude": -3.446103
+  },
+  "source": {
+    "gbifOccurrenceKey": "3993978461",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/72447f9b-5b49-4c4b-9d3d-f1c8e5c0c93c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b9e9fc50-4b9c-462c-ab58-956a5bf87857",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "display": "processed/NHMUK014543610_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014543610_54.webp",
+      "108": "thumb/NHMUK014543610_108.webp",
+      "216": "thumb/NHMUK014543610_216.webp"
+    },
+    "resized": "original/NHMUK014543610_resized.jpg"
+  },
+  "original_sha256": "381a9b6239d9a97e3df0dc4802c705ef83216c4fb9aa5b977241cf1028c5406a",
+  "processing": {
+    "cropBox": [
+      61,
+      17,
+      1254,
+      700
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014543610_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

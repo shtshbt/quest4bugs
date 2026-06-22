@@ -1,10 +1,10 @@
 {
-  "species_id": "oo_kakagerou_dummy",
-  "species_ja": "ヤマトクサカゲロウ",
+  "species_id": "kusakagerou",
+  "species_ja": "クサカゲロウ",
   "scientific_name": "Chrysoperla nipponensis",
   "credit_line": "Natural History Museum, London",
   "creator": "Natural History Museum, London",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",

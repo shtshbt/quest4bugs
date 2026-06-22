@@ -1,0 +1,74 @@
+{
+  "species_id": "ine_dorobou_zou",
+  "species_ja": "イネミズゾウムシ",
+  "scientific_name": "Lissorhoptrus oryzophilus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "no rights reserved",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rice Water Weevil, 日本、〒783-0093 高知県南国市物部 物部川河川敷 imported from iNaturalist photo 128748640.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rice_Water_Weevil,_%E6%97%A5%E6%9C%AC%E3%80%81%E3%80%92783-0093_%E9%AB%98%E7%9F%A5%E7%9C%8C%E5%8D%97%E5%9B%BD%E5%B8%82%E7%89%A9%E9%83%A8_%E7%89%A9%E9%83%A8%E5%B7%9D%E6%B2%B3%E5%B7%9D%E6%95%B7_imported_from_iNaturalist_photo_128748640.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rice_Water_Weevil,_%E6%97%A5%E6%9C%AC%E3%80%81%E3%80%92783-0093_%E9%AB%98%E7%9F%A5%E7%9C%8C%E5%8D%97%E5%9B%BD%E5%B8%82%E7%89%A9%E9%83%A8_%E7%89%A9%E9%83%A8%E5%B7%9D%E6%B2%B3%E5%B7%9D%E6%95%B7_imported_from_iNaturalist_photo_128748640.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "no rights reserved",
+    "eventDate": "2015-07-13",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Photo of Rice Water Weevil (Lissorhoptrus oryzophilus) uploaded from iNaturalist.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rice_Water_Weevil,_%E6%97%A5%E6%9C%AC%E3%80%81%E3%80%92783-0093_%E9%AB%98%E7%9F%A5%E7%9C%8C%E5%8D%97%E5%9B%BD%E5%B8%82%E7%89%A9%E9%83%A8_%E7%89%A9%E9%83%A8%E5%B7%9D%E6%B2%B3%E5%B7%9D%E6%95%B7_imported_from_iNaturalist_photo_128748640.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Rice_Water_Weevil%2C_%E6%97%A5%E6%9C%AC%E3%80%81%E3%80%92783-0093_%E9%AB%98%E7%9F%A5%E7%9C%8C%E5%8D%97%E5%9B%BD%E5%B8%82%E7%89%A9%E9%83%A8_%E7%89%A9%E9%83%A8%E5%B7%9D%E6%B2%B3%E5%B7%9D%E6%95%B7_imported_from_iNaturalist_photo_128748640.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "display": "processed/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_54.webp",
+      "108": "thumb/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_108.webp",
+      "216": "thumb/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_216.webp"
+    },
+    "resized": "original/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_resized.jpg"
+  },
+  "original_sha256": "b40e8c3eb62be170464b55bac79cae5a5fd43a9138e24585ff136bfbfc148feb",
+  "processing": {
+    "cropBox": [
+      828,
+      540,
+      1253,
+      810
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRiceWaterWeevil7830093importedfromiNaturalistphoto128748640jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

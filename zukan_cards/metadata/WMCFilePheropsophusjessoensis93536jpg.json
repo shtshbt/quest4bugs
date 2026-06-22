@@ -1,0 +1,75 @@
+{
+  "species_id": "miidera_gomimushi",
+  "species_ja": "ミイデラゴミムシ",
+  "scientific_name": "Pheropsophus jessoensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Afsarnayakkan",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pheropsophus jessoensis (93536).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pheropsophus_jessoensis_(93536).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pheropsophus_jessoensis_(93536).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Afsarnayakkan",
+    "eventDate": "24 May 2025 (according to <span lang=\"en\" dir=\"ltr\"><a href=\"https://en.wikipedia.org/wiki/Exif\" class=\"extiw\" title=\"en:Exif\">Exif</a></span> data)",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Pheropsophus jessoensis kattampally kannur kerala india afsarnayakkan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pheropsophus_jessoensis_(93536).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Pheropsophus_jessoensis_%2893536%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFilePheropsophusjessoensis93536jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePheropsophusjessoensis93536jpg_54.webp",
+      "108": "thumb/WMCFilePheropsophusjessoensis93536jpg_108.webp",
+      "216": "thumb/WMCFilePheropsophusjessoensis93536jpg_216.webp"
+    },
+    "resized": "original/WMCFilePheropsophusjessoensis93536jpg_resized.jpg"
+  },
+  "original_sha256": "72dad432e26e15f1f03b96720589c817c57a0a02bb385eeaebbefdc59f440e94",
+  "processing": {
+    "cropBox": [
+      119,
+      282,
+      1742,
+      1312
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePheropsophusjessoensis93536jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.90), rotate 180 CCW"
+}

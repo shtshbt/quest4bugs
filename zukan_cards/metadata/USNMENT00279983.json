@@ -1,0 +1,76 @@
+{
+  "species_id": "ezo_akane",
+  "species_ja": "エゾアカネ",
+  "scientific_name": "Sympetrum flaveolum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00279983",
+    "occurrenceId": "http://n2t.net/ark:/65665/3eb7a2251-c0ca-48a9-af0f-08f30eac43f0",
+    "persistentId": "http://n2t.net/ark:/65665/3eb7a2251-c0ca-48a9-af0f-08f30eac43f0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "H. Schumann",
+    "eventDate": "1955-08-14",
+    "eventYear": 1955,
+    "country": "Germany",
+    "localityVerbatim": null,
+    "localityNormalized": "Bissendorfer Moor bei Hannover, Germany",
+    "preparations": "Envelope",
+    "decimalLatitude": 52.5043,
+    "decimalLongitude": 9.68193
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322525572",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322525572",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16373592&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00279983_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00279983_54.webp",
+      "108": "thumb/USNMENT00279983_108.webp",
+      "216": "thumb/USNMENT00279983_216.webp"
+    },
+    "resized": "original/USNMENT00279983_resized.jpg"
+  },
+  "original_sha256": "f96b41b52f86b872ba5fab256c78c5b10c40af9f13b9097ccd40f346aeaff11a",
+  "processing": {
+    "cropBox": [
+      654,
+      432,
+      1032,
+      968
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00279983_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

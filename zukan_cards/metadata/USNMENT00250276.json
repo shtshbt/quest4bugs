@@ -1,0 +1,76 @@
+{
+  "species_id": "tsuya_hira_taabu",
+  "species_ja": "オオフタホシヒラタアブ",
+  "scientific_name": "Syrphus ribesii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Rachel Osborn",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00250276",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b497dba2-41e9-4417-bc66-2b4b45992f11",
+    "persistentId": "http://n2t.net/ark:/65665/3b497dba2-41e9-4417-bc66-2b4b45992f11",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "W. Warner",
+    "eventDate": "1903-04-17",
+    "eventYear": 1903,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Plummers Island, United States of America",
+    "preparations": "Pinned",
+    "decimalLatitude": 38.9694,
+    "decimalLongitude": -77.1764
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321285967",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321285967",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=15416531&h=1024",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT00250276_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00250276_54.webp",
+      "108": "thumb/USNMENT00250276_108.webp",
+      "216": "thumb/USNMENT00250276_216.webp"
+    },
+    "resized": "original/USNMENT00250276_resized.jpg"
+  },
+  "original_sha256": "26cf3c435a386c22c1373558d893c938d20d7c71515b97a7d5d7c9e8a8f49959",
+  "processing": {
+    "cropBox": [
+      55,
+      81,
+      957,
+      665
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00250276_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

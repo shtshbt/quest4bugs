@@ -1,0 +1,80 @@
+{
+  "species_id": "umaoi_haya",
+  "species_ja": "ハヤシノウマオイ",
+  "scientific_name": "Hexacentrus hareyamai",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_152249658",
+    "occurrenceId": "https://www.inaturalist.org/observations/152249658",
+    "persistentId": "https://www.inaturalist.org/observations/152249658",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-08-19",
+    "eventYear": 2021,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.8341433894,
+    "decimalLongitude": 139.5914458492,
+    "coordinatesObscured": true,
+    "iNatObservationId": "152249658",
+    "iNatPhotoId": "262800356",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/152249658",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/262800356/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/iNatobs152249658_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs152249658_54.webp",
+      "108": "thumb/iNatobs152249658_108.webp",
+      "216": "thumb/iNatobs152249658_216.webp"
+    },
+    "resized": "original/iNatobs152249658_resized.jpg"
+  },
+  "original_sha256": "07e80b8999faf8b048674705486dc63619515407d5de562a88b23d1e4991e914",
+  "processing": {
+    "cropBox": [
+      781,
+      0,
+      1853,
+      1213
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs152249658_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

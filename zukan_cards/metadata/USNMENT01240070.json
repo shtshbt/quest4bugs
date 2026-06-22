@@ -1,0 +1,76 @@
+{
+  "species_id": "hito_suji_shima_ka",
+  "species_ja": "ヒトスジシマカ",
+  "scientific_name": "Aedes albopictus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Sarah E. Yount",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01240070",
+    "occurrenceId": "http://n2t.net/ark:/65665/395eb2c37-153f-4e4c-a901-3ecabc00dc2a",
+    "persistentId": "http://n2t.net/ark:/65665/395eb2c37-153f-4e4c-a901-3ecabc00dc2a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "D. Borror",
+    "eventDate": "1945-09-28",
+    "eventYear": 1945,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagasaki, Japan",
+    "preparations": "Pinned",
+    "decimalLatitude": 32.75,
+    "decimalLongitude": 129.883
+  },
+  "source": {
+    "gbifOccurrenceKey": "3357284516",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3357284516",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=15533037&h=1809",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "display": "processed/USNMENT01240070_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01240070_54.webp",
+      "108": "thumb/USNMENT01240070_108.webp",
+      "216": "thumb/USNMENT01240070_216.webp"
+    },
+    "resized": "original/USNMENT01240070_resized.jpg"
+  },
+  "original_sha256": "8d3a9783640c07beb09eabd539b00851c6447ec7d65ecc8f9390a9a1f71a145a",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3441,
+      1701
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01240070_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

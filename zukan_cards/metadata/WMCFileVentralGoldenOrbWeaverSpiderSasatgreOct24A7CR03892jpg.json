@@ -1,0 +1,74 @@
+{
+  "species_id": "oo_jorogumo",
+  "species_ja": "オオジョロウグモ",
+  "scientific_name": "Nephila pilipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Timothy A. Gonsalves",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ventral Golden Orb Weaver Spider Sasatgre Oct24 A7CR 03892.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ventral_Golden_Orb_Weaver_Spider_Sasatgre_Oct24_A7CR_03892.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ventral_Golden_Orb_Weaver_Spider_Sasatgre_Oct24_A7CR_03892.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Timothy A. Gonsalves",
+    "eventDate": "2024-10-12 07:15:35",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Ventral view, Golden orb weaver (Nephila pilipes) female, Sasatgre, West Garo Hills, Meghalaya, India",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ventral_Golden_Orb_Weaver_Spider_Sasatgre_Oct24_A7CR_03892.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Ventral_Golden_Orb_Weaver_Spider_Sasatgre_Oct24_A7CR_03892.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "display": "processed/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_54.webp",
+      "108": "thumb/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_108.webp",
+      "216": "thumb/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_216.webp"
+    },
+    "resized": "original/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_resized.jpg"
+  },
+  "original_sha256": "a19a04980e587d6cff4e74fcde1ac6d22d97685c902f92d4266ab5f7a91502bb",
+  "processing": {
+    "cropBox": [
+      748,
+      193,
+      3412,
+      4057
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVentralGoldenOrbWeaverSpiderSasatgreOct24A7CR03892jpg_original.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
