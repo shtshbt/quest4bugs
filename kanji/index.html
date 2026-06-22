@@ -261,7 +261,7 @@ function escAttr(s){return esc(s).replace(/"/g,'&quot;')}
 
 /* ================= 状態 ================= */
 var PROFILES=[],CUR=null,ST=null,CFG=null;
-var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false,BUG_HIDE_UNK=false,BUG_REARED=false,BUG_PLURAL=false;
+var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false,BUG_HIDE_UNK=false,BUG_REARED=false,BUG_PLURAL=false,BUG_EGG=false,BUG_PAIR=false;
 var KANJI_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_kanji_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
 function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_kanji_master_open",v?"1":"0");}catch(_){} }
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
@@ -299,6 +299,8 @@ function bugMatch(sp){
  if(BUG_HIDE_UNK){ var e2=ST.coll.catches[sp.id]; if(!e2)return false; }
  if(BUG_REARED){ if(!Q4BReward.hasReared||!Q4BReward.hasReared(ST.coll,sp.id))return false; }
  if(BUG_PLURAL){ var e3=ST.coll.catches[sp.id]; if(!e3||(e3.n||0)<2)return false; }
+ if(BUG_EGG){ var cnt=Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(sp.id).total:0; if(cnt<=0)return false; }
+ if(BUG_PAIR){ if(!Q4BReward.hasBothSexes||!Q4BReward.hasBothSexes(ST.coll,sp.id))return false; }
  if(q&&bugSearchText(sp).indexOf(q)<0)return false;
  return true;
 }
@@ -307,6 +309,8 @@ function setBugShiny(){ BUG_SHINY=!BUG_SHINY; renderBugs(); }
 function setBugHideUnk(){ BUG_HIDE_UNK=!BUG_HIDE_UNK; renderBugs(); }
 function setBugReared(){ BUG_REARED=!BUG_REARED; renderBugs(); }
 function setBugPlural(){ BUG_PLURAL=!BUG_PLURAL; renderBugs(); }
+function setBugEgg(){ BUG_EGG=!BUG_EGG; renderBugs(); }
+function setBugPair(){ BUG_PAIR=!BUG_PAIR; renderBugs(); }
 function setBugQ(v){BUG_Q=v||'';renderBugs();setTimeout(function(){var e=$('bugQ');if(e){e.focus();if(e.setSelectionRange)e.setSelectionRange(e.value.length,e.value.length)}},0)}
 /* IME 入力中は input 要素を再生成しない (再生成すると変換中の文字列が壊れる)。
    - event.isComposing が true の間は BUG_Q だけ silent 更新
@@ -1389,6 +1393,8 @@ function renderBugs(){
   +'<button class="chip" style="cursor:pointer;'+(BUG_HIDE_UNK?'background:#56714e;color:#fff':'')+'" onclick="setBugHideUnk()">❓ かくす</button>'
   +'<button class="chip" style="cursor:pointer;'+(BUG_REARED?'background:#4a9b3a;color:#fff':'')+'" onclick="setBugReared()">🐣 かえした</button>'
   +'<button class="chip" style="cursor:pointer;'+(BUG_PLURAL?'background:#5b8de0;color:#fff':'')+'" onclick="setBugPlural()">×2 いじょう</button>'
+  +'<button class="chip" style="cursor:pointer;'+(BUG_EGG?'background:#E8B33C;color:#fff':'')+'" onclick="setBugEgg()">🥚 たまごあり</button>'
+  +'<button class="chip" style="cursor:pointer;'+(BUG_PAIR?'background:#E08BB9;color:#fff':'')+'" onclick="setBugPair()">♂♀ そろい</button>'
   +'<span class="small" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div>'
   +'<div class="bugs">';
  filtered.forEach(function(sp){
@@ -1404,10 +1410,15 @@ function renderBugs(){
    var rearedBadge=(Q4BReward.hasReared&&Q4BReward.hasReared(ST.coll,sp.id))?'<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1" title="そだてた子">🐣</span>':'';
    /* レガシー sex='u' マスター虫の「!」バッジ (C フローへの誘導) */
    var sexUnknownBadge=(Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(entry,sp))?'<span class="q4b-legacy-badge" style="position:absolute;top:-4px;left:-4px;width:22px;height:22px;background:#A06BD8;color:#fff;font-size:15px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(160,107,216,.55),0 0 0 2px #fff;pointer-events:none;line-height:1;z-index:3" title="♂♀ をきめてね">!</span>':'';
+   var _eggCnt=(Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(sp.id):{total:0}).total;
+   var eggBadge=_eggCnt>0?'<span style="position:absolute;bottom:2px;right:4px;background:#FFF6E0;border:1px solid #E8B33C;border-radius:99px;font-size:9px;font-weight:800;color:#8A5C2C;padding:0 4px;line-height:1.3;pointer-events:none;z-index:2">🥚×'+_eggCnt+'</span>':'';
+   var pairBadge=(Q4BReward.hasBothSexes&&Q4BReward.hasBothSexes(ST.coll,sp.id))?'<span title="♂♀そろい" style="position:absolute;bottom:2px;left:'+(40)+'px;background:#FCE8F0;border:1px solid #E08BB9;border-radius:99px;font-size:9px;font-weight:800;color:#A0497A;padding:0 4px;pointer-events:none;line-height:1.3;z-index:2">♂♀</span>':'';
    h+='<div class="bug" data-spid="'+sp.id+'" style="position:relative">'
     +favBadge
     +rearedBadge
     +sexUnknownBadge
+    +eggBadge
+    +pairBadge
     +'<span style="position:absolute;bottom:2px;left:4px;font-size:11px;font-weight:700;color:#2A3D2C;background:rgba(255,253,244,.85);border-radius:6px;padding:1px 5px;line-height:1;pointer-events:none">×'+(entry.n||1)+'</span>'
     +Q4BReward.svg(sp,showSh)
     +'<div class="nm">'+(sp.jaName||sp.id)+shinyBadge+'</div>'

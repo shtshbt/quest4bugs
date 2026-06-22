@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v75";  /* v75: storage.js in-flight ガード + 図鑑詳細に卵情報セクション + eggsForSpecies/hasBothSexes helper */
+var CACHE = "q4b-cache-v76";  /* v76: 3 教科の図鑑カードに 🥚×N + ♂♀ペア バッジ + フィルター chip (たまごあり/♂♀そろい) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

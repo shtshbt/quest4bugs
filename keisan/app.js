@@ -5,7 +5,7 @@
 
 "use strict";
 var DB={v:1, act:null, profiles:[]};
-var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false, KZ_REARED=false, KZ_PLURAL=false;
+var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false, KZ_REARED=false, KZ_PLURAL=false, KZ_EGG=false, KZ_PAIR=false;
 var KEISAN_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_keisan_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
 function setKeisanMasterOpen(v){ KEISAN_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_keisan_master_open",v?"1":"0");}catch(_){} }
 
@@ -230,6 +230,8 @@ function zukanMatchK(sp){
   if(KZ_HIDE_UNK){ var p3=P(); var e3=p3&&p3.coll&&p3.coll.catches&&p3.coll.catches[sp.id]; if(!e3) return false; }
   if(KZ_REARED){ var p4=P(); if(!Q4BReward.hasReared||!Q4BReward.hasReared(p4&&p4.coll,sp.id))return false; }
   if(KZ_PLURAL){ var p5=P(); var e5=p5&&p5.coll&&p5.coll.catches&&p5.coll.catches[sp.id]; if(!e5||(e5.n||0)<2)return false; }
+  if(KZ_EGG){ var cntE=Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(sp.id).total:0; if(cntE<=0)return false; }
+  if(KZ_PAIR){ var p6=P(); if(!Q4BReward.hasBothSexes||!Q4BReward.hasBothSexes(p6&&p6.coll,sp.id))return false; }
   if(q && zukanSearchTextK(sp).indexOf(q)<0)return false;
   return true;
 }
@@ -248,6 +250,8 @@ function setKZShiny(){ KZ_SHINY=!KZ_SHINY; showZukan(); }
 function setKZHideUnk(){ KZ_HIDE_UNK=!KZ_HIDE_UNK; showZukan(); }
 function setKZReared(){ KZ_REARED=!KZ_REARED; showZukan(); }
 function setKZPlural(){ KZ_PLURAL=!KZ_PLURAL; showZukan(); }
+function setKZEgg(){ KZ_EGG=!KZ_EGG; showZukan(); }
+function setKZPair(){ KZ_PAIR=!KZ_PAIR; showZukan(); }
 function P(){ for(var i=0;i<DB.profiles.length;i++) if(DB.profiles[i].id===DB.act){ensureLvProgress(DB.profiles[i]); return DB.profiles[i];} return null; }
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照） */
 function pidNow(){ var p=P(); return p?p.id:(window.QuestSave&&QuestSave.currentProfile()); }
@@ -800,6 +804,8 @@ function showZukan(){
     +'<button class="chip" style="cursor:pointer;'+(KZ_HIDE_UNK?'background:var(--green);color:#fff':'')+'" onclick="setKZHideUnk()">❓ かくす</button>'
     +'<button class="chip" style="cursor:pointer;'+(KZ_REARED?'background:#4a9b3a;color:#fff':'')+'" onclick="setKZReared()">🐣 かえした</button>'
     +'<button class="chip" style="cursor:pointer;'+(KZ_PLURAL?'background:#5b8de0;color:#fff':'')+'" onclick="setKZPlural()">×2 いじょう</button>'
+    +'<button class="chip" style="cursor:pointer;'+(KZ_EGG?'background:#E8B33C;color:#fff':'')+'" onclick="setKZEgg()">🥚 たまごあり</button>'
+    +'<button class="chip" style="cursor:pointer;'+(KZ_PAIR?'background:#E08BB9;color:#fff':'')+'" onclick="setKZPair()">♂♀ そろい</button>'
     +'<span class="note" style="align-self:center;margin-left:auto">表示 '+filtered.length+' / '+sorted.length+'</span></div></div>';
   h+='<div class="zgrid">';
   filtered.forEach(function(sp){
@@ -810,6 +816,9 @@ function showZukan(){
     if(isFav) h+='<span style="position:absolute;top:2px;right:4px;font-size:14px;color:#E84A6B;pointer-events:none;line-height:1;z-index:2">♥</span>';
     if(Q4BReward.hasReared&&Q4BReward.hasReared(p.coll,sp.id)) h+='<span style="position:absolute;top:2px;right:'+(isFav?'22px':'4px')+';font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>';
     if(rec&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(rec,sp)) h+='<span class="q4b-legacy-badge" style="position:absolute;top:-4px;left:-4px;width:22px;height:22px;background:#A06BD8;color:#fff;font-size:15px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(160,107,216,.55),0 0 0 2px #fff;pointer-events:none;line-height:1;z-index:3" title="♂♀ をきめてね">!</span>';
+    var _eggCntK=(Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(sp.id):{total:0}).total;
+    if(_eggCntK>0) h+='<span style="position:absolute;bottom:2px;right:4px;background:#FFF6E0;border:1px solid #E8B33C;border-radius:99px;font-size:9px;font-weight:800;color:#8A5C2C;padding:0 4px;line-height:1.3;pointer-events:none;z-index:2">🥚×'+_eggCntK+'</span>';
+    if(rec&&Q4BReward.hasBothSexes&&Q4BReward.hasBothSexes(p.coll,sp.id)) h+='<span title="♂♀そろい" style="position:absolute;bottom:2px;left:40px;background:#FCE8F0;border:1px solid #E08BB9;border-radius:99px;font-size:9px;font-weight:800;color:#A0497A;padding:0 4px;pointer-events:none;line-height:1.3;z-index:2">♂♀</span>';
     if(rec)h+='<span class="cnt">×'+(rec.n||1)+'</span>';
     if(rec){
       /* 通常を基本表示。色違いしか持っていない時のみ色違い表示。✨は色違い所持の印 */

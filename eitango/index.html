@@ -535,6 +535,8 @@ function zukanMatch(sp){
   if(zHideUnk){ const c2=P.catches&&P.catches[sp[0]]; if(!c2) return false; }
   if(zReared){ const collW={catches:P.catches||{}}; if(!Q4BReward.hasReared||!Q4BReward.hasReared(collW,sp[0])) return false; }
   if(zPlural){ const c3=P.catches&&P.catches[sp[0]]; if(!c3||(c3.n||0)<2) return false; }
+  if(zEgg){ const cnt=Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(sp[0]).total:0; if(cnt<=0) return false; }
+  if(zPair){ const collP={catches:P.catches||{}}; if(!Q4BReward.hasBothSexes||!Q4BReward.hasBothSexes(collP,sp[0])) return false; }
   if(q && zukanSearchText(sp).indexOf(q)<0) return false;
   return true;
 }
@@ -553,6 +555,8 @@ function setZShiny(){ zShiny=!zShiny; render(); }
 function setZHideUnk(){ zHideUnk=!zHideUnk; render(); }
 function setZReared(){ zReared=!zReared; render(); }
 function setZPlural(){ zPlural=!zPlural; render(); }
+function setZEgg(){ zEgg=!zEgg; render(); }
+function setZPair(){ zPair=!zPair; render(); }
 
 /* ---------------- WordDB ---------------- */
 let CUSTOM = []; /* loaded from QuestSave('eitango','_custom') */
@@ -834,7 +838,7 @@ function profMeta(id){ return PROFILES.find(p=>p.id===id)||null; }
 function profIcon(p){ return (p&&(p.icon||p.emoji))||'🔤'; }
 
 /* ---------------- boot ---------------- */
-let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zReared=false, zPlural=false;
+let screen='home', zTab='all', zQ='', zR='', zC='', zComp=false, zFav=false, zShiny=false, zHideUnk=false, zReared=false, zPlural=false, zEgg=false, zPair=false;
 let zMasterOpen=(()=>{try{const v=localStorage.getItem("q4b_eitango_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
 function setEitangoMasterOpen(v){ zMasterOpen=!!v; try{localStorage.setItem("q4b_eitango_master_open",v?"1":"0");}catch(_){} }
 
@@ -1255,6 +1259,8 @@ function scrZukan(){
       <button class="chip" style="cursor:pointer;${zHideUnk?'background:var(--leaf);color:#fff':''}" onclick="setZHideUnk()">❓ かくす</button>
       <button class="chip" style="cursor:pointer;${zReared?'background:#4a9b3a;color:#fff':''}" onclick="setZReared()">🐣 かえした</button>
       <button class="chip" style="cursor:pointer;${zPlural?'background:#5b8de0;color:#fff':''}" onclick="setZPlural()">×2 いじょう</button>
+      <button class="chip" style="cursor:pointer;${zEgg?'background:#E8B33C;color:#fff':''}" onclick="setZEgg()">🥚 たまごあり</button>
+      <button class="chip" style="cursor:pointer;${zPair?'background:#E08BB9;color:#fff':''}" onclick="setZPair()">♂♀ そろい</button>
       <span class="small" style="align-self:center;margin-left:auto">表示 ${filtered.length} / ${zk.length}</span>
     </div>
   </div>
@@ -1270,8 +1276,13 @@ function scrZukan(){
     const rearedBadge=(Q4BReward.hasReared&&Q4BReward.hasReared(collE,s[0]))?`<span style="position:absolute;top:2px;right:${isFav?'22px':'4px'};font-size:14px;pointer-events:none;line-height:1;z-index:2" title="そだてた子">🐣</span>`:'';
     const spForLegacy=Q4BReward.spById?Q4BReward.spById(s[0]):null;
     const sexUnknownBadge=(spForLegacy&&Q4BReward.isLegacyMasterUnknownSex&&Q4BReward.isLegacyMasterUnknownSex(c,spForLegacy))?'<span class="q4b-legacy-badge" style="position:absolute;top:-4px;left:-4px;width:22px;height:22px;background:#A06BD8;color:#fff;font-size:15px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(160,107,216,.55),0 0 0 2px #fff;pointer-events:none;line-height:1;z-index:3" title="♂♀ をきめてね">!</span>':'';
+    /* 🥚×N バッジ: 育成中 + 待機中の卵数 */
+    const eggCnt = (Q4BReward.eggsForSpecies?Q4BReward.eggsForSpecies(s[0]):{total:0}).total;
+    const eggBadge = eggCnt>0 ? `<span style="display:inline-block;margin-left:3px;background:#FFF6E0;border:1px solid #E8B33C;border-radius:99px;font-size:10px;font-weight:800;color:#8A5C2C;padding:0 4px">🥚×${eggCnt}</span>` : '';
+    /* ♂♀ そろい badge */
+    const pairBadge = (Q4BReward.hasBothSexes&&Q4BReward.hasBothSexes(collE,s[0])) ? '<span title="♂♀そろい" style="position:absolute;bottom:2px;left:4px;background:#FCE8F0;border:1px solid #E08BB9;border-radius:99px;font-size:9px;font-weight:800;color:#A0497A;padding:0 4px;pointer-events:none;line-height:1.3;z-index:2">♂♀</span>' : '';
     return `<button class="zc ${c.shiny?'shiny':''}" style="--rc:var(--rar${s[4]});position:relative" onclick="showSpec('${s[0]}')">
-      ${favBadge}${rearedBadge}${sexUnknownBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}</span></button>`;
+      ${favBadge}${rearedBadge}${sexUnknownBadge}${pairBadge}<span class="ze">${spSVG(s,36,showSh)}</span><span class="zn">${s[1]}${c.shiny?'✨':''}</span><span class="zs">${szl} ×${c.n}${eggBadge}</span></button>`;
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
