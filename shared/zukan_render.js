@@ -85,7 +85,7 @@
     var img = (sex === "f" && entry.image_female) ? entry.image_female : entry.image;
     if(!img) return null;
     var ver = (img.version || entry.imageVersion || "1");
-    var src = img.original || img.display;
+    var src = img.resized || img.original || img.display;
     if(!src) return null;
     return ZUKAN_BASE + src + "?v=" + encodeURIComponent(ver);
   }
