@@ -362,11 +362,22 @@ function kanjiRangeBoost(key){
 }
 function applyAnswer(key,sk,ok,mode){
  var r=rec(key,sk), t=todayStr();
- /* れんしゅう/ふくしゅうでも 正解で すすむ(1日1回まで)。テストは進級なし(関門のため)。
-    まちがいは 1段階だけ もどる(以前は2段階で きつすぎた)。 */
- if(ok){ if(mode!=='test' && r.la!==t){ r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]); } }
- else { if(r.s>0){ r.s=Math.max(1,r.s-1); } r.due=t; r.la='';
-   ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60; }
+ /* れんしゅう/ふくしゅうでは 正解で すすむ(1日1回まで)、 まちがいは 1 段階もどる。
+    テストは進級判定だけの「関門」なので、 正誤どちらでも SRS は変更しない。
+    結果と誤答一覧 (ST.wrong / ST.log) だけ記録 → 正解で box が上がらず誤答で
+    box が下がる非対称を解消。 */
+ if(mode === 'test'){
+   /* 誤答時の誤答一覧記録は維持 (にがて指導用) */
+   if(!ok){
+     ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
+   }
+ } else if(ok){
+   if(r.la !== t){ r.s=Math.min(5,r.s+1); r.la=t; r.due=addDays(t,INT[r.s]); }
+ } else {
+   if(r.s>0){ r.s=Math.max(1,r.s-1); }
+   r.due=t; r.la='';
+   ST.wrong.unshift({k:key,sk:sk,d:t}); if(ST.wrong.length>60)ST.wrong.length=60;
+ }
  var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.a++;
 }
 function itemPool(){ var out=[];
