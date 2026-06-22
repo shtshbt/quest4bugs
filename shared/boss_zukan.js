@@ -32,11 +32,26 @@
     ]).then(function(rs){
       var bt = rs[0] || {};
       bt.bosses = bt.bosses || {};
+      var keisanProf = rs[1] || {};
+      var kanjiProf  = rs[2] || {};
+      var eitangoProf = rs[3] || {};
       var colls = {
-        keisan:  rs[1] && rs[1].coll ? rs[1].coll : null,
-        kanji:   rs[2] && rs[2].coll ? rs[2].coll : null,
-        eitango: rs[3] && rs[3].catches ? {catches: rs[3].catches} : null
+        keisan:  keisanProf.coll || null,
+        kanji:   kanjiProf.coll || null,
+        eitango: eitangoProf.catches ? {catches: eitangoProf.catches, total: eitangoProf.total||0} : null
       };
+      /* migration (bosses→catches): BATTLE.bosses に records ありで教科 coll.catches に
+         未登録のボスを補完 (一般図鑑カードに出るように) */
+      var collTouched = backfillCatchesFromBosses(bt.bosses, colls);
+      if(collTouched.keisan && colls.keisan){ keisanProf.coll = colls.keisan;
+        try{ global.QuestSave.save("keisan", profileId, keisanProf); }catch(_){} }
+      if(collTouched.kanji && colls.kanji){ kanjiProf.coll = colls.kanji;
+        try{ global.QuestSave.save("kanji", profileId, kanjiProf); }catch(_){} }
+      if(collTouched.eitango && colls.eitango){
+        eitangoProf.catches = colls.eitango.catches;
+        eitangoProf.total = colls.eitango.total;
+        try{ global.QuestSave.save("eitango", profileId, eitangoProf); }catch(_){}
+      }
       /* migration: eggGranted=true だが対応する boss_pair 卵が eggs/pendingEggs どこにも
          無いボスを eggGranted=false に戻し、bossesBackfill で再試行可能にする。
          旧版バグ (eggGranted を null-check 前に true 設定) で取り残されたユーザの救済。 */
@@ -71,6 +86,31 @@
       }
     }).catch(function(){ BOSSES = {}; loaded = true; });
   }
+  /* migration: BATTLE.bosses[id].records ありなのに 教科 coll.catches[id] が空のボスに
+     対し、records[0] (= first specimen) を coll に push して一般図鑑カードを表示可能に。
+     in-place で coll.catches を変更し、変更があった game の名前を返す。 */
+  function backfillCatchesFromBosses(bossesMap, collsByGame){
+    var B = global.Q4BBattle, RW = global.Q4BReward;
+    if(!B || !B.roster || !RW || !RW.gameFor || !RW.record) return {};
+    var byId = byIdMap();
+    var touched = {};
+    B.roster.forEach(function(r){
+      if(r.predator || !r.id || !byId[r.id]) return;
+      var be = bossesMap[r.id];
+      if(!be || !be.records || be.records.length === 0) return;
+      var sp = byId[r.id];
+      var game = RW.gameFor(sp);
+      var coll = collsByGame[game];
+      if(!coll) return;
+      if(!coll.catches) coll.catches = {};
+      if(coll.catches[r.id]) return;  /* 既に教科側に記録あり */
+      var rec0 = be.records[0];
+      RW.record(coll, sp, {sex:rec0.sex, size:rec0.s, shiny:!!rec0.shiny, reared:false});
+      touched[game] = true;
+    });
+    return touched;
+  }
+
   /* coll.catches[boss_id] が存在しているのに bt.bosses[id] が未登録 (または records 等が
      欠落している) ボスに対し、in-place で補完する。既存値があれば尊重 (max 比較)。 */
   function bossesBackfill(bossesMap, collsByGame){
@@ -179,9 +219,15 @@
     var sizeLabel = (szRange && szRange[1] > szRange[0])
       ? szRange[0] + '〜' + szRange[1] + 'mm'
       : (szRange && szRange[0] ? szRange[0] + 'mm' : '');
+    /* 🥚×N バッジ: 育成中 + 待機中の卵数。一般図鑑カードと同じ書式 */
+    var eggCnt = (RW.eggsForSpecies ? RW.eggsForSpecies(r.id) : {total:0}).total;
+    var eggBadge = eggCnt > 0
+      ? '<span style="position:absolute;bottom:2px;right:4px;background:#FFF6E0;border:1px solid #E8B33C;border-radius:99px;font-size:9px;font-weight:800;color:#8A5C2C;padding:0 4px;line-height:1.3;pointer-events:none;z-index:2">🥚×'+eggCnt+'</span>'
+      : '';
     if(game === "kanji"){
       return '<button type="button" class="bug' + (got ? '' : ' no') + '" onclick="' + click + '"'
-        + ' style="width:100%;font:inherit;cursor:pointer;appearance:none;-webkit-appearance:none">'
+        + ' style="position:relative;width:100%;font:inherit;cursor:pointer;appearance:none;-webkit-appearance:none">'
+        + eggBadge
         + (got ? art : '<div style="font-size:44px;line-height:64px">❓</div>')
         + '<div class="nm">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</div>'
         + '<div class="rar">' + tierName + '</div>'
@@ -189,15 +235,17 @@
         + '</button>';
     }
     if(game === "eitango"){
-      return '<button type="button" class="zc' + (got ? '' : ' un') + '" style="--rc:var(--rar' + tier + ')" onclick="' + click + '">'
+      return '<button type="button" class="zc' + (got ? '' : ' un') + '" style="position:relative;--rc:var(--rar' + tier + ')" onclick="' + click + '">'
+        + eggBadge
         + '<span class="ze" style="width:64px;height:64px;margin:0 auto;display:block">' + art + '</span>'
         + '<span class="zn">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</span>'
         + '<span class="zs">' + (sizeLabel ? sizeLabel + ' ' : '') + tierName + '</span>'
         + '</button>';
     }
     return '<button type="button" class="zc r' + tier + '" onclick="' + click + '"'
-      + (got ? '' : ' style="opacity:.55"')
-      + '><div class="bs' + (got ? '' : ' sil') + '">' + art + '</div>'
+      + (got ? ' style="position:relative"' : ' style="position:relative;opacity:.55"')
+      + '>' + eggBadge
+      + '<div class="bs' + (got ? '' : ' sil') + '">' + art + '</div>'
       + '<div class="nm">' + name + (got ? '👑' : '') + (shiny ? '✨' : '') + '</div>'
       + '</button>';
   }

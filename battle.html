@@ -1013,6 +1013,33 @@ function loadAll(){
   });
 }
 function saveBattle(){ if(!PROF||!window.QuestSave)return; BATTLE.party=PARTY.map(function(s){return s.id;}); BATTLE.cleared=CLEARED; BATTLE.gauge=GAUGE; QuestSave.save("battle",PROF,BATTLE); }
+/* ボス撃破時に教科 coll.catches へも 1 個体記録 (一般図鑑にカードを出すため)。
+   game in {kanji, keisan, eitango}, rec={d,s,sex,shiny}. n=1 のみ呼ばれる前提。 */
+function _recordBossInGameColl(game, sp, rec){
+  if(!PROF || !window.QuestSave || !window.Q4BReward || !sp) return;
+  QuestSave.load(game, PROF).then(function(profile){
+    profile = profile || {};
+    var coll;
+    if(game === "eitango"){
+      profile.catches = profile.catches || {};
+      profile.total = profile.total || 0;
+      coll = {catches: profile.catches, total: profile.total};
+    } else {
+      if(!profile.coll) profile.coll = {catches:{}, total:0};
+      coll = profile.coll;
+    }
+    if(Q4BReward.record){
+      Q4BReward.record(coll, sp, {sex:rec.sex, size:rec.s, shiny:!!rec.shiny, reared:false});
+    }
+    if(game === "eitango"){
+      profile.catches = coll.catches;
+      profile.total = coll.total;
+    }
+    QuestSave.save(game, PROF, profile);
+    /* in-memory stash も更新して subsequent backfill が古い coll を読まないように */
+    if(window.BATTLE_COLLS) BATTLE_COLLS[game] = coll;
+  });
+}
 
 /* ================= パーティ編成（別画面） ================= */
 var PSEARCH="", PTYPE="", PRARITY="";   /* 編成プールの絞り込み: 名称検索 / タイプ / レア度 */
@@ -1940,7 +1967,8 @@ function finish(win){
         var bossColl = BATTLE_COLLS && BATTLE_COLLS[bossGame];
         var killRew = Q4BReward.bossKillReward(rew.speciesId, BATTLE.bosses, bossColl);
         if(killRew && killRew.kind==="specimen" && prevN===0){
-          /* 1 回目: 個体 1 匹を records に追加 (ヒストグラム表示用) */
+          /* 1 回目: 個体 1 匹を BATTLE.bosses[id].records と 教科 coll.catches[id] の
+             両方に記録。後者は一般図鑑の表示・♂♀ペア判定・🥚×N バッジに必要。 */
           var bsex = killRew.sex;
           var bsz  = Q4BReward.rollSize(spBoss, bsex);
           var bshi = Q4BReward.rollShiny();
@@ -1950,6 +1978,8 @@ function finish(win){
           BATTLE.bosses[rew.speciesId].max = bsz;
           BATTLE.bosses[rew.speciesId].min = bsz;
           if(bshi) BATTLE.bosses[rew.speciesId].shiny = 1;
+          /* 教科の一般図鑑にも反映: QuestSave に書き戻し */
+          _recordBossInGameColl(bossGame, spBoss, brec);
         }
         if(killRew && killRew.kind==="egg"){
           Q4BReward.awardBossEgg(null, spBoss, killRew.sex);
