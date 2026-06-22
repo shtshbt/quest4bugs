@@ -1687,6 +1687,12 @@ function gFrac(lv){
       say:frSay(w1,n1,d1)+sayop+frSay(w2,n2,d2)+" は？",
       ans:{p:rp,q:rq}};
   }
+  /* N12: 200 回の試行で生成できなかったときの fallback。 これがないと undefined が
+     返り、 sougou path の sq.cat= で例外。 well-posed な分数加算問題を最後に返す。 */
+  return {cat:"frac", kind:"frac",
+    text:"1/2 ＋ 1/4",
+    say:"2ぶんの1 たす 4ぶんの1 は？",
+    ans:{p:3, q:4}};
 }
 /* まちがいさがし: Lv ごとに使う演算種・式の形を変えて 10段階化。
    ミスは「式と整合的な値だが計算すると違う」もの (九九の隣接段 / くり上がり1個ミス /
@@ -1759,8 +1765,26 @@ function gMachi(lv){
     lines=["① "+a+"＋"+b+"＝"+disp[0],"② "+v0+"＋"+c+"＝"+disp[1],"③ "+a+"＋"+b+"＋"+c+"＝"+disp[2]];
     fix=vals[kk];
   } else if(lv===3){
-    /* Lv3: 減算 — 連続2回の減算。ミスは くり下がり1個落とし。 */
-    a=ri(50,99); b=ri(10,a-20); c=ri(5,b-1);
+    /* Lv3: 減算 — 連続2回の減算。ミスは くり下がり1個落とし。
+       N9: 旧コードは c=ri(5,b-1) で c が v0=a-b より大きくなり v1=v0-c が負数に
+       なる組合せがあった。 Lv10 の 2 段階提出で真値が負数だと数字パッドに − が
+       無く入力不能。 c ≤ min(b-1, v0-1) でガードし、 上限が 5 未満なら 別の Lv へ
+       振り替える。 */
+    a=ri(50,99); b=ri(10,a-20);
+    var _cMax = Math.min(b-1, a-b-1);
+    if(_cMax < 5){
+      /* 安全な範囲が無いなら このターン は Lv2 (連続加算) に振り替え */
+      a=ri(10,40); b=ri(10,40); c=ri(10,40);
+      v0=a+b; v1=v0+c;
+      kk=ri(0,2);
+      expr=a+"＋"+b+"＋"+c;
+      vals=[v0,v1,v1];
+      errs=[carryErr(v0), carryErr(v1), carryErr(v1)];
+      disp=applyErr(vals,errs,kk);
+      lines=["① "+a+"＋"+b+"＝"+disp[0],"② "+v0+"＋"+c+"＝"+disp[1],"③ "+a+"＋"+b+"＋"+c+"＝"+disp[2]];
+      fix=vals[kk];
+    } else {
+    c=ri(5, _cMax);
     v0=a-b; v1=v0-c;
     kk=ri(0,2);
     expr=a+"−"+b+"−"+c;
@@ -1769,6 +1793,7 @@ function gMachi(lv){
     disp=applyErr(vals,errs,kk);
     lines=["① "+a+"−"+b+"＝"+disp[0],"② "+v0+"−"+c+"＝"+disp[1],"③ "+a+"−"+b+"−"+c+"＝"+disp[2]];
     fix=vals[kk];
+    }                       /* N9: _cMax >= 5 だった通常パスを閉じる */
   } else if(lv===4){
     /* Lv4: 符号 — 乗加減 混合3ステップ。乗算行は九九ミス、加減行はくり上がりミス。 */
     a=ri(3,9); b=ri(3,9); c=ri(10,30);
@@ -1898,11 +1923,13 @@ function gWarizan(lv){
       if(dividend<100||dividend>999) continue;
       t=dividend+"÷"+d; ans=q;
     } else if(lv===6){
-      /* 3桁÷1桁 あまりあり 商 (商は2桁以上) */
+      /* 3桁÷1桁 あまりあり 商 (商は 2 桁: 10..99)。
+         N13: 旧版は qq<10 だけで上限が無く、 500÷3=166 のような商 3 桁問題が
+         混ざり、 レベル説明「商2けた」と乖離していた。 */
       d=ri(3,9); dividend=ri(100,500);
       if(dividend%d===0) continue;
       var qq=Math.floor(dividend/d);
-      if(qq<10) continue;
+      if(qq<10||qq>99) continue;
       t=dividend+"÷"+d+" のしょう"; ans=qq;
     } else if(lv===7){
       /* 3桁÷1桁 あまりあり 商 (被除数 100-999 限定) */
@@ -1936,7 +1963,9 @@ function gWarizan(lv){
       }
     }
     if(t!=null&&ans!=null&&Number.isInteger(ans)&&ans>0){
-      return {cat:"warizan",kind:"num",text:t,say:t.replace("÷"," わる ").replace(" のしょう","").replace(" のあまり",""),ans:ans};
+      /* N11: 音声で「商か余りか」 を消すと、 ビギナーで読めない子が何を答えるか
+         判別できない。 「の しょうは？」「の あまりは？」 として残す。 */
+      return {cat:"warizan",kind:"num",text:t,say:t.replace("÷"," わる ").replace(" のしょう"," の しょうは？").replace(" のあまり"," の あまりは？"),ans:ans};
     }
   }
   return {cat:"warizan",kind:"num",text:"6÷2",say:"6 わる 2",ans:3};
@@ -2283,22 +2312,29 @@ function gKakebun(lv){
 }
 /* K5DEV発展27カテゴリの汎用生成器: shared/k5_devs_data.js のプールから出題。
    各カテゴリのLv1-10は学習指導要領(小1-小4)に沿った段階仕様で生成済み。 */
-function gK5Dev(cat, lv){
+/* N10: K5DEV データの読込失敗 / Lv 欠落 / pool 空 のとき fail-closed にして
+   null を返す。 旧版は「1+1」 を返し、 1+1 だけで全発展カテゴリを Lv10 にできる
+   抜け道だった。 caller (buildPractice / genBy) で null を見て出題ブロック + 警告。 */
+function gK5Dev(cat, lv, opts){
   if(lv==null) lv=ri(1,10);
   lv=Math.max(1,Math.min(10,lv));
   var data=window.Q4B_K5DEVS && window.Q4B_K5DEVS[cat];
-  if(!data || !data.levels || !data.levels[lv-1]){
-    return {cat:cat,kind:"choice",text:"1+1は？",say:null,ans:"2",choices:["1","2","3","4"]};
-  }
+  if(!data || !data.levels || !data.levels[lv-1]) return null;
   var pool=data.levels[lv-1].pool || [];
-  if(!pool.length){
-    return {cat:cat,kind:"choice",text:"1+1は？",say:null,ans:"2",choices:["1","2","3","4"]};
-  }
-  var q=pool[Math.floor(Math.random()*pool.length)];
+  if(!pool.length) return null;
+  /* N8: missedKey で別 Lv 弱点が上書きされないよう、 patternId を text の安定
+     ハッシュで付与 (data 不変なので text を identifier として使える)。 */
+  /* N7: caller (buildPractice) で「セット内重複排除」 のために excludeIdx を渡す。 */
+  var exclude = (opts && opts.exclude) || {};
+  var candidates = pool.map(function(qq,i){return {idx:i,qq:qq};}).filter(function(o){return !exclude[o.idx];});
+  if(!candidates.length) candidates = pool.map(function(qq,i){return {idx:i,qq:qq};});
+  var picked = candidates[Math.floor(Math.random()*candidates.length)];
+  var q = picked.qq;
   var ans=String(q.ans);
   var choices=[ans];
   (q.distractors||[]).forEach(function(d){ var s=String(d); if(choices.indexOf(s)<0)choices.push(s); });
-  return {cat:cat,kind:"choice",text:q.text,say:null,ans:ans,choices:shuffle(choices)};
+  return {cat:cat,kind:"choice",text:q.text,say:null,ans:ans,choices:shuffle(choices),
+          lv:lv, patternId:'k5dev:'+cat+':'+lv+':'+picked.idx, _k5devIdx:picked.idx};
 }
 /* 九九暗唱: 「ににんがし」「にさんがろく」のフレーズを覚える専用カテゴリ。
    小学校の指導順(2→5→3→4→6→7→8→9→1)で学習。
@@ -5244,7 +5280,18 @@ function gHireihanpi(lv){
   }
   return {cat:"hireihanpi",kind:"num",text:t,say:null,ans:ans};
 }
+/* N8: genBy の戻り値に q.lv を付与し、 missedKey で「Lv 別の苦手」 を区別できる
+   ようにするための wrapper。 旧コードは q.lv を立てておらず、 missedKey の lv
+   フィールドが常に空 → 暗算 Lv1 の加算ミスと Lv10 複合計算ミスが同キーで上書き。 */
+function _genByImpl(cat,p,lv){ return _genByRaw(cat,p,lv); }
 function genBy(cat,p,lv){
+  var resolvedLv = lv;
+  if(resolvedLv==null && p && LVL_CATS[cat]){ resolvedLv=(p.lv&&p.lv[cat])||1; }
+  var q = _genByRaw(cat,p,resolvedLv);
+  if(q && q.lv==null) q.lv = resolvedLv;
+  return q;
+}
+function _genByRaw(cat,p,lv){
   if(lv==null && p && LVL_CATS[cat]){ lv=(p.lv&&p.lv[cat])||1; }  /* 適応レベル: 未指定なら現在Lv */
   if(cat==="sougou"){
     /* 総合: 学習済みカテゴリ全体から1問。cat を "sougou" に統一して集計・レベリングする。
@@ -5288,7 +5335,11 @@ function genBy(cat,p,lv){
       spool=basePool.concat(learnedDev);
     }
     var sq=genBy(pick(spool), p, lv);
+    if(!sq) return null;
+    /* N8: sougou は元カテゴリも保持して missed 重複統合で別概念が上書きされないように */
+    sq.patternId = 'sougou:' + (sq.cat||'?') + ':' + (sq.lv||0);
     sq.cat="sougou";
+    sq.lv = lv;               /* 内側 cat の Lv ではなく sougou の Lv で記録 */
     if(lv===9){ sq.timeHint=true; }   /* UI 側で「タイム目標 60s」等を表示するためのフラグ */
     return sq;
   }
@@ -5386,7 +5437,32 @@ function buildMission(p){
 }
 function buildPractice(cat,p,lv){
   var n=5, list=[], i;
-  for(i=0;i<n;i++)list.push(genBy(cat,p,lv));
+  /* K5DEV カテゴリは pool が固定サイズ (多くは 5 問) なので、 独立抽出を 5 回繰り返すと
+     重複が高頻度で発生する (N7)。 same set 内で出題済 idx を除外する形で gK5Dev を呼ぶ。 */
+  if(window.Q4B_K5DEVS && Q4B_K5DEVS[cat]){
+    var used={};
+    for(i=0;i<n;i++){
+      var q=gK5Dev(cat, lv, {exclude:used});
+      if(!q){
+        /* N10: データ欠落で fail-closed。 これ以上 fill しない。 */
+        flashMsg("もんだいデータが よみこめません. ページを よみなおしてね");
+        break;
+      }
+      if(q._k5devIdx!=null) used[q._k5devIdx]=1;
+      list.push(q);
+    }
+    return list;
+  }
+  for(i=0;i<n;i++){
+    var q2=genBy(cat,p,lv);
+    if(!q2) continue;
+    /* 一般生成器でも 同セット 内で text 重複があれば 3 回まで再抽選 */
+    var tries=0;
+    while(list.some(function(x){return x && x.text===q2.text;}) && tries<3){
+      q2 = genBy(cat,p,lv); tries++;
+    }
+    if(q2) list.push(q2);
+  }
   return list;
 }
 
@@ -5522,12 +5598,25 @@ function curQ(){return Q.timed?Q.cur:Q.list[Q.i];}
 function nextQ(){
   if(Q.i>=Q.list.length){finishSet();return;}
   if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
-  renderQ(Q.list[Q.i]);
+  var cur = Q.list[Q.i];
+  if(!cur){
+    /* N10: 問題が null (K5DEV データ欠落・gFrac 失敗等) のときは fail-closed。
+       残りの問題をスキップして set 終了し、 報酬・Lv 進行を抑止。 */
+    alert("もんだいデータが よみこめません. ページを よみなおしてね");
+    finishSet();
+    return;
+  }
+  renderQ(cur);
 }
 function nextTimed(){
   if(!Q||Q.fin)return;
   if(Date.now()>=Q.end){finishTimed();return;}
   Q.cur=genBy(Q.cat,P());
+  if(!Q.cur){
+    alert("もんだいデータが よみこめません. ページを よみなおしてね");
+    finishTimed();
+    return;
+  }
   renderQ(Q.cur);
 }
 
@@ -5979,10 +6068,12 @@ function recordAdaptStat(cat,ok){
    重複統合し、 同概念ヒット時は tries++ / due 更新 / payload 差し替えにとどめる。 */
 function missedKey(q){
   /* 数値そのものではなく問題のパターンを特徴づける identifier。
-     ランダム数値だけ違う「同じ概念」 を 1 つのエントリに統合する。 */
-  var lv = (q.lv!=null) ? q.lv : '';
-  var dan = (q.dan!=null) ? q.dan : '';
-  var fix = q.fixmsg ? '#'+String(q.fixmsg).slice(0,8) : '';
+     ランダム数値だけ違う「同じ概念」 を 1 つのエントリに統合する (K21+N8)。
+     patternId がある場合はそれを優先 (K5DEV データ別 idx・sougou の元 cat 等)。 */
+  if(q && q.patternId) return q.patternId;
+  var lv = (q&&q.lv!=null) ? q.lv : '';
+  var dan = (q&&q.dan!=null) ? q.dan : '';
+  var fix = (q&&q.fixmsg) ? '#'+String(q.fixmsg).slice(0,8) : '';
   return (q.cat||'')+'|'+(q.kind||'')+'|'+lv+'|'+dan+fix;
 }
 function handleMissed(q,ok,o){

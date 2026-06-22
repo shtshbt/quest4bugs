@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v110";  /* v110: keisan 新規 6 件 — 暗算 Lv5 で a+b<c の負数組合せを排除 (数字パッドに − が無く入力不能だった), 復習対象に発展カテゴリ (K5DEV/K10DEV) を含める (和差算・つるかめ等 を学んでも復習に出ない問題を解消), タイムアタックの解放を p.timedUnlocked[cat] で永続化 (再ロックを停止), リセット時に keisan/_book と keisan/_legacy も削除 (_book backfill で消去データが復活する経路を遮断), 九九暗唱 2 の段の「ににんがに」→「にいちがに」 訂正+穴埋め分割を「が」「じゅう」 基準の構造的に, 筆算 Lv 説明 (showLevels の desc) を加算・減算別の実装通り文言に */
+var CACHE = "q4b-cache-v111";  /* v111: keisan 新規 7 件 — K5DEV 5問セットの重複 96% 問題を pool shuffle+exclude で解消, missedKey に lv/patternId を反映 (別 Lv の弱点を上書きしない), まちがいさがし Lv3 で v0-c<0 ガード (Lv10 で入力不能だった負数), K5DEV データ欠落時は null を返し nextQ で fail-closed (1+1 で全発展 Lv10 ルート遮断), 割り算音声に「の しょうは？」「の あまりは？」 を残す (商/余りの区別が聞こえる), gFrac 末尾に fallback 追加 (sougou path で undefined 例外回避), 割り算 Lv6 を qq<=99 で商 2 桁に制限 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
