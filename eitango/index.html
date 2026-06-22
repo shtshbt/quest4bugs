@@ -1743,20 +1743,28 @@ async function doImport(){
 }
 function doCSV(){
   const text=$('#csvTxt').value, level=+$('#csvLevel').value;
-  const seen=new Set(CUSTOM.map(w=>w.level+'|'+w.en));
-  let n=0;
+  /* 重複照合: CUSTOM 内のみでなく 既存収録語 (WordDB.byField) も含めて、 en の
+     小文字化で照合する。学校語彙 CSV と master data の二重登録を防止。 */
+  const lower = s => String(s||'').trim().toLowerCase();
+  const seen = new Set();
+  CUSTOM.forEach(w => { if(w.level === level && w.en) seen.add(lower(w.en)); });
+  if(typeof WordDB !== 'undefined' && WordDB.byField){
+    const existing = WordDB.byField(level) || [];
+    existing.forEach(w => { if(w.en) seen.add(lower(w.en)); });
+  }
+  let n=0, skipped=0;
   text.split(/\r?\n/).forEach(line=>{
     line=line.trim(); if(!line)return;
     const parts=line.split(',');
     if(parts.length<2)return;
     const en=parts[0].trim(), ja=parts[1].trim(), ex=parts.slice(2).join(',').trim();
     if(!en||!ja)return;
-    const k=level+'|'+en;
-    if(seen.has(k))return;
-    CUSTOM.push({en:en,ja:ja,ex:ex,level:level}); seen.add(k); n++;
+    const key=lower(en);
+    if(seen.has(key)){ skipped++; return; }
+    CUSTOM.push({en:en,ja:ja,ex:ex,level:level}); seen.add(key); n++;
   });
   if(n){ saveCustom(); $('#csvTxt').value=''; }
-  UI.toast(n+'語 追加した');
+  UI.toast(n+'語 追加した' + (skipped ? '（' + skipped + '語 すでにあるよ）' : ''));
 }
 function setRate(v){ CFG.rate=+v; $('#rateV').textContent=v; saveSettings(); }
 async function doDelProf(id,name){
