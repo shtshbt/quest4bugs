@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v87";  /* v87: keisan Lv 判定 down を 6/10 → 5/10 に緩和 (安定ゾーン 6-8 問の 3 問幅) */
+var CACHE = "q4b-cache-v88";  /* v88: zukan catalog bulk migrate (image.original → image.resized, image.segmented 削除) — 旧 sw を使ってる端末で図鑑写真が SVG fallback してたのを修正 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
