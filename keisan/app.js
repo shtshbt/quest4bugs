@@ -795,7 +795,7 @@ function showZukan(){
     +classOpts.map(function(k){return '<option value="'+esc(k)+'"'+(KZ_C===k?' selected':'')+'>'+esc(k)+'</option>';}).join("")
     +'</select></label>'
     +'<div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:800">'
-    +[["","ぜんぶ"],["4","でんせつ"],["3","ウルトラ"],["2","スーパー"],["1","レア"],["0","ノーマル"]].map(function(x){
+    +[["","ぜんぶ"],["4","でんせつ"],["3","ウルトラレア"],["2","スーパーレア"],["1","レア"],["0","ノーマル"]].map(function(x){
       var on=String(KZ_R)===String(x[0]) || (x[0]===""&&KZ_R==="");
       return '<button class="chip" style="cursor:pointer;'+(on?'background:var(--green);color:#fff':'')+'" onclick="setKZR(\''+x[0]+'\')">'+x[1]+'</button>';
     }).join("")

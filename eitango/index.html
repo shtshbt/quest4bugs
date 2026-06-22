@@ -633,7 +633,7 @@ const SRS = {
 /* ---------------- Reward (collection) ---------------- */
 const Reward = {
   NEED: 8,
-  RARNAME: ['ノーマル', 'レア', 'スーパーレア', 'でんせつ'],
+  RARNAME: ['ノーマル', 'レア', 'スーパーレア', 'ウルトラレア', 'でんせつ'],
   onAnswer(p, ok, field, itemId) {
     const t = Engine.todayKey();
     const c = p.cal[t] || (p.cal[t] = { q: 0, c: 0 });
@@ -1250,7 +1250,7 @@ function scrZukan(){
       </select>
     </label>
     <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:800">
-      ${[['','ぜんぶ'],['3','でんせつ'],['2','スーパー'],['1','レア'],['0','ノーマル']].map(x=>{
+      ${[['','ぜんぶ'],['4','でんせつ'],['3','ウルトラレア'],['2','スーパーレア'],['1','レア'],['0','ノーマル']].map(x=>{
         const on=(String(zR)===String(x[0])||(x[0]===''&&zR===''));
         return `<button class="chip" style="cursor:pointer;${on?'background:var(--leaf);color:#fff':''}" onclick="setZR('${x[0]}')">${x[1]}</button>`;
       }).join('')}

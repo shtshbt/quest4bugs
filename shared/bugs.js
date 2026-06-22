@@ -2,7 +2,7 @@
   "use strict";
 
   var RARITY_LEVEL={N:0,R:1,SR:2,SSR:3,SS:4};
-  var RARITY_LABELS=["ノーマル","レア","スーパーレア","ウルトラレア","スペシャル"];
+  var RARITY_LABELS=["ノーマル","レア","スーパーレア","ウルトラレア","でんせつ"];
   var ORDER_JA={
     Lepidoptera:"チョウ目", Coleoptera:"コウチュウ目", Odonata:"トンボ目",
     Hemiptera:"カメムシ目（半翅目）", Hymenoptera:"ハチ目", Orthoptera:"バッタ目（直翅目）",
