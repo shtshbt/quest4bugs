@@ -1915,7 +1915,7 @@ function buildMain(){
   if(q.length<N){
     const budget=Math.min(SRS.newBudget(P),N-q.length);
     const fresh=Engine.shuffle(SRS.newList(P,GWORDS)).slice(0,budget);
-    SRS.useNew(P,fresh.length);
+    /* useNew() はキュー作成時ではなく初回回答時に消費 (途中終了で予算ロスを防ぐ) */
     q=q.concat(fresh.map(w=>({w,type:srsType(w)})));
   }
   if(q.length<N){
@@ -2060,7 +2060,13 @@ function quit(){ if(confirm('とちゅうで やめる?')){ touchP(); if(S&&S.mo
 
 function opts4(item){
   const w=item.w;
-  let pool=GWORDS.filter(x=>x.key!==w.key);
+  /* distractor は問題の出身フィールド内に絞る。 復習/おもいだしモードで GWORDS が
+     全フィールド結合になっていても、 各 queue 要素の item.fid (or GFID fallback) で
+     プールを field 限定にする → 1 級語に基礎語が混じる、 kids 5 歳向けに上級語が
+     混じる、 等の難易度ミスマッチを防ぐ。 */
+  const fid = item.fid || GFID;
+  const fieldWords = (typeof WordDB !== 'undefined' && WordDB.byField) ? WordDB.byField(fid) : GWORDS;
+  let pool = (fieldWords && fieldWords.length >= 4) ? fieldWords.filter(x=>x.key!==w.key) : GWORDS.filter(x=>x.key!==w.key);
   if(!KIDS&&w.pos) { const same=pool.filter(x=>x.pos===w.pos); if(same.length>=3) pool=same; }
   if(KIDS&&w.cat){ const same=pool.filter(x=>x.cat===w.cat); if(same.length>=3) pool=same; }
   const ds=Engine.shuffle(pool).slice(0,3);
@@ -2261,9 +2267,32 @@ function afterAnswer(item,ok,title,detail){
   if(!item.retry){
     const wasKids=item.type==='kids';
     const prevStage=growthStage(item.w,wasKids).stage; /* 更新前の段階 */
+    /* 新出語の NEW_PER_DAY 消費はキュー作成時 → 初回回答時に移動。 P.srs にも
+       P.kids にも未登録 = 未着手の新規語。 セッション内で同じ語が複数回出ても
+       1 回だけ消費 (S._newConsumed セット)。 */
+    if(!P.srs[item.w.key] && !P.kids[item.w.key]){
+      if(!S._newConsumed) S._newConsumed = {};
+      if(!S._newConsumed[item.w.key]){
+        SRS.useNew(P, 1);
+        S._newConsumed[item.w.key] = true;
+      }
+    }
     if(wasKids){
-      const k=P.kids[item.w.key]||[0,0,0];
-      k[0]++; if(ok)k[1]++; else k[2]++;
+      /* kids は P.kids[key]=[seen, correct, wrong, lastAdvanceDay] に拡張。
+         同日内の重複正解で correct++ が連発しないよう lastAdvanceDay で gate。
+         5 歳向けでも「別日の正解で🦋」 となり、 SRS due gate と思想統一。 */
+      const k=P.kids[item.w.key]||[0,0,0,""];
+      k[0]++;
+      if(ok){
+        const t=Engine.todayKey();
+        if(k[3] !== t){
+          k[1]++;
+          k[3]=t;
+        }
+        /* 同日 2 回目以降の正解は seen のみカウント、 correct は据置 */
+      } else {
+        k[2]++;
+      }
       P.kids[item.w.key]=k;
     } else {
       SRS.grade(P,item.w.key,ok);
