@@ -835,13 +835,14 @@
       var tierBg = sp && sp.rarity ? (rarityColorMap[sp.rarity] || '#EAEFE0') : '#EAEFE0';
       var bornDate = egg.bornAt ? esc(egg.bornAt) : '';
       var canPromote = (slotsAvailable > 0) && !eggsIds[egg.id];
-      var promoteDisabled = canPromote ? '' : ' disabled';
-      var promoteStyle = canPromote ? 'background:#4A9B3A;color:#fff;cursor:pointer' : 'background:#CFDDB2;color:#6B7A5E;cursor:not-allowed';
+      /* disabled 属性は使わない (子に「押した感」と理由を見せる)。常に有効、
+         押した時に canPromote=false なら alert で理由を明示。 */
+      var promoteStyle = canPromote ? 'background:#4A9B3A;color:#fff' : 'background:#CFDDB2;color:#6B7A5E;opacity:.7';
       var hintHTML = '';
       if(!canPromote && eggsIds[egg.id]){
         hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">いま 同じ虫を そだててるよ</div>';
       } else if(!canPromote){
-        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">スロットが いっぱい</div>';
+        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">スロットが いっぱい・先に こうたい してね</div>';
       }
       return '<div class="q4bNestCard" style="background:#fff;border:1.5px solid #E0D4F2;border-radius:12px;padding:10px;margin-bottom:8px">'
         + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
@@ -852,8 +853,8 @@
         + '</div>'
         + '<div style="font-size:10px;color:#6B7A5E;margin-bottom:8px">#'+order+(bornDate?'　・　うんだ日: '+bornDate:'')+'</div>'
         + '<div style="display:flex;gap:6px">'
-        +   '<button type="button" data-act="promote" data-egg-id="'+esc(egg.id)+'"'+promoteDisabled
-        +     ' style="flex:1;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:800;font-family:inherit;'+promoteStyle+'">そだてる ▶</button>'
+        +   '<button type="button" data-act="promote" data-egg-id="'+esc(egg.id)+'" data-can-promote="'+(canPromote?'1':'0')+'"'
+        +     ' style="flex:1;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:800;font-family:inherit;cursor:pointer;'+promoteStyle+'">そだてる ▶</button>'
         +   '<button type="button" data-act="discard" data-egg-id="'+esc(egg.id)+'"'
         +     ' style="border:none;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:700;font-family:inherit;background:#EAEFE0;color:#6B7A5E;cursor:pointer">すてる</button>'
         + '</div>'
@@ -892,8 +893,13 @@
       b.onclick = function(){
         var id = b.getAttribute('data-egg-id');
         var act = b.getAttribute('data-act');
-        if(act === 'promote' && opts.onPickPending){
-          close(); _call(opts.onPickPending, id);
+        if(act === 'promote'){
+          var canP = b.getAttribute('data-can-promote') === '1';
+          if(!canP){
+            global.alert('スロットが いっぱい だよ。\nそだてている むしを「🔄 こうたい」してね');
+            return;
+          }
+          if(opts.onPickPending){ close(); _call(opts.onPickPending, id); }
         } else if(act === 'discard' && opts.onDiscardPending){
           if(!global.confirm || !global.confirm('この たまごを すてる? (もどせないよ)')) return;
           close(); _call(opts.onDiscardPending, id);
