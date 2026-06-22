@@ -696,8 +696,10 @@
     var t = doc.createElement("div");
     t.id = "q4bEggLaidToast";
     t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#FFF6E0;border:2px solid #F2A33C;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:300px;font-family:inherit;animation:q4bToastSlide .3s ease-out";
+    /* 世界観: 「かけら→飼育環境→自発的産卵」 の三段で表示。 */
     t.innerHTML = ''
-      + '<div style="font-size:14px;font-weight:800;color:#8A5C2C;margin-bottom:4px">🥚 '+esc(sp.jaName||sp.id)+' の たまごを 産んだよ!</div>'
+      + '<div style="font-size:13px;color:#8A5C2C;margin-bottom:6px;line-height:1.5">🪨 かせきのかけらを つかって、<br><b>しいくかんきょうが ととのった！</b></div>'
+      + '<div style="font-size:14px;font-weight:800;color:#5B4B2B;margin-bottom:6px;line-height:1.5">🥚 '+esc(sp.jaName||sp.id)+' の<br>オスとメスが たまごを うんだ！</div>'
       + '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">御神木の 「そだてている むし」 パネルで みられるよ</div>'
       + '<div style="display:flex;gap:6px">'
       +   '<a href="'+esc(homeHref)+'" style="flex:1;border:none;border-radius:10px;background:#F2A33C;color:#fff;padding:10px;font-weight:800;font-family:inherit;text-decoration:none;text-align:center;font-size:13px">いま みる</a>'
