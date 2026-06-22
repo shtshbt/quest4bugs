@@ -823,7 +823,7 @@
       var name = esc(sp && sp.jaName ? sp.jaName : egg.id);
       var sexEmoji = egg.sex === 'm' ? '♂' : (egg.sex === 'f' ? '♀' : '?');
       var sexColor = egg.sex === 'm' ? '#5B8DE0' : (egg.sex === 'f' ? '#E08BB9' : '#6B7A5E');
-      var shinyMark = egg.shiny ? ' ✨' : '';
+      var shinyMark = egg.shiny ? ' <span style="color:#f5b800;font-weight:700">✨</span>' : '';
       var originLabelMap = {master_pair:'🎓 マスター', boss_pair:'👑 ボス', lay:'🥚 産卵'};
       var originColorMap = {master_pair:'#A06BD8', boss_pair:'#E8B33C', lay:'#4A9B3A'};
       var originLabel = originLabelMap[egg.origin] || '';
@@ -834,25 +834,48 @@
       var tier = sp && sp.rarity ? (rarityLabelMap[sp.rarity] || sp.rarity) : '';
       var tierBg = sp && sp.rarity ? (rarityColorMap[sp.rarity] || '#EAEFE0') : '#EAEFE0';
       var bornDate = egg.bornAt ? esc(egg.bornAt) : '';
+      /* ステージ visual (育成スロットと同書式: SVG or emoji) */
+      var stage = r && r.displayStage ? r.displayStage(egg, sp) : (r && r.currentStage ? r.currentStage(egg, sp) : 'egg');
+      var v = stageVisual(stage, sp);
+      var visualHTML = v.svgUrl
+        ? '<img src="'+esc(v.svgUrl)+'" alt="" style="width:48px;height:48px;display:block" onerror="this.style.display=\'none\'">'
+        : '<div style="font-size:40px;line-height:1">'+v.emoji+'</div>';
+      /* 教科色 / 進捗バー */
+      var gameColor = GAME_COLOR[egg.game] || '#888';
+      var gameEmoji = GAME_EMOJI[egg.game] || '';
+      var gameLabel = GAME_LABEL[egg.game] || egg.game;
+      var p = pct(egg.progress, egg.target);
+      var meta = sp && sp.metamorphosis ? metaLabel(sp) : '';
       var canPromote = (slotsAvailable > 0) && !eggsIds[egg.id];
-      /* disabled 属性は使わない (子に「押した感」と理由を見せる)。常に有効、
-         押した時に canPromote=false なら alert で理由を明示。 */
       var promoteStyle = canPromote ? 'background:#4A9B3A;color:#fff' : 'background:#CFDDB2;color:#6B7A5E;opacity:.7';
       var hintHTML = '';
       if(!canPromote && eggsIds[egg.id]){
-        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">いま 同じ虫を そだててるよ</div>';
+        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:4px">いま 同じ虫を そだててるよ</div>';
       } else if(!canPromote){
-        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:2px">スロットが いっぱい・先に こうたい してね</div>';
+        hintHTML = '<div style="font-size:10px;color:#A89876;margin-top:4px">スロットが いっぱい・先に こうたい してね</div>';
       }
-      return '<div class="q4bNestCard" style="background:#fff;border:1.5px solid #E0D4F2;border-radius:12px;padding:10px;margin-bottom:8px">'
-        + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
-        +   '<span style="background:'+originColor+';color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:1px 7px">'+originLabel+'</span>'
-        +   (tier?'<span style="background:'+tierBg+';color:#fff;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px">'+esc(tier)+'</span>':'')
-        +   '<span style="font-size:14px;font-weight:700;color:#2A3D2C;flex:1">'+name+shinyMark+'</span>'
-        +   '<span style="color:'+sexColor+';font-size:18px;font-weight:900">'+sexEmoji+'</span>'
+      return '<div class="q4bNestCard" style="background:#FFFDF4;border:2px solid '+gameColor+'33;border-radius:12px;padding:8px;margin-bottom:8px">'
+        + '<div style="display:flex;gap:10px;align-items:flex-start">'
+        +   '<div style="width:54px;flex:0 0 54px;text-align:center;background:'+gameColor+'1a;border-radius:10px;padding:5px 2px 6px">'
+        +     '<div style="min-height:48px;display:flex;align-items:center;justify-content:center">'+visualHTML+'</div>'
+        +     '<div style="font-size:9px;color:'+gameColor+';font-weight:800;margin-top:2px">'+gameEmoji+esc(gameLabel)+'</div>'
+        +   '</div>'
+        +   '<div style="flex:1;min-width:0">'
+        +     '<div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;flex-wrap:wrap">'
+        +       '<span style="background:'+originColor+';color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:1px 7px">'+originLabel+'</span>'
+        +       (tier?'<span style="background:'+tierBg+';color:#fff;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px">'+esc(tier)+'</span>':'')
+        +       '<span style="color:'+sexColor+';font-size:16px;font-weight:900">'+sexEmoji+'</span>'
+        +     '</div>'
+        +     '<div style="font-size:14px;font-weight:700;color:#2A3D2C;line-height:1.2">'+name+shinyMark+'</div>'
+        +     '<div style="background:#EAEFE0;border-radius:99px;height:6px;margin:5px 0 2px;overflow:hidden"><div style="width:'+p+'%;height:100%;background:'+gameColor+';transition:width .3s"></div></div>'
+        +     '<div style="display:flex;justify-content:space-between;font-size:10px;color:#6B7A5E">'
+        +       '<span>'+egg.progress+'/'+egg.target+' もん</span>'
+        +       '<span>#'+order+(bornDate?' ・ '+bornDate:'')+'</span>'
+        +     '</div>'
+        +     (meta?'<div style="font-size:9px;color:#9CA88A;margin-top:1px">'+esc(meta)+'</div>':'')
+        +   '</div>'
         + '</div>'
-        + '<div style="font-size:10px;color:#6B7A5E;margin-bottom:8px">#'+order+(bornDate?'　・　うんだ日: '+bornDate:'')+'</div>'
-        + '<div style="display:flex;gap:6px">'
+        + '<div style="display:flex;gap:6px;margin-top:8px">'
         +   '<button type="button" data-act="promote" data-egg-id="'+esc(egg.id)+'" data-can-promote="'+(canPromote?'1':'0')+'"'
         +     ' style="flex:1;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:800;font-family:inherit;cursor:pointer;'+promoteStyle+'">そだてる ▶</button>'
         +   '<button type="button" data-act="discard" data-egg-id="'+esc(egg.id)+'"'

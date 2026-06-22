@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v73";  /* v73: legacy 卵 migration を 1 度限りに (promote loop / 409 Conflict 連鎖の根因) */
+var CACHE = "q4b-cache-v74";  /* v74: たまごリスト カードに育成スロット同等の属性 (ステージ visual / 教科色 / 進捗バー / 変態) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
