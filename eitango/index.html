@@ -643,7 +643,21 @@ const SRS = {
     if (p.newday.date !== t) p.newday = { date: t, count: 0 };
     return Math.max(0, this.NEW_PER_DAY - p.newday.count);
   },
-  useNew(p, n) { const t = Engine.todayKey(); if (p.newday.date !== t) p.newday = { date: t, count: 0 }; p.newday.count += n; }
+  useNew(p, n) { const t = Engine.todayKey(); if (p.newday.date !== t) p.newday = { date: t, count: 0 }; p.newday.count += n; },
+  /* 熟語別枠: 通常単語 newday とは独立に 1 日上限を持つ。
+     熟語をたくさん解いても通常単語の枠が突然止まることがないように。 */
+  IDIOM_NEW_PER_DAY: 20,
+  idiomBudget(p) {
+    if (!p.idiomNewday) p.idiomNewday = { date: '', count: 0 };
+    const t = Engine.todayKey();
+    if (p.idiomNewday.date !== t) p.idiomNewday = { date: t, count: 0 };
+    return Math.max(0, this.IDIOM_NEW_PER_DAY - p.idiomNewday.count);
+  },
+  useIdiomNew(p, n) {
+    const t = Engine.todayKey();
+    if (!p.idiomNewday || p.idiomNewday.date !== t) p.idiomNewday = { date: t, count: 0 };
+    p.idiomNewday.count += n;
+  }
 };
 
 /* ---------------- Reward (collection) ---------------- */
@@ -1870,7 +1884,9 @@ function buildJukugoQueue(fid, N){
   pool=pool.concat(Engine.shuffle(due).slice(0, Math.max(1,N-2)));
   if(pool.length<N){
     const need=N-pool.length;
-    pool=pool.concat(Engine.shuffle(newer).slice(0, Math.min(need, 2)));
+    /* 新出熟語は IDIOM_NEW_PER_DAY 別枠で制限 (通常単語の newBudget とは独立) */
+    const budgetIdiom = SRS.idiomBudget(P);
+    pool=pool.concat(Engine.shuffle(newer).slice(0, Math.min(need, 2, budgetIdiom)));
   }
   if(pool.length<N){
     const have=new Set(pool.map(x=>x.key));
@@ -1879,7 +1895,8 @@ function buildJukugoQueue(fid, N){
   }
   if(pool.length<N){
     const have2=new Set(pool.map(x=>x.key));
-    const any=Engine.shuffle(withKey.filter(x=>!have2.has(x.key)));
+    /* 最終 fallback でも未登録熟語は除外 (idiomBudget 迂回防止) */
+    const any=Engine.shuffle(withKey.filter(x=>P.srs[x.key]&&P.srs[x.key][0]>0&&!have2.has(x.key)));
     for(let i=0;i<any.length&&pool.length<N;i++) pool.push(any[i]);
   }
   return pool.slice(0,N).map(it=>({
@@ -1928,14 +1945,17 @@ function buildMain(){
   }
   if(q.length<N){
     const have=new Set(q.map(x=>x.w.key));
-    /* 補充は「あと一歩(box2-3)」を優先。周回がマスターに変わるようにする（マスター済みは最後） */
+    /* 補充は「あと一歩(box2-3)」を優先。周回がマスターに変わるようにする（マスター済みは最後）
+       NEW_PER_DAY 上限を迂回しないよう、 box>0 (= SRS entry あり) のみ許可。 */
     const fillPri=w=>{const b=(P.srs[w.key]||[0])[0]||0; return b>=4?-1:b;};
-    const seen=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&!have.has(w.key))).sort((a,b)=>fillPri(b)-fillPri(a));
+    const seen=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&P.srs[w.key][0]>0&&!have.has(w.key))).sort((a,b)=>fillPri(b)-fillPri(a));
     for(let i=0;i<seen.length&&q.length<N;i++)q.push({w:seen[i],type:srsType(seen[i])});
   }
   if(q.length<N){
     const have2=new Set(q.map(x=>x.w.key));
-    const any=Engine.shuffle(GWORDS.filter(w=>!have2.has(w.key)));
+    /* 最終 fallback でも未出語は除外 (NEW_PER_DAY 迂回防止)。 5問に満たない場合は
+       短いセッションで OK (「数問だけ」 ユーザ向けに整合的)。 */
+    const any=Engine.shuffle(GWORDS.filter(w=>P.srs[w.key]&&P.srs[w.key][0]>0&&!have2.has(w.key)));
     for(let i=0;i<any.length&&q.length<N;i++)q.push({w:any[i],type:srsType(any[i])});
   }
   return q;
@@ -2075,21 +2095,33 @@ function opts4(item){
   const fid = item.fid || GFID;
   const fieldWords = (typeof WordDB !== 'undefined' && WordDB.byField) ? WordDB.byField(fid) : GWORDS;
   let pool = (fieldWords && fieldWords.length >= 4) ? fieldWords.filter(x=>x.key!==w.key) : GWORDS.filter(x=>x.key!==w.key);
-  /* 表示重複除外: kids は 絵文字+ja、 通常は ja+en の組合せで dedup。
-     英→日 で「日訳が同じ」、 日→英 で「英表記が同じ」 が並ぶのを防止。 */
-  const isKidsItem = (item.type === 'kids') || KIDS;
-  const dispKey = isKidsItem
-    ? (x => (x.emoji || '') + '|' + (x.ja || ''))
-    : (x => (x.ja || '') + '|' + (x.en || ''));
+  /* 表示重複除外: 出題タイプ別に「実際に画面に出る文字列」で dedup する。
+     - e2j / jukugo_mc: ja のみで dedup (例: assert と claim が同じ「主張する」で並ばないように)
+     - j2e / spell / cloze / jukugo_cloze / colloc: en のみで dedup
+     - kids: emoji + ja (絵カードの見た目+日訳の組合せで dedup) */
+  const isKidsItem = (item.type === 'kids');
+  const DISP_KEY_BY_TYPE = {
+    'e2j': x => x.ja || '',
+    'jukugo_mc': x => x.ja || '',
+    'j2e': x => x.en || '',
+    'spell': x => x.en || '',
+    'cloze': x => x.en || '',
+    'jukugo_cloze': x => x.en || '',
+    'colloc': x => x.en || '',
+    'kids': x => (x.emoji || '') + '|' + (x.ja || '')
+  };
+  const dispKey = DISP_KEY_BY_TYPE[item.type] || (x => (x.ja || '') + '|' + (x.en || ''));
   const seenDisp = new Set([dispKey(w)]);
   pool = pool.filter(x => {
     const dk = dispKey(x);
+    if(!dk) return true;  /* 空キーは除外しない (情報不足の語) */
     if(seenDisp.has(dk)) return false;
     seenDisp.add(dk);
     return true;
   });
-  if(!KIDS&&w.pos) { const same=pool.filter(x=>x.pos===w.pos); if(same.length>=3) pool=same; }
-  if(KIDS&&w.cat){ const same=pool.filter(x=>x.cat===w.cat); if(same.length>=3) pool=same; }
+  /* pos / cat 絞りも item.type ベース (KIDS グローバルは復習モードで false になる) */
+  if(!isKidsItem && w.pos) { const same=pool.filter(x=>x.pos===w.pos); if(same.length>=3) pool=same; }
+  if(isKidsItem && w.cat) { const same=pool.filter(x=>x.cat===w.cat); if(same.length>=3) pool=same; }
   const ds=Engine.shuffle(pool).slice(0,3);
   return Engine.shuffle([w,...ds]);
 }
@@ -2227,13 +2259,19 @@ function renderJukugo(item){
       <div>${opts.map((c,i)=>`<button class="opt" id="op${i}" onclick="ansJukugo(${i})">${furi(c)}</button>`).join('')}</div>`;
     Speech.say(w.en);
   } else {
-    /* cloze: example から熟語部分を ___ に置換。完全一致ヒットしなければ最初の語の語幹で検索 */
+    /* cloze: example から熟語部分を ___ に置換。
+       単語 (1語): 完全一致 → ヒットしなければ語幹で部分マッチ fallback
+       複数語フレーズ: 完全一致のみ。 不一致なら jukugo_mc に切替 (語幹だけ
+       置換すると「take into account」 の cloze が 「___ into account」 になり、
+       選択肢に「take into account」が出てきて重複する問題を防止) */
     const ex=w.example||'';
+    const isMultiWord = /\s/.test(w.en||'');
     let blanked=ex, hit=false;
     if(ex){
       const re=new RegExp(w.en.split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('\\s+'),'i');
       if(re.test(ex)){ blanked=ex.replace(re,'＿＿＿'); hit=true; }
-      else {
+      else if(!isMultiWord){
+        /* 単語のみ語幹 fallback。複数語フレーズでは禁止。 */
         const first=w.en.split(/\s+/)[0]||'';
         if(first.length>=3){
           const re2=new RegExp('\\b'+first.replace(/[^a-zA-Z]/g,'').slice(0,Math.max(3,first.length-2))+'[a-z]*','i');
@@ -2241,7 +2279,12 @@ function renderJukugo(item){
         }
       }
     }
-    /* example がない/穴埋めできない場合は単純に「___ the ...」のテンプレに退避 */
+    /* 複数語フレーズで完全一致しない場合は jukugo_mc にフォールバック */
+    if(!hit && isMultiWord){
+      item.type='jukugo_mc';
+      return renderJukugo(item);
+    }
+    /* example がない/穴埋めできない場合は単純に「___ the ...」のテンプレに退避 (単語のみ) */
     if(!hit) blanked='＿＿＿ … ('+furi(w.ja)+')';
     const dp=(w.distractors_phrase||[]).slice(0,3);
     const opts=Engine.shuffle([w.en, ...dp]);
@@ -2290,11 +2333,13 @@ function afterAnswer(item,ok,title,detail){
     const prevStage=growthStage(item.w,wasKids).stage; /* 更新前の段階 */
     /* 新出語の NEW_PER_DAY 消費はキュー作成時 → 初回回答時に移動。 P.srs にも
        P.kids にも未登録 = 未着手の新規語。 セッション内で同じ語が複数回出ても
-       1 回だけ消費 (S._newConsumed セット)。 */
+       1 回だけ消費 (S._newConsumed セット)。 熟語は別枠 IDIOM_NEW_PER_DAY。 */
     if(!P.srs[item.w.key] && !P.kids[item.w.key]){
       if(!S._newConsumed) S._newConsumed = {};
       if(!S._newConsumed[item.w.key]){
-        SRS.useNew(P, 1);
+        const isJukugo = (item.type === 'jukugo_mc' || item.type === 'jukugo_cloze' || item.jukugo);
+        if(isJukugo) SRS.useIdiomNew(P, 1);
+        else SRS.useNew(P, 1);
         S._newConsumed[item.w.key] = true;
       }
     }

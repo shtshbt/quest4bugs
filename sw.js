@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v97";  /* v97: eitango CSV 追加で 既存収録語 (WordDB.byField) との重複も en 小文字化で照合 */
+var CACHE = "q4b-cache-v98";  /* v98: eitango 4 修正 (any 補充から未出語除外 / opts4 type別dedup / cloze 複数語mc fallback / 熟語別枠 IDIOM_NEW_PER_DAY) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
