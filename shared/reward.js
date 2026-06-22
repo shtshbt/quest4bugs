@@ -1067,6 +1067,7 @@
     setNight: setNight,
     isNightNow: isNightNow,
     onCorrect: onCorrect,
+    freshnessPeek: freshnessOf,    /* 公開: caller が 1 回計算して両 API に渡し二重消費を避ける */
     award: award,
     spendForCatch: spendForCatch,
     setAmberStore: setAmberStore,

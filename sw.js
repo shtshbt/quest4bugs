@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v103";  /* v103: kanji 重大バグ修正 — 誤答の同日昇格ロック解除を封じる (誤答時 r.la=t 維持 + due 翌日), テスト中は seen を立てない (新出 30 字/日 迂回封じ), 「えらぶ」で対象漢字を熟語表示中に空欄化 (答えが見えていた), テスト合格情報の永続サマリー (ST.testBest/testPassed/testGold) 新設で 40 件履歴押し出しによる再ロック・初回報酬再取得を防止, ことばつくりの連打/タイマー競合ロック (nextKot guard + SES.answerLocked), テスト誤答を ST.wrong に入れず苦手履歴汚染を停止, 書字 (skill 'w') にも p.jk を保持して正解フィードバック整合, answerInfo に 'r' 分岐追加, 送り仮名旧形式 41 字を shared/kanji_data.js 本体で正規化, ST.pp 加算を初回合格のみに限定 (周回ボツアップ封じ) */
+var CACHE = "q4b-cache-v104";  /* v104: kanji さらに 13 件修正 — プロフィール非同期競合 (PROFILE_LOAD_SEQ), 古い問題タイマー/書字 onComplete 侵入 (SESSION_SEQ + isCurSes), switchMode で p.updated 更新, weakPairs にコース/ロック/有効キーフィルタ, 再テスト待機を ST.retests[id] 辞書化 (旧 ST.re マイグレ), 既合格テスト腕試し失敗はロック対象外, 出題ミッションを planDaily で実出題数+バックログ別表示, 報酬 freshness 二重消費を caller 1 回 peek で回避, 報酬価値を applyAnswer 前の段階で固定+再出題コピー引き継ぎ, 「えらぶ/熟語/書字」例文の空欄を語句単位でマスク, 書字の音声を実用例 jk.r で再生, 再出題で同じ用例を維持, 初回金ボーナスを wasGold で独立判定, 0 点でも最高点を保存 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

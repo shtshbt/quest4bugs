@@ -428,48 +428,51 @@ function itemPool(){ var out=[];
   });
  }
  return out }
-function buildDaily(){
- var t=todayStr(), dues=[], news2=[], newsChar=[];
+/* 今日の出題プラン: 実出題リスト q と、 ホーム表示用のバックログ数を一体で計算する
+   (今回新追加#6)。 これがないと dueCounts が全件 (例: 150) を返し、 ホームには
+   「今日のミッション 150 問」と表示されるが実際は 10 問しか出ない、 という乖離が
+   起こる。 buildDaily / dueCounts は planDaily から派生させて 1 ソースに統一。 */
+function planDaily(){
+ var t=todayStr(), dues=[], introNews=[], freshChars=[];
  itemPool().forEach(function(key){
+  var intro=introduced(key);
   gatedSkills(key).forEach(function(sk){
    var r=rec(key,sk);
-   if(r.s>0){ if(r.due<=t) dues.push({key:key,sk:sk,due:r.due}) }
-   else { if(introduced(key)) news2.push({key:key,sk:sk}); else if(sk==='y') newsChar.push({key:key,sk:sk,nw:1}) }
+   if(r.s>0){ if(r.due<=t) dues.push({key:key,sk:sk,due:r.due}); }
+   else if(intro){ introNews.push({key:key,sk:sk}); }
+   else if(sk==='y'){ freshChars.push({key:key,sk:sk,nw:1}); }
   });
  });
  dues.sort(function(a,b){return a.due<b.due?-1:1});
  var lg=ST.log[t]||{a:0,n:0};
  var cap=(CUR.mode==='small'?CFG.newS:CFG.newB);
- /* コース別新規カウンタ。 旧 lg.n は片方の互換用に残す (#2) */
  var nKey=(CUR.mode==='small'?'nS':'nB');
- var used=(lg[nKey]||0);
- var allow=Math.max(0,cap-used);
- var q=dues.slice(0,10), i;
- for(i=0;i<news2.length&&q.length<10;i++) q.push(news2[i]);
- for(i=0;i<newsChar.length&&q.length<10&&allow>0;i++){ q.push(newsChar[i]); allow--; }
- return shuffle(q);
+ var newRemain=Math.max(0,cap-(lg[nKey]||0));
+ var q=[], i;
+ var dueUsed=Math.min(dues.length,10);
+ for(i=0;i<dueUsed;i++) q.push(dues[i]);
+ var introUsed=0;
+ while(q.length<10 && introUsed<introNews.length){ q.push(introNews[introUsed]); introUsed++; }
+ var freshUsed=0;
+ while(q.length<10 && freshUsed<freshChars.length && newRemain>0){ q.push(freshChars[freshUsed]); freshUsed++; newRemain--; }
+ var hun=dues.filter(function(x){return x.due<t}).length;
+ return {
+  q: shuffle(q),
+  queueN: q.length,
+  dueInQueue: dueUsed,
+  freshInQueue: introUsed + freshUsed,
+  dueBacklog: Math.max(0, dues.length - dueUsed),
+  freshBacklog: Math.max(0, (introNews.length - introUsed) + (freshChars.length - freshUsed)),
+  hun: hun,
+  newCap: newRemain
+ };
 }
-/* due / 新規の内訳を返す。 ホーム表示の「ふくしゅう N + あたらしい M」分割用 (#10)。
-   newCap は当日の残り新規枠で、 「あと何問あたらしいのを出せるか」を示す。 */
-function dueCounts(){ var t=todayStr(), due=0, hun=0, freshIntroducedSkills=0, freshChars=0;
- itemPool().forEach(function(key){
-  var intro=introduced(key);
-  gatedSkills(key).forEach(function(sk){
-   var r=rec(key,sk);
-   if(r.s>0){
-    if(r.due<=t){ due++; if(r.due<t)hun++ }
-   } else if(intro){
-    freshIntroducedSkills++;
-   }
-  });
-  if(!intro) freshChars++;
- });
- var lg=ST.log[t]||{a:0,n:0};
- var cap=(CUR.mode==='small'?CFG.newS:CFG.newB);
- var nKey=(CUR.mode==='small'?'nS':'nB');
- var newCap=Math.max(0,cap-(lg[nKey]||0));
- var freshTotal=freshIntroducedSkills + Math.min(freshChars,newCap);
- return {due:due,hun:hun,fresh:freshTotal,newCap:newCap} }
+function buildDaily(){ return planDaily().q; }
+function dueCounts(){
+ var p=planDaily();
+ return {due:p.dueInQueue, hun:p.hun, fresh:p.freshInQueue, newCap:p.newCap,
+         dueBacklog:p.dueBacklog, freshBacklog:p.freshBacklog, queueN:p.queueN};
+}
 function streak(){ var n=0,d=todayStr(); if(!(ST.log[d]&&ST.log[d].a))d=addDays(d,-1);
  while(ST.log[d]&&ST.log[d].a>0){n++;d=addDays(d,-1)} return n }
 
@@ -576,16 +579,23 @@ function ensureTestPersist(){
   ST.tests.forEach(function(x){
    if(!x||!x.t)return;
    var sc=x.sc||0;
-   if(sc > (ST.testBest[x.t]||0)) ST.testBest[x.t]=sc;
+   /* 0 点でも記録は残す: 「まだ挑戦していない」と誤表示しない (今回新#8) */
+   if(!(x.t in ST.testBest) || sc > ST.testBest[x.t]) ST.testBest[x.t]=sc;
    if(sc>=80) ST.testPassed[x.t]=1;
    if(sc>=95) ST.testGold[x.t]=1;
   });
   ST._testPersistMigrated=1;
  }
+ /* 再テスト待機を 単一スロット ST.re → 辞書 ST.retests[id]=date に拡張 (新追加#5)。
+    後発の不合格が前の待機を上書きしてしまう問題を解消。 旧 ST.re は 1 度だけ移行。 */
+ if(!ST.retests) ST.retests = {};
+ if(ST.re && ST.re.t && ST.re.d && !ST.retests[ST.re.t]){
+  ST.retests[ST.re.t] = ST.re.d;
+ }
 }
 function passed(id){ ensureTestPersist(); return !!ST.testPassed[id] }
 function goldOf(id){ ensureTestPersist(); return !!ST.testGold[id] }
-function bestOf(id){ ensureTestPersist(); var b=ST.testBest[id]; return (typeof b==='number') ? b : -1 }
+function bestOf(id){ ensureTestPersist(); return (id in ST.testBest) ? ST.testBest[id] : -1 }
 // grantBug: 旧採集エンジン用（Q4BReward 移行後は不使用）
 function grantBug(id){ return [] }
 function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲') }
@@ -620,9 +630,16 @@ function ensureMode(p){
   $('cBig').addEventListener('click',function(){ pick('big'); });
   $('cSmall').addEventListener('click',function(){ pick('small'); });
  }); }
-function selectProfile(p){ CUR=p; QuestSave.setCurrentProfile(p.id);
+/* 連続タップで読み込みが交錯し、 CUR は子 B なのに ST は子 A という状態になるのを
+   防ぐ世代番号 (新追加#1)。 後発の選択が来たら、 古い Promise が完了しても無視。 */
+var PROFILE_LOAD_SEQ = 0;
+function selectProfile(p){
+ var seq = ++PROFILE_LOAD_SEQ;
+ CUR=p; QuestSave.setCurrentProfile(p.id);
  var bz=window.Q4BBossZukan?Q4BBossZukan.load(p.id):Promise.resolve();
- Promise.all([bz, ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); })]).then(function(r){ var d=r[1]; ST=d||newState();
+ Promise.all([bz, ensureMode(p).then(function(){ return QuestSave.load('kanji',p.id); })]).then(function(r){
+  if(seq !== PROFILE_LOAD_SEQ || !CUR || CUR.id !== p.id) return;  /* 後発の選択に追い越された */
+  var d=r[1]; ST=d||newState();
   if(!ST.srs)ST.srs={}; if(!ST.log)ST.log={}; if(!ST.tests)ST.tests=[]; if(!ST.wrong)ST.wrong=[];
   ensureTestPersist();
   // 後方互換: 旧 coll (配列) を新形式に移行
@@ -691,10 +708,24 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  var night=!!(window.Q4BReward&&Q4BReward.isNightNow&&Q4BReward.isNightNow());
  if(window.Q4BReward&&Q4BReward.setNight)Q4BReward.setNight(night);
  document.body.classList.toggle('night',night);
- /* ミッション表示: ふくしゅう (due) と あたらしい (fresh) を分けて見せる (#10) */
+ /* ミッション表示: 実出題数 (queueN, 最大 10) + 内訳 + バックログ別 (今回新追加#6)。
+    これがないと「今日 150 問」と表示しつつ 10 問で終わる乖離が起きる。 */
  var missionBreak='<div class="small" style="margin-top:2px">🔁 ふくしゅう <b>'+dc.due+'</b>　＋　🌱 あたらしい <b>'+dc.fresh+'</b></div>';
- var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">きょうの ミッション</div><div class="num">'+(dc.due+dc.fresh)+'<span style="font-size:16px"> もん</span></div>'+missionBreak+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
- if(ST.re&&ST.re.d<=t&&TESTS[ST.re.t])h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[ST.re.t].label+'」に もういちど ちょうせんしよう</div>';
+ var backlogParts=[];
+ if(dc.dueBacklog>0) backlogParts.push('ふくしゅう '+dc.dueBacklog);
+ if(dc.freshBacklog>0) backlogParts.push('あたらしい '+dc.freshBacklog);
+ var backlogLine=backlogParts.length ? '<div class="small">📚 のこっている: '+backlogParts.join('・')+'</div>' : '';
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">こんかいの ミッション</div><div class="num">'+dc.queueN+'<span style="font-size:16px"> もん</span></div>'+missionBreak+backlogLine+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ /* 再テスト到来バナー: 辞書化された ST.retests から「今日以前」かつ「未合格」の id を拾う (新追加#5) */
+ if(ST.retests){
+  var _retDue=null;
+  Object.keys(ST.retests).forEach(function(rid){
+   if(_retDue) return;
+   var d=ST.retests[rid];
+   if(d && d<=t && TESTS[rid] && !passed(rid)) _retDue=rid;
+  });
+  if(_retDue) h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[_retDue].label+'」に もういちど ちょうせんしよう</div>';
+ }
  // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
  var introCount=countIntroduced();
  var showReviewBanner=(introCount>=20&&Math.random()<0.25);
@@ -727,6 +758,9 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
 /* コースはいつでも切替可能。解放状態(ST.un)は両コースぶん保持されるので進捗は消えない */
 function switchMode(){
  CUR.mode=(CUR.mode==='small')?'big':'small';
+ /* mode 変更を 同期 LWW で「新しい変更」と認識させるため p.updated を更新 (新追加#3)。
+    これがないと 端末 A で切替後でも 端末 B の旧 mode が同 timestamp で後送され巻き戻る。 */
+ CUR.updated = Date.now();
  if(CUR.mode==='small'){ if(!ST.un)ST.un={}; if(!ST.un.hira)ST.un.hira=1; }
  else { if(!ST.un)ST.un={}; if(!ST.un.u1)ST.un.u1=1; }
  QuestSave.saveProfiles(PROFILES); saveST();
@@ -734,18 +768,24 @@ function switchMode(){
 
 /* ================= セッション ================= */
 var SES=null;
+/* セッション世代番号: 「やめる」「捕獲モーダル」等で SES=null した瞬間以降に、
+   過去問の setTimeout(nextQ) や Hanzi Writer の onComplete が遅延発火しても
+   新セッションを汚染しないように、 各 SES に sid を打って一致確認する (新追加#2)。 */
+var SESSION_SEQ = 0;
+function startSession(data){ data.sid = ++SESSION_SEQ; return data; }
+function isCurSes(sid,qIdx){ return !!(SES && SES.sid===sid && (qIdx===undefined || SES.i===qIdx)); }
 $('hProf').addEventListener('click',function(){ if(SES)return; renderProfileSel() });
 
 function startLearn(){ var q=buildDaily();
  if(!q.length){ modal('<div class="center"><div style="font-size:40px">🌙</div><div style="font-weight:bold;margin:8px 0">きょうの ぶんは おわったよ！</div><div class="small">むしたちは おなかいっぱい。また あしたね</div><button class="btn" style="margin-top:12px" onclick="closeModal()">とじる</button></div>'); return }
- SES={mode:'learn',q:q,i:0,ok:0,res:[],wrongs:[],before:{}};
+ SES=startSession({mode:'learn',q:q,i:0,ok:0,res:[],wrongs:[],before:{}});
  q.forEach(function(p){ SES.before[p.key+'|'+p.sk]=rec(p.key,p.sk).s });
  nextQ() }
 function startPractice(pairs,label){
  if(!pairs||!pairs.length){ modal('<div class="center"><div style="font-size:32px">🔍</div><div style="font-weight:bold;margin:8px 0">この はんい・かたちの もんだいが ないよ</div><div class="small">べつの かたち（おまかせ等）や はんいを えらんでね</div><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  pairs=shuffle(pairs).slice(0,10);
  if(!pairs.length){ modal('<div class="center">れんしゅうできる ものが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
- closeModal(); SES={mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}; nextQ() }
+ closeModal(); SES=startSession({mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}); nextQ() }
 function startTest(id){ var tdef=TESTS[id]; var items=tdef.items();
  /* 認定テストは「学年範囲の代表性」を確保するため 1 文字 1 問に統一する (新#3)。
     先に書字 2 問用の漢字を選び、 残りはそれ以外の漢字から各 1 問ずつ非書字スキルを
@@ -771,7 +811,7 @@ function startTest(id){ var tdef=TESTS[id]; var items=tdef.items();
   q.push({key:k2, sk: sks2[Math.floor(Math.random()*sks2.length)]});
  }
  q=shuffle(q);
- closeModal(); SES={mode:'test',q:q,i:0,ok:0,res:[],wrongs:[],test:id}; nextQ() }
+ closeModal(); SES=startSession({mode:'test',q:q,i:0,ok:0,res:[],wrongs:[],test:id}); nextQ() }
 function nextQ(){
  if(!SES)return;
  SES.answerLocked=0;                          /* 次画面に進むタイミングでロック解除 (新#1) */
@@ -785,6 +825,11 @@ function answered(ok){
  if(!SES || SES.answerLocked) return;
  SES.answerLocked = 1;
  var p=SES.q[SES.i];
+ /* 報酬価値は applyAnswer 前の段階で決め、 誤答再出題コピーにも引き継ぐ (今回新#4)。
+    これがないと box 2→3 への重要な正解が更新後 box 3 扱いで 0.4 倍、 さらに わざと
+    誤答→再出題で reset し満額にする抜け道ができる。 */
+ var stageBefore = stageVal(p.key, p.sk);
+ var kval = (p.rewardValue != null) ? p.rewardValue : (stageBefore >= 3 ? 0.4 : 1);
  if(p.nw&&!p.cnt){
   p.cnt=1; var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0});
   /* コース別新規枠カウンタ (#2)。 旧 lg.n も互換のため累積。 */
@@ -800,17 +845,39 @@ function answered(ok){
   // 採集ゲージ＆卵給餌: learn/practice/review のみ。 test は合格時の確定報酬のみ
   // 受け取らせる (新#4)。 旧コードはコメントどおりでなく test でも feedEgg を実行
   // していた結果、 不合格テストの再周回で卵が無限育成できる経路になっていた。
-  var iid=p.key+'|'+p.sk, kval=(rec(p.key,p.sk).s>=3?0.4:1);  // 既習スキル(box>=3)は 0.4 で抑制
+  var iid=p.key+'|'+p.sk;
   if(SES.mode!=='test'&&window.Q4BReward){
-   if(Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', kval, {itemId:iid, coll:ST.coll});
+   /* freshness 二重消費を回避 (今回新#1)。 feedEgg と onCorrect が両方内部で
+      freshnessOf を呼ぶと初回答ですら 1 → 0.5 と削られる。 caller 側で 1 回だけ
+      peek (push 込) して係数を取り、 両 API には itemId=null + value 反映で渡す。 */
+   var fresh = (Q4BReward.freshnessPeek ? Q4BReward.freshnessPeek(ST.coll, iid) : 1);
+   var effective = kval * fresh;
+   if(Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', effective, {coll:ST.coll});
    var _kboost = (SES.mode==='review') ? Q4BReward.REVIEW_BOOST : kanjiRangeBoost(p.key);
-   var got=Q4BReward.onCorrect(ST.coll,'kanji',8,_kboost,iid,kval);
-   if(got){ saveST(); setTimeout(function(){ Q4BReward.netSwing(function(){ showCatchModal(got) }) },650); }
+   var got=Q4BReward.onCorrect(ST.coll,'kanji',8,_kboost,null,effective);
+   if(got){
+    saveST();
+    var _sid=SES.sid;
+    setTimeout(function(){
+     if(!isCurSes(_sid)) return;             /* 別セッションへ侵入しない (新追加#2) */
+     Q4BReward.netSwing(function(){ if(isCurSes(_sid)) showCatchModal(got) });
+    },650);
+   }
   }
  } else { SES.wrongs.push(p);
-  if(SES.mode==='learn'&&!p.rq){ var c=Object.assign({},p); c.rq=1; SES.q.push(c) } }
+  if(SES.mode==='learn'&&!p.rq){
+   var c=Object.assign({},p); c.rq=1;
+   c.rewardValue = kval;             /* 再出題でも当初の価値を維持 (今回新#4) */
+   SES.q.push(c);
+  } }
  saveST();
- if(ok){ SES.i++; setTimeout(nextQ,800) } else { setTimeout(function(){ showCorrect(p) },650) } }
+ var _sid2=SES.sid, _i2=SES.i;
+ if(ok){
+  SES.i++;
+  setTimeout(function(){ if(isCurSes(_sid2)) nextQ(); },800);   /* セッション破棄後の発火を抑止 */
+ } else {
+  setTimeout(function(){ if(isCurSes(_sid2,_i2)) showCorrect(p); },650);
+ } }
 
 function showCatchModal(got){
  if(!window.Q4BReward)return;
@@ -917,26 +984,40 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
  }
  x=KMAP[p.key.slice(2)]; ch=x.k;
  var _gradeKey = 'u' + x.u;  /* この字の学年で選択肢を絞る (#7) */
+ /* 例文中で熟語語句そのものを優先して空欄化するヘルパ (今回新追加#2)。
+    「お客さんを客間にあんないしました。」 で「客間」を空欄にしたいのに、 単純な
+    replace(ch,◻) だと先頭の「客」だけ消えて出題対象の「客間」がそのまま見える。
+    まず jk.w を文中で見つけて w 内の対象漢字をマスクし、 見つからなければ ch を
+    マスクするフォールバック。 */
+ function maskSentenceForJk(sentence, jk, k){
+  var w = esc(jk.w);
+  var maskedW = w.replace(k, '<span class="blank">◻</span>');
+  var s2 = esc(sentence);
+  if(s2.indexOf(w) >= 0) return s2.replace(w, maskedW);
+  return s2.replace(k, '<span class="blank">◻</span>');
+ }
  if(p.sk==='y'){
   /* よみ: 単独漢字を出すと「し / こう / か」 など複数正解が成立する。 熟語 jk.w を
-     表示して語全体の読みを選ばせる方が問題として妥当 (#3)。 jk を p に保持して
-     answerInfo / 誤答表示で語全体を使えるようにする (#11)。 */
-  var jkY = pickOne(x.jk); p.jk = jkY;
+     表示して語全体の読みを選ばせる方が問題として妥当 (#3)。 誤答再出題では同じ
+     用例を維持 (今回新#5)。 */
+  var jkY = p.jk || pickOne(x.jk); p.jk = jkY;
   h+='<div class="card center"><div class="qmid">「<b>'+esc(jkY.w)+'</b>」の よみは？</div>'+choiceHtml(distinct3(jkY.r, KANJI.flatMap(function(z){return (z.jk||[]).map(function(j){return j.r;});}), null),false)+'</div>';
   s.innerHTML=h; bindChoices(s,jkY.r);
   if(!test&&CUR.mode==='small')T.say('なんと よむ？');
   showScr('quiz'); return }
  if(p.sk==='r'){
   /* えらぶ: 熟語 jk を文脈にしつつ、 対象漢字を空欄にしないと「学校 (がっこう) に
-     はいる かんじは？」のように答えが見えてしまう (新#3)。 jk.w 内の対象漢字を
-     1 箇所だけマスクして表示。 */
-  var jkR = pickOne(x.jk); p.jk = jkR;
+     はいる かんじは？」のように答えが見えてしまう (新#3)。 用例維持 (今回新#5)。 */
+  var jkR = p.jk || pickOne(x.jk); p.jk = jkR;
   var wMasked = esc(jkR.w).replace(ch, '<span class="blank">◻</span>');
   h+='<div class="card center"><div class="qmid">「'+wMasked+'」(<b>'+esc(jkR.r)+'</b>) に はいる ◻ の かんじは？</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test)T.say(jkR.r); showScr('quiz'); return }
- if(p.sk==='j'){ var jk=pickOne(x.jk); p.jk = jk;
-  /* 熟語問題で対象漢字が複数回ある場合の空欄重複を防ぐため replace で 1 個だけ (#13) */
-  var sent=esc(jk.s).replace(ch,'<span class="blank">◻</span>');
+ if(p.sk==='j'){
+  /* 熟語: 例文内の対象「語」を見つけて 語内の漢字 1 文字だけマスク (今回新#2)。
+     これがないと例文に対象熟語と単独漢字が両方ある場合、 単独側だけ消えて出題の
+     熟語が見えてしまう。 用例維持 (今回新#5)。 */
+  var jk = p.jk || pickOne(x.jk); p.jk = jk;
+  var sent = maskSentenceForJk(jk.s, jk, ch);
   h+='<div class="card center"><div class="qword">'+sent+'</div><div class="small" style="margin-bottom:10px">◻に はいる かんじは？（よみ：<b>'+jk.r+'</b>）</div>'+choiceHtml(distinct3(ch,KANJI.map(function(z){return z.k}),_gradeKey),true)+'</div>';
   s.innerHTML=h; bindChoices(s,ch); if(!test&&CUR.mode==='small')T.say(jk.r); showScr('quiz'); return }
  if(p.sk==='o'){
@@ -944,31 +1025,46 @@ function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
   s.innerHTML=h; bindChoices(s,x.oku.ok); if(!test)T.say(x.oku.r); showScr('quiz'); return }
  /* 書字 (skill 'w'): 出題に使う熟語を p.jk に保持して answerInfo が語全体を出せる
     ようにする。 これがないと renderWrite が KMAP[ch].jk[0] 固定で、 answerInfo の
-    'w' && p.jk 分岐に到達できない (新#7)。 */
- if(p.sk==='w'){ p.jk = pickOne(x.jk); }
+    'w' && p.jk 分岐に到達できない (新#7)。 誤答再出題で同じ用例を維持 (今回新#5)。 */
+ if(p.sk==='w'){ p.jk = p.jk || pickOne(x.jk); }
  renderWrite(s,h,ch,test,false,p.jk);
 }
 
 function renderWrite(s,h,ch,test,isKana,jkOverride){
- var cue;
+ var cue, jk;
  if(isKana){ cue='<div class="qword center">「<b>'+ch+'</b>」を かこう</div>' }
- else { var jk = jkOverride || KMAP[ch].jk[0];
-  /* 例文中に対象漢字が複数回あっても 1 個だけ空欄に (#13) */
-  cue='<div class="qword center">「<b>'+jk.r+'</b>」と かこう<br><span class="small">'+esc(jk.s).replace(ch,'◻')+'</span></div>' }
+ else { jk = jkOverride || KMAP[ch].jk[0];
+  /* 例文の対象「語」を 1 箇所だけマスク (今回新#2)。 単独 ch だけ消すと、 例文に
+     対象熟語が含まれている場合に出題語句がそのまま見えてしまう。 */
+  var wEsc = esc(jk.w);
+  var maskedW = wEsc.replace(ch, '◻');
+  var sEsc = esc(jk.s);
+  var masked = sEsc.indexOf(wEsc)>=0 ? sEsc.replace(wEsc, maskedW) : sEsc.replace(ch, '◻');
+  cue='<div class="qword center">「<b>'+jk.r+'</b>」と かこう<br><span class="small">'+masked+'</span></div>' }
  h+='<div class="card center">'+cue+'<div id="hwbox"></div><div id="wBtns" style="margin-top:10px"></div></div>';
  s.innerHTML=h; showScr('quiz');
- if(!test){ if(isKana)T.say(ch); else T.say(KMAP[ch].jk[0].r) }
+ /* 音声は実際に画面で使った jk を読み上げる (今回新#3)。 jk[0] 固定だと表示語と
+    音声がずれる (例: 表示「じょうきゃく」 / 音声「きゃくま」)。 */
+ if(!test){ if(isKana)T.say(ch); else T.say(jk.r) }
  var box=$('hwbox');
  if(isKana){ traceUI(box,ch,test); return }
+ /* 書字 Promise / Hanzi Writer の onComplete が、 「やめる」後の新セッションの問題に
+    対して answered() を呼ばないよう sid+i を捕捉して isCurSes でガード (新追加#2)。 */
+ var _wSid = SES && SES.sid, _wI = SES && SES.i;
  makeWriter(box,ch,{outline:!test}).then(function(w){
-  var qopts={leniency:1.4,onComplete:function(sum){ var ok=true;
-   if(sum&&typeof sum.totalMistakes==='number')ok=sum.totalMistakes<=2; answered(ok) }};
+  var qopts={leniency:1.4,onComplete:function(sum){
+   if(!isCurSes(_wSid,_wI)) return;
+   var ok=true;
+   if(sum&&typeof sum.totalMistakes==='number')ok=sum.totalMistakes<=2;
+   answered(ok);
+  }};
+  if(!isCurSes(_wSid,_wI)) return;
   try{ w.quiz(qopts) }catch(e){ traceUI(box,ch,test); return }
   if(!test){ var bb=document.createElement('button'); bb.className='btn sub mini'; bb.textContent='▶ おてほんを みる';
    $('wBtns').appendChild(bb);
    bb.addEventListener('click',function(){ try{ w.cancelQuiz() }catch(e){}
-    try{ w.animateCharacter({onComplete:function(){ try{ w.quiz(qopts) }catch(e2){} }}) }catch(e3){} }) }
- }).catch(function(){ traceUI(box,ch,test) });
+    try{ w.animateCharacter({onComplete:function(){ if(!isCurSes(_wSid,_wI)) return; try{ w.quiz(qopts) }catch(e2){} }}) }catch(e3){} }) }
+ }).catch(function(){ if(isCurSes(_wSid,_wI)) traceUI(box,ch,test) });
 }
 function traceUI(box,ch,test){
  box.innerHTML=''; var cv=document.createElement('canvas'); cv.width=264; cv.height=264; cv.className='trace';
@@ -1049,7 +1145,7 @@ function traceUI(box,ch,test){
 }
 
 /* ================= ことばつくり ================= */
-function startKotoba(){ closeModal(); SES={mode:'kotoba',q:shuffle(WORDS).slice(0,5),i:0,ok:0,res:[],answerLocked:0}; nextKot() }
+function startKotoba(){ closeModal(); SES=startSession({mode:'kotoba',q:shuffle(WORDS).slice(0,5),i:0,ok:0,res:[],answerLocked:0}); nextKot() }
 function nextKot(){
  /* 中途で「やめる」した場合 setTimeout で遅延発火しても SES.i 参照しないよう guard (新#5) */
  if(!SES || SES.mode!=='kotoba') return;
@@ -1081,9 +1177,14 @@ function nextKot(){
     var bRes=$('bRes'); if(bRes) bRes.disabled=true;
     SES.ok++; SES.res.push({ok:true});
     var t=todayStr(); var lg=ST.log[t]||(ST.log[t]={a:0,n:0}); lg.a++; saveST();
-    T.say(w.w); SES.i++; setTimeout(nextKot,900);
+    T.say(w.w); SES.i++;
+    var _sidK=SES.sid;
+    setTimeout(function(){ if(isCurSes(_sidK)) nextKot(); },900);   /* やめる後の侵入防止 (新追加#2) */
    }
-   else { setTimeout(resetK,750) } } }) })(bs[i2]) }
+   else {
+    var _sidK2=SES.sid;
+    setTimeout(function(){ if(isCurSes(_sidK2)) resetK(); },750);
+   } } }) })(bs[i2]) }
 }
 
 /* ================= セッション終了 ================= */
@@ -1111,19 +1212,23 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
  ensureTestPersist();
  var wasPassed=passed(id); /* この回より前に すでに合格済みか（周回判定）。unshift の前に捕捉 */
+ var wasGold=goldOf(id);    /* 初回金達成も独立判定する (今回新#6) */
  ST.tests.unshift({d:t,t:id,sc:sc,n:total,w:SES.wrongs.map(function(p){return p.key})});
  if(ST.tests.length>40)ST.tests.length=40;
  var pass=(sc>=80), gold=(sc>=95), gainedCatches=[];
  /* 履歴 40 件枠と独立した永続サマリーへ反映 (新#4)。 これがないと 40 件押し出しで
-    合格・金・最高点が消失し、 isExam 再ロックや初回報酬の再取得が起こる。 */
- if(sc > (ST.testBest[id]||0)) ST.testBest[id]=sc;
+    合格・金・最高点が消失し、 isExam 再ロックや初回報酬の再取得が起こる。
+    最高点保存は「未保存」なら初回採用 (0 点でも保存) (今回新#8)。 */
+ if(!(id in ST.testBest) || sc > ST.testBest[id]) ST.testBest[id]=sc;
  if(pass) ST.testPassed[id]=1;
  if(gold) ST.testGold[id]=1;
  // 受験テストは合格点80点判定のみ（解放チェーン進行なし）
  var isExam=(TESTS[id]&&TESTS[id].isExam);
  /* あいぼう成長 ST.pp は「同じテストの周回」では伸ばさず、 初回合格時のみ +1 (新#9)。
     これがないと t_u1 を 3 回受けるだけで成虫🪲 になる。 */
- if(pass){ if(!isExam && !wasPassed) ST.pp=(ST.pp||0)+1; if(ST.re&&ST.re.t===id)ST.re=null;
+ if(pass){ if(!isExam && !wasPassed) ST.pp=(ST.pp||0)+1;
+  if(ST.retests) delete ST.retests[id];     /* 単一スロット ST.re は不要に (新追加#5) */
+  ST.re=null;
   // 解放チェーン一般化: 合格したテストIDに対応するチェーンキーを探し、次のキーを解放
   if(!isExam){
    var chainKeyMap={t_hira:'hira'};
@@ -1152,15 +1257,22 @@ function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.r
     } else {
      var rc=Q4BReward.award(ST.coll,'kanji');  // 初回の通常合格: 重み付き（多くはノーマル）
      if(rc)gainedCatches.push(rc);
-     if(gold){
-      // 初回きん合格ボーナス: もう1匹（レア確定・重み付き）
-      var gc=Q4BReward.award(ST.coll,'kanji',1,1);
-      if(gc)gainedCatches.push(gc);
-     }
+    }
+    /* 金ボーナスは「初回金達成」のみ (今回新#6)。 wasPassed=true でも wasGold=false
+       なら 1 度だけ金ボーナスを支給 ── 83 点で先に合格 → 後日 95+ 点で金、 という
+       経路で金ボーナスが消失していたのを回復。 */
+    if(gold && !wasGold){
+     var gc=Q4BReward.award(ST.coll,'kanji',1,1);
+     if(gc)gainedCatches.push(gc);
     }
    }
   }
- } else { ST.re={d:addDays(t,3),t:id} }
+ } else if(!wasPassed){
+  /* 既合格テストの腕試し再戦で失敗しても 3 日ロックしない (今回新#7)。
+     未合格の本来の不合格時のみ retests に登録 (今回新#5 統合)。 */
+  if(!ST.retests) ST.retests = {};
+  ST.retests[id] = addDays(t,3);
+ }
  saveST();
  var s=$('scr-result'); var h='<div class="card center">';
  if(isExam){
@@ -1216,7 +1328,7 @@ function startReview(){
  pairs=pairs.slice(0,5);
  if(!pairs.length){ modal('<div class="center">ふくしゅうできる もじが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal();
- SES={mode:'review',q:pairs,i:0,ok:0,res:[],wrongs:[],label:'ふくしゅう'};
+ SES=startSession({mode:'review',q:pairs,i:0,ok:0,res:[],wrongs:[],label:'ふくしゅう'});
  nextQ();
 }
 
@@ -1482,15 +1594,23 @@ function weakPairs(){
  /* スキル単位で 「にがて」 を抽出: 字の全 skill 最小 (stageOfItem) を使うと、
     読みだけ box1 で他 skill 未着手 (box 0) の字まで「にがて」 になっていた。
     修正: 字単位ではなく {key, sk} のスキル単位で stage 1-2 を抽出。
-    現在 stage>=3 (習得済み) の skill は ST.wrong に過去誤答が残っていても除外。 */
+    現在 stage>=3 (習得済み) の skill は ST.wrong に過去誤答が残っていても除外。
+    さらに 別コース / ロック中 / 無効キーを混ぜないように itemPool 内のキーに
+    絞り込む (新追加#4)。 これがないと ひらがなコース中に漢字、 漢字コース中に
+    ひらがな、 ロック学年の字、 古い無効キーが「にがてだけ」に混入する。 */
  var pairs = [];
  var seen = {};
- /* 1) 過去誤答 (ST.wrong) のうち、 現状 stage<3 のものを優先 */
+ var allowed = {};
+ itemPool().forEach(function(k){ allowed[k]=true; });
+ /* 1) 過去誤答 (ST.wrong) のうち、 現状 stage<3 で itemPool に含まれるものを優先 */
  ST.wrong.forEach(function(w){
-  if(stageVal(w.k, w.sk) < 3){
-   var key = w.k + '|' + w.sk;
-   if(!seen[key]){ pairs.push({key:w.k, sk:w.sk}); seen[key]=1; }
-  }
+  if(!allowed[w.k]) return;                  /* 別コース / ロック / 無効キー */
+  var sks;
+  try{ sks = skillsOf(w.k); } catch(_) { return; }
+  if(sks.indexOf(w.sk) < 0) return;          /* データ変更で skill が消えた等 */
+  if(stageVal(w.k, w.sk) >= 3) return;
+  var key = w.k + '|' + w.sk;
+  if(!seen[key]){ pairs.push({key:w.k, sk:w.sk}); seen[key]=1; }
  });
  /* 2) 解放済み skill のうち stage 1-2 を追加 (未着手 stage 0 は除外) */
  itemPool().forEach(function(key){
@@ -1562,13 +1682,16 @@ function renderTests(){ var s=$('scr-test');
  var testOrder=['t_hira'].concat(grades.map(function(g){return 't_u'+g})).concat(['t_all','t_exam']);
  var _today=todayStr();
  testOrder.forEach(function(id){ var td=TESTS[id]; if(!td)return; var open=td.need(); var best=bestOf(id);
-  /* 不合格直後の再テスト待機: ST.re.d が今日より先なら一覧上もちょうせんを止める (新#2) */
-  var retryLock = ST.re && ST.re.t===id && ST.re.d > _today;
+  /* 不合格直後の再テスト待機: ST.retests[id] が今日より先なら一覧上もちょうせんを
+     止める (新#2 + 新追加#5)。 既合格テストの「腕試し失敗」では ST.retests が
+     セットされない (今回新#7) のでロックなし。 */
+  var retDate = (ST.retests && ST.retests[id]) || null;
+  var retryLock = retDate && retDate > _today;
   var icon=td.isExam?'📝':(open?(retryLock?'⏳':'🏆'):'🔒');
   var waitMsg='';
   if(retryLock){
    var days=0; var d=_today;
-   while(d < ST.re.d){ days++; d=addDays(d,1); if(days>30)break; }
+   while(d < retDate){ days++; d=addDays(d,1); if(days>30)break; }
    waitMsg='<br>⏳ あと '+days+' にちで さいチャレンジ できるよ';
   }
   h+='<div class="card"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:30px">'+icon+'</div><div style="flex:1"><div style="font-weight:bold">'+td.label+'</div><div class="small">'+(best>=0?'さいこう：'+best+'てん'+(goldOf(id)?' 🥇':''):'まだ ちょうせんしていない')+(td.memo?'<br>'+td.memo:'')+waitMsg+'</div></div></div>'
