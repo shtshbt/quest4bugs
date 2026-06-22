@@ -169,8 +169,13 @@
   }
   function sleep(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
   async function detailOf(res){ try{ return (await res.clone().json()).message||""; }catch(_){ return ""; } }
-  /* すべての書き込みを直列化（同時PUTでブランチ参照が衝突して 409 になるのを防ぐ） */
-  var putChain=Promise.resolve();
+  /* in-flight ガード: 進行中の push が終わるまで新しい push 要求は coalesce し、
+     完了後に「最新の store」で 1 度だけ追加 push する。
+     - 連続 _saveBs → schedulePush で API を叩く回数を最小化 (409 連鎖の根本対策)
+     - putChain 方式 (直列キュー) は、N 回の save に対し N 回の GET+PUT が走るのが
+       無駄だったので置き換え。完了時点の最新 store でまとめて 1 回だけ送る形に。 */
+  var inFlightPush=null;
+  var pendingPush=false;
 
   /* ---------------- cloud push (single snapshot file) ----------------
      全データを1ファイル q4b/save.json に丸ごと保存する。多数の小ファイルを
@@ -213,10 +218,22 @@
     }
     throw new Error("GitHub PUT 409（"+(why||"競合が解消せず")+"）");
   }
-  /* すべての書き込みを直列化（同時PUTでブランチ参照が衝突するのを防ぐ） */
+  /* push 1 本に集約: 進行中なら新規 push をスキップ、完了後に 1 回だけ再 push */
   function pushSnapshot(cfg){
-    var run=putChain.then(function(){ return pushSnapshotRaw(cfg); });
-    putChain=run.catch(function(){});
+    if(inFlightPush){
+      pendingPush=true;
+      return inFlightPush;
+    }
+    var run=pushSnapshotRaw(cfg);
+    inFlightPush=run;
+    function _done(){
+      inFlightPush=null;
+      if(pendingPush){
+        pendingPush=false;
+        setTimeout(function(){ pushSnapshot(cfg); }, 100);
+      }
+    }
+    run.then(_done, _done);
     return run;
   }
   var snapTimer=null;

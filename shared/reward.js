@@ -907,6 +907,27 @@
     return null;
   }
 
+  /* 図鑑表示用: 指定種の卵カウント (育成中 + 待機中) を返す。 */
+  function eggsForSpecies(spId){
+    var bs = _bs();
+    if(!bs) return {incubating:0, pending:0, total:0};
+    var inc = (bs.eggs||[]).filter(function(e){return e.id===spId;}).length;
+    var pen = (bs.pendingEggs||[]).filter(function(e){return e.id===spId;}).length;
+    return {incubating:inc, pending:pen, total:inc+pen};
+  }
+  /* 図鑑フィルタ用: 指定種が ♂♀ 両方記録されているか */
+  function hasBothSexes(coll, spId){
+    if(!coll || !coll.catches || !coll.catches[spId]) return false;
+    var recs = coll.catches[spId].records || [];
+    var hasM=false, hasF=false;
+    for(var i=0;i<recs.length;i++){
+      if(recs[i].sex==='m') hasM=true;
+      else if(recs[i].sex==='f') hasF=true;
+      if(hasM && hasF) return true;
+    }
+    return false;
+  }
+
   /* 自家育成 (reared:true) 判定ヘルパ */
   function hasReared(coll, id){
     var e = coll && coll.catches ? coll.catches[id] : null;
@@ -1107,6 +1128,8 @@
     canHatchNow: canHatchNow,
     isLegacyMasterUnknownSex: isLegacyMasterUnknownSex,
     listLegacyMasterPending: listLegacyMasterPending,
+    eggsForSpecies: eggsForSpecies,
+    hasBothSexes: hasBothSexes,
     autoFinalizeLegacyMasterAll: autoFinalizeLegacyMasterAll,
     rollSex: rollSex,
     rollSize: rollSize,

@@ -256,6 +256,42 @@
     return '<div style="display:inline-block">'+global.Q4BReward.favoriteButtonHTML(coll, id, onclickStr)+'</div>';
   }
 
+  /* 卵情報セクション: その種で抱えている育成中 + 待機中の卵を一覧表示。
+     産卵日 + 進捗 + sex + shiny を表示する。卵が無ければ空文字を返す。 */
+  function eggInfoHTML(sp){
+    if(!sp || !global.Q4BReward || !global.Q4BReward.eggsForSpecies) return "";
+    var counts = global.Q4BReward.eggsForSpecies(sp.id);
+    if(!counts || counts.total === 0) return "";
+    var bs = global.Q4BReward.getBreedingState ? global.Q4BReward.getBreedingState() : null;
+    if(!bs) return "";
+    var inc = (bs.eggs||[]).filter(function(e){return e.id===sp.id;});
+    var pen = (bs.pendingEggs||[]).filter(function(e){return e.id===sp.id;});
+    function sexMark(s){ return s==='m' ? '<span style="color:#5B8DE0;font-weight:800">♂</span>' : s==='f' ? '<span style="color:#E08BB9;font-weight:800">♀</span>' : ''; }
+    var rows = [];
+    inc.forEach(function(e){
+      var p = e.target ? Math.round(100*e.progress/e.target) : 0;
+      rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#FFF6E0;border:1px solid #E8B33C40;border-radius:8px;padding:4px 8px;margin-top:3px">'
+        + '<span style="font-weight:800;color:#8A5C2C">🐣 そだてちゅう</span>'
+        + sexMark(e.sex)
+        + (e.shiny?'<span style="color:#f5b800">✨</span>':'')
+        + '<span style="color:#6B7A5E;flex:1">'+e.progress+'/'+e.target+' ('+p+'%)</span>'
+        + (e.bornAt?'<span style="color:#A89876;font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
+        + '</div>');
+    });
+    pen.forEach(function(e){
+      var originLabel = {master_pair:'🎓', boss_pair:'👑', lay:'🥚'}[e.origin] || '';
+      rows.push('<div style="display:flex;align-items:center;gap:6px;font-size:11px;background:#F5E8FF;border:1px solid #A06BD840;border-radius:8px;padding:4px 8px;margin-top:3px">'
+        + '<span style="font-weight:800;color:#6B4A99">📬 まちのたまご</span>'
+        + '<span style="font-size:11px">'+originLabel+'</span>'
+        + sexMark(e.sex)
+        + (e.shiny?'<span style="color:#f5b800">✨</span>':'')
+        + '<span style="color:#6B7A5E;flex:1"></span>'
+        + (e.bornAt?'<span style="color:#A89876;font-size:10px">'+esc(e.bornAt)+'〜</span>':'')
+        + '</div>');
+    });
+    return '<div style="margin-top:10px"><div style="font-size:12px;color:#6B7A5E;font-weight:700;margin-bottom:2px">🥚 たまご ('+counts.total+'こ)</div>'+rows.join('')+'</div>';
+  }
+
   /* 全部まとめた詳細 HTML を返す。entry: catches[id], sp: 種データ
      opts.coll: お気に入り対象コレクション (Q4BReward.favoriteButtonHTML 用)
      opts.favCallback: window 直下に登録したお気に入りトグル関数名 (例: "kanjiFavTap") */
@@ -301,6 +337,7 @@
         html += '<div style="font-size:11px;font-style:italic;color:#6B7A5E;text-align:center;margin-bottom:6px">'+esc(sp.scientificName)+'</div>';
       }
       html += '<div style="font-size:12px;color:#6B7A5E;margin:6px 0;text-align:center">まだ つかまえてないよ。これから きろくが たまるよ</div>';
+      html += eggInfoHTML(sp);
       html += specimenInfoHTML(sp);
       html += breedingActionsHTML(entry, sp, opts);
       return html;
@@ -315,6 +352,7 @@
     html += histogramHTML(records, sizeMm);
     html += recentListHTML(records, 5);
     html += specimenInfoHTML(sp);
+    html += eggInfoHTML(sp);
     /* 自家育成セクション + 卵生成/放棄ボタン (前提クリア時のみ active) */
     html += rearedSectionHTML(opts.coll, sp);
     html += breedingActionsHTML(entry, sp, opts);
