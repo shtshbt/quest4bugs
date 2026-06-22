@@ -86,8 +86,9 @@
       }
     }).catch(function(){ BOSSES = {}; loaded = true; });
   }
-  /* migration: BATTLE.bosses[id].records ありなのに 教科 coll.catches[id] が空のボスに
-     対し、records[0] (= first specimen) を coll に push して一般図鑑カードを表示可能に。
+  /* migration: 撃破履歴のあるボス (be.n>=1) が教科 coll.catches に未登録なら 1 個体を
+     補完して一般図鑑カードを表示可能に。be.records[0] があればそれを使い、無ければ
+     be.firstSex + be.max から擬似 record を作る (legacy ユーザ救済)。
      in-place で coll.catches を変更し、変更があった game の名前を返す。 */
   function backfillCatchesFromBosses(bossesMap, collsByGame){
     var B = global.Q4BBattle, RW = global.Q4BReward;
@@ -97,15 +98,24 @@
     B.roster.forEach(function(r){
       if(r.predator || !r.id || !byId[r.id]) return;
       var be = bossesMap[r.id];
-      if(!be || !be.records || be.records.length === 0) return;
+      if(!be || (be.n||0) === 0) return;
       var sp = byId[r.id];
       var game = RW.gameFor(sp);
       var coll = collsByGame[game];
       if(!coll) return;
       if(!coll.catches) coll.catches = {};
-      if(coll.catches[r.id]) return;  /* 既に教科側に記録あり */
-      var rec0 = be.records[0];
-      RW.record(coll, sp, {sex:rec0.sex, size:rec0.s, shiny:!!rec0.shiny, reared:false});
+      if(coll.catches[r.id]) return;
+      /* records[0] があれば優先、無ければ firstSex + max から擬似 record を生成 */
+      var sex, size, shiny;
+      if(be.records && be.records.length > 0){
+        var rec0 = be.records[0];
+        sex = rec0.sex; size = rec0.s; shiny = !!rec0.shiny;
+      } else {
+        sex = (be.firstSex === "m" || be.firstSex === "f") ? be.firstSex : (RW.rollSex ? RW.rollSex(sp) : "u");
+        size = (be.max != null) ? be.max : (RW.rollSize ? RW.rollSize(sp, sex) : (RW.sizeRange ? RW.sizeRange(sp)[1] : 0));
+        shiny = !!be.shiny;
+      }
+      RW.record(coll, sp, {sex:sex, size:size, shiny:shiny, reared:false});
       touched[game] = true;
     });
     return touched;
