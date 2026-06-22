@@ -2067,6 +2067,19 @@ function opts4(item){
   const fid = item.fid || GFID;
   const fieldWords = (typeof WordDB !== 'undefined' && WordDB.byField) ? WordDB.byField(fid) : GWORDS;
   let pool = (fieldWords && fieldWords.length >= 4) ? fieldWords.filter(x=>x.key!==w.key) : GWORDS.filter(x=>x.key!==w.key);
+  /* 表示重複除外: kids は 絵文字+ja、 通常は ja+en の組合せで dedup。
+     英→日 で「日訳が同じ」、 日→英 で「英表記が同じ」 が並ぶのを防止。 */
+  const isKidsItem = (item.type === 'kids') || KIDS;
+  const dispKey = isKidsItem
+    ? (x => (x.emoji || '') + '|' + (x.ja || ''))
+    : (x => (x.ja || '') + '|' + (x.en || ''));
+  const seenDisp = new Set([dispKey(w)]);
+  pool = pool.filter(x => {
+    const dk = dispKey(x);
+    if(seenDisp.has(dk)) return false;
+    seenDisp.add(dk);
+    return true;
+  });
   if(!KIDS&&w.pos) { const same=pool.filter(x=>x.pos===w.pos); if(same.length>=3) pool=same; }
   if(KIDS&&w.cat){ const same=pool.filter(x=>x.cat===w.cat); if(same.length>=3) pool=same; }
   const ds=Engine.shuffle(pool).slice(0,3);
