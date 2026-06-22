@@ -1173,23 +1173,31 @@ function scrHome(){
   for(const f of FIELDS){
     const zk=Reward.zukanFor(f.id);
     const caught=zk.filter(s=>P.catches[s[0]]).length;
-    let prog=0, progTxt='';
+    let prog=0, progTxt='', masterRatio=0;
     if(f.open){
       const words=WordDB.byField(f.id);
       if(f.kids){
         let started=0,frac=0,learned=0;
         words.forEach(w=>{const k=P.kids[w.key]; if(!k||!(k[1]>0))return; started++; frac+=Math.min(2,k[1])/2; if(k[1]>=2)learned++;});
-        prog=words.length?learned/words.length:0; /* 単純な習得率 */
+        /* バーは途中段階込みの「すすみ」(frac/total)。1問解くごとに動く設計。
+           「おぼえた N」は box 3 相当の習得語数で別途併記 (役割分担)。 */
+        prog=words.length?frac/words.length:0;
+        masterRatio=words.length?learned/words.length:0;
         progTxt=`がくしゅうちゅう ${started}/${words.length}・おぼえた ${learned}`;
       } else {
         let started=0,frac=0,m=0;
         words.forEach(w=>{const s=P.srs[w.key]; if(!s||!(s[0]>0))return; started++; frac+=Math.min(3,s[0])/3; if(s[0]>=3)m++;});
-        prog=words.length?m/words.length:0; /* 単純な習得率 */
+        /* box1=1/3, box2=2/3, box3+=1 で累積 frac。100語が box1 になれば 100/3≈3.3%
+           バーが伸びる → 学習行動と視覚フィードバックの遅延を解消。 */
+        prog=words.length?frac/words.length:0;
+        masterRatio=words.length?m/words.length:0;
         progTxt=`がくしゅうちゅう ${started}/${words.length}・しゅうとく ${m}`;
       }
     }
-    /* 既習度バッジ: 習得率 80%+ なら「📉 レア度ひかえめ」、それ以外は表示なし */
-    const _boost = (window.Q4BReward && prog >= 0.8) ? Q4BReward.BOOST_LOW : 1;
+    /* 既習度バッジ: 習得率 (master 80%+) なら「📉 レア度ひかえめ」。
+       バー (frac/total) とは別に master ratio で判定 → eitangoFieldBoost (採集 boost) と
+       一貫した発動タイミング。 */
+    const _boost = (window.Q4BReward && masterRatio >= 0.8) ? Q4BReward.BOOST_LOW : 1;
     const boostBadge = _boost < 1
       ? '<div style="position:absolute;top:6px;left:8px;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:700;color:#6B7A5E">📉 レア度ひかえめ</div>'
       : '';
@@ -1444,8 +1452,10 @@ function scrProgress(){
     } else {
       words.forEach(w=>{const s=P.srs[w.key]; stageCount[growthStage(w,false).stage]++; if(!s||!(s[0]>0))return; started++; const st=Math.min(3,s[0]); frac+=st/3; if(s[0]>=3)mastered++;});
     }
-    /* バーは「はじめた語の習得度」で1問ごとに動く（分母を全語にすると拡充で動かないため） */
-    const pct=total?Math.round(100*mastered/total):0; /* 単純な習得率(全体数のうち) */
+    /* バーは frac/total で「学習行動を含む総合進捗」を表示。box1=1/3, box2=2/3,
+       box3+=1 で累積。100問解いて全部 box1 なら 100/3≈3.3% 即時反映。
+       横の数字 (started / mastered) で「触れた語数」「習得語数」を別途併記。 */
+    const pct=total?Math.round(100*frac/total):0;
     return {f,mastered,started,total,pct,stageCount};
   });
 
