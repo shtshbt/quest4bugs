@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v120";  /* v120: Phase A (PA-1/PA-2/PA-3 + T4) — 同期 status を local/dirty/syncing/synced/auth-error/offline/conflict/error に拡張, 偽 synced (設定だけで synced 表示) を廃止し autoConnect/saveConfig/init で dirty 起算, persist() で _bumpLocalGen + status='dirty' を立て pushSnapshot を dirty generation 方式に変更 (T4 push queue 偽 synced を解消), pushAll で 401/403/409/422/offline を _classifyError で分類し status と最終エラー詳細を永続化, lastSuccessAt + PAT 期限を LAST_SYNC_KEY に保存し getSyncMeta() で公開, pushSnapshotRaw が GitHub-Authentication-Token-Expiration header を保存し 401/403 は即時失敗, navigator.storage.persist() / estimate() のラッパを QuestSave に追加し root index.html の親画面に「📌 端末ストレージを 永続にする」「☁️ 同期じょうたい をみる」 ボタンを追加 */
+var CACHE = "q4b-cache-v121";  /* v121: PB-1 storage CAS インフラ — loadVersioned/saveVersioned API を追加し expectedRevision 不一致時に書込み拒否 + ローカル候補を q4b_conflict_backup_* に退避 + setStatus('conflict')。 KV エントリに revision/updatedBy を持たせ legacy save() でも revision を +1 進める。 CAS_NAMESPACES = kanji/keisan/eitango/breeding/battle/wallet。 mergeStore を CAS aware にし remote.revision > local.revision なら remote 優先 (同 revision は時刻 LWW)。 conflict backup は profile 10/全体 30/30 日 TTL で自動掃除、 listConflictBackups()/readConflictBackup() で UI から参照可。 device id を localStorage に永続。 caller 移行は PB-2 で順次。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

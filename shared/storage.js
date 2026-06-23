@@ -281,15 +281,30 @@
       profiles:store.profiles,current:store.current,kv:store.kv,
       tombstones:store.tombstones||{}},null,2);
   }
-  /* remote(あれば) を local にマージ: profiles=LWW+tombstone, kv=updatedが新しい方を優先。 */
+  /* remote(あれば) を local にマージ。 profiles=LWW+tombstone、 kv は CAS namespace
+     では logical revision を優先、 それ以外は updated (時刻) で勝者決定。 */
   function mergeStore(store,remote){
     if(!remote)return;
     mergeRegistry(store,remote); // tombstones/profiles をマージ
     var rk=remote.kv||{},k,inc,ex;
-    for(k in rk){ inc=rk[k]; if(!inc||typeof inc!=="object")continue;
-      /* 同 timestamp ではローカル優先 (旧コードは >= でリモート優先となり、 直前の
-         ローカル save が一瞬で消える経路があった - audit #23)。 */
-      ex=store.kv[k]; if(!ex||(inc.updated||0)>(ex.updated||0))store.kv[k]=inc; }
+    for(k in rk){
+      inc=rk[k]; if(!inc||typeof inc!=="object")continue;
+      ex=store.kv[k];
+      if(!ex){ store.kv[k]=inc; continue; }
+      /* PB-1: CAS namespace では logical revision を優先。 「remote が新しい revision」
+         を持っていれば必ず取り込む。 同 revision は updated で タイブレーク。
+         旧 namespace は従来通り updated だけで判定。 */
+      var ns = k.split(SEP)[0];
+      if(isCASNamespace(ns) && (typeof inc.revision==='number') && (typeof ex.revision==='number')){
+        if(inc.revision > ex.revision){ store.kv[k]=inc; continue; }
+        if(inc.revision < ex.revision) continue;   /* ローカルが新しい */
+        /* 同 revision: 時刻 LWW (R6: 同 timestamp はローカル優先) */
+        if((inc.updated||0) > (ex.updated||0)) store.kv[k]=inc;
+        continue;
+      }
+      /* 同 timestamp ではローカル優先 (R6/audit #23) */
+      if((inc.updated||0) > (ex.updated||0)) store.kv[k]=inc;
+    }
     // 削除済みプロフィールの kv を掃除（リモートから再流入した分も含む）
     var alive={}; store.profiles.forEach(function(pp){alive[pp.id]=1;});
     for(k in store.kv){ var pid=k.split(SEP)[1]; if(store.tombstones&&store.tombstones[pid]&&!alive[pid])delete store.kv[k]; }
@@ -380,10 +395,196 @@
     try{ return JSON.parse(JSON.stringify(v)); }catch(_){ return v; }
   }
 
+  /* ---------------- PB-1: CAS-protected namespaces & versioned API ----------------
+     CAS の目的は「古い snapshot に基づく save が新しい snapshot を上書きする」 race
+     の検出。 expectedRevision は caller が load 時点の revision を保持し、 save 時
+     に明示渡しする。 一致しなければ書込み拒否 + 退避 + conflicted 状態に。 */
+  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, breeding:1, battle:1, wallet:1};
+  var __conflicted = {};       /* {ns+SEP+key: {expectedRevision, actualRevision}} */
+  var CONFLICT_BACKUP_PREFIX = "q4b_conflict_backup_";
+  var CONFLICT_BACKUP_MAX_PER_PROFILE = 10;
+  var CONFLICT_BACKUP_MAX_TOTAL = 30;
+  var CONFLICT_BACKUP_TTL_MS = 30 * 86400000;   /* 30 日 */
+  var __deviceId = (function(){
+    try{
+      var k="q4b_device_id_v1", v=safeGet(k,null);
+      if(v) return v;
+      v = "d"+Math.random().toString(36).slice(2,10)+"-"+Date.now().toString(36);
+      safeSet(k, v);
+      return v;
+    }catch(_){ return "d-unknown"; }
+  })();
+  function isCASNamespace(ns){ return !!CAS_NAMESPACES[ns]; }
+  function getConflicted(ns, key){ return __conflicted[ns+SEP+key] || null; }
+  function clearConflicted(ns, key){ delete __conflicted[ns+SEP+key]; }
+  /* 競合 backup を localStorage の別 key に保存 (同期対象外)。 上限管理 (30 日 /
+     プロフィール 10 件 / 全体 30 件) を満たすため、 起動時に古いものを掃除。 */
+  function _listConflictBackupKeys(){
+    var keys=[];
+    try{
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(k && k.indexOf(CONFLICT_BACKUP_PREFIX)===0) keys.push(k);
+      }
+    }catch(_){}
+    return keys;
+  }
+  function _readBackupMeta(k){
+    try{
+      var raw = safeGet(k, null); if(!raw) return null;
+      var o = JSON.parse(raw);
+      return o && {key:k, createdAt:o.createdAt||0, profileId:o.profileId||""};
+    }catch(_){ return null; }
+  }
+  function _pruneConflictBackups(){
+    var all = _listConflictBackupKeys().map(_readBackupMeta).filter(Boolean);
+    var nowMs = Date.now();
+    /* TTL 過ぎは即削除 */
+    all = all.filter(function(m){
+      if(m.createdAt && (nowMs - m.createdAt) > CONFLICT_BACKUP_TTL_MS){
+        safeRemove(m.key); return false;
+      }
+      return true;
+    });
+    /* プロフィール別上限 */
+    var byProf = {};
+    all.forEach(function(m){ (byProf[m.profileId||"_"] = byProf[m.profileId||"_"] || []).push(m); });
+    Object.keys(byProf).forEach(function(pid){
+      var list = byProf[pid].sort(function(a,b){return b.createdAt - a.createdAt;});
+      list.slice(CONFLICT_BACKUP_MAX_PER_PROFILE).forEach(function(m){ safeRemove(m.key); });
+    });
+    /* 全体上限 (TTL 経過分を取り除いた後の再集計) */
+    var remaining = _listConflictBackupKeys().map(_readBackupMeta).filter(Boolean)
+      .sort(function(a,b){return b.createdAt - a.createdAt;});
+    remaining.slice(CONFLICT_BACKUP_MAX_TOTAL).forEach(function(m){ safeRemove(m.key); });
+  }
+  function _writeConflictBackup(ns, key, info){
+    try{
+      var bkKey = CONFLICT_BACKUP_PREFIX + Date.now() + "_" + (info.profileId||"_") + "_" + ns + "_" + key;
+      var ok = safeSet(bkKey, JSON.stringify(info));
+      if(!ok){
+        /* 容量逼迫: 古い backup を削って再試行 */
+        _pruneConflictBackups();
+        ok = safeSet(bkKey, JSON.stringify(info));
+      }
+      _pruneConflictBackups();
+      return ok ? bkKey : null;
+    }catch(_){ return null; }
+  }
+  function listConflictBackups(profileId){
+    var out = _listConflictBackupKeys().map(function(k){
+      try{
+        var raw = safeGet(k, null);
+        if(!raw) return null;
+        var o = JSON.parse(raw);
+        if(profileId && o.profileId !== profileId) return null;
+        return {key:k, profileId:o.profileId, namespace:o.namespace, kvKey:o.key,
+          createdAt:o.createdAt, expectedRevision:o.expectedRevision,
+          actualRevision:o.actualRevision, deviceId:o.deviceId};
+      }catch(_){ return null; }
+    }).filter(Boolean);
+    return out.sort(function(a,b){return b.createdAt - a.createdAt;});
+  }
+  function readConflictBackup(backupKey){
+    try{
+      var raw = safeGet(backupKey, null);
+      return raw ? JSON.parse(raw) : null;
+    }catch(_){ return null; }
+  }
+  /* 通常の load/save エントリは {v, updated, data} 形式。 CAS 対応では revision/
+     updatedBy も持つ。 旧データは revision 未設定 → 0 扱い。 */
+  function _entryRevision(entry){ return (entry && typeof entry.revision==='number') ? entry.revision : 0; }
+
+  /* loadVersioned: caller が revision token を受け取る。 これを save 時に
+     expectedRevision として明示渡しすると、 古い snapshot からの書込みは拒否される。 */
+  function loadVersioned(ns, key, defaultValue){
+    var store = loadStore();
+    var entry = store.kv[ns + SEP + key];
+    if(!entry){
+      return Promise.resolve({data: deepClone(defaultValue==null ? null : defaultValue), revision: 0, fresh: true});
+    }
+    return Promise.resolve({
+      data: deepClone(entry.data),
+      revision: _entryRevision(entry),
+      updatedAt: entry.updated || 0,
+      updatedBy: entry.updatedBy || null,
+      fresh: false
+    });
+  }
+  /* saveVersioned: 成功時 {ok:true, revision:N}。 競合時 {ok:false, reason:"conflict",
+     expectedRevision, actualRevision, remoteData} を返し、 ローカル候補は退避済み。
+     例外は通信系のみで、 競合自体は throw しない (caller が誤って一般エラー扱い
+     しないため structured result)。 */
+  function saveVersioned(ns, key, data, expectedRevision, opts){
+    opts = opts || {};
+    var store = loadStore();
+    var fullKey = ns + SEP + key;
+    var entry = store.kv[fullKey];
+    var actual = _entryRevision(entry);
+    if(typeof expectedRevision !== 'number'){
+      /* CAS 必須なので明示渡しがない場合は失敗を返す。 旧 API は別 save() を使う。 */
+      return Promise.resolve({ok:false, reason:"missing-revision", actualRevision:actual});
+    }
+    if(actual !== expectedRevision){
+      /* 競合検出 → ローカル候補を退避 */
+      var profileId = "";
+      try{
+        if(ns === 'kanji' || ns === 'keisan' || ns === 'eitango' || ns === 'breeding' || ns === 'battle' || ns === 'wallet') profileId = key;
+      }catch(_){}
+      var bkKey = _writeConflictBackup(ns, key, {
+        schemaVersion: 1,
+        createdAt: Date.now(),
+        profileId: profileId,
+        namespace: ns,
+        key: key,
+        expectedRevision: expectedRevision,
+        actualRevision: actual,
+        deviceId: __deviceId,
+        sessionId: opts.sessionId || null,
+        localData: deepClone(data),
+        remoteData: deepClone(entry ? entry.data : null)
+      });
+      __conflicted[fullKey] = {expectedRevision: expectedRevision, actualRevision: actual, backupKey: bkKey};
+      try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] CAS conflict on "+fullKey+" expected="+expectedRevision+" actual="+actual+" backup="+bkKey); }catch(_){}
+      try{ window.dispatchEvent(new CustomEvent("q4b-storage-conflict", {detail:{ns:ns, key:key, expectedRevision:expectedRevision, actualRevision:actual, backupKey:bkKey}})); }catch(_){}
+      setStatus("conflict");
+      return Promise.resolve({
+        ok: false,
+        reason: "conflict",
+        expectedRevision: expectedRevision,
+        actualRevision: actual,
+        remoteData: deepClone(entry ? entry.data : null),
+        backupKey: bkKey
+      });
+    }
+    /* CAS 成功 → revision を +1 して書込み */
+    var newRevision = expectedRevision + 1;
+    store.kv[fullKey] = {
+      v: (entry && entry.v) || 1,
+      updated: now(),
+      revision: newRevision,
+      updatedBy: __deviceId,
+      data: deepClone(data)
+    };
+    persist();
+    schedulePushOne(ns, key);
+    return Promise.resolve({ok:true, revision:newRevision});
+  }
+  /* getDeviceId: PB-3 (presence) と conflict backup で利用 */
+  function getDeviceId(){ return __deviceId; }
+  _pruneConflictBackups();           /* 起動時に 1 度クリーンアップ */
+
   /* ---------------- namespaced KV API (Promise) ---------------- */
   function save(ns,key,data){
+    /* PB-1: CAS 対象 namespace で旧 save が呼ばれた場合は warn (PB-2 完了で throw に変更) */
+    if(isCASNamespace(ns)){
+      try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] legacy save() on CAS namespace '"+ns+"' — migrate caller to saveVersioned()"); }catch(_){}
+    }
     var store=loadStore();
-    store.kv[ns+SEP+key]={v:1,updated:now(),data:deepClone(data)};   /* R6 */
+    /* 既存 revision を維持しつつ +1 (旧 caller から書かれた変更も revision を進める) */
+    var prev = store.kv[ns+SEP+key];
+    var rev = _entryRevision(prev) + 1;
+    store.kv[ns+SEP+key]={v:1,updated:now(),revision:rev,updatedBy:__deviceId,data:deepClone(data)};   /* R6 */
     persist();
     schedulePushOne(ns,key);
     return Promise.resolve(true);
@@ -1107,6 +1308,11 @@
     markDropSeen:markDropSeen,
     // status / connection
     getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, warnIfDegraded:warnIfDegraded, getSyncMeta:getSyncMeta, requestPersistent:requestPersistent, storageEstimate:storageEstimate, autoConnect:autoConnect,
+    /* PB-1: CAS API */
+    loadVersioned:loadVersioned, saveVersioned:saveVersioned, isCASNamespace:isCASNamespace,
+    getConflicted:getConflicted, clearConflicted:clearConflicted,
+    listConflictBackups:listConflictBackups, readConflictBackup:readConflictBackup,
+    getDeviceId:getDeviceId,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,
     firebaseSignIn:firebaseSignIn, disconnect:disconnect,
     // config
