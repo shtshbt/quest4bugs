@@ -315,10 +315,13 @@
   }
 
   /* ---------------- profile registry (shared across games) ---------------- */
-  function profiles(){return Promise.resolve(loadStore().profiles.slice());}
+  /* T9: profiles() / saveProfiles() も deep clone する。 旧版は profiles.slice()
+     で配列だけ複製、 中の profile object は内部 store と参照共有していた。 caller
+     が p.name 等を変更すると updated 未更新で内部状態だけ変わる経路があった。 */
+  function profiles(){return Promise.resolve(deepClone(loadStore().profiles));}
   function saveProfiles(list){
     var store=loadStore();
-    store.profiles=Array.isArray(list)?list:[];
+    store.profiles=Array.isArray(list)?deepClone(list):[];
     persist();
     schedulePushRegistry();
     return Promise.resolve(true);
@@ -597,12 +600,37 @@
      mergeStore が自動で per-kv LWW を適用する。 */
   function breedingKey(pid){ return "breeding"+SEP+pid; }
   function blankBreeding(){ return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
+  /* T5: 卵の invariant 検証。 旧版は配列存在チェックだけで target/progress 等の
+     形を見ておらず、 target が undefined の旧 / 破損データが 0>=0 で自動孵化判定を
+     通過していた。 不正卵は quarantine (data._brokenEggs) に退避して自動処理から
+     除外、 後で UI から確認/削除できるようにする。 */
+  function _isValidEgg(e){
+    if(!e || typeof e!=="object") return false;
+    if(!e.id || typeof e.id !== "string") return false;
+    if(!Number.isFinite(e.progress) || e.progress < 0) return false;
+    if(!Number.isFinite(e.target) || e.target <= 0) return false;
+    if(e.progress > e.target * 2) return false;  /* 異常な overflow */
+    var validGames = {kanji:1, keisan:1, eitango:1};
+    if(e.game && !validGames[e.game]) return false;
+    if(e.sex && e.sex !== 'm' && e.sex !== 'f' && e.sex !== 'u') return false;
+    return true;
+  }
   function normalizeBreeding(data){
     data=data&&typeof data==="object"?data:{};
     if(!Array.isArray(data.eggs))data.eggs=[];
     if(!Array.isArray(data.pendingEggs))data.pendingEggs=[];
     if(!data.stats||typeof data.stats!=="object")data.stats={};
     if(typeof data.stats.totalAbandoned!=="number")data.stats.totalAbandoned=0;
+    /* T5: 不正卵を _brokenEggs に隔離 */
+    var brokenE = data.eggs.filter(function(e){ return !_isValidEgg(e); });
+    var brokenP = data.pendingEggs.filter(function(e){ return !_isValidEgg(e); });
+    if(brokenE.length || brokenP.length){
+      if(!Array.isArray(data._brokenEggs)) data._brokenEggs=[];
+      data._brokenEggs = data._brokenEggs.concat(brokenE).concat(brokenP);
+      data.eggs = data.eggs.filter(_isValidEgg);
+      data.pendingEggs = data.pendingEggs.filter(_isValidEgg);
+      try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] quarantined "+(brokenE.length+brokenP.length)+" broken eggs"); }catch(_){}
+    }
     return data;
   }
   function breedingOf(pid){
@@ -613,7 +641,10 @@
   function breedingSet(pid,data){
     if(!pid)return false;
     var store=loadStore();
-    store.kv[breedingKey(pid)]={v:1,updated:now(),data:normalizeBreeding(data)};
+    /* T9: breedingSet も deep clone する。 normalizeBreeding は in-place 変更を
+       含むため、 caller の参照と分離しないと「後から caller が egg.progress を
+       触ると内部に漏れる」 経路があった。 */
+    store.kv[breedingKey(pid)]={v:1,updated:now(),data:deepClone(normalizeBreeding(data))};
     persist();
     schedulePush();
     return true;

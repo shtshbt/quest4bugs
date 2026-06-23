@@ -1076,13 +1076,26 @@ function setDashRange(key){
   /* 現プロフィールで再描画。pid/name は state に持っていないので renderProfiles 経由 */
   if(window.__q4bDashCtx) renderDashboard(window.__q4bDashCtx.pid, window.__q4bDashCtx.name);
 }
+var DASH_SEQ = 0;
 function renderDashboard(pid,name){
-  window.__q4bDashCtx={pid:pid,name:name};
+  /* T3: プロフィール切替中に旧 pid の非同期処理が走り続け、 マスター卵を別の子に
+     入れる経路を遮断するため世代番号 DASH_SEQ を導入。 現在の renderDashboard 呼び
+     出しがすでに古いセッションなら全 continuation を skip する。 */
+  var seq = ++DASH_SEQ;
+  function _isCurDash(){
+    if(seq !== DASH_SEQ) return false;
+    try{
+      var cur = window.QuestSave && QuestSave.currentProfile && QuestSave.currentProfile();
+      return !cur || cur === pid;
+    }catch(_){ return true; }
+  }
+  window.__q4bDashCtx={pid:pid,name:name,seq:seq};
   if(!pid||!window.QuestSave){$("dashCard").style.display="none";return;}
   var keisanN=0,kanjiN=0,eitangoN=0,day={};
   /* 成虫化済み卵 (progress >= target) をホーム表示前に自動孵化してスロット解放。
      中間ステージのタップ (egg→larva→pupa) は維持、最終 adult のみ自動。 */
   _autoHatchReadyEggs(pid).then(function(hatched){
+    if(!_isCurDash()) return;     /* T3: 切替後はここで止まる */
     if(hatched && hatched.length && window.Q4BBreeding && Q4BBreeding.notifyAutoHatched){
       setTimeout(function(){ Q4BBreeding.notifyAutoHatched(hatched); }, 400);
     }
@@ -1158,6 +1171,7 @@ function renderDashboard(pid,name){
        ここでは ps 配列を保持するだけで HTML 文字列は出力しない。 */
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
+    if(!_isCurDash()) return;     /* T3: 切替後の旧 pid 処理を全て止める */
     /* legacy master 自動確定: sex='u' マスター虫を rollSex で確定 + 相方卵を一括授与。
        残存 (= 0 のはず) は legacyMasterCount として homeBreedingPanel に表示する。 */
     try{
@@ -1220,17 +1234,27 @@ function addProf(){ openProfEditor(null); }
 /* 成虫化卵 (progress >= target) をホーム表示前に自動孵化 → 該当 game の coll に
    records 追加 + breedingOf から削除。各 game 別に load/save。
    返り値: 孵化した卵情報の配列 [{id, sp, size}, ...] */
+/* T2: 自動孵化の二重発火を防ぐ pid-scoped mutex。 renderDashboard が多重呼び出し
+   されたとき、 同じ完成卵を 2 つの処理が並行で扱い、 一方が 古い coll を
+   無条件保存して 成虫を消す race を防ぐ。 */
+var __autoHatchInflight = {};
 function _autoHatchReadyEggs(pid){
   if(!window.QuestSave||!window.Q4BReward||!QuestSave.breedingOf) return Promise.resolve([]);
+  /* 既に同 pid で進行中ならその Promise を共有 → 二重実行回避 */
+  if(__autoHatchInflight[pid]) return __autoHatchInflight[pid];
   var bs = QuestSave.breedingOf(pid);
-  var ready = (bs.eggs||[]).filter(function(e){return (e.progress||0) >= (e.target||0);});
+  /* T5 連携: progress / target が有限かつ progress>=target>0 のものだけ */
+  var ready = (bs.eggs||[]).filter(function(e){
+    return e && Number.isFinite(e.progress) && Number.isFinite(e.target)
+        && e.target > 0 && e.progress >= e.target;
+  });
   if(!ready.length) return Promise.resolve([]);
   var byGame = {};
   ready.forEach(function(e){
     var g = e.game === 'eitango' ? 'eitango' : e.game;
     (byGame[g] = byGame[g] || []).push(e.id);
   });
-  return Promise.all(Object.keys(byGame).map(function(ns){
+  var task = Promise.all(Object.keys(byGame).map(function(ns){
     return QuestSave.load(ns, pid).then(function(profile){
       profile = profile || {};
       var coll;
@@ -1251,11 +1275,17 @@ function _autoHatchReadyEggs(pid){
           }
         }
       });
+      /* T2: hatched.length===0 なら profile を save しない (古い coll で新しい
+         並列処理の結果を上書きしない安全網)。 */
+      if(!hatched.length) return [];
       if(ns === 'eitango'){ profile.catches = coll.catches; profile.total = coll.total; }
       else { profile.coll = coll; }
       return QuestSave.save(ns, pid, profile).then(function(){ return hatched; });
     }).catch(function(){ return []; });
   })).then(function(all){ return [].concat.apply([], all); });
+  __autoHatchInflight[pid] = task;
+  task.then(function(){ delete __autoHatchInflight[pid]; }, function(){ delete __autoHatchInflight[pid]; });
+  return task;
 }
 
 /* ===== 卵育成: ホーム画面ハンドラ ===== */

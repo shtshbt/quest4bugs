@@ -61,25 +61,13 @@
         eitangoProf.total = colls.eitango.total;
         try{ global.QuestSave.save("eitango", profileId, eitangoProf); }catch(_){}
       }
-      /* migration: eggGranted=true だが対応する boss_pair 卵が eggs/pendingEggs どこにも
-         無いボスを eggGranted=false に戻し、bossesBackfill で再試行可能にする。
-         旧版バグ (eggGranted を null-check 前に true 設定) で取り残されたユーザの救済。 */
-      var _RW = global.Q4BReward;
-      if(_RW && _RW.getBreedingState){
-        var _bs = _RW.getBreedingState();
-        if(_bs){
-          var _has = function(id){
-            return (_bs.eggs||[]).some(function(e){return e.id===id && e.origin==='boss_pair';})
-                || (_bs.pendingEggs||[]).some(function(e){return e.id===id && e.origin==='boss_pair';});
-          };
-          Object.keys(bt.bosses).forEach(function(id){
-            var be = bt.bosses[id];
-            if(be && be.eggGranted === true && !_has(id)){
-              be.eggGranted = false;
-            }
-          });
-        }
-      }
+      /* T1: 「eggGranted=true なのに在庫にない」 を「授与失敗」 と誤認する旧
+         migration は廃止。 孵化済み卵は当然在庫から消えるため、 ボス卵を孵化させた
+         直後にポータルを開くと毎回新しい卵が再支給される無限ループになっていた。
+         eggGranted は「過去に一度授与した」 という永続履歴とし、 一度 true に
+         なったら false に戻さない。 過去の取り残しユーザの救済は 既に v100 周辺で
+         済んでいる前提。 万一の取り残しは bossesBackfill が n>=10 でしか払わない
+         ので無限再支給は起きない。 */
       /* Q1: load が走っている間に別プロフィールに切り替わったら、 副作用 (相方卵
          授与) はスキップして BOSSES だけ復元しない。 BOSSES も上書きしないで終了。 */
       if(!_stillCurrent(profileId)){
@@ -172,10 +160,11 @@
         if(be.min == null && cat.min != null){ be.min = cat.min; changed = true; }
         if(be.shiny == null && cat.shiny != null){ be.shiny = cat.shiny; changed = true; }
       }
-      /* legacy 救済: eggGranted 未済 + 撃破経験あり (n>=1) で相方卵 1 度だけ授与。
-         eggGranted は「卵が確実に授与された (eggs[] or pendingEggs[]) と確認できた場合のみ」
-         true にする (null 返却時は維持 → 次回 retry)。 */
-      if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && RW.awardBossEgg){
+      /* T1: 相方卵の本来仕様は「10 回撃破で反対性別の卵」。 旧版は n>=1 で
+         救済発動し、 T1 修正前の eggGranted false 戻しと組み合わせて無限再支給に
+         なっていた。 ここを n>=10 に統一して仕様と一致させる。 別 awardBossEgg
+         path も同条件のはず。 */
+      if(!be.eggGranted && (be.n||0) >= 10 && be.firstSex && RW.awardBossEgg){
         var opp = be.firstSex === "m" ? "f" : "m";
         var egg = RW.awardBossEgg(null, sp, opp, {forceQueue:true});  /* legacy 救済は pendingEggs に */
         if(egg){

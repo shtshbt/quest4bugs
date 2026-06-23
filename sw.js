@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v117";  /* v117: 新規 7 件 — kanji 認定テスト中の「こたえをみる」 ボタン削除 (書字 2 問 = 最大 20 点のゲート回避), eitango retry 正解の報酬 (recordCorrect/feedEgg/onAnswer/amber/cal) を全て遮断, kanji 認定テスト SES を localStorage に永続化 + 「つづきから」 強制 (中途リロードでの破棄ハック封じ), 親画面のバックアップ取り込みを「マージ / 強制復元」 2 ボタンに分離 (旧 UI は merge を「上書き」 と誤標示), 各教科の捕獲モーダル冒頭で QuestSave.warnIfDegraded() 呼出 (保存失敗時に無自覚で消えるのを警告), sw.js install 内 skipWaiting() 廃止 + storage.js controllerchange は SES/Q 中は保留しホーム遷移時にバナーで通知, 学習データ修正 (kanji の昆虫「つ」数え 6 件を別対象に / eitango blanch/concordance/lean on/ellipse 4 件) */
+var CACHE = "q4b-cache-v118";  /* v118: 致命バグ群 5 件 — T1 ボス卵無限再支給 (eggGranted true→false 戻しを廃止 + bossesBackfill 救済条件を n>=10 に統一), T2 二重自動孵化を pid-scoped mutex + hatched.length===0 なら save しない安全網, T3 ポータルの DASH_SEQ + currentProfile 一致確認で切替中の旧 pid continuation を遮断, T5 不正卵 (target undefined 等) を normalizeBreeding で _brokenEggs に隔離して自動孵化を絶対通さない, T9 profiles()/saveProfiles()/breedingSet() にも deepClone を追加して参照共有経路を完全閉鎖 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
