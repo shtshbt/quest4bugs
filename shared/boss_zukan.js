@@ -166,20 +166,13 @@
          path も同条件のはず。 */
       if(!be.eggGranted && (be.n||0) >= 10 && be.firstSex && RW.awardBossEgg){
         var opp = be.firstSex === "m" ? "f" : "m";
-        var egg = RW.awardBossEgg(null, sp, opp, {forceQueue:true});  /* legacy 救済は pendingEggs に */
-        if(egg){
-          be.eggGranted = true; changed = true;
-          granted.push({sp: sp, sex: opp, egg: egg, queued: !!egg.queuedAt});
-        } else {
-          /* null = awardEgg 内 dedup (同 id+origin が既存) または metamorphosis 無し。
-             既存があるなら実質授与済みなので eggGranted=true 化、無いなら次回 retry */
-          var bs2 = RW.getBreedingState ? RW.getBreedingState() : null;
-          var hasExisting = bs2 && (
-            (bs2.eggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
-            || (bs2.pendingEggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
-          );
-          if(hasExisting){ be.eggGranted = true; changed = true; }
-        }
+        /* PB-2: awardBossEgg は Promise。 forEach 内では await できないので
+           fire-and-forget。 eggGranted=true は同期で立て、 T1 の「永続的な授与履歴」
+           ポリシーで二重支給を防ぐ。 競合で実保存失敗した場合も次回 boot で
+           eggGranted=true なら何もしない (再支給しない)。 */
+        RW.awardBossEgg(null, sp, opp, {forceQueue:true});
+        be.eggGranted = true; changed = true;
+        granted.push({sp: sp, sex: opp, egg: null, queued: true});
       }
     });
     return {changed: changed, granted: granted};

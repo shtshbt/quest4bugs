@@ -931,7 +931,11 @@ function loadAll(){
     if(window.Q4BReward&&Q4BReward.setEggStore){
       Q4BReward.setEggStore({
         get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(PROF):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
-        save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(PROF,s):false;}
+        save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(PROF,s):false;},
+        /* PB-2: CAS adapter */
+        pid:function(){return PROF;},
+        loadVersioned:function(pid){return QuestSave.loadVersioned("breeding", pid, {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}});},
+        saveVersioned:function(pid,data,rev){return QuestSave.saveVersioned("breeding", pid, data, rev);}
       });
     }
     if(window.Q4BReward&&Q4BReward.setFossilStore){
@@ -987,17 +991,13 @@ function loadAll(){
              n>=10 に統一し、 eggGranted 更新時は changed フラグで save を保証。 */
           if(!be.eggGranted && (be.n||0) >= 10 && be.firstSex && Q4BReward.awardBossEgg){
             var opp = be.firstSex === 'm' ? 'f' : 'm';
-            var _egg = Q4BReward.awardBossEgg(null, sp, opp);
-            if(_egg){
-              be.eggGranted = true;
-              _battleBackfillDirty = true;
-            } else if(Q4BReward.getBreedingState){
-              /* null = dedup ヒット。既存があれば eggGranted true 化、無ければ retry */
-              var _bs2 = Q4BReward.getBreedingState();
-              var _has = _bs2 && ((_bs2.eggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
-                             || (_bs2.pendingEggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';}));
-              if(_has){ be.eggGranted = true; _battleBackfillDirty = true; }
-            }
+            /* PB-2: awardBossEgg は Promise。 ここは forEach 内で await できないので
+               fire-and-forget + 同期で eggGranted=true。 競合で実保存失敗した場合も、
+               次回 loadAll 時には eggGranted=true なので二重支給は起きない (= T1 の
+               「永続的な授与履歴」 と整合)。 */
+            Q4BReward.awardBossEgg(null, sp, opp);
+            be.eggGranted = true;
+            _battleBackfillDirty = true;
           }
         });
       }
@@ -1994,6 +1994,7 @@ function finish(win){
           _recordBossInGameColl(bossGame, spBoss, brec);
         }
         if(killRew && killRew.kind==="egg"){
+          /* PB-2: awardBossEgg は Promise (fire-and-forget で OK、 結果は次回 boss_zukan.load で確認) */
           Q4BReward.awardBossEgg(null, spBoss, killRew.sex);
         }
       } else {

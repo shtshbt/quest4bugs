@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v121";  /* v121: PB-1 storage CAS インフラ — loadVersioned/saveVersioned API を追加し expectedRevision 不一致時に書込み拒否 + ローカル候補を q4b_conflict_backup_* に退避 + setStatus('conflict')。 KV エントリに revision/updatedBy を持たせ legacy save() でも revision を +1 進める。 CAS_NAMESPACES = kanji/keisan/eitango/breeding/battle/wallet。 mergeStore を CAS aware にし remote.revision > local.revision なら remote 優先 (同 revision は時刻 LWW)。 conflict backup は profile 10/全体 30/30 日 TTL で自動掃除、 listConflictBackups()/readConflictBackup() で UI から参照可。 device id を localStorage に永続。 caller 移行は PB-2 で順次。 */
+var CACHE = "q4b-cache-v122";  /* v122: PB-2 breeding caller の完全 versioned 移行 — reward.js の breeding adapter を loadVersioned/saveVersioned に対応し __bsCache で {pid, data, revision} を保持、 _ensureBsLoaded/_saveBs を async 化。 breeding 操作 API (layEgg/awardMasterEgg/awardBossEgg/feedEgg/hatchEgg/acceptPendingEgg/promotePendingEgg/demoteEggToPending/discardPendingEgg/abandonEgg/setMasterSex/migrateUnstartedLegacyEggsToPending/autoFinalizeLegacyMasterAll/advanceStage) を Promise 返却に統一。 全 caller (kanji/keisan/eitango/index/battle/boss_zukan) を await 化、 競合時は演出を出さず q4b-breeding-conflict event 経由でモーダル表示 + reload ボタン。 mergeStore に same_revision_divergence 検出を追加。 hatchEgg は breeding 保存成功後に coll.records を追加する 2 phase 設計に。 旧 save() は CAS namespace で warn log (PB-2 完了で動作確認後 throw に格上げ予定)。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

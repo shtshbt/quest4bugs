@@ -349,7 +349,11 @@ function pad2(n){return (n<10?"0":"")+n;}
   if(Q4BReward.setEggStore){
     Q4BReward.setEggStore({
       get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(hPid()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
-      save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(hPid(),s):false;}
+      save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(hPid(),s):false;},
+      /* PB-2: CAS adapter */
+      pid:function(){return hPid();},
+      loadVersioned:function(pid){return QuestSave.loadVersioned("breeding", pid, {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}});},
+      saveVersioned:function(pid,data,rev){return QuestSave.saveVersioned("breeding", pid, data, rev);}
     });
   }
 })();
@@ -1158,9 +1162,11 @@ function renderDashboard(pid,name){
     if(hatched && hatched.length && window.Q4BBreeding && Q4BBreeding.notifyAutoHatched){
       setTimeout(function(){ Q4BBreeding.notifyAutoHatched(hatched); }, 400);
     }
-    /* migration: 旧版で勝手に eggs に入った legacy 卵 (progress=0) を pendingEggs に戻す */
+    /* migration: 旧版で勝手に eggs に入った legacy 卵 (progress=0) を pendingEggs に戻す。
+       PB-2: migrateUnstartedLegacyEggsToPending は Promise 返却 → 後段の処理に影響
+       しないよう fire-and-forget (失敗時は次回 boot で再試行)。 */
     if(window.Q4BReward && Q4BReward.migrateUnstartedLegacyEggsToPending){
-      try{ Q4BReward.migrateUnstartedLegacyEggsToPending(); }catch(_){}
+      try{ Q4BReward.migrateUnstartedLegacyEggsToPending().catch(function(){}); }catch(_){}
     }
     /* ボス legacy 救済を全教科ぶん発動 (ホームに来た瞬間に kanji/keisan/eitango 全ボス処理) */
     return (window.Q4BBossZukan && Q4BBossZukan.load ? Q4BBossZukan.load(pid) : Promise.resolve()).then(function(){
@@ -1255,16 +1261,23 @@ function renderDashboard(pid,name){
         {game:'kanji',  coll: ks&&ks.coll, data: ks, isEi: false},
         {game:'eitango',coll: (es && es.catches) ? {catches: es.catches} : null, data: es, isEi: true}
       ];
+      /* PB-2: autoFinalizeLegacyMasterAll は Promise 返却。 forEach 内で await
+         できないため、 fire-and-forget で叩いて完了を待たない。 結果は次回 boot
+         で再評価。 legacy 集計は同期できる listLegacyMasterPending で行う。 */
       _legacyGames.forEach(function(it){
         if(!it.coll || !window.Q4BReward) return;
-        var granted = Q4BReward.autoFinalizeLegacyMasterAll ? Q4BReward.autoFinalizeLegacyMasterAll(it.coll) : [];
-        if(granted && granted.length){
-          _autoTotal += granted.length;
-          if(it.isEi){ if(it.data) it.data.catches = it.coll.catches; }
-          else { if(it.data) it.data.coll = it.coll; }
-          if(it.data) QuestSave.save(it.game, pid, it.data);
+        if(Q4BReward.autoFinalizeLegacyMasterAll){
+          try{
+            Q4BReward.autoFinalizeLegacyMasterAll(it.coll).then(function(granted){
+              if(granted && granted.length){
+                _autoTotal += granted.length;
+                if(it.isEi){ if(it.data) it.data.catches = it.coll.catches; }
+                else { if(it.data) it.data.coll = it.coll; }
+                if(it.data) QuestSave.save(it.game, pid, it.data);
+              }
+            }).catch(function(){});
+          }catch(_){}
         }
-        /* 残存 legacy (autoFinalize 後はほぼ 0) を集計 */
         var ids=(Q4BReward.listLegacyMasterPending?Q4BReward.listLegacyMasterPending(it.coll):[]);
         window.__q4bLegacyMasterCount += ids.length;
         window.__q4bLegacyByGame[it.game] = (window.__q4bLegacyByGame[it.game]||0) + ids.length;
@@ -1344,28 +1357,32 @@ function _autoHatchReadyEggs(pid){
         if(!profile.coll) profile.coll = {catches:{},total:0};
         coll = profile.coll;
       }
+      /* PB-2: hatchEgg は Promise 返却。 ns 内の卵を順次孵化 (race を避ける)。
+         U2: 各 hatchEgg 前に currentProfile() == pid を再確認。 */
       var hatched = [];
-      byGame[ns].forEach(function(id){
-        /* U2: 各 hatchEgg 呼出前にも再確認 (時間のかかる ns loop の途中で切替が
-           起きる可能性に対応) */
+      var idsToHatch = byGame[ns].slice();
+      function _hatchNext(i){
+        if(i >= idsToHatch.length) return Promise.resolve();
         try{
           var _cur2 = QuestSave.currentProfile && QuestSave.currentProfile();
-          if(_cur2 && _cur2 !== pid) return;
+          if(_cur2 && _cur2 !== pid) return Promise.resolve();
         }catch(_){}
-        var r = Q4BReward.hatchEgg(coll, id);
-        if(r){
-          hatched.push({id:id, sp:r.sp, size:r.size});
-          if(r.leveledUp && r.newTier && window.Q4BBreeding && Q4BBreeding.notifyBreederLevelUp){
-            Q4BBreeding.notifyBreederLevelUp(r.newTier);
+        return Q4BReward.hatchEgg(coll, idsToHatch[i]).then(function(r){
+          if(r){
+            hatched.push({id:idsToHatch[i], sp:r.sp, size:r.size});
+            if(r.leveledUp && r.newTier && window.Q4BBreeding && Q4BBreeding.notifyBreederLevelUp){
+              Q4BBreeding.notifyBreederLevelUp(r.newTier);
+            }
           }
-        }
+          return _hatchNext(i+1);
+        });
+      }
+      return _hatchNext(0).then(function(){
+        if(!hatched.length) return [];
+        if(ns === 'eitango'){ profile.catches = coll.catches; profile.total = coll.total; }
+        else { profile.coll = coll; }
+        return QuestSave.save(ns, pid, profile).then(function(){ return hatched; });
       });
-      /* T2: hatched.length===0 なら profile を save しない (古い coll で新しい
-         並列処理の結果を上書きしない安全網)。 */
-      if(!hatched.length) return [];
-      if(ns === 'eitango'){ profile.catches = coll.catches; profile.total = coll.total; }
-      else { profile.coll = coll; }
-      return QuestSave.save(ns, pid, profile).then(function(){ return hatched; });
     }).catch(function(){ return []; });
   })).then(function(all){ return [].concat.apply([], all); });
   __autoHatchInflight[pid] = task;
@@ -1390,7 +1407,7 @@ function homeEggTap(id){
         egg: egg,
         onHatch: function(spId){ homeEggHatch(spId); },
         onAdvance: function(spId){ homeEggAdvance(spId); },
-        onAbandon: function(spId){ Q4BReward.abandonEgg(spId); _refreshDashIfActive(); },
+        onAbandon: function(spId){ Q4BReward.abandonEgg(spId).then(function(){ _refreshDashIfActive(); }); },
         onDemote: function(spId){ homeEggDemote(spId); },
         onViewParent: function(spId){ openParentZukan(spId); }
       });
@@ -1470,19 +1487,23 @@ function _homeEggOpenLayPicker(pid){
 }
 function homeEggPromotePending(eggId){
   if(!Q4BReward.promotePendingEgg) return;
-  var promoted = Q4BReward.promotePendingEgg(eggId);
-  if(!promoted){
-    alert('そだてられないよ (スロットが いっぱい か、同じ虫を そだて中)');
-    return;
-  }
-  _refreshDashIfActive();
-  _maybeReopenEggNest();
+  /* PB-2: Promise */
+  Q4BReward.promotePendingEgg(eggId).then(function(promoted){
+    if(!promoted){
+      alert('そだてられないよ (スロットが いっぱい か、同じ虫を そだて中)');
+      return;
+    }
+    _refreshDashIfActive();
+    _maybeReopenEggNest();
+  });
 }
 function homeEggDiscardPending(eggId){
   if(!Q4BReward.discardPendingEgg) return;
-  if(!Q4BReward.discardPendingEgg(eggId)){ alert('すてられなかったよ'); return; }
-  _refreshDashIfActive();
-  _maybeReopenEggNest();
+  Q4BReward.discardPendingEgg(eggId).then(function(ok){
+    if(!ok){ alert('すてられなかったよ'); return; }
+    _refreshDashIfActive();
+    _maybeReopenEggNest();
+  });
 }
 /* 連続操作: 待機卵 + 空きスロットがまだあれば たまごリスト モーダルを再オープン */
 function _maybeReopenEggNest(){
@@ -1496,10 +1517,11 @@ function _maybeReopenEggNest(){
 /* こうたい: 育成中の卵を pendingEggs に戻して、すぐに たまごリスト を開く (進捗保持) */
 function homeEggDemote(eggId){
   if(!Q4BReward.demoteEggToPending) return;
-  if(!Q4BReward.demoteEggToPending(eggId)){ alert('こうたいできなかったよ'); return; }
-  _refreshDashIfActive();
-  /* 即座に たまごリスト Modal を開いて 別の卵を選ばせる */
-  setTimeout(homeEggAdd, 250);
+  Q4BReward.demoteEggToPending(eggId).then(function(ok){
+    if(!ok){ alert('こうたいできなかったよ'); return; }
+    _refreshDashIfActive();
+    setTimeout(homeEggAdd, 250);
+  });
 }
 window.homeEggPickPending=null;  /* 産卵候補の sp.id を保持 */
 function homeEggPicked(spId){
@@ -1520,15 +1542,17 @@ function homeEggPicked(spId){
         if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
         if(rs[2]&&rs[2].catches) merge(rs[2].catches);
         var virtColl={catches:virtCatches};
-        var egg=Q4BReward.layEgg(virtColl, sp);
-        if(egg){
-          /* 卵選択モーダルを閉じてホーム再描画 */
-          var p=document.getElementById("q4bEggPickerOv"); if(p) p.remove();
-          _refreshDashIfActive();
-        } else {
-          alert("たまごを 産めませんでした (前提未充足)");
-          if(picker) picker.style.display="";  /* 再表示 */
-        }
+        /* PB-2: layEgg は Promise */
+        Q4BReward.layEgg(virtColl, sp).then(function(r){
+          if(r && r.ok && r.egg){
+            var p=document.getElementById("q4bEggPickerOv"); if(p) p.remove();
+            _refreshDashIfActive();
+          } else {
+            if(r && r.reason === 'conflict') alert("別の たんまつで すすんでいるよ");
+            else alert("たまごを 産めませんでした (前提未充足)");
+            if(picker) picker.style.display="";
+          }
+        });
       });
     }
   });
@@ -1553,13 +1577,12 @@ function homeEggHatch(id){
       if(!profile.coll) profile.coll={catches:{},total:0};
       coll=profile.coll;
     }
-    var r=Q4BReward.hatchEgg(coll, id);
-    if(!r){ alert("孵化できませんでした (進捗が target に達していない可能性)"); return; }
-    /* 称号アップ toast */
+    /* PB-2: hatchEgg は Promise */
+    Q4BReward.hatchEgg(coll, id).then(function(r){
+    if(!r){ alert("孵化できませんでした (別の たんまつで すすんでいる可能性があります)"); return; }
     if(r.leveledUp && r.newTier && window.Q4BBreeding && Q4BBreeding.notifyBreederLevelUp){
       Q4BBreeding.notifyBreederLevelUp(r.newTier);
     }
-    /* coll を書き戻し (commit 順序: アニメ前に save) */
     if(game==="eitango"){
       profile.catches=coll.catches; profile.total=coll.total;
     } else {
@@ -1575,6 +1598,7 @@ function homeEggHatch(id){
         }
       });
     });
+    });  /* hatchEgg.then 閉じ */
   });
 }
 /* ステージ進行 (egg→larva, larva→pupa, nymph etc) — 一段階ずつタップで進める */
@@ -1585,21 +1609,23 @@ function homeEggAdvance(id){
   if(!egg) return;
   var sp=Q4BReward.spById(id); if(!sp) return;
   var prev=Q4BReward.displayStage(egg, sp);
-  var r=Q4BReward.advanceStage(null, id);
-  if(!r) return;
-  _refreshDashIfActive();
-  if(window.Q4BBreeding && Q4BBreeding.playStageAdvanceAnimation){
-    var bs2=QuestSave.breedingOf(pid);
-    var updated=bs2.eggs.find(function(e){return e.id===id;});
-    Q4BBreeding.playStageAdvanceAnimation({egg:updated||egg, sp:sp, prevStage:prev, nextStage:r.next, onClose:function(){ _refreshDashIfActive(); }});
-  }
+  /* PB-2: advanceStage は Promise */
+  Q4BReward.advanceStage(null, id).then(function(r){
+    if(!r) return;
+    _refreshDashIfActive();
+    if(window.Q4BBreeding && Q4BBreeding.playStageAdvanceAnimation){
+      var bs2=QuestSave.breedingOf(pid);
+      var updated=bs2.eggs.find(function(e){return e.id===id;});
+      Q4BBreeding.playStageAdvanceAnimation({egg:updated||egg, sp:sp, prevStage:prev, nextStage:r.next, onClose:function(){ _refreshDashIfActive(); }});
+    }
+  });
 }
 /* 保留卵を受けとる */
 function homeEggAcceptPending(){
-  var accepted=Q4BReward.acceptPendingEgg();
-  if(accepted){
-    _refreshDashIfActive();
-  }
+  /* PB-2: acceptPendingEgg は Promise */
+  Q4BReward.acceptPendingEgg().then(function(accepted){
+    if(accepted){ _refreshDashIfActive(); }
+  });
 }
 /* ホーム legacyBanner タップ: 全教科横断 legacy master 一覧モーダルを開く */
 function homeReviewLegacyMasters(){
@@ -1623,15 +1649,16 @@ function _legacyPickAndSave(game, spId, sp, sex, pid){
   QuestSave.load(game, pid).then(function(data){
     if(!data) return;
     var coll = (game==='eitango') ? {catches:data.catches} : (data.coll||{});
-    var ret = Q4BReward.setMasterSex(coll, sp, sex);
-    if(!ret) return;
-    /* eitango は per-game コレクション構造が異なる: data.catches を直接書き戻し */
-    if(game==='eitango'){ data.catches = coll.catches; }
-    QuestSave.save(game, pid, data);
-    var grantedEgg = (ret !== true) ? ret : null;
-    var queued = !!(grantedEgg && grantedEgg.queuedAt);
-    Q4BBreeding.notifyMasterEggGranted(sp, {skipped: !grantedEgg, queued: queued});
-    _refreshDashIfActive();
+    /* PB-2: setMasterSex は Promise<egg|true|false> */
+    Q4BReward.setMasterSex(coll, sp, sex).then(function(ret){
+      if(!ret) return;
+      if(game==='eitango'){ data.catches = coll.catches; }
+      QuestSave.save(game, pid, data);
+      var grantedEgg = (ret !== true) ? ret : null;
+      var queued = !!(grantedEgg && grantedEgg.queuedAt);
+      Q4BBreeding.notifyMasterEggGranted(sp, {skipped: !grantedEgg, queued: queued});
+      _refreshDashIfActive();
+    });
   });
 }
 function editProf(id){ openProfEditor(id); }

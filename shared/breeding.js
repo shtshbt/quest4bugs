@@ -654,6 +654,34 @@
       + '</div>';
   }
 
+  /* PB-2: breeding 競合通知バナー。 q4b-breeding-conflict event 購読で発火。
+     「別の端末で 先に すすめられました」 → 確認ボタンで location.reload。
+     即時 reload は禁止 (user 仕様)。 */
+  var __breedingConflictShown = false;
+  function _onBreedingConflict(){
+    if(__breedingConflictShown) return;
+    __breedingConflictShown = true;
+    var doc = global.document; if(!doc || !doc.body) return;
+    var ov = doc.createElement("div");
+    ov.id = "q4bBreedingConflictOv";
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px";
+    ov.innerHTML = ''
+      + '<div style="background:#fff;border-radius:14px;padding:20px;max-width:340px;font-family:inherit">'
+      + '<div style="font-size:16px;font-weight:800;color:#b71c1c;margin-bottom:8px">⚠ 別の たんまつで すすめられました</div>'
+      + '<div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:12px">こちらで すすめた ぶんは、 バックアップに のこしてあります。<br>さいしんの 記録に そろえるため、 ページを よみなおします。</div>'
+      + '<button id="q4bBreedingConflictApply" style="border:none;border-radius:10px;background:#4CAF50;color:#fff;padding:10px 16px;font-weight:800;cursor:pointer;width:100%">さいしんの データを よみこむ</button>'
+      + '</div>';
+    doc.body.appendChild(ov);
+    doc.getElementById("q4bBreedingConflictApply").onclick = function(){
+      try{ global.location.reload(); }catch(_){}
+    };
+  }
+  try{
+    if(global.addEventListener){
+      global.addEventListener("q4b-breeding-conflict", _onBreedingConflict);
+    }
+  }catch(_){}
+
   /* --- 自動孵化通知 (ホーム表示時) ---
      成虫まで育った卵が複数まとめて自動孵化された場合のお祝いトースト。
      opts.hatched = [{id, sp, size}, ...] (id, sp object, size mm) */

@@ -502,18 +502,103 @@
     }
     return gameFor(sp);
   }
-  /* in-memory fallback (eggStore 未設定でも crash しないため) */
+  /* PB-2: breeding は CAS 対象 namespace。 adapter には旧 {get, save} に加え新
+     {loadVersioned, saveVersioned, pid} を渡せるようにする。 内部に __bsCache を
+     置き同期 _bs() で参照可、 _saveBs() は async で CAS 経由。 競合時は cache
+     破棄 + q4b-breeding-conflict event を発火し caller に通知。 */
   var _memBreed = {eggs:[], pendingEggs:[], stats:{totalAbandoned:0}};
   var eggStore = {
     get: function(){ return _memBreed; },
     save: function(s){ _memBreed = s; return true; }
   };
+  /* __bsCache = {pid, data, revision} (versioned adapter 接続時のみ有効) */
+  var __bsCache = null;
+  var __bsLoading = null;
+  /* CAS adapter かどうか */
+  function _hasVersioned(){ return !!(eggStore && typeof eggStore.loadVersioned === 'function' && typeof eggStore.saveVersioned === 'function'); }
+  function _currentPid(){
+    try{
+      if(eggStore && typeof eggStore.pid === 'function') return eggStore.pid();
+      if(eggStore && eggStore.pidValue) return eggStore.pidValue;
+      if(global.QuestSave && typeof global.QuestSave.currentProfile === 'function') return global.QuestSave.currentProfile();
+    }catch(_){}
+    return null;
+  }
   function setEggStore(s){
     eggStore = s || eggStore;
-    if(_dbg()) console.log("[setEggStore] wired", typeof s, s && (typeof s.get === "function" ? "get✓" : "get✗"), s && (typeof s.save === "function" ? "save✓" : "save✗"));
+    __bsCache = null;  /* adapter 切替時はキャッシュ破棄 */
+    __bsLoading = null;
+    if(_dbg()) console.log("[setEggStore] wired versioned=" + _hasVersioned(), typeof s);
   }
-  function _bs(){ return eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
-  function _saveBs(s){ return eggStore.save(s); }
+  /* _bs(): 同期参照。 versioned adapter 接続時は __bsCache 優先、 未接続なら旧
+     eggStore.get() フォールバック。 cache 未ロード時は blank を返す (caller は
+     _ensureBsLoaded で先に await すべし)。 */
+  function _bs(){
+    if(_hasVersioned()){
+      if(__bsCache && __bsCache.data) return __bsCache.data;
+      return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
+    }
+    return eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
+  }
+  /* _ensureBsLoaded(): versioned adapter 接続時に最新を取得して cache 化。 caller は
+     mutate 前に必ず await する。 pid 変更時は再取得。 */
+  function _ensureBsLoaded(forcePid){
+    if(!_hasVersioned()){
+      /* 旧 adapter: 同期 get で十分 */
+      return Promise.resolve({data: _bs(), revision: 0, fresh: false});
+    }
+    var pid = forcePid || _currentPid();
+    if(!pid) return Promise.resolve({data:_bs(), revision:0, fresh:false});
+    if(__bsCache && __bsCache.pid === pid) return Promise.resolve(__bsCache);
+    if(__bsLoading) return __bsLoading;
+    __bsLoading = Promise.resolve(eggStore.loadVersioned(pid)).then(function(r){
+      __bsLoading = null;
+      __bsCache = {pid: pid, data: r.data || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}, revision: r.revision || 0};
+      return __bsCache;
+    }, function(e){
+      __bsLoading = null;
+      throw e;
+    });
+    return __bsLoading;
+  }
+  /* _saveBs(): async (Promise<{ok, ...}>)。 versioned 経由なら CAS、 旧 adapter なら
+     同期 save を Promise でラップ。 引数 s は省略可で省略時は __bsCache.data を保存。 */
+  function _saveBs(s){
+    if(_hasVersioned()){
+      if(!__bsCache){
+        /* cache 未初期化のまま save 要求 → 旧形式 fallback (warn) */
+        try{ if(typeof console!=="undefined") console.warn("[Q4BReward] _saveBs without ensureBsLoaded — falling back to fresh load"); }catch(_){}
+        return _ensureBsLoaded().then(function(){
+          if(s) __bsCache.data = s;
+          return _saveBs();
+        });
+      }
+      var pid = __bsCache.pid;
+      var dataToSave = s || __bsCache.data;
+      __bsCache.data = dataToSave;
+      var rev = __bsCache.revision;
+      return Promise.resolve(eggStore.saveVersioned(pid, dataToSave, rev)).then(function(r){
+        if(r && r.ok){
+          __bsCache.revision = r.revision;
+          return {ok:true, revision:r.revision};
+        }
+        /* 競合: cache 破棄して caller に通知 */
+        try{
+          if(typeof global.dispatchEvent === 'function'){
+            global.dispatchEvent(new global.CustomEvent('q4b-breeding-conflict', {detail:{pid:pid, expectedRevision:r.expectedRevision, actualRevision:r.actualRevision, backupKey:r.backupKey}}));
+          }
+        }catch(_){}
+        __bsCache = null;
+        return {ok:false, reason:(r && r.reason) || "conflict", remoteData:(r && r.remoteData) || null};
+      });
+    }
+    /* 旧 adapter: 同期 save を Promise.resolve でラップ */
+    var ok = eggStore.save(s);
+    return Promise.resolve({ok: !!ok});
+  }
+  /* getBreedingState (旧 API): 同期参照は _bs() を返す */
+  /* flushBreeding(): caller が明示的に保存 + 結果取得したいとき */
+  function flushBreeding(){ return _saveBs(); }
 
   /* fossilFragments を消費する store (egg コスト消費用)。
      setFossilStore({get:()->n, spend:(n)->bool}) で wire-up。 */
@@ -545,24 +630,31 @@
   }
 
   /* 卵生成 (フロー A)。前提チェック + かけら消費 + sex/shiny 抽選 + eggs に追加。
-     返り値: 生成した egg または null。 */
+     PB-2: async 化。 戻り値は Promise<{ok, egg, reason?}>。 cache を ensure してから
+     mutate + saveVersioned。 競合時は ok:false で caller に通知 (UI の演出を抑止)。 */
   function layEgg(coll, sp){
-    if(!canLayEgg(coll, sp)) return null;
-    if(!spendForEgg(sp)) return null;
-    var egg = {
-      id: sp.id,
-      sex: rollSex(sp),
-      progress: 0,
-      target: eggTarget(sp),
-      game: eggGameFor(sp),
-      origin: "lay",
-      bornAt: todayStr(),
-      shiny: rollShiny()
-    };
-    var bs = _bs();
-    bs.eggs.push(egg);
-    _saveBs(bs);
-    return egg;
+    return _ensureBsLoaded().then(function(){
+      if(!canLayEgg(coll, sp)) return {ok:false, reason:"precondition"};
+      if(!spendForEgg(sp)) return {ok:false, reason:"insufficient-fossil"};
+      var egg = {
+        id: sp.id,
+        sex: rollSex(sp),
+        progress: 0,
+        target: eggTarget(sp),
+        game: eggGameFor(sp),
+        origin: "lay",
+        bornAt: todayStr(),
+        shiny: rollShiny()
+      };
+      var bs = _bs();
+      bs.eggs.push(egg);
+      return _saveBs(bs).then(function(r){
+        if(r.ok) return {ok:true, egg:egg};
+        /* 競合: かけらは消費済 → 復元するロジックは別途必要だが PB-2 範囲外。
+           ここでは caller に競合を通知し、 演出を出させない。 */
+        return {ok:false, reason:r.reason || "conflict"};
+      });
+    });
   }
 
   /* マスター卵 / ボス卵を授与。空きあり→eggs、満杯/同種育成中→pendingEggs。
@@ -570,37 +662,39 @@
      かけら消費なし (達成自体が対価)。 */
   function awardEgg(sp, sex, origin, opts){
     opts = opts || {};
-    if(!sp || !sp.metamorphosis) return null;        // 卵対象外 order
-    var bs = _bs();
-    var i;
-    for(i=0;i<bs.eggs.length;i++){
-      if(bs.eggs[i].id===sp.id && bs.eggs[i].origin===origin) return null; // 既存
-    }
-    for(i=0;i<bs.pendingEggs.length;i++){
-      if(bs.pendingEggs[i].id===sp.id && bs.pendingEggs[i].origin===origin) return null;
-    }
-    var egg = {
-      id: sp.id,
-      sex: sex,
-      progress: 0,
-      target: eggTarget(sp),
-      game: eggGameFor(sp),
-      origin: origin,
-      bornAt: todayStr(),
-      shiny: rollShiny()
-    };
-    /* 空きあり (かつ同種育成中でない) → eggs に直接追加、それ以外は pendingEggs に保留。
-       forceQueue=true なら 強制的に pendingEggs (legacy 救済はユーザに選ばせるため必須)。 */
-    var sameIdInEggs = false;
-    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===sp.id){ sameIdInEggs=true; break; } }
-    if(!opts.forceQueue && bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
-      bs.eggs.push(egg);
-    } else {
-      egg.queuedAt = todayStr();
-      bs.pendingEggs.push(egg);
-    }
-    _saveBs(bs);
-    return egg;
+    /* PB-2: async 化。 戻り値 Promise<egg|null>。 競合時は null + console.warn。 */
+    if(!sp || !sp.metamorphosis) return Promise.resolve(null);
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var i;
+      for(i=0;i<bs.eggs.length;i++){
+        if(bs.eggs[i].id===sp.id && bs.eggs[i].origin===origin) return null;
+      }
+      for(i=0;i<bs.pendingEggs.length;i++){
+        if(bs.pendingEggs[i].id===sp.id && bs.pendingEggs[i].origin===origin) return null;
+      }
+      var egg = {
+        id: sp.id,
+        sex: sex,
+        progress: 0,
+        target: eggTarget(sp),
+        game: eggGameFor(sp),
+        origin: origin,
+        bornAt: todayStr(),
+        shiny: rollShiny()
+      };
+      var sameIdInEggs = false;
+      for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===sp.id){ sameIdInEggs=true; break; } }
+      if(!opts.forceQueue && bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
+        bs.eggs.push(egg);
+      } else {
+        egg.queuedAt = todayStr();
+        bs.pendingEggs.push(egg);
+      }
+      return _saveBs(bs).then(function(r){
+        return r.ok ? egg : null;
+      });
+    });
   }
   function awardMasterEgg(coll, sp, sex, opts){ return awardEgg(sp, sex, "master_pair", opts); }
   function awardBossEgg(coll, sp, sex, opts){ return awardEgg(sp, sex, "boss_pair", opts); }
@@ -628,72 +722,87 @@
   /* 0.05 未満は skip (freshness で激減した spam を排除)。0.05〜1.0 は acc に蓄積され
      >= 1 で progress += 1。既習語 value=0.2 なら 5 回正解で 1 進む = 5倍ペナルティ。 */
   var FEED_MIN_VALUE = 0.05;
+  /* PB-2: async 化。 戻り値は Promise<{ok, fed:boolean}>。 競合時 ok:false。 */
   function feedEgg(game, value, opts){
-    var bs = _bs();
-    var v = (value == null) ? 1 : Math.max(0, Math.min(1, value));
-    /* itemId が渡されれば freshness で更にダンプ */
-    if(opts && opts.itemId && opts.coll){
-      v = v * freshnessOf(opts.coll, opts.itemId);
-    }
-    var fed = [];
-    var skipReason = "";
-    for(var i=0;i<bs.eggs.length;i++){
-      var egg = bs.eggs[i];
-      if(egg.game !== game){ skipReason = "game mismatch ("+egg.game+" vs "+game+")"; continue; }
-      if((egg.progress||0) >= egg.target){ skipReason = "already at target"; continue; }
-      if(v < FEED_MIN_VALUE){ skipReason = "value too low ("+v.toFixed(2)+", < "+FEED_MIN_VALUE+")"; continue; }
-      egg.progressAcc = (egg.progressAcc||0) + v;
-      var inc = Math.floor(egg.progressAcc);
-      if(inc < 1) continue;   // 蓄積中だが整数まで届かず
-      egg.progressAcc -= inc;
-      var sp = spById(egg.id);
-      var prevStage = sp ? currentStage(egg, sp) : null;
-      egg.progress = Math.min((egg.progress||0) + inc, egg.target);
-      var newStage = sp ? currentStage(egg, sp) : null;
-      if(prevStage !== newStage && newStage){
-        egg.stageHistory = egg.stageHistory || [];
-        if(newStage !== "egg"){
-          egg.stageHistory.push({stage:newStage, d:todayStr()});
-        }
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var v = (value == null) ? 1 : Math.max(0, Math.min(1, value));
+      if(opts && opts.itemId && opts.coll){
+        v = v * freshnessOf(opts.coll, opts.itemId);
       }
-      fed.push(egg);
-    }
-    /* progressAcc を更新したケースも save する必要あり (整数進行に達してなくても) */
-    _saveBs(bs);
-    if(_dbg()){
-      var snapshot = bs.eggs.map(function(e){return e.id+"("+e.game+"):"+e.progress+"/"+e.target+(e.progressAcc?" +"+e.progressAcc.toFixed(2):"");}).join(", ");
-      console.log("[feedEgg]", game, "value:", v.toFixed(2), "→ fed:", fed.length, "/", bs.eggs.length, "eggs |", snapshot || "(no eggs)", fed.length===0 && bs.eggs.length>0 ? " ← skip: "+skipReason : "");
-    }
-    if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }
-    return fed.length > 0;
+      var fed = [];
+      var skipReason = "";
+      for(var i=0;i<bs.eggs.length;i++){
+        var egg = bs.eggs[i];
+        if(egg.game !== game){ skipReason = "game mismatch"; continue; }
+        if((egg.progress||0) >= egg.target){ skipReason = "already at target"; continue; }
+        if(v < FEED_MIN_VALUE){ skipReason = "value too low"; continue; }
+        egg.progressAcc = (egg.progressAcc||0) + v;
+        var inc = Math.floor(egg.progressAcc);
+        if(inc < 1) continue;
+        egg.progressAcc -= inc;
+        var sp = spById(egg.id);
+        var prevStage = sp ? currentStage(egg, sp) : null;
+        egg.progress = Math.min((egg.progress||0) + inc, egg.target);
+        var newStage = sp ? currentStage(egg, sp) : null;
+        if(prevStage !== newStage && newStage){
+          egg.stageHistory = egg.stageHistory || [];
+          if(newStage !== "egg"){
+            egg.stageHistory.push({stage:newStage, d:todayStr()});
+          }
+        }
+        fed.push(egg);
+      }
+      return _saveBs(bs).then(function(r){
+        if(r.ok){
+          if(fed.length && _feedHook){ try{ _feedHook(game, fed); }catch(_){} }
+          return {ok:true, fed: fed.length > 0};
+        }
+        /* 競合: feedHook を発火しない (caller の演出を抑止) */
+        return {ok:false, reason:r.reason, fed:false};
+      });
+    });
   }
 
-  /* 卵を孵化 (フロー E)。progress >= target でない場合は null。
-     id ベース (同期不一致で別の卵を孵化させないため)。
-     呼び出し側責任: hatchEgg 後に save() を同期実行してから孵化アニメを再生 (commit 順序)。 */
+  /* PB-2: async 化。 戻り値 Promise<result|null>。 競合時は null + caller に通知済。
+     重要: 「卵削除 / record 追加」 を行う前に「breeding CAS save が成功する」 こと
+     を確認する必要がある。 実際には breeding を先 save、 成功なら coll への record
+     を caller が行う 2 phase 設計に変更。
+     旧 API 互換のため caller には「保存成功した sp/size/egg」 を返し、 caller は
+     その後で coll.records に追加 + 教科側 save を行う。 ここで coll を直接 mutate
+     しなくなるので caller 改修必須。 */
   function hatchEgg(coll, id){
-    var bs = _bs();
-    var idx = -1, i;
-    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
-    if(idx < 0) return null;
-    var egg = bs.eggs[idx];
-    if(egg.progress < egg.target) return null;
-    var sp = spById(id);
-    if(!sp) return null;
-    /* records に reared:true で追加。rollSize/rollShiny の代わりに egg.sex/egg.shiny を渡す。 */
-    var size = rollSize(sp, egg.sex);
-    record(coll, sp, {sex: egg.sex, size: size, shiny: egg.shiny, reared: true, bornAt: egg.bornAt});
-    bs.eggs.splice(idx, 1);
-    /* 称号: totalReared 累積カウンタ。階級アップは prev/now の tier 差を呼び出し側で見て toast。 */
-    if(!bs.stats) bs.stats = {totalAbandoned:0};
-    var prevReared = bs.stats.totalReared || 0;
-    bs.stats.totalReared = prevReared + 1;
-    var prevTier = breederRank(prevReared);
-    var newTier = breederRank(bs.stats.totalReared);
-    var leveledUp = (newTier.tier.threshold > prevTier.tier.threshold);
-    /* 保留卵があれば空き枠の通知バナーは index.html 側で出す (ここでは自動転送しない) */
-    _saveBs(bs);
-    return {egg: egg, sp: sp, size: size, totalReared: bs.stats.totalReared, prevTier: prevTier.tier, newTier: newTier.tier, leveledUp: leveledUp};
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var idx = -1, i;
+      for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+      if(idx < 0) return null;
+      var egg = bs.eggs[idx];
+      if(egg.progress < egg.target) return null;
+      var sp = spById(id);
+      if(!sp) return null;
+      var size = rollSize(sp, egg.sex);
+      /* 重要: caller (autoHatch) 側で 「breeding save 成功」 を確認後に
+         record() を呼ぶ責任。 ここでは egg を bs から削除して saveVersioned。 */
+      bs.eggs.splice(idx, 1);
+      if(!bs.stats) bs.stats = {totalAbandoned:0};
+      var prevReared = bs.stats.totalReared || 0;
+      bs.stats.totalReared = prevReared + 1;
+      var prevTier = breederRank(prevReared);
+      var newTier = breederRank(bs.stats.totalReared);
+      var leveledUp = (newTier.tier.threshold > prevTier.tier.threshold);
+      return _saveBs(bs).then(function(r){
+        if(!r.ok){
+          /* 競合: caller には null を返し、 演出を抑止 */
+          return null;
+        }
+        /* breeding 保存成功後に caller が coll.records に追加するため、 ここで
+           record() を呼ぶ。 record() は coll の in-place mutation で同期的に動く。 */
+        record(coll, sp, {sex: egg.sex, size: size, shiny: egg.shiny, reared: true, bornAt: egg.bornAt});
+        return {egg: egg, sp: sp, size: size, totalReared: bs.stats.totalReared,
+                prevTier: prevTier.tier, newTier: newTier.tier, leveledUp: leveledUp};
+      });
+    });
   }
 
   /* ブリーダー称号: 累積 reared 数 → tier
@@ -722,116 +831,119 @@
     return (bs && bs.stats && bs.stats.totalReared) || 0;
   }
 
-  /* 保留卵 (pendingEggs[0]) を eggs の空き枠へ転送。ホームバナー「受けとる」タップ時に呼ぶ。 */
+  /* 保留卵 (pendingEggs[0]) を eggs の空き枠へ転送。ホームバナー「受けとる」タップ時に呼ぶ。
+     PB-2: async 化。 戻り値 Promise<egg|null>。 */
   function acceptPendingEgg(){
-    var bs = _bs();
-    if(bs.eggs.length >= EGG_SLOT_MAX) return null;
-    if(!bs.pendingEggs.length) return null;
-    var egg = bs.pendingEggs.shift();
-    delete egg.queuedAt;
-    bs.eggs.push(egg);
-    _saveBs(bs);
-    return egg;
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      if(bs.eggs.length >= EGG_SLOT_MAX) return null;
+      if(!bs.pendingEggs.length) return null;
+      var egg = bs.pendingEggs.shift();
+      delete egg.queuedAt;
+      bs.eggs.push(egg);
+      return _saveBs(bs).then(function(r){ return r.ok ? egg : null; });
+    });
   }
 
   /* migration: ユーザの意図なく eggs に入った legacy 卵 (boss_pair / master_pair で
      progress=0) を pendingEggs に戻す。プロファイルあたり 1 度だけ実行。
      2 度目以降スキップする (ユーザが意図的に promote した卵が再度戻されるのを防ぐ)。 */
+  /* PB-2: async 化。 戻り値 Promise<number> (移動件数)。 競合時は 0。 */
   function migrateUnstartedLegacyEggsToPending(){
-    var bs = _bs(); if(!bs) return 0;
-    if(!bs.stats) bs.stats = {totalAbandoned:0};
-    if(bs.stats.legacyMigrated) return 0;  /* 1 度限り */
-    var moved = 0;
-    var keep = [];
-    bs.eggs.forEach(function(e){
-      var isLegacy = (e.origin === "boss_pair" || e.origin === "master_pair");
-      var fresh = (e.progress||0) === 0;
-      if(isLegacy && fresh){
-        var dup = bs.pendingEggs.some(function(p){return p.id===e.id && p.origin===e.origin;});
-        if(!dup){
-          var copy = Object.assign({}, e);
-          copy.queuedAt = todayStr();
-          bs.pendingEggs.push(copy);
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs(); if(!bs) return 0;
+      if(!bs.stats) bs.stats = {totalAbandoned:0};
+      if(bs.stats.legacyMigrated) return 0;
+      var moved = 0;
+      var keep = [];
+      bs.eggs.forEach(function(e){
+        var isLegacy = (e.origin === "boss_pair" || e.origin === "master_pair");
+        var fresh = (e.progress||0) === 0;
+        if(isLegacy && fresh){
+          var dup = bs.pendingEggs.some(function(p){return p.id===e.id && p.origin===e.origin;});
+          if(!dup){
+            var copy = Object.assign({}, e);
+            copy.queuedAt = todayStr();
+            bs.pendingEggs.push(copy);
+          }
+          moved++;
+          return;
         }
-        moved++;
-        return;  /* eggs から落とす */
-      }
-      keep.push(e);
+        keep.push(e);
+      });
+      if(moved > 0) bs.eggs = keep;
+      bs.stats.legacyMigrated = true;
+      return _saveBs(bs).then(function(r){ return r.ok ? moved : 0; });
     });
-    if(moved > 0) bs.eggs = keep;
-    bs.stats.legacyMigrated = true;  /* 移動 0 件でもフラグ立てる (再実行防止) */
-    _saveBs(bs);
-    return moved;
   }
 
   /* pendingEggs から指定 id の卵を eggs に昇格 (Egg Nest Modal で選択 promote)。
      ・eggs が満杯ならエラー (null)
      ・同 species が育成中ならエラー (null) */
+  /* PB-2: async 化。 */
   function promotePendingEgg(id){
-    var bs = _bs();
-    if(bs.eggs.length >= EGG_SLOT_MAX) return null;
-    var i;
-    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id) return null; }
-    var idx = -1;
-    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
-    if(idx < 0) return null;
-    var egg = bs.pendingEggs.splice(idx, 1)[0];
-    delete egg.queuedAt;
-    bs.eggs.push(egg);
-    _saveBs(bs);
-    return egg;
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      if(bs.eggs.length >= EGG_SLOT_MAX) return null;
+      var i;
+      for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id) return null; }
+      var idx = -1;
+      for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+      if(idx < 0) return null;
+      var egg = bs.pendingEggs.splice(idx, 1)[0];
+      delete egg.queuedAt;
+      bs.eggs.push(egg);
+      return _saveBs(bs).then(function(r){ return r.ok ? egg : null; });
+    });
   }
 
-  /* 育成中の卵を pendingEggs に戻す (進捗保持)。スロットを別の卵に切り替えたい時用。
-     progress は維持して queuedAt をスタンプ。 */
   function demoteEggToPending(id){
-    var bs = _bs();
-    var idx = -1, i;
-    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
-    if(idx < 0) return false;
-    var egg = bs.eggs.splice(idx, 1)[0];
-    egg.queuedAt = todayStr();
-    /* dedup: pendingEggs に同 id+origin あれば重複回避 */
-    var dup = false;
-    for(i=0;i<bs.pendingEggs.length;i++){
-      if(bs.pendingEggs[i].id===egg.id && bs.pendingEggs[i].origin===egg.origin){ dup = true; break; }
-    }
-    if(!dup) bs.pendingEggs.push(egg);
-    _saveBs(bs);
-    return true;
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var idx = -1, i;
+      for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+      if(idx < 0) return false;
+      var egg = bs.eggs.splice(idx, 1)[0];
+      egg.queuedAt = todayStr();
+      var dup = false;
+      for(i=0;i<bs.pendingEggs.length;i++){
+        if(bs.pendingEggs[i].id===egg.id && bs.pendingEggs[i].origin===egg.origin){ dup = true; break; }
+      }
+      if(!dup) bs.pendingEggs.push(egg);
+      return _saveBs(bs).then(function(r){ return r.ok; });
+    });
   }
 
-  /* pendingEggs から指定 id の卵を破棄 (返金なし、totalAbandoned++) */
   function discardPendingEgg(id){
-    var bs = _bs();
-    var idx = -1, i;
-    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
-    if(idx < 0) return false;
-    bs.pendingEggs.splice(idx, 1);
-    bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
-    _saveBs(bs);
-    return true;
-  }
-
-  /* 卵を放棄。返金なし。stats.totalAbandoned を +1。eggs と pendingEggs 両方検索。 */
-  function abandonEgg(id){
-    var bs = _bs();
-    var idx = -1, i;
-    for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
-    if(idx >= 0){
-      bs.eggs.splice(idx, 1);
-      bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
-      _saveBs(bs);
-      return true;
-    }
-    for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
-    if(idx >= 0){
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var idx = -1, i;
+      for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+      if(idx < 0) return false;
       bs.pendingEggs.splice(idx, 1);
       bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
-      _saveBs(bs);
-      return true;
-    }
-    return false;
+      return _saveBs(bs).then(function(r){ return r.ok; });
+    });
+  }
+
+  function abandonEgg(id){
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var idx = -1, i;
+      for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id){ idx=i; break; } }
+      if(idx >= 0){
+        bs.eggs.splice(idx, 1);
+        bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+        return _saveBs(bs).then(function(r){ return r.ok; });
+      }
+      for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
+      if(idx >= 0){
+        bs.pendingEggs.splice(idx, 1);
+        bs.stats.totalAbandoned = (bs.stats.totalAbandoned||0) + 1;
+        return _saveBs(bs).then(function(r){ return r.ok; });
+      }
+      return false;
+    });
   }
 
   /* マスター虫の性別を確定 (新規達成 + レガシー救済 共用)。
@@ -841,11 +953,11 @@
   function setMasterSex(coll, sp, chosen, eggOpts){
     if(!coll || !coll.catches) return false;
     var e = coll.catches[sp.id];
-    if(!e || !e.records || !e.records.length) return false;
-    if(chosen !== "m" && chosen !== "f") return false;
+    /* PB-2: awardMasterEgg が Promise を返すように変わったため、 setMasterSex も
+       Promise<egg|true|false> を返す。 */
+    if(!e || !e.records || !e.records.length) return Promise.resolve(false);
+    if(chosen !== "m" && chosen !== "f") return Promise.resolve(false);
     e.records[0].sex = chosen;
-    /* sizeBySexMm 種は、既存 size が新性別レンジ外なら再抽選。
-       範囲内ならユーザの過去記録 (max/min) を保持して書き換えない。 */
     if(sp.sizeBySexMm && sp.sizeBySexMm[chosen]){
       var r = sp.sizeBySexMm[chosen];
       var cur = e.records[0].s;
@@ -856,9 +968,9 @@
         e.min = e.records[0].s;
       }
     }
-    /* max/min/normal/master/n カウンタは保持 */
-    var egg = awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m", eggOpts);
-    return egg || true;  /* 戻り値: 卵オブジェクト (新規授与時) or true (冪等スキップ時) */
+    return awardMasterEgg(coll, sp, chosen === "m" ? "f" : "m", eggOpts).then(function(egg){
+      return egg || true;
+    });
   }
 
   /* ボス撃破時の報酬計算 (案D 段階的アンロック)。
@@ -985,23 +1097,24 @@
     if(iShown < 0 || iShown >= order.length-1) return null;
     return order[iShown+1];
   }
-  /* shownStage を 1 段階進める (adult への advance は呼び出し側が hatchEgg を使う)。
-     成功時 stageHistory に新ステージの遷移日を追記。 */
+  /* PB-2: async 化。 Promise<result|null> */
   function advanceStage(coll, id){
-    var bs = _bs();
-    var egg = bs.eggs.find(function(e){return e.id===id;});
-    if(!egg) return null;
-    var sp = spById(id); if(!sp) return null;
-    if(!canAdvanceStage(egg, sp)) return null;
-    var next = nextStageFor(egg, sp);
-    if(!next) return null;
-    egg.shownStage = next;
-    egg.stageHistory = egg.stageHistory || [];
-    /* 同 stage が既に履歴にあれば追加しない (idempotent) */
-    var already = egg.stageHistory.some(function(h){ return h.stage === next; });
-    if(!already) egg.stageHistory.push({stage:next, d:todayStr()});
-    _saveBs(bs);
-    return {egg: egg, next: next, isAdult: next === "adult"};
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var egg = bs.eggs.find(function(e){return e.id===id;});
+      if(!egg) return null;
+      var sp = spById(id); if(!sp) return null;
+      if(!canAdvanceStage(egg, sp)) return null;
+      var next = nextStageFor(egg, sp);
+      if(!next) return null;
+      egg.shownStage = next;
+      egg.stageHistory = egg.stageHistory || [];
+      var already = egg.stageHistory.some(function(h){ return h.stage === next; });
+      if(!already) egg.stageHistory.push({stage:next, d:todayStr()});
+      return _saveBs(bs).then(function(r){
+        return r.ok ? {egg: egg, next: next, isAdult: next === "adult"} : null;
+      });
+    });
   }
   function isHatchReady(egg){ return egg && egg.progress >= egg.target; }
   /* UI が「タップで かえす」を出すべきか: 自然 stage が adult かつ shown も adult 手前 */
@@ -1020,21 +1133,29 @@
   }
   /* legacy master 自動確定: sex='u' のマスター虫すべてを rollSex で確定 + 相方卵授与。
      load 時に呼ぶ用。授与した卵オブジェクトの配列を返す ([{sp, egg, queued}, ...])。 */
+  /* PB-2: async 化。 setMasterSex が Promise 返却なので、 順次 await で連鎖。 */
   function autoFinalizeLegacyMasterAll(coll){
-    if(!coll || !coll.catches) return [];
+    if(!coll || !coll.catches) return Promise.resolve([]);
     var ids = listLegacyMasterPending(coll);
-    if(!ids.length) return [];
+    if(!ids.length) return Promise.resolve([]);
     var out = [];
-    ids.forEach(function(id){
-      var sp = spById(id); if(!sp) return;
+    /* 順次実行: ある setMasterSex の awardMasterEgg が breeding に書く間に
+       次の setMasterSex が同じ breeding を mutate しないように直列化する。 */
+    function step(i){
+      if(i >= ids.length) return Promise.resolve(out);
+      var id = ids[i];
+      var sp = spById(id);
+      if(!sp) return step(i+1);
       var sex = rollSex(sp);
-      var ret = setMasterSex(coll, sp, sex, {forceQueue:true});  /* legacy 救済は pendingEggs に */
-      if(ret){
-        var egg = (ret !== true) ? ret : null;
-        out.push({sp: sp, sex: sex, egg: egg, queued: !!(egg && egg.queuedAt)});
-      }
-    });
-    return out;
+      return Promise.resolve(setMasterSex(coll, sp, sex, {forceQueue:true})).then(function(ret){
+        if(ret){
+          var egg = (ret !== true) ? ret : null;
+          out.push({sp: sp, sex: sex, egg: egg, queued: !!(egg && egg.queuedAt)});
+        }
+        return step(i+1);
+      });
+    }
+    return step(0);
   }
   function listLegacyMasterPending(coll){
     if(!coll || !coll.catches) return [];
@@ -1095,6 +1216,9 @@
     EGG_SLOT_MAX: EGG_SLOT_MAX,
     setEggStore: setEggStore,
     getBreedingState: function(){ return _bs(); },
+    /* PB-2: async breeding 操作のための補助 API */
+    ensureBreedingLoaded: _ensureBsLoaded,
+    flushBreeding: flushBreeding,
     setFossilStore: setFossilStore,
     setFeedHook: setFeedHook,
     fossilOf: fossilOf,

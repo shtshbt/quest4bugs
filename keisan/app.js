@@ -281,7 +281,11 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
   Q4BReward.setEggStore({
     get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(pidNow()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
-    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(pidNow(),s):false;}
+    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(pidNow(),s):false;},
+    /* PB-2: CAS adapter */
+    pid:function(){return pidNow();},
+    loadVersioned:function(pid){return QuestSave.loadVersioned("breeding", pid, {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}});},
+    saveVersioned:function(pid,data,rev){return QuestSave.saveVersioned("breeding", pid, data, rev);}
   });
 }
 /* 卵生成 / 放棄 ハンドラ (Q4BZukan.detailHTML の opts.onLayEgg/onAbandonEgg から呼ばれる) */
@@ -290,30 +294,37 @@ function keisanLayEgg(spId){
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    var egg=Q4BReward.layEgg(p.coll,sp);
-    if(egg){
-      save();
-      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
-    }
-    else { alert('たまごを 産めませんでした'); }
+    /* PB-2: layEgg は Promise<{ok,egg,reason}>。 */
+    Q4BReward.layEgg(p.coll,sp).then(function(r){
+      if(r && r.ok && r.egg){
+        save();
+        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+      } else {
+        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ。 ホームに もどって よみなおしてください');
+        else alert('たまごを 産めませんでした');
+      }
+    });
   }});
 }
 function keisanAbandonEgg(spId){
   if(!confirm('この たまごを すてる? (返金なし)')) return;
   if(!confirm('ほんとうに すてる?')) return;
-  if(Q4BReward.abandonEgg(spId)){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  Q4BReward.abandonEgg(spId).then(function(ok){
+    if(ok){ save(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  });
 }
 function keisanHatchEgg(spId){
   var p=P(); if(!p) return;
   if(!p.coll) p.coll={catches:{},total:0};
-  var r=Q4BReward.hatchEgg(p.coll, spId);
-  if(!r){ alert('孵化できませんでした'); return; }
-  save();
-  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-  if(window.Q4BBreeding){
-    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
-  }
+  Q4BReward.hatchEgg(p.coll, spId).then(function(r){
+    if(!r){ alert('孵化できませんでした (別の たんまつで すすんでいる可能性があります)'); return; }
+    save();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+    if(window.Q4BBreeding){
+      Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+    }
+  });
 }
 
 /* ---------- labels ---------- */
@@ -755,10 +766,12 @@ function processKeisanMasterQueue(queue, p){
   sp: sp, isLegacy: false, allowCancel: true,
   onPick: function(sex){
    Q4BReward.awardMaster(p.coll, sp, sex);
-   Q4BReward.awardMasterEgg(p.coll, sp, sex==='m'?'f':'m');
-   save();
-   showMasterCelebrationK([sp]);
-   processKeisanMasterQueue(queue, p);
+   /* PB-2: awardMasterEgg は Promise。 卵 breeding 保存後に演出 */
+   Q4BReward.awardMasterEgg(p.coll, sp, sex==='m'?'f':'m').then(function(){
+     save();
+     showMasterCelebrationK([sp]);
+     processKeisanMasterQueue(queue, p);
+   });
   },
   onCancel: function(){
    Q4BReward.awardMaster(p.coll, sp);
@@ -773,14 +786,17 @@ function keisanPickMasterSex(spId){
  Q4BBreeding.openMasterSexPickerModal({
   sp: sp, isLegacy: true, allowCancel: true,
   onPick: function(sex){
-   var ret=Q4BReward.setMasterSex(p.coll, sp, sex);
-   if(ret){
-    save();
-    if(typeof closeModal==='function') closeModal();
-    var grantedEgg=(ret!==true)?ret:null;
-    var queued=!!(grantedEgg&&grantedEgg.queuedAt);
-    if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
-   }
+   /* PB-2: setMasterSex は Promise<egg|true|false>。 */
+   Q4BReward.setMasterSex(p.coll, sp, sex).then(function(ret){
+    if(ret){
+     save();
+     if(typeof closeModal==='function') closeModal();
+     var grantedEgg=(ret!==true)?ret:null;
+     var queued=!!(grantedEgg&&grantedEgg.queuedAt);
+     if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
+    }
+   });
+   return; /* 旧 if(ret){...} の閉じ括弧との整合は then で行うため早期 return */
   }
  });
 }

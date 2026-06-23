@@ -928,7 +928,11 @@ function setupWalletE(){
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
     Q4BReward.setEggStore({
       get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(ePid()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
-      save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(ePid(),s):false;}
+      save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(ePid(),s):false;},
+      /* PB-2: CAS adapter */
+      pid:function(){return ePid();},
+      loadVersioned:function(pid){return QuestSave.loadVersioned("breeding", pid, {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}});},
+      saveVersioned:function(pid,data,rev){return QuestSave.saveVersioned("breeding", pid, data, rev);}
     });
   }
   if(window.QuestSave&&P&&ePid()&&(P.amber||0)>0&&!P.amberMig){ QuestSave.amberAdd(ePid(),P.amber); P.amber=0; P.amberMig=1; touchP(); }
@@ -941,30 +945,38 @@ function eitangoLayEgg(spId){
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    var egg=Q4BReward.layEgg(coll,sp);
-    if(egg){
-      touchP();
-      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
-    }
-    else { alert('たまごを 産めませんでした'); }
+    /* PB-2: layEgg は Promise<{ok,egg,reason}>。 */
+    Q4BReward.layEgg(coll,sp).then(function(r){
+      if(r && r.ok && r.egg){
+        touchP();
+        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+      } else {
+        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ');
+        else alert('たまごを 産めませんでした');
+      }
+    });
   }});
 }
 function eitangoAbandonEgg(spId){
   if(!confirm('この たまごを すてる? (返金なし)')) return;
   if(!confirm('ほんとうに すてる?')) return;
-  if(Q4BReward.abandonEgg(spId)){ touchP(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  Q4BReward.abandonEgg(spId).then(function(ok){
+    if(ok){ touchP(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  });
 }
 function eitangoHatchEgg(spId){
   if(!P) return;
   var coll={catches:P.catches||{},total:P.total||0};
-  var r=Q4BReward.hatchEgg(coll, spId);
-  if(!r){ alert('孵化できませんでした'); return; }
-  P.catches=coll.catches; P.total=coll.total; touchP();
-  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-  if(window.Q4BBreeding){
-    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
-  }
+  /* PB-2: hatchEgg は Promise。 */
+  Q4BReward.hatchEgg(coll, spId).then(function(r){
+    if(!r){ alert('孵化できませんでした (別の たんまつで すすんでいる可能性)'); return; }
+    P.catches=coll.catches; P.total=coll.total; touchP();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+    if(window.Q4BBreeding){
+      Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+    }
+  });
 }
 /* 既存catchのサイズを 旧レンジ→新(実寸)レンジへ一度だけ移行 */
 function migrateCatchSizes(p){
@@ -1021,11 +1033,13 @@ function processEitangoMasterQueue(queue, tmp){
     sp: sp, isLegacy: false, allowCancel: true,
     onPick: function(sex){
       Q4BReward.awardMaster(tmp, sp, sex);
-      Q4BReward.awardMasterEgg(tmp, sp, sex==='m'?'f':'m');
-      P.catches = tmp.catches;
-      touchP();
-      showMasterCelebrationE([sp]);
-      processEitangoMasterQueue(queue, tmp);
+      /* PB-2: awardMasterEgg は Promise */
+      Q4BReward.awardMasterEgg(tmp, sp, sex==='m'?'f':'m').then(function(){
+        P.catches = tmp.catches;
+        touchP();
+        showMasterCelebrationE([sp]);
+        processEitangoMasterQueue(queue, tmp);
+      });
     },
     onCancel: function(){
       Q4BReward.awardMaster(tmp, sp);
@@ -1041,14 +1055,16 @@ function eitangoPickMasterSex(spId){
   Q4BBreeding.openMasterSexPickerModal({
     sp: sp, isLegacy: true, allowCancel: true,
     onPick: function(sex){
-      const ret=Q4BReward.setMasterSex(coll, sp, sex);
-      if(ret){
-        P.catches = coll.catches; touchP();
-        if(typeof closeModal==='function') closeModal();
-        const grantedEgg=(ret!==true)?ret:null;
-        const queued=!!(grantedEgg&&grantedEgg.queuedAt);
-        if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
-      }
+      /* PB-2: setMasterSex は Promise */
+      Q4BReward.setMasterSex(coll, sp, sex).then(function(ret){
+        if(ret){
+          P.catches = coll.catches; touchP();
+          if(typeof closeModal==='function') closeModal();
+          const grantedEgg=(ret!==true)?ret:null;
+          const queued=!!(grantedEgg&&grantedEgg.queuedAt);
+          if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
+        }
+      });
     }
   });
 }

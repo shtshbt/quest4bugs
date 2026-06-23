@@ -685,7 +685,11 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
   Q4BReward.setEggStore({
     get:function(){return QuestSave.breedingOf?QuestSave.breedingOf(kPidNow()):{eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};},
-    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(kPidNow(),s):false;}
+    save:function(s){return QuestSave.breedingSet?QuestSave.breedingSet(kPidNow(),s):false;},
+    /* PB-2: CAS adapter */
+    pid:function(){return kPidNow();},
+    loadVersioned:function(pid){return QuestSave.loadVersioned("breeding", pid, {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}});},
+    saveVersioned:function(pid,data,rev){return QuestSave.saveVersioned("breeding", pid, data, rev);}
   });
 }
 /* 卵生成 / 放棄 ハンドラ (Q4BZukan.detailHTML の opts.onLayEgg/onAbandonEgg から呼ばれる) */
@@ -693,29 +697,38 @@ function kanjiLayEgg(spId){
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
   Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    var egg=Q4BReward.layEgg(ST.coll,sp);
-    if(egg){
-      saveST();
-      var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-      Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
-    }
-    else { alert('たまごを 産めませんでした'); }
+    /* PB-2: layEgg は Promise<{ok, egg, reason}> を返す。 演出は ok 確定後。 */
+    Q4BReward.layEgg(ST.coll,sp).then(function(r){
+      if(r && r.ok && r.egg){
+        saveST();
+        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+      } else {
+        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ。ホームに もどって よみなおしてください');
+        else alert('たまごを 産めませんでした');
+      }
+    });
   }});
 }
 function kanjiAbandonEgg(spId){
   if(!confirm('この たまごを すてる? (返金なし)')) return;
   if(!confirm('ほんとうに すてる?')) return;
-  if(Q4BReward.abandonEgg(spId)){ saveST(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  /* PB-2: abandonEgg は Promise<boolean>。 */
+  Q4BReward.abandonEgg(spId).then(function(ok){
+    if(ok){ saveST(); var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal(); }
+  });
 }
 function kanjiHatchEgg(spId){
   if(!ST.coll) ST.coll={catches:{},total:0};
-  var r=Q4BReward.hatchEgg(ST.coll, spId);
-  if(!r){ alert('孵化できませんでした'); return; }
-  saveST();
-  var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-  if(window.Q4BBreeding){
-    Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
-  }
+  /* PB-2: hatchEgg は Promise<result|null>。 breeding 保存成功後に演出・教科保存。 */
+  Q4BReward.hatchEgg(ST.coll, spId).then(function(r){
+    if(!r){ alert('孵化できませんでした (別の たんまつで すすんでいる可能性があります)'); return; }
+    saveST();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
+    if(window.Q4BBreeding){
+      Q4BBreeding.playHatchAnimation({egg:r.egg,sp:r.sp,size:r.size,onClose:function(){},onViewZukan:function(){}});
+    }
+  });
 }
 
 /* ================= ホーム ================= */
@@ -928,7 +941,9 @@ function answered(ok){
       peek (push 込) して係数を取り、 両 API には itemId=null + value 反映で渡す。 */
    var fresh = (Q4BReward.freshnessPeek ? Q4BReward.freshnessPeek(ST.coll, iid) : 1);
    var effective = kval * fresh;
-   if(Q4BReward.feedEgg)Q4BReward.feedEgg('kanji', effective, {coll:ST.coll});
+   /* PB-2: async 化。 結果は本セッションで使わないが Promise を fire-and-forget。
+      競合時は内部で q4b-breeding-conflict event 発火、 caller 側 UI で扱う。 */
+   if(Q4BReward.feedEgg) Q4BReward.feedEgg('kanji', effective, {coll:ST.coll});
    /* REVIEW_BOOST は復習で「期限到来済み」だった問題に限定 (新追加#6)。
       期限前 stage 1-2 filler に高 boost をかけると周回経路になる。 */
    var _kboost;
@@ -1585,15 +1600,13 @@ function processKanjiMasterQueue(queue){
   isLegacy: false,
   allowCancel: true,
   onPick: function(sex){
-   /* 選んだ性別で awardMaster */
+   /* PB-2: awardMasterEgg は Promise を返す。 卵授与の breeding 保存成功後に
+      saveST + 演出 (「やったー」 表示) を出す。 */
    Q4BReward.awardMaster(ST.coll, sp, sex);
-   /* 反対性別の卵を授与 (空きあり→eggs、満杯→pendingEggs) */
-   Q4BReward.awardMasterEgg(ST.coll, sp, sex === 'm' ? 'f' : 'm');
-   saveST();
-   /* 演出キューを上書きしない: 「やったー！」 確認後に次の sex picker を出す
-      (前回新#12)。 すぐ processKanjiMasterQueue を呼ぶと次のモーダルが直ちに
-      開いて獲得画面を消してしまう。 */
-   showMasterCelebration([sp], function(){ processKanjiMasterQueue(queue); });
+   Q4BReward.awardMasterEgg(ST.coll, sp, sex === 'm' ? 'f' : 'm').then(function(egg){
+     saveST();
+     showMasterCelebration([sp], function(){ processKanjiMasterQueue(queue); });
+   });
   },
   onCancel: function(){
    /* キャンセル時は sex='u' 仮授与 → C フローに自動フォールバック */
@@ -1609,15 +1622,16 @@ function kanjiPickMasterSex(spId){
  Q4BBreeding.openMasterSexPickerModal({
   sp: sp, isLegacy: true, allowCancel: true,
   onPick: function(sex){
-   var ret=Q4BReward.setMasterSex(ST.coll, sp, sex);
-   if(ret){
-    saveST();
-    if(typeof closeModal==='function') closeModal();
-    /* toast: 反対性別卵の授与結果を明示 */
-    var grantedEgg=(ret!==true)?ret:null;
-    var queued=!!(grantedEgg&&grantedEgg.queuedAt);
-    if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
-   }
+   /* PB-2: setMasterSex は Promise */
+   Q4BReward.setMasterSex(ST.coll, sp, sex).then(function(ret){
+    if(ret){
+     saveST();
+     if(typeof closeModal==='function') closeModal();
+     var grantedEgg=(ret!==true)?ret:null;
+     var queued=!!(grantedEgg&&grantedEgg.queuedAt);
+     if(Q4BBreeding.notifyMasterEggGranted) Q4BBreeding.notifyMasterEggGranted(sp,{skipped:!grantedEgg, queued:queued});
+    }
+   });
   }
  });
 }

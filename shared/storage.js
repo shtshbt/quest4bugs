@@ -293,12 +293,22 @@
       if(!ex){ store.kv[k]=inc; continue; }
       /* PB-1: CAS namespace では logical revision を優先。 「remote が新しい revision」
          を持っていれば必ず取り込む。 同 revision は updated で タイブレーク。
-         旧 namespace は従来通り updated だけで判定。 */
+         旧 namespace は従来通り updated だけで判定。
+         PB-2: 同 revision で内容が違うのは「CAS 実装漏れ」 の兆候。 console.warn
+         + diagnostic event を発火して見逃しを防ぐ。 */
       var ns = k.split(SEP)[0];
       if(isCASNamespace(ns) && (typeof inc.revision==='number') && (typeof ex.revision==='number')){
         if(inc.revision > ex.revision){ store.kv[k]=inc; continue; }
-        if(inc.revision < ex.revision) continue;   /* ローカルが新しい */
-        /* 同 revision: 時刻 LWW (R6: 同 timestamp はローカル優先) */
+        if(inc.revision < ex.revision) continue;
+        /* 同 revision: 内容比較で divergence チェック */
+        try{
+          var lJson = JSON.stringify(ex.data);
+          var rJson = JSON.stringify(inc.data);
+          if(lJson !== rJson){
+            try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] same_revision_divergence at "+k+" rev="+inc.revision+" (CAS implementation may be missed)"); }catch(_){}
+            try{ window.dispatchEvent(new CustomEvent("q4b-same-revision-divergence", {detail:{ns:ns, key:k, revision:inc.revision}})); }catch(_){}
+          }
+        }catch(_){}
         if((inc.updated||0) > (ex.updated||0)) store.kv[k]=inc;
         continue;
       }
