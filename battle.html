@@ -701,6 +701,26 @@ function ageOf(birth){
   if((d.getMonth()+1)<bm) a--;
   return a;
 }
+/* T8-1: PROFOBJ.birth は cloud には乗らない。 local_profiles から birth を取得し、
+   無ければ lastBdayAge (= 整数年齢)、 さらに無ければ registry の reachTier から
+   逆算 (age = reachTier + 6) する。 全て無ければ default 8 (= reachTier 2)。 */
+function _localMeta(pid){
+  if(window.QuestSave && QuestSave.getLocalProfileMeta) return QuestSave.getLocalProfileMeta(pid)||null;
+  return null;
+}
+function profileAge(){
+  if(!PROF) return null;
+  var meta=_localMeta(PROF);
+  if(meta){
+    if(meta.birth){ var a=ageOf(meta.birth); if(a!=null) return a; }
+    if(meta.lastBdayAge!=null) return meta.lastBdayAge;
+  }
+  /* fallback: registry に reachTier があれば そこから推定年齢 (= tier + 6) */
+  if(PROFOBJ && typeof PROFOBJ.reachTier === "number") return PROFOBJ.reachTier + 6;
+  /* 旧データ互換: 既に migrate 済の端末では PROFOBJ.birth は無い想定だが念のため */
+  if(PROFOBJ && PROFOBJ.birth){ var b=ageOf(PROFOBJ.birth); if(b!=null) return b; }
+  return null;
+}
 function expGrade(age){ if(age==null) age=8; return Math.max(1,Math.min(6,age-5)); }   /* 漢字: 目標学年 */
 function expField(age){ if(age==null) age=8;   /* 英語: 目標フィールド数（緩和：上限4＝ジャングル/アマゾン無しでも達成可） */
   if(age<=6)return 1; if(age===7)return 1.5; if(age===8)return 2; if(age===9)return 2.5;
@@ -782,7 +802,7 @@ function reachCalc(kp,age){
 /* high-water mark を適用して REACH を確定（BATTLE.reachMax に保存→再ロック防止） */
 function computeReach(kp,ks,es){
   PROG.keisan=kp; PROG.kanji=ks; PROG.eitango=es;  /* 本物連動の出題に使う */
-  var age=ageOf(PROFOBJ&&PROFOBJ.birth);
+  var age=profileAge();
   var cur={kanji:reachKanji(ks,age), keisan:reachCalc(kp,age), eitango:reachEng(es,age)};
   var mx=(BATTLE&&BATTLE.reachMax)||{};
   /* 英語は学習が単調(語彙は消えない)＝high-water不要。旧式の過大値(band5張り付き)を現在値で再基準化。
@@ -837,11 +857,15 @@ function goalLabels(age){
 /* 誕生月をまたいで年齢が上がったら年1回だけ祝う（初回は祝わず基準化） */
 function checkBirthday(age){
   if(age==null||!PROFOBJ) return;
-  var last=PROFOBJ.lastBdayAge;
-  if(last==null){ PROFOBJ.lastBdayAge=age; if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age}); return; }
+  /* T8-1: lastBdayAge は local_profiles 側に保存 (QuestSave.updateProfile が routing 済)。
+     PROFOBJ.lastBdayAge は cloud から復元したセカンダリ端末では無いので、
+     local meta を見にいく。 */
+  var meta=_localMeta(PROF)||{};
+  var last=(meta.lastBdayAge!=null)?meta.lastBdayAge:(PROFOBJ.lastBdayAge!=null?PROFOBJ.lastBdayAge:null);
+  if(last==null){ if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age}); return; }
   if(age>last){
     var gl=goalLabels(age);
-    PROFOBJ.lastBdayAge=age; if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age});
+    if(window.QuestSave&&QuestSave.updateProfile)QuestSave.updateProfile(PROF,{lastBdayAge:age});
     setTimeout(function(){ alert("🎂 おたんじょうび おめでとう！\n"+age+"さいに なったね！\n\nこれからの もくひょう：\n🟣かんじ "+gl.kanji+"　🟢えいご "+gl.eng+"　🔵けいさん "+gl.calc+"\n\nいままで あつめた虫・たおしたボスは そのまま だよ！💪"); },300);
   }
 }
@@ -1581,13 +1605,18 @@ function renderHome(){
         : "解禁ずみ "+unlocked+" 体 ／ "+_weak+"を のばすと No."+nx.stage+"に ちかづくよ！（3きょうか そろえて 解禁）")
     : "ぜんぶ解禁ずみ！あとは たおすだけ！";
   /* 🎯 到達度バー＋次ボス目標＋📖解禁マップ＋🎂誕生日演出 */
-  var _age=ageOf(PROFOBJ&&PROFOBJ.birth);
+  /* T8-1: birth は local_profiles 限定 (cloud に出ない)。 birth が この端末に
+     無い場合は 「設定して」と促す UI を維持 (cloud から reachTier だけが降りた
+     セカンダリ端末でも、 birth を local で設定すると誕生日演出が動くようになる)。 */
+  var _age=profileAge();
+  var _meta=_localMeta(PROF);
+  var _hasLocalBirth=!!(_meta && _meta.birth);
   var _rb=document.getElementById("reachBars"), _um=document.getElementById("unlockMap");
   if(_rb){
-    if(_age==null){ _rb.innerHTML='<div style="color:#b23a2e;font-weight:700;padding:4px 0">🎂 ホームのプロフィールで「うまれた つき」を せっていしてね</div>'; }
+    if(!_hasLocalBirth){ _rb.innerHTML='<div style="color:#b23a2e;font-weight:700;padding:4px 0">🎂 ホームのプロフィールで「うまれた つき」を せっていしてね</div>'; }
     else { _rb.innerHTML=reachBarHTML("かんじ","🟣","kanji")+reachBarHTML("えいご","🟢","eitango")+reachBarHTML("けいさん","🔵","keisan"); }
   }
-  if(_um){ _um.innerHTML=(_age==null)?"":unlockMapHTML(_age); }
+  if(_um){ _um.innerHTML=(!_hasLocalBirth||_age==null)?"":unlockMapHTML(_age); }
   checkBirthday(_age);
   // パーティ
   var pc=document.getElementById("party"); pc.innerHTML="";

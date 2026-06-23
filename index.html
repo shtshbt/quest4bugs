@@ -938,7 +938,10 @@ function exp(){
   try{o=JSON.parse(s);}catch(e){}
   var n=o.kv?Object.keys(o.kv).length:0;
   if(!n){$("expA").innerHTML='<p class="note" style="color:#E05A48">まだ保存された記録がありません（ゲームをあそんでから書き出してください）</p>';return;}
-  $("expA").innerHTML='<p class="note">'+n+'件のゲーム記録を書き出しました</p>'
+  /* T8-1: backup には名前・生年月 (localProfileMeta) が含まれる。 共有しない旨を明示。 */
+  var hasPii=QuestSave.exportContainsPii&&QuestSave.exportContainsPii();
+  var piiWarn=hasPii?'<p class="note" style="color:#B23A2E;font-weight:700;background:#FFF5F0;padding:8px;border-radius:8px;border:2px solid #E7A39C">⚠ このバックアップには <b>なまえ・うまれた つき</b> が ふくまれます。 ほかの ひとに わたさないでください。</p>':'';
+  $("expA").innerHTML=piiWarn+'<p class="note">'+n+'件のゲーム記録を書き出しました</p>'
     +'<textarea id="expT" readonly>'+s.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea>'
     +'<div class="g2"><button class="btn sm" onclick="cp()">コピー</button>'
     +'<button class="btn sm" onclick="dl()">ファイル保存</button></div>';
@@ -1114,16 +1117,20 @@ function renderProfiles(){
     }
     if(!cur||!ps.some(function(p){return p.id===cur;})){QuestSave.setCurrentProfile(ps[0].id);cur=ps[0].id;}
     var h="";
+    /* T8-1: name/birth は profileDisplay 経由 (local_profiles から合体)。
+       name 未設定の端末では slotLabel ("プレイヤー1" 等) を fallback。 */
     ps.forEach(function(p){
       var on=p.id===cur;
-      var birth=p.birth?(' <span style="font-size:12px;opacity:.78">🎂 '+esc(p.birth.replace("-","/"))+'</span>'):'';
+      var disp=QuestSave.profileDisplay(p.id)||{name:"プレイヤー",icon:"🪲",birth:null};
+      var birth=disp.birth?(' <span style="font-size:12px;opacity:.78">🎂 '+esc(disp.birth.replace("-","/"))+'</span>'):'';
       h+='<div class="g2" style="grid-template-columns:1fr auto;margin:6px 0">'
         +'<button class="btn sm" style="text-align:left;'+(on?"background:var(--green);color:#fff;box-shadow:0 3px 0 var(--green-d)":"")+'" onclick="pickProf(\''+p.id+'\')">'
-        +(on?"✓ ":"")+(p.icon||"🪲")+" "+esc(p.name)+birth+'</button>'
+        +(on?"✓ ":"")+(disp.icon||"🪲")+" "+esc(disp.name)+birth+'</button>'
         +'<button class="btn sm" onclick="editProf(\''+p.id+'\')">…</button></div>';
     });
     $("profList").innerHTML=h;
-    var curName=""; ps.forEach(function(p){if(p.id===cur)curName=p.name;});
+    var curName="", curDisp=QuestSave.profileDisplay(cur);
+    if(curDisp)curName=curDisp.name;
     renderDashboard(cur,curName);
   });
 }
@@ -1667,8 +1674,10 @@ function openProfEditor(id){
   QuestSave.profiles().then(function(ps){
     var p=null,i; if(id)for(i=0;i<ps.length;i++)if(ps[i].id===id)p=ps[i];
     var selected=p?(p.icon||"🪲"):ICONS[0];
-    var name=p?p.name:"";
-    var curBirth=(p&&p.birth)||"", curY=curBirth.split("-")[0], curM=+(curBirth.split("-")[1]||0), cy=new Date().getFullYear(), yopts='<option value="">----</option>', mopts='<option value="">--</option>', y,m;
+    /* T8-1: name/birth は local_profiles から取得。 registry には載らない。 */
+    var localMeta=(p&&QuestSave.getLocalProfileMeta)?(QuestSave.getLocalProfileMeta(p.id)||{}):{};
+    var name=localMeta.name||"";
+    var curBirth=localMeta.birth||"", curY=curBirth.split("-")[0], curM=+(curBirth.split("-")[1]||0), cy=new Date().getFullYear(), yopts='<option value="">----</option>', mopts='<option value="">--</option>', y,m;
     for(y=cy-13;y<=cy-3;y++) yopts+='<option value="'+y+'"'+(String(y)===curY?" selected":"")+'>'+y+'年</option>';
     for(m=1;m<=12;m++) mopts+='<option value="'+m+'"'+(m===curM?" selected":"")+'>'+m+'月</option>';
     function gridHTML(){
@@ -1721,7 +1730,12 @@ function openProfEditor(id){
       close(); renderProfiles();
     };
     if(p)$("peDel").onclick=function(){
-      if(confirm(p.name+" の きろくを けします。よいですか？\n（ほかの たんまつからも きえます）")){QuestSave.deleteProfile(p.id);close();renderProfiles();}
+      /* T8-1: name 未設定端末 (cloud から復元のみ) でも識別できるよう、
+         icon + 名前 or slot label (例: "🪲 プレイヤー1") を含めて確認する。 */
+      var disp=QuestSave.profileDisplay(p.id)||{};
+      var headline=(disp.icon||"🪲")+" "+(disp.name||"プレイヤー");
+      if(disp.hasLocalName && disp.slotLabel && disp.name!==disp.slotLabel) headline+="（"+disp.slotLabel+"）";
+      if(confirm(headline+" の きろくを けします。よいですか？\n（ほかの たんまつからも きえます）")){QuestSave.deleteProfile(p.id);close();renderProfiles();}
     };
   });
 }

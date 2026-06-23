@@ -550,8 +550,11 @@ function zukanDetailHTML(html){
  return '<div class="center" style="--forest:#2e5d28;--deep:#1d3d19;--soil:#7a4a23;--card:#ffffff;--egg:#e3ddcb;background:#fffdf6;color:#2e5d28;border-radius:16px;padding:6px 2px">' + html + '</div>';
 }
 
-function nameOf(id){ for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)return PROFILES[i].name; return id }
-function head(){ if(!CUR)return; $('hProf').style.display=''; $('hProf').textContent=CUR.emoji+' '+CUR.name;
+/* T8-1: 表示名は QuestSave.profileDisplay 経由で取得 (local_profiles + slot label fallback)。
+   PROFILES (= shared registry) には name が無いため必ず helper を通す。 */
+function pdisp(id){ if(QuestSave&&QuestSave.profileDisplay&&id)return QuestSave.profileDisplay(id); return null; }
+function nameOf(id){ var d=pdisp(id); if(d&&d.name)return d.name; for(var i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)return PROFILES[i].name||id; return id }
+function head(){ if(!CUR)return; $('hProf').style.display=''; var d=pdisp(CUR.id)||{}; $('hProf').textContent=(CUR.emoji||d.icon||'🪲')+' '+(d.name||CUR.name||'');
  $('hStreak').style.display='none'; /* 連続日数は統一ステータスバーに表示するため、ヘッダの重複を解消 */ }
 function isLocked(key){ if(key[0]==='h')return !unOK('hira'); var u=KMAP[key.slice(2)].u; return !unOK('u'+u) }
 function lockMsg(){ modal('<div class="center">🔒 まだ ひらいて いないよ<br><span class="small">🏆チャレンジ(にんていテスト)に ごうかくすると ひらくよ！</span><br><button class="btn gold" style="margin-top:10px" onclick="closeModal();renderTests()">🏆 チャレンジへ いく</button><button class="btn sub" style="margin-top:6px" onclick="closeModal()">とじる</button></div>') }
@@ -621,7 +624,7 @@ function partnerFace(){ return (ST.pp||0)<=0?'🥚':((ST.pp||0)<3?'🐛':'🪲')
 function renderProfileSel(){ var s=$('scr-profile');
  var h='<div class="card center"><div style="font-size:40px">🪲🌿</div><div style="font-weight:bold;font-size:18px;margin-top:6px">だれが あそぶ？</div></div>';
  if(!PROFILES.length){ h+='<div class="card center"><div class="small">まだ だれも いないよ。「＋ あたらしいこ」で つくってね。<br>（ポータルでも つくれます）</div></div>'; }
- PROFILES.forEach(function(p,i){ h+='<button class="card prof" data-i="'+i+'" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">'+(p.emoji||p.icon||'🪲')+'</div><div style="font-weight:bold;font-size:20px">'+esc(p.name)+'</div><div class="small">'+(p.mode?(p.mode==='small'?'ひらがなコース':'かんじコース'):'コースを えらぶ')+'</div></button>' });
+ PROFILES.forEach(function(p,i){ var d=pdisp(p.id)||{}; h+='<button class="card prof" data-i="'+i+'" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">'+(p.emoji||p.icon||d.icon||'🪲')+'</div><div style="font-weight:bold;font-size:20px">'+esc(d.name||p.name||'プレイヤー')+'</div><div class="small">'+(p.mode?(p.mode==='small'?'ひらがなコース':'かんじコース'):'コースを えらぶ')+'</div></button>' });
  h+='<button class="btn sub" id="bAddProf" style="margin-top:10px">＋ あたらしいこ</button>';
  s.innerHTML=h;
  var bs=s.querySelectorAll('button.prof');
@@ -637,8 +640,9 @@ function ensureMode(p){
  if(p.mode)return Promise.resolve();
  return new Promise(function(resolve){
   var s=$('scr-profile');
-  s.innerHTML='<div class="card center"><div style="font-size:34px">'+(p.emoji||p.icon||'🪲')+'</div>'
-   +'<div style="font-weight:bold;font-size:18px;margin:6px 0 2px">'+esc(p.name)+' の コース</div>'
+  var _dd=pdisp(p.id)||{};
+  s.innerHTML='<div class="card center"><div style="font-size:34px">'+(p.emoji||p.icon||_dd.icon||'🪲')+'</div>'
+   +'<div style="font-weight:bold;font-size:18px;margin:6px 0 2px">'+esc(_dd.name||p.name||'プレイヤー')+' の コース</div>'
    +'<div class="small" style="margin-bottom:8px">どちらで べんきょうする？</div></div>'
    +'<button class="card prof" id="cBig" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🪲</div><div style="font-weight:bold;font-size:20px">かんじ コース</div><div class="small">1〜6年生の かんじ</div></button>'
    +'<button class="card prof" id="cSmall" style="width:100%;border:none;cursor:pointer;font-family:inherit"><div class="face">🐛</div><div style="font-weight:bold;font-size:20px">ひらがな コース</div><div class="small">ひらがな 46もじ</div></button>';
@@ -2081,14 +2085,15 @@ function weakTop(){ var m={}; ST.wrong.forEach(function(w){ var c=w.k.slice(2); 
  return a.map(function(p){return p[0]+'×'+p[1]}).join('　') }
 function renameProf(id){ var p=null,i;
  for(i=0;i<PROFILES.length;i++)if(PROFILES[i].id===id)p=PROFILES[i];
- if(!p)return; var nm=prompt('新しい名前',p.name);
+ if(!p)return;
+ /* T8-1: name の真実源は QuestSave.updateProfile が書く local_profiles。
+    p.name を直接書かず、 表示も pdisp 経由。 */
+ var cur=(pdisp(p.id)||{}).name||p.name||'';
+ var nm=prompt('新しい名前',cur);
  if(nm){
-  p.name=nm.trim()||p.name;
-  p.updated = Date.now();              /* 別端末の旧名に LWW で巻き戻されないように (新追加#8) */
-  /* 共有レジストリにも反映 (K19): saveProfiles だけでは他教科 / ポータルに伝播しない
-     ケースがあるため、 updateProfile API 経由で 1 元化。 */
-  if(QuestSave.updateProfile) QuestSave.updateProfile(p.id, {name: p.name});
-  QuestSave.saveProfiles(PROFILES); head(); renderParent();
+  var v=nm.trim()||cur;
+  if(QuestSave.updateProfile) QuestSave.updateProfile(p.id, {name: v});
+  head(); renderParent();
  } }
 function renderParent(){ var s=$('scr-parent');
  var ist='width:100%;margin:6px 0;padding:10px;border-radius:10px;border:2px solid #b9cfa6;font-size:14px;box-sizing:border-box';
@@ -2106,7 +2111,7 @@ function renderParent(){ var s=$('scr-parent');
  +'<input id="ghR" value="quest4bugs-data" placeholder="データ用の非公開repo名" style="'+ist+'">'
  +'<input id="ghT" type="password" placeholder="fine-grained token（Contents: Read and write）" style="'+ist+'">'
  +'<div class="row"><button class="btn" id="ghGo">接続</button><button class="btn sub" id="ghOff">切断</button></div></div>'
- +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">記録（'+esc(CUR.name)+'）</div>'
+ +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">記録（'+esc(nameOf(CUR.id))+'）</div>'
  +'<div class="small">連続学習：'+streak()+'日　合計回答：'+totalAns()+'回</div>'
  +'<table><tr><th>日付</th><th>テスト</th><th>点</th></tr>'+testRows()+'</table>'
  +'<div class="small" style="margin-top:6px">弱点（誤答が多い字）：'+weakTop()+'</div></div>'
@@ -2130,7 +2135,12 @@ function renderParent(){ var s=$('scr-parent');
   QuestSave.connectGitHub(cfg).then(function(){ alert('接続しました．以後この端末は自動同期します') })
   .catch(function(e){ alert('接続失敗：'+(e&&e.message?e.message:e)) }) });
  $('ghOff').addEventListener('click',function(){ QuestSave.disconnect(); $('syTx').textContent=QuestSave.getStatus(); alert('切断しました（ローカル保存は継続）') });
- $('dEx').addEventListener('click',function(){ var j=QuestSave.exportAll(); $('taX').value=j;
+ $('dEx').addEventListener('click',function(){
+  /* T8-1: backup には localProfileMeta (なまえ・うまれた つき) が含まれる。 ダウンロード前に警告。 */
+  if(QuestSave.exportContainsPii&&QuestSave.exportContainsPii()){
+   if(!confirm('⚠ このバックアップには「なまえ・うまれた つき」が ふくまれます。\nほかの ひとに わたしたり、 ネットに あげたり しないで ください。\n書き出しますか?')) return;
+  }
+  var j=QuestSave.exportAll(); $('taX').value=j;
   try{ var bl=new Blob([j],{type:'application/json'}); var a=document.createElement('a');
    a.href=URL.createObjectURL(bl); a.download='quest4bugs_backup_'+todayStr()+'.json';
    document.body.appendChild(a); a.click(); a.remove(); }catch(e){} });
@@ -2153,7 +2163,7 @@ function renderParent(){ var s=$('scr-parent');
  $('dRs').addEventListener('click',function(){
   /* 実際に消すのは kanji namespace の ST だけ。 共有琥珀 / 化石 / 卵 / 他教科 / ボス
      図鑑 などは残るので、 ボタンと確認文言を「漢字の記録だけ」に明示 (前回新#8)。 */
-  if(confirm(CUR.name+' の【漢字の記録だけ】を全消去します．\n（共有のかけら・卵・他の教科の記録は のこります）\nよいですか？')){
+  if(confirm(nameOf(CUR.id)+' の【漢字の記録だけ】を全消去します．\n（共有のかけら・卵・他の教科の記録は のこります）\nよいですか？')){
    ST=newState(); initUn(); saveST(); alert('漢字の記録を リセットしました'); renderHome();
   }
  });

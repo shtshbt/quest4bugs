@@ -1154,7 +1154,7 @@ function scrChooseProfile(first){
   <div class="card center"><div style="font-weight:800;font-size:18px">だれが あそぶ?</div>
     <div class="profs">${list.map(p=>`
       <button class="prof" onclick="selectProfile('${p.id}')">
-        <span class="pe">${profIcon(p)}</span><span class="pn">${Engine.esc(p.name)}</span>
+        <span class="pe">${profIcon(p)}</span><span class="pn">${Engine.esc(((QuestSave.profileDisplay&&QuestSave.profileDisplay(p.id))||{}).name||p.name||"")}</span>
       </button>`).join('')}
     </div>
     <button class="btn sub" onclick="$('#app').innerHTML=scrNewProfileForm()">+ あたらしく つくる</button>
@@ -1187,7 +1187,7 @@ function showProfiles(){
   $('#modal').innerHTML=`<div class="mcard"><div style="font-weight:800;font-size:18px">だれが あそぶ?</div>
     <div class="profs">${PROFILES.map(p=>`
       <button class="prof" onclick="selectProfile('${p.id}')">
-        <span class="pe">${profIcon(p)}</span><span class="pn">${Engine.esc(p.name)}</span>
+        <span class="pe">${profIcon(p)}</span><span class="pn">${Engine.esc(((QuestSave.profileDisplay&&QuestSave.profileDisplay(p.id))||{}).name||p.name||"")}</span>
       </button>`).join('')}
     </div>
     <button class="btn sub" onclick="closeModal();$('#app').innerHTML=scrNewProfileForm()">+ あたらしく つくる</button>
@@ -1207,7 +1207,7 @@ function scrHome(){
   const totN=Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0);
   const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:Q4BReward.poolCount('eitango'),amber:eAmber(),streak:P.streak.n,total:totN}):'';
   let h=`<div class="topbar">
-    <button class="chip" onclick="showProfiles()">${profIcon(meta)} ${Engine.esc(meta.name)} <small>▼</small></button>
+    <button class="chip" onclick="showProfiles()">${profIcon(meta)} ${Engine.esc(((QuestSave.profileDisplay&&QuestSave.profileDisplay(meta.id))||{}).name||meta.name||"")} <small>▼</small></button>
     <span class="sp"></span>
   </div>
   ${statusBar}
@@ -1647,7 +1647,7 @@ function scrStats(){
   /* 最後のborder-bottomを消す */
   fieldRows=fieldRows.replace(/border-bottom:[^"]+"\s*>(\s*<\/div>\s*$)/, 'border-bottom:none">$1');
 
-  return `<div class="topbar"><span class="ttl">📊 ${Engine.esc(meta.name)}の きろく</span></div>
+  return `<div class="topbar"><span class="ttl">📊 ${Engine.esc(((QuestSave.profileDisplay&&QuestSave.profileDisplay(meta.id))||{}).name||meta.name||"")}の きろく</span></div>
   <div class="statgrid">
     <div class="stat"><div class="sv">🔥 ${P.streak.n}日</div><div class="sl">れんぞく学習 (さいこう ${P.streak.best}日)</div></div>
     <div class="stat"><div class="sv">${q?Math.round(c/q*100):0}%</div><div class="sl">せいかいりつ (${c}/${q}問)</div></div>
@@ -1764,6 +1764,10 @@ async function doSyncNow(){
   }catch(e){ UI.toast('同期失敗(あとで自動再試行)'); }
 }
 function doExport(){
+  /* T8-1: backup には localProfileMeta (なまえ・うまれた つき) が含まれる。 警告必須。 */
+  if(QuestSave.exportContainsPii&&QuestSave.exportContainsPii()){
+    if(!confirm('⚠ このバックアップには「なまえ・うまれた つき」が ふくまれます。\nほかの ひとに わたしたり、 ネットに あげたり しないで ください。\n書き出しますか?')) return;
+  }
   const blob=new Blob([QuestSave.exportAll()],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -1811,7 +1815,11 @@ function doCSV(){
 }
 function setRate(v){ CFG.rate=+v; $('#rateV').textContent=v; saveSettings(); }
 async function doDelProf(id,name){
-  if(!confirm(name+' のデータを消す? (クラウドの registry も次の同期で更新される)')) return;
+  /* T8-1: cloud から復元しただけの端末では name=空 のことがある。 icon+slotLabel
+     を helper で取り直し、 必ず識別可能な文言で確認する。 */
+  const disp=(window.QuestSave&&QuestSave.profileDisplay)?QuestSave.profileDisplay(id):null;
+  const headline=(disp?((disp.icon||'🪲')+' '+(disp.name||'プレイヤー')):(name||'このこ'));
+  if(!confirm(headline+' のデータを消す? (クラウドの registry も次の同期で更新される)')) return;
   QuestSave.deleteProfile(id);
   PROFILES=await QuestSave.profiles();
   CURID=QuestSave.currentProfile();
