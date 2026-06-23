@@ -2333,15 +2333,20 @@ function ansJukugo(i){
 function afterAnswer(item,ok,title,detail){
   S.answered++;
   if(ok) S.correct++;
-  if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(ePid(),'eitango',1);
+  /* S2: retry (誤答後の再出題) 正解は SRS 不変 (既存) だが、 旧コードは
+     recordCorrect / feedEgg / onAnswer / amber / cal.q&c をすべて加算しており、
+     「わざと間違える→答え見る→次に正解」 で報酬を稼げる経路があった。 kanji と
+     同じく rewardEligible で全報酬経路を gate。 */
+  const rewardEligible = ok && !item.retry;
+  if(rewardEligible && window.QuestSave && QuestSave.recordCorrect) QuestSave.recordCorrect(ePid(),'eitango',1);
   /* 卵給餌は learn/practice/review のみ。 ヌシ戦は kanji の認定テストと同じ「関門」
      なので、 正解で卵に餌を与えない (audit #19)。 ヌシ捕獲が確定報酬。
      freshness 二重消費を回避するため caller 側で 1 回計算してから両 API に渡す
      (K15)。 itemId は null にして feedEgg 内部の push を抑止。 */
   const _ekey = item&&item.w&&item.w.key;
   let _ePrefresh = 1;
-  if(ok && _ekey){ _ePrefresh = Reward.freshnessPeek(P, _ekey); }
-  if(ok&&window.Q4BReward&&Q4BReward.feedEgg&&S&&S.mode!=='nushi'){
+  if(rewardEligible && _ekey){ _ePrefresh = Reward.freshnessPeek(P, _ekey); }
+  if(rewardEligible && window.Q4BReward&&Q4BReward.feedEgg&&S&&S.mode!=='nushi'){
     /* 既習語の grinding を抑制: SRS box / kids mode の習熟度で value 重み付け
        box>=3 (覚えた) or kids 80%+ 8回以上: 0.2 / box==2: 0.5 / box<=1: 1.0 */
     let _v=1;
@@ -2403,8 +2408,8 @@ function afterAnswer(item,ok,title,detail){
   }
   let res=null;
   if(S&&S.mode==='review'){
-    /* 復習モード: Q4BReward レアブーストで採集。二重採集なし */
-    if(ok&&window.Q4BReward){
+    /* S2: review でも retry 正解は採集ゲージに入れない (報酬 farming 遮断) */
+    if(rewardEligible && window.Q4BReward){
       const coll={gauge:P.reviewGauge||0, total:0, catches:P.catches,
         recent:(P.recent||(P.recent=[])), acc:P.reviewAcc||0};
       /* 復習モード: REVIEW_BOOST (=2.0) のレアブースト。フィールドの既習度に関わらず復習特典 */
@@ -2420,10 +2425,22 @@ function afterAnswer(item,ok,title,detail){
         }
       }
     }
-    const tc=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
-    tc.q++; if(ok){tc.c++;} Engine.touchStreak(P);
+    /* S2: cal.q/c の 30 問報酬カウンタも retry は除外 (かせきのかけら farming 防止) */
+    if(!item.retry){
+      const tc=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
+      tc.q++; if(ok){tc.c++;}
+    }
+    if(rewardEligible) Engine.touchStreak(P);
   } else {
-    res=Reward.onAnswer(P,ok,GFID,item.w.key, _ePrefresh);  // freshness を caller で 1 回計算済み (K15)
+    /* S2: retry は Reward.onAnswer (cal.q/c も触る) も skip */
+    if(rewardEligible){
+      res=Reward.onAnswer(P,ok,GFID,item.w.key, _ePrefresh);  // freshness を caller で 1 回計算済み (K15)
+    } else if(!item.retry){
+      /* 通常誤答時の cal.q カウントだけは Reward.onAnswer の代わりに直接 */
+      const tc2=P.cal[Engine.todayKey()]||(P.cal[Engine.todayKey()]={q:0,c:0});
+      tc2.q++;
+      Engine.touchStreak(P);
+    }
   }
   if(res){ S.caught.push(res); pendingCatch=res; }
   if(!ok&&!item.retry&&S.mode==='main'&&!S.retried[item.w.key]){
@@ -2455,6 +2472,8 @@ function closeFB(){
 
 /* ---------- catch animation ---------- */
 function showCatch(res,then){
+  /* S5: 保存劣化中の演出前に警告 */
+  if(window.QuestSave && QuestSave.warnIfDegraded) QuestSave.warnIfDegraded();
   $('#modal').innerHTML=`<div class="mcard">
     <div style="font-weight:800;font-size:19px">🍃 なにか いるぞ…!</div>
     <span class="bush">🌿</span>

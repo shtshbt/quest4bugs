@@ -747,6 +747,11 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
   });
   if(_retDue) h+='<div class="banner">📣 さいテストの ひ！「'+TESTS[_retDue].label+'」に もういちど ちょうせんしよう</div>';
  }
+ /* S3: テスト途中保存があれば「つづきから」 を促す */
+ var _savedTest = loadTestSession();
+ if(_savedTest && TESTS[_savedTest.test]){
+  h += '<div class="banner" style="background:#FFF3D6;border-color:#F2C879">⏳ とちゅうの テスト 「'+TESTS[_savedTest.test].label+'」 が あります。 「ちょうせんする」 を おすと つづきから はじまります</div>';
+ }
  // 抜き打ちふくしゅうバナー（既習20以上 かつ 25%確率）
  var introCount=countIntroduced();
  var showReviewBanner=(introCount>=20&&Math.random()<0.25);
@@ -826,7 +831,20 @@ function startPractice(pairs,label){
  pairs = shuffle(filtered).slice(0,10);
  if(!pairs.length){ modal('<div class="center">れんしゅうできる ものが まだ ないよ<br><button class="btn" style="margin-top:10px" onclick="closeModal()">とじる</button></div>'); return }
  closeModal(); SES=startSession({mode:'practice',q:pairs,i:0,ok:0,res:[],wrongs:[],label:label||''}); nextQ() }
-function startTest(id){ var tdef=TESTS[id]; var items=tdef.items();
+function startTest(id){
+ /* S3: 同じテストの保存があれば確認なしで再開 (= 中断ハックを無効化)。
+    別のテスト ID で保存中なら、 そちらに戻すか古いセッションを破棄するか確認。 */
+ var saved = loadTestSession();
+ if(saved && saved.test === id){
+  closeModal();
+  SES = startSession(Object.assign({},saved));
+  nextQ(); return;
+ }
+ if(saved && saved.test !== id){
+  if(!confirm('まえに とちゅうで やめた テストが あります ('+TESTS[saved.test].label+')。\nそれを すてて 新しい テストを はじめますか?')) return;
+  clearTestSession();
+ }
+ var tdef=TESTS[id]; var items=tdef.items();
  /* 認定テストは「学年範囲の代表性」を確保するため 1 文字 1 問に統一する (新#3)。
     先に書字 2 問用の漢字を選び、 残りはそれ以外の漢字から各 1 問ずつ非書字スキルを
     ランダムに抽出する。 items が少ない場合は重複を許して埋める fallback も用意。 */
@@ -933,6 +951,7 @@ function answered(ok){
    SES.q.push(c);
   } }
  saveST();
+ if(SES.mode==='test') saveTestSession();    /* S3: テストは 1 問ごとに永続化 */
  var _sid2=SES.sid, _i2=SES.i;
  if(ok){
   SES.i++;
@@ -943,6 +962,8 @@ function answered(ok){
 
 function showCatchModal(got){
  if(!window.Q4BReward)return;
+ /* S5: 保存劣化中の演出前に警告 */
+ if(window.QuestSave && QuestSave.warnIfDegraded) QuestSave.warnIfDegraded();
  var sp=got.sp;
  var svgHtml=Q4BReward.svg(sp,got.shiny);
  var badges='';
@@ -989,7 +1010,39 @@ function dotsHtml(){
   if(i<SES.i){ cls=(SES.res[i]&&SES.res[i].ok)?'ok':'ng' } else if(i===SES.i){ cls='now' }
   h+='<div class="dot '+cls+'"></div>' }
  return h+'</div></div>' }
-function quitSession(){ if(SES&&SES.mode==='test'){ if(!confirm('テストを やめて ホームに もどる？')) return; } SES=null; renderHome(); }
+/* S3: 認定テストの途中離脱で破棄するハックを遮断するため、 テストセッションを
+   localStorage に永続化し、 起動時に「つづきから」 を強制する。 やめる時も保存は
+   保持して、 リロード後に同じ状態から再開できるようにする。 */
+function _testSavedKey(){ return CUR ? 'q4b_kanji_test_'+CUR.id : null; }
+function saveTestSession(){
+  if(!SES || SES.mode!=='test') return;
+  var key = _testSavedKey(); if(!key) return;
+  try{
+    var snap = {mode:'test', q:SES.q, i:SES.i, ok:SES.ok, res:SES.res, wrongs:SES.wrongs, test:SES.test, savedAt:Date.now()};
+    localStorage.setItem(key, JSON.stringify(snap));
+  }catch(_){}
+}
+function loadTestSession(){
+  var key = _testSavedKey(); if(!key) return null;
+  try{
+    var raw = localStorage.getItem(key); if(!raw) return null;
+    var d = JSON.parse(raw);
+    /* 24 時間以上経過した保存は破棄 (= 翌日のテストはやり直し) */
+    if(!d || !d.q || (Date.now() - (d.savedAt||0)) > 86400000){ localStorage.removeItem(key); return null; }
+    return d;
+  }catch(_){ return null; }
+}
+function clearTestSession(){
+  var key = _testSavedKey(); if(!key) return;
+  try{ localStorage.removeItem(key); }catch(_){}
+}
+function quitSession(){
+  if(SES&&SES.mode==='test'){
+    if(!confirm('テストは とちゅうで やめても きろくが のこります。\n次回 おなじ状態から つづきます。 ホームに もどりますか?')) return;
+    saveTestSession();             /* やめる時点で進捗保存 */
+  }
+  SES=null; renderHome();
+}
 function choiceHtml(list,glyph){ var h='<div class="choices">';
  list.forEach(function(c){ h+='<button class="btn'+(glyph?' glyph':'')+'" data-v="'+esc(c)+'">'+esc(c)+'</button>' });
  return h+'</div>' }
@@ -1195,13 +1248,19 @@ function traceUI(box,ch,test){
   return { shapeOk:(precision>=0.45&&coverage>=0.30), inkTot:inkTot, precision:precision, coverage:coverage };
  }
  var wb=$('wBtns');
- wb.innerHTML='<div class="row" style="margin-bottom:8px"><button class="btn sub" id="bClr">けす</button>'+(test?'<button class="btn sub" id="bAns">こたえを みる</button>':'')+'</div><div class="row"><button class="btn" id="bGood">かけた ⭕</button><button class="btn soil" id="bBad">まちがえた</button></div><div id="wNote" class="small" style="margin-top:6px;min-height:18px;color:var(--soil)"></div>';
+ /* S1: 認定テスト中は「こたえを みる」 ボタン自体を出さない。 旧版は 1 回押すと
+    disable していたが、 押した後の見本を見てなぞり「かけた」 で正解扱いになり
+    書字 2 問で最大 20 点を確保できるゲート回避だった。 練習モードでは引き続き
+    表示する (学習効果)。 */
+ wb.innerHTML='<div class="row" style="margin-bottom:8px"><button class="btn sub" id="bClr">けす</button>'+(test?'':'<button class="btn sub" id="bAns">こたえを みる</button>')+'</div><div class="row"><button class="btn" id="bGood">かけた ⭕</button><button class="btn soil" id="bBad">まちがえた</button></div><div id="wNote" class="small" style="margin-top:6px;min-height:18px;color:var(--soil)"></div>';
  $('bClr').addEventListener('click',function(){ bg(test?0:0.16); strokes=0; var nt=$('wNote'); if(nt)nt.textContent=''; });
- if(test){
-  var _aBtn=$('bAns'); _aBtn.addEventListener('click',function(){
+ if(!test){
+  var _aBtn=$('bAns'); if(_aBtn) _aBtn.addEventListener('click',function(){
    bg(0.3);
-   /* テスト中の答え覗き見を抑制: 1回押したら disabled (#6) */
+   /* 練習中の答え表示は 1 回押したら disabled (連打防止)。 押したら hinted で
+      SRS 不変・報酬 0.5 倍 (既出 hint guard と同じ思想)。 */
    _aBtn.disabled=true; _aBtn.style.opacity='0.4'; _aBtn.style.pointerEvents='none';
+   if(SES && SES.q && SES.q[SES.i]) SES.q[SES.i].hinted = 1;
   });
  }
  $('bGood').addEventListener('click',function(){
@@ -1284,7 +1343,8 @@ function endSession(){
  s.innerHTML=h; $('bHome').addEventListener('click',function(){ SES=null; renderHome() });
  head(); showScr('result') }
 
-function finishTest(){ updateProgressSummary(); var id=SES.test; var total=SES.res.length;
+function finishTest(){ clearTestSession();   /* S3: 完走したら永続スロットを片付ける */
+ updateProgressSummary(); var id=SES.test; var total=SES.res.length;
  var sc=Math.round(100*SES.ok/Math.max(1,total)); var t=todayStr();
  ensureTestPersist();
  var wasPassed=passed(id); /* この回より前に すでに合格済みか（周回判定）。unshift の前に捕捉 */

@@ -1002,6 +1002,9 @@ function keisanAmberCatch(){
   showCapture(null,'🔶こはく30こで つかまえた！',got);
 }
 function showCapture(i,extraMsg,presetGot,boost){
+  /* S5: 保存失敗中に報酬演出を出すと「画面では取った/保存できていない」 で消える。
+     演出前に 1 度だけ警告して気付かせる。 */
+  if(window.QuestSave && QuestSave.warnIfDegraded) QuestSave.warnIfDegraded();
   /* Q3: 復習成功 / ミッション連続日数の レアブースト が、 旧版では showCapture が
      Q4BReward.award を boost なしで呼ぶため死にコードになっていた。 caller から
      boost を受け取り Q4BReward.award に渡す。 */

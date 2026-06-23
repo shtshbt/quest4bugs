@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v116";  /* v116: keisan + storage 新規 6 件 — keisanCatBoost と afterJudge の _kv 判定を reachedLv (= max(lv,maxLv)) 基準に (故意の Lv 下降で報酬満額に戻る farming 遮断), ensureLvProgress で既存ユーザの maxLv を p.lv / 旧 hsMax/hkMax / kuku から 1 度きり移行, reconcile で 共有レジストリの名前を計算側 p.name にも反映, ミッションに Q.day を保持して日付またぎ時は当日報酬を付与しない, sougou patternId に Lv と元 kind/patternId を組み込んで別概念上書きを防止, shared/storage.js の load/save で deepClone (structuredClone fallback JSON) して caller の in-place 変更が内部 store に漏れないように */
+var CACHE = "q4b-cache-v117";  /* v117: 新規 7 件 — kanji 認定テスト中の「こたえをみる」 ボタン削除 (書字 2 問 = 最大 20 点のゲート回避), eitango retry 正解の報酬 (recordCorrect/feedEgg/onAnswer/amber/cal) を全て遮断, kanji 認定テスト SES を localStorage に永続化 + 「つづきから」 強制 (中途リロードでの破棄ハック封じ), 親画面のバックアップ取り込みを「マージ / 強制復元」 2 ボタンに分離 (旧 UI は merge を「上書き」 と誤標示), 各教科の捕獲モーダル冒頭で QuestSave.warnIfDegraded() 呼出 (保存失敗時に無自覚で消えるのを警告), sw.js install 内 skipWaiting() 廃止 + storage.js controllerchange は SES/Q 中は保留しホーム遷移時にバナーで通知, 学習データ修正 (kanji の昆虫「つ」数え 6 件を別対象に / eitango blanch/concordance/lean on/ellipse 4 件) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -38,8 +38,15 @@ self.addEventListener("install", function(e){
     caches.open(CACHE).then(function(c){
       /* 個別 add で 404 等があっても install を失敗させない */
       return Promise.all(CORE.map(function(u){ return c.add(u).catch(function(){}); }));
-    }).then(function(){ return self.skipWaiting(); })
+    })
+    /* S6: 自動 skipWaiting は廃止。 ページから "SKIP_WAITING" メッセージが来た
+       タイミングでのみ起動する (= プレイ中のリロードを避けてホーム遷移時に切替)。 */
   );
+});
+self.addEventListener("message", function(e){
+  if(e && e.data && e.data.type === "SKIP_WAITING"){
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("activate", function(e){

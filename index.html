@@ -947,13 +947,33 @@ function dl(){
   document.body.appendChild(a);a.click();a.remove();
 }
 function impUI(){
+  /* S4: 旧ボタンは「復元 (上書き)」 と書きながら mode 未指定 (merge) で呼んでいた。
+     ボタンを 2 種類に分け、 「あんぜん マージ」 (merge) と 「ぜったい ふくげん」
+     (restore) を選べるようにする。 強制復元前に現在状態を自動エクスポートして
+     ロールバック可能に。 */
   $("impA").innerHTML='<textarea id="impT" placeholder="書き出した文字列をここに貼り付け"></textarea>'
-    +'<button class="btn sm amber" style="color:#fff" onclick="doImp()">復元する（同じゲームの記録は上書き）</button>';
+    +'<button class="btn sm" onclick="doImp(\'merge\')">あんぜんに 取り込む（あたらしい方を のこす）</button>'
+    +'<button class="btn sm amber" style="color:#fff;margin-left:6px" onclick="doImp(\'restore\')">ぜったい ふくげん（このファイルで うわがき）</button>';
 }
-function doImp(){
-  QuestSave.importAll($("impT").value).then(function(n){
-    alert(n+"件のゲーム記録を復元しました");
-    renderProfiles();
+function doImp(mode){
+  mode = mode || 'merge';
+  if(mode === 'restore'){
+    if(!confirm('【ぜったい ふくげん】 \n今の記録をすべて このバックアップで うわがきします。 \n元には戻せません。 つづけますか?')) return;
+    /* 実行前に自動エクスポート (rollback 可能に) */
+    try{
+      var auto=QuestSave.exportAll();
+      var bl=new Blob([auto],{type:'application/json'});
+      var a=document.createElement('a'); a.href=URL.createObjectURL(bl);
+      a.download='quest4bugs_auto_before_restore_'+today()+'.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      alert('ふくげんの まえに 今のデータを 自動で書き出しました');
+    }catch(_){}
+  }
+  QuestSave.importAll($("impT").value, mode).then(function(n){
+    var msg = (mode==='restore') ? (n+'件を 強制復元しました。 ページを よみなおします') : (n+'件を マージしました');
+    alert(msg);
+    if(mode==='restore'){ setTimeout(function(){ try{ location.reload(); }catch(_){} }, 300); }
+    else renderProfiles();
   }).catch(function(){alert("読み込めませんでした．文字列を確認してください");});
 }
 function loadCloudUI(){

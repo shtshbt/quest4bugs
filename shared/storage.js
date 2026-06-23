@@ -98,6 +98,20 @@
     return ok;
   }
   function isDegraded(){ return __saveDegraded; }
+  /* S5: 保存失敗中に報酬演出を出す直前で 1 回だけ警告する。 「無自覚で消える」 を
+     「気付けて行動できる」 に変えるための最小ガード。 sessionStorage で短期抑止。 */
+  function warnIfDegraded(){
+    if(!__saveDegraded) return false;
+    try{
+      var k = 'q4bDegradedWarned';
+      if(sessionStorage.getItem(k)) return true;
+      sessionStorage.setItem(k, '1');
+    }catch(_){}
+    try{
+      alert('⚠ きろくが ほぞんできていません。\nブラウザを とじると 今もらえる ごほうびや 進みが きえます。\nおうちのひとを よんで バックアップ書き出しを してください。');
+    }catch(_){}
+    return true;
+  }
 
   /* ---------------- status ---------------- */
   function setStatus(s){
@@ -918,7 +932,7 @@
     breedingOf:breedingOf, breedingSet:breedingSet,
     markDropSeen:markDropSeen,
     // status / connection
-    getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, autoConnect:autoConnect,
+    getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, warnIfDegraded:warnIfDegraded, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,
     firebaseSignIn:firebaseSignIn, disconnect:disconnect,
     // config
@@ -966,14 +980,63 @@
       });
     }catch(_e2){}
     if("serviceWorker" in global.navigator && global.addEventListener){
-      /* 新しいSWが制御を奪ったら1回だけ自動リロード＝デプロイ更新が確実に反映される（古いキャッシュ居座り対策） */
+      /* S6: 自動リロードはセッション中 (window.SES or window.Q が真) に限り
+         保留する。 認定テスト / ボス戦 / 卵孵化中などの不可逆処理が中断される
+         のを防ぐ。 待機 SW は ready 状態のまま保持し、 ホーム遷移時 (= SES/Q が
+         無くなった瞬間) のページ操作で controllerchange → reload が発火する
+         よう、 ページから明示的に SKIP_WAITING を投げる方式に切替え。 */
       var _refreshing=false;
+      var _pendingWaitingSw=null;
+      function _isInSession(){
+        try{ return !!(global.SES || global.Q); }catch(_){ return false; }
+      }
+      function _activateNow(){
+        if(_pendingWaitingSw){
+          try{ _pendingWaitingSw.postMessage({type:"SKIP_WAITING"}); }catch(_){}
+          _pendingWaitingSw = null;
+        }
+      }
+      function _showUpdateBanner(){
+        try{
+          if(document.getElementById("q4bSwUpdateToast")) return;
+          var t = document.createElement("div");
+          t.id = "q4bSwUpdateToast";
+          t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#E8F5E9;border:2px solid #4CAF50;border-radius:12px;padding:10px 14px;z-index:9997;box-shadow:0 4px 16px rgba(0,0,0,.2);font-family:inherit;max-width:88vw";
+          t.innerHTML = '<div style="font-size:13px;color:#1B5E20;margin-bottom:6px">✨ あたらしい バージョンが あります</div>'
+            + '<button id="q4bSwApply" style="border:none;border-radius:8px;background:#4CAF50;color:#fff;padding:8px 14px;font-weight:700;cursor:pointer">いま こうしんする</button>'
+            + '<button id="q4bSwLater" style="border:none;border-radius:8px;background:#EEE;color:#333;padding:8px 14px;margin-left:6px;cursor:pointer">あとで</button>';
+          document.body.appendChild(t);
+          document.getElementById("q4bSwApply").onclick=function(){ _activateNow(); };
+          document.getElementById("q4bSwLater").onclick=function(){ if(t.parentNode)t.remove(); };
+        }catch(_){}
+      }
+      function _watchWorker(worker){
+        if(!worker) return;
+        worker.addEventListener("statechange", function(){
+          if(worker.state === "installed" && global.navigator.serviceWorker.controller){
+            _pendingWaitingSw = worker;
+            if(!_isInSession()) _showUpdateBanner();
+            /* セッション中はバナーも出さず、 セッション終了時に表示 */
+          }
+        });
+      }
       global.navigator.serviceWorker.addEventListener("controllerchange",function(){
         if(_refreshing)return; _refreshing=true; global.location.reload();
       });
       global.addEventListener("load",function(){
-        global.navigator.serviceWorker.register(_base+"sw.js").then(function(reg){ try{reg.update();}catch(_){} }).catch(function(){});
+        global.navigator.serviceWorker.register(_base+"sw.js").then(function(reg){
+          if(reg.waiting){ _pendingWaitingSw = reg.waiting; if(!_isInSession()) _showUpdateBanner(); }
+          reg.addEventListener("updatefound", function(){ _watchWorker(reg.installing); });
+          try{reg.update();}catch(_){}
+        }).catch(function(){});
       });
+      /* セッション終了時 (画面遷移など) に保留中の更新を表示する: SES が消えた
+         直後にユーザがホームへ来たタイミングでバナーを出す。 */
+      setInterval(function(){
+        if(_pendingWaitingSw && !_isInSession() && !document.getElementById("q4bSwUpdateToast")){
+          _showUpdateBanner();
+        }
+      }, 5000);
     }
   }
 })(window);
