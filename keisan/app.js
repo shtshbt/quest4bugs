@@ -195,7 +195,16 @@ function reconcile(reg){
   DB.profiles=DB.profiles.filter(function(p){ return regById[p.id]; });
   var keiById={}; for(i=0;i<DB.profiles.length;i++)keiById[DB.profiles[i].id]=DB.profiles[i];
   reg.forEach(function(rp){
-    if(!keiById[rp.id]){ var p=newProfile(rp.name,null); p.id=rp.id; p.type=null; DB.profiles.push(p); }
+    var p = keiById[rp.id];
+    if(p){
+      /* R3: 名前の真実源は共有レジストリ。 他教科・ポータルで変更された名前を
+         計算側にも反映する。 旧版は新規プロフィールにしか rp.name を使っておらず、
+         既存の p.name が古いままだった。 */
+      if(rp.name && p.name !== rp.name) p.name = rp.name;
+    } else {
+      p = newProfile(rp.name, null); p.id = rp.id; p.type = null;
+      DB.profiles.push(p);
+    }
   });
   if(migrated&&window.QuestSave)QuestSave.saveProfiles(reg);
 }
@@ -431,6 +440,22 @@ function ensureLvProgress(p){
   cats=courseCats(p);
   for(i=0;i<cats.length;i++){ c=cats[i]; if(LVL_CATS[c]&&p.lv[c]==null){p.lv[c]=1; changed=true;} p.lv[c]=clampLv(p.lv[c]); }
   syncLegacyFromLv(p);
+  /* R2: 既存ユーザの maxLv 移行 (1 度きり)。 maxLv は新規進級でしか作られないため、
+     既に Lv10 だったユーザが maxLv 未設定のまま降格すると到達履歴が消える。
+     現在の p.lv (および旧 hsMax/hkMax) で maxLv を初期化する。 */
+  if(!p._maxLvMig){
+    if(!p.maxLv) p.maxLv = {};
+    Object.keys(p.lv||{}).forEach(function(cat){
+      var cand = p.lv[cat] || 1;
+      /* 筆算は旧 hsMax/hkMax の値も考慮 (Lv10 移行を確実に) */
+      if(cat==='hissan' && p.hsMax!=null) cand = Math.max(cand, legacyHsToLv(p.hsMax));
+      if(cat==='hikizan' && p.hkMax!=null) cand = Math.max(cand, legacyHsToLv(p.hkMax));
+      if(cat==='kuku') cand = Math.max(cand, legacyKukuToLv(p));
+      p.maxLv[cat] = Math.max(p.maxLv[cat] || 0, cand);
+    });
+    p._maxLvMig = 1;
+    changed = true;
+  }
   return changed;
 }
 /* カテゴリLvの推移を1日1点で記録（同日は最新で上書き）。📈レベルすいいグラフ用。
@@ -591,12 +616,15 @@ function catBtnHTML(c,act,p,mark){
   var rare=(leveled&&lv>=8)?'<span style="display:inline-block;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700;color:#6B7A5E;margin-left:4px">📉 レア度ひかえめ</span>':'';
   return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+rare+sub+'</button>';
 }
-/* 既習度ベースの boost. Lv >= 8 → BOOST_LOW (0.4). それ以外 1.0. */
+/* 既習度ベースの boost. 最高到達 Lv >= 8 → BOOST_LOW (0.4). それ以外 1.0。
+   R1: 故意に Lv を下げて満額に戻す farming を遮断するため、 現在 Lv ではなく
+   reachedLv (= max(lv, maxLv)) で判定。 */
 function keisanCatBoost(p, cat){
   if(!window.Q4BReward) return 1;
   if(!LVL_CATS[cat]) return 1;
-  var lv = (p && p.lv && p.lv[cat]) || 1;
-  return lv >= 8 ? Q4BReward.BOOST_LOW : 1;
+  if(!p) return 1;
+  var mastery = Math.max((p.lv&&p.lv[cat])||1, (p.maxLv&&p.maxLv[cat])||0);
+  return mastery >= 8 ? Q4BReward.BOOST_LOW : 1;
 }
 function showHome(){
   var p=P(); if(!p){showProfiles();return;}
@@ -5400,8 +5428,13 @@ function _genByRaw(cat,p,lv){
     }
     var sq=genBy(pick(spool), p, lv);
     if(!sq) return null;
-    /* N8: sougou は元カテゴリも保持して missed 重複統合で別概念が上書きされないように */
-    sq.patternId = 'sougou:' + (sq.cat||'?') + ':' + (sq.lv||0);
+    /* N8 + R5: sougou patternId を「sougou: 元cat : sougou Lv : 元 patternId/kind」
+       にして、 異なる Lv・異なる概念が同一キーに集約されるのを防ぐ。 旧版は内側 cat
+       の sq.lv (通常 0) と元 patternId 不採用で、 frac/nenrei など全ての sougou 誤答
+       が「sougou:frac:0」「sougou:nenrei:0」 に潰れ、 後の誤答が上書きしていた。 */
+    var _sourceCat = sq.cat;
+    var _sourcePat = sq.patternId || sq.kind || 'default';
+    sq.patternId = 'sougou:' + _sourceCat + ':' + lv + ':' + _sourcePat;
     sq.cat="sougou";
     sq.lv = lv;               /* 内側 cat の Lv ではなく sougou の Lv で記録 */
     if(lv===9){ sq.timeHint=true; }   /* UI 側で「タイム目標 60s」等を表示するためのフラグ */
@@ -5533,7 +5566,9 @@ function buildPractice(cat,p,lv){
 /* ---------- quiz flow ---------- */
 function startMission(){
   var p=P(), t=todayStr(), first=!(p.daily[t]&&p.daily[t].md);
-  Q={mode:"mission",first:first,list:buildMission(p),i:0,ok:0,ms:0};
+  /* R4: 日付またぎ対応のため開始日を保持。 終了時に day !== todayStr() なら
+     ミッション報酬・連続記録の更新を取りやめ、 通常練習扱いにする。 */
+  Q={mode:"mission",day:t,first:first,list:buildMission(p),i:0,ok:0,ms:0};
   nextQ();
 }
 function startPractice(cat,lv){
@@ -6240,11 +6275,15 @@ function afterJudge(ok,q,o){
        freshnessOf に通すと初見でも 1→0.5。 caller で 1 回 peek して両 API に
        value 反映で渡し、 itemId は null にして内部 push を抑止 (K1)。 */
     var _kv=1;
+    /* R1: 故意の Lv 下降で報酬満額に戻る farming を遮断するため、 既習判定は
+       reachedLv (= max(lv, maxLv)) で行う。 旧 _curLv 比較も同様。 */
     var _curLv = (p.lv && p.lv[q.cat]) || 1;
-    if(_curLv >= 10) _kv=0.4;
-    /* M2: 易しい固定 Lv 練習 (Q.lv < 現在 Lv) も習熟扱いで価値を下げる。 旧コードは
-       現在 Lv のみ見ており、 Lv9 の子が Lv1 を周回しても毎回満額になっていた。 */
-    if(Q && Q.lv && Q.lv < _curLv) _kv = Math.min(_kv, 0.4);
+    var _masteryLv = Math.max(_curLv, (p.maxLv && p.maxLv[q.cat]) || 0);
+    if(_masteryLv >= 10) _kv=0.4;
+    /* M2 + R1: Q.lv が「最高到達 Lv より低い」 ときも習熟扱いで価値を下げる。
+       旧コードは現在 Lv (= 下げられる) と比較しており、 Lv10 達成後に降格 → Lv1
+       周回で毎回満額になっていた。 */
+    if(Q && Q.lv && Q.lv < _masteryLv) _kv = Math.min(_kv, 0.4);
     /* 九九チャレンジ: クリア済の段は習熟済みなので 0.4。 旧コードは段の進捗を見ず満額。 */
     if(Q && Q.mode==='kuku' && Q.dan && p.kukuClear && p.kukuClear[Q.dan]){
       _kv = Math.min(_kv, 0.4);
@@ -6451,6 +6490,14 @@ function finishSet(){
       save();
       showSetResult("もうすこし！",[dan+"の段　"+scoreLine,"9問中8問で クリアだよ"],"kukuChallenge("+dan+")");
     }
+    return;
+  }
+  /* R4: ミッション中に日付が変わった場合、 開始日 (Q.day) と現在日 (t) が
+     ずれているので 当日報酬を付与せず通常結果表示に切替える。 当日分のミッションは
+     ホームから新規開始させる。 */
+  if(Q.mode==="mission" && Q.day && Q.day !== t){
+    updateProgressSummary(p); save();
+    showSetResult("ひがかわっちゃった!", [scoreLine, "もう一度 きょうのミッションに ちょうせんしよう"], "showHome()");
     return;
   }
   if(Q.mode==="mission"&&Q.first){

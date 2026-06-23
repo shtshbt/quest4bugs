@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v115";  /* v115: keisan 新規 6 件 — Q4BBossZukan.load の完了順非保証で前の子のボス救済処理が現在の子の卵ストアに書き込む経路を PROFILE_LOAD_SEQ + currentProfile 一致確認で遮断, 「ぜんぶ」マスター条件を現コース全カテゴリ Lv10 (sougou を除く) に変更 (受験で取得不能 / ビギナーで発展無視の不整合解消), showCapture に boost 引数を追加し復習成功は REVIEW_BOOST・ミッション連続日数は streakBoost を適用, 日暦算 Lv6 で 2 月をまたぐ 1 月始まりを除外して平年/うるう年曖昧性を解消, タイムアタック afterJudge で Date.now()>=Q.end なら finishTimed で期限後加点を防止, displayMasterLabel ヘルパで判定キー (k5key 優先) と表示ラベルを統一 */
+var CACHE = "q4b-cache-v116";  /* v116: keisan + storage 新規 6 件 — keisanCatBoost と afterJudge の _kv 判定を reachedLv (= max(lv,maxLv)) 基準に (故意の Lv 下降で報酬満額に戻る farming 遮断), ensureLvProgress で既存ユーザの maxLv を p.lv / 旧 hsMax/hkMax / kuku から 1 度きり移行, reconcile で 共有レジストリの名前を計算側 p.name にも反映, ミッションに Q.day を保持して日付またぎ時は当日報酬を付与しない, sougou patternId に Lv と元 kind/patternId を組み込んで別概念上書きを防止, shared/storage.js の load/save で deepClone (structuredClone fallback JSON) して caller の in-place 変更が内部 store に漏れないように */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

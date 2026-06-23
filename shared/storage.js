@@ -262,17 +262,29 @@
   function schedulePushRegistry(){schedulePush();}
   function schedulePushOne(){schedulePush();}
 
+  /* R6: caller の in-place 変更が内部 store にこっそり反映されると、 updated が
+     古いまま localStorage / 同期に書かれ、 同期で消える経路が生まれていた。
+     load/save の境界で deep clone する。 structuredClone がない環境 (古い IE 等)
+     は JSON 経由 fallback。 */
+  function deepClone(v){
+    if(v == null) return v;
+    if(typeof structuredClone === 'function'){
+      try{ return structuredClone(v); }catch(_){}
+    }
+    try{ return JSON.parse(JSON.stringify(v)); }catch(_){ return v; }
+  }
+
   /* ---------------- namespaced KV API (Promise) ---------------- */
   function save(ns,key,data){
     var store=loadStore();
-    store.kv[ns+SEP+key]={v:1,updated:now(),data:data};
+    store.kv[ns+SEP+key]={v:1,updated:now(),data:deepClone(data)};   /* R6 */
     persist();
     schedulePushOne(ns,key);
     return Promise.resolve(true);
   }
   function load(ns,key){
     var store=loadStore(), entry=store.kv[ns+SEP+key];
-    return Promise.resolve(entry?entry.data:null);
+    return Promise.resolve(entry?deepClone(entry.data):null);          /* R6 */
   }
   function flush(){
     var cfg=getConfig();
