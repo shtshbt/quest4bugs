@@ -507,13 +507,27 @@ function makeProfile(){
   var bz=window.Q4BBossZukan?Q4BBossZukan.load(p.id):Promise.resolve();
   bz.then(showHome).catch(showHome);
 }
+/* Q1: プロフィール高速切替で Q4BBossZukan.load の完了順が逆転し、 前の子の boss
+   救済処理が現在の子の卵ストアに書き込む経路を遮断。 PROFILE_LOAD_SEQ で後発の
+   選択に追い越された旧 load は無視。 boss_zukan.js 自体の単一 BOSSES 上書きは
+   防げないが、 caller 側で「自分以外の id を扱う処理」 を抑止する。 */
+var PROFILE_LOAD_SEQ = 0;
+function _isCurProfileLoad(seq, id){
+  return seq === PROFILE_LOAD_SEQ && DB && DB.act === id;
+}
 function selProfile(id){
+  var seq = ++PROFILE_LOAD_SEQ;
   DB.act=id; if(window.QuestSave)QuestSave.setCurrentProfile(id);
   var bz=window.Q4BBossZukan?Q4BBossZukan.load(id):Promise.resolve();
   var p=P();
-  if(p&&!p.type){ bz.then(function(){ chooseCourse(p); }).catch(function(){ chooseCourse(p); }); return; }
+  if(p&&!p.type){
+    bz.then(function(){ if(_isCurProfileLoad(seq,id)) chooseCourse(p); })
+      .catch(function(){ if(_isCurProfileLoad(seq,id)) chooseCourse(p); });
+    return;
+  }
   save();
-  bz.then(showHome).catch(showHome);
+  bz.then(function(){ if(_isCurProfileLoad(seq,id)) showHome(); })
+    .catch(function(){ if(_isCurProfileLoad(seq,id)) showHome(); });
 }
 /* 他ゲームで作られた（コース未設定の）子が初めて遊ぶときコースを決める */
 function chooseCourse(p){
@@ -669,11 +683,28 @@ function masterMetK(key){
  if(key==="sub") return Math.max(reachedLv(p,"hikizan"), legacyHsToLv(p.hkMax||p.hkLevel||1))>=10;
  if(key==="mul") return Math.max(reachedLv(p,"kuku"), legacyKukuToLv(p))>=10;
  if(key==="div") return reachedLv(p,"anzan")>=10;
- if(key==="all") return masterMetK("add")&&masterMetK("sub")&&masterMetK("mul")&&masterMetK("div");
+ if(key==="all"){
+  /* Q2: 「ぜんぶ」 = 現コースの全カテゴリ Lv10 到達。 旧版は add/sub/mul/div の
+     4 基本のみで、 受験コースでは取得経路が無い / ビギナーは 30 発展を無視できる
+     不整合だった。 reachedLv で 「最高到達 Lv 基準」 で判定。 */
+  var cats = courseCats(p).filter(function(c){ return c!=="sougou"; });
+  return cats.length>0 && cats.every(function(c){ return reachedLv(p,c)>=10; });
+ }
  if(LVL_CATS[key]) return reachedLv(p,key)>=10;
  return false;
 }
 var KMASTERLAB={add:"たし算ひっさん",sub:"ひき算ひっさん",mul:"九九",div:"暗算",all:"ぜんぶ"};
+/* Q6: 表示用キー。 判定側 (checkMastersK) は p.type==='k5' のときに k5key を使う
+   ので、 ラベル/未取得カードも同じキーで作らないと「四則混合マスター」 と表示
+   されている虫が実は「10の合成と分解 (jisshuu)」 で取れる、 等の不一致が起きる。 */
+function displayMasterKey(p, sp){
+  if(p && p.type==='k5' && sp && sp.master && sp.master.k5key) return sp.master.k5key;
+  return sp && sp.master && sp.master.key;
+}
+function displayMasterLabel(p, sp){
+  var k = displayMasterKey(p, sp);
+  return KMASTERLAB[k] || CATL[k] || "マスター";
+}
 function checkMastersK(){
  var p=P(); if(!p||!window.Q4BReward||!Q4BReward.masterBugsFor)return; ensureColl(p);
  var queue=[], awarded=[];
@@ -743,7 +774,7 @@ function keisanMasterSection(){
  ms.sort(function(a,b){return ord.indexOf(a.master.key)-ord.indexOf(b.master.key);});
  var got=ms.filter(function(sp){return Q4BReward.masterObtained(p.coll,sp.id);}).length;
  var cells=ms.map(function(sp){ var ok=Q4BReward.masterObtained(p.coll,sp.id);
-  return '<button type="button" class="zc" onclick="openMasterBugK(\''+sp.id+'\')" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||""))+'</div></button>';
+  return '<button type="button" class="zc" onclick="openMasterBugK(\''+sp.id+'\')" style="--rc:#E8B33C'+(ok?"":";opacity:.55")+'"><div class="bs">'+(ok?(window.Q4BRender&&Q4BRender.deco?Q4BRender.deco(sp,0):Q4BReward.svg(sp)):'<div style="font-size:34px;line-height:64px">🎓</div>')+'</div><div class="nm">'+(ok?esc(sp.jaName)+" 🎓":displayMasterLabel(p,sp))+'</div></button>';
  }).join("");
  var arrow=KEISAN_MASTER_OPEN?'▼':'▶';
  return '<details class="card"'+(KEISAN_MASTER_OPEN?' open':'')+' style="padding:0;border:2px solid var(--amber-d);background:linear-gradient(180deg,rgba(245,232,255,.7) 0%,rgba(255,253,244,.6) 100%)" ontoggle="setKeisanMasterOpen(this.open)"><summary style="list-style:none;cursor:pointer;padding:14px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;background:rgba(245,232,255,.5);border-radius:12px 12px 0 0"><span style="font-size:22px;color:#A06BD8;display:inline-block;width:22px;text-align:center">'+arrow+'</span>🎓 マスター虫 <span style="color:var(--amber-d);font-size:14px">'+got+' / '+ms.length+'</span><span style="margin-left:auto;font-size:11px;color:#A06BD8;font-weight:700">タップで '+(KEISAN_MASTER_OPEN?'とじる':'ひらく')+'</span></summary>'
@@ -756,7 +787,7 @@ function openMasterBugK(spId){
   for(var i=0;i<ms.length;i++){ if(ms[i].id===spId){ sp=ms[i]; break; } }
   if(!sp)return;
   var rec=p.coll.catches[sp.id];
-  var label=(KMASTERLAB[sp.master.key]||CATL[sp.master.key]||"マスター");
+  var label=displayMasterLabel(p,sp);     /* Q6: 判定と表示を同一キーで */
   var tier=Q4BReward.tierOf(sp);
   var inner;
   if(!rec){
@@ -942,11 +973,17 @@ function keisanAmberCatch(){
   save();
   showCapture(null,'🔶こはく30こで つかまえた！',got);
 }
-function showCapture(i,extraMsg,presetGot){
+function showCapture(i,extraMsg,presetGot,boost){
+  /* Q3: 復習成功 / ミッション連続日数の レアブースト が、 旧版では showCapture が
+     Q4BReward.award を boost なしで呼ぶため死にコードになっていた。 caller から
+     boost を受け取り Q4BReward.award に渡す。 */
   var p=P(); ensureColl(p);
   if(window.Q4BReward){
     var got=presetGot||null;
-    if(!got){ got=Q4BReward.award(p.coll,'keisan'); save(); }
+    if(!got){
+      got=Q4BReward.award(p.coll,'keisan', boost||1);
+      save();
+    }
     if(got){
       var sp=got.sp, tier=got.tier, rec=p.coll.catches[sp.id];
       var tag=got.isNew?'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！ ずかんに とうろく</span>'
@@ -4274,7 +4311,10 @@ function gNichireki(lv){
         t=m1b+"月"+d1d+"日の "+n3+"日後は "+(m1b+1)+"月の 何日ですか。(日にちを 数で答えてください)";
       } else {
         // 3か月にまたがる日数差(中間月まるごと加算)
-        var m1e=pick([1,3,4,5,6,7,8,9]); // +2月が存在し2月をまたがない
+        /* Q4: 旧版は 1 を含んでいたため 1月→3月 で 2 月 (28 or 29 日) をまたぎ、
+           問題文に年が無いと平年・うるう年で答えが 1 日違って曖昧。 2 月をまたがない
+           月始まりに限定する。 */
+        var m1e=pick([3,4,5,6,7,8,9]); // 中間月が 2 月を含まないように
         var md1e=MDAYS[m1e-1];
         var d1e=ri(10,md1e);
         var m3=m1e+2;
@@ -6169,6 +6209,13 @@ function afterJudge(ok,q,o){
   var ms=Date.now()-Q.t0; Q.ms+=ms;
   var p=P();
   if(Q.timed){
+    /* Q5: 期限後に届いた回答は加点しない。 タイマー 250ms 間隔やバックグラウンド
+       タブで間引かれた間に発火した回答が、 期限後にも記録されていた。 */
+    if(Date.now() >= Q.end){
+      JLOCK=false;
+      finishTimed();
+      return;
+    }
     Q.n++; if(ok)Q.ok++;
     /* タイムアタック中も recordStat と recordCorrect は実行する (audit #22)。
        旧コードは return で早期離脱し、 stats/recent/daily/lastDone が更新されず、
@@ -6380,7 +6427,8 @@ function finishSet(){
     updateProgressSummary(p);
     save();
     var win=(Q.ok>=Math.ceil(N*0.8))&&(Math.random()<0.3);
-    if(win){showCapture(gachaPull(p),"ふくしゅう！ "+scoreLine);return;}
+    /* Q3: 復習成功時は REVIEW_BOOST (=2.0 相当) で award を呼ぶ */
+    if(win){showCapture(gachaPull(p),"ふくしゅう！ "+scoreLine, null, Q4BReward.REVIEW_BOOST);return;}
     showSetResult("ふくしゅうおわり！",[scoreLine,"8わり正解で めずらしい虫が でやすいよ！"],"startReview()");
     return;
   }
@@ -6417,7 +6465,9 @@ function finishSet(){
      p.streak.last=t;
      updateProgressSummary(p);
      save();
-     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""));
+     /* Q3: 連続日数に応じて軽い boost を渡す (7 日で REVIEW_BOOST 相当の半分) */
+     var _streakBoost = 1 + Math.min(p.streak.n, 14) * 0.05;
+     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""), null, _streakBoost);
     } else {
      updateProgressSummary(p);
      save();

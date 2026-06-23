@@ -22,6 +22,15 @@
      legacy: 旧版で coll.catches[boss_id] にしか書かれていない撃破履歴を
      bt.bosses に load-time backfill する (battle.html を経由しなくても
      教科側のボスセクションで表示される)。 */
+  /* Q1: プロフィール間データ汚染を遮断するための「想定 profileId」 と完了時の整合
+     チェック。 load 完了時に現在の QuestSave.currentProfile() と一致しなければ、
+     卵授与系の副作用 (bossesBackfill / 関連 save) をスキップする。 */
+  function _stillCurrent(profileId){
+    try{
+      var cur = global.QuestSave && global.QuestSave.currentProfile && global.QuestSave.currentProfile();
+      return !cur || cur === profileId;
+    }catch(_){ return true; }
+  }
   function load(profileId){
     if(!global.QuestSave || !profileId){ BOSSES = {}; loaded = true; return Promise.resolve(); }
     return Promise.all([
@@ -70,6 +79,12 @@
             }
           });
         }
+      }
+      /* Q1: load が走っている間に別プロフィールに切り替わったら、 副作用 (相方卵
+         授与) はスキップして BOSSES だけ復元しない。 BOSSES も上書きしないで終了。 */
+      if(!_stillCurrent(profileId)){
+        loaded = true;
+        return;
       }
       var res = bossesBackfill(bt.bosses, colls);
       if(res.changed && global.QuestSave.save){

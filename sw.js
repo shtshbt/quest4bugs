@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v114";  /* v114: keisan 新規 5 件 — 0 問セットで報酬抽選される経路を fail-closed (startPractice で len<5 ならセッション開始しない + finishSet にも N==0 ガード), 復習補充の null クラッシュ防止 (genBy が null なら復習中止), dueMissed を courseCats で フィルタしてコース変更後の苦手混入を遮断, Lv10 クリアを p.lv/maxLv に反映 (画面では「クリア」 と出るのに マスター未達だった), 成績画面の正解率に発展カテゴリを含めかつ Lv 推移は実データありのみ */
+var CACHE = "q4b-cache-v115";  /* v115: keisan 新規 6 件 — Q4BBossZukan.load の完了順非保証で前の子のボス救済処理が現在の子の卵ストアに書き込む経路を PROFILE_LOAD_SEQ + currentProfile 一致確認で遮断, 「ぜんぶ」マスター条件を現コース全カテゴリ Lv10 (sougou を除く) に変更 (受験で取得不能 / ビギナーで発展無視の不整合解消), showCapture に boost 引数を追加し復習成功は REVIEW_BOOST・ミッション連続日数は streakBoost を適用, 日暦算 Lv6 で 2 月をまたぐ 1 月始まりを除外して平年/うるう年曖昧性を解消, タイムアタック afterJudge で Date.now()>=Q.end なら finishTimed で期限後加点を防止, displayMasterLabel ヘルパで判定キー (k5key 優先) と表示ラベルを統一 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
