@@ -29,8 +29,48 @@
   };
 
   var mem=null;            // in-memory canonical store
-  var status="local";      // local | syncing | synced | error
+  /* PA-1: status を拡張 (local/dirty/syncing/synced/offline/auth-error/conflict/error)。
+     旧 3 状態では「ローカル保存はできているが クラウドへ未送信」 を表現できず、
+     画面は「ほぞんずみ」 と表示しながら実際は未同期、 という偽 synced が起きていた。 */
+  var status="local";
   var statusCbs=[];
+  /* PA-1: 最終クラウド同期成功時刻 / 失敗詳細を永続管理 (LAST_SYNC_KEY) */
+  var LAST_SYNC_KEY = "q4b_last_sync_v1";
+  function _readLastSync(){
+    try{ var raw=safeGet(LAST_SYNC_KEY,null); if(!raw) return {}; return JSON.parse(raw)||{}; }catch(_){ return {}; }
+  }
+  function _writeLastSync(info){
+    try{ safeSet(LAST_SYNC_KEY, JSON.stringify(info||{})); }catch(_){}
+  }
+  function getSyncMeta(){
+    var m = _readLastSync();
+    return {
+      status: status,
+      lastSuccessAt: m.lastSuccessAt || 0,
+      lastErrorAt: m.lastErrorAt || 0,
+      lastErrorKind: m.lastErrorKind || null,
+      lastErrorMessage: m.lastErrorMessage || null,
+      patExpiresAt: m.patExpiresAt || null
+    };
+  }
+  function _markSyncSuccess(){
+    var m=_readLastSync(); m.lastSuccessAt = now();
+    m.lastErrorKind = null; m.lastErrorMessage = null;
+    _writeLastSync(m);
+  }
+  function _markSyncError(kind, message){
+    var m=_readLastSync(); m.lastErrorAt = now();
+    m.lastErrorKind = kind; m.lastErrorMessage = message || "";
+    _writeLastSync(m);
+  }
+  function _classifyError(e){
+    var msg = (e && e.message) || String(e||"");
+    if(/\b401\b/.test(msg)) return "auth-error";
+    if(/\b403\b/.test(msg)) return "auth-error";
+    if(/\b409\b/.test(msg) || /\b422\b/.test(msg)) return "conflict";
+    if(/NetworkError|Failed to fetch|offline/i.test(msg)) return "offline";
+    return "error";
+  }
   var pushTimers={};       // debounce per cloud path
   var registryTimer=null;
 
@@ -95,9 +135,35 @@
       __saveDegraded = false;
       try{ window.dispatchEvent(new CustomEvent("q4b-storage-recovered")); }catch(_){}
     }
+    /* PA-1/T4: ローカル書き込みごとに localGeneration を進める。 同期 ON でなければ
+       status は "local"、 ON なら未送信を示す "dirty" にする (UI で「☁️ 未保存」
+       バッジを出すため)。 */
+    _bumpLocalGen();
+    if(getConfig().enabled && status !== "syncing") setStatus("dirty");
     return ok;
   }
   function isDegraded(){ return __saveDegraded; }
+  /* PA-3: Storage API による永続化要求。 ホーム画面 Web App では granted になり
+     やすく、 evict 対象から外れる。 */
+  function requestPersistent(){
+    if(!global.navigator || !global.navigator.storage || !global.navigator.storage.persist){
+      return Promise.resolve({supported:false, persistent:false});
+    }
+    return global.navigator.storage.persisted().then(function(already){
+      if(already) return {supported:true, persistent:true, alreadyPersistent:true};
+      return global.navigator.storage.persist().then(function(granted){
+        return {supported:true, persistent:!!granted};
+      });
+    });
+  }
+  function storageEstimate(){
+    if(!global.navigator || !global.navigator.storage || !global.navigator.storage.estimate){
+      return Promise.resolve({supported:false});
+    }
+    return global.navigator.storage.estimate().then(function(e){
+      return {supported:true, usage:e.usage||0, quota:e.quota||0};
+    });
+  }
   /* S5: 保存失敗中に報酬演出を出す直前で 1 回だけ警告する。 「無自覚で消える」 を
      「気付けて行動できる」 に変えるための最小ガード。 sessionStorage で短期抑止。 */
   function warnIfDegraded(){
@@ -144,7 +210,8 @@
   function saveConfig(cfg){
     var next=normalizeConfig(cfg);
     safeSet(CONFIG_KEY,JSON.stringify(next));
-    setStatus(next.enabled?"synced":"local");
+    /* PA-1: 設定保存だけでは「同期成功」 ではないので dirty に */
+    setStatus(next.enabled ? "dirty" : "local");
     return next;
   }
   function clearConfig(){safeRemove(CONFIG_KEY);setStatus("local");}
@@ -241,26 +308,51 @@
       res=await fetch(githubUrl(cfg,savePath(cfg)),{method:"PUT",
         headers:Object.assign({"Content-Type":"application/json"},authHeaders(cfg)),
         body:JSON.stringify(body)});
+      /* PA-2: PAT 期限 header があれば保存 (CORS で見える場合のみ) */
+      try{
+        var exp = res.headers && res.headers.get && res.headers.get("github-authentication-token-expiration");
+        if(exp){
+          var m=_readLastSync(); m.patExpiresAt = exp; _writeLastSync(m);
+        }
+      }catch(_){}
       if(res.ok)return res.json();
       why=await detailOf(res);
+      /* PA-2: 401/403 は再試行しても通らないので即失敗。 caller で auth-error 表示 */
+      if(res.status===401) throw new Error("GitHub PUT 401："+(why||"トークンが無効か期限切れです"));
+      if(res.status===403) throw new Error("GitHub PUT 403："+(why||"権限がありません"));
       if(res.status===409||res.status===422){ await sleep(250*(attempt+1)); continue; }
       throw new Error("GitHub PUT "+res.status+"："+(why||savePath(cfg)));
     }
     throw new Error("GitHub PUT 409（"+(why||"競合が解消せず")+"）");
   }
-  /* push 1 本に集約: 進行中なら新規 push をスキップ、完了後に 1 回だけ再 push */
+  /* T4: dirty generation 方式に変更。 旧 pendingPush は最初の push 完了で status を
+     synced にし、 後追い push が pushAll を経由せず status 更新も await もされない
+     ため、 最新分が未保存のまま「ほぞんずみ」 と表示される偽 synced があった。
+     localGeneration と pushedGeneration を比較し、 一致するまで drain する。 */
+  var localGeneration = 0;
+  var pushedGeneration = 0;
+  function _bumpLocalGen(){ localGeneration++; }
   function pushSnapshot(cfg){
     if(inFlightPush){
-      pendingPush=true;
+      pendingPush = true;            /* drain で拾うフラグ */
       return inFlightPush;
     }
-    var run=pushSnapshotRaw(cfg);
-    inFlightPush=run;
+    var startedAt = localGeneration;
+    var run = pushSnapshotRaw(cfg).then(function(r){
+      pushedGeneration = startedAt;
+      return r;
+    });
+    inFlightPush = run;
     function _done(){
-      inFlightPush=null;
-      if(pendingPush){
-        pendingPush=false;
-        setTimeout(function(){ pushSnapshot(cfg); }, 100);
+      inFlightPush = null;
+      /* localGeneration が pushedGeneration より新しい / pendingPush フラグが立って
+         いる間は drain を続ける。 後追い push も同じ pushAll 経由で発火させて
+         status / lastSuccess を確実に更新する。 */
+      if(localGeneration > pushedGeneration || pendingPush){
+        pendingPush = false;
+        setTimeout(function(){
+          if(getConfig().enabled) pushAll().catch(function(){});
+        }, 100);
       }
     }
     run.then(_done, _done);
@@ -762,7 +854,9 @@
   }
   async function autoConnect(){
     var cfg=getConfig();
-    setStatus(cfg.enabled?"synced":"local");
+    /* PA-1: 旧版は cfg.enabled だけで「synced」 と表示する偽 synced だった。
+       通信実績がない状態では dirty (= 未確認)。 実際の同期成功で synced に上がる。 */
+    setStatus(cfg.enabled ? "dirty" : "local");
     return cfg.enabled;
   }
   async function connectGitHub(opts){
@@ -793,9 +887,19 @@
     setStatus("syncing");
     try{
       await pushSnapshot(cfg);
-      setStatus("synced");
+      _markSyncSuccess();
+      /* PA-1: drain 中なら status を保持 (pushSnapshot が drain ループを継続) */
+      if(localGeneration > pushedGeneration) setStatus("dirty");
+      else setStatus("synced");
       return [{ok:true}];
-    }catch(e){setStatus("error");global.QuestSave.lastError=e.message;throw e;}
+    }catch(e){
+      /* PA-2: エラー種別を分類して保存。 UI 側で 401 と offline と conflict を区別。 */
+      var kind = _classifyError(e);
+      _markSyncError(kind, e && e.message);
+      setStatus(kind);
+      global.QuestSave.lastError = e.message;
+      throw e;
+    }
   }
   function profTs(p){ return (p&&(p.updated||p.created))||0; }
   /* profiles を tombstone + last-write-wins でマージ。
@@ -978,7 +1082,14 @@
 
   /* ---------------- init ---------------- */
   loadStore();
-  setStatus(getConfig().enabled?"synced":"local");
+  /* PA-1: 起動時は同期成功実績で初期 status を決める。 lastSuccess があり 24h 以内
+     なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。 */
+  (function(){
+    if(!getConfig().enabled){ setStatus("local"); return; }
+    var m = _readLastSync();
+    var fresh = m.lastSuccessAt && (now() - m.lastSuccessAt) < 86400000;
+    setStatus(fresh ? "synced" : "dirty");
+  })();
 
   global.QuestSave={
     // namespaced KV
@@ -995,7 +1106,7 @@
     breedingOf:breedingOf, breedingSet:breedingSet,
     markDropSeen:markDropSeen,
     // status / connection
-    getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, warnIfDegraded:warnIfDegraded, autoConnect:autoConnect,
+    getStatus:getStatus, onStatus:onStatus, isDegraded:isDegraded, warnIfDegraded:warnIfDegraded, getSyncMeta:getSyncMeta, requestPersistent:requestPersistent, storageEstimate:storageEstimate, autoConnect:autoConnect,
     connectGitHub:connectGitHub, connectFirebase:connectFirebase,
     firebaseSignIn:firebaseSignIn, disconnect:disconnect,
     // config

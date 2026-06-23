@@ -271,6 +271,12 @@ html.q4b-in #q4bGate{display:none!important}
       <div id="expA"></div>
       <button class="btn sm" onclick="impUI()">読み込む（復元）</button>
       <div id="impA"></div>
+      <!-- PA-3: 永続ストレージ要求 + 同期メタデータ表示 -->
+      <div style="border-top:1px dashed #DDE6C9;margin-top:10px;padding-top:8px">
+        <button class="btn sm" onclick="requestPersistStorage()">📌 端末ストレージを 永続にする</button>
+        <button class="btn sm" onclick="showSyncMeta()">☁️ 同期じょうたい をみる</button>
+        <div id="storeStatusA" class="note" style="margin-top:6px"></div>
+      </div>
     </section>
 
     <section style="border-top:1px solid var(--line);margin-top:14px;padding-top:12px">
@@ -975,6 +981,59 @@ function doImp(mode){
     if(mode==='restore'){ setTimeout(function(){ try{ location.reload(); }catch(_){} }, 300); }
     else renderProfiles();
   }).catch(function(){alert("読み込めませんでした．文字列を確認してください");});
+}
+/* PA-3: ストレージ永続化要求 + ステータス表示 */
+function requestPersistStorage(){
+  if(!window.QuestSave || !QuestSave.requestPersistent){
+    alert("このブラウザでは 永続ストレージ要求に たいおうしていません");
+    return;
+  }
+  QuestSave.requestPersistent().then(function(r){
+    if(!r.supported){ alert("このブラウザでは つかえません"); return; }
+    if(r.persistent){
+      alert(r.alreadyPersistent ? "すでに 永続ストレージです ✅" : "永続ストレージに しました ✅");
+    } else {
+      alert("ブラウザに ことわられました。\nホーム画面に ついかしてから もういちど ためしてください");
+    }
+    showSyncMeta();
+  });
+}
+function showSyncMeta(){
+  if(!window.QuestSave || !QuestSave.getSyncMeta){ return; }
+  var meta = QuestSave.getSyncMeta();
+  var html = '<div style="font-size:12px">'
+    +'<div>📊 status: <b>'+meta.status+'</b></div>';
+  if(meta.lastSuccessAt){
+    var d = new Date(meta.lastSuccessAt);
+    html += '<div>☁️ 最終クラウド成功: '+d.toLocaleString()+'</div>';
+  } else if(QuestSave.getConfig().enabled){
+    html += '<div style="color:#b71c1c">⚠ まだクラウド同期成功なし</div>';
+  }
+  if(meta.lastErrorAt){
+    var d2 = new Date(meta.lastErrorAt);
+    html += '<div style="color:#b71c1c">⚠ 最後のエラー ('+meta.lastErrorKind+'): '+d2.toLocaleString()+'</div>';
+    if(meta.lastErrorMessage) html += '<div class="note">'+(meta.lastErrorMessage||'').slice(0,200)+'</div>';
+  }
+  if(meta.patExpiresAt){
+    html += '<div>🔑 PAT有効期限: '+meta.patExpiresAt+'</div>';
+  }
+  if(QuestSave.storageEstimate){
+    QuestSave.storageEstimate().then(function(s){
+      var extra = s.supported
+        ? '<div>💾 使用量: '+Math.round((s.usage||0)/1024)+' KB / '+Math.round((s.quota||0)/1024/1024)+' MB</div>'
+        : '';
+      if(QuestSave.requestPersistent){
+        QuestSave.requestPersistent().then(function(pr){
+          var pStr = pr.persistent ? '✅ 永続' : '⚠ 永続ではない';
+          $("storeStatusA").innerHTML = html + extra + '<div>📌 ストレージ: '+pStr+'</div></div>';
+        });
+      } else {
+        $("storeStatusA").innerHTML = html + extra + '</div>';
+      }
+    });
+  } else {
+    $("storeStatusA").innerHTML = html + '</div>';
+  }
 }
 function loadCloudUI(){
   var c=QuestSave.getConfig();

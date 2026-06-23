@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v119";  /* v119: T1-T9 の穴埋め 5 件 — U1 battle.html に残っていた n>=1 ボス卵救済 + 未保存ループを n>=10 + dirty フラグ→save 必須化で完全停止, U2 _autoHatchReadyEggs 内 load 完了直後と hatchEgg 呼出前に currentProfile()==pid を再確認して別の子の卵ストア操作を遮断, U3 _isValidEgg を game/sex 必須 + Q4BReward.spById 実在 + eggGameFor 一致を要求に厳格化、 breedingOf で隔離発生時に canonical store へ書戻し, U4 強制復元を kv/profiles/current/tombstones の完全置換 + updated 全件打ち直しに、 obj.current も復元, U5 ポータル集計でボス species を教科 catches+bosses で 2 度数える二重計上を解消 (集合 union で bossOnlyN を加算、 pct を Math.min(100,...) でクランプ) */
+var CACHE = "q4b-cache-v120";  /* v120: Phase A (PA-1/PA-2/PA-3 + T4) — 同期 status を local/dirty/syncing/synced/auth-error/offline/conflict/error に拡張, 偽 synced (設定だけで synced 表示) を廃止し autoConnect/saveConfig/init で dirty 起算, persist() で _bumpLocalGen + status='dirty' を立て pushSnapshot を dirty generation 方式に変更 (T4 push queue 偽 synced を解消), pushAll で 401/403/409/422/offline を _classifyError で分類し status と最終エラー詳細を永続化, lastSuccessAt + PAT 期限を LAST_SYNC_KEY に保存し getSyncMeta() で公開, pushSnapshotRaw が GitHub-Authentication-Token-Expiration header を保存し 401/403 は即時失敗, navigator.storage.persist() / estimate() のラッパを QuestSave に追加し root index.html の親画面に「📌 端末ストレージを 永続にする」「☁️ 同期じょうたい をみる」 ボタンを追加 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
