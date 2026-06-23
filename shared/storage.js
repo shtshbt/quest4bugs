@@ -604,15 +604,29 @@
      形を見ておらず、 target が undefined の旧 / 破損データが 0>=0 で自動孵化判定を
      通過していた。 不正卵は quarantine (data._brokenEggs) に退避して自動処理から
      除外、 後で UI から確認/削除できるようにする。 */
+  /* U3: 旧 validator は e.game/e.sex が未定義なら通すフェイルオープン。 さらに
+     species ID 実在チェック無し。 これらの卵が完成扱いされて undefined namespace
+     に保存される / 永久にスロットを占有する経路を遮断するため必須化。 */
   function _isValidEgg(e){
     if(!e || typeof e!=="object") return false;
     if(!e.id || typeof e.id !== "string") return false;
     if(!Number.isFinite(e.progress) || e.progress < 0) return false;
     if(!Number.isFinite(e.target) || e.target <= 0) return false;
-    if(e.progress > e.target * 2) return false;  /* 異常な overflow */
+    if(e.progress > e.target * 2) return false;
     var validGames = {kanji:1, keisan:1, eitango:1};
-    if(e.game && !validGames[e.game]) return false;
-    if(e.sex && e.sex !== 'm' && e.sex !== 'f' && e.sex !== 'u') return false;
+    if(!e.game || !validGames[e.game]) return false;     /* game 必須 */
+    if(e.sex !== 'm' && e.sex !== 'f') return false;       /* sex 必須 (u は通常卵では不可) */
+    /* species 実在チェック (Q4BReward 読込後のみ。 boot 早期は skip して保全) */
+    if(global.Q4BReward && global.Q4BReward.spById){
+      var sp = global.Q4BReward.spById(e.id);
+      if(!sp) return false;
+      if(global.Q4BReward.eggGameFor){
+        try{
+          var expectedG = global.Q4BReward.eggGameFor(sp);
+          if(expectedG && expectedG !== e.game) return false;
+        }catch(_){}
+      }
+    }
     return true;
   }
   function normalizeBreeding(data){
@@ -635,8 +649,23 @@
   }
   function breedingOf(pid){
     if(!pid)return blankBreeding();
-    var e=loadStore().kv[breedingKey(pid)];
-    return normalizeBreeding(e&&e.data?clone(e.data):blankBreeding());
+    var store=loadStore();
+    var e=store.kv[breedingKey(pid)];
+    if(!e || !e.data) return normalizeBreeding(blankBreeding());
+    /* U3: clone 上で normalize して隔離が発生したら、 canonical store にも書き
+       戻して クラウド/バックアップ伝播時に不正卵が消えるようにする。 旧版は
+       clone だけ正規化していたため、 書込が発生しない限り破損卵が残存していた。 */
+    var copy = clone(e.data);
+    var beforeE = (copy.eggs||[]).length, beforeP = (copy.pendingEggs||[]).length;
+    var normalized = normalizeBreeding(copy);
+    if((normalized.eggs.length !== beforeE) || (normalized.pendingEggs.length !== beforeP)){
+      try{
+        store.kv[breedingKey(pid)] = {v:1, updated:now(), data:deepClone(normalized)};
+        persist();
+        schedulePush();
+      }catch(_){}
+    }
+    return normalized;
   }
   function breedingSet(pid,data){
     if(!pid)return false;
@@ -862,32 +891,35 @@
     if(!obj||typeof obj!=="object")return Promise.reject(new Error("バックアップ形式が不正です"));
     mode = mode || 'merge';
     var store=loadStore(), n=0, k, tNow=now();
-    if(Array.isArray(obj.profiles)){
-      if(mode==='restore'){
-        /* registry を入力でまるごと置換。 tombstones は維持 (戻したい profile が
-           tombstone に残っていれば消す)。 */
-        store.profiles = obj.profiles.slice();
-        store.profiles.forEach(function(p){
-         if(p && p.id && store.tombstones) delete store.tombstones[p.id];
-        });
-      } else {
-        mergeRegistry(store,obj);
+    if(mode==='restore'){
+      /* U4: 強制復元はバックアップ内容で「完全置換」 にする。 旧版はバックアップ
+         に無い KV を残し obj.current も無視していたため、 破損 KV をそのまま
+         保持する「overlay」 になっていた。 PAT 等は CONFIG_KEY 側で別管理なので
+         store の全置換で safe。 caller は事前に自動エクスポートして rollback
+         可能にしている。 */
+      store.profiles = Array.isArray(obj.profiles) ? deepClone(obj.profiles) : [];
+      store.kv = (obj.kv && typeof obj.kv==='object') ? deepClone(obj.kv) : {};
+      store.tombstones = (obj.tombstones && typeof obj.tombstones==='object') ? deepClone(obj.tombstones) : {};
+      store.current = (typeof obj.current === 'string' || obj.current === null) ? obj.current : (store.profiles[0] && store.profiles[0].id) || null;
+      /* updated を全件 打ち直して LWW で他端末にも勝つ */
+      for(k in store.kv){
+        if(store.kv[k] && typeof store.kv[k]==='object'){
+          store.kv[k].updated = tNow;
+          n++;
+        }
       }
+      store.profiles.forEach(function(p){ if(p) p.updated = tNow; });
+    } else if(Array.isArray(obj.profiles)){
+      mergeRegistry(store,obj);
     }
-    if(obj.kv&&typeof obj.kv==="object"){
+    if(mode!=='restore' && obj.kv && typeof obj.kv==="object"){
       for(k in obj.kv){
         var inc=obj.kv[k];
         if(!inc||typeof inc!=="object")continue;
-        if(mode==='restore'){
-          /* 入力値で強制上書き。 updated を現在時刻に打ち直して LWW で他端末にも勝つ。 */
-          store.kv[k]={v:inc.v||1, updated:tNow, data:inc.data};
-          n++;
-        } else {
-          var ex=store.kv[k];
-          if(!ex||(inc.updated||0)>=(ex.updated||0)){store.kv[k]=inc;n++;}
-        }
+        var ex=store.kv[k];
+        if(!ex||(inc.updated||0)>=(ex.updated||0)){store.kv[k]=inc;n++;}
       }
-    }else{
+    } else if(!obj.kv){
       // legacy flat backup: {"q4b_keisan_v1":"...json string..."}
       for(k in obj){
         if(k.indexOf("q4b_")!==0||typeof obj[k]!=="string")continue;

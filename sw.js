@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v118";  /* v118: 致命バグ群 5 件 — T1 ボス卵無限再支給 (eggGranted true→false 戻しを廃止 + bossesBackfill 救済条件を n>=10 に統一), T2 二重自動孵化を pid-scoped mutex + hatched.length===0 なら save しない安全網, T3 ポータルの DASH_SEQ + currentProfile 一致確認で切替中の旧 pid continuation を遮断, T5 不正卵 (target undefined 等) を normalizeBreeding で _brokenEggs に隔離して自動孵化を絶対通さない, T9 profiles()/saveProfiles()/breedingSet() にも deepClone を追加して参照共有経路を完全閉鎖 */
+var CACHE = "q4b-cache-v119";  /* v119: T1-T9 の穴埋め 5 件 — U1 battle.html に残っていた n>=1 ボス卵救済 + 未保存ループを n>=10 + dirty フラグ→save 必須化で完全停止, U2 _autoHatchReadyEggs 内 load 完了直後と hatchEgg 呼出前に currentProfile()==pid を再確認して別の子の卵ストア操作を遮断, U3 _isValidEgg を game/sex 必須 + Q4BReward.spById 実在 + eggGameFor 一致を要求に厳格化、 breedingOf で隔離発生時に canonical store へ書戻し, U4 強制復元を kv/profiles/current/tombstones の完全置換 + updated 全件打ち直しに、 obj.current も復元, U5 ポータル集計でボス species を教科 catches+bosses で 2 度数える二重計上を解消 (集合 union で bossOnlyN を加算、 pct を Math.min(100,...) でクランプ) */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

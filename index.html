@@ -1120,9 +1120,21 @@ function renderDashboard(pid,name){
     if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; gCaught+=kp.coll.total||0; if(!kp.coll.amberMig)amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
     if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; if(ks.coll){gCaught+=ks.coll.total||0; if(!ks.coll.amberMig)amber+=ks.coll.amber||0;} sumDaily(day,ks.log,"a","j");}
     if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; if(es.catches)gCaught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
-    var battleN=Object.keys((bt&&bt.bosses)||{}).length;
-    if(battleN) gCaught+=battleN;
-    var total=keisanN+kanjiN+eitangoN+battleN;
+    /* U5: ボス撃破個体は教科 coll.catches にも record() で 1 体追加され、 coll.total
+       も既に増えている。 ここで battleN を加算すると種類数も捕獲総数も二重計上。
+       種類数は教科図鑑 ∪ ボスの集合 union で重複排除し、 捕獲総数は coll.total を
+       既に拾っているので追加しない (天敵バッジは別実績で扱う)。 */
+    var bossesMap = (bt && bt.bosses) || {};
+    var battleN = Object.keys(bossesMap).length;
+    var bossOnlyN = 0;
+    Object.keys(bossesMap).forEach(function(id){
+      var inK = kp && kp.coll && kp.coll.catches && kp.coll.catches[id];
+      var inS = ks && ks.coll && ks.coll.catches && ks.coll.catches[id];
+      var inE = es && es.catches && es.catches[id];
+      if(!inK && !inS && !inE) bossOnlyN++;
+    });
+    var total = keisanN + kanjiN + eitangoN + bossOnlyN;
+    /* 表示用 battleN はそのまま (UI のチップで「ボス N 匹」 を出すため) */
     var gRank=window.Q4BReward?Q4BReward.rankGlobal(gCaught):"",gNext=window.Q4BReward?Q4BReward.rankGlobalNext(gCaught):null;
     var pool=window.Q4BReward&&Q4BReward.bugs?Q4BReward.bugs.length:547;
     /* combined streak: consecutive days up to today with any activity */
@@ -1162,7 +1174,7 @@ function renderDashboard(pid,name){
     var rangeLabel=activeOpt.lab;
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
-    var pct=Math.round(total/pool*100);
+    var pct=Math.min(100, Math.round(total/pool*100));  /* U5: 100% 超え表示を防ぐ */
     var ps=[];
     if(ks&&ks.progressSummary)ps.push(esc(ks.progressSummary));
     if(kp&&kp.progressSummary)ps.push(esc(kp.progressSummary));
@@ -1256,6 +1268,14 @@ function _autoHatchReadyEggs(pid){
   });
   var task = Promise.all(Object.keys(byGame).map(function(ns){
     return QuestSave.load(ns, pid).then(function(profile){
+      /* U2: load 完了後に currentProfile() が pid と一致していなければ、 hatchEgg
+         が現在の卵ストア (= 別の子) を操作する race を遮断する。 hatchEgg は
+         Q4BReward 内で pidNow() ベースの卵ストアを動的参照しているため、 ここで
+         止めないと「A の図鑑へ成虫追加 / B の同種卵を削除」 という汚染が起きる。 */
+      try{
+        var _cur = QuestSave.currentProfile && QuestSave.currentProfile();
+        if(_cur && _cur !== pid) return [];
+      }catch(_){}
       profile = profile || {};
       var coll;
       if(ns === 'eitango'){
@@ -1267,6 +1287,12 @@ function _autoHatchReadyEggs(pid){
       }
       var hatched = [];
       byGame[ns].forEach(function(id){
+        /* U2: 各 hatchEgg 呼出前にも再確認 (時間のかかる ns loop の途中で切替が
+           起きる可能性に対応) */
+        try{
+          var _cur2 = QuestSave.currentProfile && QuestSave.currentProfile();
+          if(_cur2 && _cur2 !== pid) return;
+        }catch(_){}
         var r = Q4BReward.hatchEgg(coll, id);
         if(r){
           hatched.push({id:id, sp:r.sp, size:r.size});

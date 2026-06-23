@@ -958,6 +958,7 @@ function loadAll(){
       /* ボス load-time backfill: 旧版 catches / 新版 BATTLE.bosses どちらかに entry あり
          なら sex 自動確定 + 相方卵を 1 度だけ授与 (legacy 救済)。 */
       (bt = bt || {}).bosses = bt.bosses || {};
+      var _battleBackfillDirty = false;            /* U1: 変更があれば末尾で必ず save */
       if(window.B && B.roster && window.Q4BReward){
         B.roster.forEach(function(r){
           if(r.predator || !r.id) return;
@@ -980,17 +981,22 @@ function loadAll(){
             if(be.min == null && cat.min != null) be.min = cat.min;
             if(be.shiny == null && cat.shiny != null) be.shiny = cat.shiny;
           }
-          if(!be.eggGranted && (be.n||0) >= 1 && be.firstSex && Q4BReward.awardBossEgg){
+          /* U1: T1 で boss_zukan.js 側を n>=10 に統一したが、 ここに同じ救済が
+             別実装で残っており 1 回撃破時点から卵が出ていた + 変更時に
+             saveBattle されないため毎回再支給ループになっていた。 仕様通り
+             n>=10 に統一し、 eggGranted 更新時は changed フラグで save を保証。 */
+          if(!be.eggGranted && (be.n||0) >= 10 && be.firstSex && Q4BReward.awardBossEgg){
             var opp = be.firstSex === 'm' ? 'f' : 'm';
             var _egg = Q4BReward.awardBossEgg(null, sp, opp);
             if(_egg){
               be.eggGranted = true;
+              _battleBackfillDirty = true;
             } else if(Q4BReward.getBreedingState){
               /* null = dedup ヒット。既存があれば eggGranted true 化、無ければ retry */
               var _bs2 = Q4BReward.getBreedingState();
               var _has = _bs2 && ((_bs2.eggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';})
                              || (_bs2.pendingEggs||[]).some(function(e){return e.id===sp.id && e.origin==='boss_pair';}));
-              if(_has) be.eggGranted = true;
+              if(_has){ be.eggGranted = true; _battleBackfillDirty = true; }
             }
           }
         });
@@ -1009,6 +1015,12 @@ function loadAll(){
       PARTY = (bt.party||[]).map(function(id){return byId[id];}).filter(Boolean);
       SEL = PARTY.slice();
       computeReach(kp,ks,es);  /* 年齢ベース到達度(v3) を REACH/BATTLE.reachMax に確定。high-water適用＝再ロックなし */
+      /* U1: backfill で eggGranted を変更したら必ず保存。 旧版は変更しても
+         saveBattle が呼ばれず、 戦闘ページを開くたびに同じ条件で再支給する
+         ループになっていた。 */
+      if(_battleBackfillDirty && window.QuestSave && PROF){
+        try{ QuestSave.save("battle", PROF, BATTLE); }catch(_){}
+      }
     });
   });
 }
