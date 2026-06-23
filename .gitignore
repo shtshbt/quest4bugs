@@ -18,3 +18,7 @@ _gen/
 # bulk_migrate_images cleanup (2026)
 zukan_cards/processed/*_L1_segmented.png
 zukan_cards/_pipeline/
+
+# Source ingestion artifacts (downloaded raw photos, not part of published site)
+zukan_cards/_inbox/
+zukan_cards/_archive/

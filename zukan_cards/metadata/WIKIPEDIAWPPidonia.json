@@ -1,0 +1,74 @@
+{
+  "species_id": "kuroobi_hana_kamikiri",
+  "species_ja": "ナガバヒメハナカミキリ",
+  "scientific_name": "Pidonia signifera",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Konrad Lackerbeck",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Pidonia",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Pidonia",
+    "persistentId": "https://en.wikipedia.org/wiki/Pidonia",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Konrad Lackerbeck",
+    "eventDate": "2007-05-31",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Pidonia lurida",
+    "localityNormalized": "Pidonia lurida",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Pidonia",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Pidonia_lurida_2.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.5",
+    "mediaLicense": "CC-BY-SA-2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPidonia_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPidonia_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPidonia_54.webp",
+      "108": "thumb/WIKIPEDIAWPPidonia_108.webp",
+      "216": "thumb/WIKIPEDIAWPPidonia_216.webp"
+    }
+  },
+  "original_sha256": "2cc2c9b444299f914404f192002275f8484202e788f59ebd6d2cfffdc0a30ab4",
+  "processing": {
+    "cropBox": [
+      354,
+      333,
+      1058,
+      907
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPidonia_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.06), rotate 0 CCW"
+}

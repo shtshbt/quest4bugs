@@ -1,0 +1,74 @@
+{
+  "species_id": "wallace_giant_bee",
+  "species_ja": "ウォーレスオオハキリバチ",
+  "scientific_name": "Megachile pluto",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Megachile pluto - frontal view - Naturalis Biodiversity Center (1953).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Megachile_pluto_-_frontal_view_-_Naturalis_Biodiversity_Center_(1953).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Megachile_pluto_-_frontal_view_-_Naturalis_Biodiversity_Center_(1953).jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Naturalis Biodiversity Center",
+    "eventDate": "2018-03-16 11:05:38",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Megachile pluto (adult, frontal view) : Preserved specimen number RMNH.INS.108875 from Naturalis Biodiversity Center - Zoology and Geology catalogues (nl) collected in North-West Obi Moluccas on 1953-10-19 by Wegner, A.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Megachile_pluto_-_frontal_view_-_Naturalis_Biodiversity_Center_(1953).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Megachile_pluto_-_frontal_view_-_Naturalis_Biodiversity_Center_%281953%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_resized.jpg",
+    "display": "processed/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_54.webp",
+      "108": "thumb/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_108.webp",
+      "216": "thumb/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_216.webp"
+    }
+  },
+  "original_sha256": "24af91f240c1f34a57426df90552ad5995c1ca60a09f79a817ed857be8b0da17",
+  "processing": {
+    "cropBox": [
+      367,
+      555,
+      5824,
+      3746
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMegachileplutofrontalviewNaturalisBiodiversityCenter1953jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

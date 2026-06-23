@@ -1,0 +1,74 @@
+{
+  "species_id": "shiokara_abu_oddball_dummy",
+  "species_ja": "オオイシアブ",
+  "scientific_name": "Laphria mitsukurii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Talitta Simoes",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01789780",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b7225a23-8ba7-43de-b5f3-e5aaed2bdf0e",
+    "persistentId": "http://n2t.net/ark:/65665/3b7225a23-8ba7-43de-b5f3-e5aaed2bdf0e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mitsukuri",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "[Not Stated], Japan",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321342912",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321342912",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16928682&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT01789780_resized.jpg",
+    "display": "processed/USNMENT01789780_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01789780_54.webp",
+      "108": "thumb/USNMENT01789780_108.webp",
+      "216": "thumb/USNMENT01789780_216.webp"
+    }
+  },
+  "original_sha256": "b81cb65e4ca2fb31ad7028277df22dde50e3677ef4db470a451ba5ca373094a7",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1724,
+      1333
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01789780_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

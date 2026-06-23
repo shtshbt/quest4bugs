@@ -1,0 +1,75 @@
+{
+  "species_id": "sakishima_hirata_kuwagata",
+  "species_ja": "サキシマヒラタクワガタ",
+  "scientific_name": "Dorcus titanus sakishimanus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "User:K246la",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:サキシマヒラタクワガタ 2013-11-25 01-01.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%B5%E3%82%AD%E3%82%B7%E3%83%9E%E3%83%92%E3%83%A9%E3%82%BF%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF_2013-11-25_01-01.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%B5%E3%82%AD%E3%82%B7%E3%83%9E%E3%83%92%E3%83%A9%E3%82%BF%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF_2013-11-25_01-01.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "User:K246la",
+    "eventDate": "24 November 2013 (original upload date)",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "サキシマヒラタクワガタ",
+    "localityNormalized": "サキシマヒラタクワガタ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%B5%E3%82%AD%E3%82%B7%E3%83%9E%E3%83%92%E3%83%A9%E3%82%BF%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF_2013-11-25_01-01.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/%E3%82%B5%E3%82%AD%E3%82%B7%E3%83%9E%E3%83%92%E3%83%A9%E3%82%BF%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF_2013-11-25_01-01.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFile201311250101jpg_resized.jpg",
+    "display": "processed/WMCFile201311250101jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile201311250101jpg_54.webp",
+      "108": "thumb/WMCFile201311250101jpg_108.webp",
+      "216": "thumb/WMCFile201311250101jpg_216.webp"
+    }
+  },
+  "original_sha256": "26e879a03f1c5c9a1518c25a0d773dd57719b9df2645b1b4ab4d93b0968ffb9e",
+  "processing": {
+    "cropBox": [
+      675,
+      0,
+      1683,
+      1292
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile201311250101jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.69), rotate 180 CCW"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "kuma_zemi_replaced_tsukutsuku_oushuu",
+  "species_ja": "ヒメハルゼミ",
+  "scientific_name": "Euterpnosia chibensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "This file was scanned and edited by the uploader, Sakaori.",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Kataniwa district in Euterpnosia chibensis cicada emerge location. circa 1930. A.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Kataniwa_district_in_Euterpnosia_chibensis_cicada_emerge_location._circa_1930._A.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Kataniwa_district_in_Euterpnosia_chibensis_cicada_emerge_location._circa_1930._A.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "This file was scanned and edited by the uploader, Sakaori.",
+    "eventDate": "circa 1930<div style=\"display: none;\">date QS:P,+1930-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "eventYear": 1930,
+    "country": null,
+    "localityVerbatim": "Kataniwa district in Euterpnosia chibensis cicada emerge location. circa 1930. A.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Kataniwa_district_in_Euterpnosia_chibensis_cicada_emerge_location._circa_1930._A.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Kataniwa_district_in_Euterpnosia_chibensis_cicada_emerge_location._circa_1930._A.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_resized.jpg",
+    "display": "processed/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_54.webp",
+      "108": "thumb/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_108.webp",
+      "216": "thumb/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_216.webp"
+    }
+  },
+  "original_sha256": "147837334f6763c2bdcf83229393a84a0b5207029c33dc1aae8409588db6e5ae",
+  "processing": {
+    "cropBox": [
+      152,
+      2856,
+      1972,
+      3521
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileKataniwadistrictinEuterpnosiachibensiscicadaemergelocationcirca1930Ajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

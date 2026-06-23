@@ -1,0 +1,74 @@
+{
+  "species_id": "beniito_tonbo",
+  "species_ja": "ベニイトトンボ",
+  "scientific_name": "Ceriagrion nipponicum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00330985",
+    "occurrenceId": "http://n2t.net/ark:/65665/327e42782-ff55-4a8c-8349-277bff51e961",
+    "persistentId": "http://n2t.net/ark:/65665/327e42782-ff55-4a8c-8349-277bff51e961",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "E. Suenson",
+    "eventDate": "1936-07-15",
+    "eventYear": 1936,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "Shanghai, China",
+    "preparations": "Envelope"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318104765",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318104765",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16319719&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00330985_resized.jpg",
+    "display": "processed/USNMENT00330985_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00330985_54.webp",
+      "108": "thumb/USNMENT00330985_108.webp",
+      "216": "thumb/USNMENT00330985_216.webp"
+    }
+  },
+  "original_sha256": "c67e346ad25cbc58732b1009877c023d644a055d694fd3b974d367d8bd941f16",
+  "processing": {
+    "cropBox": [
+      526,
+      761,
+      1145,
+      1115
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00330985_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

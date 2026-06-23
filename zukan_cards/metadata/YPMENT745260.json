@@ -1,0 +1,76 @@
+{
+  "species_id": "shitaba_kibara",
+  "species_ja": "キシタバ",
+  "scientific_name": "Catocala patala",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Yoanna P. Lazarova",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 745260",
+    "occurrenceId": "urn:uuid:bf1c11f1-ee0a-45e1-903e-125f29b88bc4",
+    "persistentId": "urn:uuid:bf1c11f1-ee0a-45e1-903e-125f29b88bc4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "S. Sato",
+    "eventDate": "1969-08-07",
+    "eventYear": 1969,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Tsuta, Towada, Japan",
+    "preparations": "genitalic dissection",
+    "decimalLatitude": 40.608589,
+    "decimalLongitude": 140.955075
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039159665",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-745260",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:6b170e9d-b945-44e5-b81a-8cc285790f48/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT745260_resized.jpg",
+    "display": "processed/YPMENT745260_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT745260_54.webp",
+      "108": "thumb/YPMENT745260_108.webp",
+      "216": "thumb/YPMENT745260_216.webp"
+    }
+  },
+  "original_sha256": "da377aa6b9855b57fe7a2bbb23f775edc0bb56f1d9d8d5de948244db4e0bc36a",
+  "processing": {
+    "cropBox": [
+      172,
+      191,
+      1772,
+      1073
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT745260_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

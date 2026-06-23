@@ -1,0 +1,74 @@
+{
+  "species_id": "betsubekkou_hagoromo",
+  "species_ja": "ベッコウハゴロモ",
+  "scientific_name": "Orosanga japonicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "harum.koh from Kobe city, Japan",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Orosanga japonicus (19998026863).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Orosanga_japonicus_(19998026863).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Orosanga_japonicus_(19998026863).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "harum.koh from Kobe city, Japan",
+    "eventDate": "2015-08-06 06:07",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "ベッコウハゴロモ.",
+    "localityNormalized": "ベッコウハゴロモ.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Orosanga_japonicus_(19998026863).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Orosanga_japonicus_%2819998026863%29.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileOrosangajaponicus19998026863jpg_resized.jpg",
+    "display": "processed/WMCFileOrosangajaponicus19998026863jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOrosangajaponicus19998026863jpg_54.webp",
+      "108": "thumb/WMCFileOrosangajaponicus19998026863jpg_108.webp",
+      "216": "thumb/WMCFileOrosangajaponicus19998026863jpg_216.webp"
+    }
+  },
+  "original_sha256": "6cfc3bd7e273f11653a8d1cce018d0c58534e73be2eacf321ff4472392890a4e",
+  "processing": {
+    "cropBox": [
+      1549,
+      619,
+      3193,
+      2484
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOrosangajaponicus19998026863jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

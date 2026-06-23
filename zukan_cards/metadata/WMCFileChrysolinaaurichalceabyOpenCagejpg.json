@@ -1,0 +1,74 @@
+{
+  "species_id": "yomogi_hamushi",
+  "species_ja": "ヨモギハムシ",
+  "scientific_name": "Chrysolina aurichalcea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Daiju Azuma",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chrysolina aurichalcea by OpenCage.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chrysolina_aurichalcea_by_OpenCage.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chrysolina_aurichalcea_by_OpenCage.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Daiju Azuma",
+    "eventDate": "2011-11-17 11:07:19",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chrysolina_aurichalcea_by_OpenCage.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Chrysolina_aurichalcea_by_OpenCage.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.5",
+    "mediaLicense": "CC-BY-SA-2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  "files": {
+    "resized": "original/WMCFileChrysolinaaurichalceabyOpenCagejpg_resized.jpg",
+    "display": "processed/WMCFileChrysolinaaurichalceabyOpenCagejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChrysolinaaurichalceabyOpenCagejpg_54.webp",
+      "108": "thumb/WMCFileChrysolinaaurichalceabyOpenCagejpg_108.webp",
+      "216": "thumb/WMCFileChrysolinaaurichalceabyOpenCagejpg_216.webp"
+    }
+  },
+  "original_sha256": "8c1bb7611a7049d23c8663962e6ee37de1ce776af42cb657b11415bc4f44b142",
+  "processing": {
+    "cropBox": [
+      645,
+      675,
+      1471,
+      2042
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChrysolinaaurichalceabyOpenCagejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

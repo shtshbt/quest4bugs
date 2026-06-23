@@ -1,0 +1,76 @@
+{
+  "species_id": "shoujou_tonbo",
+  "species_ja": "ショウジョウトンボ",
+  "scientific_name": "Crocothemis servilia",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01028697",
+    "occurrenceId": "http://n2t.net/ark:/65665/3543d874e-5562-469a-ad75-50b0dc25f0d3",
+    "persistentId": "http://n2t.net/ark:/65665/3543d874e-5562-469a-ad75-50b0dc25f0d3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": "1987-12-02",
+    "eventYear": 1987,
+    "country": "Singapore",
+    "localityVerbatim": null,
+    "localityNormalized": "Upper Thomson Road, Singapore",
+    "preparations": "Envelope",
+    "decimalLatitude": 1.3331,
+    "decimalLongitude": 103.838
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319107033",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319107033",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16407416&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT01028697_resized.jpg",
+    "display": "processed/USNMENT01028697_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01028697_54.webp",
+      "108": "thumb/USNMENT01028697_108.webp",
+      "216": "thumb/USNMENT01028697_216.webp"
+    }
+  },
+  "original_sha256": "6ebdb36e0daeec8d8a9545ba0fa61c1d39c8edd77364060157061fa182abf109",
+  "processing": {
+    "cropBox": [
+      791,
+      405,
+      1410,
+      1062
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01028697_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

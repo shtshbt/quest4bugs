@@ -1,0 +1,76 @@
+{
+  "species_id": "hosohirata_abu",
+  "species_ja": "ホソヒラタアブ",
+  "scientific_name": "Episyrphus balteatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015556825",
+    "occurrenceId": "9ceabc8d-5ed0-44e4-8e67-da5c8c075d51",
+    "persistentId": "9ceabc8d-5ed0-44e4-8e67-da5c8c075d51",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Jenni Wilding",
+    "eventDate": "2023-07-11",
+    "eventYear": 2023,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Morfa Berwig NR, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.668412,
+    "decimalLongitude": -4.107604
+  },
+  "source": {
+    "gbifOccurrenceKey": "4413265417",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/9ceabc8d-5ed0-44e4-8e67-da5c8c075d51",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/7be6ac79-ab33-43e1-9b23-5cb050da0892",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015556825_resized.jpg",
+    "display": "processed/NHMUK015556825_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015556825_54.webp",
+      "108": "thumb/NHMUK015556825_108.webp",
+      "216": "thumb/NHMUK015556825_216.webp"
+    }
+  },
+  "original_sha256": "6f8f749d72376130897d9ad57e1c20ae30a280053cfa8d916028d835ec84ac9d",
+  "processing": {
+    "cropBox": [
+      144,
+      304,
+      1100,
+      667
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015556825_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "yatsuboshi_kamikiri",
+  "species_ja": "ヤツボシカミキリ",
+  "scientific_name": "Eutetrapha ocelota",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Keisotyo",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Eutetrapha ocelota yatumekmkr04.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Eutetrapha_ocelota_yatumekmkr04.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Eutetrapha_ocelota_yatumekmkr04.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Keisotyo",
+    "eventDate": "2021-07-17",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "2021/05/30 和歌山県田辺市：Tanabe City. Wakayama Pref. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Eutetrapha_ocelota_yatumekmkr04.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Eutetrapha_ocelota_yatumekmkr04.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileEutetraphaocelotayatumekmkr04jpg_resized.jpg",
+    "display": "processed/WMCFileEutetraphaocelotayatumekmkr04jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEutetraphaocelotayatumekmkr04jpg_54.webp",
+      "108": "thumb/WMCFileEutetraphaocelotayatumekmkr04jpg_108.webp",
+      "216": "thumb/WMCFileEutetraphaocelotayatumekmkr04jpg_216.webp"
+    }
+  },
+  "original_sha256": "19c709d854f29c9258ae34f915d6b8b2a4ffb4107e8910964e89dac050e6719a",
+  "processing": {
+    "cropBox": [
+      305,
+      217,
+      767,
+      602
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEutetraphaocelotayatumekmkr04jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.59), rotate 180 CCW"
+}

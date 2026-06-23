@@ -1,0 +1,76 @@
+{
+  "species_id": "ko_oniyanma",
+  "species_ja": "コオニヤンマ",
+  "scientific_name": "Sieboldius albardae",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390816",
+    "occurrenceId": "http://n2t.net/ark:/65665/3fd2dae3b-9671-4511-91d4-97d5d06febe5",
+    "persistentId": "http://n2t.net/ark:/65665/3fd2dae3b-9671-4511-91d4-97d5d06febe5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Flint",
+    "eventDate": "2007-08-08",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kushiro-shi, Akan-panke L., 13.5 km. N. locked gate, N. Akan, Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 43.4917,
+    "decimalLongitude": 144.163
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322924798",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322924798",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16409121&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00390816_resized.jpg",
+    "display": "processed/USNMENT00390816_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390816_54.webp",
+      "108": "thumb/USNMENT00390816_108.webp",
+      "216": "thumb/USNMENT00390816_216.webp"
+    }
+  },
+  "original_sha256": "2b13780ad03d69f7d965194629bf9749ee06e29e84edab8c75fa4362d4697b71",
+  "processing": {
+    "cropBox": [
+      765,
+      343,
+      1813,
+      1154
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390816_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

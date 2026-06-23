@@ -1,0 +1,74 @@
+{
+  "species_id": "akahane_mushi",
+  "species_ja": "アカハネムシ",
+  "scientific_name": "Pseudopyrochroa rufula",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Bugboy52.40",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:甲虫類",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bugboy52.40",
+    "eventDate": "2011-03-04 23:03:05",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "A collage of beetles made from images uploaded by User:Fir0002.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Coleoptera_collage.png",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_54.webp",
+      "108": "thumb/WIKIPEDIAWP_108.webp",
+      "216": "thumb/WIKIPEDIAWP_216.webp"
+    }
+  },
+  "original_sha256": "ffca0a7cc35627f2fd3d2dd02b7c25e07fb1b034649312c8ba61c700aa0b31ee",
+  "processing": {
+    "cropBox": [
+      0,
+      97,
+      1411,
+      1345
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

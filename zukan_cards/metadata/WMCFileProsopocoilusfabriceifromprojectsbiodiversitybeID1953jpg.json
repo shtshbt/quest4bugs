@@ -1,0 +1,74 @@
+{
+  "species_id": "feminata_noko_kuwagata",
+  "species_ja": "ファブリースノコギリクワガタ",
+  "scientific_name": "Prosopocoilus fabricei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Noël Mal",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Prosopocoilus fabricei (from projects.biodiversity.be) ID-1953.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Prosopocoilus_fabricei_(from_projects.biodiversity.be)_ID-1953.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Prosopocoilus_fabricei_(from_projects.biodiversity.be)_ID-1953.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Noël Mal",
+    "eventDate": "2025-04-30 10:13:01",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Prosopocoilus_fabricei_(from_projects.biodiversity.be)_ID-1953.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Prosopocoilus_fabricei_%28from_projects.biodiversity.be%29_ID-1953.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_resized.jpg",
+    "display": "processed/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_54.webp",
+      "108": "thumb/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_108.webp",
+      "216": "thumb/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_216.webp"
+    }
+  },
+  "original_sha256": "e8eb97434bb6f45cf066872ccd9165976b377511c32a2b903dffac9a5c41fd5e",
+  "processing": {
+    "cropBox": [
+      99,
+      71,
+      351,
+      719
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileProsopocoilusfabriceifromprojectsbiodiversitybeID1953jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.12), rotate 0 CCW"
+}

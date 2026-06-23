@@ -1,0 +1,74 @@
+{
+  "species_id": "oo_suzumebachi",
+  "species_ja": "オオスズメバチ",
+  "scientific_name": "Vespa mandarinia",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Brigitte Gallagher and Catrina Conran",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": null,
+    "occurrenceId": "http://n2t.net/ark:/65665/32e485bb4-0bba-4300-bcc1-5b5295b448b8",
+    "persistentId": "http://n2t.net/ark:/65665/32e485bb4-0bba-4300-bcc1-5b5295b448b8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318248938",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318248938",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=13092209&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMoosuzumebachi_resized.jpg",
+    "display": "processed/USNMoosuzumebachi_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMoosuzumebachi_54.webp",
+      "108": "thumb/USNMoosuzumebachi_108.webp",
+      "216": "thumb/USNMoosuzumebachi_216.webp"
+    }
+  },
+  "original_sha256": "15024d881a169ec7d00b621b95d4b4f468c2fa16ee67fe2b6aecdaf040a4aa01",
+  "processing": {
+    "cropBox": [
+      25,
+      22,
+      2000,
+      1851
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMoosuzumebachi_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "oba_kuwa_eda_shaku",
+  "species_ja": "オオバナミガタエダシャク",
+  "scientific_name": "Menophra senex",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Originally created for English Wikipedia by en:User:Vardion.",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:List of Lepidoptera of Germany",
+    "occurrenceId": "https://en.wikipedia.org/wiki/List_of_Lepidoptera_of_Germany",
+    "persistentId": "https://en.wikipedia.org/wiki/List_of_Lepidoptera_of_Germany",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Originally created for English Wikipedia by en:User:Vardion.",
+    "eventDate": "2006-06-04 12:03:06",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Location map of Germany.",
+    "localityNormalized": "Location map of Germany.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/List_of_Lepidoptera_of_Germany",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/LocationGermany.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPListofLepidopteraofGermany_resized.jpg",
+    "display": "processed/WIKIPEDIAWPListofLepidopteraofGermany_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPListofLepidopteraofGermany_54.webp",
+      "108": "thumb/WIKIPEDIAWPListofLepidopteraofGermany_108.webp",
+      "216": "thumb/WIKIPEDIAWPListofLepidopteraofGermany_216.webp"
+    }
+  },
+  "original_sha256": "a8f3f773b089ff07d5bb4269ba617ba8e0ffec37d61fbd313060a0399e2d0896",
+  "processing": {
+    "cropBox": [
+      8,
+      0,
+      250,
+      115
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPListofLepidopteraofGermany_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

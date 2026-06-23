@@ -1,0 +1,74 @@
+{
+  "species_id": "yotsumeaoshaku",
+  "species_ja": "ヨツメアオシャク",
+  "scientific_name": "Comostola subtiliaria",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013320901",
+    "occurrenceId": "454f950d-ef35-4f9f-b477-431aaada7f8b",
+    "persistentId": "454f950d-ef35-4f9f-b477-431aaada7f8b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Russian Federation",
+    "localityVerbatim": null,
+    "localityNormalized": "Russian Federation",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826442771",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/454f950d-ef35-4f9f-b477-431aaada7f8b",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ac1d32e2-0f90-4c35-9e6e-b8c3fb4ecbdd",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013320901_resized.jpg",
+    "display": "processed/NHMUK013320901_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013320901_54.webp",
+      "108": "thumb/NHMUK013320901_108.webp",
+      "216": "thumb/NHMUK013320901_216.webp"
+    }
+  },
+  "original_sha256": "88b1256ca24d1bc75881e1377c50e03af0da6a8fd8edf2e9d35876959cc297e4",
+  "processing": {
+    "cropBox": [
+      130,
+      64,
+      1440,
+      815
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013320901_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

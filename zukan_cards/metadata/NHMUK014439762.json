@@ -1,6 +1,6 @@
 {
-  "species_id": "shiro_juni_hoshi_tentou",
-  "species_ja": "シロジュウシホシテントウ",
+  "species_id": "juushihoshi_tentou",
+  "species_ja": "ジュウシホシテントウ",
   "scientific_name": "Calvia quatuordecimguttata",
   "credit_line": "Natural History Museum, London",
   "creator": "Natural History Museum, London",
@@ -36,13 +36,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
+    "resized": "original/NHMUK014439762_resized.jpg",
     "display": "processed/NHMUK014439762_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUK014439762_54.webp",
       "108": "thumb/NHMUK014439762_108.webp",
       "216": "thumb/NHMUK014439762_216.webp"
-    },
-    "resized": "original/NHMUK014439762_resized.jpg"
+    }
   },
   "original_sha256": "590b571d77224d4863a421e9793df44a8a1d0d75d40c1fddb2dc0a005d84192a",
   "processing": {
@@ -69,7 +69,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/NHMUK014439762_original.jpg",
+    "originalImage": "original/NHMUK014439762_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

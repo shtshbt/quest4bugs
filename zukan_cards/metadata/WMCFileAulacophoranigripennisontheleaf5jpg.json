@@ -1,0 +1,74 @@
+{
+  "species_id": "kurouri_hamushi",
+  "species_ja": "クロウリハムシ",
+  "scientific_name": "Aulacophora nigripennis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aulacophora nigripennis on the leaf - 5.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aulacophora_nigripennis_on_the_leaf_-_5.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aulacophora_nigripennis_on_the_leaf_-_5.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-10-31 06:12:50",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "葉っぱの上を移動するクロウリハムシ。後ろにある小さな黒い片はクロウリハムシの糞ではないかと。愛知県小牧市で撮影。",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aulacophora_nigripennis_on_the_leaf_-_5.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/00/Aulacophora_nigripennis_on_the_leaf_-_5.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAulacophoranigripennisontheleaf5jpg_resized.jpg",
+    "display": "processed/WMCFileAulacophoranigripennisontheleaf5jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAulacophoranigripennisontheleaf5jpg_54.webp",
+      "108": "thumb/WMCFileAulacophoranigripennisontheleaf5jpg_108.webp",
+      "216": "thumb/WMCFileAulacophoranigripennisontheleaf5jpg_216.webp"
+    }
+  },
+  "original_sha256": "695965ee53790d3ffae2be02280cddc7db9dda3653864241ec0f106e16f4c4f6",
+  "processing": {
+    "cropBox": [
+      1165,
+      1173,
+      2383,
+      2500
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAulacophoranigripennisontheleaf5jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

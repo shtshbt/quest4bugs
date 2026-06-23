@@ -1,0 +1,74 @@
+{
+  "species_id": "harabiro_kamakiri",
+  "species_ja": "ハラビロカマキリ",
+  "scientific_name": "Hierodula patellifera",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496332",
+    "occurrenceId": "31b24052-b05f-49e8-a2d9-38c9cf19febd",
+    "persistentId": "31b24052-b05f-49e8-a2d9-38c9cf19febd",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Philippines",
+    "localityVerbatim": null,
+    "localityNormalized": "Philippines",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403329",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/31b24052-b05f-49e8-a2d9-38c9cf19febd",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/eafeba7a-9224-4378-8f21-872b27ea7d26",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496332_resized.jpg",
+    "display": "processed/NHMUK012496332_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496332_54.webp",
+      "108": "thumb/NHMUK012496332_108.webp",
+      "216": "thumb/NHMUK012496332_216.webp"
+    }
+  },
+  "original_sha256": "62ac0a41fe1700dfa3f6087542a209e47c6a1d35721397b59005f4cf64506d59",
+  "processing": {
+    "cropBox": [
+      188,
+      0,
+      761,
+      1273
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496332_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "kuro_suzumebachi",
+  "species_ja": "クロスズメバチ",
+  "scientific_name": "Vespula flaviceps",
+  "credit_line": "Wikimedia Commons",
+  "creator": "takami torao",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Vespula flaviceps tsukudani.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Vespula_flaviceps_tsukudani.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Vespula_flaviceps_tsukudani.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "takami torao",
+    "eventDate": "2009-02-21",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "The kanroni (candied) of vespula flaviceps that is local specialties around Shinshu (Nagano), Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Vespula_flaviceps_tsukudani.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Vespula_flaviceps_tsukudani.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileVespulaflavicepstsukudanijpg_resized.jpg",
+    "display": "processed/WMCFileVespulaflavicepstsukudanijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVespulaflavicepstsukudanijpg_54.webp",
+      "108": "thumb/WMCFileVespulaflavicepstsukudanijpg_108.webp",
+      "216": "thumb/WMCFileVespulaflavicepstsukudanijpg_216.webp"
+    }
+  },
+  "original_sha256": "d4c2eb7f19cfa8261d7602abcefc9230549fdf691ff290ca66b340a249ecafa6",
+  "processing": {
+    "cropBox": [
+      43,
+      0,
+      640,
+      480
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVespulaflavicepstsukudanijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

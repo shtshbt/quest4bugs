@@ -1,0 +1,74 @@
+{
+  "species_id": "nihon_himehanabachi",
+  "species_ja": "ニッポンヒゲナガハナバチ",
+  "scientific_name": "Eucera nipponensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Greg Peterson",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tetralonia Nipponensis Bee ニッポンヒゲナガハナバチ (254309153).jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tetralonia_Nipponensis_Bee_%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81_(254309153).jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tetralonia_Nipponensis_Bee_%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81_(254309153).jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Greg Peterson",
+    "eventDate": "18 April 2018, 17:00:47 (UTC)",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "500px provided description: Tetralonia nipponensis bee in Tsuji, Ritto City, feeding on Vicia sativa (??????) flowers (via Flickr flic.kr/p/26g42Kf) [#wildlife ,#?? ,#Flickr ,#Shiga]",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tetralonia_Nipponensis_Bee_%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81_(254309153).jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/83/Tetralonia_Nipponensis_Bee_%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%92%E3%82%B2%E3%83%8A%E3%82%AC%E3%83%8F%E3%83%8A%E3%83%90%E3%83%81_%28254309153%29.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileTetraloniaNipponensisBee254309153jpeg_resized.jpg",
+    "display": "processed/WMCFileTetraloniaNipponensisBee254309153jpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTetraloniaNipponensisBee254309153jpeg_54.webp",
+      "108": "thumb/WMCFileTetraloniaNipponensisBee254309153jpeg_108.webp",
+      "216": "thumb/WMCFileTetraloniaNipponensisBee254309153jpeg_216.webp"
+    }
+  },
+  "original_sha256": "bf998f00f9f6c5a563014a53f4ab727285e2792867305b8ab3af773ab842354e",
+  "processing": {
+    "cropBox": [
+      778,
+      455,
+      1394,
+      984
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTetraloniaNipponensisBee254309153jpeg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

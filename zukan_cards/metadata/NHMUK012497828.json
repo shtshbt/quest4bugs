@@ -1,0 +1,74 @@
+{
+  "species_id": "chosen_kamakiri",
+  "species_ja": "チョウセンカマキリ",
+  "scientific_name": "Tenodera angustipennis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012497828",
+    "occurrenceId": "196feba1-4812-46c2-87e3-3168a2ea200e",
+    "persistentId": "196feba1-4812-46c2-87e3-3168a2ea200e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "China",
+    "localityVerbatim": null,
+    "localityNormalized": "China",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403711",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/196feba1-4812-46c2-87e3-3168a2ea200e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/48db6270-7c98-47d2-bacd-d5d5fc9d6583",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012497828_resized.jpg",
+    "display": "processed/NHMUK012497828_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012497828_54.webp",
+      "108": "thumb/NHMUK012497828_108.webp",
+      "216": "thumb/NHMUK012497828_216.webp"
+    }
+  },
+  "original_sha256": "c5b4fc3fe7875efdbac8182a0186be50e24f8658abd1f98d4e7cc064b2423a53",
+  "processing": {
+    "cropBox": [
+      205,
+      0,
+      1177,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012497828_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

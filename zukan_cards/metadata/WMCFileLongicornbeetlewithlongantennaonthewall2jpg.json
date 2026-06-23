@@ -1,10 +1,10 @@
 {
-  "species_id": "sentou_kamikiri",
-  "species_ja": "センノカミキリ",
+  "species_id": "sennoki_kamikiri",
+  "species_ja": "センノキカミキリ",
   "scientific_name": "Acalolepta luxuriosa",
   "credit_line": "Wikimedia Commons",
   "creator": "KKPCW",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-06-22",
   "specimen": {
     "institution": "Wikimedia Commons",
     "institutionCode": "WMC",
@@ -34,13 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
   "files": {
+    "resized": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_resized.jpg",
     "display": "processed/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_54.webp",
       "108": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_108.webp",
       "216": "thumb/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_216.webp"
-    },
-    "resized": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_resized.jpg"
+    }
   },
   "original_sha256": "c5aa1b126124cdb6c1893588c08bf5582010767255ecde749fb3d4c84dfe31a2",
   "processing": {
@@ -66,7 +66,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_original.jpg",
+    "originalImage": "original/WMCFileLongicornbeetlewithlongantennaonthewall2jpg_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

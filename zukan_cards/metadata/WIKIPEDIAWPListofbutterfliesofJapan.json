@@ -1,0 +1,74 @@
+{
+  "species_id": "akashijimi_minami",
+  "species_ja": "ミナミアカシジミ",
+  "scientific_name": "Japonica onoi mizobei",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Alfio",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:List of butterflies of Japan",
+    "occurrenceId": "https://en.wikipedia.org/wiki/List_of_butterflies_of_Japan",
+    "persistentId": "https://en.wikipedia.org/wiki/List_of_butterflies_of_Japan",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alfio",
+    "eventDate": "2004-12-11 23:16:09",
+    "eventYear": 2004,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/List_of_butterflies_of_Japan",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/LocationJapan.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPListofbutterfliesofJapan_resized.jpg",
+    "display": "processed/WIKIPEDIAWPListofbutterfliesofJapan_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPListofbutterfliesofJapan_54.webp",
+      "108": "thumb/WIKIPEDIAWPListofbutterfliesofJapan_108.webp",
+      "216": "thumb/WIKIPEDIAWPListofbutterfliesofJapan_216.webp"
+    }
+  },
+  "original_sha256": "cc4c8fdcfc092148784b2caeea690ee6a1dab12df58ebd2afe6dcfa6a2204e7d",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      250,
+      96
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPListofbutterfliesofJapan_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

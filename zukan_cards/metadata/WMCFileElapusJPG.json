@@ -1,0 +1,74 @@
+{
+  "species_id": "elaphus_noko_kuwagata",
+  "species_ja": "エラフスホソアカクワガタ",
+  "scientific_name": "Cyclommatus elaphus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "keusju",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Elapus.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Elapus.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Elapus.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "keusju",
+    "eventDate": "2008-09-20",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Cyclommatus elapus elapus",
+    "localityNormalized": "Cyclommatus elapus elapus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Elapus.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Elapus.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileElapusJPG_resized.jpg",
+    "display": "processed/WMCFileElapusJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileElapusJPG_54.webp",
+      "108": "thumb/WMCFileElapusJPG_108.webp",
+      "216": "thumb/WMCFileElapusJPG_216.webp"
+    }
+  },
+  "original_sha256": "61bc3dfee61eb7ecc716b6108928dc174f3356d2a3b446bc6f5865510946d022",
+  "processing": {
+    "cropBox": [
+      87,
+      53,
+      786,
+      2051
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileElapusJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.23), rotate 0 CCW"
+}

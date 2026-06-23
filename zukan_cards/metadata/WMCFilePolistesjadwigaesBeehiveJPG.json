@@ -1,0 +1,74 @@
+{
+  "species_id": "nihon_ashinagabachi",
+  "species_ja": "ニホンアシナガバチ",
+  "scientific_name": "Polistes jadwigae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Imuzak",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Polistes jadwigae's Beehive.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Polistes_jadwigae%27s_Beehive.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Polistes_jadwigae%27s_Beehive.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Imuzak",
+    "eventDate": "2010-10-28",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Imuzakが撮影したセグロアシナガバチの巣の写真",
+    "localityNormalized": "Imuzakが撮影したセグロアシナガバチの巣の写真",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Polistes_jadwigae%27s_Beehive.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Polistes_jadwigae%27s_Beehive.JPG",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFilePolistesjadwigaesBeehiveJPG_resized.jpg",
+    "display": "processed/WMCFilePolistesjadwigaesBeehiveJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePolistesjadwigaesBeehiveJPG_54.webp",
+      "108": "thumb/WMCFilePolistesjadwigaesBeehiveJPG_108.webp",
+      "216": "thumb/WMCFilePolistesjadwigaesBeehiveJPG_216.webp"
+    }
+  },
+  "original_sha256": "df0248f33092b068378d3542c253b039db50986fc06c9625157f0b26bd792ed9",
+  "processing": {
+    "cropBox": [
+      0,
+      209,
+      4000,
+      3000
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePolistesjadwigaesBeehiveJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

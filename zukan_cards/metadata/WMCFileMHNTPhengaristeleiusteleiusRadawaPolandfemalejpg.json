@@ -1,0 +1,74 @@
+{
+  "species_id": "gomashijimi",
+  "species_ja": "ゴマシジミ",
+  "scientific_name": "Phengaris teleius",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:(MHNT) Phengaris teleius teleius - Radawa Poland - female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:(MHNT)_Phengaris_teleius_teleius_-_Radawa_Poland_-_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:(MHNT)_Phengaris_teleius_teleius_-_Radawa_Poland_-_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "Taken on 7 April 2023",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Phengaris teleius - Two views of same specimen",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:(MHNT)_Phengaris_teleius_teleius_-_Radawa_Poland_-_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/%28MHNT%29_Phengaris_teleius_teleius_-_Radawa_Poland_-_female.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_resized.jpg",
+    "display": "processed/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_54.webp",
+      "108": "thumb/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_108.webp",
+      "216": "thumb/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "5a38c87ba0391d89c8d68777ae55ee8ed72ef50d1ca37f67f415f7a2f04e5cfb",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      7466,
+      9796
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMHNTPhengaristeleiusteleiusRadawaPolandfemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

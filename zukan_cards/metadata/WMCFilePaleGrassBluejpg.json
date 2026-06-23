@@ -1,0 +1,74 @@
+{
+  "species_id": "yamatoshijimi",
+  "species_ja": "ヤマトシジミ",
+  "scientific_name": "Zizeeria maha",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Laitche",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pale Grass Blue.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pale_Grass_Blue.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pale_Grass_Blue.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Laitche",
+    "eventDate": "2007-10-05",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Pale Grass Blue.",
+    "localityNormalized": "Pale Grass Blue.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pale_Grass_Blue.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Pale_Grass_Blue.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFilePaleGrassBluejpg_resized.jpg",
+    "display": "processed/WMCFilePaleGrassBluejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePaleGrassBluejpg_54.webp",
+      "108": "thumb/WMCFilePaleGrassBluejpg_108.webp",
+      "216": "thumb/WMCFilePaleGrassBluejpg_216.webp"
+    }
+  },
+  "original_sha256": "560ef20295b88b7e4d63692a0d70ce854736ce146ddac09321482e227df5630a",
+  "processing": {
+    "cropBox": [
+      449,
+      172,
+      2741,
+      2190
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePaleGrassBluejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

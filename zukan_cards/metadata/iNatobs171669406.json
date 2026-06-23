@@ -1,0 +1,81 @@
+{
+  "species_id": "toukyou_hime_hanmyou",
+  "species_ja": "トウキョウヒメハンミョウ",
+  "scientific_name": "Cylindera kaleea yedoensis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_171669406",
+    "occurrenceId": "https://www.inaturalist.org/observations/171669406",
+    "persistentId": "https://www.inaturalist.org/observations/171669406",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2017-09-15",
+    "eventYear": 2017,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9581244866,
+    "decimalLongitude": 139.4181300634,
+    "coordinatesObscured": true,
+    "iNatObservationId": "171669406",
+    "iNatPhotoId": "297918463",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/171669406",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/297918463/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs171669406_resized.jpg",
+    "display": "processed/iNatobs171669406_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs171669406_54.webp",
+      "108": "thumb/iNatobs171669406_108.webp",
+      "216": "thumb/iNatobs171669406_216.webp"
+    }
+  },
+  "original_sha256": "a7f8cf121ab8eaadb86077e6a9a972683503325d3f1fe679c32956e1422e26a2",
+  "processing": {
+    "cropBox": [
+      64,
+      0,
+      1501,
+      1536
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs171669406_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.89), rotate 180 CCW"
+}

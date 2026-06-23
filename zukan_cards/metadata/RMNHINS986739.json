@@ -1,0 +1,74 @@
+{
+  "species_id": "sugitani_rurishijimi",
+  "species_ja": "スギタニルリシジミ",
+  "scientific_name": "Celastrina sugitanii",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.986739",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986739",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.986739",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "R. Straatman",
+    "eventDate": "1952-04-16",
+    "eventYear": 1952,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Kyoto, Japan",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2845925309",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2845925309",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.986739_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS986739_resized.jpg",
+    "display": "processed/RMNHINS986739_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS986739_54.webp",
+      "108": "thumb/RMNHINS986739_108.webp",
+      "216": "thumb/RMNHINS986739_216.webp"
+    }
+  },
+  "original_sha256": "c5de789179da4bdd06eaa321e033687cac6c74e2364e292d82cdcdeb934787e8",
+  "processing": {
+    "cropBox": [
+      121,
+      0,
+      1920,
+      1213
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS986739_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "seijaku_kamikiri",
+  "species_ja": "セスジヒメハナカミキリ",
+  "scientific_name": "Pidonia amentata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Edmund Reitter",
+  "fetched_date": "2026-06-23",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pidonia lurida.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pidonia_lurida.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pidonia_lurida.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Edmund Reitter",
+    "eventDate": "1908",
+    "eventYear": 1908,
+    "country": null,
+    "localityVerbatim": "Pidonia lurida",
+    "localityNormalized": "Pidonia lurida",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pidonia_lurida.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Pidonia_lurida.png",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFilePidonialuridapng_resized.jpg",
+    "display": "processed/WMCFilePidonialuridapng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePidonialuridapng_54.webp",
+      "108": "thumb/WMCFilePidonialuridapng_108.webp",
+      "216": "thumb/WMCFilePidonialuridapng_216.webp"
+    }
+  },
+  "original_sha256": "8f61cc8d7a4b338c634f477c0bc3607abffea4b7e67e358884b1fc1cefcf6806",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      359,
+      375
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePidonialuridapng_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.15), rotate 270 CCW"
+}

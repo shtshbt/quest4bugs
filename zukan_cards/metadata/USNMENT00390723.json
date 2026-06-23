@@ -1,0 +1,76 @@
+{
+  "species_id": "ko_ezo_tonbo",
+  "species_ja": "コエゾトンボ",
+  "scientific_name": "Somatochlora exuberata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00390723",
+    "occurrenceId": "http://n2t.net/ark:/65665/3d48d875f-16eb-47e1-9ad0-a63d507383b8",
+    "persistentId": "http://n2t.net/ark:/65665/3d48d875f-16eb-47e1-9ad0-a63d507383b8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "2007-08-06",
+    "eventYear": 2007,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Eniwa-shi; Rarumanai R., ca. 30 km W Eniwa on Rt. 117, then onto dirt rd., 1200', Japan",
+    "preparations": "Envelope",
+    "decimalLatitude": 42.865,
+    "decimalLongitude": 141.313
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322006790",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322006790",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16373055&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00390723_resized.jpg",
+    "display": "processed/USNMENT00390723_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00390723_54.webp",
+      "108": "thumb/USNMENT00390723_108.webp",
+      "216": "thumb/USNMENT00390723_216.webp"
+    }
+  },
+  "original_sha256": "f0b40c7f9707cc6259f0f0cdf4114e771787f58c2950ff0664a3f681587f888c",
+  "processing": {
+    "cropBox": [
+      703,
+      424,
+      1461,
+      1032
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00390723_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "kuwakamikiri",
+  "species_ja": "クワカミキリ",
+  "scientific_name": "Apriona japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tokuichi Shiraki &amp; Hori (1910)",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Shiraki 1910 Injurious insects plate19.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Shiraki_1910_Injurious_insects_plate19.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Shiraki_1910_Injurious_insects_plate19.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tokuichi Shiraki &amp; Hori (1910)",
+    "eventDate": "1910",
+    "eventYear": 1910,
+    "country": null,
+    "localityVerbatim": "This image depicting Anoplophora chinensis and Apriona rugicollis is part of a series of images of Long-horned beetles (Cerambycidae) species Apriona rugicollis and Anoplophora chinensis (named Melanauster c. at the time), derived from plate XIX in:Shiraki, Tokuichi &amp; Hori (1910) Injurious insects in Formosa, Vol.1, plate XIX. Taihoku: Agricultural Experiment Station.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Shiraki_1910_Injurious_insects_plate19.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Shiraki_1910_Injurious_insects_plate19.jpg",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileShiraki1910Injuriousinsectsplate19jpg_resized.jpg",
+    "display": "processed/WMCFileShiraki1910Injuriousinsectsplate19jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileShiraki1910Injuriousinsectsplate19jpg_54.webp",
+      "108": "thumb/WMCFileShiraki1910Injuriousinsectsplate19jpg_108.webp",
+      "216": "thumb/WMCFileShiraki1910Injuriousinsectsplate19jpg_216.webp"
+    }
+  },
+  "original_sha256": "1ffe0bd4e454e42d016582c83f369d507da5633700bf9ebecdf9434a9234e84c",
+  "processing": {
+    "cropBox": [
+      89,
+      614,
+      2208,
+      3178
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileShiraki1910Injuriousinsectsplate19jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.71), rotate 270 CCW"
+}

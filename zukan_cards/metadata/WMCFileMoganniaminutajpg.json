@@ -1,0 +1,74 @@
+{
+  "species_id": "kuma_zemi_kuro_replaced_iwasaki",
+  "species_ja": "イワサキクサゼミ",
+  "scientific_name": "Mogannia minuta",
+  "credit_line": "Wikimedia Commons",
+  "creator": "self",
+  "fetched_date": "2026-06-22",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mogannia minuta.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mogannia_minuta.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mogannia_minuta.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "self",
+    "eventDate": "2008-05-29",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Mogannia minuta at Iriomote is. Japan.",
+    "localityNormalized": "Mogannia minuta at Iriomote is. Japan.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mogannia_minuta.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Mogannia_minuta.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMoganniaminutajpg_resized.jpg",
+    "display": "processed/WMCFileMoganniaminutajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMoganniaminutajpg_54.webp",
+      "108": "thumb/WMCFileMoganniaminutajpg_108.webp",
+      "216": "thumb/WMCFileMoganniaminutajpg_216.webp"
+    }
+  },
+  "original_sha256": "17710a39119cdade84f63ec284a923f404dec5f2bb0e03a349a4694092a4ac5d",
+  "processing": {
+    "cropBox": [
+      815,
+      687,
+      1858,
+      1722
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMoganniaminutajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
