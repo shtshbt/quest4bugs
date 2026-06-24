@@ -135,25 +135,31 @@
     if(m[id]){delete m[id]; saveLocalProfiles(m);}
   }
   /* age (整数) または birth ("YYYY-MM") から reachTier (0-7) を導出。
-     reachTier = max(0, min(7, age - 6))。 age 不明時は 2 (= 8 歳相当 = 既存 default)。
-     battle.html expGrade(age){if(age==null)age=8;...} と整合させる。 */
+     reachTier = max(0, min(7, age - 6))。
+     T8-1 review fix: age 不明時は null を返す (sentinel = 「未設定」)。
+     reachTier=2 (= age 8) の便宜的 default は使わない。 理由: 元の battle.html は
+     関数ごとに null age の扱いが不一致 (expGrade/expField は age=8 に coerce、
+     calcCourse は age<=7 と判定して "k5" に落ちる)。 reachTier=2 で代用すると
+     calcCourse が "k10" になり、 birth 未設定の幼児が受験コースに不本意に解禁
+     される regression。 reachTier 欠落 = battle 側で元の null-age fallback chain
+     をそのまま使う。 */
   function ageToReachTier(age){
-    if(age==null||isNaN(age))return 2;
+    if(age==null||isNaN(age))return null;
     return Math.max(0, Math.min(7, Math.floor(age) - 6));
   }
   function birthToReachTier(birth){
-    if(!birth)return 2;
+    if(!birth)return null;
     var p=String(birth).split("-"), by=+p[0], bm=+p[1]||1;
-    if(!by||isNaN(by))return 2;
+    if(!by||isNaN(by))return null;
     var d=new Date(), cy=d.getFullYear(), cm=d.getMonth()+1;
     var age=cy-by-(cm<bm?1:0);
     return ageToReachTier(age);
   }
   function reachTierFromMeta(meta){
-    if(!meta)return 2;
+    if(!meta)return null;
     if(meta.birth)return birthToReachTier(meta.birth);
     if(meta.lastBdayAge!=null)return ageToReachTier(meta.lastBdayAge);
-    return 2;
+    return null;
   }
 
   /* ---------------- canonical store ---------------- */
@@ -269,15 +275,22 @@
         if("name" in p){delete p.name; changed=true;}
         if("birth" in p){delete p.birth; changed=true;}
         if("lastBdayAge" in p){delete p.lastBdayAge; changed=true;}
-        /* reachTier: local meta から再計算 (birth/lastBdayAge があれば)、
-           無ければ既存 cloud 値を尊重、 それも無ければ default 2。 */
+        /* T8-1 review fix: reachTier 既定値の便宜的 2 を入れない。
+           - local meta に age 情報あり: 再計算 (新値を採用)
+           - local meta に無く、 cloud 由来の reachTier がある: そのまま尊重
+             (別端末で birth を入れた user の派生値を保つ)
+           - どこにも age 情報が無い: reachTier 欠落のまま (battle が null-age
+             fallback chain を発動、 元の挙動 = calcCourse k5 等を維持)。 */
         var localMeta=local[p.id]||{};
         if(localMeta.birth||localMeta.lastBdayAge!=null){
           var newTier=reachTierFromMeta(localMeta);
-          if(p.reachTier!==newTier){p.reachTier=newTier; changed=true;}
-        }else if(typeof p.reachTier!=="number"){
-          p.reachTier=2; changed=true;
+          if(newTier==null){
+            if("reachTier" in p){delete p.reachTier; changed=true;}
+          }else if(p.reachTier!==newTier){
+            p.reachTier=newTier; changed=true;
+          }
         }
+        /* else: 既存 reachTier (cloud 由来) を尊重、 無ければ未設定のまま */
         /* T8-1: stable slot — 削除・追加で番号が動くのを防ぐため、 profile に slot
            番号を永続的に割当てる。 既に slot があればそのまま、 無ければ後段で
            assignStableSlots() が割当てる。 */
@@ -890,7 +903,11 @@
     var store=loadStore();
     var id="p"+now().toString(36)+Math.floor(Math.random()*999);
     var slot=_nextStableSlot(store);
-    var p={id:id, icon:icon||"🪲", created:now(), updated:now(), reachTier:2, slot:slot};
+    /* T8-1 review fix: reachTier は birth が入った時点で updateProfile が確定する。
+       新規 profile では omit (sentinel = 未設定 = battle 側で元の null-age fallback)。
+       便宜的 default 2 を入れると calcCourse が "k10" に化けて未就学児が
+       受験コースに解禁される regression を起こすため。 */
+    var p={id:id, icon:icon||"🪲", created:now(), updated:now(), slot:slot};
     store.profiles.push(p);
     store.current=id;
     if(name!=null && String(name).length){
@@ -914,9 +931,16 @@
         if(fields.lastBdayAge!=null)localPatch.lastBdayAge=fields.lastBdayAge;
         if(Object.keys(localPatch).length)setLocalProfileMeta(id, localPatch);
         if(fields.icon!=null)p.icon=fields.icon;
-        /* reachTier は local meta から再計算 (birth or lastBdayAge があれば、 なければ 2) */
+        /* T8-1 review fix: reachTier は local meta に age 情報があれば再計算、
+           無ければ field 自体を削除 (sentinel = 未設定)。 「null age = 別端末で
+           battle の元 fallback を発動」 を保つ。 */
         var meta=getLocalProfileMeta(id);
-        p.reachTier=reachTierFromMeta(meta);
+        var tier=reachTierFromMeta(meta);
+        if(tier==null){
+          if("reachTier" in p) delete p.reachTier;
+        }else{
+          p.reachTier=tier;
+        }
         p.updated=now();
         persist();
         schedulePushRegistry();
@@ -973,7 +997,8 @@
       slotLabel: slot,
       birth: meta.birth||null,
       lastBdayAge: (meta.lastBdayAge!=null)?meta.lastBdayAge:null,
-      reachTier: (typeof p.reachTier==="number")?p.reachTier:2,
+      /* T8-1 review fix: 未設定は null sentinel として返す (caller が判定可)。 */
+      reachTier: (typeof p.reachTier==="number")?p.reachTier:null,
       created: p.created||0,
       updated: p.updated||0
     };
