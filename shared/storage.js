@@ -179,8 +179,10 @@
   }
   /* T8-1: 起動時に migrate で PII を移動した場合、 cloud HEAD の旧 snapshot を
      新フォーマットに置き換える one-time push が必要。 init flow の末尾で参照する。
-     一度 cloud に sanitized snapshot が乗ったら true 固定 (T8_PUSHED_KEY)。 */
-  var T8_PUSHED_KEY="q4b_t8_cloud_sanitized_v1";
+     一度 cloud に sanitized snapshot が乗ったら true 固定 (T8_PUSHED_KEY)。
+     T8-1b: v1 は _book.data.profiles[] の sanitize を保証しないため v2 へ upgrade。
+     v1 が立っていても v2 が未設定なら、 起動時に再 push を trigger する。 */
+  var T8_PUSHED_KEY="q4b_t8_cloud_sanitized_v2";
   var __postMigrationPushNeeded=false;
   function loadStore(){
     if(mem)return mem;
@@ -224,6 +226,9 @@
      Phase 2 が失敗 (quota 等) したら Phase 3 はスキップ — registry 側に PII が
      残るが、 名前を失うよりは「次回 push 時の sanitizer (二重防御) に任せる」
      方が安全。 */
+  /* T8-1b: keisan の global key (legacy migration の起源) で PII を含む profiles[] が
+     残っている可能性のある kv key の一覧。 同名構造を cloud から pull した時の防御。 */
+  var BOOK_LEGACY_KEYS=["keisan"+SEP+"_book","keisan"+SEP+"_legacy"];
   function migrateProfilesPiiToLocal(store){
     if(!store||!Array.isArray(store.profiles))return false;
     var local=loadLocalProfiles(), localChanged=false, hasPii=false;
@@ -255,6 +260,42 @@
         local[p.id]=meta;
         localChanged=true;
       }
+    });
+    /* T8-1b Phase 1b: store.kv の keisan/_book と keisan/_legacy 内の旧 profiles[] からも
+       PII を吸収。 cloud HEAD に残る旧 schema を pull した端末で sanitize 効力を持たせる。 */
+    BOOK_LEGACY_KEYS.forEach(function(bkey){
+      var entry=store.kv&&store.kv[bkey];
+      if(!entry||typeof entry!=="object")return;
+      var d=entry.data;
+      if(!d||typeof d!=="object"||!Array.isArray(d.profiles))return;
+      d.profiles.forEach(function(p){
+        if(!p||!p.id)return;
+        var meta=local[p.id]||{};
+        var changedHere=false;
+        if(p.name!=null){
+          hasPii=true;
+          if(meta.name==null||(p.updated||0)>=(meta.updated||0)){
+            meta.name=String(p.name); changedHere=true;
+          }
+        }
+        if(p.birth!=null){
+          hasPii=true;
+          if(meta.birth==null||(p.updated||0)>=(meta.updated||0)){
+            meta.birth=String(p.birth); changedHere=true;
+          }
+        }
+        if(p.lastBdayAge!=null){
+          hasPii=true;
+          if(meta.lastBdayAge==null||(p.updated||0)>=(meta.updated||0)){
+            meta.lastBdayAge=p.lastBdayAge; changedHere=true;
+          }
+        }
+        if(changedHere){
+          meta.updated=Math.max(meta.updated||0, p.updated||0);
+          local[p.id]=meta;
+          localChanged=true;
+        }
+      });
     });
     /* Phase 2: localStorage 書込み (失敗ならログを残して Phase 3 を skip) */
     var saveOk=true;
@@ -300,6 +341,20 @@
       store.profiles.forEach(function(p){ if(typeof p.slot==="number"&&p.slot>maxSlot)maxSlot=p.slot; });
       store.profiles.slice().sort(function(a,b){return (a.created||0)-(b.created||0);}).forEach(function(p){
         if(typeof p.slot!=="number"){p.slot=++maxSlot; changed=true;}
+      });
+      /* T8-1b Phase 3b: store.kv 内の _book/_legacy.profiles[] からも in-memory PII を
+         strip。 local 保存成功時のみ実施。 次回 persist() で localStorage も clean に。 */
+      BOOK_LEGACY_KEYS.forEach(function(bkey){
+        var entry=store.kv&&store.kv[bkey];
+        if(!entry||typeof entry!=="object")return;
+        var d=entry.data;
+        if(!d||typeof d!=="object"||!Array.isArray(d.profiles))return;
+        d.profiles.forEach(function(p){
+          if(!p)return;
+          if("name" in p){delete p.name; changed=true;}
+          if("birth" in p){delete p.birth; changed=true;}
+          if("lastBdayAge" in p){delete p.lastBdayAge; changed=true;}
+        });
       });
     }
     /* hasPii && saveOk && !changed の組み合わせは「local が既に最新で何も更新不要」。
@@ -489,25 +544,41 @@
   }
   function sanitizeKvForCloud(kv){
     if(!kv||typeof kv!=="object")return kv;
-    var out={}, k, entry, ns, data, cleaned;
+    var out={}, k, entry, ns, data, cleaned, modified;
     for(k in kv){
       entry=kv[k];
       if(!entry||typeof entry!=="object"){out[k]=entry; continue;}
       ns=k.split(SEP)[0];
-      /* keisan の DB.profiles 形式 (= {id,name,type,...}) が data に入っているなら
-         name を strip。 ほかの namespace は対象 PII が無い想定だが、 念のため
-         name フィールドが trivially 出現したら同様に strip。 */
       data=entry.data;
-      if(data&&typeof data==="object"&&("name" in data)){
+      modified=false;
+      /* T8-1b: keisan の _book / _legacy 等 global key に旧 schema の profiles[]
+         配列が残る場合、 各要素 (= 旧 DB.profiles 形式) から name/birth/lastBdayAge
+         を構造的に strip。 教材データ等の正当な name は対象外 (.profiles[].name 限定)。 */
+      if(ns==="keisan" && data && typeof data==="object" && Array.isArray(data.profiles)){
+        var scrubbed=data.profiles.map(function(p){
+          if(!p||typeof p!=="object") return p;
+          var c={}, hadPii=false;
+          Object.keys(p).forEach(function(pk){
+            if(pk==="name"||pk==="birth"||pk==="lastBdayAge"){ hadPii=true; return; }
+            c[pk]=p[pk];
+          });
+          if(hadPii) modified=true;
+          return c;
+        });
+        data=Object.assign({}, data, {profiles:scrubbed});
+      }
+      /* 既存挙動: data 直下の name/birth/lastBdayAge を strip (keisan DB.profiles 形式が
+         per-profile kv に直接入っているケース等の defense in depth)。 */
+      if(data&&typeof data==="object"&&("name" in data||"birth" in data||"lastBdayAge" in data)){
         cleaned={};
         Object.keys(data).forEach(function(dk){
           if(dk==="name"||dk==="birth"||dk==="lastBdayAge")return;
           cleaned[dk]=data[dk];
         });
-        out[k]=Object.assign({}, entry, {data:cleaned});
-      }else{
-        out[k]=entry;
+        data=cleaned;
+        modified=true;
       }
+      out[k]=modified?Object.assign({}, entry, {data:data}):entry;
     }
     return out;
   }
