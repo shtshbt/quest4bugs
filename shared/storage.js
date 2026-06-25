@@ -20,11 +20,6 @@
   var LEGACY_KEYS=["q4b_keisan_v1"];
   var SEP="\u0000";
   var SCHEMA="quest4bugs.fieldnote.v2";
-  /* T8-1: PII (name / birth / lastBdayAge) は cloud に出さない。 端末ローカル限定の
-     別 key に保存し、 cloud 同期対象から完全分離する。 schema: {[pid]: {name,birth,
-     lastBdayAge,updated}}。 cloud snapshot には派生値 reachTier だけを registry に
-     持たせ、 別端末でも年齢ベース解禁 (battle.html computeReach 等) が動くように。 */
-  var LOCAL_PROFILES_KEY="q4b_local_profiles_v1";
 
   var DEFAULT_CONFIG={
     owner:"shtshbt",
@@ -97,71 +92,6 @@
       pad2(d.getHours())+":"+pad2(d.getMinutes())+":"+pad2(d.getSeconds());
   }
 
-  /* ---------------- T8-1: local-only PII store ----------------
-     name / birth / lastBdayAge は cloud に出さず、 localStorage 専用 key で保管する。
-     registry (store.profiles) には id / icon / created / updated / reachTier のみ残す。
-     reachTier (= 0-7) は battle.html の年齢ベース解禁 (computeReach 等) を別端末でも
-     動かすための派生値。 expGrade = reachTier+1, calcCourse = (tier<=1?"k5":"k10"),
-     expField は連続値だが派生は battle 側 helper で表引き。 */
-  function loadLocalProfiles(){
-    var raw=safeGet(LOCAL_PROFILES_KEY,null);
-    if(!raw)return {};
-    try{var d=JSON.parse(raw); return (d&&typeof d==="object")?d:{};}catch(_){return {};}
-  }
-  function saveLocalProfiles(m){
-    safeSet(LOCAL_PROFILES_KEY, JSON.stringify(m||{}));
-  }
-  function getLocalProfileMeta(id){
-    if(!id)return null;
-    var m=loadLocalProfiles();
-    return m[id]||null;
-  }
-  function setLocalProfileMeta(id,fields){
-    if(!id)return null;
-    var m=loadLocalProfiles();
-    var meta=m[id]||{};
-    fields=fields||{};
-    if(fields.name!=null)meta.name=String(fields.name);
-    if(fields.birth!=null)meta.birth=String(fields.birth);
-    if(fields.lastBdayAge!=null)meta.lastBdayAge=fields.lastBdayAge;
-    meta.updated=now();
-    m[id]=meta;
-    saveLocalProfiles(m);
-    return meta;
-  }
-  function removeLocalProfileMeta(id){
-    if(!id)return;
-    var m=loadLocalProfiles();
-    if(m[id]){delete m[id]; saveLocalProfiles(m);}
-  }
-  /* age (整数) または birth ("YYYY-MM") から reachTier (0-7) を導出。
-     reachTier = max(0, min(7, age - 6))。
-     T8-1 review fix: age 不明時は null を返す (sentinel = 「未設定」)。
-     reachTier=2 (= age 8) の便宜的 default は使わない。 理由: 元の battle.html は
-     関数ごとに null age の扱いが不一致 (expGrade/expField は age=8 に coerce、
-     calcCourse は age<=7 と判定して "k5" に落ちる)。 reachTier=2 で代用すると
-     calcCourse が "k10" になり、 birth 未設定の幼児が受験コースに不本意に解禁
-     される regression。 reachTier 欠落 = battle 側で元の null-age fallback chain
-     をそのまま使う。 */
-  function ageToReachTier(age){
-    if(age==null||isNaN(age))return null;
-    return Math.max(0, Math.min(7, Math.floor(age) - 6));
-  }
-  function birthToReachTier(birth){
-    if(!birth)return null;
-    var p=String(birth).split("-"), by=+p[0], bm=+p[1]||1;
-    if(!by||isNaN(by))return null;
-    var d=new Date(), cy=d.getFullYear(), cm=d.getMonth()+1;
-    var age=cy-by-(cm<bm?1:0);
-    return ageToReachTier(age);
-  }
-  function reachTierFromMeta(meta){
-    if(!meta)return null;
-    if(meta.birth)return birthToReachTier(meta.birth);
-    if(meta.lastBdayAge!=null)return ageToReachTier(meta.lastBdayAge);
-    return null;
-  }
-
   /* ---------------- canonical store ---------------- */
   function blankStore(){return {v:2, profiles:[], current:null, kv:{}, tombstones:{}};}
   function migrateLegacy(store){
@@ -177,13 +107,6 @@
       store.kv[gameId+SEP+"_legacy"]={v:1,updated:now(),data:parsed};
     }
   }
-  /* T8-1: 起動時に migrate で PII を移動した場合、 cloud HEAD の旧 snapshot を
-     新フォーマットに置き換える one-time push が必要。 init flow の末尾で参照する。
-     一度 cloud に sanitized snapshot が乗ったら true 固定 (T8_PUSHED_KEY)。
-     T8-1b: v1 は _book.data.profiles[] の sanitize を保証しないため v2 へ upgrade。
-     v1 が立っていても v2 が未設定なら、 起動時に再 push を trigger する。 */
-  var T8_PUSHED_KEY="q4b_t8_cloud_sanitized_v2";
-  var __postMigrationPushNeeded=false;
   function loadStore(){
     if(mem)return mem;
     var raw=safeGet(STORE_KEY,null), d=null;
@@ -195,175 +118,7 @@
     if(typeof mem.current==="undefined")mem.current=null;
     mem.v=2;
     migrateLegacy(mem);
-    /* T8-1: PII を local_profiles に移送 (旧端末からの残存・remote injection 対応)。
-       mem を変更したら直ちに localStorage 同期して 次回 load の重複 migrate を回避。
-       かつ「cloud HEAD 旧 PII を sanitized 版で置き換える one-time push」 を予約。 */
-    var migrateChanged = migrateProfilesPiiToLocal(mem);
-    if(migrateChanged){
-      try{ safeSet(STORE_KEY, JSON.stringify(mem)); }catch(_){}
-    }
-    /* one-time push: PII を 1 度でも見つけた、 もしくは過去に migrate flag 未設定。
-       永続 marker (T8_PUSHED_KEY) が "1" の場合のみ skip。 cloud disable 中は
-       見送って、 enable された時点で再評価。 */
-    if(safeGet(T8_PUSHED_KEY, null) !== "1"){
-      __postMigrationPushNeeded = true;
-    }
     return mem;
-  }
-  function _markT8CloudSanitized(){
-    try{ safeSet(T8_PUSHED_KEY, "1"); }catch(_){}
-    __postMigrationPushNeeded = false;
-  }
-  /* T8-1: 既存 store.profiles に残っている name/birth/lastBdayAge を local_profiles に
-     移送し、 registry からは削除する。 idempotent (毎 load で安全に呼べる)。
-     - remote から取り込んだ PII (旧端末が push したもの) もここで吸収できる。
-     - registry に reachTier を確定して入れる (別端末で battle が動くため)。
-
-     書込み順序 (atomicity 保証):
-       Phase 1: local_profiles map に PII をコピー (in-memory)
-       Phase 2: localStorage に local_profiles を書込み (= 永続化を確認)
-       Phase 3: 成功した場合のみ registry から PII を削除 + reachTier 確定
-     Phase 2 が失敗 (quota 等) したら Phase 3 はスキップ — registry 側に PII が
-     残るが、 名前を失うよりは「次回 push 時の sanitizer (二重防御) に任せる」
-     方が安全。 */
-  /* T8-1b: keisan の global key (legacy migration の起源) で PII を含む profiles[] が
-     残っている可能性のある kv key の一覧。 同名構造を cloud から pull した時の防御。 */
-  var BOOK_LEGACY_KEYS=["keisan"+SEP+"_book","keisan"+SEP+"_legacy"];
-  function migrateProfilesPiiToLocal(store){
-    if(!store||!Array.isArray(store.profiles))return false;
-    var local=loadLocalProfiles(), localChanged=false, hasPii=false;
-    /* Phase 1: local map に PII を merge (registry は触らない) */
-    store.profiles.forEach(function(p){
-      if(!p||!p.id)return;
-      var meta=local[p.id]||{};
-      var changedHere=false;
-      if(p.name!=null){
-        hasPii=true;
-        if(meta.name==null||(p.updated||0)>=(meta.updated||0)){
-          meta.name=String(p.name); changedHere=true;
-        }
-      }
-      if(p.birth!=null){
-        hasPii=true;
-        if(meta.birth==null||(p.updated||0)>=(meta.updated||0)){
-          meta.birth=String(p.birth); changedHere=true;
-        }
-      }
-      if(p.lastBdayAge!=null){
-        hasPii=true;
-        if(meta.lastBdayAge==null||(p.updated||0)>=(meta.updated||0)){
-          meta.lastBdayAge=p.lastBdayAge; changedHere=true;
-        }
-      }
-      if(changedHere){
-        meta.updated=Math.max(meta.updated||0, p.updated||0);
-        local[p.id]=meta;
-        localChanged=true;
-      }
-    });
-    /* T8-1b Phase 1b: store.kv の keisan/_book と keisan/_legacy 内の旧 profiles[] からも
-       PII を吸収。 cloud HEAD に残る旧 schema を pull した端末で sanitize 効力を持たせる。 */
-    BOOK_LEGACY_KEYS.forEach(function(bkey){
-      var entry=store.kv&&store.kv[bkey];
-      if(!entry||typeof entry!=="object")return;
-      var d=entry.data;
-      if(!d||typeof d!=="object"||!Array.isArray(d.profiles))return;
-      d.profiles.forEach(function(p){
-        if(!p||!p.id)return;
-        var meta=local[p.id]||{};
-        var changedHere=false;
-        if(p.name!=null){
-          hasPii=true;
-          if(meta.name==null||(p.updated||0)>=(meta.updated||0)){
-            meta.name=String(p.name); changedHere=true;
-          }
-        }
-        if(p.birth!=null){
-          hasPii=true;
-          if(meta.birth==null||(p.updated||0)>=(meta.updated||0)){
-            meta.birth=String(p.birth); changedHere=true;
-          }
-        }
-        if(p.lastBdayAge!=null){
-          hasPii=true;
-          if(meta.lastBdayAge==null||(p.updated||0)>=(meta.updated||0)){
-            meta.lastBdayAge=p.lastBdayAge; changedHere=true;
-          }
-        }
-        if(changedHere){
-          meta.updated=Math.max(meta.updated||0, p.updated||0);
-          local[p.id]=meta;
-          localChanged=true;
-        }
-      });
-    });
-    /* Phase 2: localStorage 書込み (失敗ならログを残して Phase 3 を skip) */
-    var saveOk=true;
-    if(localChanged){
-      try{
-        var ok=safeSet(LOCAL_PROFILES_KEY, JSON.stringify(local));
-        if(!ok){
-          saveOk=false;
-          try{ if(typeof console!=="undefined") console.warn("[Q4BStorage T8-1] local_profiles save failed; keeping PII in registry (sanitizer will redact on push)."); }catch(_){}
-        }
-      }catch(_){ saveOk=false; }
-    }
-    var changed=false;
-    /* Phase 3: local 保存に成功した時のみ registry を strip + reachTier 確定 */
-    if(saveOk){
-      store.profiles.forEach(function(p){
-        if(!p||!p.id)return;
-        if("name" in p){delete p.name; changed=true;}
-        if("birth" in p){delete p.birth; changed=true;}
-        if("lastBdayAge" in p){delete p.lastBdayAge; changed=true;}
-        /* T8-1 review fix: reachTier 既定値の便宜的 2 を入れない。
-           - local meta に age 情報あり: 再計算 (新値を採用)
-           - local meta に無く、 cloud 由来の reachTier がある: そのまま尊重
-             (別端末で birth を入れた user の派生値を保つ)
-           - どこにも age 情報が無い: reachTier 欠落のまま (battle が null-age
-             fallback chain を発動、 元の挙動 = calcCourse k5 等を維持)。 */
-        var localMeta=local[p.id]||{};
-        if(localMeta.birth||localMeta.lastBdayAge!=null){
-          var newTier=reachTierFromMeta(localMeta);
-          if(newTier==null){
-            if("reachTier" in p){delete p.reachTier; changed=true;}
-          }else if(p.reachTier!==newTier){
-            p.reachTier=newTier; changed=true;
-          }
-        }
-        /* else: 既存 reachTier (cloud 由来) を尊重、 無ければ未設定のまま */
-        /* T8-1: stable slot — 削除・追加で番号が動くのを防ぐため、 profile に slot
-           番号を永続的に割当てる。 既に slot があればそのまま、 無ければ後段で
-           assignStableSlots() が割当てる。 */
-      });
-      /* slot 番号の安定化 (sorted-created ベースで欠番補完なし = 名簿は単調増加) */
-      var maxSlot=0;
-      store.profiles.forEach(function(p){ if(typeof p.slot==="number"&&p.slot>maxSlot)maxSlot=p.slot; });
-      store.profiles.slice().sort(function(a,b){return (a.created||0)-(b.created||0);}).forEach(function(p){
-        if(typeof p.slot!=="number"){p.slot=++maxSlot; changed=true;}
-      });
-      /* T8-1b Phase 3b: store.kv 内の _book/_legacy.profiles[] からも in-memory PII を
-         strip。 local 保存成功時のみ実施。 次回 persist() で localStorage も clean に。 */
-      BOOK_LEGACY_KEYS.forEach(function(bkey){
-        var entry=store.kv&&store.kv[bkey];
-        if(!entry||typeof entry!=="object")return;
-        var d=entry.data;
-        if(!d||typeof d!=="object"||!Array.isArray(d.profiles))return;
-        d.profiles.forEach(function(p){
-          if(!p)return;
-          if("name" in p){delete p.name; changed=true;}
-          if("birth" in p){delete p.birth; changed=true;}
-          if("lastBdayAge" in p){delete p.lastBdayAge; changed=true;}
-        });
-      });
-    }
-    /* hasPii && saveOk && !changed の組み合わせは「local が既に最新で何も更新不要」。
-       hasPii && !saveOk は「local 書込み失敗で registry も触れず」。
-       caller は hasPii を見て「PII を見つけた→次の push でクラウドも sanitize」 を
-       決められるよう、 changed か否かに加えて hasPii も返したいが、 旧 API 互換のため
-       changed (= 何か modify した) を返す。 hasPii のみ true で changed false の
-       状況は実用上稀なので OK。 */
-    return changed || hasPii;
   }
   /* localStorage への永続化。 setItem 失敗 (quota / privatemode 等) を黙殺すると
      画面上は正常でも、 リロード後にすべて消える状態が起きる。 ok を返し、 連続失敗時
@@ -457,11 +212,6 @@
     safeSet(CONFIG_KEY,JSON.stringify(next));
     /* PA-1: 設定保存だけでは「同期成功」 ではないので dirty に */
     setStatus(next.enabled ? "dirty" : "local");
-    /* T8-1: cloud を有効化したタイミングで、 過去 migrate 済 PII を 1 度 push する。
-       初回起動時に cloud 未設定で migration が走った user に対する safety net。 */
-    if(next.enabled && __postMigrationPushNeeded){
-      schedulePush();
-    }
     return next;
   }
   function clearConfig(){safeRemove(CONFIG_KEY);setStatus("local");}
@@ -526,67 +276,9 @@
      全データを1ファイル q4b/save.json に丸ごと保存する。多数の小ファイルを
      個別PUTしていた旧方式は同時書き込みのSHA競合(409)で不安定だったため、
      「GET 1回 + PUT 1回」に集約し、衝突時はリモートを取り直してマージ→再PUTする。 */
-  /* T8-1: cloud に出す JSON から PII を最終防衛で除去する。
-     - profiles[]: name/birth/lastBdayAge を omit、 reachTier (派生値) のみ追加
-     - kv: keisan/<pid> data に潜む name の secondary copy も redact (二重防御)
-     旧端末や bug 経路で PII が store.profiles に乗っても、 ここで止血する。 */
-  function sanitizeProfilesForCloud(profiles){
-    if(!Array.isArray(profiles))return [];
-    return profiles.map(function(p){
-      if(!p||typeof p!=="object")return p;
-      var out={};
-      Object.keys(p).forEach(function(k){
-        if(k==="name"||k==="birth"||k==="lastBdayAge")return;
-        out[k]=p[k];
-      });
-      return out;
-    });
-  }
-  function sanitizeKvForCloud(kv){
-    if(!kv||typeof kv!=="object")return kv;
-    var out={}, k, entry, ns, data, cleaned, modified;
-    for(k in kv){
-      entry=kv[k];
-      if(!entry||typeof entry!=="object"){out[k]=entry; continue;}
-      ns=k.split(SEP)[0];
-      data=entry.data;
-      modified=false;
-      /* T8-1b: keisan の _book / _legacy 等 global key に旧 schema の profiles[]
-         配列が残る場合、 各要素 (= 旧 DB.profiles 形式) から name/birth/lastBdayAge
-         を構造的に strip。 教材データ等の正当な name は対象外 (.profiles[].name 限定)。 */
-      if(ns==="keisan" && data && typeof data==="object" && Array.isArray(data.profiles)){
-        var scrubbed=data.profiles.map(function(p){
-          if(!p||typeof p!=="object") return p;
-          var c={}, hadPii=false;
-          Object.keys(p).forEach(function(pk){
-            if(pk==="name"||pk==="birth"||pk==="lastBdayAge"){ hadPii=true; return; }
-            c[pk]=p[pk];
-          });
-          if(hadPii) modified=true;
-          return c;
-        });
-        data=Object.assign({}, data, {profiles:scrubbed});
-      }
-      /* 既存挙動: data 直下の name/birth/lastBdayAge を strip (keisan DB.profiles 形式が
-         per-profile kv に直接入っているケース等の defense in depth)。 */
-      if(data&&typeof data==="object"&&("name" in data||"birth" in data||"lastBdayAge" in data)){
-        cleaned={};
-        Object.keys(data).forEach(function(dk){
-          if(dk==="name"||dk==="birth"||dk==="lastBdayAge")return;
-          cleaned[dk]=data[dk];
-        });
-        data=cleaned;
-        modified=true;
-      }
-      out[k]=modified?Object.assign({}, entry, {data:data}):entry;
-    }
-    return out;
-  }
   function snapshotDoc(store){
     return JSON.stringify({schema:SCHEMA,kind:"snapshot",savedAt:stamp(),v:2,
-      profiles:sanitizeProfilesForCloud(store.profiles),
-      current:store.current,
-      kv:sanitizeKvForCloud(store.kv),
+      profiles:store.profiles,current:store.current,kv:store.kv,
       tombstones:store.tombstones||{}},null,2);
   }
   /* remote(あれば) を local にマージ。 profiles=LWW+tombstone、 kv は CAS namespace
@@ -626,10 +318,6 @@
     // 削除済みプロフィールの kv を掃除（リモートから再流入した分も含む）
     var alive={}; store.profiles.forEach(function(pp){alive[pp.id]=1;});
     for(k in store.kv){ var pid=k.split(SEP)[1]; if(store.tombstones&&store.tombstones[pid]&&!alive[pid])delete store.kv[k]; }
-    /* T8-1: remote から取り込んだ profile に PII が含まれていたら local_profiles に
-       移送して registry からは削除する。 旧端末が push し続けていても、 新端末側で
-       吸収して以後の push は sanitize される (defense in depth)。 */
-    migrateProfilesPiiToLocal(store);
   }
   /* 1ファイルを丸ごとPUT。毎回リモートを取り直してマージし、sha付きで上書き。
      409/422(sha競合)はマージし直して数回リトライ。複数端末でも進捗を壊さない。 */
@@ -937,9 +625,6 @@
   function saveProfiles(list){
     var store=loadStore();
     store.profiles=Array.isArray(list)?deepClone(list):[];
-    /* T8-1: caller が誤って name/birth を含む list を渡した場合に備え、
-       PII を local_profiles に移送して registry からは削除する。 */
-    migrateProfilesPiiToLocal(store);
     persist();
     schedulePushRegistry();
     return Promise.resolve(true);
@@ -951,67 +636,28 @@
     persist();
     schedulePushRegistry();
   }
-  /* T8-1: registry には id/icon/created/updated/reachTier/slot のみ書く。
-     name は localStorage 別 key (local_profiles) に分離して cloud に出さない。
-     reachTier は default 2 (= 8 歳相当)、 birth が後で入れば updateProfile で再計算。
-     slot は単調増加 (削除しても recycle しない)。 「プレイヤー1」 等の fallback ラベルの
-     stable identity を保証する。 */
-  function _nextStableSlot(store){
-    /* tombstones にも slot を覚えておく必要は無い (削除済 ID の番号は復活させない)。
-       現存と過去最大を比較して +1。 過去最大は profile.slot 自体 + tombstones には
-       slot を残せないので、 既存 profiles の slot 中の max + 削除済との関係は
-       「tombstoneCount + aliveMaxSlot」 で近似可能だが、 単純化のため alive のみで
-       max+1 を採用。 削除→新規追加で 番号が tail に進む単調性は維持される。 */
-    var max=0;
-    store.profiles.forEach(function(p){if(typeof p.slot==="number"&&p.slot>max)max=p.slot;});
-    /* tombstones の数だけ余裕を取ると、 削除した分が必ず新規より大きい番号に。 */
-    if(store.tombstones){
-      max=Math.max(max, Object.keys(store.tombstones).length);
-    }
-    return max+1;
-  }
   function addProfile(name,icon){
     var store=loadStore();
-    var id="p"+now().toString(36)+Math.floor(Math.random()*999);
-    var slot=_nextStableSlot(store);
-    /* T8-1 review fix: reachTier は birth が入った時点で updateProfile が確定する。
-       新規 profile では omit (sentinel = 未設定 = battle 側で元の null-age fallback)。
-       便宜的 default 2 を入れると calcCourse が "k10" に化けて未就学児が
-       受験コースに解禁される regression を起こすため。 */
-    var p={id:id, icon:icon||"🪲", created:now(), updated:now(), slot:slot};
+    var p={id:"p"+now().toString(36)+Math.floor(Math.random()*999),
+      name:String(name||"なまえ"),icon:icon||"🪲",created:now(),updated:now()};
     store.profiles.push(p);
-    store.current=id;
-    if(name!=null && String(name).length){
-      setLocalProfileMeta(id, {name:String(name)});
-    }
+    store.current=p.id;
     persist();
     schedulePushRegistry();
     return p;
   }
-  /* T8-1: name/birth/lastBdayAge は local_profiles に、 icon/reachTier は registry に。
-     birth が更新されたら reachTier を再計算して registry にも反映する。 */
+  /* name/icon の編集。updated を進めて端末間 last-write-wins を効かせる。 */
   function updateProfile(id,fields){
     var store=loadStore(), i, p;
     fields=fields||{};
     for(i=0;i<store.profiles.length;i++){
       if(store.profiles[i].id===id){
         p=store.profiles[i];
-        var localPatch={};
-        if(fields.name!=null)localPatch.name=String(fields.name);
-        if(fields.birth!=null)localPatch.birth=String(fields.birth);
-        if(fields.lastBdayAge!=null)localPatch.lastBdayAge=fields.lastBdayAge;
-        if(Object.keys(localPatch).length)setLocalProfileMeta(id, localPatch);
+        if(fields.name!=null)p.name=String(fields.name);
         if(fields.icon!=null)p.icon=fields.icon;
-        /* T8-1 review fix: reachTier は local meta に age 情報があれば再計算、
-           無ければ field 自体を削除 (sentinel = 未設定)。 「null age = 別端末で
-           battle の元 fallback を発動」 を保つ。 */
-        var meta=getLocalProfileMeta(id);
-        var tier=reachTierFromMeta(meta);
-        if(tier==null){
-          if("reachTier" in p) delete p.reachTier;
-        }else{
-          p.reachTier=tier;
-        }
+        /* 年齢ベース解禁モデル: 生まれ年月("YYYY-MM")と最後に祝った年齢を保持（全ゲーム共通の真実源） */
+        if(fields.birth!=null)p.birth=String(fields.birth);
+        if(fields.lastBdayAge!=null)p.lastBdayAge=fields.lastBdayAge;
         p.updated=now();
         persist();
         schedulePushRegistry();
@@ -1027,52 +673,8 @@
     store.profiles=store.profiles.filter(function(p){return p.id!==id;});
     if(store.current===id)store.current=store.profiles.length?store.profiles[0].id:null;
     for(var k in store.kv){if(k.split(SEP)[1]===id)delete store.kv[k];}
-    removeLocalProfileMeta(id);  /* T8-1: ローカル PII も合わせて削除 */
     persist();
     schedulePushRegistry();
-  }
-  /* T8-1: 表示用統一 helper。 registry profile に local_profiles を上乗せして
-     {id,icon,name,birth,lastBdayAge,reachTier,slotLabel} を返す。 name が無い時は
-     slotLabel ("プレイヤー1" 等、 registry 内 created 順) を fallback として詰める。 */
-  /* T8-1: 永続 slot (= profile.slot) を優先。 旧データ互換のため slot が未設定なら
-     created 順での index+1 を返す (migrate でやがて埋まる)。 */
-  function _slotLabelFor(store, id){
-    if(!store||!Array.isArray(store.profiles))return "プレイヤー";
-    for(var i=0;i<store.profiles.length;i++){
-      if(store.profiles[i].id===id){
-        if(typeof store.profiles[i].slot==="number")return "プレイヤー"+store.profiles[i].slot;
-        break;
-      }
-    }
-    /* fallback: 旧データ slot 未設定 — created 順で index 計算 */
-    var sorted=store.profiles.slice().sort(function(a,b){return (a.created||0)-(b.created||0);});
-    for(var j=0;j<sorted.length;j++){
-      if(sorted[j].id===id)return "プレイヤー"+(j+1);
-    }
-    return "プレイヤー";
-  }
-  function profileDisplay(id){
-    var store=loadStore();
-    var p=null;
-    for(var i=0;i<store.profiles.length;i++){
-      if(store.profiles[i].id===id){p=store.profiles[i]; break;}
-    }
-    if(!p)return null;
-    var meta=getLocalProfileMeta(id)||{};
-    var slot=_slotLabelFor(store, id);
-    return {
-      id: p.id,
-      icon: p.icon||"🪲",
-      name: meta.name||slot,
-      hasLocalName: !!meta.name,
-      slotLabel: slot,
-      birth: meta.birth||null,
-      lastBdayAge: (meta.lastBdayAge!=null)?meta.lastBdayAge:null,
-      /* T8-1 review fix: 未設定は null sentinel として返す (caller が判定可)。 */
-      reachTier: (typeof p.reachTier==="number")?p.reachTier:null,
-      created: p.created||0,
-      updated: p.updated||0
-    };
   }
 
   /* ---------------- shared 琥珀(amber) wallet（プロフィール単位・全ゲーム共通） ----
@@ -1497,9 +1099,6 @@
     try{
       await pushSnapshot(cfg);
       _markSyncSuccess();
-      /* T8-1: 初の sanitized push が成功したら永続 marker を立てる。 これ以降の
-         起動では migrate が PII を見つけない (= 終わってる) ため再 push は不要。 */
-      _markT8CloudSanitized();
       /* PA-1: drain 中なら status を保持 (pushSnapshot が drain ループを継続) */
       if(localGeneration > pushedGeneration) setStatus("dirty");
       else setStatus("synced");
@@ -1590,26 +1189,12 @@
     }catch(e){setStatus("error");throw e;}
   }
 
-  /* ---------------- export / import (string, token excluded) -------------
-     T8-1: localProfileMeta (name/birth) を同梱する。 PII を含むため caller (UI) で
-     必ず警告を出すこと。 cloud には絶対乗らない経路 (= localStorage 別 key) で
-     管理しているが、 端末移行のためには手動 export しかルートがない。 */
+  /* ---------------- export / import (string, token excluded) ------------- */
   function exportAll(){
     var store=loadStore();
     return JSON.stringify({schema:SCHEMA,exportedAt:new Date().toISOString(),
       profiles:store.profiles,current:store.current,kv:store.kv,
-      tombstones:store.tombstones||{},
-      localProfileMeta:loadLocalProfiles()});
-  }
-  function exportContainsPii(){
-    /* UI 側で warning を出すかの判定。 local_profiles に 1 件でも name/birth が
-       入っていれば true。 */
-    var m=loadLocalProfiles(), k, e;
-    for(k in m){
-      e=m[k];
-      if(e&&(e.name||e.birth||e.lastBdayAge!=null))return true;
-    }
-    return false;
+      tombstones:store.tombstones||{}});
   }
   /* バックアップ取り込み (K-add #5)。
      mode='merge' (既定): LWW で新しい方を採用。 過去バックアップは取り込まれない。
@@ -1657,24 +1242,6 @@
         var val=null; try{val=JSON.parse(obj[k]);}catch(e){val=obj[k];}
         store.kv[gid+SEP+"_legacy"]={v:1,updated:(mode==='restore'?tNow:now()),data:val};n++;
       }
-    }
-    /* T8-1: localProfileMeta も復元する (端末移行用)。 cloud には乗らないので
-       restore モード / merge モードどちらでも localStorage 別 key に直書き。 */
-    if(obj.localProfileMeta && typeof obj.localProfileMeta==="object"){
-      var existing = (mode==='restore') ? {} : loadLocalProfiles();
-      Object.keys(obj.localProfileMeta).forEach(function(pid){
-        var incoming = obj.localProfileMeta[pid];
-        if(!incoming||typeof incoming!=="object")return;
-        var cur = existing[pid] || {};
-        if(mode==='restore' || (incoming.updated||0) >= (cur.updated||0)){
-          existing[pid] = incoming;
-          n++;
-        }
-      });
-      saveLocalProfiles(existing);
-      /* import 後、 registry に PII が残ってないか確認しつつ reachTier を再計算 */
-      migrateProfilesPiiToLocal(store);
-      persist();
     }
     persist();
     if(getConfig().enabled)pushAll().catch(function(){});
@@ -1727,21 +1294,12 @@
   /* ---------------- init ---------------- */
   loadStore();
   /* PA-1: 起動時は同期成功実績で初期 status を決める。 lastSuccess があり 24h 以内
-     なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。
-     T8-1: post-migration push が必要なら必ず dirty + 即 push 予約。 */
+     なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。 */
   (function(){
     if(!getConfig().enabled){ setStatus("local"); return; }
     var m = _readLastSync();
     var fresh = m.lastSuccessAt && (now() - m.lastSuccessAt) < 86400000;
-    /* T8-1: migrate が PII を見つけた / T8 push marker 未設定 → 必ず dirty + 即 push。
-       これにより cloud HEAD の旧 PII を含む snapshot が 起動から数秒以内に
-       sanitized 版で置き換わる (debounce schedulePush 経由)。 */
-    if(__postMigrationPushNeeded){
-      setStatus("dirty");
-      schedulePush();
-    }else{
-      setStatus(fresh ? "synced" : "dirty");
-    }
+    setStatus(fresh ? "synced" : "dirty");
   })();
 
   global.QuestSave={
@@ -1751,14 +1309,6 @@
     profiles:profiles, saveProfiles:saveProfiles,
     currentProfile:currentProfile, setCurrentProfile:setCurrentProfile,
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
-    /* T8-1: 表示用統一 helper + local PII store + 派生値 helper */
-    profileDisplay:profileDisplay,
-    getLocalProfileMeta:getLocalProfileMeta,
-    setLocalProfileMeta:setLocalProfileMeta,
-    removeLocalProfileMeta:removeLocalProfileMeta,
-    ageToReachTier:ageToReachTier, birthToReachTier:birthToReachTier,
-    reachTierFromMeta:reachTierFromMeta,
-    exportContainsPii:exportContainsPii,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,

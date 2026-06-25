@@ -160,26 +160,7 @@ function say(t){
    旧来は全プロフィールを単一 "_book" にまとめていたため、複数端末で別アカウントを触ると
    last-write-wins で他アカウントの進捗が巻き戻る不具合があった。per-profile 化して各々が
    独立したタイムスタンプでマージされるようにする（他ゲーム eitango/kanji/battle と同じ構造）。 */
-/* T8-1: 保存直前に PII (name/birth/lastBdayAge) を 必ず strip。 cloud snapshot 側にも
-   sanitizer はあるが、 ここで構造的に流入を断つ (defense in depth)。 */
-function _stripPiiForKeisan(p){
-  if(!p||typeof p!=="object")return p;
-  if("name" in p) delete p.name;
-  if("birth" in p) delete p.birth;
-  if("lastBdayAge" in p) delete p.lastBdayAge;
-  return p;
-}
-function saveProfile(p){ if(p&&p.id&&window.QuestSave) QuestSave.save("keisan", p.id, _stripPiiForKeisan(p)); }
-/* T8-1: 表示用 name は共有レジストリ + local_profiles を合体した profileDisplay 経由で
-   取得する。 keisan 側に secondary copy しない。 */
-function pname(p){
-  if(!p||!p.id)return "";
-  if(window.QuestSave&&QuestSave.profileDisplay){
-    var d=QuestSave.profileDisplay(p.id);
-    if(d)return d.name||"";
-  }
-  return p.name||"";
-}
+function saveProfile(p){ if(p&&p.id&&window.QuestSave) QuestSave.save("keisan", p.id, p); }
 function saveAll(){ if(window.QuestSave) DB.profiles.forEach(saveProfile); }
 function save(){ saveProfile(P()); }   /* 通常保存＝現在のアカウントのみ（他アカウントのタイムスタンプを動かさない） */
 /* 図鑑詳細モーダルのお気に入りハート: トグル → 保存 → ボタン差し替え。 */
@@ -212,23 +193,23 @@ function reconcile(reg){
   }
   /* registry を権威に: 削除済み(reg に無い)プロフィールは keisan からも除去 */
   DB.profiles=DB.profiles.filter(function(p){ return regById[p.id]; });
-  /* T8-1: 既存 DB.profiles に残る PII (name/birth/lastBdayAge) を strip。 名前の
-     真実源は共有レジストリ + local_profiles で、 keisan 側に複製しない。 */
-  DB.profiles.forEach(_stripPiiForKeisan);
   var keiById={}; for(i=0;i<DB.profiles.length;i++)keiById[DB.profiles[i].id]=DB.profiles[i];
   reg.forEach(function(rp){
     var p = keiById[rp.id];
-    if(!p){
-      p = newProfile(rp.id, null); p.id = rp.id; p.type = null;
+    if(p){
+      /* R3: 名前の真実源は共有レジストリ。 他教科・ポータルで変更された名前を
+         計算側にも反映する。 旧版は新規プロフィールにしか rp.name を使っておらず、
+         既存の p.name が古いままだった。 */
+      if(rp.name && p.name !== rp.name) p.name = rp.name;
+    } else {
+      p = newProfile(rp.name, null); p.id = rp.id; p.type = null;
       DB.profiles.push(p);
     }
   });
   if(migrated&&window.QuestSave)QuestSave.saveProfiles(reg);
 }
-/* T8-1: name は受け取らない (cloud に流れる secondary copy を作らないため)。
-   引数は互換のため残すが内部では使わない。 */
-function newProfile(_unusedName,type){
-  return {id:Date.now()+""+ri(100,999), type:type,
+function newProfile(name,type){
+  return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
     best5:{}, daily:{}, carryMiss:0, recapture:0, lv:{}, kukuIdx:0, kukuClear:{}, kukuHits:0,
     hsLevel:1, hsRun:0, hsMax:1, hkLevel:1, hkRun:0, hkMax:1, hissanInput:"app", speech:(type==="k5"),
@@ -511,7 +492,7 @@ function topBar(backFn,extra){
   var p=P();
   return '<div class="top">'
     +(backFn?'<button class="backbtn" onclick="'+backFn+'">◀ もどる</button>':'')
-    +(p&&!backFn?'<button class="chip" onclick="showProfiles()"><span class="av">'+bugSVG(av(p))+'</span>'+esc(pname(p))+'</button>':'')
+    +(p&&!backFn?'<button class="chip" onclick="showProfiles()"><span class="av">'+bugSVG(av(p))+'</span>'+esc(p.name)+'</button>':'')
     +'<span class="sp"></span>'+(extra||"")+'</div>';
 }
 function kagoChip(){
@@ -533,7 +514,7 @@ function showProfiles(){
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
       +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
-      +'<span>'+esc(pname(p))+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -587,7 +568,7 @@ function selProfile(id){
 /* 他ゲームで作られた（コース未設定の）子が初めて遊ぶときコースを決める */
 function chooseCourse(p){
   render('<div class="scr">'+topBar("showProfiles()")
-    +'<div class="card"><h3>'+esc(pname(p))+' の コース</h3>'
+    +'<div class="card"><h3>'+esc(p.name)+' の コース</h3>'
     +'<button class="btn ghost" onclick="setCourse(\''+p.id+'\',\'k5\')">🐞 ビギナーコース<br><span class="note">たしざん・ひきざんの筆算・九九・あんざん</span></button>'
     +'<button class="btn ghost" onclick="setCourse(\''+p.id+'\',\'k10\')">🪲 受験チャレンジコース<br><span class="note">四則混合・工夫計算・小数・分数</span></button>'
     +'</div></div>');
@@ -1280,7 +1261,7 @@ function showProgress(){
 /* ---------- settings ---------- */
 function showSettings(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
-  h+='<div class="card"><h3>⚙ せってい（'+esc(pname(p))+'）</h3>'
+  h+='<div class="card"><h3>⚙ せってい（'+esc(p.name)+'）</h3>'
     +'<div class="row"><span>なまえ</span><span class="sp"></span><button class="backbtn" onclick="renameP()">変更</button></div>'
     +'<div class="row"><span>コース</span><span class="sp"></span><span class="note" style="margin-right:8px">'+(p.type==="k5"?"ビギナー":"受験チャレンジ")+'</span><button class="backbtn" onclick="chooseCourse(P())">かえる</button></div>';
   if(p.type==="k5"){
@@ -1324,11 +1305,12 @@ function showLevelGuide(){
   render(h);
 }
 function renameP(){
- var p=P(); var n=prompt("あたらしい なまえ", pname(p));
+ var p=P(); var n=prompt("あたらしい なまえ",p.name);
  if(n&&n.trim()){
   var nm=n.trim().slice(0,10);
-  /* T8-1: keisan の DB.profiles に name を書かない。 真実源は QuestSave.updateProfile
-     経由の local_profiles。 表示は pname() helper が profileDisplay 経由で取得する。 */
+  p.name=nm;
+  /* 共有レジストリにも反映 → 他教科・ポータルでも同じ名前に (K19)。
+     QuestSave.updateProfile が p.updated を打つので LWW でも勝つ。 */
   if(window.QuestSave && QuestSave.updateProfile) QuestSave.updateProfile(p.id, {name: nm});
   save(); showSettings();
  }
