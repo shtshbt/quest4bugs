@@ -117,13 +117,22 @@
   function reverseT8MigrationIfPresent(store){
     if(!store||!Array.isArray(store.profiles))return false;
     var raw=safeGet("q4b_local_profiles_v1", null);
-    if(raw===null)return false;
-    var local=null;
-    try{ local=JSON.parse(raw); }catch(_){ local=null; }
-    if(!local||typeof local!=="object"){
-      /* JSON 壊れていれば諦めて key だけ削除 (再試行しても直らない)。 */
-      safeRemove("q4b_local_profiles_v1");
+    if(raw===null){
+      /* local 隔離データが無くても、 T8 marker (v1/v2) は残り得るので掃除のみ実施。 */
       safeRemove("q4b_t8_cloud_sanitized_v1");
+      safeRemove("q4b_t8_cloud_sanitized_v2");
+      return false;
+    }
+    var local=null, parseFailed=false;
+    try{ local=JSON.parse(raw); }catch(e){
+      parseFailed=true;
+      try{ if(typeof console!=="undefined") console.error("[Q4BStorage] T8 reverse migration: failed to parse q4b_local_profiles_v1 — keeping key for retry, no PII restored.", e); }catch(_){}
+    }
+    if(parseFailed||!local||typeof local!=="object"){
+      /* parse 失敗 or 非 object: 唯一の復元元なので key は保持。 次回 load で再試行。
+         T8 marker は別物なので掃除しておく (旧コードは既に消えているため副作用なし)。 */
+      safeRemove("q4b_t8_cloud_sanitized_v1");
+      safeRemove("q4b_t8_cloud_sanitized_v2");
       return false;
     }
     store.profiles.forEach(function(p){
@@ -138,6 +147,7 @@
     if(ok){
       safeRemove("q4b_local_profiles_v1");
       safeRemove("q4b_t8_cloud_sanitized_v1");
+      safeRemove("q4b_t8_cloud_sanitized_v2");
     }
     return ok;
   }
