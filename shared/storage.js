@@ -107,6 +107,40 @@
       store.kv[gameId+SEP+"_legacy"]={v:1,updated:now(),data:parsed};
     }
   }
+  /* T8 reverse migration (one-time, idempotent).
+     T8-1 / T8-1b は name/birth/lastBdayAge を q4b_local_profiles_v1 に隔離して
+     cloud から外した。 これを rewind して store.profiles[] に書き戻す。
+     - 旧 T8 ロジックを既に削除済なので、 local key は二度と書かれない。
+       reverse migration は端末初回 load 時に 1 度走り、 local key を削除する。
+     - 既に registry に name/birth が乗っている profile は cloud 値を優先 (上書きしない)。
+     - 永続化に成功した時のみ local key を削除 (atomicity)。 失敗すれば次回 load で再試行。 */
+  function reverseT8MigrationIfPresent(store){
+    if(!store||!Array.isArray(store.profiles))return false;
+    var raw=safeGet("q4b_local_profiles_v1", null);
+    if(raw===null)return false;
+    var local=null;
+    try{ local=JSON.parse(raw); }catch(_){ local=null; }
+    if(!local||typeof local!=="object"){
+      /* JSON 壊れていれば諦めて key だけ削除 (再試行しても直らない)。 */
+      safeRemove("q4b_local_profiles_v1");
+      safeRemove("q4b_t8_cloud_sanitized_v1");
+      return false;
+    }
+    store.profiles.forEach(function(p){
+      if(!p||!p.id)return;
+      var meta=local[p.id];
+      if(!meta||typeof meta!=="object")return;
+      if(p.name==null && meta.name!=null) p.name=String(meta.name);
+      if(p.birth==null && meta.birth!=null) p.birth=String(meta.birth);
+      if(p.lastBdayAge==null && meta.lastBdayAge!=null) p.lastBdayAge=meta.lastBdayAge;
+    });
+    var ok = safeSet(STORE_KEY, JSON.stringify(store));
+    if(ok){
+      safeRemove("q4b_local_profiles_v1");
+      safeRemove("q4b_t8_cloud_sanitized_v1");
+    }
+    return ok;
+  }
   function loadStore(){
     if(mem)return mem;
     var raw=safeGet(STORE_KEY,null), d=null;
@@ -118,6 +152,7 @@
     if(typeof mem.current==="undefined")mem.current=null;
     mem.v=2;
     migrateLegacy(mem);
+    reverseT8MigrationIfPresent(mem);
     return mem;
   }
   /* localStorage への永続化。 setItem 失敗 (quota / privatemode 等) を黙殺すると
