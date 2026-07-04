@@ -2157,6 +2157,7 @@ function opts4(item){
 
 /* 5-year-old: listen & tap */
 function renderKids(item){
+  S.__locked=false;
   const w=item.w;
   const cards=opts4(item);
   $('#app').innerHTML=header()+`
