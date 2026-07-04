@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v122";  /* v122: PB-2 breeding caller の完全 versioned 移行 — reward.js の breeding adapter を loadVersioned/saveVersioned に対応し __bsCache で {pid, data, revision} を保持、 _ensureBsLoaded/_saveBs を async 化。 breeding 操作 API (layEgg/awardMasterEgg/awardBossEgg/feedEgg/hatchEgg/acceptPendingEgg/promotePendingEgg/demoteEggToPending/discardPendingEgg/abandonEgg/setMasterSex/migrateUnstartedLegacyEggsToPending/autoFinalizeLegacyMasterAll/advanceStage) を Promise 返却に統一。 全 caller (kanji/keisan/eitango/index/battle/boss_zukan) を await 化、 競合時は演出を出さず q4b-breeding-conflict event 経由でモーダル表示 + reload ボタン。 mergeStore に same_revision_divergence 検出を追加。 hatchEgg は breeding 保存成功後に coll.records を追加する 2 phase 設計に。 旧 save() は CAS namespace で warn log (PB-2 完了で動作確認後 throw に格上げ予定)。 */
+var CACHE = "q4b-cache-v123";  /* v123: T8 rewind (PII を cloud snapshot に戻す reverse migration) + 卵入手不能 2 系統の修復 — (1) スロット満杯時に通常産卵が pending (まちの たまご) に回るよう canLayEgg/layEgg を修正 (従来は満杯で産卵自体を拒否) (2) でんせつ(SS)マスター虫のペア性別が入手不能で詰む状態に backfillMissingMasterPairEggs 修復経路を追加 (home boot でチェーン実行) + (3) eitango kids モード (にわ・はらっぱ) の renderKids に連打ロック解除を追加し 2 問目以降 無反応を修正。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
