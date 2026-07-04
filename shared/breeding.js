@@ -249,24 +249,30 @@
 
     /* 空状態の判定 */
     var bs = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : {eggs:[],pendingEggs:[]};
-    var slotFull = bs.eggs.length >= ((r.EGG_SLOT_MAX)||3);
 
     /* 産卵可能種が 0 件: 空状態 3 種に分岐 */
     var bodyHTML;
     if(layable.length === 0){
-      /* (1) ♂♀ なし → 図鑑へ誘導 (2) かけら不足 (3) 全種育成中 のどれか */
-      /* canLayEgg はかけら不足/育成中で false を返すので、もし「♂♀ 揃った種」が存在するなら(2)か(3)、なければ (1) */
-      var hasAnyPair = (r.bugs||[]).some(function(sp){
-        if(!sp || !sp.metamorphosis) return false;
+      /* (1) ♂♀ なし → 図鑑へ誘導 (2) ペア種は全部 そだて中/たまごまち (3) かけら不足。
+         スロット満杯は canLayEgg をブロックしない (まちの たまご に回る) ため分岐から外した。 */
+      var busyIds = {};
+      (bs.eggs||[]).forEach(function(e){ busyIds[e.id]=true; });
+      (bs.pendingEggs||[]).forEach(function(e){ busyIds[e.id]=true; });
+      var hasAnyPair = false, hasFreePair = false;
+      (r.bugs||[]).forEach(function(sp){
+        if(!sp || !sp.metamorphosis) return;
         var e = coll && coll.catches ? coll.catches[sp.id] : null;
-        if(!e || !e.records) return false;
-        return e.records.some(function(rc){return rc.sex==="m";}) && e.records.some(function(rc){return rc.sex==="f";});
+        if(!e || !e.records) return;
+        if(e.records.some(function(rc){return rc.sex==="m";}) && e.records.some(function(rc){return rc.sex==="f";})){
+          hasAnyPair = true;
+          if(!busyIds[sp.id]) hasFreePair = true;
+        }
       });
       var msg;
       if(!hasAnyPair){
         msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🐛</div>まだ ♂♀ の そろった むしが いないよ。<br>図鑑で ♂♀ を 両方つかまえると<br>たまごが 産めるよ</div>';
-      } else if(slotFull){
-        msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🥚🥚🥚</div>いま 3つとも たまご そだち中だよ。<br>1ぴき かえすと あたらしい たまごが 産めるよ</div>';
+      } else if(!hasFreePair){
+        msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🥚🥚🥚</div>ペアの そろった むしは みんな<br>そだて中 か たまごまち だよ</div>';
       } else {
         msg = '<div style="font-size:14px;color:#2A3D2C;text-align:center;padding:20px 8px"><div style="font-size:42px;margin-bottom:6px">🪨</div>かけらが たりないよ。<br>学習で 1日 30問 せいかいすると<br>かけらが もらえるよ</div>';
       }
@@ -323,6 +329,12 @@
     var cost = r.eggCost(sp);
     var target = r.eggTarget(sp);
     var doc = global.document; if(!doc) return;
+    /* スロット満杯なら「まちの たまご に入る」旨を予告 (産卵自体は可能) */
+    var slotFull = false;
+    try{
+      var bsNow = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
+      slotFull = !!(bsNow && bsNow.eggs && bsNow.eggs.length >= ((r.EGG_SLOT_MAX)||3));
+    }catch(_){}
     var ov = doc.createElement("div");
     ov.id = "q4bLayConfirmOv";
     ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:310;padding:14px";
@@ -336,6 +348,7 @@
       +     'コスト: 🪨 '+cost+'<br>'
       +     '必要せいかい数: '+target+'問'
       +   '</div>'
+      +   (slotFull ? '<div style="font-size:12px;color:#CF7F14;margin-bottom:14px">そだてスロットが いっぱいだから、<br>うまれた たまごは <b>📬 まちの たまご</b> に 入るよ</div>' : '')
       +   '<button id="q4bLayOk" type="button" style="display:block;width:100%;border:none;border-radius:12px;padding:12px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer;margin-bottom:8px">産ませる</button>'
       +   '<button type="button" onclick="(function(){var o=document.getElementById(\'q4bLayConfirmOv\');if(o)o.remove();})()" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px 18px;font-weight:700;font-family:inherit;cursor:pointer">キャンセル</button>'
       + '</div>';
@@ -724,11 +737,14 @@
     var t = doc.createElement("div");
     t.id = "q4bEggLaidToast";
     t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#FFF6E0;border:2px solid #F2A33C;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:300px;font-family:inherit;animation:q4bToastSlide .3s ease-out";
-    /* 世界観: 「かけら→飼育環境→自発的産卵」 の三段で表示。 */
+    /* 世界観: 「かけら→飼育環境→自発的産卵」 の三段で表示。
+       queued (スロット満杯で まちの たまご 行き) は案内文を分岐。 */
     t.innerHTML = ''
       + '<div style="font-size:13px;color:#8A5C2C;margin-bottom:6px;line-height:1.5">🪨 かせきのかけらを つかって、<br><b>しいくかんきょうが ととのった！</b></div>'
       + '<div style="font-size:14px;font-weight:800;color:#5B4B2B;margin-bottom:6px;line-height:1.5">🥚 '+esc(sp.jaName||sp.id)+' の<br>オスとメスが たまごを うんだ！</div>'
-      + '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">御神木の 「そだてている むし」 パネルで みられるよ</div>'
+      + (opts.queued
+        ? '<div style="font-size:12px;color:#CF7F14;margin-bottom:10px">そだてスロットが いっぱいだから、<br><b>📬 まちの たまご</b> に 入ったよ。<br>御神木の 「たまごリスト」 で えらべるよ</div>'
+        : '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">御神木の 「そだてている むし」 パネルで みられるよ</div>')
       + '<div style="display:flex;gap:6px">'
       +   '<a href="'+esc(homeHref)+'" style="flex:1;border:none;border-radius:10px;background:#F2A33C;color:#fff;padding:10px;font-weight:800;font-family:inherit;text-decoration:none;text-align:center;font-size:13px">いま みる</a>'
       +   '<button type="button" id="q4bEggLaidLater" style="border:none;border-radius:10px;background:#EAEFE0;color:#2A3D2C;padding:10px 12px;font-weight:700;font-family:inherit;cursor:pointer;font-size:13px">あとで</button>'

@@ -1275,6 +1275,21 @@ function renderDashboard(pid,name){
                 else { if(it.data) it.data.coll = it.coll; }
                 if(it.data) QuestSave.save(it.game, pid, it.data);
               }
+            }).then(function(){
+              /* ペア卵の欠損修復: master の sex は確定済みだが反対性別 record も
+                 卵も無い詰み状態 (捨てた / 授与時競合 / 旧版) に master_pair 卵を
+                 再授与する。 coll は読むだけなので教科 save は不要。 */
+              if(!Q4BReward.backfillMissingMasterPairEggs) return;
+              return Q4BReward.backfillMissingMasterPairEggs(it.coll).then(function(regranted){
+                (regranted||[]).forEach(function(g,gi){
+                  if(window.Q4BBreeding && Q4BBreeding.notifyMasterEggGranted){
+                    setTimeout(function(){
+                      Q4BBreeding.notifyMasterEggGranted(g.sp, {queued:g.queued});
+                    }, 1200 + gi*4800);
+                  }
+                });
+                if(regranted && regranted.length) _refreshDashIfActive();
+              });
             }).catch(function(){});
           }catch(_){}
         }
@@ -1546,6 +1561,11 @@ function homeEggPicked(spId){
         Q4BReward.layEgg(virtColl, sp).then(function(r){
           if(r && r.ok && r.egg){
             var p=document.getElementById("q4bEggPickerOv"); if(p) p.remove();
+            /* スロット満杯 → まちの たまご 行き。 ダッシュボードの 📬 バナーにも出るが、
+               どこに行ったか分かるよう toast でも案内する。 */
+            if(r.queued && window.Q4BBreeding && Q4BBreeding.notifyEggLaid){
+              Q4BBreeding.notifyEggLaid(sp, {homeHref:"index.html", queued:true});
+            }
             _refreshDashIfActive();
           } else {
             if(r && r.reason === 'conflict') alert("別の たんまつで すすんでいるよ");

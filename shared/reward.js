@@ -610,7 +610,9 @@
     return fossilStore.spend(eggCost(sp));
   }
 
-  /* 産卵可能判定: ♂♀ あり + かけら充足 + 上限到達でない + 同種育成中/保留中でない + 卵対象 order */
+  /* 産卵可能判定: ♂♀ あり + かけら充足 + 同種育成中/保留中でない + 卵対象 order。
+     スロット満杯はブロックしない — layEgg 側で pendingEggs (まちの たまご) に回す
+     (awardEgg と同じ「報酬消失なし」方針。 満杯を理由に産卵自体を拒否しない)。 */
   function canLayEgg(coll, sp){
     if(!sp || !sp.metamorphosis) return false;      // 卵対象外 order
     var e = coll && coll.catches ? coll.catches[sp.id] : null;
@@ -619,7 +621,6 @@
     for(i=0;i<e.records.length;i++){ if(e.records[i].sex==="m") hasM=true; else if(e.records[i].sex==="f") hasF=true; }
     if(!(hasM && hasF)) return false;
     var bs = _bs();
-    if(bs.eggs.length >= EGG_SLOT_MAX) return false;
     for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id === sp.id) return false; }
     for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id === sp.id) return false; }
     if(fossilOf() < eggCost(sp)) return false;
@@ -630,8 +631,10 @@
   }
 
   /* 卵生成 (フロー A)。前提チェック + かけら消費 + sex/shiny 抽選 + eggs に追加。
-     PB-2: async 化。 戻り値は Promise<{ok, egg, reason?}>。 cache を ensure してから
-     mutate + saveVersioned。 競合時は ok:false で caller に通知 (UI の演出を抑止)。 */
+     スロット満杯なら pendingEggs (まちの たまご) に回す — queued:true を返して
+     caller の toast 文言を分岐させる。
+     PB-2: async 化。 戻り値は Promise<{ok, egg, queued?, reason?}>。 cache を ensure
+     してから mutate + saveVersioned。 競合時は ok:false で caller に通知 (UI の演出を抑止)。 */
   function layEgg(coll, sp){
     return _ensureBsLoaded().then(function(){
       if(!canLayEgg(coll, sp)) return {ok:false, reason:"precondition"};
@@ -647,9 +650,15 @@
         shiny: rollShiny()
       };
       var bs = _bs();
-      bs.eggs.push(egg);
+      var queued = bs.eggs.length >= EGG_SLOT_MAX;
+      if(queued){
+        egg.queuedAt = todayStr();
+        bs.pendingEggs.push(egg);
+      } else {
+        bs.eggs.push(egg);
+      }
       return _saveBs(bs).then(function(r){
-        if(r.ok) return {ok:true, egg:egg};
+        if(r.ok) return {ok:true, egg:egg, queued:queued};
         /* 競合: かけらは消費済 → 復元するロジックは別途必要だが PB-2 範囲外。
            ここでは caller に競合を通知し、 演出を出させない。 */
         return {ok:false, reason:r.reason || "conflict"};
@@ -1168,6 +1177,53 @@
     return out;
   }
 
+  /* マスター虫 ペア卵の欠損修復 (詰み救済)。
+     対象: masterOnly 種で master record の sex が確定済み (m/f) なのに
+           反対性別の record が無く、 卵も eggs/pendingEggs に無い状態。
+     原因例: ペア卵を誤って捨てた / 授与時の保存競合で卵だけ消えた /
+             卵システム導入前に sex 確定済みで master 取得していた。
+     masterOnly / SS 種は通常の採集・産卵プール外のため、 この修復経路が無いと
+     ペア性別が永遠に入手不能 = ブリード不能で詰む。
+     授与は awardEgg (かけら消費なし、 満杯時は pendingEggs 行き)。 冪等:
+     卵が in-flight の間は再授与しない。 孵化すれば反対性別 record が立ち対象外になる。 */
+  function backfillMissingMasterPairEggs(coll){
+    if(!coll || !coll.catches) return Promise.resolve([]);
+    return _ensureBsLoaded().then(function(){
+      var bs = _bs();
+      var inFlight = {};
+      bs.eggs.forEach(function(g){ inFlight[g.id]=true; });
+      bs.pendingEggs.forEach(function(g){ inFlight[g.id]=true; });
+      var todo = [], id, sp, e, i, hasM, hasF;
+      for(id in coll.catches){
+        if(!Object.prototype.hasOwnProperty.call(coll.catches,id)) continue;
+        sp = spById(id);
+        if(!sp || !sp.masterOnly || !sp.metamorphosis) continue;
+        e = coll.catches[id];
+        if(!e || !e.master || !e.records || !e.records.length) continue;
+        if(inFlight[id]) continue;
+        hasM = false; hasF = false;
+        for(i=0;i<e.records.length;i++){
+          if(e.records[i].sex==="m") hasM=true;
+          else if(e.records[i].sex==="f") hasF=true;
+        }
+        /* 両方あり (ペア成立) / 両方なし (sex='u' → autoFinalizeLegacyMasterAll の担当) は対象外 */
+        if(hasM === hasF) continue;
+        todo.push({sp: sp, sex: hasM ? "f" : "m"});
+      }
+      if(!todo.length) return [];
+      var out = [];
+      function step(i){
+        if(i >= todo.length) return Promise.resolve(out);
+        var t = todo[i];
+        return awardEgg(t.sp, t.sex, "master_pair").then(function(egg){
+          if(egg) out.push({sp: t.sp, sex: t.sex, egg: egg, queued: !!egg.queuedAt});
+          return step(i+1);
+        });
+      }
+      return step(0);
+    });
+  }
+
   global.Q4BReward = {
     bugs: BUGS,
     gameFor: gameFor,
@@ -1256,6 +1312,7 @@
     eggsForSpecies: eggsForSpecies,
     hasBothSexes: hasBothSexes,
     autoFinalizeLegacyMasterAll: autoFinalizeLegacyMasterAll,
+    backfillMissingMasterPairEggs: backfillMissingMasterPairEggs,
     rollSex: rollSex,
     rollSize: rollSize,
     rollShiny: rollShiny,

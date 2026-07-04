@@ -299,7 +299,7 @@ function keisanLayEgg(spId){
       if(r && r.ok && r.egg){
         save();
         var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html"});
+        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html",queued:!!r.queued});
       } else {
         if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ。 ホームに もどって よみなおしてください');
         else alert('たまごを 産めませんでした');
