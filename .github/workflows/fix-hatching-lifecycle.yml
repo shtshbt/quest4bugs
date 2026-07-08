@@ -79,3 +79,5 @@ jobs:
           git add shared/reward.js shared/breeding.js index.html battle.html kanji/index.html keisan/index.html eitango/index.html
           git commit -m 'fix: decide shiny at hatching and remove duplicate adult stage'
           git push origin HEAD:feature/morning-shiny-bonus
+
+# retrigger: 2026-07-08
