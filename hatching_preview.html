@@ -4,59 +4,87 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Quest4Bugs 羽化プレビュー</title>
-<link rel="stylesheet" href="shared/shiny_bonus.css?v=0.2.0">
+<link rel="stylesheet" href="shared/shiny_bonus.css?v=0.2.1">
 <style>
 body{margin:0;background:#e9f2d9;color:#2a3d2c;font-family:"Hiragino Maru Gothic ProN","BIZ UDPGothic",system-ui,sans-serif}
 main{max-width:720px;margin:auto;padding:24px 16px 64px}.panel{background:#fffdf4;border:2px solid #cfddb2;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 3px 0 rgba(46,93,40,.15)}
-h1{font-size:24px;margin:0 0 8px}.lead{font-size:13px;color:#6b7a5e;line-height:1.7}.flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:18px;font-weight:800;margin:14px 0}.stage{background:#f4f8e8;border:2px solid #cfddb2;border-radius:12px;padding:10px 14px}.arrow{color:#cf7f14}
+h1{font-size:24px;margin:0 0 8px}.lead{font-size:13px;color:#6b7a5e;line-height:1.7}.flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:18px;font-weight:800;margin:14px 0}.stage{display:inline-flex;align-items:center;gap:7px;background:#f4f8e8;border:2px solid #cfddb2;border-radius:12px;padding:8px 12px}.stage-icon{width:34px;height:34px;object-fit:contain}.arrow{color:#cf7f14}
 button{display:block;width:100%;border:0;border-radius:14px;padding:14px;margin:10px 0;background:#3fa86b;color:#fff;font:inherit;font-size:17px;font-weight:900;box-shadow:0 4px 0 #267743;cursor:pointer}button.shiny{background:#a06bd8;box-shadow:0 4px 0 #6b43a1}.note{font-size:12px;color:#6b7a5e;margin-top:14px}
 </style>
 </head>
 <body>
 <main>
 <h1>羽化ライフサイクル確認</h1>
-<p class="lead">保存、同期、プロフィール作成は行いません。修正後の最終段階と羽化演出だけを再生します。</p>
+<p class="lead">保存、同期、プロフィール作成は行いません。実ユーザーデータを読み込まず、プレビュー専用のカブトムシとバッタだけで再生します。</p>
 <section class="panel">
 <h2>完全変態</h2>
-<div class="flow"><span class="stage">🥚 卵</span><span class="arrow">→</span><span class="stage">🐛 幼虫</span><span class="arrow">→</span><span class="stage">🛌 蛹</span><span class="arrow">→ 羽化</span><span class="stage">🪲 成虫</span></div>
+<div class="flow">
+  <span class="stage">🥚 卵</span><span class="arrow">→</span>
+  <span class="stage">🐛 幼虫</span><span class="arrow">→</span>
+  <span class="stage"><img class="stage-icon" src="assets/larva_svg/kabuto_pupa.svg" alt="">蛹</span><span class="arrow">→ 羽化</span>
+  <span class="stage">🪲 成虫</span>
+</div>
 <button id="completeNormal">通常個体の羽化を再生</button>
 <button id="completeShiny" class="shiny">色違い個体の羽化を再生</button>
 </section>
 <section class="panel">
 <h2>不完全変態</h2>
-<div class="flow"><span class="stage">🥚 卵</span><span class="arrow">→</span><span class="stage">🦗 若虫</span><span class="arrow">→ 成虫化</span><span class="stage">🦗 成虫</span></div>
+<div class="flow">
+  <span class="stage">🥚 卵</span><span class="arrow">→</span>
+  <span class="stage"><img class="stage-icon" src="assets/larva_svg/batta.svg" alt="">若虫</span><span class="arrow">→ 成虫化</span>
+  <span class="stage">🦗 成虫</span>
+</div>
 <button id="incompleteNormal">通常個体の成虫化を再生</button>
 <button id="incompleteShiny" class="shiny">色違い個体の成虫化を再生</button>
 </section>
 <p class="note">修正点：育成カード内に「画像のない成虫段階」は置かず、蛹または若虫から実際の成虫画像へ一度だけ切り替わります。</p>
 </main>
-<script src="shared/bugs.js?v=0.4.10"></script>
+
+<script>
+/* Preview-only species. No profile, save data, or cloud data is loaded. */
+window.Q4B_BUGS=[
+  {
+    id:"preview_kabuto",jaName:"カブトムシ",scientificName:"Trypoxylus dichotomus",
+    order:"Coleoptera",family:"Scarabaeidae",familyJa:"コガネムシ科",groupJa:"カブトムシ",
+    rarity:"R",renderer:"kabuto",colors:["#6B4226","#4A2E1A"],tags:["beetle"],
+    note:"羽化プレビュー用",sizeMm:[30,85],sizeBySexMm:{m:[30,85],f:[30,52]},
+    sexDimorphism:"horn",metamorphosis:"complete"
+  },
+  {
+    id:"preview_batta",jaName:"トノサマバッタ",scientificName:"Locusta migratoria",
+    order:"Orthoptera",family:"Acrididae",familyJa:"バッタ科",groupJa:"バッタ",
+    rarity:"R",renderer:"batta",colors:["#78A849","#3F6B2D"],tags:["grasshopper"],
+    note:"成虫化プレビュー用",sizeMm:[35,65],metamorphosis:"incomplete"
+  }
+];
+window.BUGS=window.Q4B_BUGS;
+</script>
 <script src="shared/render.js?v=0.5.0"></script>
-<script src="shared/bug_archetypes.js?v=0.3.0"></script>
+<script src="shared/bug_archetypes.js?v=0.3.1"></script>
 <script src="shared/reward.js?v=0.8.0"></script>
 <script src="shared/breeding.js?v=0.6.0"></script>
-<script src="shared/shiny_bonus.js?v=0.2.0"></script>
+<script src="shared/hatching_lifecycle.js?v=0.1.1"></script>
 <script>
 (function(){
-  function findSpecies(kind){
-    var list=window.Q4B_BUGS||[];
-    return list.find(function(sp){return sp&&sp.metamorphosis===kind&&!sp.bossOnly&&!sp.masterOnly;})||list.find(function(sp){return sp&&sp.metamorphosis===kind;});
-  }
+  var species={complete:window.Q4B_BUGS[0],incomplete:window.Q4B_BUGS[1]};
   function play(kind,shiny){
-    var sp=findSpecies(kind);
-    if(!sp||!window.Q4BBreeding){alert('プレビュー用の虫データを読み込めませんでした');return;}
+    var sp=species[kind];
+    if(!sp||!window.Q4BBreeding||typeof Q4BBreeding.playHatchAnimation!=="function"){
+      alert("プレビューの読み込みに失敗しました。ページを再読み込みしてください。");
+      return;
+    }
     Q4BBreeding.playHatchAnimation({
       sp:sp,
-      egg:{id:sp.id,sex:'m',shiny:!!shiny,bornAt:'2026-07-01'},
-      size:42.5,
+      egg:{id:sp.id,sex:"m",shiny:!!shiny,bornAt:"2026-07-01"},
+      size:kind==="complete"?72.5:53.0,
       onClose:function(){},
       onViewZukan:function(){}
     });
   }
-  document.getElementById('completeNormal').onclick=function(){play('complete',false)};
-  document.getElementById('completeShiny').onclick=function(){play('complete',true)};
-  document.getElementById('incompleteNormal').onclick=function(){play('incomplete',false)};
-  document.getElementById('incompleteShiny').onclick=function(){play('incomplete',true)};
+  document.getElementById("completeNormal").onclick=function(){play("complete",false)};
+  document.getElementById("completeShiny").onclick=function(){play("complete",true)};
+  document.getElementById("incompleteNormal").onclick=function(){play("incomplete",false)};
+  document.getElementById("incompleteShiny").onclick=function(){play("incomplete",true)};
 })();
 </script>
 </body>
