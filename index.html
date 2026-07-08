@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Quest4Bugs">
 <meta name="theme-color" content="#3E7C3F">
-<meta name="q4b-release" content="0.4.38">
+<meta name="q4b-release" content="0.4.39">
 <title>Quest4Bugs ポータル</title>
 <style>
 :root{--bg:#E9F2D9;--panel:#FFFDF4;--ink:#2A3D2C;--sub:#6B7A5E;--line:#CFDDB2;
@@ -186,6 +186,7 @@ html.q4b-in #q4bGate{display:none!important}
 #q4bFade{position:fixed;inset:0;z-index:100001;background:#040d09;opacity:0;pointer-events:none;transition:opacity .6s ease}
 #q4bFade.on{opacity:1}
 </style>
+  <link rel="stylesheet" href="./shared/shiny_bonus.css?v=0.1.0">
 </head>
 <body>
 <div id="q4bGate">
@@ -320,7 +321,7 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./zukan_config/zukan_catalog.js?v=0.2.1"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.0"></script>
-<script src="./shared/reward.js?v=0.7.0"></script>
+<script src="./shared/reward.js?v=0.8.0"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.0"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
@@ -899,12 +900,26 @@ function initHomeMap(){
     })(maps[i]);
   }
 }
+function markEntryShiny(entry){
+  if(!entry)return false;
+  entry.shiny=1;
+  if(entry.normal==null)entry.normal=1;
+  var records=entry.records||[];
+  var hasShiny=records.some(function(r){return !!(r&&r.shiny);});
+  if(!hasShiny&&records.length){
+    var best=records.length-1, bestDate=records[best]&&records[best].d||"";
+    for(var i=records.length-2;i>=0;i--){
+      var d=records[i]&&records[i].d||"";
+      if(d>bestDate){best=i;bestDate=d;}
+    }
+    if(records[best])records[best].shiny=true;
+  }
+  return true;
+}
 function markCatchShiny(source,state,id){
   if(source==="eitango"){
     if(!state.catches||!state.catches[id])return false;
-    state.catches[id].shiny=1;
-    if(state.catches[id].normal==null)state.catches[id].normal=1;
-    return true;
+    return markEntryShiny(state.catches[id]);
   }
   if(source==="battle"){
     if(!state.bosses||!state.bosses[id])return false;
@@ -912,9 +927,7 @@ function markCatchShiny(source,state,id){
     return true;
   }
   if(!state.coll||!state.coll.catches||!state.coll.catches[id])return false;
-  state.coll.catches[id].shiny=1;
-  if(state.coll.catches[id].normal==null)state.coll.catches[id].normal=1;
-  return true;
+  return markEntryShiny(state.coll.catches[id]);
 }
 function makeShinyUi(source,id){
   var pid=QuestSave.currentProfile(), ns=source==="battle"?"battle":source;
@@ -1756,5 +1769,6 @@ else { renderProfiles(); }
    各図鑑ページ (kanji/keisan/eitango/battle) で Q4BRender.mountZukanModeToggle() を呼ぶ。 */
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d19b1e97f2c640a2917bb86c8eb35a17"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="./shared/shiny_bonus.js?v=0.1.0"></script>
 </body>
 </html>

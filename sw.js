@@ -10,7 +10,7 @@ var CORE = [
   "./kanji/index.html", "./eitango/index.html",
   "./keisan/index.html", "./keisan/app.js", "./keisan/style.css",
   "./shared/storage.js", "./shared/equipment_data.js", "./shared/bugs.js", "./shared/kanji_data.js", "./shared/eitango_data.js", "./shared/render.js",
-  "./shared/bespoke.js", "./shared/reward.js", "./shared/furigana.js",
+  "./shared/bespoke.js", "./shared/reward.js", "./shared/shiny_bonus.js", "./shared/shiny_bonus.css", "./shared/furigana.js",
   "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./shared/k5_devs_data.js",
   "./shared/zukan_detail.js", "./shared/zukan_render.js", "./shared/zukan_lightbox.js",

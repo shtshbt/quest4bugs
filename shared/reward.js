@@ -100,7 +100,16 @@
 
   /* ---- catch roll ---- */
   var NEED_DEFAULT = 8;            // correct answers per gauge fill
-  var SHINY_CHANCE = 0.03;
+  var SHINY_CHANCE_NORMAL = 0.015;
+  var SHINY_CHANCE_MORNING = 0.045;
+  function isMorningBonusTime(date){
+    var d=date||new Date(), h=d.getHours();
+    return h>=6 && h<8;
+  }
+  function shinyChanceFor(opts){
+    opts=opts||{};
+    return opts.source==="wild" && isMorningBonusTime(opts.now) ? SHINY_CHANCE_MORNING : SHINY_CHANCE_NORMAL;
+  }
   var TIER_WEIGHT = [72, 23, 5, 0.8, 0.08]; // N / R / SR / SSR / SS（高効率な復習周回でのレア量産を抑えるため SR/SSR/SS を薄く）
   var REVIEW_BOOST = 2;  // 復習チャレンジ時の「珍しい虫が出やすい」係数（復習のレア量産を抑えるため 3→2）
   var HATTEN_BOOST = 1.5;  // 発展（難問）の「すこしレアが出やすい」係数。通常1と復習2の中間
@@ -235,7 +244,7 @@
     entry.records = records;
     return entry;
   }
-  function rollShiny(){ return Math.random() < SHINY_CHANCE; }
+  function rollShiny(opts){ return Math.random() < shinyChanceFor(opts); }
   /* awardMaster(coll, sp, chosen?):
        chosen = 'm' | 'f' | 'u' (省略時 'u' で従来挙動: 性別不明 + 最大サイズ)
        chosen が 'm'/'f' の場合は rollSize(sp, chosen) で抽選し、size を変動させる。 */
@@ -262,7 +271,7 @@
     var prev = coll.catches[sp.id];
     var sex = opts.sex || rollSex(sp);
     var size = (opts.size!=null) ? opts.size : rollSize(sp, sex);
-    var shiny = (opts.shiny!=null) ? !!opts.shiny : rollShiny();
+    var shiny = (opts.shiny!=null) ? !!opts.shiny : rollShiny(opts);
     var reared = !!opts.reared;
     var bornAt = opts.bornAt || null;
     var isNew = !prev;
@@ -284,7 +293,7 @@
     if(!coll.catches[sp.id].records) coll.catches[sp.id].records=[];
     coll.catches[sp.id].records.push(rec);
     coll.total = (coll.total||0) + 1;
-    return { sp:sp, size:size, shiny:shiny, sex:sex, reared:reared, isNew:isNew, isRecord:isRecord, tier:tierOf(sp) };
+    return { sp:sp, size:size, shiny:shiny, sex:sex, reared:reared, isNew:isNew, isRecord:isRecord, tier:tierOf(sp), morningBonus:!!(shiny && opts.source==="wild" && isMorningBonusTime(opts.now)) };
   }
 
   /* 🔶 こはく(amber): a soft currency earned per correct answer, spendable on
@@ -302,7 +311,7 @@
     if(amberStore){ if(!amberStore.spend(AMBER_CATCH_COST)) return null; }
     else { if((coll.amber||0) < AMBER_CATCH_COST) return null; coll.amber -= AMBER_CATCH_COST; }
     var sp = rollFromPool(pool(game), coll.catches, boost);
-    return sp ? record(coll, sp) : null;
+    return sp ? record(coll, sp, {source:"amber"}) : null;
   }
 
   /* 新しさ係数: 直近で同じ問題(itemId)を繰り返すほどゲージの進みを軽減する。
@@ -339,7 +348,7 @@
     coll.gauge -= threshold;
     var sp = rollFromPool(pool(game), coll.catches, boost);
     if(!sp) return null;
-    return record(coll, sp);
+    return record(coll, sp, {source:"wild"});
   }
 
   /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional.
@@ -356,7 +365,7 @@
       if(tot>0){ var r=Math.random()*tot, tier=0, i; for(i=0;i<5;i++){ if(w[i] && r<w[i]){ tier=i; break; } r-=w[i]; } var cand=byTier[tier]; sp=cand[Math.floor(Math.random()*cand.length)]; }
     }
     if(!sp) sp = rollFromPool(p, coll.catches, boost);
-    return sp ? record(coll, sp) : null;
+    return sp ? record(coll, sp, {source:"wild"}) : null;
   }
 
   /* ---- collection stats / rank ---- */
