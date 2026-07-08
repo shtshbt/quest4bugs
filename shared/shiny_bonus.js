@@ -127,11 +127,6 @@
       }
     }
 
-    var eggMarks = root.querySelectorAll ? root.querySelectorAll(".q4b-egg-shiny") : [];
-    for(var j=0;j<eggMarks.length;j++){
-      var eggCard = eggMarks[j].closest(".q4b-egg-card, .zd-egg-row, .zd-egg-pending-row");
-      if(eggCard) eggCard.classList.add("q4b-shiny-egg");
-    }
 
     var arts = root.querySelectorAll ? root.querySelectorAll(".q4b-shiny-art") : [];
     for(var k=0;k<arts.length;k++){

@@ -15,7 +15,7 @@ h1{font-size:24px;margin:0 0 6px}.lead{font-size:13px;color:var(--sub);margin-bo
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{position:relative;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px;text-align:center;min-height:220px;overflow:hidden}
 .card h2{font-size:16px;margin:8px 0 2px}.card small{color:var(--sub)}
 .bugbox{height:140px;display:flex;align-items:center;justify-content:center}.bug{position:relative;width:120px;height:120px}
-.bug svg{width:100%;height:100%}.egg{font-size:78px;line-height:1.2}.label{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;background:#eee}
+.bug svg{width:100%;height:100%}
 button{border:0;border-radius:14px;padding:12px 16px;font:inherit;font-weight:800;background:var(--green);color:white;cursor:pointer;box-shadow:0 3px 0 #2C5F2D;margin:4px}
 button.secondary{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
 .controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.note{font-size:12px;color:var(--sub);margin-top:10px}
@@ -69,13 +69,6 @@ button.secondary{background:#fff;color:var(--ink);border:2px solid var(--line);b
     </div>
   </section>
 
-  <section class="panel">
-    <h2>色違い卵</h2>
-    <div class="grid">
-      <div class="card"><div class="egg">🥚</div><h2>通常の卵</h2><span class="label">ふ化まで 2日</span></div>
-      <div class="card q4b-shiny-egg"><div class="egg q4b-egg-shiny">🥚✨</div><h2>色違いの卵</h2><span class="label">ふ化まで 2日</span></div>
-    </div>
-  </section>
 
   <section class="panel">
     <h2>捕獲時の一回演出</h2>
@@ -103,7 +96,7 @@ button.secondary{background:#fff;color:var(--ink);border:2px solid var(--line);b
 <script>
 (function(){
   var card=document.getElementById('captureCard');
-  function replay(){card.classList.remove('q4b-shiny-reveal');void card.offsetWidth;card.classList.add('q4b-shiny-reveal');setTimeout(function(){card.classList.remove('q4b-shiny-reveal');},1400)}
+  function replay(){card.classList.remove('q4b-shiny-reveal');void card.offsetWidth;card.classList.add('q4b-shiny-reveal');setTimeout(function(){card.classList.remove('q4b-shiny-reveal');},1800)}
   document.getElementById('replay').onclick=replay;
   var stopped=false;
   document.getElementById('toggleMotion').onclick=function(){
