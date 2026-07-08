@@ -1,0 +1,31 @@
+name: Intensify shiny effects
+
+on:
+  push:
+    branches:
+      - feature/morning-shiny-bonus
+    paths:
+      - scripts/intensify_shiny_effects.py
+      - .github/workflows/intensify-shiny-effects.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/morning-shiny-bonus
+          fetch-depth: 0
+      - run: python3 scripts/intensify_shiny_effects.py
+      - run: node --check shared/shiny_bonus.js
+      - name: Commit effect adjustment
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add shared/shiny_bonus.css shared/shiny_bonus.js shiny_preview.html
+          git commit -m 'style: strengthen shiny reveal and remove egg emphasis'
+          git push origin HEAD:feature/morning-shiny-bonus
