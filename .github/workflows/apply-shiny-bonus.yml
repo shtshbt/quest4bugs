@@ -1,0 +1,53 @@
+name: Apply morning shiny bonus
+
+on:
+  push:
+    branches:
+      - feature/morning-shiny-bonus
+    paths:
+      - scripts/apply_shiny_bonus.py
+      - .github/workflows/apply-shiny-bonus.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/morning-shiny-bonus
+          fetch-depth: 0
+
+      - name: Apply patch
+        run: python3 scripts/apply_shiny_bonus.py
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check shared/reward.js
+          node --check shared/shiny_bonus.js
+
+      - name: Validate key integration points
+        run: |
+          grep -q 'SHINY_CHANCE_NORMAL = 0.015' shared/reward.js
+          grep -q 'SHINY_CHANCE_MORNING = 0.045' shared/reward.js
+          grep -q 'source:"wild"' shared/reward.js
+          grep -q 'source:"amber"' shared/reward.js
+          grep -q 'shiny_bonus.js' index.html
+          grep -q 'shiny_bonus.js' kanji/index.html
+          grep -q 'shiny_bonus.js' keisan/index.html
+          grep -q 'shiny_bonus.js' eitango/index.html
+          grep -q 'shiny_bonus.js' battle.html
+
+      - name: Commit generated implementation
+        run: |
+          if git diff --quiet; then
+            echo 'No generated changes'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add shared/reward.js shared/shiny_bonus.js shared/shiny_bonus.css index.html battle.html kanji/index.html keisan/index.html eitango/index.html sw.js
+          git commit -m 'feat: add morning shiny bonus and shared shiny effects'
+          git push origin HEAD:feature/morning-shiny-bonus
