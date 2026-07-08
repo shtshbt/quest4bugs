@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# One-off branch patch. Removed after generated change is committed.
 from pathlib import Path
 
 p = Path(__file__).resolve().parents[1] / "shared" / "shiny_bonus.js"
