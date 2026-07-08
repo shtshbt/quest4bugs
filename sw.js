@@ -4,13 +4,13 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v123";  /* v123: T8 rewind (PII を cloud snapshot に戻す reverse migration) + 卵入手不能 2 系統の修復 — (1) スロット満杯時に通常産卵が pending (まちの たまご) に回るよう canLayEgg/layEgg を修正 (従来は満杯で産卵自体を拒否) (2) でんせつ(SS)マスター虫のペア性別が入手不能で詰む状態に backfillMissingMasterPairEggs 修復経路を追加 (home boot でチェーン実行) + (3) eitango kids モード (にわ・はらっぱ) の renderKids に連打ロック解除を追加し 2 問目以降 無反応を修正。 */
+var CACHE = "q4b-cache-v124";  /* v124: 朝露色違い演出 + 色違い抽選を羽化時へ移動 + 重複 adult stage を除去。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
   "./keisan/index.html", "./keisan/app.js", "./keisan/style.css",
   "./shared/storage.js", "./shared/equipment_data.js", "./shared/bugs.js", "./shared/kanji_data.js", "./shared/eitango_data.js", "./shared/render.js",
-  "./shared/bespoke.js", "./shared/reward.js", "./shared/shiny_bonus.js", "./shared/shiny_bonus.css", "./shared/furigana.js",
+  "./shared/bespoke.js", "./shared/reward.js", "./shared/shiny_bonus.js", "./shared/shiny_bonus.css", "./shared/hatching_lifecycle.js", "./shared/furigana.js",
   "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./shared/k5_devs_data.js",
   "./shared/zukan_detail.js", "./shared/zukan_render.js", "./shared/zukan_lightbox.js",
