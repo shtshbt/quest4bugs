@@ -127,7 +127,6 @@
       }
     }
 
-
     var arts = root.querySelectorAll ? root.querySelectorAll(".q4b-shiny-art") : [];
     for(var k=0;k<arts.length;k++){
       if(arts[k].closest(".modal, .mcard, [data-q4b-zd], .drop-award")) arts[k].classList.add("q4b-shiny-detail");
@@ -220,3 +219,22 @@
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true});
   else init();
 })(window);
+
+/* Load the breeding lifecycle correction from the same shared directory. */
+(function(){
+  var current = document.currentScript;
+  var src;
+  try{
+    src = current && current.src
+      ? new URL("hatching_lifecycle.js", current.src).href
+      : ((/\/(?:kanji|keisan|eitango)\//.test(location.pathname) ? "../" : "./") + "shared/hatching_lifecycle.js");
+  }catch(_){
+    src = "./shared/hatching_lifecycle.js";
+  }
+  if(document.querySelector('script[data-q4b-hatching-lifecycle="1"]')) return;
+  var script = document.createElement("script");
+  script.src = src;
+  script.async = false;
+  script.dataset.q4bHatchingLifecycle = "1";
+  (document.head || document.documentElement).appendChild(script);
+})();
