@@ -114,12 +114,12 @@
 
   function decorate(root){
     root = root || document;
-    var cards = root.querySelectorAll ? root.querySelectorAll(".zc, .face.front, .shiny-card") : [];
+    var cards = root.querySelectorAll ? root.querySelectorAll(".zc, .spec.shiny, .face.front, .shiny-card") : [];
     for(var i=0;i<cards.length;i++){
       var card = cards[i];
-      if(card.classList.contains("shiny-card") || card.textContent.indexOf("✨") >= 0){
+      if(card.classList.contains("shiny-card") || card.classList.contains("shiny") || card.textContent.indexOf("✨") >= 0){
         card.classList.add("q4b-shiny-card");
-        if(card.classList.contains("face") && !card.dataset.q4bShinyRevealed){
+        if((card.classList.contains("face") || card.classList.contains("spec")) && !card.dataset.q4bShinyRevealed){
           card.dataset.q4bShinyRevealed = "1";
           card.classList.add("q4b-shiny-reveal");
           (function(c){ setTimeout(function(){ c.classList.remove("q4b-shiny-reveal"); }, 1400); })(card);
