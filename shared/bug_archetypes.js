@@ -1,5 +1,5 @@
 /* 卵育成: 1200種ごとに個別 SVG を作らず、~25 種類の archetype を order/family/subfamily から自動アサイン。
-   未制作の archetype は呼び出し側で絵文字 (🐛/🛌/🦗) fallback。
+   未制作の archetype は呼び出し側で絵文字 (🐛/🟤/🦗) fallback。
    詳細: docs/breeding_eggs_plan.md §視覚資産 */
 (function(global){
   "use strict";
@@ -65,11 +65,12 @@
     return {larva:"imomushi",pupa:"kabuto_pupa",nymph:"batta"};
   }
 
-  /* 絵文字 fallback (SVG 未制作時): ステージ→絵文字 */
+  /* 絵文字 fallback (SVG 未制作・読込失敗時): ステージ→絵文字。
+     蛹に人間のベッドを使わず、繭・蛹を連想する中立的な褐色形状にする。 */
   function stageEmoji(stage){
     if(stage==="egg")    return "🥚";
     if(stage==="larva")  return "🐛";
-    if(stage==="pupa")   return "🛌";
+    if(stage==="pupa")   return "🟤";
     if(stage==="nymph")  return "🦗";
     return "";
   }

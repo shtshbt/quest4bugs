@@ -1,0 +1,32 @@
+/* Quest4Bugs shared shiny presentation */
+.q4b-shiny-art{position:relative;display:block;width:100%;height:100%;isolation:isolate}
+.q4b-shiny-art>svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 5px rgba(255,220,65,.78)) drop-shadow(0 0 10px rgba(95,203,255,.38))}
+.q4b-shiny-badge{position:absolute;right:-5px;top:-6px;z-index:4;font-size:21px;line-height:1;filter:drop-shadow(0 0 5px #ffc83d) drop-shadow(0 1px 2px rgba(0,0,0,.32));pointer-events:none}
+.q4b-shiny-art::before,.q4b-shiny-art::after{content:"✦";position:absolute;z-index:2;color:#fff4a8;text-shadow:0 0 4px #ffb52e,0 0 8px #79d7ff;pointer-events:none;opacity:.88}
+.q4b-shiny-art::before{left:2%;top:7%;font-size:20px}
+.q4b-shiny-art::after{right:1%;bottom:6%;font-size:16px}
+.q4b-shiny-card{outline:3px solid rgba(255,196,38,.98)!important;outline-offset:-3px;box-shadow:0 0 0 5px rgba(91,202,255,.22),0 0 18px rgba(255,170,43,.52),0 6px 16px rgba(121,83,190,.28)!important}
+.q4b-shiny-detail{animation:q4bShinyAura 1.9s ease-in-out infinite}
+.q4b-shiny-detail::before{animation:q4bShinyTwinkle 1.55s ease-in-out infinite}
+.q4b-shiny-detail::after{animation:q4bShinyTwinkle 1.55s ease-in-out .55s infinite}
+.q4b-shiny-reveal{position:relative;animation:q4bShinyReveal 1.55s cubic-bezier(.16,.82,.28,1) both!important}
+.q4b-shiny-reveal::after{content:"✦  ✧  ✨  ✧  ✦";position:absolute;z-index:8;inset:3% -8% auto;text-align:center;font-size:30px;letter-spacing:9px;color:#fffbd0;text-shadow:0 0 7px #fff,0 0 14px #ffb52e,0 0 24px #6fd8ff,0 0 34px #b86cff;pointer-events:none;animation:q4bShinyBurst 1.5s ease-out both}
+#q4b-morning-shiny-banner{position:fixed;top:8px;left:8px;z-index:9997;display:flex;align-items:center;gap:7px;max-width:230px;padding:7px 10px;border:2px solid #e7b939;border-radius:14px;background:rgba(255,251,224,.96);box-shadow:0 3px 10px rgba(68,75,40,.22);color:#493b1c;font-size:12px;font-family:inherit;pointer-events:none}
+#q4b-morning-shiny-banner b{display:block;font-size:13px;line-height:1.15}
+#q4b-morning-shiny-banner small{display:block;font-size:10px;line-height:1.2;color:#755f2f;font-weight:800}
+.q4b-morning-sun{font-size:22px;line-height:1}
+.q4b-morning-catch-note{display:inline-block;margin:3px auto 7px;padding:4px 10px;border-radius:999px;background:#fff2b8;border:1px solid #e6b82f;color:#6a4c13;font-size:12px;font-weight:900;animation:q4bShinyReveal .8s ease-out both}
+.q4b-shiny-summary{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:10px 13px;border:2px solid #d8bd54;border-radius:15px;background:linear-gradient(135deg,#fff8d8,#edfaff);box-shadow:0 3px 9px rgba(63,84,52,.14);color:#2a3d2c}
+.q4b-shiny-summary-icon{font-size:28px;filter:drop-shadow(0 0 5px #ffc947)}
+.q4b-shiny-summary b{display:block;font-size:15px;line-height:1.2}
+.q4b-shiny-summary small{display:block;margin-top:2px;font-size:10px;color:#6b7a5e;font-weight:800}
+body.night #q4b-morning-shiny-banner{background:rgba(54,48,25,.96);border-color:#d5ad3d;color:#fff5c7}
+body.night #q4b-morning-shiny-banner small{color:#e7d18b}
+body.night .q4b-shiny-summary{background:linear-gradient(135deg,#35301c,#20374a);color:#f4f6e9;border-color:#c7a847}
+body.night .q4b-shiny-summary small{color:#d5dfc5}
+@keyframes q4bShinyTwinkle{0%,100%{opacity:.25;transform:scale(.55) rotate(-18deg)}45%{opacity:1;transform:scale(1.55) rotate(28deg)}70%{opacity:.72;transform:scale(1.05) rotate(42deg)}}
+@keyframes q4bShinyAura{0%,100%{filter:drop-shadow(0 0 4px rgba(255,200,45,.55))}50%{filter:drop-shadow(0 0 10px rgba(255,210,50,.95)) drop-shadow(0 0 17px rgba(80,195,255,.72))}}
+@keyframes q4bShinyReveal{0%{opacity:.08;transform:scale(.72) rotate(-4deg);filter:brightness(2.3) saturate(1.8)}28%{opacity:1;transform:scale(1.16) rotate(2deg);filter:brightness(1.75) saturate(1.5);box-shadow:0 0 38px rgba(255,192,42,.95),0 0 68px rgba(83,203,255,.72)}52%{transform:scale(.97) rotate(-1deg);filter:brightness(1.25)}72%{transform:scale(1.045);filter:brightness(1.12)}100%{opacity:1;transform:none;filter:none}}
+@keyframes q4bShinyBurst{0%{opacity:0;transform:translateY(32px) scale(.35) rotate(-8deg)}24%{opacity:1;transform:translateY(0) scale(1.18) rotate(2deg)}55%{opacity:1;transform:translateY(-10px) scale(1)}100%{opacity:0;transform:translateY(-38px) scale(1.45) rotate(9deg)}}
+@media(max-width:520px){#q4b-morning-shiny-banner{top:54px;max-width:190px;padding:5px 8px}.q4b-morning-sun{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.q4b-shiny-detail,.q4b-shiny-detail::before,.q4b-shiny-detail::after,.q4b-shiny-reveal,.q4b-shiny-reveal::after,.q4b-morning-catch-note{animation:none!important}.q4b-shiny-reveal::after{display:none}}
