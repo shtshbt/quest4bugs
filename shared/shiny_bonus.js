@@ -236,5 +236,15 @@
   script.src = src;
   script.async = false;
   script.dataset.q4bHatchingLifecycle = "1";
+  script.onload = function(){
+    /* Existing eggs may already be painted with the old >=85% adult stage.
+       Re-render once after the corrected lifecycle overrides are active. */
+    setTimeout(function(){
+      try{
+        if(typeof window.Q4BZukanRerender === "function") window.Q4BZukanRerender();
+        if(window.Q4BShiny && window.Q4BShiny.decorate) window.Q4BShiny.decorate(document);
+      }catch(_){}
+    }, 0);
+  };
   (document.head || document.documentElement).appendChild(script);
 })();
