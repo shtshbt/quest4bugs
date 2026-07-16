@@ -1,0 +1,29 @@
+{
+  "Testus fixturea": {
+    "usageKey": 9001,
+    "scientificName": "Testus fixturea",
+    "canonicalName": "Testus fixturea",
+    "rank": "SPECIES",
+    "matchType": "EXACT",
+    "confidence": 100,
+    "synonyms": ["Testus oldname"]
+  },
+  "Imaginaris nullus": {
+    "usageKey": 9002,
+    "scientificName": "Imaginaris nullus",
+    "canonicalName": "Imaginaris nullus",
+    "rank": "SPECIES",
+    "matchType": "EXACT",
+    "confidence": 100,
+    "synonyms": []
+  },
+  "Graptopsaltria nigrofuscata": {
+    "usageKey": 4776251,
+    "scientificName": "Graptopsaltria nigrofuscata",
+    "canonicalName": "Graptopsaltria nigrofuscata",
+    "rank": "SPECIES",
+    "matchType": "EXACT",
+    "confidence": 100,
+    "synonyms": []
+  }
+}

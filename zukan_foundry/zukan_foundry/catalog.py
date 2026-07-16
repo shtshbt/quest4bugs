@@ -8,8 +8,43 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
+
+
+def normalize_japanese(value):
+    if not isinstance(value, str):
+        raise ValueError("Japanese name must be a string")
+    value = unicodedata.normalize("NFKC", value)
+    value = re.sub(r"[\s・･·]+", "", value)
+    return re.sub(r"[―‐‑‒–−ｰ]", "ー", value).casefold()
+
+
+def canonical_scientific_name(value):
+    if not isinstance(value, str):
+        raise ValueError("scientific name must be a string")
+    value = unicodedata.normalize("NFKC", value).strip()
+    value = re.sub(r"\([^)]*\)|,?\s+\d{4}[a-z]?\b.*$", "", value)
+    tokens = re.findall(r"[A-Za-z][A-Za-z.-]*", value)
+    if not tokens:
+        return ""
+    keep = tokens[:2] if len(tokens) > 1 and tokens[1].lower() in {"sp.", "spp."} else tokens[:3]
+    return " ".join([keep[0].capitalize(), *[item.lower() for item in keep[1:]]])
+
+
+def split_scientific_name(value):
+    canonical = canonical_scientific_name(value)
+    parts = canonical.split()
+    marker = parts[1].lower() if len(parts) > 1 and parts[1].lower() in {"sp.", "spp."} else None
+    return {
+        "canonical": canonical,
+        "genus": parts[0] if parts else "",
+        "species": "" if marker or len(parts) < 2 else parts[1],
+        "subspecies": parts[2] if len(parts) > 2 else "",
+        "rankMarker": marker,
+        "isGenusLevel": bool(marker or len(parts) == 1),
+    }
 
 
 def _extract_balanced(text, start):
@@ -140,6 +175,47 @@ def _name_index(records, field):
     return dict(grouped)
 
 
+def _normalized_groups(entries, key, duplicates_only=False):
+    grouped = defaultdict(list)
+    for entry in entries:
+        if entry[key]:
+            grouped[entry[key]].append(entry["id"])
+    return {
+        value: sorted(ids)
+        for value, ids in sorted(grouped.items())
+        if not duplicates_only or len(ids) > 1
+    }
+
+
+def build_normalized_index(species, commit_sha):
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+        raise ValueError("commit_sha must be a 40-character lowercase hex SHA")
+    normalized = []
+    for item in species:
+        names = split_scientific_name(item["canonicalName"])
+        normalized.append({"id": item["id"], "jaName": item["jaName"], "japanese": normalize_japanese(item["jaName"]), **names})
+    return {
+        "sourceCommit": commit_sha,
+        "count": len(species),
+        "byId": {item["id"]: item for item in normalized},
+        "byJapanese": _normalized_groups(normalized, "japanese"),
+        "byScientific": _normalized_groups(normalized, "canonical"),
+    }
+
+
+def _genus_review_candidates(species):
+    normalized = build_normalized_index(species, "0" * 40)["byId"].values()
+    hierarchy = defaultdict(list)
+    for item in normalized:
+        if item["genus"]:
+            hierarchy[item["genus"]].append(item)
+    return {
+        genus: sorted(item["id"] for item in items)
+        for genus, items in sorted(hierarchy.items())
+        if len(items) > 1 and any(item["isGenusLevel"] or item["subspecies"] for item in items)
+    }
+
+
 def build_index(repository_root):
     root = Path(repository_root).resolve()
     bugs = parse_bugs(root / "shared" / "bugs.js")
@@ -194,6 +270,7 @@ def build_index(repository_root):
             if item["taxonRank"] != "species"
             or re.search(r"\b(?:sp|spp)\.$", item["scientificName"], re.IGNORECASE)
         },
+        "genus, species, and subspecies review candidates": _genus_review_candidates(species),
     }
     return index, names, anomalies
 

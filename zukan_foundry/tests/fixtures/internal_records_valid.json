@@ -1,0 +1,70 @@
+{
+  "TaxonResolution": {
+    "candidateId": "fixture_beetle",
+    "inputName": "Testus fixturea",
+    "status": "resolved",
+    "acceptedScientificName": "Testus fixturea",
+    "matchedScientificName": "Testus fixturea",
+    "rank": "species",
+    "matchType": "exact",
+    "synonyms": ["Testus oldname"],
+    "backboneKey": 9001,
+    "confidence": 100,
+    "evidence": {},
+    "reviewRequired": false
+  },
+  "DedupeResult": {
+    "candidateId": "fixture_beetle",
+    "status": "unique",
+    "matchedSpeciesIds": [],
+    "reasons": []
+  },
+  "SearchRun": {
+    "searchRunId": "run-1",
+    "candidateId": "fixture_beetle",
+    "source": "gbif",
+    "query": "Testus fixturea",
+    "startedAt": "2026-07-16T16:00:00+00:00",
+    "status": "completed",
+    "resultCount": 1,
+    "cached": false
+  },
+  "MediaCandidate": {
+    "candidateId": "fixture_beetle",
+    "source": "gbif",
+    "recordId": "gbif-1",
+    "scientificName": "Testus fixturea",
+    "matchedRank": "SPECIES",
+    "institution": "TEST",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "mediaUrl": "https://fixtures.invalid/media/gbif-1.jpg",
+    "retrievalReference": null,
+    "recordUrl": "https://fixtures.invalid/records/gbif-1",
+    "license": "CC0-1.0",
+    "rightsHolder": "Fixture Museum",
+    "attribution": "Fixture Museum",
+    "width": 1200,
+    "height": 800,
+    "view": "dorsal",
+    "lifeStage": "adult",
+    "sex": "male",
+    "collectionLocality": "Fixture Island",
+    "identificationQualifier": "",
+    "originalMetadata": {},
+    "matchType": "accepted_exact",
+    "sourceTrust": 0,
+    "flags": {},
+    "evidenceRefs": {"image": null, "measurement": null, "distribution": null, "japaneseName": null}
+  },
+  "NegativeCacheEntry": {
+    "sourceId": "nhm",
+    "candidateId": "fixture_moth",
+    "queryHash": "cache-1",
+    "query": "Imaginaris nullus",
+    "adapterVersion": "1",
+    "searchedAt": "2026-07-16T16:00:00+00:00",
+    "resultCount": 0,
+    "expiresAt": "2027-01-12T16:00:00+00:00",
+    "outcome": "zero_results"
+  }
+}

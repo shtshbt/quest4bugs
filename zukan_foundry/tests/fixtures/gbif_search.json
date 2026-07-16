@@ -1,0 +1,46 @@
+{
+  "Testus fixturea": {
+    "results": [
+      {
+        "key": "gbif-1",
+        "scientificName": "Testus fixturea",
+        "taxonRank": "SPECIES",
+        "institutionCode": "TEST",
+        "basisOfRecord": "PRESERVED_SPECIMEN",
+        "mediaUrl": "https://fixtures.invalid/media/gbif-1.jpg",
+        "recordUrl": "https://fixtures.invalid/records/gbif-1",
+        "license": "CC0-1.0",
+        "rightsHolder": "Fixture Museum",
+        "attribution": "Fixture Museum",
+        "imageDimensions": {"width": 1200, "height": 800},
+        "view": "dorsal",
+        "lifeStage": "adult",
+        "sex": "male",
+        "locality": "Fixture Island",
+        "identificationQualifier": ""
+      }
+    ]
+  },
+  "Imaginaris nullus": {
+    "results": [
+      {
+        "key": "gbif-2",
+        "scientificName": "Imaginaris nullus",
+        "taxonRank": "SPECIES",
+        "institutionCode": "TEST",
+        "basisOfRecord": "PRESERVED_SPECIMEN",
+        "mediaUrl": "https://fixtures.invalid/media/gbif-2.jpg",
+        "recordUrl": "https://fixtures.invalid/records/gbif-2",
+        "license": "CC-BY-4.0",
+        "rightsHolder": "Fixture Museum",
+        "attribution": "Fixture Museum",
+        "imageDimensions": {"width": 900, "height": 600},
+        "view": "dorsal",
+        "lifeStage": "adult",
+        "sex": "female",
+        "locality": "Fixture Island",
+        "identificationQualifier": ""
+      }
+    ]
+  }
+}

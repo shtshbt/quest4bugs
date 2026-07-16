@@ -1,0 +1,25 @@
+{
+  "Testus fixturea": {
+    "records": [
+      {
+        "id": "nhm-1",
+        "scientific_name": "Testus fixturea",
+        "rank": "species",
+        "institution": "NHMUK",
+        "basis_of_record": "PreservedSpecimen",
+        "identifier": "https://fixtures.invalid/media/nhm-1.jpg",
+        "references": "https://fixtures.invalid/records/nhm-1",
+        "license": "CC-BY-4.0",
+        "rights_holder": "Trustees of the Natural History Museum",
+        "creator": "Fixture Photographer",
+        "imageDimensions": {"width": 1000, "height": 700},
+        "view": "dorsal",
+        "life_stage": "adult",
+        "sex": "unknown",
+        "locality": "Fixture Island",
+        "identification_qualifier": ""
+      }
+    ]
+  },
+  "Imaginaris nullus": {"records": []}
+}

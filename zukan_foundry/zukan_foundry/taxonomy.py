@@ -3,6 +3,8 @@
 import re
 
 from contracts.media_pipeline.validator import validate_media_gap_record
+from zukan_foundry.catalog import canonical_scientific_name
+from zukan_foundry.validators import require_valid
 
 
 def species_candidate_from_gap(gap):
@@ -84,6 +86,59 @@ def resolve_taxon(candidate, backbone_sources, existing_species):
         "sources": matches,
         "existingQuest4BugsName": existing["scientificName"] if existing else None,
     }
+
+
+def resolve_gbif_taxon(candidate, response, catalog_index):
+    if not isinstance(candidate, dict) or not isinstance(response, dict) or not isinstance(catalog_index, dict):
+        raise ValueError("candidate, response, and catalog_index must be objects")
+    for key in ("speciesId", "scientificName"):
+        if not isinstance(candidate.get(key), str) or not candidate[key]:
+            raise ValueError(f"candidate {key} must be a non-empty string")
+    accepted = response.get("scientificName") or response.get("canonicalName") or ""
+    matched = response.get("canonicalName") or accepted
+    rank = str(response.get("rank", "")).lower()
+    confidence = response.get("confidence", 0)
+    unique = response.get("matchType") not in {None, "NONE", "HIGHERRANK"} and isinstance(response.get("usageKey"), int)
+    adapted_candidate = {
+        "candidateId": candidate["speciesId"],
+        "speciesId": candidate["speciesId"],
+        "scientificName": candidate["scientificName"],
+        "acceptedName": candidate.get("acceptedName"),
+        "jaName": candidate.get("jaName", ""),
+    }
+    records = []
+    if unique:
+        records.append({
+            "scientificName": accepted,
+            "canonicalName": matched,
+            "acceptedName": accepted,
+            "taxonRank": rank,
+            "synonyms": list(response.get("synonyms", [])),
+        })
+    existing = [
+        {"id": item["id"], "scientificName": item["canonical"]}
+        for item in catalog_index.get("byId", {}).values()
+    ]
+    canonical = resolve_taxon(
+        adapted_candidate,
+        [{"sourceId": "gbif", "sourceType": "taxonomy_backbone", "records": records}],
+        existing,
+    )
+    matches = catalog_index.get("byScientific", {}).get(canonical_scientific_name(accepted), [])
+    conflicts = [item for item in matches if item != candidate["speciesId"]]
+    status = "taxonomy_conflict" if conflicts else canonical["status"]
+    result = {
+        "candidateId": candidate["speciesId"], "inputName": candidate["scientificName"],
+        "status": status, "acceptedScientificName": accepted,
+        "matchedScientificName": matched, "rank": rank,
+        "matchType": str(response.get("matchType", "none")).lower(),
+        "synonyms": list(response.get("synonyms", [])),
+        "backboneKey": response.get("usageKey", 0),
+        "confidence": confidence if isinstance(confidence, int) else 0,
+        "evidence": response, "reviewRequired": status != "resolved",
+    }
+    require_valid("TaxonResolution", result)
+    return result
 
 
 def generate_search_queries(candidate, resolution, locality=None):

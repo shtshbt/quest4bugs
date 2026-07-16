@@ -1,6 +1,6 @@
 # Current catalog anomalies
 
-Generated from commit: `5ae22a4819e949aed8c0b352a748f2763cb926e8`
+Generated from commit: `710633dc7811626040f63920144135c4aea4fb9f`
 Catalog records: 1213
 
 ## id collisions
@@ -76,3 +76,26 @@ Catalog records: 1213
 - `harabiro_hanmyo`: Cosmodela sp.
 - `hyoutan_gomimushi`: Scarites sp.
 - `sanyou_benibotaru`: Platerodrilus sp.
+
+## genus, species, and subspecies review candidates
+
+- `Actias`: master_luna_moth, onagamizuao, oomizuao, oomizuao_oki
+- `Ammophila`: jigabachi, kobe_jigabachi
+- `Apis`: nihon_mitsubachi, seiyou_mitsubachi
+- `Bombus`: haiiro_maru_hanabachi, hime_maru_hanabachi, hina_maruhanabachi, koma_ru_hana_bachi, kuromaru_hanabachi, miyama_marubanabachi, oo_maru_hanabachi, oo_marubanabachi, oomaru_hanabachi, seiyou_oomaru_hanabachi
+- `Cybister`: fuchitori_gengoro, fusahige_gengoro, gengorou, kogatano_gengorou, kuro_gengorou, nami_gengorou
+- `Cylindera`: eliza_hanmyo, toukyou_hime_hanmyou
+- `Damaster`: maimaikaburi, maimaikaburi_ezo, okera_gomimushi_kotetsu
+- `Dorcus`: aka_ashi_kuwagata, alcides_ookuwagata, antaeus_ookuwagata, chosen_hirata_kuwagata, grandis_ookuwagata, hime_oo_kuwagata, hirata_kuwagata, hopei_ookuwagata, kokuwagata, ookuwagata, sakishima_hirata_kuwagata, suji_kuwagata, tsushima_hirata_kuwagata, yaeyama_koku_kuwagata
+- `Eupholus`: eupholus_zou, master_houseki_zoumushi
+- `Eutetrapha`: hannoao_kamikiri, hosohana_kamikiri, yatsuboshi_kamikiri
+- `Japonica`: akashijimi, akashijimi_kita, akashijimi_minami, kashiwa_akashijimi, uranami_akashijimi
+- `Loxoblemmus`: mitsukado_koorogi, mitsukado_koorogi_oo, mori_okame_koorogi, okame_koorogi
+- `Ochlodes`: asahina_kimadara_seseri, himekimadara_seseri, kokimadara_seseri, tennen_kimadara_seseri
+- `Parapodisma`: fuki_batta, shou_batta
+- `Phyllium`: konoha_mushi, master_sakadachi_konoha
+- `Polistes`: futamon_ashinagabachi, kiashinaga_bachi, koashinaga_bachi, kobane_ashinaga_bachi, nihon_ashinagabachi, seguro_ashinaga_bachi, yamato_ashinagabachi
+- `Prosopocoilus`: amami_nokogiri_kuwagata, eurosternus_noko_kuwagata, feminata_noko_kuwagata, giraffe_stag_beetle, lateralis_noko_kuwagata, nokogiri_kuwagata, tokara_nokogiri_kuwagata, yaeyama_nokogiri_kuwagata, yakushima_noko_kuwagata
+- `Sympetrum`: akiakane, ezo_akane, hime_akane, ki_tonbo, konaga_aka_tombo, konoshime_tonbo, mayutate_akane, miyama_akane, naniwa_tonbo, natsuakane, neki_tonbo, noshime_tonbo, ooki_tonbo, risu_akane, suna_akane, tairiku_akane
+- `Vespa`: chairo_suzumebachi, himesuzumebachi, kiiro_suzumebachi, kogata_suzumebachi, monsuzumebachi, oo_suzumebachi, ootabu_suzumebachi, tsumaguro_suzumebachi
+- `Xylocopa`: kimune_kumabachi, kumabachi

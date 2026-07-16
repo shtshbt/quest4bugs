@@ -1,0 +1,7 @@
+{
+  "TaxonResolution": {"status": "certain"},
+  "DedupeResult": {"candidateId": 7},
+  "SearchRun": [],
+  "MediaCandidate": {"candidateId": ""},
+  "NegativeCacheEntry": {"expiresAt": 42}
+}

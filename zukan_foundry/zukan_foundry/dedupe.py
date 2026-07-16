@@ -2,6 +2,9 @@
 
 from difflib import SequenceMatcher
 
+from zukan_foundry.catalog import canonical_scientific_name, normalize_japanese
+from zukan_foundry.validators import require_valid
+
 
 def _rank(name):
     return "subspecies" if len(name.split()) >= 3 else "species"
@@ -60,3 +63,37 @@ def detect_duplicate(candidate, resolution, existing_species):
 
 def canonical_species(name):
     return " ".join(name.split()[:2])
+
+
+def dedupe_catalog(candidate, resolution, catalog_index):
+    if not all(isinstance(item, dict) for item in (candidate, resolution, catalog_index)):
+        raise ValueError("candidate, resolution, and catalog_index must be objects")
+    candidate_id = candidate.get("speciesId")
+    if not isinstance(candidate_id, str) or not candidate_id:
+        raise ValueError("candidate speciesId must be a non-empty string")
+    accepted = canonical_scientific_name(resolution.get("acceptedScientificName", ""))
+    adapted_candidate = {
+        "candidateId": candidate_id,
+        "speciesId": candidate_id,
+        "jaName": normalize_japanese(candidate.get("jaName", "")),
+        "scientificName": candidate["scientificName"],
+    }
+    adapted_resolution = {
+        "acceptedName": accepted,
+        "status": resolution.get("status"),
+        "sources": [{"synonyms": list(resolution.get("synonyms", []))}],
+    }
+    existing = [
+        {
+            "id": item["id"], "jaName": item["japanese"],
+            "canonicalName": item["canonical"], "synonyms": [], "lifeStageNames": [],
+        }
+        for item in catalog_index.get("byId", {}).values()
+    ]
+    canonical = detect_duplicate(adapted_candidate, adapted_resolution, existing)
+    status = "review" if canonical["status"] == "needs_review" else canonical["status"]
+    matched = canonical["matchedExistingIds"]
+    reasons = canonical["hardReasons"] + canonical["reviewReasons"] + canonical["warnings"]
+    result = {"candidateId": candidate_id, "status": status, "matchedSpeciesIds": sorted(set(matched)), "reasons": reasons}
+    require_valid("DedupeResult", result)
+    return result
