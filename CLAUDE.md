@@ -113,3 +113,40 @@ git push origin main
 ### 必須 cleanup
 - batch 後の `_inbox/` `_archive/` `_pipeline/` を `git add` しない
 - 配信成果物 (`original/_resized.jpg` `processed/*_L2_grade.webp` `thumb/*` `metadata/*.json` `zukan_config/zukan_catalog.js`) のみ commit
+
+## Campaign 3 unattended sessions
+
+### 目的と構成
+Quest4Bugs は、ポータルと計算・漢字・英単語などのゲームからなる子ども向け学習ゲーム集。HTML、CSS、JavaScript と静的 asset で構成され、サーバ側アプリはない。
+`.github/workflows/pages.yml` が repository root をそのまま artifact にして GitHub Pages へ配信する。
+
+### install
+Fresh clone に project dependency の install は不要。`package.json` や Python dependency manifest はなく、local serve には Python 3 があればよい。
+Campaign 3 session は committed file だけを前提とし、WSL 固有 path、Dropbox にだけある untracked file、user-level skill、interactive login、task 自身が起動しない service に依存しない。
+
+### test
+現在、committed test framework はない。`package.json`、pytest / Jest / Playwright の設定もない。`test_zukan.html` は browser で確認する図鑑描画 debug page であり、自動 test runner ではない。CI は `.github/workflows/pages.yml` による GitHub Pages deploy のみ。
+Campaign 3 session は、自分の変更範囲に対する最小限の committed headless check を追加し、実行した正確な command を作業記録に残すこと。
+
+### lint / build
+Committed lint command と build step はない。静的 file は build せず、そのまま配信される。
+
+### run
+Repository root で次を実行し、`http://127.0.0.1:8000/` を開く。
+```bash
+python3 -m venv /tmp/quest4bugs_campaign3_venv && /tmp/quest4bugs_campaign3_venv/bin/python -m http.server 8000 --bind 127.0.0.1 --directory .
+```
+
+### screenshot
+Committed headless browser や screenshot command はないため、手段は各 task で確認する。Deterministic screenshot を追加する場合は、固定 viewport、固定 URL、page ready の待機条件を指定し、使用した正確な command を作業記録に残すこと。
+
+### forbidden operations
+- `zukan_cards/_inbox/`、`zukan_cards/_archive/`、`zukan_cards/_pipeline/` を追加しない。
+- `zukan_cards/processed/*_L1_segmented.png` と `_original.*` 系の原寸 asset を追加しない。
+- Production image を bulk-download しない。
+
+### branch policy
+Campaign 3 session が push できるのは `claude/` prefix の branch のみ。`main` へは絶対に push しない。この規則は Campaign 3 session に限り、この file の通常 push 指示より優先する。
+
+### Python
+Python tooling は task ごとに `/tmp` 配下へ作る virtual environment を使用し、system interpreter で直接実行しない。
