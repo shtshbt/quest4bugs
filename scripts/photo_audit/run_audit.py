@@ -141,6 +141,20 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
 
     catalog_name = str(specimen.get("scientificName") or entry.get("scientificName") or "")
     identification_state, identification_reasons, comparison = rules.check_identification(catalog_name, bug)
+
+    # The filename is the only identification field written independently of the
+    # catalog, so it is folded into this axis rather than trusted implicitly.
+    ja_name = str(entry.get("jaName") or (bug or {}).get("jaName") or "")
+    filename_state, filename_reasons, filename_check = rules.check_filename_taxon(
+        specimen, catalog_name, ja_name
+    )
+    comparison["filenameCheck"] = filename_check
+    identification_reasons = identification_reasons + filename_reasons
+    identification_flags = []
+    if filename_state == "review_required":
+        identification_state = "review_required"
+        identification_flags.append("filename_taxon_unreferenced")
+
     rights_state, rights_reasons = rules.check_rights(source, entry, allowed)
     return {
         "speciesId": fixture["speciesId"],
@@ -156,7 +170,7 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
             "identification": {"state": identification_state, "reasons": identification_reasons},
             "rights": {"state": rights_state, "reasons": rights_reasons},
         },
-        "flags": sorted(set(subject_flags)),
+        "flags": sorted(set(subject_flags + identification_flags)),
         "reasons": [],
         "dangerWords": danger_words,
         "taxonComparison": comparison,

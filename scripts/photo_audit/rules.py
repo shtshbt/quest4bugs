@@ -59,6 +59,58 @@ def find_danger_words(specimen: dict, entry: dict) -> list[dict]:
     return matches
 
 
+def check_filename_taxon(
+    specimen: dict,
+    scientific_name: str,
+    ja_name: str,
+) -> tuple[str, list[str], dict]:
+    """Check whether the source filename references the catalogued taxon.
+
+    The catalog and bugs.js scientific names are written by the same fetch step,
+    so comparing them to each other cannot reveal that the photo itself is the
+    wrong animal. The source filename is written independently by the upstream
+    institution or uploader, so it is the one field that can disagree.
+
+    Only Wikimedia style names (File:...) carry a taxon. Museum accession
+    numbers such as ETHZ-ENT0297070 name nothing, so they return no signal
+    rather than an accusation that cannot be grounded.
+
+    This never rejects. A filename can legitimately use a vernacular name in a
+    language we cannot resolve, so an unreferenced taxon means a human should
+    look, not that the photo is wrong.
+    """
+    filename = str(specimen.get("catalogNumber") or "")
+    check = {
+        "decidable": False,
+        "referencesTaxon": False,
+        "filename": filename[:200],
+    }
+    if not filename.casefold().startswith("file:") or not scientific_name:
+        return "provisionally_valid", [], check
+    check["decidable"] = True
+    if _references_taxon(filename, scientific_name, ja_name):
+        check["referencesTaxon"] = True
+        return "provisionally_valid", [], check
+    return (
+        "review_required",
+        [
+            f"source filename does not reference the catalogued taxon "
+            f"({scientific_name}): {filename[:120]}"
+        ],
+        check,
+    )
+
+
+def _references_taxon(filename: str, scientific_name: str, ja_name: str) -> bool:
+    folded = filename.casefold()
+    parts = scientific_name.split()
+    if parts and parts[0].casefold() in folded:
+        return True
+    if len(parts) > 1 and parts[1].casefold() in folded:
+        return True
+    return bool(ja_name) and ja_name in filename
+
+
 def check_rights(source: dict, entry: dict, allowed: set[str]) -> tuple[str, list[str]]:
     """Check declared license and required CC-BY attribution fields."""
     license_name = source.get("mediaLicense")

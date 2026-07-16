@@ -14,6 +14,7 @@
     "交尾": 5
   },
   "byFlag": {
+    "filename_taxon_unreferenced": 78,
     "multiple_blobs": 166,
     "subject_tiny": 1,
     "unreadable_at_108": 2,
@@ -36,8 +37,8 @@
     "approved": 0,
     "machine_reject": 36,
     "missing": 342,
-    "provisionally_valid": 388,
-    "review_required": 128
+    "provisionally_valid": 374,
+    "review_required": 142
   },
   "speciesCount": 893,
   "totalFixtures": 894,
