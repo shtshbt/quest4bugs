@@ -1,0 +1,18 @@
+[
+  {
+    "evidenceId": "size-a",
+    "speciesId": "aburazemi",
+    "measurementType": "body_length",
+    "minMm": 50,
+    "maxMm": 60,
+    "source": "fixture_reference_a"
+  },
+  {
+    "evidenceId": "size-b",
+    "speciesId": "aburazemi",
+    "measurementType": "body_length",
+    "minMm": 30,
+    "maxMm": 40,
+    "source": "fixture_reference_b"
+  }
+]

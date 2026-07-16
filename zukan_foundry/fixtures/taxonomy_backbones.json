@@ -1,0 +1,54 @@
+[
+  {
+    "sourceId": "fixture_backbone_a",
+    "sourceType": "international_backbone",
+    "records": [
+      {
+        "scientificName": "Graptopsaltria nigrofuscata",
+        "canonicalName": "Graptopsaltria nigrofuscata",
+        "acceptedName": "Graptopsaltria nigrofuscata",
+        "taxonRank": "species",
+        "synonyms": ["Graptopsaltria nigrofuscata nigrofuscata"],
+        "formerGenusNames": ["Cicada nigrofuscata"],
+        "domesticSubspeciesNames": [],
+        "jaNames": ["アブラゼミ"]
+      },
+      {
+        "scientificName": "Conflictus oldname",
+        "canonicalName": "Conflictus oldname",
+        "acceptedName": "Conflictus alpha",
+        "taxonRank": "species",
+        "synonyms": [],
+        "formerGenusNames": [],
+        "domesticSubspeciesNames": [],
+        "jaNames": ["コンフリクトムシ"]
+      }
+    ]
+  },
+  {
+    "sourceId": "fixture_backbone_b",
+    "sourceType": "regional_checklist",
+    "records": [
+      {
+        "scientificName": "Graptopsaltria nigrofuscata",
+        "canonicalName": "Graptopsaltria nigrofuscata",
+        "acceptedName": "Graptopsaltria nigrofuscata",
+        "taxonRank": "species",
+        "synonyms": [],
+        "formerGenusNames": [],
+        "domesticSubspeciesNames": [],
+        "jaNames": ["アブラゼミ"]
+      },
+      {
+        "scientificName": "Conflictus oldname",
+        "canonicalName": "Conflictus oldname",
+        "acceptedName": "Conflictus beta",
+        "taxonRank": "species",
+        "synonyms": [],
+        "formerGenusNames": [],
+        "domesticSubspeciesNames": [],
+        "jaNames": ["コンフリクトムシ"]
+      }
+    ]
+  }
+]
