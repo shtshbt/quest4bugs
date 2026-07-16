@@ -111,6 +111,40 @@ def check_record_basis(specimen: dict) -> tuple[str, list[str], list[str]]:
     )
 
 
+def check_sex_claim(entry: dict, specimen: dict) -> tuple[str, list[str], list[str]]:
+    """Compare the card's sexCovered claim against the specimen's own sex field.
+
+    Measured on this catalog: 0 entries state a sex that the record flatly
+    contradicts, 1 entry is recorded as mixed, and 41 claim a male while the
+    record says indeterminate.
+
+    Only mixed asks for review, because mixed means the media covers more than
+    one sex and therefore more than one individual. Indeterminate is a note
+    only: museums routinely leave beetles unsexed, and that says nothing about
+    whether the photograph is usable.
+    """
+    covered = str(entry.get("sexCovered") or "").casefold()
+    recorded = str(specimen.get("sex") or "").casefold()
+    if covered not in ("m", "f") or not recorded:
+        return "provisionally_valid", [], []
+    if recorded.startswith("mixed"):
+        return (
+            "review_required",
+            [f"sexCovered={covered} but specimen.sex={recorded}: media covers more than one sex"],
+            ["sex_mixed_specimen"],
+        )
+    expected = {"m": "male", "f": "female"}[covered]
+    if recorded.startswith(expected):
+        return "provisionally_valid", [], []
+    if recorded.startswith(("male", "female")):
+        return (
+            "review_required",
+            [f"sexCovered={covered} contradicts specimen.sex={recorded}"],
+            ["sex_claim_contradicted"],
+        )
+    return "provisionally_valid", [], ["sex_claim_unsupported"]
+
+
 def check_occurrence_record(source: dict) -> list[str]:
     """Note a missing occurrence record. Flag only, never a state change.
 

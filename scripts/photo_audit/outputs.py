@@ -33,10 +33,20 @@ def build_summary(results: list[dict]) -> dict:
     }
 
 
-def write_outputs(out_dir: Path, results: list[dict], receipt: dict) -> dict:
-    """Write all specified output files and return the summary."""
+def write_outputs(
+    out_dir: Path,
+    results: list[dict],
+    receipt: dict,
+    stretch: dict | None = None,
+) -> dict:
+    """Write all specified output files and return the summary.
+
+    stretch carries the optional additional artifacts, keyed by output filename.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_results = [_public_result(result) for result in results]
+    for filename, payload in sorted((stretch or {}).items()):
+        _write_pretty_json(out_dir / filename, payload)
     _write_jsonl(out_dir / "photo_audit.jsonl", public_results)
     summary = build_summary(public_results)
     _write_pretty_json(out_dir / "photo_audit_summary.json", summary)

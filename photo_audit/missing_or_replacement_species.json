@@ -3293,7 +3293,8 @@
         "missing file: thumb54: zukan_cards/thumb/USNMENT00781054_54.webp",
         "missing file: thumb108: zukan_cards/thumb/USNMENT00781054_108.webp",
         "missing file: thumb216: zukan_cards/thumb/USNMENT00781054_216.webp",
-        "4 foreground blobs of comparable area, possible multiple individuals"
+        "4 foreground blobs of comparable area, possible multiple individuals",
+        "sexCovered=m but specimen.sex=mixed: media covers more than one sex"
       ],
       "scientificName": "Eurema mandarina",
       "speciesId": "kita_kichou",

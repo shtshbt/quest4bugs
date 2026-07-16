@@ -1,0 +1,626 @@
+{
+  "candidates": [
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileMacrolepidoptera01seitz0153jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "29 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Chrysozephyrus brillantinus): File:Macrolepidoptera01seitz 0153.jpg"
+      ],
+      "speciesId": "aino_midorishijimi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate32jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "sha256 duplicate of kuwagata_hanamuguri/default (resized)",
+        "sha256 duplicate of kuwagata_hanamuguri/default (display)",
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "27 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Anthracophora rusticola): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 32.jpg"
+      ],
+      "speciesId": "akamadara_hanamuguri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileXystroceraglobosaolivierpng_L2_grade.webp",
+      "dangerWords": [
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "foreground <1% at 54px, unreadable",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
+      ],
+      "speciesId": "ao_suji_kamikiri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "18 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Anomala cuprea): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 31.jpg"
+      ],
+      "speciesId": "douganebuibui",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileLacroixdrawinghbjpg_L2_grade.webp",
+      "dangerWords": [
+        "drawing",
+        "drawing"
+      ],
+      "reasons": [
+        "sha256 duplicate of lateralis_noko_kuwagata/default (resized)",
+        "sha256 duplicate of lateralis_noko_kuwagata/default (display)",
+        "danger word \"drawing\" in specimen.catalogNumber",
+        "danger word \"drawing\" in specimen.localityVerbatim",
+        "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Prosopocoilus zebra): File:Lacroix drawing hb.jpg"
+      ],
+      "speciesId": "eurosternus_noko_kuwagata",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of hime_kijanome/default (resized)",
+        "sha256 duplicate of himekimadara_seseri/default (resized)",
+        "sha256 duplicate of hoshichabane_seseri/default (resized)",
+        "sha256 duplicate of oohikage_janome/default (resized)",
+        "sha256 duplicate of hime_kijanome/default (display)",
+        "sha256 duplicate of himekimadara_seseri/default (display)",
+        "sha256 duplicate of hoshichabane_seseri/default (display)",
+        "sha256 duplicate of oohikage_janome/default (display)",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Leptalina unicolor): File:Rhopalocera nihonica BHL22784764.jpg"
+      ],
+      "speciesId": "ginichimonji_seseri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
+      "dangerWords": [
+        "drawing",
+        "water colour"
+      ],
+      "reasons": [
+        "sha256 duplicate of umaoi/default (resized)",
+        "sha256 duplicate of umaoi/default (display)",
+        "danger word \"drawing\" in specimen.catalogNumber",
+        "danger word \"water colour\" in specimen.catalogNumber"
+      ],
+      "speciesId": "hatakeno_umaoi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of ginichimonji_seseri/default (resized)",
+        "sha256 duplicate of himekimadara_seseri/default (resized)",
+        "sha256 duplicate of hoshichabane_seseri/default (resized)",
+        "sha256 duplicate of oohikage_janome/default (resized)",
+        "sha256 duplicate of ginichimonji_seseri/default (display)",
+        "sha256 duplicate of himekimadara_seseri/default (display)",
+        "sha256 duplicate of hoshichabane_seseri/default (display)",
+        "sha256 duplicate of oohikage_janome/default (display)",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Zophoessa callipteris): File:Rhopalocera nihonica BHL22784764.jpg"
+      ],
+      "speciesId": "hime_kijanome",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of ginichimonji_seseri/default (resized)",
+        "sha256 duplicate of hime_kijanome/default (resized)",
+        "sha256 duplicate of hoshichabane_seseri/default (resized)",
+        "sha256 duplicate of oohikage_janome/default (resized)",
+        "sha256 duplicate of ginichimonji_seseri/default (display)",
+        "sha256 duplicate of hime_kijanome/default (display)",
+        "sha256 duplicate of hoshichabane_seseri/default (display)",
+        "sha256 duplicate of oohikage_janome/default (display)",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Ochlodes ochracea): File:Rhopalocera nihonica BHL22784764.jpg"
+      ],
+      "speciesId": "himekimadara_seseri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of ginichimonji_seseri/default (resized)",
+        "sha256 duplicate of hime_kijanome/default (resized)",
+        "sha256 duplicate of himekimadara_seseri/default (resized)",
+        "sha256 duplicate of oohikage_janome/default (resized)",
+        "sha256 duplicate of ginichimonji_seseri/default (display)",
+        "sha256 duplicate of hime_kijanome/default (display)",
+        "sha256 duplicate of himekimadara_seseri/default (display)",
+        "sha256 duplicate of oohikage_janome/default (display)",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Aeromachus inachus): File:Rhopalocera nihonica BHL22784764.jpg"
+      ],
+      "speciesId": "hoshichabane_seseri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate01jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "9 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Chaetodera laetescripta): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 01.jpg"
+      ],
+      "speciesId": "kawara_hanmyou",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileAidtotheidentificationofinsectsPlate996026396512jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Libelloides ramburi): File:Aid to the identification of insects (Plate 99) (6026396512).jpg"
+      ],
+      "speciesId": "ki_tsunotonbo",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "3 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Melolontha japonica): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 29.jpg"
+      ],
+      "speciesId": "ko_fuki_kogane",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "30 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Mimela splendens): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 34.jpg"
+      ],
+      "speciesId": "koganemushi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileFormicajaponica103897zookeys97855767Figure32jpg_L2_grade.webp",
+      "dangerWords": [
+        "distribution",
+        "map"
+      ],
+      "reasons": [
+        "danger word \"distribution\" in specimen.localityVerbatim",
+        "danger word \"map\" in specimen.localityVerbatim"
+      ],
+      "speciesId": "kuroyama_ari",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileKurumabattamodoki3Dthumbjpg_L2_grade.webp",
+      "dangerWords": [
+        "3d",
+        "thumb",
+        "3d",
+        "3d"
+      ],
+      "reasons": [
+        "danger word \"3d\" in specimen.catalogNumber",
+        "danger word \"thumb\" in specimen.catalogNumber",
+        "danger word \"3d\" in specimen.localityVerbatim",
+        "danger word \"3d\" in specimen.localityNormalized",
+        "source filename does not reference the catalogued taxon (Oedaleus infernalis): File:Kurumabatta-modoki-3D-thumb.jpg"
+      ],
+      "speciesId": "kuruma_batta_modoki",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate32jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "sha256 duplicate of akamadara_hanamuguri/default (resized)",
+        "sha256 duplicate of akamadara_hanamuguri/default (display)",
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "27 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Glycyphana fulvistemma): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 32.jpg"
+      ],
+      "speciesId": "kuwagata_hanamuguri",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileLacroixdrawinghbjpg_L2_grade.webp",
+      "dangerWords": [
+        "drawing",
+        "drawing"
+      ],
+      "reasons": [
+        "sha256 duplicate of eurosternus_noko_kuwagata/default (resized)",
+        "sha256 duplicate of eurosternus_noko_kuwagata/default (display)",
+        "danger word \"drawing\" in specimen.catalogNumber",
+        "danger word \"drawing\" in specimen.localityVerbatim",
+        "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Prosopocoilus zebra): File:Lacroix drawing hb.jpg"
+      ],
+      "speciesId": "lateralis_noko_kuwagata",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileHyalessamaculaticollisdistributionpng_L2_grade.webp",
+      "dangerWords": [
+        "distribution",
+        "distribution",
+        "map"
+      ],
+      "reasons": [
+        "danger word \"distribution\" in specimen.catalogNumber",
+        "danger word \"distribution\" in specimen.localityVerbatim",
+        "danger word \"map\" in specimen.localityVerbatim"
+      ],
+      "speciesId": "minminzemi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileHolotrichiaparallelaGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34croppedjpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
+      ],
+      "speciesId": "oo_kuro_koganemushi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of sedo_oo_gomimushi/default (resized)",
+        "sha256 duplicate of sedo_oo_gomimushi/default (display)",
+        "danger word \"plate\" in specimen.catalogNumber",
+        "5 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "name mismatch; possible synonym, recorded, not rejected",
+        "source filename does not reference the catalogued taxon (Damaster gehinii): File:Aid to the identification of insects (Plate 125) (7796343040).jpg"
+      ],
+      "speciesId": "oo_ruri_osamushi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileLepidoptera103897evolsyst563435Plate13jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "28 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Phengaris arionides): File:Lepidoptera (10.3897-evolsyst.5.63435) Plate 13.jpg"
+      ],
+      "speciesId": "oogomashijimi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of ginichimonji_seseri/default (resized)",
+        "sha256 duplicate of hime_kijanome/default (resized)",
+        "sha256 duplicate of himekimadara_seseri/default (resized)",
+        "sha256 duplicate of hoshichabane_seseri/default (resized)",
+        "sha256 duplicate of ginichimonji_seseri/default (display)",
+        "sha256 duplicate of hime_kijanome/default (display)",
+        "sha256 duplicate of himekimadara_seseri/default (display)",
+        "sha256 duplicate of hoshichabane_seseri/default (display)",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Ninguta schrenckii): File:Rhopalocera nihonica BHL22784764.jpg"
+      ],
+      "speciesId": "oohikage_janome",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeishadistinctissima01JPG_L2_grade.webp",
+      "dangerWords": [
+        "distribution"
+      ],
+      "reasons": [
+        "danger word \"distribution\" in specimen.localityVerbatim",
+        "2 foreground blobs of comparable area, possible multiple individuals"
+      ],
+      "speciesId": "ooyokobai_aobaha",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "sha256 duplicate of oo_ruri_osamushi/default (resized)",
+        "sha256 duplicate of oo_ruri_osamushi/default (display)",
+        "danger word \"plate\" in specimen.catalogNumber",
+        "5 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Cychrus morawitzi): File:Aid to the identification of insects (Plate 125) (7796343040).jpg"
+      ],
+      "speciesId": "sedo_oo_gomimushi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileSeitz9FaunaIndoAustralicaPlate152JPG_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.recordedBy",
+        "danger word \"plate\" in creator",
+        "32 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Celastrina albocaerulea): File:Seitz9FaunaIndoAustralicaPlate152.JPG"
+      ],
+      "speciesId": "sokorabe_ruri_shijimi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileNaturalisBiodiversityCenterRMNHART591HomoeogryllusjaponicusYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
+      "dangerWords": [
+        "drawing",
+        "water colour"
+      ],
+      "reasons": [
+        "danger word \"drawing\" in specimen.catalogNumber",
+        "danger word \"water colour\" in specimen.catalogNumber",
+        "source filename does not reference the catalogued taxon (Meloimorpha japonica): File:Naturalis Biodiversity Center - RMNH.ART.591 - Homoeogryllus japonicus - Yūshi Ishizaki - Cock Blomhoff Collection "
+      ],
+      "speciesId": "suzumushi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileTagame3DVRthumbjpg_L2_grade.webp",
+      "dangerWords": [
+        "3d",
+        "thumb"
+      ],
+      "reasons": [
+        "danger word \"3d\" in specimen.catalogNumber",
+        "danger word \"thumb\" in specimen.catalogNumber",
+        "source filename does not reference the catalogued taxon (Kirkaldyia deyrolli): File:Tagame-3D-VR-thumb.jpg"
+      ],
+      "speciesId": "tagame",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate19jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate",
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "35 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Cyllodes ater): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 19.jpg"
+      ],
+      "speciesId": "tama_keshikisui",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Gargara genistae): File:British Entomology Volume 7 (John Curtis) Plate 313.jpg"
+      ],
+      "speciesId": "tsunozemi_marubane",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileNaturalisBiodiversityCenterRMNHART578HexacentrusjaponicaYshiIshizakiCockBlomhoffCollectionpencildrawingwatercolourjpg_L2_grade.webp",
+      "dangerWords": [
+        "drawing",
+        "water colour"
+      ],
+      "reasons": [
+        "sha256 duplicate of hatakeno_umaoi/default (resized)",
+        "sha256 duplicate of hatakeno_umaoi/default (display)",
+        "danger word \"drawing\" in specimen.catalogNumber",
+        "danger word \"water colour\" in specimen.catalogNumber"
+      ],
+      "speciesId": "umaoi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileButterfliesfromChinaJapanandCoreaPLXXVIIBHL45490959jpg_L2_grade.webp",
+      "dangerWords": [
+        "map",
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"map\" in specimen.localityVerbatim",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "24 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Wagimo signatus): File:Butterflies from China, Japan, and Corea (PL. XXVII) BHL45490959.jpg"
+      ],
+      "speciesId": "uramisuji_shijimi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileButterfliesfromChinaJapanandCorea19329882875jpg_L2_grade.webp",
+      "dangerWords": [
+        "map",
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"map\" in specimen.localityVerbatim",
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Parnassius citrinarius): File:Butterflies from China, Japan, and Corea (19329882875).jpg"
+      ],
+      "speciesId": "usubashirochou",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileRhopaloceranihonicaBHL22784752jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.localityVerbatim",
+        "39 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Antigius butleri): File:Rhopalocera nihonica BHL22784752.jpg"
+      ],
+      "speciesId": "usuiro_onaga_shijimi",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg_L2_grade.webp",
+      "dangerWords": [
+        "plate"
+      ],
+      "reasons": [
+        "danger word \"plate\" in specimen.catalogNumber",
+        "8 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Helota gemmata): File:Aid to the identification of insects (Plate 133) (7796349036).jpg"
+      ],
+      "speciesId": "yotsuboshi_ookisui",
+      "variant": "default"
+    },
+    {
+      "confidence": "high",
+      "currentDisplay": "zukan_cards/processed/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg_L2_grade.webp",
+      "dangerWords": [
+        "illustration"
+      ],
+      "reasons": [
+        "danger word \"illustration\" in specimen.catalogNumber",
+        "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
+        "source filename does not reference the catalogued taxon (Abraxas miranda): File:Illustrations of typical specimens of Lepidoptera Heterocera in the collection of the British Museum (Pl. LII) (872"
+      ],
+      "speciesId": "yumon_eda_shaku",
+      "variant": "default"
+    }
+  ],
+  "note": "This is a data-only proposal. No patch to zukan_config/zukan_catalog.js is generated, and the catalog stays a read-only input."
+}

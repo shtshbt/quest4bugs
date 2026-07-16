@@ -19,6 +19,9 @@ from pathlib import Path
 import imaging
 import outputs
 import rules
+import stretch_flags
+import stretch_orphans
+import stretch_svg_fallback
 from contact_sheet import write_contact_sheets
 from extract import extract, iter_fixtures
 from review_bundle import write_review_bundle
@@ -106,7 +109,11 @@ def main() -> int:
         "startedAt": started_at.isoformat(),
         "finishedAt": finished_at.isoformat(),
     }
-    outputs.write_outputs(out_dir, results, receipt)
+    stretch = {
+        "svg_fallback_candidates.json": stretch_svg_fallback.build_svg_fallback_candidates(results),
+        "orphan_media.json": stretch_orphans.find_orphan_media(repo_root, extracted["catalog"]),
+    }
+    outputs.write_outputs(out_dir, results, receipt, stretch)
     if not args.no_bundle:
         bundle_path = write_review_bundle(results, out_dir, repo_root)
         print(f"review bundle: {bundle_path}", file=sys.stderr)
@@ -143,6 +150,12 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
     _, basis_reasons, basis_flags = rules.check_record_basis(specimen)
     subject_reasons.extend(basis_reasons)
     subject_flags.extend(basis_flags)
+
+    # A record whose own sex field says mixed covers more than one individual.
+    _, sex_reasons, sex_flags = rules.check_sex_claim(entry, specimen)
+    subject_reasons.extend(sex_reasons)
+    state_changing_sex_flags = [f for f in sex_flags if f != "sex_claim_unsupported"]
+    subject_flags.extend(state_changing_sex_flags)
     subject_state = _subject_state(danger_words, subject_flags)
 
     catalog_name = str(specimen.get("scientificName") or entry.get("scientificName") or "")
@@ -162,8 +175,11 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
         identification_flags.append("filename_taxon_unreferenced")
 
     rights_state, rights_reasons = rules.check_rights(source, entry, allowed)
-    # Flag only. Too broad to change state on its own, see check_occurrence_record.
+    # Flags only. None of these change state, see each check for why.
     provenance_flags = rules.check_occurrence_record(source)
+    provenance_flags += [f for f in sex_flags if f == "sex_claim_unsupported"]
+    provenance_flags += stretch_flags.auxiliary_flags(files)
+    provenance_flags += stretch_flags.blob_gray_zone_flag(repo_root / files["display"]["path"])
     return {
         "speciesId": fixture["speciesId"],
         "variant": fixture["variant"],

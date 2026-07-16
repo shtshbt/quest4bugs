@@ -25,10 +25,15 @@
     "幼虫": 3
   },
   "byFlag": {
+    "aspect_ratio_outlier": 2,
+    "blob_ratio_gray_zone": 19,
     "filename_taxon_unreferenced": 78,
+    "low_resolution": 5,
     "machine_observation_record": 54,
     "multiple_blobs": 166,
     "no_occurrence_record": 423,
+    "sex_claim_unsupported": 41,
+    "sex_mixed_specimen": 1,
     "subject_tiny": 1,
     "unreadable_at_108": 2,
     "unreadable_at_216": 2,

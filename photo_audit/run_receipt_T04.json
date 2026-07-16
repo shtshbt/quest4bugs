@@ -7,14 +7,14 @@
     "review_required": 152
   },
   "command": "scripts/photo_audit/run_audit.py --repo-root . --out-dir photo_audit",
-  "durationSeconds": 25.901,
+  "durationSeconds": 34.76,
   "errors": [],
   "exitCode": 0,
-  "finishedAt": "2026-07-16T17:52:26.970264+00:00",
+  "finishedAt": "2026-07-16T18:30:30.446952+00:00",
   "fixturesFromCheckpoint": 0,
   "fixturesProcessed": 894,
   "fixturesTotal": 894,
-  "startedAt": "2026-07-16T17:52:01.069092+00:00",
+  "startedAt": "2026-07-16T18:29:58.168275+00:00",
   "tool": "scripts/photo_audit/run_audit.py",
   "unresolved": {
     "machine_reject": 36,
