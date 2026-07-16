@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quest4bugs.local/contracts/media_pipeline/media_build_candidate.schema.json",
+  "title": "MediaBuildCandidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "requestId", "gapId", "speciesId", "variant",
+    "status", "matchedScientificName", "matchedRank", "matchType",
+    "recordType", "sourceRecordId", "sourceRecordUrl",
+    "sourceMediaUrl", "mediaLicense", "rawImageHash",
+    "artifactHashes", "artifactPaths", "catalogEntryCandidatePath",
+    "warnings"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "requestId": { "type": "string", "pattern": "^[0-9a-f]{64}:[0-9]+$" },
+    "gapId": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "speciesId": { "type": "string", "minLength": 1 },
+    "variant": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "minLength": 1 },
+    "matchedScientificName": { "type": "string", "minLength": 1 },
+    "matchedRank": { "type": "string", "minLength": 1 },
+    "matchType": { "type": "string", "minLength": 1 },
+    "recordType": { "type": "string", "minLength": 1 },
+    "sourceRecordId": { "type": "string", "minLength": 1 },
+    "sourceRecordUrl": { "type": "string", "format": "uri" },
+    "sourceMediaUrl": { "type": "string", "format": "uri" },
+    "mediaLicense": {
+      "enum": ["CC0-1.0", "PDM-1.0", "CC-BY-4.0", "CC-BY-SA-4.0"]
+    },
+    "rawImageHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "artifactHashes": { "type": "object" },
+    "artifactPaths": { "type": "object" },
+    "catalogEntryCandidatePath": { "type": "string", "minLength": 1 },
+    "warnings": {
+      "type": "array", "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

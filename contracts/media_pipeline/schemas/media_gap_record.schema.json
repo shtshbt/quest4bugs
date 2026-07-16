@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quest4bugs.local/contracts/media_pipeline/media_gap_record.schema.json",
+  "title": "MediaGapRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "gapId", "speciesId", "variant", "intent",
+    "auditStatus", "reasonCodes", "jaName", "scientificName",
+    "acceptedName", "currentCatalogCommit", "currentEntryHash",
+    "currentMediaHash", "currentSourceRecordId", "evidencePaths",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "gapId": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "speciesId": { "type": "string", "minLength": 1 },
+    "variant": { "type": "string", "minLength": 1 },
+    "intent": {
+      "enum": ["missing", "replacement", "new_species", "variant_missing"]
+    },
+    "auditStatus": { "type": "string", "minLength": 1 },
+    "reasonCodes": {
+      "type": "array", "items": { "type": "string", "minLength": 1 }
+    },
+    "jaName": { "type": "string", "minLength": 1 },
+    "scientificName": { "type": "string", "minLength": 1 },
+    "acceptedName": { "type": ["string", "null"] },
+    "currentCatalogCommit": {
+      "type": "string", "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "currentEntryHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "currentMediaHash": {
+      "oneOf": [
+        { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "currentSourceRecordId": { "type": ["string", "null"] },
+    "evidencePaths": {
+      "type": "array", "items": { "type": "string", "minLength": 1 }
+    },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

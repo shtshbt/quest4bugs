@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "gapId": "275c8a6610064af3530e5b82d3cf297aad16414aa038dc26946a25a776d37321",
+  "speciesId": "aburazemi",
+  "variant": "default",
+  "intent": "replacement",
+  "auditStatus": "machine_reject",
+  "reasonCodes": ["non_photo_illustration"],
+  "jaName": "アブラゼミ",
+  "scientificName": "Graptopsaltria nigrofuscata",
+  "acceptedName": null,
+  "currentCatalogCommit": "5c1c4b8f0a7e2d3b9f6a1c4e7d2b5a8f3c6e9d0b",
+  "currentEntryHash": "7c3bac98a937aa1ca5deaac7593d7f79cd7ed9ff88264af96fa3f158d67ad5a1",
+  "currentMediaHash": "e4fbd68d6c7ef6b5d47739052261bbef9cf623339e21832b149d396e884eddaa",
+  "currentSourceRecordId": null,
+  "evidencePaths": ["photo_review/items/aburazemi.html"],
+  "createdAt": "2026-07-16T21:00:00-04:00"
+}
