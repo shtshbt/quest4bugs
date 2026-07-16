@@ -33,7 +33,10 @@ def load_candidate_source(root: Path, fixture_path: Path) -> tuple[list[dict], s
         payload = json.loads(source.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise ValueError(f"invalid candidate source: {source}") from error
-    entries = payload.get("entries") if isinstance(payload, dict) else payload
+    if isinstance(payload, dict):
+        entries = next((payload[key] for key in ("entries", "records") if isinstance(payload.get(key), list)), None)
+    else:
+        entries = payload
     if not isinstance(entries, list):
         raise ValueError("candidate source must contain an array")
     return entries, "t04_audit" if audit_paths else "fixture"

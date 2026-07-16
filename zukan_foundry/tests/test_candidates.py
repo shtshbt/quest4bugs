@@ -16,11 +16,29 @@ def candidate(index, intent):
 
 class CandidateTests(unittest.TestCase):
     def test_fixture_fallback_path(self):
-        entries, source = load_candidate_source(ROOT, FIXTURE)
+        # An isolated root, so a real T04 audit artifact committed anywhere in the
+        # repository cannot decide whether this fallback case sees a fixture.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = root / "fixture_candidates.json"
+            fixture.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+            entries, source = load_candidate_source(root, fixture)
         selected, summary = select_candidates(entries)
         self.assertEqual(source, "fixture")
         self.assertEqual(len(selected), 3)
         self.assertEqual(summary["selectedCount"], 3)
+
+    def test_t04_records_key_is_accepted(self):
+        # The real T04 artifact uses a records key, not entries.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = root / "fixture.json"
+            fixture.write_text("[]", encoding="utf-8")
+            audit = root / "missing_or_replacement_species.json"
+            audit.write_text(json.dumps({"records": [candidate(2, "replacement")]}), encoding="utf-8")
+            entries, source = load_candidate_source(root, fixture)
+        self.assertEqual(source, "t04_audit")
+        self.assertEqual(entries[0]["speciesId"], "species_02")
 
     def test_t04_audit_path(self):
         with tempfile.TemporaryDirectory() as directory:
