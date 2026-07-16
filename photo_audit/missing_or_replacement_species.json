@@ -69,6 +69,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileDiegrossschmette02seit0027jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
         "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Epicopeia hainesii): File:Diegrossschmette02seit 0027.jpg"
       ],
       "scientificName": "Epicopeia hainesii",
@@ -109,6 +110,7 @@
       "reasons": [
         "danger word \"plate\" in specimen.localityVerbatim",
         "29 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Chrysozephyrus brillantinus): File:Macrolepidoptera01seitz 0153.jpg"
       ],
       "scientificName": "Chrysozephyrus brillantinus",
@@ -242,7 +244,10 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileLemyraimparilislarvajpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileLemyraimparilislarvajpg_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileLemyraimparilislarvajpg_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileLemyraimparilislarvajpg_216.webp",
+        "danger word \"larva\" in specimen.catalogNumber",
+        "danger word \"larva\" in specimen.localityVerbatim",
+        "danger word \"larva\" in specimen.localityNormalized"
       ],
       "scientificName": "Lemyra imparilis",
       "speciesId": "akahige_dokuga",
@@ -283,7 +288,8 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileDysdercusCingulatusFabriciusRedcottonstainerbugjpg_216.webp",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Dysdercus cingulatus",
       "speciesId": "akahoshi_kamemushi",
@@ -306,6 +312,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "27 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Anthracophora rusticola): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 32.jpg"
       ],
       "scientificName": "Anthracophora rusticola",
@@ -593,7 +600,8 @@
       "jaName": "アオスジカミキリ",
       "reasons": [
         "danger word \"illustration\" in specimen.localityVerbatim",
-        "foreground <1% at 54px, unreadable"
+        "foreground <1% at 54px, unreadable",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Xystrocera globosa",
       "speciesId": "ao_suji_kamikiri",
@@ -794,7 +802,10 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileAhuntsmanspiderHeteropodavenatoriapreyinguponacastorhairycaterpillarmothOleparicini08jpg_216.webp",
+        "danger word \"preying\" in specimen.catalogNumber",
+        "danger word \"caterpillar\" in specimen.catalogNumber",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Heteropoda venatoria",
       "speciesId": "ashidaka_gumo",
@@ -1029,7 +1040,8 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileTrachysminutusLinnaeus1758png_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileTrachysminutusLinnaeus1758png_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileTrachysminutusLinnaeus1758png_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileTrachysminutusLinnaeus1758png_216.webp",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Trachys minutus",
       "speciesId": "chibi_tamamushi",
@@ -1191,6 +1203,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "18 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Anomala cuprea): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 31.jpg"
       ],
       "scientificName": "Anomala cuprea",
@@ -1214,6 +1227,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate67jpg_216.webp",
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Distenia gracilis): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 67.jpg"
       ],
       "scientificName": "Distenia gracilis",
@@ -1297,7 +1311,8 @@
         "missing file: thumb108: zukan_cards/thumb/WMCFileCylindera103897zookeys87537856Figures3739jpg_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileCylindera103897zookeys87537856Figures3739jpg_216.webp",
         "danger word \"drawing\" in specimen.localityVerbatim",
-        "49 foreground blobs of comparable area, possible multiple individuals"
+        "49 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Cylindera elisae",
       "speciesId": "eliza_hanmyo",
@@ -1401,6 +1416,7 @@
         "danger word \"drawing\" in specimen.catalogNumber",
         "danger word \"drawing\" in specimen.localityVerbatim",
         "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Prosopocoilus zebra): File:Lacroix drawing hb.jpg"
       ],
       "scientificName": "Prosopocoilus zebra",
@@ -1669,6 +1685,7 @@
         "sha256 duplicate of oohikage_janome/default (display)",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Leptalina unicolor): File:Rhopalocera nihonica BHL22784764.jpg"
       ],
       "scientificName": "Leptalina unicolor",
@@ -1836,6 +1853,7 @@
         "missing file: thumb108: zukan_cards/thumb/WMCFileHydrachna103897zookeys86534532Figures310jpg_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileHydrachna103897zookeys86534532Figures310jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Eretes griseus): File:Hydrachna (10.3897-zookeys.865.34532) Figures 3–10.jpg"
       ],
       "scientificName": "Eretes griseus",
@@ -2217,7 +2235,8 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileAnisodactylussignatusJacobsonpng_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileAnisodactylussignatusJacobsonpng_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileAnisodactylussignatusJacobsonpng_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileAnisodactylussignatusJacobsonpng_216.webp",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Anisodactylus signatus",
       "speciesId": "hime_gomimushi",
@@ -2285,6 +2304,7 @@
         "sha256 duplicate of oohikage_janome/default (display)",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Zophoessa callipteris): File:Rhopalocera nihonica BHL22784764.jpg"
       ],
       "scientificName": "Zophoessa callipteris",
@@ -2434,6 +2454,7 @@
         "sha256 duplicate of oohikage_janome/default (display)",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Ochlodes ochracea): File:Rhopalocera nihonica BHL22784764.jpg"
       ],
       "scientificName": "Ochlodes ochracea",
@@ -2583,6 +2604,7 @@
         "sha256 duplicate of oohikage_janome/default (display)",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Aeromachus inachus): File:Rhopalocera nihonica BHL22784764.jpg"
       ],
       "scientificName": "Aeromachus inachus",
@@ -2967,6 +2989,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "9 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Chaetodera laetescripta): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 01.jpg"
       ],
       "scientificName": "Chaetodera laetescripta",
@@ -2986,6 +3009,7 @@
       "jaName": "キバネツノトンボ",
       "reasons": [
         "danger word \"plate\" in specimen.catalogNumber",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Libelloides ramburi): File:Aid to the identification of insects (Plate 99) (6026396512).jpg"
       ],
       "scientificName": "Libelloides ramburi",
@@ -3331,6 +3355,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "3 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Melolontha japonica): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 29.jpg"
       ],
       "scientificName": "Melolontha japonica",
@@ -3492,6 +3517,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "30 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Mimela splendens): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 34.jpg"
       ],
       "scientificName": "Mimela splendens",
@@ -3657,6 +3683,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileMacrolepidoptera01seitz0151jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
         "62 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Callophrys ferrea): File:Macrolepidoptera01seitz 0151.jpg"
       ],
       "scientificName": "Callophrys ferrea",
@@ -3840,6 +3867,7 @@
         "missing file: thumb108: zukan_cards/thumb/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileEdwardssbotanicalregisterPlate338387214684jpg_216.webp",
         "danger word \"plate\" in specimen.catalogNumber",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Cybister brevis): File:Edwards's botanical register (Plate 33) (8387214684).jpg"
       ],
       "scientificName": "Cybister brevis",
@@ -4198,6 +4226,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileDiegrossschmette02seit0075jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
         "13 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Rhodinia jankowskii): File:Diegrossschmette02seit 0075.jpg"
       ],
       "scientificName": "Rhodinia jankowskii",
@@ -4302,6 +4331,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "27 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Glycyphana fulvistemma): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 32.jpg"
       ],
       "scientificName": "Glycyphana fulvistemma",
@@ -4345,6 +4375,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileShiraki1910Injuriousinsectsplate19jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
         "3 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Apriona japonica): File:Shiraki 1910 Injurious insects plate19.jpg"
       ],
       "scientificName": "Apriona japonica",
@@ -4368,6 +4399,7 @@
         "danger word \"drawing\" in specimen.catalogNumber",
         "danger word \"drawing\" in specimen.localityVerbatim",
         "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Prosopocoilus zebra): File:Lacroix drawing hb.jpg"
       ],
       "scientificName": "Prosopocoilus zebra",
@@ -4590,6 +4622,9 @@
         "missing file: thumb54: zukan_cards/thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileBelostomaPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274041110003tif_216.webp",
+        "danger word \"iconographia\" in specimen.catalogNumber",
+        "danger word \"zoologica\" in specimen.catalogNumber",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Lethocerus grandis): File:Belostoma - Print - Iconographia Zoologica - Special Collections University of Amsterdam - UBAINV0274 041 11 0003.t"
       ],
       "scientificName": "Lethocerus grandis",
@@ -4833,8 +4868,13 @@
         "missing file: thumb54: zukan_cards/thumb/WMCFileHolorusiamikado103897BDJ9e58009Figure12jpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileHolorusiamikado103897BDJ9e58009Figure12jpg_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileHolorusiamikado103897BDJ9e58009Figure12jpg_216.webp",
+        "danger word \"larva\" in specimen.localityVerbatim",
         "danger word \"illustration\" in specimen.recordedBy",
-        "danger word \"illustration\" in creator"
+        "danger word \"larva\" in specimen.recordedBy",
+        "danger word \"pupa\" in specimen.recordedBy",
+        "danger word \"illustration\" in creator",
+        "danger word \"larva\" in creator",
+        "danger word \"pupa\" in creator"
       ],
       "scientificName": "Holorusia mikado",
       "speciesId": "mikado_gagambo",
@@ -4976,7 +5016,8 @@
         "missing file: thumb54: zukan_cards/thumb/WMCFileNeocerambyxraddeipng_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileNeocerambyxraddeipng_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileNeocerambyxraddeipng_216.webp",
-        "danger word \"illustration\" in specimen.localityVerbatim"
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Massicus raddei",
       "speciesId": "miyama_kamikiri",
@@ -5550,6 +5591,7 @@
         "missing file: thumb216: zukan_cards/thumb/WMCFileMacrolepidoptera01seitz0155jpg_216.webp",
         "danger word \"plate\" in specimen.localityVerbatim",
         "23 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Araragi enthea): File:Macrolepidoptera01seitz 0155.jpg"
       ],
       "scientificName": "Araragi enthea",
@@ -5673,7 +5715,8 @@
       "jaName": "オオクロコガネ",
       "reasons": [
         "danger word \"plate\" in specimen.catalogNumber",
-        "danger word \"illustration\" in specimen.localityVerbatim"
+        "danger word \"illustration\" in specimen.localityVerbatim",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Holotrichia parallela",
       "speciesId": "oo_kuro_koganemushi",
@@ -5715,6 +5758,7 @@
         "sha256 duplicate of sedo_oo_gomimushi/default (display)",
         "danger word \"plate\" in specimen.catalogNumber",
         "5 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "name mismatch; possible synonym, recorded, not rejected",
         "source filename does not reference the catalogued taxon (Damaster gehinii): File:Aid to the identification of insects (Plate 125) (7796343040).jpg"
       ],
@@ -5737,6 +5781,7 @@
         "missing file: thumb54: zukan_cards/thumb/WMCFileLonghornedbrowngrasshopper5jpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileLonghornedbrowngrasshopper5jpg_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileLonghornedbrowngrasshopper5jpg_216.webp",
+        "danger word \"幼虫\" in specimen.localityVerbatim",
         "source filename does not reference the catalogued taxon (Conocephalus exemptus): File:Long horned brown grasshopper - 5.jpg"
       ],
       "scientificName": "Conocephalus exemptus",
@@ -5839,6 +5884,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"plate\" in specimen.localityVerbatim",
         "28 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Phengaris arionides): File:Lepidoptera (10.3897-evolsyst.5.63435) Plate 13.jpg"
       ],
       "scientificName": "Phengaris arionides",
@@ -5887,6 +5933,7 @@
         "sha256 duplicate of hoshichabane_seseri/default (display)",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Ninguta schrenckii): File:Rhopalocera nihonica BHL22784764.jpg"
       ],
       "scientificName": "Ninguta schrenckii",
@@ -6450,7 +6497,8 @@
         "missing file: thumb108: zukan_cards/thumb/WMCFileScarabaeussacerFromGJArrowJPG_108.webp",
         "missing file: thumb216: zukan_cards/thumb/WMCFileScarabaeussacerFromGJArrowJPG_216.webp",
         "danger word \"illustration\" in specimen.localityVerbatim",
-        "4 foreground blobs of comparable area, possible multiple individuals"
+        "4 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Scarabaeus sacer",
       "speciesId": "scarabe_sacer",
@@ -6512,6 +6560,7 @@
         "sha256 duplicate of oo_ruri_osamushi/default (display)",
         "danger word \"plate\" in specimen.catalogNumber",
         "5 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Cychrus morawitzi): File:Aid to the identification of insects (Plate 125) (7796343040).jpg"
       ],
       "scientificName": "Cychrus morawitzi",
@@ -6950,6 +6999,7 @@
         "danger word \"plate\" in specimen.recordedBy",
         "danger word \"plate\" in creator",
         "32 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Celastrina albocaerulea): File:Seitz9FaunaIndoAustralicaPlate152.JPG"
       ],
       "scientificName": "Celastrina albocaerulea",
@@ -7174,6 +7224,7 @@
         "danger word \"plate\" in specimen.catalogNumber",
         "danger word \"illustration\" in specimen.localityVerbatim",
         "35 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Cyllodes ater): File:Georgiy Jacobson - Beetles Russia and Western Europe - plate 19.jpg"
       ],
       "scientificName": "Cyllodes ater",
@@ -7310,7 +7361,8 @@
       "reasons": [
         "missing file: thumb54: zukan_cards/thumb/WMCFileMegacoptacribraria21Sept2024jpg_54.webp",
         "missing file: thumb108: zukan_cards/thumb/WMCFileMegacoptacribraria21Sept2024jpg_108.webp",
-        "missing file: thumb216: zukan_cards/thumb/WMCFileMegacoptacribraria21Sept2024jpg_216.webp"
+        "missing file: thumb216: zukan_cards/thumb/WMCFileMegacoptacribraria21Sept2024jpg_216.webp",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo"
       ],
       "scientificName": "Megacopta punctatissima",
       "speciesId": "tochukasou_replaced_marukamemushi",
@@ -7525,6 +7577,7 @@
       "reasons": [
         "danger word \"plate\" in specimen.catalogNumber",
         "2 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Gargara genistae): File:British Entomology Volume 7 (John Curtis) Plate 313.jpg"
       ],
       "scientificName": "Gargara genistae",
@@ -7709,6 +7762,7 @@
         "danger word \"map\" in specimen.localityVerbatim",
         "danger word \"plate\" in specimen.localityVerbatim",
         "24 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Wagimo signatus): File:Butterflies from China, Japan, and Corea (PL. XXVII) BHL45490959.jpg"
       ],
       "scientificName": "Wagimo signatus",
@@ -7750,6 +7804,7 @@
         "danger word \"map\" in specimen.localityVerbatim",
         "danger word \"plate\" in specimen.localityVerbatim",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Parnassius citrinarius): File:Butterflies from China, Japan, and Corea (19329882875).jpg"
       ],
       "scientificName": "Parnassius citrinarius",
@@ -7770,6 +7825,7 @@
       "reasons": [
         "danger word \"plate\" in specimen.localityVerbatim",
         "39 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Antigius butleri): File:Rhopalocera nihonica BHL22784752.jpg"
       ],
       "scientificName": "Antigius butleri",
@@ -8205,6 +8261,7 @@
       "reasons": [
         "danger word \"plate\" in specimen.catalogNumber",
         "8 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Helota gemmata): File:Aid to the identification of insects (Plate 133) (7796349036).jpg"
       ],
       "scientificName": "Helota gemmata",
@@ -8286,6 +8343,7 @@
       "reasons": [
         "danger word \"illustration\" in specimen.catalogNumber",
         "12 foreground blobs of comparable area, possible multiple individuals",
+        "basisOfRecord=MachineObservation: machine generated record, usually a plate rather than a specimen photo",
         "source filename does not reference the catalogued taxon (Abraxas miranda): File:Illustrations of typical specimens of Lepidoptera Heterocera in the collection of the British Museum (Pl. LII) (872"
       ],
       "scientificName": "Abraxas miranda",

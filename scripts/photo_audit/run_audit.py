@@ -137,6 +137,12 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
         )
         subject_flags.extend(flags)
         subject_reasons.extend(_portable_text(reason, repo_root) for reason in reasons)
+
+    # Provenance evidence about the subject: a machine generated record is
+    # usually a book plate, so it belongs to this axis rather than to rights.
+    _, basis_reasons, basis_flags = rules.check_record_basis(specimen)
+    subject_reasons.extend(basis_reasons)
+    subject_flags.extend(basis_flags)
     subject_state = _subject_state(danger_words, subject_flags)
 
     catalog_name = str(specimen.get("scientificName") or entry.get("scientificName") or "")
@@ -156,6 +162,8 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
         identification_flags.append("filename_taxon_unreferenced")
 
     rights_state, rights_reasons = rules.check_rights(source, entry, allowed)
+    # Flag only. Too broad to change state on its own, see check_occurrence_record.
+    provenance_flags = rules.check_occurrence_record(source)
     return {
         "speciesId": fixture["speciesId"],
         "variant": fixture["variant"],
@@ -170,7 +178,7 @@ def _process_fixture(fixture: dict, repo_root: Path, bug: dict | None, allowed: 
             "identification": {"state": identification_state, "reasons": identification_reasons},
             "rights": {"state": rights_state, "reasons": rights_reasons},
         },
-        "flags": sorted(set(subject_flags + identification_flags)),
+        "flags": sorted(set(subject_flags + identification_flags + provenance_flags)),
         "reasons": [],
         "dangerWords": danger_words,
         "taxonComparison": comparison,

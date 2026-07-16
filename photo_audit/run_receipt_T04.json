@@ -3,22 +3,22 @@
     "approved": 0,
     "machine_reject": 36,
     "missing": 342,
-    "provisionally_valid": 374,
-    "review_required": 142
+    "provisionally_valid": 364,
+    "review_required": 152
   },
   "command": "scripts/photo_audit/run_audit.py --repo-root . --out-dir photo_audit",
-  "durationSeconds": 36.359,
+  "durationSeconds": 25.901,
   "errors": [],
   "exitCode": 0,
-  "finishedAt": "2026-07-16T17:30:08.403445+00:00",
+  "finishedAt": "2026-07-16T17:52:26.970264+00:00",
   "fixturesFromCheckpoint": 0,
   "fixturesProcessed": 894,
   "fixturesTotal": 894,
-  "startedAt": "2026-07-16T17:29:37.004014+00:00",
+  "startedAt": "2026-07-16T17:52:01.069092+00:00",
   "tool": "scripts/photo_audit/run_audit.py",
   "unresolved": {
     "machine_reject": 36,
     "missing": 342,
-    "review_required": 142
+    "review_required": 152
   }
 }

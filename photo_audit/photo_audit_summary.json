@@ -1,21 +1,34 @@
 {
   "byDangerWord": {
     "3d": 2,
+    "caterpillar": 3,
     "distribution": 3,
     "drawing": 6,
+    "iconographia": 1,
     "illustration": 14,
+    "larva": 4,
+    "larvae": 2,
     "male and female": 1,
     "map": 5,
     "mating": 5,
+    "nymph": 3,
+    "nymphe": 1,
     "plate": 32,
+    "preying": 1,
+    "puddling": 1,
+    "pupa": 2,
     "thumb": 2,
     "unidentified": 1,
     "water colour": 3,
-    "交尾": 5
+    "zoologica": 1,
+    "交尾": 5,
+    "幼虫": 3
   },
   "byFlag": {
     "filename_taxon_unreferenced": 78,
+    "machine_observation_record": 54,
     "multiple_blobs": 166,
+    "no_occurrence_record": 423,
     "subject_tiny": 1,
     "unreadable_at_108": 2,
     "unreadable_at_216": 2,
@@ -37,8 +50,8 @@
     "approved": 0,
     "machine_reject": 36,
     "missing": 342,
-    "provisionally_valid": 374,
-    "review_required": 142
+    "provisionally_valid": 364,
+    "review_required": 152
   },
   "speciesCount": 893,
   "totalFixtures": 894,

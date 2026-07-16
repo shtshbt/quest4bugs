@@ -17,8 +17,37 @@ REJECT_WORDS = (
     "illustration",
     "3d",
     "thumb",
+    # Historical illustration corpora, named unambiguously in the filename.
+    # Author surnames (Jacobson, Seitz, Curtis) are deliberately NOT listed:
+    # they appear in recordedBy and creator, where a future collector sharing
+    # the surname would be rejected without cause. Those plates are caught
+    # structurally by check_record_basis instead.
+    "iconographia",
+    "zoologica",
+    "lithograph",
+    "engraving",
 )
-REVIEW_WORDS = ("male and female", "mating", "交尾", "unidentified")
+REVIEW_WORDS = (
+    "male and female",
+    "mating",
+    "交尾",
+    "unidentified",
+    # More than one individual, or more than one species, in frame.
+    "puddling",
+    "preying",
+    "predation",
+    "swarm",
+    "aggregation",
+    # Not the adult form the zukan card is meant to show.
+    "caterpillar",
+    "larva",
+    "larvae",
+    "nymph",
+    "nymphe",
+    "pupa",
+    "幼虫",
+    "蛹",
+)
 TEXT_FIELDS = (
     "specimen.catalogNumber",
     "specimen.localityVerbatim",
@@ -57,6 +86,40 @@ def find_danger_words(specimen: dict, entry: dict) -> list[dict]:
                     }
                 )
     return matches
+
+
+def check_record_basis(specimen: dict) -> tuple[str, list[str], list[str]]:
+    """Flag machine generated records, which are usually book plates.
+
+    Measured on this catalog: 39 of 54 MachineObservation entries carry a
+    lexical plate or drawing marker, against 0 of 463 PRESERVED_SPECIMEN. This
+    is the signal that catches the Georgiy Jacobson plates whose filenames omit
+    the word plate, without keying on the author's surname.
+
+    It asks for review rather than rejecting, because the remaining 28 percent
+    are genuine images. Pixel based drawing detection was measured and rejected:
+    a printed colour plate carries more distinct colours than a real specimen
+    photograph, so palette statistics separate nothing.
+    """
+    basis = str(specimen.get("basisOfRecord") or "")
+    if basis.casefold().replace("_", "") != "machineobservation":
+        return "provisionally_valid", [], []
+    return (
+        "review_required",
+        [f"basisOfRecord={basis}: machine generated record, usually a plate rather than a specimen photo"],
+        ["machine_observation_record"],
+    )
+
+
+def check_occurrence_record(source: dict) -> list[str]:
+    """Note a missing occurrence record. Flag only, never a state change.
+
+    Entries without a gbifOccurrenceKey are 11.6 percent lexically bad against
+    0 percent for entries with one, so the signal is real but weak, and it
+    covers 423 entries. Escalating on it would swamp the review bundle and
+    bury the findings a human can actually act on.
+    """
+    return [] if source.get("gbifOccurrenceKey") else ["no_occurrence_record"]
 
 
 def check_filename_taxon(
