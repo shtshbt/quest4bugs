@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chameleon visual harness</title>
+<style>html,body,iframe{margin:0;width:100%;height:100%;border:0;background:#eaf2d8}body{overflow:hidden}</style>
+</head>
+<body>
+<iframe id="app" title="Chameleon visual evidence"></iframe>
+<script>
+(function(){
+  "use strict";
+  var scene=new URLSearchParams(location.search).get("scene")||"warning";
+  var ids=["queen_alexandras_birdwing","morpho_butterfly","hercules_beetle","rainbow_stag_beetle","mukashi_tonbo","gunki_oo_ari"];
+  var sep="\u0000", catches={};
+  ids.forEach(function(id){catches[id]={n:1};});
+  var store={v:2,profiles:[{id:"visual",name:"たんけんか",icon:"🦋",birth:"2016-07"}],current:"visual",tombstones:{},kv:{}};
+  store.kv["keisan"+sep+"visual"]={v:1,updated:1,data:{coll:{catches:catches,total:6},lv:{anzan:10}}};
+  store.kv["kanji"+sep+"visual"]={v:1,updated:1,data:{coll:{catches:{},total:0},tests:[]}};
+  store.kv["eitango"+sep+"visual"]={v:1,updated:1,data:{catches:{},srs:{}}};
+  store.kv["battle"+sep+"visual"]={v:1,updated:1,data:{party:ids,cleared:{50:1},bosses:{}}};
+  store.kv["chameleon"+sep+"visual"]={v:1,updated:1,data:{unlocked:true,chameleon_scale:{party:ids,equipment:{queen_alexandras_birdwing:{attack:"attack_1"},morpho_butterfly:{},hercules_beetle:{defense:"defense_1"},rainbow_stag_beetle:{},mukashi_tonbo:{},gunki_oo_ari:{}},date:"2026-07-16"}}};
+  store.kv["goshin"+sep+"visual"]={v:1,updated:1,data:{fossilFragments:0,awakeningDrops:0,dewProgress:0,log:{},equipment:{owned:{attack_1:{id:"attack_1"},defense_1:{id:"defense_1"}},equipped:{queen_alexandras_birdwing:{attack:"attack_1"},hercules_beetle:{defense:"defense_1"}},equippedBy:{attack_1:"queen_alexandras_birdwing",defense_1:"hercules_beetle"}}}};
+  localStorage.setItem("q4b_store_v1",JSON.stringify(store));
+  var frame=document.getElementById("app");
+  frame.onload=function(){
+    var w=frame.contentWindow, tries=0;
+    var poll=setInterval(function(){
+      tries++;
+      if(scene==="hall"){
+        var hall=w.document.getElementById("chameleon-hall-of-fame");
+        if(hall){clearInterval(poll);hall.scrollIntoView({block:"center"});document.body.dataset.ready="1";}
+      }else if(w.PROF&&w.PARTY&&w.PARTY.length===6&&w.B&&w.B.chameleon){
+        clearInterval(poll);
+        if(scene==="guard")w.PARTY=w.PARTY.slice(0,5);
+        if(scene==="forecast"){
+          var original=w.setTimeout;w.setTimeout=function(){return 0;};
+          w.CHAMELEON_ACTIVE=true;w.startBattle(w.B.chameleon);w.beginBattleAfterIntro();w.setTimeout=original;
+        }else{
+          w.renderHome();w.showChameleonWarning();
+        }
+        document.body.dataset.ready="1";
+      }else if(tries>100){clearInterval(poll);document.body.dataset.ready="error";}
+    },50);
+  };
+  frame.src=scene==="hall"?"../index.html":"../battle.html";
+})();
+</script>
+</body>
+</html>

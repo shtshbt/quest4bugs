@@ -315,20 +315,20 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.19"></script>
+<script src="./shared/storage.js?v=0.4.20"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.10"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./zukan_config/zukan_catalog.js?v=0.2.1"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
-<script src="./shared/bespoke.js?v=0.3.0"></script>
+<script src="./shared/bespoke.js?v=0.3.1"></script>
 <script src="./shared/reward.js?v=0.8.0"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.0"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
 <script src="./shared/zukan_detail.js?v=0.2.2"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
-<script src="./shared/battle.js?v=0.5.1"></script>
+<script src="./shared/battle.js?v=0.5.2"></script>
 <script src="./shared/boss_zukan.js?v=0.6.3"></script>
 <script src="./shared/furigana.js?v=0.3.0"></script>
 <script src="./shared/yomi.js?v=0.3.0"></script>
@@ -538,6 +538,28 @@ function equipmentHTML(g){
     +'<div class="hint">かせきのかけらと しずくで復元するよ。こだいこんちゅうの ちからを かりられる。復元できるパーツ：'+ready+'こ</div>'
     +'<details class="equip-more"><summary>かせきパーツを ひらく</summary><div class="equip-grid">'+h+'</div></details></div>';
 }
+function chameleonHallOfFameHTML(pid){
+  var state=window.QuestSave&&QuestSave.chameleonOf?QuestSave.chameleonOf(pid):null;
+  var scale=state&&state.chameleon_scale;
+  if(!scale){
+    return '<div class="equip-box" id="chameleon-hall-of-fame"><div class="equip-head"><h4>🦎 カメレオン 殿堂</h4></div><div class="hint">ひみつのボスは まだ とうばつされていないよ。</div></div>';
+  }
+  var equipment=scale.equipment||{}, party=Array.isArray(scale.party)?scale.party:[];
+  var cards=party.map(function(id){
+    var slots=equipment[id]||{}, names=[];
+    ["attack","defense","hp"].forEach(function(slot){
+      var itemId=slots[slot], item=window.Q4BEquipment&&Q4BEquipment.byId&&Q4BEquipment.byId[itemId];
+      if(item)names.push(item.name);
+    });
+    return '<div style="text-align:center;border:1px solid #D8C892;border-radius:10px;padding:5px;background:#fff">'
+      +'<div style="width:48px;height:48px;margin:auto">'+speciesArt(id,false)+'</div>'
+      +'<div style="font-size:10px;font-weight:800;line-height:1.2">'+esc(speciesName(id))+'</div>'
+      +'<div style="font-size:9px;color:#6f654c;line-height:1.25">'+(names.length?names.map(esc).join('<br>'):'そうび なし')+'</div></div>';
+  }).join("");
+  return '<div class="equip-box" id="chameleon-hall-of-fame"><div class="equip-head"><h4>🦎 カメレオン 殿堂</h4><span class="note">はじめての勝利 '+esc(scale.date)+'</span></div>'
+    +'<div class="hint">「カメレオンのうろこ」に、最初に勝った6匹と その日のそうびが ずっと残るよ。</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px">'+cards+'</div></div>';
+}
 function goshinHTML(pid,amber,bt,opts){
   if(!window.QuestSave||!QuestSave.goshinOf)return "";
   opts = opts || {};
@@ -577,7 +599,7 @@ function goshinHTML(pid,amber,bt,opts){
     +'<div class="hint">30もん せいかいすると、1日ひとつ みつかるよ</div>'
     +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
-    +'</div>'+breedingPanelHTML(pid)+equipmentHTML(g)+shinyHTML(g)+'</div>';
+    +'</div>'+breedingPanelHTML(pid)+equipmentHTML(g)+shinyHTML(g)+chameleonHallOfFameHTML(pid)+'</div>';
 }
 /* 卵育成パネル: 御神木 panel 内、化石パーツ復元の上に表示 */
 function breedingPanelHTML(pid){

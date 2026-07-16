@@ -86,7 +86,43 @@
   /* パーティ上限: 天敵は総力戦の6匹、昆虫ボスは少数精鋭の3匹（HP半減で歯ごたえ・弱点属性必須化）。
      弱点を突き専用編成すれば勝てる＋高帯到達時はコレクションが厚いので詰みにならない。 */
   var INSECT_PARTY = 3, PRED_PARTY = 6;
-  function bossPartySize(r){ return (r&&r.predator)?PRED_PARTY:INSECT_PARTY; }
+  var CHAMELEON_TYPES = ["kanji","keisan","eitango"];
+  var CHAMELEON = {
+    id:"chameleon", hidden:true, chameleon:true, type:"kanji", predator:true,
+    hp:160, partySize:6,
+    species:{id:"chameleon",jaName:"カメレオン",rarity:"SS",renderer:"chameleon",
+      colors:["#7C3AED","#2563EB"],tags:["hidden-boss","chameleon"]}
+  };
+  function isChameleon(r){ return !!(r&&r.chameleon&&r.id===CHAMELEON.id); }
+  function bossPartySize(r){ return isChameleon(r)?CHAMELEON.partySize:((r&&r.predator)?PRED_PARTY:INSECT_PARTY); }
+  function canSwap(r){ return !isChameleon(r); }
+  function chameleonNextType(type){
+    var i=CHAMELEON_TYPES.indexOf(type);
+    return CHAMELEON_TYPES[(i<0?0:i+1)%CHAMELEON_TYPES.length];
+  }
+  function createChameleonColorState(initialType){
+    var current=CHAMELEON_TYPES.indexOf(initialType)>=0?initialType:CHAMELEON_TYPES[0];
+    return {currentType:current,incomingType:chameleonNextType(current),actionsRemaining:2};
+  }
+  function prepareChameleonAction(state){
+    var s=state&&typeof state==="object"?{
+      currentType:state.currentType,
+      incomingType:state.incomingType,
+      actionsRemaining:Math.max(0,Math.floor(state.actionsRemaining)||0)
+    }:createChameleonColorState();
+    if(s.incomingType&&s.actionsRemaining===0){
+      s.currentType=s.incomingType;
+      s.incomingType=chameleonNextType(s.currentType);
+      s.actionsRemaining=2;
+      return {state:s,changed:true};
+    }
+    return {state:s,changed:false};
+  }
+  function consumeChameleonAction(state){
+    var s=prepareChameleonAction(state).state;
+    if(s.incomingType&&s.actionsRemaining>0)s.actionsRemaining--;
+    return s;
+  }
   global.Q4BBattle = {
     roster: ROSTER, BEATS: BEATS, BASE_DMG: BASE_DMG, BOSS_DMG: BOSS_DMG,
     DMG_NEUTRAL: DMG_NEUTRAL, DMG_ADV: DMG_ADV, DMG_DIS: DMG_DIS,
@@ -95,9 +131,14 @@
     unlockCost: unlockCost, unlockedStages: unlockedStages, nextUnlock: nextUnlock, bossAt: bossAt,
     bossReward: bossReward, predAmber: predAmber,
     TRAITS: TRAITS, bossTraits: bossTraits, hasTrait: hasTrait, bossPartySize: bossPartySize,
+    chameleon: CHAMELEON, isChameleon: isChameleon, canSwap: canSwap,
+    createChameleonColorState: createChameleonColorState,
+    prepareChameleonAction: prepareChameleonAction, consumeChameleonAction: consumeChameleonAction,
+    chameleonNextType: chameleonNextType,
     INSECT_PARTY: INSECT_PARTY, PRED_PARTY: PRED_PARTY, DODGE_CHANCE: DODGE_CHANCE, DOKU_BONUS: DOKU_BONUS
   };
   /* 全ボス種idを共有→render.deco が roster の全ボスに統一強調枠を付けられる（背景テーマ不統一の解消） */
   global.Q4B_BOSS_IDS = {};
   ROSTER.forEach(function(r){ global.Q4B_BOSS_IDS[r.id] = 1; });
+  global.Q4B_BOSS_IDS[CHAMELEON.id] = 1;
 })(window);

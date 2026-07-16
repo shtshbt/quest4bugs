@@ -829,6 +829,51 @@
     var r=rewardEntry(pid);
     return clone(r.entry.data);
   }
+  /* ---------------- hidden Chameleon progress (additive profile key) ----------------
+     Existing battle, catches, rewards, and equipment data are never rewritten here.
+     chameleon_scale is the immutable first-clear Hall of Fame record. */
+  function chameleonKey(pid){ return "chameleon"+SEP+pid; }
+  function normalizeChameleonData(data){
+    var out=data&&typeof data==="object"?deepClone(data):{};
+    out.unlocked=!!out.unlocked;
+    if(!out.chameleon_scale||typeof out.chameleon_scale!=="object")out.chameleon_scale=null;
+    return out;
+  }
+  function chameleonOf(pid){
+    if(!pid)return normalizeChameleonData({});
+    var entry=loadStore().kv[chameleonKey(pid)];
+    return normalizeChameleonData(entry&&entry.data);
+  }
+  function writeChameleon(pid,data){
+    var store=loadStore(), key=chameleonKey(pid), prev=store.kv[key];
+    store.kv[key]={v:1,updated:now(),revision:_entryRevision(prev)+1,updatedBy:__deviceId,
+      data:normalizeChameleonData(data)};
+    persist();
+    schedulePushOne("chameleon",pid);
+  }
+  function unlockChameleon(pid){
+    if(!pid)return {ok:false,error:"missing profile"};
+    var state=chameleonOf(pid);
+    if(state.unlocked)return {ok:true,changed:false,state:state};
+    state.unlocked=true;
+    writeChameleon(pid,state);
+    return {ok:true,changed:true,state:chameleonOf(pid)};
+  }
+  function recordChameleonClear(pid,party,equipment,date){
+    if(!pid)return {ok:false,error:"missing profile"};
+    if(!Array.isArray(party)||party.length!==6||party.some(function(id){return !id;}))
+      return {ok:false,error:"six party members required"};
+    if(!equipment||typeof equipment!=="object"||Array.isArray(equipment))
+      return {ok:false,error:"equipment snapshot required"};
+    if(typeof date!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(date))
+      return {ok:false,error:"invalid clear date"};
+    var state=chameleonOf(pid);
+    if(!state.unlocked)return {ok:false,error:"chameleon is locked"};
+    if(state.chameleon_scale)return {ok:true,first:false,state:state};
+    state.chameleon_scale={party:party.map(String),equipment:deepClone(equipment),date:date};
+    writeChameleon(pid,state);
+    return {ok:true,first:true,state:chameleonOf(pid)};
+  }
   function recordCorrect(pid,subject,n){
     var i, okSub=false, date=todayKey(), r, data, logDay, dsub, awards={fragment:false,dewDay:false,drop:false};
     if(!pid)return {ok:false,error:"missing profile"};
@@ -1356,6 +1401,7 @@
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
+    chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
     spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments,
     spendFossil:spendFossilFragments, fossilOf:fossilFragmentsOf,
