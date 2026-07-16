@@ -274,8 +274,10 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
   Q4BReward.setFossilStore({
-    get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(pidNow()):0;},
-    spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(pidNow(),n):false;}
+    pid:pidNow,
+    get:function(pid){return QuestSave.fossilOf?QuestSave.fossilOf(pid||pidNow()):0;},
+    spend:function(n,pid){return QuestSave.spendFossil?QuestSave.spendFossil(pid||pidNow(),n):false;},
+    refund:function(n,pid){var x=QuestSave.addFossil&&QuestSave.addFossil(pid||pidNow(),n);return !!(x&&x.ok);}
   });
 }
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
@@ -293,18 +295,9 @@ function keisanLayEgg(spId){
   var p=P(); if(!p||!p.coll) return;
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
-  Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    /* PB-2: layEgg は Promise<{ok,egg,reason}>。 */
-    Q4BReward.layEgg(p.coll,sp).then(function(r){
-      if(r && r.ok && r.egg){
-        save();
-        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html",queued:!!r.queued});
-      } else {
-        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ。 ホームに もどって よみなおしてください');
-        else alert('たまごを 産めませんでした');
-      }
-    });
+  Q4BBreeding.openLayConfirm(sp,{coll:p.coll,profileId:pidNow(),homeHref:"../index.html",onSuccess:function(){
+    save();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
   }});
 }
 function keisanAbandonEgg(spId){
@@ -487,7 +480,11 @@ function normalizeAllProgress(){
 }
 
 /* ---------- navigation helpers ---------- */
-function render(html){ app.innerHTML=html; window.scrollTo(0,0); }
+function render(html){
+  if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(false);
+  window.Q4BKeisanScreen="";
+  app.innerHTML=html; window.scrollTo(0,0);
+}
 function topBar(backFn,extra){
   var p=P();
   return '<div class="top">'
@@ -940,6 +937,8 @@ function showZukan(){
   });
   h+=(filtered.length?'':'<p class="note center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>')+'</div></div>';
   render(h);
+  window.Q4BKeisanScreen="zukan";
+  if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(true,app.querySelector('.scr'));
 }
 function openBugNew(spId){
   var p=P(); ensureColl(p);

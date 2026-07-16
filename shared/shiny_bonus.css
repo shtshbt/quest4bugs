@@ -1,14 +1,5 @@
 /* Quest4Bugs shared shiny presentation */
-.q4b-shiny-art{position:relative;display:block;width:100%;height:100%;isolation:isolate}
-.q4b-shiny-art>svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 5px rgba(255,220,65,.78)) drop-shadow(0 0 10px rgba(95,203,255,.38))}
-.q4b-shiny-badge{position:absolute;right:-5px;top:-6px;z-index:4;font-size:21px;line-height:1;filter:drop-shadow(0 0 5px #ffc83d) drop-shadow(0 1px 2px rgba(0,0,0,.32));pointer-events:none}
-.q4b-shiny-art::before,.q4b-shiny-art::after{content:"✦";position:absolute;z-index:2;color:#fff4a8;text-shadow:0 0 4px #ffb52e,0 0 8px #79d7ff;pointer-events:none;opacity:.88}
-.q4b-shiny-art::before{left:2%;top:7%;font-size:20px}
-.q4b-shiny-art::after{right:1%;bottom:6%;font-size:16px}
 .q4b-shiny-card{outline:3px solid rgba(255,196,38,.98)!important;outline-offset:-3px;box-shadow:0 0 0 5px rgba(91,202,255,.22),0 0 18px rgba(255,170,43,.52),0 6px 16px rgba(121,83,190,.28)!important}
-.q4b-shiny-detail{animation:q4bShinyAura 1.9s ease-in-out infinite}
-.q4b-shiny-detail::before{animation:q4bShinyTwinkle 1.55s ease-in-out infinite}
-.q4b-shiny-detail::after{animation:q4bShinyTwinkle 1.55s ease-in-out .55s infinite}
 .q4b-shiny-reveal{position:relative;animation:q4bShinyReveal 1.55s cubic-bezier(.16,.82,.28,1) both!important}
 .q4b-shiny-reveal::after{content:"✦  ✧  ✨  ✧  ✦";position:absolute;z-index:8;inset:3% -8% auto;text-align:center;font-size:30px;letter-spacing:9px;color:#fffbd0;text-shadow:0 0 7px #fff,0 0 14px #ffb52e,0 0 24px #6fd8ff,0 0 34px #b86cff;pointer-events:none;animation:q4bShinyBurst 1.5s ease-out both}
 #q4b-morning-shiny-banner{position:fixed;top:8px;left:8px;z-index:9997;display:flex;align-items:center;gap:7px;max-width:230px;padding:7px 10px;border:2px solid #e7b939;border-radius:14px;background:rgba(255,251,224,.96);box-shadow:0 3px 10px rgba(68,75,40,.22);color:#493b1c;font-size:12px;font-family:inherit;pointer-events:none}

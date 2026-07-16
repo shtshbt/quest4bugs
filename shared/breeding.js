@@ -329,6 +329,8 @@
     var cost = r.eggCost(sp);
     var target = r.eggTarget(sp);
     var doc = global.document; if(!doc) return;
+    var profileId = opts.profileId || (global.QuestSave && global.QuestSave.currentProfile && global.QuestSave.currentProfile());
+    var fossilBefore = r.fossilOf(profileId);
     /* スロット満杯なら「まちの たまご に入る」旨を予告 (産卵自体は可能) */
     var slotFull = false;
     try{
@@ -339,28 +341,45 @@
     ov.id = "q4bLayConfirmOv";
     ov.style.cssText = "position:fixed;inset:0;background:rgba(42,61,44,.55);display:flex;align-items:center;justify-content:center;z-index:310;padding:14px";
     function close(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }
-    ov.onclick = function(e){ if(e.target === ov) close(); };
+    var busy = false;
+    ov.onclick = function(e){ if(e.target === ov && !busy) close(); };
     ov.innerHTML = ''
       + '<div style="background:#FFFDF4;border-radius:18px;max-width:320px;width:96%;padding:18px 18px 14px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.32)">'
       +   '<div style="font-size:48px;margin-bottom:4px">🥚</div>'
       +   '<div style="font-size:18px;font-weight:800;color:#2A3D2C;margin-bottom:6px">'+esc(sp.jaName||sp.id)+'の<br>たまごを 産ませる?</div>'
       +   '<div style="font-size:13px;color:#6B7A5E;margin-bottom:14px">'
-      +     'コスト: 🪨 '+cost+'<br>'
+      +     'コスト: 🪨 '+cost+'<br>いま: 🪨 '+fossilBefore+' → のこり: 🪨 '+Math.max(0,fossilBefore-cost)+'<br>'
       +     '必要せいかい数: '+target+'問'
       +   '</div>'
       +   (slotFull ? '<div style="font-size:12px;color:#CF7F14;margin-bottom:14px">そだてスロットが いっぱいだから、<br>うまれた たまごは <b>📬 まちの たまご</b> に 入るよ</div>' : '')
+      +   '<div id="q4bLayStatus" role="status" style="min-height:20px;font-size:12px;color:#B24A3A;margin-bottom:6px"></div>'
       +   '<button id="q4bLayOk" type="button" style="display:block;width:100%;border:none;border-radius:12px;padding:12px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#F2A33C;box-shadow:0 3px 0 #CF7F14;cursor:pointer;margin-bottom:8px">産ませる</button>'
-      +   '<button type="button" onclick="(function(){var o=document.getElementById(\'q4bLayConfirmOv\');if(o)o.remove();})()" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px 18px;font-weight:700;font-family:inherit;cursor:pointer">キャンセル</button>'
+      +   '<button id="q4bLayCancel" type="button" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:10px;padding:8px 18px;font-weight:700;font-family:inherit;cursor:pointer">キャンセル</button>'
       + '</div>';
     doc.body.appendChild(ov);
     var ok = ov.querySelector("#q4bLayOk");
-    var busy = false;
+    var cancel = ov.querySelector("#q4bLayCancel");
+    var status = ov.querySelector("#q4bLayStatus");
+    cancel.onclick = close;
     ok.onclick = function(){
-      if(busy) return; busy = true; ok.disabled = true; ok.style.opacity = "0.6";
-      var result = opts.onConfirm ? opts.onConfirm(sp) : null;
-      close();
-      return result;
+      if(busy) return;
+      busy = true; ok.disabled = true; cancel.disabled = true; ok.style.opacity = "0.6";
+      ok.textContent = "たまごを うんでいます…"; status.textContent = "";
+      return r.layEgg(opts.coll, sp, {profileId:profileId}).then(function(result){
+        if(result && result.ok){
+          close();
+          notifyEggLaid(sp,{homeHref:opts.homeHref,queued:result.queued,result:result});
+          if(opts.onSuccess) opts.onSuccess(result);
+          return result;
+        }
+        busy=false; ok.disabled=false; cancel.disabled=false; ok.style.opacity="1"; ok.textContent="産ませる";
+        status.textContent = result && result.reason==="profile-changed" ? "プロフィールが かわったよ。もういちど えらんでね" :
+          result && result.reason==="insufficient-fossil" ? "かけらが たりないよ" : "たまごを 産めませんでした";
+        if(opts.onFailure) opts.onFailure(result);
+        return result;
+      });
     };
+    return ov;
   }
 
   /* --- 孵化アニメーション ---
@@ -734,19 +753,26 @@
     var existing = doc.getElementById("q4bEggLaidToast");
     if(existing) existing.remove();
     var homeHref = opts.homeHref || "../index.html";
+    var result = opts.result || {};
+    if(!doc.getElementById("q4bEggLaidCss")){
+      var style=doc.createElement("style");style.id="q4bEggLaidCss";
+      style.textContent="@keyframes q4bFragmentMove{0%{transform:translateX(-18px);opacity:1}65%{transform:translateX(18px);opacity:.25}100%{opacity:0}}@keyframes q4bEggReveal{0%,55%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}.q4b-fragment-move{display:inline-block;animation:q4bFragmentMove .9s ease forwards}.q4b-egg-reveal{display:inline-block;animation:q4bEggReveal 1.1s ease forwards}@media(prefers-reduced-motion:reduce){.q4b-fragment-move,.q4b-egg-reveal{animation:none}}";
+      doc.head.appendChild(style);
+    }
     var t = doc.createElement("div");
     t.id = "q4bEggLaidToast";
     t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#FFF6E0;border:2px solid #F2A33C;border-radius:14px;padding:12px 16px;z-index:9998;box-shadow:0 6px 22px rgba(0,0,0,.25);max-width:88vw;width:300px;font-family:inherit;animation:q4bToastSlide .3s ease-out";
     /* 世界観: 「かけら→飼育環境→自発的産卵」 の三段で表示。
        queued (スロット満杯で まちの たまご 行き) は案内文を分岐。 */
     t.innerHTML = ''
+      + '<div style="font-size:26px;text-align:center;margin-bottom:5px"><span class="q4b-fragment-move">🪨 '+(result.fossilCost||"")+'</span> <span class="q4b-egg-reveal">🥚</span></div>'
       + '<div style="font-size:13px;color:#8A5C2C;margin-bottom:6px;line-height:1.5">🪨 かせきのかけらを つかって、<br><b>しいくかんきょうが ととのった！</b></div>'
       + '<div style="font-size:14px;font-weight:800;color:#5B4B2B;margin-bottom:6px;line-height:1.5">🥚 '+esc(sp.jaName||sp.id)+' の<br>オスとメスが たまごを うんだ！</div>'
       + (opts.queued
         ? '<div style="font-size:12px;color:#CF7F14;margin-bottom:10px">そだてスロットが いっぱいだから、<br><b>📬 まちの たまご</b> に 入ったよ。<br>御神木の 「たまごリスト」 で えらべるよ</div>'
         : '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">御神木の 「そだてている むし」 パネルで みられるよ</div>')
       + '<div style="display:flex;gap:6px">'
-      +   '<a href="'+esc(homeHref)+'" style="flex:1;border:none;border-radius:10px;background:#F2A33C;color:#fff;padding:10px;font-weight:800;font-family:inherit;text-decoration:none;text-align:center;font-size:13px">いま みる</a>'
+      +   '<a href="'+esc(homeHref)+'" style="flex:1;border:none;border-radius:10px;background:#F2A33C;color:#fff;padding:10px;font-weight:800;font-family:inherit;text-decoration:none;text-align:center;font-size:13px">たまごを みる</a>'
       +   '<button type="button" id="q4bEggLaidLater" style="border:none;border-radius:10px;background:#EAEFE0;color:#2A3D2C;padding:10px 12px;font-weight:700;font-family:inherit;cursor:pointer;font-size:13px">あとで</button>'
       + '</div>';
     doc.body.appendChild(t);
@@ -1174,6 +1200,49 @@
     }, 2400);
   }
 
+  function enhanceZukanActions(root){
+    if(!root || !root.querySelectorAll) return;
+    Array.prototype.forEach.call(root.querySelectorAll(".zukan-specimen-info"),function(details){
+      if(details.dataset.q4bSectioned) return;
+      details.dataset.q4bSectioned="1";
+      details.style.cssText="margin:12px 0 0;text-align:left";
+      var heading=global.document.createElement("div");
+      heading.textContent="しらべる";
+      heading.style.cssText="font-size:13px;font-weight:800;color:#2A3D2C;margin-bottom:8px";
+      details.parentNode.insertBefore(heading,details);
+      var summary=details.querySelector("summary");
+      if(summary){
+        summary.textContent=summary.classList.contains("zd-spec-summary-obs") ? "📷 やせいの きろくを くわしく見る" : "📋 ひょうほんを くわしく見る";
+        summary.style.cssText="cursor:pointer;display:flex;align-items:center;width:100%;min-height:44px;box-sizing:border-box;background:#F4F8E8;border:1.5px solid #CFDDB2;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;color:#2A3D2C;list-style:none";
+      }
+    });
+    Array.prototype.forEach.call(root.querySelectorAll("button"),function(button){
+      if(button.dataset.q4bEggSectioned || button.textContent.indexOf("たまごを 産ませる")<0) return;
+      button.dataset.q4bEggSectioned="1";
+      var match=button.textContent.match(/🪨\s*(\d+)/), cost=match?match[1]:"";
+      button.textContent="🪨 "+cost+"こつかって たまごを産ませる";
+      button.style.minHeight="44px";
+      var section=global.document.createElement("section");
+      section.className="q4b-zukan-egg-section";
+      section.style.cssText="margin-top:16px;padding:12px;background:#FFF6E0;border:1.5px solid #F2A33C;border-radius:12px";
+      var heading=global.document.createElement("div");
+      heading.textContent="🥚 たまご・そだてる";
+      heading.style.cssText="font-size:14px;font-weight:800;color:#8A5C2C;margin-bottom:8px";
+      button.parentNode.insertBefore(section,button);
+      section.appendChild(heading);
+      section.appendChild(button);
+    });
+  }
+
+  if(global.document && global.document.body){
+    enhanceZukanActions(global.document);
+    if(global.MutationObserver){
+      new global.MutationObserver(function(mutations){
+        for(var i=0;i<mutations.length;i++) for(var j=0;j<mutations[i].addedNodes.length;j++) enhanceZukanActions(mutations[i].addedNodes[j]);
+      }).observe(global.document.body,{childList:true,subtree:true});
+    }
+  }
+
   /* feedEgg hook を Q4BReward に登録 (自動 toast 表示) */
   if(global.Q4BReward && global.Q4BReward.setFeedHook){
     global.Q4BReward.setFeedHook(showFeedToast);
@@ -1197,6 +1266,7 @@
     playStageAdvanceAnimation: playStageAdvanceAnimation,
     feedFeedbackHTML: feedFeedbackHTML,
     showFeedToast: showFeedToast,
+    enhanceZukanActions: enhanceZukanActions,
     metaLabel: metaLabel,
     stageVisual: stageVisual,
     GAME_COLOR: GAME_COLOR,

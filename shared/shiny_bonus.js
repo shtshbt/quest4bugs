@@ -2,15 +2,13 @@
 (function(global){
   "use strict";
 
-  var NORMAL_CHANCE = 0.015;
-  var MORNING_CHANCE = 0.045;
+  var NORMAL_CHANCE = global.Q4BReward ? global.Q4BReward.SHINY_CHANCE_NORMAL : 0.015;
+  var MORNING_CHANCE = global.Q4BReward ? global.Q4BReward.SHINY_CHANCE_MORNING : 0.045;
   var lastMorningCatchAt = 0;
   var summaryTimer = null;
 
   function isMorningBonusTime(date){
-    var d = date || new Date();
-    var h = d.getHours();
-    return h >= 6 && h < 8;
+    return !!(global.Q4BReward && global.Q4BReward.isMorningBonusTime(date));
   }
 
   function shinyTitle(count){
@@ -46,23 +44,8 @@
     return Object.keys(ids).length;
   }
 
-  function wrapRenderer(name){
-    var renderer = global.Q4BRender;
-    if(!renderer || typeof renderer[name] !== "function" || renderer[name].__q4bShinyWrapped) return;
-    var original = renderer[name];
-    var wrapped = function(sp, shiny, sex){
-      var html = original.apply(this, arguments);
-      if(!shiny) return html;
-      return '<span class="q4b-shiny-art q4b-shiny-static" data-q4b-shiny="1">'
-        + html + '<span class="q4b-shiny-badge" aria-hidden="true">✨</span></span>';
-    };
-    wrapped.__q4bShinyWrapped = true;
-    wrapped.__q4bOriginal = original;
-    renderer[name] = wrapped;
-  }
-
   function trackMorningResult(result){
-    if(result && result.morningBonus){
+    if(result && result.morningBonus && result.shiny){
       lastMorningCatchAt = Date.now();
     }
     return result;
@@ -88,7 +71,7 @@
     var banner = document.createElement("div");
     banner.id = "q4b-morning-shiny-banner";
     banner.setAttribute("role", "status");
-    banner.innerHTML = '<span class="q4b-morning-sun">🌅</span><span><b>朝露ボーナス</b><small>朝8時まで 色ちがい3倍</small></span>';
+    banner.innerHTML = '<span class="q4b-morning-sun">🌅</span><span>あさ6じ〜8じ　がくしゅうで みつける 色ちがい3ばい</span>';
     document.body.appendChild(banner);
   }
 
@@ -119,17 +102,13 @@
       var card = cards[i];
       if(card.classList.contains("shiny-card") || card.classList.contains("shiny") || card.textContent.indexOf("✨") >= 0){
         card.classList.add("q4b-shiny-card");
-        if((card.classList.contains("face") || card.classList.contains("spec")) && !card.dataset.q4bShinyRevealed){
+        var safeReveal = card.closest(".modal, .mcard, [data-q4b-zd], .drop-award");
+        if(safeReveal && (card.classList.contains("face") || card.classList.contains("spec")) && !card.dataset.q4bShinyRevealed){
           card.dataset.q4bShinyRevealed = "1";
           card.classList.add("q4b-shiny-reveal");
           (function(c){ setTimeout(function(){ c.classList.remove("q4b-shiny-reveal"); }, 1400); })(card);
         }
       }
-    }
-
-    var arts = root.querySelectorAll ? root.querySelectorAll(".q4b-shiny-art") : [];
-    for(var k=0;k<arts.length;k++){
-      if(arts[k].closest(".modal, .mcard, [data-q4b-zd], .drop-award")) arts[k].classList.add("q4b-shiny-detail");
     }
 
     addMorningCatchMessage();
@@ -155,14 +134,7 @@
       var count = shinySpeciesCount({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3]});
       var title = shinyTitle(count);
       var box = document.getElementById("q4b-shiny-summary");
-      if(!box){
-        box = document.createElement("div");
-        box.id = "q4b-shiny-summary";
-        box.className = "q4b-shiny-summary";
-        var hero = document.querySelector(".hero");
-        if(hero && hero.parentNode) hero.parentNode.insertBefore(box, hero.nextSibling);
-        else document.body.insertBefore(box, document.body.firstChild);
-      }
+      if(!box) return;
       box.innerHTML = '<span class="q4b-shiny-summary-icon">✨</span><span><b>色ちがい '+count+'種</b>'
         +(title?'<small>現在の称号　'+title+'</small>':'<small>5種で最初の称号</small>')+'</span>';
     }).catch(function(){});
@@ -175,11 +147,10 @@
   }
 
   function init(){
-    wrapRenderer("species");
-    wrapRenderer("deco");
     wrapRewardMethod("award");
     wrapRewardMethod("onCorrect");
     mountMorningBanner();
+    setInterval(mountMorningBanner, 30000);
     decorate(document);
     scheduleSummary();
     /* This script is intentionally loaded after each game's app code. If the first

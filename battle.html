@@ -975,8 +975,10 @@ function loadAll(){
     }
     if(window.Q4BReward&&Q4BReward.setFossilStore){
       Q4BReward.setFossilStore({
-        get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(PROF):0;},
-        spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(PROF,n):false;}
+        pid:function(){return PROF;},
+        get:function(pid){return QuestSave.fossilOf?QuestSave.fossilOf(pid||PROF):0;},
+        spend:function(n,pid){return QuestSave.spendFossil?QuestSave.spendFossil(pid||PROF,n):false;},
+        refund:function(n,pid){var x=QuestSave.addFossil&&QuestSave.addFossil(pid||PROF,n);return !!(x&&x.ok);}
       });
     }
     return Promise.all([

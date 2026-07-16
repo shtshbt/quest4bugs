@@ -45,6 +45,7 @@ padding:10px 12px;font-family:inherit;margin:4px 0 8px;-webkit-user-select:text;
 .goshin-board-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:6px}
 .goshin-board{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:8px 10px;font-size:13px;font-weight:800;color:#42533A;line-height:1.45}
 .goshin-wallet{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.goshin-wallet .q4b-shiny-summary{margin:0;padding:8px;box-shadow:none}
 .goshin-chip{border:1px solid #D8C892;border-radius:12px;background:#FFFDF7;padding:6px 7px;min-width:0}
 .goshin-chip b{display:block;font-size:10px;color:#7A6B4B;line-height:1.15}
 .goshin-chip strong{display:block;font-size:17px;line-height:1.15}
@@ -343,8 +344,10 @@ function pad2(n){return (n<10?"0":"")+n;}
   function hPid(){ return QuestSave.currentProfile(); }
   if(Q4BReward.setFossilStore){
     Q4BReward.setFossilStore({
-      get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(hPid()):0;},
-      spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(hPid(),n):false;}
+      pid:hPid,
+      get:function(pid){return QuestSave.fossilOf?QuestSave.fossilOf(pid||hPid()):0;},
+      spend:function(n,pid){return QuestSave.spendFossil?QuestSave.spendFossil(pid||hPid(),n):false;},
+      refund:function(n,pid){var x=QuestSave.addFossil&&QuestSave.addFossil(pid||hPid(),n);return !!(x&&x.ok);}
     });
   }
   if(Q4BReward.setEggStore){
@@ -546,9 +549,9 @@ function goshinHTML(pid,amber,bt,opts){
       +'<div class="goshin-bar"><i style="width:'+p+'%"></i></div>'
       +'<div class="goshin-found">'+(x.fragment?'🪨 かせき +1':'あと '+Math.max(0,30-(x.correct||0))+'もん')+'</div></div>';
   }
-  /* あゆみ section: 虫とりマスター称号 + 3 教科 progressSummary を御神木パネル内に統合 */
+  /* あゆみ section: global title and count remain the child-facing progress metric. */
   var ayumiHTML = '';
-  if(opts.gRank || opts.progressSummary){
+  if(opts.gRank){
     var rankLine = opts.gRank
       ? '<div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#5C3D14;margin-bottom:3px">'
         + '<span style="font-size:14px">🏅</span><span>'+esc(opts.gRank)+'</span>'
@@ -556,11 +559,8 @@ function goshinHTML(pid,amber,bt,opts){
         + (opts.gNext?'<span style="font-weight:500;color:#7A6B4B;margin-left:auto">つぎ「'+esc(opts.gNext.name)+'」まで あと '+opts.gNext.need+'ひき</span>':'')
         + '</div>'
       : '';
-    var progLine = opts.progressSummary
-      ? '<div style="font-size:11px;color:#5C3D14;line-height:1.5">📊 '+opts.progressSummary+'</div>'
-      : '';
     ayumiHTML = '<div class="goshin-ayumi" style="border:1px solid #D8C892;background:#FFFDF7;border-radius:12px;padding:7px 10px;margin-bottom:8px">'
-      + rankLine + progLine + '</div>';
+      + rankLine + '</div>';
   }
   return '<div class="goshin" id="goshinboku-panel">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
@@ -571,6 +571,7 @@ function goshinHTML(pid,amber,bt,opts){
     +'<div class="goshin-chip"><b>🔶 こはく</b><strong>'+amber+'</strong><span>30こで虫をよぼう</span></div>'
     +'<div class="goshin-chip"><b>🪨 かせきのかけら</b><strong>'+g.fossilFragments+'</strong><span>おおむかしの虫のかせきだ</span></div>'
     +'<div class="goshin-chip"><b>💧 めざめのしずく</b><strong>'+g.awakeningDrops+'</strong><span>ごしんぼくのふしぎなしずく</span></div>'
+    +'<div class="goshin-chip q4b-shiny-summary" id="q4b-shiny-summary"><span class="q4b-shiny-summary-icon">✨</span><span><b>色ちがいを かぞえ中</b></span></div>'
     +'</div>'
     +'<div class="goshin-work"><div class="goshin-fragments"><h4>きょう見つけた かせきのかけら</h4>'
     +'<div class="hint">30もん せいかいすると、1日ひとつ みつかるよ</div>'
@@ -1248,17 +1249,27 @@ function renderDashboard(pid,name){
     vals.forEach(function(v){var o=v.o,tot=o.k+o.j+o.e;
       var inner=tot?(seg(o.e,COL.e)+seg(o.j,COL.j)+seg(o.k,COL.k)):'<div style="height:2px;background:var(--line)"></div>';
       bars+='<div title="'+v.d+': けいさん'+o.k+'・かんじ'+o.j+'・えいご'+o.e+'" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;border-radius:2px 2px 0 0;overflow:hidden;min-width:0">'+inner+'</div>';});
+    var axisCount=Math.min(5,vals.length),axisSeen={},axisLabels="";
+    for(var ai=0;ai<axisCount;ai++){
+      var axisIndex=axisCount===1?0:Math.round(ai*(vals.length-1)/(axisCount-1));
+      if(axisSeen[axisIndex])continue;axisSeen[axisIndex]=1;
+      var parts=vals[axisIndex].d.split("-"),pos=vals.length===1?0:(axisIndex/(vals.length-1))*100;
+      var shift=axisIndex===0?"translateX(0)":(axisIndex===vals.length-1?"translateX(-100%)":"translateX(-50%)");
+      axisLabels+='<span style="position:absolute;left:'+pos+'%;transform:'+shift+';white-space:nowrap">'+Number(parts[1])+'/'+Number(parts[2])+'</span>';
+    }
+    var mid=Math.ceil(max/2);
+    var guides='<span style="position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--line)"></span>'
+      +'<span style="position:absolute;left:0;right:0;bottom:50%;border-top:1px solid rgba(120,130,110,.22)"></span>'
+      +'<span style="position:absolute;left:0;right:0;top:0;border-top:1px solid rgba(120,130,110,.22)"></span>';
+    var graphHTML='<div style="display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:4px">'
+      +'<div style="position:relative;height:48px;font-size:9px;color:var(--sub);text-align:right"><span style="position:absolute;right:0;top:-4px">'+max+'</span><span style="position:absolute;right:0;top:50%;transform:translateY(-50%)">'+mid+'</span><span style="position:absolute;right:0;bottom:-3px">0</span><small style="position:absolute;right:0;top:10px;font-size:8px">もん</small></div>'
+      +'<div style="position:relative;height:48px"><div style="position:absolute;inset:0">'+guides+'</div><div style="position:relative;display:flex;align-items:flex-end;gap:'+gapPx+'px;height:48px">'+bars+'</div></div>'
+      +'<div></div><div class="q4b-graph-x-axis" style="position:relative;height:15px;font-size:9px;color:var(--sub)">'+axisLabels+'</div></div>';
     var totalQ=vals.reduce(function(a,v){return a+v.o.k+v.o.j+v.o.e;},0);
     var rangeLabel=activeOpt.lab;
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.min(100, Math.round(total/pool*100));  /* U5: 100% 超え表示を防ぐ */
-    var ps=[];
-    if(ks&&ks.progressSummary)ps.push(esc(ks.progressSummary));
-    if(kp&&kp.progressSummary)ps.push(esc(kp.progressSummary));
-    if(es&&es.progressSummary)ps.push(esc(es.progressSummary));
-    /* psLine: progressSummary は 御神木パネル「あゆみ」セクションに移したため、
-       ここでは ps 配列を保持するだけで HTML 文字列は出力しない。 */
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
     if(!_isCurDash()) return;     /* T3: 切替後の旧 pid 処理を全て止める */
@@ -1326,12 +1337,10 @@ function renderDashboard(pid,name){
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
       +homeMapHTML(taniOpen)
-      /* 「虫とりマスター 称号」と 「📊 progressSummary」 は 御神木パネルの「あゆみ」
-         セクションに統合 (旧: 御神木の下に独立パネル → ごちゃつき解消) */
-      +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext, progressSummary:ps.join('　/　')})
+      +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext})
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（'+rangeLabel+'・'+totalQ+'もん）</div>'
       +tabsHTML
-      +'<div style="display:flex;align-items:flex-end;gap:'+gapPx+'px;height:48px">'+bars+'</div>'+legend
+      +graphHTML+legend
       +'<div class="note" style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap"><span>📊 つうさん <b>'+allTotalQ+'もん</b></span>'+(bestDay?'<span>🏆 ベスト日 '+bestDay+'（'+bestN+'もん）</span>':'')+'</div>';
     $("dashCard").innerHTML=h;
     initHomeMap();
@@ -1554,40 +1563,22 @@ function homeEggDemote(eggId){
 window.homeEggPickPending=null;  /* 産卵候補の sp.id を保持 */
 function homeEggPicked(spId){
   var sp=Q4BReward.spById(spId); if(!sp) return;
-  /* 卵選択モーダルを残したままコスト確認ダイアログを開く */
+  var pid=_hPid(); if(!pid) return;
   var picker=document.getElementById("q4bEggPickerOv");
-  if(picker) picker.style.display="none";  /* 一時非表示 (キャンセル時に戻すため) */
-  Q4BBreeding.openLayConfirm(sp, {
-    onConfirm: function(sp){
-      /* 産卵実行 */
-      var pid=_hPid();
-      Promise.all([
-        QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid)
-      ]).then(function(rs){
-        var virtCatches={};
-        function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
-        if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
-        if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
-        if(rs[2]&&rs[2].catches) merge(rs[2].catches);
-        var virtColl={catches:virtCatches};
-        /* PB-2: layEgg は Promise */
-        Q4BReward.layEgg(virtColl, sp).then(function(r){
-          if(r && r.ok && r.egg){
-            var p=document.getElementById("q4bEggPickerOv"); if(p) p.remove();
-            /* スロット満杯 → まちの たまご 行き。 ダッシュボードの 📬 バナーにも出るが、
-               どこに行ったか分かるよう toast でも案内する。 */
-            if(r.queued && window.Q4BBreeding && Q4BBreeding.notifyEggLaid){
-              Q4BBreeding.notifyEggLaid(sp, {homeHref:"index.html", queued:true});
-            }
-            _refreshDashIfActive();
-          } else {
-            if(r && r.reason === 'conflict') alert("別の たんまつで すすんでいるよ");
-            else alert("たまごを 産めませんでした (前提未充足)");
-            if(picker) picker.style.display="";
-          }
-        });
-      });
-    }
+  if(picker) picker.style.display="none";
+  Promise.all([
+    QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid)
+  ]).then(function(rs){
+    var virtCatches={};
+    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
+    if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
+    if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
+    if(rs[2]&&rs[2].catches) merge(rs[2].catches);
+    Q4BBreeding.openLayConfirm(sp, {
+      coll:{catches:virtCatches},profileId:pid,homeHref:"index.html",
+      onSuccess:function(){var p=document.getElementById("q4bEggPickerOv");if(p)p.remove();_refreshDashIfActive();},
+      onFailure:function(){if(picker)picker.style.display="";}
+    });
   });
 }
 /* 孵化 */

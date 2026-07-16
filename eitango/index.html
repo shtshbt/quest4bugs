@@ -420,6 +420,8 @@ function legacySizeRange(b){
    tier3 SSR    -> f5/f6/f7 (SR と同 band; 母数差を field 分布で吸収しない)
    tier4 SS     -> f6/f7    (最希少フィールドに集約; ヌシ選定の母数を確保) */
 function fieldFor(b){
+  /* Presentation-only grouping for the legacy field zukan. New catches use Q4BReward's
+     shared tier-first pool; remove this grouping when the zukan field migration lands. */
   const tier=rarityToTier(b.rarity);
   const h=hashStr(b.id);
   if(tier===0){
@@ -662,6 +664,24 @@ const SRS = {
 };
 
 /* ---------------- Reward (collection) ---------------- */
+function eitangoResult(raw){
+  if(!raw) return null;
+  const sp=ALLSP.find(s=>s[0]===raw.sp.id);
+  if(!sp) return null;
+  return {sp,size:raw.size,shiny:raw.shiny,sex:raw.sex,isNew:raw.isNew,isRecord:raw.isRecord,
+    morningBonus:raw.morningBonus,shinyChance:raw.shinyChance,shinySource:raw.shinySource};
+}
+function sharedEitangoCatch(p, channel, value){
+  if(!window.Q4BReward) return null;
+  const review=channel==='review';
+  const coll={gauge:review?(p.reviewGauge||0):(p.pool||0),acc:review?(p.reviewAcc||0):(p.poolAcc||0),
+    total:p.total||0,catches:p.catches,recent:p.recent||(p.recent=[])};
+  const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.BOOST_NORMAL,null,value,{mode:channel});
+  if(review){p.reviewGauge=coll.gauge;p.reviewAcc=coll.acc;}
+  else{p.pool=coll.gauge;p.poolAcc=coll.acc;}
+  p.total=coll.total;
+  return eitangoResult(raw);
+}
 const Reward = {
   NEED: 8,
   RARNAME: ['ノーマル', 'レア', 'スーパーレア', 'ウルトラレア', 'でんせつ'],
@@ -684,7 +704,7 @@ const Reward = {
     c.q++;
     Engine.touchStreak(p);
     if (!ok) return null;
-    c.c++; if(window.QuestSave){QuestSave.amberAdd(ePid(),1);}else{p.amber++;} p.amberTotal++;  // 🔶共有ウォレットへ
+    c.c++;
     let fresh;
     if (prefresh != null) {
       fresh = prefresh;             /* caller が 1 回 peek 済み (二重消費回避) */
@@ -693,38 +713,8 @@ const Reward = {
     } else {
       fresh = 1;
     }
-    /* 学習価値: 既マスター語(box>=3)の周回はゲージ伸びを鈍化（薄いフィールド乱獲の抑制） */
-    let val = 1; if (itemId && p.srs[itemId] && p.srs[itemId][0] >= 3) val = 0.4;
-    p.poolAcc = (p.poolAcc || 0) + fresh * val;
-    if (p.poolAcc >= 1) { p.pool++; p.poolAcc -= 1; }   // ゲージは整数を維持
-    if (p.pool >= this.NEED) { p.pool -= this.NEED; return this.roll(field, p); }
-    return null;
-  },
-  roll(field, p) {
-    const night = Engine.isNight();
-    /* 通常採集は tier 0-3 (N/R/SR/SSR) のみ。SS(=tier4, でんせつ) は kanji/keisan と仕様統一で除外
-       ── マスター条件達成 / ヌシ討伐 / ボス撃破でのみ入手するルートに統一する。
-       reward.js:30 のコメント「SSは習得達成(マスター)/ボス撃破でのみ授与」と整合。 */
-    const pool = SPECIES.filter(s => s[3] === field && s[4] < 4);
-    if (!pool.length) return null;
-    const streakBonus = 1 + Math.min(p.streak.n, 30) * 0.02;
-    /* reward.js TIER_WEIGHT=[72,23,5,0.8] に揃えた値。streak は SR/SSR (tier 2,3) に倍率。 */
-    const tierW = night
-      ? [62, 29, 7.85 * streakBonus, 1.00 * streakBonus]
-      : [70, 24, 5.00 * streakBonus, 0.85 * streakBonus];
-    const byTier = [0, 1, 2, 3].map(t => pool.filter(s => s[4] === t));
-    const tw = byTier.map((a, t) => a.length ? tierW[t] : 0);
-    let tot = tw.reduce((a, b) => a + b, 0);
-    let r = Math.random() * tot, tier = byTier.findIndex(a => a.length);
-    for (let t = 0; t < 4; t++) { if (tw[t] && r < tw[t]) { tier = t; break; } r -= tw[t]; }
-    const cand = byTier[tier];
-    const ws = cand.map(s => { const n = s[5]; return n === 2 ? 1 : (night ? (n === 1 ? 2.5 : 0.45) : (n === 1 ? 0.45 : 1)); });
-    let tot2 = ws.reduce((a, b) => a + b, 0);
-    let r2 = Math.random() * tot2, sp = cand[cand.length - 1];
-    for (let i = 0; i < cand.length; i++) { if (r2 < ws[i]) { sp = cand[i]; break; } r2 -= ws[i]; }
-    const shiny = Math.random() < 0.03;  /* 色違い率は全ゲーム共通(3%) */
-    const size = this.rollSize(sp);
-    return this.record(p, sp, size, shiny);
+    p.amberTotal++;
+    return sharedEitangoCatch(p, 'main', fresh);
   },
   rollSize(sp) {
     const min = sp[6], max = sp[7];
@@ -769,9 +759,12 @@ const Reward = {
   extraCatch(p, field) {
     const t = String(Engine.todayKey());
     if (p.extra.date !== t) p.extra = { date: t, used: 0 };
-    if (p.extra.used >= 3 || p.amber < 30) return null;
-    p.amber -= 30; p.extra.used++;
-    return this.roll(field, p);
+    if (p.extra.used >= 3 || !window.Q4BReward) return null;
+    const coll={catches:p.catches,total:p.total||0};
+    const raw=Q4BReward.spendForCatch(coll,'eitango',Q4BReward.BOOST_NORMAL);
+    if(!raw) return null;
+    p.extra.used++; p.total=coll.total;
+    return eitangoResult(raw);
   },
   rank(total) {
     const R = [[0, 'かけだし虫とり'], [100, 'みならい虫とり'], [300, 'いちにんまえの虫とり'], [800, 'ベテラン虫とり'], [2000, '虫とりのたつじん'], [5000, 'でんせつの虫はかせ']];
@@ -922,8 +915,10 @@ function setupWalletE(){
   /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
     Q4BReward.setFossilStore({
-      get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(ePid()):0;},
-      spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(ePid(),n):false;}
+      pid:ePid,
+      get:function(pid){return QuestSave.fossilOf?QuestSave.fossilOf(pid||ePid()):0;},
+      spend:function(n,pid){return QuestSave.spendFossil?QuestSave.spendFossil(pid||ePid(),n):false;},
+      refund:function(n,pid){var x=QuestSave.addFossil&&QuestSave.addFossil(pid||ePid(),n);return !!(x&&x.ok);}
     });
   }
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
@@ -945,18 +940,9 @@ function eitangoLayEgg(spId){
   var coll={catches:P.catches,favorites:P.favorites||{}};
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
-  Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    /* PB-2: layEgg は Promise<{ok,egg,reason}>。 */
-    Q4BReward.layEgg(coll,sp).then(function(r){
-      if(r && r.ok && r.egg){
-        touchP();
-        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html",queued:!!r.queued});
-      } else {
-        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ');
-        else alert('たまごを 産めませんでした');
-      }
-    });
+  Q4BBreeding.openLayConfirm(sp,{coll:coll,profileId:ePid(),homeHref:"../index.html",onSuccess:function(){
+    touchP();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
   }});
 }
 function eitangoAbandonEgg(spId){
@@ -1123,6 +1109,7 @@ function openMasterBugE(spId){
   $('#modal').classList.add('show');
 }
 function render(){
+  if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(false);
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===screen));
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(P&&P.catches) checkMastersE();
@@ -1132,6 +1119,7 @@ function render(){
   if(screen==='progress') $('#app').innerHTML=scrProgress();
   if(screen==='stats') $('#app').innerHTML=scrStats();
   if(screen==='set') $('#app').innerHTML=scrSet();
+  if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(screen==='zukan',$('#app'));
 }
 
 /* ---------------- profile selection / creation ---------------- */
@@ -1354,8 +1342,7 @@ function scrZukan(){
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
-/* 現在の練習フィールド (GFID) の既習度から boost を決定。
-   80%+ 習得 → BOOST_LOW (0.4)、それ以外 → 1.0。復習チャレンジは別途 BOOST_HIGH。 */
+/* 琥珀 catch 向けの既習度 boost。学習 gauge と review は常に shared normal odds。 */
 function eitangoFieldBoost(fid){
   if(!window.Q4BReward) return 1;
   fid = fid || GFID || 1;
@@ -2428,20 +2415,9 @@ function afterAnswer(item,ok,title,detail){
   if(S&&S.mode==='review'){
     /* S2: review でも retry 正解は採集ゲージに入れない (報酬 farming 遮断) */
     if(rewardEligible && window.Q4BReward){
-      const coll={gauge:P.reviewGauge||0, total:0, catches:P.catches,
-        recent:(P.recent||(P.recent=[])), acc:P.reviewAcc||0};
-      /* 復習モード: REVIEW_BOOST (=2.0) のレアブースト。フィールドの既習度に関わらず復習特典 */
-      const raw=Q4BReward.onCorrect(coll,'eitango',8,Q4BReward.BOOST_HIGH,item.w.key,(P.srs[item.w.key]&&P.srs[item.w.key][0]>=3?0.4:1));
-      P.reviewGauge=coll.gauge;
-      P.reviewAcc=coll.acc;  /* 新しさ係数の端数を保持 */
+      const raw=sharedEitangoCatch(P,'review',_ePrefresh);
       P.amberTotal=(P.amberTotal||0)+1;
-      if(raw){
-        /* rawのsp はオブジェクト形式 → ALLSP配列行に変換 */
-        var spRow=ALLSP.find(function(s){return s[0]===raw.sp.id;});
-        if(spRow){
-          res={sp:spRow,size:raw.size,shiny:raw.shiny,isNew:raw.isNew,isRecord:raw.isRecord};
-        }
-      }
+      if(raw) res=raw;
     }
     /* S2: cal.q/c の 30 問報酬カウンタも retry は除外 (かせきのかけら farming 防止) */
     if(!item.retry){

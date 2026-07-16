@@ -541,7 +541,9 @@ function makeWriter(elm,ch,opts){
 //JS-MID
 /* ================= 画面共通 ================= */
 function showScr(id){ var ss=document.querySelectorAll('.screen'); for(var i=0;i<ss.length;i++)ss[i].classList.remove('on');
- $('scr-'+id).classList.add('on'); window.scrollTo(0,0) }
+ var host=$('scr-'+id); host.classList.add('on');
+ if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(id==='zukan',host);
+ window.scrollTo(0,0) }
 function fbShow(ok){ $('fbIc').textContent=ok?'⭕':'❌'; $('fb').classList.add('on'); beep(ok);
  setTimeout(function(){$('fb').classList.remove('on')},650) }
 function modal(html){ $('modalIn').innerHTML=html; $('modal').classList.add('on') }
@@ -679,8 +681,10 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
   Q4BReward.setFossilStore({
-    get:function(){return QuestSave.fossilOf?QuestSave.fossilOf(kPidNow()):0;},
-    spend:function(n){return QuestSave.spendFossil?QuestSave.spendFossil(kPidNow(),n):false;}
+    pid:kPidNow,
+    get:function(pid){return QuestSave.fossilOf?QuestSave.fossilOf(pid||kPidNow()):0;},
+    spend:function(n,pid){return QuestSave.spendFossil?QuestSave.spendFossil(pid||kPidNow(),n):false;},
+    refund:function(n,pid){var x=QuestSave.addFossil&&QuestSave.addFossil(pid||kPidNow(),n);return !!(x&&x.ok);}
   });
 }
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
@@ -697,18 +701,9 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setEggStore){
 function kanjiLayEgg(spId){
   var sp=window.Q4BReward&&Q4BReward.spById(spId); if(!sp) return;
   if(!window.Q4BBreeding) return;
-  Q4BBreeding.openLayConfirm(sp,{onConfirm:function(sp){
-    /* PB-2: layEgg は Promise<{ok, egg, reason}> を返す。 演出は ok 確定後。 */
-    Q4BReward.layEgg(ST.coll,sp).then(function(r){
-      if(r && r.ok && r.egg){
-        saveST();
-        var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
-        Q4BBreeding.notifyEggLaid(sp,{homeHref:"../index.html",queued:!!r.queued});
-      } else {
-        if(r && r.reason === 'conflict') alert('別の たんまつで すすんでいるよ。ホームに もどって よみなおしてください');
-        else alert('たまごを 産めませんでした');
-      }
-    });
+  Q4BBreeding.openLayConfirm(sp,{coll:ST.coll,profileId:kPidNow(),homeHref:"../index.html",onSuccess:function(){
+    saveST();
+    var m=document.getElementById('modal'); if(m&&typeof closeModal==='function')closeModal();
   }});
 }
 function kanjiAbandonEgg(spId){

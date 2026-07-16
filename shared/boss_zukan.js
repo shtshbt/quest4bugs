@@ -311,6 +311,7 @@
         + '<div style="margin-top:14px;text-align:center"><button class="btn sub" onclick="Q4BBossZukan.closeDetail()">とじる</button></div>';
     }
     showDetail(detailCardHTML(inner));
+    activeDetailId=id;
   }
 
   /* ボス専用の卵生成 / 孵化 / 放棄 ハンドラ (detailHTML から呼ばれる) */
@@ -333,14 +334,8 @@
     var RW = global.Q4BReward, byId = byIdMap();
     var sp = byId[spId]; if(!sp || !RW || !global.Q4BBreeding) return;
     var bossColl = {catches:{}}; bossColl.catches[spId] = BOSSES[spId] || {};
-    global.Q4BBreeding.openLayConfirm(sp, {onConfirm:function(sp){
-      var egg = RW.layEgg(bossColl, sp);
-      if(egg){
-        closeDetail();
-      } else {
-        alert("たまごを 産めませんでした (前提未充足)");
-      }
-    }});
+    var pid=global.QuestSave&&global.QuestSave.currentProfile&&global.QuestSave.currentProfile();
+    global.Q4BBreeding.openLayConfirm(sp, {coll:bossColl,profileId:pid,homeHref:"index.html",onSuccess:function(){closeDetail();}});
   }
   function hatchEgg(spId){
     var RW = global.Q4BReward;
@@ -361,14 +356,18 @@
     if(global.Q4BReward && global.Q4BReward.abandonEgg(spId)) closeDetail();
   }
 
-  var activeDetail = null;
+  var activeDetail = null, previousToggleHost = null, activeDetailId = null;
   function showDetail(inner){
+    var priorHost=global.Q4BRender&&global.Q4BRender.zukanToggleHost?global.Q4BRender.zukanToggleHost():null;
     closeDetail();
     var doc = global.document;
+    previousToggleHost=priorHost;
     var kanjiModalInner = doc.getElementById("modalIn");
     if(kanjiModalInner && typeof global.modal === "function"){
       activeDetail = "kanji";
       global.modal(inner);
+      kanjiModalInner._q4bRerender=function(){if(activeDetailId)detail(activeDetailId);};
+      if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(true,kanjiModalInner);
       return;
     }
     var existing = doc.getElementById("modal");
@@ -376,6 +375,8 @@
       activeDetail = "existing";
       existing.innerHTML = '<div class="mcard">' + inner + '</div>';
       existing.classList.add("show");
+      existing._q4bRerender=function(){if(activeDetailId)detail(activeDetailId);};
+      if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(true,existing);
       return;
     }
     var ov = document.createElement("div"); ov.id = "bossZukanOv";
@@ -384,6 +385,8 @@
     ov.innerHTML = '<div class="mcard" style="background:#fff;border-radius:18px;padding:20px;max-width:360px;width:100%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3);max-height:86vh;overflow:auto">' + inner + '</div>';
     doc.body.appendChild(ov);
     activeDetail = "own";
+    var host=ov.querySelector('.mcard');host._q4bRerender=function(){if(activeDetailId)detail(activeDetailId);};
+    if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(true,host);
   }
   function closeDetail(){
     var o = document.getElementById("bossZukanOv"); if(o) o.parentNode.removeChild(o);
@@ -393,6 +396,12 @@
       if(m){ m.classList.remove("show"); m.innerHTML = ""; }
     }
     activeDetail = null;
+    activeDetailId = null;
+    if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible){
+      if(previousToggleHost&&document.documentElement.contains(previousToggleHost))global.Q4BRender.setZukanModeToggleVisible(true,previousToggleHost);
+      else global.Q4BRender.setZukanModeToggleVisible(false);
+    }
+    previousToggleHost=null;
   }
 
   function artHTML(sp, shiny){ return global.Q4BReward && global.Q4BReward.svg ? global.Q4BReward.svg(sp, shiny) : global.Q4BRender.species(sp, shiny); }

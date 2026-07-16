@@ -170,10 +170,15 @@
       if(active) doc.body.dataset.q4bSession = "1";
       else delete doc.body.dataset.q4bSession;
     };
-    global.Q4BRender.mountZukanModeToggle = function(){
+    var toggleHost = null;
+    global.Q4BRender.setZukanModeToggleVisible = function(active, host){
       var doc = global.document; if(!doc || !doc.body) return;
       var existing = doc.getElementById("q4b-zukan-mode-toggle");
-      if(existing) return existing;
+      if(!active){ if(existing) existing.remove(); toggleHost=null; return null; }
+      if(!host || !host.appendChild) return null;
+      toggleHost=host;
+      if(global.getComputedStyle && global.getComputedStyle(host).position==="static") host.style.position="relative";
+      if(existing){ host.appendChild(existing); return existing; }
       /* CSS: 問題セッション中 (body[data-q4b-session="1"]) は切り替えボタンを隠す */
       if(!doc.getElementById("q4b-zukan-toggle-style")){
         var st = doc.createElement("style");
@@ -185,8 +190,7 @@
       btn.id = "q4b-zukan-mode-toggle";
       btn.type = "button";
       btn.title = "ずかんの 見た目を きりかえる";
-      /* 右上に固定、ホームボタン (右上 z-index:9999) と並んで見える位置 */
-      btn.style.cssText = "position:fixed;top:54px;right:8px;z-index:9998;"
+      btn.style.cssText = "position:absolute;top:8px;right:8px;z-index:20;"
         + "background:rgba(255,253,244,.94);border:2px solid #CFDDB2;border-radius:14px;"
         + "padding:6px 10px;font-size:12px;cursor:pointer;color:#2A3D2C;"
         + "box-shadow:0 2px 0 #CFDDB2;font-family:inherit;font-weight:700;line-height:1.25;text-align:left";
@@ -209,18 +213,22 @@
       }
       refresh();
       btn.addEventListener("click", function(){
+        var x=global.scrollX||0, y=global.scrollY||0;
         toggleMode();
         refresh();
         /* 各教科が登録した再描画フックがあれば呼び (画面状態を維持)、
            無ければ location.reload() で全体再描画 (fallback)。 */
-        if(typeof global.Q4BZukanRerender === "function"){
-          try{ global.Q4BZukanRerender(); }catch(_){ setTimeout(function(){ global.location.reload(); }, 80); }
+        var rerender=toggleHost&&toggleHost._q4bRerender ? toggleHost._q4bRerender : global.Q4BZukanRerender;
+        if(typeof rerender === "function"){
+          try{ rerender(); setTimeout(function(){global.scrollTo(x,y);},0); }catch(_){ setTimeout(function(){ global.location.reload(); }, 80); }
         } else {
           setTimeout(function(){ global.location.reload(); }, 80);
         }
       });
-      doc.body.appendChild(btn);
+      host.appendChild(btn);
       return btn;
     };
+    global.Q4BRender.zukanToggleHost = function(){ return toggleHost; };
+    global.Q4BRender.mountZukanModeToggle = function(){ return global.Q4BRender.setZukanModeToggleVisible(false); };
   }
 })(window);

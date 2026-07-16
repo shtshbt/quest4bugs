@@ -110,17 +110,13 @@
     opts=opts||{};
     return opts.source==="wild" && isMorningBonusTime(opts.now) ? SHINY_CHANCE_MORNING : SHINY_CHANCE_NORMAL;
   }
-  var TIER_WEIGHT = [72, 23, 5, 0.8, 0.08]; // N / R / SR / SSR / SS（高効率な復習周回でのレア量産を抑えるため SR/SSR/SS を薄く）
+  var TIER_WEIGHT = [72, 23, 5, 0.8]; // N / R / SR / SSR
   var REVIEW_BOOST = 2;  // 復習チャレンジ時の「珍しい虫が出やすい」係数（復習のレア量産を抑えるため 3→2）
   var HATTEN_BOOST = 1.5;  // 発展（難問）の「すこしレアが出やすい」係数。通常1と復習2の中間
-  /* boost>1(復習) で SR/SSR(tier 2,3)を倍化。SS(tier4=でんせつ)は逆に抑制する。
-     復習は高頻度に周回できるため、据え置きだと量でSSが溜まりやすい。SSは通常プレイ/
-     テスト合格など achievement で出すものとし、復習では出にくくする。 */
-  var SS_REVIEW_MUL = 0.3;
   /* 3 段階 boost 制:
-     - boost > 1 (復習・発展): SR/SSR を boost 倍に増やし、SS は SS_REVIEW_MUL=0.3 で抑制
+     - boost > 1 (復習・発展): SR/SSR を boost 倍に増やす
      - boost == 1 (適正・上位): TIER_WEIGHT そのまま (デフォルト)
-     - boost < 1 (既習): SR/SSR/SS を全部 boost 倍に減らす → 自然に N/R が相対的に優勢
+     - boost < 1 (既習): SR/SSR を boost 倍に減らす → 自然に N/R が相対的に優勢
      既習範囲を周回しても レアな虫が出にくく、こはくだけ稼げる構造を実現する。 */
   var BOOST_LOW = 0.4;     /* 既習範囲 (mastered) */
   var BOOST_NORMAL = 1.0;  /* 適正レベル / 新規上位 */
@@ -128,33 +124,55 @@
   function weightsWith(boost){
     if(!boost || boost === 1) return TIER_WEIGHT;
     if(boost > 1){
-      return TIER_WEIGHT.map(function(w,t){ return (t>=2 && t<=3) ? w*boost : (t===4 ? w*SS_REVIEW_MUL : w); });
+      return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
     }
-    /* boost < 1: SR/SSR/SS を boost 倍で抑制 */
+    /* boost < 1: SR/SSR を boost 倍で抑制 */
     return TIER_WEIGHT.map(function(w,t){ return t>=2 ? w*boost : w; });
+  }
+  function rarityProbabilities(boost, availableTiers){
+    var available = availableTiers == null ? [0,1,2,3] : availableTiers;
+    var allowed = {};
+    for(var i=0;i<available.length;i++){
+      var tier = typeof available[i] === "string" ? TIER[available[i]] : available[i];
+      if(tier>=0 && tier<4) allowed[tier] = true;
+    }
+    var weights = weightsWith(boost).map(function(w,t){ return allowed[t] ? w : 0; });
+    var total = weights.reduce(function(a,b){ return a+b; }, 0);
+    return weights.map(function(w){ return total ? w/total : 0; });
+  }
+  function selectTier(boost, availableTiers, random){
+    var probabilities = rarityProbabilities(boost, availableTiers);
+    var value = (random || Math.random)(), cumulative = 0, last = -1;
+    for(var i=0;i<probabilities.length;i++){
+      if(!probabilities[i]) continue;
+      last = i;
+      cumulative += probabilities[i];
+      if(value < cumulative) return i;
+    }
+    return last;
   }
   /* caught: 既捕獲の {id:..} マップ。渡すと抽選ティア内で「未捕獲」を優先するが、
      捕獲済みも再出現を許容する（サイズ差・✨色違いのバリエーションがあるため、
      同じ種を採り直す意味がある）。未捕獲バイアスでコンプ到達も現実的に保つ。
      boost: レアブースト係数（省略時1=通常）。 */
-  function rollFromPool(p, caught, boost){
+  function rollFromPool(p, caught, boost, opts){
     if(!p || !p.length) return null;
-    var TW = weightsWith(boost);
-    var byTier = [0,1,2,3,4].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
-    var w = byTier.map(function(a,t){ return a.length ? TW[t] : 0; });
-    var tot = w.reduce(function(a,b){return a+b;},0);
-    if(tot<=0) return null;
-    var r = Math.random()*tot, tier = 0, i;
-    for(i=0;i<5;i++){ if(w[i] && r < w[i]){ tier=i; break; } r -= w[i]; }
+    opts=opts||{};
+    var random=opts.random||Math.random;
+    var byTier = [0,1,2,3].map(function(t){ return p.filter(function(s){ return tierOf(s)===t; }); });
+    var available=[];
+    for(var i=0;i<byTier.length;i++) if(byTier[i].length) available.push(i);
+    var tier=selectTier(boost,available,random);
+    if(tier<0) return null;
     var cand = byTier[tier];
     if(caught){ var fresh = cand.filter(function(s){ return !caught[s.id]; }); if(fresh.length) cand = fresh; }
     /* 昼夜の重み付き抽選（setNight が呼ばれたゲームのみ有効。未使用ゲームは一様のまま） */
     if(_nightActive && cand.length>1){
       var nw = cand.map(function(s){ return nightFactor(nightOf(s)); });
       var ntot = nw.reduce(function(a,b){return a+b;},0);
-      if(ntot>0){ var rr = Math.random()*ntot; for(var k=0;k<cand.length;k++){ if(rr<nw[k]) return cand[k]; rr-=nw[k]; } }
+      if(ntot>0){ var rr = random()*ntot; for(var k=0;k<cand.length;k++){ if(rr<nw[k]) return cand[k]; rr-=nw[k]; } }
     }
-    return cand[Math.floor(Math.random()*cand.length)];
+    return cand[Math.floor(random()*cand.length)];
   }
   /* ---- 昼夜（夜は夜行性の虫が出やすい）。eitango の nightFor と同方針 ---- */
   var _isNight=false, _nightActive=false;
@@ -244,7 +262,7 @@
     entry.records = records;
     return entry;
   }
-  function rollShiny(opts){ return Math.random() < shinyChanceFor(opts); }
+  function rollShiny(opts){ opts=opts||{}; return (opts.random||Math.random)() < shinyChanceFor(opts); }
   /* awardMaster(coll, sp, chosen?):
        chosen = 'm' | 'f' | 'u' (省略時 'u' で従来挙動: 性別不明 + 最大サイズ)
        chosen が 'm'/'f' の場合は rollSize(sp, chosen) で抽選し、size を変動させる。 */
@@ -272,6 +290,10 @@
     var sex = opts.sex || rollSex(sp);
     var size = (opts.size!=null) ? opts.size : rollSize(sp, sex);
     var shiny = (opts.shiny!=null) ? !!opts.shiny : rollShiny(opts);
+    var source = opts.source || "other";
+    var chance = shinyChanceFor(opts);
+    var windowActive = isMorningBonusTime(opts.now);
+    var morningBonus = source==="wild" && windowActive;
     var reared = !!opts.reared;
     var bornAt = opts.bornAt || null;
     var isNew = !prev;
@@ -293,7 +315,14 @@
     if(!coll.catches[sp.id].records) coll.catches[sp.id].records=[];
     coll.catches[sp.id].records.push(rec);
     coll.total = (coll.total||0) + 1;
-    return { sp:sp, size:size, shiny:shiny, sex:sex, reared:reared, isNew:isNew, isRecord:isRecord, tier:tierOf(sp), morningBonus:!!(shiny && opts.source==="wild" && isMorningBonusTime(opts.now)) };
+    var result = { sp:sp, size:size, shiny:shiny, sex:sex, reared:reared, isNew:isNew, isRecord:isRecord, tier:tierOf(sp), morningBonus:morningBonus, shinyChance:chance, shinySource:source };
+    if(global.dispatchEvent && global.CustomEvent){
+      global.dispatchEvent(new global.CustomEvent("q4b-shiny-roll", {detail:{
+        game:opts.game||"", mode:opts.mode||"", eligibility:source==="wild",
+        windowActive:windowActive, chance:chance, shiny:shiny
+      }}));
+    }
+    return result;
   }
 
   /* 🔶 こはく(amber): a soft currency earned per correct answer, spendable on
@@ -334,7 +363,8 @@
   /* value(任意,0〜1): その問題の「学習価値」。習得済み内容の周回は低い値を渡すと
      ゲージの伸びが鈍る → 既マスター/薄いフィールドの farming で図鑑が安く埋まるのを防ぐ。
      🔶こはくは満額のまま(救済通路は維持)。 */
-  function onCorrect(coll, game, need, boost, itemId, value){
+  function onCorrect(coll, game, need, boost, itemId, value, opts){
+    opts=opts||{};
     if(!coll.catches) coll.catches = {};
     earnAmber(coll, AMBER_PER_CORRECT);   // 🔶救済通路は満額のまま温存（共有ウォレット対応）
     /* 卵育成: feedEgg は各教科の「正解判定箇所」(QuestSave.recordCorrect の隣) で
@@ -346,9 +376,9 @@
     var threshold = need || NEED_DEFAULT;
     if((coll.gauge||0) < threshold) return null;
     coll.gauge -= threshold;
-    var sp = rollFromPool(pool(game), coll.catches, boost);
+    var sp = rollFromPool(pool(game), coll.catches, boost, opts);
     if(!sp) return null;
-    return record(coll, sp, {source:"wild"});
+    return record(coll, sp, {source:"wild", now:opts.now, random:opts.random, game:game, mode:opts.mode});
   }
 
   /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional.
@@ -359,13 +389,13 @@
     var p = pool(game), sp = null;
     if(minTier){
       var TW = weightsWith(boost);
-      var byTier = [0,1,2,3,4].map(function(t){ return (t>=minTier) ? p.filter(function(s){ return tierOf(s)===t; }) : []; });
+      var byTier = [0,1,2,3].map(function(t){ return (t>=minTier) ? p.filter(function(s){ return tierOf(s)===t; }) : []; });
       var w = byTier.map(function(a,t){ return a.length ? TW[t] : 0; });
       var tot = w.reduce(function(a,b){ return a+b; }, 0);
-      if(tot>0){ var r=Math.random()*tot, tier=0, i; for(i=0;i<5;i++){ if(w[i] && r<w[i]){ tier=i; break; } r-=w[i]; } var cand=byTier[tier]; sp=cand[Math.floor(Math.random()*cand.length)]; }
+      if(tot>0){ var r=Math.random()*tot, tier=0, i; for(i=0;i<4;i++){ if(w[i] && r<w[i]){ tier=i; break; } r-=w[i]; } var cand=byTier[tier]; sp=cand[Math.floor(Math.random()*cand.length)]; }
     }
     if(!sp) sp = rollFromPool(p, coll.catches, boost);
-    return sp ? record(coll, sp, {source:"wild"}) : null;
+    return sp ? record(coll, sp, {source:"wild",game:game,mode:"award"}) : null;
   }
 
   /* ---- collection stats / rank ---- */
@@ -609,20 +639,22 @@
   /* flushBreeding(): caller が明示的に保存 + 結果取得したいとき */
   function flushBreeding(){ return _saveBs(); }
 
-  /* fossilFragments を消費する store (egg コスト消費用)。
-     setFossilStore({get:()->n, spend:(n)->bool}) で wire-up。 */
+  /* fossilFragments を消費する store (egg コスト消費用)。 */
   var fossilStore = null;
   function setFossilStore(s){ fossilStore = s; }
-  function fossilOf(){ return fossilStore ? fossilStore.get() : 0; }
-  function spendForEgg(sp){
+  function fossilOf(pid){ return fossilStore ? fossilStore.get(pid) : 0; }
+  function spendForEgg(sp, pid){
     if(!fossilStore) return false;
-    return fossilStore.spend(eggCost(sp));
+    return fossilStore.spend(eggCost(sp), pid);
+  }
+  function refundForEgg(cost, pid){
+    return !!(fossilStore && fossilStore.refund && fossilStore.refund(cost, pid));
   }
 
   /* 産卵可能判定: ♂♀ あり + かけら充足 + 同種育成中/保留中でない + 卵対象 order。
      スロット満杯はブロックしない — layEgg 側で pendingEggs (まちの たまご) に回す
      (awardEgg と同じ「報酬消失なし」方針。 満杯を理由に産卵自体を拒否しない)。 */
-  function canLayEgg(coll, sp){
+  function canLayEgg(coll, sp, pid){
     if(!sp || !sp.metamorphosis) return false;      // 卵対象外 order
     var e = coll && coll.catches ? coll.catches[sp.id] : null;
     if(!e || !e.records) return false;
@@ -632,7 +664,7 @@
     var bs = _bs();
     for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id === sp.id) return false; }
     for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id === sp.id) return false; }
-    if(fossilOf() < eggCost(sp)) return false;
+    if(fossilOf(pid) < eggCost(sp)) return false;
     return true;
   }
   function layableSpecies(coll){
@@ -644,10 +676,26 @@
      caller の toast 文言を分岐させる。
      PB-2: async 化。 戻り値は Promise<{ok, egg, queued?, reason?}>。 cache を ensure
      してから mutate + saveVersioned。 競合時は ok:false で caller に通知 (UI の演出を抑止)。 */
-  function layEgg(coll, sp){
-    return _ensureBsLoaded().then(function(){
-      if(!canLayEgg(coll, sp)) return {ok:false, reason:"precondition"};
-      if(!spendForEgg(sp)) return {ok:false, reason:"insufficient-fossil"};
+  var layEggInFlight = {};
+  function layEgg(coll, sp, opts){
+    opts=opts||{};
+    var pid=opts.profileId || (fossilStore && fossilStore.pid && fossilStore.pid()) || _currentPid();
+    var cost=sp ? eggCost(sp) : 0;
+    var before=fossilOf(pid);
+    function result(ok,reason,egg,queued,after){
+      return {ok:ok,reason:reason||null,egg:egg||null,queued:!!queued,profileId:pid||null,
+        fossilCost:cost,fossilBefore:before,fossilAfter:after==null?fossilOf(pid):after};
+    }
+    if(!pid || !sp) return Promise.resolve(result(false,"precondition"));
+    var key=pid+":"+sp.id;
+    if(layEggInFlight[key]) return layEggInFlight[key];
+    var charged=false;
+    var transaction=_ensureBsLoaded(pid).then(function(){
+      if(_currentPid()!==pid) return result(false,"profile-changed");
+      before=fossilOf(pid);
+      if(!canLayEgg(coll, sp, pid)) return result(false,before<cost?"insufficient-fossil":"precondition");
+      if(!spendForEgg(sp,pid)) return result(false,"insufficient-fossil");
+      charged=true;
       var egg = {
         id: sp.id,
         sex: rollSex(sp),
@@ -656,9 +704,9 @@
         game: eggGameFor(sp),
         origin: "lay",
         bornAt: todayStr(),
-        shiny: rollShiny()
+        shiny: rollShiny({source:"egg"})
       };
-      var bs = _bs();
+      var bs = JSON.parse(JSON.stringify(_bs()));
       var queued = bs.eggs.length >= EGG_SLOT_MAX;
       if(queued){
         egg.queuedAt = todayStr();
@@ -667,12 +715,26 @@
         bs.eggs.push(egg);
       }
       return _saveBs(bs).then(function(r){
-        if(r.ok) return {ok:true, egg:egg, queued:queued};
-        /* 競合: かけらは消費済 → 復元するロジックは別途必要だが PB-2 範囲外。
-           ここでは caller に競合を通知し、 演出を出させない。 */
-        return {ok:false, reason:r.reason || "conflict"};
+        if(r.ok && fossilOf(pid)===before-cost) return result(true,null,egg,queued,before-cost);
+        var reason=(r && r.reason) || "persistence-failed";
+        var compensated=refundForEgg(cost,pid);
+        var after=fossilOf(pid);
+        if(global.dispatchEvent && global.CustomEvent){
+          global.dispatchEvent(new global.CustomEvent("q4b-egg-compensation", {detail:{
+            profileId:pid,fossilCost:cost,fossilBefore:before,fossilAfter:after,reason:reason,compensated:compensated
+          }}));
+        }
+        return result(false,compensated?reason:"compensation-failed",null,false,after);
       });
+    }).catch(function(){
+      if(charged) refundForEgg(cost,pid);
+      return result(false,"persistence-failed");
+    }).then(function(r){
+      delete layEggInFlight[key];
+      return r;
     });
+    layEggInFlight[key]=transaction;
+    return transaction;
   }
 
   /* マスター卵 / ボス卵を授与。空きあり→eggs、満杯/同種育成中→pendingEggs。
@@ -1264,6 +1326,12 @@
     BOOST_LOW: BOOST_LOW,
     BOOST_NORMAL: BOOST_NORMAL,
     BOOST_HIGH: BOOST_HIGH,
+    SHINY_CHANCE_NORMAL: SHINY_CHANCE_NORMAL,
+    SHINY_CHANCE_MORNING: SHINY_CHANCE_MORNING,
+    isMorningBonusTime: isMorningBonusTime,
+    shinyChanceFor: shinyChanceFor,
+    rarityProbabilities: rarityProbabilities,
+    selectTier: selectTier,
     record: record,
     collectedCount: collectedCount,
     rank: rank,
@@ -1328,4 +1396,3 @@
     spById: spById
   };
 })(window);
-

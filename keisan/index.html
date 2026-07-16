@@ -38,12 +38,7 @@ if(window.Q4BRender&&Q4BRender.mountZukanModeToggle) Q4BRender.mountZukanModeTog
 /* 切替時の画面状態を維持 (location.reload を回避)。
    keisan は SPA で screen 変数を持つので、現在画面の再描画を呼ぶ。 */
 window.Q4BZukanRerender=function(){
-  /* 現在表示中の画面を innerHTML から推定して再描画 */
-  var appEl=document.getElementById('app');
-  if(!appEl) return;
-  var html=appEl.innerHTML||'';
-  if(/むしずかん/.test(html) && typeof showZukan==='function'){ showZukan(); return; }
-  if(typeof showHome==='function') showHome();
+  if(window.Q4BKeisanScreen==="zukan"&&typeof showZukan==='function')showZukan();
 };
 </script>
 <script src="../shared/shiny_bonus.js?v=0.1.0"></script>
