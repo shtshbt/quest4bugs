@@ -1,0 +1,48 @@
+{
+  "byDangerWord": {
+    "3d": 2,
+    "distribution": 3,
+    "drawing": 6,
+    "illustration": 14,
+    "male and female": 1,
+    "map": 5,
+    "mating": 5,
+    "plate": 32,
+    "thumb": 2,
+    "unidentified": 1,
+    "water colour": 3,
+    "交尾": 5
+  },
+  "byFlag": {
+    "multiple_blobs": 166,
+    "subject_tiny": 1,
+    "unreadable_at_108": 2,
+    "unreadable_at_216": 2,
+    "unreadable_at_54": 5
+  },
+  "bySource": {
+    "AM": 14,
+    "ETHZ": 39,
+    "MNHNL": 5,
+    "NHMUK": 175,
+    "RMNH": 76,
+    "USNM": 130,
+    "WIKIPEDIA": 21,
+    "WMC": 344,
+    "YPM": 32,
+    "iNat": 58
+  },
+  "byState": {
+    "approved": 0,
+    "machine_reject": 36,
+    "missing": 342,
+    "provisionally_valid": 388,
+    "review_required": 128
+  },
+  "speciesCount": 893,
+  "totalFixtures": 894,
+  "variantCount": {
+    "default": 893,
+    "female": 1
+  }
+}

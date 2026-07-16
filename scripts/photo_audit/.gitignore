@@ -1,0 +1,3 @@
+# Interpreter bytecode is regenerated on every run, not source.
+__pycache__/
+*.pyc

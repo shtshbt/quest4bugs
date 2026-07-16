@@ -1,0 +1,24 @@
+{
+  "byState": {
+    "approved": 0,
+    "machine_reject": 36,
+    "missing": 342,
+    "provisionally_valid": 388,
+    "review_required": 128
+  },
+  "command": "scripts/photo_audit/run_audit.py --repo-root . --out-dir photo_audit",
+  "durationSeconds": 28.882,
+  "errors": [],
+  "exitCode": 0,
+  "finishedAt": "2026-07-16T16:48:39.822588+00:00",
+  "fixturesFromCheckpoint": 0,
+  "fixturesProcessed": 894,
+  "fixturesTotal": 894,
+  "startedAt": "2026-07-16T16:48:13.421556+00:00",
+  "tool": "scripts/photo_audit/run_audit.py",
+  "unresolved": {
+    "machine_reject": 36,
+    "missing": 342,
+    "review_required": 128
+  }
+}
