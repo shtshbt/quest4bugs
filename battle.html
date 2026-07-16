@@ -172,6 +172,40 @@
   .slash{position:absolute;inset:0;pointer-events:none;z-index:4}
   .slash::after{content:"";position:absolute;left:8%;top:50%;width:84%;height:7px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translateY(-50%) rotate(-18deg);border-radius:6px;animation:slashGo .35s ease-out forwards;box-shadow:0 0 12px #fff}
   @keyframes slashGo{0%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(0)}40%{opacity:1}100%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(1.1)}}
+  /* ---- 4-outcome banner (turn-banner を提出後に転用) ---- */
+  .turn-banner.outcome{font-size:17px;padding:10px;animation:obPop .25s ease-out}
+  .turn-banner.outcome .ob-ic{font-size:22px;margin-right:6px;vertical-align:-2px}
+  .turn-banner.outcome .ob-msg{font-weight:900}
+  .turn-banner.outcome .ob-sub{display:block;font-size:12px;font-weight:700;opacity:.9;margin-top:2px}
+  .turn-banner.ob-attack_hit{border:3px double #ffd76a;background:linear-gradient(90deg,rgba(255,200,90,.14),rgba(255,200,90,.30),rgba(255,200,90,.14));color:#ffe9b0}
+  .turn-banner.ob-attack_miss{border:2px dashed #b9c4d0;background:rgba(120,130,145,.18);color:#dfe6ee}
+  .turn-banner.ob-defense_guard{border:3px double #9fd0ff;background:linear-gradient(90deg,rgba(120,180,255,.16),rgba(120,180,255,.30),rgba(120,180,255,.16));color:#cfe3ff}
+  .turn-banner.ob-defense_hit{border:2px dashed #ff8a8a;background:linear-gradient(90deg,rgba(255,90,90,.16),rgba(255,90,90,.32),rgba(255,90,90,.16));color:#ffd3d3}
+  @keyframes obPop{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
+  /* attack_miss: 敵の脇を通過する空振り (hit shake なし) */
+  .slash.miss::after{top:24%;height:5px;opacity:.7;transform:translateY(-50%) rotate(-30deg);animation:missGo .45s ease-out forwards;box-shadow:0 0 8px #cfd8e2;background:linear-gradient(90deg,transparent,#cfd8e2,transparent)}
+  @keyframes missGo{0%{opacity:0;transform:translate(-30%,-50%) rotate(-30deg) scaleX(.4)}35%{opacity:.7}100%{opacity:0;transform:translate(38%,-50%) rotate(-30deg) scaleX(1)}}
+  /* defense_guard: 盾インパクト (ally slash は使わない) */
+  .guard-pop{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);font-size:38px;z-index:5;pointer-events:none;animation:guardPop .7s ease-out forwards;text-shadow:0 0 14px #9fd0ff}
+  @keyframes guardPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+  .guard-ring{box-shadow:0 0 0 5px rgba(159,208,255,.75),0 0 22px rgba(159,208,255,.5);border-radius:12px}
+  /* defense_hit: guard より明確に強い演出 (scene 全体が揺れる)。predShake keyframes を再利用 */
+  .impact-quake{animation:predShake .5s}
+  /* ダメージ表示: banner 表示中も読めるよう保持する variant */
+  .dmg-float.stay{animation:floatUpStay .9s ease-out forwards}
+  @keyframes floatUpStay{0%{opacity:0;transform:translate(-50%,8px) scale(.6)}20%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}100%{opacity:1;transform:translate(-50%,-40px) scale(1)}}
+  .dmg-float.zero{color:#d7dde4;font-size:20px;text-shadow:0 2px 4px #000;white-space:nowrap}
+  /* reduced-motion: motion を static outline に置換 (text/icon/damage/timing は同一) */
+  .fx-outline-hit .art{outline:4px solid #fff;outline-offset:4px}
+  .fx-outline-miss .art{outline:3px dashed #cfd8e2;outline-offset:6px}
+  .fx-outline-guard .art{outline:4px double #9fd0ff;outline-offset:4px}
+  .fx-outline-strike .art{outline:5px solid #ff8a8a;outline-offset:2px}
+  @media(prefers-reduced-motion:reduce){
+    .turn-banner.outcome{animation:none}
+    .dmg-float,.dmg-float.stay{animation:none;opacity:1;transform:translate(-50%,-24px)}
+    .slash,.slash.miss,.guard-pop{display:none}
+    .impact-quake,.hit,.guard-ring{animation:none;box-shadow:none}
+  }
   .fainting{animation:faintDrop 1s ease-in forwards}
   @keyframes faintDrop{0%{opacity:1;transform:none}40%{filter:grayscale(1)}100%{opacity:0;transform:translateY(26px) rotate(85deg) scale(.7)}}
   .swap-in{animation:swapIn .6s cubic-bezier(.2,1.3,.5,1)}
@@ -1678,6 +1712,25 @@ function focusTaniEntry(){
 
 /* ================= バトル ================= */
 var st=null;
+/* バトル演出タイミングの単一設定。presenter のスケジューリングは必ずここから導出する。
+   invariant: nextQuestionDelayMs >= bannerDurationMs (banner は次の問題まで表示継続) */
+var BATTLE_FEEDBACK_TIMING = {
+  impactDelayMs: 250,
+  hpDelayMs: 450,
+  bannerDurationMs: 1400,
+  nextQuestionDelayMs: 1600
+};
+/* 4 outcome 固定テーブル: 色・効果音・ログに依存せず icon + 文言 + motion で区別する */
+var BATTLE_OUTCOME_TABLE = {
+  attack_hit:    { msg:"こうげき せいこう！", icon:"⚔️" },
+  attack_miss:   { msg:"こうげき しっぱい…", icon:"💨" },
+  defense_guard: { msg:"ぼうぎょ せいこう！", icon:"🛡️" },
+  defense_hit:   { msg:"ぼうぎょ しっぱい…", icon:"💥" }
+};
+/* presentation window (回答提出〜次の問題まで) の共有 state。回答入口と swapTo の双方が参照する */
+function inPresentationWindow(){ return !!(st && st.busy); }
+/* reduced-motion 検出は shared/breeding.js 等と同一 convention */
+function battleReducedMotion(){ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
 function rewardLine(rew){
   if(!rew) return "";
   if(rew.kind==="species") return '🪲 '+st.boss.jaName+'を ずかんに とうろく！';
@@ -1832,7 +1885,7 @@ function drawNumpad(container){
     return b;
   }
   function addDigit(d){
-    if(st.busy) return;
+    if(inPresentationWindow()) return;
     if(st.numpadVal.length>=10) return;        /* 暴走防止 */
     if(d==="." && (allowDot===false||st.numpadVal.indexOf(".")>=0)) return;
     if(d==="0" && st.numpadVal==="0") return;   /* 00 連発防止 */
@@ -1843,16 +1896,16 @@ function drawNumpad(container){
     grid.appendChild(mkBtn(".","numpad-dot",function(){addDigit(".");}));
     grid.appendChild(mkBtn("0","",function(){addDigit("0");}));
   } else {
-    grid.appendChild(mkBtn("⌫","numpad-back",function(){ if(st.busy)return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); }));
+    grid.appendChild(mkBtn("⌫","numpad-back",function(){ if(inPresentationWindow())return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); }));
     grid.appendChild(mkBtn("0","",function(){addDigit("0");}));
   }
   grid.appendChild(mkBtn("OK","numpad-ok",function(){
-    if(st.busy||st.numpadVal==="") return;
+    if(inPresentationWindow()||st.numpadVal==="") return;
     answer(st.numpadVal);
   }));
   if(allowDot){
     /* allowDot のときは ⌫ を追加列で */
-    var back=mkBtn("⌫","numpad-back",function(){ if(st.busy)return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); });
+    var back=mkBtn("⌫","numpad-back",function(){ if(inPresentationWindow())return; st.numpadVal=st.numpadVal.slice(0,-1); refresh(); });
     grid.appendChild(back);
   }
   box.appendChild(grid);
@@ -1863,7 +1916,7 @@ function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(seed()*(i+1)
 
 /* ---- メンバー交代（タップ） ---- */
 function swapTo(i){
-  if(st.busy) return;
+  if(inPresentationWindow()) return;
   if(i===st.idx || st.party[i].hp<=0) return;
   st.idx=i; var m=activeM();
   log("🔄 こうたい！ つぎは "+m.sp.jaName+"！");
@@ -1874,10 +1927,10 @@ function swapTo(i){
 }
 
 /* ---- エフェクト ---- */
-function floatDmg(side,text,cls){
+function floatDmg(side,text,cls,ms){
   var box=document.getElementById(side+"Side").querySelector(".artbox");
   var f=document.createElement("div"); f.className="dmg-float "+(cls||""); f.textContent=text; box.appendChild(f);
-  setTimeout(function(){ if(f.parentNode)f.parentNode.removeChild(f); },1000);
+  setTimeout(function(){ if(f.parentNode)f.parentNode.removeChild(f); },ms||1000);
 }
 function flashClass(el,cls,ms){ if(!el)return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(function(){el.classList.remove(cls);},ms||450); }
 function slashOn(side){
@@ -1885,6 +1938,21 @@ function slashOn(side){
   var s=document.createElement("div"); s.className="slash"; box.appendChild(s);
   setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },380);
   flashClass(box,"hit",420);
+}
+function missOn(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var s=document.createElement("div"); s.className="slash miss"; box.appendChild(s);
+  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },500);
+}
+function guardOn(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var g=document.createElement("div"); g.className="guard-pop"; g.textContent="🛡️"; box.appendChild(g);
+  flashClass(box,"guard-ring",600);
+  setTimeout(function(){ if(g.parentNode)g.parentNode.removeChild(g); },700);
+}
+function fxOutline(side,kind){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  box.classList.add("fx-outline-"+kind);
 }
 function sceneFlash(){ flashClass(document.getElementById("btFlash"),"go",400); }
 function traitFx(icon,text){
@@ -1895,8 +1963,87 @@ function traitFx(icon,text){
   setTimeout(function(){ if(p.parentNode)p.parentNode.removeChild(p); },1150);
 }
 
+/* 4-outcome presenter。answer(c) から 1 提出につき 1 回だけ呼ばれる。
+   o = {phase, answerCorrect, outcome, damage, effectiveness, dodged, yoroi, doku, traits, next}
+   - phase: "attack"|"defense"
+   - outcome: BATTLE_OUTCOME_TABLE のキー
+   - damage: 表示するダメージ量 (miss/dodge は 0)
+   - effectiveness: "ゆうり"|"ふつう"|"ふり"|null (secondary label。primary を置き換えない)
+   - dodged: attack_hit だが boss がかいひして 0 ダメージ (敵 hit reaction を出さない)
+   - traits: [{icon,text}] 既存 traitFx で primary の後に表示
+   - next: nextQuestionDelayMs 後に呼ぶ継続 (nextQuestion / finish / faint 系)。
+     入力ロック解除は nextQuestion() 側 (st.busy=false) が担う */
+function presentBattleOutcome(o){
+  var T=BATTLE_FEEDBACK_TIMING;
+  var side=(o.phase==="attack")?"enemy":"ally";
+  var data=BATTLE_OUTCOME_TABLE[o.outcome];
+  var tb=document.getElementById("turnBanner");
+  var sub=o.effectiveness==="ゆうり"?"▲ ゆうり！":o.effectiveness==="ふり"?"▼ ふり…":"・ふつう";
+  tb.className="turn-banner outcome ob-"+o.outcome;
+  tb.innerHTML='<span class="ob-ic">'+data.icon+'</span><span class="ob-msg">'+data.msg+'</span>'
+    +(o.effectiveness!==null&&o.effectiveness!==undefined?'<span class="ob-sub">'+sub+'</span>':"");
+
+  var m=activeM(), line;
+  if(o.outcome==="attack_hit"&&o.dodged){
+    line="💨 "+st.boss.jaName+"は すばやく よけた！ ダメージ なし！";
+  } else if(o.outcome==="attack_hit"){
+    line="⚔️ "+m.sp.jaName+"の こうげき！ "+st.boss.jaName+"に "+o.damage+"の ダメージ！"
+      +(o.effectiveness==="ゆうり"?"（ゆうり×2！）":o.effectiveness==="ふり"?"（ふり…）":"")
+      +(o.yoroi?"（🛡️ヨロイで はんげん）":"");
+  } else if(o.outcome==="attack_miss"){
+    line="💨 "+m.sp.jaName+"の こうげきは ミス！";
+  } else if(o.outcome==="defense_guard"){
+    line="🛡️ "+m.sp.jaName+"は ガード！ それでも "+o.damage+"の ダメージ"
+      +(o.effectiveness==="ゆうり"?"（ゆうりで かるい）":o.effectiveness==="ふり"?"（ふりで おもい）":"");
+  } else {
+    line="💥 "+st.boss.jaName+"の こうげき！ "+m.sp.jaName+"に "+o.damage+"の ダメージ！"
+      +(o.doku?"（☠️どく＋5！）":"");
+  }
+  log(line);
+
+  setTimeout(function(){
+    var reduce=battleReducedMotion();
+    if(o.outcome==="attack_hit"&&!o.dodged){
+      if(reduce) fxOutline("enemy","hit"); else slashOn("enemy");
+      floatDmg("enemy","-"+o.damage,"stay",T.bannerDurationMs);
+    } else if(o.outcome==="attack_hit"&&o.dodged){
+      if(reduce) fxOutline("enemy","miss"); else missOn("enemy");
+      floatDmg("enemy","ダメージ 0","zero stay",T.bannerDurationMs);
+    } else if(o.outcome==="attack_miss"){
+      if(reduce) fxOutline("enemy","miss"); else missOn("enemy");
+      floatDmg("enemy","ダメージ 0","zero stay",T.bannerDurationMs);
+    } else if(o.outcome==="defense_guard"){
+      if(reduce) fxOutline("ally","guard"); else guardOn("ally");
+      floatDmg("ally",o.damage>0?"-"+o.damage:"ダメージ 0","guard toAlly stay",T.bannerDurationMs);
+    } else {
+      if(reduce){
+        fxOutline("ally","strike");
+      } else {
+        slashOn("ally"); sceneFlash();
+        flashClass(document.querySelector("#battle .bt-scene"),"impact-quake",500);
+      }
+      floatDmg("ally","-"+o.damage,"toAlly stay",T.bannerDurationMs);
+    }
+  },T.impactDelayMs);
+  setTimeout(function(){
+    if(o.phase==="attack"){
+      setHp("boss",st.bossHp,st.bossMax);
+    } else {
+      var m=activeM(); setHp("me",m.hp,m.max); drawBench();
+    }
+  },T.hpDelayMs);
+  (o.traits||[]).forEach(function(trait,i){
+    setTimeout(function(){ traitFx(trait.icon,trait.text); },T.hpDelayMs+i*T.impactDelayMs);
+  });
+  setTimeout(function(){
+    var box=document.getElementById(side+"Side").querySelector(".artbox");
+    box.classList.remove("fx-outline-hit","fx-outline-miss","fx-outline-guard","fx-outline-strike");
+  },T.bannerDurationMs);
+  setTimeout(function(){ o.next(); },T.nextQuestionDelayMs);
+}
+
 function answer(c){
-  if(st.busy) return; st.busy=true;
+  if(inPresentationWindow()) return; st.busy=true;   /* 提出と同時に入力ロック (回答/こうたい共通) */
   /* kind:"num" は数値同値判定(例: "1.5" と "1.50" を許容)、他は文字列一致 */
   var correct;
   if(st.q.kind==="num"){
@@ -1907,37 +2054,47 @@ function answer(c){
   }
   var m=activeM(), r=st.r;
   if(st.phase==="attack"){
+    var afterAttack=function(){ if(st.bossHp<=0){ finish(true); return; } beginDefense(); nextQuestion(); };
     if(correct){
       if(hasTr("dodge") && Math.random()<B.DODGE_CHANCE){
-        log("💨 "+st.boss.jaName+"は すばやく よけた！ ダメージ なし！");
-        traitFx("💨","かいひ！ "+st.boss.jaName+"が よけた！");
+        presentBattleOutcome({phase:"attack",answerCorrect:true,outcome:"attack_hit",damage:0,
+          effectiveness:null,dodged:true,
+          traits:[{icon:"💨",text:"かいひ！ "+st.boss.jaName+"が よけた！"}],
+          next:afterAttack});
       } else {
         var dmg=B.damage(m.type,r.type||"none"), al=B.advLabel(m.type,r.type), yo=(hasTr("yoroi")&&al!=="ゆうり");
         if(yo) dmg=Math.ceil(dmg/2);
         dmg=effectiveDamage(dmg, m.sp);   /* 遠征時のみ攻撃装備で +5 */
-        st.bossHp-=dmg; slashOn("enemy"); floatDmg("enemy","-"+dmg);
-        if(yo) traitFx("🛡️","ヨロイ！ こうげきを はんげん！");
-        log("⚔️ "+m.sp.jaName+"の こうげき！ "+st.boss.jaName+"に "+dmg+"の ダメージ！"
-          +(al==="ゆうり"?"（ゆうり×2！）":al==="ふり"?"（ふり…）":"")+(yo?"（🛡️ヨロイで はんげん）":""));
-        setTimeout(function(){ setHp("boss",st.bossHp,st.bossMax); },180);
+        st.bossHp-=dmg;
+        presentBattleOutcome({phase:"attack",answerCorrect:true,outcome:"attack_hit",damage:dmg,
+          effectiveness:al,yoroi:yo,
+          traits:yo?[{icon:"🛡️",text:"ヨロイ！ こうげきを はんげん！"}]:[],
+          next:afterAttack});
       }
-    } else { log("💨 "+m.sp.jaName+"の こうげきは ミス！"); }
-    if(st.bossHp<=0){ return setTimeout(function(){ finish(true); },700); }
-    beginDefense(); setTimeout(nextQuestion,820);
+    } else {
+      presentBattleOutcome({phase:"attack",answerCorrect:false,outcome:"attack_miss",damage:0,
+        effectiveness:null,next:afterAttack});
+    }
   } else {
     st.defDone=(st.defDone||0)+1;
     var dk=hasTr("doku"), taken=B.bossDamage(correct,m.type,r.type||"none");
     if(dk && !correct) taken+=B.DOKU_BONUS;
     taken=effectiveBossDamage(taken, m.sp);   /* 遠征時のみ防御装備で -3（最小1） */
-    m.hp-=taken; slashOn("ally"); sceneFlash(); floatDmg("ally","-"+taken,correct?"guard toAlly":"toAlly");
-    if(correct){ var dl=B.advLabel(m.type,r.type);
-      log("🛡️ "+m.sp.jaName+"は ガード！ それでも "+taken+"の ダメージ"+(dl==="ゆうり"?"（ゆうりで かるい）":dl==="ふり"?"（ふりで おもい）":"")); }
-    else { log("💥 "+st.boss.jaName+"の こうげき！ "+m.sp.jaName+"に "+taken+"の ダメージ！"+(dk?"（☠️どく＋5！）":"")); }
-    if(dk && !correct) traitFx("☠️","どく はつどう！ +5 ダメージ！");
-    setTimeout(function(){ setHp("me",m.hp,m.max); drawBench(); },180);
-    if(m.hp<=0){ return setTimeout(faint,700); }
-    if(st.defDone < st.defReps){ traitFx("🦶","れんぞく！ "+st.boss.jaName+"が もういちど こうげき！"); setTimeout(nextQuestion,820); return; }  // れんぞく：もう1回防御
-    st.phase="attack"; setTimeout(nextQuestion,820);
+    m.hp-=taken;
+    var traits=[];
+    if(dk && !correct) traits.push({icon:"☠️",text:"どく はつどう！ +5 ダメージ！"});
+    var next;
+    if(m.hp<=0){ next=faint; }
+    else if(st.defDone < st.defReps){
+      traits.push({icon:"🦶",text:"れんぞく！ "+st.boss.jaName+"が もういちど こうげき！"});
+      next=nextQuestion;   // れんぞく：もう1回防御
+    } else {
+      next=function(){ st.phase="attack"; nextQuestion(); };
+    }
+    presentBattleOutcome({phase:"defense",answerCorrect:correct,
+      outcome:correct?"defense_guard":"defense_hit",damage:taken,
+      effectiveness:correct?B.advLabel(m.type,r.type):null,doku:(dk&&!correct),
+      traits:traits,next:next});
   }
 }
 function faint(){
