@@ -22,3 +22,4 @@ zukan_cards/_pipeline/
 # Source ingestion artifacts (downloaded raw photos, not part of published site)
 zukan_cards/_inbox/
 zukan_cards/_archive/
+__pycache__/
