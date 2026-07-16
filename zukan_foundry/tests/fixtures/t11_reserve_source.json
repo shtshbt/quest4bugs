@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "syntheticTestData": true,
+  "datasetId": "t11-offline-proof-v1",
+  "checkedAt": "2026-07-16T16:00:00+00:00",
+  "seedCount": 50,
+  "media": {
+    "hitModulo": 2
+  },
+  "overrides": {
+    "10": {
+      "scientificName": "Fa sq",
+      "japaneseName": "丁"
+    },
+    "11": {
+      "taxonRank": "genus"
+    },
+    "12": {
+      "sourceReceipt": ""
+    },
+    "13": {
+      "japaneseNameSource": ""
+    },
+    "14": {
+      "synonyms": ["Fb sah"]
+    },
+    "15": {
+      "taxonomySource": ""
+    },
+    "16": {
+      "scientificName": "Graptopsaltria nigrofuscata",
+      "japaneseName": "アブラゼミ"
+    }
+  }
+}
