@@ -66,6 +66,42 @@ class GbifJapanSeedAdapter:
                 seeds.append(seed)
         return seeds[offset:offset + limit]
 
+    def japanese_taxa(self, wanted):
+        """Return [(species_key, taxon)] for Japanese species, taxonomy included.
+
+        Reads occurrence pages rather than facets so each record's inline
+        taxonomy comes for free, removing the per-species detail call. Orders are
+        interleaved so a bounded run stays taxonomically broad.
+        """
+        per_order = max(1, -(-wanted // len(self.orders)))
+        by_order = []
+        for _, taxon_key in sorted(self.orders.items()):
+            found, offset = {}, 0
+            while len(found) < per_order and offset < per_order * 20:
+                payload = self.transport.get_json("gbif", "/v1/occurrence/search", {
+                    "country": JAPAN, "taxonKey": taxon_key, "rank": "SPECIES",
+                    "limit": self.facet_page, "offset": offset,
+                }, {})
+                results = payload.get("results") if isinstance(payload, dict) else None
+                if not isinstance(results, list) or not results:
+                    break
+                for item in results:
+                    key = item.get("speciesKey")
+                    if isinstance(key, int) and key not in found and item.get("order"):
+                        found[key] = item
+                offset += self.facet_page
+                if payload.get("endOfRecords"):
+                    break
+            by_order.append(list(found.items()))
+
+        seen, ordered = set(), []
+        for index in range(max((len(items) for items in by_order), default=0)):
+            for items in by_order:
+                if index < len(items) and items[index][0] not in seen:
+                    seen.add(items[index][0])
+                    ordered.append(items[index])
+        return ordered
+
     def _japanese_species_keys(self, wanted):
         """Species keys recorded in Japan, per order, busiest first.
 
@@ -96,11 +132,21 @@ class GbifJapanSeedAdapter:
                     ordered.append(keys[index])
         return ordered
 
-    def _seed_for(self, species_key):
-        taxon = self.transport.get_json("gbif", f"/v1/species/{species_key}", {}, {})
-        if not isinstance(taxon, dict) or str(taxon.get("rank", "")).upper() != "SPECIES":
+    def _seed_for(self, species_key, taxon=None):
+        """Build one seed. Pass taxon to reuse taxonomy already read in bulk.
+
+        GBIF occurrence records carry speciesKey, scientificName, rank, order,
+        and family inline, so a caller that already read them can skip the
+        per-species detail call and halve the request cost.
+        """
+        if taxon is None:
+            taxon = self.transport.get_json("gbif", f"/v1/species/{species_key}", {}, {})
+        if not isinstance(taxon, dict):
             return None
-        name = taxon.get("scientificName") or taxon.get("canonicalName")
+        rank = str(taxon.get("rank") or taxon.get("taxonRank") or "").upper()
+        if rank != "SPECIES":
+            return None
+        name = taxon.get("scientificName") or taxon.get("canonicalName") or taxon.get("species")
         order = taxon.get("order")
         if not name or not order:
             return None

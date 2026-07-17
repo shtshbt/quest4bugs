@@ -84,16 +84,20 @@ def harvest(output, target, orders, min_occurrences, log_every=10):
     added = 0
     # Ask for the whole ordered key list once, then walk it, so a resume does not
     # re-pay for the facet queries per seed.
-    keys = adapter._japanese_species_keys(target * 3)
-    print(f"{len(keys)} Japanese species keys available across {len(orders)} orders", flush=True)
+    # Read taxonomy in bulk from occurrence pages: each record carries rank,
+    # order, and family inline, so only the vernacular lookup stays per species.
+    # That halves the GBIF calls per seed without touching the canonical spacing.
+    taxa = adapter.japanese_taxa(target * 3)
+    print(f"{len(taxa)} Japanese species available across "
+          f"{len(adapter.orders)} orders", flush=True)
 
-    for key in keys:
+    for key, taxon in taxa:
         if len(existing) + added >= target:
             break
         if f"gbif_{key}" in seen:
             continue
         try:
-            seed = adapter._seed_for(key)
+            seed = adapter._seed_for(key, taxon=taxon)
         except (RuntimeError, ValueError) as error:
             print(f"skip {key}: {error}", flush=True)
             continue

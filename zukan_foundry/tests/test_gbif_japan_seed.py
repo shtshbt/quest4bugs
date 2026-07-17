@@ -23,8 +23,17 @@ class FakeTransport:
     def get_json(self, source, endpoint, params, headers):
         self.calls.append((source, endpoint, dict(params)))
         if endpoint == "/v1/occurrence/search":
-            counts = self.facets.get(params["taxonKey"], [])
-            return {"facets": [{"field": "SPECIES_KEY", "counts": counts}]}
+            if "facet" in params:
+                counts = self.facets.get(params["taxonKey"], [])
+                return {"facets": [{"field": "SPECIES_KEY", "counts": counts}]}
+            # Occurrence paging returns records with inline taxonomy.
+            records = []
+            for item in self.facets.get(params["taxonKey"], []):
+                key = int(item["name"])
+                taxon = dict(self.taxa.get(key, {}))
+                taxon["speciesKey"] = key
+                records.append(taxon)
+            return {"results": records, "endOfRecords": True}
         if endpoint.endswith("/vernacularNames"):
             key = int(endpoint.split("/")[3])
             return {"results": self.vernaculars.get(key, [])}
@@ -132,6 +141,50 @@ class SeedTests(unittest.TestCase):
         facet_call = next(c for c in self.transport.calls if c[1] == "/v1/occurrence/search")
         self.assertEqual(facet_call[2]["country"], "JP")
         self.assertEqual(facet_call[2]["rank"], "SPECIES")
+
+
+class BulkTaxonomyTests(unittest.TestCase):
+    """japanese_taxa reads taxonomy inline so the per-species detail call goes away."""
+
+    def setUp(self):
+        self.transport = FakeTransport(
+            facets={1470: [{"name": "101", "count": 900}], 797: [{"name": "201", "count": 800}]},
+            taxa={101: taxon(101, "Phelotrupes laevistriatus"),
+                  201: taxon(201, "Luehdorfia japonica", order="Lepidoptera")},
+            vernaculars={101: [{"language": "jpn", "vernacularName": "センチコガネ"}],
+                         201: [{"language": "jpn", "vernacularName": "ギフチョウ"}]},
+        )
+        self.adapter = GbifJapanSeedAdapter(
+            self.transport, orders={"Coleoptera": 1470, "Lepidoptera": 797})
+
+    def test_bulk_taxonomy_returns_key_and_record(self):
+        taxa = self.adapter.japanese_taxa(2)
+        self.assertEqual({key for key, _ in taxa}, {101, 201})
+        self.assertTrue(all(item.get("order") for _, item in taxa))
+
+    def test_bulk_taxonomy_interleaves_orders(self):
+        orders = [item["order"] for _, item in self.adapter.japanese_taxa(2)]
+        self.assertEqual(set(orders), {"Coleoptera", "Lepidoptera"})
+
+    def test_seed_from_bulk_taxon_skips_the_detail_call(self):
+        taxa = dict(self.adapter.japanese_taxa(2))
+        self.transport.calls.clear()
+        seed = self.adapter._seed_for(101, taxon=taxa[101])
+        self.assertEqual(seed["japaneseName"], "センチコガネ")
+        detail_calls = [c for c in self.transport.calls
+                        if c[1] == "/v1/species/101"]
+        self.assertEqual(detail_calls, [],
+                         "passing a bulk taxon must not trigger a species detail call")
+        self.assertEqual(len(self.transport.calls), 1,
+                         "only the vernacular lookup should remain")
+
+    def test_bulk_taxon_still_enforces_species_rank(self):
+        self.assertIsNone(
+            self.adapter._seed_for(101, taxon=taxon(101, "Genus", rank="GENUS")))
+
+    def test_bulk_taxon_without_japanese_name_is_skipped(self):
+        self.transport.vernaculars[101] = []
+        self.assertIsNone(self.adapter._seed_for(101, taxon=taxon(101, "A a")))
 
 
 if __name__ == "__main__":
