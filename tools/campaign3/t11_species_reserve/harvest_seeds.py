@@ -25,7 +25,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "zukan_foundry"))
 
-from tools.campaign3.t11_species_reserve.gbif_japan_seed import ORDER_KEYS, GbifJapanSeedAdapter
+from tools.campaign3.t11_species_reserve.gbif_japan_seed import (
+    ORDER_KEYS, GbifJapanSeedAdapter, verify_order_keys,
+)
 from zukan_foundry.discovery import HttpTransport
 
 
@@ -78,8 +80,19 @@ def harvest(output, target, orders, min_occurrences, log_every=10):
         print("target already met", flush=True)
         return 0
 
-    adapter = GbifJapanSeedAdapter(HttpTransport(), orders=orders,
+    transport = HttpTransport()
+    adapter = GbifJapanSeedAdapter(transport, orders=orders,
                                    min_occurrences=min_occurrences)
+
+    # Fail closed before spending hours: a wrong taxonKey harvests the wrong
+    # animals, and that is not visible until the seeds are inspected.
+    problems = verify_order_keys(transport, adapter.orders)
+    if problems:
+        for problem in problems:
+            print(f"order key rejected: {problem}", file=sys.stderr, flush=True)
+        raise ValueError("order keys failed verification; refusing to harvest")
+    print(f"verified {len(adapter.orders)} insect order keys", flush=True)
+
     started = time.time()
     added = 0
     # Ask for the whole ordered key list once, then walk it, so a resume does not

@@ -17,7 +17,10 @@ presence.
 
 from datetime import datetime, timezone
 
-# GBIF backbone taxonKeys for the insect orders the game draws from.
+# GBIF backbone taxonKeys for the insect orders the game draws from. Every key
+# here was resolved against the GBIF backbone and verified to sit in class
+# Insecta; see verify_order_keys, which the harvester runs before any seeding.
+# GBIF's accepted name for the stick insects is Phasmida, not Phasmatodea.
 ORDER_KEYS = {
     "Coleoptera": 1470,
     "Lepidoptera": 797,
@@ -26,11 +29,43 @@ ORDER_KEYS = {
     "Odonata": 789,
     "Orthoptera": 1458,
     "Diptera": 811,
-    "Mantodea": 1494,
-    "Phasmatodea": 1459,
+    "Mantodea": 788,
+    "Phasmida": 1460,
     "Trichoptera": 1003,
 }
 JAPAN = "JP"
+INSECTA = "Insecta"
+
+
+def verify_order_keys(transport, orders):
+    """Confirm every taxonKey really is an insect order before seeding.
+
+    A wrong key silently harvests the wrong animals: an earlier revision mapped
+    Mantodea to Pilosa and Phasmatodea to Rodentia, which put mice and squirrels
+    into an insect reserve. Keys are data, not something to recall from memory,
+    so they are checked against GBIF at run time.
+
+    Returns a list of human-readable problems; empty means every key is sound.
+    """
+    problems = []
+    for name, key in sorted(orders.items()):
+        try:
+            taxon = transport.get_json("gbif", f"/v1/species/{key}", {}, {})
+        except (RuntimeError, ValueError) as error:
+            problems.append(f"{name} ({key}): lookup failed: {error}")
+            continue
+        if not isinstance(taxon, dict):
+            problems.append(f"{name} ({key}): unreadable response")
+            continue
+        actual = taxon.get("scientificName")
+        if str(taxon.get("rank", "")).upper() != "ORDER":
+            problems.append(f"{name} ({key}): rank is {taxon.get('rank')}, not ORDER")
+        if taxon.get("class") != INSECTA:
+            problems.append(f"{name} ({key}): class is {taxon.get('class')}, not Insecta "
+                            f"(key actually names {actual})")
+        elif actual != name:
+            problems.append(f"{name} ({key}): GBIF calls this key {actual}")
+    return problems
 
 
 class GbifJapanSeedAdapter:

@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.campaign3.t11_species_reserve.gbif_japan_seed import (
-    GbifJapanSeedAdapter, _is_japanese_script,
+    ORDER_KEYS, GbifJapanSeedAdapter, _is_japanese_script, verify_order_keys,
 )
 
 
@@ -185,6 +185,58 @@ class BulkTaxonomyTests(unittest.TestCase):
     def test_bulk_taxon_without_japanese_name_is_skipped(self):
         self.transport.vernaculars[101] = []
         self.assertIsNone(self.adapter._seed_for(101, taxon=taxon(101, "A a")))
+
+
+class OrderKeyVerificationTests(unittest.TestCase):
+    """A wrong taxonKey silently harvests the wrong animals, so keys are checked."""
+
+    class KeyTransport:
+        def __init__(self, taxa):
+            self.taxa = taxa
+
+        def get_json(self, source, endpoint, params, headers):
+            key = int(endpoint.rsplit("/", 1)[1])
+            if key not in self.taxa:
+                raise RuntimeError("gbif request failed: 404")
+            return self.taxa[key]
+
+    @staticmethod
+    def order(name, klass="Insecta", rank="ORDER"):
+        return {"scientificName": name, "rank": rank, "class": klass}
+
+    def test_correct_insect_keys_pass(self):
+        transport = self.KeyTransport({1470: self.order("Coleoptera"), 788: self.order("Mantodea")})
+        problems = verify_order_keys(transport, {"Coleoptera": 1470, "Mantodea": 788})
+        self.assertEqual(problems, [])
+
+    def test_a_mammal_key_is_rejected(self):
+        # The real defect: Mantodea was mapped to Pilosa, and Phasmatodea to Rodentia.
+        transport = self.KeyTransport({1494: self.order("Pilosa", klass="Mammalia")})
+        problems = verify_order_keys(transport, {"Mantodea": 1494})
+        self.assertEqual(len(problems), 1)
+        self.assertIn("Mammalia", problems[0])
+        self.assertIn("Pilosa", problems[0])
+
+    def test_a_key_naming_a_different_insect_order_is_rejected(self):
+        transport = self.KeyTransport({797: self.order("Lepidoptera")})
+        problems = verify_order_keys(transport, {"Odonata": 797})
+        self.assertEqual(len(problems), 1)
+        self.assertIn("Lepidoptera", problems[0])
+
+    def test_a_non_order_rank_is_rejected(self):
+        transport = self.KeyTransport({1: self.order("Animalia", klass=None, rank="KINGDOM")})
+        self.assertTrue(verify_order_keys(transport, {"Phasmida": 1}))
+
+    def test_a_failed_lookup_is_reported_not_ignored(self):
+        problems = verify_order_keys(self.KeyTransport({}), {"Coleoptera": 9999})
+        self.assertEqual(len(problems), 1)
+        self.assertIn("lookup failed", problems[0])
+
+    def test_default_order_keys_are_all_insect_orders_named_as_gbif_names_them(self):
+        transport = self.KeyTransport({key: self.order(name) for name, key in ORDER_KEYS.items()})
+        self.assertEqual(verify_order_keys(transport, ORDER_KEYS), [])
+        self.assertIn("Phasmida", ORDER_KEYS, "GBIF's accepted name is Phasmida")
+        self.assertNotIn("Phasmatodea", ORDER_KEYS)
 
 
 class CallOrderTests(unittest.TestCase):
