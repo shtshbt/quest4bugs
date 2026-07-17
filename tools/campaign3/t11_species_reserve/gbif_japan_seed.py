@@ -76,7 +76,14 @@ class GbifJapanSeedAdapter:
     """
 
     source = "gbif"
-    facet_page = 300
+    # GBIF caps a facet request at 1000 terms and an occurrence page at 300, so
+    # the two pagers cannot share one page size. A facet request that asks for
+    # fewer terms than the order actually has is silently truncated: it returns a
+    # full page and says nothing about the remainder, which reads as a small pool
+    # rather than a cut-off one. Page facets with facetOffset until the counts
+    # fall through the occurrence floor.
+    facet_page = 1000
+    occurrence_page = 300
 
     def __init__(self, transport, orders=None, min_occurrences=5):
         self.transport = transport
@@ -115,7 +122,7 @@ class GbifJapanSeedAdapter:
             while len(found) < per_order and offset < per_order * 20:
                 payload = self.transport.get_json("gbif", "/v1/occurrence/search", {
                     "country": JAPAN, "taxonKey": taxon_key, "rank": "SPECIES",
-                    "limit": self.facet_page, "offset": offset,
+                    "limit": self.occurrence_page, "offset": offset,
                 }, {})
                 results = payload.get("results") if isinstance(payload, dict) else None
                 if not isinstance(results, list) or not results:
@@ -124,7 +131,7 @@ class GbifJapanSeedAdapter:
                     key = item.get("speciesKey")
                     if isinstance(key, int) and key not in found and item.get("order"):
                         found[key] = item
-                offset += self.facet_page
+                offset += self.occurrence_page
                 if payload.get("endOfRecords"):
                     break
             by_order.append(list(found.items()))
@@ -137,6 +144,36 @@ class GbifJapanSeedAdapter:
                     ordered.append(items[index])
         return ordered
 
+    def _order_species_keys(self, taxon_key, wanted):
+        """Species keys for one order, busiest first, paged past the facet cap.
+
+        GBIF returns facet counts in descending order, so once a term falls below
+        the occurrence floor every later term does too and the order is finished.
+        """
+        keys, offset = [], 0
+        while len(keys) < wanted:
+            payload = self.transport.get_json("gbif", "/v1/occurrence/search", {
+                "country": JAPAN, "taxonKey": taxon_key, "rank": "SPECIES",
+                "facet": "speciesKey", "facetLimit": self.facet_page,
+                "facetOffset": offset, "limit": 0,
+            }, {})
+            facets = payload.get("facets") if isinstance(payload, dict) else None
+            counts = (facets[0].get("counts") if facets else []) or []
+            if not counts:
+                return keys
+            for item in counts:
+                if not str(item.get("name", "")).isdigit():
+                    continue
+                if int(item.get("count", 0)) < self.min_occurrences:
+                    return keys
+                keys.append(int(item["name"]))
+                if len(keys) >= wanted:
+                    return keys
+            if len(counts) < self.facet_page:
+                return keys
+            offset += self.facet_page
+        return keys
+
     def _japanese_species_keys(self, wanted):
         """Species keys recorded in Japan, per order, busiest first.
 
@@ -144,19 +181,8 @@ class GbifJapanSeedAdapter:
         than exhausting one order first.
         """
         per_order = max(1, -(-wanted // len(self.orders)))
-        by_order = []
-        for name, taxon_key in sorted(self.orders.items()):
-            payload = self.transport.get_json("gbif", "/v1/occurrence/search", {
-                "country": JAPAN, "taxonKey": taxon_key, "rank": "SPECIES",
-                "facet": "speciesKey", "facetLimit": min(self.facet_page, per_order * 3),
-                "limit": 0,
-            }, {})
-            facets = payload.get("facets") if isinstance(payload, dict) else None
-            counts = (facets[0].get("counts") if facets else []) or []
-            keys = [int(item["name"]) for item in counts
-                    if str(item.get("name", "")).isdigit()
-                    and int(item.get("count", 0)) >= self.min_occurrences]
-            by_order.append(keys)
+        by_order = [self._order_species_keys(taxon_key, per_order)
+                    for _, taxon_key in sorted(self.orders.items())]
 
         seen = set()
         ordered = []
