@@ -187,5 +187,32 @@ class BulkTaxonomyTests(unittest.TestCase):
         self.assertIsNone(self.adapter._seed_for(101, taxon=taxon(101, "A a")))
 
 
+class CallOrderTests(unittest.TestCase):
+    """The vernacular check runs first so rejected species cost one call, not two."""
+
+    def setUp(self):
+        self.transport = FakeTransport(
+            facets={1470: [{"name": "101", "count": 900}]},
+            taxa={101: taxon(101, "Phelotrupes laevistriatus")},
+            vernaculars={101: []},
+        )
+        self.adapter = GbifJapanSeedAdapter(self.transport, orders={"Coleoptera": 1470})
+
+    def test_species_without_japanese_name_costs_only_the_vernacular_call(self):
+        self.assertIsNone(self.adapter._seed_for(101))
+        endpoints = [call[1] for call in self.transport.calls]
+        self.assertEqual(endpoints, ["/v1/species/101/vernacularNames"],
+                         "a species with no Japanese name must not pay for taxonomy")
+
+    def test_accepted_species_pays_vernacular_then_taxonomy(self):
+        self.transport.vernaculars[101] = [{"language": "jpn", "vernacularName": "センチコガネ"}]
+        seed = self.adapter._seed_for(101)
+        self.assertEqual(seed["japaneseName"], "センチコガネ")
+        endpoints = [call[1] for call in self.transport.calls]
+        self.assertEqual(endpoints,
+                         ["/v1/species/101/vernacularNames", "/v1/species/101"],
+                         "vernacular must be checked before taxonomy is fetched")
+
+
 if __name__ == "__main__":
     unittest.main()

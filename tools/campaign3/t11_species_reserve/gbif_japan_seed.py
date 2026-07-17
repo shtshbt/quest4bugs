@@ -139,6 +139,14 @@ class GbifJapanSeedAdapter:
         and family inline, so a caller that already read them can skip the
         per-species detail call and halve the request cost.
         """
+        # Ask for the Japanese name first. Most Japanese insects on GBIF have no
+        # Japanese vernacular, and a species without one can never become a seed,
+        # so checking it first skips the taxonomy call for every rejected species
+        # instead of paying for it and throwing the answer away.
+        japanese_name = self._japanese_name(species_key)
+        if not japanese_name:
+            return None
+
         if taxon is None:
             taxon = self.transport.get_json("gbif", f"/v1/species/{species_key}", {}, {})
         if not isinstance(taxon, dict):
@@ -149,10 +157,6 @@ class GbifJapanSeedAdapter:
         name = taxon.get("scientificName") or taxon.get("canonicalName") or taxon.get("species")
         order = taxon.get("order")
         if not name or not order:
-            return None
-
-        japanese_name = self._japanese_name(species_key)
-        if not japanese_name:
             return None
 
         source_url = f"https://www.gbif.org/species/{species_key}"
