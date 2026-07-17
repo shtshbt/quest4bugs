@@ -51,6 +51,28 @@ def load_cache(path):
     return seeds, seen
 
 
+def rejects_path(output):
+    return Path(str(output) + ".rejected")
+
+
+def load_rejects(path):
+    """Return the species keys already known to carry no Japanese name.
+
+    Only accepted species reach the seed cache, so without this record a resume
+    re-asks GBIF about every species it has already rejected. Most species are
+    rejected, so that is where a restart otherwise spends nearly all its time.
+    """
+    path = Path(path)
+    if not path.exists():
+        return set()
+    keys = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line.isdigit():
+            keys.add(int(line))
+    return keys
+
+
 class CachedSeedAdapter:
     """Serve harvested seeds to ReserveEngine offline."""
 
@@ -75,7 +97,10 @@ def harvest(output, target, orders, min_occurrences, log_every=10):
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     existing, seen = load_cache(output)
-    print(f"cache holds {len(existing)} seeds; target {target}", flush=True)
+    rejects_file = rejects_path(output)
+    rejected = load_rejects(rejects_file)
+    print(f"cache holds {len(existing)} seeds and {len(rejected)} known rejects; "
+          f"target {target}", flush=True)
     if len(existing) >= target:
         print("target already met", flush=True)
         return 0
@@ -107,14 +132,20 @@ def harvest(output, target, orders, min_occurrences, log_every=10):
     for key in keys:
         if len(existing) + added >= target:
             break
-        if f"gbif_{key}" in seen:
+        if f"gbif_{key}" in seen or key in rejected:
             continue
         try:
             seed = adapter._seed_for(key)
         except (RuntimeError, ValueError) as error:
+            # A transient failure is not evidence that the species has no
+            # Japanese name, so it is not recorded as a reject.
             print(f"skip {key}: {error}", flush=True)
             continue
         if seed is None:
+            with rejects_file.open("a", encoding="utf-8") as handle:
+                handle.write(f"{key}\n")
+                handle.flush()
+            rejected.add(key)
             continue
         with output.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(seed, ensure_ascii=False, sort_keys=True) + "\n")
