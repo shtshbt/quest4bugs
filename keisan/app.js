@@ -4057,7 +4057,8 @@ function gRyuusui(lv){
       if(td!==Math.floor(td)||tu!==Math.floor(tu)) continue;
       ans=still;
       if(ans<=0) continue;
-      t="ある"+pick(BOATS)+"が、ある 川の 同じ "+D+"m の 道を 下ると "+td+"分、上ると "+tu+"分 かかります。この"+pick(BOATS)+"の 静水時の 速さは 分速 何m？";
+      var boat=pick(BOATS);
+      t="ある"+boat+"が、ある 川の 同じ "+D+"m の 道を 下ると "+td+"分、上ると "+tu+"分 かかります。この"+boat+"の 静水時の 速さは 分速 何m？";
     }
     else { // lv===10
       // 静水速度と下り条件 → 流速逆算: flow = D / 分 - still
