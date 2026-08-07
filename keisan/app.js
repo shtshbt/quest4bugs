@@ -4849,10 +4849,11 @@ function gBairitsu(lv){
         var aft1=N*b;             // あげた後の c1 = N倍
         var before1=aft1+m;       // 初めの c1
         var before2=b-m;          // 初めの c2
+        var total=before1+before2; // The transfer preserves the combined total.
         if(before2<1) continue;
         if(before1<=before2) continue;
         ans=before1;
-        t=c1+"は "+c2+"に "+item+"を "+m+"個 あげました。すると "+c1+"の数が "+c2+"の "+N+"倍に なりました。"+c1+"は はじめ 何個 持っていましたか？";
+        t=c1+"と "+c2+"は、はじめに "+item+"を あわせて "+total+"個 持っていました。"+c1+"は "+c2+"に "+item+"を "+m+"個 あげました。すると "+c1+"の数が "+c2+"の "+N+"倍に なりました。"+c1+"は はじめ 何個 持っていましたか？";
       } else {
         // lv9,10: c1 が m個 もらうと比が p:q に。c2 の数を与えて c1 の初めを求める
         var p=(lv===9?3:pick([3,5])), q=2;   // 2 と互いに素 -> 比はすでに約分済
