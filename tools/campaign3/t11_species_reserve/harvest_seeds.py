@@ -73,13 +73,46 @@ def load_rejects(path):
     return keys
 
 
+def subject_for_order(order):
+    """Propose the study subject for an insect order.
+
+    Mirrors gameFor in shared/reward.js, the game's single allocation rule:
+    Lepidoptera to kanji, Coleoptera to keisan, everything else to eitango.
+    """
+    if order == "Lepidoptera":
+        return "kanji"
+    if order == "Coleoptera":
+        return "keisan"
+    return "eitango"
+
+
 class CachedSeedAdapter:
-    """Serve harvested seeds to ReserveEngine offline."""
+    """Serve harvested seeds to ReserveEngine offline.
+
+    Harvested seeds are stored exactly as GBIF answered, so two derived fields
+    are normalized here rather than in the cache:
+      - an empty subjectProposal is filled from the order (subject_for_order),
+      - top-level synonyms (added later by backfill_synonyms.py) are merged
+        into taxonomyResponse, where taxonomy resolution and dedupe read them.
+    """
 
     source = "gbif"
 
     def __init__(self, cache_path):
-        self.seeds, _ = load_cache(cache_path)
+        seeds, _ = load_cache(cache_path)
+        self.seeds = [self._normalize(seed) for seed in seeds]
+
+    @staticmethod
+    def _normalize(seed):
+        seed = dict(seed)
+        if not seed.get("subjectProposal"):
+            seed["subjectProposal"] = subject_for_order(seed.get("order", ""))
+        synonyms = seed.get("synonyms")
+        response = seed.get("taxonomyResponse")
+        if (isinstance(synonyms, list) and synonyms
+                and isinstance(response, dict) and not response.get("synonyms")):
+            seed["taxonomyResponse"] = dict(response, synonyms=list(synonyms))
+        return seed
 
     def fetch(self, limit, offset=0):
         if not isinstance(limit, int) or limit < 1 or not isinstance(offset, int) or offset < 0:

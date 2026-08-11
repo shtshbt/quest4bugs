@@ -4,6 +4,11 @@ Usage:
     python -m zukan_foundry.reserve --repository-root . \
         --fixture zukan_foundry/tests/fixtures/t11_reserve_source.json \
         --bank-count 2 --bank-size 25
+
+    # Harvested seeds, offline (taxonomy + dedupe + banks, no media discovery):
+    python -m zukan_foundry.reserve --repository-root . \
+        --seeds zukan_foundry/data/species_reserve/seeds.jsonl \
+        --skip-media --bank-count 1 --bank-size 200
 """
 
 import argparse
@@ -504,27 +509,55 @@ def _catalog_index(repository_root):
     return build_normalized_index(catalog["species"], catalog["generatedFromCommit"])
 
 
-def main(argv=None):
-    parser = argparse.ArgumentParser(description="Build offline T11 species reserve banks")
-    parser.add_argument("--repository-root", type=Path, required=True)
-    parser.add_argument("--fixture", type=Path, required=True)
-    parser.add_argument("--output-root", type=Path)
-    parser.add_argument("--bank-count", type=int, default=5)
-    parser.add_argument("--bank-size", type=int, default=1000)
-    args = parser.parse_args(argv)
-    try:
+def _build_seed_source(args, output):
+    """Return (seed_adapter, discovery) for the chosen seed source.
+
+    --skip-media returns no discovery at all: the engine then stops after
+    taxonomy resolution, dedupe, and bank writing, which is the offline mode
+    for harvested seeds. Media discovery over the network keeps the canonical
+    provider spacing through DEFAULT_SPACING.
+    """
+    if args.fixture:
         from tools.campaign3.t11_species_reserve.seed_fetch_adapter import FixtureMediaTransport, FixtureSeedAdapter
-        root = args.repository_root.resolve()
-        output = args.output_root or root / "zukan_foundry" / "data" / "species_reserve"
+        adapter = FixtureSeedAdapter(args.fixture)
+        if args.skip_media:
+            return adapter, None
         clock = VirtualClock()
-        transport = FixtureMediaTransport(args.fixture)
         discovery = ReserveDiscovery(
-            transport, [GbifAdapter(), NhmAdapter()], output / "query_cache",
+            FixtureMediaTransport(args.fixture), [GbifAdapter(), NhmAdapter()], output / "query_cache",
             DEFAULT_CONCURRENCY, DEFAULT_SPACING, clock.now, clock.sleep,
             lambda: datetime(2026, 7, 16, 16, 0, tzinfo=timezone.utc),
         )
+        return adapter, discovery
+    from tools.campaign3.t11_species_reserve.harvest_seeds import CachedSeedAdapter
+    adapter = CachedSeedAdapter(args.seeds)
+    if args.skip_media:
+        return adapter, None
+    discovery = ReserveDiscovery(
+        HttpTransport(), [GbifAdapter(), NhmAdapter()], output / "query_cache",
+        DEFAULT_CONCURRENCY, DEFAULT_SPACING,
+    )
+    return adapter, discovery
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Build T11 species reserve banks")
+    parser.add_argument("--repository-root", type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--fixture", type=Path, help="committed synthetic fixture source")
+    source.add_argument("--seeds", type=Path, help="harvested seeds.jsonl source")
+    parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--bank-count", type=int, default=5)
+    parser.add_argument("--bank-size", type=int, default=1000)
+    parser.add_argument("--skip-media", action="store_true",
+                        help="offline mode: taxonomy, dedupe, and banks without media discovery")
+    args = parser.parse_args(argv)
+    try:
+        root = args.repository_root.resolve()
+        output = args.output_root or root / "zukan_foundry" / "data" / "species_reserve"
+        adapter, discovery = _build_seed_source(args, output)
         engine = ReserveEngine(
-            FixtureSeedAdapter(args.fixture), _catalog_index(root), discovery, output,
+            adapter, _catalog_index(root), discovery, output,
             ReserveConfig(args.bank_count, args.bank_size, DEFAULT_CONCURRENCY),
         )
         print(json.dumps(engine.run(), ensure_ascii=False, sort_keys=True))
