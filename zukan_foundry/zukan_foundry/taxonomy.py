@@ -88,6 +88,36 @@ def resolve_taxon(candidate, backbone_sources, existing_species):
     }
 
 
+_GBIF_ACCEPTED_STATUSES = {"ACCEPTED", "DOUBTFUL"}
+
+
+def _gbif_backbone_usage(response):
+    """Normalize both GBIF taxonomy response shapes into one usage decision.
+
+    species/match responses carry usageKey, matchType, and confidence, while
+    species/{key} responses carry key, nubKey, and taxonomicStatus instead.
+    Both shapes are accepted so the resolver works with whichever endpoint a
+    harvester actually called. Returns (unique, backbone_key, match_type,
+    confidence); unique means the response names exactly one usable species.
+    """
+    if "usageKey" in response or "matchType" in response:
+        key = response.get("usageKey")
+        unique = response.get("matchType") not in {None, "NONE", "HIGHERRANK"} and isinstance(key, int)
+        confidence = response.get("confidence", 0)
+        return (unique, key if isinstance(key, int) else 0,
+                str(response.get("matchType", "none")).lower(),
+                confidence if isinstance(confidence, int) else 0)
+    if "key" in response or "nubKey" in response:
+        key = response.get("nubKey") if isinstance(response.get("nubKey"), int) else response.get("key")
+        unique = (
+            isinstance(key, int)
+            and str(response.get("rank", "")).upper() == "SPECIES"
+            and str(response.get("taxonomicStatus", "")).upper() in _GBIF_ACCEPTED_STATUSES
+        )
+        return unique, key if isinstance(key, int) else 0, "species_key", 0
+    return False, 0, "none", 0
+
+
 def resolve_gbif_taxon(candidate, response, catalog_index):
     if not isinstance(candidate, dict) or not isinstance(response, dict) or not isinstance(catalog_index, dict):
         raise ValueError("candidate, response, and catalog_index must be objects")
@@ -97,8 +127,7 @@ def resolve_gbif_taxon(candidate, response, catalog_index):
     accepted = response.get("scientificName") or response.get("canonicalName") or ""
     matched = response.get("canonicalName") or accepted
     rank = str(response.get("rank", "")).lower()
-    confidence = response.get("confidence", 0)
-    unique = response.get("matchType") not in {None, "NONE", "HIGHERRANK"} and isinstance(response.get("usageKey"), int)
+    unique, backbone_key, match_type, confidence = _gbif_backbone_usage(response)
     adapted_candidate = {
         "candidateId": candidate["speciesId"],
         "speciesId": candidate["speciesId"],
@@ -124,17 +153,23 @@ def resolve_gbif_taxon(candidate, response, catalog_index):
         [{"sourceId": "gbif", "sourceType": "taxonomy_backbone", "records": records}],
         existing,
     )
+    # A catalog name collision is a taxonomy conflict only when the candidate
+    # itself is a catalog entry that resolved onto a different entry's name.
+    # A new candidate (reserve taxon_NNNNNN) whose accepted name is already in
+    # the catalog is not conflicting taxonomy; dedupe rejects it as a catalog
+    # duplicate instead.
     matches = catalog_index.get("byScientific", {}).get(canonical_scientific_name(accepted), [])
     conflicts = [item for item in matches if item != candidate["speciesId"]]
-    status = "taxonomy_conflict" if conflicts else canonical["status"]
+    known = candidate["speciesId"] in catalog_index.get("byId", {})
+    status = "taxonomy_conflict" if conflicts and known else canonical["status"]
     result = {
         "candidateId": candidate["speciesId"], "inputName": candidate["scientificName"],
         "status": status, "acceptedScientificName": accepted,
         "matchedScientificName": matched, "rank": rank,
-        "matchType": str(response.get("matchType", "none")).lower(),
+        "matchType": match_type,
         "synonyms": list(response.get("synonyms", [])),
-        "backboneKey": response.get("usageKey", 0),
-        "confidence": confidence if isinstance(confidence, int) else 0,
+        "backboneKey": backbone_key,
+        "confidence": confidence,
         "evidence": response, "reviewRequired": status != "resolved",
     }
     require_valid("TaxonResolution", result)

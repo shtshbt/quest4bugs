@@ -27,12 +27,27 @@ class TaxonomyDedupeQueryTests(unittest.TestCase):
         self.assertEqual(resolution["status"], "resolved")
         self.assertEqual(resolution["backboneKey"], 9001)
 
-    def test_catalog_conflict_is_not_auto_confirmed(self):
-        item = dict(self.candidates[0], speciesId="different_id")
+    def test_catalog_entry_resolving_onto_another_entry_is_a_conflict(self):
+        # "tagame" is a real catalog entry; resolving it onto the name owned by
+        # "aburazemi" is conflicting taxonomy and must not be auto-confirmed.
+        item = dict(self.candidates[0], speciesId="tagame")
         response = self.responses["Graptopsaltria nigrofuscata"]
         resolution = resolve_gbif_taxon(item, response, self.catalog_index)
         self.assertEqual(resolution["status"], "taxonomy_conflict")
         self.assertTrue(resolution["reviewRequired"])
+
+    def test_new_candidate_matching_catalog_name_is_duplicate_not_conflict(self):
+        # A reserve candidate is not a catalog entry, so a catalog name match
+        # is a dedupe matter (catalog duplicate), never a taxonomy conflict.
+        item = dict(self.candidates[0], speciesId="taxon_000001",
+                    scientificName="Graptopsaltria nigrofuscata", jaName="アブラゼミ")
+        response = self.responses["Graptopsaltria nigrofuscata"]
+        resolution = resolve_gbif_taxon(item, response, self.catalog_index)
+        self.assertEqual(resolution["status"], "resolved")
+        self.assertFalse(resolution["reviewRequired"])
+        dedupe = dedupe_catalog(item, resolution, self.catalog_index)
+        self.assertEqual(dedupe["status"], "duplicate")
+        self.assertIn("aburazemi", dedupe["matchedSpeciesIds"])
 
     def test_dedupe_hard_and_unique_rules(self):
         replacement = self.candidates[2]
@@ -41,6 +56,73 @@ class TaxonomyDedupeQueryTests(unittest.TestCase):
         new = self.candidates[0]
         new_resolution = resolve_gbif_taxon(new, self.responses[new["scientificName"]], self.catalog_index)
         self.assertEqual(dedupe_catalog(new, new_resolution, self.catalog_index)["status"], "unique")
+
+    @staticmethod
+    def species_key_response(**overrides):
+        """A species/{key} shaped response, as the harvester stores it."""
+        response = {
+            "key": 1071335, "nubKey": 1071335, "rank": "SPECIES",
+            "taxonomicStatus": "ACCEPTED",
+            "scientificName": "Phelotrupes laevistriatus (Motschulsky, 1857)",
+            "canonicalName": "Phelotrupes laevistriatus",
+        }
+        response.update(overrides)
+        return response
+
+    def species_key_candidate(self):
+        return {
+            "speciesId": "taxon_000001",
+            "scientificName": "Phelotrupes laevistriatus (Motschulsky, 1857)",
+            "acceptedName": None, "jaName": "センチコガネ",
+        }
+
+    def test_species_key_shape_resolves_accepted_species(self):
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(), self.species_key_response(), self.catalog_index)
+        self.assertEqual(resolution["status"], "resolved")
+        self.assertEqual(resolution["backboneKey"], 1071335)
+        self.assertEqual(resolution["rank"], "species")
+        self.assertEqual(resolution["matchType"], "species_key")
+        self.assertFalse(resolution["reviewRequired"])
+
+    def test_species_key_shape_accepts_doubtful_status(self):
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(),
+            self.species_key_response(taxonomicStatus="DOUBTFUL"), self.catalog_index)
+        self.assertEqual(resolution["status"], "resolved")
+
+    def test_species_key_shape_rejects_synonym_status(self):
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(),
+            self.species_key_response(taxonomicStatus="SYNONYM"), self.catalog_index)
+        self.assertEqual(resolution["status"], "unresolved")
+        self.assertTrue(resolution["reviewRequired"])
+
+    def test_species_key_shape_rejects_non_species_rank(self):
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(),
+            self.species_key_response(rank="GENUS"), self.catalog_index)
+        self.assertEqual(resolution["status"], "unresolved")
+
+    def test_species_key_shape_prefers_nub_key_over_key(self):
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(),
+            self.species_key_response(key=999, nubKey=1071335), self.catalog_index)
+        self.assertEqual(resolution["backboneKey"], 1071335)
+
+    def test_species_key_shape_falls_back_to_key_without_nub_key(self):
+        response = self.species_key_response()
+        del response["nubKey"]
+        resolution = resolve_gbif_taxon(
+            self.species_key_candidate(), response, self.catalog_index)
+        self.assertEqual(resolution["backboneKey"], 1071335)
+        self.assertEqual(resolution["status"], "resolved")
+
+    def test_empty_response_stays_unresolved(self):
+        resolution = resolve_gbif_taxon(self.species_key_candidate(), {}, self.catalog_index)
+        self.assertEqual(resolution["status"], "unresolved")
+        self.assertEqual(resolution["matchType"], "none")
+        self.assertEqual(resolution["backboneKey"], 0)
 
     def test_query_priority_is_deterministic(self):
         item = self.candidates[0]
