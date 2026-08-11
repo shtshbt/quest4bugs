@@ -68,6 +68,37 @@ def verify_order_keys(transport, orders):
     return problems
 
 
+def fetch_synonyms(transport, species_key, page_size=100):
+    """Return the GBIF synonym names for one species, paged to completion.
+
+    Reads /v1/species/{key}/synonyms and returns de-duplicated names in GBIF
+    order, preferring canonicalName so dedupe can compare them against the
+    catalog's canonical names directly. A malformed response raises ValueError
+    rather than reading as "no synonyms".
+    """
+    if not isinstance(species_key, int) or species_key < 1:
+        raise ValueError("species_key must be a positive integer")
+    names, seen, offset = [], set(), 0
+    while True:
+        payload = transport.get_json(
+            "gbif", f"/v1/species/{species_key}/synonyms",
+            {"limit": page_size, "offset": offset}, {})
+        results = payload.get("results") if isinstance(payload, dict) else None
+        if not isinstance(results, list):
+            raise ValueError(f"invalid synonyms response for species {species_key}")
+        for item in results:
+            if not isinstance(item, dict):
+                continue
+            name = str(item.get("canonicalName") or item.get("scientificName") or "").strip()
+            if name and name not in seen:
+                seen.add(name)
+                names.append(name)
+        # endOfRecords defaults to True so a response without it cannot loop.
+        if payload.get("endOfRecords", True) or not results:
+            return names
+        offset += page_size
+
+
 class GbifJapanSeedAdapter:
     """Fetch live seeds for insects recorded in Japan that have a Japanese name.
 
