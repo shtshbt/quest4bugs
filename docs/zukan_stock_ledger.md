@@ -41,7 +41,7 @@
 
 ## 3. volume 公開前パイプライン (地域 seeds → 配信)
 
-1. 対カタログ重複判定 (reserve CLI の offline 判定。regionId 付き seeds の受入は要確認) — **次の background 実行候補**
+1. 対カタログ重複判定 — マダガスカルは 2026-08-12 実施済み: **真の重複 6 件のみ** (カバマダラ、ヒトスジシマカ、トノサマバッタ、ニシキオオツバメガ、ウスバキトンボ、アオモンイトトンボ = 日本と共通の汎存種)、使用可能 295/301。注意: reserve CLI は region seeds 未対応で、空の和名同士を same_japanese_name と誤判定して 269 件を偽 reject する。region モード (学名 + synonym のみで dedup、和名要件免除) の小改修が必要で、それまで他 3 地域の判定は手動解析 (bank から duplicate:same_canonical_name / synonym 系理由のみ抽出) で行う
 2. 名前 enrichment (標準和名 → 通用名 → 仮称 → 英語一般名。決定 1)
 3. 種選抜: 80 から 100 種、N/R/SR 構成 + 看板 SR 指定
 4. 標本写真 zukan-fetch (museum tier)。リードタイム最大の工程。参考実績: カタログ 893 種の充足に数週間 (tier 順 + GBIF rate limit 2 秒)。マダガスカル I は Phase 3 実装と並行して先行着手する
