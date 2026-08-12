@@ -232,32 +232,35 @@
 - 対象: Asiagomphus yayeyamensis (Matsumura, 1926) [ヤエヤマサナエ] (教科案: eitango)
 - 相手: Leptogomphus yayeyamensis Matsumura, 1926 [ヒメホソサナエ] (status: taxonomy_resolved)
 - score: 0.87
-- 判定: (監査待ち)
+- 判定: 別種、両方前進可 (2026-08-12 user 監査済み)
 
 ### B2: taxon_001027
 - 対象: Eurystylus coelestialium (Kirkaldy, 1902) [メンガタカスミカメ] (教科案: eitango)
 - 相手: Trigonotylus caelestialium (Kirkaldy, 1902) [アカヒゲホソミドリカスミカメ] (status: taxonomy_resolved)
 - score: 0.86
-- 判定: (監査待ち)
+- 判定: 別種、両方前進可 (2026-08-12 user 監査済み)
 
 ### B3: taxon_001695
 - 対象: Enochrus japonicus (Sharp, 1873) [キベリヒラタガムシ] (教科案: keisan)
 - 相手: Noterus japonicus Sharp, 1873 [コツブゲンゴロウ] (status: taxonomy_resolved)
 - score: 0.85
-- 判定: (監査待ち)
+- 判定: 別種、両方前進可 (2026-08-12 user 監査済み)
 
 ### B4: taxon_002242
 - 対象: Ozotomerus japonicus Sharp, 1891 [ウスモンツツヒゲナガゾウムシ] (教科案: keisan)
 - 相手: Noterus japonicus Sharp, 1873 [コツブゲンゴロウ] (status: taxonomy_resolved)
 - score: 0.85
-- 判定: (監査待ち)
+- 判定: 別種、両方前進可 (2026-08-12 user 監査済み)
 
 ### B5: taxon_002300
 - 対象: Hermonassa arenosa Butler, 1881 [ホシボシヤガ] (教科案: kanji)
 - 相手: Herminia arenosa Butler, 1878 [ウスキミスジアツバ] (status: taxonomy_resolved)
 - score: 0.87
-- 判定: (監査待ち)
+- 判定: 別種、両方前進可 (2026-08-12 user 監査済み)
 
-## 監査結果の反映
+## 監査結果 (2026-08-12 確定)
 
-決定は本書に記録し、reserve パイプラインへの反映 (needs_review の解除機構) は実装フォローアップとする。
+- A 群 214 件: 一括クリア承認 (user)。全ペア別種。
+- B 群 5 件: 個別確認の上、全件「別種・両方前進可」(user)。
+- 帰結: needs_review 219 件はすべて解除対象。resolved は 1,432 から 1,651 へ増加する (教科別バッファ増)。
+- 反映: reserve パイプラインへの解除機構 (レビュー済み判定の永続化) は実装フォローアップ。それまで本書が正典。
