@@ -30,15 +30,23 @@ from tools.campaign3.t11_species_reserve.gbif_japan_seed import (
     INSECTA, ORDER_KEYS, _is_japanese_script, verify_order_keys,
 )
 
-__all__ = ["ORDER_KEYS", "GbifRegionSeedAdapter", "load_regions",
-           "parse_polygon", "verify_order_keys"]
+__all__ = ["ORDER_KEYS", "REGION_ORDER_KEYS", "GbifRegionSeedAdapter",
+           "load_regions", "parse_polygon", "verify_order_keys"]
 
 GBIF_API = "https://api.gbif.org"
+
+# The domestic reserve deliberately harvests its ten showcase orders only, so
+# Blattodea joins here rather than in the shared mapping: region flagships
+# include Gromphadorhina portentosa (docs/komorebi_regions.md 7 章), and
+# widening the shared ORDER_KEYS would silently change future domestic
+# harvests too. 800 is verified like every other key at run start.
+REGION_ORDER_KEYS = dict(ORDER_KEYS, Blattodea=800)
 
 _REGION_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
 _COUNTRY_PATTERN = re.compile(r"^[A-Z]{2}$")
 _POLYGON_PATTERN = re.compile(r"^POLYGON\s*\(\(\s*(.+?)\s*\)\)$", re.DOTALL)
-_REGION_KEYS = {"label", "countries", "geometry"}
+_REGION_KEYS = {"label", "countries", "geometry", "mustHave"}
+_MUST_HAVE_KEYS = {"speciesKey", "label"}
 
 
 def parse_polygon(wkt):
@@ -111,6 +119,21 @@ def load_regions(path):
             parse_polygon(region["geometry"])
         if not countries and region.get("geometry") is None:
             raise ValueError(f"{where}: needs countries or geometry")
+        must_have = region.get("mustHave")
+        if must_have is not None:
+            if not isinstance(must_have, list) or not must_have:
+                raise ValueError(f"{where}: mustHave must be a non-empty list")
+            for entry in must_have:
+                if not isinstance(entry, dict) or set(entry) != _MUST_HAVE_KEYS:
+                    raise ValueError(f"{where}: each mustHave entry needs exactly "
+                                     "speciesKey and label")
+                species_key = entry["speciesKey"]
+                if (isinstance(species_key, bool) or not isinstance(species_key, int)
+                        or species_key < 1):
+                    raise ValueError(f"{where}: mustHave speciesKey must be a "
+                                     "positive integer")
+                if not isinstance(entry["label"], str) or not entry["label"].strip():
+                    raise ValueError(f"{where}: mustHave label is required")
     return data
 
 
@@ -141,9 +164,10 @@ class GbifRegionSeedAdapter:
             parse_polygon(self.geometry)
         if not self.countries and not self.geometry:
             raise ValueError("region needs countries or geometry")
+        self.must_have = list(region.get("mustHave") or [])
         # None means "use the default orders". An explicitly empty mapping is a
         # caller mistake and must not silently widen the run to every order.
-        self.orders = dict(ORDER_KEYS if orders is None else orders)
+        self.orders = dict(REGION_ORDER_KEYS if orders is None else orders)
         if not self.orders:
             raise ValueError("at least one order is required")
         if not isinstance(min_occurrences, int) or min_occurrences < 1:
@@ -228,7 +252,28 @@ class GbifRegionSeedAdapter:
                 offset += self.facet_page
         return merged
 
-    def seed_for(self, species_key, occurrence_count, receipts):
+    def must_have_presence(self, species_key):
+        """(regional occurrence count, receipts) for one named flagship.
+
+        A must-have species is stocked on the same evidence rule as everything
+        else: the region's own occurrence query is the membership proof. Only
+        the min_occurrences floor is waived, because flagships are named
+        precisely when their fame outruns their record count (the frequency
+        walk already finds the busy ones). Zero records is therefore not a
+        verdict but a wait: the caller skips without caching a reject, so a
+        later run retries after the data improves.
+        """
+        total, receipts = 0, []
+        for region_filter in self.region_filters():
+            params = dict(region_filter, taxonKey=int(species_key), limit=0)
+            payload = self.transport.get_json("gbif", "/v1/occurrence/search", params, {})
+            count = payload.get("count") if isinstance(payload, dict) else 0
+            if isinstance(count, int) and count > 0:
+                total += count
+                receipts.append(f"{GBIF_API}/v1/occurrence/search?{urlencode(params)}")
+        return total, receipts
+
+    def seed_for(self, species_key, occurrence_count, receipts, must_have=False):
         """Build one region seed, or explain its rejection.
 
         Returns (seed, None) or (None, reason). Only two verdicts reject a
@@ -263,7 +308,7 @@ class GbifRegionSeedAdapter:
             status, name_source = "english_common_candidate", f"{source_url}#vernacular-eng"
         else:
             status, name_source = "pending", ""
-        return {
+        record = {
             "seedId": f"gbif_{species_key}",
             "regionId": self.region_id,
             "scientificName": str(name),
@@ -281,7 +326,12 @@ class GbifRegionSeedAdapter:
             "sourceReceipt": source_url,
             "checkedAt": datetime.now(timezone.utc).isoformat(),
             "taxonomyResponse": taxon,
-        }, None
+        }
+        # Absent on ordinary seeds so the historic records keep their exact
+        # shape; downstream reads a missing flag as False either way.
+        if must_have:
+            record["mustHave"] = True
+        return record, None
 
     def _vernaculars(self, species_key):
         """Return (japanese, english) vernacular names; either may be empty.

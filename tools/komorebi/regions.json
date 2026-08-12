@@ -1,18 +1,36 @@
 {
   "madagascar": {
     "label": "マダガスカル",
-    "countries": ["MG"]
+    "countries": ["MG"],
+    "mustHave": [
+      {"speciesKey": 1867014, "label": "コメットガ"},
+      {"speciesKey": 1994576, "label": "マダガスカルオオゴキブリ"}
+    ]
   },
   "australia": {
     "label": "オーストラリア",
-    "countries": ["AU"]
+    "countries": ["AU"],
+    "mustHave": [
+      {"speciesKey": 1937988, "label": "ユリシス"},
+      {"speciesKey": 11375304, "label": "ロードハウナナフシ"},
+      {"speciesKey": 4759135, "label": "クリスマスビートル"}
+    ]
   },
   "borneo": {
     "label": "ボルネオ",
-    "geometry": "POLYGON((108.4 -4.9, 117.2 -4.9, 119.4 1.2, 119.5 5.5, 117.3 7.7, 108.4 2.5, 108.4 -4.9))"
+    "geometry": "POLYGON((108.4 -4.9, 117.2 -4.9, 119.4 1.2, 119.5 5.5, 117.3 7.7, 108.4 2.5, 108.4 -4.9))",
+    "mustHave": [
+      {"speciesKey": 1937514, "label": "アカエリトリバネアゲハ"},
+      {"speciesKey": 1413317, "label": "チャニナナフシ"},
+      {"speciesKey": 1074596, "label": "モーレンカンプオオカブト"}
+    ]
   },
   "costa_rica": {
     "label": "コスタリカ",
-    "countries": ["CR"]
+    "countries": ["CR"],
+    "mustHave": [
+      {"speciesKey": 5035748, "label": "ハキリアリ"},
+      {"speciesKey": 5158022, "label": "ビワハゴロモ"}
+    ]
   }
 }

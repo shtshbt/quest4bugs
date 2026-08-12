@@ -8,8 +8,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from tools.campaign3.t11_species_reserve.gbif_japan_seed import ORDER_KEYS
 from tools.komorebi.gbif_region_seed import (
-    GbifRegionSeedAdapter, load_regions, parse_polygon,
+    REGION_ORDER_KEYS, GbifRegionSeedAdapter, load_regions, parse_polygon,
 )
 from tools.komorebi import harvest_region_seeds
 from zukan_foundry.discovery import HttpTransport
@@ -20,12 +21,16 @@ REGIONS_FILE = Path(__file__).resolve().parents[2] / "tools" / "komorebi" / "reg
 class FakeTransport:
     """Serve canned GBIF payloads and record every call."""
 
-    def __init__(self, facet_pages=None, taxa=None, vernaculars=None):
+    def __init__(self, facet_pages=None, taxa=None, vernaculars=None,
+                 occurrence_counts=None):
         # facet_pages maps (filter_key, taxon_key) -> [page, page, ...] where
         # filter_key is ("country", code) or ("geometry", wkt).
+        # occurrence_counts maps (filter_key, taxon_key) -> count for the
+        # facet-less presence queries the must-have layer sends.
         self.facet_pages = facet_pages or {}
         self.taxa = taxa or {}
         self.vernaculars = vernaculars or {}
+        self.occurrence_counts = occurrence_counts or {}
         self.calls = []
 
     def get_json(self, source, endpoint, params, headers):
@@ -35,6 +40,9 @@ class FakeTransport:
                 filter_key = ("country", params["country"])
             else:
                 filter_key = ("geometry", params.get("geometry"))
+            if "facet" not in params:
+                return {"count": self.occurrence_counts.get(
+                    (filter_key, params["taxonKey"]), 0)}
             pages = self.facet_pages.get((filter_key, params["taxonKey"]), [])
             index = params.get("facetOffset", 0) // params["facetLimit"]
             counts = pages[index] if index < len(pages) else []
@@ -77,14 +85,28 @@ def write_regions(directory, data):
 class RegionsFileTests(unittest.TestCase):
     """The shipped regions file is data the harvester trusts, so it is tested."""
 
-    def test_shipped_regions_file_defines_the_first_three_regions(self):
+    def test_shipped_regions_file_defines_the_four_initial_regions(self):
         regions = load_regions(REGIONS_FILE)
-        self.assertEqual(sorted(regions), ["australia", "borneo", "madagascar"])
+        self.assertEqual(sorted(regions),
+                         ["australia", "borneo", "costa_rica", "madagascar"])
         self.assertEqual(regions["madagascar"]["countries"], ["MG"])
         self.assertEqual(regions["australia"]["countries"], ["AU"])
+        self.assertEqual(regions["costa_rica"]["countries"], ["CR"])
         self.assertNotIn("countries", regions["borneo"],
                          "Borneo spans three countries, so it must be geometry-only")
         self.assertTrue(regions["borneo"]["geometry"].startswith("POLYGON(("))
+
+    def test_shipped_regions_all_name_their_flagships(self):
+        # Frequency-ranked harvests drop famous-but-thinly-recorded species
+        # (docs/komorebi_regions.md 6 章), so every initial region must ship a
+        # verified must-have list.
+        regions = load_regions(REGIONS_FILE)
+        for region_id, region in regions.items():
+            self.assertGreaterEqual(len(region.get("mustHave") or []), 2, region_id)
+        madagascar_keys = [entry["speciesKey"]
+                           for entry in regions["madagascar"]["mustHave"]]
+        self.assertIn(1994576, madagascar_keys,
+                      "the hissing cockroach is the reason Blattodea exists here")
 
     def test_borneo_polygon_covers_the_island(self):
         ring = parse_polygon(load_regions(REGIONS_FILE)["borneo"]["geometry"])
@@ -136,6 +158,26 @@ class RegionsFileTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 load_regions(path)
 
+    def test_must_have_entries_are_validated_up_front(self):
+        base = {"label": "M", "countries": ["MG"]}
+        for bad in ([],                                          # empty list
+                    "1994576",                                    # not a list
+                    [{"speciesKey": 1994576}],                    # missing label
+                    [{"speciesKey": 1994576, "label": " "}],      # blank label
+                    [{"speciesKey": "1994576", "label": "G"}],    # string key
+                    [{"speciesKey": True, "label": "G"}],         # bool key
+                    [{"speciesKey": 0, "label": "G"}],            # non-positive
+                    [{"speciesKey": 1, "label": "G", "note": "x"}]):  # typo key
+            with tempfile.TemporaryDirectory() as tmp:
+                path = write_regions(tmp, {"mg": dict(base, mustHave=bad)})
+                with self.assertRaises(ValueError, msg=repr(bad)):
+                    load_regions(path)
+
+    def test_region_without_must_have_is_still_valid(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = write_regions(tmp, {"mg": {"label": "M", "countries": ["MG"]}})
+            self.assertEqual(load_regions(path)["mg"]["label"], "M")
+
     def test_clockwise_polygon_is_rejected_before_gbif_can_reject_it(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = write_regions(tmp, {"box": {
@@ -151,6 +193,22 @@ class RegionsFileTests(unittest.TestCase):
         for wkt in ("POINT(1 2)", "POLYGON((0 0, 2 0, 2 2, 0 2, 0 0), (1 1, 1.5 1, 1 1.5, 1 1))", 42):
             with self.assertRaises(ValueError):
                 parse_polygon(wkt)
+
+
+class RegionOrderKeysTests(unittest.TestCase):
+    """Blattodea is a komorebi-only widening of the shared order mapping."""
+
+    def test_region_orders_add_blattodea_without_touching_the_shared_mapping(self):
+        self.assertEqual(REGION_ORDER_KEYS["Blattodea"], 800)
+        self.assertNotIn("Blattodea", ORDER_KEYS,
+                         "the domestic harvester must keep its ten orders")
+        self.assertEqual({name: key for name, key in REGION_ORDER_KEYS.items()
+                          if name != "Blattodea"}, ORDER_KEYS)
+
+    def test_adapter_defaults_to_the_region_orders(self):
+        adapter = GbifRegionSeedAdapter(
+            FakeTransport(), "testregion", {"label": "M", "countries": ["MG"]})
+        self.assertEqual(adapter.orders, REGION_ORDER_KEYS)
 
 
 class RegionQueryTests(unittest.TestCase):
@@ -248,6 +306,42 @@ class RegionQueryTests(unittest.TestCase):
             self.adapter(region, transport, min_occurrences=0)
 
 
+class MustHavePresenceTests(unittest.TestCase):
+    """Named flagships keep the evidence rule but waive the frequency floor."""
+
+    def adapter(self, region, transport):
+        return GbifRegionSeedAdapter(transport, "testregion", region,
+                                     orders={"Coleoptera": 1470})
+
+    def test_counts_are_summed_across_surfaces_with_receipts(self):
+        transport = FakeTransport(occurrence_counts={
+            (("country", "KE"), 104): 2, (("country", "TZ"), 104): 3})
+        count, receipts = self.adapter(
+            {"label": "EA", "countries": ["KE", "TZ"]}, transport
+        ).must_have_presence(104)
+        self.assertEqual(count, 5)
+        self.assertEqual(len(receipts), 2)
+        self.assertIn("taxonKey=104", receipts[0])
+        for call in transport.calls:
+            self.assertNotIn("facet", call[2],
+                             "a presence query must not pay for a facet walk")
+
+    def test_zero_records_yield_zero_and_no_receipts(self):
+        count, receipts = self.adapter(
+            {"label": "M", "countries": ["MG"]}, FakeTransport()
+        ).must_have_presence(104)
+        self.assertEqual((count, receipts), (0, []))
+
+    def test_surface_without_records_contributes_no_receipt(self):
+        transport = FakeTransport(occurrence_counts={(("country", "TZ"), 104): 3})
+        count, receipts = self.adapter(
+            {"label": "EA", "countries": ["KE", "TZ"]}, transport
+        ).must_have_presence(104)
+        self.assertEqual(count, 3)
+        self.assertEqual(len(receipts), 1)
+        self.assertIn("country=TZ", receipts[0])
+
+
 class NameEnrichmentTests(unittest.TestCase):
     """Names are enrichment, never a stocking condition (design 6.4 / 12.3)."""
 
@@ -321,6 +415,14 @@ class NameEnrichmentTests(unittest.TestCase):
                          "taxonomyResponse keeps the species/{key} shape")
         self.assertTrue(seed["checkedAt"])
         self.assertIn("gbif.org/species/101", seed["sourceReceipt"])
+        self.assertNotIn("mustHave", seed,
+                         "ordinary seeds keep the exact historic record shape")
+
+    def test_must_have_flag_marks_the_seed(self):
+        seed, reason = self.adapter.seed_for(101, 42, ["https://receipt"],
+                                             must_have=True)
+        self.assertIsNone(reason)
+        self.assertIs(seed["mustHave"], True)
 
 
 class RejectTests(unittest.TestCase):
@@ -455,6 +557,95 @@ class HarvestTests(unittest.TestCase):
                     "atlantis", regions_file, Path(tmp) / "x.jsonl", 3,
                     {"Coleoptera": 1470}, 5, 2.0, transport=transport)
             self.assertEqual(transport.calls, [])
+
+
+class MustHaveHarvestTests(unittest.TestCase):
+    """Named flagships are stocked first, floor-free, and retried while absent."""
+
+    def transport_with_must(self, must_count=2, must_taxon=None):
+        return FakeTransport(
+            facet_pages={(("country", "MG"), 1470): [[{"name": "101", "count": 9}]]},
+            taxa={1470: order_taxon("Coleoptera"),
+                  101: taxon(101, "Aaa bbb"),
+                  104: must_taxon or taxon(104, "Star star", order="Blattodea",
+                                           family="Blaberidae")},
+            vernaculars={101: [], 104: []},
+            occurrence_counts={(("country", "MG"), 104): must_count})
+
+    def regions_with_must(self, tmp):
+        return write_regions(tmp, {"testregion": {
+            "label": "T", "countries": ["MG"],
+            "mustHave": [{"speciesKey": 104, "label": "看板"}]}})
+
+    def run_harvest(self, tmp, transport, regions_file, target=2):
+        output = Path(tmp) / "testregion.jsonl"
+        harvest_region_seeds.harvest(
+            "testregion", regions_file, output, target,
+            {"Coleoptera": 1470}, 5, 2.0, transport=transport)
+        return output
+
+    def read_seeds(self, output):
+        return [json.loads(line) for line in
+                output.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+    def test_must_have_is_stocked_first_even_below_the_frequency_floor(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = self.run_harvest(tmp, self.transport_with_must(must_count=2),
+                                      self.regions_with_must(tmp))
+            seeds = self.read_seeds(output)
+            self.assertEqual([seed["seedId"] for seed in seeds],
+                             ["gbif_104", "gbif_101"],
+                             "the flagship must land before any ranked seed")
+            self.assertIs(seeds[0]["mustHave"], True)
+            self.assertEqual(seeds[0]["occurrenceCount"], 2,
+                             "2 records is below min_occurrences=5 and stocked anyway")
+            self.assertNotIn("mustHave", seeds[1])
+
+    def test_met_target_still_stocks_a_pending_must_have(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            plain = write_regions(tmp, {"testregion": {"label": "T",
+                                                       "countries": ["MG"]}})
+            self.run_harvest(tmp, self.transport_with_must(), plain, target=1)
+            transport = self.transport_with_must()
+            output = self.run_harvest(tmp, transport,
+                                      self.regions_with_must(tmp), target=1)
+            self.assertEqual([seed["seedId"] for seed in self.read_seeds(output)],
+                             ["gbif_101", "gbif_104"])
+            for call in transport.calls:
+                self.assertNotIn("facet", call[2],
+                                 "a met target must not re-walk the facet ranking")
+
+    def test_zero_count_must_have_is_skipped_without_a_reject_and_retried(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            regions_file = self.regions_with_must(tmp)
+            output = self.run_harvest(tmp, self.transport_with_must(must_count=0),
+                                      regions_file, target=1)
+            self.assertEqual([seed["seedId"] for seed in self.read_seeds(output)],
+                             ["gbif_101"])
+            self.assertFalse(harvest_region_seeds.rejects_path(output).exists(),
+                             "absence of records today is not a permanent verdict")
+            output = self.run_harvest(tmp, self.transport_with_must(must_count=2),
+                                      regions_file, target=2)
+            self.assertEqual([seed["seedId"] for seed in self.read_seeds(output)],
+                             ["gbif_101", "gbif_104"])
+
+    def test_must_have_with_a_wrong_rank_is_rejected_for_good(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            regions_file = self.regions_with_must(tmp)
+            transport = self.transport_with_must(
+                must_taxon=taxon(104, "Genus", rank="GENUS"))
+            output = self.run_harvest(tmp, transport, regions_file, target=1)
+            self.assertEqual([seed["seedId"] for seed in self.read_seeds(output)],
+                             ["gbif_101"])
+            rejected = harvest_region_seeds.rejects_path(output).read_text(
+                encoding="utf-8")
+            self.assertIn("104\tnon_species_rank:GENUS", rejected)
+            retry = self.transport_with_must()
+            self.run_harvest(tmp, retry, regions_file, target=1)
+            asked = [call for call in retry.calls if "taxonKey" in call[2]
+                     and call[2]["taxonKey"] == 104]
+            self.assertEqual(asked, [],
+                             "a settled reject must not be re-asked on resume")
 
 
 class TransportIntervalTests(unittest.TestCase):

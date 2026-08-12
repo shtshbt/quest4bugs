@@ -28,7 +28,7 @@ sys.path.insert(0, str(_REPO_ROOT / "zukan_foundry"))
 
 from tools.campaign3.t11_species_reserve.harvest_seeds import load_cache
 from tools.komorebi.gbif_region_seed import (
-    ORDER_KEYS, GbifRegionSeedAdapter, load_regions, verify_order_keys,
+    REGION_ORDER_KEYS, GbifRegionSeedAdapter, load_regions, verify_order_keys,
 )
 from zukan_foundry.discovery import HttpTransport
 
@@ -86,9 +86,15 @@ def harvest(region_id, regions_file, output, target, orders, min_occurrences,
     existing, seen = load_cache(output)
     rejects_file = rejects_path(output)
     rejected = load_rejects(rejects_file)
+    # A must-have flagship is stocked even when the target is already met, so
+    # the no-network short-circuit only fires once every named species is
+    # settled (stocked or permanently rejected).
+    pending_must = [entry for entry in regions[region_id].get("mustHave") or []
+                    if f"gbif_{entry['speciesKey']}" not in seen
+                    and entry["speciesKey"] not in rejected]
     print(f"{region_id}: cache holds {len(existing)} seeds and {len(rejected)} known "
-          f"rejects; target {target}", flush=True)
-    if len(existing) >= target:
+          f"rejects; target {target}; {len(pending_must)} must-have pending", flush=True)
+    if len(existing) >= target and not pending_must:
         print("target already met", flush=True)
         return 0
 
@@ -108,23 +114,20 @@ def harvest(region_id, regions_file, output, target, orders, min_occurrences,
 
     started = time.time()
     added = 0
-    # Ask for the whole ranked species list once, then walk it, so a resume
-    # does not re-pay the facet queries per seed.
-    ranked = adapter.region_species(target * 3)
-    print(f"{len(ranked)} regional species keys available across "
-          f"{len(adapter.orders)} orders", flush=True)
 
-    for key, count, receipts in ranked:
-        if len(existing) + added >= target:
-            break
-        if f"gbif_{key}" in seen or key in rejected:
+    for entry in pending_must:
+        key, label = entry["speciesKey"], entry["label"]
+        count, receipts = adapter.must_have_presence(key)
+        if count < 1:
+            # Not cached as a reject: absence of records today is not a
+            # verdict about the species, and a later run should retry.
+            print(f"must-have {label} (gbif {key}): no regional occurrence yet; "
+                  "skipped", flush=True)
             continue
         try:
-            seed, reason = adapter.seed_for(key, count, receipts)
+            seed, reason = adapter.seed_for(key, count, receipts, must_have=True)
         except (RuntimeError, ValueError) as error:
-            # A transient failure is not evidence about the species, so it is
-            # not recorded as a reject.
-            print(f"skip {key}: {error}", flush=True)
+            print(f"skip must-have {key}: {error}", flush=True)
             continue
         if seed is None:
             with rejects_file.open("a", encoding="utf-8") as handle:
@@ -137,12 +140,45 @@ def harvest(region_id, regions_file, output, target, orders, min_occurrences,
             handle.flush()
         seen.add(seed["seedId"])
         added += 1
-        if added % log_every == 0:
-            total = len(existing) + added
-            rate = (time.time() - started) / added
-            remaining = (target - total) * rate
-            print(f"{total}/{target} seeds  {rate:.1f}s/seed  eta {remaining/3600:.1f}h  "
-                  f"latest {seed['scientificName']} [{seed['nameStatus']}]", flush=True)
+        print(f"must-have stocked: {label} = {seed['scientificName']} "
+              f"({count} regional records)", flush=True)
+
+    if len(existing) + added < target:
+        # Ask for the whole ranked species list once, then walk it, so a
+        # resume does not re-pay the facet queries per seed.
+        ranked = adapter.region_species(target * 3)
+        print(f"{len(ranked)} regional species keys available across "
+              f"{len(adapter.orders)} orders", flush=True)
+
+        for key, count, receipts in ranked:
+            if len(existing) + added >= target:
+                break
+            if f"gbif_{key}" in seen or key in rejected:
+                continue
+            try:
+                seed, reason = adapter.seed_for(key, count, receipts)
+            except (RuntimeError, ValueError) as error:
+                # A transient failure is not evidence about the species, so it
+                # is not recorded as a reject.
+                print(f"skip {key}: {error}", flush=True)
+                continue
+            if seed is None:
+                with rejects_file.open("a", encoding="utf-8") as handle:
+                    handle.write(f"{key}\t{reason}\n")
+                    handle.flush()
+                rejected.add(key)
+                continue
+            with output.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(seed, ensure_ascii=False, sort_keys=True) + "\n")
+                handle.flush()
+            seen.add(seed["seedId"])
+            added += 1
+            if added % log_every == 0:
+                total = len(existing) + added
+                rate = (time.time() - started) / added
+                remaining = (target - total) * rate
+                print(f"{total}/{target} seeds  {rate:.1f}s/seed  eta {remaining/3600:.1f}h  "
+                      f"latest {seed['scientificName']} [{seed['nameStatus']}]", flush=True)
     total = len(existing) + added
     print(f"done: {total}/{target} seeds ({added} new) in {(time.time()-started)/60:.1f}min",
           flush=True)
@@ -162,7 +198,8 @@ def main(argv=None):
                         help="seconds between GBIF requests")
     parser.add_argument("--orders", default="", help="comma separated order names")
     args = parser.parse_args(argv)
-    orders = ({name: ORDER_KEYS[name] for name in args.orders.split(",") if name in ORDER_KEYS}
+    orders = ({name: REGION_ORDER_KEYS[name] for name in args.orders.split(",")
+               if name in REGION_ORDER_KEYS}
               if args.orders else None)
     output = args.output or str(DEFAULT_OUTPUT_ROOT / f"{args.region}.jsonl")
     try:
