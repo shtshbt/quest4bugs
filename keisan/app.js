@@ -496,8 +496,9 @@ function topBar(backFn,extra){
 }
 function kagoChip(){
   var p=P(); if(!p)return ''; ensureColl(p);
-  var cnt=(window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p));
-  var tot=(window.Q4BReward?Q4BReward.poolCount('keisan'):BUGS.length);
+  /* 分子/分母とも図鑑達成度セット (プール+マスター+ボス+SS、天敵除く) で数える */
+  var cnt=(window.Q4BReward?(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(p.coll,'keisan'):Q4BReward.collectedCount(p.coll)):capCount(p));
+  var tot=(window.Q4BReward?(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('keisan'):Q4BReward.poolCount('keisan')):BUGS.length);
   return '<button class="chip kago" onclick="showZukan()">📖 '+cnt+'/'+tot+'</button>';
 }
 function fireChip(){var p=P(); if(!p)return ''; return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
@@ -513,7 +514,7 @@ function showProfiles(){
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
       +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
-      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?Q4BReward.collectedCount(q.coll):capCount(q);})(p)+'匹</span></span></button>';
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(q.coll,'keisan'):Q4BReward.collectedCount(q.coll)):capCount(q);})(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -646,7 +647,7 @@ function showHome(){
   if(window.Q4BReward&&Q4BReward.setNight)Q4BReward.setNight(night);
   document.body.classList.toggle('night',night);
   var h='<div class="scr">'+topBar(null);
-  if(window.Q4BReward)h+=Q4BReward.statusHTML({caught:Q4BReward.collectedCount(p.coll),pool:Q4BReward.poolCount('keisan'),amber:Q4BReward.amberOf(p.coll),streak:p.streak.n,total:p.coll.total});
+  if(window.Q4BReward)h+=Q4BReward.statusHTML({caught:(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(p.coll,'keisan'):Q4BReward.collectedCount(p.coll)),pool:(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('keisan'):Q4BReward.poolCount('keisan')),amber:Q4BReward.amberOf(p.coll),streak:p.streak.n,total:p.coll.total});
   h+='<div class="hero"><div class="'+(night?'moon':'sun')+'"></div><h2>'+(done?"きょうのミッション クリア！":"きょうの むしとりミッション")+'</h2>'
     +'<p style="margin:2px 0 12px">'+(night?'🌙 よるは よるの虫が でやすいよ<br>':'')+(done?"れんしゅうで もっと つかまえよう":"クリアすると 昆虫を 1匹 ゲット！")+(due?'<br>🦋 にがした虫が '+due+'匹 まってるよ':"")+'</p>'
     +'<button class="btn big amber" onclick="startMission()">'+(done?"もういちど ちょうせん":"ミッション スタート！")+'</button>'
@@ -858,12 +859,13 @@ function showZukan(){
   var p=P();
   ensureColl(p);
   var pool=window.Q4BReward?Q4BReward.pool('keisan'):[];
-  var cnt=window.Q4BReward?Q4BReward.collectedCount(p.coll):capCount(p);
-  var tot=pool.length||BUGS.length;
+  /* 分子/分母とも図鑑達成度セット (プール+マスター+ボス+SS、天敵除く) で数える */
+  var cnt=window.Q4BReward?(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(p.coll,'keisan'):Q4BReward.collectedCount(p.coll)):capCount(p);
+  var tot=(window.Q4BReward&&Q4BReward.zukanDenomCount)?Q4BReward.zukanDenomCount('keisan'):(pool.length||BUGS.length);
   var rankLabel=window.Q4BReward?Q4BReward.rank(p.coll.total):"";
   var h='<div class="scr">'+topBar("showHome()");
   h+='<div class="card"><h3>📖 むしずかん　<span style="color:var(--amber-d)">'+cnt+' / '+tot+'</span></h3>'
-    +'<div class="pbar"><i style="width:'+(tot?Math.round(cnt/tot*100):0)+'%"></i></div>'
+    +'<div class="pbar"><i style="width:'+(tot?Math.min(100,Math.round(cnt/tot*100)):0)+'%"></i></div>'
     +(rankLabel?'<p style="margin:6px 0 0;font-size:13px;color:var(--sub)">称号：<b style="color:var(--ink)">'+esc(rankLabel)+'</b></p>':"")
     +'</div>';
   if(!window.Q4BReward||!pool.length){

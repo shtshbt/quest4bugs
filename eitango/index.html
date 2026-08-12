@@ -239,7 +239,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.8.1"></script>
+<script src="../shared/reward.js?v=0.8.2"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -1195,9 +1195,11 @@ function zukanDetailHTML(html){
 function scrHome(){
   const meta=profMeta(CURID);
   const night=Engine.isNight();
-  const caughtN=Object.keys(P.catches).length;
+  /* 分子/分母とも図鑑達成度セット (プール+マスター+ボス+SS、天敵除く)。
+     nushi_* 疑似 id は集合外なのでここでは数えない (図鑑タブの ALLSP 集計は現行維持)。 */
+  const caughtN=(window.Q4BReward&&Q4BReward.zukanCaughtCount)?Q4BReward.zukanCaughtCount({catches:P.catches},'eitango'):Object.keys(P.catches).length;
   const totN=Object.keys(P.catches).reduce((a,id)=>a+((P.catches[id]&&P.catches[id].n)||0),0);
-  const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:Q4BReward.poolCount('eitango'),amber:eAmber(),streak:P.streak.n,total:totN}):'';
+  const statusBar=window.Q4BReward?Q4BReward.statusHTML({caught:caughtN,pool:(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('eitango'):Q4BReward.poolCount('eitango')),amber:eAmber(),streak:P.streak.n,total:totN}):'';
   let h=`<div class="topbar">
     <button class="chip" onclick="showProfiles()">${profIcon(meta)} ${Engine.esc(meta.name)} <small>▼</small></button>
     <span class="sp"></span>

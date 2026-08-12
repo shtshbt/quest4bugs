@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v126";  /* v126: ホーム達成度の分子を修正 (種 ID 移行を集計前に適用 + bugs.js 実在種のみ数える)。 */
+var CACHE = "q4b-cache-v127";  /* v127: 教科別達成度の分母を実入手可能セット (プール+マスター+ボス+SS、天敵除く) に拡張、分子は分母集合との積に統一。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

@@ -175,7 +175,7 @@ input[type=range]{width:100%}
 <script src="../zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.8.1"></script>
+<script src="../shared/reward.js?v=0.8.2"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -747,7 +747,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
     モード 等) は「進捗が消える」恐れを赤バナーで明示 (新追加#1)。 */
  var degraded = (window.QuestSave && QuestSave.isDegraded && QuestSave.isDegraded());
  var degradedBanner = degraded ? '<div class="banner" style="background:#ffebee;color:#b71c1c;font-weight:bold">⚠ きろくが ほぞんできていません！ ブラウザを とじると きえます。 おうちのひとに れんらくしてね。</div>' : '';
- var h=(window.Q4BReward?Q4BReward.statusHTML({caught:Q4BReward.collectedCount(ST.coll),pool:Q4BReward.poolCount('kanji'),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+degradedBanner+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">こんかいの ミッション</div><div class="num">'+dc.queueN+'<span style="font-size:16px"> もん</span></div>'+missionBreak+backlogLine+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
+ var h=(window.Q4BReward?Q4BReward.statusHTML({caught:(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(ST.coll,'kanji'):Q4BReward.collectedCount(ST.coll)),pool:(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('kanji'):Q4BReward.poolCount('kanji')),amber:Q4BReward.amberOf(ST.coll),streak:streak(),total:(ST.coll&&ST.coll.total)||0}):'')+degradedBanner+(night?'<div class="banner">🌙 よるは よるの虫（ガなど）が でやすいよ</div>':'')+'<div class="card mission"><div class="partner">'+partnerFace()+'</div><div><div class="small">こんかいの ミッション</div><div class="num">'+dc.queueN+'<span style="font-size:16px"> もん</span></div>'+missionBreak+backlogLine+(dc.hun?'<div class="small">🍃 おなかぺこぺこの むし：'+dc.hun+'</div>':'<div class="small">みんな げんき！</div>')+'</div></div>';
  /* 再テスト到来バナー: 辞書化された ST.retests から「今日以前」かつ「未合格」の id を拾う (新追加#5) */
  if(ST.retests){
   var _retDue=null;
@@ -989,7 +989,7 @@ function showCatchModal(got){
   +'<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>'
   +'<div style="font-size:13px;color:#56714e;margin:2px 0">'+got.size+'mm　'+Q4BReward.TIERNAME[got.tier]+'</div>'
   +(badges?'<div style="margin:4px 0">'+badges+'</div>':'')
-  +'<div style="font-size:12px;color:#888;margin-top:4px">'+Q4BReward.collectedCount(ST.coll)+' / '+Q4BReward.poolCount("kanji")+' しゅ</div>'
+  +'<div style="font-size:12px;color:#888;margin-top:4px">'+(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(ST.coll,"kanji"):Q4BReward.collectedCount(ST.coll))+' / '+(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount("kanji"):Q4BReward.poolCount("kanji"))+' しゅ</div>'
   +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やった！</button>'
   +'</div>';
  modal(h);
@@ -1943,8 +1943,9 @@ function renderBugs(){
  });
  var classOpts=bugClassOptions(sorted);
  var filtered=sorted.filter(bugMatch);
- var cnt=Q4BReward.collectedCount(ST.coll);
- var total=Q4BReward.poolCount('kanji');
+ /* 分子/分母とも図鑑達成度セット (プール+マスター+ボス+SS、天敵除く) で数える */
+ var cnt=Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(ST.coll,'kanji'):Q4BReward.collectedCount(ST.coll);
+ var total=Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('kanji'):Q4BReward.poolCount('kanji');
  var rankName=Q4BReward.rank(ST.coll.total||0);
  var amberNow=Q4BReward.amberOf(ST.coll);
  var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);

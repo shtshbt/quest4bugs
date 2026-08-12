@@ -31,6 +31,37 @@
   function pool(game){ return POOLS[game] || BUGS; }
   function poolCount(game){ return pool(game).length; }
 
+  /* ---- 図鑑達成度カウント (分子/分母) ----
+     分母 = 通常プール + その教科の catches に実際に入り得る特殊種。入り得る経路:
+       - masterOnly: awardMaster が master.game (grand は kanji 既定) の coll に授与
+       - bossOnly (天敵以外): battle 初回撃破が _recordBossInGameColl で gameFor(sp) の coll に record
+       - SS その他: 全種が battle roster の昆虫ボス → 同上 (gameFor(sp) の coll)
+     教科割当は eggGameFor と同一 (masterOnly は master.game、他は gameFor)。
+     天敵 (sp.boss.predator) は bossReward が琥珀/バッジのみ・bossKillReward も null を
+     返すため catches に入る経路が存在せず、どの教科の分母にも入れない。
+     分子 = catches ∩ 分母集合。nushi_* 疑似 id (えいたんごヌシ)・撤去済み旧 id・
+     他教科 id を自然に除外するので、分子 ⊆ 分母 が常に成り立つ。 */
+  var ZUKAN_DENOM = { kanji:{}, keisan:{}, eitango:{} };
+  var ZUKAN_DENOM_N = { kanji:0, keisan:0, eitango:0 };
+  BUGS.forEach(function(sp){
+    if(sp.boss && sp.boss.predator) return;   /* 入手経路なし: 分母から除外 */
+    var g = eggGameFor(sp);
+    if(!ZUKAN_DENOM[g]) g = "eitango";
+    ZUKAN_DENOM[g][sp.id] = true;
+    ZUKAN_DENOM_N[g]++;
+  });
+  function zukanDenomCount(game){ return ZUKAN_DENOM_N[game] || BUGS.length; }
+  function zukanCaughtCount(coll, game){
+    var set = ZUKAN_DENOM[game], catches = coll && coll.catches, n = 0, id;
+    if(!catches) return 0;
+    if(!set) return collectedCount(coll);
+    for(id in catches){
+      if(!Object.prototype.hasOwnProperty.call(catches, id)) continue;
+      if(set[id]) n++;
+    }
+    return n;
+  }
+
   /* ---- rarity tier (5 levels, matches bugs.js RARITY_LEVEL) ---- */
   var TIER = { N:0, R:1, SR:2, SSR:3, SS:4 };
   var TIERNAME = ["ノーマル", "レア", "スーパーレア", "ウルトラレア", "でんせつ"];
@@ -1405,6 +1436,8 @@
     selectTier: selectTier,
     record: record,
     collectedCount: collectedCount,
+    zukanDenomCount: zukanDenomCount,
+    zukanCaughtCount: zukanCaughtCount,
     rank: rank,
     rankListHTML: rankListHTML,
     rankGlobal: rankGlobal,

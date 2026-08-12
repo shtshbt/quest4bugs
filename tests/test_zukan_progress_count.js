@@ -92,4 +92,83 @@ test("home numerator upper bound equals the denominator (1213)", () => {
   assert.equal(countSpecies(catches), 1213);
 });
 
+/* ---- 教科別達成度 (zukanDenomCount / zukanCaughtCount) ---- */
+
+const PREDATORS = context.Q4B_BUGS.filter(sp => sp.boss && sp.boss.predator).map(sp => sp.id);
+
+test("per-game denominators are the acquirable sets (keisan 427 / kanji 353 / eitango 423)", () => {
+  assert.equal(reward.zukanDenomCount("keisan"), 427);   /* 380 pool + 38 master + 3 boss + 6 SS */
+  assert.equal(reward.zukanDenomCount("kanji"), 353);    /* 333 pool + 8 master + 4 boss + 8 SS */
+  assert.equal(reward.zukanDenomCount("eitango"), 423);  /* 408 pool + 7 master + 3 boss + 5 SS */
+  /* 3 教科の分母 + 天敵 (入手経路なし) = 全種 1213。全種がちょうど 1 教科に属す */
+  assert.equal(PREDATORS.length, 10);
+  assert.equal(reward.zukanDenomCount("keisan") + reward.zukanDenomCount("kanji")
+    + reward.zukanDenomCount("eitango") + PREDATORS.length, 1213);
+});
+
+test("every SS-other species has a battle acquisition path (non-predator roster boss)", () => {
+  /* 分母算入の根拠: SS その他 (masterOnly/bossOnly 以外の SS) は全て battle roster の
+     昆虫ボス。初回撃破が _recordBossInGameColl で gameFor(sp) の coll に record される。 */
+  vm.runInContext(fs.readFileSync(path.join(root, "shared/battle.js"), "utf8"), context);
+  const roster = context.Q4BBattle.roster;
+  const ssOther = context.Q4B_BUGS.filter(sp => !sp.masterOnly && !sp.bossOnly && sp.rarity === "SS");
+  assert.equal(ssOther.length, 19);
+  for(const sp of ssOther){
+    const r = roster.find(x => x.id === sp.id);
+    assert.ok(r, sp.id + " not in battle roster");
+    assert.equal(r.predator, false, sp.id + " must be an insect boss");
+  }
+});
+
+test("special species count in both numerator and denominator of their game", () => {
+  const master = context.Q4B_BUGS.find(sp => sp.masterOnly && sp.master && sp.master.game === "kanji");
+  assert.ok(master, "no kanji masterOnly species");
+  const collK = {catches:{}, total:0};
+  reward.awardMaster(collK, master);                                     /* masterOnly 経路 */
+  assert.equal(reward.zukanCaughtCount(collK, "kanji"), 1);
+  const collC = {catches:{
+    titan_kamikiri:{n:1, records:[]},        /* bossOnly (keisan, 非天敵) */
+    hercules_beetle:{n:1, records:[]},       /* SS その他 (keisan, battle 経由) */
+    kabutomushi:{n:1, records:[]}            /* 通常プール */
+  }};
+  assert.equal(reward.zukanCaughtCount(collC, "keisan"), 3);
+  assert.equal(reward.zukanCaughtCount(collC, "kanji"), 0);              /* 他教科では数えない */
+});
+
+test("predators have no acquisition path and are outside both numerator and denominator", () => {
+  for(const id of PREDATORS){
+    assert.equal(!!reward.spById(id), true, id + " should exist in bugs.js");
+  }
+  /* 万一 catches に混入しても分子に入らない → 分子 ⊆ 分母 は保たれる */
+  const coll = {catches:{mozu:{n:1, records:[]}, daiou_sasori:{n:1, records:[]}}};
+  for(const g of ["keisan","kanji","eitango"]){
+    assert.equal(reward.zukanCaughtCount(coll, g), 0, g);
+  }
+});
+
+test("numerator never exceeds denominator even with pseudo/stale/foreign ids", () => {
+  for(const g of ["keisan","kanji","eitango"]){
+    const catches = {};
+    for(const sp of context.Q4B_BUGS) catches[sp.id] = {n:1, records:[]};   /* 全種 (他教科含む) */
+    catches["nushi_oniyanma"] = {n:1, records:[]};                           /* 疑似 id */
+    catches["ootora_hanamuguri"] = {n:1, records:[]};                        /* 撤去済み旧 id */
+    const caught = reward.zukanCaughtCount({catches}, g);
+    assert.equal(caught, reward.zukanDenomCount(g), g);
+  }
+});
+
+test("pages use the acquirable-set helpers and keisan pbar is clamped", () => {
+  const keisan = fs.readFileSync(path.join(root, "keisan/app.js"), "utf8");
+  const kanji = fs.readFileSync(path.join(root, "kanji/index.html"), "utf8");
+  const eitango = fs.readFileSync(path.join(root, "eitango/index.html"), "utf8");
+  for(const [src, game, file] of [[keisan, "keisan", "keisan/app.js"], [kanji, "kanji", "kanji/index.html"], [eitango, "eitango", "eitango/index.html"]]){
+    assert.ok(src.includes("zukanCaughtCount"), file + " numerator not migrated");
+    assert.ok(src.includes("zukanDenomCount"), file + " denominator not migrated");
+    assert.ok(new RegExp("zukanDenomCount\\(['\"]" + game + "['\"]\\)").test(src), file + " must pass its own game id");
+  }
+  assert.match(keisan, /Math\.min\(100,Math\.round\(cnt\/tot\*100\)\)/);
+  /* eitango 図鑑タブ (ALLSP 基準で内部整合) は現行維持 */
+  assert.match(eitango, /const caught=zk\.filter\(s=>P\.catches\[s\[0\]\]\)\.length;/);
+});
+
 console.log("total", passed, "tests passed");
