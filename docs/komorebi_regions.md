@@ -1,6 +1,6 @@
 # 木漏れ日の小道 地域リスト案
 
-- 版: v0.2 (2026-08-12 レビュー決定を反映)
+- 版: v0.3 (2026-08-12 レビュー決定と看板の対カタログ照合を反映)
 - 日付: 2026-08-11 起草、2026-08-12 確定
 - 親文書: `docs/komorebi_design.md` (12 章 昆虫在庫)
 
@@ -55,10 +55,10 @@ Insecta の occurrence 件数 (国別、供給力の代理指標)。種数では
 
 | id | 名称 | 定義 | 看板 | 供給 | 注意 |
 |---|---|---|---|---|---|
-| madagascar | マダガスカル | MG | ジラフホソクビオトシブミ、ニシキオオツバメガ、マダガスカルオオゴキブリ (音を出す) | 中〜高 (1.19M) | MNHN 由来 media の restrictive license に既知の罠あり。NHMUK と iNat を併用 |
+| madagascar | マダガスカル | MG | コメットガ、マダガスカルオオゴキブリ (音を出す) | 中〜高 (1.19M) | MNHN 由来 media の restrictive license に既知の罠あり。NHMUK と iNat を併用。ジラフオトシブミ (本編にクビナガオトシブミ名義で収録) とニシキオオツバメガは収録済みで看板不可 (7 章) |
 | borneo | ボルネオ | geometry (BN + MY サバ・サラワク + ID カリマンタン) | アカエリトリバネアゲハ、世界最長のナナフシ (チャニオオナナフシ)、モーレンカンプオオカブト | 中 (国コード不可、museum 依存強) | geometry 対応が harvester の必須要件になる |
 | australia | オーストラリア | AU | クリスマスビートル、オオルリアゲハ (ユリシス)、ロードハウナナフシ (再発見物語) | 最高 (6.9M、ALA 経由) | 大陸一括で開始し、細分化は遠征 II 以降 |
-| costa_rica | コスタリカ | CR | モルフォチョウ、プラチナコガネ、ヘラクレスオオカブト、ハキリアリ | 最高 (10.5M、実測最上位) | 中米の看板として PA との統合も選択肢 |
+| costa_rica | コスタリカ | CR | ハキリアリ、ビワハゴロモ | 最高 (10.5M、実測最上位) | 中米の看板として PA との統合も選択肢。モルフォ、プラチナコガネ、ヘラクレスは収録済みで看板不可。同属別種 (ヘレナモルフォ等) の差し替えは要検討 (7 章) |
 
 ### Tier 2: 中期 (憧れ度または供給のどちらかが特に強い)
 
@@ -72,7 +72,7 @@ Insecta の occurrence 件数 (国別、供給力の代理指標)。種数では
 | west_central_africa | 中央アフリカ | CM, GH, CI 等 | ゴライアスオオツノハナムグリ | 低 (100k 台) | museum 依存が最も強い地域。和名は大型種に限られる |
 | southern_africa | 南部アフリカ | ZA, NA | ナミブ砂漠の霧採り甲虫 (キリアツメ)、花のコガネ類 | 高 (2.7M 合算) | 砂漠の物語性が強い |
 | east_africa | 東アフリカ | KE, TZ | サバンナのフンコロガシ、ルリボシタマムシ類 | 中 (620k 合算) | |
-| north_america_east | 北アメリカ東部 | geometry (US 東部森林帯) | 17 年ゼミ、オオカバマダラ、アメリカオオミズアオ | 最高 (35M の大半) | 供給は無尽蔵。合間の更新に最適。US 一括は広すぎるため地方分割とする (2026-08-12 決定)。西部乾燥帯・ロッキーは別地域として必要時に定義 |
+| north_america_east | 北アメリカ東部 | geometry (US 東部森林帯) | 17 年ゼミ (ジュウシチネンゼミ) | 最高 (35M の大半) | 供給は無尽蔵。合間の更新に最適。US 一括は広すぎるため地方分割とする (2026-08-12 決定)。西部乾燥帯・ロッキーは別地域として必要時に定義。オオカバマダラとアメリカオオミズアオは収録済みで看板不可 (7 章) |
 | europe | ヨーロッパ | FR, DE, GB, ES, IT 等 | ヨーロッパミヤマクワガタ、アルプスのルリボシカミキリ類 | 最高 (40M 超合算) | 旧 v0.1 海外 100 種候補 (欧州中心) を流用可能。旧北区は日本と共通種が多く重複判定が特に重要 |
 | indochina | インドシナ | TH, VN, LA, KH | テイオウゼミ、大型カブト類 | 中 (940k 合算) | |
 | new_zealand | ニュージーランド | NZ | ジャイアントウェタ | 高 (1.6M) | 種数は少ないが固有性抜群。小さめ volume 向き |
@@ -117,3 +117,40 @@ Tier 1 の在庫深掘りは連作前提で行う。マダガスカル、オー�
 1. must-have 指名シード層が必要。頻度順 harvest では看板種の一部が漏れる (実例: オーストラリアのユリシス、ボルネオのチャニナナフシ)。地域定義に看板種の speciesKey を明示指定し、頻度と無関係に先頭で在庫化する層を harvester へ追加する。
 2. Blattodea (ゴキブリ目) の order キーが未対応。マダガスカルの看板候補マダガスカルオオゴキブリが現状取得できないため、ORDER_KEYS への追加が必要。
 3. 地域 seeds の後処理 (対カタログ重複判定、synonym backfill、名前 enrichment) は未実施。教科 seeds と同じ処理系を通す。
+4. 看板候補は選定時に本編カタログとの学名照合を必須とする (7 章)。地域 volume は本編未収録の新種で構成されるため、収録済みの種は看板にできない。
+
+## 7. 看板候補の対カタログ照合 (2026-08-12 実測)
+
+本編は世界の有名昆虫を既に相当数収録しており (bugs.js の海外種セクション: ヘラクレス、Megasoma 3 種、Titanus、Goliathus、コーカサス、アトラス、オウゴンオニクワガタ等)、有名種の第一想起はほぼ使用済みだった。照合結果:
+
+| 候補 | 学名 | 判定 |
+|---|---|---|
+| ジラフオトシブミ | Trachelophorus giraffa | 収録済み (クビナガオトシブミ名義) |
+| ニシキオオツバメガ | Chrysiridia rhipheus | 収録済み |
+| コメットガ | Argema mittrei | 使用可 (harvest 確保済み) |
+| マダガスカルオオゴキブリ | Gromphadorhina portentosa | 使用可 (要 Blattodea キー) |
+| アカエリトリバネアゲハ | Trogonoptera brookiana | 使用可 (harvest 確保済み) |
+| チャニナナフシ | Phobaeticus chani | 使用可 (must-have 要指名) |
+| モーレンカンプオオカブト | Chalcosoma moellenkampi | 使用可 (収録済みは atlas / chiron のみ) |
+| クリスマスビートル | Anoplognathus 属 | 使用可 |
+| ユリシス | Papilio ulysses | 使用可 (must-have 要指名) |
+| ロードハウナナフシ | Dryococelus australis | 使用可 |
+| ハキリアリ | Atta 属 | 使用可 |
+| ビワハゴロモ | Fulgora laternaria | 使用可 |
+| 17 年ゼミ | Magicicada septendecim | 使用可 (別 entry の説明文言及のみ) |
+| モルフォチョウ | Morpho menelaus 等 | 収録済み (genus entry + menelaus) |
+| プラチナコガネ | Chrysina spp | 収録済み (genus entry) |
+| ヘラクレスオオカブト | Dynastes hercules | 収録済み |
+| オオカバマダラ | Danaus plexippus | 収録済み |
+| アメリカオオミズアオ | Actias luna | 収録済み |
+| 宝石ゾウムシ | Eupholus schoenherri | 収録済み (同属別種は使用可) |
+| テイオウゼミ | Megapomponia imperatoria | 収録済み |
+| アトラスガ | Attacus atlas | 亜種 ryukyuensis (ヨナグニサン) が収録済み。同種別亜種の扱いは要判断 |
+| コーカサスオオカブト | Chalcosoma chiron | 収録済み |
+| タイタンオオウスバカミキリ | Titanus giganteus | 収録済み |
+| マルスゾウカブト | Megasoma mars | 収録済み (actaeon / elephas も) |
+| パキリンクス | Pachyrhynchus infernalis | 収録済み (同属別種は使用可) |
+| ゴライアスオオツノハナムグリ | Goliathus goliatus | 収録済み |
+| ジャイアントウェタ | Deinacrida heteracantha | 収録済み |
+
+Tier 2 以下の表の看板欄には収録済み種が残っているが、投入時に本表と同じ照合で再選定する。同属別種への差し替え (ヘレナモルフォ、別種 Eupholus、別種 Pachyrhynchus 等) は名前と見た目の重複感が許容できるか個別判断とする。
