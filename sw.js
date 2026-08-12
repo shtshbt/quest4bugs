@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v124";  /* v124: 朝露色違い演出 + 色違い抽選を羽化時へ移動 + 重複 adult stage を除去。 */
+var CACHE = "q4b-cache-v125";  /* v125: 重複種 ootora_hanamuguri を chairo_kanabun に置換 (移行表 docs/species_migrations.md)。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

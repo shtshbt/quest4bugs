@@ -371,14 +371,14 @@
 </div>
 
 <script src="./shared/storage.js?v=0.4.20"></script>
-<script src="./shared/bugs.js?v=0.4.10"></script>
+<script src="./shared/bugs.js?v=0.4.11"></script>
 <script src="./shared/kanji_data.js?v=0.5.0"></script>
 <script src="./shared/eitango_data.js?v=0.5.1"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
-<script src="./zukan_config/zukan_catalog.js?v=0.2.1"></script>
+<script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.0"></script>
+<script src="./shared/reward.js?v=0.8.1"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.0"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
@@ -1037,6 +1037,21 @@ function loadAll(){
          なら sex 自動確定 + 相方卵を 1 度だけ授与 (legacy 救済)。 */
       (bt = bt || {}).bosses = bt.bosses || {};
       var _battleBackfillDirty = false;            /* U1: 変更があれば末尾で必ず save */
+      /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md): 教科 coll と編成 party */
+      if(window.Q4BReward && Q4BReward.applySpeciesMigrations){
+        try{
+          if(kp && kp.coll && Q4BReward.applySpeciesMigrations(kp.coll)) QuestSave.save("keisan", PROF, kp);
+          if(ks && ks.coll && Q4BReward.applySpeciesMigrations(ks.coll)) QuestSave.save("kanji", PROF, ks);
+          if(es && Q4BReward.applySpeciesMigrations({catches:es.catches, favorites:es.favorites, recent:es.recent})) QuestSave.save("eitango", PROF, es);
+        }catch(_){}
+      }
+      if(window.Q4BReward && Q4BReward.migrateSpeciesId && bt.party && bt.party.length){
+        bt.party = bt.party.map(function(id){
+          var nid = Q4BReward.migrateSpeciesId(id);
+          if(nid !== id) _battleBackfillDirty = true;
+          return nid;
+        });
+      }
       if(window.B && B.roster && window.Q4BReward){
         B.roster.forEach(function(r){
           if(r.predator || !r.id) return;

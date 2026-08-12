@@ -233,13 +233,13 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
 <script src="../shared/storage.js?v=0.4.19"></script>
-<script src="../shared/bugs.js?v=0.4.10"></script>
+<script src="../shared/bugs.js?v=0.4.11"></script>
 <script src="../shared/eitango_data.js?v=0.5.1"></script>
 <script src="../shared/render.js?v=0.5.0"></script>
-<script src="../zukan_config/zukan_catalog.js?v=0.2.1"></script>
+<script src="../zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.8.0"></script>
+<script src="../shared/reward.js?v=0.8.1"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.0"></script>
 <script src="../shared/breeding_debug.js?v=0.1.0"></script>
@@ -839,6 +839,9 @@ function normState(s){
   s.newday=s.newday||{date:0,count:0};
   s.catches=s.catches||{}; s.nushi=s.nushi||{};
   s.cal=s.cal||{}; s.srs=s.srs||{}; s.kids=s.kids||{};
+  /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md)。保存は次回 touchP に乗る */
+  if(window.Q4BReward&&Q4BReward.applySpeciesMigrations)
+    Q4BReward.applySpeciesMigrations({catches:s.catches,favorites:s.favorites,recent:s.recent});
   if(typeof s.reviewGauge==='undefined') s.reviewGauge=0;
   if(typeof s.progressSummary==='undefined') s.progressSummary='';
   return s;

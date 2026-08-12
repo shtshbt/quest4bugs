@@ -78,6 +78,69 @@
     coll._sizeMig=2;
     return changed;
   }
+  /* ---- 種 ID 移行 (重複・誤同定種の置換) ----
+     移行表は bugs.js の Q4B_SPECIES_MIGRATIONS、経緯は docs/species_migrations.md。
+     旧 id で保存された記録を新 id へ冪等に引き継ぐ。何度呼んでも安全。
+     保存は呼び出し側の既存 save 経路に任せる (changed フラグを返す)。 */
+  var SPECIES_MIGRATIONS = global.Q4B_SPECIES_MIGRATIONS || {};
+  function migrateSpeciesId(id){ return SPECIES_MIGRATIONS[id] || id; }
+  /* 移行先に既存 record があっても破壊しないマージ:
+     n 加算 / max 大きい方 / min 小さい方 / shiny・normal・master OR / records 連結 */
+  function mergeCatchEntry(dst, src){
+    if(!dst) return src;
+    if(!src) return dst;
+    dst.n = (dst.n||0) + (src.n||0);
+    if(src.max!=null) dst.max = (dst.max!=null) ? Math.max(dst.max, src.max) : src.max;
+    var sMin = (src.min!=null) ? src.min : src.max;
+    var dMin = (dst.min!=null) ? dst.min : dst.max;
+    if(sMin!=null) dst.min = (dMin!=null) ? Math.min(dMin, sMin) : sMin;
+    if(src.shiny) dst.shiny = 1;
+    if(src.normal) dst.normal = 1;
+    if(src.master) dst.master = 1;
+    if(src.records && src.records.length) dst.records = (dst.records||[]).concat(src.records);
+    return dst;
+  }
+  function applySpeciesMigrations(coll){
+    if(!coll) return false;
+    var changed=false, from, to, i;
+    for(from in SPECIES_MIGRATIONS){
+      if(!Object.prototype.hasOwnProperty.call(SPECIES_MIGRATIONS, from)) continue;
+      to = SPECIES_MIGRATIONS[from];
+      if(coll.catches && coll.catches[from]){
+        coll.catches[to] = mergeCatchEntry(coll.catches[to], coll.catches[from]);
+        delete coll.catches[from];
+        changed = true;
+      }
+      if(coll.favorites && coll.favorites[from]){
+        coll.favorites[to] = true;
+        delete coll.favorites[from];
+        changed = true;
+      }
+      if(coll.recent && coll.recent.length){
+        for(i=0;i<coll.recent.length;i++){
+          if(coll.recent[i]===from){ coll.recent[i]=to; changed=true; }
+        }
+      }
+    }
+    return changed;
+  }
+  /* breeding state (eggs / pendingEggs) の species 参照を remap。 _bs() が読取時に
+     必ず通すので、卵の旧 id は次の save で自然に新 id へ置き換わる。 */
+  function applyBreedingSpeciesMigrations(bs){
+    if(!bs) return false;
+    var changed=false;
+    function remapList(list){
+      if(!list) return;
+      for(var i=0;i<list.length;i++){
+        var to = list[i] && SPECIES_MIGRATIONS[list[i].id];
+        if(to){ list[i].id = to; changed = true; }
+      }
+    }
+    remapList(bs.eggs);
+    remapList(bs.pendingEggs);
+    return changed;
+  }
+
   function rollSize(sp, sex){
     /* sex (m/f) と sizeBySexMm が両方ある種は性別別のレンジを使う。
        それ以外は共通 sizeRange を使う。 */
@@ -573,11 +636,16 @@
      eggStore.get() フォールバック。 cache 未ロード時は blank を返す (caller は
      _ensureBsLoaded で先に await すべし)。 */
   function _bs(){
+    var bs;
     if(_hasVersioned()){
-      if(__bsCache && __bsCache.data) return __bsCache.data;
-      return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
+      if(!(__bsCache && __bsCache.data)) return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
+      bs = __bsCache.data;
+    } else {
+      bs = eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
     }
-    return eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
+    /* 種 ID 移行: 卵の旧 id を読取時に remap (冪等)。保存は既存の _saveBs 経路に乗る。 */
+    applyBreedingSpeciesMigrations(bs);
+    return bs;
   }
   /* _ensureBsLoaded(): versioned adapter 接続時に最新を取得して cache 化。 caller は
      mutate 前に必ず await する。 pid 変更時は再取得。 */
@@ -1304,6 +1372,9 @@
     TIERNAME: TIERNAME,
     sizeRange: sizeRange,
     migrateSizes: migrateSizes,
+    migrateSpeciesId: migrateSpeciesId,
+    applySpeciesMigrations: applySpeciesMigrations,
+    applyBreedingSpeciesMigrations: applyBreedingSpeciesMigrations,
     masterBugsFor: masterBugsFor,
     masterObtained: masterObtained,
     awardMaster: awardMaster,

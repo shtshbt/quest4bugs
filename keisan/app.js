@@ -218,6 +218,8 @@ function newProfile(name,type){
 function ensureColl(p){ if(!p.coll)p.coll={gauge:0,total:0,catches:{}};
   /* 旧・ゲーム別amberを共有ウォレットへ一度だけ移行 */
   if(window.QuestSave&&p.id&&p.coll.amber>0&&!p.coll.amberMig){ QuestSave.amberAdd(p.id,p.coll.amber); p.coll.amber=0; p.coll.amberMig=1; saveProfile(p); /* 当該プロフィールを即保存して再移行(二重計上)を防ぐ */ }
+  /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md) */
+  if(window.Q4BReward&&Q4BReward.applySpeciesMigrations&&Q4BReward.applySpeciesMigrations(p.coll)) saveProfile(p);
   /* 既存catchのサイズを実寸レンジへ一度だけ移行 */
   if(window.Q4BReward&&Q4BReward.migrateSizes&&Q4BReward.migrateSizes(p.coll)) saveProfile(p);
 }

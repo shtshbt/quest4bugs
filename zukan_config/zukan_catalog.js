@@ -34145,58 +34145,6 @@
       modifications: ["cropped", "background removed", "color adjusted"],
     },
 
-    "ootora_hanamuguri": {
-      speciesId: "ootora_hanamuguri",
-      scientificName: "Paratrichius doenitzi",
-      jaName: "オオトラフハナムグリ",
-      creditLine: "iNaturalist (Research grade CC0 exception)",
-      creator: "renshuchu (iNaturalist)",
-      sexCovered: "m",
-      specimen: {
-        institution: "iNaturalist (Research grade CC0 exception)",
-        institutionCode: "iNat",
-        collectionCode: null,
-        catalogNumber: "iNat_obs_232006560",
-        occurrenceId: "https://www.inaturalist.org/observations/232006560",
-        persistentId: "https://www.inaturalist.org/observations/232006560",
-        basisOfRecord: "HumanObservation",
-        typeStatus: null,
-        sex: null,
-        lifeStage: null,
-        recordedBy: "renshuchu",
-        eventDate: "2020-08-01",
-        eventYear: 2020,
-        country: "JP",
-        localityVerbatim: null,
-        localityNormalized: "Nagano, JP, JP",
-        preparations: null,
-        decimalLatitude: 35.8926750588,
-        decimalLongitude: 137.9638797337,
-        coordinatesObscured: true,
-        iNatObservationId: "232006560",
-        iNatPhotoId: "412131815",
-        qualityGrade: "research",
-      },
-      source: {
-        gbifOccurrenceKey: null,
-        institutionRecordUrl: "https://www.inaturalist.org/observations/232006560",
-        sourceMediaUrl: "https://inaturalist-open-data.s3.amazonaws.com/photos/412131815/original.jpeg",
-        datasetKey: null,
-        metadataLicense: "CC0-1.0",
-        mediaLicense: "CC0-1.0",
-        licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
-      },
-      image: {
-        version: "1",
-        display: "zukan_cards/processed/iNatobs232006560_L2_grade.webp",
-        resized: "zukan_cards/original/iNatobs232006560_resized.jpg",
-        thumb54: "zukan_cards/thumb/iNatobs232006560_54.webp",
-        thumb108: "zukan_cards/thumb/iNatobs232006560_108.webp",
-        thumb216: "zukan_cards/thumb/iNatobs232006560_216.webp",
-      },
-      modifications: ["cropped", "rotated", "background removed", "color adjusted"],
-    },
-
     "ouba_kometsuki": {
       speciesId: "ouba_kometsuki",
       scientificName: "Cryptalaus larvatus",
@@ -41910,6 +41858,7 @@
       },
       modifications: ["cropped", "background removed", "color adjusted"],
     },
+
   };
 
   /* Runtime sanity check. Logs warnings; does not block rendering. The build
