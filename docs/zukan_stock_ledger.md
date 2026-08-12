@@ -12,7 +12,7 @@
 |---|---|---|---|
 | 現行カタログ (配信中) | 1,213 種 | 標本カード 892 / SVG フォールバック 321 | 本編の分母。凍結済み |
 | 地域 seeds (小道用) | 1,104 = マダガスカル 301 / オーストラリア 302 / ボルネオ 200 / コスタリカ 301 | synonym backfill 済み (failed 0)。対カタログ重複判定・名前 enrichment 未実施 | 小道 volume (更新 1 から 9+) |
-| 教科 seeds (本編拡張用) | 2,300。うち resolved 1,432 / needs_review 219 / rejected 649 | 教科割当 (resolved のみ): eitango 586 / kanji 498 / keisan 348 | 2000 種 milestone の 810 種活性化 (270×3)。全教科 270 を確保済み (バッファ eitango +316 / kanji +228 / keisan +78) |
+| 教科 seeds (本編拡張用) | 2,300。使用可能 1,651 (resolved 1,432 + 監査クリア 219。2026-08-12 監査で needs_review 全件を別種と確定) / rejected 649 | 教科割当 (クリア後): eitango 679 / kanji 554 / keisan 418 | 2000 種 milestone の 810 種活性化 (270×3)。全教科 270 を確保済み (バッファ eitango +409 / kanji +284 / keisan +148、計 +841) |
 | 未撮影 hard-core | 320 種 (カタログ内 SVG のみ) | museum / iNat CC0 / Wikipedia 全 fail の残り | 将来の写真再挑戦。小道とは独立 |
 | 個別未撮影 | chairo_kanabun 1 種 | すげ替え (dc308a3) で entry あり写真なし | zukan-fetch 1 種で media 893 に復帰 |
 
