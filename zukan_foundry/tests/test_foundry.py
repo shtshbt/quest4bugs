@@ -44,7 +44,9 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(index["recordCount"], len(parsed))
         self.assertEqual(len(index["species"]), len(parsed))
         self.assertEqual(len(names["byId"]), len(parsed))
-        self.assertEqual(sum(item["media"] is not None for item in index["species"]), 893)
+        # 892 = 893 minus ootora_hanamuguri, whose catalog card left with the
+        # chairo_kanabun migration; the replacement has no specimen media yet.
+        self.assertEqual(sum(item["media"] is not None for item in index["species"]), 892)
         self.assertEqual(names["byScientificName"]["Sasakia charonda"], ["oomurasaki", "sasakia_oomurasaki_ss"])
         self.assertIn("non-species registrations", anomalies)
 
