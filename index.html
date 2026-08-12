@@ -1215,12 +1215,35 @@ function renderDashboard(pid,name){
   ]).then(function(r){
     var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4],i;
     if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
+    /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md)。
+       達成度集計 (keisanN/kanjiN/eitangoN) より前に適用する。集計後に適用すると、
+       旧+新併存 save の初回表示が二重計上になる (旧 id と新 id を別種として数える)。
+       eitango は favorites / recent が catches と別 field なので data 側から直接 remap。 */
+    if(window.Q4BReward && Q4BReward.applySpeciesMigrations){
+      try{
+        if(kp && kp.coll && Q4BReward.applySpeciesMigrations(kp.coll)) QuestSave.save("keisan", pid, kp);
+        if(ks && ks.coll && Q4BReward.applySpeciesMigrations(ks.coll)) QuestSave.save("kanji", pid, ks);
+        if(es && Q4BReward.applySpeciesMigrations({catches:es.catches, favorites:es.favorites, recent:es.recent})) QuestSave.save("eitango", pid, es);
+      }catch(_){}
+    }
+    /* 図鑑種数: bugs.js に実在する種のみ数える。nushi_* 疑似 id (えいたんごヌシ) や
+       撤去済み旧 id は分母 1213 (Q4BReward.bugs.length) の集合外なので分子にも入れない。 */
+    function countSpecies(catches){
+      if(!catches) return 0;
+      var canLookup=!!(window.Q4BReward && Q4BReward.spById), n=0, id;
+      for(id in catches){
+        if(!Object.prototype.hasOwnProperty.call(catches,id)) continue;
+        if(canLookup && !Q4BReward.spById(id)) continue;
+        n++;
+      }
+      return n;
+    }
     /* 琥珀は共有ウォレットが正。未移行(各ゲーム初回ロード前)の旧coll.amberだけ暫定加算 */
     var amber=(window.QuestSave&&QuestSave.amberOf)?QuestSave.amberOf(pid):0;
     var gCaught=0; /* 全ゲーム合計の捕獲数（重複ふくむ）→ 総合称号に使う */
-    if(kp){ if(kp.coll){keisanN=Object.keys(kp.coll.catches||{}).length; gCaught+=kp.coll.total||0; if(!kp.coll.amberMig)amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
-    if(ks){kanjiN=ks.coll?Object.keys(ks.coll.catches||{}).length:0; if(ks.coll){gCaught+=ks.coll.total||0; if(!ks.coll.amberMig)amber+=ks.coll.amber||0;} sumDaily(day,ks.log,"a","j");}
-    if(es){eitangoN=es.catches?Object.keys(es.catches).length:0; if(es.catches)gCaught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
+    if(kp){ if(kp.coll){keisanN=countSpecies(kp.coll.catches); gCaught+=kp.coll.total||0; if(!kp.coll.amberMig)amber+=kp.coll.amber||0;} sumDaily(day,kp.daily,"n","k"); }
+    if(ks){kanjiN=ks.coll?countSpecies(ks.coll.catches):0; if(ks.coll){gCaught+=ks.coll.total||0; if(!ks.coll.amberMig)amber+=ks.coll.amber||0;} sumDaily(day,ks.log,"a","j");}
+    if(es){eitangoN=countSpecies(es.catches); if(es.catches)gCaught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); if(!es.amberMig)amber+=es.amber||0; sumDaily(day,es.cal,"q","e");}
     /* U5: ボス撃破個体は教科 coll.catches にも record() で 1 体追加され、 coll.total
        も既に増えている。 ここで battleN を加算すると種類数も捕獲総数も二重計上。
        種類数は教科図鑑 ∪ ボスの集合 union で重複排除し、 捕獲総数は coll.total を
@@ -1312,14 +1335,7 @@ function renderDashboard(pid,name){
          で再評価。 legacy 集計は同期できる listLegacyMasterPending で行う。 */
       _legacyGames.forEach(function(it){
         if(!it.coll || !window.Q4BReward) return;
-        /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md)。
-           eitango は favorites / recent が catches と別 field なので data 側から直接 remap。 */
-        if(Q4BReward.applySpeciesMigrations){
-          var _mig = it.isEi
-            ? {catches: it.data&&it.data.catches, favorites: it.data&&it.data.favorites, recent: it.data&&it.data.recent}
-            : it.coll;
-          if(Q4BReward.applySpeciesMigrations(_mig) && it.data) QuestSave.save(it.game, pid, it.data);
-        }
+        /* 種 ID 移行 (applySpeciesMigrations) は集計より前 (kp/ks/es load 直後) で適用済み。 */
         if(Q4BReward.autoFinalizeLegacyMasterAll){
           try{
             Q4BReward.autoFinalizeLegacyMasterAll(it.coll).then(function(granted){
