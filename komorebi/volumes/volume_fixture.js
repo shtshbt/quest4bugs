@@ -50,7 +50,7 @@
 
   volumes.volume_fixture_borneo=volume({
     id:"volume_fixture_borneo", regionId:"borneo", regionName:"ボルネオ",
-    categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3"],
+    categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3","kom_unit_convert"],
     blurb:"世界で 3 番目に大きな島。3 つの国にまたがる熱帯雨林。",
     prefix:"kom_fixture_bo", counts:{n:5,r:2,sr:1}
   });

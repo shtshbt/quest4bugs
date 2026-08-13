@@ -264,6 +264,16 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 /* バーの減少は装飾ではなく機構そのもの (残り時間の唯一の手がかり) なので、
    prefers-reduced-motion でも止めない。 */
 
+/* 単位換算の回答。数と単位を分けて受け取る。数だけだと「別の単位で計算し切った
+   答え」がただの計算違いに見えてしまい、何を直せばよいか渡せない。 */
+.num-unit-form{flex-wrap:wrap}
+.unit-choices{display:flex;flex-wrap:wrap;gap:8px;flex-basis:100%}
+.unit-chip{min-height:44px;padding:9px 16px;border:2px solid #4D765E;border-radius:999px;
+  background:#17332B;color:#F3FFE2;font:800 16px/1.2 inherit;cursor:pointer}
+.unit-chip:hover{border-color:#D6B653}
+.unit-chip.is-selected{border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 2px 0 #80691F}
+.unit-chip:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+
 /* トロフィー。入口は地図の下端 (ui_design 6 章)。未獲得の枠も並べて目標ボードにする。 */
 .kom-trophy-entrance{margin:18px auto 0;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .kom-trophy-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;

@@ -13,6 +13,7 @@
     kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10,release:1},
     kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
     kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2},
+    kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:3},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
        (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
        毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
@@ -46,7 +47,7 @@
   /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
      登録漏れが即わかるほうがよい)。れんぞく九九はだんラン 1 本で 1 正答。 */
   var FORMAT_KINDS={
-    normal:{num:true,frac:true,choice:true},
+    normal:{num:true,frac:true,choice:true,num_unit:true},
     formulation:{choice:true},
     ordering:{order:true},
     diagnosis:{choice:true},
@@ -708,12 +709,36 @@
       +'<button type="button" class="ratio-submit" data-action="submit-order" disabled>'+displayText("答える")+'</button></div>';
   }
 
+  /* --- 数値 + 単位の回答 -----------------------------------------------------
+     単位換算だけが使う。数値だけを受け取ると「別の単位で計算し切った答え」が
+     ただの計算違いに見えてしまい、何を直せばよいか子どもに渡せない
+     (unit_convert curriculum 5 章)。 */
+
+  function unitEngine(){
+    var engine=global.Q4B_KOMOREBI_UNIT_CONVERT;
+    if(!engine)throw new Error("単位換算を読み込めません");
+    return engine;
+  }
+
+  function numUnitHtml(question){
+    var chips=question.unitChoices.map(function(unitId){
+      var selected=session&&session.unitSelection===unitId;
+      return '<button type="button" class="unit-chip'+(selected?" is-selected":"")+'" data-unit="'+attrText(unitId)+'"'
+        +' aria-pressed="'+(selected?"true":"false")+'">'+displayText(unitEngine().unitLabel(unitId))+'</button>';
+    }).join("");
+    return '<form class="ratio-number-form num-unit-form" data-answer-form>'
+      +'<input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答えの数")+'">'
+      +'<div class="unit-choices" role="group" aria-label="'+attrText("答えの単位")+'">'+chips+'</div>'
+      +'<button type="submit" class="ratio-submit" data-submit-num-unit'+(session&&session.unitSelection?"":" disabled")+'>'+displayText("答える")+'</button></form>';
+  }
+
   function standardQuestionBodyHtml(question){
     var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
     var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
     var controls;
     if(question.kind==="choice")controls=ratioChoiceHtml(question);
     else if(question.kind==="order")controls=ratioOrderHtml(question);
+    else if(question.kind==="num_unit")controls=numUnitHtml(question);
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
     return scaffold+'<h2>'+displayText(question.text)+'</h2>'+work+controls;
   }
@@ -854,12 +879,19 @@
   function answerText(question){
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
+    if(question.kind==="num_unit")return String(question.ans)+unitEngine().unitLabel(question.ansUnit);
     return ratioAnswerText(question);
   }
 
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
+    if(question.kind==="num_unit"){
+      /* 判定の内訳 (単位だけ違うのか、量そのものが違うのか) をフィードバックで
+         使うため、真偽値だけでなく verdict を残す。 */
+      session.verdict=unitEngine().judgeNumUnit(question,answer.value,answer.unit);
+      return session.verdict.correct;
+    }
     return judgeStandardAnswer(question,answer);
   }
 
@@ -899,10 +931,14 @@
     wrong_phrase:"じゅんばんに となえよう"
   };
 
-  function dan2ReasonHtml(question,correct){
+  /* 誤答の理由を名指しする。「なぜ駄目だったか」を言わないと理不尽になるのは
+     段暗唱も単位換算も同じで、直す先が違うだけ。 */
+  function reasonHtml(question,correct){
     var verdict=session&&session.verdict;
-    if(!isDanCat(question.cat)||correct||!verdict)return "";
-    var reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
+    if(correct||!verdict)return "";
+    var reason="";
+    if(isDanCat(question.cat))reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
+    else if(question.kind==="num_unit")reason=verdict.note||"";
     return reason?'<p class="dan2-reason">'+displayText(reason)+'</p>':"";
   }
 
@@ -911,7 +947,7 @@
     var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
     var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(isDanCat(question.cat)?"":wazaCardHtml(question));
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
-      +dan2ReasonHtml(question,correct)+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
+      +reasonHtml(question,correct)+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -1056,8 +1092,30 @@
     var reset=document.querySelector('[data-action="reset-order"]'),submit=document.querySelector('[data-action="submit-order"]');
     if(reset)reset.addEventListener("click",function(){session.orderSelection=[];renderOrderSelection(question);});
     if(submit)submit.addEventListener("click",function(){submitAnswer(session.orderSelection.slice());});
+    /* 単位を選んでも描き直さない。描き直すと入力済みの数が消えて、
+       数を打ってから単位を押した子だけが打ち直しになる。 */
+    Array.prototype.forEach.call(document.querySelectorAll("[data-unit]"),function(button){
+      button.addEventListener("click",function(){
+        session.unitSelection=button.getAttribute("data-unit");
+        Array.prototype.forEach.call(document.querySelectorAll("[data-unit]"),function(chip){
+          var on=chip.getAttribute("data-unit")===session.unitSelection;
+          chip.classList.toggle("is-selected",on);
+          chip.setAttribute("aria-pressed",on?"true":"false");
+        });
+        var submit=document.querySelector("[data-submit-num-unit]");
+        if(submit)submit.disabled=false;
+      });
+    });
     var form=document.querySelector("[data-answer-form]");
-    if(form)form.addEventListener("submit",function(event){event.preventDefault();submitAnswer(form.elements.answer.value);});
+    if(form)form.addEventListener("submit",function(event){
+      event.preventDefault();
+      if(question.kind==="num_unit"){
+        if(!session.unitSelection)return;
+        submitAnswer({value:form.elements.answer.value,unit:session.unitSelection});
+        return;
+      }
+      submitAnswer(form.elements.answer.value);
+    });
   }
 
   /* 描画のやり直し。だんランは 1 問の途中で何度も描き直すため、計測の起点を
@@ -1075,6 +1133,7 @@
     var question=session.questions[session.index];
     stopDan2Voice();
     session.orderSelection=[];
+    session.unitSelection=null;
     session.startedAt=Date.now();
     session.verdict=null;
     session.runState=question.format==="dan_run"?{step:0,results:[],startedAt:Date.now()}:null;
@@ -1206,9 +1265,21 @@
     return Promise.resolve(beginSession("kom_pi314",volume,questions,sessionId));
   }
 
+  function startUnitConvertSession(volume,random){
+    if(!profile||!global.Q4B_KOMOREBI_UNIT_CONVERT)return Promise.reject(new Error("単位換算を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_unit_convert")<0)return Promise.reject(new Error("この小道では単位換算を遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=unitEngine().buildSet(profile.lv.kom_unit_convert,generatorRandom);
+      sessionId="unit_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_unit_convert",volume,questions,sessionId));
+  }
+
   /* 段暗唱は CATEGORIES に 1 行足すだけで dan3 以降が動く。開始関数もここで
      機械的に作るので、段ごとに分岐を書き足す場所は残さない。 */
-  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,kom_pi314:startPi314Session};
+  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,
+    kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });
