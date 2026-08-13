@@ -1,7 +1,7 @@
 "use strict";
 
 /* 図鑑達成度 (分子/分母) の回帰テスト。
-   ホーム総合 "N / 1374 しゅるい" の分子は
+   ホーム総合 "N / 1446 しゅるい" の分子は
      - 種 ID 移行 (docs/species_migrations.md) を集計より前に適用し、
      - bugs.js に実在する種のみ数える (nushi_* 疑似 id・撤去済み旧 id を除外する)
    ことを検証する。node tests/test_zukan_progress_count.js で実行。 */
@@ -90,8 +90,8 @@ test("home numerator counts every species the home denominator covers", () => {
   const catches = {};
   for(const sp of context.Q4B_BUGS) catches[sp.id] = {n:1, records:[]};
   catches["nushi_hercules_beetle"] = {n:1, records:[]};
-  assert.equal(context.Q4B_BUGS.length, 1374);
-  assert.equal(context.Q4B_BUGS.filter(sp => sp.areaOnly).length, 12);
+  assert.equal(context.Q4B_BUGS.length, 1446);
+  assert.equal(context.Q4B_BUGS.filter(sp => sp.areaOnly).length, 84);
   assert.equal(countSpecies(catches), 1362);
 });
 

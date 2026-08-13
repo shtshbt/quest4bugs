@@ -48,8 +48,8 @@ test("pin state follows current, past, completed, and unopened progress", () => 
   assert.equal(state.kind, "past");
   assert.equal(state.mark, "🦋");
   assert.equal(state.caught, 2);
-  assert.equal(state.denominator, 12);
-  assert.equal(state.ringValue, 2 / 12);
+  assert.equal(state.denominator, 84);
+  assert.equal(state.ringValue, 2 / 84);
 
   volume.species.forEach(species => { profile.collection.catches[species.id] = caughtEntry(); });
   state = komorebi.mapPinState(volume, profile.collection, volume.id);

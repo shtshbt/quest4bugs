@@ -62,7 +62,7 @@ test("main category selectors and reach averages ignore komorebi categories", ()
 test("synthetic areaOnly species changes no main pool or denominator count", () => {
   /* 小道 fixture の 12 種が既に areaOnly で入っている。ここでさらに 1 種注入しても
      本編の数が動かないことを確かめる。 */
-  assert.equal(base.Q4B_BUGS.filter(sp => sp.areaOnly).length, 12);
+  assert.equal(base.Q4B_BUGS.filter(sp => sp.areaOnly).length, 84);
   for(const [game, poolCount, denomCount] of [["keisan",430,477],["kanji",382,402],["eitango",458,473]]){
     assert.equal(base.Q4BReward.poolCount(game), poolCount, game + " base pool");
     assert.equal(base.Q4BReward.zukanDenomCount(game), denomCount, game + " base denominator");
@@ -87,7 +87,7 @@ test("komorebi selector contains only areaOnly komorebi species", () => {
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"), injected);
   const species = injected.Q4B_KOMOREBI.speciesForArea();
   /* 実在の小道 12 種 + 注入した合成 1 種。すべて areaOnly であることが要点。 */
-  assert.equal(species.length, 13);
+  assert.equal(species.length, 85);
   assert.equal(species.some(sp => sp.id === "synthetic_komorebi_species"), true);
   assert.equal(species.every(sp => sp.areaOnly === "komorebi"), true);
 });

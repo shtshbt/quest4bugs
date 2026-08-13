@@ -133,8 +133,8 @@ test("duplicate captures preserve the shared catch record schema", () => {
 
 test("the fixture denominator is frozen and supplies per-region progress", () => {
   assert.equal(volume.frozen, true);
-  assert.equal(volume.denominator, 12);
-  assert.equal(volume.species.length, 12);
+  assert.equal(volume.denominator, 84);
+  assert.equal(volume.species.length, 84);
   assert.deepEqual(Array.from(new Set(volume.species.map(species => species.rarity))).sort(), ["N","R","SR"]);
   assert.equal(volume.species.some(species => species.rarity === "SS"), false);
   /* fixture の種は bugs.js に areaOnly として実在する。捕獲カードと図鑑が本編と
@@ -148,11 +148,11 @@ test("the fixture denominator is frozen and supplies per-region progress", () =>
   profile.collection.catches[volume.species[1].id] = caughtEntry();
   profile.collection.catches.not_in_this_volume = caughtEntry();
   let progress = komorebi.volumeProgress(volume, profile.collection);
-  assert.deepEqual(JSON.parse(JSON.stringify(progress)), {regionId:"madagascar",volumeId:"volume_fixture",caught:2,denominator:12,complete:false});
+  assert.deepEqual(JSON.parse(JSON.stringify(progress)), {regionId:"madagascar",volumeId:"volume_fixture",caught:2,denominator:84,complete:false});
   volume.species.forEach(species => { profile.collection.catches[species.id] = caughtEntry(); });
   progress = komorebi.volumeProgress(volume, profile.collection);
-  assert.equal(progress.caught, 12);
-  assert.equal(progress.denominator, 12);
+  assert.equal(progress.caught, 84);
+  assert.equal(progress.denominator, 84);
   assert.equal(progress.complete, true);
 });
 
