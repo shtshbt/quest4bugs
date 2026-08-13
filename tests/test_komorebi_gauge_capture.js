@@ -145,7 +145,7 @@ test("the fixture denominator is frozen and supplies per-region progress", () =>
   profile.collection.catches.kom_fixture_r_01 = caughtEntry();
   profile.collection.catches.not_in_this_volume = caughtEntry();
   let progress = komorebi.volumeProgress(volume, profile.collection);
-  assert.deepEqual(JSON.parse(JSON.stringify(progress)), {regionId:"region_fixture",volumeId:"volume_fixture",caught:2,denominator:12,complete:false});
+  assert.deepEqual(JSON.parse(JSON.stringify(progress)), {regionId:"madagascar",volumeId:"volume_fixture",caught:2,denominator:12,complete:false});
   volume.species.forEach(species => { profile.collection.catches[species.id] = caughtEntry(); });
   progress = komorebi.volumeProgress(volume, profile.collection);
   assert.equal(progress.caught, 12);

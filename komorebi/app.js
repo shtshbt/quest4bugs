@@ -20,7 +20,7 @@
     find_all:{choice:true},
     voice:{voice:true}
   };
-  var profile=null, profileId=null;
+  var profile=null, profileId=null, profileType="k10", worldMap=null;
 
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
   function hasOwn(object,key){return Object.prototype.hasOwnProperty.call(object,key);}
@@ -183,6 +183,67 @@
     return {regionId:volume.regionId,volumeId:volume.id,caught:caught,denominator:volume.denominator,complete:caught===volume.denominator};
   }
 
+  function mapPinState(volume,collection,currentVolumeId){
+    if(!volume)return null;
+    var progress=volumeProgress(volume,collection),ringValue=progress.caught/progress.denominator;
+    if(progress.complete)return {kind:"completed",mark:"✓",caught:progress.caught,denominator:progress.denominator,ringValue:1};
+    if(volume.id===currentVolumeId)return {kind:"current",mark:"★",caught:progress.caught,denominator:progress.denominator,ringValue:ringValue};
+    return {kind:"past",mark:"🦋",caught:progress.caught,denominator:progress.denominator,ringValue:ringValue};
+  }
+
+  function formatCourseText(text,type,formatter){
+    if(typeof text!=="string")throw new Error("表示データの形式が正しくありません");
+    if(type!=="k5")return text;
+    if(typeof formatter!=="function")throw new Error("ふりがなを読み込めません");
+    return formatter(text);
+  }
+
+  function escapeHtml(text){
+    return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  function displayText(text){return formatCourseText(escapeHtml(text),profileType,global.furi5);}
+
+  function mapViewBox(map){
+    var values=typeof map.viewBox==="string"?map.viewBox.trim().split(/\s+/).map(Number):[];
+    if(values.length!==4||values.some(function(value){return !Number.isFinite(value);})||values[2]<=0||values[3]<=0)throw new Error("地図の表示範囲が正しくありません");
+    return values;
+  }
+
+  function validMapPath(path){return typeof path==="string"&&path.length>0&&/^[MmLlHhVvCcSsQqTtAaZz0-9eE+.,\s-]+$/.test(path);}
+
+  function validateMapPayload(map,volumes){
+    if(!isObject(map)||!validMapPath(map.land)||!isObject(map.regions)||!isObject(map.pins))throw new Error("地図データの形式が正しくありません");
+    mapViewBox(map);
+    Object.keys(map.regions).forEach(function(regionId){
+      var pin=map.pins[regionId];
+      if(!regionId||!validMapPath(map.regions[regionId])||!isObject(pin)||!Number.isFinite(pin.x)||!Number.isFinite(pin.y))throw new Error("地域データの形式が正しくありません");
+    });
+    (volumes||[]).forEach(function(volume){
+      if(!hasOwn(map.regions,volume.regionId)||!hasOwn(map.pins,volume.regionId))throw new Error("遠征地域が地図にありません");
+    });
+    return map;
+  }
+
+  function expeditionVolumes(){
+    var volumes=Object.keys(global.Q4B_KOMOREBI_VOLUMES||{}).map(function(id){return global.Q4B_KOMOREBI_VOLUMES[id];});
+    if(!volumes.length)throw new Error("遠征データを読み込めません");
+    volumes.forEach(function(volume){
+      validateVolume(volume);
+      if(typeof volume.current!=="boolean"||!Array.isArray(volume.categories)||!volume.categories.length||volume.categories.some(function(cat){return !hasOwn(CATEGORIES,cat);})||typeof volume.blurb!=="string"||!volume.blurb)throw new Error("遠征の表示データが正しくありません");
+    });
+    if(volumes.filter(function(volume){return volume.current;}).length!==1)throw new Error("現在の遠征が正しくありません");
+    return volumes;
+  }
+
+  function currentVolumeId(volumes){return volumes.filter(function(volume){return volume.current;})[0].id;}
+
+  function volumeById(id){
+    var volume=(global.Q4B_KOMOREBI_VOLUMES||{})[id];
+    if(!volume)throw new Error("遠征を見つけられません");
+    return volume;
+  }
+
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
@@ -266,14 +327,97 @@
     return (bugs||global.Q4B_BUGS||[]).filter(function(sp){return sp.areaOnly==="komorebi";});
   }
 
-  function renderHome(){
-    document.getElementById("app").innerHTML='<div class="scr"><div class="top"><a class="backbtn" href="../keisan/index.html" style="text-decoration:none">← けいさん</a></div>'
-      +'<div class="hero center"><div class="sun"></div><h2>🌿 こもれびのこみち</h2><p>ここから せかいへ つながる こみちです。</p><div class="grass"></div></div>'
-      +'<div class="card center"><p>えんせいの じゅんびを しています。</p></div></div>';
+  function graticuleHtml(box){
+    var lines="",i;
+    for(i=1;i<6;i++){
+      var y=box[1]+box[3]*i/6;
+      lines+='<line x1="'+box[0]+'" y1="'+y.toFixed(1)+'" x2="'+(box[0]+box[2])+'" y2="'+y.toFixed(1)+'"></line>';
+    }
+    for(i=1;i<8;i++){
+      var x=box[0]+box[2]*i/8;
+      lines+='<line x1="'+x.toFixed(1)+'" y1="'+box[1]+'" x2="'+x.toFixed(1)+'" y2="'+(box[1]+box[3])+'"></line>';
+    }
+    return lines;
+  }
+
+  function mapArtworkHtml(volumes,currentId){
+    var box=mapViewBox(worldMap),byRegion={},regionPaths="",pins="";
+    volumes.forEach(function(volume){byRegion[volume.regionId]=volume;});
+    Object.keys(worldMap.regions).forEach(function(regionId){
+      var volume=byRegion[regionId],className="hl hl-unopened";
+      if(volume)className=volume.id===currentId?"hl hl-current":"hl hl-open";
+      regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(volume?' filter="url(#rich-glow)"':'')+'></path>';
+    });
+    volumes.forEach(function(volume){
+      var state=mapPinState(volume,profile.collection,currentId),point=worldMap.pins[volume.regionId];
+      var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
+      var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":"完成した遠征";
+      var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"");
+      pins+='<button type="button" class="'+classes+'" data-volume-id="'+escapeHtml(volume.id)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(volume.regionName+' '+state.caught+'／'+state.denominator+'、'+status)+'">'
+        +'<span class="pin-halo" aria-hidden="true"></span><span class="pin-ring" aria-hidden="true"><span class="pin-disc"><span class="pin-mark">'+state.mark+'</span></span></span>'
+        +'<span class="pin-name">'+displayText(volume.regionName)+'</span><span class="pin-count">'+state.caught+'／'+state.denominator+'</span></button>';
+    });
+    return '<div class="map-shell"><svg class="map map-rich" viewBox="'+escapeHtml(worldMap.viewBox)+'" role="img" aria-label="こもれびの遠征地図" preserveAspectRatio="xMidYMid meet">'
+      +'<defs><radialGradient id="rich-sea" cx="50%" cy="45%" r="72%"><stop offset="0%" stop-color="#17454B"></stop><stop offset="62%" stop-color="#0E3036"></stop><stop offset="100%" stop-color="#071F26"></stop></radialGradient>'
+      +'<linearGradient id="rich-land" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4C8352"></stop><stop offset="55%" stop-color="#38683F"></stop><stop offset="100%" stop-color="#28502F"></stop></linearGradient>'
+      +'<radialGradient id="rich-vignette" cx="50%" cy="42%" r="62%"><stop offset="0%" stop-color="#FFE9A8" stop-opacity="0.20"></stop><stop offset="55%" stop-color="#FFD469" stop-opacity="0.05"></stop><stop offset="100%" stop-color="#04141A" stop-opacity="0.55"></stop></radialGradient>'
+      +'<filter id="rich-glow" x="-320%" y="-320%" width="740%" height="740%"><feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>'
+      +'<filter id="rich-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>'
+      +'<path id="world-land" d="'+escapeHtml(worldMap.land)+'"></path></defs>'
+      +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-sea)"></rect><g class="rich-latitudes">'+graticuleHtml(box)+'</g>'
+      +'<use href="#world-land" class="rich-land-shadow"></use><use href="#world-land" class="rich-land"></use>'+regionPaths
+      +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" filter="url(#rich-grain)" opacity="0.05" class="rich-grain"></rect>'
+      +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+pins+'</div></div>';
+  }
+
+  function showRegionBlurb(volume){
+    var blurb=document.getElementById("regionBlurb");
+    if(blurb)blurb.innerHTML='<strong>'+displayText(volume.regionName)+'</strong><span>'+displayText(volume.blurb)+'</span>';
+  }
+
+  function renderMap(){
+    var volumes=expeditionVolumes(),currentId=currentVolumeId(volumes);
+    validateMapPayload(worldMap,volumes);
+    document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a><div><h1>🌿 こもれびのこみち</h1><p>えんせいする ちいきを えらぼう</p></div></header>'
+      +'<section class="map-panel" aria-labelledby="mapTitle"><h2 id="mapTitle">せかいの えんせいちず</h2>'+mapArtworkHtml(volumes,currentId)
+      +'<div id="regionBlurb" class="map-blurb" aria-live="polite"><span>ピンを えらぶと、ちいきの しょうかいが でるよ。</span></div></section></main>';
+    Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
+      var volume=volumeById(pin.getAttribute("data-volume-id"));
+      pin.addEventListener("focus",function(){showRegionBlurb(volume);});
+      pin.addEventListener("mouseenter",function(){showRegionBlurb(volume);});
+      pin.addEventListener("click",function(){showRegionBlurb(volume);renderExpedition(volume.id);});
+    });
+  }
+
+  function renderExpedition(volumeId){
+    var volume=volumeById(volumeId),progress=volumeProgress(volume,profile.collection),buttons="";
+    volume.categories.forEach(function(cat){
+      buttons+='<button type="button" class="expedition-action" disabled aria-disabled="true">'+displayText(CATEGORIES[cat].name)+'<span>じゅんび中</span></button>';
+    });
+    document.getElementById("app").innerHTML='<main class="kom-page"><header class="kom-top"><button type="button" class="kom-back" data-action="map">← せかいちず</button><div><h1>'+displayText(volume.regionName)+' えんせい</h1><p>この えんせいで できること</p></div></header>'
+      +'<section class="expedition-panel"><div class="expedition-progress"><strong>すすみ　'+progress.caught+'／'+progress.denominator+'</strong><div class="progress-track" role="progressbar" aria-label="えんせいの すすみ" aria-valuemin="0" aria-valuemax="'+progress.denominator+'" aria-valuenow="'+progress.caught+'"><span style="width:'+(progress.caught/progress.denominator*100).toFixed(1)+'%"></span></div></div>'
+      +'<div class="expedition-actions" aria-label="この えんせいの カテゴリ">'+buttons+'</div><button type="button" class="expedition-action zukan-action" data-action="zukan">📖 '+displayText(volume.regionName)+'の ずかん</button></section></main>';
+    document.querySelector('[data-action="map"]').addEventListener("click",renderMap);
+    document.querySelector('[data-action="zukan"]').addEventListener("click",function(){renderZukanStub(volume.id);});
+  }
+
+  function renderZukanStub(volumeId){
+    var volume=volumeById(volumeId),progress=volumeProgress(volume,profile.collection);
+    document.getElementById("app").innerHTML='<main class="kom-page"><header class="kom-top"><button type="button" class="kom-back" data-action="expedition">← えんせい</button><div><h1>📖 '+displayText(volume.regionName)+'の ずかん</h1></div></header>'
+      +'<section class="expedition-panel center"><p class="stub-progress">あつめた虫　'+progress.caught+'／'+progress.denominator+'</p><p>ずかんは じゅんび中です。</p></section></main>';
+    document.querySelector('[data-action="expedition"]').addEventListener("click",function(){renderExpedition(volume.id);});
   }
 
   function renderError(){
-    document.getElementById("app").innerHTML='<div class="scr"><div class="card center"><h2>よみこめませんでした</h2><p>ページを よみなおしてね。</p><a class="btn ghost" href="../keisan/index.html" style="text-decoration:none">けいさんへ もどる</a></div></div>';
+    document.getElementById("app").innerHTML='<main class="kom-page"><section class="expedition-panel center"><h1>よみこめませんでした</h1><p>ページを よみなおしてね。</p><a class="kom-back" href="../keisan/index.html">← けいさん</a></section></main>';
+  }
+
+  function loadWorldMap(){
+    if(typeof global.fetch!=="function")return Promise.reject(new Error("地図を読み込めません"));
+    return global.fetch("assets/world_paths.json").then(function(response){
+      if(!response.ok)throw new Error("地図を読み込めません");
+      return response.json();
+    });
   }
 
   function boot(){
@@ -281,11 +425,13 @@
     profileId=QuestSave.currentProfile();
     if(!profileId){renderError();return;}
     var pull=QuestSave.syncDown?QuestSave.syncDown().catch(function(){}):Promise.resolve();
-    pull.then(function(){return QuestSave.load("komorebi",profileId);}).then(function(data){
-      var normalized=normalizeProfile(data);
+    pull.then(function(){return Promise.all([QuestSave.load("komorebi",profileId),QuestSave.load("keisan",profileId),loadWorldMap()]);}).then(function(data){
+      var normalized=normalizeProfile(data[0]);
       profile=normalized.profile;
+      profileType=data[1]&&data[1].type==="k5"?"k5":"k10";
+      worldMap=validateMapPayload(data[2],expeditionVolumes());
       return normalized.changed?saveProfile():true;
-    }).then(renderHome).catch(renderError);
+    }).then(renderMap).catch(renderError);
   }
 
   global.Q4B_KOMOREBI={
@@ -299,6 +445,9 @@
     applyAnswer:applyAnswer,
     recordAnswer:recordAnswer,
     volumeProgress:volumeProgress,
+    mapPinState:mapPinState,
+    validateMapPayload:validateMapPayload,
+    formatCourseText:formatCourseText,
     recordResult:recordResult,
     speciesForArea:speciesForArea,
     profile:function(){return profile;}

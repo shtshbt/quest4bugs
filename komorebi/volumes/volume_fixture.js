@@ -4,8 +4,11 @@
   var volumes=global.Q4B_KOMOREBI_VOLUMES||{};
   volumes.volume_fixture={
     id:"volume_fixture",
-    regionId:"region_fixture",
-    regionName:"試験の森",
+    regionId:"madagascar",
+    regionName:"マダガスカル",
+    current:true,
+    categories:["kom_ratio","kom_kuku_dan2","kom_kuku_run"],
+    blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
     frozen:true,
     denominator:12,
     species:[
