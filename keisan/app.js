@@ -627,6 +627,50 @@ function catBtnHTML(c,act,p,mark){
   var rare=(leveled&&lv>=8)?'<span style="display:inline-block;background:#EAEFE0;border:1.5px solid #B9C4A8;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700;color:#6B7A5E;margin-left:4px">📉 レア度ひかえめ</span>':'';
   return '<button class="btn sm ghost"'+(sty?' style="'+sty+'"':'')+' onclick="'+act+'">'+CATL[c]+mk+lvtag+rare+sub+'</button>';
 }
+function maybeShowKomorebiDiscovery(p){
+  if(!p||!p.id||!window.QuestSave||maybeShowKomorebiDiscovery.checked[p.id])return;
+  maybeShowKomorebiDiscovery.checked[p.id]=1;
+  QuestSave.load("komorebi",p.id).then(function(state){
+    if(state!=null&&(typeof state!=="object"||Array.isArray(state)))return;
+    state=state||{};
+    if(state.discoverySeen)return;
+    if(state.schemaVersion==null)state.schemaVersion=1;
+    if(state.unlocked==null)state.unlocked=true;
+    state.discoverySeen=true;
+    if(QuestSave.warnIfDegraded)QuestSave.warnIfDegraded();
+    return QuestSave.save("komorebi",p.id,state).then(function(){
+      var cur=P();
+      if(cur&&cur.id===p.id)showKomorebiDiscovery(cur);
+    });
+  }).catch(function(){delete maybeShowKomorebiDiscovery.checked[p.id];});
+}
+maybeShowKomorebiDiscovery.checked={};
+function showKomorebiDiscovery(p){
+  if($("komorebiDiscoveryOv"))return;
+  var title="✨ こもれびの こみちを 見つけた！";
+  var body="どうやら 外国に つながっているようだ…？！";
+  if(p.type==="k5"){title=furi5(title);body=furi5(body);}
+  var ov=document.createElement("div"), sparks="";
+  ov.id="komorebiDiscoveryOv";
+  ov.style.cssText="position:fixed;inset:0;background:radial-gradient(ellipse at center,rgba(22,67,45,.94),rgba(7,27,20,.98));z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;animation:komFade .6s ease-out";
+  for(var i=0;i<14;i++){
+    var d=(i*.18).toFixed(2),x=(20+Math.random()*60).toFixed(1),y=(15+Math.random()*70).toFixed(1);
+    sparks+='<div style="position:absolute;left:'+x+'%;top:'+y+'%;font-size:'+(14+Math.random()*18).toFixed(0)+'px;animation:komSpark 1.6s ease-out '+d+'s infinite">✨</div>';
+  }
+  ov.innerHTML='<style>'
+    +'@keyframes komFade{from{opacity:0}to{opacity:1}}'
+    +'@keyframes komSpark{0%{opacity:0;transform:translateY(0) scale(.5)}30%{opacity:1}100%{opacity:0;transform:translateY(-40px) scale(1.4)}}'
+    +'@keyframes komGlow{0%,100%{filter:drop-shadow(0 0 20px #CFF59B)}50%{filter:drop-shadow(0 0 40px #FFF3A3)}}'
+    +'@keyframes komRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}'
+    +'</style>'+sparks
+    +'<div style="background:linear-gradient(180deg,#285c3d,#143524);border:3px solid #D8C768;border-radius:24px;padding:32px 24px;max-width:340px;width:92%;text-align:center;color:#F8FFE8;box-shadow:0 0 60px rgba(210,238,137,.45),inset 0 0 30px rgba(5,45,20,.6)">'
+    +'<div style="font-size:72px;animation:komGlow 1.6s ease-in-out infinite,komRise 1s ease-out">🌿</div>'
+    +'<h2 style="margin:14px 0 8px;font-size:20px;font-weight:900;color:#FFF1A5;animation:komRise 1.2s ease-out">'+title+'</h2>'
+    +'<p style="font-size:15px;line-height:1.65;margin:8px 0 18px;animation:komRise 1.4s ease-out">'+body+'</p>'
+    +'<button class="btn" style="margin:0;background:#D8A83E;color:#fff;border:2px solid #FFF1A5" onclick="location.href=\'../komorebi/index.html\'">こみちへ いってみる</button>'
+    +'</div>';
+  document.body.appendChild(ov);
+}
 /* 既習度ベースの boost. 最高到達 Lv >= 8 → BOOST_LOW (0.4). それ以外 1.0。
    R1: 故意に Lv を下げて満額に戻す farming を遮断するため、 現在 Lv ではなく
    reachedLv (= max(lv, maxLv)) で判定。 */
@@ -653,6 +697,7 @@ function showHome(){
     +'<button class="btn big amber" onclick="startMission()">'+(done?"もういちど ちょうせん":"ミッション スタート！")+'</button>'
     +'<div class="grass"></div></div>';
   var bal=balanceCats(p);  /* おすすめ(レアブースト)カテゴリ */
+  h+='<a class="btn big ghost" href="../komorebi/index.html" style="text-decoration:none;border-color:#8FBC72;background:linear-gradient(90deg,#F5FFE8,#FFF8D8);color:#31552B">🌿 こもれびのこみち<span style="display:block;font-size:13px;font-weight:700;margin-top:3px">せかいへ つながる みち</span></a>';
   h+='<div class="card" style="border-color:var(--amber);background:#FFF8ED"><p style="font-weight:800;color:var(--amber-d);margin:0">🌟 まだ やっていない／あまり やっていない（🌟🆕）を やると、めずらしい虫が 出やすいよ！いろいろ やってみよう</p></div>';
   h+='<div class="card"><h3>じぶんで れんしゅう</h3><div class="grid2">';
   var cats=(p.type==="k5")?K5CATS:K10CATS;
@@ -707,6 +752,7 @@ function showHome(){
   h+='</div>';
   render(h);
   checkMastersK();
+  maybeShowKomorebiDiscovery(p);
 }
 
 /* ===== マスター虫（全習得限定）===== */
@@ -5800,6 +5846,10 @@ function lvDotsHTML(p,cat){
    ⚠ 順番重要: 長い熟語を先に置換しないと「正三角形→正三角+形」のように分割される。 */
 var FURI5_PAIRS=[
   /* === 27カテゴリ追加分の熟語(長い順) === */
+  ["外国","がいこく"],["割合","わりあい"],["暗唱","あんしょう"],["連続","れんぞく"],["九九","くく"],
+  /* 単字の 見/比 より前に置く。後段の ["見","み"] ["比","ひ"] だけだと
+     見学→み学、比べる→ひべる と誤読になる。 */
+  ["見学","けんがく"],["比べ","くらべ"],
   ["正三角形","せいさんかくけい"],["正方形","せいほうけい"],
   ["円玉","えんだま"],["何本","なんぼん"],["何人","なんにん"],["何台","なんだい"],
   ["半分","はんぶん"],["本数","ほんすう"],["色紙","いろがみ"],["分後","ふんご"],
@@ -5810,7 +5860,7 @@ var FURI5_PAIRS=[
   ["千","せん"],["大","だい"],["本","ほん"],["入","はい"],["切","き"],
   ["色","いろ"],["商","しょう"],["小","しょう"],["日","にち"],
   ["白","しろ"],["捨","す"],["金","きん"],["長","なが"],
-  ["皿","さら"],["子","こ"],["台","だい"],["同","おな"],
+  ["皿","さら"],["子","こ"],["台","だい"],["同","おな"],["見","み"],["比","ひ"],["段","だん"],
   ["中","なか"],["算","さん"],["辺","へん"],["字","じ"]
 ];
 var FURI5={}; FURI5_PAIRS.forEach(function(p){FURI5[p[0]]=p[1];});  /* 後方互換のため辞書も保持 */

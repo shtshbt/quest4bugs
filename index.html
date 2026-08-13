@@ -584,11 +584,16 @@ function goshinHTML(pid,amber,bt,opts){
     ayumiHTML = '<div class="goshin-ayumi" style="border:1px solid #D8C892;background:#FFFDF7;border-radius:12px;padding:7px 10px;margin-bottom:8px">'
       + rankLine + '</div>';
   }
+  /* volume 未投入(総数0)の間は出さない。数えるものが無い枠は情報にならない。 */
+  var komorebiHTML=opts.komorebi&&opts.komorebi.unlocked&&opts.komorebi.total>0
+    ?'<a href="./komorebi/index.html" style="display:block;border:1px solid #A7C987;background:#F5FFE8;border-radius:12px;padding:7px 10px;margin-bottom:8px;color:#31552B;font-size:13px;font-weight:900;text-decoration:none">🌿 こもれび '+opts.komorebi.caught+'/'+opts.komorebi.total+'</a>'
+    :'';
   return '<div class="goshin" id="goshinboku-panel">'
     +'<div class="goshin-top"><div><div class="goshin-title">ごしんぼく</div><div class="goshin-tree">🌳</div></div>'
     +'<div class="goshin-board-grid"><div class="goshin-board"><b>きょうのおすすめ</b><br>'+esc(goshinTip(g,bt))+'</div>'
     +'<div class="goshin-board"><b>きょう達成したこと</b><br>'+esc(goshinDoneText(g))+'</div></div></div>'
     +ayumiHTML
+    +komorebiHTML
     +'<div class="goshin-wallet">'
     +'<div class="goshin-chip"><b>🔶 こはく</b><strong>'+amber+'</strong><span>30こで虫をよぼう</span></div>'
     +'<div class="goshin-chip"><b>🪨 かせきのかけら</b><strong>'+g.fossilFragments+'</strong><span>おおむかしの虫のかせきだ</span></div>'
@@ -1211,9 +1216,10 @@ function renderDashboard(pid,name){
     QuestSave.load("kanji",pid),
     QuestSave.load("eitango",pid),
     QuestSave.load("battle",pid),
-    QuestSave.load("keisan","_book")        /* 移行前デバイス用フォールバック */
+    QuestSave.load("keisan","_book"),       /* 移行前デバイス用フォールバック */
+    QuestSave.load("komorebi",pid)
   ]).then(function(r){
-    var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4],i;
+    var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4],kom=r[5],i;
     if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===pid)kp=book.profiles[i];
     /* 重複種の旧 id を新 id へ引き継ぐ (docs/species_migrations.md)。
        達成度集計 (keisanN/kanjiN/eitangoN) より前に適用する。集計後に適用すると、
@@ -1315,6 +1321,8 @@ function renderDashboard(pid,name){
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.min(100, Math.round(total/pool*100));  /* U5: 100% 超え表示を防ぐ */
+    var komCollection=kom&&kom.collection, komCatches=komCollection&&komCollection.catches;
+    var komorebi={unlocked:!kom||kom.unlocked!==false,caught:komCatches&&typeof komCatches==="object"?Object.keys(komCatches).length:0,total:komCollection&&Number.isFinite(komCollection.totalSpecies)?komCollection.totalSpecies:0};
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
     if(!_isCurDash()) return;     /* T3: 切替後の旧 pid 処理を全て止める */
@@ -1383,7 +1391,7 @@ function renderDashboard(pid,name){
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
       +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
       +homeMapHTML(taniOpen)
-      +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext})
+      +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext, komorebi:komorebi})
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（'+rangeLabel+'・'+totalQ+'もん）</div>'
       +tabsHTML
       +graphHTML+legend

@@ -27,7 +27,7 @@
   var POOLS = { kanji:[], keisan:[], eitango:[] };
   /* masterOnly(全習得限定)・bossOnly(ボス専用)・SS(でんせつ)は通常の採集プールから除外。
      ゲージ/琥珀の抽選には絶対に出さず、SSは習得達成(マスター)/ボス撃破でのみ授与する。 */
-  BUGS.forEach(function(sp){ if(sp.masterOnly||sp.bossOnly||sp.rarity==="SS")return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
+  BUGS.forEach(function(sp){ if(sp.areaOnly||sp.masterOnly||sp.bossOnly||sp.rarity==="SS")return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
   function pool(game){ return POOLS[game] || BUGS; }
   function poolCount(game){ return pool(game).length; }
 
@@ -44,6 +44,7 @@
   var ZUKAN_DENOM = { kanji:{}, keisan:{}, eitango:{} };
   var ZUKAN_DENOM_N = { kanji:0, keisan:0, eitango:0 };
   BUGS.forEach(function(sp){
+    if(sp.areaOnly) return;
     if(sp.boss && sp.boss.predator) return;   /* 入手経路なし: 分母から除外 */
     var g = eggGameFor(sp);
     if(!ZUKAN_DENOM[g]) g = "eitango";
