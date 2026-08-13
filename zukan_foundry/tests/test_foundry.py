@@ -40,7 +40,8 @@ class CatalogTests(unittest.TestCase):
     def test_extracts_every_current_record(self):
         parsed = parse_bugs(ROOT / "shared" / "bugs.js")
         index, names, anomalies = build_index(ROOT)
-        self.assertEqual(len(parsed), 1213)
+        # 1213 existing species plus 149 honpen batch 1 species.
+        self.assertEqual(len(parsed), 1362)
         self.assertEqual(index["recordCount"], len(parsed))
         self.assertEqual(len(index["species"]), len(parsed))
         self.assertEqual(len(names["byId"]), len(parsed))

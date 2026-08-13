@@ -23,8 +23,9 @@ const MIG = context.Q4B_SPECIES_MIGRATIONS;
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 
-test("catalog denominator stays 1213 and ids are unique", () => {
-  assert.equal(BUGS.length, 1213);
+test("catalog denominator expands to 1362 and ids are unique", () => {
+  /* 1213 既存種 + batch 1 の 149 新種 = 1362 種。 */
+  assert.equal(BUGS.length, 1362);
   const seen = {};
   for(const sp of BUGS){
     assert.equal(seen[sp.id], undefined, "duplicate id " + sp.id);
@@ -54,11 +55,12 @@ test("chairo_kanabun entry replaces the removed slot", () => {
   assert.equal(sp.metamorphosis, "complete");
 });
 
-test("game pool sizes are unchanged (keisan 380 / kanji 333 / eitango 408)", () => {
+test("game pool sizes include batch 1 (keisan 430 / kanji 382 / eitango 458)", () => {
+  /* batch 1 の教科別追加数 50 / 49 / 50 を既存プールへ加算。 */
   assert.equal(reward.gameFor(reward.spById("chairo_kanabun")), "keisan");
-  assert.equal(reward.poolCount("keisan"), 380);
-  assert.equal(reward.poolCount("kanji"), 333);
-  assert.equal(reward.poolCount("eitango"), 408);
+  assert.equal(reward.poolCount("keisan"), 430);
+  assert.equal(reward.poolCount("kanji"), 382);
+  assert.equal(reward.poolCount("eitango"), 458);
 });
 
 test("migration table maps removed ids onto live ids only", () => {

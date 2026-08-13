@@ -1,7 +1,7 @@
 "use strict";
 
 /* 図鑑達成度 (分子/分母) の回帰テスト。
-   ホーム総合 "N / 1213 しゅるい" の分子は
+   ホーム総合 "N / 1362 しゅるい" の分子は
      - 種 ID 移行 (docs/species_migrations.md) を集計より前に適用し、
      - bugs.js に実在する種のみ数える (nushi_* 疑似 id・撤去済み旧 id を除外する)
    ことを検証する。node tests/test_zukan_progress_count.js で実行。 */
@@ -69,7 +69,7 @@ test("coexisting old+new ids tally as one species once migrated", () => {
   assert.equal(coll.catches.chairo_kanabun.records.length, 2);
 });
 
-test("countSpecies drops ids outside the 1213 denominator set", () => {
+test("countSpecies drops ids outside the 1362 denominator set", () => {
   const catches = {
     oniyanma:{n:1, records:[]},              /* 実在種: 数える */
     nushi_oniyanma:{n:1, records:[]},        /* えいたんごヌシ疑似 id: 数えない */
@@ -83,27 +83,27 @@ test("countSpecies drops ids outside the 1213 denominator set", () => {
   assert.equal(countSpecies({}), 0);
 });
 
-test("home numerator upper bound equals the denominator (1213)", () => {
-  /* 全種捕獲 + 疑似 id 混入でも分子は分母 1213 を超えない */
+test("home numerator upper bound equals the denominator (1362)", () => {
+  /* 1213 既存種 + batch 1 の 149 新種 = 1362 種。 */
   const catches = {};
   for(const sp of context.Q4B_BUGS) catches[sp.id] = {n:1, records:[]};
   catches["nushi_hercules_beetle"] = {n:1, records:[]};
-  assert.equal(context.Q4B_BUGS.length, 1213);
-  assert.equal(countSpecies(catches), 1213);
+  assert.equal(context.Q4B_BUGS.length, 1362);
+  assert.equal(countSpecies(catches), 1362);
 });
 
 /* ---- 教科別達成度 (zukanDenomCount / zukanCaughtCount) ---- */
 
 const PREDATORS = context.Q4B_BUGS.filter(sp => sp.boss && sp.boss.predator).map(sp => sp.id);
 
-test("per-game denominators are the acquirable sets (keisan 427 / kanji 353 / eitango 423)", () => {
-  assert.equal(reward.zukanDenomCount("keisan"), 427);   /* 380 pool + 38 master + 3 boss + 6 SS */
-  assert.equal(reward.zukanDenomCount("kanji"), 353);    /* 333 pool + 8 master + 4 boss + 8 SS */
-  assert.equal(reward.zukanDenomCount("eitango"), 423);  /* 408 pool + 7 master + 3 boss + 5 SS */
-  /* 3 教科の分母 + 天敵 (入手経路なし) = 全種 1213。全種がちょうど 1 教科に属す */
+test("per-game denominators are the acquirable sets (keisan 477 / kanji 402 / eitango 473)", () => {
+  assert.equal(reward.zukanDenomCount("keisan"), 477);   /* 430 pool + 38 master + 3 boss + 6 SS */
+  assert.equal(reward.zukanDenomCount("kanji"), 402);    /* 382 pool + 8 master + 4 boss + 8 SS */
+  assert.equal(reward.zukanDenomCount("eitango"), 473);  /* 458 pool + 7 master + 3 boss + 5 SS */
+  /* 3 教科の分母 + 天敵 (入手経路なし) = 全種 1362。全種がちょうど 1 教科に属す */
   assert.equal(PREDATORS.length, 10);
   assert.equal(reward.zukanDenomCount("keisan") + reward.zukanDenomCount("kanji")
-    + reward.zukanDenomCount("eitango") + PREDATORS.length, 1213);
+    + reward.zukanDenomCount("eitango") + PREDATORS.length, 1362);
 });
 
 test("every SS-other species has a battle acquisition path (non-predator roster boss)", () => {

@@ -85,24 +85,31 @@ def write_regions(directory, data):
 class RegionsFileTests(unittest.TestCase):
     """The shipped regions file is data the harvester trusts, so it is tested."""
 
-    def test_shipped_regions_file_defines_the_four_initial_regions(self):
+    INITIAL_REGIONS = ["australia", "borneo", "costa_rica", "madagascar"]
+    PROBE_REGIONS = ["new_guinea", "philippines", "southern_africa"]
+
+    def test_shipped_regions_file_defines_initial_and_probe_regions(self):
         regions = load_regions(REGIONS_FILE)
         self.assertEqual(sorted(regions),
-                         ["australia", "borneo", "costa_rica", "madagascar"])
+                         sorted(self.INITIAL_REGIONS + self.PROBE_REGIONS))
         self.assertEqual(regions["madagascar"]["countries"], ["MG"])
         self.assertEqual(regions["australia"]["countries"], ["AU"])
         self.assertEqual(regions["costa_rica"]["countries"], ["CR"])
+        self.assertEqual(regions["southern_africa"]["countries"], ["ZA", "NA"])
         self.assertNotIn("countries", regions["borneo"],
                          "Borneo spans three countries, so it must be geometry-only")
         self.assertTrue(regions["borneo"]["geometry"].startswith("POLYGON(("))
 
-    def test_shipped_regions_all_name_their_flagships(self):
+    def test_initial_regions_name_their_flagships(self):
         # Frequency-ranked harvests drop famous-but-thinly-recorded species
         # (docs/komorebi_regions.md 6 章), so every initial region must ship a
-        # verified must-have list.
+        # verified must-have list. Probe regions get theirs only after the
+        # flagship reselection (every shortlisted candidate collided with the
+        # main catalog), so they are exempt until then.
         regions = load_regions(REGIONS_FILE)
-        for region_id, region in regions.items():
-            self.assertGreaterEqual(len(region.get("mustHave") or []), 2, region_id)
+        for region_id in self.INITIAL_REGIONS:
+            self.assertGreaterEqual(
+                len(regions[region_id].get("mustHave") or []), 2, region_id)
         madagascar_keys = [entry["speciesKey"]
                            for entry in regions["madagascar"]["mustHave"]]
         self.assertIn(1994576, madagascar_keys,
