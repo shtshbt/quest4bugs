@@ -32,5 +32,17 @@
       {"speciesKey": 5035748, "label": "ハキリアリ"},
       {"speciesKey": 5158022, "label": "ビワハゴロモ"}
     ]
+  },
+  "philippines": {
+    "label": "フィリピン",
+    "countries": ["PH"]
+  },
+  "new_guinea": {
+    "label": "ニューギニア",
+    "countries": ["PG"]
+  },
+  "southern_africa": {
+    "label": "南部アフリカ",
+    "countries": ["ZA", "NA"]
   }
 }
