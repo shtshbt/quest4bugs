@@ -54,7 +54,7 @@ function bootContext(mapPayload, ratioPool) {
   context.window = context;
   context.global = context;
   vm.createContext(context);
-  for (const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js"]) {
+  for (const file of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js"]) {
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
@@ -87,6 +87,14 @@ const ratioPool = JSON.parse(
   assert.ok(html.indexOf('data-cat="kom_ratio"') >= 0, "the ratio path is enabled");
   assert.ok(html.indexOf("割合と比") >= 0, "the ratio category is visible");
   passed++; console.log("PASS the ratio path is wired for play");
+
+  /* 捕獲カードの絵は render.js 依存。読み込みが抜けると SVG が空文字になり、
+     ロジックのテストは通ったまま画面だけ絵なしになる。 */
+  const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
+  assert.ok(page.indexOf("shared/render.js") >= 0, "the komorebi page loads the species renderer");
+  const rendered = context.Q4BReward.svg(context.Q4BReward.spById("oo_onaga_yamamayu"), false);
+  assert.ok(rendered.length > 100, "a komorebi species renders to a real SVG, not an empty string");
+  passed++; console.log("PASS komorebi species render to real SVG through the shared renderer");
 
   console.log("RESULT " + passed + " passed, 0 failed");
 })().catch((error) => {

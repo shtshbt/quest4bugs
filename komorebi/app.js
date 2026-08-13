@@ -660,10 +660,25 @@
     return '<aside class="ratio-waza"><h3>'+displayText("わざ")+'</h3><p><strong>'+displayText("主な道")+'</strong><span>'+displayText(waza.primary)+'</span></p>'+alternate+'</aside>';
   }
 
+  /* 本編 keisan/app.js の showCapture と同じ情報を出す: 虫の SVG、和名、レア度タグ、
+     サイズ、NEW か 何匹め。SVG と TIERNAME は Q4BReward を使い回し、別実装にしない。
+     bugs.js に種が無い場合 (差し替え途中など) は名前とレア度まで落として描く。 */
   function ratioCaptureHtml(capture){
     if(!capture)return "";
-    var message=capture.isNew?"新しい虫を捕まえました！":"虫をもう一匹捕まえました！";
-    return '<div class="ratio-capture" role="status"><strong>'+displayText(message)+'</strong><span>'+displayText("レア度 "+capture.rarity)+'</span></div>';
+    var reward=global.Q4BReward,sp=reward&&reward.spById?reward.spById(capture.id):null;
+    var tier=sp?sp.r:null;
+    var tierName=(reward&&reward.TIERNAME&&tier!=null)?reward.TIERNAME[tier]:capture.rarity;
+    var art=(sp&&reward.svg)?'<div class="ratio-capture-art r'+tier+'">'+reward.svg(sp,capture.shiny)+'</div>':"";
+    var name=sp?sp.jaName:capture.id;
+    var size=capture.size?'<span class="ratio-capture-size">'+capture.size+'mm</span>':"";
+    var tag=capture.isNew
+      ?'<span class="ratio-capture-new">'+displayText("ずかんに とうろく")+'</span>'
+      :'<span class="ratio-capture-again">'+displayText(capture.n+"匹め")+'</span>';
+    var note=(sp&&sp.note)?'<p class="ratio-capture-note">'+displayText(sp.note)+'</p>':"";
+    return '<div class="ratio-capture" role="status"><strong>'+displayText("つかまえた！")+'</strong>'
+      +art+'<div class="ratio-capture-name">'+displayText(name)+(capture.shiny?" ✨":"")+'</div>'
+      +'<div class="ratio-capture-meta"><span class="ratio-capture-tier r'+tier+'">'+displayText(tierName)+'</span>'+size+tag+'</div>'
+      +note+'</div>';
   }
 
   function ratioFeedbackHtml(question,correct,result){
@@ -672,9 +687,18 @@
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'+answer+wazaCardHtml(question)+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
+  /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
+     ことが要点で、そうしないと「画面ではあと 1 問なのに実際は 7 問」の乖離が起きる。 */
+  function lvDotsHtml(cat){
+    var adapt=profile.adapt&&profile.adapt[cat],lv=(profile.lv&&profile.lv[cat])||1;
+    var n=adapt?adapt.n:0,inBlock=n%10,recent=adapt?adapt.recent.slice(-inBlock):[],dots="";
+    for(var i=0;i<10;i++)dots+=(i<inBlock)?(recent[i]?"●":"✗"):"○";
+    return '<span class="ratio-lv" aria-label="'+displayText("レベル"+lv+"、10問中"+inBlock+"問め")+'">Lv'+lv+'　'+dots+'</span>';
+  }
+
   function ratioSessionShell(body){
     return '<main class="kom-page ratio-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
-      +'<div class="ratio-session-head"><div><h1>'+displayText("割合と比")+'</h1><p>'+displayText("第"+(ratioSession.index+1)+"／"+RATIO_SET_SIZE+"問")+'</p></div>'+ratioGaugeHtml()+'</div>'
+      +'<div class="ratio-session-head"><div><h1>'+displayText("割合と比")+'</h1><p>'+displayText("第"+(ratioSession.index+1)+"／"+RATIO_SET_SIZE+"問")+'</p>'+lvDotsHtml(ratioSession.cat||"kom_ratio")+'</div>'+ratioGaugeHtml()+'</div>'
       +'<section class="ratio-panel">'+body+'</section></main>';
   }
 
