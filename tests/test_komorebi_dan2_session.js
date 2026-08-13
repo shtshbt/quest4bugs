@@ -71,7 +71,7 @@ function fireTimebarTimer(){
 
   let seed = 11;
   const random = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
-  await komorebi.startKukuDan2Session(volume, random);
+  await komorebi.sessionStarters.kom_kuku_dan2(volume, random);
   const profile = komorebi.profile();
 
   /* 画面に出ている式から、その回のチャンクの句を組み立てる。内部状態を覗かない。 */

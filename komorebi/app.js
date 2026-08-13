@@ -1,11 +1,31 @@
 (function(global){
   "use strict";
 
+  /* 公開済みの更新番号 (release_linkage 2 章の更新カレンダー)。実装は先へ進めて
+     公開はここ 1 か所で段階解禁する。これが無いと「実装済み未公開」のカテゴリが
+     次の deploy でそのまま子どもの画面に出てしまう。 */
+  var CURRENT_RELEASE=1;
+
+  /* release は「どの更新で公開するか」。volume manifest がそのカテゴリを挙げていても、
+     release が CURRENT_RELEASE を超える間は選択肢に出さない。 */
   var CATEGORIES={
-    kom_ratio:{course:"k10",name:"割合と比",maxLv:10},
-    kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10},
-    kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10}
+    kom_ratio:{course:"k10",name:"割合と比",maxLv:10,release:1},
+    kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10,release:1},
+    kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1}
   };
+
+  function isReleased(cat){
+    var entry=CATEGORIES[cat];
+    return !!entry&&entry.release<=CURRENT_RELEASE;
+  }
+
+  /* 段暗唱は 1 段 = 1 カテゴリ。cat 名が段番号を持つので、dan3 以降は
+     CATEGORIES に 1 行足すだけで動く。 */
+  function danOfCategory(cat){
+    var match=/^kom_kuku_dan(\d)$/.exec(cat);
+    return match?Number(match[1]):0;
+  }
+  function isDanCat(cat){return danOfCategory(cat)>0;}
   var COLLECTION_CONFIG={
     gaugeNeed:global.Q4BReward?global.Q4BReward.NEED_DEFAULT:8,
     pityChances:[0,0.25,0.5,0.75,1],
@@ -816,19 +836,19 @@
 
   function questionBodyHtml(question){
     if(question.cat==="kom_kuku_run")return kukuQuestionBodyHtml(question);
-    if(question.cat==="kom_kuku_dan2")return dan2QuestionBodyHtml(question);
+    if(isDanCat(question.cat))return dan2QuestionBodyHtml(question);
     return ratioQuestionBodyHtml(question);
   }
 
   function answerText(question){
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
-    if(question.cat==="kom_kuku_dan2")return dan2AnswerText(question);
+    if(isDanCat(question.cat))return dan2AnswerText(question);
     return ratioAnswerText(question);
   }
 
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
-    if(question.cat==="kom_kuku_dan2")return !!(session.verdict&&session.verdict.correct);
+    if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
     return judgeRatioAnswer(question,answer);
   }
 
@@ -870,7 +890,7 @@
 
   function dan2ReasonHtml(question,correct){
     var verdict=session&&session.verdict;
-    if(question.cat!=="kom_kuku_dan2"||correct||!verdict)return "";
+    if(!isDanCat(question.cat)||correct||!verdict)return "";
     var reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
     return reason?'<p class="dan2-reason">'+displayText(reason)+'</p>':"";
   }
@@ -878,7 +898,7 @@
   function feedbackHtml(question,correct,result){
     var mark=correct?"正解！":"もう一歩！";
     var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
-    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(question.cat==="kom_kuku_dan2"?"":wazaCardHtml(question));
+    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(isDanCat(question.cat)?"":wazaCardHtml(question));
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
       +dan2ReasonHtml(question,correct)+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
@@ -1147,33 +1167,35 @@
     return Promise.resolve(beginSession("kom_kuku_run",volume,questions,sessionId));
   }
 
-  /* 段暗唱は 1 段 = 1 カテゴリ。cat 名から段番号を読み、dan3 以降は
-     CATEGORIES への追加だけで解禁できるようにしてある。 */
-  function danOfCategory(cat){
-    var match=/^kom_kuku_dan(\d)$/.exec(cat);
-    return match?Number(match[1]):0;
+  function startKukuDanSession(cat){
+    return function(volume,random){
+      if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
+      if(!volume||volume.categories.indexOf(cat)<0)return Promise.reject(new Error("この小道では段暗唱を遊べません"));
+      if(!speechCtor())return Promise.reject(new Error("この端末では こえを つかえません"));
+      var generatorRandom=random||Math.random,chunks,sessionId;
+      try{
+        chunks=dan2Engine().buildSet(danOfCategory(cat),profile.lv[cat],generatorRandom);
+        sessionId=cat+"_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+      }catch(error){return Promise.reject(error);}
+      return Promise.resolve(beginSession(cat,volume,chunks,sessionId));
+    };
   }
 
-  function startKukuDan2Session(volume,random){
-    if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
-    if(!volume||volume.categories.indexOf("kom_kuku_dan2")<0)return Promise.reject(new Error("この小道では段暗唱を遊べません"));
-    if(!speechCtor())return Promise.reject(new Error("この端末では こえを つかえません"));
-    var generatorRandom=random||Math.random,chunks,sessionId;
-    try{
-      chunks=dan2Engine().buildSet(danOfCategory("kom_kuku_dan2"),profile.lv.kom_kuku_dan2,generatorRandom);
-      sessionId="dan2_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
-    }catch(error){return Promise.reject(error);}
-    return Promise.resolve(beginSession("kom_kuku_dan2",volume,chunks,sessionId));
-  }
-
-  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,kom_kuku_dan2:startKukuDan2Session};
+  /* 段暗唱は CATEGORIES に 1 行足すだけで dan3 以降が動く。開始関数もここで
+     機械的に作るので、段ごとに分岐を書き足す場所は残さない。 */
+  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession};
+  Object.keys(CATEGORIES).forEach(function(cat){
+    if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
+  });
 
   function pathPanelHtml(volume){
     var progress=volumeProgress(volume,viewCollection()),buttons="";
-    volume.categories.forEach(function(cat){
+    /* 未公開の更新に属するカテゴリは選択肢そのものを出さない。volume manifest が
+       先に挙げていても、公開は CURRENT_RELEASE 1 か所で決める。 */
+    volume.categories.filter(isReleased).forEach(function(cat){
       /* 音声カテゴリはマイクが無いことを「始める前に」出す。代替入力は提供しない
          (design 7.4)。押してから駄目だと分かるのは子どもには理不尽。 */
-      var blocked=danOfCategory(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
+      var blocked=isDanCat(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
       if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
       else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText(blocked)+'</span></button>';
     });
@@ -1233,8 +1255,14 @@
     return module;
   }
 
+  /* 未公開カテゴリのトロフィーは枠ごと出さない。取りようのない枠を並べると、
+     目標ボードが「いつまでも埋まらない棚」に見えてしまう。 */
+  function releasedTrophies(){
+    return trophyModule().list().filter(function(trophy){return isReleased(trophy.cat);});
+  }
+
   function trophyEntranceHtml(){
-    var all=trophyModule().list(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="trophies">'
       +'🏆 <span>'+displayText("トロフィー")+'</span> <strong>'+earned+'／'+all.length+'</strong></button></div>';
   }
@@ -1257,7 +1285,7 @@
   }
 
   function renderTrophies(volumeId){
-    var all=trophyModule().list(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText("きんいろトロフィー")+'</h1>'
       +'<p>'+displayText("カテゴリを Lv10 クリアすると もらえる")+'　<strong>'+earned+'／'+all.length+'</strong></p></div>'
@@ -1495,7 +1523,9 @@
     kukuQuestionBodyHtml:kukuQuestionBodyHtml,
     startRatioSession:startRatioSession,
     startKukuRunSession:startKukuRunSession,
-    startKukuDan2Session:startKukuDan2Session,
+    sessionStarters:SESSION_STARTERS,
+    isReleased:isReleased,
+    currentRelease:function(){return CURRENT_RELEASE;},
     dan2QuestionBodyHtml:dan2QuestionBodyHtml,
     formatCourseText:formatCourseText,
     applyPerformance:applyPerformance,
