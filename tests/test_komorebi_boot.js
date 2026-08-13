@@ -91,7 +91,10 @@ const ratioPool = JSON.parse(
   /* 捕獲カードの絵は render.js 依存。読み込みが抜けると SVG が空文字になり、
      ロジックのテストは通ったまま画面だけ絵なしになる。 */
   const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
-  assert.ok(page.indexOf("shared/render.js") >= 0, "the komorebi page loads the species renderer");
+  /* 読み込み漏れは画面だけ壊れてロジックのテストは通る。使う共有モジュールを列挙して固定する。 */
+  for (const dep of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/zukan_detail.js"]) {
+    assert.ok(page.indexOf(dep) >= 0, "the komorebi page loads " + dep);
+  }
   const rendered = context.Q4BReward.svg(context.Q4BReward.spById("oo_onaga_yamamayu"), false);
   assert.ok(rendered.length > 100, "a komorebi species renders to a real SVG, not an empty string");
   passed++; console.log("PASS komorebi species render to real SVG through the shared renderer");

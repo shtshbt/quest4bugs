@@ -854,6 +854,45 @@
     });
   }
 
+  /* 図鑑の絞り込み。本編 keisan の zukanMatchK と同じ語彙 (レア度 tier / 分類キー /
+     未捕獲を隠す / 検索) を使うが、状態は小道側に持つ。本編の KZ_* は keisan の
+     プロフィールに束縛されているため共有できない。 */
+  var zukanFilter={rarity:"",group:"",caughtOnly:false,query:""};
+
+  function zukanGroupKey(sp){ return sp?(sp.familyJa||sp.orderJa||sp.groupJa||""):""; }
+
+  function zukanMatches(sp,record){
+    var reward=global.Q4BReward;
+    if(zukanFilter.rarity!==""&&sp&&String(reward.tierOf(sp))!==zukanFilter.rarity)return false;
+    if(zukanFilter.group!==""&&zukanGroupKey(sp)!==zukanFilter.group)return false;
+    if(zukanFilter.caughtOnly&&!record)return false;
+    var q=zukanFilter.query.trim().toLowerCase();
+    if(q&&sp){
+      var hay=(sp.jaName+" "+(sp.scientificName||"")+" "+zukanGroupKey(sp)).toLowerCase();
+      if(hay.indexOf(q)<0)return false;
+    }
+    return true;
+  }
+
+  function zukanFilterBarHtml(entries){
+    var reward=global.Q4BReward,groups=[],seen={};
+    entries.forEach(function(item){
+      var key=zukanGroupKey(item.sp);
+      if(key&&!seen[key]){seen[key]=1;groups.push(key);}
+    });
+    groups.sort(function(a,b){return a.localeCompare(b,"ja");});
+    var tiers=[["","すべて"],["2","スーパーレア"],["1","レア"],["0","ノーマル"]].map(function(pair){
+      return '<button type="button" class="zukan-chip'+(zukanFilter.rarity===pair[0]?" is-on":"")+'" data-filter="rarity" data-value="'+pair[0]+'">'+displayText(pair[1])+'</button>';
+    }).join("");
+    var groupOpts='<option value="">'+displayText("すべての なかま")+'</option>'+groups.map(function(key){
+      return '<option value="'+escapeHtml(key)+'"'+(zukanFilter.group===key?" selected":"")+'>'+displayText(key)+'</option>';
+    }).join("");
+    return '<div class="zukan-filters"><div class="zukan-chips" role="group" aria-label="'+displayText("レア度でしぼる")+'">'+tiers+'</div>'
+      +'<div class="zukan-controls"><select id="zukanGroup" aria-label="'+displayText("なかまでしぼる")+'">'+groupOpts+'</select>'
+      +'<label class="zukan-toggle"><input type="checkbox" id="zukanCaught"'+(zukanFilter.caughtOnly?" checked":"")+'>'+displayText("つかまえたものだけ")+'</label>'
+      +'<input type="search" id="zukanQuery" value="'+escapeHtml(zukanFilter.query)+'" placeholder="'+displayText("なまえでさがす")+'" aria-label="'+displayText("なまえでさがす")+'"></div></div>';
+  }
+
   /* 小道の図鑑。本編とは別カウントで、その volume の種だけを並べる (ui_design 5 章)。
      捕獲済みは本編と同じ描画資産 (Q4BRender 経由の SVG)、未捕獲は ? 枠で残す。 */
   function zukanCardHtml(entry,record){
@@ -865,7 +904,7 @@
     }
     var art=(sp&&reward.svg)?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"";
     var size=Number.isFinite(record.max)?'<span>'+record.max+'mm</span>':"";
-    return '<li class="zukan-card'+(entry.flagship?' is-flagship':'')+'"><div class="zukan-art r'+(sp?sp.r:0)+'">'+art+'</div>'
+    return '<li class="zukan-card'+(entry.flagship?' is-flagship':'')+'" data-species-id="'+escapeHtml(entry.id)+'" tabindex="0" role="button"><div class="zukan-art r'+(sp?sp.r:0)+'">'+art+'</div>'
       +'<div class="zukan-name">'+displayText(sp?sp.jaName:entry.id)+'</div>'
       +'<div class="zukan-meta"><span class="zukan-tier r'+(sp?sp.r:0)+'">'+displayText(sp&&reward.TIERNAME?reward.TIERNAME[sp.r]:entry.rarity)+'</span>'
       +size+'<span>'+displayText(record.n+"匹")+'</span></div>'
@@ -874,14 +913,59 @@
 
   function renderZukan(volumeId){
     var volume=volumeById(volumeId),collection=viewCollection(),progress=volumeProgress(volume,collection);
-    var cards=volume.species.map(function(entry){
-      return zukanCardHtml(entry,collection.catches[entry.id]);
-    }).join("");
+    var reward=global.Q4BReward;
+    var entries=volume.species.map(function(entry){
+      return {entry:entry,sp:reward&&reward.spById?reward.spById(entry.id):null,record:collection.catches[entry.id]};
+    });
+    var shown=entries.filter(function(item){return zukanMatches(item.sp,item.record);});
+    var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
+      ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(volume.regionName+"の小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(volume.regionName+"の ずかん")+'</h1>'
-      +'<p>'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></p></div>'
+      +'<p>'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong>'
+      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
+      +zukanFilterBarHtml(entries)
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volume.id);});
+    bindZukanFilters(volume.id);
+    bindZukanCards(entries,volume.id);
+  }
+
+  function bindZukanFilters(volumeId){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-filter="rarity"]'),function(button){
+      button.addEventListener("click",function(){
+        zukanFilter.rarity=button.getAttribute("data-value");
+        renderZukan(volumeId);
+      });
+    });
+    var group=document.getElementById("zukanGroup");
+    if(group)group.addEventListener("change",function(){zukanFilter.group=group.value;renderZukan(volumeId);});
+    var caught=document.getElementById("zukanCaught");
+    if(caught)caught.addEventListener("change",function(){zukanFilter.caughtOnly=caught.checked;renderZukan(volumeId);});
+    var query=document.getElementById("zukanQuery");
+    if(query)query.addEventListener("input",function(){
+      zukanFilter.query=query.value;
+      renderZukan(volumeId);
+      var again=document.getElementById("zukanQuery");
+      if(again){again.focus();again.setSelectionRange(again.value.length,again.value.length);}
+    });
+  }
+
+  /* 捕獲済みカードをタップすると、本編と同じ詳細 (Q4BZukan.detailHTML) を開く。
+     detailHTML は捕獲記録と種を引数で受ける汎用 API なので、小道の記録をそのまま渡せる。 */
+  function bindZukanCards(entries,volumeId){
+    var detail=global.Q4BZukan;
+    if(!detail||!detail.detailHTML)return;
+    Array.prototype.forEach.call(document.querySelectorAll(".zukan-card[data-species-id]"),function(card){
+      card.addEventListener("click",function(){
+        var item=entries.filter(function(x){return x.entry.id===card.getAttribute("data-species-id");})[0];
+        if(!item||!item.record||!item.sp)return;
+        document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-zukan">← '+displayText("ずかん")+'</button></header>'
+          +'<section class="zukan-detail">'+detail.detailHTML(item.record,item.sp,{})+'</section></main>';
+        document.querySelector('[data-action="back-zukan"]').addEventListener("click",function(){renderZukan(volumeId);});
+        if(detail.attachLightbox)detail.attachLightbox();
+      });
+    });
   }
 
   function renderError(){

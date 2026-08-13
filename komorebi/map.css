@@ -193,3 +193,20 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .zukan-meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:5px;font-size:11.5px;color:#A9C79B}
 .zukan-tier{padding:1px 8px;border-radius:999px;background:#2F5C4A;color:#F3FFE2;font-weight:700}
 .zukan-flag{margin-top:6px;font-size:11px;font-weight:800;color:#FFD86B}
+
+/* 図鑑の絞り込み。本編と同じ語彙 (レア度 / なかま / つかまえたものだけ / なまえ)。 */
+.zukan-filters{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.zukan-chips{display:flex;flex-wrap:wrap;gap:6px}
+.zukan-chip{min-height:36px;padding:6px 13px;border:2px solid #3E6B57;border-radius:999px;
+  background:#12302A;color:#CFE7A8;font:800 13px/1.2 inherit;cursor:pointer}
+.zukan-chip.is-on{border-color:#FFD86B;background:#2A4A38;color:#FFE9A8}
+.zukan-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.zukan-controls select,.zukan-controls input[type="search"]{min-height:38px;padding:6px 10px;
+  border:2px solid #3E6B57;border-radius:10px;background:#12302A;color:#F3FFE2;font:700 13px/1.2 inherit}
+.zukan-controls input[type="search"]{flex:1;min-width:130px}
+.zukan-toggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#CFE7A8}
+.zukan-shown{font-size:13px;color:#A9C79B}
+.zukan-empty{grid-column:1/-1;padding:22px;text-align:center;color:#A9C79B;list-style:none}
+.zukan-card[data-species-id]{cursor:pointer}
+.zukan-detail{padding:14px;border:2px solid #2F5C4A;border-radius:16px;background:#0E2721}
+.zukan-chip:focus-visible,.zukan-card:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
