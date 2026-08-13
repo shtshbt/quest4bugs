@@ -21,6 +21,10 @@
     voice:{voice:true}
   };
   var profile=null, profileId=null, profileType="k10", worldMap=null;
+  /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
+     (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
+  var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
+  var demoMode=false;
 
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
   function hasOwn(object,key){return Object.prototype.hasOwnProperty.call(object,key);}
@@ -181,6 +185,15 @@
     validateCollection(collection);
     var caught=volume.species.reduce(function(count,species){return count+(hasOwn(collection.catches,species.id)?1:0);},0);
     return {regionId:volume.regionId,volumeId:volume.id,caught:caught,denominator:volume.denominator,complete:caught===volume.denominator};
+  }
+
+  function viewCollection(){
+    if(!demoMode)return profile.collection;
+    var catches={};
+    expeditionVolumes().forEach(function(volume){
+      volume.species.slice(0,demoProgress[volume.id]||0).forEach(function(species){catches[species.id]={n:1,min:20,max:20,records:[{size:20,sex:"m",shiny:false}]};});
+    });
+    return {gauge:profile.collection.gauge,totalCatches:0,catches:catches};
   }
 
   function mapPinState(volume,collection,currentVolumeId){
@@ -349,7 +362,7 @@
       regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(volume?' filter="url(#rich-glow)"':'')+'></path>';
     });
     volumes.forEach(function(volume){
-      var state=mapPinState(volume,profile.collection,currentId),point=worldMap.pins[volume.regionId];
+      var state=mapPinState(volume,viewCollection(),currentId),point=worldMap.pins[volume.regionId];
       var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
       var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":"完成した遠征";
       var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"")+(volume.id===selectedId?" pin-selected":"");
@@ -374,7 +387,7 @@
   }
 
   function pathPanelHtml(volume){
-    var progress=volumeProgress(volume,profile.collection),buttons="";
+    var progress=volumeProgress(volume,viewCollection()),buttons="";
     volume.categories.forEach(function(cat){
       buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("じゅんび中")+'</span></button>';
     });
@@ -446,6 +459,7 @@
     if(!global.QuestSave){renderError();return;}
     profileId=QuestSave.currentProfile();
     if(!profileId){renderError();return;}
+    demoMode=/[?&]demo\b/.test(global.location&&global.location.search||"");
     var pull=QuestSave.syncDown?QuestSave.syncDown().catch(function(){}):Promise.resolve();
     pull.then(function(){return Promise.all([QuestSave.load("komorebi",profileId),QuestSave.load("keisan",profileId),loadWorldMap()]);}).then(function(data){
       var normalized=normalizeProfile(data[0]);
