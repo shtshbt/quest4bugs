@@ -370,7 +370,7 @@
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-sea)"></rect><g class="rich-latitudes">'+graticuleHtml(box)+'</g>'
       +'<use href="#world-land" class="rich-land-shadow"></use><use href="#world-land" class="rich-land"></use>'+regionPaths
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" filter="url(#rich-grain)" opacity="0.05" class="rich-grain"></rect>'
-      +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+pins+'</div></div>';
+      +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+leader+pins+'</div></div>';
   }
 
   function pathPanelHtml(volume){
@@ -407,7 +407,8 @@
   function renderMap(selectedId){
     var volumes=expeditionVolumes(),currentId=currentVolumeId(volumes);
     validateMapPayload(worldMap,volumes);
-    var selected=volumeById(selectedId||currentId)||volumes[0];
+    /* 未知の id でも落とさない。volumeById は見つからないと例外を投げる。 */
+    var wanted=selectedId||currentId,selected=volumes.filter(function(volume){return volume.id===wanted;})[0]||volumes[0];
     /* 1 画面構成: 表題 / 地図 (どこ) / 引き出し線 / 小道の一覧 (主役)。
        地図はカテゴリを選ぶための文脈であって、地域選択を挟む関門にはしない。 */
     document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
@@ -452,7 +453,8 @@
       profileType=data[1]&&data[1].type==="k5"?"k5":"k10";
       worldMap=validateMapPayload(data[2],expeditionVolumes());
       return normalized.changed?saveProfile():true;
-    }).then(renderMap).catch(renderError);
+    /* renderMap を直接渡すと Promise の解決値が selectedId として届いてしまう。 */
+    }).then(function(){renderMap();}).catch(renderError);
   }
 
   global.Q4B_KOMOREBI={
