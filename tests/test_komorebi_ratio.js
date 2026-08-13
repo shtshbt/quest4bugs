@@ -114,8 +114,8 @@ test("diagnosis uses the single-shot four-choice renderer", () => {
 
 test("the waza card appears after correct and incorrect answers", () => {
   const question = context.Q4B_KOMOREBI_RATIO_GENERATOR.generate("find_base", 4, "normal", seeded(404));
-  const correct = komorebi.ratioFeedbackHtml(question, true, {capture:null});
-  const incorrect = komorebi.ratioFeedbackHtml(question, false, {capture:null});
+  const correct = komorebi.feedbackHtml(question, true, {capture:null});
+  const incorrect = komorebi.feedbackHtml(question, false, {capture:null});
   for(const html of [correct, incorrect]){
     assert.match(html, /ratio-waza/);
     assert.ok(html.includes(question.waza.primary));
@@ -137,7 +137,7 @@ test("one full five-question session completes the gauge and shows a capture", (
   assert.equal(profile.collection.gauge, 0);
   assert.equal(profile.collection.totalCatches, 1);
   assert.ok(result.capture);
-  assert.match(komorebi.ratioFeedbackHtml(questions[4], true, result), /ratio-capture/);
+  assert.match(komorebi.feedbackHtml(questions[4], true, result), /ratio-capture/);
 });
 
 test("adaptive progress never exceeds the ten authored curriculum levels", () => {

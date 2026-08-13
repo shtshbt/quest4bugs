@@ -11,7 +11,7 @@ var CORE = [
   "./keisan/index.html", "./keisan/app.js", "./keisan/style.css",
   "./shared/storage.js", "./shared/equipment_data.js", "./shared/bugs.js", "./shared/kanji_data.js", "./shared/eitango_data.js", "./shared/render.js",
   "./shared/bespoke.js", "./shared/reward.js", "./shared/shiny_bonus.js", "./shared/shiny_bonus.css", "./shared/hatching_lifecycle.js", "./shared/furigana.js",
-  "./shared/yomi.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
+  "./shared/yomi.js", "./shared/kuku_phrases.js", "./shared/battle.js", "./shared/boss_zukan.js", "./shared/colloc.js",
   "./shared/k5_devs_data.js",
   "./shared/zukan_detail.js", "./shared/zukan_render.js", "./shared/zukan_lightbox.js",
   "./shared/bug_archetypes.js", "./shared/breeding.js", "./shared/breeding_debug.js",

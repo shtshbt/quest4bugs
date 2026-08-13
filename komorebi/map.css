@@ -228,3 +228,23 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-modal-close{margin-top:12px;min-height:44px;padding:9px 22px;border:2px solid #3E6B57;border-radius:12px;
   background:#12302A;color:#CFE7A8;font:800 14px/1.2 inherit;cursor:pointer}
 .kom-modal-close:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+
+/* れんぞく九九。時間の可視要素 (カウントダウン・タイム表示) は置かない。
+   数字の選択肢は短いので、割合の縦積みではなく 2 列のマス目で出す。 */
+.kuku-num{text-align:center;font-size:22px;font-variant-numeric:tabular-nums}
+.kuku-choices{grid-template-columns:1fr 1fr}
+.kuku-flash{font-size:clamp(30px,9vw,44px);text-align:center;letter-spacing:.04em}
+.kuku-chain{display:flex;flex-wrap:wrap;gap:6px;min-height:34px;margin-bottom:14px}
+.kuku-link{padding:5px 10px;border-radius:999px;background:#1C4335;color:#DCEBCB;font-size:13.5px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.kuku-link.is-wrong{background:#4A241F;color:#FFD7CE}
+.kuku-scroll{margin:0 0 16px;padding:14px 16px;border:2px solid #B6963D;border-radius:14px;
+  background:linear-gradient(180deg,#2B3A24,#1A2D24)}
+.kuku-scroll-row{display:flex;justify-content:center;gap:6px;margin:6px 0;color:#DCEBCB;font-size:19px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.kuku-scroll-row strong{color:#F3FFE2}
+.kuku-scroll-row.is-blank{color:#FFE08A;font-size:23px}
+.kuku-scroll-row.is-blank strong{color:#FFE08A}
+.kuku-board{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 16px}
+.kuku-chip{padding:8px 13px;border:2px solid #4D765E;border-radius:12px;background:#17332B;color:#F3FFE2;
+  font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}

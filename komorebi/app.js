@@ -12,13 +12,20 @@
     flagshipWeight:0.25
   };
   var RARITIES=["N","R","SR"];
+  /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
+     登録漏れが即わかるほうがよい)。れんぞく九九はだんラン 1 本で 1 正答。 */
   var FORMAT_KINDS={
     normal:{num:true,frac:true,choice:true},
     formulation:{choice:true},
     ordering:{order:true},
     diagnosis:{choice:true},
     find_all:{choice:true},
-    voice:{voice:true}
+    voice:{voice:true},
+    dan_run:{run:true},
+    scroll_fill:{choice:true},
+    missing_find:{choice:true},
+    error_find:{choice:true},
+    flash:{choice:true}
   };
   var RATIO_SET_SIZE=5;
   var RATIO_FORM_MIX={
@@ -35,7 +42,7 @@
   };
   var RATIO_STATIC_LEVELS={ordering:[5,6,8],diagnosis:[4,6,7,9]};
   var RATIO_PATTERN_BY_LEVEL={4:"find_base",5:"discount",6:"two_step",7:"ratio_share",8:"soutou",9:"baibai"};
-  var profile=null, profileId=null, profileType="k10", worldMap=null, ratioPool=null, ratioSession=null;
+  var profile=null, profileId=null, profileType="k10", worldMap=null, ratioPool=null, session=null;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
   var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
@@ -231,6 +238,9 @@
   }
 
   function displayText(text){return formatCourseText(escapeHtml(text),profileType,global.furi5);}
+  /* 属性値にはふりがなを通さない。ruby の markup がそのまま読み上げられ、
+     placeholder ではタグが文字として表示されてしまう。 */
+  function attrText(text){return escapeHtml(text);}
 
   function validateRatioHistory(history){
     if(!isObject(history)||!Array.isArray(history.itemIds)||!Array.isArray(history.patternIds))throw new Error("割合の履歴データの形式が正しくありません");
@@ -557,12 +567,12 @@
     });
   }
 
-  function recordRatioSubmission(answer,volume,random,correct,elapsed){
+  function recordSubmission(cat,answer,volume,random,correct,elapsed){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     var before=JSON.parse(JSON.stringify(profile)),result;
     try{
-      result=applyAnswer(profile,"kom_ratio",answer,volume,random);
-      if(!result.duplicate)applyPerformance(profile,"kom_ratio",correct,elapsed);
+      result=applyAnswer(profile,cat,answer,volume,random);
+      if(!result.duplicate)applyPerformance(profile,cat,correct,elapsed);
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
     var saved;
@@ -620,13 +630,25 @@
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+leader+pins+'</div></div>';
   }
 
-  function ratioGaugeHtml(){
+  /* ここから下は学習セッションの共通シェル。ゲージ・Lv ドット・捕獲カード・
+     フィードバックはカテゴリを問わず同じものを出す (本編と乖離させないため)。
+     CSS の ratio-* クラスは割合専用ではなく、このシェル共通のもの。 */
+
+  function gaugeHtml(){
     return '<span class="ratio-gauge">'+displayText("採集ゲージ")+' <strong>'+displayText(profile.collection.gauge+'／'+COLLECTION_CONFIG.gaugeNeed)+'</strong></span>';
   }
 
+  /* まちがいさがしだけは「値」ではなく「行」を選ばせるため、選択肢の見た目が式になる。 */
+  function choiceLabels(question){
+    if(question.format==="error_find")return question.lines.map(function(line){return question.dan+"×"+line.b+"＝"+line.value;});
+    return question.choices.map(function(choice){return String(choice);});
+  }
+
   function ratioChoiceHtml(question){
-    return '<div class="ratio-choices">'+question.choices.map(function(choice,index){
-      return '<button type="button" class="ratio-choice" data-choice-index="'+index+'">'+displayText(choice)+'</button>';
+    /* 数字だけの選択肢は 2 列で出す。式を選ぶまちがいさがしは横幅がいるので 1 列のまま。 */
+    var numeric=question.cat==="kom_kuku_run"&&question.format!=="error_find";
+    return '<div class="ratio-choices'+(numeric?" kuku-choices":"")+'">'+choiceLabels(question).map(function(label,index){
+      return '<button type="button" class="ratio-choice'+(numeric?" kuku-num":"")+'" data-choice-index="'+index+'">'+displayText(label)+'</button>';
     }).join("")+'</div>';
   }
 
@@ -643,7 +665,7 @@
     var controls;
     if(question.kind==="choice")controls=ratioChoiceHtml(question);
     else if(question.kind==="order")controls=ratioOrderHtml(question);
-    else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+displayText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
+    else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
     return scaffold+'<h2>'+displayText(question.text)+'</h2>'+work+controls;
   }
 
@@ -651,6 +673,97 @@
     if(question.kind==="order")return question.ans.map(function(index){return question.parts[index];}).join(" → ");
     if(question.kind==="choice")return question.choices[expectedChoiceIndex(question)]||"";
     return String(question.ans);
+  }
+
+  /* --- れんぞく九九の画面 ---------------------------------------------------
+     時間の可視要素は一切置かない (categories 3.10)。速さは SRS の内部判定だけに
+     使い、子どもには見せない。カウントダウンも速度ボーナスも作らない。 */
+
+  function kukuEngine(){
+    var engine=global.Q4B_KOMOREBI_KUKU_RUN;
+    if(!engine)throw new Error("れんぞく九九を読み込めません");
+    return engine;
+  }
+
+  function kukuPhrase(dan,b){
+    var table=global.Q4B_KUKU_PHRASES;
+    if(!table)return "";
+    try{return table.phrase(dan,b);}catch(error){return "";}
+  }
+
+  /* 単一の句を問う形式だけが SRS の対象。factKey は "8x7" 形式で、まきものは
+     行を持つため top-level の b を持たない。ここで 1 か所に解釈をまとめる。 */
+  function kukuFact(question){
+    var parts=typeof question.factKey==="string"?question.factKey.split("x"):[];
+    if(parts.length!==2)return null;
+    var dan=Number(parts[0]),b=Number(parts[1]);
+    return Number.isInteger(dan)&&Number.isInteger(b)?{dan:dan,b:b}:null;
+  }
+
+  function kukuScaffoldHtml(question){
+    return question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
+  }
+
+  function kukuScrollHtml(question){
+    return '<div class="kuku-scroll">'+question.rows.map(function(row){
+      return '<p class="kuku-scroll-row'+(row.blank?" is-blank":"")+'"><span>'+displayText(question.dan+"×"+row.b+"＝")+'</span><strong>'+displayText(row.blank?"？":String(row.value))+'</strong></p>';
+    }).join("")+'</div>';
+  }
+
+  function kukuBoardHtml(question){
+    return '<div class="kuku-board">'+question.shown.map(function(value){
+      return '<span class="kuku-chip">'+displayText(String(value))+'</span>';
+    }).join("")+'</div>';
+  }
+
+  /* だんランは 1 本で 1 問。途中の句は鎖として残し、いま答える句だけを大きく出す。 */
+  function kukuChainHtml(question){
+    var state=session.runState,done="",step;
+    state.results.forEach(function(result,index){
+      var past=question.steps[index];
+      done+='<span class="kuku-link'+(result.correct?"":" is-wrong")+'">'+displayText(question.dan+"×"+past.b+"＝"+past.ans)+'</span>';
+    });
+    step=question.steps[state.step];
+    return '<div class="kuku-chain">'+done+'</div>'
+      +(step?'<h2>'+displayText(question.dan+"×"+step.b+"＝？")+'</h2>'
+        +'<div class="ratio-choices kuku-choices">'+step.choices.map(function(choice,index){
+          return '<button type="button" class="ratio-choice kuku-num" data-step-choice="'+index+'">'+displayText(String(choice))+'</button>';
+        }).join("")+'</div>':"");
+  }
+
+  function kukuQuestionBodyHtml(question){
+    if(question.format==="dan_run")return '<h2>'+displayText(question.dan+"のだんを つなげよう")+'</h2>'+kukuChainHtml(question);
+    var head=kukuScaffoldHtml(question);
+    if(question.format==="scroll_fill")return head+'<h2>'+displayText("まきものの あなを うめよう")+'</h2>'+kukuScrollHtml(question)+ratioChoiceHtml(question);
+    if(question.format==="missing_find")return head+'<h2>'+displayText(question.dan+"のだんで たりないのは？")+'</h2>'+kukuBoardHtml(question)+ratioChoiceHtml(question);
+    if(question.format==="error_find")return head+'<h2>'+displayText("まちがいは どれ？")+'</h2>'+ratioChoiceHtml(question);
+    return head+'<h2 class="kuku-flash">'+displayText(question.dan+"×"+question.b+"＝？")+'</h2>'+ratioChoiceHtml(question);
+  }
+
+  function kukuAnswerText(question){
+    if(question.format==="dan_run")return question.steps.map(function(step){return question.dan+"×"+step.b+"＝"+step.ans;}).join("　");
+    if(question.format==="error_find")return question.dan+"×"+question.lines[question.ans].b+"＝"+(question.dan*question.lines[question.ans].b);
+    return String(question.ans);
+  }
+
+  /* 答え合わせのあとに句を出す。想起の足場は「見せてから数問はさんで問う」ことで
+     効くので、正誤に関わらず出す (categories 3.10 の短ループ想起)。 */
+  function kukuPhraseCardHtml(question){
+    var fact=question.format==="dan_run"?null:kukuFact(question),phrase=fact?kukuPhrase(fact.dan,fact.b):"";
+    if(!phrase)return "";
+    return '<aside class="ratio-waza"><h3>'+displayText("く")+'</h3><p><span>'+displayText(phrase)+'</span></p></aside>';
+  }
+
+  function questionBodyHtml(question){
+    return question.cat==="kom_kuku_run"?kukuQuestionBodyHtml(question):ratioQuestionBodyHtml(question);
+  }
+
+  function answerText(question){
+    return question.cat==="kom_kuku_run"?kukuAnswerText(question):ratioAnswerText(question);
+  }
+
+  function judgeAnswer(question,answer){
+    return question.cat==="kom_kuku_run"?kukuEngine().judge(question,answer):judgeRatioAnswer(question,answer);
   }
 
   function wazaCardHtml(question){
@@ -681,10 +794,11 @@
       +note+'</div>';
   }
 
-  function ratioFeedbackHtml(question,correct,result){
+  function feedbackHtml(question,correct,result){
     var mark=correct?"正解！":"もう一歩！";
-    var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(ratioAnswerText(question))+'</p>';
-    return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'+answer+wazaCardHtml(question)+ratioCaptureHtml(result&&result.capture)+'</div>';
+    var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
+    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):wazaCardHtml(question);
+    return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -693,78 +807,134 @@
     var adapt=profile.adapt&&profile.adapt[cat],lv=(profile.lv&&profile.lv[cat])||1;
     var n=adapt?adapt.n:0,inBlock=n%10,recent=adapt?adapt.recent.slice(-inBlock):[],dots="";
     for(var i=0;i<10;i++)dots+=(i<inBlock)?(recent[i]?"●":"✗"):"○";
-    return '<span class="ratio-lv" aria-label="'+displayText("レベル"+lv+"、10問中"+inBlock+"問め")+'">Lv'+lv+'　'+dots+'</span>';
+    return '<span class="ratio-lv" aria-label="'+attrText("レベル"+lv+"、10問中"+inBlock+"問め")+'">Lv'+lv+'　'+dots+'</span>';
   }
 
-  function ratioSessionShell(body){
+  function sessionShell(body){
+    var cat=session.cat;
     return '<main class="kom-page ratio-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
-      +'<div class="ratio-session-head"><div><h1>'+displayText("割合と比")+'</h1><p>'+displayText("第"+(ratioSession.index+1)+"／"+RATIO_SET_SIZE+"問")+'</p>'+lvDotsHtml(ratioSession.cat||"kom_ratio")+'</div>'+ratioGaugeHtml()+'</div>'
+      +'<div class="ratio-session-head"><div><h1>'+displayText(CATEGORIES[cat].name)+'</h1><p>'+displayText("第"+(session.index+1)+"／"+session.questions.length+"問")+'</p>'+lvDotsHtml(cat)+'</div>'+gaugeHtml()+'</div>'
       +'<section class="ratio-panel">'+body+'</section></main>';
   }
 
   function renderOrderSelection(question){
     var list=document.getElementById("ratioOrderAnswer");
-    if(list)list.innerHTML=ratioSession.orderSelection.length?ratioSession.orderSelection.map(function(index){return '<li>'+displayText(question.parts[index])+'</li>';}).join(""):'<li class="ratio-order-placeholder">'+displayText("順番に選びましょう")+'</li>';
+    if(list)list.innerHTML=session.orderSelection.length?session.orderSelection.map(function(index){return '<li>'+displayText(question.parts[index])+'</li>';}).join(""):'<li class="ratio-order-placeholder">'+displayText("順番に選びましょう")+'</li>';
     Array.prototype.forEach.call(document.querySelectorAll("[data-part-index]"),function(button){
-      button.disabled=ratioSession.orderSelection.indexOf(Number(button.getAttribute("data-part-index")))>=0;
+      button.disabled=session.orderSelection.indexOf(Number(button.getAttribute("data-part-index")))>=0;
     });
     var submit=document.querySelector('[data-action="submit-order"]');
-    if(submit)submit.disabled=ratioSession.orderSelection.length!==question.parts.length;
+    if(submit)submit.disabled=session.orderSelection.length!==question.parts.length;
   }
 
-  function bindRatioQuestion(question){
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){ratioSession=null;renderMap(question.volumeId);});
+  /* 選択肢のタップは index で届く。判定側は「値」で比べるので、ここで値へ戻す。
+     まちがいさがしは選択肢そのものが行 index なので、どちらでも同じ値になる。 */
+  function choiceValue(question,index){
+    return question.cat==="kom_kuku_run"?question.choices[index]:index;
+  }
+
+  function bindQuestion(question){
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){session=null;renderMap(question.volumeId);});
     Array.prototype.forEach.call(document.querySelectorAll("[data-choice-index]"),function(button){
-      button.addEventListener("click",function(){submitRatioAnswer(Number(button.getAttribute("data-choice-index")));});
+      button.addEventListener("click",function(){submitAnswer(choiceValue(question,Number(button.getAttribute("data-choice-index"))));});
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-step-choice]"),function(button){
+      button.addEventListener("click",function(){submitRunStep(Number(button.getAttribute("data-step-choice")));});
     });
     Array.prototype.forEach.call(document.querySelectorAll("[data-part-index]"),function(button){
-      button.addEventListener("click",function(){ratioSession.orderSelection.push(Number(button.getAttribute("data-part-index")));renderOrderSelection(question);});
+      button.addEventListener("click",function(){session.orderSelection.push(Number(button.getAttribute("data-part-index")));renderOrderSelection(question);});
     });
     var reset=document.querySelector('[data-action="reset-order"]'),submit=document.querySelector('[data-action="submit-order"]');
-    if(reset)reset.addEventListener("click",function(){ratioSession.orderSelection=[];renderOrderSelection(question);});
-    if(submit)submit.addEventListener("click",function(){submitRatioAnswer(ratioSession.orderSelection.slice());});
+    if(reset)reset.addEventListener("click",function(){session.orderSelection=[];renderOrderSelection(question);});
+    if(submit)submit.addEventListener("click",function(){submitAnswer(session.orderSelection.slice());});
     var form=document.querySelector("[data-answer-form]");
-    if(form)form.addEventListener("submit",function(event){event.preventDefault();submitRatioAnswer(form.elements.answer.value);});
+    if(form)form.addEventListener("submit",function(event){event.preventDefault();submitAnswer(form.elements.answer.value);});
   }
 
-  function renderRatioQuestion(errorMessage){
-    var question=ratioSession.questions[ratioSession.index];
-    question.volumeId=ratioSession.volumeId;
-    ratioSession.orderSelection=[];
-    ratioSession.startedAt=Date.now();
+  /* 描画のやり直し。だんランは 1 問の途中で何度も描き直すため、計測の起点を
+     壊さないよう、初期化を行う renderQuestion とは分けてある。 */
+  function renderCurrent(errorMessage){
+    var question=session.questions[session.index];
+    question.volumeId=session.volumeId;
     var error=errorMessage?'<p class="ratio-error" role="alert">'+displayText(errorMessage)+'</p>':"";
-    document.getElementById("app").innerHTML=ratioSessionShell(error+ratioQuestionBodyHtml(question));
-    bindRatioQuestion(question);
+    document.getElementById("app").innerHTML=sessionShell(error+questionBodyHtml(question));
+    bindQuestion(question);
     if(question.kind==="order")renderOrderSelection(question);
   }
 
-  function renderRatioFeedback(question,correct,result){
-    var last=ratioSession.index===ratioSession.questions.length-1;
+  function renderQuestion(errorMessage){
+    var question=session.questions[session.index];
+    session.orderSelection=[];
+    session.startedAt=Date.now();
+    session.runState=question.format==="dan_run"?{step:0,results:[],startedAt:Date.now()}:null;
+    renderCurrent(errorMessage);
+  }
+
+  function renderFeedback(question,correct,result){
+    var last=session.index===session.questions.length-1;
     var label=last?"小道へ戻る":"次の問題";
-    document.getElementById("app").innerHTML=ratioSessionShell(ratioFeedbackHtml(question,correct,result)
+    document.getElementById("app").innerHTML=sessionShell(feedbackHtml(question,correct,result)
       +'<button type="button" class="ratio-next" data-action="ratio-next">'+displayText(label)+'</button>');
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=ratioSession.volumeId;ratioSession=null;renderMap(id);});
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;session=null;renderMap(id);});
     document.querySelector('[data-action="ratio-next"]').addEventListener("click",function(){
-      if(last){var id=ratioSession.volumeId;ratioSession=null;renderMap(id);}
-      else{ratioSession.index++;renderRatioQuestion();}
+      if(last){var id=session.volumeId;session=null;renderMap(id);}
+      else{session.index++;renderQuestion();}
     });
   }
 
-  function submitRatioAnswer(answer){
-    if(!ratioSession||ratioSession.pending)return;
-    var activeSession=ratioSession,question=activeSession.questions[activeSession.index],correct;
-    try{correct=judgeRatioAnswer(question,answer);}catch(error){renderRatioQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
+  /* 九九 SRS のデッキは初回の出題で作る。createProfile を変えると既存の保存データの
+     形が動くので、遅延生成にしてある。 */
+  function kukuDeck(){
+    if(!profile.srs.kuku)profile.srs.kuku=kukuEngine().createDeck();
+    return profile.srs.kuku;
+  }
+
+  function reviewKukuFact(dan,b,correct,ms){
+    var engine=kukuEngine(),deck=kukuDeck();
+    engine.noteAsked(deck);
+    engine.reviewFact(deck,dan,b,correct,ms);
+  }
+
+  /* だんランの 1 句。ここでは保存せず、鎖を終えた時点で 1 問として提出する。
+     句ごとのレイテンシは累加の検出に使うので、句単位で SRS に渡す。 */
+  function submitRunStep(choiceIndex){
+    if(!session||session.pending||!session.runState)return;
+    var question=session.questions[session.index],state=session.runState,step=question.steps[state.step];
+    if(!step)return;
+    var value=step.choices[choiceIndex],correct=value===step.ans;
+    reviewKukuFact(question.dan,step.b,correct,Math.max(0,Date.now()-state.startedAt));
+    state.results.push({correct:correct,value:value});
+    state.step++;
+    state.startedAt=Date.now();
+    if(state.step<question.steps.length){renderCurrent();return;}
+    submitAnswer(state.results.map(function(result){return result.value;}));
+  }
+
+  function submitAnswer(answer){
+    if(!session||session.pending)return;
+    var activeSession=session,question=activeSession.questions[activeSession.index],correct;
+    try{correct=judgeAnswer(question,answer);}catch(error){renderQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
     activeSession.pending=true;
     var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
     var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
     var elapsed=Math.max(0,Date.now()-activeSession.startedAt),volume=volumeById(activeSession.volumeId);
-    recordRatioSubmission(event,volume,Math.random,correct,elapsed).then(function(result){
-      if(ratioSession!==activeSession)return;
-      activeSession.pending=false;renderRatioFeedback(question,correct,result);
+    /* SRS は単一の句を想起させる形式だけに効かせる。まちがいさがし・たりないさがしは
+       盤面の走査であって句の想起ではないので、レイテンシを混ぜない。 */
+    var fact=(question.cat==="kom_kuku_run"&&(question.format==="scroll_fill"||question.format==="flash"))?kukuFact(question):null;
+    if(fact)reviewKukuFact(fact.dan,fact.b,correct,elapsed);
+    recordSubmission(activeSession.cat,event,volume,Math.random,correct,elapsed).then(function(result){
+      if(session!==activeSession)return;
+      activeSession.pending=false;renderFeedback(question,correct,result);
     }).catch(function(){
-      if(ratioSession!==activeSession)return;
-      activeSession.pending=false;renderRatioQuestion("答えを保存できませんでした。もう一度試してください。");
+      if(session!==activeSession)return;
+      activeSession.pending=false;renderQuestion("答えを保存できませんでした。もう一度試してください。");
     });
+  }
+
+  function beginSession(cat,volume,questions,sessionId){
+    session={id:sessionId,cat:cat,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,orderSelection:[],startedAt:0,runState:null};
+    renderQuestion();
+    return session;
   }
 
   function startRatioSession(volume,random){
@@ -780,37 +950,53 @@
     var saved;
     try{saved=saveProfile();}catch(error){profile.ratioHistory=previous;return Promise.reject(error);}
     return saved.then(function(){
-      ratioSession={id:sessionId,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,orderSelection:[],startedAt:0};
-      renderRatioQuestion();
-      return ratioSession;
+      return beginSession("kom_ratio",volume,questions,sessionId);
     }).catch(function(error){profile.ratioHistory=previous;throw error;});
   }
+
+  /* 割合と違って出題履歴を先に保存する必要がない (同じ句の反復こそが目的)。
+     SRS デッキの更新は解答のたびに提出と一緒に保存される。 */
+  function startKukuRunSession(volume,random){
+    if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_kuku_run")<0)return Promise.reject(new Error("この小道ではれんぞく九九を遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=kukuEngine().buildSet(profile.lv.kom_kuku_run,kukuDeck(),generatorRandom);
+      sessionId="kuku_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_kuku_run",volume,questions,sessionId));
+  }
+
+  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession};
 
   function pathPanelHtml(volume){
     var progress=volumeProgress(volume,viewCollection()),buttons="";
     volume.categories.forEach(function(cat){
-      if(cat==="kom_ratio")buttons+='<button type="button" class="path-choice" data-cat="kom_ratio"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
+      if(SESSION_STARTERS[cat])buttons+='<button type="button" class="path-choice" data-cat="'+cat+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
       else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("準備中")+'</span></button>';
     });
     /* 地域の形は世界地図の実寸では読めない (コスタリカは幅 11、豪は 137)。
        形はここで単独に大きく描き、地図は位置を示す役に徹する。 */
     var box=worldMap.regionBoxes&&worldMap.regionBoxes[volume.regionId];
-    var shape=box?'<svg class="path-shape" viewBox="'+box.join(" ")+'" role="img" aria-label="'+displayText(volume.regionName+"の形")+'"><path d="'+escapeHtml(worldMap.regions[volume.regionId])+'"></path></svg>':"";
+    var shape=box?'<svg class="path-shape" viewBox="'+box.join(" ")+'" role="img" aria-label="'+attrText(volume.regionName+"の形")+'"><path d="'+escapeHtml(worldMap.regions[volume.regionId])+'"></path></svg>':"";
     return '<div class="path-place">'+shape+'<div class="path-place-text"><h2>'+displayText(volume.regionName+"の小道")+'</h2><p>'+displayText(volume.blurb)+'</p></div></div>'
-      +'<div class="path-choices" aria-label="'+displayText("あるく小道を えらぼう")+'">'+buttons+'</div>'
+      +'<div class="path-choices" aria-label="'+attrText("あるく小道を えらぼう")+'">'+buttons+'</div>'
       +'<div class="path-foot"><button type="button" class="path-zukan" data-action="zukan">📖 '+displayText(volume.regionName+"の ずかん")+'</button>'
       +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></span></div>';
   }
 
   function bindPathPanel(volume){
     document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(volume.id);});
-    var ratioButton=document.querySelector('#pathPanel [data-cat="kom_ratio"]');
-    if(ratioButton)ratioButton.addEventListener("click",function(){
-      ratioButton.disabled=true;
-      startRatioSession(volume,Math.random).catch(function(){
-        ratioButton.disabled=false;
-        var panel=document.getElementById("pathPanel");
-        if(panel&&!panel.querySelector(".ratio-start-error"))panel.insertAdjacentHTML("afterbegin",'<p class="ratio-start-error" role="alert">'+displayText("割合問題を始められませんでした。もう一度試してください。")+'</p>');
+    Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-cat]"),function(button){
+      var cat=button.getAttribute("data-cat"),start=SESSION_STARTERS[cat];
+      if(!start)return;
+      button.addEventListener("click",function(){
+        button.disabled=true;
+        start(volume,Math.random).catch(function(){
+          button.disabled=false;
+          var panel=document.getElementById("pathPanel");
+          if(panel&&!panel.querySelector(".ratio-start-error"))panel.insertAdjacentHTML("afterbegin",'<p class="ratio-start-error" role="alert">'+displayText(CATEGORIES[cat].name+"を始められませんでした。もう一度試してください。")+'</p>');
+        });
       });
     });
   }
@@ -844,7 +1030,7 @@
        地図はカテゴリを選ぶための文脈であって、地域選択を挟む関門にはしない。 */
     document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
       +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("あるく小道を えらぼう")+'</p></div>'
-      +'<section class="map-panel" aria-label="'+displayText("世界の地図")+'">'+mapArtworkHtml(volumes,currentId,selected.id)+'</section>'
+      +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(volumes,currentId,selected.id)+'</section>'
       +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section></main>';
     bindPathPanel(selected);
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
@@ -887,10 +1073,10 @@
     var groupOpts='<option value="">'+displayText("すべての なかま")+'</option>'+groups.map(function(key){
       return '<option value="'+escapeHtml(key)+'"'+(zukanFilter.group===key?" selected":"")+'>'+displayText(key)+'</option>';
     }).join("");
-    return '<div class="zukan-filters"><div class="zukan-chips" role="group" aria-label="'+displayText("レア度でしぼる")+'">'+tiers+'</div>'
-      +'<div class="zukan-controls"><select id="zukanGroup" aria-label="'+displayText("なかまでしぼる")+'">'+groupOpts+'</select>'
+    return '<div class="zukan-filters"><div class="zukan-chips" role="group" aria-label="'+attrText("レア度でしぼる")+'">'+tiers+'</div>'
+      +'<div class="zukan-controls"><select id="zukanGroup" aria-label="'+attrText("なかまでしぼる")+'">'+groupOpts+'</select>'
       +'<label class="zukan-toggle"><input type="checkbox" id="zukanCaught"'+(zukanFilter.caughtOnly?" checked":"")+'>'+displayText("つかまえたものだけ")+'</label>'
-      +'<input type="search" id="zukanQuery" value="'+escapeHtml(zukanFilter.query)+'" placeholder="'+displayText("なまえでさがす")+'" aria-label="'+displayText("なまえでさがす")+'"></div></div>';
+      +'<input type="search" id="zukanQuery" value="'+escapeHtml(zukanFilter.query)+'" placeholder="'+attrText("なまえでさがす")+'" aria-label="'+attrText("なまえでさがす")+'"></div></div>';
   }
 
   /* 小道の図鑑。本編とは別カウントで、その volume の種だけを並べる (ui_design 5 章)。
@@ -1059,8 +1245,10 @@
     judgeRatioAnswer:judgeRatioAnswer,
     ratioQuestionBodyHtml:ratioQuestionBodyHtml,
     wazaCardHtml:wazaCardHtml,
-    ratioFeedbackHtml:ratioFeedbackHtml,
+    feedbackHtml:feedbackHtml,
+    kukuQuestionBodyHtml:kukuQuestionBodyHtml,
     startRatioSession:startRatioSession,
+    startKukuRunSession:startKukuRunSession,
     formatCourseText:formatCourseText,
     applyPerformance:applyPerformance,
     recordResult:recordResult,
