@@ -124,6 +124,24 @@ def split_antimeridian(ring):
     return [segment for segment in segments if len(segment) >= 3]
 
 
+def bounding_box(rings, frame, pad_ratio=0.12):
+    """Projected bounds of a region, padded, for drawing it alone at a legible size.
+
+    At world scale Madagascar is a few pixels wide, so the shape has to be shown
+    somewhere else; the panel renders the region with this box as its viewBox.
+    """
+    points = [frame.place(lon, lat)
+              for ring in rings for piece in split_antimeridian(ring) for lon, lat in piece]
+    xs = [x for x, _ in points]
+    ys = [y for _, y in points]
+    if not xs:
+        raise ValueError("region has no points")
+    width, height = max(xs) - min(xs), max(ys) - min(ys)
+    pad = max(width, height) * pad_ratio
+    return [round(min(xs) - pad, 1), round(min(ys) - pad, 1),
+            round(width + pad * 2, 1), round(height + pad * 2, 1)]
+
+
 def to_path(rings, frame, precision=1):
     parts = []
     for ring in [piece for ring in rings for piece in split_antimeridian(ring)]:
@@ -183,6 +201,7 @@ def main(argv=None):
         "source": "Natural Earth via world-atlas countries-110m (public domain)",
         "land": to_path(land_rings, frame),
         "regions": {},
+        "regionBoxes": {},
         "pins": {},
     }
 
@@ -191,12 +210,14 @@ def main(argv=None):
         if not rings:
             raise ValueError(f"no outline found for region {region}")
         payload["regions"][region] = to_path(rings, frame)
+        payload["regionBoxes"][region] = bounding_box(rings, frame)
 
     regions_def = json.loads(REGIONS_FILE.read_text(encoding="utf-8"))
     for region, definition in regions_def.items():
         if definition.get("geometry"):
-            payload["regions"][region] = to_path(
-                [parse_wkt_polygon(definition["geometry"])], frame)
+            ring = parse_wkt_polygon(definition["geometry"])
+            payload["regions"][region] = to_path([ring], frame)
+            payload["regionBoxes"][region] = bounding_box([ring], frame)
 
     for region, (lon, lat) in REGION_PINS.items():
         x, y = frame.place(lon, lat)

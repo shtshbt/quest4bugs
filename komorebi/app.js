@@ -391,7 +391,11 @@
     volume.categories.forEach(function(cat){
       buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("じゅんび中")+'</span></button>';
     });
-    return '<div class="path-place"><h2>'+displayText(volume.regionName+"の小道")+'</h2><p>'+displayText(volume.blurb)+'</p></div>'
+    /* 地域の形は世界地図の実寸では読めない (コスタリカは幅 11、豪は 137)。
+       形はここで単独に大きく描き、地図は位置を示す役に徹する。 */
+    var box=worldMap.regionBoxes&&worldMap.regionBoxes[volume.regionId];
+    var shape=box?'<svg class="path-shape" viewBox="'+box.join(" ")+'" role="img" aria-label="'+displayText(volume.regionName+"の形")+'"><path d="'+escapeHtml(worldMap.regions[volume.regionId])+'"></path></svg>':"";
+    return '<div class="path-place">'+shape+'<div class="path-place-text"><h2>'+displayText(volume.regionName+"の小道")+'</h2><p>'+displayText(volume.blurb)+'</p></div></div>'
       +'<div class="path-choices" aria-label="'+displayText("あるく小道を えらぼう")+'">'+buttons+'</div>'
       +'<div class="path-foot"><button type="button" class="path-zukan" data-action="zukan">📖 '+displayText(volume.regionName+"の ずかん")+'</button>'
       +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></span></div>';

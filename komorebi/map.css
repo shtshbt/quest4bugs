@@ -101,3 +101,12 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .path-progress strong{color:#FFE9A8;font-size:16px}
 .path-choice:focus-visible,.path-zukan:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.map-leader{animation:none}}
+
+/* 地域の形。世界地図では小さすぎて読めないので、ここで単独に大きく見せる。 */
+.path-place{display:flex;align-items:flex-start;gap:14px}
+.path-place-text{flex:1;min-width:0}
+.path-shape{flex:none;width:88px;height:88px;padding:6px;border:1px solid #2F5C4A;border-radius:12px;
+  background:radial-gradient(circle at 50% 45%,#123832,#0A231F)}
+.path-shape path{fill:#FFD86B;fill-opacity:.9;stroke:#FFF3D2;stroke-width:1.2;stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(255,216,107,.55))}
+@media (min-width:520px){.path-shape{width:112px;height:112px}}
