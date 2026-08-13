@@ -43,21 +43,21 @@
     id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",
     /* 更新 2 の枠 (release_linkage 2 章)。kom_pi314 は release 2 なので、
        ここに挙げても CURRENT_RELEASE を上げるまで画面には出ない。 */
-    categories:["kom_ratio","kom_kuku_dan2","kom_pi314"],
+    categories:["kom_ratio","kom_kuku_dan2","kom_pi314","kom_kuku_dan5"],
     blurb:"南半球の大陸。日本の 20 倍。かわいた大地とユーカリの森が広がる。",
     prefix:"kom_fixture_au", counts:{n:6,r:3,sr:1}
   });
 
   volumes.volume_fixture_borneo=volume({
     id:"volume_fixture_borneo", regionId:"borneo", regionName:"ボルネオ",
-    categories:["kom_kuku_run","kom_kuku_dan2"],
+    categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3"],
     blurb:"世界で 3 番目に大きな島。3 つの国にまたがる熱帯雨林。",
     prefix:"kom_fixture_bo", counts:{n:5,r:2,sr:1}
   });
 
   volumes.volume_fixture_costa_rica=volume({
     id:"volume_fixture_costa_rica", regionId:"costa_rica", regionName:"コスタリカ",
-    categories:["kom_ratio"],
+    categories:["kom_ratio","kom_kuku_dan4"],
     blurb:"中央アメリカの小さな国。九州ほどの広さに世界の生きものの 5% がすむ。",
     prefix:"kom_fixture_cr", counts:{n:6,r:2,sr:1}
   });

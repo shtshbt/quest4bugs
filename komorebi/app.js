@@ -12,7 +12,17 @@
     kom_ratio:{course:"k10",name:"割合と比",maxLv:10,release:1},
     kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10,release:1},
     kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
-    kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2}
+    kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2},
+    /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
+       (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
+       毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
+    kom_kuku_dan5:{course:"k5",name:"5の段暗唱",maxLv:10,release:2},
+    kom_kuku_dan3:{course:"k5",name:"3の段暗唱",maxLv:10,release:3},
+    kom_kuku_dan4:{course:"k5",name:"4の段暗唱",maxLv:10,release:4},
+    kom_kuku_dan6:{course:"k5",name:"6の段暗唱",maxLv:10,release:5},
+    kom_kuku_dan7:{course:"k5",name:"7の段暗唱",maxLv:10,release:6},
+    kom_kuku_dan8:{course:"k5",name:"8の段暗唱",maxLv:10,release:7},
+    kom_kuku_dan9:{course:"k5",name:"9の段暗唱",maxLv:10,release:8}
   };
 
   function isReleased(cat){

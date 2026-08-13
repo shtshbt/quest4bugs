@@ -35,6 +35,27 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.currentRelease(), 1);
   });
 
+  test("the eight recitation tables unlock in teaching order, one per update", () => {
+    /* 指導順 (2, 5, 3, 4, 6, 7, 8, 9)。毎更新に k5 の弾が 1 本届く並びで、
+       エンジンは段番号駆動なので実装は CATEGORIES の 1 行だけ。 */
+    const dans = Object.keys(komorebi.categories)
+      .map(cat => /^kom_kuku_dan(\d)$/.exec(cat))
+      .filter(Boolean)
+      .map(m => ({ cat: m[0], dan: Number(m[1]), release: komorebi.categories[m[0]].release }))
+      .sort((a, b) => a.release - b.release);
+    assert.deepEqual(dans.map(entry => entry.dan), [2, 5, 3, 4, 6, 7, 8, 9]);
+    assert.deepEqual(dans.map(entry => entry.release), [1, 2, 3, 4, 5, 6, 7, 8]);
+    dans.forEach(entry => {
+      assert.ok(komorebi.sessionStarters[entry.cat], entry.cat + " has no starter");
+      assert.equal(komorebi.categories[entry.cat].course, "k5");
+      /* 段番号がそのままエンジンへ渡ることを、句の生成まで下りて確かめる。 */
+      const chunks = context.Q4B_KOMOREBI_KUKU_DAN2.buildSet(entry.dan, 1, () => 0.5);
+      assert.equal(chunks.length, 5);
+      assert.equal(chunks[0].dan, entry.dan);
+      assert.equal(chunks[0].phrases[0].phrase, context.Q4B_KUKU_PHRASES.phrase(entry.dan, chunks[0].phrases[0].b));
+    });
+  });
+
   test("the release number matches the first row of the update calendar", () => {
     /* 更新カレンダー (docs/komorebi_release_linkage.md 2 章) との齟齬を防ぐ。 */
     const calendar = fs.readFileSync(path.join(root, "docs/komorebi_release_linkage.md"), "utf8");
