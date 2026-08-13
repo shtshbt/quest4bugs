@@ -954,18 +954,52 @@
   /* 捕獲済みカードをタップすると、本編と同じ詳細 (Q4BZukan.detailHTML) を開く。
      detailHTML は捕獲記録と種を引数で受ける汎用 API なので、小道の記録をそのまま渡せる。 */
   function bindZukanCards(entries,volumeId){
-    var detail=global.Q4BZukan;
-    if(!detail||!detail.detailHTML)return;
     Array.prototype.forEach.call(document.querySelectorAll(".zukan-card[data-species-id]"),function(card){
-      card.addEventListener("click",function(){
+      function open(){
         var item=entries.filter(function(x){return x.entry.id===card.getAttribute("data-species-id");})[0];
-        if(!item||!item.record||!item.sp)return;
-        document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-zukan">← '+displayText("ずかん")+'</button></header>'
-          +'<section class="zukan-detail">'+detail.detailHTML(item.record,item.sp,{})+'</section></main>';
-        document.querySelector('[data-action="back-zukan"]').addEventListener("click",function(){renderZukan(volumeId);});
-        if(detail.attachLightbox)detail.attachLightbox();
+        if(item&&item.record&&item.sp)openZukanModal(item);
+      }
+      card.addEventListener("click",open);
+      card.addEventListener("keydown",function(event){
+        if(event.key==="Enter"||event.key===" "){event.preventDefault();open();}
       });
     });
+  }
+
+  /* 本編 keisan の図鑑詳細と同じ体裁: 背景タップで閉じるモーダル、種名・レア度・
+     捕獲サイズ・学名・分類・注意・説明の順。中身は共有の Q4BZukan.detailHTML。 */
+  function openZukanModal(item){
+    closeZukanModal();
+    var reward=global.Q4BReward,sp=item.sp,record=item.record,tier=sp.r;
+    var size=sp.sizeMm?sp.sizeMm[0]+"〜"+sp.sizeMm[1]+"mm":"";
+    var caught=Number.isFinite(record.max)?record.max+"mm":"";
+    var detail=(global.Q4BZukan&&global.Q4BZukan.detailHTML)?global.Q4BZukan.detailHTML(record,sp,{}):"";
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komZukanModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +'<div class="kom-modal-art r'+tier+'">'+(reward.svg?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"")+'</div>'
+      +'<h3>'+displayText(sp.jaName)+'</h3>'
+      +'<p><span class="zukan-tier r'+tier+'">'+displayText(reward.TIERNAME[tier])+'</span>　'+displayText("×"+record.n)+'</p>'
+      +(caught?'<p class="kom-modal-size">'+displayText("つかまえた おおきさ")+' <b>'+caught+'</b>'+(size?'　'+displayText("（種の範囲: "+size+"）"):"")+'</p>':"")
+      +(sp.scientificName?'<p class="kom-modal-sci"><i>'+escapeHtml(sp.scientificName)+'</i></p>':"")
+      +'<p class="kom-modal-taxon">'+displayText([sp.orderJa,sp.familyJa,sp.groupJa].filter(Boolean).join(" / "))+'</p>'
+      +(sp.caution?'<p class="kom-modal-caution">'+displayText(sp.caution)+'</p>':"")
+      +(sp.note?'<p class="kom-modal-note">'+displayText(sp.note)+'</p>':"")
+      +detail
+      +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      if(event.target===overlay||event.target.className==="kom-modal-close")closeZukanModal();
+    });
+    document.body.appendChild(overlay);
+    if(global.Q4BZukan&&global.Q4BZukan.attachLightbox)global.Q4BZukan.attachLightbox();
+    var close=overlay.querySelector(".kom-modal-close");
+    if(close)close.focus();
+  }
+
+  function closeZukanModal(){
+    var existing=document.getElementById("komZukanModal");
+    if(existing&&existing.parentNode)existing.parentNode.removeChild(existing);
   }
 
   function renderError(){
