@@ -1,0 +1,1001 @@
+[
+ {
+  "id": "benihoshi_oo_ageha",
+  "jaName": "ベニホシオオアゲハ",
+  "scientificName": "Pharmacophagus antenor",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "groupJa": "アゲハ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#221F1C",
+   "#D63C5E"
+  ],
+  "tags": [
+   "butterfly",
+   "papilionidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "マダガスカルでいちばん大きなアゲハ。うしろのはねに赤い星がならぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   110,
+   140
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    110,
+    132
+   ],
+   "f": [
+    118,
+    140
+   ]
+  }
+ },
+ {
+  "id": "usuki_obi_ageha",
+  "jaName": "ウスキオビアゲハ",
+  "scientificName": "Papilio delalandei",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "groupJa": "アゲハ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#2A2723",
+   "#EDE0B0"
+  ],
+  "tags": [
+   "butterfly",
+   "papilionidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "黒いはねにうすい黄色の帯がならぶ大きなアゲハ。マダガスカルの森にすむよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   90,
+   115
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    90,
+    108
+   ],
+   "f": [
+    95,
+    115
+   ]
+  }
+ },
+ {
+  "id": "midori_suji_ageha",
+  "jaName": "ミドリスジアゲハ",
+  "scientificName": "Graphium cyrnus",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "groupJa": "アゲハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#26241F",
+   "#9BD4A0"
+  ],
+  "tags": [
+   "butterfly",
+   "papilionidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "くろいはねを走る緑のすじがすきとおる。マダガスカルの森のアゲハだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   60,
+   75
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    60,
+    70
+   ],
+   "f": [
+    63,
+    75
+   ]
+  }
+ },
+ {
+  "id": "onaga_suji_ageha",
+  "jaName": "オナガスジアゲハ",
+  "scientificName": "Graphium evombar",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "groupJa": "アゲハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#262320",
+   "#D8E4C0"
+  ],
+  "tags": [
+   "butterfly",
+   "papilionidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest",
+   "river"
+  ],
+  "note": "うすい緑のすじと長い尾を持つアゲハ。川べりのしめった地面に集まるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   55,
+   80
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    55,
+    74
+   ],
+   "f": [
+    60,
+    80
+   ]
+  }
+ },
+ {
+  "id": "madara_tsumaaka_shirochou",
+  "jaName": "マダラツマアカシロチョウ",
+  "scientificName": "Colotis amata",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Pieridae",
+  "familyJa": "シロチョウ科",
+  "groupJa": "シロチョウ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#F5F0E6",
+   "#E8724A"
+  ],
+  "tags": [
+   "butterfly",
+   "pieridae",
+   "overseas"
+  ],
+  "habitat": [
+   "grassland"
+  ],
+  "note": "白いはねの先がサーモン色にそまるシロチョウ。かんそうした草地をとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   45
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    42
+   ],
+   "f": [
+    35,
+    45
+   ]
+  }
+ },
+ {
+  "id": "afurika_usuki_shirochou",
+  "jaName": "アフリカウスキシロチョウ",
+  "scientificName": "Catopsilia florella",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Pieridae",
+  "familyJa": "シロチョウ科",
+  "groupJa": "シロチョウ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#F0EBB4",
+   "#BFD08E"
+  ],
+  "tags": [
+   "butterfly",
+   "pieridae",
+   "overseas",
+   "migratory"
+  ],
+  "habitat": [
+   "garden",
+   "grassland"
+  ],
+  "note": "うすい黄色のはねで、たくさんのなかまとむれになってとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   50,
+   65
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    50,
+    60
+   ],
+   "f": [
+    53,
+    65
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは 白っぽく、メスは 黄色みが つよいよ。"
+ },
+ {
+  "id": "shinju_tateha",
+  "jaName": "シンジュタテハ",
+  "scientificName": "Protogoniomorpha duprei",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#EDE7F2",
+   "#7A5FA8"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "しんじゅのように白く光る大きなタテハ。見るむきでむらさきにかわるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   70,
+   95
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    70,
+    88
+   ],
+   "f": [
+    75,
+    95
+   ]
+  }
+ },
+ {
+  "id": "obimon_tateha",
+  "jaName": "オビモンタテハ",
+  "scientificName": "Precis andremiaja",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#C96A25",
+   "#3A2A1E"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest_edge",
+   "grassland"
+  ],
+  "note": "だいだい色のはねに太い帯がはしるタテハ。マダガスカルだけにすむよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   45,
+   60
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    45,
+    55
+   ],
+   "f": [
+    50,
+    60
+   ]
+  }
+ },
+ {
+  "id": "rurimon_kuro_tatehamodoki",
+  "jaName": "ルリモンクロタテハモドキ",
+  "scientificName": "Junonia oenone",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#1E1B1A",
+   "#2E63D6"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "blue"
+  ],
+  "habitat": [
+   "grassland",
+   "forest_edge"
+  ],
+  "note": "黒いはねに青くかがやくもんが1つ。日なたの地面によくとまるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   45,
+   60
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    45,
+    55
+   ],
+   "f": [
+    50,
+    60
+   ]
+  }
+ },
+ {
+  "id": "chairo_tatehamodoki",
+  "jaName": "チャイロタテハモドキ",
+  "scientificName": "Junonia goudotii",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#8C6238",
+   "#4A3324"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "grassland",
+   "forest_edge"
+  ],
+  "note": "茶色いはねに小さな目玉もよう。かれ葉にまぎれてじっとしているよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   38,
+   50
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    38,
+    46
+   ],
+   "f": [
+    42,
+    50
+   ]
+  }
+ },
+ {
+  "id": "afurika_yamato_shijimi",
+  "jaName": "アフリカヤマトシジミ",
+  "scientificName": "Zizeeria knysna",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Lycaenidae",
+  "familyJa": "シジミチョウ科",
+  "groupJa": "シジミ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "shijimi",
+  "colors": [
+   "#7E8FD1",
+   "#9C9384"
+  ],
+  "tags": [
+   "butterfly",
+   "lycaenidae",
+   "overseas"
+  ],
+  "habitat": [
+   "grassland",
+   "garden"
+  ],
+  "note": "日本のヤマトシジミにそっくりな小さなチョウ。草地をひらひらとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   18,
+   26
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    18,
+    24
+   ],
+   "f": [
+    19,
+    26
+   ]
+  }
+ },
+ {
+  "id": "medama_yamamayu",
+  "jaName": "メダマヤママユ",
+  "scientificName": "Antherina suraka",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Saturniidae",
+  "familyJa": "ヤママユガ科",
+  "groupJa": "ガ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#C9702E",
+   "#3B3129"
+  ],
+  "tags": [
+   "moth",
+   "saturniidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "はね4まいすべてに大きな目玉もよう。夜の森をとぶマダガスカルのガだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   100,
+   140
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    100,
+    130
+   ],
+   "f": [
+    110,
+    140
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "メスの ほうが 大きくて まるみが あるよ。"
+ },
+ {
+  "id": "chairo_oo_yamamayu",
+  "jaName": "チャイロオオヤママユ",
+  "scientificName": "Bunaea aslauga",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Saturniidae",
+  "familyJa": "ヤママユガ科",
+  "groupJa": "ガ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#5B3D28",
+   "#E8E2D2"
+  ],
+  "tags": [
+   "moth",
+   "saturniidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "こげ茶色の大きなガ。うしろのはねに白い目玉もようが1つずつあるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   95,
+   130
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    95,
+    120
+   ],
+   "f": [
+    105,
+    130
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "メスの ほうが ひとまわり 大きいよ。"
+ },
+ {
+  "id": "fujiiro_suzume",
+  "jaName": "フジイロスズメ",
+  "scientificName": "Batocnema coquerelii",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Sphingidae",
+  "familyJa": "スズメガ科",
+  "groupJa": "スズメガ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#7A6A4E",
+   "#C89AB4"
+  ],
+  "tags": [
+   "moth",
+   "sphingid",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "うしろのはねがうすむらさき色の大きなスズメガ。夜の花のみつをすうよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   90,
+   125
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    90,
+    115
+   ],
+   "f": [
+    95,
+    125
+   ]
+  }
+ },
+ {
+  "id": "fukurou_tomoe",
+  "jaName": "フクロウトモエ",
+  "scientificName": "Erebus walkeri",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Erebidae",
+  "familyJa": "ヤガ科",
+  "groupJa": "ガ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#4A3A2E",
+   "#B9A277"
+  ],
+  "tags": [
+   "moth",
+   "erebidae",
+   "overseas"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "はねの目玉もようがフクロウの顔みたい。夜の森でくらす大きなガだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   85,
+   115
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    85,
+    105
+   ],
+   "f": [
+    90,
+    115
+   ]
+  }
+ },
+ {
+  "id": "tatesuji_yaga",
+  "jaName": "タテスジヤガ",
+  "scientificName": "Melipotis perpendicularis",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Erebidae",
+  "familyJa": "ヤガ科",
+  "groupJa": "ガ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#8A7C68",
+   "#3A322A"
+  ],
+  "tags": [
+   "moth",
+   "erebidae",
+   "overseas",
+   "camouflage"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "はねにまっすぐな線がはしるガ。木のはだにとまるとほとんど見えないよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   42
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    38
+   ],
+   "f": [
+    32,
+    42
+   ]
+  }
+ },
+ {
+  "id": "saku_kikuimushi",
+  "jaName": "サクキクイムシ",
+  "scientificName": "Xylosandrus crassiusculus",
+  "taxonRank": "species",
+  "order": "Coleoptera",
+  "family": "Curculionidae",
+  "familyJa": "ゾウムシ科",
+  "groupJa": "ゾウムシ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "other",
+  "colors": [
+   "#7A4A28",
+   "#3A2418"
+  ],
+  "tags": [
+   "beetle",
+   "weevil",
+   "overseas"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "木のみきにあなをほり、中でキノコをそだてて食べる小さな虫だよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   1.5,
+   3
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    1.5,
+    2.2
+   ],
+   "f": [
+    2.2,
+    3
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "オスは とても 小さくて とばないよ。"
+ },
+ {
+  "id": "kinoko_kikuimushi",
+  "jaName": "キノコキクイムシ",
+  "scientificName": "Xyleborus affinis",
+  "taxonRank": "species",
+  "order": "Coleoptera",
+  "family": "Curculionidae",
+  "familyJa": "ゾウムシ科",
+  "groupJa": "ゾウムシ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "other",
+  "colors": [
+   "#8C6A42",
+   "#4A3520"
+  ],
+  "tags": [
+   "beetle",
+   "weevil",
+   "overseas"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "たおれ木のトンネルで家族とくらす、えんぴつのしんより細い虫だよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   1.5,
+   3
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    1.5,
+    2
+   ],
+   "f": [
+    2.2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "madagasukaru_ooari",
+  "jaName": "マダガスカルオオアリ",
+  "scientificName": "Camponotus dufouri",
+  "taxonRank": "species",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "groupJa": "アリ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ari",
+  "colors": [
+   "#3A2A20",
+   "#A05230"
+  ],
+  "tags": [
+   "ant",
+   "hymenoptera",
+   "overseas",
+   "social"
+  ],
+  "habitat": [
+   "forest",
+   "ground"
+  ],
+  "note": "マダガスカルの森でくらす大きなアリ。かれ木のあなにすを作るよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   5,
+   13
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    5,
+    9
+   ],
+   "f": [
+    6,
+    13
+   ]
+  }
+ },
+ {
+  "id": "usu_hime_kiari",
+  "jaName": "ウスヒメキアリ",
+  "scientificName": "Plagiolepis alluaudi",
+  "taxonRank": "species",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "groupJa": "アリ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ari",
+  "colors": [
+   "#D8B45C",
+   "#A87C34"
+  ],
+  "tags": [
+   "ant",
+   "hymenoptera",
+   "overseas",
+   "social"
+  ],
+  "habitat": [
+   "ground",
+   "garden"
+  ],
+  "note": "1ミリほどのうすい黄色のアリ。あまいものを見つけると行れつを作るよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   1.3,
+   2
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    1.3,
+    1.8
+   ],
+   "f": [
+    1.5,
+    2
+   ]
+  }
+ },
+ {
+  "id": "afurika_shiwaari",
+  "jaName": "アフリカシワアリ",
+  "scientificName": "Tetramorium delagoense",
+  "taxonRank": "species",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "groupJa": "アリ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ari",
+  "colors": [
+   "#6B4A2E",
+   "#3A281A"
+  ],
+  "tags": [
+   "ant",
+   "hymenoptera",
+   "overseas",
+   "social"
+  ],
+  "habitat": [
+   "ground",
+   "grassland"
+  ],
+  "note": "せなかにとげがある小さなアリ。すを守るときはとても気が強いよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   2,
+   3.5
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    2,
+    3
+   ],
+   "f": [
+    2.2,
+    3.5
+   ]
+  }
+ }
+]

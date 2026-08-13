@@ -803,7 +803,7 @@
   }
 
   function bindPathPanel(volume){
-    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukanStub(volume.id);});
+    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(volume.id);});
     var ratioButton=document.querySelector('#pathPanel [data-cat="kom_ratio"]');
     if(ratioButton)ratioButton.addEventListener("click",function(){
       ratioButton.disabled=true;
@@ -854,10 +854,33 @@
     });
   }
 
-  function renderZukanStub(volumeId){
-    var volume=volumeById(volumeId),progress=volumeProgress(volume,profile.collection);
-    document.getElementById("app").innerHTML='<main class="kom-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← えんせい</button><div><h1>📖 '+displayText(volume.regionName)+'の ずかん</h1></div></header>'
-      +'<section class="expedition-panel center"><p class="stub-progress">あつめた虫　'+progress.caught+'／'+progress.denominator+'</p><p>ずかんは じゅんび中です。</p></section></main>';
+  /* 小道の図鑑。本編とは別カウントで、その volume の種だけを並べる (ui_design 5 章)。
+     捕獲済みは本編と同じ描画資産 (Q4BRender 経由の SVG)、未捕獲は ? 枠で残す。 */
+  function zukanCardHtml(entry,record){
+    var reward=global.Q4BReward,sp=reward&&reward.spById?reward.spById(entry.id):null;
+    if(!record){
+      return '<li class="zukan-card is-unknown"><div class="zukan-art"><span>？</span></div>'
+        +'<div class="zukan-name">'+displayText("まだ つかまえていない")+'</div>'
+        +'<div class="zukan-meta"><span class="zukan-tier r'+(sp?sp.r:0)+'">'+displayText(sp&&reward.TIERNAME?reward.TIERNAME[sp.r]:entry.rarity)+'</span></div></li>';
+    }
+    var art=(sp&&reward.svg)?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"";
+    var size=Number.isFinite(record.max)?'<span>'+record.max+'mm</span>':"";
+    return '<li class="zukan-card'+(entry.flagship?' is-flagship':'')+'"><div class="zukan-art r'+(sp?sp.r:0)+'">'+art+'</div>'
+      +'<div class="zukan-name">'+displayText(sp?sp.jaName:entry.id)+'</div>'
+      +'<div class="zukan-meta"><span class="zukan-tier r'+(sp?sp.r:0)+'">'+displayText(sp&&reward.TIERNAME?reward.TIERNAME[sp.r]:entry.rarity)+'</span>'
+      +size+'<span>'+displayText(record.n+"匹")+'</span></div>'
+      +(entry.flagship?'<div class="zukan-flag">'+displayText("この遠征の 看板")+'</div>':"")+'</li>';
+  }
+
+  function renderZukan(volumeId){
+    var volume=volumeById(volumeId),collection=viewCollection(),progress=volumeProgress(volume,collection);
+    var cards=volume.species.map(function(entry){
+      return zukanCardHtml(entry,collection.catches[entry.id]);
+    }).join("");
+    document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(volume.regionName+"の小道")+'</button></header>'
+      +'<div class="kom-title"><h1>'+displayText(volume.regionName+"の ずかん")+'</h1>'
+      +'<p>'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></p></div>'
+      +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volume.id);});
   }
 

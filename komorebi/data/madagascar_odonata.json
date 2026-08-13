@@ -1,0 +1,1397 @@
+[
+ {
+  "id": "gin_haneguro_tonbo",
+  "jaName": "ギンハネグロトンボ",
+  "scientificName": "Palpopleura vestita",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#C9D2DA",
+   "#2A2A2E"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "grassland"
+  ],
+  "note": "はねに黒いもようがある小さなトンボ。からだは銀色のこなをふいたように見えるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   24,
+   32
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    24,
+    30
+   ],
+   "f": [
+    26,
+    32
+   ]
+  }
+ },
+ {
+  "id": "harabiro_aka_tonbo",
+  "jaName": "ハラビロアカトンボ",
+  "scientificName": "Crocothemis erythraea",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#D8331F",
+   "#E8B04A"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "red"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "からだも目もまっ赤なトンボ。おなかがはばひろいのが目じるしだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   33,
+   44
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    33,
+    42
+   ],
+   "f": [
+    35,
+    44
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは まっ赤、メスは 黄色っぽい 茶色だよ。"
+ },
+ {
+  "id": "ao_shiokara_tonbo",
+  "jaName": "アオシオカラトンボ",
+  "scientificName": "Orthetrum azureum",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#4E7FC4",
+   "#2F3A44"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "blue"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "マダガスカルの水べにすむシオカラトンボのなかま。オスは青いこなをふくよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   40,
+   50
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    48
+   ],
+   "f": [
+    42,
+    50
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは 青、メスは 茶色っぽいよ。"
+ },
+ {
+  "id": "madagasukaru_beni_tonbo",
+  "jaName": "マダガスカルベニトンボ",
+  "scientificName": "Trithemis selika",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#C42846",
+   "#2B1F22"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "endemic",
+   "red"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "この島だけにすむ赤いトンボ。森の川ぞいでオスがなわばりを見はっているよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    36
+   ],
+   "f": [
+    32,
+    38
+   ]
+  }
+ },
+ {
+  "id": "daidai_ito_tonbo",
+  "jaName": "ダイダイイトトンボ",
+  "scientificName": "Ceriagrion glabrum",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Coenagrionidae",
+  "familyJa": "イトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#E8842A",
+   "#9CC060"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "だいだい色のおなかに黄みどりのむね。水草のあいだをゆっくりとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   33,
+   40
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    33,
+    38
+   ],
+   "f": [
+    34,
+    40
+   ]
+  }
+ },
+ {
+  "id": "madagasukaru_mori_tonbo",
+  "jaName": "マダガスカルモリトンボ",
+  "scientificName": "Thermorthemis madagascariensis",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#3A4A5E",
+   "#D9A94E"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "森の小川にすむ、マダガスカルにしかいないなかまのトンボ。はねのつけねが金色。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   40,
+   48
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    46
+   ],
+   "f": [
+    42,
+    48
+   ]
+  }
+ },
+ {
+  "id": "akaashi_ito_tonbo",
+  "jaName": "アカアシイトトンボ",
+  "scientificName": "Pseudagrion malgassicum",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Coenagrionidae",
+  "familyJa": "イトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#4A7FC0",
+   "#B4482E"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "あしが赤茶色のイトトンボ。マダガスカルの小川で草の先にとまるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    37
+   ],
+   "f": [
+    33,
+    38
+   ]
+  }
+ },
+ {
+  "id": "obibane_tonbo",
+  "jaName": "オビバネトンボ",
+  "scientificName": "Brachythemis leucosticta",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#3A332B",
+   "#C9A45C"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "river",
+   "pond"
+  ],
+  "note": "はねに茶色い帯があるトンボ。歩く人や動物についてとび、にげる虫をつかまえるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   28,
+   34
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    28,
+    33
+   ],
+   "f": [
+    29,
+    34
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスの はねには こい帯、メスは うすい 茶色だよ。"
+ },
+ {
+  "id": "haneashi_ito_tonbo",
+  "jaName": "ハネアシイトトンボ",
+  "scientificName": "Proplatycnemis malgassica",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Platycnemididae",
+  "familyJa": "モノサシトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#6E9BC6",
+   "#2C2A28"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "あしがひらたく広がったイトトンボ。マダガスカルの水べだけでくらすよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    37
+   ],
+   "f": [
+    33,
+    38
+   ]
+  }
+ },
+ {
+  "id": "midori_kawa_tonbo",
+  "jaName": "ミドリカワトンボ",
+  "scientificName": "Phaon rasoherinae",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Calopterygidae",
+  "familyJa": "カワトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2E7A4E",
+   "#C9B87A"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas",
+   "endemic",
+   "metallic"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "金みどり色に光る大きなイトトンボのなかま。森の小川をひらひらとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   50,
+   62
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    52,
+    62
+   ],
+   "f": [
+    50,
+    58
+   ]
+  }
+ },
+ {
+  "id": "sorairo_ito_tonbo",
+  "jaName": "ソライロイトトンボ",
+  "scientificName": "Azuragrion kauderni",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Coenagrionidae",
+  "familyJa": "イトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#5AA8E0",
+   "#2B2A28"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas",
+   "endemic",
+   "blue"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "空色のからだに黒いもよう。池のふちをとぶ小さなイトトンボだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   28,
+   34
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    28,
+    33
+   ],
+   "f": [
+    29,
+    34
+   ]
+  }
+ },
+ {
+  "id": "murasaki_beni_tonbo",
+  "jaName": "ムラサキベニトンボ",
+  "scientificName": "Trithemis annulata",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#9A6FC4",
+   "#E0A54A"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "pond",
+   "river"
+  ],
+  "note": "オスはむらさき色のこなをふく美しいトンボ。はねのつけねが金色にそまるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   40
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    38
+   ],
+   "f": [
+    34,
+    40
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは むらさき色、メスは 黄土色だよ。"
+ },
+ {
+  "id": "suji_mori_tonbo",
+  "jaName": "スジモリトンボ",
+  "scientificName": "Neodythemis hildebrandti",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#3A3A32",
+   "#D8C878"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "stream",
+   "forest"
+  ],
+  "note": "むねに白いすじがある小さなトンボ。うす暗い森の小川で葉の先にとまるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    37
+   ],
+   "f": [
+    33,
+    38
+   ]
+  }
+ },
+ {
+  "id": "kuro_shiokara_tonbo",
+  "jaName": "クロシオカラトンボ",
+  "scientificName": "Orthetrum stemmale",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2E3A44",
+   "#8FA3B4"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "stream",
+   "marsh"
+  ],
+  "note": "シオカラトンボのなかまで、大きくて黒っぽいトンボ。水べの石の上が見はり台。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   45,
+   55
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    45,
+    54
+   ],
+   "f": [
+    46,
+    55
+   ]
+  }
+ },
+ {
+  "id": "sukeba_chou_tonbo",
+  "jaName": "スケバチョウトンボ",
+  "scientificName": "Rhyothemis semihyalina",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2A2136",
+   "#D9CFE8"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "はねのつけねだけ黒く光り、先はすきとおる。チョウのようにひらひらとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   32,
+   40
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    32,
+    38
+   ],
+   "f": [
+    34,
+    40
+   ]
+  }
+ },
+ {
+  "id": "kuro_beni_tonbo",
+  "jaName": "クロベニトンボ",
+  "scientificName": "Trithemis hecate",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#7A2A28",
+   "#2A1E1C"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "pond"
+  ],
+  "note": "黒っぽい赤色のトンボ。草の先にとまってはとびたつのをくりかえすよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    36
+   ],
+   "f": [
+    32,
+    38
+   ]
+  }
+ },
+ {
+  "id": "kuro_hime_tonbo",
+  "jaName": "クロヒメトンボ",
+  "scientificName": "Diplacodes lefebvrii",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#232326",
+   "#4A4A50"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "grassland"
+  ],
+  "note": "まっ黒な小さいトンボ。地面すれすれをとび、日なたの土の上でひとやすみ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   26,
+   32
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    26,
+    31
+   ],
+   "f": [
+    27,
+    32
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは まっ黒、メスは 黄色と 黒の しまもようだよ。"
+ },
+ {
+  "id": "sesuji_aka_tonbo",
+  "jaName": "セスジアカトンボ",
+  "scientificName": "Crocothemis divisa",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#D4402C",
+   "#2E2622"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "red"
+  ],
+  "habitat": [
+   "marsh",
+   "pond"
+  ],
+  "note": "赤いせなかに黒いすじが1本通るトンボ。水草の多い池がすきだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    36
+   ],
+   "f": [
+    32,
+    38
+   ]
+  }
+ },
+ {
+  "id": "tsuchiiro_ito_tonbo",
+  "jaName": "ツチイロイトトンボ",
+  "scientificName": "Lestes ochraceus",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Lestidae",
+  "familyJa": "アオイトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#C69A5C",
+   "#7A6242"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "pond"
+  ],
+  "note": "土のような茶色のイトトンボ。とまるときにはねを半分ひらくのがとくちょう。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   38,
+   46
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    38,
+    45
+   ],
+   "f": [
+    39,
+    46
+   ]
+  }
+ },
+ {
+  "id": "hyoutan_tonbo",
+  "jaName": "ヒョウタントンボ",
+  "scientificName": "Acisoma attenboroughi",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#6FA8D8",
+   "#2A2A2E"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "endemic",
+   "blue"
+  ],
+  "habitat": [
+   "marsh",
+   "pond"
+  ],
+  "note": "おなかがヒョウタンのようにふくらんだ小さなトンボ。水色に黒いてんもよう。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   22,
+   28
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    22,
+    27
+   ],
+   "f": [
+    23,
+    28
+   ]
+  }
+ },
+ {
+  "id": "shikatsuno_ito_tonbo",
+  "jaName": "シカツノイトトンボ",
+  "scientificName": "Pseudagrion alcicorne",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Coenagrionidae",
+  "familyJa": "イトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#4E86C4",
+   "#26262A"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "stream",
+   "marsh"
+  ],
+  "note": "おしりの先がシカのつののような形をしている青いイトトンボだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   36
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    35
+   ],
+   "f": [
+    31,
+    36
+   ]
+  }
+ },
+ {
+  "id": "madagasukaru_gin_yanma",
+  "jaName": "マダガスカルギンヤンマ",
+  "scientificName": "Anax tumorifer",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Aeshnidae",
+  "familyJa": "ヤンマ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2E9E7A",
+   "#2A4E8C"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "マダガスカルだけにすむ大きなヤンマ。池の上をとまらずにとびつづけるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   70,
+   82
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    72,
+    82
+   ],
+   "f": [
+    70,
+    80
+   ]
+  }
+ },
+ {
+  "id": "misuji_yama_tonbo",
+  "jaName": "ミスジヤマトンボ",
+  "scientificName": "Phyllomacromia trifasciata",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Macromiidae",
+  "familyJa": "ヤマトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2C2A26",
+   "#E0C24A"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "river",
+   "stream"
+  ],
+  "note": "おなかに黄色い帯が3本ならぶ大きなトンボ。川の上をすばやく行き来するよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   62,
+   74
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    62,
+    72
+   ],
+   "f": [
+    64,
+    74
+   ]
+  }
+ },
+ {
+  "id": "megane_shiokara_tonbo",
+  "jaName": "メガネシオカラトンボ",
+  "scientificName": "Orthetrum icteromelas",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#8FA3B4",
+   "#2E3A44"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "pond"
+  ],
+  "note": "顔にめがねのようなもようがある、シオカラトンボのなかまだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   40,
+   48
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    47
+   ],
+   "f": [
+    41,
+    48
+   ]
+  }
+ },
+ {
+  "id": "ruriiro_tonbo",
+  "jaName": "ルリイロトンボ",
+  "scientificName": "Urothemis edwardsii",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#2F73C8",
+   "#1E2A38"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "blue"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "るり色にかがやくトンボ。はねのつけねに黒いもんがあるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   40,
+   48
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    47
+   ],
+   "f": [
+    41,
+    48
+   ]
+  },
+  "sexDimorphism": "color",
+  "sexDimorphismNote": "オスは るり色、メスは 黄色っぽい 茶色だよ。"
+ },
+ {
+  "id": "ko_shiokara_tonbo",
+  "jaName": "コシオカラトンボ",
+  "scientificName": "Orthetrum abbotti",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#A8B8C4",
+   "#2A2A2E"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "marsh",
+   "grassland"
+  ],
+  "note": "シオカラトンボのなかまで小がら。水色のからだの先だけが黒いよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   38
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    36
+   ],
+   "f": [
+    32,
+    38
+   ]
+  }
+ },
+ {
+  "id": "kinbane_beni_tonbo",
+  "jaName": "キンバネベニトンボ",
+  "scientificName": "Trithemis kirbyi",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#E03A22",
+   "#E8A93A"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "red"
+  ],
+  "habitat": [
+   "stream",
+   "river"
+  ],
+  "note": "まっ赤なからだに、金色に広がるはねのつけね。岩の上で日光浴をするよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   30,
+   36
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    35
+   ],
+   "f": [
+    31,
+    36
+   ]
+  }
+ },
+ {
+  "id": "hikari_ito_tonbo",
+  "jaName": "ヒカリイトトンボ",
+  "scientificName": "Pseudagrion punctum",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Coenagrionidae",
+  "familyJa": "イトトンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#5FA0D8",
+   "#2A2A2E"
+  ],
+  "tags": [
+   "damselfly",
+   "odonata",
+   "overseas"
+  ],
+  "habitat": [
+   "stream",
+   "pond"
+  ],
+  "note": "水色のからだが日ざしにきらきら光るイトトンボ。水べの草にとまるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   28,
+   34
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    28,
+    33
+   ],
+   "f": [
+    29,
+    34
+   ]
+  }
+ },
+ {
+  "id": "indo_nanafushi",
+  "jaName": "インドナナフシ",
+  "scientificName": "Carausius morosus",
+  "taxonRank": "species",
+  "order": "Phasmatodea",
+  "family": "Lonchodidae",
+  "familyJa": "ナナフシ科",
+  "groupJa": "ナナフシ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "kemushi",
+  "colors": [
+   "#6E7A4A",
+   "#3E4630"
+  ],
+  "tags": [
+   "phasmatodea",
+   "stick_insect",
+   "overseas",
+   "forest"
+  ],
+  "habitat": [
+   "forest",
+   "forest_edge"
+  ],
+  "note": "木のえだそっくりの細長いナナフシ。せかいじゅうで飼われている人気ものだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   70,
+   95
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    70,
+    80
+   ],
+   "f": [
+    75,
+    95
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "メスの ほうが 大きくて ふとめだよ。"
+ }
+]
