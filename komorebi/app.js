@@ -11,7 +11,8 @@
   var CATEGORIES={
     kom_ratio:{course:"k10",name:"割合と比",maxLv:10,release:1},
     kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10,release:1},
-    kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1}
+    kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
+    kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2}
   };
 
   function isReleased(cat){
@@ -439,7 +440,7 @@
     return Array.isArray(question.choices)?question.choices.indexOf(question.ans):-1;
   }
 
-  function judgeRatioAnswer(question,answer){
+  function judgeStandardAnswer(question,answer){
     if(!isObject(question)||!hasOwn(FORMAT_KINDS,question.format)||!hasOwn(FORMAT_KINDS[question.format],question.kind))throw new Error("割合問題の形式が正しくありません");
     if(question.kind==="order"){
       if(!Array.isArray(answer)||!Array.isArray(question.ans)||answer.length!==question.ans.length)return false;
@@ -697,7 +698,7 @@
       +'<button type="button" class="ratio-submit" data-action="submit-order" disabled>'+displayText("答える")+'</button></div>';
   }
 
-  function ratioQuestionBodyHtml(question){
+  function standardQuestionBodyHtml(question){
     var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
     var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
     var controls;
@@ -837,7 +838,7 @@
   function questionBodyHtml(question){
     if(question.cat==="kom_kuku_run")return kukuQuestionBodyHtml(question);
     if(isDanCat(question.cat))return dan2QuestionBodyHtml(question);
-    return ratioQuestionBodyHtml(question);
+    return standardQuestionBodyHtml(question);
   }
 
   function answerText(question){
@@ -849,7 +850,7 @@
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
-    return judgeRatioAnswer(question,answer);
+    return judgeStandardAnswer(question,answer);
   }
 
   function wazaCardHtml(question){
@@ -1181,9 +1182,23 @@
     };
   }
 
+  /* 3.14 の段は normal の 1 形式だけなので、共通シェルの標準レンダラと標準判定を
+     そのまま使う。ここで足すのは出題の取り出しだけ。 */
+  function startPi314Session(volume,random){
+    var engine=global.Q4B_KOMOREBI_PI314;
+    if(!profile||!engine)return Promise.reject(new Error("3.14 の段を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_pi314")<0)return Promise.reject(new Error("この小道では3.14の段を遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=engine.buildSet(profile.lv.kom_pi314,generatorRandom);
+      sessionId="pi314_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_pi314",volume,questions,sessionId));
+  }
+
   /* 段暗唱は CATEGORIES に 1 行足すだけで dan3 以降が動く。開始関数もここで
      機械的に作るので、段ごとに分岐を書き足す場所は残さない。 */
-  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession};
+  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,kom_pi314:startPi314Session};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });
@@ -1516,8 +1531,8 @@
     ratioFormMix:RATIO_FORM_MIX,
     buildRatioSet:buildRatioSet,
     updateRatioHistory:updateRatioHistory,
-    judgeRatioAnswer:judgeRatioAnswer,
-    ratioQuestionBodyHtml:ratioQuestionBodyHtml,
+    judgeStandardAnswer:judgeStandardAnswer,
+    standardQuestionBodyHtml:standardQuestionBodyHtml,
     wazaCardHtml:wazaCardHtml,
     feedbackHtml:feedbackHtml,
     kukuQuestionBodyHtml:kukuQuestionBodyHtml,

@@ -254,7 +254,11 @@ test("15.5 every trophy points at a real species of a real volume", () => {
     assert.deepEqual(sp.colors, catalog.get(trophy.speciesId).colors, "the catalog entry was mutated");
     assert.ok(context.Q4BReward.svg(gold, false).length > 100, "the gold species does not render");
   });
-  assert.equal(trophies.list().length, Object.keys(komorebi.categories).length, "every category needs exactly one trophy");
+  /* トロフィーは volume の freeze 時に代表虫を凍結するので、未公開カテゴリには
+     まだ存在しない。公開済みのカテゴリが 1 個ずつ持っていることを見る。 */
+  const released = Object.keys(komorebi.categories).filter(komorebi.isReleased);
+  assert.equal(trophies.list().length, released.length, "every released category needs exactly one trophy");
+  released.forEach(cat => assert.ok(trophies.forCat(cat), cat + " has no trophy"));
 });
 
 console.log("RESULT " + passed + " passed, 0 failed");

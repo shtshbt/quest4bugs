@@ -94,11 +94,11 @@ test("order judging accepts the authored order and rejects a wrong order", () =>
   const question = komorebi.buildRatioSet(pool, 5, {itemIds:[], patternIds:[]}, seeded(505))
     .find(item => item.format === "ordering");
   assert.ok(question);
-  assert.equal(komorebi.judgeRatioAnswer(question, Array.from(question.ans)), true);
+  assert.equal(komorebi.judgeStandardAnswer(question, Array.from(question.ans)), true);
   const wrong = Array.from(question.ans);
   [wrong[0], wrong[1]] = [wrong[1], wrong[0]];
-  assert.equal(komorebi.judgeRatioAnswer(question, wrong), false);
-  const html = komorebi.ratioQuestionBodyHtml(question);
+  assert.equal(komorebi.judgeStandardAnswer(question, wrong), false);
+  const html = komorebi.standardQuestionBodyHtml(question);
   assert.match(html, /ratio-order-answer/);
   assert.match(html, /data-part-index=/);
   assert.match(html, /やりなおし/);
@@ -107,7 +107,7 @@ test("order judging accepts the authored order and rejects a wrong order", () =>
 test("diagnosis uses the single-shot four-choice renderer", () => {
   const question = komorebi.buildRatioSet(pool, 4, {itemIds:[], patternIds:[]}, seeded(44))
     .find(item => item.format === "diagnosis");
-  const html = komorebi.ratioQuestionBodyHtml(question);
+  const html = komorebi.standardQuestionBodyHtml(question);
   assert.equal((html.match(/data-choice-index=/g) || []).length, 4);
   assert.match(html, /ratio-work/);
 });

@@ -94,10 +94,15 @@ test("komorebi selector contains only areaOnly komorebi species", () => {
 
 test("Stage A keeps categories and save state in the komorebi namespace", () => {
   const komorebi = injected.Q4B_KOMOREBI;
-  assert.deepEqual(Object.keys(komorebi.categories), ["kom_ratio","kom_kuku_dan2","kom_kuku_run"]);
+  /* 公開済みは初回更新の 3 本。実装だけ先に進んだカテゴリは宣言されているが
+     未公開で、リリースゲート側 (test_komorebi_release_gate.js) が押さえている。 */
+  assert.deepEqual(Object.keys(komorebi.categories).filter(komorebi.isReleased), ["kom_ratio","kom_kuku_dan2","kom_kuku_run"]);
   const state = komorebi.createProfile();
-  assert.deepEqual(Object.keys(state.lv), ["kom_ratio","kom_kuku_dan2","kom_kuku_run"]);
-  assert.deepEqual(Object.keys(state.maxLv), ["kom_ratio","kom_kuku_dan2","kom_kuku_run"]);
+  /* Lv の枠は未公開カテゴリにも作る。解禁の日に保存データの移行を要らなくするため。
+     値は 1 のままで、遊べるようになるまで動かない。 */
+  assert.deepEqual(Object.keys(state.lv), Object.keys(komorebi.categories));
+  assert.deepEqual(Object.keys(state.maxLv), Object.keys(komorebi.categories));
+  assert.equal(state.lv.kom_pi314, 1);
   assert.deepEqual(JSON.parse(JSON.stringify(state.collection)), {gauge:0,totalCatches:0,catches:{}});
   assert.deepEqual(JSON.parse(JSON.stringify(state.trophies)), {});
   assert.deepEqual(JSON.parse(JSON.stringify(state.srs)), {});
