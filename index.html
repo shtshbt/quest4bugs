@@ -1232,14 +1232,15 @@ function renderDashboard(pid,name){
         if(es && Q4BReward.applySpeciesMigrations({catches:es.catches, favorites:es.favorites, recent:es.recent})) QuestSave.save("eitango", pid, es);
       }catch(_){}
     }
-    /* 図鑑種数: bugs.js に実在する種のみ数える。nushi_* 疑似 id (えいたんごヌシ) や
-       撤去済み旧 id は分母 1213 (Q4BReward.bugs.length) の集合外なので分子にも入れない。 */
+    /* 図鑑種数: bugs.js に実在し、かつ本編の分母に属する種のみ数える。nushi_* 疑似 id、
+       撤去済み旧 id、エリア専用種 (小道) はいずれも分子に入れない。 */
     function countSpecies(catches){
       if(!catches) return 0;
       var canLookup=!!(window.Q4BReward && Q4BReward.spById), n=0, id;
       for(id in catches){
         if(!Object.prototype.hasOwnProperty.call(catches,id)) continue;
-        if(canLookup && !Q4BReward.spById(id)) continue;
+        var sp=canLookup?Q4BReward.spById(id):null;
+        if(canLookup && (!sp || sp.areaOnly)) continue;   /* エリア専用種は本編の分母外 */
         n++;
       }
       return n;

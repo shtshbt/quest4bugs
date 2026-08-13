@@ -1,0 +1,578 @@
+[
+ {
+  "id": "oo_onaga_yamamayu",
+  "jaName": "オオオナガヤママユ",
+  "scientificName": "Argema mittrei",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Saturniidae",
+  "familyJa": "ヤママユガ科",
+  "groupJa": "ガ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "ga",
+  "colors": [
+   "#F2C43C",
+   "#8C4A22"
+  ],
+  "tags": [
+   "moth",
+   "saturniidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "きいろいはねから長いしっぽが2本のびる、マダガスカルの大きなガ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   140,
+   200
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    150,
+    200
+   ],
+   "f": [
+    140,
+    180
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "オスは しっぽが とても ながく のびるよ。"
+ },
+ {
+  "id": "hagata_murasaki",
+  "jaName": "ハガタムラサキ",
+  "scientificName": "Hypolimnas dexithea",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "SR",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#2B2723",
+   "#E2601F"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "黒いはねに白い帯と赤いもよう。マダガスカルだけにすむタテハだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   70,
+   90
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    70,
+    85
+   ],
+   "f": [
+    75,
+    90
+   ]
+  }
+ },
+ {
+  "id": "akamarubane_monki_tateha",
+  "jaName": "アカマルバネモンキタテハ",
+  "scientificName": "Aterica rabena",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#2B2119",
+   "#E8A33D"
+  ],
+  "tags": [
+   "butterfly",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "マダガスカルの森だけにすむタテハチョウ。こげ茶の翅にオレンジの丸もようがならぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   55,
+   70
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    55,
+    66
+   ],
+   "f": [
+    60,
+    70
+   ]
+  },
+  "sexDimorphism": "size",
+  "sexDimorphismNote": "メスの ほうが すこし 大きいよ。"
+ },
+ {
+  "id": "serikorunisu_nokogiri_kuwagata",
+  "jaName": "セリコルニスノコギリクワガタ",
+  "scientificName": "Prosopocoilus serricornis",
+  "taxonRank": "species",
+  "order": "Coleoptera",
+  "family": "Lucanidae",
+  "familyJa": "クワガタムシ科",
+  "groupJa": "クワガタムシ",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "kuwagata",
+  "colors": [
+   "#D8A23A",
+   "#2A1E12"
+  ],
+  "tags": [
+   "beetle",
+   "stag_beetle",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "マダガスカルにすむノコギリクワガタ。黄色いからだに黒いもようがあるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   22,
+   60
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    30,
+    60
+   ],
+   "f": [
+    22,
+    35
+   ]
+  },
+  "sexDimorphism": "mandible",
+  "sexDimorphismNote": "オスのほうが 大きくて つよそうに 見えるよ。"
+ },
+ {
+  "id": "madagasukaru_oo_gokiburi",
+  "jaName": "マダガスカルオオゴキブリ",
+  "scientificName": "Gromphadorhina portentosa",
+  "taxonRank": "species",
+  "order": "Blattodea",
+  "family": "Blaberidae",
+  "familyJa": "オオゴキブリ科",
+  "groupJa": "オオゴキブリ科",
+  "origin": "overseas",
+  "rarity": "R",
+  "areaOnly": "komorebi",
+  "renderer": "other",
+  "colors": [
+   "#6B4327",
+   "#2B1A10"
+  ],
+  "tags": [
+   "blattodea",
+   "overseas",
+   "endemic",
+   "forest"
+  ],
+  "habitat": [
+   "forest",
+   "ground"
+  ],
+  "note": "空気をふき出して「シューッ」と音を出す、大きなゴキブリ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   50,
+   75
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    55,
+    75
+   ],
+   "f": [
+    50,
+    70
+   ]
+  },
+  "sexDimorphism": "horn",
+  "sexDimorphismNote": "オスは むねに こぶのような ツノが あるよ。"
+ },
+ {
+  "id": "oo_beni_hagoromo",
+  "jaName": "オオベニハゴロモ",
+  "scientificName": "Flatida rosea",
+  "taxonRank": "species",
+  "order": "Hemiptera",
+  "family": "Flatidae",
+  "familyJa": "ハゴロモ科",
+  "groupJa": "セミ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "semi",
+  "colors": [
+   "#E6799B",
+   "#F7D9E3"
+  ],
+  "tags": [
+   "hemiptera",
+   "planthopper",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest"
+  ],
+  "note": "ピンク色のはねをもつ小さな虫。枝に集まると花がさいたように見えるよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   9,
+   14
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    9,
+    12
+   ],
+   "f": [
+    10,
+    14
+   ]
+  }
+ },
+ {
+  "id": "madagasukaru_tatehamodoki",
+  "jaName": "マダガスカルタテハモドキ",
+  "scientificName": "Junonia rhadama",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "groupJa": "タテハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tateha",
+  "colors": [
+   "#2C6FDB",
+   "#2A2418"
+  ],
+  "tags": [
+   "butterfly",
+   "nymphalidae",
+   "overseas",
+   "blue"
+  ],
+  "habitat": [
+   "grassland",
+   "forest_edge"
+  ],
+  "note": "あざやかな青いはねをもつタテハモドキ。マダガスカルの草地をとぶよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   40,
+   55
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    50
+   ],
+   "f": [
+    44,
+    55
+   ]
+  }
+ },
+ {
+  "id": "afurika_onashi_ageha",
+  "jaName": "アフリカオナシアゲハ",
+  "scientificName": "Papilio demodocus",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "groupJa": "アゲハ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#2A2620",
+   "#E8C33A"
+  ],
+  "tags": [
+   "butterfly",
+   "papilionidae",
+   "overseas"
+  ],
+  "habitat": [
+   "garden",
+   "grassland"
+  ],
+  "note": "しっぽのないアゲハ。黒いはねに黄色いもようがちりばめられているよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   90,
+   110
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    90,
+    102
+   ],
+   "f": [
+    95,
+    110
+   ]
+  }
+ },
+ {
+  "id": "suji_tsumaaka_shirochou",
+  "jaName": "スジツマアカシロチョウ",
+  "scientificName": "Colotis zoe",
+  "taxonRank": "species",
+  "order": "Lepidoptera",
+  "family": "Pieridae",
+  "familyJa": "シロチョウ科",
+  "groupJa": "シロチョウ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "chou",
+  "colors": [
+   "#F4F1E8",
+   "#A87BC4"
+  ],
+  "tags": [
+   "butterfly",
+   "pieridae",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "grassland"
+  ],
+  "note": "白いはねの先がむらさき色にそまる、マダガスカルだけのシロチョウ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   35,
+   45
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    35,
+    42
+   ],
+   "f": [
+    38,
+    45
+   ]
+  }
+ },
+ {
+  "id": "usucha_hekusodon",
+  "jaName": "ウスチャヘクソドン",
+  "scientificName": "Hexodon unicolor",
+  "taxonRank": "species",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "groupJa": "コガネ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "other",
+  "colors": [
+   "#8C6239",
+   "#5A3C21"
+  ],
+  "tags": [
+   "beetle",
+   "kogane",
+   "overseas",
+   "endemic"
+  ],
+  "habitat": [
+   "forest",
+   "ground"
+  ],
+  "note": "小判のようにひらたくてまるいコガネムシ。マダガスカルだけにすむよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   18,
+   28
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    18,
+    26
+   ],
+   "f": [
+    20,
+    28
+   ]
+  }
+ },
+ {
+  "id": "ameiro_tonbo",
+  "jaName": "アメイロトンボ",
+  "scientificName": "Tholymis tillarga",
+  "taxonRank": "species",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "groupJa": "トンボ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "tombo",
+  "colors": [
+   "#D89A46",
+   "#F2E6C8"
+  ],
+  "tags": [
+   "dragonfly",
+   "odonata",
+   "overseas",
+   "dusk"
+  ],
+  "habitat": [
+   "pond",
+   "marsh"
+  ],
+  "note": "はねにあめ色のもようがある。夕ぐれにとびはじめるトンボだよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   38,
+   48
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    40,
+    48
+   ],
+   "f": [
+    38,
+    46
+   ]
+  }
+ },
+ {
+  "id": "tsuya_oozu_ari",
+  "jaName": "ツヤオオズアリ",
+  "scientificName": "Pheidole megacephala",
+  "taxonRank": "species",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "groupJa": "アリ",
+  "origin": "overseas",
+  "rarity": "N",
+  "areaOnly": "komorebi",
+  "renderer": "ari",
+  "colors": [
+   "#A8703C",
+   "#5B3418"
+  ],
+  "tags": [
+   "ant",
+   "hymenoptera",
+   "overseas",
+   "social"
+  ],
+  "habitat": [
+   "forest",
+   "ground"
+  ],
+  "note": "大きな頭のへいたいアリがいる小さなアリ。頭であなの入口をふさぐよ。",
+  "needsTaxonReview": false,
+  "sizeMm": [
+   2,
+   4
+  ],
+  "sexRatio": {
+   "m": 0.5,
+   "f": 0.5
+  },
+  "sizeBySexMm": {
+   "m": [
+    2,
+    3
+   ],
+   "f": [
+    2,
+    4
+   ]
+  }
+ }
+]

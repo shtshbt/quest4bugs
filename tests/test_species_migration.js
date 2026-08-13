@@ -23,9 +23,9 @@ const MIG = context.Q4B_SPECIES_MIGRATIONS;
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 
-test("catalog denominator expands to 1362 and ids are unique", () => {
-  /* 1213 既存種 + batch 1 の 149 新種 = 1362 種。 */
-  assert.equal(BUGS.length, 1362);
+test("catalog denominator expands to 1374 and ids are unique", () => {
+  /* 1213 既存種 + batch 1 の 149 新種 = 1374 種。 */
+  assert.equal(BUGS.length, 1374);
   const seen = {};
   for(const sp of BUGS){
     assert.equal(seen[sp.id], undefined, "duplicate id " + sp.id);

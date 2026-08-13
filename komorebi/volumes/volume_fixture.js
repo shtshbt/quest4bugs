@@ -27,12 +27,15 @@
     };
   }
 
-  volumes.volume_fixture=volume({
+  /* マダガスカルは実在種 12 種 (bugs.js に areaOnly で登録済み)。捕獲カードと図鑑が
+     本編と同じ描画資産で出る。他 3 地域は形と進捗の見比べ用の合成 fixture のまま。 */
+  volumes.volume_fixture={
     id:"volume_fixture", regionId:"madagascar", regionName:"マダガスカル", current:true,
     categories:["kom_ratio","kom_kuku_dan2","kom_kuku_run"],
     blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
-    prefix:"kom_fixture", counts:{n:7,r:3,sr:1}
-  });
+    frozen:true, denominator:12,
+    species:[{"id": "oo_onaga_yamamayu", "rarity": "SR", "flagship": true}, {"id": "hagata_murasaki", "rarity": "SR", "flagship": false}, {"id": "akamarubane_monki_tateha", "rarity": "R", "flagship": false}, {"id": "serikorunisu_nokogiri_kuwagata", "rarity": "R", "flagship": false}, {"id": "madagasukaru_oo_gokiburi", "rarity": "R", "flagship": false}, {"id": "oo_beni_hagoromo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "afurika_onashi_ageha", "rarity": "N", "flagship": false}, {"id": "suji_tsumaaka_shirochou", "rarity": "N", "flagship": false}, {"id": "usucha_hekusodon", "rarity": "N", "flagship": false}, {"id": "ameiro_tonbo", "rarity": "N", "flagship": false}, {"id": "tsuya_oozu_ari", "rarity": "N", "flagship": false}]
+  };
 
   volumes.volume_fixture_australia=volume({
     id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",

@@ -19,8 +19,8 @@ class CatalogTests(unittest.TestCase):
     def test_parses_every_current_catalog_entry(self):
         records = parse_bugs(ROOT / "shared" / "bugs.js")
         # 1213 existing species plus 149 honpen batch 1 species.
-        self.assertEqual(len(records), 1362)
-        self.assertEqual(len({item["id"] for item in records}), 1362)
+        self.assertEqual(len(records), 1374)
+        self.assertEqual(len({item["id"] for item in records}), 1374)
         for item in records:
             self.assertTrue({"id", "jaName", "scientificName"} <= item.keys())
 
@@ -30,7 +30,7 @@ class CatalogTests(unittest.TestCase):
         second = build_normalized_index(species, SHA)
         self.assertEqual(first, second)
         self.assertEqual(first["sourceCommit"], SHA)
-        self.assertEqual(first["count"], 1362)
+        self.assertEqual(first["count"], 1374)
 
     def test_name_normalization(self):
         self.assertEqual(normalize_japanese(" モルフォ・チョウｰ "), "モルフォチョウー")

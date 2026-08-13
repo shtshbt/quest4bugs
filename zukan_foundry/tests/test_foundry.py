@@ -41,7 +41,7 @@ class CatalogTests(unittest.TestCase):
         parsed = parse_bugs(ROOT / "shared" / "bugs.js")
         index, names, anomalies = build_index(ROOT)
         # 1213 existing species plus 149 honpen batch 1 species.
-        self.assertEqual(len(parsed), 1362)
+        self.assertEqual(len(parsed), 1374)
         self.assertEqual(index["recordCount"], len(parsed))
         self.assertEqual(len(index["species"]), len(parsed))
         self.assertEqual(len(names["byId"]), len(parsed))

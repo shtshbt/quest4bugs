@@ -60,11 +60,11 @@ test("eight qualifying correct answers produce exactly one capture", () => {
   assert.equal(result.capture.isNew, true);
   assert.equal(profile.collection.gauge, 0);
   assert.equal(profile.collection.totalCatches, 1);
-  assert.deepEqual(Object.keys(profile.collection.catches), ["kom_fixture_n_01"]);
-  assert.equal(profile.collection.catches.kom_fixture_n_01.n, 1);
-  assert.equal(Number.isFinite(profile.collection.catches.kom_fixture_n_01.max), true);
-  assert.equal(["m","f"].includes(profile.collection.catches.kom_fixture_n_01.records[0].sex), true);
-  assert.equal(typeof profile.collection.catches.kom_fixture_n_01.records[0].shiny, "boolean");
+  assert.equal(Object.keys(profile.collection.catches).length, 1);
+  assert.equal(profile.collection.catches[Object.keys(profile.collection.catches)[0]].n, 1);
+  assert.equal(Number.isFinite(profile.collection.catches[Object.keys(profile.collection.catches)[0]].max), true);
+  assert.equal(["m","f"].includes(profile.collection.catches[Object.keys(profile.collection.catches)[0]].records[0].sex), true);
+  assert.equal(typeof profile.collection.catches[Object.keys(profile.collection.catches)[0]].records[0].shiny, "boolean");
 });
 
 test("non-qualifying answers do not advance the gauge and a final retry does", () => {
@@ -137,12 +137,15 @@ test("the fixture denominator is frozen and supplies per-region progress", () =>
   assert.equal(volume.species.length, 12);
   assert.deepEqual(Array.from(new Set(volume.species.map(species => species.rarity))).sort(), ["N","R","SR"]);
   assert.equal(volume.species.some(species => species.rarity === "SS"), false);
-  const catalogIds = new Set(context.Q4B_BUGS.map(species => species.id));
-  assert.equal(volume.species.some(species => catalogIds.has(species.id)), false);
+  /* fixture の種は bugs.js に areaOnly として実在する。捕獲カードと図鑑が本編と
+     同じ描画資産で出るための条件であり、同時に本編の分母には入らない。 */
+  const catalog = new Map(context.Q4B_BUGS.map(species => [species.id, species]));
+  assert.equal(volume.species.every(species => catalog.has(species.id)), true);
+  assert.equal(volume.species.every(species => catalog.get(species.id).areaOnly === "komorebi"), true);
 
   const profile = komorebi.createProfile();
-  profile.collection.catches.kom_fixture_n_01 = caughtEntry();
-  profile.collection.catches.kom_fixture_r_01 = caughtEntry();
+  profile.collection.catches[volume.species[0].id] = caughtEntry();
+  profile.collection.catches[volume.species[1].id] = caughtEntry();
   profile.collection.catches.not_in_this_volume = caughtEntry();
   let progress = komorebi.volumeProgress(volume, profile.collection);
   assert.deepEqual(JSON.parse(JSON.stringify(progress)), {regionId:"madagascar",volumeId:"volume_fixture",caught:2,denominator:12,complete:false});
