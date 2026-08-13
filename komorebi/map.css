@@ -110,3 +110,50 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .path-shape path{fill:#FFD86B;fill-opacity:.9;stroke:#FFF3D2;stroke-width:1.2;stroke-linejoin:round;
   vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(255,216,107,.55))}
 @media (min-width:520px){.path-shape{width:112px;height:112px}}
+
+/* 割合と比。地図と同じ夜の森の色を保ち、回答部だけ明るくする。 */
+.ratio-page{max-width:760px}
+.ratio-session-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:8px 0 14px}
+.ratio-session-head h1{margin:0;color:#F6FFE4;font-size:clamp(24px,6vw,34px)}
+.ratio-session-head p{margin:4px 0 0;color:#B6D2A6;font-weight:800}
+.ratio-gauge{flex:none;padding:8px 12px;border:1px solid #4F785D;border-radius:999px;background:#102A24;color:#B6D2A6;font-size:13px}
+.ratio-gauge strong{color:#FFE9A8;font-size:16px}
+.ratio-panel{overflow:hidden;padding:clamp(16px,4vw,28px);border:2px solid #2F5C4A;border-radius:18px;background:#0E2721;box-shadow:0 10px 30px rgba(2,12,10,.55)}
+.ratio-panel h2{margin:0 0 18px;color:#F3FFE2;font-size:clamp(19px,4.5vw,25px);line-height:1.65;overflow-wrap:anywhere}
+.ratio-scaffold,.ratio-work{margin:0 0 16px;padding:12px 14px;border-left:4px solid #D6B653;border-radius:8px;background:#17332B;color:#DCEBCB;line-height:1.65}
+.ratio-work p{margin:3px 0;overflow-wrap:anywhere}
+.ratio-choices,.ratio-parts{display:grid;gap:10px}
+.ratio-choice,.ratio-part,.ratio-submit,.ratio-reset,.ratio-next{min-height:48px;border:2px solid #4D765E;border-radius:12px;font:800 15px/1.45 inherit;cursor:pointer}
+.ratio-choice,.ratio-part{width:100%;padding:11px 14px;background:#17382F;color:#F3FFE2;text-align:left;overflow-wrap:anywhere}
+.ratio-choice:hover,.ratio-part:hover{border-color:#D6B653;background:#1B4035}
+.ratio-part:disabled{border-color:#2C4A3C;background:#10271F;color:#78927A;cursor:default}
+.ratio-order-answer{min-height:56px;margin:0 0 14px;padding:10px 10px 10px 38px;border:1px dashed #C9A94C;border-radius:12px;background:#0A211C;color:#FFE9A8;line-height:1.6}
+.ratio-order-placeholder{color:#829F80}
+.ratio-order-actions,.ratio-number-form{display:flex;gap:10px;margin-top:14px}
+.ratio-number-form input{min-width:0;flex:1;height:50px;padding:8px 12px;border:2px solid #4D765E;border-radius:12px;background:#F4FAEA;color:#173024;font:800 20px/1 inherit}
+.ratio-submit,.ratio-next{padding:10px 20px;border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 3px 0 #80691F}
+.ratio-submit:disabled{opacity:.45;cursor:default}
+.ratio-reset{padding:10px 16px;background:#12302A;color:#CFE7A8}
+.ratio-error,.ratio-start-error{padding:10px 12px;border:1px solid #C77969;border-radius:10px;background:#4A241F;color:#FFE0D7;font-weight:800}
+.ratio-feedback>h2{margin-bottom:12px}
+.ratio-feedback.is-correct>h2{color:#BFF0A4}
+.ratio-feedback.is-wrong>h2{color:#FFD7A0}
+.ratio-answer{padding:10px 12px;border-radius:10px;background:#112D27;color:#F3FFE2;line-height:1.6;overflow-wrap:anywhere}
+.ratio-waza{margin:16px 0;padding:14px 16px;border:2px solid #B6963D;border-radius:14px;background:linear-gradient(180deg,#293A25,#192D24);color:#ECF5DE}
+.ratio-waza h3{margin:0 0 9px;color:#FFE08A;font-size:20px}
+.ratio-waza p{display:grid;grid-template-columns:auto 1fr;gap:9px;margin:7px 0;line-height:1.65}
+.ratio-waza strong{color:#FFE9A8;white-space:nowrap}
+.ratio-capture{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0;padding:14px;border:2px solid #D6B653;border-radius:14px;background:#233D2E;color:#FFF3C6}
+.ratio-capture strong{font-size:18px}
+.ratio-capture span{padding:3px 9px;border-radius:999px;background:#0D251E;color:#FFE08A;font-weight:900}
+.ratio-next{display:block;width:100%;margin-top:18px}
+.ratio-choice:focus-visible,.ratio-part:focus-visible,.ratio-submit:focus-visible,.ratio-reset:focus-visible,.ratio-next:focus-visible,.ratio-number-form input:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+@media (max-width:520px){
+  .ratio-session-head{align-items:flex-start}
+  .ratio-gauge{padding:7px 9px;font-size:11px}
+  .ratio-panel{padding:15px 11px}
+  .ratio-order-actions,.ratio-number-form{flex-wrap:wrap}
+  .ratio-number-form input{flex-basis:100%}
+  .ratio-submit{flex:1}
+  .ratio-waza p{grid-template-columns:1fr;gap:2px}
+}

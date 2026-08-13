@@ -20,7 +20,22 @@
     find_all:{choice:true},
     voice:{voice:true}
   };
-  var profile=null, profileId=null, profileType="k10", worldMap=null;
+  var RATIO_SET_SIZE=5;
+  var RATIO_FORM_MIX={
+    1:{normal:5,formulation:0,ordering:0,diagnosis:0},
+    2:{normal:3,formulation:2,ordering:0,diagnosis:0},
+    3:{normal:2,formulation:3,ordering:0,diagnosis:0},
+    4:{normal:1,formulation:2,ordering:0,diagnosis:2},
+    5:{normal:2,formulation:1,ordering:2,diagnosis:0},
+    6:{normal:1,formulation:0,ordering:2,diagnosis:2},
+    7:{normal:2,formulation:0,ordering:0,diagnosis:3},
+    8:{normal:2,formulation:1,ordering:2,diagnosis:0},
+    9:{normal:1,formulation:1,ordering:0,diagnosis:3},
+    10:{normal:1,formulation:1,ordering:1,diagnosis:2}
+  };
+  var RATIO_STATIC_LEVELS={ordering:[5,6,8],diagnosis:[4,6,7,9]};
+  var RATIO_PATTERN_BY_LEVEL={4:"find_base",5:"discount",6:"two_step",7:"ratio_share",8:"soutou",9:"baibai"};
+  var profile=null, profileId=null, profileType="k10", worldMap=null, ratioPool=null, ratioSession=null;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
   var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
@@ -217,6 +232,194 @@
 
   function displayText(text){return formatCourseText(escapeHtml(text),profileType,global.furi5);}
 
+  function validateRatioHistory(history){
+    if(!isObject(history)||!Array.isArray(history.itemIds)||!Array.isArray(history.patternIds))throw new Error("割合の履歴データの形式が正しくありません");
+    [history.itemIds,history.patternIds].forEach(function(values){
+      if(values.some(function(value){return typeof value!=="string"||!value;}))throw new Error("割合の履歴データの形式が正しくありません");
+    });
+    return history;
+  }
+
+  function validateRatioPoolItem(item,ids){
+    if(!isObject(item)||typeof item.id!=="string"||!item.id||hasOwn(ids,item.id)||!Number.isInteger(item.lv)||item.lv<1||item.lv>10||typeof item.text!=="string"||!item.text||typeof item.explanation!=="string"||!item.explanation)throw new Error("割合問題データの形式が正しくありません");
+    ids[item.id]=true;
+    if(item.kind==="order"){
+      if(!Array.isArray(item.parts)||item.parts.length<3||item.parts.length>4||item.parts.some(function(part){return typeof part!=="string"||!part;})||!Array.isArray(item.ans)||item.ans.length!==item.parts.length)throw new Error("整列問題データの形式が正しくありません");
+      var sorted=item.ans.slice().sort(function(a,b){return a-b;});
+      if(sorted.some(function(value,index){return value!==index;}))throw new Error("整列問題の答えが正しくありません");
+    }else if(item.kind==="choice"){
+      if(!Array.isArray(item.work)||!item.work.length||item.work.some(function(line){return typeof line!=="string"||!line;})||!Array.isArray(item.choices)||item.choices.length!==4||item.choices.some(function(choice){return typeof choice!=="string"||!choice;})||!Number.isInteger(item.ans)||item.ans<0||item.ans>=4)throw new Error("診断問題データの形式が正しくありません");
+    }else throw new Error("割合問題の種類が正しくありません");
+  }
+
+  function validateRatioPool(pool){
+    if(!Array.isArray(pool)||!pool.length)throw new Error("割合問題を読み込めません");
+    var ids=Object.create(null);
+    pool.forEach(function(item){validateRatioPoolItem(item,ids);});
+    return pool;
+  }
+
+  function ratioGenerator(){
+    var generator=global.Q4B_KOMOREBI_RATIO_GENERATOR;
+    if(!generator||typeof generator.generateForLv!=="function"||typeof generator.generatePair!=="function")throw new Error("割合問題の生成器を読み込めません");
+    return generator;
+  }
+
+  function shuffled(values,random){
+    var result=values.slice();
+    for(var i=result.length-1;i>0;i--){
+      var j=Math.floor(randomValue(random)*(i+1)),tmp=result[i];
+      result[i]=result[j];result[j]=tmp;
+    }
+    return result;
+  }
+
+  function staticCandidates(pool,format,lv){
+    var kind=format==="ordering"?"order":"choice";
+    var levels=lv===10?RATIO_STATIC_LEVELS[format]:[lv];
+    return pool.filter(function(item){return item.kind===kind&&levels.indexOf(item.lv)>=0;});
+  }
+
+  function pickStaticQuestion(pool,format,lv,recentIds,usedIds,random){
+    var candidates=staticCandidates(pool,format,lv).filter(function(item){return usedIds.indexOf(item.id)<0;});
+    if(!candidates.length)return null;
+    var fresh=candidates.filter(function(item){return recentIds.indexOf(item.id)<0;});
+    var source=(fresh.length?fresh:candidates)[Math.floor(randomValue(random)*(fresh.length?fresh.length:candidates.length))];
+    var question=JSON.parse(JSON.stringify(source));
+    question.sourceLv=source.lv;
+    question.lv=lv;
+    question.format=format;
+    question.waza={primary:source.explanation,alternate:source.alternate||""};
+    if(question.kind==="order")question.displayOrder=shuffled(question.ans,random);
+    usedIds.push(question.id);
+    return question;
+  }
+
+  function freshGenerated(lv,format,blocked,random){
+    var fallback=null,question=null;
+    for(var attempt=0;attempt<60;attempt++){
+      question=ratioGenerator().generateForLv(lv,format,random);
+      if(!fallback)fallback=question;
+      if(blocked.indexOf(question.patternId)<0)return question;
+    }
+    return fallback;
+  }
+
+  function freshGeneratedNormal(pattern,lv,blocked,random){
+    var fallback=null,question=null;
+    for(var attempt=0;attempt<60;attempt++){
+      question=ratioGenerator().generate(pattern,lv,"normal",random);
+      if(!fallback)fallback=question;
+      if(blocked.indexOf(question.patternId)<0)return question;
+    }
+    return fallback;
+  }
+
+  function freshGeneratedPair(lv,blocked,random){
+    var patterns=ratioGenerator().patternsForLv(lv,"formulation"),fallback=null,pair=null;
+    for(var attempt=0;attempt<60;attempt++){
+      var pattern=patterns[Math.floor(randomValue(random)*patterns.length)];
+      pair=ratioGenerator().generatePair(pattern,lv,random);
+      if(!fallback)fallback=pair;
+      if(blocked.indexOf(pair.normal.patternId)<0)return pair;
+    }
+    return fallback;
+  }
+
+  function markRatioChain(recognition,normal,number){
+    var chainId="ratio_chain_"+number;
+    recognition.chainId=chainId;
+    recognition.chainRole="recognition";
+    recognition.chainPatternId=normal.patternId;
+    normal.chainId=chainId;
+    normal.chainRole="normal";
+    return [recognition,normal];
+  }
+
+  function appendGeneratedUnit(units,question,usedPatterns){
+    usedPatterns.push(question.patternId);
+    units.push([question]);
+  }
+
+  function buildRatioUnits(pool,lv,mix,recent,random){
+    var units=[],usedIds=[],usedPatterns=recent.patternIds.slice(),orders=[],diagnoses=[],i,question;
+    for(i=0;i<mix.ordering;i++){
+      question=pickStaticQuestion(pool,"ordering",lv,recent.itemIds,usedIds,random);
+      if(question)orders.push(question);else mix.normal++;
+    }
+    for(i=0;i<mix.diagnosis;i++){
+      question=pickStaticQuestion(pool,"diagnosis",lv,recent.itemIds,usedIds,random);
+      if(question)diagnoses.push(question);else mix.normal++;
+    }
+    var normalLeft=mix.normal,chainNumber=0;
+    while(diagnoses.length&&normalLeft){
+      var diagnosis=diagnoses.shift(),pattern=RATIO_PATTERN_BY_LEVEL[diagnosis.sourceLv];
+      var child=freshGeneratedNormal(pattern,lv,usedPatterns,random);
+      usedPatterns.push(child.patternId);units.push(markRatioChain(diagnosis,child,++chainNumber));normalLeft--;
+    }
+    diagnoses.forEach(function(item){units.push([item]);});
+    return {units:units,orders:orders,normalLeft:normalLeft,formulationCount:mix.formulation,usedPatterns:usedPatterns,chainNumber:chainNumber};
+  }
+
+  function finishRatioUnits(state,lv,random){
+    while(state.formulationCount&&state.normalLeft){
+      var pair=freshGeneratedPair(lv,state.usedPatterns,random);
+      state.usedPatterns.push(pair.normal.patternId);
+      state.units.push(markRatioChain(pair.formulation,pair.normal,++state.chainNumber));
+      state.formulationCount--;state.normalLeft--;
+    }
+    while(state.formulationCount){
+      appendGeneratedUnit(state.units,freshGenerated(lv,"formulation",state.usedPatterns,random),state.usedPatterns);
+      state.formulationCount--;
+    }
+    state.orders.forEach(function(item){state.units.push([item]);});
+    while(state.normalLeft){
+      appendGeneratedUnit(state.units,freshGenerated(lv,"normal",state.usedPatterns,random),state.usedPatterns);
+      state.normalLeft--;
+    }
+    return state.units;
+  }
+
+  function buildRatioSet(pool,lv,history,random){
+    validateRatioPool(pool);
+    if(!Number.isInteger(lv)||lv<1||lv>10)throw new Error("レベルの指定が正しくありません");
+    if(typeof random!=="function")throw new Error("乱数の指定が正しくありません");
+    var recent=history==null?{itemIds:[],patternIds:[]}:validateRatioHistory(history);
+    var mix=Object.assign({},RATIO_FORM_MIX[lv]);
+    var units=finishRatioUnits(buildRatioUnits(pool,lv,mix,recent,random),lv,random);
+    var questions=[];
+    shuffled(units,random).forEach(function(unit){questions=questions.concat(unit);});
+    if(questions.length!==RATIO_SET_SIZE)throw new Error("5問セットを作れません");
+    return questions;
+  }
+
+  function updateRatioHistory(history,questions){
+    var next={itemIds:history.itemIds.slice(),patternIds:history.patternIds.slice()};
+    questions.forEach(function(question){
+      if(question.id)next.itemIds.push(question.id);
+      if(question.patternId)next.patternIds.push(question.patternId);
+    });
+    next.itemIds=next.itemIds.slice(-12);
+    next.patternIds=next.patternIds.slice(-12);
+    return next;
+  }
+
+  function expectedChoiceIndex(question){
+    if(Number.isInteger(question.ans))return question.ans;
+    return Array.isArray(question.choices)?question.choices.indexOf(question.ans):-1;
+  }
+
+  function judgeRatioAnswer(question,answer){
+    if(!isObject(question)||!hasOwn(FORMAT_KINDS,question.format)||!hasOwn(FORMAT_KINDS[question.format],question.kind))throw new Error("割合問題の形式が正しくありません");
+    if(question.kind==="order"){
+      if(!Array.isArray(answer)||!Array.isArray(question.ans)||answer.length!==question.ans.length)return false;
+      return question.ans.every(function(value,index){return answer[index]===value;});
+    }
+    if(question.kind==="choice")return Number.isInteger(answer)&&answer===expectedChoiceIndex(question);
+    var numeric=typeof answer==="number"?answer:Number(String(answer).trim());
+    return Number.isFinite(numeric)&&Number.isFinite(question.ans)&&Math.abs(numeric-question.ans)<1e-9;
+  }
+
   function mapViewBox(map){
     var values=typeof map.viewBox==="string"?map.viewBox.trim().split(/\s+/).map(Number):[];
     if(values.length!==4||values.some(function(value){return !Number.isFinite(value);})||values[2]<=0||values[3]<=0)throw new Error("地図の表示範囲が正しくありません");
@@ -260,7 +463,7 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},srs:{}};
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},srs:{}};
   }
 
   function normalizeProfile(data){
@@ -284,6 +487,12 @@
       else if(!Number.isInteger(p.maxLv[cat])||p.maxLv[cat]<1||p.maxLv[cat]>CATEGORIES[cat].maxLv)throw new Error("レベルデータの形式が正しくありません");
       if(p.maxLv[cat]<p.lv[cat]){p.maxLv[cat]=p.lv[cat];changed=true;}
     });
+    if(p.ratioHistory==null){p.ratioHistory={itemIds:[],patternIds:[]};changed=true;}
+    else{
+      validateRatioHistory(p.ratioHistory);
+      if(p.ratioHistory.itemIds.length>12){p.ratioHistory.itemIds=p.ratioHistory.itemIds.slice(-12);changed=true;}
+      if(p.ratioHistory.patternIds.length>12){p.ratioHistory.patternIds=p.ratioHistory.patternIds.slice(-12);changed=true;}
+    }
     if(p.collection==null){p.collection={gauge:0,totalCatches:0,catches:{}};changed=true;}
     else if(typeof p.collection!=="object"||Array.isArray(p.collection))throw new Error("採集データの形式が正しくありません");
     if(p.collection.gauge==null){p.collection.gauge=0;changed=true;}
@@ -302,23 +511,35 @@
     return QuestSave.save("komorebi",profileId,profile);
   }
 
-  function recordResult(cat,ok,ms){
-    if(!profile||!Object.prototype.hasOwnProperty.call(CATEGORIES,cat))return Promise.reject(new Error("カテゴリが正しくありません"));
-    if(typeof ok!=="boolean"||!Number.isFinite(ms)||ms<0)return Promise.reject(new Error("結果データが正しくありません"));
-    var s=profile.stats[cat]||(profile.stats[cat]={ok:0,n:0,ms:0});
-    if(!Number.isInteger(s.ok)||!Number.isInteger(s.n)||!Number.isFinite(s.ms))return Promise.reject(new Error("統計データが正しくありません"));
+  function applyPerformance(targetProfile,cat,ok,ms){
+    if(!isObject(targetProfile)||!hasOwn(CATEGORIES,cat))throw new Error("カテゴリが正しくありません");
+    if(typeof ok!=="boolean"||!Number.isFinite(ms)||ms<0)throw new Error("結果データが正しくありません");
+    var s=targetProfile.stats[cat]||(targetProfile.stats[cat]={ok:0,n:0,ms:0});
+    if(!Number.isInteger(s.ok)||!Number.isInteger(s.n)||!Number.isFinite(s.ms))throw new Error("統計データが正しくありません");
     s.n++;if(ok)s.ok++;s.ms+=ms;
-    var recent=profile.recent[cat]||(profile.recent[cat]=[]);
-    var adapt=profile.adapt[cat]||(profile.adapt[cat]={n:0,recent:[]});
-    if(!Array.isArray(recent)||!Number.isInteger(adapt.n)||!Array.isArray(adapt.recent))return Promise.reject(new Error("統計データが正しくありません"));
+    var recent=targetProfile.recent[cat]||(targetProfile.recent[cat]=[]);
+    var adapt=targetProfile.adapt[cat]||(targetProfile.adapt[cat]={n:0,recent:[]});
+    if(!Array.isArray(recent)||!Number.isInteger(adapt.n)||!Array.isArray(adapt.recent))throw new Error("統計データが正しくありません");
     recent.push(ok?1:0);while(recent.length>20)recent.shift();
     adapt.n++;adapt.recent.push(ok?1:0);while(adapt.recent.length>20)adapt.recent.shift();
     if(adapt.n%10===0){
       var ok10=adapt.recent.slice(-10).reduce(function(sum,value){return sum+value;},0);
-      if(ok10>=9&&profile.lv[cat]<CATEGORIES[cat].maxLv){profile.lv[cat]++;profile.maxLv[cat]=Math.max(profile.maxLv[cat],profile.lv[cat]);}
-      else if(ok10<=5&&profile.lv[cat]>1)profile.lv[cat]--;
+      if(ok10>=9&&targetProfile.lv[cat]<CATEGORIES[cat].maxLv){targetProfile.lv[cat]++;targetProfile.maxLv[cat]=Math.max(targetProfile.maxLv[cat],targetProfile.lv[cat]);}
+      else if(ok10<=5&&targetProfile.lv[cat]>1)targetProfile.lv[cat]--;
     }
-    return saveProfile();
+    return targetProfile;
+  }
+
+  function recordResult(cat,ok,ms){
+    if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
+    var before=JSON.parse(JSON.stringify(profile));
+    try{applyPerformance(profile,cat,ok,ms);}catch(error){return Promise.reject(error);}
+    var saved;
+    try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
+    return saved.catch(function(error){
+      profile=before;
+      throw error;
+    });
   }
 
   function recordAnswer(cat,answer,volume,random){
@@ -334,6 +555,19 @@
       replaceCollection(profile.collection,before);
       throw error;
     });
+  }
+
+  function recordRatioSubmission(answer,volume,random,correct,elapsed){
+    if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
+    var before=JSON.parse(JSON.stringify(profile)),result;
+    try{
+      result=applyAnswer(profile,"kom_ratio",answer,volume,random);
+      if(!result.duplicate)applyPerformance(profile,"kom_ratio",correct,elapsed);
+    }catch(error){profile=before;return Promise.reject(error);}
+    if(result.duplicate)return Promise.resolve(result);
+    var saved;
+    try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
+    return saved.then(function(){return result;}).catch(function(error){profile=before;throw error;});
   }
 
   function speciesForArea(bugs){
@@ -386,10 +620,153 @@
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+leader+pins+'</div></div>';
   }
 
+  function ratioGaugeHtml(){
+    return '<span class="ratio-gauge">'+displayText("採集ゲージ")+' <strong>'+displayText(profile.collection.gauge+'／'+COLLECTION_CONFIG.gaugeNeed)+'</strong></span>';
+  }
+
+  function ratioChoiceHtml(question){
+    return '<div class="ratio-choices">'+question.choices.map(function(choice,index){
+      return '<button type="button" class="ratio-choice" data-choice-index="'+index+'">'+displayText(choice)+'</button>';
+    }).join("")+'</div>';
+  }
+
+  function ratioOrderHtml(question){
+    return '<ol class="ratio-order-answer" id="ratioOrderAnswer" aria-live="polite"></ol>'
+      +'<div class="ratio-parts">'+question.displayOrder.map(function(index){return '<button type="button" class="ratio-part" data-part-index="'+index+'">'+displayText(question.parts[index])+'</button>';}).join("")+'</div>'
+      +'<div class="ratio-order-actions"><button type="button" class="ratio-reset" data-action="reset-order">'+displayText("やりなおし")+'</button>'
+      +'<button type="button" class="ratio-submit" data-action="submit-order" disabled>'+displayText("答える")+'</button></div>';
+  }
+
+  function ratioQuestionBodyHtml(question){
+    var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
+    var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
+    var controls;
+    if(question.kind==="choice")controls=ratioChoiceHtml(question);
+    else if(question.kind==="order")controls=ratioOrderHtml(question);
+    else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+displayText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
+    return scaffold+'<h2>'+displayText(question.text)+'</h2>'+work+controls;
+  }
+
+  function ratioAnswerText(question){
+    if(question.kind==="order")return question.ans.map(function(index){return question.parts[index];}).join(" → ");
+    if(question.kind==="choice")return question.choices[expectedChoiceIndex(question)]||"";
+    return String(question.ans);
+  }
+
+  function wazaCardHtml(question){
+    var waza=question.waza||{primary:question.explanation||"",alternate:""};
+    if(!waza.primary)return "";
+    var alternate=waza.alternate?'<p><strong>'+displayText("別の道")+'</strong><span>'+displayText(waza.alternate)+'</span></p>':"";
+    return '<aside class="ratio-waza"><h3>'+displayText("わざ")+'</h3><p><strong>'+displayText("主な道")+'</strong><span>'+displayText(waza.primary)+'</span></p>'+alternate+'</aside>';
+  }
+
+  function ratioCaptureHtml(capture){
+    if(!capture)return "";
+    var message=capture.isNew?"新しい虫を捕まえました！":"虫をもう一匹捕まえました！";
+    return '<div class="ratio-capture" role="status"><strong>'+displayText(message)+'</strong><span>'+displayText("レア度 "+capture.rarity)+'</span></div>';
+  }
+
+  function ratioFeedbackHtml(question,correct,result){
+    var mark=correct?"正解！":"もう一歩！";
+    var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(ratioAnswerText(question))+'</p>';
+    return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'+answer+wazaCardHtml(question)+ratioCaptureHtml(result&&result.capture)+'</div>';
+  }
+
+  function ratioSessionShell(body){
+    return '<main class="kom-page ratio-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
+      +'<div class="ratio-session-head"><div><h1>'+displayText("割合と比")+'</h1><p>'+displayText("第"+(ratioSession.index+1)+"／"+RATIO_SET_SIZE+"問")+'</p></div>'+ratioGaugeHtml()+'</div>'
+      +'<section class="ratio-panel">'+body+'</section></main>';
+  }
+
+  function renderOrderSelection(question){
+    var list=document.getElementById("ratioOrderAnswer");
+    if(list)list.innerHTML=ratioSession.orderSelection.length?ratioSession.orderSelection.map(function(index){return '<li>'+displayText(question.parts[index])+'</li>';}).join(""):'<li class="ratio-order-placeholder">'+displayText("順番に選びましょう")+'</li>';
+    Array.prototype.forEach.call(document.querySelectorAll("[data-part-index]"),function(button){
+      button.disabled=ratioSession.orderSelection.indexOf(Number(button.getAttribute("data-part-index")))>=0;
+    });
+    var submit=document.querySelector('[data-action="submit-order"]');
+    if(submit)submit.disabled=ratioSession.orderSelection.length!==question.parts.length;
+  }
+
+  function bindRatioQuestion(question){
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){ratioSession=null;renderMap(question.volumeId);});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-choice-index]"),function(button){
+      button.addEventListener("click",function(){submitRatioAnswer(Number(button.getAttribute("data-choice-index")));});
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-part-index]"),function(button){
+      button.addEventListener("click",function(){ratioSession.orderSelection.push(Number(button.getAttribute("data-part-index")));renderOrderSelection(question);});
+    });
+    var reset=document.querySelector('[data-action="reset-order"]'),submit=document.querySelector('[data-action="submit-order"]');
+    if(reset)reset.addEventListener("click",function(){ratioSession.orderSelection=[];renderOrderSelection(question);});
+    if(submit)submit.addEventListener("click",function(){submitRatioAnswer(ratioSession.orderSelection.slice());});
+    var form=document.querySelector("[data-answer-form]");
+    if(form)form.addEventListener("submit",function(event){event.preventDefault();submitRatioAnswer(form.elements.answer.value);});
+  }
+
+  function renderRatioQuestion(errorMessage){
+    var question=ratioSession.questions[ratioSession.index];
+    question.volumeId=ratioSession.volumeId;
+    ratioSession.orderSelection=[];
+    ratioSession.startedAt=Date.now();
+    var error=errorMessage?'<p class="ratio-error" role="alert">'+displayText(errorMessage)+'</p>':"";
+    document.getElementById("app").innerHTML=ratioSessionShell(error+ratioQuestionBodyHtml(question));
+    bindRatioQuestion(question);
+    if(question.kind==="order")renderOrderSelection(question);
+  }
+
+  function renderRatioFeedback(question,correct,result){
+    var last=ratioSession.index===ratioSession.questions.length-1;
+    var label=last?"小道へ戻る":"次の問題";
+    document.getElementById("app").innerHTML=ratioSessionShell(ratioFeedbackHtml(question,correct,result)
+      +'<button type="button" class="ratio-next" data-action="ratio-next">'+displayText(label)+'</button>');
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=ratioSession.volumeId;ratioSession=null;renderMap(id);});
+    document.querySelector('[data-action="ratio-next"]').addEventListener("click",function(){
+      if(last){var id=ratioSession.volumeId;ratioSession=null;renderMap(id);}
+      else{ratioSession.index++;renderRatioQuestion();}
+    });
+  }
+
+  function submitRatioAnswer(answer){
+    if(!ratioSession||ratioSession.pending)return;
+    var activeSession=ratioSession,question=activeSession.questions[activeSession.index],correct;
+    try{correct=judgeRatioAnswer(question,answer);}catch(error){renderRatioQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
+    activeSession.pending=true;
+    var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
+    var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
+    var elapsed=Math.max(0,Date.now()-activeSession.startedAt),volume=volumeById(activeSession.volumeId);
+    recordRatioSubmission(event,volume,Math.random,correct,elapsed).then(function(result){
+      if(ratioSession!==activeSession)return;
+      activeSession.pending=false;renderRatioFeedback(question,correct,result);
+    }).catch(function(){
+      if(ratioSession!==activeSession)return;
+      activeSession.pending=false;renderRatioQuestion("答えを保存できませんでした。もう一度試してください。");
+    });
+  }
+
+  function startRatioSession(volume,random){
+    if(!profile||!ratioPool)return Promise.reject(new Error("割合問題を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_ratio")<0)return Promise.reject(new Error("この小道では割合と比を遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=buildRatioSet(ratioPool,profile.lv.kom_ratio,profile.ratioHistory,generatorRandom);
+      sessionId="ratio_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    var previous=JSON.parse(JSON.stringify(profile.ratioHistory));
+    profile.ratioHistory=updateRatioHistory(profile.ratioHistory,questions);
+    var saved;
+    try{saved=saveProfile();}catch(error){profile.ratioHistory=previous;return Promise.reject(error);}
+    return saved.then(function(){
+      ratioSession={id:sessionId,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,orderSelection:[],startedAt:0};
+      renderRatioQuestion();
+      return ratioSession;
+    }).catch(function(error){profile.ratioHistory=previous;throw error;});
+  }
+
   function pathPanelHtml(volume){
     var progress=volumeProgress(volume,viewCollection()),buttons="";
     volume.categories.forEach(function(cat){
-      buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("じゅんび中")+'</span></button>';
+      if(cat==="kom_ratio")buttons+='<button type="button" class="path-choice" data-cat="kom_ratio"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
+      else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("準備中")+'</span></button>';
     });
     /* 地域の形は世界地図の実寸では読めない (コスタリカは幅 11、豪は 137)。
        形はここで単独に大きく描き、地図は位置を示す役に徹する。 */
@@ -401,11 +778,24 @@
       +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></span></div>';
   }
 
+  function bindPathPanel(volume){
+    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukanStub(volume.id);});
+    var ratioButton=document.querySelector('#pathPanel [data-cat="kom_ratio"]');
+    if(ratioButton)ratioButton.addEventListener("click",function(){
+      ratioButton.disabled=true;
+      startRatioSession(volume,Math.random).catch(function(){
+        ratioButton.disabled=false;
+        var panel=document.getElementById("pathPanel");
+        if(panel&&!panel.querySelector(".ratio-start-error"))panel.insertAdjacentHTML("afterbegin",'<p class="ratio-start-error" role="alert">'+displayText("割合問題を始められませんでした。もう一度試してください。")+'</p>');
+      });
+    });
+  }
+
   function selectVolume(volume){
     var panel=document.getElementById("pathPanel");
     if(!panel)return;
     panel.innerHTML=pathPanelHtml(volume);
-    panel.querySelector('[data-action="zukan"]').addEventListener("click",function(){renderZukanStub(volume.id);});
+    bindPathPanel(volume);
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       pin.classList.toggle("pin-selected",pin.getAttribute("data-volume-id")===volume.id);
     });
@@ -432,7 +822,7 @@
       +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("あるく小道を えらぼう")+'</p></div>'
       +'<section class="map-panel" aria-label="'+displayText("世界の地図")+'">'+mapArtworkHtml(volumes,currentId,selected.id)+'</section>'
       +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section></main>';
-    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukanStub(selected.id);});
+    bindPathPanel(selected);
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       var volume=volumeById(pin.getAttribute("data-volume-id"));
       pin.addEventListener("click",function(){selectVolume(volume);});
@@ -459,17 +849,26 @@
     });
   }
 
+  function loadRatioPool(){
+    if(typeof global.fetch!=="function")return Promise.reject(new Error("割合問題を読み込めません"));
+    return global.fetch("assets/ratio_pool.json").then(function(response){
+      if(!response.ok)throw new Error("割合問題を読み込めません");
+      return response.json();
+    }).then(validateRatioPool);
+  }
+
   function boot(){
     if(!global.QuestSave){renderError();return;}
     profileId=QuestSave.currentProfile();
     if(!profileId){renderError();return;}
     demoMode=/[?&]demo\b/.test(global.location&&global.location.search||"");
     var pull=QuestSave.syncDown?QuestSave.syncDown().catch(function(){}):Promise.resolve();
-    pull.then(function(){return Promise.all([QuestSave.load("komorebi",profileId),QuestSave.load("keisan",profileId),loadWorldMap()]);}).then(function(data){
+    pull.then(function(){return Promise.all([QuestSave.load("komorebi",profileId),QuestSave.load("keisan",profileId),loadWorldMap(),loadRatioPool()]);}).then(function(data){
       var normalized=normalizeProfile(data[0]);
       profile=normalized.profile;
       profileType=data[1]&&data[1].type==="k5"?"k5":"k10";
       worldMap=validateMapPayload(data[2],expeditionVolumes());
+      ratioPool=data[3];
       return normalized.changed?saveProfile():true;
     /* renderMap を直接渡すと Promise の解決値が selectedId として届いてしまう。 */
     }).then(function(){renderMap();}).catch(renderError);
@@ -488,7 +887,17 @@
     volumeProgress:volumeProgress,
     mapPinState:mapPinState,
     validateMapPayload:validateMapPayload,
+    validateRatioPool:validateRatioPool,
+    ratioFormMix:RATIO_FORM_MIX,
+    buildRatioSet:buildRatioSet,
+    updateRatioHistory:updateRatioHistory,
+    judgeRatioAnswer:judgeRatioAnswer,
+    ratioQuestionBodyHtml:ratioQuestionBodyHtml,
+    wazaCardHtml:wazaCardHtml,
+    ratioFeedbackHtml:ratioFeedbackHtml,
+    startRatioSession:startRatioSession,
     formatCourseText:formatCourseText,
+    applyPerformance:applyPerformance,
     recordResult:recordResult,
     speciesForArea:speciesForArea,
     profile:function(){return profile;}

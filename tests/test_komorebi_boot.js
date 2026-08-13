@@ -23,7 +23,7 @@ function fakeElement(tag) {
   return element;
 }
 
-function bootContext(mapPayload) {
+function bootContext(mapPayload, ratioPool) {
   const app = fakeElement("div");
   const saved = {};
   const context = {
@@ -38,8 +38,10 @@ function bootContext(mapPayload) {
       body: fakeElement("body")
     },
     fetch(url) {
-      assert.ok(url.indexOf("world_paths.json") >= 0, "the map payload is fetched");
-      return Promise.resolve({ ok: true, json: () => Promise.resolve(mapPayload) });
+      const payload = url.indexOf("world_paths.json") >= 0 ? mapPayload :
+        url.indexOf("ratio_pool.json") >= 0 ? ratioPool : null;
+      assert.ok(payload, "a known runtime payload is fetched: " + url);
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(payload) });
     },
     QuestSave: {
       currentProfile: () => "p1",
@@ -52,7 +54,7 @@ function bootContext(mapPayload) {
   context.window = context;
   context.global = context;
   vm.createContext(context);
-  for (const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js"]) {
+  for (const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js"]) {
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
@@ -60,10 +62,12 @@ function bootContext(mapPayload) {
 
 const mapPayload = JSON.parse(
   fs.readFileSync(path.join(root, "komorebi/assets/world_paths.json"), "utf8"));
+const ratioPool = JSON.parse(
+  fs.readFileSync(path.join(root, "komorebi/assets/ratio_pool.json"), "utf8"));
 
 /* 描画は Promise 連鎖の先なので、同期 test の外で確かめる。 */
 (async () => {
-  const context = bootContext(mapPayload);
+  const context = bootContext(mapPayload, ratioPool);
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"), context);
   await new Promise((resolve) => setTimeout(resolve, 60));
   const html = context.__app.innerHTML;
@@ -79,6 +83,10 @@ const mapPayload = JSON.parse(
   assert.ok(html.indexOf("map-leader") >= 0, "the leader line joins the map to the list");
   assert.ok(html.indexOf("path-choices") >= 0, "the category list is on the same screen");
   passed++; console.log("PASS map, leader and category list share one screen");
+
+  assert.ok(html.indexOf('data-cat="kom_ratio"') >= 0, "the ratio path is enabled");
+  assert.ok(html.indexOf("割合と比") >= 0, "the ratio category is visible");
+  passed++; console.log("PASS the ratio path is wired for play");
 
   console.log("RESULT " + passed + " passed, 0 failed");
 })().catch((error) => {
