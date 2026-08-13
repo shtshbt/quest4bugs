@@ -54,7 +54,7 @@ function bootContext(mapPayload, ratioPool) {
   context.window = context;
   context.global = context;
   vm.createContext(context);
-  for (const file of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/kuku_phrases.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/kuku_run.js", "komorebi/kuku_dan2.js"]) {
+  for (const file of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/kuku_phrases.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/kuku_run.js", "komorebi/kuku_dan2.js", "komorebi/trophies.js"]) {
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
@@ -97,12 +97,29 @@ const ratioPool = JSON.parse(
      ロジックのテストは通ったまま画面だけ絵なしになる。 */
   const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
   /* 読み込み漏れは画面だけ壊れてロジックのテストは通る。使う共有モジュールを列挙して固定する。 */
-  for (const dep of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/zukan_detail.js", "shared/kuku_phrases.js", "kuku_run.js", "kuku_dan2.js"]) {
+  for (const dep of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/zukan_detail.js", "shared/kuku_phrases.js", "kuku_run.js", "kuku_dan2.js", "trophies.js"]) {
     assert.ok(page.indexOf(dep) >= 0, "the komorebi page loads " + dep);
   }
   const rendered = context.Q4BReward.svg(context.Q4BReward.spById("oo_onaga_yamamayu"), false);
   assert.ok(rendered.length > 100, "a komorebi species renders to a real SVG, not an empty string");
   passed++; console.log("PASS komorebi species render to real SVG through the shared renderer");
+
+  /* precache 漏れはオフラインで白画面になる (design 11.4)。ページが読む物と
+     sw.js の CORE を突き合わせる。 */
+  const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
+  const referenced = (page.match(/(?:src|href)="([^"?]+)/g) || [])
+    .map((attribute) => attribute.replace(/^(?:src|href)="/, ""))
+    .filter((url) => /\.(js|css|json)$/.test(url));
+  assert.ok(referenced.length >= 10, "the page suddenly loads almost nothing: " + referenced.length);
+  for (const url of referenced) {
+    const resolved = url.startsWith("../") ? "./" + url.slice(3) : "./komorebi/" + url;
+    assert.ok(sw.indexOf('"' + resolved + '"') >= 0, "sw.js does not precache " + resolved);
+  }
+  /* fetch で読む payload は script タグに出てこないので個別に見る。 */
+  for (const asset of ["./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json"]) {
+    assert.ok(sw.indexOf('"' + asset + '"') >= 0, "sw.js does not precache " + asset);
+  }
+  passed++; console.log("PASS everything the path loads is precached for offline play");
 
   console.log("RESULT " + passed + " passed, 0 failed");
 })().catch((error) => {

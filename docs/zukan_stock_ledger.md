@@ -57,6 +57,17 @@
 4. 標本写真 zukan-fetch (museum tier)。リードタイム最大の工程。参考実績: カタログ 893 種の充足に数週間 (tier 順 + GBIF rate limit 2 秒)。マダガスカル I は Phase 3 実装と並行して先行着手する
 5. volume freeze (分母確定。決定 4)
 
+## 3.1 Phase 3 実装の到達点 (2026-08-13)
+
+小道のゲーム側は実装完了し、**実 volume の投入待ち**の状態にある。在庫側 (名前 enrichment → 種選抜 → 写真) が揃えば差し替えだけで公開できる。
+
+- 動くもの: けいさんからの入口と発見演出 / 世界地図 (Equal Earth) と地域ピン / 割合と比 (生成器 9 パターン + 静的 105 問) / れんぞく九九 (5 形式 + 九九 SRS) / 段暗唱 (チャンク音声 + タイムバー) / 8 正答 1 捕獲と pity / 小道図鑑 (絞り込み + モーダル詳細) / きんいろトロフィー (Lv10 クリア判定)
+- マダガスカル I の暫定 volume: 84 種を `shared/bugs.js` へ `areaOnly:"komorebi"` で投入済み (看板 = オオオナガヤママユ)。**写真は未取得**で、全種がパラメトリック SVG 表示。分母 84 は暫定で、選抜確定時に freeze し直す
+- トロフィー manifest: `komorebi/trophies.js` (design 6.6 は `shared/komorebi_data.js` を想定していたが、volume manifest と同じ `komorebi/` 配下に置いた)
+- 検収: `tests/test_komorebi_acceptance.js` が design 15 章の受け入れ基準を条番号ごとに固定している
+
+残っているのは在庫側の 5 工程 (上記 3 章) だけで、ゲーム側の追加実装は要らない。
+
 ## 4. 関連ツールの所在 (セッションまたぎ用)
 
 - 地域 harvest: `tools/komorebi/harvest_region_seeds.py` (`--region <id> --target <n>`。regions.json に定義 + mustHave 層)

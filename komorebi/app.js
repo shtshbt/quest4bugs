@@ -473,7 +473,7 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},srs:{}};
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{}};
   }
 
   function normalizeProfile(data){
@@ -486,7 +486,7 @@
     else if(typeof p.unlocked!=="boolean")throw new Error("解禁データの形式が正しくありません");
     if(p.discoverySeen==null){p.discoverySeen=false;changed=true;}
     else if(typeof p.discoverySeen!=="boolean")throw new Error("発見データの形式が正しくありません");
-    ["lv","maxLv","stats","recent","adapt","trophies","srs"].forEach(function(key){
+    ["lv","maxLv","stats","recent","adapt","trophies","trophyProgress","srs"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
     });
@@ -512,6 +512,12 @@
     if(p.collection.catches==null){p.collection.catches={};changed=true;}
     else if(typeof p.collection.catches!=="object"||Array.isArray(p.collection.catches))throw new Error("採集データの形式が正しくありません");
     validateCollection(p.collection);
+    /* 壊れたトロフィーデータを黙って受けない。トロフィーは再授与しないので、
+       形が崩れたまま通すと二度と直せない。 */
+    if(global.Q4B_KOMOREBI_TROPHIES){
+      global.Q4B_KOMOREBI_TROPHIES.validateTrophies(p.trophies);
+      global.Q4B_KOMOREBI_TROPHIES.validateProgress(p.trophyProgress);
+    }
     return {profile:p,changed:changed};
   }
 
@@ -521,9 +527,15 @@
     return QuestSave.save("komorebi",profileId,profile);
   }
 
+  function todayString(){
+    var now=new Date();
+    return now.getFullYear()+"-"+("0"+(now.getMonth()+1)).slice(-2)+"-"+("0"+now.getDate()).slice(-2);
+  }
+
   function applyPerformance(targetProfile,cat,ok,ms){
     if(!isObject(targetProfile)||!hasOwn(CATEGORIES,cat))throw new Error("カテゴリが正しくありません");
     if(typeof ok!=="boolean"||!Number.isFinite(ms)||ms<0)throw new Error("結果データが正しくありません");
+    var trophyModule=global.Q4B_KOMOREBI_TROPHIES,lvAtAnswer=targetProfile.lv[cat];
     var s=targetProfile.stats[cat]||(targetProfile.stats[cat]={ok:0,n:0,ms:0});
     if(!Number.isInteger(s.ok)||!Number.isInteger(s.n)||!Number.isFinite(s.ms))throw new Error("統計データが正しくありません");
     s.n++;if(ok)s.ok++;s.ms+=ms;
@@ -536,6 +548,12 @@
       var ok10=adapt.recent.slice(-10).reduce(function(sum,value){return sum+value;},0);
       if(ok10>=9&&targetProfile.lv[cat]<CATEGORIES[cat].maxLv){targetProfile.lv[cat]++;targetProfile.maxLv[cat]=Math.max(targetProfile.maxLv[cat],targetProfile.lv[cat]);}
       else if(ok10<=5&&targetProfile.lv[cat]>1)targetProfile.lv[cat]--;
+    }
+    /* 安定判定は「その回答を出したときの Lv」で数える。昇降のあとの Lv で数えると、
+       Lv9 の正答が Lv10 の実績に化ける。 */
+    if(trophyModule){
+      trophyModule.noteAnswer(targetProfile,cat,lvAtAnswer,ok);
+      trophyModule.award(targetProfile,cat,todayString());
     }
     return targetProfile;
   }
@@ -1205,6 +1223,48 @@
     if(blurb)blurb.innerHTML='<strong>'+displayText(volume.regionName)+'</strong><span>'+displayText(volume.blurb)+'</span>';
   }
 
+  /* --- トロフィー ------------------------------------------------------------
+     入口は地図の下端に置き、専用ページへ送る (ui_design 6 章)。最初の数週間は
+     獲得ゼロなので、空の棚をトップに常時置くと虚しく場所も食う。 */
+
+  function trophyModule(){
+    var module=global.Q4B_KOMOREBI_TROPHIES;
+    if(!module)throw new Error("トロフィーデータを読み込めません");
+    return module;
+  }
+
+  function trophyEntranceHtml(){
+    var all=trophyModule().list(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="trophies">'
+      +'🏆 <span>'+displayText("トロフィー")+'</span> <strong>'+earned+'／'+all.length+'</strong></button></div>';
+  }
+
+  function trophySlotHtml(trophy){
+    var record=profile.trophies[trophy.trophyId],reward=global.Q4BReward;
+    var sp=reward&&reward.spById?reward.spById(trophy.speciesId):null;
+    var name=sp?sp.jaName:trophy.speciesId;
+    if(!record){
+      /* 未獲得の枠も並べる。空のページを「何もない部屋」ではなく目標ボードにし、
+         条件が Lv10 到達ではなくクリアであることを初めて見える形にする。 */
+      return '<li class="kom-trophy-slot is-locked"><div class="kom-trophy-art">🔒</div>'
+        +'<p class="kom-trophy-name">'+displayText("？？？")+'</p>'
+        +'<p class="kom-trophy-cond">'+displayText(CATEGORIES[trophy.cat].name+"を Lv10 クリア")+'</p></li>';
+    }
+    var art=(sp&&reward.svg)?reward.svg(trophyModule().goldSpecies(sp),false):"";
+    return '<li class="kom-trophy-slot is-earned"><div class="kom-trophy-art">'+art+'</div>'
+      +'<p class="kom-trophy-name">'+displayText(trophyModule().displayName(trophy,name))+'</p>'
+      +'<p class="kom-trophy-cond">'+displayText(record.at+" かくとく")+'</p></li>';
+  }
+
+  function renderTrophies(volumeId){
+    var all=trophyModule().list(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
+      +'<div class="kom-title"><h1>'+displayText("きんいろトロフィー")+'</h1>'
+      +'<p>'+displayText("カテゴリを Lv10 クリアすると もらえる")+'　<strong>'+earned+'／'+all.length+'</strong></p></div>'
+      +'<ul class="kom-trophy-grid">'+all.map(trophySlotHtml).join("")+'</ul></main>';
+    document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volumeId);});
+  }
+
   function renderMap(selectedId){
     var volumes=expeditionVolumes(),currentId=currentVolumeId(volumes);
     validateMapPayload(worldMap,volumes);
@@ -1215,8 +1275,10 @@
     document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
       +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("あるく小道を えらぼう")+'</p></div>'
       +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(volumes,currentId,selected.id)+'</section>'
-      +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section></main>';
+      +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section>'
+      +trophyEntranceHtml()+'</main>';
     bindPathPanel(selected);
+    document.querySelector('[data-action="trophies"]').addEventListener("click",function(){renderTrophies(selected.id);});
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       var volume=volumeById(pin.getAttribute("data-volume-id"));
       pin.addEventListener("click",function(){selectVolume(volume);});

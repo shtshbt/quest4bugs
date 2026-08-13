@@ -263,3 +263,23 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .dan2-reason{margin:0 0 12px;padding:10px 12px;border-left:4px solid #D6B653;border-radius:8px;background:#17332B;color:#FFE08A;font-weight:800}
 /* バーの減少は装飾ではなく機構そのもの (残り時間の唯一の手がかり) なので、
    prefers-reduced-motion でも止めない。 */
+
+/* トロフィー。入口は地図の下端 (ui_design 6 章)。未獲得の枠も並べて目標ボードにする。 */
+.kom-trophy-entrance{margin:18px auto 0;padding:0 clamp(10px,3vw,20px);max-width:920px}
+.kom-trophy-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;
+  padding:11px 18px;border:2px solid #B6963D;border-radius:14px;
+  background:linear-gradient(180deg,#293A25,#192D24);color:#FFE9A8;font:900 15px/1.3 inherit;cursor:pointer}
+.kom-trophy-open:hover{border-color:#FFD86B}
+.kom-trophy-open strong{font-size:18px;font-variant-numeric:tabular-nums}
+.kom-trophy-open:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+.kom-trophy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;
+  margin:0 auto;padding:0 clamp(10px,3vw,20px) 28px;max-width:920px;list-style:none}
+.kom-trophy-slot{padding:14px 12px;border:2px solid #2F5C4A;border-radius:16px;background:#0E2721;text-align:center}
+.kom-trophy-slot.is-earned{border-color:#D8C768;background:linear-gradient(180deg,#25401E,#132C22)}
+.kom-trophy-art{display:flex;align-items:center;justify-content:center;width:100%;height:110px;
+  border-radius:12px;background:radial-gradient(circle at 50% 45%,#16463A,#0B241E);font-size:36px}
+.kom-trophy-slot.is-earned .kom-trophy-art{background:radial-gradient(circle at 50% 45%,#4A3B12,#1B2A17)}
+.kom-trophy-art svg{width:100%;height:100%}
+.kom-trophy-name{margin:9px 0 3px;color:#F6FFE4;font-size:14px;font-weight:900;line-height:1.5;overflow-wrap:anywhere}
+.kom-trophy-cond{margin:0;color:#9FBE90;font-size:12.5px;line-height:1.55}
+.kom-trophy-slot.is-earned .kom-trophy-cond{color:#FFD86B;font-variant-numeric:tabular-nums}

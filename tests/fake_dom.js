@@ -147,7 +147,7 @@ const KOMOREBI_FILES = [
   "shared/bugs.js", "shared/render.js", "shared/bug_archetypes.js", "shared/reward.js",
   "shared/furigana.js", "shared/kuku_phrases.js", "keisan/app.js",
   "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js",
-  "komorebi/kuku_run.js", "komorebi/kuku_dan2.js", "komorebi/app.js"
+  "komorebi/kuku_run.js", "komorebi/kuku_dan2.js", "komorebi/trophies.js", "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };

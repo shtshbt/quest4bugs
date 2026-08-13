@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v128";  /* v127: 教科別達成度の分母を実入手可能セット (プール+マスター+ボス+SS、天敵除く) に拡張、分子は分母集合との積に統一。 */
+var CACHE = "q4b-cache-v129";  /* v129: 木漏れ日の小道 (割合と比・れんぞく九九・段暗唱・トロフィー) を precache に追加。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -27,6 +27,10 @@ var CORE = [
   "./assets/larva_svg/kamakiri.svg", "./assets/larva_svg/semi.svg",
   "./assets/larva_svg/kamemushi_nymph.svg", "./assets/larva_svg/gokiburi.svg",
   "./zukan_config/zukan_catalog.js",
+  "./komorebi/index.html", "./komorebi/app.js", "./komorebi/map.css",
+  "./komorebi/ratio_generator.js", "./komorebi/kuku_run.js", "./komorebi/kuku_dan2.js",
+  "./komorebi/trophies.js", "./komorebi/volumes/volume_fixture.js",
+  "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
   "./assets/home_map_module_eigo_v2.webp", "./assets/home_map_module_keisan_v1.webp",
   "./assets/home_map_module_kanji_v1.webp", "./assets/home_map_module_ouja_no_michi_fitted_v1.webp",
