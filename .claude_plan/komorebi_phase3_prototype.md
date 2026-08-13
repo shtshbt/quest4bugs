@@ -11,6 +11,7 @@
 3. `docs/komorebi_ratio_curriculum.md` — kom_ratio の教材詳細 (Lv 別内容、生成器の意味モデル §6.1、静的プール schema §6.2、validator 項目 §7、在庫目標 §8、確定事項 §9)
 4. `docs/komorebi_item_examples.md` — 問題品質の 6 原則と基準例 (生成器・静的プールの見本)
 5. `docs/komorebi_release_linkage.md` — 更新カレンダー (何がいつ出るか)
+6. `docs/komorebi_ui_design.md` — UI 確定仕様 (入口・遠征マップ・図鑑隔離・ふりがな・トロフィー配置)
 6. 実装パターンの参考: `keisan/app.js` (カテゴリ・Lv・renderQ・保存の既存流儀)、`shared/reward.js` (ゲージ・捕獲)、design 7.4 章と既存 kukuyomi (音声判定の流用元)
 
 ## スコープ境界
@@ -25,28 +26,35 @@
 - 隔離の回帰 (design 9 章): 本編の平均 Lv・おすすめ・ミッション・図鑑分母 (ZUKAN_DENOM)・REACH 算定に kom_* が混入しないこと。「暗黙の全カテゴリ列挙」を見つけたら用途別セレクタに置換する
 - テストは tests/ の既存 node 流儀 (vm.createContext で shared/*.js をロード、assert、RESULT 行)。各 Stage ごとに専用テストファイルを追加
 - 時間評価の扱い: design 2.2 決定 6 (2 次改訂済み)。可視タイム UI は段暗唱のタイムバーのみ。run のレイテンシは無音の内部利用のみ
+- ふりがな: 子どもに見えるテキスト (地域コメント・カテゴリ名・わざ・解説) は漢字で 1 種類だけ書き、`p.type === "k5"` のとき既存 `furi5()` (`keisan/app.js` 5799 行以降) を通して ruby を振る。新出語は `FURI5_PAIRS` に追加する。k5 用と k10 用でテキストを二重に持たない
 - 数値の仮置き (Phase 3 実測で調整、コードでは定数化して 1 か所にまとめる): pity 累積 25%/50%/75%/100% (design 5.4)、タイムバー秒数 (3 句: Lv1 12 秒 → Lv4 6 秒 / 5 句: 15 → 10 / 9 句: 25 → Lv10 13)、SRS 判定 (遅い > 4 秒 = 計算疑い、速い < 2.5 秒)
 - コミットは Stage ごとに 1 commit。commit 前に repo CLAUDE.md の safety check。push しない
 
-## Stage A: ステージ境界と保存
+## Stage A: 入口・ステージ境界・保存
 
-成果物: `komorebi/index.html` + `komorebi/app.js` (keisan の構造踏襲の骨格)、ポータル `index.html` に入口タイル 1 枚 (既存ゲームタイルと同型、達成度カウントには影響させない)。
+成果物: `komorebi/index.html` + `komorebi/app.js` (keisan の構造踏襲の骨格)、けいさん内のエントランス、御神木パネルのカウント行。UI 仕様は `docs/komorebi_ui_design.md` 1 章と 2 章に従う。
 
 1. 保存 namespace: `komorebi` キーに profile 構造 (design 3 章の `p.sideAreas` 相当。cat 別 `lv` / `maxLv` / `stats`、エリア共通 `gauge`、`catches`、`trophies`、SRS デッキ)
 2. cat 登録: kom_ratio / kom_kuku_dan2 / kom_kuku_run を komorebi 内部のカテゴリ表に定義 (Lv 機構は既存 `p.lv` / `p.maxLv` / 適応昇降ロジックを komorebi 名前空間で再利用)
-3. 隔離回帰テスト `tests/test_komorebi_isolation.js`: komorebi profile を作成しても (a) 本編 3 ゲームの平均 Lv・カテゴリ列挙が不変 (b) ZUKAN_DENOM / poolCount が 1362 系の値のまま (c) 図鑑達成度の分子に komorebi 由来の混入がない
+3. 入口: けいさんのカテゴリ一覧の先頭に常時見えるエントランス帯。ホームマップには追加しない
+4. 発見演出: 解禁後の初回けいさん起動時に 1 度だけ。既存の かせきのたに 解禁演出 (`index.html` 785 から 811 行) と同じパターンを流用し、表示済みフラグを保存する
+5. 御神木パネル (`index.html` 587 行) に累計カウント行 `🌿 こもれび N/M` を追加 (解禁後のみ表示、タップで小道へ)
+6. **`areaOnly` 隔離**: `shared/reward.js` の POOLS 構築 (30 行) と ZUKAN_DENOM 構築 (44 行以降) で `areaOnly` を持つ種を除外する。これがないと小道の種が本編の抽選と図鑑分母に混入する (ui_design 5 章)
+7. 隔離回帰テスト `tests/test_komorebi_isolation.js`: (a) 本編 3 ゲームの平均 Lv・カテゴリ列挙が不変 (b) `areaOnly` 種を bugs.js に足しても poolCount 430/382/458 と zukanDenomCount 477/402/473 が不変 (c) 図鑑達成度の分子に komorebi 由来の混入がない (d) 逆に komorebi 図鑑には `areaOnly` 種だけが入る
 
-受け入れ: 入口タイルから空のエリアページが開き、隔離テスト green。
+受け入れ: けいさんの入口から空のエリアページが開き、発見演出が 1 度だけ出て、隔離テスト green。
 
-## Stage B: ゲージ・捕獲・fixture volume
+## Stage B: 遠征マップ・ゲージ・捕獲・fixture volume
 
 1. エリア共通ゲージ: 8 有効正答 = 1 捕獲。カテゴリをまたいで維持 (design 5.2-5.3)。加算対象・非対象は design 5.3 の列挙に厳密に従う (ヒント表示後は加算しない、誤答後の再挑戦の最終正答は加算する、等)
 2. 捕獲抽選: tier-first + 重複許容 + endgame pity (design 5.4。重複のたびに未完成 tier への引き直し確率が累積し、新種捕獲でリセット)。SS なし (N/R/SR のみ)。看板 SR は tier 内重みを下げて後半寄せ (design 6.7)
 3. volume manifest 形式: `komorebi/volumes/volume_fixture.js` — id、地域名、種リスト (id/rarity/看板 flag)、freeze 済み分母。fixture は 12 種程度の架空 volume (実在種 id を使わない synthetic id) で全 tier と看板を含む
 4. コレクション: 捕獲は komorebi の catches に記録。図鑑 UI への表示結線は Stage E
-5. テスト `tests/test_komorebi_gauge_capture.js`: ゲージのまたぎ維持 / 8 正答 1 捕獲 / pity の累積とリセット (乱数を差し替えて決定的に検証) / 分母 freeze / 看板の重み
+5. **遠征マップ (小道トップ)**: `ui_design` 3 章の確定仕様どおり実装する。素材は `tools/komorebi/build_world_map.py --out komorebi/assets/world_paths.json` で生成 (Equal Earth 等積図法、国境なし、Natural Earth パブリックドメイン)。絵柄は案 1 厚塗り (深い海のグラデーション、金色の光、宝石ピン)。地域ハイライトは `regions.json` 由来のパスを光らせる。ピンは現在地 ★ / 過去 🦋 + 進捗リング / 完成 ✓、未解放は輪郭のみ。ピン選択で下端に 2 から 3 行の地域コメント (k5 は `furi5()` でふりがな)。ピンから遠征ページへ遷移
+6. 遠征ページ (`ui_design` 4 章): カテゴリボタン + volume 図鑑入口 + 進捗。ギミックなし
+7. テスト `tests/test_komorebi_gauge_capture.js`: ゲージのまたぎ維持 / 8 正答 1 捕獲 / pity の累積とリセット (乱数を差し替えて決定的に検証) / 分母 freeze / 看板の重み / マップのピン状態が volume の進捗と一致すること
 
-受け入れ: 疑似正答列を流すと fixture volume の捕獲が仕様どおり進む。
+受け入れ: 疑似正答列を流すと fixture volume の捕獲が仕様どおり進み、マップのピンに反映される。
 
 ## Stage C: kom_ratio エンジン
 
@@ -74,8 +82,8 @@ curriculum (`docs/komorebi_ratio_curriculum.md`) を仕様として実装する�
 
 ## Stage E: 結線と検収
 
-1. トロフィー安定判定: cat の Lv10 で直近 20 問 85% 正答 = トロフィー獲得 (design 6.6。「Lv10 到達」ではない)。獲得データを保存 (表示は名前と獲得日の最小表示。金 recolor は範囲外)
-2. 小道内の図鑑タブ: fixture volume の捕獲状況 (N/R/SR、看板、分母) の最小表示
+1. トロフィー安定判定: cat の Lv10 で直近 20 問 85% 正答 = トロフィー獲得 (design 6.6。「Lv10 到達」ではない)。獲得データを保存し、**小道トップの世界地図の下にトロフィー棚を横一列**で置く (ui_design 6 章。金 recolor は範囲外、名前と獲得日の最小表示)
+2. 小道内の図鑑タブ: fixture volume の捕獲状況 (N/R/SR、看板、分母) の最小表示。けいさん図鑑と枠色・ヘッダで視覚的に区別する (ui_design 5 章)
 3. 統合回帰 fixture: design 13 章の検収リストを網羅する `tests/test_komorebi_acceptance.js` — ゲージまたぎ維持 / 音声九九で答えのみが正答にならない / 認識失敗が誤答記録されない / 新カテゴリ開始が本編平均 Lv を変えない / 凍結分母が増えない / pity 上限
 4. sw.js CACHE bump と全対象ページの `?v=` bump (新規ファイルの precache 追加を含む)
 5. 台帳更新: `docs/zukan_stock_ledger.md` に「Phase 3 実装済み、実 volume 投入待ち」を追記
