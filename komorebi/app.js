@@ -14,6 +14,8 @@
     kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
     kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2},
     kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:3},
+    kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:4},
+    kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:5},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
        (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
        毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
@@ -51,7 +53,7 @@
     formulation:{choice:true},
     ordering:{order:true},
     diagnosis:{choice:true},
-    find_all:{choice:true},
+    find_all:{choice:true,find_all:true},
     voice:{voice:true},
     dan_run:{run:true},
     scroll_fill:{choice:true},
@@ -702,6 +704,19 @@
     }).join("")+'</div>';
   }
 
+  /* 集合完成 (「ぜんぶ えらぶ」)。1 つ選んで即判定にすると、選び終える前に
+     判定が走って残りを選べない。選択を溜めてから 1 回で出す。 */
+  function multiChoiceHtml(question){
+    var selection=(session&&session.multiSelection)||[];
+    return '<div class="ratio-choices multi-choices">'+question.choices.map(function(choice,index){
+      var on=selection.indexOf(index)>=0;
+      return '<button type="button" class="ratio-choice'+(on?" is-selected":"")+'" data-multi-index="'+index+'"'
+        +' aria-pressed="'+(on?"true":"false")+'">'+displayText(choice)+'</button>';
+    }).join("")+'</div>'
+      +'<div class="ratio-order-actions"><button type="button" class="ratio-reset" data-action="reset-multi">'+displayText("やりなおし")+'</button>'
+      +'<button type="button" class="ratio-submit" data-action="submit-multi"'+(selection.length?"":" disabled")+'>'+displayText("答える")+'</button></div>';
+  }
+
   function ratioOrderHtml(question){
     return '<ol class="ratio-order-answer" id="ratioOrderAnswer" aria-live="polite"></ol>'
       +'<div class="ratio-parts">'+question.displayOrder.map(function(index){return '<button type="button" class="ratio-part" data-part-index="'+index+'">'+displayText(question.parts[index])+'</button>';}).join("")+'</div>'
@@ -737,6 +752,7 @@
     var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
     var controls;
     if(question.kind==="choice")controls=ratioChoiceHtml(question);
+    else if(question.kind==="find_all")controls=multiChoiceHtml(question);
     else if(question.kind==="order")controls=ratioOrderHtml(question);
     else if(question.kind==="num_unit")controls=numUnitHtml(question);
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
@@ -877,14 +893,22 @@
   }
 
   function answerText(question){
+    if(question.kind==="find_all")return question.ans.map(function(index){return question.choices[index];}).join("　");
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
     if(question.kind==="num_unit")return String(question.ans)+unitEngine().unitLabel(question.ansUnit);
     return ratioAnswerText(question);
   }
 
+  function reverseEngine(){
+    var engine=global.Q4B_KOMOREBI_KUKU_REVERSE;
+    if(!engine)throw new Error("九九のうら読みを読み込めません");
+    return engine;
+  }
+
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
+    if(question.cat==="kom_kuku_ura"||question.cat==="kom_kuku_inverse")return reverseEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
     if(question.kind==="num_unit"){
       /* 判定の内訳 (単位だけ違うのか、量そのものが違うのか) をフィードバックで
@@ -1092,6 +1116,17 @@
     var reset=document.querySelector('[data-action="reset-order"]'),submit=document.querySelector('[data-action="submit-order"]');
     if(reset)reset.addEventListener("click",function(){session.orderSelection=[];renderOrderSelection(question);});
     if(submit)submit.addEventListener("click",function(){submitAnswer(session.orderSelection.slice());});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-multi-index]"),function(button){
+      button.addEventListener("click",function(){
+        var index=Number(button.getAttribute("data-multi-index")),at=session.multiSelection.indexOf(index);
+        if(at>=0)session.multiSelection.splice(at,1);
+        else session.multiSelection.push(index);
+        renderCurrent();
+      });
+    });
+    var resetMulti=document.querySelector('[data-action="reset-multi"]'),submitMulti=document.querySelector('[data-action="submit-multi"]');
+    if(resetMulti)resetMulti.addEventListener("click",function(){session.multiSelection=[];renderCurrent();});
+    if(submitMulti)submitMulti.addEventListener("click",function(){submitAnswer(session.multiSelection.slice());});
     /* 単位を選んでも描き直さない。描き直すと入力済みの数が消えて、
        数を打ってから単位を押した子だけが打ち直しになる。 */
     Array.prototype.forEach.call(document.querySelectorAll("[data-unit]"),function(button){
@@ -1133,6 +1168,7 @@
     var question=session.questions[session.index];
     stopDan2Voice();
     session.orderSelection=[];
+    session.multiSelection=[];
     session.unitSelection=null;
     session.startedAt=Date.now();
     session.verdict=null;
@@ -1192,6 +1228,9 @@
        盤面の走査であって句の想起ではないので、レイテンシを混ぜない。 */
     var fact=(question.cat==="kom_kuku_run"&&(question.format==="scroll_fill"||question.format==="flash"))?kukuFact(question):null;
     if(fact)reviewKukuFact(fact.dan,fact.b,correct,elapsed);
+    /* 逆引きの誤答も同じデッキへ戻す。どのカテゴリで詰まっても、九九の再出題は
+       れんぞく九九 1 か所に集まる (reverse curriculum 3.5)。 */
+    if(question.cat==="kom_kuku_inverse"&&!correct&&question.fact&&global.Q4B_KOMOREBI_KUKU_RUN)reviewKukuFact(question.fact.dan,question.fact.b,false,0);
     recordSubmission(activeSession.cat,event,volume,Math.random,correct,elapsed).then(function(result){
       if(session!==activeSession)return;
       activeSession.pending=false;renderFeedback(question,correct,result);
@@ -1202,7 +1241,8 @@
   }
 
   function beginSession(cat,volume,questions,sessionId){
-    session={id:sessionId,cat:cat,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,orderSelection:[],startedAt:0,runState:null};
+    session={id:sessionId,cat:cat,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,
+      orderSelection:[],multiSelection:[],unitSelection:null,startedAt:0,runState:null};
     renderQuestion();
     return session;
   }
@@ -1265,6 +1305,22 @@
     return Promise.resolve(beginSession("kom_pi314",volume,questions,sessionId));
   }
 
+  /* うら読みと逆引きは同じ生成器を共有する。出題の取り出しだけ cat で分ける。 */
+  function startKukuReverseSession(cat){
+    return function(volume,random){
+      if(!profile||!global.Q4B_KOMOREBI_KUKU_REVERSE)return Promise.reject(new Error("九九のうら読みを読み込めません"));
+      if(!volume||volume.categories.indexOf(cat)<0)return Promise.reject(new Error("この小道では遊べません"));
+      var generatorRandom=random||Math.random,questions,sessionId;
+      try{
+        questions=cat==="kom_kuku_ura"
+          ?reverseEngine().buildUraSet(profile.lv[cat],generatorRandom)
+          :reverseEngine().buildInverseSet(profile.lv[cat],generatorRandom);
+        sessionId=cat+"_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+      }catch(error){return Promise.reject(error);}
+      return Promise.resolve(beginSession(cat,volume,questions,sessionId));
+    };
+  }
+
   function startUnitConvertSession(volume,random){
     if(!profile||!global.Q4B_KOMOREBI_UNIT_CONVERT)return Promise.reject(new Error("単位換算を読み込めません"));
     if(!volume||volume.categories.indexOf("kom_unit_convert")<0)return Promise.reject(new Error("この小道では単位換算を遊べません"));
@@ -1279,7 +1335,9 @@
   /* 段暗唱は CATEGORIES に 1 行足すだけで dan3 以降が動く。開始関数もここで
      機械的に作るので、段ごとに分岐を書き足す場所は残さない。 */
   var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,
-    kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession};
+    kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession,
+    kom_kuku_ura:startKukuReverseSession("kom_kuku_ura"),
+    kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse")};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });

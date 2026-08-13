@@ -264,6 +264,10 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 /* バーの減少は装飾ではなく機構そのもの (残り時間の唯一の手がかり) なので、
    prefers-reduced-motion でも止めない。 */
 
+/* 集合完成。選んだものが押されたまま残る。1 つ選んで即判定にすると、
+   選び終える前に判定が走って残りを選べない。 */
+.ratio-choice.is-selected{border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 2px 0 #80691F}
+
 /* 単位換算の回答。数と単位を分けて受け取る。数だけだと「別の単位で計算し切った
    答え」がただの計算違いに見えてしまい、何を直せばよいか渡せない。 */
 .num-unit-form{flex-wrap:wrap}
