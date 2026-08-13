@@ -65,3 +65,10 @@ body{margin:0;background:#EFF4E7;color:#243426}
   *{animation:none!important;transition:none!important}
   .pin-current .pin-halo{opacity:.22;transform:translate(-50%,-50%)}
 }
+
+/* エリア表題。10 歳は漢字のまま、5 歳は furi5 の ruby が乗る。 */
+.kom-title{text-align:center;padding:14px 16px 4px}
+.kom-title h1{margin:0;font-size:30px;font-weight:900;letter-spacing:.04em;color:#F6FFE4;
+  text-shadow:0 2px 0 rgba(6,32,20,.55),0 0 26px rgba(214,238,137,.45)}
+.kom-title h1 rt{font-size:.42em;font-weight:700;color:#CFE7A8;letter-spacing:0}
+.kom-title p{margin:6px 0 0;font-size:14px;color:#CFE7A8}

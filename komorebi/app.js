@@ -378,9 +378,11 @@
   function renderMap(){
     var volumes=expeditionVolumes(),currentId=currentVolumeId(volumes);
     validateMapPayload(worldMap,volumes);
-    document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a><div><h1>🌿 こもれびのこみち</h1><p>えんせいする ちいきを えらぼう</p></div></header>'
-      +'<section class="map-panel" aria-labelledby="mapTitle"><h2 id="mapTitle">せかいの えんせいちず</h2>'+mapArtworkHtml(volumes,currentId)
-      +'<div id="regionBlurb" class="map-blurb" aria-live="polite"><span>ピンを えらぶと、ちいきの しょうかいが でるよ。</span></div></section></main>';
+    /* 表題は漢字で 1 種類だけ書き、k5 は displayText 経由の furi5 でふりがなを振る。 */
+    document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
+      +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("行きたい地域を えらぼう")+'</p></div>'
+      +'<section class="map-panel" aria-labelledby="mapTitle"><h2 id="mapTitle">'+displayText("世界の地図")+'</h2>'+mapArtworkHtml(volumes,currentId)
+      +'<div id="regionBlurb" class="map-blurb" aria-live="polite"><span>'+displayText("ピンを えらぶと、地域の しょうかいが でるよ。")+'</span></div></section></main>';
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       var volume=volumeById(pin.getAttribute("data-volume-id"));
       pin.addEventListener("focus",function(){showRegionBlurb(volume);});
@@ -394,9 +396,11 @@
     volume.categories.forEach(function(cat){
       buttons+='<button type="button" class="expedition-action" disabled aria-disabled="true">'+displayText(CATEGORIES[cat].name)+'<span>じゅんび中</span></button>';
     });
-    document.getElementById("app").innerHTML='<main class="kom-page"><header class="kom-top"><button type="button" class="kom-back" data-action="map">← せかいちず</button><div><h1>'+displayText(volume.regionName)+' えんせい</h1><p>この えんせいで できること</p></div></header>'
-      +'<section class="expedition-panel"><div class="expedition-progress"><strong>すすみ　'+progress.caught+'／'+progress.denominator+'</strong><div class="progress-track" role="progressbar" aria-label="えんせいの すすみ" aria-valuemin="0" aria-valuemax="'+progress.denominator+'" aria-valuenow="'+progress.caught+'"><span style="width:'+(progress.caught/progress.denominator*100).toFixed(1)+'%"></span></div></div>'
-      +'<div class="expedition-actions" aria-label="この えんせいの カテゴリ">'+buttons+'</div><button type="button" class="expedition-action zukan-action" data-action="zukan">📖 '+displayText(volume.regionName)+'の ずかん</button></section></main>';
+    /* 地域の中で歩く「小道」= その地域の offers (design 3.2 / 316 行)。遠征 I/II は
+       volume の内部番号であり、画面では地域名を前に出す。 */
+    document.getElementById("app").innerHTML='<main class="kom-page"><header class="kom-top"><button type="button" class="kom-back" data-action="map">← '+displayText("世界の地図")+'</button><div><h1>'+displayText(volume.regionName+"の小道")+'</h1><p>'+displayText("ここで できること")+'</p></div></header>'
+      +'<section class="expedition-panel"><div class="expedition-progress"><strong>すすみ　'+progress.caught+'／'+progress.denominator+'</strong><div class="progress-track" role="progressbar" aria-label="'+displayText("小道の すすみ")+'" aria-valuemin="0" aria-valuemax="'+progress.denominator+'" aria-valuenow="'+progress.caught+'"><span style="width:'+(progress.caught/progress.denominator*100).toFixed(1)+'%"></span></div></div>'
+      +'<div class="expedition-actions" aria-label="'+displayText("この小道の カテゴリ")+'">'+buttons+'</div><button type="button" class="expedition-action zukan-action" data-action="zukan">📖 '+displayText(volume.regionName+"の ずかん")+'</button></section></main>';
     document.querySelector('[data-action="map"]').addEventListener("click",renderMap);
     document.querySelector('[data-action="zukan"]').addEventListener("click",function(){renderZukanStub(volume.id);});
   }

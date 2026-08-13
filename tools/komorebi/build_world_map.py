@@ -107,9 +107,26 @@ class Frame:
         return self.cx + x * self.sx, self.cy - y * self.sx
 
 
+def split_antimeridian(ring):
+    """Cut a ring wherever it jumps the 180th meridian.
+
+    Russia and Fiji wrap past ±180. Projecting such a ring point by point
+    draws a band straight across the map (Russia's lands on the top edge), so
+    each crossing starts a new sub-ring instead.
+    """
+    segments = [[]]
+    previous = None
+    for lon, lat in ring:
+        if previous is not None and abs(lon - previous) > 180:
+            segments.append([])
+        segments[-1].append((lon, lat))
+        previous = lon
+    return [segment for segment in segments if len(segment) >= 3]
+
+
 def to_path(rings, frame, precision=1):
     parts = []
-    for ring in rings:
+    for ring in [piece for ring in rings for piece in split_antimeridian(ring)]:
         if len(ring) < 3:
             continue
         coords = [frame.place(lon, lat) for lon, lat in ring]
