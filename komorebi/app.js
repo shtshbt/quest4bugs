@@ -16,6 +16,7 @@
     kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:3},
     kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:4},
     kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:5},
+    kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:6},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
        (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
        毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
@@ -704,6 +705,20 @@
     }).join("")+'</div>';
   }
 
+  /* 分数の回答。整数部と分子と分母の 3 欄をいつも出す。帯分数になる問題だけ
+     3 欄にすると、欄を見た時点で「1 より大きい」とわかってしまう。 */
+  function fracInputHtml(){
+    return '<form class="ratio-number-form frac-form" data-answer-form>'
+      +'<div class="frac-input">'
+      +'<input name="whole" type="text" inputmode="numeric" autocomplete="off" class="frac-whole" aria-label="'+attrText("整数の部分")+'">'
+      +'<span class="frac-stack">'
+      +'<input name="num" type="text" inputmode="numeric" autocomplete="off" aria-label="'+attrText("分子")+'">'
+      +'<span class="frac-bar" aria-hidden="true"></span>'
+      +'<input name="den" type="text" inputmode="numeric" autocomplete="off" aria-label="'+attrText("分母")+'">'
+      +'</span></div>'
+      +'<button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
+  }
+
   /* 集合完成 (「ぜんぶ えらぶ」)。1 つ選んで即判定にすると、選び終える前に
      判定が走って残りを選べない。選択を溜めてから 1 回で出す。 */
   function multiChoiceHtml(question){
@@ -755,6 +770,7 @@
     else if(question.kind==="find_all")controls=multiChoiceHtml(question);
     else if(question.kind==="order")controls=ratioOrderHtml(question);
     else if(question.kind==="num_unit")controls=numUnitHtml(question);
+    else if(question.kind==="frac")controls=fracInputHtml();
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
     return scaffold+'<h2>'+displayText(question.text)+'</h2>'+work+controls;
   }
@@ -894,6 +910,7 @@
 
   function answerText(question){
     if(question.kind==="find_all")return question.ans.map(function(index){return question.choices[index];}).join("　");
+    if(question.kind==="frac")return fracEngine().formatFraction(question.ans);
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
     if(question.kind==="num_unit")return String(question.ans)+unitEngine().unitLabel(question.ansUnit);
@@ -906,9 +923,25 @@
     return engine;
   }
 
+  function fracEngine(){
+    var engine=global.Q4B_KOMOREBI_FRAC_FLOW;
+    if(!engine)throw new Error("分数の解き方を読み込めません");
+    return engine;
+  }
+
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
     if(question.cat==="kom_kuku_ura"||question.cat==="kom_kuku_inverse")return reverseEngine().judge(question,answer);
+    if(question.kind==="frac"){
+      /* 「値は合うが約分が残っている」を名指しするため、真偽値だけでなく verdict を残す。 */
+      session.verdict=fracEngine().judgeFraction(question,{
+        whole:Number(String(answer.whole).trim()||0),
+        num:Number(String(answer.num).trim()),
+        den:Number(String(answer.den).trim())
+      });
+      return session.verdict.correct;
+    }
+    if(question.cat==="kom_frac_flow")return fracEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
     if(question.kind==="num_unit"){
       /* 判定の内訳 (単位だけ違うのか、量そのものが違うのか) をフィードバックで
@@ -962,7 +995,7 @@
     if(correct||!verdict)return "";
     var reason="";
     if(isDanCat(question.cat))reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
-    else if(question.kind==="num_unit")reason=verdict.note||"";
+    else if(question.kind==="num_unit"||question.kind==="frac")reason=verdict.note||"";
     return reason?'<p class="dan2-reason">'+displayText(reason)+'</p>':"";
   }
 
@@ -1149,6 +1182,10 @@
         submitAnswer({value:form.elements.answer.value,unit:session.unitSelection});
         return;
       }
+      if(question.kind==="frac"){
+        submitAnswer({whole:form.elements.whole.value,num:form.elements.num.value,den:form.elements.den.value});
+        return;
+      }
       submitAnswer(form.elements.answer.value);
     });
   }
@@ -1321,6 +1358,17 @@
     };
   }
 
+  function startFracFlowSession(volume,random){
+    if(!profile||!global.Q4B_KOMOREBI_FRAC_FLOW)return Promise.reject(new Error("分数の解き方を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_frac_flow")<0)return Promise.reject(new Error("この小道では遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=fracEngine().buildSet(profile.lv.kom_frac_flow,generatorRandom);
+      sessionId="frac_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_frac_flow",volume,questions,sessionId));
+  }
+
   function startUnitConvertSession(volume,random){
     if(!profile||!global.Q4B_KOMOREBI_UNIT_CONVERT)return Promise.reject(new Error("単位換算を読み込めません"));
     if(!volume||volume.categories.indexOf("kom_unit_convert")<0)return Promise.reject(new Error("この小道では単位換算を遊べません"));
@@ -1335,7 +1383,7 @@
   /* 段暗唱は CATEGORIES に 1 行足すだけで dan3 以降が動く。開始関数もここで
      機械的に作るので、段ごとに分岐を書き足す場所は残さない。 */
   var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,
-    kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession,
+    kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession,kom_frac_flow:startFracFlowSession,
     kom_kuku_ura:startKukuReverseSession("kom_kuku_ura"),
     kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse")};
   Object.keys(CATEGORIES).forEach(function(cat){

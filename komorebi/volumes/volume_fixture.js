@@ -43,7 +43,7 @@
     id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",
     /* 更新 2 の枠 (release_linkage 2 章)。kom_pi314 は release 2 なので、
        ここに挙げても CURRENT_RELEASE を上げるまで画面には出ない。 */
-    categories:["kom_ratio","kom_kuku_dan2","kom_pi314","kom_kuku_dan5","kom_kuku_inverse"],
+    categories:["kom_ratio","kom_kuku_dan2","kom_pi314","kom_kuku_dan5","kom_kuku_inverse","kom_frac_flow"],
     blurb:"南半球の大陸。日本の 20 倍。かわいた大地とユーカリの森が広がる。",
     prefix:"kom_fixture_au", counts:{n:6,r:3,sr:1}
   });
