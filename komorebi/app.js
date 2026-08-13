@@ -754,16 +754,64 @@
     return '<aside class="ratio-waza"><h3>'+displayText("く")+'</h3><p><span>'+displayText(phrase)+'</span></p></aside>';
   }
 
+  /* --- 段暗唱の画面 ---------------------------------------------------------
+     ここだけ時間 UI を持つ (design 決定 6 第 2 次改訂)。見えないタイムアウトは
+     理不尽なので、バーが目標の可視化とテンポガイドを兼ねる。 */
+
+  function dan2Engine(){
+    var engine=global.Q4B_KOMOREBI_KUKU_DAN2;
+    if(!engine)throw new Error("段暗唱を読み込めません");
+    return engine;
+  }
+
+  function speechCtor(){return global.SpeechRecognition||global.webkitSpeechRecognition||null;}
+
+  function dan2PhrasesHtml(chunk){
+    return '<ol class="dan2-phrases">'+chunk.phrases.map(function(item){
+      var equation=chunk.dan+"×"+item.b+(chunk.display==="read"?"＝"+item.ans:"");
+      return '<li><span class="dan2-eq">'+displayText(equation)+'</span>'
+        +(chunk.display==="read"?'<span class="dan2-yomi">'+displayText(item.phrase)+'</span>':"")+'</li>';
+    }).join("")+'</ol>';
+  }
+
+  function dan2QuestionBodyHtml(chunk){
+    var lead=chunk.display==="read"?"こえに 出して よもう":"こえに 出して となえよう";
+    return '<div class="dan2-timebar" aria-hidden="true"><span class="dan2-timebar-fill" id="dan2Timebar"></span></div>'
+      +'<h2>'+displayText(chunk.dan+"の段　"+lead)+'</h2>'
+      +dan2PhrasesHtml(chunk)
+      +'<div class="dan2-voice"><button type="button" class="ratio-submit" data-action="dan2-listen">🎙 '+displayText("となえる")+'</button></div>'
+      +'<p class="dan2-status" id="dan2Status" role="status"></p>';
+  }
+
+  function dan2AnswerText(chunk){
+    return chunk.phrases.map(function(item){return item.phrase;}).join("　");
+  }
+
+  /* 詰まった句を れんぞく九九 の再出題デッキへ還流する (categories 3.2)。
+     段暗唱で言えなかった句こそ、数値タップで繰り返す価値がある。 */
+  function refluxStuckPhrase(chunk,verdict){
+    if(!verdict||verdict.missing==null||verdict.missing<0)return;
+    var item=chunk.phrases[verdict.missing];
+    if(!item||!global.Q4B_KOMOREBI_KUKU_RUN)return;
+    reviewKukuFact(chunk.dan,item.b,false,0);
+  }
+
   function questionBodyHtml(question){
-    return question.cat==="kom_kuku_run"?kukuQuestionBodyHtml(question):ratioQuestionBodyHtml(question);
+    if(question.cat==="kom_kuku_run")return kukuQuestionBodyHtml(question);
+    if(question.cat==="kom_kuku_dan2")return dan2QuestionBodyHtml(question);
+    return ratioQuestionBodyHtml(question);
   }
 
   function answerText(question){
-    return question.cat==="kom_kuku_run"?kukuAnswerText(question):ratioAnswerText(question);
+    if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
+    if(question.cat==="kom_kuku_dan2")return dan2AnswerText(question);
+    return ratioAnswerText(question);
   }
 
   function judgeAnswer(question,answer){
-    return question.cat==="kom_kuku_run"?kukuEngine().judge(question,answer):judgeRatioAnswer(question,answer);
+    if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
+    if(question.cat==="kom_kuku_dan2")return !!(session.verdict&&session.verdict.correct);
+    return judgeRatioAnswer(question,answer);
   }
 
   function wazaCardHtml(question){
@@ -794,11 +842,27 @@
       +note+'</div>';
   }
 
+  /* 段暗唱は「なぜ駄目だったか」を言わないと理不尽になる。時間切れと言い間違いは
+     子どもにとって別のことなので、区別して伝える。 */
+  var DAN2_REASONS={
+    answer_only:"式も いっしょに となえよう",
+    stem_only:"答えまで となえよう",
+    wrong_phrase:"じゅんばんに となえよう"
+  };
+
+  function dan2ReasonHtml(question,correct){
+    var verdict=session&&session.verdict;
+    if(question.cat!=="kom_kuku_dan2"||correct||!verdict)return "";
+    var reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
+    return reason?'<p class="dan2-reason">'+displayText(reason)+'</p>':"";
+  }
+
   function feedbackHtml(question,correct,result){
     var mark=correct?"正解！":"もう一歩！";
     var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
-    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):wazaCardHtml(question);
-    return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
+    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(question.cat==="kom_kuku_dan2"?"":wazaCardHtml(question));
+    return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
+      +dan2ReasonHtml(question,correct)+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -833,8 +897,104 @@
     return question.cat==="kom_kuku_run"?question.choices[index]:index;
   }
 
+  /* --- 段暗唱の音声とタイムバー --------------------------------------------
+     タイムの基準は発話終端 (音声活動の終わり)。認識結果の到着時刻で測ると、
+     エンジンの遅延が子どもの成績に化けてしまう (categories 3.2)。 */
+
+  function dan2Status(message){
+    var node=document.getElementById("dan2Status");
+    if(node)node.innerHTML=message?displayText(message):"";
+  }
+
+  function startTimebar(limitMs){
+    var fill=document.getElementById("dan2Timebar");
+    if(!fill)return;
+    fill.style.transition="none";
+    fill.style.width="100%";
+    /* 幅を戻した直後に transition を張ると、ブラウザが 1 フレームにまとめてしまい
+       アニメーションが起きない。次のフレームまで待ってから減らし始める。 */
+    var start=function(){fill.style.transition="width "+limitMs+"ms linear";fill.style.width="0%";};
+    if(typeof global.requestAnimationFrame==="function")global.requestAnimationFrame(function(){global.requestAnimationFrame(start);});
+    else setTimeout(start,16);
+  }
+
+  /* 発話が終わった時点の残りを止めて見せる。transition の途中の実寸は
+     offsetWidth で取れるので、そこで固定する。 */
+  function freezeTimebar(){
+    var fill=document.getElementById("dan2Timebar");
+    if(!fill)return;
+    var width=Number.isFinite(fill.offsetWidth)?fill.offsetWidth+"px":fill.style.width;
+    fill.style.transition="none";
+    fill.style.width=width;
+  }
+
+  function retryDan2(message){
+    var fill=document.getElementById("dan2Timebar");
+    if(fill){fill.style.transition="none";fill.style.width="100%";}
+    dan2Status(message);
+  }
+
+  function stopDan2Voice(){
+    var voice=session&&session.voice;
+    if(!voice)return;
+    if(voice.timer){clearTimeout(voice.timer);voice.timer=null;}
+    if(voice.rec){try{voice.rec.abort();}catch(error){}voice.rec=null;}
+    voice.listening=false;
+  }
+
+  function finishDan2(chunk,transcript,elapsedMs){
+    var voice=session&&session.voice;
+    if(!voice||!voice.listening)return;
+    stopDan2Voice();
+    freezeTimebar();
+    var verdict=dan2Engine().judgeChunk(chunk,transcript,elapsedMs);
+    if(!verdict.counted){
+      /* 認識失敗はノーカウント。統計にも Lv にも入れず、同じチャンクをやり直す。 */
+      retryDan2("ききとれませんでした。もういちど となえてね");
+      return;
+    }
+    session.verdict=verdict;
+    refluxStuckPhrase(chunk,verdict);
+    submitAnswer({transcript:transcript,elapsedMs:elapsedMs});
+  }
+
+  function startDan2Voice(chunk){
+    var Ctor=speechCtor();
+    if(!Ctor){dan2Status("この ブラウザでは こえが つかえません");return;}
+    if(session.voice&&session.voice.listening)return;
+    var rec=new Ctor(),active=session;
+    session.voice={rec:rec,listening:true,startedAt:Date.now(),speechEndAt:0,timer:null};
+    rec.lang="ja-JP";rec.interimResults=false;rec.maxAlternatives=3;rec.continuous=false;
+    rec.onspeechend=function(){if(session===active&&session.voice)session.voice.speechEndAt=Date.now();};
+    rec.onerror=function(){if(session!==active)return;stopDan2Voice();freezeTimebar();dan2Status("ききとれませんでした。もういちど となえてね");};
+    rec.onresult=function(event){
+      if(session!==active||!session.voice||!session.voice.listening)return;
+      var texts=[],result=event.results&&event.results[0],index;
+      if(result)for(index=0;index<result.length;index++)texts.push(result[index].transcript||"");
+      var voice=session.voice,end=voice.speechEndAt||Date.now();
+      finishDan2(chunk,texts.join(" "),Math.max(0,end-voice.startedAt));
+    };
+    /* バーが尽きた時点で打ち切る。認識結果を待つと、遅れて届いた発話で
+       時間内だったことにできてしまう。発話終端が届いていれば「唱えたが認識が
+       間に合わなかった」なのでノーカウント、一度も声が出ていなければ不正解。 */
+    session.voice.timer=setTimeout(function(){
+      if(session!==active||!session.voice||!session.voice.listening)return;
+      var spoke=session.voice.speechEndAt>0;
+      stopDan2Voice();
+      freezeTimebar();
+      if(spoke){retryDan2("ききとれませんでした。もういちど となえてね");return;}
+      session.verdict=dan2Engine().timeoutVerdict(chunk);
+      submitAnswer({transcript:"",elapsedMs:chunk.limitMs+1});
+    },chunk.limitMs+200);
+    dan2Status("きいています…");
+    startTimebar(chunk.limitMs);
+    try{rec.start();}catch(error){stopDan2Voice();dan2Status("こえを はじめられませんでした");}
+  }
+
   function bindQuestion(question){
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){session=null;renderMap(question.volumeId);});
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){stopDan2Voice();session=null;renderMap(question.volumeId);});
+    var listen=document.querySelector('[data-action="dan2-listen"]');
+    if(listen)listen.addEventListener("click",function(){startDan2Voice(question);});
     Array.prototype.forEach.call(document.querySelectorAll("[data-choice-index]"),function(button){
       button.addEventListener("click",function(){submitAnswer(choiceValue(question,Number(button.getAttribute("data-choice-index"))));});
     });
@@ -864,8 +1024,10 @@
 
   function renderQuestion(errorMessage){
     var question=session.questions[session.index];
+    stopDan2Voice();
     session.orderSelection=[];
     session.startedAt=Date.now();
+    session.verdict=null;
     session.runState=question.format==="dan_run"?{step:0,results:[],startedAt:Date.now()}:null;
     renderCurrent(errorMessage);
   }
@@ -875,9 +1037,9 @@
     var label=last?"小道へ戻る":"次の問題";
     document.getElementById("app").innerHTML=sessionShell(feedbackHtml(question,correct,result)
       +'<button type="button" class="ratio-next" data-action="ratio-next">'+displayText(label)+'</button>');
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;session=null;renderMap(id);});
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;stopDan2Voice();session=null;renderMap(id);});
     document.querySelector('[data-action="ratio-next"]').addEventListener("click",function(){
-      if(last){var id=session.volumeId;session=null;renderMap(id);}
+      if(last){var id=session.volumeId;stopDan2Voice();session=null;renderMap(id);}
       else{session.index++;renderQuestion();}
     });
   }
@@ -967,13 +1129,35 @@
     return Promise.resolve(beginSession("kom_kuku_run",volume,questions,sessionId));
   }
 
-  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession};
+  /* 段暗唱は 1 段 = 1 カテゴリ。cat 名から段番号を読み、dan3 以降は
+     CATEGORIES への追加だけで解禁できるようにしてある。 */
+  function danOfCategory(cat){
+    var match=/^kom_kuku_dan(\d)$/.exec(cat);
+    return match?Number(match[1]):0;
+  }
+
+  function startKukuDan2Session(volume,random){
+    if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_kuku_dan2")<0)return Promise.reject(new Error("この小道では段暗唱を遊べません"));
+    if(!speechCtor())return Promise.reject(new Error("この端末では こえを つかえません"));
+    var generatorRandom=random||Math.random,chunks,sessionId;
+    try{
+      chunks=dan2Engine().buildSet(danOfCategory("kom_kuku_dan2"),profile.lv.kom_kuku_dan2,generatorRandom);
+      sessionId="dan2_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_kuku_dan2",volume,chunks,sessionId));
+  }
+
+  var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,kom_kuku_dan2:startKukuDan2Session};
 
   function pathPanelHtml(volume){
     var progress=volumeProgress(volume,viewCollection()),buttons="";
     volume.categories.forEach(function(cat){
-      if(SESSION_STARTERS[cat])buttons+='<button type="button" class="path-choice" data-cat="'+cat+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
-      else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("準備中")+'</span></button>';
+      /* 音声カテゴリはマイクが無いことを「始める前に」出す。代替入力は提供しない
+         (design 7.4)。押してから駄目だと分かるのは子どもには理不尽。 */
+      var blocked=danOfCategory(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
+      if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
+      else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText(blocked)+'</span></button>';
     });
     /* 地域の形は世界地図の実寸では読めない (コスタリカは幅 11、豪は 137)。
        形はここで単独に大きく描き、地図は位置を示す役に徹する。 */
@@ -1249,6 +1433,8 @@
     kukuQuestionBodyHtml:kukuQuestionBodyHtml,
     startRatioSession:startRatioSession,
     startKukuRunSession:startKukuRunSession,
+    startKukuDan2Session:startKukuDan2Session,
+    dan2QuestionBodyHtml:dan2QuestionBodyHtml,
     formatCourseText:formatCourseText,
     applyPerformance:applyPerformance,
     recordResult:recordResult,

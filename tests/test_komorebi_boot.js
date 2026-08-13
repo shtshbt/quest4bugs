@@ -54,7 +54,7 @@ function bootContext(mapPayload, ratioPool) {
   context.window = context;
   context.global = context;
   vm.createContext(context);
-  for (const file of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/kuku_phrases.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/kuku_run.js"]) {
+  for (const file of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/kuku_phrases.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/kuku_run.js", "komorebi/kuku_dan2.js"]) {
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
@@ -87,14 +87,17 @@ const ratioPool = JSON.parse(
   assert.ok(html.indexOf('data-cat="kom_ratio"') >= 0, "the ratio path is enabled");
   assert.ok(html.indexOf("割合と比") >= 0, "the ratio category is visible");
   assert.ok(html.indexOf('data-cat="kom_kuku_run"') >= 0, "the kuku run path is enabled");
-  assert.ok(html.indexOf("準備中") >= 0, "the unimplemented category is still shown as pending");
-  passed++; console.log("PASS the playable paths are wired and pending ones stay disabled");
+  /* この環境に SpeechRecognition は無い。段暗唱は「押す前に」使えないと言うこと
+     (design 7.4: 代替入力は提供しない)。 */
+  assert.ok(html.indexOf('data-cat="kom_kuku_dan2"') < 0, "the voice path must not be tappable without a microphone");
+  assert.ok(html.indexOf("マイクが") >= 0, "the voice path must say why it is unavailable: " + html.slice(0, 300));
+  passed++; console.log("PASS tap paths are wired and the voice path declares its microphone need");
 
   /* 捕獲カードの絵は render.js 依存。読み込みが抜けると SVG が空文字になり、
      ロジックのテストは通ったまま画面だけ絵なしになる。 */
   const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
   /* 読み込み漏れは画面だけ壊れてロジックのテストは通る。使う共有モジュールを列挙して固定する。 */
-  for (const dep of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/zukan_detail.js", "shared/kuku_phrases.js", "kuku_run.js"]) {
+  for (const dep of ["shared/bugs.js", "shared/render.js", "shared/reward.js", "shared/zukan_detail.js", "shared/kuku_phrases.js", "kuku_run.js", "kuku_dan2.js"]) {
     assert.ok(page.indexOf(dep) >= 0, "the komorebi page loads " + dep);
   }
   const rendered = context.Q4BReward.svg(context.Q4BReward.spById("oo_onaga_yamamayu"), false);
