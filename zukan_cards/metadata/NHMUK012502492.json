@@ -1,0 +1,74 @@
+{
+  "species_id": "leptonema_affine",
+  "species_ja": "Leptonema affine",
+  "scientific_name": "Leptonema affine",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012502492",
+    "occurrenceId": "812f0a5d-ce8c-4c2e-ada9-9437122c9180",
+    "persistentId": "812f0a5d-ce8c-4c2e-ada9-9437122c9180",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1912-05",
+    "eventYear": 1912,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330251016",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/812f0a5d-ce8c-4c2e-ada9-9437122c9180",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9877594f-f083-4def-84e7-e2ea6553f630",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012502492_resized.jpg",
+    "display": "processed/NHMUK012502492_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012502492_54.webp",
+      "108": "thumb/NHMUK012502492_108.webp",
+      "216": "thumb/NHMUK012502492_216.webp"
+    }
+  },
+  "original_sha256": "0c3725c84719a5cd5b9a262a8ee8974e7d594049deac61e69f7f47186ed34931",
+  "processing": {
+    "cropBox": [
+      589,
+      660,
+      991,
+      981
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012502492_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

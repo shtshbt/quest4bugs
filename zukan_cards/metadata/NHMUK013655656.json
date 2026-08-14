@@ -1,0 +1,74 @@
+{
+  "species_id": "anopheles_coustani",
+  "species_ja": "Anopheles coustani",
+  "scientific_name": "Anopheles coustani",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013655656",
+    "occurrenceId": "68df3baf-9472-4f77-a749-a068edd9db5d",
+    "persistentId": "68df3baf-9472-4f77-a749-a068edd9db5d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3922799427",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/68df3baf-9472-4f77-a749-a068edd9db5d",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/110f3085-3913-4259-a7dc-03bf20bfe06d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013655656_resized.jpg",
+    "display": "processed/NHMUK013655656_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013655656_54.webp",
+      "108": "thumb/NHMUK013655656_108.webp",
+      "216": "thumb/NHMUK013655656_216.webp"
+    }
+  },
+  "original_sha256": "df26ee616bf5d00c4e118af2bf41edb204dcfa6d5aa09986296259baf39672fd",
+  "processing": {
+    "cropBox": [
+      3,
+      98,
+      1440,
+      961
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013655656_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

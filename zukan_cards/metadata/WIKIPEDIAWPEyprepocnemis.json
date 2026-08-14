@@ -1,0 +1,74 @@
+{
+  "species_id": "eyprepocnemis_smaragdipes",
+  "species_ja": "Eyprepocnemis smaragdipes",
+  "scientific_name": "Eyprepocnemis smaragdipes",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "F. Lo Valvo",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Eyprepocnemis",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Eyprepocnemis",
+    "persistentId": "https://en.wikipedia.org/wiki/Eyprepocnemis",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "F. Lo Valvo",
+    "eventDate": "2011-07-03",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Palermo, Sicily",
+    "localityNormalized": "Palermo, Sicily",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Eyprepocnemis",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/E_plorans.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPEyprepocnemis_resized.jpg",
+    "display": "processed/WIKIPEDIAWPEyprepocnemis_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPEyprepocnemis_54.webp",
+      "108": "thumb/WIKIPEDIAWPEyprepocnemis_108.webp",
+      "216": "thumb/WIKIPEDIAWPEyprepocnemis_216.webp"
+    }
+  },
+  "original_sha256": "2e569fe32282052c776df678345161490c29dc9d4883f73f941c77faa6180962",
+  "processing": {
+    "cropBox": [
+      64,
+      9,
+      416,
+      233
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPEyprepocnemis_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

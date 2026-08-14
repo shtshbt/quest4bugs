@@ -1,0 +1,76 @@
+{
+  "species_id": "dacus_demmerezi",
+  "species_ja": "Dacus demmerezi",
+  "scientific_name": "Dacus demmerezi",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)700275",
+    "occurrenceId": "0efdb29b-6e60-4225-859e-b63293c3617e",
+    "persistentId": "0efdb29b-6e60-4225-859e-b63293c3617e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Donald d'Emmerez de Charmoy",
+    "eventDate": "1916",
+    "eventYear": 1916,
+    "country": "Mauritius",
+    "localityVerbatim": null,
+    "localityNormalized": "Mauritius",
+    "preparations": null,
+    "decimalLatitude": -20.3484,
+    "decimalLongitude": 57.5522
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270010677",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/0efdb29b-6e60-4225-859e-b63293c3617e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9d83dfe5-7ea5-49a5-ac63-f294fcf3e8d5",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE700275_resized.jpg",
+    "display": "processed/NHMUKBMNHE700275_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE700275_54.webp",
+      "108": "thumb/NHMUKBMNHE700275_108.webp",
+      "216": "thumb/NHMUKBMNHE700275_216.webp"
+    }
+  },
+  "original_sha256": "3605168328e98a032b16674f44bca670d8a07266a159899fe0ea252b21a7a0d8",
+  "processing": {
+    "cropBox": [
+      744,
+      724,
+      1170,
+      1145
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE700275_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

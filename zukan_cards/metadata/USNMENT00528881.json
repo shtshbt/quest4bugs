@@ -1,0 +1,76 @@
+{
+  "species_id": "crematogaster_kelleri",
+  "species_ja": "Crematogaster kelleri",
+  "scientific_name": "Crematogaster kelleri",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "M. Kweskin",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00528881",
+    "occurrenceId": "http://n2t.net/ark:/65665/31469a3c2-e897-4ba3-b3fd-395e39f310d7",
+    "persistentId": "http://n2t.net/ark:/65665/31469a3c2-e897-4ba3-b3fd-395e39f310d7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Kennedy",
+    "eventDate": "1929-09-22",
+    "eventYear": 1929,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Fort Wayne, United States of America",
+    "preparations": "Pinned",
+    "decimalLatitude": 41.1306,
+    "decimalLongitude": -85.1289
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317663984",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317663984",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=11628258&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00528881_resized.jpg",
+    "display": "processed/USNMENT00528881_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00528881_54.webp",
+      "108": "thumb/USNMENT00528881_108.webp",
+      "216": "thumb/USNMENT00528881_216.webp"
+    }
+  },
+  "original_sha256": "765cd18d513263850f85addee88c044ccaf1d62c064ec0312f8b7a05ec21ec0c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      913,
+      1351
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00528881_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

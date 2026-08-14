@@ -70,7 +70,8 @@ def build_entry(row: dict) -> dict:
         "groupJa": GROUP_BY_ORDER.get(order, ""),
         "origin": "overseas",
         "areaOnly": "komorebi",
-        "nameStatus": "provisional",
+        # 文献で定着した実在の名前は standard (命名 batch が override で申告する)。
+        "nameStatus": row.get("nameStatusOverride") or "provisional",
         # レア度は volume 選抜時に付け直す。在庫段階の既定は N。
         "rarity": "N",
         "renderer": RENDERER_BY_ORDER.get(order, "other"),

@@ -1,0 +1,74 @@
+{
+  "species_id": "helictopleurus_quadripunctatus",
+  "species_ja": "Helictopleurus quadripunctatus",
+  "scientific_name": "Helictopleurus quadripunctatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Helictopleurus quadripunctata (2871827701).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_quadripunctata_(2871827701).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_quadripunctata_(2871827701).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2008-09-20 06:02",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Familie: Scarabaeidae Größe: 13,5 mm Verbreitung: Madagascar Fundort: Madagascar, Sacaraha, 1966 det. H.P.Marx Foto: U.Schmidt, 2008",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Helictopleurus_quadripunctata_(2871827701).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Helictopleurus_quadripunctata_%282871827701%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHelictopleurusquadripunctata2871827701jpg_resized.jpg",
+    "display": "processed/WMCFileHelictopleurusquadripunctata2871827701jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHelictopleurusquadripunctata2871827701jpg_54.webp",
+      "108": "thumb/WMCFileHelictopleurusquadripunctata2871827701jpg_108.webp",
+      "216": "thumb/WMCFileHelictopleurusquadripunctata2871827701jpg_216.webp"
+    }
+  },
+  "original_sha256": "c91b518c8d0993ccc90d844c4d3ab9984c71668965d3d091a0356e5d4f6c9495",
+  "processing": {
+    "cropBox": [
+      35,
+      0,
+      2838,
+      1649
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHelictopleurusquadripunctata2871827701jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

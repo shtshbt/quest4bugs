@@ -1,0 +1,80 @@
+{
+  "species_id": "pycnocrania_grandidieri",
+  "species_ja": "Pycnocrania grandidieri",
+  "scientific_name": "Pycnocrania grandidieri",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "romer (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_2007529",
+    "occurrenceId": "https://www.inaturalist.org/observations/2007529",
+    "persistentId": "https://www.inaturalist.org/observations/2007529",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "romer",
+    "eventDate": "2015-06-10",
+    "eventYear": 2015,
+    "country": "Itremo",
+    "localityVerbatim": null,
+    "localityNormalized": "Itremo, Itremo",
+    "preparations": null,
+    "decimalLatitude": -20.564976,
+    "decimalLongitude": 46.594442,
+    "coordinatesObscured": false,
+    "iNatObservationId": "2007529",
+    "iNatPhotoId": "2443625",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/2007529",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/2443625/original.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs2007529_resized.jpg",
+    "display": "processed/iNatobs2007529_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs2007529_54.webp",
+      "108": "thumb/iNatobs2007529_108.webp",
+      "216": "thumb/iNatobs2007529_216.webp"
+    }
+  },
+  "original_sha256": "1a00a06977af2bf47991671ca83741fe5b2139133fc9d9ae558ded77cad77b28",
+  "processing": {
+    "cropBox": [
+      430,
+      0,
+      1600,
+      1286
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs2007529_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

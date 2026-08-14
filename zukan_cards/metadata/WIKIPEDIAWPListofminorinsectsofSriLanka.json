@@ -1,0 +1,74 @@
+{
+  "species_id": "dipseudopsis_pauliani",
+  "species_ja": "Dipseudopsis pauliani",
+  "scientific_name": "Dipseudopsis pauliani",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "AntanO",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:List of minor insects of Sri Lanka",
+    "occurrenceId": "https://en.wikipedia.org/wiki/List_of_minor_insects_of_Sri_Lanka",
+    "persistentId": "https://en.wikipedia.org/wiki/List_of_minor_insects_of_Sri_Lanka",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "AntanO",
+    "eventDate": "2012-08-22 08:39:40",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Pigeon Island National Park, main rock in northwest",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/List_of_minor_insects_of_Sri_Lanka",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Pigeon_Island_National_Park%2C_Trincomalee.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPListofminorinsectsofSriLanka_resized.jpg",
+    "display": "processed/WIKIPEDIAWPListofminorinsectsofSriLanka_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPListofminorinsectsofSriLanka_54.webp",
+      "108": "thumb/WIKIPEDIAWPListofminorinsectsofSriLanka_108.webp",
+      "216": "thumb/WIKIPEDIAWPListofminorinsectsofSriLanka_216.webp"
+    }
+  },
+  "original_sha256": "4cb77b8c61d37ff58a0ed26c4e6ba6e062b667e91c0584b6813dddd23a1494a9",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      4100,
+      2460
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPListofminorinsectsofSriLanka_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

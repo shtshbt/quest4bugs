@@ -1,0 +1,74 @@
+{
+  "species_id": "helina_impuncta",
+  "species_ja": "Helina impuncta",
+  "scientific_name": "Helina impuncta",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Johann Wilhelm Meigen 1790",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:EuropäischenZweiflügeligen1790TafCCXLVI.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Europ%C3%A4ischenZweifl%C3%BCgeligen1790TafCCXLVI.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Europ%C3%A4ischenZweifl%C3%BCgeligen1790TafCCXLVI.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Johann Wilhelm Meigen 1790",
+    "eventDate": "2012-09-16 21:15:10",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Johann Wilhelm Meigen, 1790 Abbildung der europäischen zweiflügeligen Insekten nach der Natur Von Joh. Wilh. Meigen zu Stolberg bei Aachen 1 Taf CCXLVI Text here File:EuropäischenZweiflügeligen1790TafCCXLIII-CCXLVIText.jpg Valid names and synonyms at Catalogue of Life (Annual Checklist) and Diptera.org Nomenclator.Types at MNHN collections database Note Europäischen Zweiflügeligen includes species described by previous authors - Linnaeus, Fallen, Wiedemann, Fabricius, Scopoli, Forster, Rossi, Macquart, Robert etc. 1 Gonia nervosa Meigen, 1826 synonym of Gonia ornata Meigen, 1826 2 Ortalis inusta uncertain name 3 Sciomyza fasciata Meigen 1830 uncertain name synonym of Schoenomyza litorella (Fallén, 1823) 4 Sciomyza defecta synonym of Schoenomyza litorella (Fallén, 1823) 5 Coenosia ambulans Meigen, 1826 6 Coenosia simplex uncertain name 7 Coenosia albipalpis uncertain name 8 Anthomyia canicularis synonym of Fannia canicularis (Linnaeus, 1761) 9 Anthomyia virginea synonym of Pegoplata virginea Meigen, 1826 ? 10 Anthomyia regens Meigen, 1826 synonym of Hydrophoria linogrisea Meigen, 1826 (accepted name) 11 Anthomyia modesta synonym of Helina impuncta (Fallén, 1825) 12 Anthomyia puella synonym of Hydrophoria ruralis (Meigen, 1826) 13 Anthomyia quadrum synonym of Helina quadrum (Fabricius, 1805)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Europ%C3%A4ischenZweifl%C3%BCgeligen1790TafCCXLVI.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Europ%C3%A4ischenZweifl%C3%BCgeligen1790TafCCXLVI.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_resized.jpg",
+    "display": "processed/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_54.webp",
+      "108": "thumb/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_108.webp",
+      "216": "thumb/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_216.webp"
+    }
+  },
+  "original_sha256": "f8edf2d389889797e306640eda98879db14c16dd4ca2968899554792e2d4d822",
+  "processing": {
+    "cropBox": [
+      108,
+      81,
+      1409,
+      2149
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEuropischenZweiflgeligen1790TafCCXLVIjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
