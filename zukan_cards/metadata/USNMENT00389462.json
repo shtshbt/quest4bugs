@@ -1,0 +1,76 @@
+{
+  "species_id": "sukeba_chou_tonbo",
+  "species_ja": "スケバチョウトンボ",
+  "scientific_name": "Rhyothemis semihyalina",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00389462",
+    "occurrenceId": "http://n2t.net/ark:/65665/370c1c4a0-b9ec-40ac-9abc-9cf510bd5346",
+    "persistentId": "http://n2t.net/ark:/65665/370c1c4a0-b9ec-40ac-9abc-9cf510bd5346",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Newcomb",
+    "eventDate": "1945-06-29",
+    "eventYear": 1945,
+    "country": "Senegal",
+    "localityVerbatim": null,
+    "localityNormalized": "14 kilometers northeast of Dakar [Area 14], Senegal",
+    "preparations": "Envelope",
+    "decimalLatitude": 14.7724,
+    "decimalLongitude": -17.3563
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319751404",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319751404",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16396999&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00389462_resized.jpg",
+    "display": "processed/USNMENT00389462_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00389462_54.webp",
+      "108": "thumb/USNMENT00389462_108.webp",
+      "216": "thumb/USNMENT00389462_216.webp"
+    }
+  },
+  "original_sha256": "6c2d3b40da67d004e767f7fbbff85c2b3e35ead6551e6e30257d8e68b7c53dd0",
+  "processing": {
+    "cropBox": [
+      964,
+      462,
+      1369,
+      1107
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00389462_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

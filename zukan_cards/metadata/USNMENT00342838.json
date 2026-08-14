@@ -1,0 +1,76 @@
+{
+  "species_id": "daidai_ito_tonbo",
+  "species_ja": "ダイダイイトトンボ",
+  "scientific_name": "Ceriagrion glabrum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00342838",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c57ba891-19ed-49bb-92e4-9a9e3fe532d5",
+    "persistentId": "http://n2t.net/ark:/65665/3c57ba891-19ed-49bb-92e4-9a9e3fe532d5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Gould",
+    "eventDate": "1963-02-27",
+    "eventYear": 1963,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Tananarive, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -18.9235,
+    "decimalLongitude": 47.5319
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321668182",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321668182",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16399558&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00342838_resized.jpg",
+    "display": "processed/USNMENT00342838_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00342838_54.webp",
+      "108": "thumb/USNMENT00342838_108.webp",
+      "216": "thumb/USNMENT00342838_216.webp"
+    }
+  },
+  "original_sha256": "9e0e95cb42cbc6b2aa572c2438376e97a4c81d71cf01f5869b16b3e94ffc1d33",
+  "processing": {
+    "cropBox": [
+      501,
+      825,
+      1139,
+      1126
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00342838_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

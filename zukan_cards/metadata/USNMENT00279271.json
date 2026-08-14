@@ -1,0 +1,76 @@
+{
+  "species_id": "murasaki_beni_tonbo",
+  "species_ja": "ムラサキベニトンボ",
+  "scientific_name": "Trithemis annulata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00279271",
+    "occurrenceId": "http://n2t.net/ark:/65665/31e0101f6-b330-4802-ada9-6fe24e255dc9",
+    "persistentId": "http://n2t.net/ark:/65665/31e0101f6-b330-4802-ada9-6fe24e255dc9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "E. Pinhey",
+    "eventDate": "1960-10",
+    "eventYear": 1960,
+    "country": "Zambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Kafue River, Zambia",
+    "preparations": "Envelope",
+    "decimalLatitude": -15.7461,
+    "decimalLongitude": 27.4374
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317880809",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317880809",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16330382&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00279271_resized.jpg",
+    "display": "processed/USNMENT00279271_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00279271_54.webp",
+      "108": "thumb/USNMENT00279271_108.webp",
+      "216": "thumb/USNMENT00279271_216.webp"
+    }
+  },
+  "original_sha256": "97c292c4196607b253d0cca502aacdca1c4683ce75bade389d45d02b397a93b2",
+  "processing": {
+    "cropBox": [
+      174,
+      390,
+      1015,
+      1135
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00279271_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

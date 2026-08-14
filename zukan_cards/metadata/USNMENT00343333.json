@@ -1,0 +1,76 @@
+{
+  "species_id": "shikatsuno_ito_tonbo",
+  "species_ja": "シカツノイトトンボ",
+  "scientific_name": "Pseudagrion alcicorne",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00343333",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c3d6bc82-f93f-40ed-b69a-2980ed2a6ad8",
+    "persistentId": "http://n2t.net/ark:/65665/3c3d6bc82-f93f-40ed-b69a-2980ed2a6ad8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "N. Olsufiev",
+    "eventDate": "1933-10-11",
+    "eventYear": 1933,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Mahabo, Nosy-Komba, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -13.4713,
+    "decimalLongitude": 48.3489
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321631051",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321631051",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16353676&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00343333_resized.jpg",
+    "display": "processed/USNMENT00343333_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00343333_54.webp",
+      "108": "thumb/USNMENT00343333_108.webp",
+      "216": "thumb/USNMENT00343333_216.webp"
+    }
+  },
+  "original_sha256": "b0abbc7263a1e169188648e7761a56eefa16448a401a0b2c691a1303041c3c1c",
+  "processing": {
+    "cropBox": [
+      140,
+      762,
+      2000,
+      1215
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00343333_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

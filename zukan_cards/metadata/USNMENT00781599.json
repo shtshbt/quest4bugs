@@ -1,0 +1,74 @@
+{
+  "species_id": "suji_tsumaaka_shirochou",
+  "species_ja": "スジツマアカシロチョウ",
+  "scientific_name": "Colotis zoe",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00781599",
+    "occurrenceId": "http://n2t.net/ark:/65665/3ee7fc819-d923-40e5-8cac-1ea3986b397a",
+    "persistentId": "http://n2t.net/ark:/65665/3ee7fc819-d923-40e5-8cac-1ea3986b397a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322594273",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322594273",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10487432&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00781599_resized.jpg",
+    "display": "processed/USNMENT00781599_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00781599_54.webp",
+      "108": "thumb/USNMENT00781599_108.webp",
+      "216": "thumb/USNMENT00781599_216.webp"
+    }
+  },
+  "original_sha256": "169e5195185a1b475b79331156f9c897a89bad84e15c8fa7b58fcf3dccf4aa92",
+  "processing": {
+    "cropBox": [
+      175,
+      114,
+      1771,
+      1324
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00781599_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

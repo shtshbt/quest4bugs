@@ -1,0 +1,76 @@
+{
+  "species_id": "futahoshi_koorogi",
+  "species_ja": "フタホシコオロギ",
+  "scientific_name": "Gryllus bimaculatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014440598",
+    "occurrenceId": "16cfc3e7-7997-4bed-98dd-c9823258901c",
+    "persistentId": "16cfc3e7-7997-4bed-98dd-c9823258901c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Nymph",
+    "recordedBy": "Maxwell V.L. Barclay",
+    "eventDate": "2022-03-28",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Tynemouth Street, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.4724,
+    "decimalLongitude": -0.1858
+  },
+  "source": {
+    "gbifOccurrenceKey": "3752305323",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/16cfc3e7-7997-4bed-98dd-c9823258901c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/efc8cdb5-91f1-475a-ad35-4fd917b02a83",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014440598_resized.jpg",
+    "display": "processed/NHMUK014440598_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014440598_54.webp",
+      "108": "thumb/NHMUK014440598_108.webp",
+      "216": "thumb/NHMUK014440598_216.webp"
+    }
+  },
+  "original_sha256": "7f19e698e17c4a3c3e437448357c9edef66cf2ca44a7fcd50a262fa261b095f5",
+  "processing": {
+    "cropBox": [
+      263,
+      75,
+      1198,
+      552
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014440598_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

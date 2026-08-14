@@ -1,0 +1,74 @@
+{
+  "species_id": "tsuya_oozu_ari",
+  "species_ja": "ツヤオオズアリ",
+  "scientific_name": "Pheidole megacephala",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Philipp Hoenle",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pheidole megacephala 333840401.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pheidole_megacephala_333840401.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pheidole_megacephala_333840401.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Philipp Hoenle",
+    "eventDate": "2023-09-26",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "African Big-headed Ant (Pheidole megacephala)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pheidole_megacephala_333840401.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Pheidole_megacephala_333840401.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFilePheidolemegacephala333840401jpg_resized.jpg",
+    "display": "processed/WMCFilePheidolemegacephala333840401jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePheidolemegacephala333840401jpg_54.webp",
+      "108": "thumb/WMCFilePheidolemegacephala333840401jpg_108.webp",
+      "216": "thumb/WMCFilePheidolemegacephala333840401jpg_216.webp"
+    }
+  },
+  "original_sha256": "29145ca2693d74abf97e0b50bd8d93c00480b7a33234cfcfd883233a43805798",
+  "processing": {
+    "cropBox": [
+      28,
+      282,
+      1995,
+      1441
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePheidolemegacephala333840401jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

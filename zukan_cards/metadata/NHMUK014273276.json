@@ -1,0 +1,74 @@
+{
+  "species_id": "kuroboshi_maru_kaigaramushi",
+  "species_ja": "クロボシマルカイガラムシ",
+  "scientific_name": "Morganella conspicua",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014273276",
+    "occurrenceId": "d204f362-f855-4ad7-9da9-1a76165ae639",
+    "persistentId": "d204f362-f855-4ad7-9da9-1a76165ae639",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Sierra Leone",
+    "localityVerbatim": null,
+    "localityNormalized": "Sierra Leone",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3031175750",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/d204f362-f855-4ad7-9da9-1a76165ae639",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/bdebfccc-aa7b-401c-a434-54fb01200494",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014273276_resized.jpg",
+    "display": "processed/NHMUK014273276_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014273276_54.webp",
+      "108": "thumb/NHMUK014273276_108.webp",
+      "216": "thumb/NHMUK014273276_216.webp"
+    }
+  },
+  "original_sha256": "da300342178994fcbe5d20a8ba4cd04624c456c1965803384492f4bcbdbdcc17",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1440,
+      479
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014273276_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

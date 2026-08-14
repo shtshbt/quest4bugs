@@ -1,0 +1,74 @@
+{
+  "species_id": "chairo_oo_yamamayu",
+  "species_ja": "チャイロオオヤママユ",
+  "scientific_name": "Bunaea aslauga",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Philstone",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Bunaea aslauga Madagascar.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Bunaea_aslauga_Madagascar.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Bunaea_aslauga_Madagascar.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Philstone",
+    "eventDate": "2015-02-28 13:07:52",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "dans la forêt d'Andasibe (Moramanga)",
+    "localityNormalized": "dans la forêt d'Andasibe (Moramanga)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Bunaea_aslauga_Madagascar.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Bunaea_aslauga_Madagascar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileBunaeaaslaugaMadagascarjpg_resized.jpg",
+    "display": "processed/WMCFileBunaeaaslaugaMadagascarjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBunaeaaslaugaMadagascarjpg_54.webp",
+      "108": "thumb/WMCFileBunaeaaslaugaMadagascarjpg_108.webp",
+      "216": "thumb/WMCFileBunaeaaslaugaMadagascarjpg_216.webp"
+    }
+  },
+  "original_sha256": "aa2d65ac65dfafbb016575944a5e7383e9e819c3e10385efa067204945479e83",
+  "processing": {
+    "cropBox": [
+      0,
+      762,
+      4608,
+      3185
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBunaeaaslaugaMadagascarjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

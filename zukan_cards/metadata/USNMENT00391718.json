@@ -1,0 +1,76 @@
+{
+  "species_id": "tsuchiiro_ito_tonbo",
+  "species_ja": "ツチイロイトトンボ",
+  "scientific_name": "Lestes ochraceus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00391718",
+    "occurrenceId": "http://n2t.net/ark:/65665/31873e0ef-511c-4232-82cb-ce3649dd8ea5",
+    "persistentId": "http://n2t.net/ark:/65665/31873e0ef-511c-4232-82cb-ce3649dd8ea5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Mixed",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Shaffer",
+    "eventDate": "1968-01-26",
+    "eventYear": 1968,
+    "country": "Seychelles",
+    "localityVerbatim": null,
+    "localityNormalized": "Aldabra Atoll, Settlement, Seychelles",
+    "preparations": "Envelope",
+    "decimalLatitude": -9.39502,
+    "decimalLongitude": 46.2041
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317755402",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317755402",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16402747&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00391718_resized.jpg",
+    "display": "processed/USNMENT00391718_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00391718_54.webp",
+      "108": "thumb/USNMENT00391718_108.webp",
+      "216": "thumb/USNMENT00391718_216.webp"
+    }
+  },
+  "original_sha256": "b3049a105d8db8fa16ec06949ae4ac9d6fa3a37208aba6489de2bd9d5772e34b",
+  "processing": {
+    "cropBox": [
+      904,
+      554,
+      1824,
+      1126
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00391718_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

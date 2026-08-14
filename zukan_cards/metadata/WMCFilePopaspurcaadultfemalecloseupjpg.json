@@ -1,0 +1,74 @@
+{
+  "species_id": "afurika_eda_kamakiri",
+  "species_ja": "アフリカエダカマキリ",
+  "scientific_name": "Popa spurca",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Mantisonis",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Popa spurca adult female closeup.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Popa_spurca_adult_female_closeup.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Popa_spurca_adult_female_closeup.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mantisonis",
+    "eventDate": "2022-01-18 18:37:17",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "A female popa spurca adult closeup, picture taken in an LED shooting tent.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Popa_spurca_adult_female_closeup.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Popa_spurca_adult_female_closeup.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePopaspurcaadultfemalecloseupjpg_resized.jpg",
+    "display": "processed/WMCFilePopaspurcaadultfemalecloseupjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePopaspurcaadultfemalecloseupjpg_54.webp",
+      "108": "thumb/WMCFilePopaspurcaadultfemalecloseupjpg_108.webp",
+      "216": "thumb/WMCFilePopaspurcaadultfemalecloseupjpg_216.webp"
+    }
+  },
+  "original_sha256": "376a5f94a0c02779dfc8ba86276481f51740fce861106b576893b059da9bfd90",
+  "processing": {
+    "cropBox": [
+      433,
+      924,
+      4752,
+      2517
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePopaspurcaadultfemalecloseupjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

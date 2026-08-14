@@ -1,0 +1,74 @@
+{
+  "species_id": "sorairo_ito_tonbo",
+  "species_ja": "ソライロイトトンボ",
+  "scientific_name": "Azuragrion kauderni",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Charles J. Sharp",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Malagasy bluet (Azuragrion kauderni) fresh female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Malagasy_bluet_(Azuragrion_kauderni)_fresh_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Malagasy_bluet_(Azuragrion_kauderni)_fresh_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Charles J. Sharp",
+    "eventDate": "2018-11-19 12:25:59",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Malagasy bluet (Azuragrion kauderni) fresh female, Andasibe, Madagascar",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Malagasy_bluet_(Azuragrion_kauderni)_fresh_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/Malagasy_bluet_%28Azuragrion_kauderni%29_fresh_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_resized.jpg",
+    "display": "processed/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_54.webp",
+      "108": "thumb/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_108.webp",
+      "216": "thumb/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "99c79215b90211f978e1d3619c170a06dccb6bfb1242f036d794ee716cf1188e",
+  "processing": {
+    "cropBox": [
+      354,
+      793,
+      2736,
+      2009
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMalagasybluetAzuragrionkaudernifreshfemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

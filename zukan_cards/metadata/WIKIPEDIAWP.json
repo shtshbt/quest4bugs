@@ -1,37 +1,37 @@
 {
-  "species_id": "akahane_mushi",
-  "species_ja": "アカハネムシ",
-  "scientific_name": "Pseudopyrochroa rufula",
+  "species_id": "madagasukaru_oo_tagame",
+  "species_ja": "マダガスカルオオタガメ",
+  "scientific_name": "Lethocerus oculatus",
   "credit_line": "Wikipedia (ja article infobox)",
-  "creator": "Bugboy52.40",
-  "fetched_date": "2026-06-23",
+  "creator": "Dieno",
+  "fetched_date": "2026-08-14",
   "specimen": {
     "institution": "Wikipedia (ja article infobox)",
     "institutionCode": "WIKIPEDIA",
     "collectionCode": null,
-    "catalogNumber": "WP:甲虫類",
-    "occurrenceId": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
-    "persistentId": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
+    "catalogNumber": "WP:タガメ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%BF%E3%82%AC%E3%83%A1",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%BF%E3%82%AC%E3%83%A1",
     "basisOfRecord": "HumanObservation",
     "typeStatus": null,
     "sex": null,
     "lifeStage": null,
-    "recordedBy": "Bugboy52.40",
-    "eventDate": "2011-03-04 23:03:05",
-    "eventYear": 2011,
+    "recordedBy": "Dieno",
+    "eventDate": "2007-03-03",
+    "eventYear": 2007,
     "country": null,
-    "localityVerbatim": "A collage of beetles made from images uploaded by User:Fir0002.",
-    "localityNormalized": null,
+    "localityVerbatim": "giant water bug",
+    "localityNormalized": "giant water bug",
     "preparations": null
   },
   "source": {
     "gbifOccurrenceKey": null,
-    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E7%94%B2%E8%99%AB%E9%A1%9E",
-    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Coleoptera_collage.png",
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%BF%E3%82%AC%E3%83%A1",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Lethocerus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "datasetKey": null,
-    "metadataLicense": "CC-BY-SA-3.0",
-    "mediaLicense": "CC-BY-SA-3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
   "files": {
     "resized": "original/WIKIPEDIAWP_resized.jpg",
@@ -42,13 +42,13 @@
       "216": "thumb/WIKIPEDIAWP_216.webp"
     }
   },
-  "original_sha256": "ffca0a7cc35627f2fd3d2dd02b7c25e07fb1b034649312c8ba61c700aa0b31ee",
+  "original_sha256": "2480549fa1bebac2a8ca3ad0a3f57b3cc1d35e9a7bd5e069f0487d48c5089908",
   "processing": {
     "cropBox": [
-      0,
-      97,
-      1411,
-      1345
+      11,
+      4,
+      636,
+      786
     ],
     "rotationDegrees": 0,
     "padding": 0.1,
@@ -70,5 +70,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "unknown taxon — no rotation"
+  "notes": "butterfly dorsal — head up by convention, no rotation"
 }

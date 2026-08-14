@@ -1,0 +1,76 @@
+{
+  "species_id": "usu_hime_kiari",
+  "species_ja": "ウスヒメキアリ",
+  "scientific_name": "Plagiolepis alluaudi",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "M. Kweskin",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00529216",
+    "occurrenceId": "http://n2t.net/ark:/65665/3db35a953-b882-46c7-87b9-9fc7180f0b94",
+    "persistentId": "http://n2t.net/ark:/65665/3db35a953-b882-46c7-87b9-9fc7180f0b94",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "W. Mann",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Fiji",
+    "localityVerbatim": null,
+    "localityNormalized": "Suva, Fiji",
+    "preparations": "Pinned",
+    "decimalLatitude": -18.1216,
+    "decimalLongitude": 178.451
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322157609",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322157609",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=11630079&h=538",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00529216_resized.jpg",
+    "display": "processed/USNMENT00529216_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00529216_54.webp",
+      "108": "thumb/USNMENT00529216_108.webp",
+      "216": "thumb/USNMENT00529216_216.webp"
+    }
+  },
+  "original_sha256": "45daaf2bd358fe6706e509ea37715db41a87810385db7a12c96d94c959a731ba",
+  "processing": {
+    "cropBox": [
+      0,
+      8,
+      538,
+      237
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00529216_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

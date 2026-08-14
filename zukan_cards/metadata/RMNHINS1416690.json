@@ -1,0 +1,74 @@
+{
+  "species_id": "afurika_yamato_shijimi",
+  "species_ja": "アフリカヤマトシジミ",
+  "scientific_name": "Zizeeria knysna",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1416690",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1416690",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1416690",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Nick van Wouwen",
+    "eventDate": "2019-10-01",
+    "eventYear": 2019,
+    "country": "Senegal",
+    "localityVerbatim": null,
+    "localityNormalized": "Senegal",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "4538567386",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4538567386",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1416690_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS1416690_resized.jpg",
+    "display": "processed/RMNHINS1416690_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1416690_54.webp",
+      "108": "thumb/RMNHINS1416690_108.webp",
+      "216": "thumb/RMNHINS1416690_216.webp"
+    }
+  },
+  "original_sha256": "66867c68457f96bde423efeb379c266a18667c4e84567b765ae5ddf86400179e",
+  "processing": {
+    "cropBox": [
+      196,
+      14,
+      1920,
+      1097
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1416690_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

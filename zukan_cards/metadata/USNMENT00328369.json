@@ -1,0 +1,76 @@
+{
+  "species_id": "misuji_yama_tonbo",
+  "species_ja": "ミスジヤマトンボ",
+  "scientific_name": "Phyllomacromia trifasciata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00328369",
+    "occurrenceId": "http://n2t.net/ark:/65665/31818b841-a6ae-475c-975f-4f3de25fcd88",
+    "persistentId": "http://n2t.net/ark:/65665/31818b841-a6ae-475c-975f-4f3de25fcd88",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "W. Steiner",
+    "eventDate": "1990-03-04",
+    "eventYear": 1990,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "7 kilometers west of Ranomafana, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -21.2558,
+    "decimalLongitude": 47.4119
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317747715",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317747715",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16324953&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00328369_resized.jpg",
+    "display": "processed/USNMENT00328369_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00328369_54.webp",
+      "108": "thumb/USNMENT00328369_108.webp",
+      "216": "thumb/USNMENT00328369_216.webp"
+    }
+  },
+  "original_sha256": "27dbdb3f720c13d8c297c33762d3ff92c06af43d90a6af8c7d38d7b87e6642f4",
+  "processing": {
+    "cropBox": [
+      403,
+      295,
+      1271,
+      1197
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00328369_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

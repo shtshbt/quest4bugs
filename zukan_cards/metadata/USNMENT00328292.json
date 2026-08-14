@@ -1,0 +1,76 @@
+{
+  "species_id": "madagasukaru_gin_yanma",
+  "species_ja": "マダガスカルギンヤンマ",
+  "scientific_name": "Anax tumorifer",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00328292",
+    "occurrenceId": "http://n2t.net/ark:/65665/334ab7e43-4803-412e-9f2a-0e65de081878",
+    "persistentId": "http://n2t.net/ark:/65665/334ab7e43-4803-412e-9f2a-0e65de081878",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "F. Major",
+    "eventDate": "1895-01-06",
+    "eventYear": 1895,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Ambohimitombo Forest, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -20.7185,
+    "decimalLongitude": 47.4288
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318393221",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318393221",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16355156&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00328292_resized.jpg",
+    "display": "processed/USNMENT00328292_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00328292_54.webp",
+      "108": "thumb/USNMENT00328292_108.webp",
+      "216": "thumb/USNMENT00328292_216.webp"
+    }
+  },
+  "original_sha256": "4b70eaa2a990c58abfcd6afc5d28e188c294d763dadd92b38de5adac019923d8",
+  "processing": {
+    "cropBox": [
+      428,
+      455,
+      1544,
+      1172
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00328292_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

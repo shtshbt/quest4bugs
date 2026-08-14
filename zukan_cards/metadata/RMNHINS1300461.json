@@ -1,0 +1,74 @@
+{
+  "species_id": "oo_onaga_yamamayu",
+  "species_ja": "オオオナガヤママユ",
+  "scientific_name": "Argema mittrei",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1300461",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1300461",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1300461",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1987-05-26",
+    "eventYear": 1987,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "3418461318",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3418461318",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1300461_3/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS1300461_resized.jpg",
+    "display": "processed/RMNHINS1300461_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1300461_54.webp",
+      "108": "thumb/RMNHINS1300461_108.webp",
+      "216": "thumb/RMNHINS1300461_216.webp"
+    }
+  },
+  "original_sha256": "6cfc5b6d739aa9b884f08d5d6f54c55dfb9ccc9301612005a5b6cf33a4a23b55",
+  "processing": {
+    "cropBox": [
+      1,
+      0,
+      1920,
+      1222
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1300461_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

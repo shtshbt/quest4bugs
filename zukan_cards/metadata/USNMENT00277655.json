@@ -1,0 +1,76 @@
+{
+  "species_id": "ko_shiokara_tonbo",
+  "species_ja": "コシオカラトンボ",
+  "scientific_name": "Orthetrum abbotti",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277655",
+    "occurrenceId": "http://n2t.net/ark:/65665/302790955-ac97-4e43-9bbe-d298f258712d",
+    "persistentId": "http://n2t.net/ark:/65665/302790955-ac97-4e43-9bbe-d298f258712d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "Sharp",
+    "eventDate": "1896",
+    "eventYear": 1896,
+    "country": "Liberia",
+    "localityVerbatim": null,
+    "localityNormalized": "Mount Coffee, Liberia",
+    "preparations": "Envelope",
+    "decimalLatitude": 6.49054,
+    "decimalLongitude": -10.6495
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317258261",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317258261",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16384093&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277655_resized.jpg",
+    "display": "processed/USNMENT00277655_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277655_54.webp",
+      "108": "thumb/USNMENT00277655_108.webp",
+      "216": "thumb/USNMENT00277655_216.webp"
+    }
+  },
+  "original_sha256": "04274b9ff61f850d998c9fbfa5f95460e699b3d8c74e7284c1129541bd2b1e57",
+  "processing": {
+    "cropBox": [
+      1067,
+      555,
+      1608,
+      1109
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277655_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

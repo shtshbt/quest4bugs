@@ -1,0 +1,74 @@
+{
+  "species_id": "afurika_oo_kamakiri",
+  "species_ja": "アフリカオオカマキリ",
+  "scientific_name": "Polyspilota aeruginosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tanja Popp",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Polyspilota aeruginosa TPopp.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Polyspilota_aeruginosa_TPopp.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Polyspilota_aeruginosa_TPopp.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tanja Popp",
+    "eventDate": "2015-03-31 10:32:19",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Polyspilota aeruginosa (Goeze,1778) ♂ Herkunft: Kenia, Malindi",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Polyspilota_aeruginosa_TPopp.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Polyspilota_aeruginosa_TPopp.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePolyspilotaaeruginosaTPoppjpg_resized.jpg",
+    "display": "processed/WMCFilePolyspilotaaeruginosaTPoppjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePolyspilotaaeruginosaTPoppjpg_54.webp",
+      "108": "thumb/WMCFilePolyspilotaaeruginosaTPoppjpg_108.webp",
+      "216": "thumb/WMCFilePolyspilotaaeruginosaTPoppjpg_216.webp"
+    }
+  },
+  "original_sha256": "b7e6a14210408adeb0b12bc1bb317b07291e6542d59604e90069cb100422d8fd",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3184,
+      2608
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePolyspilotaaeruginosaTPoppjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

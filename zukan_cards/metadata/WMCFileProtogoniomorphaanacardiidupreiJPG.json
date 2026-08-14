@@ -1,0 +1,74 @@
+{
+  "species_id": "shinju_tateha",
+  "species_ja": "シンジュタテハ",
+  "scientific_name": "Protogoniomorpha duprei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz 1910 author of plates unknown",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Protogoniomorpha anacardii duprei.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Protogoniomorpha_anacardii_duprei.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Protogoniomorpha_anacardii_duprei.JPG",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz 1910 author of plates unknown",
+    "eventDate": "2012-10-28 20:49:59",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "SeitzFaunaAfricana Protogoniomorpha anacardii ssp. duprei (Vinson, 1863)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Protogoniomorpha_anacardii_duprei.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/98/Protogoniomorpha_anacardii_duprei.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileProtogoniomorphaanacardiidupreiJPG_resized.jpg",
+    "display": "processed/WMCFileProtogoniomorphaanacardiidupreiJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileProtogoniomorphaanacardiidupreiJPG_54.webp",
+      "108": "thumb/WMCFileProtogoniomorphaanacardiidupreiJPG_108.webp",
+      "216": "thumb/WMCFileProtogoniomorphaanacardiidupreiJPG_216.webp"
+    }
+  },
+  "original_sha256": "a88a3109b02154b09c1fde37f8d39a19e170640c4979f5314ade04faae34c5e3",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      990,
+      830
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileProtogoniomorphaanacardiidupreiJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "afurika_shiwaari",
+  "species_ja": "アフリカシワアリ",
+  "scientific_name": "Tetramorium delagoense",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Michele Esposito",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tetramorium delagoense casent0101721 head 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tetramorium_delagoense_casent0101721_head_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tetramorium_delagoense_casent0101721_head_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Michele Esposito",
+    "eventDate": "2006-03-07 17:16:44",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Head view of ant Tetramorium delagoense specimen casent0101721.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tetramorium_delagoense_casent0101721_head_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Tetramorium_delagoense_casent0101721_head_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileTetramoriumdelagoensecasent0101721head1jpg_resized.jpg",
+    "display": "processed/WMCFileTetramoriumdelagoensecasent0101721head1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTetramoriumdelagoensecasent0101721head1jpg_54.webp",
+      "108": "thumb/WMCFileTetramoriumdelagoensecasent0101721head1jpg_108.webp",
+      "216": "thumb/WMCFileTetramoriumdelagoensecasent0101721head1jpg_216.webp"
+    }
+  },
+  "original_sha256": "4a3bc8ff37d931484a29634a7f78dada7821a7cc866d2ac734ce2b7446594a3c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1100,
+      792
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTetramoriumdelagoensecasent0101721head1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

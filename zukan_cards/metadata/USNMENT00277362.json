@@ -1,0 +1,76 @@
+{
+  "species_id": "kuro_hime_tonbo",
+  "species_ja": "クロヒメトンボ",
+  "scientific_name": "Diplacodes lefebvrii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277362",
+    "occurrenceId": "http://n2t.net/ark:/65665/328fd0832-8366-4b51-926f-6d1160e88bc1",
+    "persistentId": "http://n2t.net/ark:/65665/328fd0832-8366-4b51-926f-6d1160e88bc1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Gurney",
+    "eventDate": "1965-04-18/1965-04-29",
+    "eventYear": 1965,
+    "country": "Egypt",
+    "localityVerbatim": null,
+    "localityNormalized": "Kom Aushim, Fayyum oasis, Egypt",
+    "preparations": "Envelope",
+    "decimalLatitude": 29.554,
+    "decimalLongitude": 30.8764
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318129532",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318129532",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16381921&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277362_resized.jpg",
+    "display": "processed/USNMENT00277362_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277362_54.webp",
+      "108": "thumb/USNMENT00277362_108.webp",
+      "216": "thumb/USNMENT00277362_216.webp"
+    }
+  },
+  "original_sha256": "df49e690012fea646b46fc35f6e9837b08cbf4673b547297dfdc30a16951f64c",
+  "processing": {
+    "cropBox": [
+      26,
+      14,
+      2000,
+      1536
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277362_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

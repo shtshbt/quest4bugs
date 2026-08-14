@@ -1,0 +1,74 @@
+{
+  "species_id": "akamarubane_monki_tateha",
+  "species_ja": "アカマルバネモンキタテハ",
+  "scientific_name": "Aterica rabena",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.378693",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.378693",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.378693",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443652228",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443652228",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.378693_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS378693_resized.jpg",
+    "display": "processed/RMNHINS378693_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS378693_54.webp",
+      "108": "thumb/RMNHINS378693_108.webp",
+      "216": "thumb/RMNHINS378693_216.webp"
+    }
+  },
+  "original_sha256": "d0d2cb86d84d4bb3de0f79b0f580eb010200d7257f8fa6fc16069df5dc340bd6",
+  "processing": {
+    "cropBox": [
+      0,
+      104,
+      1920,
+      1160
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS378693_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

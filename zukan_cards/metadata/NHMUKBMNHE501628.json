@@ -1,0 +1,76 @@
+{
+  "species_id": "rurimon_kuro_tatehamodoki",
+  "species_ja": "ルリモンクロタテハモドキ",
+  "scientific_name": "Junonia oenone",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)501628",
+    "occurrenceId": "806c1ff8-7883-444a-a9b1-0196da5c24e7",
+    "persistentId": "806c1ff8-7883-444a-a9b1-0196da5c24e7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "David Thomson",
+    "eventDate": "1950-06-05",
+    "eventYear": 1950,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Greater London; Clarence Lane| Township: Roehampton, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.4546,
+    "decimalLongitude": -0.2499
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291263549",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/806c1ff8-7883-444a-a9b1-0196da5c24e7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9fa44cd7-50f5-4d2f-83f1-4ca5e2e7cda5",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE501628_resized.jpg",
+    "display": "processed/NHMUKBMNHE501628_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE501628_54.webp",
+      "108": "thumb/NHMUKBMNHE501628_108.webp",
+      "216": "thumb/NHMUKBMNHE501628_216.webp"
+    }
+  },
+  "original_sha256": "c4debf52340b17310b40166974bd82f7c7a1d8f34c78003c55ea2c2adac12ed3",
+  "processing": {
+    "cropBox": [
+      30,
+      49,
+      959,
+      793
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE501628_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

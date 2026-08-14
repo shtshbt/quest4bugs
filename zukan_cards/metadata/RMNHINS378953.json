@@ -1,0 +1,74 @@
+{
+  "species_id": "hagata_murasaki",
+  "species_ja": "ハガタムラサキ",
+  "scientific_name": "Hypolimnas dexithea",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.378953",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.378953",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.378953",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443649257",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443649257",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.378953_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS378953_resized.jpg",
+    "display": "processed/RMNHINS378953_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS378953_54.webp",
+      "108": "thumb/RMNHINS378953_108.webp",
+      "216": "thumb/RMNHINS378953_216.webp"
+    }
+  },
+  "original_sha256": "d27fff0732846debdfaf467c0095a5cede059a7d415d908bf5db9ac293df97dd",
+  "processing": {
+    "cropBox": [
+      39,
+      107,
+      1920,
+      1089
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS378953_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

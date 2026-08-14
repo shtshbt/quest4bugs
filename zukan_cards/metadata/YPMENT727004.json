@@ -1,0 +1,76 @@
+{
+  "species_id": "onaga_suji_ageha",
+  "species_ja": "オナガスジアゲハ",
+  "scientific_name": "Graphium evombar",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 727004",
+    "occurrenceId": "urn:uuid:29d88951-e6a0-4d00-855c-6768c02b9432",
+    "persistentId": "urn:uuid:29d88951-e6a0-4d00-855c-6768c02b9432",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1971-11",
+    "eventYear": 1971,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Mahajanga, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -15.698071,
+    "decimalLongitude": 46.332337
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039054828",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-727004",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:7a1c2eac-aac8-4571-a2c1-f1da4ac47070/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT727004_resized.jpg",
+    "display": "processed/YPMENT727004_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT727004_54.webp",
+      "108": "thumb/YPMENT727004_108.webp",
+      "216": "thumb/YPMENT727004_216.webp"
+    }
+  },
+  "original_sha256": "57d262a6b9976824dfa981ba5ea645163b38d2b2444cba387356fae8710e295d",
+  "processing": {
+    "cropBox": [
+      294,
+      0,
+      893,
+      1537
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT727004_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

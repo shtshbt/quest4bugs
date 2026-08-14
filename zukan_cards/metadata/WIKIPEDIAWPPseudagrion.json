@@ -1,0 +1,74 @@
+{
+  "species_id": "hikari_ito_tonbo",
+  "species_ja": "ヒカリイトトンボ",
+  "scientific_name": "Pseudagrion punctum",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Jeevan Jose, Kerala, India",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Pseudagrion",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Pseudagrion",
+    "persistentId": "https://en.wikipedia.org/wiki/Pseudagrion",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jeevan Jose, Kerala, India",
+    "eventDate": "2010-04-27",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Pseudagrion indicum, Yellow-striped Blue Dart, is a medium sized blue damselfly with black and yellow thoracic stripes. Eyes are black above, greenish on sides and beneath. Thorax is azure blue with broad black medial band. On the sides, it is azure blue with greenish yellow stripe and a narrow black stripe. Rest of the thorax is azure blue with two black spots towards poster end. Eyes of female are emerald green with or without a small black cap. Thorax is grass green above and pale yellowish green on sides. They look much similar to Pseudagrion microcephalum except the green marks. Taken at Kadavoor, Kerala, India.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Pseudagrion",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Pseudagrion_indicum_by_kadavoor.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPseudagrion_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPseudagrion_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPseudagrion_54.webp",
+      "108": "thumb/WIKIPEDIAWPPseudagrion_108.webp",
+      "216": "thumb/WIKIPEDIAWPPseudagrion_216.webp"
+    }
+  },
+  "original_sha256": "7e4a93fbe9e514bb8a9bc8a818996062480b008d1e23a8ab4a90e4a2968901db",
+  "processing": {
+    "cropBox": [
+      204,
+      260,
+      1230,
+      1893
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPseudagrion_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

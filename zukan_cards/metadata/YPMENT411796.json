@@ -1,0 +1,76 @@
+{
+  "species_id": "obimon_tateha",
+  "species_ja": "オビモンタテハ",
+  "scientific_name": "Precis andremiaja",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Paul Shamble",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 411796",
+    "occurrenceId": "urn:uuid:de09f941-4e07-49cb-b07c-396059e57d88",
+    "persistentId": "urn:uuid:de09f941-4e07-49cb-b07c-396059e57d88",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "John G. Williams",
+    "eventDate": "1957-05",
+    "eventYear": 1957,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Perinet, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -18.925172,
+    "decimalLongitude": 48.418651
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039181410",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-411796",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:8ecf8085-9b43-4f17-9977-8e55095ac8aa/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT411796_resized.jpg",
+    "display": "processed/YPMENT411796_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT411796_54.webp",
+      "108": "thumb/YPMENT411796_108.webp",
+      "216": "thumb/YPMENT411796_216.webp"
+    }
+  },
+  "original_sha256": "fe98961f36cd436938e3e5072c9a57e81c1e9ef1f4a0fa3c67d3ab1646bb08de",
+  "processing": {
+    "cropBox": [
+      177,
+      0,
+      1014,
+      1586
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT411796_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

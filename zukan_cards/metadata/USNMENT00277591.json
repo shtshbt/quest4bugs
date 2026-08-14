@@ -1,0 +1,76 @@
+{
+  "species_id": "suji_mori_tonbo",
+  "species_ja": "スジモリトンボ",
+  "scientific_name": "Neodythemis hildebrandti",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277591",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b74136d9-1f78-467c-87f5-584b4bec554d",
+    "persistentId": "http://n2t.net/ark:/65665/3b74136d9-1f78-467c-87f5-584b4bec554d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Mixed",
+    "lifeStage": "Adult",
+    "recordedBy": "W. Steiner",
+    "eventDate": "1990-02-08",
+    "eventYear": 1990,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "7 kilometers west of Ranomafana, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -21.2558,
+    "decimalLongitude": 47.4119
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321345728",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321345728",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16314513&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277591_resized.jpg",
+    "display": "processed/USNMENT00277591_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277591_54.webp",
+      "108": "thumb/USNMENT00277591_108.webp",
+      "216": "thumb/USNMENT00277591_216.webp"
+    }
+  },
+  "original_sha256": "4b19ab6f15730fa9eba87d6578c7049c924706e5a36b453401e043c4b9c396bb",
+  "processing": {
+    "cropBox": [
+      514,
+      226,
+      1168,
+      1101
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277591_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

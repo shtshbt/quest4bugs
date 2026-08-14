@@ -1,0 +1,76 @@
+{
+  "species_id": "obibane_tonbo",
+  "species_ja": "オビバネトンボ",
+  "scientific_name": "Brachythemis leucosticta",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277102",
+    "occurrenceId": "http://n2t.net/ark:/65665/370ba775f-09fe-4d09-81c3-81f27b0e2d00",
+    "persistentId": "http://n2t.net/ark:/65665/370ba775f-09fe-4d09-81c3-81f27b0e2d00",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "P. Spangler",
+    "eventDate": "1968-01-12",
+    "eventYear": 1968,
+    "country": "Kenya",
+    "localityVerbatim": null,
+    "localityNormalized": "6 miles South of Nairobi. Ngong Forestry Station, Kenya",
+    "preparations": "Envelope",
+    "decimalLatitude": -1.30901,
+    "decimalLongitude": 36.7492
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319750741",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319750741",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16328353&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277102_resized.jpg",
+    "display": "processed/USNMENT00277102_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277102_54.webp",
+      "108": "thumb/USNMENT00277102_108.webp",
+      "216": "thumb/USNMENT00277102_216.webp"
+    }
+  },
+  "original_sha256": "ee98ad8cf5b3513f2ec260d045f753b0728defdf84802ed7cbc97f0c90d1d3ad",
+  "processing": {
+    "cropBox": [
+      891,
+      577,
+      1422,
+      1053
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277102_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,10 +1,10 @@
 {
-  "species_id": "madara_batta",
-  "species_ja": "マダラバッタ",
-  "scientific_name": "Aiolopus thalassinus tamulus",
+  "species_id": "midoribane_hoso_batta",
+  "species_ja": "ミドリバネホソバッタ",
+  "scientific_name": "Aiolopus thalassinus",
   "credit_line": "Natural History Museum, London",
   "creator": "Gavin Broad",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-08-14",
   "specimen": {
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",
@@ -34,13 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
+    "resized": "original/NHMUK015607196_resized.jpg",
     "display": "processed/NHMUK015607196_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUK015607196_54.webp",
       "108": "thumb/NHMUK015607196_108.webp",
       "216": "thumb/NHMUK015607196_216.webp"
-    },
-    "resized": "original/NHMUK015607196_resized.jpg"
+    }
   },
   "original_sha256": "5606587d5734784833ba2ee19d923869d80c9dc2572c007a8823357c7bfa57ac",
   "processing": {
@@ -66,9 +66,9 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/NHMUK015607196_original.jpg",
+    "originalImage": "original/NHMUK015607196_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "butterfly dorsal — head up by convention, no rotation"
+  "notes": "unknown taxon — no rotation"
 }

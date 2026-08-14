@@ -1,0 +1,76 @@
+{
+  "species_id": "benihoshi_oo_ageha",
+  "species_ja": "ベニホシオオアゲハ",
+  "scientific_name": "Pharmacophagus antenor",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00672393",
+    "occurrenceId": "http://n2t.net/ark:/65665/3f976c830-5a3f-4d46-b4b8-b7d37a63417c",
+    "persistentId": "http://n2t.net/ark:/65665/3f976c830-5a3f-4d46-b4b8-b7d37a63417c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "E. Stehle",
+    "eventDate": "1953-01-29",
+    "eventYear": 1953,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Majunga, Madagascar",
+    "preparations": "pinned",
+    "decimalLatitude": -15.7125,
+    "decimalLongitude": 46.3189
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322840871",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322840871",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=14026514&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00672393_resized.jpg",
+    "display": "processed/USNMENT00672393_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00672393_54.webp",
+      "108": "thumb/USNMENT00672393_108.webp",
+      "216": "thumb/USNMENT00672393_216.webp"
+    }
+  },
+  "original_sha256": "ea98095a7038ebda61df092f75997306c8768554f2978fdfb7f41bfba0c8897d",
+  "processing": {
+    "cropBox": [
+      69,
+      0,
+      570,
+      423
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00672393_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

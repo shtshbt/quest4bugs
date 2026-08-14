@@ -1,0 +1,76 @@
+{
+  "species_id": "ao_shiokara_tonbo",
+  "species_ja": "アオシオカラトンボ",
+  "scientific_name": "Orthetrum azureum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277680",
+    "occurrenceId": "http://n2t.net/ark:/65665/3de648d83-6818-4ec3-bafb-29e474ad76e0",
+    "persistentId": "http://n2t.net/ark:/65665/3de648d83-6818-4ec3-bafb-29e474ad76e0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "E. Pinhey",
+    "eventDate": "1962-03",
+    "eventYear": 1962,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Foret Fanovana, Madagascar",
+    "preparations": "Envelope",
+    "decimalLatitude": -18.9162,
+    "decimalLongitude": 48.5665
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322229688",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322229688",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16348835&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277680_resized.jpg",
+    "display": "processed/USNMENT00277680_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277680_54.webp",
+      "108": "thumb/USNMENT00277680_108.webp",
+      "216": "thumb/USNMENT00277680_216.webp"
+    }
+  },
+  "original_sha256": "9ff9604715ec3b77af95f82bc7b00dd76eb96486ada85763b32f3b7de35609ab",
+  "processing": {
+    "cropBox": [
+      339,
+      178,
+      999,
+      914
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277680_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

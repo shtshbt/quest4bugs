@@ -1,0 +1,74 @@
+{
+  "species_id": "fujiiro_suzume",
+  "species_ja": "フジイロスズメ",
+  "scientific_name": "Batocnema coquerelii",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Alessandro Giusti",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)730213",
+    "occurrenceId": "d4078248-eb24-48c5-bf21-9098ded2d377",
+    "persistentId": "d4078248-eb24-48c5-bf21-9098ded2d377",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Imago",
+    "recordedBy": "Mr Geoff Martin|Professor Donald L. Quicke|Ms Lindsay P. Holland",
+    "eventDate": "2005-11-06",
+    "eventYear": 2005,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Setam Lodge Hotel; Township: Ranomafana National Park, Madagascar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1056326294",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/d4078248-eb24-48c5-bf21-9098ded2d377",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/cbffbc87-e655-4947-8689-c84f6b473b33",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE730213_resized.jpg",
+    "display": "processed/NHMUKBMNHE730213_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE730213_54.webp",
+      "108": "thumb/NHMUKBMNHE730213_108.webp",
+      "216": "thumb/NHMUKBMNHE730213_216.webp"
+    }
+  },
+  "original_sha256": "9b820f565289574b4a85cb3093059c157060bd4feb06a804a95deacb51e0da24",
+  "processing": {
+    "cropBox": [
+      0,
+      62,
+      1156,
+      835
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE730213_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

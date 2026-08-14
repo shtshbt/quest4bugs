@@ -1,0 +1,76 @@
+{
+  "species_id": "kuro_beni_tonbo",
+  "species_ja": "クロベニトンボ",
+  "scientific_name": "Trithemis hecate",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00279356",
+    "occurrenceId": "http://n2t.net/ark:/65665/3886714d3-cb7c-4f3e-88ea-bcf7207db289",
+    "persistentId": "http://n2t.net/ark:/65665/3886714d3-cb7c-4f3e-88ea-bcf7207db289",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "E. Newcomb",
+    "eventDate": "1944-05-01",
+    "eventYear": 1944,
+    "country": "Senegal",
+    "localityVerbatim": null,
+    "localityNormalized": "9 kilometers northeast of Dakar, near Camp Tiaroye [Area 8], Senegal",
+    "preparations": "Envelope",
+    "decimalLatitude": 14.7597,
+    "decimalLongitude": -17.3775
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320286170",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320286170",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16352038&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00279356_resized.jpg",
+    "display": "processed/USNMENT00279356_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00279356_54.webp",
+      "108": "thumb/USNMENT00279356_108.webp",
+      "216": "thumb/USNMENT00279356_216.webp"
+    }
+  },
+  "original_sha256": "e928c8ea7e72fb1d6f2f765ee3c205fe0034966f42728b812e8b109ec9b8b765",
+  "processing": {
+    "cropBox": [
+      633,
+      510,
+      1144,
+      1100
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00279356_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "kuro_shiokara_tonbo",
+  "species_ja": "クロシオカラトンボ",
+  "scientific_name": "Orthetrum stemmale",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00277826",
+    "occurrenceId": "http://n2t.net/ark:/65665/307db23f3-cdff-42cb-8bf2-6f3036183057",
+    "persistentId": "http://n2t.net/ark:/65665/307db23f3-cdff-42cb-8bf2-6f3036183057",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "F. Leigh",
+    "eventDate": "1902-10-12",
+    "eventYear": 1902,
+    "country": "South Africa",
+    "localityVerbatim": null,
+    "localityNormalized": "woodside off Umbillo Road, Congella near Durban, South Africa",
+    "preparations": "Envelope",
+    "decimalLatitude": -29.8679,
+    "decimalLongitude": 30.9978
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317380340",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317380340",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16375026&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00277826_resized.jpg",
+    "display": "processed/USNMENT00277826_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00277826_54.webp",
+      "108": "thumb/USNMENT00277826_108.webp",
+      "216": "thumb/USNMENT00277826_216.webp"
+    }
+  },
+  "original_sha256": "f7d45a2fb951b4ee54d5bddb9904819a8c5c292b963f94230ed0dc9470415403",
+  "processing": {
+    "cropBox": [
+      432,
+      476,
+      1164,
+      1119
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00277826_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

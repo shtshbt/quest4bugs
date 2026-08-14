@@ -1,0 +1,74 @@
+{
+  "species_id": "togarigashira_kamakiri",
+  "species_ja": "トガリガシラカマキリ",
+  "scientific_name": "Idolomorpha madagascariensis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Nathaliedemase",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Idolomorpha",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Idolomorpha",
+    "persistentId": "https://en.wikipedia.org/wiki/Idolomorpha",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Nathaliedemase",
+    "eventDate": "2017-01-12",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Idolomorpha lateralis, dorsal view",
+    "localityNormalized": "Idolomorpha lateralis, dorsal view",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Idolomorpha",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Idolomorpha_lateralis_dorsal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPIdolomorpha_resized.jpg",
+    "display": "processed/WIKIPEDIAWPIdolomorpha_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPIdolomorpha_54.webp",
+      "108": "thumb/WIKIPEDIAWPIdolomorpha_108.webp",
+      "216": "thumb/WIKIPEDIAWPIdolomorpha_216.webp"
+    }
+  },
+  "original_sha256": "f847b5bf5199913680ae731bde0403b8bd5e7cb8f9be2980ec08439f189de731",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2812,
+      3000
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPIdolomorpha_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "oo_togeashi_kirigirisu",
+  "species_ja": "オオトゲアシキリギリス",
+  "scientific_name": "Colossopus grandidieri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Naturalselections",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Colossopus grandidieri.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Colossopus_grandidieri.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Colossopus_grandidieri.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Naturalselections",
+    "eventDate": "2017-12-11",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Colossopus grandidieri in Parc Mosa near Ifaty, Madagascar.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Colossopus_grandidieri.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Colossopus_grandidieri.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileColossopusgrandidierijpg_resized.jpg",
+    "display": "processed/WMCFileColossopusgrandidierijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileColossopusgrandidierijpg_54.webp",
+      "108": "thumb/WMCFileColossopusgrandidierijpg_108.webp",
+      "216": "thumb/WMCFileColossopusgrandidierijpg_216.webp"
+    }
+  },
+  "original_sha256": "b21df1a2e7a3b88361b4930fc2d1bd5210198d30dbb8aa444f3d799032d425d6",
+  "processing": {
+    "cropBox": [
+      245,
+      94,
+      3780,
+      2278
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileColossopusgrandidierijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

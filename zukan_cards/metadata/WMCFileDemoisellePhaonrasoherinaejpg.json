@@ -1,0 +1,74 @@
+{
+  "species_id": "midori_kawa_tonbo",
+  "species_ja": "ミドリカワトンボ",
+  "scientific_name": "Phaon rasoherinae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Charles J. Sharp",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Demoiselle (Phaon rasoherinae).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Demoiselle_(Phaon_rasoherinae).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Demoiselle_(Phaon_rasoherinae).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Charles J. Sharp",
+    "eventDate": "2018-11-18 10:39:42",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Glistening demoiselle (Phaon rasoherinae), female, Andasibe-Mantadia National Park, Madagascar",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Demoiselle_(Phaon_rasoherinae).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Demoiselle_%28Phaon_rasoherinae%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDemoisellePhaonrasoherinaejpg_resized.jpg",
+    "display": "processed/WMCFileDemoisellePhaonrasoherinaejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDemoisellePhaonrasoherinaejpg_54.webp",
+      "108": "thumb/WMCFileDemoisellePhaonrasoherinaejpg_108.webp",
+      "216": "thumb/WMCFileDemoisellePhaonrasoherinaejpg_216.webp"
+    }
+  },
+  "original_sha256": "7c3e2f3904526e162869342dd1ae0dee7a64d7fb0bdd4c7ce5fdb4a9b553a54b",
+  "processing": {
+    "cropBox": [
+      473,
+      155,
+      4347,
+      3131
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDemoisellePhaonrasoherinaejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

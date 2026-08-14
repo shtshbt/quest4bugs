@@ -1,0 +1,74 @@
+{
+  "species_id": "madagasukaru_ooari",
+  "species_ja": "マダガスカルオオアリ",
+  "scientific_name": "Camponotus dufouri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Camponotus dufouri imerinensis casent0101828 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Camponotus_dufouri_imerinensis_casent0101828_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Camponotus_dufouri_imerinensis_casent0101828_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2008-02-19 13:01:51",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Camponotus dufouri imerinensis specimen casent0101828.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Camponotus_dufouri_imerinensis_casent0101828_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Camponotus_dufouri_imerinensis_casent0101828_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_resized.jpg",
+    "display": "processed/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_54.webp",
+      "108": "thumb/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_108.webp",
+      "216": "thumb/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "192a076ce01e88d47bdbdd3e53c2588cc3dc9efb3aa6e2215ee66cc70451a761",
+  "processing": {
+    "cropBox": [
+      18,
+      53,
+      1073,
+      789
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCamponotusdufouriimerinensiscasent0101828profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

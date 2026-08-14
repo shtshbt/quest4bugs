@@ -1,0 +1,76 @@
+{
+  "species_id": "ruriiro_tonbo",
+  "species_ja": "ルリイロトンボ",
+  "scientific_name": "Urothemis edwardsii",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00279487",
+    "occurrenceId": "http://n2t.net/ark:/65665/333424882-8f7b-41c0-8ca0-56a34743b096",
+    "persistentId": "http://n2t.net/ark:/65665/333424882-8f7b-41c0-8ca0-56a34743b096",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Park",
+    "eventDate": "1944-01-14",
+    "eventYear": 1944,
+    "country": "Senegal",
+    "localityVerbatim": null,
+    "localityNormalized": "Rufisque, Senegal",
+    "preparations": "Envelope",
+    "decimalLatitude": 14.7156,
+    "decimalLongitude": -17.2713
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318361216",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318361216",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16331769&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00279487_resized.jpg",
+    "display": "processed/USNMENT00279487_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00279487_54.webp",
+      "108": "thumb/USNMENT00279487_108.webp",
+      "216": "thumb/USNMENT00279487_216.webp"
+    }
+  },
+  "original_sha256": "94923715e5fd9d53f58c4e2e1c5b12f49e7082675055036eae3f91f0a18863a8",
+  "processing": {
+    "cropBox": [
+      127,
+      48,
+      1982,
+      1165
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00279487_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

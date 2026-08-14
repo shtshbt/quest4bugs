@@ -1,0 +1,74 @@
+{
+  "species_id": "kanmuri_kareha_kamakiri",
+  "species_ja": "カンムリカレハカマキリ",
+  "scientific_name": "Phyllocrania illudens",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Mydriatic",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Phyllocrania",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Phyllocrania",
+    "persistentId": "https://en.wikipedia.org/wiki/Phyllocrania",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mydriatic",
+    "eventDate": "06.03.2008",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Phyllocrania paradoxa (Morphology)",
+    "localityNormalized": "Phyllocrania paradoxa (Morphology)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Phyllocrania",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Phyllocrania_paradoxa_Morphology.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPhyllocrania_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPhyllocrania_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPhyllocrania_54.webp",
+      "108": "thumb/WIKIPEDIAWPPhyllocrania_108.webp",
+      "216": "thumb/WIKIPEDIAWPPhyllocrania_216.webp"
+    }
+  },
+  "original_sha256": "1a8a0b3dbfb5ebc316cf0b8a9be25b598de0e0b500c7835eda81300dc9b6ce2b",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1584,
+      1062
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPhyllocrania_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
