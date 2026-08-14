@@ -270,6 +270,12 @@
     return formatter(text);
   }
 
+  /* 仮称には「（仮称）」を添える。小道の種は標準和名を持たないものが大半で、
+     こちらで組み立てた名前をそのまま出すと実在の名前として覚えられてしまう。 */
+  function speciesName(sp){
+    return global.Q4B_SPECIES_DISPLAY_NAME?global.Q4B_SPECIES_DISPLAY_NAME(sp):(sp&&sp.jaName)||"";
+  }
+
   function escapeHtml(text){
     return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#39;");
   }
@@ -970,7 +976,7 @@
     var tier=sp?sp.r:null;
     var tierName=(reward&&reward.TIERNAME&&tier!=null)?reward.TIERNAME[tier]:capture.rarity;
     var art=(sp&&reward.svg)?'<div class="ratio-capture-art r'+tier+'">'+reward.svg(sp,capture.shiny)+'</div>':"";
-    var name=sp?sp.jaName:capture.id;
+    var name=sp?speciesName(sp):capture.id;
     var size=capture.size?'<span class="ratio-capture-size">'+capture.size+'mm</span>':"";
     var tag=capture.isNew
       ?'<span class="ratio-capture-new">'+displayText("ずかんに とうろく")+'</span>'
@@ -1587,7 +1593,7 @@
     var art=(sp&&reward.svg)?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"";
     var size=Number.isFinite(record.max)?'<span>'+record.max+'mm</span>':"";
     return '<li class="zukan-card'+(entry.flagship?' is-flagship':'')+'" data-species-id="'+escapeHtml(entry.id)+'" tabindex="0" role="button"><div class="zukan-art r'+(sp?sp.r:0)+'">'+art+'</div>'
-      +'<div class="zukan-name">'+displayText(sp?sp.jaName:entry.id)+'</div>'
+      +'<div class="zukan-name">'+displayText(sp?speciesName(sp):entry.id)+'</div>'
       +'<div class="zukan-meta"><span class="zukan-tier r'+(sp?sp.r:0)+'">'+displayText(sp&&reward.TIERNAME?reward.TIERNAME[sp.r]:entry.rarity)+'</span>'
       +size+'<span>'+displayText(record.n+"匹")+'</span></div>'
       +(entry.flagship?'<div class="zukan-flag">'+displayText("この遠征の 看板")+'</div>':"")+'</li>';
@@ -1661,7 +1667,7 @@
     overlay.id="komZukanModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
       +'<div class="kom-modal-art r'+tier+'">'+(reward.svg?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"")+'</div>'
-      +'<h3>'+displayText(sp.jaName)+'</h3>'
+      +'<h3>'+displayText(speciesName(sp))+'</h3>'
       +'<p><span class="zukan-tier r'+tier+'">'+displayText(reward.TIERNAME[tier])+'</span>　'+displayText("×"+record.n)+'</p>'
       +(caught?'<p class="kom-modal-size">'+displayText("つかまえた おおきさ")+' <b>'+caught+'</b>'+(size?'　'+displayText("（種の範囲: "+size+"）"):"")+'</p>':"")
       +(sp.scientificName?'<p class="kom-modal-sci"><i>'+escapeHtml(sp.scientificName)+'</i></p>':"")

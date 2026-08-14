@@ -7,6 +7,12 @@
    後方互換: records が空/未定義でも安全に動作（メッセージのみ表示）。 */
 (function(global){
   "use strict";
+  /* 仮称は「（仮称）」を添えて出す。組み立てた名前を実在の名前として
+     覚えさせないため。判定は bugs.js の単一の関数に寄せる。 */
+  function displayName(sp){
+    return global.Q4B_SPECIES_DISPLAY_NAME?global.Q4B_SPECIES_DISPLAY_NAME(sp):((sp&&sp.jaName)||"");
+  }
+
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
   }); }
@@ -387,7 +393,7 @@
         html += '<div style="text-align:center;margin:8px 0"><div style="width:140px;height:140px;margin:0 auto">'+artHTML+'</div></div>';
       }
       if(sp && sp.jaName){
-        html += '<div style="font-size:18px;font-weight:800;color:var(--zd-strong,#2A3D2C);text-align:center;margin:2px 0">'+esc(sp.jaName)+'</div>';
+        html += '<div style="font-size:18px;font-weight:800;color:var(--zd-strong,#2A3D2C);text-align:center;margin:2px 0">'+esc(displayName(sp))+'</div>';
       }
       if(sp && sp.scientificName){
         html += '<div style="font-size:11px;font-style:italic;color:var(--zd-sub,#6B7A5E);text-align:center;margin-bottom:6px">'+esc(sp.scientificName)+'</div>';
