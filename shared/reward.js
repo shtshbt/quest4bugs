@@ -680,14 +680,12 @@
     __bsLoading = null;
     if(_dbg()) console.log("[setEggStore] wired versioned=" + _hasVersioned(), typeof s);
   }
-  /* _bs(): 同期参照。 versioned adapter 接続時は __bsCache 優先、 未接続なら旧
-     eggStore.get() フォールバック。 cache 未ロード時は blank を返す (caller は
-     _ensureBsLoaded で先に await すべし)。 */
+  /* _bs(): 同期参照。 versioned adapter 接続時は __bsCache 優先、 未接続または
+     cache 未ロード時は eggStore.get() にフォールバックする。 */
   function _bs(){
     var bs;
     if(_hasVersioned()){
-      if(!(__bsCache && __bsCache.data)) return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
-      bs = __bsCache.data;
+      bs = (__bsCache && __bsCache.data) || (eggStore.get && eggStore.get()) || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
     } else {
       bs = eggStore.get() || {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}};
     }
@@ -832,7 +830,7 @@
         bs.eggs.push(egg);
       }
       return _saveBs(bs).then(function(r){
-        if(r.ok && fossilOf(pid)===before-cost) return result(true,null,egg,queued,before-cost);
+        if(r.ok) return result(true,null,egg,queued,fossilOf(pid));
         var reason=(r && r.reason) || "persistence-failed";
         var compensated=refundForEgg(cost,pid);
         var after=fossilOf(pid);

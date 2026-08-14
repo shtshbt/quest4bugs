@@ -487,7 +487,7 @@
     var disabledReason = null;
     if(!hasPair) disabledReason = "♂と♀の りょうほうの きろくが ひつようだよ";
     else if(fossilNow < cost) disabledReason = "かけらが "+(cost-fossilNow)+" たりない";
-    else if(!canLay) disabledReason = "いま 同じむしを そだててるか、上限 3 に とどいてるよ";
+    else if(!canLay) disabledReason = "いま 同じむしを そだてているよ";
     var spIdStr = (sp && sp.id) || "";
     var layCb = opts.onLayEgg || "";
     var btn = '';
@@ -502,13 +502,19 @@
     }
     /* 当該種の卵が育成中: 孵化サブ動線 / 進捗表示 / 放棄ボタン */
     var ownEgg = null;
+    var ownEggPending = false;
     var bs = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
     if(bs && bs.eggs){
       for(var i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===spIdStr){ ownEgg = bs.eggs[i]; break; } }
     }
+    if(!ownEgg && bs && bs.pendingEggs){
+      for(var j=0;j<bs.pendingEggs.length;j++){ if(bs.pendingEggs[j].id===spIdStr){ ownEgg = bs.pendingEggs[j]; ownEggPending = true; break; } }
+    }
     var hatchBtn = '';
     var progressLine = '';
-    if(ownEgg){
+    if(ownEggPending){
+      progressLine = '<div style="background:#F5E8FF;border-radius:10px;padding:6px 10px;margin:6px 0;font-size:12px;color:var(--zd-purple,#6B4A99);font-weight:800">📬 まちのたまご</div>';
+    }else if(ownEgg){
       var p = ownEgg.target>0 ? Math.min(100,Math.round((ownEgg.progress/ownEgg.target)*100)) : 0;
       var ready = ownEgg.progress >= ownEgg.target;
       progressLine = '<div style="background:#F4F8E8;border-radius:10px;padding:6px 10px;margin:6px 0;font-size:12px;color:var(--zd-strong,#2A3D2C)">'
@@ -520,7 +526,7 @@
       }
     }
     var abandonBtn = '';
-    if(opts.onAbandonEgg && ownEgg){
+    if(opts.onAbandonEgg && ownEgg && !ownEggPending){
       abandonBtn = '<button type="button" onclick="'+opts.onAbandonEgg+'(\''+spIdStr+'\')" style="display:block;width:100%;margin:6px 0 0;border:1.5px solid #B9C4A8;border-radius:10px;padding:7px;font-size:12px;font-weight:700;font-family:inherit;color:var(--zd-sub,#6B7A5E);background:#FFFDF4;cursor:pointer">🥚 たまごを すてる (返金なし)</button>';
     }
     /* 既に育成中なら産卵ボタンは出さない (canLayEgg で false になるが UI は出ない方が分かりやすい) */

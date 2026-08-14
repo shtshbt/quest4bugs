@@ -322,14 +322,14 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.5"></script>
+<script src="./shared/reward.js?v=0.8.6"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.6.1"></script>
-<script src="./shared/breeding_debug.js?v=0.1.0"></script>
-<script src="./shared/zukan_detail.js?v=0.2.2"></script>
+<script src="./shared/breeding.js?v=0.6.2"></script>
+<script src="./shared/breeding_debug.js?v=0.1.1"></script>
+<script src="./shared/zukan_detail.js?v=0.2.3"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
 <script src="./shared/battle.js?v=0.5.2"></script>
-<script src="./shared/boss_zukan.js?v=0.6.3"></script>
+<script src="./shared/boss_zukan.js?v=0.6.4"></script>
 <script src="./shared/furigana.js?v=0.3.0"></script>
 <script src="./shared/yomi.js?v=0.3.0"></script>
 <script>
@@ -611,6 +611,7 @@ function breedingPanelHTML(pid){
   var bs=QuestSave.breedingOf(pid);
   return Q4BBreeding.homeBreedingPanelHTML({
     eggs: bs.eggs||[],
+    pendingEggs: bs.pendingEggs||[],
     pendingCount: (bs.pendingEggs||[]).length,
     legacyMasterCount: window.__q4bLegacyMasterCount||0,
     legacyByGame: window.__q4bLegacyByGame||{},
@@ -1467,8 +1468,9 @@ function _autoHatchReadyEggs(pid){
     var g = e.game === 'eitango' ? 'eitango' : e.game;
     (byGame[g] = byGame[g] || []).push(e.id);
   });
-  var task = Promise.all(Object.keys(byGame).map(function(ns){
-    return _loadHatchProfile(ns, pid).then(function(loaded){
+  var task = Object.keys(byGame).reduce(function(chain,ns){
+    return chain.then(function(all){
+      return _loadHatchProfile(ns, pid).then(function(loaded){
       /* U2: load 完了後に currentProfile() が pid と一致していなければ、 hatchEgg
          が現在の卵ストア (= 別の子) を操作する race を遮断する。 hatchEgg は
          Q4BReward 内で pidNow() ベースの卵ストアを動的参照しているため、 ここで
@@ -1517,8 +1519,9 @@ function _autoHatchReadyEggs(pid){
         else { profile.coll = coll; }
         return _saveHatchProfile(ns, pid, profile, loaded.revision).then(function(){ return hatched; });
       });
-    }).catch(function(){ return []; });
-  })).then(function(all){ return [].concat.apply([], all); });
+      }).catch(function(){ return []; }).then(function(hatched){ return all.concat(hatched); });
+    });
+  }, Promise.resolve([]));
   __autoHatchInflight[pid] = task;
   task.then(function(){ delete __autoHatchInflight[pid]; }, function(){ delete __autoHatchInflight[pid]; });
   return task;

@@ -159,15 +159,17 @@
   }
 
   /* --- ホーム卵パネル (上限3) ---
-     opts: {onTap, onAdd, onHatch, eggs: [...], pendingCount: N} */
+     opts: {onTap, onAdd, onHatch, eggs: [...], pendingEggs: [...], pendingCount: N} */
   function homeBreedingPanelHTML(opts){
     opts = opts || {};
     var allEggs = opts.eggs || [];
+    var pendingEggs = opts.pendingEggs || [];
     var r = R();
     /* 小道の卵は専用枠 (reward.js の pool 分離と対応)。本編 3 枠の下に別段で出す。 */
     var poolOf = (r && r.eggPoolOf) ? r.eggPoolOf : function(e){ return (e && e.game === "komorebi") ? "komorebi" : "main"; };
     var eggs = allEggs.filter(function(e){ return poolOf(e) === "main"; });
     var komEggs = allEggs.filter(function(e){ return poolOf(e) === "komorebi"; });
+    var komPendingEggs = pendingEggs.filter(function(e){ return poolOf(e) === "komorebi"; });
     var max = (r && r.EGG_SLOT_MAX) || 3;
     var komMax = (r && r.EGG_SLOT_MAX_KOMOREBI) || 3;
     var cards = [];
@@ -181,9 +183,9 @@
         cards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: firstEmpty ? (opts.pendingCount||0) : 0}));
       }
     }
-    /* 小道段: 小道の卵が 1 つでもあるときだけ出す (未開放の子の画面を増やさない)。 */
+    /* 小道段: 育成中か待機中の小道卵が 1 つでもあるときだけ出す。 */
     var komSection = '';
-    if(komEggs.length){
+    if(komEggs.length || komPendingEggs.length){
       var komCards = [];
       for(i=0;i<komMax;i++){
         if(i < komEggs.length){
@@ -359,6 +361,8 @@
     var doc = global.document; if(!doc) return;
     var profileId = opts.profileId || (global.QuestSave && global.QuestSave.currentProfile && global.QuestSave.currentProfile());
     var fossilBefore = r.fossilOf(profileId);
+    var existing = doc.getElementById("q4bLayConfirmOv");
+    if(existing) existing.remove();
     /* スロット満杯なら「まちの たまご に入る」旨を予告 (産卵自体は可能)。
        枠は種の所属プールで数える (小道種は小道枠、他は本編枠)。 */
     var slotFull = false;

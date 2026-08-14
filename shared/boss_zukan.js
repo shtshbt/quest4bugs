@@ -4,6 +4,7 @@
 (function(global){
   "use strict";
   var BOSSES = {};      /* 現在プロフィールの撃破マップ {speciesId:{n}} */
+  var COLLS = {};       /* 現在プロフィールの教科別 collection */
   var loaded = false;
   /* ボス節の折りたたみ状態を localStorage に永続化 (デフォルト open) */
   var PANEL_LS_KEY = "q4b_boss_panel_open";
@@ -32,7 +33,7 @@
     }catch(_){ return true; }
   }
   function load(profileId){
-    if(!global.QuestSave || !profileId){ BOSSES = {}; loaded = true; return Promise.resolve(); }
+    if(!global.QuestSave || !profileId){ BOSSES = {}; COLLS = {}; loaded = true; return Promise.resolve(); }
     return Promise.all([
       global.QuestSave.load("battle",   profileId),
       global.QuestSave.load("keisan",   profileId),
@@ -78,7 +79,7 @@
       if(res.changed && global.QuestSave.save){
         try{ global.QuestSave.save("battle", profileId, bt); }catch(_){}
       }
-      BOSSES = bt.bosses; loaded = true;
+      BOSSES = bt.bosses; COLLS = colls; loaded = true;
       /* legacy 救済で相方卵が新規授与された場合は toast 表示 (子供向け feedback) */
       if(res.granted && res.granted.length && global.Q4BBreeding && global.Q4BBreeding.notifyMasterEggGranted){
         var n = res.granted.length;
@@ -87,7 +88,7 @@
           {batch:true, queued:false}
         );
       }
-    }).catch(function(){ BOSSES = {}; loaded = true; });
+    }).catch(function(){ BOSSES = {}; COLLS = {}; loaded = true; });
   }
   /* migration: 撃破履歴のあるボス (be.n>=1) が教科 coll.catches に未登録なら 1 個体を
      補完して一般図鑑カードを表示可能に。be.records[0] があればそれを使い、無ければ
@@ -183,6 +184,18 @@
     var m = {}, BUGS = global.Q4B_BUGS || [];
     BUGS.forEach(function(s){ m[s.id] = s; });
     return m;
+  }
+  function combinedBossColl(sp, id){
+    var RW = global.Q4BReward;
+    var bossEntry = BOSSES[id] || {};
+    var gameColl = RW && RW.gameFor ? COLLS[RW.gameFor(sp)] : null;
+    var gameEntry = gameColl && gameColl.catches ? gameColl.catches[id] : null;
+    var combined = {}, key;
+    for(key in bossEntry){ if(Object.prototype.hasOwnProperty.call(bossEntry,key)) combined[key] = bossEntry[key]; }
+    combined.records = (bossEntry.records || []).concat((gameEntry && gameEntry.records) || []);
+    var coll = {catches:{}};
+    coll.catches[id] = combined;
+    return coll;
   }
   /* そのゲーム（属性）の昆虫ボス一覧（天敵=predator は図鑑に入らないので除外） */
   function bossesFor(game){
@@ -292,10 +305,8 @@
         + (sp.caution ? '<div style="background:#FFF1DE;border-radius:12px;padding:6px 10px;font-size:13px;color:#c98f1e;font-weight:800;margin:6px 0">' + esc(sp.caution) + '</div>' : "")
         + (sp.note ? '<div style="background:#eef6e0;border-radius:12px;padding:8px 10px;font-size:13px;margin:6px 0;text-align:left">' + esc(sp.note) + '</div>' : "")
         + '</div>';
-      /* coll-like wrapper を作って Q4BZukan.detailHTML を呼ぶ。
-         BATTLE.bosses[id] が catches[id] と同じ shape (n/max/min/shiny/records) を満たす。 */
-      var bossColl = {catches:{}};
-      bossColl.catches[id] = rec;
+      /* ボス records と教科 coll の records を合わせた wrapper で detailHTML を呼ぶ。 */
+      var bossColl = combinedBossColl(sp, id);
       var detailBody = "";
       if(global.Q4BZukan && global.Q4BZukan.detailHTML){
         detailBody = global.Q4BZukan.detailHTML(rec, sp, {
@@ -333,7 +344,7 @@
   function layEgg(spId){
     var RW = global.Q4BReward, byId = byIdMap();
     var sp = byId[spId]; if(!sp || !RW || !global.Q4BBreeding) return;
-    var bossColl = {catches:{}}; bossColl.catches[spId] = BOSSES[spId] || {};
+    var bossColl = combinedBossColl(sp, spId);
     var pid=global.QuestSave&&global.QuestSave.currentProfile&&global.QuestSave.currentProfile();
     global.Q4BBreeding.openLayConfirm(sp, {coll:bossColl,profileId:pid,homeHref:"index.html",onSuccess:function(){closeDetail();}});
   }
@@ -341,14 +352,15 @@
     var RW = global.Q4BReward;
     if(!RW) return;
     var bossColl = {catches:{}}; bossColl.catches[spId] = BOSSES[spId] || {};
-    var r = RW.hatchEgg(bossColl, spId);
-    if(!r){ alert("孵化できませんでした"); return; }
-    BOSSES[spId] = bossColl.catches[spId];
-    _saveBattleBosses();
-    closeDetail();
-    if(global.Q4BBreeding){
-      global.Q4BBreeding.playHatchAnimation({egg:r.egg, sp:r.sp, size:r.size, onClose:function(){}, onViewZukan:function(){}});
-    }
+    return RW.hatchEgg(bossColl, spId).then(function(r){
+      if(!r){ alert("孵化できませんでした"); return; }
+      BOSSES[spId] = bossColl.catches[spId];
+      _saveBattleBosses();
+      closeDetail();
+      if(global.Q4BBreeding){
+        global.Q4BBreeding.playHatchAnimation({egg:r.egg, sp:r.sp, size:r.size, onClose:function(){}, onViewZukan:function(){}});
+      }
+    });
   }
   function abandonEgg(spId){
     if(!confirm("この たまごを すてる? (返金なし)")) return;

@@ -82,16 +82,19 @@
       console.log("[Q4BDebug.e2e] step1: grant fragments", cost);
       this.grantFragments(cost);
       console.log("[Q4BDebug.e2e] step2: layEgg");
-      var egg = R.layEgg(coll, sp);
-      console.log("[Q4BDebug.e2e] egg:", egg);
-      if(!egg){ console.warn("[Q4BDebug.e2e] layEgg failed (前提未充足? canLayEgg=", R.canLayEgg(coll, sp), ")"); return; }
-      console.log("[Q4BDebug.e2e] step3: setEggProgress to target");
-      this.setEggProgress(spId, R.eggTarget(sp));
-      console.log("[Q4BDebug.e2e] step4: hatchEgg");
-      var r = R.hatchEgg(coll, spId);
-      console.log("[Q4BDebug.e2e] hatch result:", r);
-      console.log("[Q4BDebug.e2e] coll.catches["+spId+"]:", coll.catches[spId]);
-      return r;
+      var self = this;
+      return R.layEgg(coll, sp).then(function(egg){
+        console.log("[Q4BDebug.e2e] egg:", egg);
+        if(!egg || !egg.ok){ console.warn("[Q4BDebug.e2e] layEgg failed (前提未充足? canLayEgg=", R.canLayEgg(coll, sp), ")"); return null; }
+        console.log("[Q4BDebug.e2e] step3: setEggProgress to target");
+        self.setEggProgress(spId, R.eggTarget(sp));
+        console.log("[Q4BDebug.e2e] step4: hatchEgg");
+        return R.hatchEgg(coll, spId).then(function(r){
+          console.log("[Q4BDebug.e2e] hatch result:", r);
+          console.log("[Q4BDebug.e2e] coll.catches["+spId+"]:", coll.catches[spId]);
+          return r;
+        });
+      });
     }
   };
   console.log("[Q4BDebug] debug mode enabled. Try: Q4BDebug.state() / Q4BDebug.e2e(ST.coll, 'kabutomushi')");

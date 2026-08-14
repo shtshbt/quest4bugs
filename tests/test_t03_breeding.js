@@ -32,10 +32,13 @@ function fixture(options={}){
   });
   reward.setEggStore({
     pid:()=>active,
+    get:()=>states[active],
     loadVersioned:pid=>Promise.resolve({data:JSON.parse(JSON.stringify(states[pid])),revision:revisions[pid]}),
     saveVersioned:(pid,data,revision)=>{
       if(conflict){conflict=false;return Promise.resolve({ok:false,reason:"conflict",expectedRevision:revision,actualRevision:revision+1});}
-      states[pid]=JSON.parse(JSON.stringify(data));revisions[pid]++;return Promise.resolve({ok:true,revision:revisions[pid]});
+      states[pid]=JSON.parse(JSON.stringify(data));
+      if(options.balanceDeltaOnSave) balances[pid]+=options.balanceDeltaOnSave;
+      revisions[pid]++;return Promise.resolve({ok:true,revision:revisions[pid]});
     }
   });
   return {balances,states,setActive:pid=>{active=pid;}};
@@ -83,6 +86,20 @@ function coll(){return {catches:{[species.id]:{records:[{sex:"m"},{sex:"f"}]}}};
     const event=events.find(e=>e.type==="q4b-egg-compensation");assert.ok(event);assert.equal(event.detail.compensated,true);
   });
 
+  await test("layEgg keeps a persisted egg when the balance changes during save",async()=>{
+    const eventCount=events.length;
+    const f=fixture({balanceDeltaOnSave:2});
+    const result=await reward.layEgg(coll(),species,{profileId:"kid"});
+    assert.equal(result.ok,true);assert.equal(result.fossilAfter,7);
+    assert.equal(f.states.kid.eggs.length,1);assert.equal(f.balances.kid,7);
+    assert.equal(events.slice(eventCount).some(e=>e.type==="q4b-egg-compensation"),false);
+  });
+
+  await test("cold breeding cache excludes an active species from layableSpecies",async()=>{
+    fixture({state:{eggs:[{id:species.id}],pendingEggs:[],stats:{totalAbandoned:0}}});
+    assert.equal(reward.layableSpecies(coll()).some(sp=>sp.id===species.id),false);
+  });
+
   await test("M3 profile switch invalidates a stale confirmation",async()=>{
     const f=fixture();f.setActive("other");
     const before=JSON.stringify(f.states);
@@ -102,6 +119,14 @@ function coll(){return {catches:{[species.id]:{records:[{sex:"m"},{sex:"f"}]}}};
       assert.equal(source.includes("Q4BReward.layEgg("),false,file);
       assert.match(source,/openLayConfirm\([\s\S]{0,500}coll:/,file);
     }
+  });
+
+  await test("pending eggs suppress zukan laying and auto hatch namespaces are serial",async()=>{
+    const detailSource=fs.readFileSync(path.join(root,"shared/zukan_detail.js"),"utf8");
+    assert.match(detailSource,/bs\.pendingEggs/);assert.match(detailSource,/📬 まちのたまご/);
+    const indexSource=fs.readFileSync(path.join(root,"index.html"),"utf8");
+    assert.match(indexSource,/Object\.keys\(byGame\)\.reduce/);
+    assert.equal(indexSource.includes("Promise.all(Object.keys(byGame).map"),false);
   });
 
   console.log(`RESULT ${passed} passed, 0 failed`);
