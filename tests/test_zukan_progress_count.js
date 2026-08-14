@@ -1,7 +1,7 @@
 "use strict";
 
 /* 図鑑達成度 (分子/分母) の回帰テスト。
-   ホーム総合 "N / 1446 しゅるい" の分子は
+   ホーム総合 "N / 1596 しゅるい" の分子は
      - 種 ID 移行 (docs/species_migrations.md) を集計より前に適用し、
      - bugs.js に実在する種のみ数える (nushi_* 疑似 id・撤去済み旧 id を除外する)
    ことを検証する。node tests/test_zukan_progress_count.js で実行。 */
@@ -85,29 +85,29 @@ test("countSpecies drops ids outside the home denominator set", () => {
 });
 
 test("home numerator counts every species the home denominator covers", () => {
-  /* 1213 既存 + batch1 149 = 1362 が本編の分母。さらに小道 fixture 12 種が
+  /* 1213 既存 + batch1 149 + batch2 150 = 1512 が本編の分母。さらに小道の 84 種が
      areaOnly で bugs.js に居るが、ホームの分子にも分母にも入らない。 */
   const catches = {};
   for(const sp of context.Q4B_BUGS) catches[sp.id] = {n:1, records:[]};
   catches["nushi_hercules_beetle"] = {n:1, records:[]};
-  assert.equal(context.Q4B_BUGS.length, 1446);
+  assert.equal(context.Q4B_BUGS.length, 1596);
   assert.equal(context.Q4B_BUGS.filter(sp => sp.areaOnly).length, 84);
-  assert.equal(countSpecies(catches), 1362);
+  assert.equal(countSpecies(catches), 1512);
 });
 
 /* ---- 教科別達成度 (zukanDenomCount / zukanCaughtCount) ---- */
 
 const PREDATORS = context.Q4B_BUGS.filter(sp => sp.boss && sp.boss.predator).map(sp => sp.id);
 
-test("per-game denominators are the acquirable sets (keisan 477 / kanji 402 / eitango 473)", () => {
-  assert.equal(reward.zukanDenomCount("keisan"), 477);   /* 430 pool + 38 master + 3 boss + 6 SS */
-  assert.equal(reward.zukanDenomCount("kanji"), 402);    /* 382 pool + 8 master + 4 boss + 8 SS */
-  assert.equal(reward.zukanDenomCount("eitango"), 473);  /* 458 pool + 7 master + 3 boss + 5 SS */
-  /* 3 教科の分母 + 天敵 (入手経路なし) = 本編の全種 1362。小道の areaOnly 12 種は
+test("per-game denominators are the acquirable sets (keisan 527 / kanji 452 / eitango 523)", () => {
+  assert.equal(reward.zukanDenomCount("keisan"), 527);   /* 480 pool + 38 master + 3 boss + 6 SS */
+  assert.equal(reward.zukanDenomCount("kanji"), 452);    /* 432 pool + 8 master + 4 boss + 8 SS */
+  assert.equal(reward.zukanDenomCount("eitango"), 523);  /* 508 pool + 7 master + 3 boss + 5 SS */
+  /* 3 教科の分母 + 天敵 (入手経路なし) = 本編の全種 1512。小道の areaOnly 84 種は
      どの教科にも属さないのでこの等式には入らない。 */
   assert.equal(PREDATORS.length, 10);
   assert.equal(reward.zukanDenomCount("keisan") + reward.zukanDenomCount("kanji")
-    + reward.zukanDenomCount("eitango") + PREDATORS.length, 1362);
+    + reward.zukanDenomCount("eitango") + PREDATORS.length, 1512);
 });
 
 test("every SS-other species has a battle acquisition path (non-predator roster boss)", () => {

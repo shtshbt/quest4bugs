@@ -23,9 +23,9 @@ const MIG = context.Q4B_SPECIES_MIGRATIONS;
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 
-test("catalog denominator expands to 1446 and ids are unique", () => {
-  /* 1213 既存種 + batch 1 の 149 新種 = 1446 種。 */
-  assert.equal(BUGS.length, 1446);
+test("catalog denominator expands to 1596 and ids are unique", () => {
+  /* 1213 既存種 + 第 1 弾 149 + 第 2 弾 150 + 小道 84 = 1596 種。 */
+  assert.equal(BUGS.length, 1596);
   const seen = {};
   for(const sp of BUGS){
     assert.equal(seen[sp.id], undefined, "duplicate id " + sp.id);
@@ -55,12 +55,12 @@ test("chairo_kanabun entry replaces the removed slot", () => {
   assert.equal(sp.metamorphosis, "complete");
 });
 
-test("game pool sizes include batch 1 (keisan 430 / kanji 382 / eitango 458)", () => {
+test("game pool sizes include batches 1 and 2 (keisan 480 / kanji 432 / eitango 508)", () => {
   /* batch 1 の教科別追加数 50 / 49 / 50 を既存プールへ加算。 */
   assert.equal(reward.gameFor(reward.spById("chairo_kanabun")), "keisan");
-  assert.equal(reward.poolCount("keisan"), 430);
-  assert.equal(reward.poolCount("kanji"), 382);
-  assert.equal(reward.poolCount("eitango"), 458);
+  assert.equal(reward.poolCount("keisan"), 480);
+  assert.equal(reward.poolCount("kanji"), 432);
+  assert.equal(reward.poolCount("eitango"), 508);
 });
 
 test("migration table maps removed ids onto live ids only", () => {

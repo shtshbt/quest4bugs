@@ -63,7 +63,7 @@ test("synthetic areaOnly species changes no main pool or denominator count", () 
   /* 小道 fixture の 12 種が既に areaOnly で入っている。ここでさらに 1 種注入しても
      本編の数が動かないことを確かめる。 */
   assert.equal(base.Q4B_BUGS.filter(sp => sp.areaOnly).length, 84);
-  for(const [game, poolCount, denomCount] of [["keisan",430,477],["kanji",382,402],["eitango",458,473]]){
+  for(const [game, poolCount, denomCount] of [["keisan",480,527],["kanji",432,452],["eitango",508,523]]){
     assert.equal(base.Q4BReward.poolCount(game), poolCount, game + " base pool");
     assert.equal(base.Q4BReward.zukanDenomCount(game), denomCount, game + " base denominator");
     assert.equal(injected.Q4BReward.poolCount(game), poolCount, game + " injected pool");

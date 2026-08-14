@@ -54,9 +54,9 @@ test("15.1 komorebi categories never reach the main game's category lists", () =
     arrays.forEach(text => assert.equal(text.indexOf("kom_"), -1, file + " leaked a komorebi category: " + text.slice(0, 60)));
   }
   /* 本編の図鑑分母は areaOnly を除外し続けること (小道の種を足しても動かない)。 */
-  assert.equal(context.Q4BReward.zukanDenomCount("keisan"), 477);
-  assert.equal(context.Q4BReward.zukanDenomCount("kanji"), 402);
-  assert.equal(context.Q4BReward.zukanDenomCount("eitango"), 473);
+  assert.equal(context.Q4BReward.zukanDenomCount("keisan"), 527);
+  assert.equal(context.Q4BReward.zukanDenomCount("kanji"), 452);
+  assert.equal(context.Q4BReward.zukanDenomCount("eitango"), 523);
 });
 
 /* ---- 15.2 進行と報酬 ---- */

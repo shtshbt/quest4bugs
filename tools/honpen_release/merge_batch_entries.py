@@ -47,8 +47,10 @@ def load_entries():
             if unknown:
                 raise ValueError(f"{path.name}:{line_number}: unknown fields {sorted(unknown)}")
             entries.append(entry)
-    if len(entries) != 149:
-        raise ValueError(f"expected 149 entries, got {len(entries)}")
+    # 第 1 弾だけウラミスシジミ (性語尾違いの重複) を除外して 149 件になっている。
+    expected = 149 if BATCH == 1 else 150
+    if len(entries) != expected:
+        raise ValueError(f"expected {expected} entries, got {len(entries)}")
     return entries
 
 
