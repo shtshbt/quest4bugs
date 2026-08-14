@@ -80,6 +80,7 @@
   var RATIO_STATIC_LEVELS={ordering:[5,6,8],diagnosis:[4,6,7,9]};
   var RATIO_PATTERN_BY_LEVEL={4:"find_base",5:"discount",6:"two_step",7:"ratio_share",8:"soutou",9:"baibai"};
   var profile=null, profileId=null, profileRevision=0, profileType="k10", worldMap=null, ratioPool=null, session=null;
+  var zukanModalRerender=null;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
   var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
@@ -1789,7 +1790,7 @@
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
     bindZukanFilters(function(){renderZukan(regionId);});
-    bindZukanCards(entries,region.regionId);
+    bindZukanCards(entries,function(){renderZukan(regionId);});
   }
 
   function bindZukanFilters(rerender){
@@ -1865,16 +1866,16 @@
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(backId);});
     bindZukanFilters(function(){renderCommonZukan(backId);});
-    bindZukanCards(entries,backId);
+    bindZukanCards(entries,function(){renderCommonZukan(backId);});
   }
 
   /* 捕獲済みカードをタップすると、本編と同じ詳細 (Q4BZukan.detailHTML) を開く。
      detailHTML は捕獲記録と種を引数で受ける汎用 API なので、小道の記録をそのまま渡せる。 */
-  function bindZukanCards(entries,volumeId){
+  function bindZukanCards(entries,rerender){
     Array.prototype.forEach.call(document.querySelectorAll(".zukan-card[data-species-id]"),function(card){
       function open(){
         var item=entries.filter(function(x){return x.entry.id===card.getAttribute("data-species-id");})[0];
-        if(item&&item.record&&item.sp)openZukanModal(item);
+        if(item&&item.record&&item.sp)openZukanModal(item,rerender);
       }
       card.addEventListener("click",open);
       card.addEventListener("keydown",function(event){
@@ -1885,12 +1886,55 @@
 
   /* 本編 keisan の図鑑詳細と同じ体裁: 背景タップで閉じるモーダル、種名・レア度・
      捕獲サイズ・学名・分類・注意・説明の順。中身は共有の Q4BZukan.detailHTML。 */
-  function openZukanModal(item){
+  function breedingCollection(){
+    return {catches:profile.collection.catches,total:profile.collection.totalCatches};
+  }
+
+  function refreshZukanModal(spId,redrawScreen){
+    var rerender=zukanModalRerender;
+    if(typeof rerender!=="function")return;
+    if(redrawScreen)rerender();
+    var sp=global.Q4BReward&&global.Q4BReward.spById?global.Q4BReward.spById(spId):null;
+    var record=profile&&profile.collection&&profile.collection.catches[spId];
+    if(sp&&record)openZukanModal({sp:sp,record:record},rerender);
+    else closeZukanModal();
+  }
+
+  function komorebiLayEgg(spId){
+    if(!profile||!profile.collection||!global.Q4BReward||!global.Q4BBreeding)return;
+    var sp=global.Q4BReward.spById(spId); if(!sp)return;
+    global.Q4BBreeding.openLayConfirm(sp,{coll:breedingCollection(),profileId:profileId,homeHref:"../index.html",onSuccess:function(){
+      refreshZukanModal(spId,false);
+    }});
+  }
+
+  function komorebiAbandonEgg(spId){
+    if(!global.Q4BReward)return;
+    if(!global.confirm("この たまごを すてる? (返金なし)"))return;
+    if(!global.confirm("ほんとうに すてる?"))return;
+    global.Q4BReward.abandonEgg(spId).then(function(ok){if(ok)refreshZukanModal(spId,false);});
+  }
+
+  function komorebiHatchEgg(spId){
+    if(!profile||!profile.collection||!global.Q4BReward)return;
+    var coll=breedingCollection();
+    global.Q4BReward.hatchEgg(coll,spId).then(function(result){
+      if(!result){global.alert("孵化できませんでした (別の たんまつで すすんでいる可能性があります)");return;}
+      profile.collection.catches=coll.catches;
+      profile.collection.totalCatches=coll.total;
+      saveProfile().then(function(){refreshZukanModal(spId,true);},function(){
+        global.alert("孵化できませんでした (別の たんまつで すすんでいる可能性があります)");
+      });
+    });
+  }
+
+  function openZukanModal(item,rerender){
     closeZukanModal();
+    zukanModalRerender=rerender;
     var reward=global.Q4BReward,sp=item.sp,record=item.record,tier=sp.r;
     var size=sp.sizeMm?sp.sizeMm[0]+"〜"+sp.sizeMm[1]+"mm":"";
     var caught=Number.isFinite(record.max)?record.max+"mm":"";
-    var detail=(global.Q4BZukan&&global.Q4BZukan.detailHTML)?global.Q4BZukan.detailHTML(record,sp,{}):"";
+    var detail=(global.Q4BZukan&&global.Q4BZukan.detailHTML)?global.Q4BZukan.detailHTML(record,sp,{coll:breedingCollection(),onLayEgg:"komorebiLayEgg",onAbandonEgg:"komorebiAbandonEgg",onHatchEgg:"komorebiHatchEgg"}):"";
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
     overlay.id="komZukanModal";
@@ -1917,6 +1961,7 @@
   function closeZukanModal(){
     var existing=document.getElementById("komZukanModal");
     if(existing&&existing.parentNode)existing.parentNode.removeChild(existing);
+    zukanModalRerender=null;
   }
 
   function renderError(){
@@ -1956,6 +2001,10 @@
     /* renderMap を直接渡すと Promise の解決値が selectedId として届いてしまう。 */
     }).then(function(){renderMap();}).catch(renderError);
   }
+
+  global.komorebiLayEgg=komorebiLayEgg;
+  global.komorebiAbandonEgg=komorebiAbandonEgg;
+  global.komorebiHatchEgg=komorebiHatchEgg;
 
   global.Q4B_KOMOREBI={
     categories:CATEGORIES,

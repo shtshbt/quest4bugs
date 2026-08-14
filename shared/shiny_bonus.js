@@ -37,10 +37,12 @@
     var kanji = states.kanji || {};
     var eitango = states.eitango || {};
     var battle = states.battle || {};
+    var komorebi = states.komorebi || {};
     addShinyIds(ids, keisan.coll && keisan.coll.catches);
     addShinyIds(ids, kanji.coll && kanji.coll.catches);
     addShinyIds(ids, eitango.catches || (eitango.coll && eitango.coll.catches));
     addShinyIds(ids, battle.bosses);
+    addShinyIds(ids, komorebi.collection && komorebi.collection.catches);
     return Object.keys(ids).length;
   }
 
@@ -128,10 +130,11 @@
       QuestSave.load("keisan",pid),
       QuestSave.load("kanji",pid),
       QuestSave.load("eitango",pid),
-      QuestSave.load("battle",pid)
+      QuestSave.load("battle",pid),
+      QuestSave.load("komorebi",pid)
     ]).then(function(r){
       if(QuestSave.currentProfile() !== pid) return;
-      var count = shinySpeciesCount({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3]});
+      var count = shinySpeciesCount({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3],komorebi:r[4]});
       var title = shinyTitle(count);
       var box = document.getElementById("q4b-shiny-summary");
       if(!box) return;

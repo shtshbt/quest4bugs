@@ -4,6 +4,7 @@
    育成を塞ぐ」のどちらかが起きる。
    node tests/test_komorebi_breeding.js で実行。 */
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 const path = require("node:path");
 const { bootKomorebi, KOMOREBI_FILES } = require("./fake_dom.js");
 
@@ -19,6 +20,22 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const reward = context.Q4BReward;
   const komorebi = context.Q4B_KOMOREBI;
   const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
+
+  test("the komorebi page loads the shared breeding UI", () => {
+    const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
+    assert.ok(page.indexOf("../shared/breeding.js") > page.indexOf("../shared/reward.js"));
+  });
+
+  test("the komorebi zukan detail receives its collection", () => {
+    const source = fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8");
+    assert.match(source, /detailHTML\(record,sp,\{coll:breedingCollection\(\)/);
+  });
+
+  test("the shiny summary includes the komorebi collection", () => {
+    const source = fs.readFileSync(path.join(root, "shared/shiny_bonus.js"), "utf8");
+    assert.match(source, /QuestSave\.load\("komorebi",pid\)/);
+    assert.match(source, /komorebi\.collection && komorebi\.collection\.catches/);
+  });
 
   /* keisan/app.js が配線する QuestSave adapter は fake 環境に実体が無いので、
      テスト用の明示ストアで置き換える (実ページでは QuestSave 側が同じ役を担う)。 */

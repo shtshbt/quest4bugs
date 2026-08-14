@@ -341,6 +341,7 @@
        無駄だったので置き換え。完了時点の最新 store でまとめて 1 回だけ送る形に。 */
   var inFlightPush=null;
   var pendingPush=false;
+  var snapshotSizeWarned=false;
 
   /* ---------------- cloud push (single snapshot file) ----------------
      全データを1ファイル q4b/save.json に丸ごと保存する。多数の小ファイルを
@@ -392,13 +393,18 @@
   /* 1ファイルを丸ごとPUT。毎回リモートを取り直してマージし、sha付きで上書き。
      409/422(sha競合)はマージし直して数回リトライ。複数端末でも進捗を壊さない。 */
   async function pushSnapshotRaw(cfg){
-    var attempt,remote,store,body,res,why="";
+    var attempt,remote,store,snapshot,body,res,why="";
     for(attempt=0;attempt<6;attempt++){
       remote=await githubGet(cfg,savePath(cfg));
       store=loadStore();
       if(remote&&remote.content){ try{ mergeStore(store,JSON.parse(base64ToString(remote.content))); }catch(_){ } }
       persist();
-      body={message:"save "+stamp(),content:stringToBase64(snapshotDoc(store))};
+      snapshot=snapshotDoc(store);
+      if(!snapshotSizeWarned&&new TextEncoder().encode(snapshot).length>500*1024){
+        snapshotSizeWarned=true;
+        try{if(typeof console!=="undefined")console.warn("[Q4BStorage] save.json が 500KB を超えました。records 圧縮の検討時期です");}catch(_){}
+      }
+      body={message:"save "+stamp(),content:stringToBase64(snapshot)};
       if(remote&&remote.sha)body.sha=remote.sha;
       res=await fetch(githubUrl(cfg,savePath(cfg)),{method:"PUT",
         headers:Object.assign({"Content-Type":"application/json"},authHeaders(cfg)),
