@@ -258,6 +258,7 @@
       +   '</div>'
       +   komSection
       +   '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:8px">もんだいに せいかいすると、それぞれの 教科で そだつよ</div>'
+      +   '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:4px">まだ マスターしていない もんだいを とくと、たまごが はやく そだって、こはくも たくさん もらえるよ！</div>'
       + '</div>';
   }
 

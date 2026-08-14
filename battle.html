@@ -446,9 +446,9 @@
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.5"></script>
+<script src="./shared/reward.js?v=0.8.6"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.6.1"></script>
+<script src="./shared/breeding.js?v=0.6.2"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
 <script src="./shared/zukan_detail.js?v=0.2.2"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
@@ -467,9 +467,10 @@ var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
 var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"むぞくせい"};
 
 /* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
-var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, BATTLE_COLLS={kanji:null,keisan:null,eitango:null}, REARED_IDS={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
+var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, BATTLE_COLLS={kanji:null,keisan:null,eitango:null,komorebi:null}, REARED_IDS={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
 var PROG={kanji:null,keisan:null,eitango:null};  /* 各教科のper-profileデータ（本物連動の出題用） */
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function speciesName(sp){ return window.Q4B_SPECIES_DISPLAY_NAME?Q4B_SPECIES_DISPLAY_NAME(sp):((sp&&sp.jaName)||""); }
 function isReared(speciesId){ return !!REARED_IDS[speciesId]; }
 function collectRearedSpecies(catches){
   Object.keys(catches||{}).forEach(function(id){
@@ -556,7 +557,7 @@ function openPartyEquip(speciesId){
   ov.onclick=function(e){if(e.target===ov)closePartyEquip();};
   ov.innerHTML='<div class="party-equip-card">'
     +'<h3>そうびを かえる</h3>'
-    +'<div class="sub">'+esc(sp.jaName)+'　'+equipmentBadgeHTML(sp)+'</div>'
+    +'<div class="sub">'+esc(speciesName(sp))+'　'+equipmentBadgeHTML(sp)+'</div>'
     +'<div class="ps-equip-note">そうびの効果は <b>かせきのたに</b> の遠征でだけ はたらくよ。ふつうのボス戦では 効果なし。</div>'
     +(items.length?slots.map(slotHTML).join(""):'<p class="note" style="text-align:center">復元ずみの かせきパーツが まだありません。</p>')
     +'<button class="btn" style="margin:10px 0 0;background:#9aa896" onclick="closePartyEquip()">とじる</button>'
@@ -593,7 +594,7 @@ function showPartyEquipDone(itemId,speciesId,title){
   ov.innerHTML='<div class="party-equip-card" style="text-align:center">'
     +'<div style="width:72px;height:72px;margin:0 auto 6px">'+(item?Q4BEquipment.svg(itemId):'')+'</div>'
     +'<h3>'+esc(title)+'</h3>'
-    +'<div class="sub">'+esc(item?item.name:'かせきパーツ')+(sp?' → '+esc(sp.jaName):'')+'</div>'
+    +'<div class="sub">'+esc(item?item.name:'かせきパーツ')+(sp?' → '+esc(speciesName(sp)):'')+'</div>'
     +'<p class="note" style="margin:6px 0 10px">OKをおすと この虫のそうび画面に もどるよ。</p>'
     +'<button class="btn" style="margin:0;background:#3D7AB8" onclick="openPartyEquip(\''+speciesId+'\')">OK</button>'
     +'</div>';
@@ -1101,15 +1102,17 @@ function loadAll(){
       QuestSave.load("kanji",PROF),
       QuestSave.load("eitango",PROF),
       QuestSave.load("battle",PROF),
-      QuestSave.load("keisan","_book")     /* 移行前デバイス用フォールバック */
+      QuestSave.load("keisan","_book"),    /* 移行前デバイス用フォールバック */
+      QuestSave.load("komorebi",PROF)
     ]).then(function(r){
-      var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4];
+      var kp=r[0],ks=r[1],es=r[2],bt=r[3]||{},book=r[4],komorebi=r[5];
       var i; if(!kp&&book&&book.profiles)for(i=0;i<book.profiles.length;i++)if(book.profiles[i].id===PROF)kp=book.profiles[i];
       /* bossKillReward の legacy backfill 用に 3 教科 coll を stash */
       BATTLE_COLLS = {
         kanji:   (ks && ks.coll) ? ks.coll : null,
         keisan:  (kp && kp.coll) ? kp.coll : null,
-        eitango: (es && es.catches) ? {catches: es.catches} : null
+        eitango: (es && es.catches) ? {catches: es.catches} : null,
+        komorebi: (komorebi && komorebi.collection) ? komorebi.collection : null
       };
       /* ボス load-time backfill: 旧版 catches / 新版 BATTLE.bosses どちらかに entry あり
          なら sex 自動確定 + 相方卵を 1 度だけ授与 (legacy 救済)。 */
@@ -1180,6 +1183,7 @@ function loadAll(){
       if(ks&&ks.coll){ add(ks.coll.catches); caught+=ks.coll.total||0; }
       if(es){ add(es.catches); if(es.catches)caught+=Object.keys(es.catches).reduce(function(a,id){return a+((es.catches[id]&&es.catches[id].n)||0);},0); }
       if(bt&&bt.bosses){ add(bt.bosses); }
+      if(komorebi&&komorebi.collection){ add(komorebi.collection.catches); }
       /* 手持ち＝図鑑に追加された採集済みの虫。除外するのは天敵(boss.predator＝バッジ報酬で
          種として図鑑に入らない)だけ。昆虫ボス(撃破で図鑑入り)もSSマスター虫も編成可。 */
       OWNED = Object.keys(ids).map(function(id){return byId[id];}).filter(function(s){return s&&!(s.boss&&s.boss.predator);});
@@ -1244,7 +1248,7 @@ function renderPSelect(){
     slots+='<div class="ps-row'+(i===0?" lead":"")+'">'
       +'<span class="num">'+(i+1)+'</span>'
       +'<div class="art">'+R.species(s,false)+'</div>'
-      +'<div class="info"><div class="nm">'+s.jaName+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
+      +'<div class="info"><div class="nm">'+speciesName(s)+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
       +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+equipmentBadgeHTML(s)+'</div></div>'
       +'<div class="ctrl">'
       +'<button class="ps-equip-btn" onclick="openPartyEquip(\''+s.id+'\')">そうび</button>'
@@ -1295,7 +1299,7 @@ function renderPool(){
   var list=OWNED.filter(psMatch);
   var pool=list.map(function(s){ var sel=SEL.some(function(x){return x.id===s.id;});
     return '<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
-      +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+      +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+speciesName(s)+'</div>'
       +equipmentBadgeHTML(s)
       +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+'</div></div>'; }).join("");
   w.innerHTML='<div class="note" style="margin:2px 0 6px">該当 '+list.length+' / '+OWNED.length+' 匹</div>'
@@ -1794,7 +1798,7 @@ function renderHome(){
   // パーティ
   var pc=document.getElementById("party"); pc.innerHTML="";
   PARTY.forEach(function(s){ var d=document.createElement("div"); d.className="pcell";
-    d.innerHTML='<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
+    d.innerHTML='<div class="art">'+R.species(s,false)+'</div><div class="pn">'+speciesName(s)+'</div>'
       +equipmentBadgeHTML(s)
       +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+'</div>';
     pc.appendChild(d); });
@@ -1941,7 +1945,7 @@ function startBattle(r){
   st={ r:r, boss:boss, bossMax:maxHp, bossHp:maxHp, traits:B.bossTraits(r),
     party: PARTY.slice(0, partySize).map(function(s){ var hp=effectiveBugHP(s); return {sp:s, type:RW.gameFor(s), max:hp, hp:hp}; }),
     idx:0, phase:"attack", defReps:1, defDone:0, q:null, busy:false,
-    recentQ:[], chameleon:B.isChameleon(r)?B.createChameleonColorState("kanji"):null };  /* Recent-question duplicate guard. */
+    recentQ:[], turnQuestions:{}, chameleon:B.isChameleon(r)?B.createChameleonColorState("kanji"):null };  /* Recent-question duplicate guard. */
   document.getElementById("home").style.display="none";
   var bt=document.getElementById("battle"); bt.style.display="block";
   // ---- 登場エフェクト ----
@@ -2007,7 +2011,7 @@ function drawBattle(){
   setHp("boss",st.bossHp,st.bossMax);
   document.getElementById("meArt").innerHTML=R.species(m.sp,false);
   var adv=B.advLabel(m.type,bossType);
-  document.getElementById("meName").innerHTML=m.sp.jaName+' <span class="badge b-'+m.type+'">'+TYPE_JA[m.type]+'</span>'
+  document.getElementById("meName").innerHTML=speciesName(m.sp)+' <span class="badge b-'+m.type+'">'+TYPE_JA[m.type]+'</span>'
     +'<span class="adv '+(adv==="ゆうり"?"good":adv==="ふり"?"bad":"neu")+'">'+(adv==="ゆうり"?"▲ゆうり":adv==="ふり"?"▼ふり":"・ふつう")+'</span>';
   setHp("me",m.hp,m.max);
   drawChameleonForecast();
@@ -2039,22 +2043,28 @@ function nextQuestion(){
     drawBattle();
   }
   var m=activeM();
-  /* Use the higher of boss band and a slightly-ahead reach band so early bosses still challenge advanced players. */
-  var _bb=isChameleonEncounter()?5:(st.r?Math.ceil(st.r.stage/10):1);
-  var _rl=Math.max(1,Math.min(5,Math.ceil(((REACH[m.type]||0)+1)/2)));
-  var _d=Math.max(_bb,_rl);
-  if(m.type==="keisan"&&Math.random()<0.25)_d=Math.min(5,_d+1);   /* 計算だけ外側で少し難化。漢字/英語は各実データ側で調整 */
-  /* 直近重複弾き: 直近8問と同じ問題文を出さない（10回まで再抽選） */
-  if(!st.recentQ) st.recentQ=[];
-  var tries=0, q;
-  do { q=makeQ(m.type, _d); tries++; }
-  while(q && q.q && st.recentQ.indexOf(q.q)>=0 && tries<10);
+  var subj=RW.gameFor(m.sp);
+  if(!st.turnQuestions) st.turnQuestions={};
+  var q=st.turnQuestions[subj];
+  if(!q){
+    /* Use the higher of boss band and a slightly-ahead reach band so early bosses still challenge advanced players. */
+    var _bb=isChameleonEncounter()?5:(st.r?Math.ceil(st.r.stage/10):1);
+    var _rl=Math.max(1,Math.min(5,Math.ceil(((REACH[subj]||0)+1)/2)));
+    var _d=Math.max(_bb,_rl);
+    if(subj==="keisan"&&Math.random()<0.25)_d=Math.min(5,_d+1);   /* 計算だけ外側で少し難化。漢字/英語は各実データ側で調整 */
+    /* 直近重複弾き: 直近8問と同じ問題文を出さない（10回まで再抽選） */
+    if(!st.recentQ) st.recentQ=[];
+    var tries=0;
+    do { q=makeQ(subj, _d); tries++; }
+    while(q && q.q && st.recentQ.indexOf(q.q)>=0 && tries<10);
+    st.turnQuestions[subj]=q;
+    if(q && q.q){ st.recentQ.push(q.q); if(st.recentQ.length>8) st.recentQ.shift(); }
+  }
   st.q=q;
-  if(q && q.q){ st.recentQ.push(q.q); if(st.recentQ.length>8) st.recentQ.shift(); }
   var tb=document.getElementById("turnBanner");
-  if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+m.sp.jaName+"の こうげきターン！"; }
+  if(st.phase==="attack"){ tb.className="turn-banner"; tb.textContent="🗡️ "+speciesName(m.sp)+"の こうげきターン！"; }
   else { tb.className="turn-banner def";
-    tb.textContent="🛡️ "+m.sp.jaName+"の ぼうぎょターン！"+(st.defReps>1?("（れんぞく "+((st.defDone||0)+1)+"/"+st.defReps+"）"):" ボスがおそってくる！"); }
+    tb.textContent="🛡️ "+speciesName(m.sp)+"の ぼうぎょターン！"+(st.defReps>1?("（れんぞく "+((st.defDone||0)+1)+"/"+st.defReps+"）"):" ボスがおそってくる！"); }
   /* furigana/ruby を含む可能性のある text は innerHTML で。XSS リスクは生成元(keisan/app.js)を信頼。 */
   document.getElementById("qtext").innerHTML=st.q.q;
   var ans=document.getElementById("ans"); ans.innerHTML="";
@@ -2120,7 +2130,7 @@ function swapTo(i){
   if(!B.canSwap(st.r)){ log("⚠️ カメレオン戦では こうたいできない！"); return; }
   if(i===st.idx || st.party[i].hp<=0) return;
   st.idx=i; var m=activeM();
-  log("🔄 こうたい！ つぎは "+m.sp.jaName+"！");
+  log("🔄 こうたい！ つぎは "+speciesName(m.sp)+"！");
   var art=document.getElementById("meArt"); art.innerHTML=R.species(m.sp,false);
   flashClass(art.parentNode,"swap-in",600);
   drawBattle();
@@ -2253,16 +2263,16 @@ function presentBattleOutcome(o){
   if(o.outcome==="attack_hit"&&o.dodged){
     line="💨 "+st.boss.jaName+"は すばやく よけた！ ダメージ なし！";
   } else if(o.outcome==="attack_hit"){
-    line="⚔️ "+m.sp.jaName+"の こうげき！ "+st.boss.jaName+"に "+o.damage+"の ダメージ！"
+    line="⚔️ "+speciesName(m.sp)+"の こうげき！ "+st.boss.jaName+"に "+o.damage+"の ダメージ！"
       +(o.effectiveness==="ゆうり"?"（ゆうり×2！）":o.effectiveness==="ふり"?"（ふり…）":"")
       +(o.yoroi?"（🛡️ヨロイで はんげん）":"");
   } else if(o.outcome==="attack_miss"){
-    line="💨 "+m.sp.jaName+"の こうげきは ミス！";
+    line="💨 "+speciesName(m.sp)+"の こうげきは ミス！";
   } else if(o.outcome==="defense_guard"){
-    line="🛡️ "+m.sp.jaName+"は ガード！ それでも "+o.damage+"の ダメージ"
+    line="🛡️ "+speciesName(m.sp)+"は ガード！ それでも "+o.damage+"の ダメージ"
       +(o.effectiveness==="ゆうり"?"（ゆうりで かるい）":o.effectiveness==="ふり"?"（ふりで おもい）":"");
   } else {
-    line="💥 "+st.boss.jaName+"の こうげき！ "+m.sp.jaName+"に "+o.damage+"の ダメージ！"
+    line="💥 "+st.boss.jaName+"の こうげき！ "+speciesName(m.sp)+"に "+o.damage+"の ダメージ！"
       +(o.doku?"（☠️どく＋5！）":"");
   }
   log(line);
@@ -2337,6 +2347,7 @@ function answer(c){
   } else {
     correct = (String(c)===String(st.q.ans));
   }
+  st.turnQuestions={};
   var m=activeM(), r=st.r, bossType=currentBossType();
   if(isChameleonEncounter()){
     st.chameleon=B.consumeChameleonAction(st.chameleon);
@@ -2388,7 +2399,7 @@ function answer(c){
 }
 function faint(){
   var m=activeM();
-  log("💀 "+m.sp.jaName+"は たおれてしまった…！");
+  log("💀 "+speciesName(m.sp)+"は たおれてしまった…！");
   var art=document.getElementById("meArt"); flashClass(art.parentNode,"fainting",1000);
   // 全滅判定は「生存数0」で厳密に。次の虫は後ろ優先→いなければ前方の生存虫へ循環。
   var aliveTotal=0; for(var j=0;j<st.party.length;j++){ if(st.party[j].hp>0) aliveTotal++; }
@@ -2397,7 +2408,7 @@ function faint(){
   if(next<0){ for(var k=0;k<st.idx;k++){ if(st.party[k].hp>0){next=k;break;} } }
   setTimeout(function(){
     st.idx=next; var nm=activeM();
-    log("➡️ "+nm.sp.jaName+"、いけー！");
+    log("➡️ "+speciesName(nm.sp)+"、いけー！");
     drawBattle();
     flashClass(document.getElementById("meArt").parentNode,"swap-in",600);
     st.phase="attack"; nextQuestion();

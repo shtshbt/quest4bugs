@@ -424,7 +424,6 @@
      an extra catch. Gives "save up & spend" agency + a collection pity path.
      共有ウォレット: setAmberStore({get,add,spend}) を差すと、全ゲームで1つの財布を
      共有する（未設定なら従来どおり coll.amber を使う＝後方互換）。 */
-  var AMBER_PER_CORRECT = 1;
   var AMBER_CATCH_COST = 30;
   var amberStore = null;  // {get:()->n, add:(n)->n, spend:(n)->bool}
   function setAmberStore(s){ amberStore = s; }
@@ -456,17 +455,24 @@
      gauge is not full yet. `need` lets a game tune the cadence. itemId(任意)で
      同一問題の連打を検知してゲージの進みを逓減する。 */
   /* value(任意,0〜1): その問題の「学習価値」。習得済み内容の周回は低い値を渡すと
-     ゲージの伸びが鈍る → 既マスター/薄いフィールドの farming で図鑑が安く埋まるのを防ぐ。
-     🔶こはくは満額のまま(救済通路は維持)。 */
+     ゲージとこはくの伸びが鈍る → 既マスター/薄いフィールドの farming で
+     図鑑やこはくが安く増えるのを防ぐ。 */
   function onCorrect(coll, game, need, boost, itemId, value, opts){
     opts=opts||{};
     if(!coll.catches) coll.catches = {};
-    earnAmber(coll, AMBER_PER_CORRECT);   // 🔶救済通路は満額のまま温存（共有ウォレット対応）
     /* 卵育成: feedEgg は各教科の「正解判定箇所」(QuestSave.recordCorrect の隣) で
        直接呼ぶ設計に変更 (旧: onCorrect から自動呼出。kanji test/eitango 通常モード
        など onCorrect 非経由のパスで卵が進まない不具合があった)。 */
     var v = (value==null) ? 1 : Math.max(0, Math.min(1, value));
-    coll.acc = (coll.acc||0) + freshnessOf(coll, itemId) * v;
+    var coef = freshnessOf(coll, itemId);
+    var amberGain = Math.max(0.25, coef * v);
+    coll.amberAcc = (coll.amberAcc||0) + amberGain;
+    if(coll.amberAcc >= 1){
+      var amberWhole = Math.floor(coll.amberAcc);
+      earnAmber(coll, amberWhole);
+      coll.amberAcc -= amberWhole;
+    }
+    coll.acc = (coll.acc||0) + coef * v;
     if(coll.acc >= 1){ coll.gauge = (coll.gauge||0) + 1; coll.acc -= 1; }  // ゲージは整数を維持
     var threshold = need || NEED_DEFAULT;
     if((coll.gauge||0) < threshold) return null;

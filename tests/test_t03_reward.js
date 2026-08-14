@@ -118,6 +118,18 @@ test("M2 eight eligible answers create exactly one catch", () => {
   }
 });
 
+test("amber follows value and freshness while retaining a quarter floor", () => {
+  const fresh={gauge:0,acc:0,catches:{},recent:[]};
+  reward.onCorrect(fresh,"eitango",99,1,"new-word",1);
+  assert.equal(fresh.amber,1,"a fresh full-value answer must still earn one amber");
+  assert.equal(fresh.amberAcc,0);
+
+  const mastered={gauge:0,acc:0,catches:{},recent:[]};
+  for(let i=0;i<4;i++)reward.onCorrect(mastered,"eitango",99,1,"known-word",0.4);
+  assert.equal(mastered.amber,1,"mastered repeats must not earn one amber per answer");
+  assert.ok(Math.abs(mastered.amberAcc-0.15)<1e-9,"the 0.25 floor must accumulate fractional amber");
+});
+
 test("M2 ineligible answers leave gauge and save domains byte-for-byte unchanged", () => {
   const profile={coll:{gauge:0,acc:0,total:9,catches:{kept:{n:2,max:8,shiny:1}},recent:[]},
     shiny:7,eggs:[{id:"egg"}],masterAwards:{m:1},boss:{ouja:{REACH:42},unlocked:true},equipment:{net:"gold"},srs:{word:[3,9,4,0]},field:6};

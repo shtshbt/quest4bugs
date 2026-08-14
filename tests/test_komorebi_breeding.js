@@ -128,13 +128,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(store.bs.pendingEggs.length, 0);
   });
 
-  /* 小道の有効正答 1 回 = こもれびの卵 +1 と こはく +1。本編の卵は動かない。 */
+  /* 小道の通常正答 1 回 = こもれびの卵 +1 と こはく +1。本編の卵は動かない。 */
   const answer = { sessionId: "kb1", submissionId: "kb1-1", format: "normal", kind: "num", correct: true, final: true };
   await komorebi.recordAnswer("kom_ratio", answer, volume, () => 0.5);
   await settle();
 
   test("a counted answer on the path feeds komorebi eggs and earns amber", () => {
     assert.equal(wallet.amber, 1, "amber must go to the shared wallet");
+    assert.equal(komorebi.profile().collection.amberAcc, 0);
     const kom = store.bs.eggs.filter(e => e.game === "komorebi");
     assert.equal(kom.length, 3);
     kom.forEach(egg => assert.equal(egg.progress || 0, 1, egg.id + " was not fed by the answer"));
@@ -152,6 +153,16 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(wallet.amber, 1);
     const kom = store.bs.eggs.filter(e => e.game === "komorebi");
     kom.forEach(egg => assert.equal(egg.progress, 1));
+  });
+
+  komorebi.profile().maxLv.kom_ratio = komorebi.categories.kom_ratio.maxLv;
+  const mastered = { sessionId: "kb1", submissionId: "kb1-3", format: "normal", kind: "num", correct: true, final: true };
+  await komorebi.recordAnswer("kom_ratio", mastered, volume, () => 0.5);
+  await settle();
+
+  test("a mastered path answer accumulates 0.4 amber", () => {
+    assert.equal(wallet.amber, 1, "fractional amber must not reach the wallet early");
+    assert.ok(Math.abs(komorebi.profile().collection.amberAcc - 0.4) < 1e-9);
   });
 
   console.log("RESULT " + passed + " passed, 0 failed");

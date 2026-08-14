@@ -702,17 +702,27 @@
 
   /* 産卵とこはくの接続 (komorebi_breeding_bonus_gaps 決定 1, 3)。
      小道の有効正答は egg.game="komorebi" の卵だけを育て、こはくは共有ウォレットへ
-     1 つ加算する。本編の卵 (keisan 等) はここからは一切進まない。
+     学習価値に応じて加算する。本編の卵 (keisan 等) はここからは一切進まない。
      習熟済み (maxLv 到達) カテゴリの周回は本編と同じく価値 0.4 に減衰する。 */
   function feedSideRewards(cat,result,masteredAtAnswer){
     if(!result||!result.counted)return;
     var reward=global.Q4BReward;
     if(!reward)return;
-    try{if(typeof reward.earnAmber==="function")reward.earnAmber(profile.collection,1);}catch(_){}
-    if(typeof reward.feedEgg==="function"){
-      var mastered=masteredAtAnswer!=null?masteredAtAnswer:profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
+    var mastered=masteredAtAnswer!=null?masteredAtAnswer:profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
+    var value=mastered?0.4:1;
+    if(typeof reward.earnAmber==="function"){
       try{
-        var fed=reward.feedEgg("komorebi",mastered?0.4:1,{});
+        profile.collection.amberAcc=(profile.collection.amberAcc||0)+value;
+        if(profile.collection.amberAcc>=1){
+          var amberWhole=Math.floor(profile.collection.amberAcc);
+          reward.earnAmber(profile.collection,amberWhole);
+          profile.collection.amberAcc-=amberWhole;
+        }
+      }catch(_){}
+    }
+    if(typeof reward.feedEgg==="function"){
+      try{
+        var fed=reward.feedEgg("komorebi",value,{});
         if(fed&&typeof fed.catch==="function")fed.catch(function(){});
       }catch(_){}
     }

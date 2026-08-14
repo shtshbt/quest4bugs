@@ -322,9 +322,9 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.6"></script>
+<script src="./shared/reward.js?v=0.8.7"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.6.2"></script>
+<script src="./shared/breeding.js?v=0.6.3"></script>
 <script src="./shared/breeding_debug.js?v=0.1.1"></script>
 <script src="./shared/zukan_detail.js?v=0.2.3"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
@@ -436,7 +436,7 @@ function goshinDoneText(g){
 }
 function speciesName(id){
   var a=window.Q4B_BUGS||window.BUGS||[], i;
-  for(i=0;i<a.length;i++)if(a[i]&&a[i].id===id)return a[i].jaName||id;
+  for(i=0;i<a.length;i++)if(a[i]&&a[i].id===id)return window.Q4B_SPECIES_DISPLAY_NAME?Q4B_SPECIES_DISPLAY_NAME(a[i]):(a[i].jaName||id);
   return id||"まだ";
 }
 function speciesById(id){
@@ -662,7 +662,7 @@ function openEquipmentCard(id){
 }
 /* ===== 装備割り当てピッカー: 所有虫から選んで装着 ===== */
 function gatherOwnedSpecies(states){
-  /* states: {keisan,kanji,eitango,battle} → [{id,name,rarity}] */
+  /* states: {keisan,kanji,eitango,battle,komorebi} → [{id,name,rarity}] */
   var seen={}, out=[];
   function add(catches){
     if(!catches)return;
@@ -671,13 +671,14 @@ function gatherOwnedSpecies(states){
       var sp=speciesById(id);
       if(!sp)continue;
       seen[id]=1;
-      out.push({id:id, name:sp.jaName||id, rarity:sp.rarity||"N"});
+      out.push({id:id, name:speciesName(id), rarity:sp.rarity||"N"});
     }
   }
   add(states.keisan&&states.keisan.coll&&states.keisan.coll.catches);
   add(states.kanji&&states.kanji.coll&&states.kanji.coll.catches);
   add(states.eitango&&states.eitango.catches);
   add(states.battle&&states.battle.bosses);
+  add(states.komorebi&&states.komorebi.collection&&states.komorebi.collection.catches);
   out.sort(function(a,b){
     var ro={SS:0,SSR:1,SR:2,R:3,N:4};
     var d=(ro[a.rarity]||5)-(ro[b.rarity]||5);
@@ -695,9 +696,10 @@ function openEquipPicker(itemId){
     QuestSave.load("keisan",pid),
     QuestSave.load("kanji",pid),
     QuestSave.load("eitango",pid),
-    QuestSave.load("battle",pid)
+    QuestSave.load("battle",pid),
+    QuestSave.load("komorebi",pid)
   ]).then(function(r){
-    var list=gatherOwnedSpecies({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3]});
+    var list=gatherOwnedSpecies({keisan:r[0],kanji:r[1],eitango:r[2],battle:r[3],komorebi:r[4]});
     var g=QuestSave.goshinOf(pid), eq=g.equipment||{};
     /* HP装備はSS除外 */
     if(item.slot==="hp") list=list.filter(function(x){return x.rarity!=="SS";});
