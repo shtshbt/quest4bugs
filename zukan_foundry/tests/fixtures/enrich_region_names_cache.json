@@ -1,0 +1,16 @@
+{
+  "101": {
+    "results": [
+      {"language": "eng", "vernacularName": "Japanese test insect"},
+      {"language": "jpn", "vernacularName": "テストムシ"}
+    ]
+  },
+  "102": {
+    "results": [
+      {"language": "eng", "vernacularName": "English test insect"}
+    ]
+  },
+  "103": {
+    "results": []
+  }
+}

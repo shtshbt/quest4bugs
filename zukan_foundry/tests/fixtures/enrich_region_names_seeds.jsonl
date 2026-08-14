@@ -1,0 +1,4 @@
+{"seedId":"gbif_101","scientificName":"Genus japonica","japaneseName":"","englishName":"","nameStatus":"pending","nameSource":"","taxonomyResponse":{"key":101,"genus":"Genus"},"custom":{"kept":true}}
+{"seedId":"gbif_102","scientificName":"Genus anglica","japaneseName":"","englishName":"","nameStatus":"pending","nameSource":"","taxonomyResponse":{"key":102,"genus":"Genus"},"custom":{"kept":true}}
+{"seedId":"gbif_103","scientificName":"Genus incognita","japaneseName":"","englishName":"","nameStatus":"pending","nameSource":"","taxonomyResponse":{"key":103,"genus":"Genus"},"custom":{"kept":true}}
+{"seedId":"gbif_104","scientificName":"Genus completa","japaneseName":"既存和名","englishName":"Existing name","nameStatus":"standard","nameSource":"https://example.test/existing","taxonomyResponse":{"key":104,"genus":"Genus"},"custom":{"kept":true}}
