@@ -17,6 +17,7 @@
     kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:2},
     kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:3},
     kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:3},
+    kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:9},
     kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:4},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
@@ -868,10 +869,12 @@
 
   function ratioOrderHtml(question){
     return '<ol class="ratio-order-answer" id="ratioOrderAnswer" aria-live="polite"></ol>'
-      +'<div class="ratio-parts">'+question.displayOrder.map(function(index){return '<button type="button" class="ratio-part" data-part-index="'+index+'">'+displayText(question.parts[index])+'</button>';}).join("")+'</div>'
+      +'<div class="ratio-parts">'+question.displayOrder.map(function(index){return '<button type="button" class="ratio-part" data-part-index="'+index+'">'+displayText(orderPartText(question.parts[index]))+'</button>';}).join("")+'</div>'
       +'<div class="ratio-order-actions"><button type="button" class="ratio-reset" data-action="reset-order">'+displayText("やりなおし")+'</button>'
       +'<button type="button" class="ratio-submit" data-action="submit-order" disabled>'+displayText("答える")+'</button></div>';
   }
+
+  function orderPartText(part){return isObject(part)&&typeof part.text==="string"?part.text:part;}
 
   /* --- 数値 + 単位の回答 -----------------------------------------------------
      単位換算だけが使う。数値だけを受け取ると「別の単位で計算し切った答え」が
@@ -884,11 +887,20 @@
     return engine;
   }
 
+  function numUnitEngine(question){
+    if(question&&question.cat==="kom_hayasa"){
+      if(!global.Q4B_KOMOREBI_HAYASA)throw new Error("速さを読み込めません");
+      return global.Q4B_KOMOREBI_HAYASA;
+    }
+    return unitEngine();
+  }
+
   function numUnitHtml(question){
+    var engine=numUnitEngine(question);
     var chips=question.unitChoices.map(function(unitId){
       var selected=session&&session.unitSelection===unitId;
       return '<button type="button" class="unit-chip'+(selected?" is-selected":"")+'" data-unit="'+attrText(unitId)+'"'
-        +' aria-pressed="'+(selected?"true":"false")+'">'+displayText(unitEngine().unitLabel(unitId))+'</button>';
+        +' aria-pressed="'+(selected?"true":"false")+'">'+displayText(engine.unitLabel(unitId))+'</button>';
     }).join("");
     return '<form class="ratio-number-form num-unit-form" data-answer-form>'
       +'<input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答えの数")+'">'
@@ -910,7 +922,7 @@
   }
 
   function ratioAnswerText(question){
-    if(question.kind==="order")return question.ans.map(function(index){return question.parts[index];}).join(" → ");
+    if(question.kind==="order")return question.ans.map(function(index){return orderPartText(question.parts[index]);}).join(" → ");
     if(question.kind==="choice")return question.choices[expectedChoiceIndex(question)]||"";
     return String(question.ans);
   }
@@ -1047,7 +1059,7 @@
     if(question.kind==="frac")return fracEngine().formatFraction(question.ans);
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
-    if(question.kind==="num_unit")return String(question.ans)+unitEngine().unitLabel(question.ansUnit);
+    if(question.kind==="num_unit")return String(question.ans)+numUnitEngine(question).unitLabel(question.ansUnit);
     return ratioAnswerText(question);
   }
 
@@ -1080,7 +1092,7 @@
     if(question.kind==="num_unit"){
       /* 判定の内訳 (単位だけ違うのか、量そのものが違うのか) をフィードバックで
          使うため、真偽値だけでなく verdict を残す。 */
-      session.verdict=unitEngine().judgeNumUnit(question,answer.value,answer.unit);
+      session.verdict=numUnitEngine(question).judgeNumUnit(question,answer.value,answer.unit);
       return session.verdict.correct;
     }
     return judgeStandardAnswer(question,answer);
@@ -1159,7 +1171,7 @@
 
   function renderOrderSelection(question){
     var list=document.getElementById("ratioOrderAnswer");
-    if(list)list.innerHTML=session.orderSelection.length?session.orderSelection.map(function(index){return '<li>'+displayText(question.parts[index])+'</li>';}).join(""):'<li class="ratio-order-placeholder">'+displayText("順番に選びましょう")+'</li>';
+    if(list)list.innerHTML=session.orderSelection.length?session.orderSelection.map(function(index){return '<li>'+displayText(orderPartText(question.parts[index]))+'</li>';}).join(""):'<li class="ratio-order-placeholder">'+displayText("順番に選びましょう")+'</li>';
     Array.prototype.forEach.call(document.querySelectorAll("[data-part-index]"),function(button){
       button.disabled=session.orderSelection.indexOf(Number(button.getAttribute("data-part-index")))>=0;
     });
@@ -1539,7 +1551,8 @@
     kom_kuku_ura:startKukuReverseSession("kom_kuku_ura"),
     kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse"),
     kom_kuku_bridge:startGeneratedSession("kom_kuku_bridge","Q4B_KOMOREBI_KUKU_BRIDGE","九九の外へを読み込めません"),
-    kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません")};
+    kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません"),
+    kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません")};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });

@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v139";  /* v139: 解析用の回答履歴ログ (日次×カテゴリ集計、応答時間バケット、180 日 rolling)。 */
+var CACHE = "q4b-cache-v140";  /* v140: kom_hayasa 実装 (release 9 ゲート、未公開)。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -32,6 +32,7 @@ var CORE = [
   "./komorebi/pi314_generator.js", "./komorebi/unit_convert_generator.js",
   "./komorebi/kuku_reverse_generator.js", "./komorebi/frac_flow_generator.js",
   "./komorebi/kuku_bridge_generator.js", "./komorebi/equation_select_generator.js",
+  "./komorebi/hayasa_generator.js",
   "./komorebi/trophies.js", "./komorebi/volumes/volume_fixture.js",
   "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",
