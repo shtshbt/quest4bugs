@@ -1,0 +1,74 @@
+{
+  "species_id": "culicoides_imicola",
+  "species_ja": "Culicoides imicola",
+  "scientific_name": "Culicoides imicola",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014772667",
+    "occurrenceId": "df76a63d-09d0-4350-8bd5-20ef98aaee18",
+    "persistentId": "df76a63d-09d0-4350-8bd5-20ef98aaee18",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Zambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Zambia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3881036484",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/df76a63d-09d0-4350-8bd5-20ef98aaee18",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/5cce6bed-962e-47fd-8de8-37e67dae9ece",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014772667_resized.jpg",
+    "display": "processed/NHMUK014772667_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014772667_54.webp",
+      "108": "thumb/NHMUK014772667_108.webp",
+      "216": "thumb/NHMUK014772667_216.webp"
+    }
+  },
+  "original_sha256": "1eaa79e0cbead01000d67ece21554c607d98e8af8fd452bc7ba1f5c2df4912f3",
+  "processing": {
+    "cropBox": [
+      94,
+      36,
+      1392,
+      460
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014772667_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "phyllocrania_paradoxa",
+  "species_ja": "Phyllocrania paradoxa",
+  "scientific_name": "Phyllocrania paradoxa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "suncana",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Phyllocrania paradoxa 337356299 (cropped).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Phyllocrania_paradoxa_337356299_(cropped).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Phyllocrania_paradoxa_337356299_(cropped).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "suncana",
+    "eventDate": "2023-11-26",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Common Ghost Mantis (Phyllocrania paradoxa)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Phyllocrania_paradoxa_337356299_(cropped).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Phyllocrania_paradoxa_337356299_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePhyllocraniaparadoxa337356299croppedjpg_resized.jpg",
+    "display": "processed/WMCFilePhyllocraniaparadoxa337356299croppedjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePhyllocraniaparadoxa337356299croppedjpg_54.webp",
+      "108": "thumb/WMCFilePhyllocraniaparadoxa337356299croppedjpg_108.webp",
+      "216": "thumb/WMCFilePhyllocraniaparadoxa337356299croppedjpg_216.webp"
+    }
+  },
+  "original_sha256": "eeefb9ff9d0e686e873d98793a7d35df9468488886ca9f8fd158c729c65b70e8",
+  "processing": {
+    "cropBox": [
+      561,
+      88,
+      1192,
+      1774
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePhyllocraniaparadoxa337356299croppedjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

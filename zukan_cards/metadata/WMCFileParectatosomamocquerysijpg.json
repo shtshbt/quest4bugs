@@ -1,0 +1,74 @@
+{
+  "species_id": "parectatosoma_mocquerysi",
+  "species_ja": "Parectatosoma mocquerysi",
+  "scientific_name": "Parectatosoma mocquerysi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ioannis Magouras",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Parectatosoma mocquerysi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Parectatosoma_mocquerysi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Parectatosoma_mocquerysi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ioannis Magouras",
+    "eventDate": "December 20, 2023",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Parectatosoma mocquerysi. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Parectatosoma_mocquerysi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Parectatosoma_mocquerysi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileParectatosomamocquerysijpg_resized.jpg",
+    "display": "processed/WMCFileParectatosomamocquerysijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileParectatosomamocquerysijpg_54.webp",
+      "108": "thumb/WMCFileParectatosomamocquerysijpg_108.webp",
+      "216": "thumb/WMCFileParectatosomamocquerysijpg_216.webp"
+    }
+  },
+  "original_sha256": "435c300643908926ea4215f20f8a8ad8e6edae281b79be5c3d99cd9452f2c70b",
+  "processing": {
+    "cropBox": [
+      0,
+      185,
+      1802,
+      1299
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileParectatosomamocquerysijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

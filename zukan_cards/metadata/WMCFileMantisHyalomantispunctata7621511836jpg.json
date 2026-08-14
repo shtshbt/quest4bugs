@@ -1,0 +1,74 @@
+{
+  "species_id": "hyalomantis_madagascariensis",
+  "species_ja": "Hyalomantis madagascariensis",
+  "scientific_name": "Hyalomantis madagascariensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bernard DUPONT from FRANCE",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mantis (Hyalomantis punctata) (7621511836).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mantis_(Hyalomantis_punctata)_(7621511836).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mantis_(Hyalomantis_punctata)_(7621511836).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bernard DUPONT from FRANCE",
+    "eventDate": "2004-09-20 11:39",
+    "eventYear": 2004,
+    "country": null,
+    "localityVerbatim": "Andasibe-Mantadia NP, MADAGASCAR Scanned Slide from 2004",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mantis_(Hyalomantis_punctata)_(7621511836).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Mantis_%28Hyalomantis_punctata%29_%287621511836%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMantisHyalomantispunctata7621511836jpg_resized.jpg",
+    "display": "processed/WMCFileMantisHyalomantispunctata7621511836jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMantisHyalomantispunctata7621511836jpg_54.webp",
+      "108": "thumb/WMCFileMantisHyalomantispunctata7621511836jpg_108.webp",
+      "216": "thumb/WMCFileMantisHyalomantispunctata7621511836jpg_216.webp"
+    }
+  },
+  "original_sha256": "d05371e05d3d027b4e62f6cd7fe83b65d10f41d3d60163fa22c5cf5ee696ac00",
+  "processing": {
+    "cropBox": [
+      196,
+      568,
+      2800,
+      2418
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMantisHyalomantispunctata7621511836jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

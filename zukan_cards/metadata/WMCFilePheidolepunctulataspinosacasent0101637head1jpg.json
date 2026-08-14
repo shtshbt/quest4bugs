@@ -1,0 +1,74 @@
+{
+  "species_id": "pheidole_spinosa",
+  "species_ja": "Pheidole spinosa",
+  "scientific_name": "Pheidole spinosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Nick Olgeirson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pheidole punctulata spinosa casent0101637 head 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pheidole_punctulata_spinosa_casent0101637_head_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pheidole_punctulata_spinosa_casent0101637_head_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Nick Olgeirson",
+    "eventDate": "2005-12-12 14:25:59",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Head view of ant Pheidole punctulata spinosa specimen casent0101637.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pheidole_punctulata_spinosa_casent0101637_head_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Pheidole_punctulata_spinosa_casent0101637_head_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_resized.jpg",
+    "display": "processed/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_54.webp",
+      "108": "thumb/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_108.webp",
+      "216": "thumb/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_216.webp"
+    }
+  },
+  "original_sha256": "afe5de69f361ba1e67f8d3860c15b7438828b9d30fbf6f6cf62e2a7a541f716c",
+  "processing": {
+    "cropBox": [
+      0,
+      1,
+      815,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePheidolepunctulataspinosacasent0101637head1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

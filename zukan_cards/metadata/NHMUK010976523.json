@@ -1,0 +1,74 @@
+{
+  "species_id": "anopheles_gambiae",
+  "species_ja": "Anopheles gambiae",
+  "scientific_name": "Anopheles gambiae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Harry Taylor",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010976523",
+    "occurrenceId": "ecf29da1-e33b-43d4-886f-18941ce1c32f",
+    "persistentId": "ecf29da1-e33b-43d4-886f-18941ce1c32f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "Dr Burdett",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Gambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Gambia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826400199",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ecf29da1-e33b-43d4-886f-18941ce1c32f",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/74982f44-946f-4f89-a989-a8324b01083a",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK010976523_resized.jpg",
+    "display": "processed/NHMUK010976523_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010976523_54.webp",
+      "108": "thumb/NHMUK010976523_108.webp",
+      "216": "thumb/NHMUK010976523_216.webp"
+    }
+  },
+  "original_sha256": "13db3408cb84ebcee2ed45b79b86e4f9df5e1fe60e6a4a419a606043c925f5a1",
+  "processing": {
+    "cropBox": [
+      85,
+      36,
+      1362,
+      1339
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010976523_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

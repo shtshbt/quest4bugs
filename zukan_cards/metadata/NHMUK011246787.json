@@ -1,0 +1,74 @@
+{
+  "species_id": "dipseudopsis_longispina",
+  "species_ja": "Dipseudopsis longispina",
+  "scientific_name": "Dipseudopsis longispina",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK011246787",
+    "occurrenceId": "1d2ab482-f643-4023-809b-db68e16fa979",
+    "persistentId": "1d2ab482-f643-4023-809b-db68e16fa979",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1914-10-28",
+    "eventYear": 1914,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3409180796",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/1d2ab482-f643-4023-809b-db68e16fa979",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/00518dab-34bf-4494-9095-602d3e35613c",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK011246787_resized.jpg",
+    "display": "processed/NHMUK011246787_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK011246787_54.webp",
+      "108": "thumb/NHMUK011246787_108.webp",
+      "216": "thumb/NHMUK011246787_216.webp"
+    }
+  },
+  "original_sha256": "105def99a5e167560987513da06d3554e26fddfc79f2e70e709d993ce3395317",
+  "processing": {
+    "cropBox": [
+      266,
+      415,
+      797,
+      911
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK011246787_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

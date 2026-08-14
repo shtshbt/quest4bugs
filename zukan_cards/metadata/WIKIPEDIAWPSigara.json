@@ -1,0 +1,74 @@
+{
+  "species_id": "sigara_alluaudi",
+  "species_ja": "Sigara alluaudi",
+  "scientific_name": "Sigara alluaudi",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "James K. Lindsey",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Sigara",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Sigara",
+    "persistentId": "https://en.wikipedia.org/wiki/Sigara",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "James K. Lindsey",
+    "eventDate": "2005-03-18",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Picture taken in Commanster, Belgian High Ardennes . Species: Sigara striata",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Sigara",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Sigara.striata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPSigara_resized.jpg",
+    "display": "processed/WIKIPEDIAWPSigara_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPSigara_54.webp",
+      "108": "thumb/WIKIPEDIAWPSigara_108.webp",
+      "216": "thumb/WIKIPEDIAWPSigara_216.webp"
+    }
+  },
+  "original_sha256": "eb1c5cecddf94ee5ab93a2ad8d68337fe6ba46120720aafd146fa1b92c30dfd7",
+  "processing": {
+    "cropBox": [
+      116,
+      68,
+      380,
+      363
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPSigara_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

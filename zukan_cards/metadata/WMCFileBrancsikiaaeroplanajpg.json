@@ -1,0 +1,74 @@
+{
+  "species_id": "brancsikia_aeroplana",
+  "species_ja": "Brancsikia aeroplana",
+  "scientific_name": "Brancsikia aeroplana",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Micha Baum",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Brancsikia aeroplana.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Brancsikia_aeroplana.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Brancsikia_aeroplana.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Micha Baum",
+    "eventDate": "2014-10-26",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Brancsikia aeroplana. Alaotra-Mangoro, Madagaskar.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Brancsikia_aeroplana.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Brancsikia_aeroplana.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileBrancsikiaaeroplanajpg_resized.jpg",
+    "display": "processed/WMCFileBrancsikiaaeroplanajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBrancsikiaaeroplanajpg_54.webp",
+      "108": "thumb/WMCFileBrancsikiaaeroplanajpg_108.webp",
+      "216": "thumb/WMCFileBrancsikiaaeroplanajpg_216.webp"
+    }
+  },
+  "original_sha256": "5bf92a2fe0b0aa944415e8fae3263cd7fbfbd0b8fb0093a61e1bd790d349078f",
+  "processing": {
+    "cropBox": [
+      149,
+      344,
+      1439,
+      1294
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBrancsikiaaeroplanajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

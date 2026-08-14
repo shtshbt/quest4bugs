@@ -1,0 +1,74 @@
+{
+  "species_id": "bothroponera_cambouei",
+  "species_ja": "Bothroponera cambouei",
+  "scientific_name": "Bothroponera cambouei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pachycondyla cambouei casent0101770 head 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pachycondyla_cambouei_casent0101770_head_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pachycondyla_cambouei_casent0101770_head_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2005-06-14 18:05:48",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Head view of ant Pachycondyla cambouei specimen casent0101770.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pachycondyla_cambouei_casent0101770_head_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Pachycondyla_cambouei_casent0101770_head_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePachycondylacamboueicasent0101770head1jpg_resized.jpg",
+    "display": "processed/WMCFilePachycondylacamboueicasent0101770head1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePachycondylacamboueicasent0101770head1jpg_54.webp",
+      "108": "thumb/WMCFilePachycondylacamboueicasent0101770head1jpg_108.webp",
+      "216": "thumb/WMCFilePachycondylacamboueicasent0101770head1jpg_216.webp"
+    }
+  },
+  "original_sha256": "3d56b427fec26631d1158bf47c22d27d87b3908a059266eb206668f7a35b681e",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      992,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePachycondylacamboueicasent0101770head1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

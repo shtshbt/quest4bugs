@@ -1,0 +1,74 @@
+{
+  "species_id": "phymateus_saxosus",
+  "species_ja": "Phymateus saxosus",
+  "scientific_name": "Phymateus saxosus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Teza Harinaivo Ramiandrisoa",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Face2Face - Phymateus saxosus (5047291052).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Face2Face_-_Phymateus_saxosus_(5047291052).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Face2Face_-_Phymateus_saxosus_(5047291052).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Teza Harinaivo Ramiandrisoa",
+    "eventDate": "2010-10-02 07:12:28",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "© teza",
+    "localityNormalized": "© teza",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Face2Face_-_Phymateus_saxosus_(5047291052).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Face2Face_-_Phymateus_saxosus_%285047291052%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileFace2FacePhymateussaxosus5047291052jpg_resized.jpg",
+    "display": "processed/WMCFileFace2FacePhymateussaxosus5047291052jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFace2FacePhymateussaxosus5047291052jpg_54.webp",
+      "108": "thumb/WMCFileFace2FacePhymateussaxosus5047291052jpg_108.webp",
+      "216": "thumb/WMCFileFace2FacePhymateussaxosus5047291052jpg_216.webp"
+    }
+  },
+  "original_sha256": "111b830aa3b02e74270232e0fa37d8851bc9427ac78e54d43c5d6c3e179f7332",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3888,
+      2592
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFace2FacePhymateussaxosus5047291052jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

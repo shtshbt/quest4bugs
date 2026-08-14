@@ -1,0 +1,74 @@
+{
+  "species_id": "anopheles_arabiensis",
+  "species_ja": "Anopheles arabiensis",
+  "scientific_name": "Anopheles arabiensis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013655658",
+    "occurrenceId": "1c9fe666-7d05-41dc-b6fe-6d6f65dec5fc",
+    "persistentId": "1c9fe666-7d05-41dc-b6fe-6d6f65dec5fc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3922792442",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/1c9fe666-7d05-41dc-b6fe-6d6f65dec5fc",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/0c850f75-fbc2-41fc-9211-de84b97b5fc6",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013655658_resized.jpg",
+    "display": "processed/NHMUK013655658_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013655658_54.webp",
+      "108": "thumb/NHMUK013655658_108.webp",
+      "216": "thumb/NHMUK013655658_216.webp"
+    }
+  },
+  "original_sha256": "ac93e4b6462193290fd8a9e3b6fb798281ac1f7a7e49c2255db45a23f4177c29",
+  "processing": {
+    "cropBox": [
+      146,
+      137,
+      1360,
+      1035
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013655658_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

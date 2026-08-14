@@ -1,0 +1,74 @@
+{
+  "species_id": "orius_laevigatus",
+  "species_ja": "Orius laevigatus",
+  "scientific_name": "Orius laevigatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Photo by Jack Dykinga (uploaded by --gian_d 21:28, 15 March 2008 (UTC))",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Orius insidiosus from USDA 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Orius_insidiosus_from_USDA_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Orius_insidiosus_from_USDA_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Photo by Jack Dykinga (uploaded by --gian_d 21:28, 15 March 2008 (UTC))",
+    "eventDate": "March 2008 (upload)",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Pirate bug (Orius insidiosus [Rhynchota: Anthocoridae]) feeding on white fly nimphs",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Orius_insidiosus_from_USDA_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Orius_insidiosus_from_USDA_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileOriusinsidiosusfromUSDA1jpg_resized.jpg",
+    "display": "processed/WMCFileOriusinsidiosusfromUSDA1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOriusinsidiosusfromUSDA1jpg_54.webp",
+      "108": "thumb/WMCFileOriusinsidiosusfromUSDA1jpg_108.webp",
+      "216": "thumb/WMCFileOriusinsidiosusfromUSDA1jpg_216.webp"
+    }
+  },
+  "original_sha256": "0d44edbb29da3ae61ba7e9e5fb64dc9b0521a642c592926055c4ebcb2a8ad024",
+  "processing": {
+    "cropBox": [
+      112,
+      562,
+      838,
+      1481
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOriusinsidiosusfromUSDA1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

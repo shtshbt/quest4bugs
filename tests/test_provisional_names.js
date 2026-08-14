@@ -58,8 +58,8 @@ test("species whose Japanese name came from GBIF are not marked", () => {
   /* 小道の 19 種は GBIF が日本語の vernacular を持っていたもの。 */
   const komorebi = BUGS.filter(sp => sp.areaOnly === "komorebi");
   const standard = komorebi.filter(sp => sp.nameStatus === "standard");
-  assert.equal(standard.length, 19);
-  assert.equal(komorebi.length - standard.length, 65);
+  assert.equal(standard.length, 19);   /* GBIF 和名は初回 84 種の 19 種のみ */
+  assert.ok(komorebi.length - standard.length >= 65);   /* 仮称は命名 batch で増える */
   standard.forEach(sp => assert.equal(displayName(sp).indexOf("（仮称）"), -1));
 });
 

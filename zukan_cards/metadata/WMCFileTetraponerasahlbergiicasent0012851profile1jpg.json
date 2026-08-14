@@ -1,0 +1,74 @@
+{
+  "species_id": "tetraponera_sahlbergii",
+  "species_ja": "Tetraponera sahlbergii",
+  "scientific_name": "Tetraponera sahlbergii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tetraponera sahlbergii casent0012851 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tetraponera_sahlbergii_casent0012851_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tetraponera_sahlbergii_casent0012851_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2008-05-28 13:32:23",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Tetraponera sahlbergii specimen casent0012851.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tetraponera_sahlbergii_casent0012851_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Tetraponera_sahlbergii_casent0012851_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_resized.jpg",
+    "display": "processed/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_54.webp",
+      "108": "thumb/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_108.webp",
+      "216": "thumb/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "1830071532e9ecd6e4e8cb0efcd5a1d4caa22704718a53d06c73d1971fab151d",
+  "processing": {
+    "cropBox": [
+      9,
+      101,
+      1066,
+      727
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTetraponerasahlbergiicasent0012851profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

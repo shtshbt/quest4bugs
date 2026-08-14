@@ -1,0 +1,74 @@
+{
+  "species_id": "amphipsyche_senegalensis",
+  "species_ja": "Amphipsyche senegalensis",
+  "scientific_name": "Amphipsyche senegalensis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014413814",
+    "occurrenceId": "968d43ae-8e60-48cd-9dc3-65dba3a4d6d4",
+    "persistentId": "968d43ae-8e60-48cd-9dc3-65dba3a4d6d4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1954-05-05",
+    "eventYear": 1954,
+    "country": "Uganda",
+    "localityVerbatim": null,
+    "localityNormalized": "Uganda",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330243053",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/968d43ae-8e60-48cd-9dc3-65dba3a4d6d4",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/33f1caca-acf5-4058-9f2c-19229d9174f4",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014413814_resized.jpg",
+    "display": "processed/NHMUK014413814_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014413814_54.webp",
+      "108": "thumb/NHMUK014413814_108.webp",
+      "216": "thumb/NHMUK014413814_216.webp"
+    }
+  },
+  "original_sha256": "ca4e748be6670409cda7552a5d38e56c8d8a53ebfae8e43098545d28d23e809e",
+  "processing": {
+    "cropBox": [
+      622,
+      612,
+      976,
+      1017
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014413814_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

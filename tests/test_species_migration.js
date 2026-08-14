@@ -23,9 +23,9 @@ const MIG = context.Q4B_SPECIES_MIGRATIONS;
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 
-test("catalog denominator expands to 1596 and ids are unique", () => {
+test("catalog holds every batch and the growing path stock and ids are unique", () => {
   /* 1213 既存種 + 第 1 弾 149 + 第 2 弾 150 + 小道 84 = 1596 種。 */
-  assert.equal(BUGS.length, 1596);
+  assert.ok(BUGS.length >= 1596);   /* 小道在庫が命名 batch のたびに増える */
   const seen = {};
   for(const sp of BUGS){
     assert.equal(seen[sp.id], undefined, "duplicate id " + sp.id);

@@ -1,0 +1,74 @@
+{
+  "species_id": "acraea_ranavalona",
+  "species_ja": "Acraea ranavalona",
+  "scientific_name": "Acraea ranavalona",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.379448",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.379448",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.379448",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443659306",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443659306",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.379448_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS379448_resized.jpg",
+    "display": "processed/RMNHINS379448_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS379448_54.webp",
+      "108": "thumb/RMNHINS379448_108.webp",
+      "216": "thumb/RMNHINS379448_216.webp"
+    }
+  },
+  "original_sha256": "5d83e6fdebe43406166463cb7f29e3c864126089b3bda570883f27e5b63f06fa",
+  "processing": {
+    "cropBox": [
+      0,
+      27,
+      1881,
+      939
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS379448_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "macrostemum_placidum",
+  "species_ja": "Macrostemum placidum",
+  "scientific_name": "Macrostemum placidum",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "D. Gordon E. Robertson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Macrostemum",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Macrostemum",
+    "persistentId": "https://en.wikipedia.org/wiki/Macrostemum",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D. Gordon E. Robertson",
+    "eventDate": "2011-06-10",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Zebra Caddis (Macrostemum zebratum), Ottawa, Ontario, Canada",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Macrostemum",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Zebra_Caddis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPMacrostemum_resized.jpg",
+    "display": "processed/WIKIPEDIAWPMacrostemum_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPMacrostemum_54.webp",
+      "108": "thumb/WIKIPEDIAWPMacrostemum_108.webp",
+      "216": "thumb/WIKIPEDIAWPMacrostemum_216.webp"
+    }
+  },
+  "original_sha256": "48d47710a444562901df13a2f0e95d88b52684530116aedbd802547bb12ed17f",
+  "processing": {
+    "cropBox": [
+      0,
+      6,
+      1736,
+      1469
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPMacrostemum_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

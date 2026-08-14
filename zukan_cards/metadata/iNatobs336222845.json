@@ -1,0 +1,80 @@
+{
+  "species_id": "parectatosoma_echinus",
+  "species_ja": "Parectatosoma echinus",
+  "scientific_name": "Parectatosoma echinus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "maggiejulip (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_336222845",
+    "occurrenceId": "https://www.inaturalist.org/observations/336222845",
+    "persistentId": "https://www.inaturalist.org/observations/336222845",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "maggiejulip",
+    "eventDate": "2024-11-26",
+    "eventYear": 2024,
+    "country": "MG",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar, Fianarantsoa, MG, MG",
+    "preparations": null,
+    "decimalLatitude": -21.2636916667,
+    "decimalLongitude": 47.42442,
+    "coordinatesObscured": false,
+    "iNatObservationId": "336222845",
+    "iNatPhotoId": "610943515",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/336222845",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/610943515/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs336222845_resized.jpg",
+    "display": "processed/iNatobs336222845_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs336222845_54.webp",
+      "108": "thumb/iNatobs336222845_108.webp",
+      "216": "thumb/iNatobs336222845_216.webp"
+    }
+  },
+  "original_sha256": "a200082ea6699b89be2f6ff221acd6f48de4d197b27aeb375d4cb924420e189a",
+  "processing": {
+    "cropBox": [
+      326,
+      43,
+      1536,
+      1850
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs336222845_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

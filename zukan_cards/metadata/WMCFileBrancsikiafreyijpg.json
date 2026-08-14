@@ -1,0 +1,74 @@
+{
+  "species_id": "brancsikia_freyi",
+  "species_ja": "Brancsikia freyi",
+  "scientific_name": "Brancsikia freyi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "M. Beier",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Brancsikia freyi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Brancsikia_freyi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Brancsikia_freyi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "M. Beier",
+    "eventDate": "circa 1935<div style=\"display: none;\">date QS:P,+1935-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "eventYear": 1935,
+    "country": null,
+    "localityVerbatim": "Brancsikia freyi Brancsik, 1893. Female (Insecta: Mantodea: Epaphroditidae) [1]",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Brancsikia_freyi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Brancsikia_freyi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileBrancsikiafreyijpg_resized.jpg",
+    "display": "processed/WMCFileBrancsikiafreyijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBrancsikiafreyijpg_54.webp",
+      "108": "thumb/WMCFileBrancsikiafreyijpg_108.webp",
+      "216": "thumb/WMCFileBrancsikiafreyijpg_216.webp"
+    }
+  },
+  "original_sha256": "5ff48c131aaae23a7b838a05c5f7b849205601cc0f555dfcf5d1bddaa555e8c2",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      857,
+      1000
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBrancsikiafreyijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

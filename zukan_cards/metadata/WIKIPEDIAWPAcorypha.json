@@ -1,0 +1,74 @@
+{
+  "species_id": "acorypha_decisa",
+  "species_ja": "Acorypha decisa",
+  "scientific_name": "Acorypha decisa",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Christiaan Kooyman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Acorypha",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Acorypha",
+    "persistentId": "https://en.wikipedia.org/wiki/Acorypha",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Christiaan Kooyman",
+    "eventDate": "2006-08-12",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Male Acorypha glaucopsis photographed near Bodjekali, Benin.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Acorypha",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Acorypha_glaucopsis_male.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPAcorypha_resized.jpg",
+    "display": "processed/WIKIPEDIAWPAcorypha_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPAcorypha_54.webp",
+      "108": "thumb/WIKIPEDIAWPAcorypha_108.webp",
+      "216": "thumb/WIKIPEDIAWPAcorypha_216.webp"
+    }
+  },
+  "original_sha256": "7c2659814b967931fe82b5fec0e055317fedec2786e6c360ee70c5f01855f51a",
+  "processing": {
+    "cropBox": [
+      115,
+      219,
+      1000,
+      589
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPAcorypha_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

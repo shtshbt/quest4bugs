@@ -1,0 +1,74 @@
+{
+  "species_id": "helictopleurus_rudicollis",
+  "species_ja": "Helictopleurus rudicollis",
+  "scientific_name": "Helictopleurus rudicollis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Rossini et al. (2024)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Helictopleurus rudicollis (10.3897-BDJ.12.e120304) Figure 3a.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_rudicollis_(10.3897-BDJ.12.e120304)_Figure_3a.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_rudicollis_(10.3897-BDJ.12.e120304)_Figure_3a.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Rossini et al. (2024)",
+    "eventDate": "2024-06-14",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Figure 3a Helictopleurus rudicollis.",
+    "localityNormalized": "Figure 3a Helictopleurus rudicollis.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Helictopleurus_rudicollis_(10.3897-BDJ.12.e120304)_Figure_3a.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Helictopleurus_rudicollis_%2810.3897-BDJ.12.e120304%29_Figure_3a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_resized.jpg",
+    "display": "processed/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_54.webp",
+      "108": "thumb/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_108.webp",
+      "216": "thumb/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_216.webp"
+    }
+  },
+  "original_sha256": "1b7e169f58af2a26d85c6181b35bba83e450faaa4a17aca0d064a37c670b1a3c",
+  "processing": {
+    "cropBox": [
+      33,
+      20,
+      543,
+      719
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHelictopleurusrudicollis103897BDJ12e120304Figure3ajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

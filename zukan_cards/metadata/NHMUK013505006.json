@@ -1,0 +1,74 @@
+{
+  "species_id": "trialeurodes_vaporariorum",
+  "species_ja": "Trialeurodes vaporariorum",
+  "scientific_name": "Trialeurodes vaporariorum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013505006",
+    "occurrenceId": "563a1ad6-43e9-4142-9458-a1682670f8f3",
+    "persistentId": "563a1ad6-43e9-4142-9458-a1682670f8f3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1988314915",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/563a1ad6-43e9-4142-9458-a1682670f8f3",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/0dce5526-38c1-4c23-8104-24393d5d533d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013505006_resized.jpg",
+    "display": "processed/NHMUK013505006_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013505006_54.webp",
+      "108": "thumb/NHMUK013505006_108.webp",
+      "216": "thumb/NHMUK013505006_216.webp"
+    }
+  },
+  "original_sha256": "932e5636434ea990a9ae3ea030deda0bdadef30fb33dc2f5257d65d4620322d3",
+  "processing": {
+    "cropBox": [
+      136,
+      39,
+      1440,
+      461
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013505006_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

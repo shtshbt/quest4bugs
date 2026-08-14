@@ -1,0 +1,74 @@
+{
+  "species_id": "paramantis_viridis",
+  "species_ja": "Paramantis viridis",
+  "scientific_name": "Paramantis viridis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Dave U",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Paramantis",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Paramantis",
+    "persistentId": "https://en.wikipedia.org/wiki/Paramantis",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dave U",
+    "eventDate": "2020-03-03",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Paramantis sacra. Kaaimans Boulevard.",
+    "localityNormalized": "Paramantis sacra. Kaaimans Boulevard.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Paramantis",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Paramantis_sacra.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPParamantis_resized.jpg",
+    "display": "processed/WIKIPEDIAWPParamantis_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPParamantis_54.webp",
+      "108": "thumb/WIKIPEDIAWPParamantis_108.webp",
+      "216": "thumb/WIKIPEDIAWPParamantis_216.webp"
+    }
+  },
+  "original_sha256": "1598275fa624c57391b1b75aa9e6e505048457aa0e48f8abc83573c28b034f92",
+  "processing": {
+    "cropBox": [
+      142,
+      0,
+      2048,
+      1592
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPParamantis_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

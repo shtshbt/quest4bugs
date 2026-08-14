@@ -1,0 +1,74 @@
+{
+  "species_id": "culicoides_leucostictus",
+  "species_ja": "Culicoides leucostictus",
+  "scientific_name": "Culicoides leucostictus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014854759",
+    "occurrenceId": "b119edb7-c6a8-4db6-8071-a4dd64a11654",
+    "persistentId": "b119edb7-c6a8-4db6-8071-a4dd64a11654",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Gambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Gambia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3915781632",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b119edb7-c6a8-4db6-8071-a4dd64a11654",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/845bb38d-a2b9-42f8-b571-5b3b2152da1b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014854759_resized.jpg",
+    "display": "processed/NHMUK014854759_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014854759_54.webp",
+      "108": "thumb/NHMUK014854759_108.webp",
+      "216": "thumb/NHMUK014854759_216.webp"
+    }
+  },
+  "original_sha256": "2611541dc5daa388b1d4f555ead0431f2941fd7d3cf8c9c6d1f949f4e44c9bda",
+  "processing": {
+    "cropBox": [
+      200,
+      58,
+      1297,
+      432
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014854759_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "strumigenys_dicomas",
+  "species_ja": "Strumigenys dicomas",
+  "scientific_name": "Strumigenys dicomas",
+  "credit_line": "Wikimedia Commons",
+  "creator": "File Upload Bot (AntWeb)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Strumigenys dicomas casent0005521 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Strumigenys_dicomas_casent0005521_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Strumigenys_dicomas_casent0005521_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "File Upload Bot (AntWeb)",
+    "eventDate": "2009-10-22 19:48:32",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Strumigenys dicomas specimen casent0005521.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Strumigenys_dicomas_casent0005521_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Strumigenys_dicomas_casent0005521_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileStrumigenysdicomascasent0005521profile1jpg_resized.jpg",
+    "display": "processed/WMCFileStrumigenysdicomascasent0005521profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileStrumigenysdicomascasent0005521profile1jpg_54.webp",
+      "108": "thumb/WMCFileStrumigenysdicomascasent0005521profile1jpg_108.webp",
+      "216": "thumb/WMCFileStrumigenysdicomascasent0005521profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "7f1f8645510aa44e31c4de4227309c268fe1caf9316f09ab40e13f9c701b11f8",
+  "processing": {
+    "cropBox": [
+      0,
+      33,
+      1304,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileStrumigenysdicomascasent0005521profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

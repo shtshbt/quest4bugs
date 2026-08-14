@@ -1,0 +1,74 @@
+{
+  "species_id": "bemisia_tabaci",
+  "species_ja": "Bemisia tabaci",
+  "scientific_name": "Bemisia tabaci",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010135388",
+    "occurrenceId": "c2208aa1-c8fe-451c-a79d-4d528495906f",
+    "persistentId": "c2208aa1-c8fe-451c-a79d-4d528495906f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Kenya",
+    "localityVerbatim": null,
+    "localityNormalized": "Kenya",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1265660804",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c2208aa1-c8fe-451c-a79d-4d528495906f",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/18d03f6d-326c-4afb-9030-9b22cc498513",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK010135388_resized.jpg",
+    "display": "processed/NHMUK010135388_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010135388_54.webp",
+      "108": "thumb/NHMUK010135388_108.webp",
+      "216": "thumb/NHMUK010135388_216.webp"
+    }
+  },
+  "original_sha256": "0cba6aa93e680a9b28feb7440e20d4251b2006cb602371755415bcc8ac908d00",
+  "processing": {
+    "cropBox": [
+      0,
+      41,
+      1327,
+      450
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010135388_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

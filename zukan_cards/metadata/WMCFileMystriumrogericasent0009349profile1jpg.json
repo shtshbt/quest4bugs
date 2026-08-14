@@ -1,0 +1,74 @@
+{
+  "species_id": "mystrium_rogeri",
+  "species_ja": "Mystrium rogeri",
+  "scientific_name": "Mystrium rogeri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mystrium rogeri casent0009349 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mystrium_rogeri_casent0009349_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mystrium_rogeri_casent0009349_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2006-06-23 17:33:59",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Mystrium rogeri specimen casent0009349.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mystrium_rogeri_casent0009349_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Mystrium_rogeri_casent0009349_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMystriumrogericasent0009349profile1jpg_resized.jpg",
+    "display": "processed/WMCFileMystriumrogericasent0009349profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMystriumrogericasent0009349profile1jpg_54.webp",
+      "108": "thumb/WMCFileMystriumrogericasent0009349profile1jpg_108.webp",
+      "216": "thumb/WMCFileMystriumrogericasent0009349profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "94e47f726bd5a43cc06423d159cbd7bffbafc95812b661c9224e37419e6d4980",
+  "processing": {
+    "cropBox": [
+      0,
+      3,
+      1147,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMystriumrogericasent0009349profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

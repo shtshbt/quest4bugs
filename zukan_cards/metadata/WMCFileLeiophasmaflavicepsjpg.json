@@ -1,0 +1,74 @@
+{
+  "species_id": "leiophasma_flaviceps",
+  "species_ja": "Leiophasma flaviceps",
+  "scientific_name": "Leiophasma flaviceps",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ioannis Magouras",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Leiophasma flaviceps.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Leiophasma_flaviceps.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Leiophasma_flaviceps.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ioannis Magouras",
+    "eventDate": "2023-12-20",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Leiophasma flaviceps. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Leiophasma_flaviceps.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Leiophasma_flaviceps.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileLeiophasmaflavicepsjpg_resized.jpg",
+    "display": "processed/WMCFileLeiophasmaflavicepsjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLeiophasmaflavicepsjpg_54.webp",
+      "108": "thumb/WMCFileLeiophasmaflavicepsjpg_108.webp",
+      "216": "thumb/WMCFileLeiophasmaflavicepsjpg_216.webp"
+    }
+  },
+  "original_sha256": "484dc6b77f57122543161ca73a5a02b1b84b61fa9d2f06dde8eb0f9e8bd4e9bf",
+  "processing": {
+    "cropBox": [
+      317,
+      0,
+      1092,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLeiophasmaflavicepsjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

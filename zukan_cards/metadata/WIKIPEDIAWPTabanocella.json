@@ -1,0 +1,74 @@
+{
+  "species_id": "tabanocella_longirostris",
+  "species_ja": "Tabanocella longirostris",
+  "scientific_name": "Tabanocella longirostris",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Charmaine C King",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Tabanocella",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Tabanocella",
+    "persistentId": "https://en.wikipedia.org/wiki/Tabanocella",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Charmaine C King",
+    "eventDate": "2018-03-07",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Tabanocella zoulouensis. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Tabanocella",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Tabanocella_zoulouensis.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPTabanocella_resized.jpg",
+    "display": "processed/WIKIPEDIAWPTabanocella_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPTabanocella_54.webp",
+      "108": "thumb/WIKIPEDIAWPTabanocella_108.webp",
+      "216": "thumb/WIKIPEDIAWPTabanocella_216.webp"
+    }
+  },
+  "original_sha256": "3ed3d73be48c15305cdb812a03ba8df3555027b3b8adba0621374b3fdcadd7b4",
+  "processing": {
+    "cropBox": [
+      0,
+      49,
+      465,
+      728
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPTabanocella_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

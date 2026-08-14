@@ -1,0 +1,74 @@
+{
+  "species_id": "macrostemum_scriptum",
+  "species_ja": "Macrostemum scriptum",
+  "scientific_name": "Macrostemum scriptum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012502498",
+    "occurrenceId": "4ece48eb-cf2c-436b-8db1-fa913189da0f",
+    "persistentId": "4ece48eb-cf2c-436b-8db1-fa913189da0f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1911-10",
+    "eventYear": 1911,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330273048",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/4ece48eb-cf2c-436b-8db1-fa913189da0f",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/5873d911-47f7-4f1c-b133-0174df987499",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012502498_resized.jpg",
+    "display": "processed/NHMUK012502498_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012502498_54.webp",
+      "108": "thumb/NHMUK012502498_108.webp",
+      "216": "thumb/NHMUK012502498_216.webp"
+    }
+  },
+  "original_sha256": "c737789b7cab8995502b3f2dcd363483aacbe75f045c361f31dc65dc7d6e0cbe",
+  "processing": {
+    "cropBox": [
+      629,
+      663,
+      994,
+      934
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012502498_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

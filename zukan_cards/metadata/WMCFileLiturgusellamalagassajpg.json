@@ -1,0 +1,74 @@
+{
+  "species_id": "liturgusella_malagassa",
+  "species_ja": "Liturgusella malagassa",
+  "scientific_name": "Liturgusella malagassa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Scott Loarie",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Liturgusella malagassa.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Liturgusella_malagassa.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Liturgusella_malagassa.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Scott Loarie",
+    "eventDate": "2015-09-12",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Liturgusella malagassa. Alaotra-Mangoro, Madagascar",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Liturgusella_malagassa.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Liturgusella_malagassa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileLiturgusellamalagassajpg_resized.jpg",
+    "display": "processed/WMCFileLiturgusellamalagassajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLiturgusellamalagassajpg_54.webp",
+      "108": "thumb/WMCFileLiturgusellamalagassajpg_108.webp",
+      "216": "thumb/WMCFileLiturgusellamalagassajpg_216.webp"
+    }
+  },
+  "original_sha256": "bb865b909addb7a676ce279eb0fe338ffd4be8a179b96535ec0e8238e3cbc861",
+  "processing": {
+    "cropBox": [
+      0,
+      106,
+      1928,
+      978
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLiturgusellamalagassajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

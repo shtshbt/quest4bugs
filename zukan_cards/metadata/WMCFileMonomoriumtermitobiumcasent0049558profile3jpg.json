@@ -1,0 +1,74 @@
+{
+  "species_id": "monomorium_termitobium",
+  "species_ja": "Monomorium termitobium",
+  "scientific_name": "Monomorium termitobium",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Monomorium termitobium casent0049558 profile 3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Monomorium_termitobium_casent0049558_profile_3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Monomorium_termitobium_casent0049558_profile_3.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2008-02-28 09:39:35",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Monomorium termitobium specimen casent0049558.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Monomorium_termitobium_casent0049558_profile_3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Monomorium_termitobium_casent0049558_profile_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_resized.jpg",
+    "display": "processed/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_54.webp",
+      "108": "thumb/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_108.webp",
+      "216": "thumb/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_216.webp"
+    }
+  },
+  "original_sha256": "cc9500d96bafc2e5395703d4cab07f84054379eeba302c892116b464e5c08246",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      644,
+      802
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMonomoriumtermitobiumcasent0049558profile3jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
