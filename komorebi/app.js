@@ -669,13 +669,13 @@
      小道の有効正答は egg.game="komorebi" の卵だけを育て、こはくは共有ウォレットへ
      1 つ加算する。本編の卵 (keisan 等) はここからは一切進まない。
      習熟済み (maxLv 到達) カテゴリの周回は本編と同じく価値 0.4 に減衰する。 */
-  function feedSideRewards(cat,result){
+  function feedSideRewards(cat,result,masteredAtAnswer){
     if(!result||!result.counted)return;
     var reward=global.Q4BReward;
     if(!reward)return;
     try{if(typeof reward.earnAmber==="function")reward.earnAmber(profile.collection,1);}catch(_){}
     if(typeof reward.feedEgg==="function"){
-      var mastered=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
+      var mastered=masteredAtAnswer!=null?masteredAtAnswer:profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
       try{
         var fed=reward.feedEgg("komorebi",mastered?0.4:1,{});
         if(fed&&typeof fed.catch==="function")fed.catch(function(){});
@@ -692,8 +692,7 @@
       result=applyAnswer(profile,cat,answer,volume,random||Math.random);
     }catch(error){return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
-    feedSideRewards(cat,result);
-    return saveProfile().then(function(){return result;}).catch(function(error){
+    return saveProfile().then(function(){feedSideRewards(cat,result);return result;}).catch(function(error){
       replaceCollection(profile.collection,before);
       throw error;
     });
@@ -704,13 +703,13 @@
     var before=JSON.parse(JSON.stringify(profile)),result;
     try{
       result=applyAnswer(profile,cat,answer,volume,random);
+      var masteredAtAnswer=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
       if(!result.duplicate)applyPerformance(profile,cat,correct,elapsed);
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
-    feedSideRewards(cat,result);
     var saved;
     try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
-    return saved.then(function(){return result;}).catch(function(error){profile=before;throw error;});
+    return saved.then(function(){feedSideRewards(cat,result,masteredAtAnswer);return result;}).catch(function(error){profile=before;throw error;});
   }
 
   function speciesForArea(bugs){

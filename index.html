@@ -315,7 +315,7 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.20"></script>
+<script src="./shared/storage.js?v=0.4.21"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.12"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
@@ -1535,6 +1535,19 @@ function openParentZukan(id){
     openZukanDetailFromHome(entry, sp, coll);
   });
 }
+function _loadAllCatches(pid){
+  return Promise.all([
+    QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid), QuestSave.load("komorebi",pid)
+  ]).then(function(rs){
+    var virtCatches={};
+    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
+    if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
+    if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
+    if(rs[2]&&rs[2].catches) merge(rs[2].catches);
+    if(rs[3]&&rs[3].collection) merge(rs[3].collection.catches);
+    return {catches:virtCatches};
+  });
+}
 /* ホーム共通 detail modal mount: 画面遷移なしでモーダル表示 */
 function openZukanDetailFromHome(entry, sp, coll){
   var ov=document.createElement("div");
@@ -1565,28 +1578,21 @@ function homeEggAdd(){
   var _poolOf = Q4BReward.eggPoolOf || function(e){ return (e&&e.game==="komorebi")?"komorebi":"main"; };
   var _mainEggs=(bs.eggs||[]).filter(function(e){return _poolOf(e)==="main";});
   var _komEggs=(bs.eggs||[]).filter(function(e){return _poolOf(e)==="komorebi";});
-  Q4BBreeding.openEggNestModal({
+  var nestOpts={
     pendingEggs: pendingEggs,
     slotsAvailable: Math.max(0, (Q4BReward.EGG_SLOT_MAX||3) - _mainEggs.length),
-    slotsAvailableKomorebi: Math.max(0, (Q4BReward.EGG_SLOT_MAX_KOMOREBI||3) - _komEggs.length),
     eggsIds: eggsIds,
     onPickPending: 'homeEggPromotePending',
     onDiscardPending: 'homeEggDiscardPending',
     onOpenLayPicker: function(){ _homeEggOpenLayPicker(pid); }
-  });
+  };
+  if((bs.eggs||[]).concat(pendingEggs).some(function(e){return e.game==="komorebi";})){
+    nestOpts.slotsAvailableKomorebi=Math.max(0, (Q4BReward.EGG_SLOT_MAX_KOMOREBI||3) - _komEggs.length);
+  }
+  Q4BBreeding.openEggNestModal(nestOpts);
 }
 function _homeEggOpenLayPicker(pid){
-  Promise.all([
-    QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid), QuestSave.load("komorebi",pid)
-  ]).then(function(rs){
-    var virtCatches={};
-    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
-    if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
-    if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
-    if(rs[2]&&rs[2].catches) merge(rs[2].catches);
-    /* 小道の捕獲も産卵候補に含める (小道種の ♂♀ は小道 save にしか無い)。 */
-    if(rs[3]&&rs[3].collection) merge(rs[3].collection.catches);
-    var virtColl={catches:virtCatches};
+  _loadAllCatches(pid).then(function(virtColl){
     Q4BBreeding.openEggPickerModal({ coll: virtColl, onPick: "homeEggPicked" });
   });
 }
@@ -1615,7 +1621,9 @@ function _maybeReopenEggNest(){
   var pid = _hPid(); if(!pid) return;
   if(!QuestSave.breedingOf) return;
   var bs = QuestSave.breedingOf(pid);
-  if((bs.pendingEggs||[]).length > 0 && (bs.eggs||[]).length < 3){
+  var mainEggs=(bs.eggs||[]).filter(function(e){return Q4BReward.eggPoolOf(e)==="main";});
+  var komEggs=(bs.eggs||[]).filter(function(e){return Q4BReward.eggPoolOf(e)==="komorebi";});
+  if((bs.pendingEggs||[]).length > 0 && (mainEggs.length < (Q4BReward.EGG_SLOT_MAX||3) || komEggs.length < (Q4BReward.EGG_SLOT_MAX_KOMOREBI||3))){
     setTimeout(homeEggAdd, 250);
   }
 }
@@ -1634,16 +1642,9 @@ function homeEggPicked(spId){
   var pid=_hPid(); if(!pid) return;
   var picker=document.getElementById("q4bEggPickerOv");
   if(picker) picker.style.display="none";
-  Promise.all([
-    QuestSave.load("keisan",pid), QuestSave.load("kanji",pid), QuestSave.load("eitango",pid)
-  ]).then(function(rs){
-    var virtCatches={};
-    function merge(src){ if(!src) return; for(var id in src){ if(virtCatches[id]){ var a=virtCatches[id], b=src[id]; if(b.records) a.records=(a.records||[]).concat(b.records); } else { virtCatches[id]={n:src[id].n,records:(src[id].records||[]).slice()}; } } }
-    if(rs[0]&&rs[0].coll) merge(rs[0].coll.catches);
-    if(rs[1]&&rs[1].coll) merge(rs[1].coll.catches);
-    if(rs[2]&&rs[2].catches) merge(rs[2].catches);
+  _loadAllCatches(pid).then(function(virtColl){
     Q4BBreeding.openLayConfirm(sp, {
-      coll:{catches:virtCatches},profileId:pid,homeHref:"index.html",
+      coll:virtColl,profileId:pid,homeHref:"index.html",
       onSuccess:function(){var p=document.getElementById("q4bEggPickerOv");if(p)p.remove();_refreshDashIfActive();},
       onFailure:function(){if(picker)picker.style.display="";}
     });

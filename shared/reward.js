@@ -918,6 +918,9 @@
   function feedEgg(game, value, opts){
     return _ensureBsLoaded().then(function(){
       var bs = _bs();
+      if(!bs.eggs.some(function(egg){ return egg.game === game && (egg.progress||0) < egg.target; })){
+        return {ok:true, fed:false};
+      }
       var v = (value == null) ? 1 : Math.max(0, Math.min(1, value));
       if(opts && opts.itemId && opts.coll){
         v = v * freshnessOf(opts.coll, opts.itemId);
@@ -1032,6 +1035,7 @@
       /* 先頭から「所属プールに空きがある」最初の卵を受け入れる (小道と本編は別枠)。 */
       var idx = -1, i;
       for(i=0;i<bs.pendingEggs.length;i++){
+        if(bs.eggs.some(function(e){ return e.id===bs.pendingEggs[i].id; })) continue;
         var pool = eggPoolOf(bs.pendingEggs[i]);
         if(eggsInPool(bs, pool).length < slotCapOf(pool)){ idx = i; break; }
       }

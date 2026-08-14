@@ -1006,7 +1006,7 @@
     if(!Number.isFinite(e.progress) || e.progress < 0) return false;
     if(!Number.isFinite(e.target) || e.target <= 0) return false;
     if(e.progress > e.target * 2) return false;
-    var validGames = {kanji:1, keisan:1, eitango:1};
+    var validGames = {kanji:1, keisan:1, eitango:1, komorebi:1};
     if(!e.game || !validGames[e.game]) return false;     /* game 必須 */
     if(e.sex !== 'm' && e.sex !== 'f') return false;       /* sex 必須 (u は通常卵では不可) */
     /* species 実在チェック (Q4BReward 読込後のみ。 boot 早期は skip して保全) */
