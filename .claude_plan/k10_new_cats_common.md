@@ -15,3 +15,4 @@ kom_ratio_forms → kom_kisokusei → kom_hayasa → kom_johou_seiri → kom_dia
 9. cache busting: komorebi/app.js の ?v= を +0.0.1 (komorebi/index.html 内)
 10. 検収: `for f in tests/test_*.js; do node $f; done` 全 green。zukan_cards/ は diff 判定除外。commit しない
 11. doc と実装が食い違う箇所に当たったら、doc を正としてコードを合わせる。doc 自体の矛盾は BLOCKED で報告 (勝手に解釈しない)
+12. 実装 round の投入前提 (2026-08-14 追加): 仕様 doc に「全 Lv のセット実在証明」の付録があること。全制約 (配合・分散・ペア・ラベル組など) を同時に満たす 5 問セットの実例が Lv ごとに構成されていない doc は、組合せ破綻 (鳩の巣・組の非反復不能) が実装段階で BLOCKED になる実績が 3 件ある (kisokusei 2 件、ratio_forms 1 件)。生成器のセット組成テストは、この実在証明のセットを golden case として再現できること
