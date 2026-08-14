@@ -665,6 +665,24 @@
     });
   }
 
+  /* 産卵とこはくの接続 (komorebi_breeding_bonus_gaps 決定 1, 3)。
+     小道の有効正答は egg.game="komorebi" の卵だけを育て、こはくは共有ウォレットへ
+     1 つ加算する。本編の卵 (keisan 等) はここからは一切進まない。
+     習熟済み (maxLv 到達) カテゴリの周回は本編と同じく価値 0.4 に減衰する。 */
+  function feedSideRewards(cat,result){
+    if(!result||!result.counted)return;
+    var reward=global.Q4BReward;
+    if(!reward)return;
+    try{if(typeof reward.earnAmber==="function")reward.earnAmber(profile.collection,1);}catch(_){}
+    if(typeof reward.feedEgg==="function"){
+      var mastered=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
+      try{
+        var fed=reward.feedEgg("komorebi",mastered?0.4:1,{});
+        if(fed&&typeof fed.catch==="function")fed.catch(function(){});
+      }catch(_){}
+    }
+  }
+
   function recordAnswer(cat,answer,volume,random){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     if(random!=null&&typeof random!=="function")return Promise.reject(new Error("乱数の指定が正しくありません"));
@@ -674,6 +692,7 @@
       result=applyAnswer(profile,cat,answer,volume,random||Math.random);
     }catch(error){return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
+    feedSideRewards(cat,result);
     return saveProfile().then(function(){return result;}).catch(function(error){
       replaceCollection(profile.collection,before);
       throw error;
@@ -688,6 +707,7 @@
       if(!result.duplicate)applyPerformance(profile,cat,correct,elapsed);
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
+    feedSideRewards(cat,result);
     var saved;
     try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
     return saved.then(function(){return result;}).catch(function(error){profile=before;throw error;});

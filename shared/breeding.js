@@ -23,9 +23,9 @@
   }
 
   /* タイプ→色/絵文字 */
-  var GAME_COLOR = {kanji:"#A06BD8", keisan:"#5B8DE0", eitango:"#3FA86B"};
-  var GAME_EMOJI = {kanji:"🟣", keisan:"🔵", eitango:"🟢"};
-  var GAME_LABEL = {kanji:"かんじ", keisan:"けいさん", eitango:"えいご"};
+  var GAME_COLOR = {kanji:"#A06BD8", keisan:"#5B8DE0", eitango:"#3FA86B", komorebi:"#C98A2E"};
+  var GAME_EMOJI = {kanji:"🟣", keisan:"🔵", eitango:"🟢", komorebi:"🌿"};
+  var GAME_LABEL = {kanji:"かんじ", keisan:"けいさん", eitango:"えいご", komorebi:"こもれび"};
 
   /* ステージ → 表示用。archetype SVG があれば img、無ければ絵文字。
      basePath はホーム/各教科ページ用に異なる (window 設定で上書き可能)。 */
@@ -162,9 +162,14 @@
      opts: {onTap, onAdd, onHatch, eggs: [...], pendingCount: N} */
   function homeBreedingPanelHTML(opts){
     opts = opts || {};
-    var eggs = opts.eggs || [];
+    var allEggs = opts.eggs || [];
     var r = R();
+    /* 小道の卵は専用枠 (reward.js の pool 分離と対応)。本編 3 枠の下に別段で出す。 */
+    var poolOf = (r && r.eggPoolOf) ? r.eggPoolOf : function(e){ return (e && e.game === "komorebi") ? "komorebi" : "main"; };
+    var eggs = allEggs.filter(function(e){ return poolOf(e) === "main"; });
+    var komEggs = allEggs.filter(function(e){ return poolOf(e) === "komorebi"; });
     var max = (r && r.EGG_SLOT_MAX) || 3;
+    var komMax = (r && r.EGG_SLOT_MAX_KOMOREBI) || 3;
     var cards = [];
     var i;
     for(i=0;i<max;i++){
@@ -175,6 +180,28 @@
         var firstEmpty = (i === eggs.length);
         cards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: firstEmpty ? (opts.pendingCount||0) : 0}));
       }
+    }
+    /* 小道段: 小道の卵が 1 つでもあるときだけ出す (未開放の子の画面を増やさない)。 */
+    var komSection = '';
+    if(komEggs.length){
+      var komCards = [];
+      for(i=0;i<komMax;i++){
+        if(i < komEggs.length){
+          komCards.push(eggCardHTML(komEggs[i], {onTap: opts.onTap, onHatch: opts.onHatch, onAdvance: opts.onAdvance}));
+        } else {
+          komCards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: 0}));
+        }
+      }
+      komSection = ''
+        + '<div style="display:flex;align-items:center;gap:6px;margin:10px 0 6px">'
+        +   '<span style="font-size:18px">🌿</span>'
+        +   '<span style="font-size:14px;font-weight:800;color:#7A5A1E">こもれびで そだてている むし</span>'
+        +   '<span style="font-size:12px;color:#6B7A5E">('+komEggs.length+'/'+komMax+')</span>'
+        + '</div>'
+        + '<div style="display:grid;grid-template-columns:repeat('+komMax+',1fr);gap:8px">'
+        +   komCards.join('')
+        + '</div>'
+        + '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:6px">こもれびの小道の もんだいで そだつよ</div>';
     }
     var pendBanner = opts.pendingCount > 0
       ? '<div class="q4b-egg-pending-banner" style="background:#FFF6E0;border:1.5px solid #F2A33C;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#8A5C2C;cursor:pointer"'
@@ -227,6 +254,7 @@
       +   '<div style="display:grid;grid-template-columns:repeat('+max+',1fr);gap:8px">'
       +     cards.join('')
       +   '</div>'
+      +   komSection
       +   '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:8px">もんだいに せいかいすると、それぞれの 教科で そだつよ</div>'
       + '</div>';
   }
@@ -331,11 +359,17 @@
     var doc = global.document; if(!doc) return;
     var profileId = opts.profileId || (global.QuestSave && global.QuestSave.currentProfile && global.QuestSave.currentProfile());
     var fossilBefore = r.fossilOf(profileId);
-    /* スロット満杯なら「まちの たまご に入る」旨を予告 (産卵自体は可能) */
+    /* スロット満杯なら「まちの たまご に入る」旨を予告 (産卵自体は可能)。
+       枠は種の所属プールで数える (小道種は小道枠、他は本編枠)。 */
     var slotFull = false;
     try{
       var bsNow = global.QuestSave && global.QuestSave.breedingOf ? global.QuestSave.breedingOf(global.QuestSave.currentProfile()) : null;
-      slotFull = !!(bsNow && bsNow.eggs && bsNow.eggs.length >= ((r.EGG_SLOT_MAX)||3));
+      if(bsNow && bsNow.eggs){
+        var spPool = (r.eggPoolOf ? r.eggPoolOf({game: r.eggGameFor(sp)}) : "main");
+        var poolEggs = bsNow.eggs.filter(function(e){ return (r.eggPoolOf ? r.eggPoolOf(e) : "main") === spPool; });
+        var poolCap = spPool === "komorebi" ? ((r.EGG_SLOT_MAX_KOMOREBI)||3) : ((r.EGG_SLOT_MAX)||3);
+        slotFull = poolEggs.length >= poolCap;
+      }
     }catch(_){}
     var ov = doc.createElement("div");
     ov.id = "q4bLayConfirmOv";
@@ -902,6 +936,8 @@
     opts = opts || {};
     var pendingEggs = opts.pendingEggs || [];
     var slotsAvailable = opts.slotsAvailable || 0;
+    /* 小道の卵は専用枠なので空き数も別勘定 (未指定なら本編と同値 = 旧挙動)。 */
+    var slotsAvailableKom = opts.slotsAvailableKomorebi != null ? opts.slotsAvailableKomorebi : slotsAvailable;
     var eggsIds = opts.eggsIds || {};
     var r = R();
     var doc = global.document; if(!doc) return;
@@ -938,7 +974,8 @@
       var gameLabel = GAME_LABEL[egg.game] || egg.game;
       var p = pct(egg.progress, egg.target);
       var meta = sp && sp.metamorphosis ? metaLabel(sp) : '';
-      var canPromote = (slotsAvailable > 0) && !eggsIds[egg.id];
+      var availForEgg = (egg.game === "komorebi") ? slotsAvailableKom : slotsAvailable;
+      var canPromote = (availForEgg > 0) && !eggsIds[egg.id];
       var promoteStyle = canPromote ? 'background:#4A9B3A;color:#fff' : 'background:#CFDDB2;color:#6B7A5E;opacity:.7';
       var hintHTML = '';
       if(!canPromote && eggsIds[egg.id]){
@@ -989,7 +1026,8 @@
       +     '<span style="font-size:17px;font-weight:800;color:#2A3D2C;flex:1">たまごリスト</span>'
       +     '<button type="button" id="q4bNestClose" style="border:none;background:#EAEFE0;color:#2A3D2C;border-radius:8px;padding:6px 12px;font-weight:700;font-family:inherit;cursor:pointer">とじる</button>'
       +   '</div>'
-      +   '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">まちの たまご: '+pendingEggs.length+'こ　／　あき スロット: '+slotsAvailable+'</div>'
+      +   '<div style="font-size:12px;color:#6B7A5E;margin-bottom:10px">まちの たまご: '+pendingEggs.length+'こ　／　あき スロット: '+slotsAvailable
+      +     (opts.slotsAvailableKomorebi != null ? '　／　🌿こもれび あき: '+slotsAvailableKom : '')+'</div>'
       +   '<div style="overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin:-2px;padding:2px">'+listHTML+'</div>'
       +   layBtn
       + '</div>';

@@ -628,13 +628,23 @@
   var EGG_SLOT_MAX = 3;
   function eggCost(sp){ return EGG_COST[tierOf(sp)]; }
   function eggTarget(sp){ return EGG_TARGET[tierOf(sp)]; }
-  /* 教科決定: masterOnly は sp.master.game を優先 (grand は kanji 既定)、通常虫は gameFor(sp) */
+  /* 教科決定: masterOnly は sp.master.game を優先 (grand は kanji 既定)、通常虫は gameFor(sp)。
+     小道種 (areaOnly:"komorebi") の卵は小道の正答でのみ育つ (komorebi_breeding_bonus_gaps 決定 1)。 */
   function eggGameFor(sp){
+    if(sp && sp.areaOnly === "komorebi") return "komorebi";
     if(sp && sp.masterOnly && sp.master && sp.master.game){
       if(sp.master.game === "grand") return "kanji";
       return sp.master.game;
     }
     return gameFor(sp);
+  }
+  /* 小道の卵は専用スロット枠。本編枠と競合させない (停滞した小道卵が本編の
+     育成を塞がないため。管理はどちらも御神木パネル)。 */
+  var EGG_SLOT_MAX_KOMOREBI = 3;
+  function eggPoolOf(egg){ return (egg && egg.game === "komorebi") ? "komorebi" : "main"; }
+  function slotCapOf(pool){ return pool === "komorebi" ? EGG_SLOT_MAX_KOMOREBI : EGG_SLOT_MAX; }
+  function eggsInPool(bs, pool){
+    return (bs.eggs || []).filter(function(e){ return eggPoolOf(e) === pool; });
   }
   /* PB-2: breeding は CAS 対象 namespace。 adapter には旧 {get, save} に加え新
      {loadVersioned, saveVersioned, pid} を渡せるようにする。 内部に __bsCache を
@@ -807,7 +817,8 @@
         shiny: rollShiny({source:"egg"})
       };
       var bs = JSON.parse(JSON.stringify(_bs()));
-      var queued = bs.eggs.length >= EGG_SLOT_MAX;
+      var pool = eggPoolOf(egg);
+      var queued = eggsInPool(bs, pool).length >= slotCapOf(pool);
       if(queued){
         egg.queuedAt = todayStr();
         bs.pendingEggs.push(egg);
@@ -865,7 +876,8 @@
       };
       var sameIdInEggs = false;
       for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===sp.id){ sameIdInEggs=true; break; } }
-      if(!opts.forceQueue && bs.eggs.length < EGG_SLOT_MAX && !sameIdInEggs){
+      var pool = eggPoolOf(egg);
+      if(!opts.forceQueue && eggsInPool(bs, pool).length < slotCapOf(pool) && !sameIdInEggs){
         bs.eggs.push(egg);
       } else {
         egg.queuedAt = todayStr();
@@ -1016,9 +1028,15 @@
   function acceptPendingEgg(){
     return _ensureBsLoaded().then(function(){
       var bs = _bs();
-      if(bs.eggs.length >= EGG_SLOT_MAX) return null;
       if(!bs.pendingEggs.length) return null;
-      var egg = bs.pendingEggs.shift();
+      /* 先頭から「所属プールに空きがある」最初の卵を受け入れる (小道と本編は別枠)。 */
+      var idx = -1, i;
+      for(i=0;i<bs.pendingEggs.length;i++){
+        var pool = eggPoolOf(bs.pendingEggs[i]);
+        if(eggsInPool(bs, pool).length < slotCapOf(pool)){ idx = i; break; }
+      }
+      if(idx < 0) return null;
+      var egg = bs.pendingEggs.splice(idx, 1)[0];
       delete egg.queuedAt;
       bs.eggs.push(egg);
       return _saveBs(bs).then(function(r){ return r.ok ? egg : null; });
@@ -1064,12 +1082,13 @@
   function promotePendingEgg(id){
     return _ensureBsLoaded().then(function(){
       var bs = _bs();
-      if(bs.eggs.length >= EGG_SLOT_MAX) return null;
       var i;
       for(i=0;i<bs.eggs.length;i++){ if(bs.eggs[i].id===id) return null; }
       var idx = -1;
       for(i=0;i<bs.pendingEggs.length;i++){ if(bs.pendingEggs[i].id===id){ idx=i; break; } }
       if(idx < 0) return null;
+      var pool = eggPoolOf(bs.pendingEggs[idx]);
+      if(eggsInPool(bs, pool).length >= slotCapOf(pool)) return null;
       var egg = bs.pendingEggs.splice(idx, 1)[0];
       delete egg.queuedAt;
       bs.eggs.push(egg);
@@ -1423,6 +1442,7 @@
     spendForCatch: spendForCatch,
     setAmberStore: setAmberStore,
     amberOf: amberOf,
+    earnAmber: earnAmber,
     AMBER_CATCH_COST: AMBER_CATCH_COST,
     REVIEW_BOOST: REVIEW_BOOST,
     HATTEN_BOOST: HATTEN_BOOST,
@@ -1452,6 +1472,8 @@
     eggTarget: eggTarget,
     eggGameFor: eggGameFor,
     EGG_SLOT_MAX: EGG_SLOT_MAX,
+    EGG_SLOT_MAX_KOMOREBI: EGG_SLOT_MAX_KOMOREBI,
+    eggPoolOf: eggPoolOf,
     setEggStore: setEggStore,
     getBreedingState: function(){ return _bs(); },
     /* PB-2: async breeding 操作のための補助 API */

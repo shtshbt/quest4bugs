@@ -27,7 +27,7 @@
 
 ## 3. 未決事項
 
-1. breeding UI での小道種の露出範囲。卵選択モーダルと「🥚 産める」フィルタは `BUGS` 全走査のため、小道種が本編側 UI にも並ぶ。6.2 の排他プールは抽選のみの隔離で breeding は貫通する。並べてよいか、小道図鑑側に別導線を置くか
+1. ~~breeding UI での小道種の露出範囲~~ → 2026-08-14 決定: 卵の管理は御神木パネルに一元化する (小道ページに別の管理パネルを作らない)。小道種は御神木の卵ピッカーに並び、産まれた卵は御神木パネルの小道専用スロット段に表示される
 2. 朝露ボーナスの正本仕様の文書化先 (本書に追記するか独立文書にするか)
 3. 雫の最終判断 (暫定切り分けのまま確定するか)
 
@@ -57,3 +57,15 @@ komorebi/app.js、shared/reward.js、shared/breeding.js、shared/bugs.js、index
 - METAMORPHOSIS_BY_ORDER は現在の小道在庫の全 11 目 (Coleoptera / Lepidoptera / Hymenoptera / Diptera / Trichoptera / Orthoptera / Hemiptera / Odonata / Mantodea / Phasmatodea / Blattodea) を網羅しており、今の在庫に産卵不可種は無い。将来の地域在庫でハサミムシ目、カゲロウ目、カワゲラ目などが入ると欠落し得るため、作業リスト 1 の freeze validator 検査は残す
 - breeding.js の GAME_COLOR / GAME_EMOJI / GAME_LABEL に "komorebi" が無い。egg.game に "komorebi" を導入する際は表示 3 点セットの追加も必要
 - 育成ゲージの論点 (決定 1 の再確認待ち): egg.game を "komorebi" にすると、小道の卵は共有 3 スロットを占有しつつ小道正答でしか進まない。小道を毎日回している間は本編と同等ペース (SR は 500 正答、1 日 50 正答で 10 日) で育つが、小道から離れるとスロットを塞いだまま停滞する。代替は本編正答でも育つ共有 feed だが、受け入れ基準 2 と矛盾するため実装前に判断が要る
+  → 2026-08-14 解決: 小道の卵は小道専用スロット枠 (3 枠、本編 3 枠と別勘定) に入れる。停滞しても本編の育成を塞がないので、決定 1 (小道正答でのみ育つ) を維持できる
+
+## 6. 実装記録 (2026-08-14、§5 の未実装 3 点を解消)
+
+方針決定: 卵の管理 UI は御神木パネルに一元化 (管理場所を分散させない)。小道の卵は本編 3 枠とは別の小道専用スロット 3 枠に入り、停滞しても本編育成を塞がない。
+
+- reward.js: `eggGameFor` が areaOnly:"komorebi" の種に "komorebi" を返す。スロットをプール別勘定にする `eggPoolOf` / `EGG_SLOT_MAX_KOMOREBI=3` を新設し、layEgg / awardEgg / acceptPendingEgg / promotePendingEgg の満杯判定をプール別に変更。`earnAmber` を export
+- komorebi/app.js: `feedSideRewards` を新設し、recordAnswer / recordSubmission の有効正答時に `feedEgg("komorebi", 習熟済みなら 0.4)` + こはく +1 (共有ウォレット、keisan/app.js の setAmberStore 配線を流用)。純関数 applyAnswer は無副作用のまま
+- breeding.js: GAME_COLOR / EMOJI / LABEL に komorebi (🌿 こもれび)。御神木パネルに小道専用スロット段 (小道の卵があるときだけ表示)。産卵確認と巣モーダルの空き数もプール別
+- index.html: 卵ピッカーと親図鑑参照に komorebi save を合流 (小道の ♂♀ 捕獲が canLayEgg に見える)。孵化 2 経路 (手動 / 自動) に komorebi 分岐を追加し、成虫は小道 save の collection へ記録。小道 save 未作成なら孵化を見送る
+- テスト: tests/test_komorebi_breeding.js (10 本)。受け入れ基準 5 点 + プール分離 + ヒント回答の非加算を固定
+- 残: 完走章の重複ドロップ (作業 6)、volume freeze validator の metamorphosis 検査 (作業 1 の後半)、朝露仕様の文書化先 (未決 2)
