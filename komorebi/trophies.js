@@ -18,7 +18,9 @@
   var TROPHIES=[
     {trophyId:"madagascar_ratio",cat:"kom_ratio",speciesId:"oo_onaga_yamamayu",regionId:"madagascar",regionName:"マダガスカルえんせい"},
     {trophyId:"madagascar_kuku_dan2",cat:"kom_kuku_dan2",speciesId:"kanmuri_kareha_kamakiri",regionId:"madagascar",regionName:"マダガスカルえんせい"},
-    {trophyId:"madagascar_kuku_run",cat:"kom_kuku_run",speciesId:"oo_togeashi_kirigirisu",regionId:"madagascar",regionName:"マダガスカルえんせい"}
+    {trophyId:"madagascar_kuku_run",cat:"kom_kuku_run",speciesId:"oo_togeashi_kirigirisu",regionId:"madagascar",regionName:"マダガスカルえんせい"},
+    {trophyId:"madagascar_pi314",cat:"kom_pi314",speciesId:"medama_yamamayu",regionId:"madagascar",regionName:"マダガスカルえんせい"},
+    {trophyId:"madagascar_kuku_dan5",cat:"kom_kuku_dan5",speciesId:"benihoshi_oo_ageha",regionId:"madagascar",regionName:"マダガスカルえんせい"}
   ];
 
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}

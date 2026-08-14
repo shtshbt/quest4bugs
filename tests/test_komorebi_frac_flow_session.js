@@ -1,4 +1,4 @@
-/* 分数の解き方を画面から遊ぶテスト。公開は更新 6。
+/* 分数の解き方を画面から遊ぶテスト。倍速カレンダーで公開は更新 3。
    このカテゴリだけが整数部と分子と分母の 3 欄で答えを受け取る。約分の残りを
    名指しする経路と、仮分数でも帯分数でも通ることを画面側で押さえる。
    node tests/test_komorebi_frac_flow_session.js で実行。 */
@@ -44,7 +44,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   }
 
   test("the category is implemented but held back until its update", () => {
-    assert.equal(komorebi.categories.kom_frac_flow.release, 6);
+    assert.equal(komorebi.categories.kom_frac_flow.release, 3);
     assert.equal(komorebi.isReleased("kom_frac_flow"), false);
     assert.ok(komorebi.sessionStarters.kom_frac_flow);
   });

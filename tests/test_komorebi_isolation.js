@@ -94,9 +94,11 @@ test("komorebi selector contains only areaOnly komorebi species", () => {
 
 test("Stage A keeps categories and save state in the komorebi namespace", () => {
   const komorebi = injected.Q4B_KOMOREBI;
-  /* 公開済みは初回更新の 3 本。実装だけ先に進んだカテゴリは宣言されているが
-     未公開で、リリースゲート側 (test_komorebi_release_gate.js) が押さえている。 */
-  assert.deepEqual(Object.keys(komorebi.categories).filter(komorebi.isReleased), ["kom_ratio","kom_kuku_dan2","kom_kuku_run"]);
+  /* 公開済みは初回更新の 5 本 (倍速カレンダー)。実装だけ先に進んだカテゴリは
+     宣言されているが未公開で、リリースゲート側 (test_komorebi_release_gate.js) が
+     押さえている。 */
+  assert.deepEqual(Object.keys(komorebi.categories).filter(komorebi.isReleased),
+    ["kom_ratio","kom_kuku_dan2","kom_kuku_run","kom_pi314","kom_kuku_dan5"]);
   const state = komorebi.createProfile();
   /* Lv の枠は未公開カテゴリにも作る。解禁の日に保存データの移行を要らなくするため。
      値は 1 のままで、遊べるようになるまで動かない。 */

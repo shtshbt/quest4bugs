@@ -1,4 +1,4 @@
-/* 単位換算を画面から遊ぶテスト。公開は更新 3 なので通常は選択肢に出ない。
+/* 単位換算を画面から遊ぶテスト。倍速カレンダーで公開は更新 2 なので通常は選択肢に出ない。
    このカテゴリだけが数値と単位を分けて受け取る新しい回答部品を使うので、
    選択の状態、送信の可否、入力の保持、単位違いの言い分けを画面側で押さえる。
    node tests/test_komorebi_unit_convert_session.js で実行。 */
@@ -69,7 +69,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   }
 
   test("the category is implemented but held back until its update", () => {
-    assert.equal(komorebi.categories.kom_unit_convert.release, 3);
+    assert.equal(komorebi.categories.kom_unit_convert.release, 2);
     assert.equal(komorebi.isReleased("kom_unit_convert"), false);
     assert.ok(komorebi.sessionStarters.kom_unit_convert);
     assert.equal(volume.categories.indexOf("kom_unit_convert") >= 0, true);

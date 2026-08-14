@@ -1,7 +1,7 @@
 # 木漏れ日の小道 更新カレンダーと紐づけ (地域 × 図鑑 × カテゴリ)
 
-- 版: v0.1 draft (レビュー用)
-- 日付: 2026-08-12
+- 版: v0.2 (倍速カレンダー。2026-08-14 決定: k10 と k5 は足並みを揃え、段は 1 更新 2 本。学習カテゴリ全 17 本を更新 1 から 4 = 8 週間 (約 2 か月) に収める)
+- 日付: 2026-08-14 (v0.1 draft: 2026-08-12)
 - 親文書: `docs/komorebi_design.md` (3 章 manifest、6 章 コレクション、12 章 運用)、`docs/komorebi_categories.md` (roster)、`docs/komorebi_regions.md` (v0.3)
 - 役割: C 系統 (リンク) の設計初版。どの更新で、どの地域 volume と、どの学習カテゴリを、どのトロフィー紐づけで出すかを 1 枚で定める。
 
@@ -9,7 +9,8 @@
 
 ## 1. 前提と入力
 
-- 更新テンポ: 約 2 週間ごとに 1 地域 volume + 学習カテゴリ 1 から 2 本 (design 12 章)。開始は Phase 3 実装完了後。
+- 更新テンポ: 約 2 週間ごとに 1 地域 volume。更新 1 から 4 は学習カテゴリ 4 から 5 本を同梱 (倍速)、更新 5 から 8 は図鑑の巻のみ。開始は Phase 3 実装完了後。
+- 倍速の理由 (2026-08-14): 対象の子はすでに 7×8 等を足し算で処理しており、段の暗唱は早く届くほど効く。旧カレンダー (段 1 本/更新 × 8 = 16 週) は長すぎるため半減した。
 - volume サイズ: 80 から 100 種 (決定 11)。看板 1 種 / volume (決定 12)、N/R/SR のみ (決定 13)。
 - 地域在庫 (2026-08-12 時点の seeds、後処理前): マダガスカル 301 / オーストラリア 302 / ボルネオ 200 / コスタリカ 301、計 1,104。
 - 在庫の目減り要因 (未確定): 対カタログ重複判定と名前 enrichment が未実施。教科 seeds の重複率 (28%) より低い見込みだが (カタログは国内中心)、volume 種数は後処理後に確定する。
@@ -19,27 +20,29 @@
 
 | 更新 | 地域 volume | 看板 (確保済) | 新カテゴリ | 備考 |
 |---|---|---|---|---|
-| 1 (初回) | マダガスカル遠征 I | コメットガ | kom_ratio + kom_kuku_dan2 + kom_kuku_run | 初回のみ 3 本 (k10 1 + k5 2)。ratio は Lv1-10 一括投入 |
-| 2 | オーストラリア遠征 I | ユリシス | kom_kuku_dan5 + kom_pi314 | |
-| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_kuku_dan3 + kom_unit_convert | |
-| 4 | コスタリカ遠征 I | ハキリアリ | kom_kuku_dan4 + kom_kuku_ura | |
-| 5 | マダガスカル遠征 II | マダガスカルオオゴキブリ | kom_kuku_dan6 + kom_kuku_inverse | |
-| 6 | オーストラリア遠征 II | クリスマスビートル | kom_kuku_dan7 + kom_frac_flow | |
-| 7 | ボルネオ遠征 II | モーレンカンプオオカブト | kom_kuku_dan8 + kom_kuku_bridge | ボルネオ在庫はここで打ち止め (200) |
-| 8 | コスタリカ遠征 II | ビワハゴロモ | kom_kuku_dan9 + kom_equation_select | |
+| 1 (初回) | マダガスカル遠征 I | コメットガ | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | k10 2 + k5 3。ratio は Lv1-10 一括投入 |
+| 2 | オーストラリア遠征 I | ユリシス | kom_unit_convert + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | |
+| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_frac_flow + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | |
+| 4 | コスタリカ遠征 I | ハキリアリ | kom_kuku_bridge + kom_equation_select + kom_kuku_dan8 + kom_kuku_dan9 | 学習カテゴリ 17 本はここで出揃う |
+| 5 | マダガスカル遠征 II | マダガスカルオオゴキブリ | (なし。図鑑の巻のみ) | II 巻のカテゴリ帰属は freeze 時に他地域公開済み cat から指定 (地域内 1 cat 1 遠征の規則は維持) |
+| 6 | オーストラリア遠征 II | クリスマスビートル | (なし。図鑑の巻のみ) | |
+| 7 | ボルネオ遠征 II | モーレンカンプオオカブト | (なし。図鑑の巻のみ) | ボルネオ在庫はここで打ち止め (200) |
+| 8 | コスタリカ遠征 II | ビワハゴロモ | (なし。図鑑の巻のみ) | |
 | 9 | マダガスカル遠征 III | (volume freeze 時に指名) | 9 月 LOGOS ゲート判定の結果枠 (kom_kisokusei / kom_hayasa / 既存 cat の Lv 追加) | |
 | 10 以降 | オーストラリア III、コスタリカ III、新地域 (Tier 2) | 同上 | kom_exhaustive_search (新 kind 実装後)、予備在庫、Lv 追加 | 新地域 harvest は更新 6 ごろまでに開始 |
 
 - 在庫収支: 更新 9 まで 9 volume ≒ 900 種需要 vs seeds 1,104。後処理の目減りを 1 割と見ても成立。更新 10 以降は AU III / CR III (在庫各 300 で III まで可) と Tier 2 新地域 (フィリピン、ニューギニア等) の harvest で継ぐ。
-- 段カテゴリの解禁順 (2, 5, 3, 4, 6, 7, 8, 9) は roster 3.2 章の段順。毎更新に k5 の弾を 1 本入れることで、優澄側にも常に新カテゴリが届く。
-- 10 歳側の弾は更新 3 (kom_unit_convert) と更新 6 (kom_frac_flow) の間、および更新 6 以降が空く。核 4 本 (ratio / pi314 / unit_convert / frac_flow) を出し切ると在庫が尽きるためである。**2026-08-13 決定: この穴を今は埋めない。9 月の模試結果を見てから追加カテゴリを検討する。** 候補は予備在庫の kom_ratio_forms と、ゲート待ちの kom_kisokusei / kom_hayasa。実測の弱点を見ないまま枠を埋めると、投入判定信号 (roster 原則 5: 同時期の演習高 × 外部評価低) を使わずに決めることになる。
+- 段カテゴリの解禁順 (2, 5, 3, 4, 6, 7, 8, 9) は roster 3.2 章の段順のまま、1 更新 2 本の倍速で出す。全 8 段が更新 4 (8 週目) で出揃う。
+- 更新 5 から 8 は学習カテゴリを伴わない図鑑ドロップなので、間隔は隔週に固定せず、巻の準備 (写真 + 命名 + freeze) が済み次第前倒ししてよい。
+- 追加カテゴリ枠 (更新 9 以降): **2026-08-13 決定: 9 月の模試結果を見てから検討する。** 候補は予備在庫の kom_ratio_forms と、ゲート待ちの kom_kisokusei / kom_hayasa。実測の弱点を見ないまま枠を埋めると、投入判定信号 (roster 原則 5: 同時期の演習高 × 外部評価低) を使わずに決めることになる。
 
 ## 3. トロフィー紐づけ (design 6.6 / 6.7)
 
 - 規定: cat の代表虫 = その cat の最終 Lv 帯を投入した volume の看板。
 - 初回投入 cat は Lv1-10 を一括投入するため、代表虫 = 投入と同じ更新の看板になる。
-- 同一更新で複数 cat が入る場合 (毎回 2 から 3 本)、看板を割り当てるのは k10 側 1 本を既定とし、k5 側の cat は trophy manifest で volume 内の別種 (SR 帯) を個別指定する。例: 更新 1 は kom_ratio = コメットガ、kom_kuku_dan2 と kom_kuku_run = マダガスカル I の別 SR 2 種。
-- 割当表は volume freeze 時 (種のレアリティ確定後) に本書へ追記する。
+- 同一更新で複数 cat が入る場合 (倍速では毎回 4 から 5 本)、看板を割り当てるのは k10 側 1 本を既定とし、残りの cat は trophy manifest で volume 内の別種 (SR 帯) を個別指定する。
+- 更新 1 の割当 (komorebi/trophies.js に確定済み): kom_ratio = コメットガ (oo_onaga_yamamayu、看板)、kom_pi314 = medama_yamamayu、kom_kuku_dan2 = kanmuri_kareha_kamakiri、kom_kuku_dan5 = benihoshi_oo_ageha、kom_kuku_run = oo_togeashi_kirigirisu。
+- 更新 2 以降の割当表は volume freeze 時 (種のレアリティ確定後) に本書へ追記する。
 
 ## 4. 図鑑側の前提パイプライン (各 volume の公開前に必要)
 

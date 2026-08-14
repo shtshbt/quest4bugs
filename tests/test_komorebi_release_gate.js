@@ -35,8 +35,9 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.currentRelease(), 1);
   });
 
-  test("the eight recitation tables unlock in teaching order, one per update", () => {
-    /* 指導順 (2, 5, 3, 4, 6, 7, 8, 9)。毎更新に k5 の弾が 1 本届く並びで、
+  test("the eight recitation tables unlock in teaching order, two per update", () => {
+    /* 指導順 (2, 5, 3, 4, 6, 7, 8, 9) を 2 本ずつの倍速で出す (2026-08-14 決定:
+       すでに 7×8 を足し算処理しており、段は 8 週間で出揃わせる)。
        エンジンは段番号駆動なので実装は CATEGORIES の 1 行だけ。 */
     const dans = Object.keys(komorebi.categories)
       .map(cat => /^kom_kuku_dan(\d)$/.exec(cat))
@@ -44,7 +45,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
       .map(m => ({ cat: m[0], dan: Number(m[1]), release: komorebi.categories[m[0]].release }))
       .sort((a, b) => a.release - b.release);
     assert.deepEqual(dans.map(entry => entry.dan), [2, 5, 3, 4, 6, 7, 8, 9]);
-    assert.deepEqual(dans.map(entry => entry.release), [1, 2, 3, 4, 5, 6, 7, 8]);
+    assert.deepEqual(dans.map(entry => entry.release), [1, 1, 2, 2, 3, 3, 4, 4]);
     dans.forEach(entry => {
       assert.ok(komorebi.sessionStarters[entry.cat], entry.cat + " has no starter");
       assert.equal(komorebi.categories[entry.cat].course, "k5");
@@ -80,7 +81,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.isReleased("kom_future_demo"), false);
     assert.equal(app.querySelector('[data-cat="kom_future_demo"]'), null, "the unreleased category is tappable");
     assert.equal(plain().indexOf("みらいの小道"), -1, "the unreleased category is named on screen");
-    /* 公開済みの 3 本はそのまま出ていること (ゲートが効きすぎていない)。 */
+    /* 公開済みのカテゴリはそのまま出ていること (ゲートが効きすぎていない)。 */
     assert.ok(app.querySelector('[data-cat="kom_ratio"]'));
     assert.ok(app.querySelector('[data-cat="kom_kuku_run"]'));
   });
@@ -106,8 +107,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   });
 
   test("an unreleased trophy does not sit on the goal board", () => {
-    assert.match(plain(), /0／3/, "the trophy page counted an unreleased slot: " + plain().slice(0, 200));
-    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3);
+    assert.match(plain(), /0／5/, "the trophy page counted an unreleased slot: " + plain().slice(0, 200));
+    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 5);
   });
 
   console.log("RESULT " + passed + " passed, 0 failed");

@@ -1,4 +1,4 @@
-/* 九九のうら読みと逆引きを画面から遊ぶテスト。公開は更新 4 と 5。
+/* 九九のうら読みと逆引きを画面から遊ぶテスト。倍速カレンダーで公開は更新 2 と 3。
    うら読みの Lv5 だけが集合完成 (「ぜんぶ えらぶ」) で、選択を溜めてから 1 回で
    出す新しい回答部品を使う。1 つ選んで即判定になると残りを選べないので、そこを
    画面側で押さえる。逆引きは誤答が九九のデッキへ還流することを確かめる。
@@ -46,8 +46,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   }
 
   test("both categories are implemented but held back until their updates", () => {
-    assert.equal(komorebi.categories.kom_kuku_ura.release, 4);
-    assert.equal(komorebi.categories.kom_kuku_inverse.release, 5);
+    assert.equal(komorebi.categories.kom_kuku_ura.release, 2);
+    assert.equal(komorebi.categories.kom_kuku_inverse.release, 3);
     assert.equal(komorebi.isReleased("kom_kuku_ura"), false);
     assert.equal(komorebi.isReleased("kom_kuku_inverse"), false);
     assert.ok(komorebi.sessionStarters.kom_kuku_ura);

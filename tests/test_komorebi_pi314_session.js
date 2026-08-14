@@ -1,6 +1,5 @@
-/* 3.14 の段を画面から遊ぶテスト。公開は更新 2 なので通常は選択肢に出ないが、
-   「実装済み未公開」のまま放置すると解禁の日に初めて壊れているとわかる。
-   開始関数を直接叩いて 5 問を通し、解禁時に動く状態であることを固定する。
+/* 3.14 の段を画面から遊ぶテスト。倍速カレンダーで公開は更新 1 (初回)。
+   開始関数を直接叩いて 5 問を通し、出題が画面の文面だけで解けることを固定する。
 
    答えは画面の文面だけから再計算する。内部状態を覗かないことで、出題が
    それ単体で解ける形になっていること自体を検証している。
@@ -48,11 +47,11 @@ function solve(body){
   const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
   const plain = () => plainText(app.innerHTML);
 
-  test("the category is implemented but held back until its update", () => {
-    assert.equal(komorebi.categories.kom_pi314.release, 2);
-    assert.equal(komorebi.isReleased("kom_pi314"), false);
-    assert.ok(komorebi.sessionStarters.kom_pi314, "the starter must exist even while unreleased");
-    assert.equal(volume.categories.indexOf("kom_pi314") >= 0, true, "the fixture volume should list it already");
+  test("the category ships in the first update", () => {
+    assert.equal(komorebi.categories.kom_pi314.release, 1);
+    assert.equal(komorebi.isReleased("kom_pi314"), true);
+    assert.ok(komorebi.sessionStarters.kom_pi314, "the starter must exist");
+    assert.equal(volume.categories.indexOf("kom_pi314") >= 0, true, "the fixture volume should list it");
   });
 
   async function play(lv){

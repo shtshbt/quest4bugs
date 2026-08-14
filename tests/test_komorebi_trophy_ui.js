@@ -23,7 +23,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   test("the map carries a trophy entrance that counts what has been won", () => {
     const entrance = app.querySelector('[data-action="trophies"]');
     assert.ok(entrance, "no trophy entrance under the map: " + plain().slice(-200));
-    assert.match(plain(), /0／3/, "the entrance does not show the count: " + plain().slice(-160));
+    assert.match(plain(), /0／5/, "the entrance does not show the count: " + plain().slice(-160));
   });
 
   app.querySelector('[data-action="trophies"]').click();
@@ -31,8 +31,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   test("an empty trophy page is a goal board, not an empty room", () => {
     const text = plain();
     assert.match(text, /きんいろトロフィー/);
-    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3, "every category needs a slot");
-    assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 3);
+    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 5, "every category needs a slot");
+    assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 5);
     /* 条件が「Lv10 到達」ではなく「Lv10 クリア」であることが見える形になっていること。 */
     assert.match(text, /Lv10 クリア/);
     assert.match(text, /割合と比を Lv10 クリア/);
@@ -51,10 +51,10 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   test("a won trophy shows the gold insect, its name and the date", () => {
     const text = plain();
     assert.equal((app.innerHTML.match(/is-earned/g) || []).length, 1);
-    assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 2);
+    assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 4);
     assert.match(text, /マダガスカルえんせいの きんいろオオオナガヤママユ/);
     assert.match(text, /2026-08-13 かくとく/);
-    assert.match(plain(), /1／3/);
+    assert.match(plain(), /1／5/);
   });
 
   test("the gold rendering swaps colours only and leaves the catalog untouched", () => {

@@ -12,23 +12,23 @@
     kom_ratio:{course:"k10",name:"割合と比",maxLv:10,release:1},
     kom_kuku_dan2:{course:"k5",name:"2の段暗唱",maxLv:10,release:1},
     kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
-    kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:2},
-    kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:3},
-    kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:4},
-    kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:5},
-    kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:6},
-    kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:7},
-    kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:8},
-    /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
-       (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
-       毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
-    kom_kuku_dan5:{course:"k5",name:"5の段暗唱",maxLv:10,release:2},
-    kom_kuku_dan3:{course:"k5",name:"3の段暗唱",maxLv:10,release:3},
-    kom_kuku_dan4:{course:"k5",name:"4の段暗唱",maxLv:10,release:4},
-    kom_kuku_dan6:{course:"k5",name:"6の段暗唱",maxLv:10,release:5},
-    kom_kuku_dan7:{course:"k5",name:"7の段暗唱",maxLv:10,release:6},
-    kom_kuku_dan8:{course:"k5",name:"8の段暗唱",maxLv:10,release:7},
-    kom_kuku_dan9:{course:"k5",name:"9の段暗唱",maxLv:10,release:8}
+    kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:1},
+    kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:2},
+    kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:2},
+    kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:3},
+    kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:3},
+    kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:4},
+    kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
+    /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
+       (release_linkage 2 章の倍速カレンダー)。エンジンは段番号駆動なので
+       実装はこの行だけ。同 release 内の指導順は宣言順で保たれる。 */
+    kom_kuku_dan5:{course:"k5",name:"5の段暗唱",maxLv:10,release:1},
+    kom_kuku_dan3:{course:"k5",name:"3の段暗唱",maxLv:10,release:2},
+    kom_kuku_dan4:{course:"k5",name:"4の段暗唱",maxLv:10,release:2},
+    kom_kuku_dan6:{course:"k5",name:"6の段暗唱",maxLv:10,release:3},
+    kom_kuku_dan7:{course:"k5",name:"7の段暗唱",maxLv:10,release:3},
+    kom_kuku_dan8:{course:"k5",name:"8の段暗唱",maxLv:10,release:4},
+    kom_kuku_dan9:{course:"k5",name:"9の段暗唱",maxLv:10,release:4}
   };
 
   function isReleased(cat){
