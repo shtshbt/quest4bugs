@@ -13,13 +13,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zukan_foundry" / "data" / "species_reserve"
-ENTRY_FILES = (
-    DATA_DIR / "honpen_batch1_entries_keisan.jsonl",
-    DATA_DIR / "honpen_batch1_entries_kanji.jsonl",
-    DATA_DIR / "honpen_batch1_entries_eitango.jsonl",
+
+# 弾は環境変数で切り替える。validate 側と同じ規約にしてあり、2 つを違う弾で
+# 走らせる事故を防ぐため既定は 1 で揃えている。
+BATCH = int(os.environ.get("HONPEN_BATCH", "1"))
+ENTRY_FILES = tuple(
+    DATA_DIR / f"honpen_batch{BATCH}_entries_{subject}.jsonl"
+    for subject in ("keisan", "kanji", "eitango")
 )
 BUGS_PATH = ROOT / "shared" / "bugs.js"
-SECTION_MARKER = "/* 本編拡張 第1弾 (2026-08) */"
+SECTION_MARKER = f"/* 本編拡張 第{BATCH}弾 (2026-08) */"
 MASTER_MARKER = "/* ==== マスター虫＋特別追加 (+24) ==== */"
 FIELD_ORDER = (
     "id", "jaName", "scientificName", "taxonRank", "order", "family",

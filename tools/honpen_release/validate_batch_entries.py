@@ -16,17 +16,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zukan_foundry" / "data" / "species_reserve"
+
+# 弾ごとに定数を切り替える。第 1 弾はウラミスシジミ (性語尾違いの重複) を 1 件
+# 除外したため kanji だけ 49 件になっている。件数を弾ごとに持つのはそのため。
+BATCH = int(os.environ.get("HONPEN_BATCH", "1"))
+BATCH_COUNTS = {
+    1: {"keisan": 50, "kanji": 49, "eitango": 50},
+    2: {"keisan": 50, "kanji": 50, "eitango": 50},
+    3: {"keisan": 50, "kanji": 50, "eitango": 50},
+}
+if BATCH not in BATCH_COUNTS:
+    raise SystemExit(f"弾の指定が正しくありません: {BATCH}")
 ENTRY_FILES = {
-    DATA_DIR / "honpen_batch1_entries_keisan.jsonl": 50,
-    DATA_DIR / "honpen_batch1_entries_kanji.jsonl": 49,
-    DATA_DIR / "honpen_batch1_entries_eitango.jsonl": 50,
+    DATA_DIR / f"honpen_batch{BATCH}_entries_{subject}.jsonl": count
+    for subject, count in BATCH_COUNTS[BATCH].items()
 }
 SELECTION_PATH = DATA_DIR / "honpen_selection_v1.json"
 BUGS_PATH = ROOT / "shared" / "bugs.js"
-REPORT_PATH = ROOT / "zukan_foundry" / "reports" / "honpen_batch1_review_flags.md"
-SECTION_MARKER = "/* 本編拡張 第1弾 (2026-08) */"
+REPORT_PATH = ROOT / "zukan_foundry" / "reports" / f"honpen_batch{BATCH}_review_flags.md"
+SECTION_MARKER = f"/* 本編拡張 第{BATCH}弾 (2026-08) */"
 MASTER_MARKER = "/* ==== マスター虫＋特別追加 (+24) ==== */"
-EXCLUDED_SCIENTIFIC_NAME = "Wagimo signata"
+# 第 1 弾でのみ除外した種。性語尾違い (signata と signatus) の重複で、
+# 直接照合の語尾 fuzzy が無かったため通過してしまっていた。
+EXCLUDED_SCIENTIFIC_NAME = "Wagimo signata" if BATCH == 1 else ""
 REQUIRED_FIELDS = {
     "id", "jaName", "scientificName", "order", "family", "familyJa",
     "groupJa", "rarity", "colors", "note", "tags",
@@ -71,7 +83,7 @@ def load_selection(errors):
     if not isinstance(selection, list):
         errors.append(f"{SELECTION_PATH}: top level must be a JSON array")
         return []
-    return [item for item in selection if isinstance(item, dict) and item.get("batch") == 1]
+    return [item for item in selection if isinstance(item, dict) and item.get("batch") == BATCH]
 
 
 def existing_source(errors):
