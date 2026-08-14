@@ -173,54 +173,122 @@
   .dmg-float{position:absolute;left:50%;top:30%;transform:translateX(-50%);font-weight:900;font-size:28px;color:#ffec6b;
     text-shadow:0 2px 4px #000,0 0 8px #f33;pointer-events:none;animation:floatUp 1s ease-out forwards;z-index:5}
   .dmg-float.toAlly{color:#ff8a8a;text-shadow:0 2px 4px #000,0 0 8px #900}
-  .dmg-float.guard{color:#9fd0ff;font-size:20px}
+  .dmg-float.guard{top:105%;color:var(--shield-color,#9fd0ff);font-size:18px;white-space:nowrap;
+    text-shadow:0 2px 4px #000,0 0 8px rgba(159,208,255,.45)}
+  .dmg-float.guard.gr-adv{--shield-color:#bfe3ff}
+  .dmg-float.guard.gr-neu{--shield-color:#9fd0ff}
+  .dmg-float.guard.gr-dis{--shield-color:#7fa8cc}
+  .dmg-float.attack.gr-adv{font-size:36px}
+  .dmg-float.attack.gr-neu{font-size:28px}
+  .dmg-float.attack.gr-dis{font-size:22px;color:#cfd8e2;text-shadow:0 2px 4px #000}
+  .dmg-float.strike{font-size:36px}
   @keyframes floatUp{0%{opacity:0;transform:translate(-50%,8px) scale(.6)}20%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}100%{opacity:0;transform:translate(-50%,-46px) scale(1)}}
   .hit{animation:hitShake .42s}
   @keyframes hitShake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(7px) }45%{transform:translateX(-5px)}60%{transform:translateX(5px);filter:brightness(2.2) sepia(1) hue-rotate(-30deg)}75%{transform:translateX(-2px)}}
+  .brace .art{animation:q4bBrace .14s ease-out}
+  .incoming-line{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+  .incoming-line::after{content:"";position:absolute;left:-15%;top:52%;width:115%;height:5px;border-radius:5px;
+    background:linear-gradient(90deg,transparent,#ffd76a,#fff,transparent);box-shadow:0 0 10px #ffd76a;animation:q4bIncoming .12s ease-in forwards}
   .slash{position:absolute;inset:0;pointer-events:none;z-index:4}
   .slash::after{content:"";position:absolute;left:8%;top:50%;width:84%;height:7px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translateY(-50%) rotate(-18deg);border-radius:6px;animation:slashGo .35s ease-out forwards;box-shadow:0 0 12px #fff}
+  .slash.gr-adv::after{display:none}
+  .slash.gr-adv i{position:absolute;left:3%;top:34%;width:94%;height:9px;border-radius:8px;
+    background:linear-gradient(90deg,transparent,#ffd76a,#fff,#ffd76a,transparent);box-shadow:0 0 16px #ffd76a;
+    transform:rotate(-18deg);animation:q4bSlashHeavy .55s ease-out forwards}
+  .slash.gr-adv i:nth-child(2){top:50%;animation-delay:.08s}
+  .slash.gr-adv i:nth-child(3){top:66%;animation-delay:.16s}
+  .slash.gr-neu::after{height:9px;animation:q4bSlashHeavy .45s ease-out forwards}
+  .slash.gr-dis::after{top:44%;height:3px;box-shadow:0 0 5px #cfd8e2;background:linear-gradient(90deg,transparent,#cfd8e2,transparent);animation:q4bSlashLight .3s ease-out forwards}
+  .slash.strike::after{height:12px;background:linear-gradient(90deg,transparent,#ff8a8a,#fff,#ff8a8a,transparent);box-shadow:0 0 20px #ff3b3b;animation:q4bSlashHeavy .5s ease-out forwards}
+  .burst-pop{position:absolute;inset:4%;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none;
+    font-size:48px;border-radius:18px;background:radial-gradient(circle,rgba(255,236,107,.8),rgba(255,215,106,.16) 48%,transparent 70%);animation:q4bBurst .9s ease-out forwards}
+  .hit-heavy .art{animation:hitShake .99s}
+  .hit-medium .art{animation:hitShake .64s}
+  .hit-stop .art{animation:q4bHitStop .52s ease-out}
+  .strike-recoil .art{animation:q4bRecoil .34s ease-out .26s}
   @keyframes slashGo{0%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(0)}40%{opacity:1}100%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(1.1)}}
   /* ---- 4-outcome banner (turn-banner を提出後に転用) ---- */
   .turn-banner.outcome{font-size:17px;padding:10px;animation:obPop .25s ease-out}
   .turn-banner.outcome .ob-ic{font-size:22px;margin-right:6px;vertical-align:-2px}
   .turn-banner.outcome .ob-msg{font-weight:900}
+  .turn-banner.outcome.settle .ob-msg{display:inline-block;animation:q4bResultSettle .5s ease-out}
   .turn-banner.outcome .ob-sub{display:block;font-size:12px;font-weight:700;opacity:.9;margin-top:2px}
   .turn-banner.ob-attack_hit{border:3px double #ffd76a;background:linear-gradient(90deg,rgba(255,200,90,.14),rgba(255,200,90,.30),rgba(255,200,90,.14));color:#ffe9b0}
   .turn-banner.ob-attack_miss{border:2px dashed #b9c4d0;background:rgba(120,130,145,.18);color:#dfe6ee}
   .turn-banner.ob-defense_guard{border:3px double #9fd0ff;background:linear-gradient(90deg,rgba(120,180,255,.16),rgba(120,180,255,.30),rgba(120,180,255,.16));color:#cfe3ff}
   .turn-banner.ob-defense_hit{border:2px dashed #ff8a8a;background:linear-gradient(90deg,rgba(255,90,90,.16),rgba(255,90,90,.32),rgba(255,90,90,.16));color:#ffd3d3}
+  .turn-banner.gr-adv{box-shadow:0 0 16px rgba(255,215,106,.45)}
+  .turn-banner.gr-dis{filter:saturate(.72)}
   @keyframes obPop{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
   /* attack_miss: 敵の脇を通過する空振り (hit shake なし) */
-  .slash.miss::after{top:24%;height:5px;opacity:.7;transform:translateY(-50%) rotate(-30deg);animation:missGo .45s ease-out forwards;box-shadow:0 0 8px #cfd8e2;background:linear-gradient(90deg,transparent,#cfd8e2,transparent)}
+  .slash.miss::after{top:24%;height:5px;opacity:.7;transform:translateY(-50%) rotate(-30deg);animation:missGo .54s ease-out forwards;box-shadow:0 0 8px #cfd8e2;background:linear-gradient(90deg,transparent,#cfd8e2,transparent)}
   @keyframes missGo{0%{opacity:0;transform:translate(-30%,-50%) rotate(-30deg) scaleX(.4)}35%{opacity:.7}100%{opacity:0;transform:translate(38%,-50%) rotate(-30deg) scaleX(1)}}
   /* defense_guard: 盾インパクト (ally slash は使わない) */
-  .guard-pop{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);font-size:38px;z-index:5;pointer-events:none;animation:guardPop .7s ease-out forwards;text-shadow:0 0 14px #9fd0ff}
+  .guard-pop,.shield-shatter{position:absolute;left:50%;top:43%;width:86px;height:100px;transform:translate(-50%,-50%);z-index:5;pointer-events:none}
+  .guard-pop{animation:q4bShieldRaise .18s ease-out,q4bShieldImpact .3s ease-out .18s,q4bShieldHold .5s ease-out .64s forwards}
+  .q4b-shield{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 12px var(--shield-color,#9fd0ff))}
+  .shield-outer{fill:var(--shield-color,#9fd0ff);stroke:#fff;stroke-width:4}
+  .shield-inner{fill:rgba(20,55,95,.62);stroke:var(--shield-color,#9fd0ff);stroke-width:3}
+  .shield-crack{display:none;fill:none;stroke:#26384d;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:32;animation:q4bShieldCrack .11s ease-out forwards}
+  .guard-pop.gr-neu .crack-1,.guard-pop.gr-neu .crack-2,
+  .guard-pop.gr-dis .crack-1,.guard-pop.gr-dis .crack-2,.guard-pop.gr-dis .crack-3{display:block}
+  .guard-pop .crack-1{animation-delay:.3s}.guard-pop .crack-2{animation-delay:.41s}.guard-pop .crack-3{animation-delay:.52s}
+  .shield-shatter{animation:q4bShieldShatter .22s ease-out forwards;--shield-color:#7fa8cc}
   @keyframes guardPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
   .guard-ring{box-shadow:0 0 0 5px rgba(159,208,255,.75),0 0 22px rgba(159,208,255,.5);border-radius:12px}
   /* defense_hit: guard より明確に強い演出 (scene 全体が揺れる)。predShake keyframes を再利用 */
-  .impact-quake{animation:predShake .5s}
+  .impact-quake{animation:predShake .65s}
+  .dodge-slip{position:absolute;inset:0;z-index:5;display:flex;align-items:flex-start;justify-content:flex-end;font-size:34px;pointer-events:none;animation:q4bDodgeSlip .59s ease-out forwards}
   /* ダメージ表示: banner 表示中も読めるよう保持する variant */
   .dmg-float.stay{animation:floatUpStay .9s ease-out forwards}
+  .dmg-float.guard.stay{animation:q4bGuardNumber .7s ease-out forwards}
+  .dmg-float.strike.stay{animation:q4bNumPop .65s ease-out forwards}
   @keyframes floatUpStay{0%{opacity:0;transform:translate(-50%,8px) scale(.6)}20%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}100%{opacity:1;transform:translate(-50%,-40px) scale(1)}}
   .dmg-float.zero{color:#d7dde4;font-size:20px;text-shadow:0 2px 4px #000;white-space:nowrap}
   /* reduced-motion: motion を static outline に置換 (text/icon/damage/timing は同一) */
   .fx-outline-hit .art{outline:4px solid #fff;outline-offset:4px}
+  .fx-outline-hit.gr-adv .art{outline-width:7px;outline-color:#ffd76a}
+  .fx-outline-hit.gr-dis .art{outline-width:2px;outline-color:#cfd8e2}
   .fx-outline-miss .art{outline:3px dashed #cfd8e2;outline-offset:6px}
   .fx-outline-guard .art{outline:4px double #9fd0ff;outline-offset:4px}
+  .fx-outline-guard.gr-adv .art{outline-color:#bfe3ff}
+  .fx-outline-guard.gr-dis .art{outline-color:#7fa8cc}
   .fx-outline-strike .art{outline:5px solid #ff8a8a;outline-offset:2px}
   @media(prefers-reduced-motion:reduce){
     .turn-banner.outcome{animation:none}
     .dmg-float,.dmg-float.stay{animation:none;opacity:1;transform:translate(-50%,-24px)}
-    .slash,.slash.miss,.guard-pop{display:none}
-    .impact-quake,.hit,.guard-ring{animation:none;box-shadow:none}
+    .slash,.slash.miss,.incoming-line,.burst-pop,.dodge-slip,.shield-shatter{display:none}
+    .guard-pop{animation:none;opacity:1;transform:translate(-50%,-50%)}
+    .guard-pop .shield-crack{animation:none;stroke-dashoffset:0}
+    .dmg-float.guard{transform:translate(-50%,0)}
+    .impact-quake,.hit,.guard-ring,.brace .art,.hit-heavy .art,.hit-medium .art,.hit-stop .art,.strike-recoil .art{animation:none;box-shadow:none}
+    .bt-scene.fx-static-strike{box-shadow:inset 0 0 0 8px rgba(255,80,80,.38),inset 0 0 60px rgba(0,0,0,.6)}
   }
   .fainting{animation:faintDrop 1s ease-in forwards}
   @keyframes faintDrop{0%{opacity:1;transform:none}40%{filter:grayscale(1)}100%{opacity:0;transform:translateY(26px) rotate(85deg) scale(.7)}}
   .swap-in{animation:swapIn .6s cubic-bezier(.2,1.3,.5,1)}
   @keyframes swapIn{0%{opacity:0;transform:translateY(34px) scale(.6)}100%{opacity:1;transform:none}}
   .bt-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
-  .bt-flash.go{animation:flashGo .4s}
+  .bt-flash.go{background:#ff3b3b;animation:q4bRedFlash 1.05s ease-out}
   @keyframes flashGo{0%{opacity:.0}25%{opacity:.55}100%{opacity:0}}
+  @keyframes q4bBrace{0%,100%{transform:scale(1)}50%{transform:scale(.97) translateY(3px)}}
+  @keyframes q4bIncoming{0%{opacity:0;transform:translateX(45%) scaleX(.25)}45%{opacity:1}100%{opacity:0;transform:translateX(-10%) scaleX(1)}}
+  @keyframes q4bShieldRaise{0%{opacity:0;transform:translate(-50%,-35%) scale(.35)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes q4bShieldImpact{0%,100%{transform:translate(-50%,-50%) scale(1)}35%{transform:translate(-50%,-50%) scale(1.18);filter:brightness(1.8)}65%{transform:translate(-50%,-50%) scale(.96)}}
+  @keyframes q4bShieldCrack{0%{opacity:0;stroke-dashoffset:32}100%{opacity:1;stroke-dashoffset:0}}
+  @keyframes q4bShieldHold{0%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes q4bShieldShatter{0%{opacity:.95;transform:translate(-50%,-50%) scale(.8)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(4deg)}100%{opacity:0;transform:translate(-50%,-28%) scale(1.45) rotate(-12deg)}}
+  @keyframes q4bRecoil{0%,100%{transform:translateX(0)}35%{transform:translateX(-18px) rotate(-4deg);filter:brightness(1.8)}70%{transform:translateX(5px)}}
+  @keyframes q4bRedFlash{0%{opacity:0}8%{opacity:.72}33%{opacity:.18}57%{opacity:.18}100%{opacity:0}}
+  @keyframes q4bSlashHeavy{0%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(.15)}35%{opacity:1}100%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(1.12)}}
+  @keyframes q4bSlashLight{0%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(.25)}45%{opacity:.7}100%{opacity:0;transform:translateY(-50%) rotate(-18deg) scaleX(.82)}}
+  @keyframes q4bBurst{0%{opacity:0;transform:scale(.25)}22%{opacity:1;transform:scale(1.18)}55%{opacity:.8;transform:scale(.94)}100%{opacity:0;transform:scale(1.08)}}
+  @keyframes q4bHitStop{0%,31%{transform:translateX(0);filter:brightness(1.35)}32%{transform:translateX(4px)}100%{transform:translateX(0);filter:none}}
+  @keyframes q4bDodgeSlip{0%{opacity:0;transform:translateX(0)}18%{opacity:1}45%{transform:translateX(22px)}72%{opacity:1;transform:translateX(-5px)}100%{opacity:0;transform:translateX(0)}}
+  @keyframes q4bResultSettle{0%,100%{transform:scale(1)}35%{transform:scale(1.12)}65%{transform:scale(.98)}}
+  @keyframes q4bGuardNumber{0%{opacity:0;transform:translate(-50%,7px) scale(.8)}35%{opacity:1;transform:translate(-50%,0) scale(1.08)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+  @keyframes q4bNumPop{0%{opacity:0;transform:translate(-50%,4px) scale(.35)}25%{opacity:1;transform:translate(-50%,-8px) scale(1.25)}100%{opacity:1;transform:translate(-50%,-38px) scale(1)}}
   .centerline{position:absolute;left:50%;top:0;bottom:64px;width:2px;background:linear-gradient(#0000,rgba(255,255,255,.18),#0000);transform:translateX(-50%);z-index:0}
   /* 特性発動ポップ */
   .trait-pop{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);z-index:8;text-align:center;pointer-events:none;
@@ -1814,10 +1882,12 @@ var st=null;
 /* バトル演出タイミングの単一設定。presenter のスケジューリングは必ずここから導出する。
    invariant: nextQuestionDelayMs >= bannerDurationMs (banner は次の問題まで表示継続) */
 var BATTLE_FEEDBACK_TIMING = {
-  impactDelayMs: 250,
-  hpDelayMs: 450,
-  bannerDurationMs: 1400,
-  nextQuestionDelayMs: 1600
+  anticipationMs: 140,
+  impactDelayMs: 260,
+  hpDelayMs: 700,
+  bannerDurationMs: 1850,
+  nextQuestionDelayMs: 2050,
+  dramaticExtraMs: 300
 };
 /* 4 outcome 固定テーブル: 色・効果音・ログに依存せず icon + 文言 + motion で区別する */
 var BATTLE_OUTCOME_TABLE = {
@@ -1825,6 +1895,11 @@ var BATTLE_OUTCOME_TABLE = {
   attack_miss:   { msg:"こうげき しっぱい…", icon:"💨" },
   defense_guard: { msg:"ぼうぎょ せいこう！", icon:"🛡️" },
   defense_hit:   { msg:"ぼうぎょ しっぱい…", icon:"💥" }
+};
+var BATTLE_OUTCOME_GRADE = {
+  adv: {cls:"gr-adv",shieldColor:"#bfe3ff",cracks:0,atkMsg:"こうかは ばつぐん！",defMsg:"まもりきった！"},
+  neu: {cls:"gr-neu",shieldColor:"#9fd0ff",cracks:2,atkMsg:"こうげき せいこう！",defMsg:"まもった！"},
+  dis: {cls:"gr-dis",shieldColor:"#7fa8cc",cracks:3,atkMsg:"きかない…！",defMsg:"もちこたえた！"}
 };
 /* presentation window (回答提出〜次の問題まで) の共有 state。回答入口と swapTo の双方が参照する */
 function inPresentationWindow(){ return !!(st && st.busy); }
@@ -2059,34 +2134,89 @@ function floatDmg(side,text,cls,ms){
   setTimeout(function(){ if(f.parentNode)f.parentNode.removeChild(f); },ms||1000);
 }
 function flashClass(el,cls,ms){ if(!el)return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(function(){el.classList.remove(cls);},ms||450); }
-function slashOn(side){
+function braceOn(side){
   var box=document.getElementById(side+"Side").querySelector(".artbox");
-  var s=document.createElement("div"); s.className="slash"; box.appendChild(s);
-  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },380);
-  flashClass(box,"hit",420);
+  flashClass(box,"brace",BATTLE_FEEDBACK_TIMING.anticipationMs);
 }
-function missOn(side){
+function incomingOn(side){
   var box=document.getElementById(side+"Side").querySelector(".artbox");
-  var s=document.createElement("div"); s.className="slash miss"; box.appendChild(s);
-  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },500);
+  var incoming=document.createElement("div"); incoming.className="incoming-line"; box.appendChild(incoming);
+  setTimeout(function(){ if(incoming.parentNode)incoming.parentNode.removeChild(incoming); },130);
 }
-function guardOn(side){
+function burstOn(side){
   var box=document.getElementById(side+"Side").querySelector(".artbox");
-  var g=document.createElement("div"); g.className="guard-pop"; g.textContent="🛡️"; box.appendChild(g);
-  flashClass(box,"guard-ring",600);
-  setTimeout(function(){ if(g.parentNode)g.parentNode.removeChild(g); },700);
+  var burst=document.createElement("div"); burst.className="burst-pop"; burst.textContent="💥"; box.appendChild(burst);
+  setTimeout(function(){ if(burst.parentNode)burst.parentNode.removeChild(burst); },900);
 }
-function fxOutline(side,kind){
+function recoilOn(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  flashClass(box,"strike-recoil",600);
+}
+function slashOn(side,grade){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var variant=grade||"gr-neu", life=500, motion="hit-medium";
+  var s=document.createElement("div"); s.className="slash "+variant;
+  if(variant==="gr-adv"){
+    s.innerHTML="<i></i><i></i><i></i>"; life=990; motion="hit-heavy"; burstOn(side);
+  } else if(variant==="gr-dis"){
+    life=520; motion="hit-stop";
+  } else if(variant==="strike"){
+    life=600; motion=""; recoilOn(side);
+  }
+  box.appendChild(s);
+  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },life);
+  if(motion) flashClass(box,motion,life);
+}
+function dodgeSlipOn(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var dodge=document.createElement("div"); dodge.className="dodge-slip"; dodge.textContent="💨"; box.appendChild(dodge);
+  setTimeout(function(){ if(dodge.parentNode)dodge.parentNode.removeChild(dodge); },590);
+}
+function missOn(side,kind){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var s=document.createElement("div"); s.className="slash miss"+(kind==="dodge"?" dodge-miss":""); box.appendChild(s);
+  setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); },kind==="dodge"?590:540);
+  if(kind==="dodge") dodgeSlipOn(side);
+}
+function shieldSvg(){
+  return '<svg class="q4b-shield" viewBox="0 0 100 112" aria-hidden="true">'
+    +'<path class="shield-outer" d="M50 4 L90 20 L84 70 Q76 96 50 108 Q24 96 16 70 L10 20 Z"></path>'
+    +'<path class="shield-inner" d="M50 15 L79 27 L74 66 Q68 84 50 94 Q32 84 26 66 L21 27 Z"></path>'
+    +'<polyline class="shield-crack crack-1" points="51,27 45,45 53,55 47,72"></polyline>'
+    +'<polyline class="shield-crack crack-2" points="31,40 43,49 35,63"></polyline>'
+    +'<polyline class="shield-crack crack-3" points="69,39 56,51 67,67"></polyline>'
+    +'</svg>';
+}
+function shieldOn(side,grade,life){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var data=BATTLE_OUTCOME_GRADE[grade]||BATTLE_OUTCOME_GRADE.neu;
+  var g=document.createElement("div"); g.className="guard-pop "+data.cls;
+  g.style.setProperty("--shield-color",data.shieldColor); g.innerHTML=shieldSvg(); box.appendChild(g);
+  flashClass(box,"guard-ring",1140);
+  setTimeout(function(){ if(g.parentNode)g.parentNode.removeChild(g); },life);
+}
+function guardOn(side,grade,life){ shieldOn(side,grade,life); }
+function shieldShatter(side){
+  var box=document.getElementById(side+"Side").querySelector(".artbox");
+  var shield=document.createElement("div"); shield.className="shield-shatter"; shield.innerHTML=shieldSvg(); box.appendChild(shield);
+  setTimeout(function(){ if(shield.parentNode)shield.parentNode.removeChild(shield); },230);
+}
+function fxOutline(side,kind,gradeClass){
   var box=document.getElementById(side+"Side").querySelector(".artbox");
   box.classList.add("fx-outline-"+kind);
+  if(gradeClass) box.classList.add(gradeClass);
 }
-function sceneFlash(){ flashClass(document.getElementById("btFlash"),"go",400); }
+function sceneFlash(){ flashClass(document.getElementById("btFlash"),"go",1050); }
 function traitFx(icon,text){
   var sc=document.querySelector("#battle .bt-scene"); if(!sc)return;
   var p=document.createElement("div"); p.className="trait-pop pred-r";
   p.innerHTML='<div class="tp-ic">'+icon+'</div><div class="tp-tx">'+text+'</div>';
-  sc.appendChild(p); sceneFlash();
+  sc.appendChild(p);
   setTimeout(function(){ if(p.parentNode)p.parentNode.removeChild(p); },1150);
+}
+
+function battleOutcomeGradeKey(effectiveness){
+  return effectiveness==="ゆうり"?"adv":effectiveness==="ふり"?"dis":"neu";
 }
 
 /* 4-outcome presenter。answer(c) から 1 提出につき 1 回だけ呼ばれる。
@@ -2103,10 +2233,20 @@ function presentBattleOutcome(o){
   var T=BATTLE_FEEDBACK_TIMING;
   var side=(o.phase==="attack")?"enemy":"ally";
   var data=BATTLE_OUTCOME_TABLE[o.outcome];
+  var gradeKey=battleOutcomeGradeKey(o.effectiveness);
+  var grade=BATTLE_OUTCOME_GRADE[gradeKey];
+  var dramatic=(o.outcome==="attack_hit"&&!o.dodged&&gradeKey==="adv")||o.outcome==="defense_hit";
+  var turnDurationMs=T.nextQuestionDelayMs+(dramatic?T.dramaticExtraMs:0);
+  var message=data.msg;
+  if(o.outcome==="attack_hit"&&o.dodged) message="よけられた！";
+  else if(o.outcome==="attack_hit") message=grade.atkMsg;
+  else if(o.outcome==="attack_miss") message="からぶり…";
+  else if(o.outcome==="defense_guard") message=grade.defMsg;
+  else if(o.outcome==="defense_hit") message="まもれなかった…";
   var tb=document.getElementById("turnBanner");
   var sub=o.effectiveness==="ゆうり"?"▲ ゆうり！":o.effectiveness==="ふり"?"▼ ふり…":"・ふつう";
-  tb.className="turn-banner outcome ob-"+o.outcome;
-  tb.innerHTML='<span class="ob-ic">'+data.icon+'</span><span class="ob-msg">'+data.msg+'</span>'
+  tb.className="turn-banner outcome ob-"+o.outcome+(o.effectiveness?" "+grade.cls:"");
+  tb.innerHTML='<span class="ob-ic">'+data.icon+'</span><span class="ob-msg">'+message+'</span>'
     +(o.effectiveness!==null&&o.effectiveness!==undefined?'<span class="ob-sub">'+sub+'</span>':"");
 
   var m=activeM(), line;
@@ -2127,28 +2267,30 @@ function presentBattleOutcome(o){
   }
   log(line);
 
+  braceOn("ally");
+  setTimeout(function(){ incomingOn(side); },T.anticipationMs);
   setTimeout(function(){
     var reduce=battleReducedMotion();
     if(o.outcome==="attack_hit"&&!o.dodged){
-      if(reduce) fxOutline("enemy","hit"); else slashOn("enemy");
-      floatDmg("enemy","-"+o.damage,"stay",T.bannerDurationMs);
+      if(reduce) fxOutline("enemy","hit",grade.cls); else slashOn("enemy",grade.cls);
     } else if(o.outcome==="attack_hit"&&o.dodged){
-      if(reduce) fxOutline("enemy","miss"); else missOn("enemy");
-      floatDmg("enemy","ダメージ 0","zero stay",T.bannerDurationMs);
+      if(reduce) fxOutline("enemy","miss"); else missOn("enemy","dodge");
     } else if(o.outcome==="attack_miss"){
       if(reduce) fxOutline("enemy","miss"); else missOn("enemy");
-      floatDmg("enemy","ダメージ 0","zero stay",T.bannerDurationMs);
     } else if(o.outcome==="defense_guard"){
-      if(reduce) fxOutline("ally","guard"); else guardOn("ally");
-      floatDmg("ally",o.damage>0?"-"+o.damage:"ダメージ 0","guard toAlly stay",T.bannerDurationMs);
+      guardOn("ally",gradeKey,Math.max(1,T.bannerDurationMs-T.impactDelayMs));
+      if(reduce) fxOutline("ally","guard",grade.cls);
     } else {
+      shieldShatter("ally");
       if(reduce){
         fxOutline("ally","strike");
+        document.querySelector("#battle .bt-scene").classList.add("fx-static-strike");
       } else {
-        slashOn("ally"); sceneFlash();
-        flashClass(document.querySelector("#battle .bt-scene"),"impact-quake",500);
+        setTimeout(function(){
+          slashOn("ally","strike"); sceneFlash();
+          flashClass(document.querySelector("#battle .bt-scene"),"impact-quake",650);
+        },40);
       }
-      floatDmg("ally","-"+o.damage,"toAlly stay",T.bannerDurationMs);
     }
   },T.impactDelayMs);
   setTimeout(function(){
@@ -2157,15 +2299,32 @@ function presentBattleOutcome(o){
     } else {
       var m=activeM(); setHp("me",m.hp,m.max); drawBench();
     }
+    var floatLife=Math.max(1,T.bannerDurationMs-T.hpDelayMs);
+    if(o.outcome==="attack_hit"&&!o.dodged){
+      floatDmg("enemy","-"+o.damage,"attack "+grade.cls+" stay",floatLife);
+    } else if(o.outcome==="attack_hit"&&o.dodged){
+      floatDmg("enemy","ダメージ 0","zero stay",floatLife);
+    } else if(o.outcome==="attack_miss"){
+      floatDmg("enemy","ダメージ 0","zero stay",floatLife);
+    } else if(o.outcome==="defense_guard"){
+      var guardText=gradeKey==="adv"?"ちょっとだけ -"+o.damage:gradeKey==="dis"?"ぐっとこらえた -"+o.damage:"-"+o.damage;
+      floatDmg("ally",guardText,"guard toAlly "+grade.cls+" stay",floatLife);
+    } else {
+      floatDmg("ally","-"+o.damage,"toAlly strike stay",floatLife);
+    }
   },T.hpDelayMs);
+  setTimeout(function(){ flashClass(tb,"settle",500); },Math.min(T.hpDelayMs+200,T.bannerDurationMs-1));
   (o.traits||[]).forEach(function(trait,i){
-    setTimeout(function(){ traitFx(trait.icon,trait.text); },T.hpDelayMs+i*T.impactDelayMs);
+    var traitStart=Math.min(T.hpDelayMs+i*T.impactDelayMs,turnDurationMs-1160);
+    setTimeout(function(){ traitFx(trait.icon,trait.text); },Math.max(0,traitStart));
   });
   setTimeout(function(){
     var box=document.getElementById(side+"Side").querySelector(".artbox");
-    box.classList.remove("fx-outline-hit","fx-outline-miss","fx-outline-guard","fx-outline-strike");
+    box.classList.remove("fx-outline-hit","fx-outline-miss","fx-outline-guard","fx-outline-strike",
+      "gr-adv","gr-neu","gr-dis","guard-ring");
+    document.querySelector("#battle .bt-scene").classList.remove("fx-static-strike");
   },T.bannerDurationMs);
-  setTimeout(function(){ o.next(); },T.nextQuestionDelayMs);
+  setTimeout(function(){ o.next(); },turnDurationMs);
 }
 
 function answer(c){

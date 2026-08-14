@@ -126,19 +126,29 @@ def reset_spies(page: object) -> None:
     )
 
 
-def set_timing(page: object, impact: int, hp: int, banner: int, nextq: int) -> None:
+def set_timing(
+    page: object,
+    anticipation: int,
+    impact: int,
+    hp: int,
+    banner: int,
+    nextq: int,
+    dramatic: int,
+) -> None:
     """Mutate the production timing profile for deterministic tests."""
 
     page.evaluate(
         """
-        ([impact,hp,banner,nextq]) => {
+        ([anticipation,impact,hp,banner,nextq,dramatic]) => {
+          BATTLE_FEEDBACK_TIMING.anticipationMs=anticipation;
           BATTLE_FEEDBACK_TIMING.impactDelayMs=impact;
           BATTLE_FEEDBACK_TIMING.hpDelayMs=hp;
           BATTLE_FEEDBACK_TIMING.bannerDurationMs=banner;
           BATTLE_FEEDBACK_TIMING.nextQuestionDelayMs=nextq;
+          BATTLE_FEEDBACK_TIMING.dramaticExtraMs=dramatic;
         }
         """,
-        [impact, hp, banner, nextq],
+        [anticipation, impact, hp, banner, nextq, dramatic],
     )
 
 

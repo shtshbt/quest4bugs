@@ -17,12 +17,21 @@ EMOJI_FONT_DIRS = (
     Path("/mnt/c/Windows/Fonts"),      # WSL: Segoe UI Emoji lives here
 )
 QUESTION_TEXT = "「あ」を えらぼう"
-HOLD_TIMING = (80, 160, 100000, 120000)
-OUTCOMES = (
-    ("attack_hit", "attack", "あ"),
-    ("attack_miss", "attack", "い"),
-    ("defense_guard", "defense", "あ"),
-    ("defense_hit", "defense", "い"),
+HOLD_TIMING = (140, 260, 700, 100000, 120000, 300)
+BASE_OUTCOMES = (
+    ("attack_hit", "attack", "あ", "kanji", False),
+    ("attack_miss", "attack", "い", "kanji", False),
+    ("defense_guard", "defense", "あ", "kanji", False),
+    ("defense_hit", "defense", "い", "kanji", False),
+)
+GRADE_OUTCOMES = (
+    ("attack_hit_adv", "attack", "あ", "eitango", False),
+    ("attack_hit_neu", "attack", "あ", "kanji", False),
+    ("attack_hit_dis", "attack", "あ", "keisan", False),
+    ("attack_dodge", "attack", "あ", "kanji", True),
+    ("defense_guard_adv", "defense", "あ", "eitango", False),
+    ("defense_guard_neu", "defense", "あ", "kanji", False),
+    ("defense_guard_dis", "defense", "あ", "keisan", False),
 )
 
 
@@ -68,6 +77,8 @@ def capture_outcome(
     outcome: str,
     phase: str,
     choice: str,
+    member_type: str,
+    dodge: bool,
     output_name: str | None = None,
 ) -> Path:
     """Boot one fresh page, freeze its result hold point, and capture it."""
@@ -77,13 +88,23 @@ def capture_outcome(
         page.goto(f"{base_url}/battle.html", wait_until="load")
         boot_battle(page)
         set_timing(page, *HOLD_TIMING)
-        if phase == "defense":
-            page.evaluate("() => beginDefense()")
-        else:
-            page.evaluate("() => { st.phase='attack'; }")
+        page.evaluate(
+            """
+            ([phase,memberType,dodge]) => {
+              st.r.type="kanji";
+              activeM().type=memberType;
+              activeM().hp=100;
+              activeM().max=100;
+              st.traits=dodge?[B.TRAITS.dodge]:[];
+              if(dodge) Math.random=()=>0;
+              if(phase==="defense") beginDefense(); else st.phase="attack";
+            }
+            """,
+            [phase, member_type, dodge],
+        )
         inject_question(page, QUESTION_TEXT)
         page.evaluate("(choice) => answer(choice)", choice)
-        page.wait_for_timeout(700)
+        page.wait_for_timeout(1100)
         output_path = SCREENSHOT_DIR / (output_name or f"{outcome}.png")
         page.screenshot(path=str(output_path), full_page=False)
         return output_path
@@ -105,8 +126,16 @@ def main() -> int:
                     service_workers="block",
                 )
                 try:
-                    for outcome, phase, choice in OUTCOMES:
-                        path = capture_outcome(context, base_url, outcome, phase, choice)
+                    for outcome, phase, choice, member_type, dodge in BASE_OUTCOMES + GRADE_OUTCOMES:
+                        path = capture_outcome(
+                            context,
+                            base_url,
+                            outcome,
+                            phase,
+                            choice,
+                            member_type,
+                            dodge,
+                        )
                         print(path)
                 finally:
                     context.close()
@@ -121,9 +150,22 @@ def main() -> int:
                     path = capture_outcome(
                         reduced,
                         base_url,
+                        "defense_guard",
+                        "defense",
+                        "あ",
+                        "kanji",
+                        False,
+                        "reduced_motion_defense_guard.png",
+                    )
+                    print(path)
+                    path = capture_outcome(
+                        reduced,
+                        base_url,
                         "defense_hit",
                         "defense",
                         "い",
+                        "kanji",
+                        False,
                         "reduced_motion_defense_hit.png",
                     )
                     print(path)

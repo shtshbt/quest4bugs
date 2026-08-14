@@ -20,10 +20,12 @@ from harness import (
 )
 
 
+FAST_ANTICIPATION = 20
 FAST_IMPACT = 40
-FAST_HP = 80
-FAST_BANNER = 160
-FAST_NEXT = 240
+FAST_HP = 120
+FAST_BANNER = 200
+FAST_NEXT = 300
+FAST_DRAMATIC = 60
 WAIT_MARGIN = 300
 QUESTION_TEXT = "「あ」を えらぼう"
 
@@ -93,14 +95,41 @@ def check_static_contract() -> None:
     if timing:
         timing_body = timing.group("body")
         defaults = {
-            "impactDelayMs": 250,
-            "hpDelayMs": 450,
-            "bannerDurationMs": 1400,
-            "nextQuestionDelayMs": 1600,
+            "anticipationMs": 140,
+            "impactDelayMs": 260,
+            "hpDelayMs": 700,
+            "bannerDurationMs": 1850,
+            "nextQuestionDelayMs": 2050,
+            "dramaticExtraMs": 300,
         }
         for name, value in defaults.items():
             found = re.search(rf"\b{name}\s*:\s*{value}\b", timing_body)
             assert_that(found is not None, f"Must 4: {name} defaults to {value}")
+        assert_that(
+            defaults["nextQuestionDelayMs"] + defaults["dramaticExtraMs"] <= 2400,
+            "Must 4: the dramatic turn stays within 2400ms",
+        )
+
+    table = re.search(
+        r"var\s+BATTLE_OUTCOME_TABLE\s*=\s*\{(?P<body>.*?)\n\};\nvar\s+BATTLE_OUTCOME_GRADE",
+        source,
+        re.DOTALL,
+    )
+    assert_that(table is not None, "Must 1: four-outcome table exists")
+    if table:
+        keys = re.findall(r"^\s*(attack_hit|attack_miss|defense_guard|defense_hit)\s*:", table.group("body"), re.MULTILINE)
+        assert_that(len(keys) == 4 and len(set(keys)) == 4, "Must 1: four-outcome table keeps exactly four keys")
+
+    grade = re.search(
+        r"var\s+BATTLE_OUTCOME_GRADE\s*=\s*\{(?P<body>.*?)\n\};",
+        source,
+        re.DOTALL,
+    )
+    assert_that(grade is not None, "Phase 2: grade table exists")
+    if grade:
+        for key, cracks in (("adv", 0), ("neu", 2), ("dis", 3)):
+            found = re.search(rf"\b{key}\s*:\s*\{{[^}}]*\bcracks\s*:\s*{cracks}\b", grade.group("body"))
+            assert_that(found is not None, f"Phase 1/2: {key} grade has {cracks} shield cracks")
 
 
 def call_count(entries: list[dict], name: str) -> int:
@@ -111,7 +140,7 @@ def first_call(entries: list[dict], names: set[str]) -> dict | None:
     return next((entry for entry in entries if entry["n"] in names), None)
 
 
-def prepare_page(browser: object, base_url: str) -> object:
+def prepare_page(browser: object, base_url: str, fast_timing: bool = True) -> object:
     """Create and deterministically boot one isolated battle page.
 
     Service workers are blocked: shared/storage.js registers sw.js and reloads
@@ -125,7 +154,16 @@ def prepare_page(browser: object, base_url: str) -> object:
     if boot.get("party") != 3:
         page.close()
         raise RuntimeError(f"Deterministic boot produced {boot.get('party')} party members")
-    set_timing(page, FAST_IMPACT, FAST_HP, FAST_BANNER, FAST_NEXT)
+    if fast_timing:
+        set_timing(
+            page,
+            FAST_ANTICIPATION,
+            FAST_IMPACT,
+            FAST_HP,
+            FAST_BANNER,
+            FAST_NEXT,
+            FAST_DRAMATIC,
+        )
     return page
 
 
@@ -137,6 +175,14 @@ def submit_atomically(page: object, outcome: str, choice: str) -> dict:
         ([outcome,choice]) => {
           window.__t0=performance.now();
           var hpId=st.phase==="attack" ? "bossHpT" : "meHpT";
+          var effectiveness=(outcome==="attack_hit"||outcome==="defense_guard")
+            ? B.advLabel(activeM().type,currentBossType()) : null;
+          var gradeKey=battleOutcomeGradeKey(effectiveness);
+          var expectedMessage=outcome==="attack_hit" ? BATTLE_OUTCOME_GRADE[gradeKey].atkMsg
+            : outcome==="attack_miss" ? "からぶり…"
+            : outcome==="defense_guard" ? BATTLE_OUTCOME_GRADE[gradeKey].defMsg
+            : "まもれなかった…";
+          var dramatic=outcome==="defense_hit"||(outcome==="attack_hit"&&gradeKey==="adv");
           var initialIdx=st.idx;
           var other=st.party.findIndex(function(m,i){return i!==st.idx && m.hp>0;});
           var hpTextBeforeAnswer=document.getElementById(hpId).textContent;
@@ -145,7 +191,9 @@ def submit_atomically(page: object, outcome: str, choice: str) -> dict:
           var result={
             bannerClass:Array.prototype.slice.call(banner.classList),
             bannerMessage:(banner.querySelector(".ob-msg")||{}).textContent||"",
-            expectedMessage:BATTLE_OUTCOME_TABLE[outcome].msg,
+            expectedMessage:expectedMessage,
+            expectedNextDelay:BATTLE_FEEDBACK_TIMING.nextQuestionDelayMs
+              +(dramatic?BATTLE_FEEDBACK_TIMING.dramaticExtraMs:0),
             busy:st.busy,
             inWindow:inPresentationWindow(),
             hpTextBeforeAnswer:hpTextBeforeAnswer,
@@ -172,6 +220,40 @@ def submit_atomically(page: object, outcome: str, choice: str) -> dict:
     )
 
 
+def visual_snapshot(page: object) -> dict:
+    """Read the held feedback DOM without changing the presentation."""
+
+    return page.evaluate(
+        """
+        () => {
+          var banner=document.getElementById("turnBanner");
+          var damage=document.querySelector(".dmg-float");
+          var shield=document.querySelector(".guard-pop");
+          var cracks=shield ? Array.prototype.filter.call(
+            shield.querySelectorAll(".shield-crack"),
+            function(el){return getComputedStyle(el).display!=="none";}
+          ).length : 0;
+          var scene=document.querySelector("#battle .bt-scene");
+          return {
+            bannerClass:Array.prototype.slice.call(banner.classList),
+            bannerMessage:(banner.querySelector(".ob-msg")||{}).textContent||"",
+            damageClass:damage?Array.prototype.slice.call(damage.classList):[],
+            damageText:damage?damage.textContent:"",
+            damageFontSize:damage?parseFloat(getComputedStyle(damage).fontSize):0,
+            damageShadow:damage?getComputedStyle(damage).textShadow:"",
+            hasShield:!!shield,
+            cracks:cracks,
+            hasBurst:!!document.querySelector(".burst-pop"),
+            hasDodge:!!document.querySelector(".dodge-slip"),
+            hasMiss:!!document.querySelector(".slash.miss"),
+            sceneFlash:document.getElementById("btFlash").classList.contains("go"),
+            sceneQuake:scene.classList.contains("impact-quake")
+          };
+        }
+        """
+    )
+
+
 def check_immediate(outcome: str, immediate: dict) -> None:
     prefix = f"{outcome} immediate"
     assert_that(f"ob-{outcome}" in immediate["bannerClass"], f"Must 2/3: {prefix} banner class")
@@ -194,6 +276,32 @@ def check_immediate(outcome: str, immediate: dict) -> None:
         f"Must 8: {prefix} ignores double input",
     )
     assert_that(not immediate["motionAtSubmit"], f"Must 5b: {prefix} delays impact")
+
+
+def check_visual_state(outcome: str, visual: dict) -> None:
+    """Check the visual-language contract while the outcome is held."""
+
+    if outcome == "attack_hit":
+        grade = next((cls for cls in visual["bannerClass"] if cls.startswith("gr-")), "")
+        assert_that(grade in {"gr-adv", "gr-neu", "gr-dis"}, "Phase 2: attack_hit has a grade class")
+        assert_that(visual["hasBurst"] == (grade == "gr-adv"), "Phase 2: only advantageous attack_hit bursts")
+    elif outcome == "attack_miss":
+        assert_that(visual["hasMiss"], "Phase 3: attack_miss keeps the miss slash")
+        assert_that(not visual["hasDodge"], "Phase 3: attack_miss has no dodge element")
+    elif outcome == "defense_guard":
+        grade = next((cls for cls in visual["bannerClass"] if cls.startswith("gr-")), "")
+        expected_cracks = {"gr-adv": 0, "gr-neu": 2, "gr-dis": 3}.get(grade)
+        assert_that(visual["hasShield"], "Phase 1: defense_guard renders the shield SVG")
+        assert_that(visual["cracks"] == expected_cracks, "Phase 1: defense_guard crack count follows grade")
+        assert_that(visual["damageFontSize"] == 18, "Phase 1: defense_guard damage is 18px")
+        red_shadow = "rgb(153, 0, 0)" in visual["damageShadow"] or "rgb(153,0,0)" in visual["damageShadow"]
+        assert_that(not red_shadow, "Phase 1: defense_guard damage has no red shadow")
+        assert_that(not visual["sceneFlash"], "Phase 1: defense_guard has no scene flash")
+        assert_that(not visual["sceneQuake"], "Phase 1: defense_guard has no scene shake")
+    elif outcome == "defense_hit":
+        assert_that(visual["damageFontSize"] == 36, "Phase 1: defense_hit damage is 36px")
+        assert_that(visual["sceneFlash"], "Phase 1: defense_hit uses the scene flash")
+        assert_that(visual["sceneQuake"], "Phase 1: defense_hit shakes the scene")
 
 
 def check_effect_path(outcome: str, entries: list[dict], immediate: dict) -> None:
@@ -234,7 +342,7 @@ def check_effect_path(outcome: str, entries: list[dict], immediate: dict) -> Non
         )
     if next_call:
         assert_that(
-            next_call["t"] - immediate["t0"] >= FAST_NEXT - 15,
+            next_call["t"] - immediate["t0"] >= immediate["expectedNextDelay"] - 15,
             f"Must 4/5: {outcome} next question honors configured delay",
         )
 
@@ -287,7 +395,10 @@ def check_outcome(browser: object, base_url: str, outcome: str) -> None:
         choice = "あ" if outcome in {"attack_hit", "defense_guard"} else "い"
         immediate = submit_atomically(page, outcome, choice)
         check_immediate(outcome, immediate)
-        page.wait_for_timeout(FAST_NEXT + WAIT_MARGIN)
+        visual_wait = FAST_HP + 25
+        page.wait_for_timeout(visual_wait)
+        check_visual_state(outcome, visual_snapshot(page))
+        page.wait_for_timeout(max(0, immediate["expectedNextDelay"] + WAIT_MARGIN - visual_wait))
         entries = fx(page)
         check_effect_path(outcome, entries, immediate)
         check_final_state(page, outcome, immediate)
@@ -314,9 +425,14 @@ def check_terminal(
             ([choice,outcome,terminal]) => {
               window.__t0=performance.now();
               answer(choice);
+              var banner=document.getElementById("turnBanner");
+              var dramatic=outcome==="defense_hit"
+                ||(outcome==="attack_hit"&&banner.classList.contains("gr-adv"));
               return {
                 t0:window.__t0,
-                outcomeClass:document.getElementById("turnBanner").classList.contains("ob-"+outcome),
+                outcomeClass:banner.classList.contains("ob-"+outcome),
+                expectedNextDelay:BATTLE_FEEDBACK_TIMING.nextQuestionDelayMs
+                  +(dramatic?BATTLE_FEEDBACK_TIMING.dramaticExtraMs:0),
                 terminalAtSubmit:window.__fx.some(function(e){return e.n===terminal;})
               };
             }
@@ -335,11 +451,126 @@ def check_terminal(
         entries = [entry for entry in fx(page) if entry["n"] == terminal]
         assert_that(len(entries) == 1, f"Must 10: {terminal} fires exactly once")
         assert_that(
-            bool(entries) and entries[0]["t"] - immediate["t0"] >= FAST_NEXT - 15,
+            bool(entries)
+            and entries[0]["t"] - immediate["t0"] >= immediate["expectedNextDelay"] - 15,
             f"Must 10: {terminal} waits for the configured next delay",
         )
     finally:
         page.context.close()
+
+
+def configure_matchup(page: object, phase: str, member_type: str, dodge: bool = False) -> None:
+    """Force a grade and optional dodge while preserving production answer flow."""
+
+    page.evaluate(
+        """
+        ([phase,memberType,dodge]) => {
+          st.r.type="kanji";
+          activeM().type=memberType;
+          activeM().hp=100;
+          activeM().max=100;
+          st.traits=dodge?[B.TRAITS.dodge]:[];
+          if(dodge) Math.random=()=>0;
+          if(phase==="defense") beginDefense(); else st.phase="attack";
+        }
+        """,
+        [phase, member_type, dodge],
+    )
+
+
+def check_grade_variants(browser: object, base_url: str) -> None:
+    """Exercise all attack and guard grades through answer(c)."""
+
+    variants = (
+        ("adv", "gr-adv", "eitango", 0),
+        ("neu", "gr-neu", "kanji", 2),
+        ("dis", "gr-dis", "keisan", 3),
+    )
+    for grade_key, grade_class, member_type, cracks in variants:
+        for phase, outcome in (("attack", "attack_hit"), ("defense", "defense_guard")):
+            page = prepare_page(browser, base_url)
+            try:
+                configure_matchup(page, phase, member_type)
+                inject_question(page, QUESTION_TEXT)
+                page.evaluate("() => answer('あ')")
+                page.wait_for_timeout(FAST_HP + 25)
+                visual = visual_snapshot(page)
+                assert_that(grade_class in visual["bannerClass"], f"Phase 1/2: {phase} uses {grade_class}")
+                if phase == "attack":
+                    expected = {
+                        "adv": "こうかは ばつぐん！",
+                        "neu": "こうげき せいこう！",
+                        "dis": "きかない…！",
+                    }[grade_key]
+                    assert_that(visual["bannerMessage"] == expected, f"Phase 2: {grade_key} attack message")
+                    assert_that(visual["hasBurst"] == (grade_key == "adv"), f"Phase 2: {grade_key} attack burst")
+                else:
+                    expected = {
+                        "adv": "まもりきった！",
+                        "neu": "まもった！",
+                        "dis": "もちこたえた！",
+                    }[grade_key]
+                    assert_that(visual["bannerMessage"] == expected, f"Phase 1: {grade_key} guard message")
+                    assert_that(visual["cracks"] == cracks, f"Phase 1: {grade_key} guard has {cracks} cracks")
+            finally:
+                page.context.close()
+
+
+def check_dodge_variant(browser: object, base_url: str) -> None:
+    """Verify that a correct dodged attack is not rendered as attack_miss."""
+
+    page = prepare_page(browser, base_url)
+    try:
+        configure_matchup(page, "attack", "kanji", dodge=True)
+        inject_question(page, QUESTION_TEXT)
+        install_spies(page)
+        reset_spies(page)
+        page.evaluate("() => answer('あ')")
+        page.wait_for_timeout(FAST_IMPACT + 25)
+        visual = visual_snapshot(page)
+        entries = fx(page)
+        assert_that("ob-attack_hit" in visual["bannerClass"], "Phase 3: dodge keeps the attack_hit outcome key")
+        assert_that(visual["bannerMessage"] == "よけられた！", "Phase 3: dodge has its own message")
+        assert_that(visual["hasDodge"], "Phase 3: dodge creates a dedicated dodge element")
+        misses = [entry for entry in entries if entry["n"] == "missOn"]
+        assert_that(len(misses) == 1 and misses[0]["a"][:2] == ["enemy", "dodge"], "Phase 3: dodge preserves the missOn spy with a dodge variant")
+        assert_that(call_count(entries, "sceneFlash") == 0, "Phase 3: dodge does not flash the scene")
+    finally:
+        page.context.close()
+
+
+def check_production_timing(browser: object, base_url: str) -> None:
+    """Drive four outcomes plus dodge with the production timing profile."""
+
+    scenarios = (
+        ("attack_hit", "attack", "あ", "eitango", False, "slashOn", 260, 2350),
+        ("attack_miss", "attack", "い", "kanji", False, "missOn", 260, 2050),
+        ("defense_guard", "defense", "あ", "kanji", False, "guardOn", 260, 2050),
+        ("defense_hit", "defense", "い", "kanji", False, "slashOn", 300, 2350),
+        ("attack_dodge", "attack", "あ", "kanji", True, "missOn", 260, 2050),
+    )
+    effect_selector = ".slash,.guard-pop,.shield-shatter,.burst-pop,.dodge-slip,.incoming-line,.dmg-float,.trait-pop"
+    for outcome, phase, choice, member_type, dodge, motion_name, impact_ms, total_ms in scenarios:
+        page = prepare_page(browser, base_url, fast_timing=False)
+        try:
+            configure_matchup(page, phase, member_type, dodge=dodge)
+            inject_question(page, QUESTION_TEXT)
+            install_spies(page)
+            reset_spies(page)
+            t0 = page.evaluate("(choice) => { window.__t0=performance.now(); answer(choice); return window.__t0; }", choice)
+            page.wait_for_timeout(total_ms + 120)
+            entries = fx(page)
+            motion = first_call(entries, {motion_name})
+            hp_call = first_call(entries, {"setHp"})
+            next_call = first_call(entries, {"nextQuestion", "finish", "faint"})
+            assert_that(bool(motion) and abs(motion["t"] - t0 - impact_ms) <= 45, f"Phase 2: {outcome} production impact timing")
+            assert_that(bool(hp_call) and abs(hp_call["t"] - t0 - 700) <= 45, f"Phase 2: {outcome} production HP timing")
+            assert_that(bool(next_call) and abs(next_call["t"] - t0 - total_ms) <= 45, f"Phase 2: {outcome} production total timing")
+            remaining = page.locator(effect_selector).count()
+            assert_that(remaining == 0, f"Phase 2/3: {outcome} motion and traits end within {total_ms}ms")
+            assert_that(total_ms <= 2400, f"Phase 2: {outcome} stays within the 2400ms cap")
+        finally:
+            page.context.close()
 
 
 def run_dynamic_checks(browser: object, base_url: str) -> None:
@@ -348,6 +579,21 @@ def run_dynamic_checks(browser: object, base_url: str) -> None:
             check_outcome(browser, base_url, outcome)
         except Exception as exc:
             assert_that(False, f"dynamic scenario {outcome} completed ({type(exc).__name__}: {exc})")
+
+    try:
+        check_grade_variants(browser, base_url)
+    except Exception as exc:
+        assert_that(False, f"grade variants completed ({type(exc).__name__}: {exc})")
+
+    try:
+        check_dodge_variant(browser, base_url)
+    except Exception as exc:
+        assert_that(False, f"dodge variant completed ({type(exc).__name__}: {exc})")
+
+    try:
+        check_production_timing(browser, base_url)
+    except Exception as exc:
+        assert_that(False, f"production timing completed ({type(exc).__name__}: {exc})")
 
     terminals: list[tuple[str, str, str, str]] = [
         ("finish", "() => { st.phase='attack'; st.bossHp=3; }", "attack_hit", "あ"),
