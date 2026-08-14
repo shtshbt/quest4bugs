@@ -239,7 +239,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.8.7"></script>
+<script src="../shared/reward.js?v=0.8.8"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.3"></script>
 <script src="../shared/breeding_debug.js?v=0.1.1"></script>
@@ -824,7 +824,7 @@ function blankState(){
     extra:{date:'',used:0},
     catches:{}, nushi:{},
     streak:{n:0,best:0,last:0},
-    cal:{}, srs:{}, kids:{}, newday:{date:0,count:0},
+    cal:{}, anslog:{}, srs:{}, kids:{}, newday:{date:0,count:0},
     updated:0,
     reviewGauge:0,
     progressSummary:''
@@ -1823,6 +1823,7 @@ let EFMT='mix';        /* 出題形式: mix(おまかせ)/mc(4択)/spell/colloc/
 function setEFMT(m){ EFMT=m; renderStart(); }  /* インラインonclickから確実にEFMTを更新 */
 let S=null;            /* session state */
 let pendingCatch=null;
+const EITANGO_ANSWER_TIMER=window.Q4BReward&&Q4BReward.answerTimer?Q4BReward.answerTimer():null;
 
 function startSession(fid){
   GFID=fid; GFIELD=fieldById(fid)||FIELDS[0]; KIDS=!!GFIELD.kids;
@@ -2088,6 +2089,7 @@ function nextQ(first){
   if(pendingCatch){ const r=pendingCatch; pendingCatch=null; showCatch(r,()=>nextQ()); return; }
   if(!S||S.i>=S.queue.length){ endSession(); return; }
   if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
+  if(EITANGO_ANSWER_TIMER) EITANGO_ANSWER_TIMER.start();
   const item=S.queue[S.i];
   if(item.type==='kids') renderKids(item);
   else if(item.type==='jukugo_mc'||item.type==='jukugo_cloze') renderJukugo(item);
@@ -2341,6 +2343,7 @@ function ansJukugo(i){
 
 /* ---------- scoring ---------- */
 function afterAnswer(item,ok,title,detail){
+  const answerTiming=EITANGO_ANSWER_TIMER?EITANGO_ANSWER_TIMER.stop():{ms:0,interrupted:false};
   S.answered++;
   if(ok) S.correct++;
   /* S2: retry (誤答後の再出題) 正解は SRS 不変 (既存) だが、 旧コードは
@@ -2348,6 +2351,9 @@ function afterAnswer(item,ok,title,detail){
      「わざと間違える→答え見る→次に正解」 で報酬を稼げる経路があった。 kanji と
      同じく rewardEligible で全報酬経路を gate。 */
   const rewardEligible = ok && !item.retry;
+  const answerLogEligible = !item.retry && S && S.mode!=='nushi';
+  if(answerLogEligible && window.Q4BReward && Q4BReward.logAnswer)
+    P.anslog=Q4BReward.logAnswer(P.anslog,item.type,ok,answerTiming.ms,answerTiming.interrupted,Engine.todayKey());
   if(rewardEligible && window.QuestSave && QuestSave.recordCorrect) QuestSave.recordCorrect(ePid(),'eitango',1);
   /* 卵給餌は learn/practice/review のみ。 ヌシ戦は kanji の認定テストと同じ「関門」
      なので、 正解で卵に餌を与えない (audit #19)。 ヌシ捕獲が確定報酬。

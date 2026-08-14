@@ -175,7 +175,7 @@ input[type=range]{width:100%}
 <script src="../zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.0"></script>
-<script src="../shared/reward.js?v=0.8.7"></script>
+<script src="../shared/reward.js?v=0.8.8"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="../shared/breeding.js?v=0.6.3"></script>
 <script src="../shared/breeding_debug.js?v=0.1.1"></script>
@@ -276,7 +276,7 @@ var BUG_Q="",BUG_R="",BUG_C="",BUG_COMP=false,BUG_FAV=false,BUG_SHINY=false,BUG_
 var KANJI_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_kanji_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
 function setKanjiMasterOpen(v){ KANJI_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_kanji_master_open",v?"1":"0");}catch(_){} }
 var DEF_CFG={tts:1,rate:0.9,newS:15,newB:30,all:0};  /* 新出/日 緩和(2026-06-17): ひらがな3→15・かんじ8→30 ＝ 30問/日のループで飽きにくく */
-function newState(){return {srs:{},log:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
+function newState(){return {srs:{},log:{},anslog:{},tests:[],wrong:[],coll:{gauge:0,total:0,catches:{}},pp:0,un:null,re:null}}
 function initUn(){ if(!ST.un){ ST.un = (CUR.mode==='small') ? {hira:1,u1:0,u2:0} : {hira:0,u1:1,u2:0}; } }
 function unOK(part){ return CFG.all ? true : !!ST.un[part] }
 /* マスター条件等「永続データの達成判定」では CFG.all (動作確認用 全解放) を無視し、
@@ -805,6 +805,7 @@ function switchMode(){
 
 /* ================= セッション ================= */
 var SES=null;
+var KANJI_ANSWER_TIMER=window.Q4BReward&&Q4BReward.answerTimer?Q4BReward.answerTimer():null;
 /* セッション世代番号: 「やめる」「捕獲モーダル」等で SES=null した瞬間以降に、
    過去問の setTimeout(nextQ) や Hanzi Writer の onComplete が遅延発火しても
    新セッションを汚染しないように、 各 SES に sid を打って一致確認する (新追加#2)。 */
@@ -894,6 +895,7 @@ function answered(ok){
  if(!SES || SES.answerLocked) return;
  SES.answerLocked = 1;
  var p=SES.q[SES.i];
+ var answerTiming=KANJI_ANSWER_TIMER?KANJI_ANSWER_TIMER.stop():{ms:0,interrupted:false};
  /* 報酬価値は applyAnswer 前の段階で決め、 誤答再出題コピーにも引き継ぐ (今回新#4)。
     これがないと box 2→3 への重要な正解が更新後 box 3 扱いで 0.4 倍、 さらに わざと
     誤答→再出題で reset し満額にする抜け道ができる。
@@ -927,6 +929,9 @@ function answered(ok){
     誤答→再出題で +10 正解分の報酬を稼げる抜け道になる (新追加#2)。 rq 時は
     報酬・正解カウンタ・QuestSave.recordCorrect も全て skip する。 */
  var rewardEligible = ok && !p.rq && SES.mode !== 'test';
+ var answerLogEligible = !p.rq && SES.mode !== 'test' && !p.hinted;
+ if(answerLogEligible && window.Q4BReward && Q4BReward.logAnswer)
+  ST.anslog=Q4BReward.logAnswer(ST.anslog,p.sk,ok,answerTiming.ms,answerTiming.interrupted,todayStr());
  if(ok){ SES.ok++;
   if(rewardEligible && window.QuestSave && QuestSave.recordCorrect && CUR && CUR.id)
    QuestSave.recordCorrect(CUR.id,'kanji',1);
@@ -1092,6 +1097,7 @@ function kanaOptions(ch){ var dis=(SIM[ch]||'').split('').filter(function(c){ret
  return shuffle([ch].concat(dis.slice(0,2))) }
 
 function renderQ(p){ var s=$('scr-quiz'); var test=(SES.mode==='test');
+ if(KANJI_ANSWER_TIMER)KANJI_ANSWER_TIMER.start();
  if(window.Q4BRender&&Q4BRender.setSessionActive) Q4BRender.setSessionActive(true);
  var h=dotsHtml(); var ch,x;
  if(p.key[0]==='h'){ ch=p.key.slice(2);

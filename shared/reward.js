@@ -17,6 +17,40 @@
 
   var BUGS = global.Q4B_BUGS || [];
 
+  function answerTimer(){
+    var startedAt=0,running=false,interrupted=false,doc=global.document;
+    if(doc&&typeof doc.addEventListener==="function"){
+      doc.addEventListener("visibilitychange",function(){
+        if(running&&doc.hidden)interrupted=true;
+      });
+    }
+    return {
+      start:function(){startedAt=Date.now();running=true;interrupted=false;},
+      stop:function(){
+        var result={ms:running?Math.max(0,Date.now()-startedAt):0,interrupted:interrupted};
+        running=false;startedAt=0;
+        return result;
+      }
+    };
+  }
+
+  function logAnswer(anslog,cat,ok,ms,interrupted,today){
+    var key=String(today).replace(/^(\d{4})(\d{2})(\d{2})$/,"$1-$2-$3");
+    var cutoff=new Date(key+"T00:00:00Z");
+    cutoff.setUTCDate(cutoff.getUTCDate()-180);
+    var cutoffKey=cutoff.toISOString().slice(0,10),next={},source=anslog||{};
+    Object.keys(source).forEach(function(day){if(day>=cutoffKey)next[day]=source[day];});
+    var daily=Object.assign({},next[key]||{}),category=String(cat),previous=daily[category]||{n:0,ok:0,t:[0,0,0,0],x:0};
+    var buckets=Array.isArray(previous.t)?previous.t.slice(0,4):[0,0,0,0];
+    while(buckets.length<4)buckets.push(0);
+    var entry={n:(previous.n||0)+1,ok:(previous.ok||0)+(ok?1:0),t:buckets,x:previous.x||0};
+    if(interrupted)entry.x++;
+    else entry.t[ms<5000?0:(ms<15000?1:(ms<60000?2:3))]++;
+    daily[category]=entry;
+    next[key]=daily;
+    return next;
+  }
+
   /* ---- allocation (thematic, by order; edit gameFor to retune) ---- */
   function gameFor(sp){
     var o = sp.order;
@@ -1430,6 +1464,8 @@
 
   global.Q4BReward = {
     bugs: BUGS,
+    answerTimer: answerTimer,
+    logAnswer: logAnswer,
     gameFor: gameFor,
     pool: pool,
     poolCount: poolCount,

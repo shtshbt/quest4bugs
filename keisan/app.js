@@ -6,6 +6,7 @@
 "use strict";
 var DB={v:1, act:null, profiles:[]};
 var KZ_Q="", KZ_R="", KZ_C="", KZ_COMP=false, KZ_FAV=false, KZ_SHINY=false, KZ_HIDE_UNK=false, KZ_REARED=false, KZ_PLURAL=false, KZ_EGG=false, KZ_PAIR=false;
+var KEISAN_ANSWER_TIMER=window.Q4BReward&&Q4BReward.answerTimer?Q4BReward.answerTimer():null;
 var KEISAN_MASTER_OPEN=(function(){try{var v=localStorage.getItem("q4b_keisan_master_open");return v===null?true:v==="1";}catch(_){return true;}})();
 function setKeisanMasterOpen(v){ KEISAN_MASTER_OPEN=!!v; try{localStorage.setItem("q4b_keisan_master_open",v?"1":"0");}catch(_){} }
 
@@ -211,7 +212,7 @@ function reconcile(reg){
 function newProfile(name,type){
   return {id:Date.now()+""+ri(100,999), name:name, type:type,
     streak:{n:0,last:null}, caps:{}, missed:[], stats:{}, recent:{}, best:{},
-    best5:{}, daily:{}, carryMiss:0, recapture:0, lv:{}, kukuIdx:0, kukuClear:{}, kukuHits:0,
+    best5:{}, daily:{}, anslog:{}, carryMiss:0, recapture:0, lv:{}, kukuIdx:0, kukuClear:{}, kukuHits:0,
     hsLevel:1, hsRun:0, hsMax:1, hkLevel:1, hkRun:0, hkMax:1, hissanInput:"app", speech:(type==="k5"),
     coll:{gauge:0, total:0, catches:{}}, progressSummary:""};
 }
@@ -5963,6 +5964,7 @@ function startKukuVoice(){
 }
 function renderQ(q){
   JLOCK=false; BUF=""; Q.t0=Date.now();
+  if(KEISAN_ANSWER_TIMER)KEISAN_ANSWER_TIMER.start();
   var p=P(), h='<div class="scr qwrap">';
   h+='<div class="top"><button class="backbtn" onclick="quitQuiz()">✕ やめる</button><span class="sp"></span>';
   if(Q.timed)h+='<span class="chip fire">⏱ <span id="tleft">'+Math.max(0,Math.ceil((Q.end-Date.now())/1000))+'</span>秒</span><span class="chip kago">'+Q.ok+'問</span>';
@@ -6319,6 +6321,7 @@ function afterJudge(ok,q,o){
   if(JLOCK)return; JLOCK=true;
   o=o||{};
   var ms=Date.now()-Q.t0; Q.ms+=ms;
+  var answerTiming=KEISAN_ANSWER_TIMER?KEISAN_ANSWER_TIMER.stop():{interrupted:false};
   var p=P();
   if(Q.timed){
     /* Q5: 期限後に届いた回答は加点しない。 タイマー 250ms 間隔やバックグラウンド
@@ -6344,6 +6347,7 @@ function afterJudge(ok,q,o){
   }
   if(ok)Q.ok++;
   recordStat(q.cat,ok,ms);
+  if(window.Q4BReward&&Q4BReward.logAnswer)p.anslog=Q4BReward.logAnswer(p.anslog,q.cat,ok,ms,answerTiming.interrupted,todayStr());
   if(ok&&window.QuestSave&&QuestSave.recordCorrect)QuestSave.recordCorrect(pidNow(),"keisan",1);
   if(ok&&window.Q4BReward&&Q4BReward.feedEgg){
     /* keisan は問題が auto-generated で itemId 一致がほぼ無いので freshness で十分。

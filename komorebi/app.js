@@ -80,6 +80,7 @@
   var RATIO_STATIC_LEVELS={ordering:[5,6,8],diagnosis:[4,6,7,9]};
   var RATIO_PATTERN_BY_LEVEL={4:"find_base",5:"discount",6:"two_step",7:"ratio_share",8:"soutou",9:"baibai"};
   var profile=null, profileId=null, profileRevision=0, profileType="k10", worldMap=null, ratioPool=null, session=null;
+  var KOMOREBI_ANSWER_TIMER=global.Q4BReward&&global.Q4BReward.answerTimer?global.Q4BReward.answerTimer():null;
   var zukanModalRerender=null;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
@@ -143,6 +144,11 @@
   function qualifiesForGauge(answer){
     validateAnswer(answer);
     return answer.correct&&answer.final&&!answer.hintShown&&!answer.recognitionFailure&&!answer.answerOnly&&!answer.debug;
+  }
+
+  function qualifiesForAnswerLog(answer){
+    validateAnswer(answer);
+    return answer.final&&!answer.hintShown&&!answer.recognitionFailure&&!answer.answerOnly&&!answer.debug;
   }
 
   function randomValue(random){
@@ -569,7 +575,7 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{}};
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{}};
   }
 
   function normalizeProfile(data){
@@ -582,7 +588,7 @@
     else if(typeof p.unlocked!=="boolean")throw new Error("解禁データの形式が正しくありません");
     if(p.discoverySeen==null){p.discoverySeen=false;changed=true;}
     else if(typeof p.discoverySeen!=="boolean")throw new Error("発見データの形式が正しくありません");
-    ["lv","maxLv","stats","recent","adapt","trophies","trophyProgress","srs"].forEach(function(key){
+    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
     });
@@ -743,13 +749,16 @@
     });
   }
 
-  function recordSubmission(cat,answer,volume,random,correct,elapsed){
+  function recordSubmission(cat,answer,volume,random,correct,elapsed,interrupted){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     var before=JSON.parse(JSON.stringify(profile)),result;
     try{
       result=applyAnswer(profile,cat,answer,volume,random);
       var masteredAtAnswer=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
-      if(!result.duplicate)applyPerformance(profile,cat,correct,elapsed);
+      if(!result.duplicate){
+        applyPerformance(profile,cat,correct,elapsed);
+        if(qualifiesForAnswerLog(answer))profile.anslog=rewardEngine().logAnswer(profile.anslog,cat,correct,elapsed,interrupted,todayString());
+      }
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
     var saved;
@@ -1333,6 +1342,7 @@
     session.multiSelection=[];
     session.unitSelection=null;
     session.startedAt=Date.now();
+    if(KOMOREBI_ANSWER_TIMER)KOMOREBI_ANSWER_TIMER.start();
     session.verdict=null;
     session.runState=question.format==="dan_run"?{step:0,results:[],startedAt:Date.now()}:null;
     renderCurrent(errorMessage);
@@ -1385,6 +1395,7 @@
     activeSession.pending=true;
     var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
     var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
+    var answerTiming=KOMOREBI_ANSWER_TIMER?KOMOREBI_ANSWER_TIMER.stop():{interrupted:false};
     var elapsed=Math.max(0,Date.now()-activeSession.startedAt),volume=volumeById(activeSession.volumeId);
     /* SRS は単一の句を想起させる形式だけに効かせる。まちがいさがし・たりないさがしは
        盤面の走査であって句の想起ではないので、レイテンシを混ぜない。 */
@@ -1393,7 +1404,7 @@
     /* 逆引きの誤答も同じデッキへ戻す。どのカテゴリで詰まっても、九九の再出題は
        れんぞく九九 1 か所に集まる (reverse curriculum 3.5)。 */
     if(question.cat==="kom_kuku_inverse"&&!correct&&question.fact&&global.Q4B_KOMOREBI_KUKU_RUN)reviewKukuFact(question.fact.dan,question.fact.b,false,0);
-    recordSubmission(activeSession.cat,event,volume,Math.random,correct,elapsed).then(function(result){
+    recordSubmission(activeSession.cat,event,volume,Math.random,correct,elapsed,answerTiming.interrupted).then(function(result){
       if(session!==activeSession)return;
       activeSession.pending=false;renderFeedback(question,correct,result);
     }).catch(function(){
