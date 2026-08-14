@@ -69,8 +69,10 @@ def load_entries(errors):
                 errors.append(f"{path.name}:{line_number}: entry must be a JSON object")
                 continue
             entries.append((path.name, line_number, entry))
-    if total_lines != 149:
-        errors.append(f"JSONL total: expected 149 lines, got {total_lines}")
+    expected_total = sum(ENTRY_FILES.values())
+    if total_lines != expected_total:
+        errors.append(
+            f"JSONL total: expected {expected_total} lines, got {total_lines}")
     return entries
 
 
@@ -140,7 +142,8 @@ def validate_selection(entries, selection, errors):
         if count != 1:
             errors.append(f"selection scientificName count for {name}: {count}")
     expected = set(selected_names) - {EXCLUDED_SCIENTIFIC_NAME}
-    if EXCLUDED_SCIENTIFIC_NAME not in selected_names:
+    # 除外種は第 1 弾にしかない。空文字のときは除外自体が無いので確認しない。
+    if EXCLUDED_SCIENTIFIC_NAME and EXCLUDED_SCIENTIFIC_NAME not in selected_names:
         errors.append(f"selection is missing excluded species: {EXCLUDED_SCIENTIFIC_NAME}")
     if Counter(entry_names) != Counter(expected):
         missing = sorted(expected - set(entry_names))
