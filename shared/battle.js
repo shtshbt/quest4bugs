@@ -35,7 +35,8 @@
   }
   /* 自軍の虫HP（レア度準拠・粘り） */
   var HP_BY_TIER = { N:8, R:10, SR:13, SSR:16, SS:20 };
-  function bugHP(rarity){ return HP_BY_TIER[rarity] || 8; }
+  var REARED_HP_BONUS = 2;
+  function bugHP(rarity, reared){ var base = HP_BY_TIER[rarity] || 8; return reared ? base + REARED_HP_BONUS : base; }
   /* 旧ゲージ方式の互換API。現在の画面解禁は年齢別到達度(REACH)で判定する。 */
   function unlockCost(stage){ return 200 + 50*(stage-1); }
   function unlockedStages(totalCorrect){
@@ -128,6 +129,7 @@
     DMG_NEUTRAL: DMG_NEUTRAL, DMG_ADV: DMG_ADV, DMG_DIS: DMG_DIS,
     DEF_ADV: DEF_ADV, DEF_NEUTRAL: DEF_NEUTRAL, DEF_DIS: DEF_DIS,
     damage: damage, bossDamage: bossDamage, advLabel: advLabel, bugHP: bugHP, HP_BY_TIER: HP_BY_TIER,
+    REARED_HP_BONUS: REARED_HP_BONUS,
     unlockCost: unlockCost, unlockedStages: unlockedStages, nextUnlock: nextUnlock, bossAt: bossAt,
     bossReward: bossReward, predAmber: predAmber,
     TRAITS: TRAITS, bossTraits: bossTraits, hasTrait: hasTrait, bossPartySize: bossPartySize,

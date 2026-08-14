@@ -370,7 +370,7 @@
   <div id="battle"></div>
 </div>
 
-<script src="./shared/storage.js?v=0.4.21"></script>
+<script src="./shared/storage.js?v=0.4.22"></script>
 <script src="./shared/bugs.js?v=0.4.12"></script>
 <script src="./shared/kanji_data.js?v=0.5.0"></script>
 <script src="./shared/eitango_data.js?v=0.5.1"></script>
@@ -378,13 +378,13 @@
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.3"></script>
+<script src="./shared/reward.js?v=0.8.5"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.1"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
 <script src="./shared/zukan_detail.js?v=0.2.2"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
-<script src="./shared/battle.js?v=0.5.2"></script>
+<script src="./shared/battle.js?v=0.5.3"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <!-- ボス戦の計算問題を 30+カテゴリーの本格生成器で出題するため keisan/app.js を再利用。boot()は抑止。 -->
 <script>window.Q4B_KEISAN_NO_BOOT=true;</script>
@@ -399,9 +399,17 @@ var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});
 var TYPE_JA={kanji:"かんじ",keisan:"けいさん",eitango:"えいご",none:"むぞくせい"};
 
 /* ---- 実データ層: プロフィールの3ゲーム横断 catches からパーティ素材・進捗を構築 ---- */
-var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, BATTLE_COLLS={kanji:null,keisan:null,eitango:null}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
+var PROF=null, PROFOBJ=null, OWNED=[], PARTY=[], SEL=[], GAUGE=0, CLEARED={}, BATTLE={}, BATTLE_COLLS={kanji:null,keisan:null,eitango:null}, REARED_IDS={}, REACH={kanji:0,keisan:0,eitango:0}, REACH_INFO={};
 var PROG={kanji:null,keisan:null,eitango:null};  /* 各教科のper-profileデータ（本物連動の出題用） */
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function isReared(speciesId){ return !!REARED_IDS[speciesId]; }
+function collectRearedSpecies(catches){
+  Object.keys(catches||{}).forEach(function(id){
+    var records=catches[id]&&catches[id].records;
+    if(records&&records.some(function(record){return record.reared===true;})) REARED_IDS[id]=true;
+  });
+}
+function rearedHPBadgeHTML(sp){ return sp&&isReared(sp.id)?' <span class="badge b-none">🐣+2</span>':""; }
 /* Fossil equipment is active in the fossil expedition and Chameleon encounter.
    Numbered boss battles retain their original unequipped balance. */
 var EXPED=false, CHAMELEON_ACTIVE=false;
@@ -460,7 +468,8 @@ function openPartyEquip(speciesId){
   function slotHTML(slot){
     var cur=eq[slot.id], curItem=cur&&Q4BEquipment.byId[cur];
     var choices=items.filter(function(item){return item.slot===slot.id;});
-    if(slot.id==="hp"&&sp.rarity==="SS") return '<div class="eq-slot-block"><h4>'+slot.icon+' '+slot.label+'</h4><p class="note" style="margin:0">でんせつの虫には HPパーツを つけられないよ。</p></div>';
+    var rearedNote=slot.id==="hp"?'<p class="note" style="margin:7px 0 0">そだてた虫は さらに +2 されるよ</p>':"";
+    if(slot.id==="hp"&&sp.rarity==="SS") return '<div class="eq-slot-block"><h4>'+slot.icon+' '+slot.label+'</h4><p class="note" style="margin:0">でんせつの虫には HPパーツを つけられないよ。</p>'+rearedNote+'</div>';
     var h='<div class="eq-slot-block"><h4>'+slot.icon+' '+slot.label+' <span class="note">'+(curItem?esc(curItem.name):'なし')+'</span></h4>';
     if(!choices.length){
       h+='<p class="note" style="margin:0">この種類のパーツは まだ復元していないよ。</p>';
@@ -471,7 +480,7 @@ function openPartyEquip(speciesId){
       }).join("")+'</div>';
       if(curItem) h+='<button class="btn sm" style="margin:7px 0 0;width:100%" onclick="clearPartyEquip(\''+curItem.id+'\',\''+speciesId+'\')">このパーツを はずす</button>';
     }
-    return h+'</div>';
+    return h+rearedNote+'</div>';
   }
   var ov=document.createElement("div");
   ov.id="partyEquipOv";
@@ -522,13 +531,13 @@ function showPartyEquipDone(itemId,speciesId,title){
     +'</div>';
 }
 function effectiveBugHP(sp){
-  var base=B.bugHP(sp.rarity);
-  if(!encounterEquipmentActive()) return base;
+  var bonus=isReared(sp.id)?B.REARED_HP_BONUS:0;
+  if(!encounterEquipmentActive()) return B.bugHP(sp.rarity)+bonus;
   var eq=equippedFor(sp.id);
   if(eq.hp && sp.rarity!=="SS" && window.Q4BEquipment){
-    return Math.max(base, Q4BEquipment.HP_FLOOR||20);  /* HP equipment guarantees HP 20 for non-SS members. */
+    return Math.max(B.bugHP(sp.rarity), Q4BEquipment.HP_FLOOR||20)+bonus;  /* HP equipment guarantees HP 20 for non-SS members. */
   }
-  return base;
+  return B.bugHP(sp.rarity)+bonus;
 }
 function effectiveDamage(baseDmg, attackerSp){
   if(!encounterEquipmentActive()||!attackerSp) return baseDmg;
@@ -1091,6 +1100,12 @@ function loadAll(){
           }
         });
       }
+      REARED_IDS = {};
+      Object.keys(BATTLE_COLLS).forEach(function(game){
+        var coll=BATTLE_COLLS[game];
+        collectRearedSpecies(coll&&coll.catches);
+      });
+      collectRearedSpecies(bt.bosses);
       var ids={}, caught=0;
       function add(c){ if(c)Object.keys(c).forEach(function(id){ids[id]=1;}); }
       if(kp&&kp.coll){ add(kp.coll.catches); caught+=kp.coll.total||0; }
@@ -1162,7 +1177,7 @@ function renderPSelect(){
       +'<span class="num">'+(i+1)+'</span>'
       +'<div class="art">'+R.species(s,false)+'</div>'
       +'<div class="info"><div class="nm">'+s.jaName+(i===0?' <span class="badge b-none">せんとう</span>':'')+'</div>'
-      +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+B.bugHP(s.rarity)+equipmentBadgeHTML(s)+'</div></div>'
+      +'<div class="meta"><span class="badge b-'+g+'">'+TYPE_JA[g]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+equipmentBadgeHTML(s)+'</div></div>'
       +'<div class="ctrl">'
       +'<button class="ps-equip-btn" onclick="openPartyEquip(\''+s.id+'\')">そうび</button>'
       +'<button onclick="moveSlot('+i+',-1)"'+(i===0?' disabled':'')+'>▲</button>'
@@ -1214,7 +1229,7 @@ function renderPool(){
     return '<div class="pcell'+(sel?" sel":"")+'" onclick="pickToggle(\''+s.id+'\')"><span class="chk">✅</span>'
       +'<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
       +equipmentBadgeHTML(s)
-      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div></div>'; }).join("");
+      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+'</div></div>'; }).join("");
   w.innerHTML='<div class="note" style="margin:2px 0 6px">該当 '+list.length+' / '+OWNED.length+' 匹</div>'
     +'<div class="pool">'+(pool||'<p class="note">みつからないよ。けんさく・フィルタを かえてみてね</p>')+'</div>';
 }
@@ -1713,7 +1728,7 @@ function renderHome(){
   PARTY.forEach(function(s){ var d=document.createElement("div"); d.className="pcell";
     d.innerHTML='<div class="art">'+R.species(s,false)+'</div><div class="pn">'+s.jaName+'</div>'
       +equipmentBadgeHTML(s)
-      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+B.bugHP(s.rarity)+'</div>';
+      +'<div class="hp"><span class="badge b-'+RW.gameFor(s)+'">'+TYPE_JA[RW.gameFor(s)]+'</span> HP'+effectiveBugHP(s)+rearedHPBadgeHTML(s)+'</div>';
     pc.appendChild(d); });
   document.getElementById("pcount").textContent=PARTY.length+"/6";
   var cnt={kanji:0,keisan:0,eitango:0}; PARTY.forEach(function(s){cnt[RW.gameFor(s)]++;});
