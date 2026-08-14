@@ -28,7 +28,7 @@
   /* masterOnly(全習得限定)・bossOnly(ボス専用)・SS(でんせつ)は通常の採集プールから除外。
      ゲージ/琥珀の抽選には絶対に出さず、SSは習得達成(マスター)/ボス撃破でのみ授与する。 */
   BUGS.forEach(function(sp){ if(sp.areaOnly||sp.masterOnly||sp.bossOnly||sp.rarity==="SS")return; (POOLS[gameFor(sp)] || POOLS.eitango).push(sp); });
-  function pool(game){ return POOLS[game] || BUGS; }
+  function pool(game){ return POOLS[game] || []; }
   function poolCount(game){ return pool(game).length; }
 
   /* ---- 図鑑達成度カウント (分子/分母) ----
@@ -286,7 +286,7 @@
     return _isNight ? (n===1 ? 2.5 : 0.45) : (n===1 ? 0.45 : 1);
   }
   /* ---- マスター虫(全習得限定): ゲージ/琥珀では出ず、習得達成でのみ授与 ---- */
-  function masterBugsFor(game){ return BUGS.filter(function(sp){ return sp.masterOnly && sp.master && sp.master.game===game; }); }
+  function masterBugsFor(game){ return BUGS.filter(function(sp){ return sp.masterOnly && sp.master && sp.master.game===game && !sp.areaOnly; }); }
   function masterObtained(coll, id){ return !!(coll && coll.catches && coll.catches[id]); }
   /* 個体ごとの捕獲履歴(docs/zukan_enhancement_plan.md):
        records=[{d:"YYYY-MM-DD", s:size, sex:"m"|"f"|"u", shiny:bool}, ...]

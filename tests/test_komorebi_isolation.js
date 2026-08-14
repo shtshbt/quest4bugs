@@ -82,6 +82,22 @@ test("komorebi species stays outside the main zukan numerator", () => {
   assert.match(portal, /var total = keisanN \+ kanjiN \+ eitangoN \+ bossOnlyN;/);
 });
 
+test("main exposure surfaces exclude areaOnly species", () => {
+  const portal = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  assert.match(portal, /var pool=window\.Q4BReward&&Q4BReward\.zukanDenomCount\?\(Q4BReward\.zukanDenomCount\('kanji'\)\+Q4BReward\.zukanDenomCount\('keisan'\)\+Q4BReward\.zukanDenomCount\('eitango'\)\):1502;/);
+  assert.doesNotMatch(portal, /Q4BReward\.bugs\?Q4BReward\.bugs\.length/);
+
+  const eitango = fs.readFileSync(path.join(root, "eitango/index.html"), "utf8");
+  assert.match(eitango, /allBugs\.filter\(b=>Q4BReward\.gameFor\(b\)==='eitango' && !b\.bossOnly && !b\.masterOnly && !b\.areaOnly\)/);
+  assert.match(eitango, /allBugs\.filter\(b=>!b\.bossOnly && !b\.masterOnly && !b\.areaOnly\)/);
+});
+
+test("master species lists exclude areaOnly species", () => {
+  for(const game of ["kanji", "keisan", "eitango"]){
+    assert.equal(base.Q4BReward.masterBugsFor(game).filter(sp => sp.areaOnly).length, 0, game);
+  }
+});
+
 test("komorebi selector contains only areaOnly komorebi species", () => {
   injected.Q4B_KOMOREBI_NO_BOOT = true;
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"), injected);

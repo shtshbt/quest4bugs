@@ -322,7 +322,7 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.3"></script>
+<script src="./shared/reward.js?v=0.8.4"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.1"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
@@ -1267,7 +1267,7 @@ function renderDashboard(pid,name){
     var total = keisanN + kanjiN + eitangoN + bossOnlyN;
     /* 表示用 battleN はそのまま (UI のチップで「ボス N 匹」 を出すため) */
     var gRank=window.Q4BReward?Q4BReward.rankGlobal(gCaught):"",gNext=window.Q4BReward?Q4BReward.rankGlobalNext(gCaught):null;
-    var pool=window.Q4BReward&&Q4BReward.bugs?Q4BReward.bugs.length:547;
+    var pool=window.Q4BReward&&Q4BReward.zukanDenomCount?(Q4BReward.zukanDenomCount('kanji')+Q4BReward.zukanDenomCount('keisan')+Q4BReward.zukanDenomCount('eitango')):1502;
     /* combined streak: consecutive days up to today with any activity */
     var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
     while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}

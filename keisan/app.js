@@ -917,7 +917,8 @@ function showZukan(){
   if(!window.Q4BReward||!pool.length){
     /* fallback: old BUGS array */
     h+='<div class="zgrid">';
-    BUGS.forEach(function(b,i){
+    BUGS.filter(function(b){return !b.areaOnly&&!b.masterOnly&&!b.bossOnly;}).forEach(function(b){
+      var i=BUGS.indexOf(b);
       var c=p.caps[i];
       h+='<div class="zc r'+b.r+(c?"":" ")+'" onclick="openBugLegacy('+i+')">'
         +(c>1?'<span class="cnt">×'+c+'</span>':"")
@@ -1053,7 +1054,11 @@ function gachaPull(p){
   if(x<r4)r=4; else if(x<r4+r3)r=3; else if(x<r4+r3+r2)r=2; else if(x<r4+r3+r2+r1)r=1; else r=0;
   var pool=[], newOnly=[];
   BUGS.forEach(function(b,i){ if(b.r===r){pool.push(i); if(!p.caps[i])newOnly.push(i);} });
-  if(!pool.length)return ri(0,BUGS.length-1);
+  if(!pool.length){
+    var fallback=[];
+    BUGS.forEach(function(b,i){if(!b.areaOnly&&!b.masterOnly&&!b.bossOnly)fallback.push(i);});
+    return pick(fallback);
+  }
   var i=(newOnly.length&&Math.random()<0.7)?pick(newOnly):pick(pool);
   return i;
 }
