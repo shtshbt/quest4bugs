@@ -1,0 +1,74 @@
+{
+  "species_id": "tenodera_australasiae",
+  "species_ja": "Tenodera australasiae",
+  "scientific_name": "Tenodera australasiae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012500106",
+    "occurrenceId": "6b5d9cd5-1ea2-45c2-95c7-e5b6822563c5",
+    "persistentId": "6b5d9cd5-1ea2-45c2-95c7-e5b6822563c5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403378",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6b5d9cd5-1ea2-45c2-95c7-e5b6822563c5",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/0de530d7-da17-4ceb-90a9-4cbbf52980c4",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012500106_resized.jpg",
+    "display": "processed/NHMUK012500106_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012500106_54.webp",
+      "108": "thumb/NHMUK012500106_108.webp",
+      "216": "thumb/NHMUK012500106_216.webp"
+    }
+  },
+  "original_sha256": "315bf2868ad1bbce259b5ec0bd57af78674315ed047d56f4825f8bf80622a28f",
+  "processing": {
+    "cropBox": [
+      25,
+      0,
+      1172,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012500106_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

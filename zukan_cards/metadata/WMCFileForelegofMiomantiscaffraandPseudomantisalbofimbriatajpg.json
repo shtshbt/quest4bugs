@@ -1,0 +1,74 @@
+{
+  "species_id": "pseudomantis_albofimbriata",
+  "species_ja": "Pseudomantis albofimbriata",
+  "scientific_name": "Pseudomantis albofimbriata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Connors MG, Chen H, Li H, Edmonds A, Smith KA, Gell C, Clitheroe K, Miller IM, Walker KL, Nunn JS, Nguyen L, Quinane LN, Andreoli CM, Galea JA, Quan B, Sandiford K, Wallis B, Anderson ML, Canziani EV, Craven J, Hakim RRC, Lowther R, Maneylaws C, Menz BA, Newman J, Perkins HD, Smith AR, Webber VH, Wishart D",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Foreleg of Miomantis caffra and Pseudomantis albofimbriata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Foreleg_of_Miomantis_caffra_and_Pseudomantis_albofimbriata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Foreleg_of_Miomantis_caffra_and_Pseudomantis_albofimbriata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Connors MG, Chen H, Li H, Edmonds A, Smith KA, Gell C, Clitheroe K, Miller IM, Walker KL, Nunn JS, Nguyen L, Quinane LN, Andreoli CM, Galea JA, Quan B, Sandiford K, Wallis B, Anderson ML, Canziani EV, Craven J, Hakim RRC, Lowther R, Maneylaws C, Menz BA, Newman J, Perkins HD, Smith AR, Webber VH, Wishart D",
+    "eventDate": "2022-05-19",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Internal (ventral) surface of the foreleg of A. Adult female Miomantis caffra; B. Adult female Pseudomantis albofimbriata. Scale bar: 10mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Foreleg_of_Miomantis_caffra_and_Pseudomantis_albofimbriata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Foreleg_of_Miomantis_caffra_and_Pseudomantis_albofimbriata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_resized.jpg",
+    "display": "processed/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_54.webp",
+      "108": "thumb/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_108.webp",
+      "216": "thumb/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_216.webp"
+    }
+  },
+  "original_sha256": "93bb38f508267bf3d1173af2335a63aa7b388b306304634f0fd05197e3200ec4",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1061,
+      1572
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileForelegofMiomantiscaffraandPseudomantisalbofimbriatajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

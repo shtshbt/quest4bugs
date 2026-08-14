@@ -1,0 +1,76 @@
+{
+  "species_id": "tettigarcta_tomentosa",
+  "species_ja": "Tettigarcta tomentosa",
+  "scientific_name": "Tettigarcta tomentosa",
+  "credit_line": "Australian Museum",
+  "creator": "Robyn Gardner",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.286866",
+    "occurrenceId": "01a627d9-473d-4043-9619-857771676dd5",
+    "persistentId": "01a627d9-473d-4043-9619-857771676dd5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "B. Fryz",
+    "eventDate": "2000-06-14",
+    "eventYear": 2000,
+    "country": "Australia",
+    "localityVerbatim": "Dip Falls near Mawbanna",
+    "localityNormalized": "Dip Falls near Mawbanna, Australia",
+    "preparations": null,
+    "decimalLatitude": -41.043888,
+    "decimalLongitude": 145.35834
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100268536",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100268536",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=b2bb8faa-ad69-47e6-b940-0db81aa20ae6",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK286866_resized.jpg",
+    "display": "processed/AMK286866_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK286866_54.webp",
+      "108": "thumb/AMK286866_108.webp",
+      "216": "thumb/AMK286866_216.webp"
+    }
+  },
+  "original_sha256": "08b891ff74edea1afa2ebd6d7fcba9162c63d8bdb5e13eb294366d26690664e4",
+  "processing": {
+    "cropBox": [
+      399,
+      122,
+      518,
+      254
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK286866_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

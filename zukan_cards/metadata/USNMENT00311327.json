@@ -1,0 +1,76 @@
+{
+  "species_id": "orthetrum_caledonicum",
+  "species_ja": "Orthetrum caledonicum",
+  "scientific_name": "Orthetrum caledonicum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00311327",
+    "occurrenceId": "http://n2t.net/ark:/65665/33c80e406-5714-42fc-829d-18ca5bebc898",
+    "persistentId": "http://n2t.net/ark:/65665/33c80e406-5714-42fc-829d-18ca5bebc898",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Brooks",
+    "eventDate": "1955-01",
+    "eventYear": 1955,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Archers Creek, Mount Garnet Road, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -17.646,
+    "decimalLongitude": 145.349
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318570488",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318570488",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16328546&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00311327_resized.jpg",
+    "display": "processed/USNMENT00311327_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00311327_54.webp",
+      "108": "thumb/USNMENT00311327_108.webp",
+      "216": "thumb/USNMENT00311327_216.webp"
+    }
+  },
+  "original_sha256": "e1ba0c19e9bdc8a84282b580e36faa86e6aa1a12102f7409c448eed67c167a6b",
+  "processing": {
+    "cropBox": [
+      294,
+      579,
+      1075,
+      1180
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00311327_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

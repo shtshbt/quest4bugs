@@ -1,0 +1,76 @@
+{
+  "species_id": "diplacodes_bipunctata",
+  "species_ja": "ベニヒメトンボ",
+  "scientific_name": "Diplacodes bipunctata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00273708",
+    "occurrenceId": "http://n2t.net/ark:/65665/3015414b6-a858-4658-964d-468a7f45f120",
+    "persistentId": "http://n2t.net/ark:/65665/3015414b6-a858-4658-964d-468a7f45f120",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Clarke & T. Clarke",
+    "eventDate": "1976-11-11",
+    "eventYear": 1976,
+    "country": "Micronesia (Federated States of)",
+    "localityVerbatim": null,
+    "localityNormalized": "6 miles East Colonia, Micronesia (Federated States of)",
+    "preparations": "Envelope",
+    "decimalLatitude": 6.92432,
+    "decimalLongitude": 158.285
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317232579",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317232579",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16361956&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00273708_resized.jpg",
+    "display": "processed/USNMENT00273708_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00273708_54.webp",
+      "108": "thumb/USNMENT00273708_108.webp",
+      "216": "thumb/USNMENT00273708_216.webp"
+    }
+  },
+  "original_sha256": "fbb4010590fd0ed324bff06d470e062524ba3ce32820648fcb07b94674939589",
+  "processing": {
+    "cropBox": [
+      810,
+      622,
+      1273,
+      1048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00273708_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

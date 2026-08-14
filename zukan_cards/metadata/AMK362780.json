@@ -1,0 +1,76 @@
+{
+  "species_id": "harmonia_conformis",
+  "species_ja": "Harmonia conformis",
+  "scientific_name": "Harmonia conformis",
+  "credit_line": "Australian Museum",
+  "creator": "Frank Cannata",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.362780",
+    "occurrenceId": "3db62a72-02cb-48e6-a04e-3d5eeffc290a",
+    "persistentId": "3db62a72-02cb-48e6-a04e-3d5eeffc290a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "B.L.C. Stoyles & G.M. Stoyles",
+    "eventDate": "1933-11-09",
+    "eventYear": 1933,
+    "country": "Australia",
+    "localityVerbatim": "Sydney, Rookwood",
+    "localityNormalized": "Sydney, Rookwood, Australia",
+    "preparations": null,
+    "decimalLatitude": -33.866665,
+    "decimalLongitude": 151.05
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100313759",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100313759",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=2f8381f5-b78e-4abe-bc13-7496883c7418",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK362780_resized.jpg",
+    "display": "processed/AMK362780_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK362780_54.webp",
+      "108": "thumb/AMK362780_108.webp",
+      "216": "thumb/AMK362780_216.webp"
+    }
+  },
+  "original_sha256": "2ab3c890c4b1bd96a312b52c37440a69dac1e0c508ac73417d7ae25b966a6796",
+  "processing": {
+    "cropBox": [
+      133,
+      0,
+      602,
+      396
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK362780_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

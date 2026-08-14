@@ -1,0 +1,74 @@
+{
+  "species_id": "anchiale_austrotessulata",
+  "species_ja": "Anchiale austrotessulata",
+  "scientific_name": "Anchiale austrotessulata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Samuel Frankel",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anchiale austrotessulata - Samuel Frankel - 605360593.jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anchiale_austrotessulata_-_Samuel_Frankel_-_605360593.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anchiale_austrotessulata_-_Samuel_Frankel_-_605360593.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Samuel Frankel",
+    "eventDate": "2026-01-04",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "Anchiale austrotessulata, The Gap NSW 2472, Australia, 2026-01-04 (iNaturalist).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anchiale_austrotessulata_-_Samuel_Frankel_-_605360593.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Anchiale_austrotessulata_-_Samuel_Frankel_-_605360593.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_resized.jpg",
+    "display": "processed/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_54.webp",
+      "108": "thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_108.webp",
+      "216": "thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_216.webp"
+    }
+  },
+  "original_sha256": "8ef68480defcc41767c73ce2e20502e91f1d6997dbb16da4d6257dec59bbd054",
+  "processing": {
+    "cropBox": [
+      447,
+      68,
+      1292,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

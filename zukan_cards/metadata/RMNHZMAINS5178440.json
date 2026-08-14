@@ -1,0 +1,74 @@
+{
+  "species_id": "heteronympha_merope",
+  "species_ja": "ミナミジャノメ",
+  "scientific_name": "Heteronympha merope",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.5178440",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5178440",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5178440",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Imago",
+    "recordedBy": "Smith V. (Vick)",
+    "eventDate": "1952-01-09",
+    "eventYear": 1952,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": "WholeOrganism (pinned specimen)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "4863294047",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4863294047",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.5178440_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHZMAINS5178440_resized.jpg",
+    "display": "processed/RMNHZMAINS5178440_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS5178440_54.webp",
+      "108": "thumb/RMNHZMAINS5178440_108.webp",
+      "216": "thumb/RMNHZMAINS5178440_216.webp"
+    }
+  },
+  "original_sha256": "9093d255d01925bbc5e1db4d0c7cdba817e447e5ba0aa45e8d61fd87ef6c9e52",
+  "processing": {
+    "cropBox": [
+      670,
+      452,
+      1543,
+      1062
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS5178440_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "tectocoris_diophthalmus",
+  "species_ja": "Tectocoris diophthalmus",
+  "scientific_name": "Tectocoris diophthalmus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Norbert Fischer",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tectocoris diophthalmus (female adult with eggs - dorsoolateral).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tectocoris_diophthalmus_(female_adult_with_eggs_-_dorsoolateral).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tectocoris_diophthalmus_(female_adult_with_eggs_-_dorsoolateral).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Norbert Fischer",
+    "eventDate": "2020-11-19 11:28:30",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Hibiscus Harlequin Bug (Tectocoris diophthalmus) on hibiscus shrub, Wollongong West, NSW AUSTRALIA",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tectocoris_diophthalmus_(female_adult_with_eggs_-_dorsoolateral).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Tectocoris_diophthalmus_%28female_adult_with_eggs_-_dorsoolateral%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_resized.jpg",
+    "display": "processed/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_54.webp",
+      "108": "thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_108.webp",
+      "216": "thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_216.webp"
+    }
+  },
+  "original_sha256": "9b9a1826b32e2ccd0ea3443fcddaaaa8d980ccbf8910fcfa44dbdd31ee75210d",
+  "processing": {
+    "cropBox": [
+      910,
+      1239,
+      3116,
+      2901
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

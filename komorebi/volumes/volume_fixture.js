@@ -22,7 +22,8 @@
     var species=speciesSet(config.prefix,config.counts);
     return {
       id:config.id, regionId:config.regionId, regionName:config.regionName,
-      current:!!config.current, categories:config.categories, blurb:config.blurb,
+      current:!!config.current, expedition:config.expedition||1,
+      categories:config.categories, blurb:config.blurb,
       frozen:true, denominator:species.length, species:species
     };
   }
@@ -32,7 +33,7 @@
   /* マダガスカル遠征 I: 実在 84 種 (bugs.js に areaOnly で登録済み)。看板はコメットガ。
      他 3 地域は地図の見え方確認用の合成 fixture のまま。 */
   volumes.volume_fixture={
-    id:"volume_fixture", regionId:"madagascar", regionName:"マダガスカル", current:true,
+    id:"volume_fixture", regionId:"madagascar", regionName:"マダガスカル", current:true, expedition:1,
     categories:["kom_ratio","kom_kuku_dan2","kom_kuku_run"],
     blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
     frozen:true, denominator:84,
@@ -40,7 +41,7 @@
   };
 
   volumes.volume_fixture_australia=volume({
-    id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",
+    id:"volume_fixture_australia", expedition:1, regionId:"australia", regionName:"オーストラリア",
     /* 更新 2 の枠 (release_linkage 2 章)。kom_pi314 は release 2 なので、
        ここに挙げても CURRENT_RELEASE を上げるまで画面には出ない。 */
     categories:["kom_ratio","kom_kuku_dan2","kom_pi314","kom_kuku_dan5","kom_kuku_inverse","kom_frac_flow"],
@@ -49,14 +50,14 @@
   });
 
   volumes.volume_fixture_borneo=volume({
-    id:"volume_fixture_borneo", regionId:"borneo", regionName:"ボルネオ",
+    id:"volume_fixture_borneo", expedition:1, regionId:"borneo", regionName:"ボルネオ",
     categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3","kom_unit_convert","kom_kuku_bridge"],
     blurb:"世界で 3 番目に大きな島。3 つの国にまたがる熱帯雨林。",
     prefix:"kom_fixture_bo", counts:{n:5,r:2,sr:1}
   });
 
   volumes.volume_fixture_costa_rica=volume({
-    id:"volume_fixture_costa_rica", regionId:"costa_rica", regionName:"コスタリカ",
+    id:"volume_fixture_costa_rica", expedition:1, regionId:"costa_rica", regionName:"コスタリカ",
     categories:["kom_ratio","kom_kuku_dan4","kom_kuku_ura","kom_equation_select"],
     blurb:"中央アメリカの小さな国。九州ほどの広さに世界の生きものの 5% がすむ。",
     prefix:"kom_fixture_cr", counts:{n:6,r:2,sr:1}

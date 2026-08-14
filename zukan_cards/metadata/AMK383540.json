@@ -1,0 +1,76 @@
+{
+  "species_id": "camponotus_consobrinus",
+  "species_ja": "バンデッドシュガーアリ",
+  "scientific_name": "Camponotus consobrinus",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.383540",
+    "occurrenceId": "f703f6b5-c04b-411c-9138-225d8e57ce89",
+    "persistentId": "f703f6b5-c04b-411c-9138-225d8e57ce89",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "P.H. Colman",
+    "eventDate": "2001-04",
+    "eventYear": 2001,
+    "country": "Australia",
+    "localityVerbatim": "Wheeler Creek, near Beacon Hill",
+    "localityNormalized": "Wheeler Creek, near Beacon Hill, Australia",
+    "preparations": null,
+    "decimalLatitude": -33.741665,
+    "decimalLongitude": 151.25833
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276479518",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276479518",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=d9be4a95-aa16-4a7f-94af-16f40c59b97a",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK383540_resized.jpg",
+    "display": "processed/AMK383540_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK383540_54.webp",
+      "108": "thumb/AMK383540_108.webp",
+      "216": "thumb/AMK383540_216.webp"
+    }
+  },
+  "original_sha256": "da74898220534eef7a58829e1137d5f4e8f4037b19f9477b72dfa5a0b093af74",
+  "processing": {
+    "cropBox": [
+      82,
+      83,
+      271,
+      273
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK383540_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

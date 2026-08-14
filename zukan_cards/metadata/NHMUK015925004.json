@@ -1,0 +1,74 @@
+{
+  "species_id": "synemon_plana",
+  "species_ja": "Synemon plana",
+  "scientific_name": "Synemon plana",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015925004",
+    "occurrenceId": "047c9e7f-467b-46fd-952b-353a1b973cc6",
+    "persistentId": "047c9e7f-467b-46fd-952b-353a1b973cc6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "4602540482",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/047c9e7f-467b-46fd-952b-353a1b973cc6",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/91cee726-c5bc-4105-a0a6-afcb942b4ee1",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015925004_resized.jpg",
+    "display": "processed/NHMUK015925004_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015925004_54.webp",
+      "108": "thumb/NHMUK015925004_108.webp",
+      "216": "thumb/NHMUK015925004_216.webp"
+    }
+  },
+  "original_sha256": "4efd5fae66ad3aca1e88fb1a57cd6c0a9fd6ebf4d0769f2e0ceab03f6b4745c5",
+  "processing": {
+    "cropBox": [
+      490,
+      175,
+      706,
+      332
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015925004_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

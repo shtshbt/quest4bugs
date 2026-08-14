@@ -1,0 +1,76 @@
+{
+  "species_id": "illeis_galbula",
+  "species_ja": "Illeis galbula",
+  "scientific_name": "Illeis galbula",
+  "credit_line": "Australian Museum",
+  "creator": "Donna Grech",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.362791",
+    "occurrenceId": "b2dc1390-3e37-404e-b33f-59bc9a2848e4",
+    "persistentId": "b2dc1390-3e37-404e-b33f-59bc9a2848e4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "E. Sutton",
+    "eventDate": "1934",
+    "eventYear": 1934,
+    "country": "Australia",
+    "localityVerbatim": "Fletcher",
+    "localityNormalized": "Fletcher, Australia",
+    "preparations": null,
+    "decimalLatitude": -28.768055,
+    "decimalLongitude": 151.86972
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100313729",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100313729",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=f508016e-e48f-4a3a-afe5-fbd69355af50",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK362791_resized.jpg",
+    "display": "processed/AMK362791_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK362791_54.webp",
+      "108": "thumb/AMK362791_108.webp",
+      "216": "thumb/AMK362791_216.webp"
+    }
+  },
+  "original_sha256": "0c7c2ba8f32c3ec13ee56ac3c967a660d4d3dd88b74e7070735ad1ed9826f26c",
+  "processing": {
+    "cropBox": [
+      129,
+      0,
+      639,
+      401
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK362791_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

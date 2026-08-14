@@ -1,0 +1,76 @@
+{
+  "species_id": "rhytidoponera_metallica",
+  "species_ja": "Rhytidoponera metallica",
+  "scientific_name": "Rhytidoponera metallica",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.122814",
+    "occurrenceId": "cdfd9a8e-1a87-4976-a515-e5f54c9d0506",
+    "persistentId": "cdfd9a8e-1a87-4976-a515-e5f54c9d0506",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "J.L.T. Tarnawski & S.A. Lassau",
+    "eventDate": "1999-02-15/1999-03-08",
+    "eventYear": 1999,
+    "country": "Australia",
+    "localityVerbatim": "Mills Fishing Rd., approx. 1.5km NW from junction with Princes Highway, Mogo SF.",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -35.726944,
+    "decimalLongitude": 150.15195
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276472469",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276472469",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=e8fb983b-4826-4f4f-bed1-ce6e6a4ffae2",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK122814_resized.jpg",
+    "display": "processed/AMK122814_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK122814_54.webp",
+      "108": "thumb/AMK122814_108.webp",
+      "216": "thumb/AMK122814_216.webp"
+    }
+  },
+  "original_sha256": "2d76aa50a14a216bcbdf9b01925f31e868d2f3f5a3e37d473336b3b020633f33",
+  "processing": {
+    "cropBox": [
+      47,
+      0,
+      567,
+      375
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK122814_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

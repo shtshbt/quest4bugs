@@ -87,6 +87,24 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 
   app.querySelector('[data-action="trophies"]').click();
 
+  test("a volume staged for a future update stays off the map", () => {
+    /* 事前準備方式の要。未来の巻を manifest に仕込んでも、CURRENT_RELEASE を
+       上げるまで地図にも図鑑にも出ない。デプロイ = 番号を上げるだけ。
+       いまはトロフィーページに居るので、仕込んでから地図へ戻って再描画させる。 */
+    context.Q4B_KOMOREBI_VOLUMES.volume_future_stage = {
+      id: "volume_future_stage", regionId: "australia", regionName: "オーストラリア",
+      current: false, expedition: 2, release: 2,
+      categories: ["kom_kuku_run"], blurb: "未来の巻。", frozen: true, denominator: 1,
+      species: [{ id: "kom_future_stage_sr_01", rarity: "SR", flagship: true }]
+    };
+    app.querySelector('[data-action="back"]').click();
+    assert.equal(app.innerHTML.indexOf("volume_future_stage"), -1, "the staged volume leaked to the map");
+    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "the staged expedition is visible before its release");
+    delete context.Q4B_KOMOREBI_VOLUMES.volume_future_stage;
+    /* 次のテストはトロフィーページ前提なので戻しておく。 */
+    app.querySelector('[data-action="trophies"]').click();
+  });
+
   test("an unreleased trophy does not sit on the goal board", () => {
     assert.match(plain(), /0／3/, "the trophy page counted an unreleased slot: " + plain().slice(0, 200));
     assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3);

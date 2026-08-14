@@ -513,6 +513,58 @@
     return volume;
   }
 
+  /* --- 地域と遠征 ------------------------------------------------------------
+     地域 (region) は表示の単位、遠征 (volume) は抽選と分母の単位。ピンと図鑑は
+     地域に 1 つ、カテゴリと捕獲プールは遠征に属する (volume_zukan_design 2 章)。 */
+
+  var ROMAN=["","Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","Ⅸ","Ⅹ"];
+  function romanNumeral(n){return ROMAN[n]||String(n);}
+  function volumeExpedition(volume){return Number.isInteger(volume.expedition)&&volume.expedition>=1?volume.expedition:1;}
+
+  /* volume にも release 番号を持たせ、未来の巻を manifest に仕込んでおける。
+     カテゴリと同じく CURRENT_RELEASE 1 か所で公開が決まり、デプロイは番号を
+     上げるだけになる (事前準備方式)。release 無しの volume は公開済み扱い。 */
+  function isVolumeReleased(volume){
+    return !Number.isInteger(volume.release)||volume.release<=CURRENT_RELEASE;
+  }
+
+  function regionList(){
+    var byRegion={},order=[];
+    expeditionVolumes().filter(isVolumeReleased).forEach(function(volume){
+      if(!byRegion[volume.regionId]){
+        byRegion[volume.regionId]={regionId:volume.regionId,regionName:volume.regionName,volumes:[]};
+        order.push(volume.regionId);
+      }
+      byRegion[volume.regionId].volumes.push(volume);
+    });
+    return order.map(function(regionId){
+      var region=byRegion[regionId];
+      region.volumes.sort(function(a,b){return volumeExpedition(a)-volumeExpedition(b);});
+      /* 地域の紹介文は最初の遠征のものを使う。巻ごとに変えると地域の顔がぶれる。 */
+      region.blurb=region.volumes[0].blurb;
+      region.current=region.volumes.some(function(volume){return volume.current;});
+      return region;
+    });
+  }
+
+  function regionById(regionId){
+    var region=regionList().filter(function(r){return r.regionId===regionId;})[0];
+    if(!region)throw new Error("地域を見つけられません");
+    return region;
+  }
+
+  function regionPinState(region,collection){
+    var caught=0,denominator=0,complete=true;
+    region.volumes.forEach(function(volume){
+      var progress=volumeProgress(volume,collection);
+      caught+=progress.caught;denominator+=progress.denominator;
+      if(!progress.complete)complete=false;
+    });
+    if(complete)return {kind:"completed",mark:"✓",caught:caught,denominator:denominator,ringValue:1};
+    if(region.current)return {kind:"current",mark:"★",caught:caught,denominator:denominator,ringValue:denominator?caught/denominator:0};
+    return {kind:"past",mark:"🦋",caught:caught,denominator:denominator,ringValue:denominator?caught/denominator:0};
+  }
+
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
@@ -658,25 +710,26 @@
     return lines;
   }
 
-  function mapArtworkHtml(volumes,currentId,selectedId){
+  function mapArtworkHtml(regions,currentRegionId,selectedRegionId){
     var box=mapViewBox(worldMap),byRegion={},regionPaths="",pins="",leader="";
-    volumes.forEach(function(volume){byRegion[volume.regionId]=volume;});
+    regions.forEach(function(region){byRegion[region.regionId]=region;});
     Object.keys(worldMap.regions).forEach(function(regionId){
-      var volume=byRegion[regionId],className="hl hl-unopened";
-      if(volume)className=volume.id===currentId?"hl hl-current":"hl hl-open";
-      regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(volume?' filter="url(#rich-glow)"':'')+'></path>';
+      var region=byRegion[regionId],className="hl hl-unopened";
+      if(region)className=region.regionId===currentRegionId?"hl hl-current":"hl hl-open";
+      regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(region?' filter="url(#rich-glow)"':'')+'></path>';
     });
-    volumes.forEach(function(volume){
-      var state=mapPinState(volume,viewCollection(),currentId),point=worldMap.pins[volume.regionId];
+    /* ピンは地域に 1 本。巻が増えてもピンは重ならず、数字は地域の全巻合計になる。 */
+    regions.forEach(function(region){
+      var state=regionPinState(region,viewCollection()),point=worldMap.pins[region.regionId];
       var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
       var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":"完成した遠征";
-      var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"")+(volume.id===selectedId?" pin-selected":"");
+      var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"")+(region.regionId===selectedRegionId?" pin-selected":"");
       /* 選択中の地域から下の一覧へ引き出し線を落とす。地図は「どこ」を示し、
          主役は下のカテゴリ一覧という関係を線で結ぶ。 */
-      if(volume.id===selectedId)leader='<span class="map-leader" aria-hidden="true" style="left:'+left+'%;top:'+top+'%"></span>';
-      pins+='<button type="button" class="'+classes+'" data-volume-id="'+escapeHtml(volume.id)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(volume.regionName+' '+state.caught+'／'+state.denominator+'、'+status)+'">'
+      if(region.regionId===selectedRegionId)leader='<span class="map-leader" aria-hidden="true" style="left:'+left+'%;top:'+top+'%"></span>';
+      pins+='<button type="button" class="'+classes+'" data-region-id="'+escapeHtml(region.regionId)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(region.regionName+' '+state.caught+'／'+state.denominator+'、'+status)+'">'
         +'<span class="pin-halo" aria-hidden="true"></span><span class="pin-ring" aria-hidden="true"><span class="pin-disc"><span class="pin-mark">'+state.mark+'</span></span></span>'
-        +'<span class="pin-name">'+displayText(volume.regionName)+'</span><span class="pin-count">'+state.caught+'／'+state.denominator+'</span></button>';
+        +'<span class="pin-name">'+displayText(region.regionName)+'</span><span class="pin-count">'+state.caught+'／'+state.denominator+'</span></button>';
     });
     return '<div class="map-shell"><svg class="map map-rich" viewBox="'+escapeHtml(worldMap.viewBox)+'" role="img" aria-label="こもれびの遠征地図" preserveAspectRatio="xMidYMid meet">'
       +'<defs><radialGradient id="rich-sea" cx="50%" cy="45%" r="72%"><stop offset="0%" stop-color="#17454B"></stop><stop offset="62%" stop-color="#0E3036"></stop><stop offset="100%" stop-color="#071F26"></stop></radialGradient>'
@@ -1416,31 +1469,51 @@
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });
 
-  function pathPanelHtml(volume){
-    var progress=volumeProgress(volume,viewCollection()),buttons="";
+  function categoryButtonsHtml(volume,badge){
+    var buttons="";
     /* 未公開の更新に属するカテゴリは選択肢そのものを出さない。volume manifest が
        先に挙げていても、公開は CURRENT_RELEASE 1 か所で決める。 */
     volume.categories.filter(isReleased).forEach(function(cat){
       /* 音声カテゴリはマイクが無いことを「始める前に」出す。代替入力は提供しない
          (design 7.4)。押してから駄目だと分かるのは子どもには理不尽。 */
       var blocked=isDanCat(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
-      if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
-      else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span><span class="path-choice-note">'+displayText(blocked)+'</span></button>';
+      /* badge はこのボタンで正答したときに増える図鑑の巻番号。どのボタンが
+         どの図鑑を増やすかを、始める前に見えるようにする (volume_zukan_design 3.1)。 */
+      var badgeHtml=badge?'<span class="path-badge" aria-label="'+attrText("遠征 "+badge)+'">'+badge+'</span>':"";
+      if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'" data-volume-id="'+escapeHtml(volume.id)+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
+      else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText(blocked)+'</span></button>';
+    });
+    return buttons;
+  }
+
+  function pathPanelHtml(region){
+    var collection=viewCollection(),multi=region.volumes.length>1,sections="",progressParts=[];
+    region.volumes.forEach(function(volume){
+      var numeral=romanNumeral(volumeExpedition(volume)),buttons=categoryButtonsHtml(volume,multi?numeral:"");
+      if(!buttons)return;
+      /* 巻が複数のときだけ見出しと badge を出す。1 巻の地域に「遠征 Ⅰ」を
+         書いても情報がない。 */
+      if(multi)sections+='<h3 class="path-exp-head">'+displayText("遠征 "+numeral)+'</h3>';
+      sections+='<div class="path-choices" aria-label="'+attrText("あるく小道を えらぼう")+'">'+buttons+'</div>';
+      var progress=volumeProgress(volume,collection);
+      progressParts.push((multi?numeral+" ":"")+progress.caught+"／"+progress.denominator+(progress.complete?" ✓":""));
     });
     /* 地域の形は世界地図の実寸では読めない (コスタリカは幅 11、豪は 137)。
        形はここで単独に大きく描き、地図は位置を示す役に徹する。 */
-    var box=worldMap.regionBoxes&&worldMap.regionBoxes[volume.regionId];
-    var shape=box?'<svg class="path-shape" viewBox="'+box.join(" ")+'" role="img" aria-label="'+attrText(volume.regionName+"の形")+'"><path d="'+escapeHtml(worldMap.regions[volume.regionId])+'"></path></svg>':"";
-    return '<div class="path-place">'+shape+'<div class="path-place-text"><h2>'+displayText(volume.regionName+"の小道")+'</h2><p>'+displayText(volume.blurb)+'</p></div></div>'
-      +'<div class="path-choices" aria-label="'+attrText("あるく小道を えらぼう")+'">'+buttons+'</div>'
-      +'<div class="path-foot"><button type="button" class="path-zukan" data-action="zukan">📖 '+displayText(volume.regionName+"の ずかん")+'</button>'
-      +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong></span></div>';
+    var box=worldMap.regionBoxes&&worldMap.regionBoxes[region.regionId];
+    var shape=box?'<svg class="path-shape" viewBox="'+box.join(" ")+'" role="img" aria-label="'+attrText(region.regionName+"の形")+'"><path d="'+escapeHtml(worldMap.regions[region.regionId])+'"></path></svg>':"";
+    return '<div class="path-place">'+shape+'<div class="path-place-text"><h2>'+displayText(region.regionName+"の小道")+'</h2><p>'+displayText(region.blurb)+'</p></div></div>'
+      +sections
+      +'<div class="path-foot"><button type="button" class="path-zukan" data-action="zukan">📖 '+displayText(region.regionName+"の ずかん")+'</button>'
+      +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progressParts.join("　")+'</strong></span></div>';
   }
 
-  function bindPathPanel(volume){
-    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(volume.id);});
+  function bindPathPanel(region){
+    document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(region.regionId);});
     Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-cat]"),function(button){
       var cat=button.getAttribute("data-cat"),start=SESSION_STARTERS[cat];
+      /* 捕獲プールはボタンが属する巻。badge が示す対応をここが実行する。 */
+      var volume=volumeById(button.getAttribute("data-volume-id"));
       if(!start)return;
       button.addEventListener("click",function(){
         button.disabled=true;
@@ -1453,15 +1526,15 @@
     });
   }
 
-  function selectVolume(volume){
+  function selectRegion(region){
     var panel=document.getElementById("pathPanel");
     if(!panel)return;
-    panel.innerHTML=pathPanelHtml(volume);
-    bindPathPanel(volume);
+    panel.innerHTML=pathPanelHtml(region);
+    bindPathPanel(region);
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
-      pin.classList.toggle("pin-selected",pin.getAttribute("data-volume-id")===volume.id);
+      pin.classList.toggle("pin-selected",pin.getAttribute("data-region-id")===region.regionId);
     });
-    var leader=document.querySelector(".map-leader"),point=worldMap.pins[volume.regionId],box=mapViewBox(worldMap);
+    var leader=document.querySelector(".map-leader"),point=worldMap.pins[region.regionId],box=mapViewBox(worldMap);
     if(leader&&point){
       leader.style.left=((point.x-box[0])/box[2]*100).toFixed(3)+"%";
       leader.style.top=((point.y-box[1])/box[3]*100).toFixed(3)+"%";
@@ -1522,30 +1595,39 @@
   }
 
   function renderMap(selectedId){
-    var volumes=expeditionVolumes(),currentId=currentVolumeId(volumes);
+    var volumes=expeditionVolumes(),regions=regionList();
     validateMapPayload(worldMap,volumes);
-    /* 未知の id でも落とさない。volumeById は見つからないと例外を投げる。 */
-    var wanted=selectedId||currentId,selected=volumes.filter(function(volume){return volume.id===wanted;})[0]||volumes[0];
+    /* selectedId は volume id でも region id でも受ける (セッションからの戻りは
+       volume id で来る)。未知の id でも落とさず現在の地域へ寄せる。 */
+    var wantedRegion=null;
+    regions.forEach(function(region){
+      if(region.regionId===selectedId)wantedRegion=region;
+      region.volumes.forEach(function(volume){if(volume.id===selectedId)wantedRegion=region;});
+    });
+    var currentRegion=regions.filter(function(region){return region.current;})[0]||regions[0];
+    var selected=wantedRegion||currentRegion;
     /* 1 画面構成: 表題 / 地図 (どこ) / 引き出し線 / 小道の一覧 (主役)。
        地図はカテゴリを選ぶための文脈であって、地域選択を挟む関門にはしない。 */
     document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
       +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("あるく小道を えらぼう")+'</p></div>'
-      +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(volumes,currentId,selected.id)+'</section>'
+      +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(regions,currentRegion.regionId,selected.regionId)+'</section>'
       +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section>'
+      +pathZukanEntranceHtml()
       +trophyEntranceHtml()+'</main>';
     bindPathPanel(selected);
-    document.querySelector('[data-action="trophies"]').addEventListener("click",function(){renderTrophies(selected.id);});
+    document.querySelector('[data-action="trophies"]').addEventListener("click",function(){renderTrophies(selected.regionId);});
+    document.querySelector('[data-action="path-zukan"]').addEventListener("click",function(){renderCommonZukan(selected.regionId);});
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
-      var volume=volumeById(pin.getAttribute("data-volume-id"));
-      pin.addEventListener("click",function(){selectVolume(volume);});
-      pin.addEventListener("focus",function(){selectVolume(volume);});
+      var region=regionById(pin.getAttribute("data-region-id"));
+      pin.addEventListener("click",function(){selectRegion(region);});
+      pin.addEventListener("focus",function(){selectRegion(region);});
     });
   }
 
   /* 図鑑の絞り込み。本編 keisan の zukanMatchK と同じ語彙 (レア度 tier / 分類キー /
      未捕獲を隠す / 検索) を使うが、状態は小道側に持つ。本編の KZ_* は keisan の
      プロフィールに束縛されているため共有できない。 */
-  var zukanFilter={rarity:"",group:"",caughtOnly:false,query:""};
+  var zukanFilter={rarity:"",group:"",caughtOnly:false,query:"",expedition:"",region:""};
 
   function zukanGroupKey(sp){ return sp?(sp.familyJa||sp.orderJa||sp.groupJa||""):""; }
 
@@ -1599,44 +1681,138 @@
       +(entry.flagship?'<div class="zukan-flag">'+displayText("この遠征の 看板")+'</div>':"")+'</li>';
   }
 
-  function renderZukan(volumeId){
-    var volume=volumeById(volumeId),collection=viewCollection(),progress=volumeProgress(volume,collection);
-    var reward=global.Q4BReward;
-    var entries=volume.species.map(function(entry){
-      return {entry:entry,sp:reward&&reward.spById?reward.spById(entry.id):null,record:collection.catches[entry.id]};
+  /* 地域の全巻の種を 1 冊に連結する。I/II/III は運用の単位であって、子どもに
+     とっての意味単位は「マダガスカルの虫」。分冊感を出さない (volume_zukan_design 3.2)。 */
+  function regionEntries(region,collection){
+    var reward=global.Q4BReward,entries=[];
+    region.volumes.forEach(function(volume){
+      var numeral=romanNumeral(volumeExpedition(volume));
+      volume.species.forEach(function(entry){
+        entries.push({entry:entry,expedition:numeral,regionId:region.regionId,regionName:region.regionName,
+          sp:reward&&reward.spById?reward.spById(entry.id):null,record:collection.catches[entry.id]});
+      });
     });
-    var shown=entries.filter(function(item){return zukanMatches(item.sp,item.record);});
-    var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
-      ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
-    document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(volume.regionName+"の小道")+'</button></header>'
-      +'<div class="kom-title"><h1>'+displayText(volume.regionName+"の ずかん")+'</h1>'
-      +'<p>'+displayText("あつめた虫")+'　<strong>'+progress.caught+'／'+progress.denominator+'</strong>'
-      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
-      +zukanFilterBarHtml(entries)
-      +'<ul class="zukan-grid">'+cards+'</ul></main>';
-    document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volume.id);});
-    bindZukanFilters(volume.id);
-    bindZukanCards(entries,volume.id);
+    return entries;
   }
 
-  function bindZukanFilters(volumeId){
+  /* 進捗は巻ごとの凍結分母を並べる。合計は添え物で、完成判定は巻ごと (決定 4)。 */
+  function regionProgressHtml(region,collection){
+    var multi=region.volumes.length>1,parts=[],caught=0,denominator=0;
+    region.volumes.forEach(function(volume){
+      var progress=volumeProgress(volume,collection);
+      caught+=progress.caught;denominator+=progress.denominator;
+      parts.push((multi?romanNumeral(volumeExpedition(volume))+" ":"")+progress.caught+"／"+progress.denominator+(progress.complete?" ✓":""));
+    });
+    if(multi)parts.push("合計 "+caught+"／"+denominator);
+    return parts.join("　");
+  }
+
+  function expeditionChipsHtml(region){
+    if(region.volumes.length<2)return "";
+    var chips=[["","すべて"]].concat(region.volumes.map(function(volume){
+      var numeral=romanNumeral(volumeExpedition(volume));
+      return [numeral,"遠征 "+numeral];
+    })).map(function(pair){
+      return '<button type="button" class="zukan-chip'+(zukanFilter.expedition===pair[0]?" is-on":"")+'" data-filter="expedition" data-value="'+escapeHtml(pair[0])+'">'+displayText(pair[1])+'</button>';
+    }).join("");
+    return '<div class="zukan-chips" role="group" aria-label="'+attrText("遠征でしぼる")+'">'+chips+'</div>';
+  }
+
+  function renderZukan(regionId){
+    var region=regionById(regionId),collection=viewCollection();
+    var entries=regionEntries(region,collection);
+    var shown=entries.filter(function(item){
+      if(zukanFilter.expedition!==""&&item.expedition!==zukanFilter.expedition)return false;
+      return zukanMatches(item.sp,item.record);
+    });
+    var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
+      ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
+    document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(region.regionName+"の小道")+'</button></header>'
+      +'<div class="kom-title"><h1>'+displayText(region.regionName+"の ずかん")+'</h1>'
+      +'<p>'+displayText("あつめた虫")+'　<strong>'+regionProgressHtml(region,collection)+'</strong>'
+      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
+      +expeditionChipsHtml(region)
+      +zukanFilterBarHtml(entries)
+      +'<ul class="zukan-grid">'+cards+'</ul></main>';
+    document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
+    bindZukanFilters(function(){renderZukan(regionId);});
+    bindZukanCards(entries,region.regionId);
+  }
+
+  function bindZukanFilters(rerender){
     Array.prototype.forEach.call(document.querySelectorAll('[data-filter="rarity"]'),function(button){
       button.addEventListener("click",function(){
         zukanFilter.rarity=button.getAttribute("data-value");
-        renderZukan(volumeId);
+        rerender();
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-filter="expedition"]'),function(button){
+      button.addEventListener("click",function(){
+        zukanFilter.expedition=button.getAttribute("data-value");
+        rerender();
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-filter="region"]'),function(button){
+      button.addEventListener("click",function(){
+        zukanFilter.region=button.getAttribute("data-value");
+        rerender();
       });
     });
     var group=document.getElementById("zukanGroup");
-    if(group)group.addEventListener("change",function(){zukanFilter.group=group.value;renderZukan(volumeId);});
+    if(group)group.addEventListener("change",function(){zukanFilter.group=group.value;rerender();});
     var caught=document.getElementById("zukanCaught");
-    if(caught)caught.addEventListener("change",function(){zukanFilter.caughtOnly=caught.checked;renderZukan(volumeId);});
+    if(caught)caught.addEventListener("change",function(){zukanFilter.caughtOnly=caught.checked;rerender();});
     var query=document.getElementById("zukanQuery");
     if(query)query.addEventListener("input",function(){
       zukanFilter.query=query.value;
-      renderZukan(volumeId);
+      rerender();
       var again=document.getElementById("zukanQuery");
       if(again){again.focus();again.setSelectionRange(again.value.length,again.value.length);}
     });
+  }
+
+  /* --- 小道の共通図鑑 --------------------------------------------------------
+     全地域を横断する読み物としての図鑑 (volume_zukan_design 3.3)。御神木パネルの
+     「こもれび N/M」の着地先。捕獲の場ではないので、ここから遠征へは飛ばない。 */
+
+  function pathZukanEntranceHtml(){
+    var collection=viewCollection(),caught=0,denominator=0;
+    regionList().forEach(function(region){
+      region.volumes.forEach(function(volume){
+        var progress=volumeProgress(volume,collection);
+        caught+=progress.caught;denominator+=progress.denominator;
+      });
+    });
+    return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="path-zukan">'
+      +'📖 <span>'+displayText("こもれびの ずかん")+'</span> <strong>'+caught+'／'+denominator+'</strong></button></div>';
+  }
+
+  function renderCommonZukan(backId){
+    var collection=viewCollection(),regions=regionList(),entries=[];
+    regions.forEach(function(region){
+      regionEntries(region,collection).forEach(function(item){entries.push(item);});
+    });
+    var shown=entries.filter(function(item){
+      if(zukanFilter.region!==""&&item.regionId!==zukanFilter.region)return false;
+      return zukanMatches(item.sp,item.record);
+    });
+    var regionChips=[["","すべて"]].concat(regions.map(function(region){return [region.regionId,region.regionName];}))
+      .map(function(pair){
+        return '<button type="button" class="zukan-chip'+(zukanFilter.region===pair[0]?" is-on":"")+'" data-filter="region" data-value="'+escapeHtml(pair[0])+'">'+displayText(pair[1])+'</button>';
+      }).join("");
+    var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
+      ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
+    var caught=entries.filter(function(item){return item.record;}).length;
+    document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
+      +'<div class="kom-title"><h1>'+displayText("こもれびの ずかん")+'</h1>'
+      +'<p>'+displayText("あつめた虫")+'　<strong>'+caught+'／'+entries.length+'</strong>'
+      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
+      +'<div class="zukan-chips" role="group" aria-label="'+attrText("ちいきでしぼる")+'">'+regionChips+'</div>'
+      +zukanFilterBarHtml(entries)
+      +'<ul class="zukan-grid">'+cards+'</ul></main>';
+    document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(backId);});
+    bindZukanFilters(function(){renderCommonZukan(backId);});
+    bindZukanCards(entries,backId);
   }
 
   /* 捕獲済みカードをタップすると、本編と同じ詳細 (Q4BZukan.detailHTML) を開く。

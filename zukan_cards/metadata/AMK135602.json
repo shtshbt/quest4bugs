@@ -1,0 +1,76 @@
+{
+  "species_id": "coccinella_transversalis",
+  "species_ja": "ヤマイチテントウ",
+  "scientific_name": "Coccinella transversalis",
+  "credit_line": "Australian Museum",
+  "creator": "Jan Robertson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.135602",
+    "occurrenceId": "86d2bc89-6721-4761-9411-68f01d06ae48",
+    "persistentId": "86d2bc89-6721-4761-9411-68f01d06ae48",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "L. Wilkie",
+    "eventDate": "1996-11-16",
+    "eventYear": 1996,
+    "country": "Australia",
+    "localityVerbatim": "Myall Lakes National Park, Lemontree beach access",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -32.63222,
+    "decimalLongitude": 152.20778
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100187211",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100187211",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=dedd9f60-8815-4aa7-8637-0841ba581d85",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK135602_resized.jpg",
+    "display": "processed/AMK135602_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK135602_54.webp",
+      "108": "thumb/AMK135602_108.webp",
+      "216": "thumb/AMK135602_216.webp"
+    }
+  },
+  "original_sha256": "f76e39e706af20c44bb4e9032949c6b453f13a2f3d7098ceb7611c08221fb9ca",
+  "processing": {
+    "cropBox": [
+      103,
+      0,
+      494,
+      402
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK135602_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

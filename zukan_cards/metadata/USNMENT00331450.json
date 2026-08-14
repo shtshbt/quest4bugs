@@ -1,0 +1,76 @@
+{
+  "species_id": "ischnura_heterosticta",
+  "species_ja": "Ischnura heterosticta",
+  "scientific_name": "Ischnura heterosticta",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00331450",
+    "occurrenceId": "http://n2t.net/ark:/65665/300d42f48-886b-4671-aa60-6ec118eab364",
+    "persistentId": "http://n2t.net/ark:/65665/300d42f48-886b-4671-aa60-6ec118eab364",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "G. Hevel & J. Fortin",
+    "eventDate": "1980-04-14",
+    "eventYear": 1980,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Fig Tree Creek, 39 kilometers south of Ingham, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -19.0119,
+    "decimalLongitude": 146.172
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317221222",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317221222",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16324807&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00331450_resized.jpg",
+    "display": "processed/USNMENT00331450_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00331450_54.webp",
+      "108": "thumb/USNMENT00331450_108.webp",
+      "216": "thumb/USNMENT00331450_216.webp"
+    }
+  },
+  "original_sha256": "b92e07ff68901f32f815299bfe6340ea299775b1ee44e1d8e42ac0c882486489",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2000,
+      1535
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00331450_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

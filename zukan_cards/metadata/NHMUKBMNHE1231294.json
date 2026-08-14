@@ -1,0 +1,74 @@
+{
+  "species_id": "nysius_vinitor",
+  "species_ja": "Nysius vinitor",
+  "scientific_name": "Nysius vinitor",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Roberto Teixeira",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1231294",
+    "occurrenceId": "280dcca8-e7a7-4ebf-af0a-32fe7d0f48f9",
+    "persistentId": "280dcca8-e7a7-4ebf-af0a-32fe7d0f48f9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1927-04-05",
+    "eventYear": 1927,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Cleveland, Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055826714",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/280dcca8-e7a7-4ebf-af0a-32fe7d0f48f9",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/1cd866ef-797b-4831-b18d-2233ca1015de",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1231294_resized.jpg",
+    "display": "processed/NHMUKBMNHE1231294_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1231294_54.webp",
+      "108": "thumb/NHMUKBMNHE1231294_108.webp",
+      "216": "thumb/NHMUKBMNHE1231294_216.webp"
+    }
+  },
+  "original_sha256": "bcdde7ba35848aefd9fd376ef2bab39657af6998e7458d0c94ba7cd7b8015473",
+  "processing": {
+    "cropBox": [
+      272,
+      36,
+      1440,
+      1080
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1231294_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

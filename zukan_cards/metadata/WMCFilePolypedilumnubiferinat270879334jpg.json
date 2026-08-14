@@ -1,0 +1,74 @@
+{
+  "species_id": "polypedilum_nubifer",
+  "species_ja": "Polypedilum nubifer",
+  "scientific_name": "Polypedilum nubifer",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Pieter Prins Depicted place: Canyamel Costa, Balearic Islands, Spain (39°38′45″N 3°25′49″E﻿ / ﻿39.6458601999°N 3.4302100593°E﻿ / 39.6458601999; 3.4302100593)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Polypedilum nubifer - inat 270879334.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Polypedilum_nubifer_-_inat_270879334.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Polypedilum_nubifer_-_inat_270879334.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pieter Prins Depicted place: Canyamel Costa, Balearic Islands, Spain (39°38′45″N 3°25′49″E﻿ / ﻿39.6458601999°N 3.4302100593°E﻿ / 39.6458601999; 3.4302100593)",
+    "eventDate": "2021-06-19",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Polypedilum nubifer, Canyamel Costa, Balearic Islands, Spain",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Polypedilum_nubifer_-_inat_270879334.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Polypedilum_nubifer_-_inat_270879334.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePolypedilumnubiferinat270879334jpg_resized.jpg",
+    "display": "processed/WMCFilePolypedilumnubiferinat270879334jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePolypedilumnubiferinat270879334jpg_54.webp",
+      "108": "thumb/WMCFilePolypedilumnubiferinat270879334jpg_108.webp",
+      "216": "thumb/WMCFilePolypedilumnubiferinat270879334jpg_216.webp"
+    }
+  },
+  "original_sha256": "bf75615a5c2d0e5ed393a65fdc6e4f1a1724faa275738795d446579df2a42777",
+  "processing": {
+    "cropBox": [
+      45,
+      0,
+      804,
+      875
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePolypedilumnubiferinat270879334jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_tryoni",
+  "species_ja": "クインスランドミバエ",
+  "scientific_name": "Bactrocera tryoni",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1435083",
+    "occurrenceId": "06a7bad5-b88b-4cec-857d-36fe72b6f6b3",
+    "persistentId": "06a7bad5-b88b-4cec-857d-36fe72b6f6b3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dr Ian M. White|Dr Richard A. Drew",
+    "eventDate": "1995-03",
+    "eventYear": 1995,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Tamborine Mountain, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.9728,
+    "decimalLongitude": 153.1978
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270002359",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/06a7bad5-b88b-4cec-857d-36fe72b6f6b3",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/682c0c67-a0ee-49ec-8236-0dd76c3b2d23",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1435083_resized.jpg",
+    "display": "processed/NHMUKBMNHE1435083_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1435083_54.webp",
+      "108": "thumb/NHMUKBMNHE1435083_108.webp",
+      "216": "thumb/NHMUKBMNHE1435083_216.webp"
+    }
+  },
+  "original_sha256": "ae2c93a86f6d82bcf3eca6816d6aa23a719e8f692d1cd1040e98d7a454a662fa",
+  "processing": {
+    "cropBox": [
+      719,
+      328,
+      933,
+      487
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1435083_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

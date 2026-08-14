@@ -1,0 +1,76 @@
+{
+  "species_id": "iridomyrmex_purpureus",
+  "species_ja": "Iridomyrmex purpureus",
+  "scientific_name": "Iridomyrmex purpureus",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.383427",
+    "occurrenceId": "df9a695e-9bdd-46b3-9e8f-6b5ae88d5916",
+    "persistentId": "df9a695e-9bdd-46b3-9e8f-6b5ae88d5916",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "J. Thompson",
+    "eventDate": "1995-07-28",
+    "eventYear": 1995,
+    "country": "Australia",
+    "localityVerbatim": "Gilbert River (East Side) on Bourke Development Road",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -17.165,
+    "decimalLongitude": 141.76389
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276472929",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276472929",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=10955424-d70a-4d1e-9996-3a576d933553",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK383427_resized.jpg",
+    "display": "processed/AMK383427_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK383427_54.webp",
+      "108": "thumb/AMK383427_108.webp",
+      "216": "thumb/AMK383427_216.webp"
+    }
+  },
+  "original_sha256": "a1270f78a041fd6a692768465f7cb81489494c3b0d65b30bb01f12bfde5aaf59",
+  "processing": {
+    "cropBox": [
+      87,
+      0,
+      272,
+      380
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK383427_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

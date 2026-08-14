@@ -1,0 +1,76 @@
+{
+  "species_id": "valanga_irregularis",
+  "species_ja": "Valanga irregularis",
+  "scientific_name": "Valanga irregularis",
+  "credit_line": "Australian Museum",
+  "creator": "Andrew Trevor-Jones",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.475269",
+    "occurrenceId": "85f72734-6e57-4102-9e5b-457c5fd51ce3",
+    "persistentId": "85f72734-6e57-4102-9e5b-457c5fd51ce3",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2009-07-18",
+    "eventYear": 2009,
+    "country": "Australia",
+    "localityVerbatim": "Marks street, Hermit Park, Townsville",
+    "localityNormalized": "Marks street, Hermit Park, Townsville, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.282778,
+    "decimalLongitude": 146.80055
+  },
+  "source": {
+    "gbifOccurrenceKey": "2596682107",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2596682107",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=e22dc537-2585-4078-b395-8bac974c8121",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK475269_resized.jpg",
+    "display": "processed/AMK475269_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK475269_54.webp",
+      "108": "thumb/AMK475269_108.webp",
+      "216": "thumb/AMK475269_216.webp"
+    }
+  },
+  "original_sha256": "e8a9148096bcb3a006b3f28194933aba0eb703b9542e1d74c7bdbba81cf9b2f8",
+  "processing": {
+    "cropBox": [
+      77,
+      0,
+      305,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK475269_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

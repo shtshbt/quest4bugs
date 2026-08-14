@@ -1,0 +1,76 @@
+{
+  "species_id": "lamprima_aurata",
+  "species_ja": "アウラタキンイロクワガタ",
+  "scientific_name": "Lamprima aurata",
+  "credit_line": "Australian Museum",
+  "creator": "Polly Guice",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.584706",
+    "occurrenceId": "3d4e31f3-453f-4e0e-804a-23902d7eb44b",
+    "persistentId": "3d4e31f3-453f-4e0e-804a-23902d7eb44b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D.A. Doolan",
+    "eventDate": "1971-07-17",
+    "eventYear": 1971,
+    "country": "Australia",
+    "localityVerbatim": "Lilyvale",
+    "localityNormalized": "Lilyvale, Australia",
+    "preparations": null,
+    "decimalLatitude": -34.182777,
+    "decimalLongitude": 151.01472
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276646430",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276646430",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=090a28ea-fd59-4c07-9e61-5aaf911303d0",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK584706_resized.jpg",
+    "display": "processed/AMK584706_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK584706_54.webp",
+      "108": "thumb/AMK584706_108.webp",
+      "216": "thumb/AMK584706_216.webp"
+    }
+  },
+  "original_sha256": "acff0b733487bf1dcd87ff119dba0dbea209254863a96218288e1804b996c4fd",
+  "processing": {
+    "cropBox": [
+      0,
+      85,
+      443,
+      376
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK584706_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

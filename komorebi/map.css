@@ -288,6 +288,11 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .unit-chip.is-selected{border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 2px 0 #80691F}
 .unit-chip:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 
+/* 遠征 badge。どのカテゴリボタンがどの巻の図鑑を増やすかを、始める前に示す。 */
+.path-exp-head{margin:16px 0 8px;color:#FFE9A8;font-size:15px;font-weight:900;letter-spacing:.06em}
+.path-badge{flex:none;min-width:26px;padding:2px 8px;border:1.5px solid #B6963D;border-radius:8px;
+  background:#2B3A25;color:#FFE08A;font-size:13px;font-weight:900;text-align:center}
+
 /* トロフィー。入口は地図の下端 (ui_design 6 章)。未獲得の枠も並べて目標ボードにする。 */
 .kom-trophy-entrance{margin:18px auto 0;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .kom-trophy-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;
