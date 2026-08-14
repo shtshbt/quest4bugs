@@ -17,6 +17,8 @@
     kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:4},
     kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:5},
     kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:6},
+    kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:7},
+    kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:8},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 1 本ずつ解禁する
        (release_linkage 2 章)。エンジンは段番号駆動なので実装はこの行だけ。
        毎更新に k5 の弾が 1 本届くのがこの並びの狙い。 */
@@ -1369,6 +1371,22 @@
     return Promise.resolve(beginSession("kom_frac_flow",volume,questions,sessionId));
   }
 
+  /* 生成器を 1 つ持つだけのカテゴリは同じ形で開始できる。cat ごとに関数を
+     書き足すと、増えるたびに同じ 10 行が並ぶ。 */
+  function startGeneratedSession(cat,globalName,errorMessage){
+    return function(volume,random){
+      var engine=global[globalName];
+      if(!profile||!engine)return Promise.reject(new Error(errorMessage));
+      if(!volume||volume.categories.indexOf(cat)<0)return Promise.reject(new Error("この小道では遊べません"));
+      var generatorRandom=random||Math.random,questions,sessionId;
+      try{
+        questions=engine.buildSet(profile.lv[cat],generatorRandom);
+        sessionId=cat+"_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+      }catch(error){return Promise.reject(error);}
+      return Promise.resolve(beginSession(cat,volume,questions,sessionId));
+    };
+  }
+
   function startUnitConvertSession(volume,random){
     if(!profile||!global.Q4B_KOMOREBI_UNIT_CONVERT)return Promise.reject(new Error("単位換算を読み込めません"));
     if(!volume||volume.categories.indexOf("kom_unit_convert")<0)return Promise.reject(new Error("この小道では単位換算を遊べません"));
@@ -1385,7 +1403,9 @@
   var SESSION_STARTERS={kom_ratio:startRatioSession,kom_kuku_run:startKukuRunSession,
     kom_pi314:startPi314Session,kom_unit_convert:startUnitConvertSession,kom_frac_flow:startFracFlowSession,
     kom_kuku_ura:startKukuReverseSession("kom_kuku_ura"),
-    kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse")};
+    kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse"),
+    kom_kuku_bridge:startGeneratedSession("kom_kuku_bridge","Q4B_KOMOREBI_KUKU_BRIDGE","九九の外へを読み込めません"),
+    kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません")};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });

@@ -149,7 +149,8 @@ const KOMOREBI_FILES = [
   "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js",
   "komorebi/kuku_run.js", "komorebi/kuku_dan2.js", "komorebi/pi314_generator.js",
   "komorebi/unit_convert_generator.js", "komorebi/kuku_reverse_generator.js",
-  "komorebi/frac_flow_generator.js", "komorebi/trophies.js", "komorebi/app.js"
+  "komorebi/frac_flow_generator.js", "komorebi/kuku_bridge_generator.js",
+  "komorebi/equation_select_generator.js", "komorebi/trophies.js", "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };
