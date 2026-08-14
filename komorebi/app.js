@@ -79,7 +79,7 @@
   };
   var RATIO_STATIC_LEVELS={ordering:[5,6,8],diagnosis:[4,6,7,9]};
   var RATIO_PATTERN_BY_LEVEL={4:"find_base",5:"discount",6:"two_step",7:"ratio_share",8:"soutou",9:"baibai"};
-  var profile=null, profileId=null, profileType="k10", worldMap=null, ratioPool=null, session=null;
+  var profile=null, profileId=null, profileRevision=0, profileType="k10", worldMap=null, ratioPool=null, session=null;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
   var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
@@ -616,10 +616,44 @@
     return {profile:p,changed:changed};
   }
 
+  function mergeProfileCatches(localProfile,remoteProfile){
+    var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
+    var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
+    var merged=JSON.parse(JSON.stringify(localProfile)), catches={};
+    Object.keys(remoteCatches).concat(Object.keys(localCatches)).forEach(function(id){
+      if(catches[id])return;
+      var remote=remoteCatches[id], local=localCatches[id], entry={}, key;
+      if(remote)for(key in remote)entry[key]=remote[key];
+      if(local)for(key in local)entry[key]=local[key];
+      entry.records=(remote&&remote.records||[]).concat(local&&local.records||[]);
+      entry.n=entry.records.length;
+      var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
+      if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
+      catches[id]=entry;
+    });
+    merged.collection.catches=catches;
+    merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
+    return merged;
+  }
+
   function saveProfile(){
     if(!profileId||!global.QuestSave)return Promise.reject(new Error("保存できません"));
     if(QuestSave.warnIfDegraded)QuestSave.warnIfDegraded();
-    return QuestSave.save("komorebi",profileId,profile);
+    var localProfile=profile;
+    return QuestSave.saveVersioned("komorebi",profileId,localProfile,profileRevision).then(function(result){
+      if(result&&result.ok){profileRevision=result.revision;return true;}
+      if(!result||result.reason!=="conflict")throw new Error("保存できません");
+      return QuestSave.loadVersioned("komorebi",profileId,null).then(function(latest){
+        var remoteProfile=normalizeProfile(latest.data).profile;
+        profile=mergeProfileCatches(localProfile,remoteProfile);
+        profileRevision=latest.revision;
+        return QuestSave.saveVersioned("komorebi",profileId,profile,profileRevision).then(function(retry){
+          if(!retry||!retry.ok)throw new Error("保存の競合を解消できません");
+          profileRevision=retry.revision;
+          return true;
+        });
+      });
+    });
   }
 
   function todayString(){
@@ -1911,9 +1945,10 @@
     if(!profileId){renderError();return;}
     demoMode=/[?&]demo\b/.test(global.location&&global.location.search||"");
     var pull=QuestSave.syncDown?QuestSave.syncDown().catch(function(){}):Promise.resolve();
-    pull.then(function(){return Promise.all([QuestSave.load("komorebi",profileId),QuestSave.load("keisan",profileId),loadWorldMap(),loadRatioPool()]);}).then(function(data){
-      var normalized=normalizeProfile(data[0]);
+    pull.then(function(){return Promise.all([QuestSave.loadVersioned("komorebi",profileId,null),QuestSave.load("keisan",profileId),loadWorldMap(),loadRatioPool()]);}).then(function(data){
+      var normalized=normalizeProfile(data[0].data);
       profile=normalized.profile;
+      profileRevision=data[0].revision;
       profileType=data[1]&&data[1].type==="k5"?"k5":"k10";
       worldMap=validateMapPayload(data[2],expeditionVolumes());
       ratioPool=data[3];

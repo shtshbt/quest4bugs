@@ -11,6 +11,7 @@ const vm = require("node:vm");
 const root = path.resolve(__dirname, "..");
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
+async function asyncTest(name, fn){ await fn(); passed++; console.log("PASS", name); }
 
 function storageContext(){
   const backing = new Map();
@@ -23,6 +24,7 @@ function storageContext(){
   };
   const sessionStorage = { getItem(){ return null; }, setItem(){} };
   const context = { console, localStorage, sessionStorage, setTimeout, clearTimeout, structuredClone, Date, Math, Promise };
+  context.__backing = backing;
   context.window = context;
   context.navigator = {};
   context.addEventListener = function(){};
@@ -35,7 +37,9 @@ function storageContext(){
   };
   vm.createContext(context);
   for(const file of ["shared/bugs.js", "shared/reward.js", "shared/storage.js"]){
-    vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
+    let source = fs.readFileSync(path.join(root, file), "utf8");
+    if(file === "shared/storage.js") source = source.replace(/\}\)\(window\);\s*$/, "global.__snapshotDoc=snapshotDoc;\n})(window);");
+    vm.runInContext(source, context);
   }
   return context;
 }
@@ -77,4 +81,71 @@ test("an unknown game is still quarantined", () => {
   assert.equal(stored._brokenEggs[0].game, "battle");
 });
 
-console.log("RESULT " + passed + " passed, 0 failed");
+(async () => {
+  await asyncTest("layEgg survives quarantine writeback and breeding revision increases", async () => {
+    const pid = "lay_egg";
+    let fragments = 100;
+    reward.setEggStore({
+      pid: () => pid,
+      loadVersioned: key => save.loadVersioned("breeding", key, {eggs:[], pendingEggs:[], stats:{totalAbandoned:0}}),
+      saveVersioned: (key, data, revision) => save.saveVersioned("breeding", key, data, revision)
+    });
+    reward.setFossilStore({
+      pid: () => pid,
+      get: () => fragments,
+      spend(n){ if(fragments < n) return false; fragments -= n; return true; },
+      refund(n){ fragments += n; return true; }
+    });
+    const species = reward.spById("hagata_murasaki");
+    const collection = {catches:{}};
+    collection.catches[species.id] = {n:2, min:20, max:21, records:[{size:20, sex:"m"}, {size:21, sex:"f"}]};
+    const laid = await reward.layEgg(collection, species, {profileId:pid});
+    assert.equal(laid.ok, true);
+    const before = await save.loadVersioned("breeding", pid, null);
+
+    const store = JSON.parse(context.__backing.get("q4b_store_v1"));
+    store.kv["breeding\u0000" + pid].data.eggs.push({id:"broken", game:"battle"});
+    context.__backing.set("q4b_store_v1", JSON.stringify(store));
+    context.__backing.set("q4b_store_gen", String(Number(context.__backing.get("q4b_store_gen")) + 1));
+
+    const roundTrip = save.breedingOf(pid);
+    const after = await save.loadVersioned("breeding", pid, null);
+    assert.equal(roundTrip.eggs.some(value => value.id === species.id), true);
+    assert.equal(roundTrip._brokenEggs.length, 1);
+    assert.ok(after.revision > before.revision);
+  });
+
+  await asyncTest("amber wallet entries carry increasing revisions", async () => {
+    const pid = "amber";
+    save.amberAdd(pid, 2);
+    const first = await save.loadVersioned("wallet", pid, null);
+    save.amberAdd(pid, 3);
+    const second = await save.loadVersioned("wallet", pid, null);
+    assert.equal(first.revision, 1);
+    assert.equal(second.revision, 2);
+    assert.ok(second.updatedBy);
+  });
+
+  await asyncTest("loadStore reloads data when the generation token changes", async () => {
+    await save.save("keisan", "generation", {level:1});
+    const store = JSON.parse(context.__backing.get("q4b_store_v1"));
+    store.kv["keisan\u0000generation"].data = {level:2};
+    context.__backing.set("q4b_store_v1", JSON.stringify(store));
+    context.__backing.set("q4b_store_gen", String(Number(context.__backing.get("q4b_store_gen")) + 1));
+    assert.deepEqual(await save.load("keisan", "generation"), {level:2});
+  });
+
+  test("komorebi is a CAS namespace", () => {
+    assert.equal(save.isCASNamespace("komorebi"), true);
+  });
+
+  test("snapshot documents are compact", () => {
+    const store = JSON.parse(context.__backing.get("q4b_store_v1"));
+    assert.equal(context.__snapshotDoc(store).includes("\n"), false);
+  });
+
+  console.log("RESULT " + passed + " passed, 0 failed");
+})().catch(error => {
+  console.error("FAIL", error);
+  process.exit(1);
+});

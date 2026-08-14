@@ -102,6 +102,7 @@ function bootKomorebi(options){
   const root = options.root;
   const app = makeApp();
   const saved = {};
+  let komorebiRevision = 0;
   const context = {
     console,
     setTimeout: options.setTimeout || setTimeout,
@@ -126,6 +127,15 @@ function bootKomorebi(options){
       currentProfile: () => "p1",
       load(game){ return Promise.resolve(game === "keisan" ? { type: options.profileType || "k10" } : saved[game] || null); },
       save(game, id, state){ saved[game] = JSON.parse(JSON.stringify(state)); return Promise.resolve(true); },
+      loadVersioned(game, id, defaultValue){
+        return Promise.resolve({data:saved[game] || defaultValue, revision:komorebiRevision});
+      },
+      saveVersioned(game, id, state, expectedRevision){
+        if(expectedRevision !== komorebiRevision)return Promise.resolve({ok:false, reason:"conflict"});
+        saved[game] = JSON.parse(JSON.stringify(state));
+        komorebiRevision++;
+        return Promise.resolve({ok:true, revision:komorebiRevision});
+      },
       syncDown: () => Promise.resolve()
     },
     __app: app, __saved: saved

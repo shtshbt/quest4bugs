@@ -315,14 +315,14 @@ html.q4b-in #q4bGate{display:none!important}
     <p class="note">※ 通常は端末内に即時保存されます．Fieldnote接続後はクラウドにも自動同期されます．</p>
   </details>
 </div>
-<script src="./shared/storage.js?v=0.4.21"></script>
+<script src="./shared/storage.js?v=0.4.22"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.12"></script>
 <script src="./shared/render.js?v=0.5.0"></script>
 <script src="./zukan_config/zukan_catalog.js?v=0.2.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.4"></script>
+<script src="./shared/reward.js?v=0.8.5"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
 <script src="./shared/breeding.js?v=0.6.1"></script>
 <script src="./shared/breeding_debug.js?v=0.1.0"></script>
@@ -584,8 +584,7 @@ function goshinHTML(pid,amber,bt,opts){
     ayumiHTML = '<div class="goshin-ayumi" style="border:1px solid #D8C892;background:#FFFDF7;border-radius:12px;padding:7px 10px;margin-bottom:8px">'
       + rankLine + '</div>';
   }
-  /* volume 未投入(総数0)の間は出さない。数えるものが無い枠は情報にならない。 */
-  var komorebiHTML=opts.komorebi&&opts.komorebi.unlocked&&opts.komorebi.total>0
+  var komorebiHTML=opts.komorebi&&opts.komorebi.unlocked
     ?'<a href="./komorebi/index.html" style="display:block;border:1px solid #A7C987;background:#F5FFE8;border-radius:12px;padding:7px 10px;margin-bottom:8px;color:#31552B;font-size:13px;font-weight:900;text-decoration:none">🌿 こもれび '+opts.komorebi.caught+'/'+opts.komorebi.total+'</a>'
     :'';
   return '<div class="goshin" id="goshinboku-panel">'
@@ -1323,7 +1322,7 @@ function renderDashboard(pid,name){
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+'</div>';
     var pct=Math.min(100, Math.round(total/pool*100));  /* U5: 100% 超え表示を防ぐ */
     var komCollection=kom&&kom.collection, komCatches=komCollection&&komCollection.catches;
-    var komorebi={unlocked:!kom||kom.unlocked!==false,caught:komCatches&&typeof komCatches==="object"?Object.keys(komCatches).length:0,total:komCollection&&Number.isFinite(komCollection.totalSpecies)?komCollection.totalSpecies:0};
+    var komorebi={unlocked:!!kom&&kom.unlocked!==false,caught:komCatches&&typeof komCatches==="object"?Object.keys(komCatches).length:0,total:(window.Q4B_BUGS||[]).filter(function(b){return b.areaOnly==="komorebi";}).length};
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
     if(!_isCurDash()) return;     /* T3: 切替後の旧 pid 処理を全て止める */
@@ -1414,6 +1413,44 @@ function addProf(){ openProfEditor(null); }
    されたとき、 同じ完成卵を 2 つの処理が並行で扱い、 一方が 古い coll を
    無条件保存して 成虫を消す race を防ぐ。 */
 var __autoHatchInflight = {};
+function _mergeKomorebiProfileCatches(localProfile,remoteProfile){
+  var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
+  var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
+  var merged=JSON.parse(JSON.stringify(localProfile)),catches={};
+  Object.keys(remoteCatches).concat(Object.keys(localCatches)).forEach(function(id){
+    if(catches[id])return;
+    var remote=remoteCatches[id],local=localCatches[id],entry={},key;
+    if(remote)for(key in remote)entry[key]=remote[key];
+    if(local)for(key in local)entry[key]=local[key];
+    entry.records=(remote&&remote.records||[]).concat(local&&local.records||[]);
+    entry.n=entry.records.length;
+    var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
+    if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
+    catches[id]=entry;
+  });
+  merged.collection.catches=catches;
+  merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
+  return merged;
+}
+function _loadHatchProfile(ns,pid){
+  if(ns==="komorebi")return QuestSave.loadVersioned(ns,pid,null).then(function(result){return {data:result.data,revision:result.revision};});
+  return QuestSave.load(ns,pid).then(function(data){return {data:data,revision:null};});
+}
+function _saveHatchProfile(ns,pid,profile,revision){
+  if(ns!=="komorebi")return QuestSave.save(ns,pid,profile);
+  return QuestSave.saveVersioned(ns,pid,profile,revision).then(function(result){
+    if(result&&result.ok)return true;
+    if(!result||result.reason!=="conflict")throw new Error("保存できません");
+    return QuestSave.loadVersioned(ns,pid,null).then(function(latest){
+      if(!latest.data||latest.data.schemaVersion!==1)throw new Error("保存データの版に対応していません");
+      var merged=_mergeKomorebiProfileCatches(profile,latest.data);
+      return QuestSave.saveVersioned(ns,pid,merged,latest.revision).then(function(retry){
+        if(!retry||!retry.ok)throw new Error("保存の競合を解消できません");
+        return true;
+      });
+    });
+  });
+}
 function _autoHatchReadyEggs(pid){
   if(!window.QuestSave||!window.Q4BReward||!QuestSave.breedingOf) return Promise.resolve([]);
   /* 既に同 pid で進行中ならその Promise を共有 → 二重実行回避 */
@@ -1431,7 +1468,7 @@ function _autoHatchReadyEggs(pid){
     (byGame[g] = byGame[g] || []).push(e.id);
   });
   var task = Promise.all(Object.keys(byGame).map(function(ns){
-    return QuestSave.load(ns, pid).then(function(profile){
+    return _loadHatchProfile(ns, pid).then(function(loaded){
       /* U2: load 完了後に currentProfile() が pid と一致していなければ、 hatchEgg
          が現在の卵ストア (= 別の子) を操作する race を遮断する。 hatchEgg は
          Q4BReward 内で pidNow() ベースの卵ストアを動的参照しているため、 ここで
@@ -1440,15 +1477,15 @@ function _autoHatchReadyEggs(pid){
         var _cur = QuestSave.currentProfile && QuestSave.currentProfile();
         if(_cur && _cur !== pid) return [];
       }catch(_){}
-      profile = profile || {};
+      var profile = loaded.data || {};
       var coll;
       if(ns === 'eitango'){
         if(!profile.catches) profile.catches = {};
         coll = {catches: profile.catches, total: profile.total||0};
       } else if(ns === 'komorebi'){
         /* 小道 save が無ければ自動孵化を見送る (次回小道を開いた後に孵化する)。 */
-        if(!profile.collection || !profile.collection.catches) return [];
-        coll = {catches: profile.collection.catches, total: profile.collection.totalCatches||0};
+        if(profile.schemaVersion!==1 || !profile.collection || !profile.collection.catches || !Number.isInteger(profile.collection.totalCatches)) return [];
+        coll = {catches: profile.collection.catches, total: profile.collection.totalCatches};
       } else {
         if(!profile.coll) profile.coll = {catches:{},total:0};
         coll = profile.coll;
@@ -1478,7 +1515,7 @@ function _autoHatchReadyEggs(pid){
         if(ns === 'eitango'){ profile.catches = coll.catches; profile.total = coll.total; }
         else if(ns === 'komorebi'){ profile.collection.catches = coll.catches; profile.collection.totalCatches = coll.total; }
         else { profile.coll = coll; }
-        return QuestSave.save(ns, pid, profile).then(function(){ return hatched; });
+        return _saveHatchProfile(ns, pid, profile, loaded.revision).then(function(){ return hatched; });
       });
     }).catch(function(){ return []; });
   })).then(function(all){ return [].concat.apply([], all); });
@@ -1660,8 +1697,8 @@ function homeEggHatch(id){
   if(!egg) return;
   var game=egg.game;
   var ns=(game==="eitango")?"eitango":game;
-  QuestSave.load(ns,pid).then(function(profile){
-    profile=profile||{};
+  _loadHatchProfile(ns,pid).then(function(loaded){
+    var profile=loaded.data||{};
     var coll;
     if(game==="eitango"){
       if(!profile.catches) profile.catches={};
@@ -1669,8 +1706,8 @@ function homeEggHatch(id){
     } else if(game==="komorebi"){
       /* 小道の成虫は小道図鑑へ。小道 save が無い = 小道未プレイなら孵化させない
          (部分的な profile を作って本物を壊さないため)。 */
-      if(!profile.collection||!profile.collection.catches){ alert("こもれびの小道を いちど ひらいてから 孵化してね"); return; }
-      coll={catches:profile.collection.catches, total:profile.collection.totalCatches||0};
+      if(profile.schemaVersion!==1||!profile.collection||!profile.collection.catches||!Number.isInteger(profile.collection.totalCatches)){ alert("こもれびの小道を いちど ひらいてから 孵化してね"); return; }
+      coll={catches:profile.collection.catches, total:profile.collection.totalCatches};
     } else {
       if(!profile.coll) profile.coll={catches:{},total:0};
       coll=profile.coll;
@@ -1688,7 +1725,7 @@ function homeEggHatch(id){
     } else {
       profile.coll=coll;
     }
-    QuestSave.save(ns,pid,profile).then(function(){
+    _saveHatchProfile(ns,pid,profile,loaded.revision).then(function(){
       Q4BBreeding.playHatchAnimation({
         egg: r.egg, sp: r.sp, size: r.size,
         onClose: function(){ _refreshDashIfActive(); },

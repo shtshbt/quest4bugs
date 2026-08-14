@@ -26,6 +26,8 @@ function fakeElement(tag) {
 function bootContext(mapPayload, ratioPool) {
   const app = fakeElement("div");
   const saved = {};
+  let komorebiRevision = 0;
+  const versionedCalls = {load:0, save:0};
   const context = {
     console, setTimeout, clearTimeout,
     location: { href: "" },
@@ -47,9 +49,23 @@ function bootContext(mapPayload, ratioPool) {
       currentProfile: () => "p1",
       load(game) { return Promise.resolve(game === "keisan" ? { type: "k10" } : saved[game] || null); },
       save(game, id, state) { saved[game] = state; return Promise.resolve(true); },
+      loadVersioned(game, id, defaultValue) {
+        assert.equal(game, "komorebi");
+        versionedCalls.load++;
+        return Promise.resolve({data:saved[game] || defaultValue, revision:komorebiRevision});
+      },
+      saveVersioned(game, id, state, expectedRevision) {
+        assert.equal(game, "komorebi");
+        versionedCalls.save++;
+        if(expectedRevision !== komorebiRevision) return Promise.resolve({ok:false, reason:"conflict"});
+        saved[game] = state;
+        komorebiRevision++;
+        return Promise.resolve({ok:true, revision:komorebiRevision});
+      },
       syncDown: () => Promise.resolve()
     },
-    __app: app
+    __app: app,
+    __versionedCalls: versionedCalls
   };
   context.window = context;
   context.global = context;
@@ -76,6 +92,10 @@ const ratioPool = JSON.parse(
   assert.ok(html.indexOf("よみこめませんでした") < 0 && html.indexOf("エラー") < 0,
     "the boot chain did not fall into the error screen: " + html.slice(0, 160));
   passed++; console.log("PASS boot renders the path screen, not the error screen");
+
+  assert.equal(context.__versionedCalls.load, 1);
+  assert.equal(context.__versionedCalls.save, 1);
+  passed++; console.log("PASS boot loads and initializes komorebi through the versioned store");
 
   assert.ok(html.indexOf("木漏れ日の小道") >= 0, "the area title is shown in kanji");
   passed++; console.log("PASS the kanji area title is present");

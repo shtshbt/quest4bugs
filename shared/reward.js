@@ -658,6 +658,12 @@
   /* __bsCache = {pid, data, revision} (versioned adapter 接続時のみ有効) */
   var __bsCache = null;
   var __bsLoading = null;
+  if(global.addEventListener){
+    global.addEventListener("q4b-store-reloaded",function(){
+      __bsCache = null;
+      __bsLoading = null;
+    });
+  }
   /* CAS adapter かどうか */
   function _hasVersioned(){ return !!(eggStore && typeof eggStore.loadVersioned === 'function' && typeof eggStore.saveVersioned === 'function'); }
   function _currentPid(){

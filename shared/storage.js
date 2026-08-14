@@ -16,6 +16,7 @@
      ========================================================================= */
 
   var STORE_KEY="q4b_store_v1";
+  var STORE_GEN_KEY="q4b_store_gen";
   var CONFIG_KEY="quest4bugs_fieldnote_config_v1";
   var LEGACY_KEYS=["q4b_keisan_v1"];
   var SEP="\u0000";
@@ -29,6 +30,7 @@
   };
 
   var mem=null;            // in-memory canonical store
+  var memGeneration=null;
   /* PA-1: status を拡張 (local/dirty/syncing/synced/offline/auth-error/conflict/error)。
      旧 3 状態では「ローカル保存はできているが クラウドへ未送信」 を表現できず、
      画面は「ほぞんずみ」 と表示しながら実際は未同期、 という偽 synced が起きていた。 */
@@ -151,8 +153,23 @@
     }
     return ok;
   }
+  function _storeGeneration(){return safeGet(STORE_GEN_KEY,"0");}
+  function _notifyStoreReloaded(){
+    try{
+      if(typeof global.dispatchEvent==="function"&&typeof global.CustomEvent==="function"){
+        global.dispatchEvent(new global.CustomEvent("q4b-store-reloaded"));
+      }
+    }catch(_){}
+  }
+  function _discardStore(){
+    var loaded=mem!==null;
+    mem=null;
+    memGeneration=null;
+    if(loaded)_notifyStoreReloaded();
+  }
   function loadStore(){
-    if(mem)return mem;
+    var generation=_storeGeneration(), reloading=mem!==null&&memGeneration!==generation;
+    if(mem&&!reloading)return mem;
     var raw=safeGet(STORE_KEY,null), d=null;
     if(raw){try{d=JSON.parse(raw);}catch(e){}}
     mem=d||blankStore();
@@ -163,6 +180,8 @@
     mem.v=2;
     migrateLegacy(mem);
     reverseT8MigrationIfPresent(mem);
+    memGeneration=generation;
+    if(reloading)_notifyStoreReloaded();
     return mem;
   }
   /* localStorage への永続化。 setItem 失敗 (quota / privatemode 等) を黙殺すると
@@ -172,6 +191,12 @@
   function persist(){
     if(!mem) return true;
     var ok = safeSet(STORE_KEY, JSON.stringify(mem));
+    if(ok){
+      var storedGeneration=parseInt(_storeGeneration(),10)||0;
+      var heldGeneration=parseInt(memGeneration,10)||0;
+      var nextGeneration=Math.max(storedGeneration,heldGeneration,now())+1;
+      if(safeSet(STORE_GEN_KEY,String(nextGeneration)))memGeneration=String(nextGeneration);
+    }
     if(!ok){
       __saveDegraded = true;
       try{ if(typeof console!=="undefined") console.warn("[Q4BStorage] localStorage.setItem failed — data may be lost on reload."); }catch(_){}
@@ -324,7 +349,7 @@
   function snapshotDoc(store){
     return JSON.stringify({schema:SCHEMA,kind:"snapshot",savedAt:stamp(),v:2,
       profiles:store.profiles,current:store.current,kv:store.kv,
-      tombstones:store.tombstones||{}},null,2);
+      tombstones:store.tombstones||{}});
   }
   /* remote(あれば) を local にマージ。 profiles=LWW+tombstone、 kv は CAS namespace
      では logical revision を優先、 それ以外は updated (時刻) で勝者決定。 */
@@ -454,7 +479,7 @@
      CAS の目的は「古い snapshot に基づく save が新しい snapshot を上書きする」 race
      の検出。 expectedRevision は caller が load 時点の revision を保持し、 save 時
      に明示渡しする。 一致しなければ書込み拒否 + 退避 + conflicted 状態に。 */
-  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, breeding:1, battle:1, wallet:1};
+  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, komorebi:1, breeding:1, battle:1, wallet:1};
   var __conflicted = {};       /* {ns+SEP+key: {expectedRevision, actualRevision}} */
   var CONFLICT_BACKUP_PREFIX = "q4b_conflict_backup_";
   var CONFLICT_BACKUP_MAX_PER_PROFILE = 10;
@@ -584,7 +609,7 @@
       /* 競合検出 → ローカル候補を退避 */
       var profileId = "";
       try{
-        if(ns === 'kanji' || ns === 'keisan' || ns === 'eitango' || ns === 'breeding' || ns === 'battle' || ns === 'wallet') profileId = key;
+        if(ns === 'kanji' || ns === 'keisan' || ns === 'eitango' || ns === 'komorebi' || ns === 'breeding' || ns === 'battle' || ns === 'wallet') profileId = key;
       }catch(_){}
       var bkKey = _writeConflictBackup(ns, key, {
         schemaVersion: 1,
@@ -726,7 +751,7 @@
      どのゲームで稼いでも・使っても同じ財布。kv に wallet/<pid> として保存し同期する。 */
   function amberKey(pid){ return "wallet"+SEP+pid; }
   function amberOf(pid){ var e=loadStore().kv[amberKey(pid)]; return (e&&e.data&&typeof e.data.amber==="number")?e.data.amber:0; }
-  function amberSet(pid,val){ var store=loadStore(); store.kv[amberKey(pid)]={v:1,updated:now(),data:{amber:Math.max(0,Math.floor(val)||0)}}; persist(); schedulePush(); }
+  function amberSet(pid,val){ var store=loadStore(),key=amberKey(pid),existing=store.kv[key]; store.kv[key]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:{amber:Math.max(0,Math.floor(val)||0)}}; persist(); schedulePush(); }
   function amberAdd(pid,n){ var v=amberOf(pid)+(n||0); amberSet(pid,v); return v; }
   function amberSpend(pid,n){ var v=amberOf(pid); if(v<n)return false; amberSet(pid,v-n); return true; }
 
@@ -1053,7 +1078,7 @@
     var normalized = normalizeBreeding(copy);
     if((normalized.eggs.length !== beforeE) || (normalized.pendingEggs.length !== beforeP)){
       try{
-        store.kv[breedingKey(pid)] = {v:1, updated:now(), data:deepClone(normalized)};
+        store.kv[breedingKey(pid)] = {v:1, updated:now(), revision:_entryRevision(e)+1, updatedBy:__deviceId, data:deepClone(normalized)};
         persist();
         schedulePush();
       }catch(_){}
@@ -1063,10 +1088,11 @@
   function breedingSet(pid,data){
     if(!pid)return false;
     var store=loadStore();
+    var existing=store.kv[breedingKey(pid)];
     /* T9: breedingSet も deep clone する。 normalizeBreeding は in-place 変更を
        含むため、 caller の参照と分離しないと「後から caller が egg.progress を
        触ると内部に漏れる」 経路があった。 */
-    store.kv[breedingKey(pid)]={v:1,updated:now(),data:deepClone(normalizeBreeding(data))};
+    store.kv[breedingKey(pid)]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:deepClone(normalizeBreeding(data))};
     persist();
     schedulePush();
     return true;
@@ -1274,6 +1300,7 @@
         n+=await pullLegacy(cfg,store);  // 旧フォーマットからの移行
       }
       persist();
+      _notifyStoreReloaded();
       setStatus("synced");
       return n;
     }catch(e){setStatus("error");throw e;}
@@ -1334,6 +1361,7 @@
       }
     }
     persist();
+    _notifyStoreReloaded();
     if(getConfig().enabled)pushAll().catch(function(){});
     return Promise.resolve(n);
   }
@@ -1429,6 +1457,12 @@
   };
 
   if(global.addEventListener){
+    global.addEventListener("storage",function(e){
+      if(e&&(e.key===STORE_KEY||e.key===STORE_GEN_KEY))_discardStore();
+    });
+    global.addEventListener("pageshow",function(e){
+      if(e&&e.persisted)_discardStore();
+    });
     global.addEventListener("visibilitychange",function(){
       if(global.document&&global.document.hidden)flush();
     });
