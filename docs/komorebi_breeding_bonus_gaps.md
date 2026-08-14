@@ -38,3 +38,22 @@
 - 小道の正答で本編種の卵が進まない
 - かけらと雫は小道のプレイで増えない。こはくは増える
 - 6-8 時の小道捕獲で、色違い出現率が本編と同率で上昇する
+
+## 5. コード検証結果 (2026-08-14)
+
+komorebi/app.js、shared/reward.js、shared/breeding.js、shared/bugs.js、index.html (ポータル) を突き合わせた検証。
+
+| 受け入れ基準 | 状態 | 根拠 |
+|---|---|---|
+| 小道種で ♂♀ が揃えば産卵できる | 未実装 | ポータルの卵ピッカー (index.html の _homeEggOpenLayPicker) は keisan / kanji / eitango の save だけを merge しており、小道の捕獲記録 (komorebi save) は canLayEgg から見えない。小道種は永遠に「産める」にならない |
+| 小道種の卵は kom_* 正答でのみ +1 | 未実装 | eggGameFor は order ベース (Lepidoptera は kanji、Coleoptera は keisan、他は eitango) のままで "komorebi" を返さない。feedEgg("komorebi") の呼び出しも小道側に存在しない。仮に小道種の卵が生まれた場合、本編正答で育ってしまう |
+| 小道の正答で本編種の卵が進まない | 満たす | 小道は feedEgg を一切呼ばない。keisan/app.js の feedEgg("keisan") は keisan 自身の判定関数内のみで、小道の applyAnswer 経路からは呼ばれない (小道ページが keisan/app.js を読み込んでいても発火しない。混線なし) |
+| かけらと雫は小道のプレイで増えない | 満たす | komorebi/app.js は fossilFragments にも雫 (equipment rank 5) にも触れる経路を持たない |
+| こはくは小道でも増える (決定 3) | 未実装 | 小道の applyAnswer は独自ゲージのみで earnAmber を通らない。共有ウォレット自体は keisan/app.js 先頭の setAmberStore 経由で小道ページにも配線済みなので、小道の有効正答時に加算を呼ぶ実装だけが欠けている |
+| 6-8 時の小道捕獲で色違い率上昇 (決定 5) | 実装済み | recordCapture が reward.record を source:"wild" で呼び、shinyChanceFor が 6:00-7:59 に 0.045 (通常 0.015) を適用する。本編の野生捕獲と同一経路・同率 |
+
+補足:
+
+- METAMORPHOSIS_BY_ORDER は現在の小道在庫の全 11 目 (Coleoptera / Lepidoptera / Hymenoptera / Diptera / Trichoptera / Orthoptera / Hemiptera / Odonata / Mantodea / Phasmatodea / Blattodea) を網羅しており、今の在庫に産卵不可種は無い。将来の地域在庫でハサミムシ目、カゲロウ目、カワゲラ目などが入ると欠落し得るため、作業リスト 1 の freeze validator 検査は残す
+- breeding.js の GAME_COLOR / GAME_EMOJI / GAME_LABEL に "komorebi" が無い。egg.game に "komorebi" を導入する際は表示 3 点セットの追加も必要
+- 育成ゲージの論点 (決定 1 の再確認待ち): egg.game を "komorebi" にすると、小道の卵は共有 3 スロットを占有しつつ小道正答でしか進まない。小道を毎日回している間は本編と同等ペース (SR は 500 正答、1 日 50 正答で 10 日) で育つが、小道から離れるとスロットを塞いだまま停滞する。代替は本編正答でも育つ共有 feed だが、受け入れ基準 2 と矛盾するため実装前に判断が要る
