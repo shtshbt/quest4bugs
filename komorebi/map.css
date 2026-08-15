@@ -127,7 +127,9 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .ratio-scaffold,.ratio-work{margin:0 0 16px;padding:12px 14px;border-left:4px solid #D6B653;border-radius:8px;background:#17332B;color:#DCEBCB;line-height:1.65}
 .ratio-work p{margin:3px 0;overflow-wrap:anywhere}
 .ratio-choices,.ratio-parts{display:grid;gap:10px}
-.ratio-choice,.ratio-part,.ratio-submit,.ratio-reset,.ratio-next{min-height:48px;border:2px solid #4D765E;border-radius:12px;font:800 15px/1.45 inherit;cursor:pointer}
+/* 選択肢は本編の回答ボタン (24-26px) に寄せる。15px は本編比で半分近く、実機で
+   「小さくて見にくい」指摘 (2026-08-15)。文章肢があるため本文系は 19px が上限。 */
+.ratio-choice,.ratio-part,.ratio-submit,.ratio-reset,.ratio-next{min-height:54px;border:2px solid #4D765E;border-radius:12px;font:800 19px/1.5 inherit;cursor:pointer}
 .ratio-choice,.ratio-part{width:100%;padding:11px 14px;background:#17382F;color:#F3FFE2;text-align:left;overflow-wrap:anywhere}
 .ratio-choice:hover,.ratio-part:hover{border-color:#D6B653;background:#1B4035}
 .ratio-part:disabled{border-color:#2C4A3C;background:#10271F;color:#78927A;cursor:default}
@@ -240,7 +242,7 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 
 /* れんぞく九九。時間の可視要素 (カウントダウン・タイム表示) は置かない。
    数字の選択肢は短いので、割合の縦積みではなく 2 列のマス目で出す。 */
-.kuku-num{text-align:center;font-size:22px;font-variant-numeric:tabular-nums}
+.kuku-num{text-align:center;font-size:26px;font-variant-numeric:tabular-nums}
 .kuku-choices{grid-template-columns:1fr 1fr}
 .kuku-flash{font-size:clamp(30px,9vw,44px);text-align:center;letter-spacing:.04em}
 .kuku-chain{display:flex;flex-wrap:wrap;gap:6px;min-height:34px;margin-bottom:14px}
@@ -285,6 +287,7 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   font-size:clamp(24px,6vw,32px);font-weight:900}
 .dan2-tap-blank{color:#FFE08A;letter-spacing:2px}
 .dan2-tap-choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0 0 14px}
+.dan2-tap-choices .ratio-choice{text-align:center;font-size:26px;font-variant-numeric:tabular-nums}
 .dan2-mode-switch{display:flex;justify-content:center;margin:14px 0 0}
 .dan2-mode-toggle{min-height:40px;padding:8px 16px;border:2px solid #4D765E;border-radius:999px;
   background:#122B24;color:#B6D2A6;font:800 14px/1.45 inherit;cursor:pointer}
