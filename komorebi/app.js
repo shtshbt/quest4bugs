@@ -796,7 +796,14 @@
       global.alert("ほぞんに しっぱいしました。こはくは かえしたよ");
     }
     try{
-      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,profile.collection.pityDuplicates||0,Math.random),Math.random);
+      /* 購入捕獲は重複救済に乗せない (段位 0 で引く)。救済は 8 正答 = 1 捕獲という
+         学習量の対価であり、こはく連打が SR/SSR へ誘導される抜け道になっていた
+         (2026-08-15 実機で farming を確認)。段位の進行・後退も購入では起こさない:
+         recordCapture が上書きする前の段位を引き戻し、学習側の積み上げを守る。 */
+      var keptPity=profile.collection.pityDuplicates;
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random),Math.random);
+      if(keptPity!=null)profile.collection.pityDuplicates=keptPity;
+      else delete profile.collection.pityDuplicates;
     }catch(error){
       replaceCollection(profile.collection,before);
       refund();

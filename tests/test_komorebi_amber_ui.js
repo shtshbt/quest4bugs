@@ -137,6 +137,20 @@ test("feedbackHtml stays silent for zero, missing, or incorrect amber results", 
     });
   })();
 
+  await (async () => {
+    /* farming 対策の回帰: 購入捕獲は救済段位を使わず、進めず、壊さない。
+       段位 4 (次のゲージ捕獲は 100% 救済) の状態で呼んでも、段位 4 がそのまま
+       残ること (旧実装は新種で段位を消し、重複で段位を上書きしていた)。 */
+    komorebi.profile().collection.pityDuplicates = 4;
+    context.QuestSave.amberAdd("p1", 30);   /* 35+30=65 → 30 消費で 35 に戻り、後続の残高期待を保つ */
+    app.querySelector('[data-action="amber-call"]').click();
+    await settle();
+    test("a purchased call ignores the pity ladder and leaves it untouched", () => {
+      assert.equal(komorebi.profile().collection.totalCatches, 2, "the call itself must land");
+      assert.equal(komorebi.profile().collection.pityDuplicates, 4, "the learning pity ladder must survive a purchase");
+    });
+  })();
+
   test("the common zukan shows the balance but no call button", () => {
     app.querySelector('[data-action="back"]').click();
     app.querySelector('[data-action="path-zukan"]').click();
