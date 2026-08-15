@@ -27,6 +27,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
       "pins must not be per-volume");
   });
 
+  test("the region badge sits offshore and a leader line ties it to the region", () => {
+    /* バッジを地域の真上に置くと小島が隠れる。海上アンカー + 引き出し線 (2026-08-15)。 */
+    assert.match(app.innerHTML, /pin-leader-line/);
+    assert.match(app.innerHTML, /pin-leader-dot/);
+    const pin = app.querySelectorAll('[data-region-id="madagascar"]')[0];
+    assert.ok(pin.attrs.style.indexOf("left:67.200%") >= 0, "the badge must sit at the offshore anchor: " + pin.attrs.style);
+  });
+
   test("placeholder regions do not appear on the map at all", () => {
     /* 未解放地域はピンもじゅんびちゅう表示も出さず、陸地も未開拓と同じ見た目。 */
     assert.equal(app.querySelectorAll(".pin-placeholder").length, 0);

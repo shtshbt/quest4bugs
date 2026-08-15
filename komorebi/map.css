@@ -81,6 +81,10 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 @keyframes leader-drop{from{transform:translateX(-50%) scaleY(0)}to{transform:translateX(-50%) scaleY(1)}}
 .map-pin.pin-selected .pin-disc{border-color:#FFF3D2;box-shadow:0 0 0 4px rgba(255,216,107,.22),0 3px 9px rgba(2,14,18,.65)}
 
+/* 海上バッジと地域を結ぶ引き出し線。バッジが小島を隠さないための海上配置とセット。 */
+.pin-leader-line{stroke:#FFD86B;stroke-opacity:.55;stroke-width:1.6;stroke-dasharray:5 4;fill:none;pointer-events:none}
+.pin-leader-dot{fill:#FFD86B;fill-opacity:.9;stroke:#20343A;stroke-width:1;pointer-events:none}
+
 /* 小道の一覧 = 主役。地図より視線が集まる濃さで置く。 */
 .path-panel{margin-top:-2px;border-top-left-radius:0;border-top-right-radius:0;padding:16px 16px 18px}
 .path-place{padding-bottom:12px;border-bottom:1px dashed #2F5C4A}

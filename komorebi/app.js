@@ -798,19 +798,29 @@
       if(opened)className=region.regionId===currentRegionId?"hl hl-current":"hl hl-open";
       regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(opened?' filter="url(#rich-glow)"':'')+'></path>';
     });
-    /* ピンは地域に 1 本。巻が増えてもピンは重ならず、数字は地域の全巻合計になる。 */
+    /* ピンは地域に 1 本。巻が増えてもピンは重ならず、数字は地域の全巻合計になる。
+       バッジは地域の上でなく海上のアンカーに置き、地域の代表点から引き出し線で結ぶ。
+       小さい島 (マダガスカル等) がバッジに隠れないための配置 (2026-08-15 実機フィードバック)。
+       アンカーは viewBox 座標で、正距円筒の経緯度換算で外洋にあることを確認済み。 */
+    var PIN_ANCHORS={madagascar:{x:672,y:356},australia:{x:866,y:400},borneo:{x:745,y:305},costa_rica:{x:240,y:250}};
+    var leaderLines="";
     regions.forEach(function(region){
       if(region.placeholder)return;
       var state=regionPinState(region,viewCollection()),point=worldMap.pins[region.regionId];
-      var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
-      var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":state.kind==="placeholder"?"じゅんびちゅう":"完成した遠征";
+      var anchor=PIN_ANCHORS[region.regionId]||point;
+      var left=((anchor.x-box[0])/box[2]*100).toFixed(3),top=((anchor.y-box[1])/box[3]*100).toFixed(3);
+      var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":"完成した遠征";
       var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"")+(region.regionId===selectedRegionId?" pin-selected":"");
+      if(anchor!==point){
+        leaderLines+='<line class="pin-leader-line" x1="'+point.x+'" y1="'+point.y+'" x2="'+anchor.x+'" y2="'+anchor.y+'"></line>'
+          +'<circle class="pin-leader-dot" cx="'+point.x+'" cy="'+point.y+'" r="3"></circle>';
+      }
       /* 選択中の地域から下の一覧へ引き出し線を落とす。地図は「どこ」を示し、
          主役は下のカテゴリ一覧という関係を線で結ぶ。 */
       if(region.regionId===selectedRegionId)leader='<span class="map-leader" aria-hidden="true" style="left:'+left+'%;top:'+top+'%"></span>';
-      pins+='<button type="button" class="'+classes+'" data-region-id="'+escapeHtml(region.regionId)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(region.regionName+' '+(state.kind==="placeholder"?status:state.caught+'／'+state.denominator+'、'+status))+'"'+(state.kind==="placeholder"?' disabled aria-disabled="true"':'')+'>'
+      pins+='<button type="button" class="'+classes+'" data-region-id="'+escapeHtml(region.regionId)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(region.regionName+' '+state.caught+'／'+state.denominator+'、'+status)+'">'
         +'<span class="pin-halo" aria-hidden="true"></span><span class="pin-ring" aria-hidden="true"><span class="pin-disc"><span class="pin-mark">'+state.mark+'</span></span></span>'
-        +'<span class="pin-name">'+displayText(region.regionName)+'</span><span class="pin-count">'+(state.kind==="placeholder"?displayText("じゅんびちゅう"):state.caught+'／'+state.denominator)+'</span></button>';
+        +'<span class="pin-name">'+displayText(region.regionName)+'</span><span class="pin-count">'+state.caught+'／'+state.denominator+'</span></button>';
     });
     return '<div class="map-shell"><svg class="map map-rich" viewBox="'+escapeHtml(worldMap.viewBox)+'" role="img" aria-label="こもれびの遠征地図" preserveAspectRatio="xMidYMid meet">'
       +'<defs><radialGradient id="rich-sea" cx="50%" cy="45%" r="72%"><stop offset="0%" stop-color="#17454B"></stop><stop offset="62%" stop-color="#0E3036"></stop><stop offset="100%" stop-color="#071F26"></stop></radialGradient>'
@@ -820,7 +830,7 @@
       +'<filter id="rich-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>'
       +'<path id="world-land" d="'+escapeHtml(worldMap.land)+'"></path></defs>'
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-sea)"></rect><g class="rich-latitudes">'+graticuleHtml(box)+'</g>'
-      +'<use href="#world-land" class="rich-land-shadow"></use><use href="#world-land" class="rich-land"></use>'+regionPaths
+      +'<use href="#world-land" class="rich-land-shadow"></use><use href="#world-land" class="rich-land"></use>'+regionPaths+leaderLines
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" filter="url(#rich-grain)" opacity="0.05" class="rich-grain"></rect>'
       +'<rect width="'+box[2]+'" height="'+box[3]+'" x="'+box[0]+'" y="'+box[1]+'" fill="url(#rich-vignette)"></rect></svg><div class="map-pins">'+leader+pins+'</div></div>';
   }
