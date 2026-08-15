@@ -720,13 +720,16 @@
   /* 産卵とこはくの接続 (komorebi_breeding_bonus_gaps 決定 1, 3)。
      小道の有効正答は egg.game="komorebi" の卵だけを育て、こはくは共有ウォレットへ
      学習価値に応じて加算する。本編の卵 (keisan 等) はここからは一切進まない。
-     習熟済み (maxLv 到達) カテゴリの周回は本編と同じく価値 0.4 に減衰する。 */
+     習熟済み (maxLv 到達) カテゴリの周回は本編と同じく価値 0.4 に減衰する。
+     返り値は実際にウォレットへ入った整数こはく数 (付与なしは 0)。アキュムレータ制
+     なので毎回は 1 にならず、フィードバックの獲得表示はこの値だけを信じる。 */
   function feedSideRewards(cat,result,masteredAtAnswer){
-    if(!result||!result.counted)return;
+    if(!result||!result.counted)return 0;
     var reward=global.Q4BReward;
-    if(!reward)return;
+    if(!reward)return 0;
     var mastered=masteredAtAnswer!=null?masteredAtAnswer:profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
     var value=mastered?0.4:1;
+    var granted=0;
     if(typeof reward.earnAmber==="function"){
       try{
         profile.collection.amberAcc=(profile.collection.amberAcc||0)+value;
@@ -734,8 +737,9 @@
           var amberWhole=Math.floor(profile.collection.amberAcc);
           reward.earnAmber(profile.collection,amberWhole);
           profile.collection.amberAcc-=amberWhole;
+          granted=amberWhole;
         }
-      }catch(_){}
+      }catch(_){granted=0;}
     }
     if(typeof reward.feedEgg==="function"){
       try{
@@ -743,6 +747,88 @@
         if(fed&&typeof fed.catch==="function")fed.catch(function(){});
       }catch(_){}
     }
+    return granted;
+  }
+
+  /* --- こはくの共有ウォレット ------------------------------------------------
+     残高と支払いは本編と同じ QuestSave の per-profile 財布 (keisan/app.js が
+     Q4BReward.setAmberStore で配線するのと同じ台帳) を直接読む。amber API を
+     持たない古い storage.js では残高 0 表示にとどめ、よぶボタンは出さない。 */
+  function amberWallet(){
+    var save=global.QuestSave;
+    return save&&typeof save.amberOf==="function"&&typeof save.amberAdd==="function"&&typeof save.amberSpend==="function"?save:null;
+  }
+
+  function amberBalance(){
+    var save=amberWallet();
+    var value=save&&profileId?save.amberOf(profileId):0;
+    return Number.isFinite(value)?value:0;
+  }
+
+  /* よぶ 1 回の値段。本編 keisanAmberCatch と同じ 30 (Q4BReward.AMBER_CATCH_COST)。 */
+  function amberCallCost(){
+    var reward=global.Q4BReward;
+    return reward&&Number.isInteger(reward.AMBER_CATCH_COST)?reward.AMBER_CATCH_COST:30;
+  }
+
+  /* こはくで よぶ の対象巻。複数巻の地域では現在の遠征を優先し、現在の遠征が
+     他地域にあるときは最新の巻を使う (regionList が遠征番号順に並べている)。
+     placeholder しか無い地域では対象なし = ボタンを出さない。 */
+  function amberCallVolume(region){
+    var volumes=region.volumes.filter(function(volume){return volume.placeholder!==true;});
+    if(!volumes.length)return null;
+    var current=volumes.filter(function(volume){return volume.current;})[0];
+    return current||volumes[volumes.length-1];
+  }
+
+  /* よぶ の実行。支払い → 抽選 → CAS 保存。保存に失敗したら捕獲を巻き戻して
+     こはくを返金する (財布と図鑑が別台帳なので、片方だけ進んだ状態を残さない)。 */
+  function amberCallCapture(region,rerender){
+    var save=amberWallet(),volume=amberCallVolume(region),cost=amberCallCost();
+    if(!save||!volume)return;
+    if(amberBalance()<cost||!save.amberSpend(profileId,cost)){
+      global.alert("🔶こはくが たりないよ（"+cost+"こ いるよ）");
+      return;
+    }
+    var before=cloneCollection(profile.collection),capture;
+    function refund(){
+      save.amberAdd(profileId,cost);
+      global.alert("ほぞんに しっぱいしました。こはくは かえしたよ");
+    }
+    try{
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,profile.collection.pityDuplicates||0,Math.random),Math.random);
+    }catch(error){
+      replaceCollection(profile.collection,before);
+      refund();
+      return;
+    }
+    var saved;
+    try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+    saved.then(function(){
+      rerender();
+      showAmberCaptureModal(capture);
+    }).catch(function(){
+      replaceCollection(profile.collection,before);
+      refund();
+      rerender();
+    });
+  }
+
+  /* よぶ の捕獲カード。セッションのフィードバックと同じ ratioCaptureHtml を
+     モーダルで見せる (捕獲の情報を別実装にしない)。 */
+  function showAmberCaptureModal(capture){
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komAmberModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +ratioCaptureHtml(capture)
+      +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      if((event.target===overlay||event.target.className==="kom-modal-close")&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
+    });
+    document.body.appendChild(overlay);
+    var close=overlay.querySelector(".kom-modal-close");
+    if(close)close.focus();
   }
 
   function recordAnswer(cat,answer,volume,random){
@@ -754,7 +840,7 @@
       result=applyAnswer(profile,cat,answer,volume,random||Math.random);
     }catch(error){return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
-    return saveProfile().then(function(){feedSideRewards(cat,result);return result;}).catch(function(error){
+    return saveProfile().then(function(){result.amberGained=feedSideRewards(cat,result);return result;}).catch(function(error){
       replaceCollection(profile.collection,before);
       throw error;
     });
@@ -774,7 +860,7 @@
     if(result.duplicate)return Promise.resolve(result);
     var saved;
     try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
-    return saved.then(function(){feedSideRewards(cat,result,masteredAtAnswer);return result;}).catch(function(error){profile=before;throw error;});
+    return saved.then(function(){result.amberGained=feedSideRewards(cat,result,masteredAtAnswer);return result;}).catch(function(error){profile=before;throw error;});
   }
 
   function speciesForArea(bugs){
@@ -1256,8 +1342,12 @@
       :question.cat==="kom_diagram_model"?diagramExplainHtml(question)
       :(isDanCat(question.cat)?"":wazaCardHtml(question));
     var heard=!correct&&isDanCat(question.cat)&&session&&session.verdict?heardTranscript(session.verdict.transcript):"";
+    /* こはくの獲得行。アキュムレータ制なので毎回は出ない (feedSideRewards の返り値
+       が 1 以上のときだけ)。それが正しい見え方で、常時表示にはしない。 */
+    var amber=(correct&&result&&Number.isFinite(result.amberGained)&&result.amberGained>0)
+      ?'<p class="ratio-amber-gain">🔶 '+displayText("こはくを "+result.amberGained+"こ ひろった！")+'</p>':"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
-      +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
+      +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -1769,7 +1859,8 @@
     return '<div class="path-place">'+shape+'<div class="path-place-text"><h2>'+displayText(region.regionName+"の小道")+'</h2><p>'+displayText(region.blurb)+'</p></div></div>'
       +sections
       +'<div class="path-foot"><button type="button" class="path-zukan" data-action="zukan">📖 '+displayText(region.regionName+"の ずかん")+'</button>'
-      +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progressParts.join("　")+'</strong></span></div>';
+      +'<span class="path-progress">'+displayText("あつめた虫")+'　<strong>'+progressParts.join("　")+'</strong></span>'
+      +'<span class="path-amber" aria-label="'+attrText("こはく "+amberBalance()+"こ")+'">🔶'+amberBalance()+'</span></div>';
   }
 
   function bindPathPanel(region){
@@ -2035,14 +2126,21 @@
     });
     var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
       ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
+    /* こはくの残高と よぶ ボタン。demo モードは保存に触れない約束なので出さない。 */
+    var canCall=!demoMode&&amberWallet()&&amberCallVolume(region);
+    var amberLine='<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong>'
+      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>';
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(region.regionName+"の小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(region.regionName+"の ずかん")+'</h1>'
       +'<p>'+displayText("あつめた虫")+'　<strong>'+regionProgressHtml(region,collection)+'</strong>'
-      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
+      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p>'
+      +amberLine+'</div>'
       +expeditionChipsHtml(region)
       +zukanFilterBarHtml(entries)
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
+    var call=document.querySelector('[data-action="amber-call"]');
+    if(call)call.addEventListener("click",function(){amberCallCapture(region,function(){renderZukan(regionId);});});
     bindZukanFilters(function(){renderZukan(regionId);});
     bindZukanCards(entries,function(){renderZukan(regionId);});
     mountZukanModeToggle(function(){renderZukan(regionId);});
@@ -2124,7 +2222,10 @@
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText("こもれびの ずかん")+'</h1>'
       +'<p>'+displayText("あつめた虫")+'　<strong>'+caught+'／'+entries.length+'</strong>'
-      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p></div>'
+      +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p>'
+      /* 残高だけ出す。地域横断のここでは よぶ の対象 volume が曖昧なため、ボタンは
+         地域ずかん側にしか置かない。 */
+      +'<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong></p></div>'
       +'<div class="zukan-chips" role="group" aria-label="'+attrText("ちいきでしぼる")+'">'+regionChips+'</div>'
       +zukanFilterBarHtml(entries)
       +'<ul class="zukan-grid">'+cards+'</ul></main>';

@@ -323,6 +323,20 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .diagram-figure-mark{display:block;margin:0 0 4px;text-align:center;
   color:#2D4B31;font-size:15px;font-weight:900}
 
+/* こはく。地域画面の残高チップ、ずかんの残高 + よぶ ボタン、正解時の獲得行。
+   色は遠征 badge と同じ琥珀系 (#B6963D / #FFE08A) で「本編と同じ通貨」を示す。 */
+.path-amber{padding:4px 10px;border:1.5px solid #B6963D;border-radius:999px;background:#2B3A25;
+  color:#FFE08A;font-size:13px;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.zukan-amber{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;
+  margin:8px 0 0;font-size:14px;font-weight:800;color:#CFE7A8}
+.zukan-amber strong{color:#FFE08A;font-size:19px;font-variant-numeric:tabular-nums}
+.zukan-amber-call{min-height:40px;padding:7px 15px;border:2px solid #B6963D;border-radius:999px;
+  background:linear-gradient(180deg,#293A25,#192D24);color:#FFE08A;font:800 13px/1.2 inherit;cursor:pointer}
+.zukan-amber-call:hover{border-color:#FFD86B}
+.zukan-amber-call:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+.ratio-amber-gain{margin:12px 0;padding:9px 12px;border:1.5px solid #B6963D;border-radius:10px;
+  background:#2B3A25;color:#FFE08A;font-weight:800}
+
 /* トロフィー。入口は地図の下端 (ui_design 6 章)。未獲得の枠も並べて目標ボードにする。 */
 .kom-trophy-entrance{margin:18px auto 0;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .kom-trophy-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;
