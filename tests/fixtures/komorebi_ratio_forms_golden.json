@@ -1,0 +1,142 @@
+{
+  "1": [
+    {"pattern": "decimal_to_percent", "m": 450, "band": "A", "kind": "num", "scaffold": "0.01 = 1% です。", "text": "0.45 を百分率で表すと何%ですか。", "ans": 45},
+    {"pattern": "percent_to_decimal", "m": 600, "band": "A", "kind": "num", "scaffold": "0.01 = 1% です。", "text": "60% を小数で表すといくつですか。", "ans": 0.6},
+    {"pattern": "decimal_to_percent", "m": 280, "band": "A", "kind": "num", "scaffold": null, "text": "0.28 を百分率で表すと何%ですか。", "ans": 28},
+    {"pattern": "percent_to_decimal", "m": 350, "band": "A", "kind": "num", "scaffold": null, "text": "35% を小数で表すといくつですか。", "ans": 0.35},
+    {"pattern": "decimal_to_percent", "m": 720, "band": "A", "kind": "num", "scaffold": null, "text": "0.72 を百分率で表すと何%ですか。", "ans": 72}
+  ],
+  "2": [
+    {"pattern": "decimal_to_percent", "m": 80, "band": "B", "kind": "num", "scaffold": "0.07 = 7%、0.7 = 70% です。", "text": "0.08 を百分率で表すと何%ですか。", "ans": 8},
+    {"pattern": "percent_to_decimal", "m": 60, "band": "B", "kind": "num", "scaffold": "0.07 = 7%、0.7 = 70% です。", "text": "6% を小数で表すといくつですか。", "ans": 0.06},
+    {"pattern": "percent_to_decimal", "m": 125, "band": "C", "kind": "num", "scaffold": null, "text": "12.5% を小数で表すといくつですか。", "ans": 0.125},
+    {"pattern": "decimal_to_percent", "m": 375, "band": "C", "kind": "num", "scaffold": null, "text": "0.375 を百分率で表すと何%ですか。", "ans": 37.5},
+    {"pattern": "decimal_to_percent", "m": 90, "band": "B", "kind": "num", "scaffold": null, "text": "0.09 を百分率で表すと何%ですか。", "ans": 9}
+  ],
+  "3": [
+    {"pattern": "wari_to_percent", "m": 320, "band": "A", "kind": "num", "scaffold": "1割 = 10%、1分 = 1% です。", "text": "3割2分は何%ですか。", "ans": 32},
+    {"pattern": "percent_to_wari", "m": 450, "band": "A", "kind": "choice", "scaffold": "1割 = 10%、1分 = 1% です。", "text": "45% を歩合で表すとどれですか。", "choices": [
+      {"text": "4割5分", "value": 450, "type": null, "correct": true},
+      {"text": "45割", "value": 4500, "type": "shift_magnitude", "correct": false},
+      {"text": "4分5厘", "value": 45, "type": "shift_magnitude", "correct": false},
+      {"text": "4割5厘", "value": 405, "type": "wari_place", "correct": false}
+    ]},
+    {"pattern": "wari_to_percent", "m": 600, "band": "A", "kind": "num", "scaffold": null, "text": "6割は何%ですか。", "ans": 60},
+    {"pattern": "percent_to_wari", "m": 80, "band": "B", "kind": "choice", "scaffold": null, "text": "8% を歩合で表すとどれですか。", "choices": [
+      {"text": "8分", "value": 80, "type": null, "correct": true},
+      {"text": "8割", "value": 800, "type": "shift_magnitude", "correct": false},
+      {"text": "8厘", "value": 8, "type": "shift_magnitude", "correct": false},
+      {"text": "1割8分", "value": 180, "type": "wari_place", "correct": false}
+    ]},
+    {"pattern": "wari_to_percent", "m": 70, "band": "B", "kind": "num", "scaffold": null, "text": "7分は何%ですか。", "ans": 7}
+  ],
+  "4": [
+    {"pattern": "wari_to_decimal", "m": 150, "band": "A", "kind": "num", "scaffold": "0.1 = 1割、0.01 = 1分 です。", "text": "1割5分を小数で表すといくつですか。", "ans": 0.15},
+    {"pattern": "decimal_to_wari", "m": 280, "band": "A", "kind": "choice", "scaffold": "0.1 = 1割、0.01 = 1分 です。", "text": "0.28 を歩合で表すとどれですか。", "choices": [
+      {"text": "2割8分", "value": 280, "type": null, "correct": true},
+      {"text": "28割", "value": 2800, "type": "shift_magnitude", "correct": false},
+      {"text": "2分8厘", "value": 28, "type": "shift_magnitude", "correct": false},
+      {"text": "2割8厘", "value": 208, "type": "wari_place", "correct": false}
+    ]},
+    {"pattern": "wari_to_decimal", "m": 640, "band": "A", "kind": "num", "scaffold": null, "text": "6割4分を小数で表すといくつですか。", "ans": 0.64},
+    {"pattern": "decimal_to_wari", "m": 70, "band": "B", "kind": "choice", "scaffold": null, "text": "0.07 を歩合で表すとどれですか。", "choices": [
+      {"text": "7分", "value": 70, "type": null, "correct": true},
+      {"text": "7割", "value": 700, "type": "shift_magnitude", "correct": false},
+      {"text": "7厘", "value": 7, "type": "shift_magnitude", "correct": false},
+      {"text": "1割7分", "value": 170, "type": "wari_place", "correct": false}
+    ]},
+    {"pattern": "wari_to_decimal", "m": 30, "band": "B", "kind": "num", "scaffold": null, "text": "3分を小数で表すといくつですか。", "ans": 0.03}
+  ],
+  "5": [
+    {"pattern": "fraction_to_decimal", "m": 350, "band": "A", "kind": "num", "scaffold": "1/8 = 0.125 = 12.5% です。", "text": "7/20 を小数で表すといくつですか。", "ans": 0.35},
+    {"pattern": "fraction_to_percent", "m": 360, "band": "A", "kind": "num", "scaffold": "1/8 = 0.125 = 12.5% です。", "text": "9/25 を百分率で表すと何%ですか。", "ans": 36},
+    {"pattern": "fraction_to_percent", "m": 375, "band": "C", "kind": "num", "scaffold": null, "text": "3/8 を百分率で表すと何%ですか。", "ans": 37.5},
+    {"pattern": "fraction_to_decimal", "m": 650, "band": "A", "kind": "num", "scaffold": null, "text": "13/20 を小数で表すといくつですか。", "ans": 0.65},
+    {"pattern": "fraction_to_decimal", "m": 625, "band": "C", "kind": "num", "scaffold": null, "text": "5/8 を小数で表すといくつですか。", "ans": 0.625}
+  ],
+  "6": [
+    {"pattern": "percent_to_fraction", "m": 400, "band": "A", "kind": "frac", "scaffold": "40% は 100 分の 40 です。ここから約分します。", "text": "40% を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 2, "d": 5}},
+    {"pattern": "decimal_to_fraction", "m": 240, "band": "A", "kind": "frac", "scaffold": "40% は 100 分の 40 です。ここから約分します。", "text": "0.24 を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 6, "d": 25}},
+    {"pattern": "percent_to_fraction", "m": 625, "band": "C", "kind": "frac", "scaffold": null, "text": "62.5% を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 5, "d": 8}},
+    {"pattern": "decimal_to_fraction", "m": 850, "band": "A", "kind": "frac", "scaffold": null, "text": "0.85 を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 17, "d": 20}},
+    {"pattern": "decimal_to_fraction", "m": 375, "band": "C", "kind": "frac", "scaffold": null, "text": "0.375 を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 3, "d": 8}}
+  ],
+  "7": [
+    {"pattern": "decimal_to_percent", "m": 1050, "band": "D", "kind": "num", "scaffold": "1 = 100% です。1 より大きい数は 100% より大きくなります。", "text": "1.05 を百分率で表すと何%ですか。", "ans": 105},
+    {"pattern": "percent_to_decimal", "m": 1500, "band": "D", "kind": "num", "scaffold": "1 = 100% です。1 より大きい数は 100% より大きくなります。", "text": "150% を小数で表すといくつですか。", "ans": 1.5},
+    {"pattern": "fraction_to_percent", "m": 1200, "band": "D", "kind": "num", "scaffold": null, "text": "6/5 を百分率で表すと何%ですか。", "ans": 120},
+    {"pattern": "decimal_to_percent", "m": 1400, "band": "D", "kind": "num", "scaffold": null, "text": "1.4 を百分率で表すと何%ですか。", "ans": 140},
+    {"pattern": "percent_to_fraction", "m": 1250, "band": "D", "kind": "frac", "scaffold": null, "text": "125% を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 5, "d": 4}}
+  ],
+  "8": [
+    {"pattern": "phrase_base", "wType": "W1", "kind": "choice", "scaffold": "『~の』の前がもとにする量です。", "text": "赤いリボンは 60cm です。青いリボンは 赤いリボンの 80% です。もとにする量はどれですか。", "choices": [
+      {"text": "赤いリボンの長さ", "type": null, "correct": true},
+      {"text": "青いリボンの長さ", "type": "words_reversal", "correct": false},
+      {"text": "80% という割合", "type": "rate_as_quantity", "correct": false},
+      {"text": "赤と青を合わせた長さ", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_base", "wType": "W3", "kind": "choice", "scaffold": "1 とみている方がもとにする量です。", "text": "青いリボンを 1 としたときの 赤いリボンの割合は 1.25 です。もとにする量はどれですか。", "choices": [
+      {"text": "青いリボンの長さ", "type": null, "correct": true},
+      {"text": "赤いリボンの長さ", "type": "words_reversal", "correct": false},
+      {"text": "1.25 という割合", "type": "rate_as_quantity", "correct": false},
+      {"text": "赤と青を合わせた長さ", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_base", "wType": "W2", "kind": "choice", "scaffold": null, "text": "40人のクラスに対する めがねの子 12人の割合を考えます。もとにする量はどれですか。", "choices": [
+      {"text": "クラス全体の 40人", "type": null, "correct": true},
+      {"text": "めがねの 12人", "type": "words_reversal", "correct": false},
+      {"text": "めがねでない 28人", "type": null, "correct": false},
+      {"text": "40人と 12人の合計", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_base", "wType": "W4", "kind": "choice", "scaffold": null, "text": "シールが 50枚あります。カードは シールをもとにすると 60% の枚数です。もとにする量はどれですか。", "choices": [
+      {"text": "シールの 50枚", "type": null, "correct": true},
+      {"text": "カードの枚数", "type": "words_reversal", "correct": false},
+      {"text": "60% という割合", "type": "rate_as_quantity", "correct": false},
+      {"text": "シールとカードの合計", "type": null, "correct": false}
+    ]},
+    {"pattern": "decimal_to_percent", "m": 600, "band": "A", "kind": "num", "scaffold": null, "text": "0.6 を百分率で表すと何%ですか。", "ans": 60}
+  ],
+  "9": [
+    {"pattern": "phrase_equal", "wType": "W2", "answerWType": "W1", "kind": "choice", "scaffold": "『~に対する』の前がもとにする量です。", "text": "「40人に対する 12人の割合は何%ですか」と 同じことを 聞いているのはどれですか。", "choices": [
+      {"text": "12人は 40人の何%ですか", "type": null, "correct": true},
+      {"text": "40人は 12人の何%ですか", "type": "words_reversal", "correct": false},
+      {"text": "40人と 12人の差は何%ですか", "type": null, "correct": false},
+      {"text": "40人の 12% は何人ですか", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_equal", "wType": "W3", "answerWType": "W1", "kind": "choice", "scaffold": "1 とみている方がもとにする量です。", "text": "「200円を 1 としたときの 50円の割合」と 同じことを 聞いているのはどれですか。", "choices": [
+      {"text": "50円は 200円の何%ですか", "type": null, "correct": true},
+      {"text": "200円は 50円の何%ですか", "type": "words_reversal", "correct": false},
+      {"text": "200円と 50円の差は何%ですか", "type": null, "correct": false},
+      {"text": "200円の 50% は何円ですか", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_equal", "wType": "W4", "answerWType": "W2", "kind": "choice", "scaffold": null, "text": "「本全体をもとにすると 読んだページは何%ですか」と 同じことを 聞いているのはどれですか。", "choices": [
+      {"text": "本全体に対する 読んだページの割合は何%ですか", "type": null, "correct": true},
+      {"text": "読んだページに対する 本全体の割合は何%ですか", "type": "words_reversal", "correct": false},
+      {"text": "本全体と 読んだページの差は何%ですか", "type": null, "correct": false},
+      {"text": "本全体の 何% が残っていますか", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_equal", "wType": "W1", "answerWType": "W3", "kind": "choice", "scaffold": null, "text": "「シール 80枚の 25%」と 同じ意味なのはどれですか。", "choices": [
+      {"text": "シール 80枚を 1 としたときの 0.25 にあたる枚数", "type": null, "correct": true},
+      {"text": "0.25 を 1 としたときの シール 80枚にあたる枚数", "type": "words_reversal", "correct": false},
+      {"text": "シール 80枚より 25枚少ない枚数", "type": null, "correct": false},
+      {"text": "シール 80枚と 25枚を合わせた枚数", "type": null, "correct": false}
+    ]},
+    {"pattern": "wari_to_percent", "m": 250, "band": "A", "kind": "num", "scaffold": null, "text": "2割5分は何%ですか。", "ans": 25}
+  ],
+  "10": [
+    {"pattern": "decimal_to_percent", "m": 375, "band": "C", "kind": "num", "scaffold": null, "text": "0.375 を百分率で表すと何%ですか。", "ans": 37.5},
+    {"pattern": "decimal_to_fraction", "m": 375, "band": "C", "kind": "frac", "scaffold": null, "text": "0.375 を分数で表しましょう。それ以上約分できない形で答えます。", "ans": {"n": 3, "d": 8}},
+    {"pattern": "percent_to_decimal", "m": 1250, "band": "D", "kind": "num", "scaffold": null, "text": "125% を小数で表すといくつですか。", "ans": 1.25},
+    {"pattern": "phrase_base", "wType": "W1", "kind": "choice", "scaffold": null, "text": "ノートは 1200円です。えんぴつは その 15% のねだんです。もとにする量はどれですか。", "choices": [
+      {"text": "ノートの 1200円", "type": null, "correct": true},
+      {"text": "えんぴつのねだん", "type": "words_reversal", "correct": false},
+      {"text": "15% という割合", "type": "rate_as_quantity", "correct": false},
+      {"text": "ノートとえんぴつの合計", "type": null, "correct": false}
+    ]},
+    {"pattern": "phrase_equal", "wType": "W3", "answerWType": "W1", "kind": "choice", "scaffold": null, "text": "「30人を 1 としたときの 6人の割合」と 同じことを 聞いているのはどれですか。", "choices": [
+      {"text": "6人は 30人の何%ですか", "type": null, "correct": true},
+      {"text": "30人は 6人の何%ですか", "type": "words_reversal", "correct": false},
+      {"text": "30人と 6人の差は何%ですか", "type": null, "correct": false},
+      {"text": "30人の 6% は何人ですか", "type": null, "correct": false}
+    ]}
+  ]
+}
