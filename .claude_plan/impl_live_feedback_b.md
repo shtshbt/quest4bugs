@@ -30,7 +30,11 @@ renderZukan と renderCommonZukan で Q4BRender.setZukanModeToggleVisible(true, 
 - 選択中地域の発光・タップ判定は現状維持 (ポリゴン側)
 - 「じゅんびちゅう」バッジ (plan A) も同じ海上アンカー方式に載せる
 
-### 4. テスト
+### 4. 御神木パネルの小道卵段の常時表示 (2026-08-14 実機フィードバック追加)
+
+現状 shared/breeding.js の homeBreedingPanelHTML は「小道の卵が 1 つでもあるときだけ」小道段を出す。これを「小道を一度でも開いた profile (komorebi save が存在) なら卵ゼロでも表示」に変える。卵ゼロ時は空きスロット 3 つと案内文「ずかんから たまごを うめるよ」を出す。小道未プレイの profile では従来どおり非表示 (混乱防止)。portal 側 (index.html) から komorebi save の有無を opts で渡す。
+
+### 5. テスト
 
 - 既存 komorebi テスト全 green
 - 新規: ずかんフィルタ 6 条件の判定ユニット (フィルタ関数を jsdom なしで呼べる形なら関数単位で)、ずかん画面でトグルボタン要素が設置される DOM smoke、地図バッジのアンカー定数が 4 地域ぶん定義されていること
