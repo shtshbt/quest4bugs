@@ -1256,12 +1256,14 @@
       details.style.cssText="margin:12px 0 0;text-align:left";
       var heading=global.document.createElement("div");
       heading.textContent="しらべる";
-      heading.style.cssText="font-size:13px;font-weight:800;color:#2A3D2C;margin-bottom:8px";
+      heading.style.cssText="font-size:13px;font-weight:800;color:var(--zd-strong,#2A3D2C);margin-bottom:8px";
       details.parentNode.insertBefore(heading,details);
       var summary=details.querySelector("summary");
       if(summary){
         summary.textContent=summary.classList.contains("zd-spec-summary-obs") ? "📷 やせいの きろくを くわしく見る" : "📋 ひょうほんを くわしく見る";
-        summary.style.cssText="cursor:pointer;display:flex;align-items:center;width:100%;min-height:44px;box-sizing:border-box;background:#F4F8E8;border:1.5px solid #CFDDB2;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;color:#2A3D2C;list-style:none";
+        /* 背景と枠線は夜規則 (.zd-spec-summary 系の !important) が暗色に差し替えるため、
+           文字色だけ変数化しないと夜スコープで暗字×暗背景になる。 */
+        summary.style.cssText="cursor:pointer;display:flex;align-items:center;width:100%;min-height:44px;box-sizing:border-box;background:#F4F8E8;border:1.5px solid #CFDDB2;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;color:var(--zd-strong,#2A3D2C);list-style:none";
       }
     });
     Array.prototype.forEach.call(root.querySelectorAll("button"),function(button){
