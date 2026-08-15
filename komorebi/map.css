@@ -235,6 +235,8 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-modal-close{margin-top:12px;min-height:44px;padding:9px 22px;border:2px solid #3E6B57;border-radius:12px;
   background:#12302A;color:#CFE7A8;font:800 14px/1.2 inherit;cursor:pointer}
 .kom-modal-close:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+/* 共有詳細ブロックの夜パネル (紺 #1a2740) を小道の緑系に寄せる。specificity で injected style に勝つ。 */
+.kom-modal-card.q4b-zd-night [data-q4b-zd]{background:#14332B}
 
 /* れんぞく九九。時間の可視要素 (カウントダウン・タイム表示) は置かない。
    数字の選択肢は短いので、割合の縦積みではなく 2 列のマス目で出す。 */

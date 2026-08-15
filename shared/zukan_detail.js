@@ -21,51 +21,56 @@
   /* 夜モード対応 CSS を 1 回だけ inject。
      [data-q4b-zd] でラップした detailHTML 内の inline grey 系色を body.night 時に
      明色で強制上書きする (inline style に勝つため !important)。♂♀ の色相 (青/桜) は
-     意味があるので body.night 用に補正色を当て直す。 */
+     意味があるので body.night 用に補正色を当て直す。
+     body.night はページ全体の夜モード。常時ダークなホスト (小道のモーダル等) は
+     ページ全体を night にせず、包含要素に .q4b-zd-night を付けて局所的に乗る。 */
   function ensureNightStyle(){
     var doc = global.document; if(!doc || !doc.head) return;
     if(doc.getElementById("q4b-zukan-detail-night-style")) return;
     var st = doc.createElement("style");
     st.id = "q4b-zukan-detail-night-style";
+    /* 子孫セレクタごとに両スコープへ複製する (カンマは接頭辞単位では分配されないため)。 */
+    function nightRule(suffix, body){
+      return 'body.night [data-q4b-zd]'+suffix+', .q4b-zd-night [data-q4b-zd]'+suffix+'{'+body+'}';
+    }
     st.textContent =
       /* 夜モード: ラップ全体をダーク panel + 局所背景 (egg row, master badge, chip) も
          ダーク系に置き換え。背景色も variable 化することで、明色テキストとの
          コントラストを必ず確保する。 */
-      'body.night [data-q4b-zd]{'
-      +   'background:#1a2740;'
-      +   'color:#e8ecdf;'
-      +   'border-radius:12px;'
-      +   'padding:10px;'
-      +   'margin:-8px -4px;'
-      +   '--zd-faint:#b8c2a8;'
-      +   '--zd-sub:#cdd6bc;'
-      +   '--zd-strong:#f0f4e6;'
-      +   '--zd-male:#a8caf0;'
-      +   '--zd-female:#f4c2d8;'
-      +   '--zd-amber:#f0d590;'
-      +   '--zd-purple:#d4adf4;'
-      +   '--zd-chip-on:#c8dca6;'
-      +   '--zd-egg-bg:#3a2f1a;'             /* 元 #FFF6E0 の夜版 */
-      +   '--zd-egg-pending-bg:#2d1f3a;'     /* 元 #F5E8FF の夜版 */
-      +   '--zd-master-bg:#2d1f3a;'          /* 元 #F5E8FF の夜版 */
-      +   '--zd-chip-bg:rgba(70,90,110,.65);'/* 元 rgba(255,255,255,.7) */
-      +   '--zd-chip-observation-bg:rgba(60,90,55,.6);'/* 元 rgba(232,244,225,.85) */
-      +   '--zd-table-bg:rgba(255,255,255,.06);'
-      + '}'
-      + 'body.night [data-q4b-zd] table th{color:var(--zd-sub)!important}'
-      + 'body.night [data-q4b-zd] table td{color:var(--zd-strong)!important}'
+      nightRule('',
+        'background:#1a2740;'
+        + 'color:#e8ecdf;'
+        + 'border-radius:12px;'
+        + 'padding:10px;'
+        + 'margin:-8px -4px;'
+        + '--zd-faint:#b8c2a8;'
+        + '--zd-sub:#cdd6bc;'
+        + '--zd-strong:#f0f4e6;'
+        + '--zd-male:#a8caf0;'
+        + '--zd-female:#f4c2d8;'
+        + '--zd-amber:#f0d590;'
+        + '--zd-purple:#d4adf4;'
+        + '--zd-chip-on:#c8dca6;'
+        + '--zd-egg-bg:#3a2f1a;'             /* 元 #FFF6E0 の夜版 */
+        + '--zd-egg-pending-bg:#2d1f3a;'     /* 元 #F5E8FF の夜版 */
+        + '--zd-master-bg:#2d1f3a;'          /* 元 #F5E8FF の夜版 */
+        + '--zd-chip-bg:rgba(70,90,110,.65);'/* 元 rgba(255,255,255,.7) */
+        + '--zd-chip-observation-bg:rgba(60,90,55,.6);'/* 元 rgba(232,244,225,.85) */
+        + '--zd-table-bg:rgba(255,255,255,.06);')
+      + nightRule(' table th', 'color:var(--zd-sub)!important')
+      + nightRule(' table td', 'color:var(--zd-strong)!important')
       /* 局所バッジに白系背景が inline で残るのを overlay で打ち消す */
-      + 'body.night [data-q4b-zd] .zd-egg-row{background:var(--zd-egg-bg)!important;border-color:#7a5a30!important}'
-      + 'body.night [data-q4b-zd] .zd-egg-pending-row{background:var(--zd-egg-pending-bg)!important;border-color:#7050a0!important}'
-      + 'body.night [data-q4b-zd] .zd-master-badge{background:var(--zd-master-bg)!important;border-color:#a06bd8!important}'
-      + 'body.night [data-q4b-zd] .zd-spec-summary{background:var(--zd-chip-bg)!important;border-color:#7a8898!important}'
-      + 'body.night [data-q4b-zd] .zd-spec-summary-obs{background:var(--zd-chip-observation-bg)!important;border-color:#7a9070!important}'
-      + 'body.night [data-q4b-zd] .zd-spec-table{background:var(--zd-table-bg)!important}'
+      + nightRule(' .zd-egg-row', 'background:var(--zd-egg-bg)!important;border-color:#7a5a30!important')
+      + nightRule(' .zd-egg-pending-row', 'background:var(--zd-egg-pending-bg)!important;border-color:#7050a0!important')
+      + nightRule(' .zd-master-badge', 'background:var(--zd-master-bg)!important;border-color:#a06bd8!important')
+      + nightRule(' .zd-spec-summary', 'background:var(--zd-chip-bg)!important;border-color:#7a8898!important')
+      + nightRule(' .zd-spec-summary-obs', 'background:var(--zd-chip-observation-bg)!important;border-color:#7a9070!important')
+      + nightRule(' .zd-spec-table', 'background:var(--zd-table-bg)!important')
       /* そだてた子: 昼=薄緑 bg + 黒系 text、夜=深緑 bg + 明緑系 text で必ずコントラスト確保 */
-      + 'body.night [data-q4b-zd] .zd-reared{background:#1f3a23!important}'
-      + 'body.night [data-q4b-zd] .zd-reared-title{color:#a8d088!important}'
-      + 'body.night [data-q4b-zd] .zd-reared-row{color:#d4e8c0!important}'
-      + 'body.night [data-q4b-zd] .zd-dimorphism-note{background:rgba(120,90,40,.4)!important;color:#f0d590!important}';
+      + nightRule(' .zd-reared', 'background:#1f3a23!important')
+      + nightRule(' .zd-reared-title', 'color:#a8d088!important')
+      + nightRule(' .zd-reared-row', 'color:#d4e8c0!important')
+      + nightRule(' .zd-dimorphism-note', 'background:rgba(120,90,40,.4)!important;color:#f0d590!important');
     doc.head.appendChild(st);
   }
   /* detailHTML / masterStubHTML が返す html を wrap して上記 scope に乗せる */

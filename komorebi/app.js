@@ -2066,7 +2066,9 @@
     overlay.id="komZukanModal";
     /* data-zukan-zoom-zone: 共有 lightbox (zukan_lightbox.js) の装着マーカー。
        本編モーダルのクラス名に依存しない明示指定で、写真タップ拡大を有効化する。 */
-    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true" data-zukan-zoom-zone="1">'
+    /* q4b-zd-night: 共有詳細ブロック (zukan_detail.js) の夜配色を局所的に有効化。
+       小道は常時ダークだが body.night は keisan/style.css 全体に効くため使わない。 */
+    overlay.innerHTML='<div class="kom-modal-card q4b-zd-night" role="dialog" aria-modal="true" data-zukan-zoom-zone="1">'
       +'<div class="kom-modal-art r'+tier+'">'+(reward.svg?reward.svg(sp,record.records&&record.records.some(function(r){return r.shiny;})):"")+'</div>'
       +'<h3>'+displayText(speciesName(sp))+'</h3>'
       +'<p><span class="zukan-tier r'+tier+'">'+displayText(reward.TIERNAME[tier])+'</span>　'+displayText("×"+record.n)+'</p>'
