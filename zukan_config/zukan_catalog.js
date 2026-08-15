@@ -31126,7 +31126,7 @@
     "master_nishiki_kin_kamemushi": {
       speciesId: "master_nishiki_kin_kamemushi",
       scientificName: "Poecilocoris lewisi",
-      jaName: "ニシキキンカメムシ",
+      jaName: "クラウンキンカメムシ",
       creditLine: "Wikimedia Commons",
       creator: "Yasunori Yamamoto",
       sexCovered: "m",
