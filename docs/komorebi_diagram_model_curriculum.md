@@ -1,6 +1,6 @@
 # 木漏れ日の小道 教材設計: 数量関係の図化 (kom_diagram_model)
 
-版: v0.3.4 (2026-08-15。生成器の実装前レビューで検証 1-41 × 付録 A を機械突き合わせし、矛盾 9-15 を検出して修正した。付録 A.11 に記録)
+版: v0.3.5 (2026-08-15。実装前レビューで矛盾 9-15 を修正し (v0.3.4)、実装時に肢の可用性の 2 点を確定した (矛盾 16-17)。いずれも付録 A.11 に記録)
 親文書: `docs/komorebi_categories.md` 2 章 (後期枠) と 3.12 章 (前身 kom_johou_seiri)、`docs/komorebi_design.md` 7 章 (形式と品質保証)
 関連: `docs/komorebi_ratio_curriculum.md` (v0.2、境界の相手)、`docs/komorebi_johou_seiri_curriculum.md` (前段の層)、`docs/komorebi_item_examples.md` (品質 6 原則)、`docs/komorebi_ui_design.md` (画面の制約)、`docs/komorebi_mechanization_audit_2026_08_14.md` (機械化可能性監査。4.2 章で対応)
 対象: k10 コース、実装 cat `kom_diagram_model`、Lv 1 から 10
@@ -1586,5 +1586,7 @@ v0.3.2 で 2 件が決着した。対比ペアの配置 (横並び、案 A) と 
 | 13 | 規則 12 (表の空欄 1 から 3) が find_all の空表にも掛かるように読め、A.9 問 5 (空欄 5) と矛盾した | 規則 12 と検証 33 を表の診断と normal に限定し、find_all の空表は 19.5 章の規定に従うことにした |
 | 14 | missing_relation の適用可能条件「与件のラベル 3 つ以上」の母集合が未規定で、A.10 問 2 は本文基準でしか成立しなかった | 本文の与件の数 (unused を含む) を数える本文基準と明記した |
 | 15 | role_swap の変換「qid を入れかえる」が例 4-B (名前だけが入れかわる) と合わず、qid 交換では C1 と C3 が同時に破れた | 変換を「ラベルの付き先の入れかえ (C1 のみ破る)」に改め、C1 の守備範囲を 16 章で同階層に限定した |
+| 16 | rect では「入れかえで正規形が変わる」が偽 (2 軸の入れかえは correct_alternative) で role_swap を生成できないが、A.8 問 2 は role_swap を肢に置く | 肢としての可用性は mutator の適用可能条件より広いことを明記した。rect では role_swap を肢に置いてよく、mutator は生成しない (v0.3.5、実装時に確定) |
+| 17 | relation_mixup の適用可能条件は sum2 と diff2 だが、A.3 問 2 は sum_diff の図の肢に置く | 同上。relation_mixup の肢は sum_diff にも置いてよく、mutator の生成は sum2 と diff2 に限る (v0.3.5) |
 
 矛盾 2 と 3 は同じ原因である。formulation は「? に至る手前の中間量」を問う形式なので、中間量が存在しない図では成立しない。規則を 1 本ずつ読んでも見えず、5 問を実際に並べて初めて現れた。以後、規則を追加または変更したら付録 A の 10 セットを組み直し、組めなければその規則を採らない。
