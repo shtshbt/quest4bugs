@@ -792,12 +792,14 @@
     var box=mapViewBox(worldMap),byRegion={},regionPaths="",pins="",leader="";
     regions.forEach(function(region){byRegion[region.regionId]=region;});
     Object.keys(worldMap.regions).forEach(function(regionId){
-      var region=byRegion[regionId],className="hl hl-unopened";
-      if(region)className=region.regionId===currentRegionId?"hl hl-current":"hl hl-open";
-      regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(region?' filter="url(#rich-glow)"':'')+'></path>';
+      /* 未解放 (placeholder) 地域は陸地の発光もピンも出さず、未開拓地と同じ見た目にする。 */
+      var region=byRegion[regionId],opened=region&&!region.placeholder,className="hl hl-unopened";
+      if(opened)className=region.regionId===currentRegionId?"hl hl-current":"hl hl-open";
+      regionPaths+='<path class="'+className+'" d="'+escapeHtml(worldMap.regions[regionId])+'"'+(opened?' filter="url(#rich-glow)"':'')+'></path>';
     });
     /* ピンは地域に 1 本。巻が増えてもピンは重ならず、数字は地域の全巻合計になる。 */
     regions.forEach(function(region){
+      if(region.placeholder)return;
       var state=regionPinState(region,viewCollection()),point=worldMap.pins[region.regionId];
       var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
       var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":state.kind==="placeholder"?"じゅんびちゅう":"完成した遠征";

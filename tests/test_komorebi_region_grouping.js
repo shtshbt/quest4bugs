@@ -19,22 +19,22 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const app = context.__app;
   const plain = () => plainText(app.innerHTML);
 
-  test("the map draws one pin per region even before any second volume exists", () => {
+  test("the map draws one pin per opened region and none per volume", () => {
     const pins = app.querySelectorAll("[data-region-id]");
-    assert.equal(pins.length, 4, "fixture has four regions: " + pins.length);
+    assert.equal(pins.length, 1, "only madagascar is opened: " + pins.length);
+    assert.equal(pins[0].attrs["data-region-id"], "madagascar");
     assert.equal(app.querySelectorAll(".map-pin").filter(p => p.attrs["data-volume-id"]).length, 0,
       "pins must not be per-volume");
   });
 
-  test("placeholder pins stay visible but cannot open a path", () => {
-    const placeholders = app.querySelectorAll(".pin-placeholder");
-    assert.equal(placeholders.length, 3, "AU, BO and CR should be placeholders");
-    placeholders.forEach(pin => assert.equal(pin.attrs["aria-disabled"], "true"));
-    assert.equal((plain().match(/じゅんびちゅう/g) || []).length, 3);
-    const australia = placeholders.filter(pin => pin.attrs["data-region-id"] === "australia")[0];
-    australia.click();
+  test("placeholder regions do not appear on the map at all", () => {
+    /* 未解放地域はピンもじゅんびちゅう表示も出さず、陸地も未開拓と同じ見た目。 */
+    assert.equal(app.querySelectorAll(".pin-placeholder").length, 0);
+    assert.equal((plain().match(/じゅんびちゅう/g) || []).length, 0);
+    assert.doesNotMatch(plain(), /オーストラリア|ボルネオ|コスタリカ/);
+    assert.ok((app.innerHTML.match(/hl hl-unopened/g) || []).length >= 3,
+      "placeholder land must render as unopened");
     assert.match(plain(), /マダガスカルの小道/);
-    assert.doesNotMatch(plain(), /オーストラリアの小道/);
   });
 
   test("a single-volume region shows no expedition headers or badges", () => {
