@@ -604,13 +604,14 @@ function goshinHTML(pid,amber,bt,opts){
     +'<div class="hint">30もん せいかいすると、1日ひとつ みつかるよ</div>'
     +'<div class="goshin-daily">'+card(order[0],"🪲")+card(order[1],"✏️")+card(order[2],"🔤")+'</div></div>'
     +'<div class="goshin-clock"><h4>しずくどけい</h4><div class="goshin-clock-in">'+dropClockSvg(g.dewProgress)+'<div><b>'+g.dewProgress+' / 3</b><div class="note">3教科でかせき発見の日が3日で しずく +1</div></div></div></div>'
-    +'</div>'+breedingPanelHTML(pid)+equipmentHTML(g)+shinyHTML(g)+chameleonHallOfFameHTML(pid)+'</div>';
+    +'</div>'+breedingPanelHTML(pid,opts.komorebi&&opts.komorebi.played)+equipmentHTML(g)+shinyHTML(g)+chameleonHallOfFameHTML(pid)+'</div>';
 }
 /* 卵育成パネル: 御神木 panel 内、化石パーツ復元の上に表示 */
-function breedingPanelHTML(pid){
+function breedingPanelHTML(pid,komorebiPlayed){
   if(!window.Q4BBreeding||!window.QuestSave||!QuestSave.breedingOf) return "";
   var bs=QuestSave.breedingOf(pid);
   return Q4BBreeding.homeBreedingPanelHTML({
+    komorebiPlayed: !!komorebiPlayed,
     eggs: bs.eggs||[],
     pendingEggs: bs.pendingEggs||[],
     pendingCount: (bs.pendingEggs||[]).length,
@@ -1339,7 +1340,7 @@ function renderDashboard(pid,name){
     })();
     var komCollection=kom&&kom.collection, komCatches=komCollection&&komCollection.catches;
     var komCaught=0; if(komCatches&&typeof komCatches==="object")Object.keys(komCatches).forEach(function(id){ if(komSpecies[id])komCaught++; });
-    var komorebi={unlocked:!!kom&&kom.unlocked!==false,caught:komCaught,total:Object.keys(komSpecies).length};
+    var komorebi={unlocked:!!kom&&kom.unlocked!==false,played:!!kom,caught:komCaught,total:Object.keys(komSpecies).length};
     var gHome=(window.QuestSave&&QuestSave.goshinOf)?QuestSave.goshinOf(pid):null;
     var taniOpen=homeTaniUnlocked(gHome,bt);
     if(!_isCurDash()) return;     /* T3: 切替後の旧 pid 処理を全て止める */

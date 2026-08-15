@@ -183,9 +183,11 @@
         cards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: firstEmpty ? (opts.pendingCount||0) : 0}));
       }
     }
-    /* 小道段: 育成中か待機中の小道卵が 1 つでもあるときだけ出す。 */
+    /* 小道段: 小道卵があるとき、または小道を一度でも開いた profile (opts.komorebiPlayed)
+       なら空でも出す。1 個産むまで段が見えないと、御神木で育てられること自体に
+       気づけないため (2026-08-15 実機フィードバック)。未プレイの profile には出さない。 */
     var komSection = '';
-    if(komEggs.length || komPendingEggs.length){
+    if(komEggs.length || komPendingEggs.length || opts.komorebiPlayed){
       var komCards = [];
       for(i=0;i<komMax;i++){
         if(i < komEggs.length){
@@ -194,6 +196,9 @@
           komCards.push(emptySlotHTML({onAdd: opts.onAdd, pendingCount: 0}));
         }
       }
+      var komHint = komEggs.length || komPendingEggs.length
+        ? 'こもれびの小道の もんだいで そだつよ'
+        : 'こもれびの ずかんから たまごを うめるよ';
       komSection = ''
         + '<div style="display:flex;align-items:center;gap:6px;margin:10px 0 6px">'
         +   '<span style="font-size:18px">🌿</span>'
@@ -203,7 +208,7 @@
         + '<div style="display:grid;grid-template-columns:repeat('+komMax+',1fr);gap:8px">'
         +   komCards.join('')
         + '</div>'
-        + '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:6px">こもれびの小道の もんだいで そだつよ</div>';
+        + '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:6px">'+komHint+'</div>';
     }
     var pendBanner = opts.pendingCount > 0
       ? '<div class="q4b-egg-pending-banner" style="background:#FFF6E0;border:1.5px solid #F2A33C;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#8A5C2C;cursor:pointer"'
