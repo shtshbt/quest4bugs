@@ -27,7 +27,9 @@
     ["よん",4],["ろく",6],["なな",7],["しち",7],["はち",8],
     ["に",2],["し",4],["ご",5],["く",9]
   ];
-  var TRANSCRIPT_ALIASES={"人":"にん"};
+  /* iOS/Chrome の書き起こしで頻出する漢字混入をかなへ戻す表。実機の実転写から追加する
+     (「2人が4」「2人が死に」= ににんがし)。 */
+  var TRANSCRIPT_ALIASES={"人":"にん","死":"し"};
 
   if(!PHRASES||typeof PHRASES.phrase!=="function")throw new Error("九九の読みを利用できません");
 
@@ -90,8 +92,41 @@
     });
   }
 
+  /* iOS はかな読みをカタカナ + 長音で返す (「にいちがに」→「ニーチが2」)。
+     カタカナをひらがなへ畳み、長音は直前のかなの母音へ展開して照合可能にする。 */
+  function kataToHira(source){
+    return source.replace(/[ァ-ヶ]/g,function(character){return String.fromCharCode(character.charCodeAt(0)-0x60);});
+  }
+
+  var CHOON_VOWEL=(function(){
+    var rows={
+      "あ":"あぁかがさざただなはばぱまやゃらわ",
+      "い":"いぃきぎしじちぢにひびぴみり",
+      "う":"うぅゔくぐすずつづっぬふぶぷむゆゅる",
+      "え":"えぇけげせぜてでねへべぺめれ",
+      "お":"おぉこごそぞとどのほぼぽもよょろを"
+    };
+    var map={};
+    Object.keys(rows).forEach(function(vowel){rows[vowel].split("").forEach(function(kana){map[kana]=vowel;});});
+    return map;
+  })();
+
+  function expandChoon(source){
+    var out="";
+    for(var index=0;index<source.length;index++){
+      var character=source.charAt(index);
+      if(character==="ー"&&out.length){
+        var vowel=CHOON_VOWEL[out.charAt(out.length-1)];
+        out+=vowel||character;
+        continue;
+      }
+      out+=character;
+    }
+    return out;
+  }
+
   function normalizeTranscript(raw){
-    var source=halfWidthLower(raw),text="",positions=[],operators=["掛ける","かける","かけ","×","x"];
+    var source=expandChoon(kataToHira(halfWidthLower(raw))),text="",positions=[],operators=["掛ける","かける","かけ","×","x"];
     Object.keys(TRANSCRIPT_ALIASES).forEach(function(alias){source=source.split(alias).join(TRANSCRIPT_ALIASES[alias]);});
     for(var index=0;index<source.length;){
       var removed=false;

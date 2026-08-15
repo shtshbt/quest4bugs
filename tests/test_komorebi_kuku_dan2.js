@@ -139,6 +139,23 @@ test("recognition failure is not counted",function(){
   });
 });
 
+test("the exact iPhone transcript of the 2-dan chunk judges as a correct phrase",function(){
+  /* 実機 (iPhone) の実転写。にいちがに→ニーチが2、ににんがし→2人が4 / 2人が死に、
+     にさんがろく→23が6。カタカナ畳み + 長音展開 + 死→し で数列照合が通ること。 */
+  var chunk=kuku.buildChunk(2,1,0);
+  var real="ニーチが22人が423が6ニーチが22人が死に3が6ニーチが22人が23が6";
+  var result=kuku.judgeChunk(chunk,real,5000);
+  assert.equal(result.state,"correct_phrase");
+  assert.equal(result.correct,true);
+});
+
+test("an all-katakana recitation folds to hiragana and matches the canonical phrase",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  var result=kuku.judgeChunk(chunk,"ニイチガニ ニニンガシ ニサンガロク",5000);
+  assert.equal(result.state,"correct_phrase");
+  assert.equal(result.correct,true);
+});
+
 test("the engine never reads the current clock",function(){
   var source=fs.readFileSync(path.join(root,"komorebi/kuku_dan2.js"),"utf8");
   assert.equal(/Date\s*\.\s*now/.test(source),false);
