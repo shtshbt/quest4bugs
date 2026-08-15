@@ -176,23 +176,26 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .ratio-capture-again{color:#A9C79B}
 .ratio-capture-note{margin:9px 0 0;font-size:13px;line-height:1.7;color:#B6D2A6}
 
-/* 小道の図鑑。本編の図鑑とは枠色で区別する (ui_design 5 章)。 */
+/* 小道の図鑑。本編の図鑑とは枠色で区別する (ui_design 5 章)。カードの寸法は
+   本編 keisan/style.css の .zgrid / .zc (96px minmax グリッド / 64px アート /
+   8px 4px 余白 / 11px 名前) に揃える。小道独自の意味 (未捕獲の ? カード・
+   看板の縁取り・レア度チップ) は保つ。 */
 .zukan-page .kom-title p strong{color:#FFE9A8;font-size:20px}
-.zukan-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+.zukan-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));
   list-style:none;margin:0;padding:0 0 24px}
-.zukan-card{padding:10px;border:2px solid #2F5C4A;border-radius:14px;
+.zukan-card{padding:8px 4px;border:2px solid #2F5C4A;border-radius:14px;
   background:linear-gradient(180deg,#14332B,#0E2721);text-align:center}
 .zukan-card.is-flagship{border-color:#D8C768;box-shadow:0 0 0 1px rgba(216,199,104,.35)}
 .zukan-card.is-unknown{opacity:.55;border-style:dashed}
-.zukan-art{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1;
+.zukan-art{display:flex;align-items:center;justify-content:center;width:64px;height:64px;margin:0 auto;
   border-radius:10px;background:radial-gradient(circle at 50% 45%,#16463A,#0A231F)}
 .zukan-art svg{width:100%;height:100%}
 .zukan-card.is-unknown .zukan-art span{font-size:34px;color:#4E7A66;font-weight:900}
-.zukan-name{margin-top:7px;font-size:14px;font-weight:800;color:#F3FFE2;line-height:1.4}
-.zukan-card.is-unknown .zukan-name{color:#8FAE82;font-size:12px;font-weight:700}
-.zukan-meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:5px;font-size:11.5px;color:#A9C79B}
-.zukan-tier{padding:1px 8px;border-radius:999px;background:#2F5C4A;color:#F3FFE2;font-weight:700}
-.zukan-flag{margin-top:6px;font-size:11px;font-weight:800;color:#FFD86B}
+.zukan-name{margin-top:2px;font-size:11px;font-weight:700;color:#F3FFE2;line-height:1.2;min-height:26px}
+.zukan-card.is-unknown .zukan-name{color:#8FAE82;font-size:10px;font-weight:700}
+.zukan-meta{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;font-size:10px;color:#A9C79B}
+.zukan-tier{padding:1px 6px;border-radius:999px;background:#2F5C4A;color:#F3FFE2;font-weight:700}
+.zukan-flag{margin-top:4px;font-size:10px;font-weight:800;color:#FFD86B}
 
 /* 図鑑の絞り込み。本編と同じ語彙 (レア度 / なかま / つかまえたものだけ / なまえ)。 */
 .zukan-filters{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}

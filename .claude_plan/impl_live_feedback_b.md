@@ -18,6 +18,10 @@ zukanFilter / zukanMatches / zukanFilterBarHtml に、本編 keisan の zukanMat
 
 UI は既存の zukan-chips / zukan-toggle の体裁を踏襲したトグル群。文言は本編の同機能と同じ子ども向け表記に揃える (本編の該当ボタン文言を読んで一致させる)。地域ずかん (renderZukan) と こもれびのずかん (renderCommonZukan) の両方に適用。
 
+### 1.5 ずかんカードの寸法・体裁を本編に揃える (2026-08-15 実機フィードバック追加)
+
+小道のずかんカードが本編よりやたら大きい。本編 keisan のずかんグリッド (カード幅・余白・フォントサイズ・アートの高さ) を正とし、komorebi/map.css の zukan-grid / zukan-card 系を本編の寸法に揃える。列数はビューポート幅で本編と同じ挙動 (auto-fill/minmax) にする。捕獲済み/未捕獲の見た目の対比は現行の意味を保つ。
+
 ### 2. イラスト/しゃしん切替の設置
 
 renderZukan と renderCommonZukan で Q4BRender.setZukanModeToggleVisible(true, host) を呼び、host._q4bRerender に当該画面の再描画関数を登録する (本編 keisan/app.js:993 と同じ運用)。ずかん以外の画面へ遷移する描画時は setZukanModeToggleVisible(false)。問題セッション中は Q4BRender.setSessionActive(true/false) で非表示制御 (keisan/app.js:687,5797 と同じ)。カード側の描画は reward.svg 経由で共有レンダラが museum photo に切り替わるため、追加実装は不要のはず。切替後の再描画でフィルタ状態 (zukanFilter) が保持されること。

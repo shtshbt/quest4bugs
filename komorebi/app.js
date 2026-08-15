@@ -1449,6 +1449,9 @@
   }
 
   function beginSession(cat,volume,questions,sessionId){
+    /* 問題を解いている間は共有のずかん切替トグルを隠す (keisan nextQ と同じ運用)。
+       解除はセッションの唯一の出口である renderMap が行う。 */
+    if(global.Q4BRender&&global.Q4BRender.setSessionActive)global.Q4BRender.setSessionActive(true);
     session={id:sessionId,cat:cat,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,
       orderSelection:[],multiSelection:[],unitSelection:null,startedAt:0,runState:null};
     renderQuestion();
@@ -1699,6 +1702,7 @@
   }
 
   function renderTrophies(volumeId){
+    hideZukanModeToggle();
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText("きんいろトロフィー")+'</h1>'
@@ -1708,6 +1712,10 @@
   }
 
   function renderMap(selectedId){
+    /* ずかん以外の画面では切替ボタンを出さない。セッション終了の着地点でもあるので、
+       body のセッション属性の解除もここで行う (keisan showHome と同じ役割)。 */
+    hideZukanModeToggle();
+    if(global.Q4BRender&&global.Q4BRender.setSessionActive)global.Q4BRender.setSessionActive(false);
     var volumes=expeditionVolumes(),regions=regionList();
     validateMapPayload(worldMap,volumes);
     /* selectedId は volume id でも region id でも受ける (セッションからの戻りは
@@ -1739,17 +1747,29 @@
   }
 
   /* 図鑑の絞り込み。本編 keisan の zukanMatchK と同じ語彙 (レア度 tier / 分類キー /
-     未捕獲を隠す / 検索) を使うが、状態は小道側に持つ。本編の KZ_* は keisan の
+     未捕獲を隠す / 検索 + 6 トグル: おきにいり / いろちがい / かえした / ×2 /
+     たまご / ♂♀) を使うが、状態は小道側に持つ。本編の KZ_* は keisan の
      プロフィールに束縛されているため共有できない。 */
-  var zukanFilter={rarity:"",group:"",caughtOnly:false,query:"",expedition:"",region:""};
+  var zukanFilter={rarity:"",group:"",caughtOnly:false,query:"",expedition:"",region:"",
+    fav:false,shiny:false,reared:false,plural:false,egg:false,pair:false};
+  /* data-value から直接 zukanFilter を書くため、鍵は許可済みトグルに限定する。 */
+  var ZUKAN_FLAG_FILTERS={fav:true,shiny:true,reared:true,plural:true,egg:true,pair:true};
 
   function zukanGroupKey(sp){ return sp?(sp.familyJa||sp.orderJa||sp.groupJa||""):""; }
 
-  function zukanMatches(sp,record){
+  function zukanMatches(sp,record,collection){
     var reward=global.Q4BReward;
     if(zukanFilter.rarity!==""&&sp&&String(reward.tierOf(sp))!==zukanFilter.rarity)return false;
     if(zukanFilter.group!==""&&zukanGroupKey(sp)!==zukanFilter.group)return false;
     if(zukanFilter.caughtOnly&&!record)return false;
+    /* 6 トグルは本編 zukanMatchK (keisan/app.js) と同じ判定源。record は
+       collection.catches[sp.id]、collection は表示中のずかんの捕獲記録全体。 */
+    if(zukanFilter.fav&&!(sp&&reward.isFavorite&&reward.isFavorite(collection,sp.id)))return false;
+    if(zukanFilter.shiny&&!(record&&record.shiny))return false;
+    if(zukanFilter.reared&&!(sp&&reward.hasReared&&reward.hasReared(collection,sp.id)))return false;
+    if(zukanFilter.plural&&!(record&&(record.n||0)>=2))return false;
+    if(zukanFilter.egg&&!(sp&&reward.eggsForSpecies&&reward.eggsForSpecies(sp.id).total>0))return false;
+    if(zukanFilter.pair&&!(sp&&reward.hasBothSexes&&reward.hasBothSexes(collection,sp.id)))return false;
     var q=zukanFilter.query.trim().toLowerCase();
     if(q&&sp){
       var hay=(sp.jaName+" "+(sp.scientificName||"")+" "+zukanGroupKey(sp)).toLowerCase();
@@ -1771,7 +1791,14 @@
     var groupOpts='<option value="">'+displayText("すべての なかま")+'</option>'+groups.map(function(key){
       return '<option value="'+escapeHtml(key)+'"'+(zukanFilter.group===key?" selected":"")+'>'+displayText(key)+'</option>';
     }).join("");
+    /* 文言は本編 keisan showZukan の同機能ボタンと同一に保つ (子どもが両画面で
+       同じ言葉に出会うため)。 */
+    var flags=[["fav","♥ おきにいり"],["shiny","✨ いろちがい"],["reared","🐣 かえした"],
+      ["plural","×2 いじょう"],["egg","🥚 たまごあり"],["pair","♂♀ そろい"]].map(function(pair){
+      return '<button type="button" class="zukan-chip'+(zukanFilter[pair[0]]?" is-on":"")+'" data-filter="flag" data-value="'+pair[0]+'">'+displayText(pair[1])+'</button>';
+    }).join("");
     return '<div class="zukan-filters"><div class="zukan-chips" role="group" aria-label="'+attrText("レア度でしぼる")+'">'+tiers+'</div>'
+      +'<div class="zukan-chips" role="group" aria-label="'+attrText("じょうけんでしぼる")+'">'+flags+'</div>'
       +'<div class="zukan-controls"><select id="zukanGroup" aria-label="'+attrText("なかまでしぼる")+'">'+groupOpts+'</select>'
       +'<label class="zukan-toggle"><input type="checkbox" id="zukanCaught"'+(zukanFilter.caughtOnly?" checked":"")+'>'+displayText("つかまえたものだけ")+'</label>'
       +'<input type="search" id="zukanQuery" value="'+escapeHtml(zukanFilter.query)+'" placeholder="'+attrText("なまえでさがす")+'" aria-label="'+attrText("なまえでさがす")+'"></div></div>';
@@ -1833,12 +1860,29 @@
     return '<div class="zukan-chips" role="group" aria-label="'+attrText("遠征でしぼる")+'">'+chips+'</div>';
   }
 
+  /* イラスト/しゃしん切替 (shared/zukan_render.js が Q4BRender に生やす共有トグル)。
+     _q4bRerender にはフィルタ状態 (zukanFilter) を保った同画面の再描画関数を登録する
+     (本編 keisan/app.js:993 と同じ運用)。ホストは見出しブロック: 小道は viewport
+     右上を portal への固定 🏠 リンクが占有しており、画面全体を host にすると
+     トグルが 🏠 の下に隠れる。 */
+  function mountZukanModeToggle(rerender){
+    if(!global.Q4BRender||!global.Q4BRender.setZukanModeToggleVisible)return;
+    var host=document.querySelector(".zukan-page .kom-title");
+    if(!host)return;
+    host._q4bRerender=rerender;
+    global.Q4BRender.setZukanModeToggleVisible(true,host);
+  }
+
+  function hideZukanModeToggle(){
+    if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(false);
+  }
+
   function renderZukan(regionId){
     var region=regionById(regionId),collection=viewCollection();
     var entries=regionEntries(region,collection);
     var shown=entries.filter(function(item){
       if(zukanFilter.expedition!==""&&item.expedition!==zukanFilter.expedition)return false;
-      return zukanMatches(item.sp,item.record);
+      return zukanMatches(item.sp,item.record,collection);
     });
     var cards=shown.map(function(item){return zukanCardHtml(item.entry,item.record);}).join("")
       ||'<li class="zukan-empty">'+displayText("じょうけんに あう虫は いないよ。")+'</li>';
@@ -1852,6 +1896,7 @@
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
     bindZukanFilters(function(){renderZukan(regionId);});
     bindZukanCards(entries,function(){renderZukan(regionId);});
+    mountZukanModeToggle(function(){renderZukan(regionId);});
   }
 
   function bindZukanFilters(rerender){
@@ -1870,6 +1915,14 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-filter="region"]'),function(button){
       button.addEventListener("click",function(){
         zukanFilter.region=button.getAttribute("data-value");
+        rerender();
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-filter="flag"]'),function(button){
+      button.addEventListener("click",function(){
+        var key=button.getAttribute("data-value");
+        if(!ZUKAN_FLAG_FILTERS[key])return;
+        zukanFilter[key]=!zukanFilter[key];
         rerender();
       });
     });
@@ -1910,7 +1963,7 @@
     });
     var shown=entries.filter(function(item){
       if(zukanFilter.region!==""&&item.regionId!==zukanFilter.region)return false;
-      return zukanMatches(item.sp,item.record);
+      return zukanMatches(item.sp,item.record,collection);
     });
     var regionChips=[["","すべて"]].concat(regions.map(function(region){return [region.regionId,region.regionName];}))
       .map(function(pair){
@@ -1929,6 +1982,7 @@
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(backId);});
     bindZukanFilters(function(){renderCommonZukan(backId);});
     bindZukanCards(entries,function(){renderCommonZukan(backId);});
+    mountZukanModeToggle(function(){renderCommonZukan(backId);});
   }
 
   /* 捕獲済みカードをタップすると、本編と同じ詳細 (Q4BZukan.detailHTML) を開く。
@@ -2100,6 +2154,10 @@
     applyPerformance:applyPerformance,
     recordResult:recordResult,
     speciesForArea:speciesForArea,
+    /* ずかんフィルタの判定を jsdom なしで検査するための窓。zukanFilterState は
+       ライブ参照を返す (テストが直接書き換えて判定だけを確かめる)。 */
+    zukanMatches:zukanMatches,
+    zukanFilterState:function(){return zukanFilter;},
     profile:function(){return profile;}
   };
   if(!global.Q4B_KOMOREBI_NO_BOOT&&global.document)boot();
