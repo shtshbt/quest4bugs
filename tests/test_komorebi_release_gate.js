@@ -96,7 +96,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
       id: "volume_future_stage", regionId: "australia", regionName: "オーストラリア",
       current: false, expedition: 2, release: 2,
       categories: ["kom_kuku_run"], blurb: "未来の巻。", frozen: true, denominator: 1,
-      species: [{ id: "kom_future_stage_sr_01", rarity: "SR", flagship: true }]
+      species: [{ id: "kom_future_stage_sr_01", rarity: "SSR", flagship: true }]
     };
     app.querySelector('[data-action="back"]').click();
     assert.equal(app.innerHTML.indexOf("volume_future_stage"), -1, "the staged volume leaked to the map");

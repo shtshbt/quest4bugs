@@ -65,7 +65,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     species: [
       { id: "kom_fixture_au2_n_01", rarity: "N", flagship: false },
       { id: "kom_fixture_au2_r_01", rarity: "R", flagship: false },
-      { id: "kom_fixture_au2_sr_flagship", rarity: "SR", flagship: true }
+      { id: "kom_fixture_au2_sr_flagship", rarity: "SSR", flagship: true }
     ]
   };
   context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia_3 = {
@@ -76,7 +76,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     frozen: true, denominator: 2,
     species: [
       { id: "kom_fixture_au3_n_01", rarity: "N", flagship: false },
-      { id: "kom_fixture_au3_sr_flagship", rarity: "SR", flagship: true }
+      { id: "kom_fixture_au3_sr_flagship", rarity: "SSR", flagship: true }
     ]
   };
 

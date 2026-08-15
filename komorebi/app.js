@@ -50,7 +50,7 @@
     pityChances:[0,0.25,0.5,0.75,1],
     flagshipWeight:0.25
   };
-  var RARITIES=["N","R","SR"];
+  var RARITIES=["N","R","SR","SSR"];
   /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
      登録漏れが即わかるほうがよい)。れんぞく九九はだんラン 1 本で 1 正答。 */
   var FORMAT_KINDS={
@@ -127,7 +127,8 @@
       if(hasOwn(ids,species.id))throw new Error("遠征の種IDが重複しています");
       ids[species.id]=true;
       if(species.flagship){
-        if(species.rarity!=="SR")throw new Error("看板のレア度が正しくありません");
+        /* 看板 = ウルトラレア。遠征の目玉こそ最レアという直感に合わせる (2026-08-14 決定)。 */
+        if(species.rarity!=="SSR")throw new Error("看板のレア度が正しくありません");
         flagships++;
       }
     });
@@ -1764,7 +1765,7 @@
       if(key&&!seen[key]){seen[key]=1;groups.push(key);}
     });
     groups.sort(function(a,b){return a.localeCompare(b,"ja");});
-    var tiers=[["","すべて"],["2","スーパーレア"],["1","レア"],["0","ノーマル"]].map(function(pair){
+    var tiers=[["","すべて"],["3","ウルトラレア"],["2","スーパーレア"],["1","レア"],["0","ノーマル"]].map(function(pair){
       return '<button type="button" class="zukan-chip'+(zukanFilter.rarity===pair[0]?" is-on":"")+'" data-filter="rarity" data-value="'+pair[0]+'">'+displayText(pair[1])+'</button>';
     }).join("");
     var groupOpts='<option value="">'+displayText("すべての なかま")+'</option>'+groups.map(function(key){

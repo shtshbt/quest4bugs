@@ -135,7 +135,10 @@ test("the fixture denominator is frozen and supplies per-region progress", () =>
   assert.equal(volume.frozen, true);
   assert.equal(volume.denominator, 84);
   assert.equal(volume.species.length, 84);
-  assert.deepEqual(Array.from(new Set(volume.species.map(species => species.rarity))).sort(), ["N","R","SR"]);
+  assert.deepEqual(Array.from(new Set(volume.species.map(species => species.rarity))).sort(), ["N","R","SR","SSR"]);
+  /* ウルトラレアは 3 種 (看板コメットガ + ベニホシオオアゲハ + マダガスカルオオタガメ)。 */
+  assert.equal(volume.species.filter(species => species.rarity === "SSR").length, 3);
+  assert.equal(volume.species.filter(species => species.rarity === "SR").length, 7);
   assert.equal(volume.species.some(species => species.rarity === "SS"), false);
   /* fixture の種は bugs.js に areaOnly として実在する。捕獲カードと図鑑が本編と
      同じ描画資産で出るための条件であり、同時に本編の分母には入らない。 */
@@ -156,24 +159,26 @@ test("the fixture denominator is frozen and supplies per-region progress", () =>
   assert.equal(progress.complete, true);
 });
 
-test("the flagship has reduced SR weight without being pinned to the final capture", () => {
-  const srVolume = {
+test("the flagship has reduced SSR weight without being pinned to the final capture", () => {
+  const ssrVolume = {
     id:"weight_fixture",
     regionId:"weight_region",
     regionName:"重み試験地",
     frozen:true,
     denominator:2,
     species:[
-      {id:"weight_sr_regular",rarity:"SR",flagship:false},
-      {id:"weight_sr_flagship",rarity:"SR",flagship:true}
+      {id:"weight_ssr_regular",rarity:"SSR",flagship:false},
+      {id:"weight_ssr_flagship",rarity:"SSR",flagship:true}
     ]
   };
   assert.equal(komorebi.collectionConfig.flagshipWeight, 0.25);
-  assert.equal(komorebi.drawCapture(srVolume, {}, 0, sequence([0,0.79])).species.id, "weight_sr_regular");
-  const earlyFlagship = komorebi.drawCapture(srVolume, {}, 0, sequence([0,0.81]));
-  assert.equal(earlyFlagship.species.id, "weight_sr_flagship");
+  assert.equal(komorebi.drawCapture(ssrVolume, {}, 0, sequence([0,0.79])).species.id, "weight_ssr_regular");
+  const earlyFlagship = komorebi.drawCapture(ssrVolume, {}, 0, sequence([0,0.81]));
+  assert.equal(earlyFlagship.species.id, "weight_ssr_flagship");
   assert.equal(earlyFlagship.isNew, true);
-  assert.throws(() => komorebi.validateVolume(Object.assign({}, srVolume, {species:[{id:"bad",rarity:"SS",flagship:true}],denominator:1})), /種データ|レア度/);
+  assert.throws(() => komorebi.validateVolume(Object.assign({}, ssrVolume, {species:[{id:"bad",rarity:"SS",flagship:true}],denominator:1})), /種データ|レア度/);
+  /* 看板 = ウルトラレア固定。SR の看板は組めない。 */
+  assert.throws(() => komorebi.validateVolume(Object.assign({}, ssrVolume, {species:[{id:"bad2",rarity:"SR",flagship:true}],denominator:1})), /看板のレア度/);
 });
 
 console.log(`RESULT ${passed} passed, 0 failed`);
