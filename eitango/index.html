@@ -714,7 +714,11 @@ const Reward = {
       fresh = 1;
     }
     p.amberTotal++;
-    return sharedEitangoCatch(p, 'main', fresh);
+    /* 経済対策①: 習熟済みフィールド (80% 以上) の周回は学習価値 0.25 (= 1/4 速の下限)。
+       反復係数だけでは 12 問窓の外を順繰りに回す farming に効かないため、
+       マスター済み判定を獲得側にも配線する (2026-08-15。komorebi の 0.4 減衰と同趣旨)。 */
+    const mastered = (typeof eitangoFieldMasteredRatio === 'function') && eitangoFieldMasteredRatio(field) >= 0.8;
+    return sharedEitangoCatch(p, 'main', mastered ? Math.min(fresh, 0.25) : fresh);
   },
   rollSize(sp) {
     const min = sp[6], max = sp[7];
@@ -1347,17 +1351,21 @@ function scrZukan(){
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
-/* 琥珀 catch 向けの既習度 boost。学習 gauge と review は常に shared normal odds。 */
-function eitangoFieldBoost(fid){
-  if(!window.Q4BReward) return 1;
+/* フィールドの習熟率 (0..1)。琥珀 catch の boost と、獲得側の価値減衰の両方が使う。 */
+function eitangoFieldMasteredRatio(fid){
   fid = fid || GFID || 1;
-  var f = fieldById(fid); if(!f) return 1;
+  var f = fieldById(fid); if(!f) return 0;
   var words = WordDB.byField(fid);
-  if(!words.length) return 1;
+  if(!words.length) return 0;
   var m = 0;
   if(f.kids){ words.forEach(function(w){var k=P.kids[w.key]; if(k&&k[1]>=2)m++;}); }
   else { words.forEach(function(w){var s=P.srs[w.key]; if(s&&s[0]>=3)m++;}); }
-  return (m/words.length >= 0.8) ? Q4BReward.BOOST_LOW : 1;
+  return m/words.length;
+}
+/* 琥珀 catch 向けの既習度 boost。学習 gauge と review は常に shared normal odds。 */
+function eitangoFieldBoost(fid){
+  if(!window.Q4BReward) return 1;
+  return (eitangoFieldMasteredRatio(fid) >= 0.8) ? Q4BReward.BOOST_LOW : 1;
 }
 function eitangoAmberCatch(){
   if(!P) return;
