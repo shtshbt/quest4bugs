@@ -185,6 +185,25 @@ test("generated questions never expose timing or speed wording", () => {
   for(let lv=1;lv<=10;lv++)assert.doesNotMatch(JSON.stringify(kuku.buildSet(lv, null, random)), /はやい|おそい|秒|タイム/);
 });
 
+test("a due fact at b=1 or b=9 never soft-locks set generation", () => {
+  /* 実機で発生: だんランの ×9 でつまずくと due 先頭が b=9 になり、リトライ
+     しても毎回同じ句が返って 20 回全滅 → セッションが永久に開始不能だった。 */
+  for(const b of [1, 9]){
+    const deck = kuku.createDeck();
+    deck.facts[`2x${b}`] = {interval:1, due:0, slow:true, seen:1};
+    const set = kuku.buildSet(1, deck, seeded(4141));
+    assert.equal(set.length, kuku.config.setSize);
+  }
+});
+
+test("a usable due fact still takes priority over random targets", () => {
+  const deck = kuku.createDeck();
+  deck.facts["2x9"] = {interval:1, due:0, slow:true, seen:1};
+  deck.facts["2x7"] = {interval:1, due:0, slow:true, seen:1};
+  const set = kuku.buildSet(1, deck, seeded(4242));
+  assert.equal(set[1].factKey, "2x7", "the in-range due fact must be the short-loop target");
+});
+
 test("buildSet works without a saved deck and every format is judgeable", () => {
   const set = kuku.buildSet(10, undefined, seeded(1313));
   assert.equal(set.length, kuku.config.setSize);

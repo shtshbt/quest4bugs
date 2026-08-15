@@ -191,7 +191,11 @@
   }
 
   function targetFact(deck,dans,random){
-    var due=dueFacts(deck,dans),selected;
+    /* 短ループ (scroll_fill / flash) は b の前後の句が要るため b=1,9 は使えない。
+       期限句をここで絞らないと、×1 か ×9 でつまずいたデッキは以後どの試行でも
+       同じ句が先頭に返り、セット生成が永久に失敗する (実機で発生)。b=1,9 の
+       期限句はだんランが b=1..9 を通しで出題するので取りこぼさない。 */
+    var due=dueFacts(deck,dans).filter(function(fact){return fact.b>=2&&fact.b<=8;}),selected;
     if(due.length)return due[0];
     selected={dan:pick(dans,random),b:pick(range(2,8),random),slow:false};
     selected.key=factKey(selected.dan,selected.b);
