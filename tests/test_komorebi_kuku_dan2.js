@@ -93,6 +93,15 @@ test("number extraction keeps kanji and kana compounds in order",function(){
   assert.equal(kuku.judgeTranscript(longChunk,"じゅう じゅうに じゅうし じゅうろく じゅうはち").state,"answer_only");
 });
 
+test("transcript aliases and guided matching recover common Chrome readings",function(){
+  assert.equal(kuku.transcriptAliases["人"],"にん");
+  var shortChunk=kuku.buildChunk(2,1,0);
+  assert.equal(kuku.judgeTranscript(shortChunk,"2いちが2 2人が4 2さんが6").state,"correct_phrase");
+  var longChunk=kuku.buildChunk(2,5,0);
+  assert.equal(kuku.judgeTranscript(longChunk,"にいちがに ににんがし にさんがろく にしがはち 2ごじゅう").state,"correct_phrase");
+  assert.equal(kuku.judgeTranscript(shortChunk,"").state,"recognition_failure");
+});
+
 test("a missing phrase reports its first missing index",function(){
   var chunk=kuku.buildChunk(2,1,0);
   var result=kuku.judgeTranscript(chunk,"にいちがに にさんがろく");

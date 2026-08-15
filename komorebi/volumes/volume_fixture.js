@@ -23,6 +23,7 @@
     return {
       id:config.id, regionId:config.regionId, regionName:config.regionName,
       current:!!config.current, expedition:config.expedition||1,
+      placeholder:!!config.placeholder,
       categories:config.categories, blurb:config.blurb,
       frozen:true, denominator:species.length, species:species
     };
@@ -43,6 +44,7 @@
 
   volumes.volume_fixture_australia=volume({
     id:"volume_fixture_australia", expedition:1, regionId:"australia", regionName:"オーストラリア",
+    placeholder:true,
     /* 見た目確認用の合成 fixture (実 manifest は freeze 時に差し替え)。
        kom_kuku_inverse と kom_frac_flow は release 3 なので、ここに挙げても
        CURRENT_RELEASE を上げるまで画面には出ない (ゲートの見本)。 */
@@ -53,6 +55,7 @@
 
   volumes.volume_fixture_borneo=volume({
     id:"volume_fixture_borneo", expedition:1, regionId:"borneo", regionName:"ボルネオ",
+    placeholder:true,
     categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3","kom_unit_convert","kom_kuku_bridge"],
     blurb:"世界で 3 番目に大きな島。3 つの国にまたがる熱帯雨林。",
     prefix:"kom_fixture_bo", counts:{n:5,r:2,sr:1}
@@ -60,6 +63,7 @@
 
   volumes.volume_fixture_costa_rica=volume({
     id:"volume_fixture_costa_rica", expedition:1, regionId:"costa_rica", regionName:"コスタリカ",
+    placeholder:true,
     categories:["kom_ratio","kom_kuku_dan4","kom_kuku_ura","kom_equation_select"],
     blurb:"中央アメリカの小さな国。九州ほどの広さに世界の生きものの 5% がすむ。",
     prefix:"kom_fixture_cr", counts:{n:6,r:2,sr:1}

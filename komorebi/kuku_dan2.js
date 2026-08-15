@@ -27,6 +27,7 @@
     ["よん",4],["ろく",6],["なな",7],["しち",7],["はち",8],
     ["に",2],["し",4],["ご",5],["く",9]
   ];
+  var TRANSCRIPT_ALIASES={"人":"にん"};
 
   if(!PHRASES||typeof PHRASES.phrase!=="function")throw new Error("九九の読みを利用できません");
 
@@ -91,6 +92,7 @@
 
   function normalizeTranscript(raw){
     var source=halfWidthLower(raw),text="",positions=[],operators=["掛ける","かける","かけ","×","x"];
+    Object.keys(TRANSCRIPT_ALIASES).forEach(function(alias){source=source.split(alias).join(TRANSCRIPT_ALIASES[alias]);});
     for(var index=0;index<source.length;){
       var removed=false;
       for(var operatorIndex=0;operatorIndex<operators.length;operatorIndex++){
@@ -178,9 +180,30 @@
     return {matched:expectedIndex,end:expectedIndex===expected.length?end:-1};
   }
 
+  function guidedNumberSequence(source,expected,cursor){
+    var matched=0,end=cursor;
+    for(var expectedIndex=0;expectedIndex<expected.length;expectedIndex++){
+      var forms=KANA_NUMBERS.filter(function(entry){return entry[1]===expected[expectedIndex];}).map(function(entry){return entry[0];});
+      forms.push(String(expected[expectedIndex]));
+      var found=-1,length=0;
+      forms.forEach(function(form){
+        var index=source.indexOf(form,end);
+        if(index>=0&&(found<0||index<found||(index===found&&form.length>length))){found=index;length=form.length;}
+      });
+      if(found<0)return {matched:matched,end:-1};
+      matched++;end=found+length;
+    }
+    return {matched:matched,end:end};
+  }
+
+  function expectedNumberSequence(source,tokens,expected,cursor){
+    var direct=numberSequence(tokens,expected,cursor);
+    return direct.end>=0?direct:guidedNumberSequence(source,expected,cursor);
+  }
+
   function phraseEnd(info,tokens,dan,phrase,cursor){
     var kanaEnd=canonicalEnd(info,phrase.phrase,cursor);
-    var numeric=numberSequence(tokens,[dan,phrase.b,phrase.ans],cursor),numericEnd=numeric.end;
+    var numeric=expectedNumberSequence(info.source,tokens,[dan,phrase.b,phrase.ans],cursor),numericEnd=numeric.end;
     if(kanaEnd<0)return numericEnd;
     if(numericEnd<0)return kanaEnd;
     return Math.min(kanaEnd,numericEnd);
@@ -196,10 +219,10 @@
     return {matched:matched,missing:-1};
   }
 
-  function matchStems(tokens,chunk){
+  function matchStems(info,tokens,chunk){
     var cursor=0;
     for(var index=0;index<chunk.phrases.length;index++){
-      var match=numberSequence(tokens,[chunk.dan,chunk.phrases[index].b],cursor);
+      var match=expectedNumberSequence(info.source,tokens,[chunk.dan,chunk.phrases[index].b],cursor);
       if(match.end<0)return false;
       cursor=match.end;
     }
@@ -211,9 +234,9 @@
     return chunk.phrases.every(function(phrase,index){return tokens[index].value===phrase.ans;});
   }
 
-  function hasAnyStem(tokens,chunk){
+  function hasAnyStem(info,tokens,chunk){
     return chunk.phrases.some(function(phrase){
-      return numberSequence(tokens,[chunk.dan,phrase.b],0).end>=0;
+      return expectedNumberSequence(info.source,tokens,[chunk.dan,phrase.b],0).end>=0;
     });
   }
 
@@ -245,9 +268,9 @@
     }
     if(phraseMatch.missing<0)return {state:"correct_phrase",matched:phraseMatch.matched,missing:-1};
     if(exactAnswers(tokens,chunk))return {state:"answer_only",matched:phraseMatch.matched,missing:phraseMatch.missing};
-    var answers=numberSequence(tokens,chunk.phrases.map(function(phrase){return phrase.ans;}),0);
-    if(answers.end>=0&&!hasAnyStem(tokens,chunk))return {state:"answer_only",matched:phraseMatch.matched,missing:phraseMatch.missing};
-    if(matchStems(tokens,chunk))return {state:"stem_only",matched:phraseMatch.matched,missing:phraseMatch.missing};
+    var answers=expectedNumberSequence(info.source,tokens,chunk.phrases.map(function(phrase){return phrase.ans;}),0);
+    if(answers.end>=0&&!hasAnyStem(info,tokens,chunk))return {state:"answer_only",matched:phraseMatch.matched,missing:phraseMatch.missing};
+    if(matchStems(info,tokens,chunk))return {state:"stem_only",matched:phraseMatch.matched,missing:phraseMatch.missing};
     return {state:"wrong_phrase",matched:phraseMatch.matched,missing:phraseMatch.missing};
   }
 
@@ -289,6 +312,7 @@
 
   global.Q4B_KOMOREBI_KUKU_DAN2={
     config:DAN2_CONFIG,
+    transcriptAliases:TRANSCRIPT_ALIASES,
     levelPlan:levelPlan,
     chunkVariants:chunkVariants,
     buildChunk:buildChunk,

@@ -24,14 +24,21 @@ FakeRecognition.prototype.start = function(){ this.started = true; };
 FakeRecognition.prototype.abort = function(){ this.aborted = true; };
 FakeRecognition.prototype.stop = function(){ this.aborted = true; };
 
-function speak(text){
+function endSpeech(){
   const rec = recognitions[recognitions.length - 1];
   assert.ok(rec && rec.started, "recognition was never started");
   if(rec.onspeechend) rec.onspeechend();
+}
+
+function returnResult(text){
+  const rec = recognitions[recognitions.length - 1];
+  assert.ok(rec && rec.started, "recognition was never started");
   const alternatives = [{ transcript: text }];
   alternatives.length = 1;
   rec.onresult({ results: [alternatives] });
 }
+
+function speak(text){ endSpeech(); returnResult(text); }
 
 function stayQuiet(){
   const rec = recognitions[recognitions.length - 1];
@@ -131,6 +138,39 @@ function fireTimebarTimer(){
   });
 
   app.querySelector('[data-action="dan2-listen"]').click();
+  returnResult("わからない");
+  await settle();
+
+  test("a nonempty recognition failure shows what the browser heard", () => {
+    assert.match(plain(), /きこえたことば: わからない/);
+    assert.equal(profile.stats.kom_kuku_dan2.n, 1, "the displayed recognition failure must stay free");
+  });
+
+  const secondChunk = chunkOnScreen();
+  app.querySelector('[data-action="dan2-listen"]').click();
+  const delayedRecognition = recognitions[recognitions.length - 1];
+  endSpeech();
+  fireTimebarTimer();
+  await settle();
+
+  test("speech ending at the deadline receives an 1800ms result grace", () => {
+    assert.equal(delayedRecognition.aborted, false, "recognition was aborted before the grace result");
+    assert.ok(timers.some(t => !t.cancelled && !t.fired && t.ms === 1800), "the result grace was not scheduled");
+    assert.equal(profile.stats.kom_kuku_dan2.n, 1, "the grace itself must not record an answer");
+  });
+
+  returnResult(chant(secondChunk));
+  await settle();
+
+  test("a result arriving during the grace is judged normally", () => {
+    assert.match(plain(), /正解！/);
+    assert.equal(profile.stats.kom_kuku_dan2.n, 2);
+    assert.equal(profile.collection.gauge, 2);
+  });
+
+  app.querySelector('[data-action="ratio-next"]').click();
+  await settle();
+  app.querySelector('[data-action="dan2-listen"]').click();
   fireTimebarTimer();
   await settle();
 
@@ -138,21 +178,36 @@ function fireTimebarTimer(){
     /* categories 3.2: バー切れ = 不正解。ゲージは減らないが、水位測定として記録する。 */
     assert.match(plain(), /もう一歩！/, "the timeout was not judged: " + plain().slice(0, 300));
     assert.match(plain(), /タイムバーが 切れたよ/, "the child is not told why it failed");
-    assert.equal(profile.stats.kom_kuku_dan2.n, 2);
-    assert.equal(profile.collection.gauge, 1, "a wrong answer must not move the gauge");
+    assert.equal(profile.stats.kom_kuku_dan2.n, 3);
+    assert.equal(profile.collection.gauge, 2, "a wrong answer must not move the gauge");
   });
 
   app.querySelector('[data-action="ratio-next"]').click();
   await settle();
   const thirdChunk = chunkOnScreen();
   app.querySelector('[data-action="dan2-listen"]').click();
+  const graceWithoutResult = recognitions[recognitions.length - 1];
+  endSpeech();
+  fireTimebarTimer();
+  fireTimebarTimer();
+  await settle();
+
+  test("the unchanged retry appears when the grace receives no result", () => {
+    assert.equal(graceWithoutResult.aborted, true);
+    assert.match(plain(), /ききとれませんでした。もういちど となえてね/);
+    assert.equal(profile.stats.kom_kuku_dan2.n, 3);
+  });
+
+  app.querySelector('[data-action="dan2-listen"]').click();
   /* 別の段を唱える。順序も内容も違うので wrong_phrase になる。 */
-  speak(chant(thirdChunk.map(item => ({ dan: item.dan === 9 ? 8 : item.dan + 1, b: item.b }))));
+  const wrongChant = chant(thirdChunk.map(item => ({ dan: item.dan === 9 ? 8 : item.dan + 1, b: item.b })));
+  speak(wrongChant);
   await settle();
 
   test("chanting the wrong table explains itself and feeds the stuck phrase back", () => {
     assert.match(plain(), /もう一歩！/);
     assert.match(plain(), /じゅんばんに となえよう/, "the child is not told what went wrong");
+    assert.match(plain(), new RegExp("きこえたことば: " + wrongChant), "the feedback hides the recognized words");
     const deck = profile.srs.kuku;
     assert.ok(deck, "the stuck phrase was not refluxed into the kuku run deck");
     const key = thirdChunk[0].dan + "x" + thirdChunk[0].b;

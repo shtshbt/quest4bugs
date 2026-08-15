@@ -134,6 +134,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     correctChoice().click();
     await settle();
     assert.match(plain(), /正解！/, "question " + (index + 1) + " was not judged correct: " + plain().slice(0, 300));
+    if(index === 1) assert.match(plain(), /くくの よみかた/, "the phrase card heading is incomplete");
     solved++;
   }
 

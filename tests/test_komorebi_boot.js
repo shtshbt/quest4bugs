@@ -106,12 +106,10 @@ const ratioPool = JSON.parse(
 
   assert.ok(html.indexOf('data-cat="kom_ratio"') >= 0, "the ratio path is enabled");
   assert.ok(html.indexOf("割合と比") >= 0, "the ratio category is visible");
-  assert.ok(html.indexOf('data-cat="kom_kuku_run"') >= 0, "the kuku run path is enabled");
-  /* この環境に SpeechRecognition は無い。段暗唱は「押す前に」使えないと言うこと
-     (design 7.4: 代替入力は提供しない)。 */
-  assert.ok(html.indexOf('data-cat="kom_kuku_dan2"') < 0, "the voice path must not be tappable without a microphone");
-  assert.ok(html.indexOf("マイクが") >= 0, "the voice path must say why it is unavailable: " + html.slice(0, 300));
-  passed++; console.log("PASS tap paths are wired and the voice path declares its microphone need");
+  assert.ok(html.indexOf('data-cat="kom_pi314"') >= 0, "the pi path is enabled");
+  assert.ok(html.indexOf('data-cat="kom_kuku_run"') < 0, "a k5 path leaked into the k10 profile");
+  assert.ok(html.indexOf("連続九九") < 0, "a k5 category is named on the k10 path panel");
+  passed++; console.log("PASS the path panel offers only categories for the loaded course");
 
   /* 捕獲カードの絵は render.js 依存。読み込みが抜けると SVG が空文字になり、
      ロジックのテストは通ったまま画面だけ絵なしになる。 */

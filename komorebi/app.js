@@ -266,6 +266,7 @@
 
   function mapPinState(volume,collection,currentVolumeId){
     if(!volume)return null;
+    if(volume.placeholder)return {kind:"placeholder",mark:"…",caught:0,denominator:0,ringValue:0};
     var progress=volumeProgress(volume,collection),ringValue=progress.caught/progress.denominator;
     if(progress.complete)return {kind:"completed",mark:"✓",caught:progress.caught,denominator:progress.denominator,ringValue:1};
     if(volume.id===currentVolumeId)return {kind:"current",mark:"★",caught:progress.caught,denominator:progress.denominator,ringValue:ringValue};
@@ -508,7 +509,7 @@
     if(!volumes.length)throw new Error("遠征データを読み込めません");
     volumes.forEach(function(volume){
       validateVolume(volume);
-      if(typeof volume.current!=="boolean"||!Array.isArray(volume.categories)||!volume.categories.length||volume.categories.some(function(cat){return !hasOwn(CATEGORIES,cat);})||typeof volume.blurb!=="string"||!volume.blurb)throw new Error("遠征の表示データが正しくありません");
+      if(typeof volume.current!=="boolean"||(volume.placeholder!=null&&typeof volume.placeholder!=="boolean")||!Array.isArray(volume.categories)||!volume.categories.length||volume.categories.some(function(cat){return !hasOwn(CATEGORIES,cat);})||typeof volume.blurb!=="string"||!volume.blurb)throw new Error("遠征の表示データが正しくありません");
     });
     if(volumes.filter(function(volume){return volume.current;}).length!==1)throw new Error("現在の遠征が正しくありません");
     return volumes;
@@ -552,6 +553,7 @@
       /* 地域の紹介文は最初の遠征のものを使う。巻ごとに変えると地域の顔がぶれる。 */
       region.blurb=region.volumes[0].blurb;
       region.current=region.volumes.some(function(volume){return volume.current;});
+      region.placeholder=region.volumes.every(function(volume){return volume.placeholder===true;});
       return region;
     });
   }
@@ -564,7 +566,8 @@
 
   function regionPinState(region,collection){
     var caught=0,denominator=0,complete=true;
-    region.volumes.forEach(function(volume){
+    if(region.placeholder)return {kind:"placeholder",mark:"…",caught:0,denominator:0,ringValue:0};
+    region.volumes.filter(function(volume){return volume.placeholder!==true;}).forEach(function(volume){
       var progress=volumeProgress(volume,collection);
       caught+=progress.caught;denominator+=progress.denominator;
       if(!progress.complete)complete=false;
@@ -797,14 +800,14 @@
     regions.forEach(function(region){
       var state=regionPinState(region,viewCollection()),point=worldMap.pins[region.regionId];
       var left=((point.x-box[0])/box[2]*100).toFixed(3),top=((point.y-box[1])/box[3]*100).toFixed(3);
-      var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":"完成した遠征";
+      var status=state.kind==="current"?"現在の遠征":state.kind==="past"?"過去の遠征":state.kind==="placeholder"?"じゅんびちゅう":"完成した遠征";
       var classes="map-pin pin-"+state.kind+(state.kind==="completed"?" pin-done":"")+(region.regionId===selectedRegionId?" pin-selected":"");
       /* 選択中の地域から下の一覧へ引き出し線を落とす。地図は「どこ」を示し、
          主役は下のカテゴリ一覧という関係を線で結ぶ。 */
       if(region.regionId===selectedRegionId)leader='<span class="map-leader" aria-hidden="true" style="left:'+left+'%;top:'+top+'%"></span>';
-      pins+='<button type="button" class="'+classes+'" data-region-id="'+escapeHtml(region.regionId)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(region.regionName+' '+state.caught+'／'+state.denominator+'、'+status)+'">'
+      pins+='<button type="button" class="'+classes+'" data-region-id="'+escapeHtml(region.regionId)+'" style="left:'+left+'%;top:'+top+'%;--pin-progress:'+(state.ringValue*360).toFixed(1)+'deg" aria-label="'+escapeHtml(region.regionName+' '+(state.kind==="placeholder"?status:state.caught+'／'+state.denominator+'、'+status))+'"'+(state.kind==="placeholder"?' disabled aria-disabled="true"':'')+'>'
         +'<span class="pin-halo" aria-hidden="true"></span><span class="pin-ring" aria-hidden="true"><span class="pin-disc"><span class="pin-mark">'+state.mark+'</span></span></span>'
-        +'<span class="pin-name">'+displayText(region.regionName)+'</span><span class="pin-count">'+state.caught+'／'+state.denominator+'</span></button>';
+        +'<span class="pin-name">'+displayText(region.regionName)+'</span><span class="pin-count">'+(state.kind==="placeholder"?displayText("じゅんびちゅう"):state.caught+'／'+state.denominator)+'</span></button>';
     });
     return '<div class="map-shell"><svg class="map map-rich" viewBox="'+escapeHtml(worldMap.viewBox)+'" role="img" aria-label="こもれびの遠征地図" preserveAspectRatio="xMidYMid meet">'
       +'<defs><radialGradient id="rich-sea" cx="50%" cy="45%" r="72%"><stop offset="0%" stop-color="#17454B"></stop><stop offset="62%" stop-color="#0E3036"></stop><stop offset="100%" stop-color="#071F26"></stop></radialGradient>'
@@ -1004,7 +1007,7 @@
   function kukuPhraseCardHtml(question){
     var fact=question.format==="dan_run"?null:kukuFact(question),phrase=fact?kukuPhrase(fact.dan,fact.b):"";
     if(!phrase)return "";
-    return '<aside class="ratio-waza"><h3>'+displayText("く")+'</h3><p><span>'+displayText(phrase)+'</span></p></aside>';
+    return '<aside class="ratio-waza"><h3>'+displayText("くくの よみかた")+'</h3><p><span>'+displayText(phrase)+'</span></p></aside>';
   }
 
   /* --- 段暗唱の画面 ---------------------------------------------------------
@@ -1135,6 +1138,11 @@
     wrong_phrase:"じゅんばんに となえよう"
   };
 
+  function heardTranscript(transcript){
+    var text=String(transcript||"").trim();
+    return text?"きこえたことば: "+text:"";
+  }
+
   /* 誤答の理由を名指しする。「なぜ駄目だったか」を言わないと理不尽になるのは
      段暗唱も単位換算も同じで、直す先が違うだけ。 */
   function reasonHtml(question,correct){
@@ -1150,8 +1158,9 @@
     var mark=correct?"正解！":"もう一歩！";
     var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
     var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(isDanCat(question.cat)?"":wazaCardHtml(question));
+    var heard=!correct&&isDanCat(question.cat)&&session&&session.verdict?heardTranscript(session.verdict.transcript):"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
-      +reasonHtml(question,correct)+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
+      +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -1217,10 +1226,11 @@
     fill.style.width=width;
   }
 
-  function retryDan2(message){
+  function retryDan2(message,transcript){
     var fill=document.getElementById("dan2Timebar");
     if(fill){fill.style.transition="none";fill.style.width="100%";}
-    dan2Status(message);
+    var heard=heardTranscript(transcript);
+    dan2Status(message+(heard?"　"+heard:""));
   }
 
   function stopDan2Voice(){
@@ -1239,9 +1249,10 @@
     var verdict=dan2Engine().judgeChunk(chunk,transcript,elapsedMs);
     if(!verdict.counted){
       /* 認識失敗はノーカウント。統計にも Lv にも入れず、同じチャンクをやり直す。 */
-      retryDan2("ききとれませんでした。もういちど となえてね");
+      retryDan2("ききとれませんでした。もういちど となえてね",transcript);
       return;
     }
+    verdict.transcript=transcript;
     session.verdict=verdict;
     refluxStuckPhrase(chunk,verdict);
     submitAnswer({transcript:transcript,elapsedMs:elapsedMs});
@@ -1263,15 +1274,23 @@
       var voice=session.voice,end=voice.speechEndAt||Date.now();
       finishDan2(chunk,texts.join(" "),Math.max(0,end-voice.startedAt));
     };
-    /* バーが尽きた時点で打ち切る。認識結果を待つと、遅れて届いた発話で
-       時間内だったことにできてしまう。発話終端が届いていれば「唱えたが認識が
-       間に合わなかった」なのでノーカウント、一度も声が出ていなければ不正解。 */
+    /* 発話終端が届いていれば、バーが尽きても 1800ms だけ認識結果を待つ。時間は
+       発話終端で測るため、遅れて届いた結果でも制限超過を時間内にはできない。
+       一度も声が出ていなければ、従来どおり直ちに不正解。 */
     session.voice.timer=setTimeout(function(){
       if(session!==active||!session.voice||!session.voice.listening)return;
       var spoke=session.voice.speechEndAt>0;
+      if(spoke){
+        freezeTimebar();
+        session.voice.timer=setTimeout(function(){
+          if(session!==active||!session.voice||!session.voice.listening)return;
+          stopDan2Voice();
+          retryDan2("ききとれませんでした。もういちど となえてね");
+        },1800);
+        return;
+      }
       stopDan2Voice();
       freezeTimebar();
-      if(spoke){retryDan2("ききとれませんでした。もういちど となえてね");return;}
       session.verdict=dan2Engine().timeoutVerdict(chunk);
       submitAnswer({transcript:"",elapsedMs:chunk.limitMs+1});
     },chunk.limitMs+200);
@@ -1563,7 +1582,7 @@
     var buttons="";
     /* 未公開の更新に属するカテゴリは選択肢そのものを出さない。volume manifest が
        先に挙げていても、公開は CURRENT_RELEASE 1 か所で決める。 */
-    volume.categories.filter(isReleased).forEach(function(cat){
+    volume.categories.filter(isReleased).filter(function(cat){return CATEGORIES[cat].course===profileType;}).forEach(function(cat){
       /* 音声カテゴリはマイクが無いことを「始める前に」出す。代替入力は提供しない
          (design 7.4)。押してから駄目だと分かるのは子どもには理不尽。 */
       var blocked=isDanCat(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
@@ -1577,8 +1596,8 @@
   }
 
   function pathPanelHtml(region){
-    var collection=viewCollection(),multi=region.volumes.length>1,sections="",progressParts=[];
-    region.volumes.forEach(function(volume){
+    var collection=viewCollection(),volumes=region.volumes.filter(function(volume){return volume.placeholder!==true;}),multi=volumes.length>1,sections="",progressParts=[];
+    volumes.forEach(function(volume){
       var numeral=romanNumeral(volumeExpedition(volume)),buttons=categoryButtonsHtml(volume,multi?numeral:"");
       if(!buttons)return;
       /* 巻が複数のときだけ見出しと badge を出す。1 巻の地域に「遠征 Ⅰ」を
@@ -1617,6 +1636,7 @@
   }
 
   function selectRegion(region){
+    if(region.placeholder)return;
     var panel=document.getElementById("pathPanel");
     if(!panel)return;
     panel.innerHTML=pathPanelHtml(region);
@@ -1649,7 +1669,7 @@
   /* 未公開カテゴリのトロフィーは枠ごと出さない。取りようのない枠を並べると、
      目標ボードが「いつまでも埋まらない棚」に見えてしまう。 */
   function releasedTrophies(){
-    return trophyModule().list().filter(function(trophy){return isReleased(trophy.cat);});
+    return trophyModule().list().filter(function(trophy){return isReleased(trophy.cat);}).filter(function(trophy){return CATEGORIES[trophy.cat].course===profileType;});
   }
 
   function trophyEntranceHtml(){
@@ -1691,8 +1711,8 @@
        volume id で来る)。未知の id でも落とさず現在の地域へ寄せる。 */
     var wantedRegion=null;
     regions.forEach(function(region){
-      if(region.regionId===selectedId)wantedRegion=region;
-      region.volumes.forEach(function(volume){if(volume.id===selectedId)wantedRegion=region;});
+      if(!region.placeholder&&region.regionId===selectedId)wantedRegion=region;
+      region.volumes.forEach(function(volume){if(!region.placeholder&&volume.id===selectedId)wantedRegion=region;});
     });
     var currentRegion=regions.filter(function(region){return region.current;})[0]||regions[0];
     var selected=wantedRegion||currentRegion;
@@ -1709,6 +1729,7 @@
     document.querySelector('[data-action="path-zukan"]').addEventListener("click",function(){renderCommonZukan(selected.regionId);});
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       var region=regionById(pin.getAttribute("data-region-id"));
+      if(region.placeholder)return;
       pin.addEventListener("click",function(){selectRegion(region);});
       pin.addEventListener("focus",function(){selectRegion(region);});
     });
@@ -1775,7 +1796,7 @@
      とっての意味単位は「マダガスカルの虫」。分冊感を出さない (volume_zukan_design 3.2)。 */
   function regionEntries(region,collection){
     var reward=global.Q4BReward,entries=[];
-    region.volumes.forEach(function(volume){
+    region.volumes.filter(function(volume){return volume.placeholder!==true;}).forEach(function(volume){
       var numeral=romanNumeral(volumeExpedition(volume));
       volume.species.forEach(function(entry){
         entries.push({entry:entry,expedition:numeral,regionId:region.regionId,regionName:region.regionName,
@@ -1787,8 +1808,8 @@
 
   /* 進捗は巻ごとの凍結分母を並べる。合計は添え物で、完成判定は巻ごと (決定 4)。 */
   function regionProgressHtml(region,collection){
-    var multi=region.volumes.length>1,parts=[],caught=0,denominator=0;
-    region.volumes.forEach(function(volume){
+    var volumes=region.volumes.filter(function(volume){return volume.placeholder!==true;}),multi=volumes.length>1,parts=[],caught=0,denominator=0;
+    volumes.forEach(function(volume){
       var progress=volumeProgress(volume,collection);
       caught+=progress.caught;denominator+=progress.denominator;
       parts.push((multi?romanNumeral(volumeExpedition(volume))+" ":"")+progress.caught+"／"+progress.denominator+(progress.complete?" ✓":""));
@@ -1798,8 +1819,9 @@
   }
 
   function expeditionChipsHtml(region){
-    if(region.volumes.length<2)return "";
-    var chips=[["","すべて"]].concat(region.volumes.map(function(volume){
+    var volumes=region.volumes.filter(function(volume){return volume.placeholder!==true;});
+    if(volumes.length<2)return "";
+    var chips=[["","すべて"]].concat(volumes.map(function(volume){
       var numeral=romanNumeral(volumeExpedition(volume));
       return [numeral,"遠征 "+numeral];
     })).map(function(pair){
@@ -1869,6 +1891,7 @@
     var collection=viewCollection(),caught=0,denominator=0;
     regionList().forEach(function(region){
       region.volumes.forEach(function(volume){
+        if(volume.placeholder)return;
         var progress=volumeProgress(volume,collection);
         caught+=progress.caught;denominator+=progress.denominator;
       });
@@ -1878,7 +1901,7 @@
   }
 
   function renderCommonZukan(backId){
-    var collection=viewCollection(),regions=regionList(),entries=[];
+    var collection=viewCollection(),regions=regionList().filter(function(region){return !region.placeholder;}),entries=[];
     regions.forEach(function(region){
       regionEntries(region,collection).forEach(function(item){entries.push(item);});
     });

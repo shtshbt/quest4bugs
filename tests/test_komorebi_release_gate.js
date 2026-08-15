@@ -81,8 +81,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.isReleased("kom_future_demo"), false);
     assert.equal(app.querySelector('[data-cat="kom_future_demo"]'), null, "the unreleased category is tappable");
     assert.equal(plain().indexOf("みらいの小道"), -1, "the unreleased category is named on screen");
-    /* 公開済みのカテゴリはそのまま出ていること (ゲートが効きすぎていない)。 */
-    assert.ok(app.querySelector('[data-cat="kom_ratio"]'));
+    /* release で絞ったあと、現在コース k5 の公開済みカテゴリだけが残ること。 */
+    assert.equal(app.querySelector('[data-cat="kom_ratio"]'), null, "a released k10 category leaked into k5");
     assert.ok(app.querySelector('[data-cat="kom_kuku_run"]'));
   });
 
@@ -107,8 +107,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   });
 
   test("an unreleased trophy does not sit on the goal board", () => {
-    assert.match(plain(), /0／5/, "the trophy page counted an unreleased slot: " + plain().slice(0, 200));
-    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 5);
+    assert.match(plain(), /0／3/, "the trophy page counted another course or an unreleased slot: " + plain().slice(0, 200));
+    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3);
   });
 
   console.log("RESULT " + passed + " passed, 0 failed");
