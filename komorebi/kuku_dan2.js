@@ -345,6 +345,87 @@
     return {state:"timeout",correct:false,counted:true,inTime:false,timedOut:true,limitMs:chunk.limitMs,matched:0,missing:-1};
   }
 
+  /* ---- タップ暗唱 (音声認識が実用に達しない端末向けの代替経路) ----
+     読み札の穴あき (「にいちが ＿」) を声に出して唱えながら、続きの数を
+     タップで埋める。句の読みは前半 (stemKana) と答えの読み (ansKana) に
+     機械的に分割する。 */
+
+  function shuffle(values,random){
+    var result=values.slice();
+    for(var i=result.length-1;i>0;i--){
+      var j=Math.floor(randomValue(random)*(i+1)),temporary=result[i];
+      result[i]=result[j];result[j]=temporary;
+    }
+    return result;
+  }
+
+  /* 答えの読みは KANA_NUMBERS (長い形優先) の中から句末に一致する最長の形を採る。
+     例: にごじゅう → じゅう(10)、ごしにじゅう → にじゅう(20)。 */
+  function ansKanaSuffix(phrase,ans){
+    for(var index=0;index<KANA_NUMBERS.length;index++){
+      var entry=KANA_NUMBERS[index];
+      if(entry[1]!==ans||entry[0].length>=phrase.length)continue;
+      if(phrase.slice(phrase.length-entry[0].length)===entry[0])return entry[0];
+    }
+    return null;
+  }
+
+  function addTapCandidate(selected,value,answer){
+    if(!isInteger(value)||value<=0||value===answer||selected.indexOf(value)>=0)return;
+    selected.push(value);
+  }
+
+  function tapChoices(dan,b,answer,random){
+    var candidates=[answer-dan,answer+dan,answer-1,answer+1],distractors=[];
+    for(var otherB=1;otherB<=9;otherB++)if(otherB!==b)candidates.push(dan*otherB);
+    candidates.forEach(function(value){if(distractors.length<3)addTapCandidate(distractors,value,answer);});
+    if(distractors.length!==3)throw new Error("選択肢を一意にできません");
+    return shuffle([answer].concat(distractors),random);
+  }
+
+  function buildTapSteps(chunk,random){
+    validateChunkPhrases(chunk);
+    if(typeof random!=="function")throw new Error("乱数の指定が正しくありません");
+    return chunk.phrases.map(function(phrase){
+      var ansKana=ansKanaSuffix(phrase.phrase,phrase.ans);
+      if(ansKana===null)throw new Error("答えの読みを句から分離できません");
+      return {
+        b:phrase.b,
+        ans:phrase.ans,
+        stemKana:phrase.phrase.slice(0,phrase.phrase.length-ansKana.length),
+        ansKana:ansKana,
+        choices:tapChoices(chunk.dan,phrase.b,phrase.ans,random)
+      };
+    });
+  }
+
+  /* タップ暗唱の判定。タップに認識失敗はないので常に counted。
+     matched は正答した句数、wrongIndexes は誤答と未回答の句 index (還流対象)。 */
+  function judgeTapChunk(chunk,answers,elapsedMs){
+    validateChunkPhrases(chunk);
+    if(!Array.isArray(answers)||answers.length>chunk.phrases.length)throw new Error("回答の指定が正しくありません");
+    answers.forEach(function(value){if(!isInteger(value))throw new Error("回答の指定が正しくありません");});
+    var timing=judgeTiming(chunk,elapsedMs),wrongIndexes=[],matched=0;
+    chunk.phrases.forEach(function(phrase,index){
+      if(index<answers.length&&answers[index]===phrase.ans){matched++;return;}
+      wrongIndexes.push(index);
+    });
+    var recited=wrongIndexes.length===0;
+    var result={
+      state:recited?"correct_phrase":"wrong_tap",
+      correct:recited&&timing.inTime,
+      counted:true,
+      inTime:timing.inTime,
+      limitMs:timing.limitMs,
+      matched:matched,
+      missing:recited?-1:wrongIndexes[0],
+      wrongIndexes:wrongIndexes
+    };
+    /* 全句正解でも時間切れなら音声版と同じ扱い (counted、correct:false)。 */
+    if(!timing.inTime)result.timedOut=true;
+    return result;
+  }
+
   global.Q4B_KOMOREBI_KUKU_DAN2={
     config:DAN2_CONFIG,
     transcriptAliases:TRANSCRIPT_ALIASES,
@@ -355,6 +436,8 @@
     judgeTranscript:judgeTranscript,
     judgeTiming:judgeTiming,
     judgeChunk:judgeChunk,
-    timeoutVerdict:timeoutVerdict
+    timeoutVerdict:timeoutVerdict,
+    buildTapSteps:buildTapSteps,
+    judgeTapChunk:judgeTapChunk
   };
 })(window);

@@ -171,4 +171,139 @@ test("buildSet works for every table and every level",function(){
   }
 });
 
+/* ---- タップ暗唱 ---- */
+
+function mulberry32(seed){
+  var state=seed>>>0;
+  return function(){
+    state=(state+0x6D2B79F5)>>>0;
+    var t=state;
+    t=Math.imul(t^(t>>>15),t|1);
+    t^=t+Math.imul(t^(t>>>7),t|61);
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+
+test("buildTapSteps splits every phrase of every table and level into stem plus answer reading",function(){
+  for(var dan=1;dan<=9;dan++){
+    for(var lv=1;lv<=10;lv++){
+      var variants=kuku.chunkVariants(lv);
+      for(var variantIndex=0;variantIndex<variants.length;variantIndex++){
+        var chunk=kuku.buildChunk(dan,lv,variantIndex);
+        var steps=kuku.buildTapSteps(chunk,mulberry32(dan*100+lv*10+variantIndex));
+        assert.equal(steps.length,chunk.phrases.length);
+        steps.forEach(function(step,index){
+          var phrase=chunk.phrases[index];
+          assert.equal(step.b,phrase.b);
+          assert.equal(step.ans,phrase.ans);
+          assert.equal(step.stemKana.length>0,true);
+          assert.equal(step.ansKana.length>0,true);
+          assert.equal(step.stemKana+step.ansKana,phrase.phrase);
+          assert.equal(step.choices.length,4);
+          assert.equal(step.choices.indexOf(step.ans)>=0,true);
+          assert.equal(new Set(step.choices).size,4);
+          step.choices.forEach(function(choice){
+            assert.equal(Number.isInteger(choice)&&choice>0,true);
+          });
+        });
+      }
+    }
+  }
+});
+
+test("buildTapSteps takes the longest answer reading so no digit kana leaks into the stem",function(){
+  var expected=[
+    [2,1,0,0,"にいちが","に"],
+    [2,5,1,0,"にご","じゅう"],
+    [3,1,0,2,"さざんが","く"],
+    [3,5,1,1,"さぶろく","じゅうはち"],
+    [5,5,0,0,"ごいちが","ご"],
+    [5,9,0,3,"ごし","にじゅう"],
+    [8,9,0,7,"はっぱ","ろくじゅうし"],
+    [9,9,0,8,"くく","はちじゅういち"]
+  ];
+  expected.forEach(function(row){
+    var steps=kuku.buildTapSteps(kuku.buildChunk(row[0],row[1],row[2]),mulberry32(7));
+    assert.equal(steps[row[3]].stemKana,row[4]);
+    assert.equal(steps[row[3]].ansKana,row[5]);
+  });
+});
+
+test("tap choices put the correct answer in each position with uniform frequency",function(){
+  var chunk=kuku.buildChunk(2,1,0),counts=[0,0,0,0],runs=200;
+  var random=mulberry32(20260815);
+  for(var run=0;run<runs;run++){
+    var steps=kuku.buildTapSteps(chunk,random);
+    counts[steps[0].choices.indexOf(steps[0].ans)]++;
+  }
+  counts.forEach(function(count){
+    assert.equal(count>=runs*0.15,true,"position below 15%: "+counts.join(","));
+    assert.equal(count<=runs*0.35,true,"position above 35%: "+counts.join(","));
+  });
+});
+
+test("judgeTapChunk accepts a full correct recitation in time",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  var result=kuku.judgeTapChunk(chunk,[2,4,6],5000);
+  assert.equal(result.state,"correct_phrase");
+  assert.equal(result.correct,true);
+  assert.equal(result.counted,true);
+  assert.equal(result.inTime,true);
+  assert.equal(result.matched,3);
+  assert.equal(result.missing,-1);
+  assert.deepEqual(plain(result.wrongIndexes),[]);
+  assert.equal(result.timedOut,undefined);
+});
+
+test("judgeTapChunk flags a wrong tap with its phrase index",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  var result=kuku.judgeTapChunk(chunk,[2,8,6],5000);
+  assert.equal(result.state,"wrong_tap");
+  assert.equal(result.correct,false);
+  assert.equal(result.counted,true);
+  assert.equal(result.matched,2);
+  assert.equal(result.missing,1);
+  assert.deepEqual(plain(result.wrongIndexes),[1]);
+});
+
+test("judgeTapChunk counts a correct recitation over time as timeout like the voice path",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  var result=kuku.judgeTapChunk(chunk,[2,4,6],12001);
+  assert.equal(result.state,"correct_phrase");
+  assert.equal(result.correct,false);
+  assert.equal(result.counted,true);
+  assert.equal(result.inTime,false);
+  assert.equal(result.timedOut,true);
+  assert.deepEqual(plain(result.wrongIndexes),[]);
+});
+
+test("judgeTapChunk counts an unfinished recitation and lists unanswered indexes",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  var result=kuku.judgeTapChunk(chunk,[2],5000);
+  assert.equal(result.state,"wrong_tap");
+  assert.equal(result.correct,false);
+  assert.equal(result.counted,true);
+  assert.equal(result.matched,1);
+  assert.equal(result.missing,1);
+  assert.deepEqual(plain(result.wrongIndexes),[1,2]);
+  var empty=kuku.judgeTapChunk(chunk,[],5000);
+  assert.equal(empty.counted,true);
+  assert.deepEqual(plain(empty.wrongIndexes),[0,1,2]);
+});
+
+test("tap engine rejects malformed answers and random sources in Japanese",function(){
+  var chunk=kuku.buildChunk(2,1,0);
+  assert.throws(function(){kuku.judgeTapChunk(chunk,"246",5000);},/回答の指定/);
+  assert.throws(function(){kuku.judgeTapChunk(chunk,[2,4,6,8],5000);},/回答の指定/);
+  assert.throws(function(){kuku.judgeTapChunk(chunk,[2,"4"],5000);},/回答の指定/);
+  assert.throws(function(){kuku.judgeTapChunk(chunk,[2,4,6],-1);},/回答時間の指定/);
+  assert.throws(function(){kuku.buildTapSteps(chunk,null);},/乱数の指定/);
+  assert.throws(function(){kuku.buildTapSteps({dan:2,phrases:[]},mulberry32(1));},/チャンク問題の指定/);
+});
+
+test("the engine never draws its own randomness",function(){
+  var source=fs.readFileSync(path.join(root,"komorebi/kuku_dan2.js"),"utf8");
+  assert.equal(/Math\s*\.\s*random/.test(source),false);
+});
+
 console.log("RESULT "+passed+" passed, 0 failed");
