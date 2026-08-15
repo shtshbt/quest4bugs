@@ -1362,8 +1362,23 @@
     var rec=new Ctor(),active=session;
     session.voice={rec:rec,listening:true,startedAt:Date.now(),speechEndAt:0,timer:null};
     rec.lang="ja-JP";rec.interimResults=false;rec.maxAlternatives=3;rec.continuous=false;
+    /* iPad で「イベントが一切来ないまま沈黙」する事例の切り分け用に、開始確認と
+       エラーコードと途中終了を画面へ出す。保護者が原因を読める最小の計装。 */
+    rec.onstart=function(){if(session===active&&session.voice&&session.voice.listening)dan2Status("きいています…（マイク ON）");};
     rec.onspeechend=function(){if(session===active&&session.voice)session.voice.speechEndAt=Date.now();};
-    rec.onerror=function(){if(session!==active)return;stopDan2Voice();freezeTimebar();dan2Status("ききとれませんでした。もういちど となえてね");};
+    rec.onerror=function(event){
+      if(session!==active)return;
+      stopDan2Voice();freezeTimebar();
+      var code=event&&event.error?"（"+event.error+"）":"";
+      dan2Status("ききとれませんでした。もういちど となえてね"+code);
+    };
+    rec.onend=function(){
+      /* 結果もエラーも出さずに認識だけが終わる iOS の挙動を拾う。listening が
+         残ったままの onend = 空振り終了なので、タイムバーを待たずに知らせる。 */
+      if(session!==active||!session.voice||!session.voice.listening)return;
+      stopDan2Voice();freezeTimebar();
+      dan2Status("ききとれませんでした。もういちど となえてね（とちゅうで おわりました）");
+    };
     rec.onresult=function(event){
       if(session!==active||!session.voice||!session.voice.listening)return;
       var texts=[],result=event.results&&event.results[0],index;
