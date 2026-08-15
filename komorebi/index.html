@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#3E7C3F">
 <title>こもれびのこみち</title>
 <link rel="stylesheet" href="../keisan/style.css?v=0.4.7">
-<link rel="stylesheet" href="map.css?v=0.4.1">
+<link rel="stylesheet" href="map.css?v=0.4.2">
 </head>
 <body>
 <a href="../index.html" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -41,7 +41,12 @@
 <script src="equation_select_generator.js?v=0.1.0"></script>
 <script src="kisokusei_generator.js?v=0.1.0"></script>
 <script src="hayasa_generator.js?v=0.1.0"></script>
+<script src="ratio_forms_generator.js?v=0.1.0"></script>
+<script src="johou_seiri_generator.js?v=0.1.0"></script>
+<!-- 図化は engine (spec/mutate/render) → generator の順。generator は engine 前提。 -->
+<script src="diagram_engine.js?v=0.1.0"></script>
+<script src="diagram_model_generator.js?v=0.1.0"></script>
 <script src="trophies.js?v=0.1.0"></script>
-<script src="app.js?v=0.3.11"></script>
+<script src="app.js?v=0.3.12"></script>
 </body>
 </html>

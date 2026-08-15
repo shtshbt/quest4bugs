@@ -33,6 +33,8 @@ var CORE = [
   "./komorebi/kuku_reverse_generator.js", "./komorebi/frac_flow_generator.js",
   "./komorebi/kuku_bridge_generator.js", "./komorebi/equation_select_generator.js",
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
+  "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
+  "./komorebi/diagram_engine.js", "./komorebi/diagram_model_generator.js",
   "./komorebi/trophies.js", "./komorebi/volumes/volume_fixture.js",
   "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",

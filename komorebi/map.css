@@ -302,6 +302,27 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .path-badge{flex:none;min-width:26px;padding:2px 8px;border:1.5px solid #B6963D;border-radius:8px;
   background:#2B3A25;color:#FFE08A;font-size:13px;font-weight:900;text-align:center}
 
+/* 情報整理。本文 (文ごとに行を替える) と問い文を、設問 (h2) から分けて描く。
+   本文は読む対象なので、足場 (ratio-scaffold) と同じ帯型だが左罫の色で区別する。 */
+.johou-passage{margin:0 0 16px;padding:12px 14px;border-left:4px solid #7FA86A;border-radius:8px;
+  background:#17332B;color:#DCEBCB;line-height:1.85}
+.johou-passage p{margin:3px 0;overflow-wrap:anywhere}
+.johou-ask{margin-top:9px;color:#FFE9A8;font-weight:800}
+
+/* 数量関係の図化。図は白地カードに置く (SVG は currentColor 線なので地色で読ませる)。
+   1 枚は中央の単図、2 枚は横並びの対比ペア (diagram curriculum 15.3: 375px で
+   1 図 161px、縦積みフォールバックなし)。1 画面に収まるかの実機判定は Lv 単位で行い、
+   超える Lv だけ選択肢を 2 列化する方針 (現時点では全 Lv 1 列のまま)。 */
+.diagram-figures{display:flex;justify-content:center;gap:10px;margin:0 0 16px}
+.diagram-figure{flex:0 1 auto;width:100%;max-width:420px;min-width:0;padding:8px;
+  border:2px solid #4D765E;border-radius:12px;background:#F4FAEA;color:#173024}
+.diagram-figures.is-pair .diagram-figure{flex:1 1 0;max-width:none}
+.diagram-figure svg{display:block;width:100%;height:auto}
+/* 面積図 (viewBox 幅 180) の単図は実表示 220px まで (doc 15.3)。 */
+.diagram-figure.is-rect{max-width:220px}
+.diagram-figure-mark{display:block;margin:0 0 4px;text-align:center;
+  color:#2D4B31;font-size:15px;font-weight:900}
+
 /* トロフィー。入口は地図の下端 (ui_design 6 章)。未獲得の枠も並べて目標ボードにする。 */
 .kom-trophy-entrance{margin:18px auto 0;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .kom-trophy-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;

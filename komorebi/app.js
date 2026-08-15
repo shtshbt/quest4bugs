@@ -19,6 +19,11 @@
     kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:3},
     kom_kisokusei:{course:"k10",name:"きまりと数えかた",maxLv:10,release:9},
     kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:9},
+    /* k10 新 3 カテゴリ (2026-08-14 決定)。表示名は各 curriculum doc の題名。
+       release 9 なので CURRENT_RELEASE=1 の画面には一切出ない。 */
+    kom_ratio_forms:{course:"k10",name:"割合の表現変換",maxLv:10,release:9},
+    kom_johou_seiri:{course:"k10",name:"情報整理",maxLv:10,release:9},
+    kom_diagram_model:{course:"k10",name:"数量関係の図化",maxLv:10,release:9},
     kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:4},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
@@ -909,6 +914,7 @@
       if(!global.Q4B_KOMOREBI_HAYASA)throw new Error("速さを読み込めません");
       return global.Q4B_KOMOREBI_HAYASA;
     }
+    if(question&&question.cat==="kom_johou_seiri")return johouEngine();
     return unitEngine();
   }
 
@@ -925,6 +931,30 @@
       +'<button type="submit" class="ratio-submit" data-submit-num-unit'+(session&&session.unitSelection?"":" disabled")+'>'+displayText("答える")+'</button></form>';
   }
 
+  /* 情報整理は本文 (文ごと) と問い文と設問を分けて描く。question.text は
+     「本文／設問」の暫定連結で、判定ログ用。画面には出さない (johou curriculum 9 章)。 */
+  function johouPassageHtml(question){
+    var passage=question.passage;
+    if(!isObject(passage)||!Array.isArray(passage.sentences)||typeof passage.ask!=="string")throw new Error("情報整理の本文が正しくありません");
+    return '<div class="johou-passage">'+passage.sentences.map(function(sentence){return '<p>'+displayText(sentence)+'</p>';}).join("")
+      +'<p class="johou-ask">'+displayText(passage.ask)+'</p></div>';
+  }
+
+  /* 数量関係の図化の図。engine が返す SVG 文字列をそのまま挿す (escape すると図が消える)。
+     1 枚は中央の単図、2 枚は横並びの対比ペア (diagram curriculum 15.3: 375px で 1 図 161px。
+     縦積みフォールバックは持たない)。ペアの ア/イ は選択肢と図を結ぶ見出し。 */
+  var DIAGRAM_PAIR_MARKS=["ア","イ"];
+  function figuresHtml(question){
+    if(!Array.isArray(question.figures)||!question.figures.length)return "";
+    var pair=question.figures.length===2;
+    return '<div class="diagram-figures'+(pair?" is-pair":"")+'">'+question.figures.map(function(svg,index){
+      /* 面積図 (viewBox 幅 180) の単図だけ表示幅 220px 上限 (doc 15.3)。 */
+      var narrow=!pair&&svg.indexOf('viewBox="0 0 180 ')>=0;
+      var mark=pair?'<span class="diagram-figure-mark">'+displayText(DIAGRAM_PAIR_MARKS[index])+'</span>':"";
+      return '<div class="diagram-figure'+(narrow?" is-rect":"")+'">'+mark+svg+'</div>';
+    }).join("")+'</div>';
+  }
+
   function standardQuestionBodyHtml(question){
     var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
     var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
@@ -935,7 +965,8 @@
     else if(question.kind==="num_unit")controls=numUnitHtml(question);
     else if(question.kind==="frac")controls=fracInputHtml();
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
-    return scaffold+'<h2>'+displayText(question.text)+'</h2>'+work+controls;
+    if(question.cat==="kom_johou_seiri")return scaffold+johouPassageHtml(question)+'<h2>'+displayText(question.prompt)+'</h2>'+work+controls;
+    return scaffold+'<h2>'+displayText(question.text)+'</h2>'+figuresHtml(question)+work+controls;
   }
 
   function ratioAnswerText(question){
@@ -1072,8 +1103,13 @@
   }
 
   function answerText(question){
-    if(question.kind==="find_all")return question.ans.map(function(index){return question.choices[index];}).join("　");
-    if(question.kind==="frac")return fracEngine().formatFraction(question.ans);
+    /* 図化の find_all だけ正解集合が ansSet (生成器の契約)。他カテゴリは ans。 */
+    if(question.kind==="find_all")return (Array.isArray(question.ans)?question.ans:question.ansSet).map(function(index){return question.choices[index];}).join("　");
+    if(question.kind==="frac"){
+      /* 表現変換の分数は {n,d}。表記は doc 7.5 の「3/8」形。 */
+      if(question.cat==="kom_ratio_forms")return question.ans.n+"/"+question.ans.d;
+      return fracEngine().formatFraction(question.ans);
+    }
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
     if(question.kind==="num_unit")return String(question.ans)+numUnitEngine(question).unitLabel(question.ansUnit);
@@ -1092,18 +1128,56 @@
     return engine;
   }
 
+  function ratioFormsEngine(){
+    var engine=global.Q4B_KOMOREBI_RATIO_FORMS;
+    if(!engine)throw new Error("割合の表現変換を読み込めません");
+    return engine;
+  }
+
+  function johouEngine(){
+    var engine=global.Q4B_KOMOREBI_JOHOU_SEIRI;
+    if(!engine)throw new Error("情報整理を読み込めません");
+    return engine;
+  }
+
+  function diagramEngine(){
+    var engine=global.Q4B_KOMOREBI_DIAGRAM_MODEL;
+    if(!engine||!global.Q4B_KOMOREBI_DIAGRAM_ENGINE)throw new Error("数量関係の図化を読み込めません");
+    return engine;
+  }
+
+  /* 図化の find_all 判定。生成器は正解集合を ansSet で持ち、judge を公開しないので
+     ここで集合一致を取る (順不同・重複と範囲外は不正)。 */
+  function judgeDiagramFindAll(question,answer){
+    if(!Array.isArray(question.ansSet)||!Array.isArray(question.choices))throw new Error("複数選択問題の指定が正しくありません");
+    if(!Array.isArray(answer))return false;
+    var seen={},picked=[];
+    for(var i=0;i<answer.length;i++){
+      var value=answer[i];
+      if(!Number.isInteger(value)||value<0||value>=question.choices.length||seen[value])return false;
+      seen[value]=true;picked.push(value);
+    }
+    picked.sort(function(a,b){return a-b;});
+    var expected=question.ansSet.slice().sort(function(a,b){return a-b;});
+    return picked.length===expected.length&&expected.every(function(value,index){return value===picked[index];});
+  }
+
   function judgeAnswer(question,answer){
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
     if(question.cat==="kom_kuku_ura"||question.cat==="kom_kuku_inverse")return reverseEngine().judge(question,answer);
     if(question.kind==="frac"){
-      /* 「値は合うが約分が残っている」を名指しするため、真偽値だけでなく verdict を残す。 */
-      session.verdict=fracEngine().judgeFraction(question,{
+      /* 「値は合うが約分が残っている」を名指しするため、真偽値だけでなく verdict を残す。
+         判定器はカテゴリで分かれる (表現変換は {n,d} 台帳、分数の解き方は独自形)。 */
+      var fracJudge=question.cat==="kom_ratio_forms"?ratioFormsEngine():fracEngine();
+      session.verdict=fracJudge.judgeFraction(question,{
         whole:Number(String(answer.whole).trim()||0),
         num:Number(String(answer.num).trim()),
         den:Number(String(answer.den).trim())
       });
       return session.verdict.correct;
     }
+    if(question.cat==="kom_johou_seiri"&&question.kind==="find_all")return johouEngine().judge(question,answer);
+    if(question.cat==="kom_diagram_model"&&question.kind==="find_all")return judgeDiagramFindAll(question,answer);
     if(question.cat==="kom_frac_flow")return fracEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
     if(question.kind==="num_unit"){
@@ -1120,6 +1194,14 @@
     if(!waza.primary)return "";
     var alternate=waza.alternate?'<p><strong>'+displayText("別の道")+'</strong><span>'+displayText(waza.alternate)+'</span></p>':"";
     return '<aside class="ratio-waza"><h3>'+displayText("わざ")+'</h3><p><strong>'+displayText("主な道")+'</strong><span>'+displayText(waza.primary)+'</span></p>'+alternate+'</aside>';
+  }
+
+  /* 図化の解説カード。4 系統 (correct / correct_alternative / 誤り 8 型 / 読み取り形式)
+     の出し分けは生成器 explainCard が済ませている (diagram curriculum 10.1)。 */
+  function diagramExplainHtml(question){
+    var card=diagramEngine().explainCard(question);
+    if(!card||!card.text)return "";
+    return '<aside class="ratio-waza"><h3>'+displayText("かいせつ")+'</h3><p><span>'+displayText(card.text)+'</span></p></aside>';
   }
 
   /* 本編 keisan/app.js の showCapture と同じ情報を出す: 虫の SVG、和名、レア度タグ、
@@ -1170,7 +1252,9 @@
   function feedbackHtml(question,correct,result){
     var mark=correct?"正解！":"もう一歩！";
     var answer=correct?"":'<p class="ratio-answer"><strong>'+displayText("答え")+'</strong> '+displayText(answerText(question))+'</p>';
-    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question):(isDanCat(question.cat)?"":wazaCardHtml(question));
+    var card=question.cat==="kom_kuku_run"?kukuPhraseCardHtml(question)
+      :question.cat==="kom_diagram_model"?diagramExplainHtml(question)
+      :(isDanCat(question.cat)?"":wazaCardHtml(question));
     var heard=!correct&&isDanCat(question.cat)&&session&&session.verdict?heardTranscript(session.verdict.transcript):"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
       +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+ratioCaptureHtml(result&&result.capture)+'</div>';
@@ -1569,6 +1653,43 @@
     };
   }
 
+  /* 短ループ想起 (ratio_forms curriculum 7.4)。直前セットで使った台帳行を 1 つだけ
+     持ち越し、次のセットで別の方向から出す。保存はしない (ページ滞在中のみ)。 */
+  var ratioFormsCarry=null;
+
+  function startRatioFormsSession(volume,random){
+    if(!profile||!global.Q4B_KOMOREBI_RATIO_FORMS)return Promise.reject(new Error("割合の表現変換を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_ratio_forms")<0)return Promise.reject(new Error("この小道では遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId;
+    try{
+      questions=ratioFormsEngine().buildSet(profile.lv.kom_ratio_forms,generatorRandom,ratioFormsCarry);
+      sessionId="kom_ratio_forms_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+      /* 変換問題 (台帳行 m を持つ) から 1 つを一様に選び、次セットの carry にする。 */
+      var rows=questions.filter(function(question){return question.m!=null&&question.pattern;});
+      if(rows.length){
+        var picked=rows[Math.floor(randomValue(generatorRandom)*rows.length)];
+        ratioFormsCarry={m:picked.m,pattern:picked.pattern};
+      }else ratioFormsCarry=null;
+    }catch(error){return Promise.reject(error);}
+    return Promise.resolve(beginSession("kom_ratio_forms",volume,questions,sessionId));
+  }
+
+  /* 図化はセッション 1 回だけ createSession し、セット生成はデッキを共有する
+     generateSet で行う (肢位置・誤図型の抽選箱を問題ごとに作り直さない)。 */
+  function startDiagramModelSession(volume,random){
+    if(!profile||!global.Q4B_KOMOREBI_DIAGRAM_MODEL||!global.Q4B_KOMOREBI_DIAGRAM_ENGINE)return Promise.reject(new Error("数量関係の図化を読み込めません"));
+    if(!volume||volume.categories.indexOf("kom_diagram_model")<0)return Promise.reject(new Error("この小道では遊べません"));
+    var generatorRandom=random||Math.random,questions,sessionId,diagramSession;
+    try{
+      diagramSession=diagramEngine().createSession(generatorRandom);
+      questions=diagramEngine().generateSet(diagramSession,profile.lv.kom_diagram_model);
+      sessionId="kom_diagram_model_"+Date.now()+"_"+Math.floor(randomValue(generatorRandom)*1000000);
+    }catch(error){return Promise.reject(error);}
+    var begun=beginSession("kom_diagram_model",volume,questions,sessionId);
+    begun.diagramSession=diagramSession;
+    return Promise.resolve(begun);
+  }
+
   function startUnitConvertSession(volume,random){
     if(!profile||!global.Q4B_KOMOREBI_UNIT_CONVERT)return Promise.reject(new Error("単位換算を読み込めません"));
     if(!volume||volume.categories.indexOf("kom_unit_convert")<0)return Promise.reject(new Error("この小道では単位換算を遊べません"));
@@ -1589,7 +1710,10 @@
     kom_kuku_bridge:startGeneratedSession("kom_kuku_bridge","Q4B_KOMOREBI_KUKU_BRIDGE","九九の外へを読み込めません"),
     kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません"),
     kom_kisokusei:startGeneratedSession("kom_kisokusei","Q4B_KOMOREBI_KISOKUSEI","きまりと数えかたを読み込めません"),
-    kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません")};
+    kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません"),
+    kom_ratio_forms:startRatioFormsSession,
+    kom_johou_seiri:startGeneratedSession("kom_johou_seiri","Q4B_KOMOREBI_JOHOU_SEIRI","情報整理を読み込めません"),
+    kom_diagram_model:startDiagramModelSession};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);
   });
