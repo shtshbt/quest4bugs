@@ -273,6 +273,24 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 /* バーの減少は装飾ではなく機構そのもの (残り時間の唯一の手がかり) なので、
    prefers-reduced-motion でも止めない。 */
 
+/* タップ暗唱。本体は声に出して唱えることなので、指示文を読み札より目立たせる。
+   穴あき読み札と 4 択は ratio-choice 系の体裁に寄せる。 */
+.dan2-tap-guide{margin:0 0 14px;padding:10px 12px;border-left:4px solid #D6B653;border-radius:8px;
+  background:#17332B;color:#FFE08A;font-size:clamp(16px,4vw,19px);font-weight:900}
+.dan2-tap-done{display:grid;gap:6px;margin:0 0 12px;padding:0;list-style:none}
+.dan2-tap-done li{padding:6px 12px;border-radius:10px;background:#122B24;color:#B6D2A6;
+  font-size:clamp(13px,3.2vw,15px);font-weight:800}
+.dan2-tap-card{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:0 0 14px;
+  padding:16px 14px;border-radius:12px;background:#17332B;color:#F3FFE2;
+  font-size:clamp(24px,6vw,32px);font-weight:900}
+.dan2-tap-blank{color:#FFE08A;letter-spacing:2px}
+.dan2-tap-choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0 0 14px}
+.dan2-mode-switch{display:flex;justify-content:center;margin:14px 0 0}
+.dan2-mode-toggle{min-height:40px;padding:8px 16px;border:2px solid #4D765E;border-radius:999px;
+  background:#122B24;color:#B6D2A6;font:800 14px/1.45 inherit;cursor:pointer}
+.dan2-mode-toggle:hover{border-color:#D6B653;background:#17332B}
+.dan2-mode-toggle:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+
 /* 分数の回答。整数部と分子と分母をいつも出す。帯分数の問題だけ 3 欄にすると、
    欄の数で答えが 1 より大きいと読めてしまう。 */
 .frac-form{align-items:center}

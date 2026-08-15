@@ -1152,6 +1152,39 @@
 
   function speechCtor(){return global.SpeechRecognition||global.webkitSpeechRecognition||null;}
 
+  /* --- 段暗唱の入力モード (端末ごと) ---------------------------------------
+     iOS は SpeechRecognition が実用に達しないので、既定をタップ暗唱にする。
+     タップは暗唱の答え合わせであって、本体は声に出して唱えること (設計決定)。 */
+
+  var DAN_INPUT_MODE_KEY="q4b_dan_input_mode";
+
+  function isIosDevice(){
+    var nav=global.navigator;
+    if(!nav)return false;
+    var ua=String(nav.userAgent||"");
+    if(/iPhone|iPad|iPod/.test(ua))return true;
+    /* iPadOS 13+ は Mac を名乗る。タッチ点数で実機 iPad を拾う。 */
+    return /Mac/.test(ua)&&Number(nav.maxTouchPoints||0)>1;
+  }
+
+  function storedDanInputMode(){
+    try{
+      var stored=global.localStorage?global.localStorage.getItem(DAN_INPUT_MODE_KEY):null;
+      if(stored==="voice"||stored==="tap")return stored;
+    }catch(error){}
+    return null;
+  }
+
+  function danInputMode(){
+    var mode=storedDanInputMode()||(isIosDevice()?"tap":"voice");
+    /* 音声認識の無い端末では voice を選んでいても始められないので、タップへ倒す。 */
+    return mode==="voice"&&!speechCtor()?"tap":mode;
+  }
+
+  function setDanInputMode(mode){
+    try{if(global.localStorage)global.localStorage.setItem(DAN_INPUT_MODE_KEY,mode);}catch(error){}
+  }
+
   function dan2PhrasesHtml(chunk){
     return '<ol class="dan2-phrases">'+chunk.phrases.map(function(item){
       var equation=chunk.dan+"×"+item.b+(chunk.display==="read"?"＝"+item.ans:"");
@@ -1160,12 +1193,54 @@
     }).join("")+'</ol>';
   }
 
+  /* 入力モードの切替ボタン。音声認識の無い端末では voice 側を出さない
+     (押しても始められないボタンは子どもには理不尽)。 */
+  function dan2ModeToggleHtml(mode){
+    if(mode==="tap"&&!speechCtor())return "";
+    var label=mode==="tap"?"🎙 こえで こたえる":"👆 タップで となえる";
+    var next=mode==="tap"?"voice":"tap";
+    return '<div class="dan2-mode-switch"><button type="button" class="dan2-mode-toggle" data-action="dan2-mode" data-mode-next="'+next+'">'+displayText(label)+'</button></div>';
+  }
+
+  /* タップ暗唱の開始前。読み札の一覧は音声モードと同じ体裁で先に見せる。 */
+  function dan2TapIdleHtml(chunk){
+    return dan2PhrasesHtml(chunk)
+      +'<div class="dan2-voice"><button type="button" class="ratio-submit" data-action="dan2-tap-start">👆 '+displayText("はじめる")+'</button></div>';
+  }
+
+  /* タップ暗唱の進行中。確定した句は読み札全文を小さく残し、現在の句は
+     穴あき (stemKana + ＿＿) を大きく出して 4 択で埋める。 */
+  function dan2TapStepHtml(tap){
+    var done=tap.answers.length?'<ol class="dan2-tap-done">'+tap.steps.slice(0,tap.answers.length).map(function(step){
+      return '<li>'+displayText(step.stemKana+step.ansKana)+'</li>';
+    }).join("")+'</ol>':"";
+    var step=tap.steps[tap.answers.length];
+    if(!step)return done;
+    return done
+      +'<p class="dan2-tap-card">'+displayText(step.stemKana)+'<span class="dan2-tap-blank">＿＿</span></p>'
+      +'<div class="dan2-tap-choices">'+step.choices.map(function(choice,index){
+        return '<button type="button" class="ratio-choice kuku-num" data-tap-step="'+tap.answers.length+'" data-tap-choice="'+index+'">'+displayText(String(choice))+'</button>';
+      }).join("")+'</div>';
+  }
+
+  function dan2TapBodyHtml(chunk){
+    var tap=session&&session.tap;
+    return '<div class="dan2-timebar" aria-hidden="true"><span class="dan2-timebar-fill" id="dan2Timebar"></span></div>'
+      +'<h2>'+displayText(chunk.dan+"の段")+'</h2>'
+      +'<p class="dan2-tap-guide">'+displayText("こえに だして となえながら えらぼう")+'</p>'
+      +'<div id="dan2TapArea">'+(tap&&tap.active?dan2TapStepHtml(tap):dan2TapIdleHtml(chunk))+'</div>'
+      +dan2ModeToggleHtml("tap")
+      +'<p class="dan2-status" id="dan2Status" role="status"></p>';
+  }
+
   function dan2QuestionBodyHtml(chunk){
+    if(danInputMode()==="tap")return dan2TapBodyHtml(chunk);
     var lead=chunk.display==="read"?"こえに 出して よもう":"こえに 出して となえよう";
     return '<div class="dan2-timebar" aria-hidden="true"><span class="dan2-timebar-fill" id="dan2Timebar"></span></div>'
       +'<h2>'+displayText(chunk.dan+"の段　"+lead)+'</h2>'
       +dan2PhrasesHtml(chunk)
       +'<div class="dan2-voice"><button type="button" class="ratio-submit" data-action="dan2-listen">🎙 '+displayText("となえる")+'</button></div>'
+      +dan2ModeToggleHtml("voice")
       +'<p class="dan2-status" id="dan2Status" role="status"></p>';
   }
 
@@ -1316,7 +1391,8 @@
   var DAN2_REASONS={
     answer_only:"式も いっしょに となえよう",
     stem_only:"答えまで となえよう",
-    wrong_phrase:"じゅんばんに となえよう"
+    wrong_phrase:"じゅんばんに となえよう",
+    wrong_tap:"まちがえた 読み札を もういちど となえよう"
   };
 
   function heardTranscript(transcript){
@@ -1501,10 +1577,97 @@
     try{rec.start();}catch(error){stopDan2Voice();dan2Status("こえを はじめられませんでした");}
   }
 
+  /* --- 段暗唱のタップ入力 ---------------------------------------------------
+     タイムバーの途中で画面全体を描き直すとバーが巻き戻るので、進行中の
+     描き直しは #dan2TapArea の中身だけに閉じる (だんランの renderCurrent とは
+     逆の理由で、部分描画にしてある)。 */
+
+  function stopDan2Tap(){
+    var tap=session&&session.tap;
+    if(!tap)return;
+    if(tap.timer){clearTimeout(tap.timer);tap.timer=null;}
+    tap.active=false;
+  }
+
+  function renderDan2TapArea(chunk){
+    var area=document.getElementById("dan2TapArea");
+    if(!area)return;
+    var tap=session&&session.tap;
+    area.innerHTML=tap&&tap.active?dan2TapStepHtml(tap):dan2TapIdleHtml(chunk);
+    bindDan2TapArea(chunk);
+  }
+
+  function bindDan2TapArea(chunk){
+    var start=document.querySelector('[data-action="dan2-tap-start"]');
+    if(start)start.addEventListener("click",function(){startDan2Tap(chunk);});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-tap-choice]"),function(button){
+      button.addEventListener("click",function(){
+        submitDan2TapChoice(chunk,Number(button.getAttribute("data-tap-step")),Number(button.getAttribute("data-tap-choice")));
+      });
+    });
+  }
+
+  function finishDan2Tap(chunk){
+    var tap=session&&session.tap;
+    if(!tap||!tap.active)return;
+    var elapsed=Math.max(0,Date.now()-tap.startedAt);
+    stopDan2Tap();
+    freezeTimebar();
+    var verdict;
+    try{verdict=dan2Engine().judgeTapChunk(chunk,tap.answers,elapsed);}
+    catch(error){renderQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
+    session.verdict=verdict;
+    /* verdict.missing はエンジンが wrongIndexes の先頭を入れてある。音声版の
+       「詰まった句」と同じ扱いで、まちがえた最初の句を還流する。 */
+    refluxStuckPhrase(chunk,verdict);
+    submitAnswer({tapAnswers:tap.answers.slice(),elapsedMs:elapsed});
+  }
+
+  function startDan2Tap(chunk){
+    if(!session||session.pending)return;
+    if(session.tap&&session.tap.active)return;
+    var steps;
+    try{steps=dan2Engine().buildTapSteps(chunk,Math.random);}
+    catch(error){dan2Status("もんだいを つくれませんでした");return;}
+    var active=session;
+    session.tap={steps:steps,answers:[],startedAt:Date.now(),timer:null,active:true};
+    /* バー切れは音声版と同じ +200ms の猶予で締める。経過は開始時刻から測るので
+       締めた時点で必ず制限超過になり、timedOut の判定はエンジンに任せられる。 */
+    session.tap.timer=setTimeout(function(){
+      if(session!==active)return;
+      finishDan2Tap(chunk);
+    },chunk.limitMs+200);
+    dan2Status("");
+    startTimebar(chunk.limitMs);
+    renderDan2TapArea(chunk);
+  }
+
+  function submitDan2TapChoice(chunk,stepIndex,choiceIndex){
+    var tap=session&&session.tap;
+    if(!tap||!tap.active||session.pending)return;
+    /* 描き替え前の札の連打を拾わないよう、ボタンが指す句と現在の句を突き合わせる。 */
+    if(stepIndex!==tap.answers.length)return;
+    var step=tap.steps[stepIndex];
+    if(!step||!Number.isInteger(step.choices[choiceIndex]))return;
+    tap.answers.push(step.choices[choiceIndex]);
+    if(tap.answers.length<tap.steps.length){renderDan2TapArea(chunk);return;}
+    finishDan2Tap(chunk);
+  }
+
   function bindQuestion(question){
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){stopDan2Voice();session=null;renderMap(question.volumeId);});
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){stopDan2Voice();stopDan2Tap();session=null;renderMap(question.volumeId);});
     var listen=document.querySelector('[data-action="dan2-listen"]');
     if(listen)listen.addEventListener("click",function(){startDan2Voice(question);});
+    var modeToggle=document.querySelector('[data-action="dan2-mode"]');
+    if(modeToggle)modeToggle.addEventListener("click",function(){
+      /* 進行中の聞き取り / タップ途中は破棄して、同じ問題をもう一方のモードで描き直す。 */
+      setDanInputMode(modeToggle.getAttribute("data-mode-next")==="tap"?"tap":"voice");
+      stopDan2Voice();
+      stopDan2Tap();
+      session.tap=null;
+      renderCurrent();
+    });
+    if(isDanCat(question.cat))bindDan2TapArea(question);
     Array.prototype.forEach.call(document.querySelectorAll("[data-choice-index]"),function(button){
       button.addEventListener("click",function(){submitAnswer(choiceValue(question,Number(button.getAttribute("data-choice-index"))));});
     });
@@ -1572,6 +1735,8 @@
   function renderQuestion(errorMessage){
     var question=session.questions[session.index];
     stopDan2Voice();
+    stopDan2Tap();
+    session.tap=null;
     session.orderSelection=[];
     session.multiSelection=[];
     session.unitSelection=null;
@@ -1587,9 +1752,9 @@
     var label=last?"小道へ戻る":"次の問題";
     document.getElementById("app").innerHTML=sessionShell(feedbackHtml(question,correct,result)
       +'<button type="button" class="ratio-next" data-action="ratio-next">'+displayText(label)+'</button>');
-    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;stopDan2Voice();session=null;renderMap(id);});
+    document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;stopDan2Voice();stopDan2Tap();session=null;renderMap(id);});
     document.querySelector('[data-action="ratio-next"]').addEventListener("click",function(){
-      if(last){var id=session.volumeId;stopDan2Voice();session=null;renderMap(id);}
+      if(last){var id=session.volumeId;stopDan2Voice();stopDan2Tap();session=null;renderMap(id);}
       else{session.index++;renderQuestion();}
     });
   }
@@ -1652,7 +1817,7 @@
        解除はセッションの唯一の出口である renderMap が行う。 */
     if(global.Q4BRender&&global.Q4BRender.setSessionActive)global.Q4BRender.setSessionActive(true);
     session={id:sessionId,cat:cat,volumeId:volume.id,questions:questions,index:0,attempts:0,pending:false,
-      orderSelection:[],multiSelection:[],unitSelection:null,startedAt:0,runState:null};
+      orderSelection:[],multiSelection:[],unitSelection:null,startedAt:0,runState:null,tap:null};
     renderQuestion();
     return session;
   }
@@ -1691,7 +1856,8 @@
     return function(volume,random){
       if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
       if(!volume||volume.categories.indexOf(cat)<0)return Promise.reject(new Error("この小道では段暗唱を遊べません"));
-      if(!speechCtor())return Promise.reject(new Error("この端末では こえを つかえません"));
+      /* マイクが無くてもタップ暗唱で遊べる (danInputMode がタップへ倒す) ので、
+         ここでは音声認識の有無を条件にしない。 */
       var generatorRandom=random||Math.random,chunks,sessionId;
       try{
         chunks=dan2Engine().buildSet(danOfCategory(cat),profile.lv[cat],generatorRandom);
@@ -1828,9 +1994,9 @@
     /* 未公開の更新に属するカテゴリは選択肢そのものを出さない。volume manifest が
        先に挙げていても、公開は CURRENT_RELEASE 1 か所で決める。 */
     volume.categories.filter(isReleased).filter(function(cat){return CATEGORIES[cat].course===profileType;}).forEach(function(cat){
-      /* 音声カテゴリはマイクが無いことを「始める前に」出す。代替入力は提供しない
-         (design 7.4)。押してから駄目だと分かるのは子どもには理不尽。 */
-      var blocked=isDanCat(cat)&&!speechCtor()?"マイクが つかえません":(SESSION_STARTERS[cat]?"":"準備中");
+      /* かつて音声カテゴリはマイクが無いと塞いでいた (design 7.4) が、タップ暗唱が
+         代替入力になったので、段暗唱はどの端末でも始められる。 */
+      var blocked=SESSION_STARTERS[cat]?"":"準備中";
       /* badge はこのボタンで正答したときに増える図鑑の巻番号。どのボタンが
          どの図鑑を増やすかを、始める前に見えるようにする (volume_zukan_design 3.1)。 */
       var badgeHtml=badge?'<span class="path-badge" aria-label="'+attrText("遠征 "+badge)+'">'+badge+'</span>':"";
