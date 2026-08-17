@@ -86,6 +86,85 @@
   function safeRemove(key){
     try{localStorage.removeItem(key);return true;}catch(e){return false;}
   }
+
+  /* ---------------- storage-v2 Phase 1 shadow mirror ----------------
+     localStorage remains authoritative. IndexedDB is best-effort only and is
+     never read into gameplay state in Phase 1. */
+  var __shadowLoadPromise=null;
+  var __shadowLoadError=null;
+  var __storageScriptSrc=(function(){
+    try{
+      var d=global.document, s=d&&d.currentScript;
+      if(s&&s.src)return String(s.src);
+      s=d&&d.querySelector&&d.querySelector('script[src*="shared/storage.js"]');
+      return s&&s.src?String(s.src):null;
+    }catch(_){return null;}
+  })();
+  function _shadowScriptUrl(){
+    if(!__storageScriptSrc)return null;
+    return __storageScriptSrc.replace(/storage\.js(?:\?.*)?$/,"storage_shadow.js");
+  }
+  function _loadShadow(){
+    if(global.Q4BStorageShadow)return Promise.resolve(global.Q4BStorageShadow);
+    if(__shadowLoadPromise)return __shadowLoadPromise;
+    var d=global.document, url=_shadowScriptUrl();
+    if(!d||!d.createElement||!url)return Promise.resolve(null);
+    __shadowLoadPromise=new Promise(function(resolve){
+      try{
+        var s=d.createElement("script");
+        s.src=url; s.async=true;
+        s.onload=function(){ resolve(global.Q4BStorageShadow||null); };
+        s.onerror=function(){ __shadowLoadError="storage_shadow.js load failed"; resolve(null); };
+        var host=d.head||d.documentElement||d.body;
+        if(!host||!host.appendChild){ __shadowLoadError="no script host"; resolve(null); return; }
+        host.appendChild(s);
+      }catch(e){ __shadowLoadError=(e&&e.message)||String(e); resolve(null); }
+    });
+    return __shadowLoadPromise;
+  }
+  function _queueShadow(payload,generation){
+    try{
+      if(global.Q4BStorageShadow){ global.Q4BStorageShadow.queue(payload,generation); return; }
+      _loadShadow().then(function(shadow){
+        if(shadow)shadow.queue(payload,generation);
+      }).catch(function(e){ __shadowLoadError=(e&&e.message)||String(e); });
+    }catch(e){ __shadowLoadError=(e&&e.message)||String(e); }
+  }
+  function _shadowAuthoritativePayload(){ return safeGet(STORE_KEY,null); }
+  function _shadowBackfill(){
+    var payload=_shadowAuthoritativePayload();
+    if(payload!==null)_queueShadow(payload,_storeGeneration());
+  }
+  function shadowStatus(){
+    if(global.Q4BStorageShadow){
+      var s=global.Q4BStorageShadow.status();
+      if(__shadowLoadError&&!s.lastError)s.loaderError=__shadowLoadError;
+      return Promise.resolve(s);
+    }
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,loaded:false,loaderError:__shadowLoadError};
+      var s=shadow.status(); s.loaded=true; return s;
+    });
+  }
+  function verifyShadow(){
+    var payload=_shadowAuthoritativePayload(), generation=_storeGeneration();
+    if(payload===null)return Promise.resolve({supported:!!global.indexedDB,exists:false,match:false,error:"legacy authoritative store is absent"});
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,exists:false,match:false,error:__shadowLoadError||"shadow module unavailable"};
+      return shadow.verify(payload,generation);
+    });
+  }
+  function shadowSnapshotMeta(){
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,exists:false,error:__shadowLoadError||"shadow module unavailable"};
+      return shadow.latest().then(function(r){
+        if(!r)return {supported:true,exists:false};
+        return {supported:true,exists:true,mirrorSchema:r.mirrorSchema,sourceGeneration:r.sourceGeneration,
+          writtenAt:r.writtenAt,payloadBytes:r.payloadBytes,checksum:r.checksum};
+      });
+    });
+  }
+
   function now(){return Date.now();}
   function pad2(n){return (n<10?"0":"")+n;}
   function stamp(){
@@ -190,12 +269,15 @@
   var __saveDegraded = false;
   function persist(){
     if(!mem) return true;
-    var ok = safeSet(STORE_KEY, JSON.stringify(mem));
+    var serialized = JSON.stringify(mem);
+    var ok = safeSet(STORE_KEY, serialized);
     if(ok){
       var storedGeneration=parseInt(_storeGeneration(),10)||0;
       var heldGeneration=parseInt(memGeneration,10)||0;
       var nextGeneration=Math.max(storedGeneration,heldGeneration,now())+1;
       if(safeSet(STORE_GEN_KEY,String(nextGeneration)))memGeneration=String(nextGeneration);
+      /* Phase 1: shadow is strictly post-legacy-success and never awaited. */
+      _queueShadow(serialized,_storeGeneration());
     }
     if(!ok){
       __saveDegraded = true;
@@ -1417,6 +1499,9 @@
 
   /* ---------------- init ---------------- */
   loadStore();
+  /* Phase 1C: existing legacy saves receive a mirror without a gameplay write.
+     This is backfill only; no IndexedDB -> localStorage restoration exists here. */
+  _shadowBackfill();
   /* PA-1: 起動時は同期成功実績で初期 status を決める。 lastSuccess があり 24h 以内
      なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。 */
   (function(){
@@ -1454,6 +1539,8 @@
     getConfig:getConfig, saveConfig:saveConfig, clearConfig:clearConfig, testConnection:testConnection,
     // bulk sync / backup
     pushAll:pushAll, pullAll:pullAll, syncDown:syncDown, exportAll:exportAll, importAll:importAll,
+    // storage-v2 Phase 1 diagnostics (read-only; never restore)
+    shadowStatus:shadowStatus, verifyShadow:verifyShadow, shadowSnapshotMeta:shadowSnapshotMeta,
     // legacy compat
     loadKey:loadKey, saveKey:saveKey,
     // ui
