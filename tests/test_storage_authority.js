@@ -270,7 +270,7 @@ function storePayload(marker){
   // authority->cache restoration is deliberately refused.
   {
     const idb = fakeIndexedDB();
-    const ctx = makeContext(idb, undefined);
+    const ctx = makeContext(idb, null);
     const api = ctx.Q4BStorageAuthorityCandidate;
     const p50 = storePayload("no-crypto");
     assert.equal((await api.commit(p50,"50")).ok, true);
