@@ -41,12 +41,9 @@ jobs:
           found=0
           for f in tests/test_*.js; do
             [ -e "$f" ] || continue
-            if [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && ! grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then
-              continue
-            fi
-            if [ "$f" = "tests/test_storage_authority_switch_preview.js" ] && ! grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
-              continue
-            fi
+            if [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && ! grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then continue; fi
+            if [ "$f" = "tests/test_storage_authority_switch_preview.js" ] && ! grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then continue; fi
+            if [ "$f" = "tests/test_storage_soak_metrics_preview.js" ] && ! grep -q "storage-v2 sustained soak metrics" shared/storage.js; then continue; fi
             found=1
             echo "::group::$f"
             node "$f"
@@ -94,15 +91,13 @@ jobs:
           set -euo pipefail
           for f in tests/test_storage*.js; do
             [ -e "$f" ] || continue
-            if [ "$f" = "tests/test_storage_authority_switch_preview.js" ] && ! grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
-              continue
-            fi
+            if [ "$f" = "tests/test_storage_soak_metrics_preview.js" ] && ! grep -q "storage-v2 sustained soak metrics" shared/storage.js; then continue; fi
             echo "::group::$f"
             node "$f"
             echo "::endgroup::"
           done
 
-  phase2-read-switch-preview:
+  phase2-read-switch-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -114,21 +109,11 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Ensure disabled read-authority switch scaffold
+      - name: Verify disabled read-authority switch scaffold
         shell: bash
         run: |
           set -euo pipefail
-          if grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
-            echo "Disabled switch scaffold already integrated; validating committed source."
-          else
-            node tools/apply_storage_v2_authority_switch_disabled.js
-          fi
-
-      - name: Validate hard gate and restore safeguards
-        shell: bash
-        run: |
-          set -euo pipefail
-          git diff --check
+          grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js
           grep -q 'var __authorityReadsEnabled=false;' shared/storage.js
           grep -q 'AUTHORITY_RESTORE_TXN_KEY="q4b_storage_v2_restore_txn_v1"' shared/storage.js
           grep -q 'authorityReadSwitchEnabled:authorityReadSwitchEnabled' shared/storage.js
@@ -137,7 +122,51 @@ jobs:
             exit 1
           fi
 
-      - name: Run storage regressions against disabled switch source
+      - name: Run switch storage regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in tests/test_storage*.js; do
+            [ -e "$f" ] || continue
+            if [ "$f" = "tests/test_storage_soak_metrics_preview.js" ] && ! grep -q "storage-v2 sustained soak metrics" shared/storage.js; then continue; fi
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+
+  phase2-soak-metrics-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Ensure automatic soak metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q "storage-v2 sustained soak metrics" shared/storage.js; then
+            echo "Soak metrics already integrated; validating committed source."
+          else
+            node tools/apply_storage_v2_soak_metrics.js
+          fi
+
+      - name: Validate diagnostics-only behavior
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          grep -q 'SOAK_STATS_KEY="q4b_storage_v2_soak_stats_v1"' shared/storage.js
+          grep -q 'storageV2Readiness:storageV2Readiness' shared/storage.js
+          grep -q 'automaticPromotion:false' shared/storage.js
+          grep -q 'var __authorityReadsEnabled=false;' shared/storage.js
+
+      - name: Run storage regressions with soak metrics
         shell: bash
         run: |
           set -euo pipefail
