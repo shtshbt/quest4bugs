@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Q4B storage shadow backfill browser smoke</title>
+<pre id="result">RUNNING</pre>
+<script>
+(function(){
+  const payload = JSON.stringify({v:2,profiles:[{id:"p-browser",name:"Browser"}],current:"p-browser",kv:{"keisan\u0000p-browser":{v:1,updated:1,revision:1,data:{score:7}}},tombstones:{}});
+  localStorage.clear();
+  localStorage.setItem("q4b_store_v1", payload);
+  localStorage.setItem("q4b_store_gen", "42");
+  window.__expectedPayload = payload;
+})();
+</script>
+<script src="../../shared/storage.js"></script>
+<script>
+(async function(){
+  const out = document.getElementById("result");
+  function fail(msg){ out.textContent = "FAIL " + msg; document.documentElement.dataset.test="fail"; }
+  try{
+    const deadline = Date.now() + 5000;
+    let verified = null;
+    while(Date.now() < deadline){
+      verified = await QuestSave.verifyShadow();
+      if(verified && verified.match) break;
+      await new Promise(r => setTimeout(r, 50));
+    }
+    if(!verified || !verified.supported) return fail("IndexedDB/shadow unsupported");
+    if(!verified.exists) return fail("shadow record missing");
+    if(!verified.match) return fail("shadow mismatch: " + JSON.stringify(verified));
+    if(!verified.generationMatch || !verified.payloadMatch) return fail("generation/payload mismatch");
+    if(localStorage.getItem("q4b_store_v1") !== window.__expectedPayload) return fail("authoritative legacy payload changed");
+    const meta = await QuestSave.shadowSnapshotMeta();
+    if(!meta.exists || meta.sourceGeneration !== "42") return fail("unexpected shadow metadata: " + JSON.stringify(meta));
+    out.textContent = "PASS shadow-backfill generation=42 checksum=" + meta.checksum;
+    document.documentElement.dataset.test="pass";
+  }catch(e){ fail(e && e.stack ? e.stack : String(e)); }
+})();
+</script>
