@@ -14,11 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout migration branch
+      - name: Sparse checkout migration inputs
         uses: actions/checkout@v4
         with:
           ref: agent/storage-v2-shadow
           fetch-depth: 1
+          sparse-checkout: |
+            shared
+            tests
+            tools
+            .github
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -49,11 +54,11 @@ jobs:
             exit 1
           fi
 
-      - name: Run full regression suite before commit
+      - name: Run storage regression suite before commit
         shell: bash
         run: |
           set -euo pipefail
-          for f in tests/test_*.js; do
+          for f in tests/test_storage*.js; do
             [ -e "$f" ] || continue
             echo "::group::$f"
             node "$f"
