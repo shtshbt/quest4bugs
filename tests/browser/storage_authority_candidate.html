@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Q4B storage authority candidate browser smoke</title>
+<pre id="result">RUNNING</pre>
+<script src="../../shared/storage_authority.js"></script>
+<script>
+(async function(){
+  const out = document.getElementById("result");
+  function fail(msg){ out.textContent = "FAIL " + msg; document.documentElement.dataset.test="fail"; }
+  function payload(marker){ return JSON.stringify({v:2,profiles:[{id:"p1",name:"A"}],current:"p1",kv:{x:{v:1,updated:1,data:{marker}}},tombstones:{}}); }
+  try{
+    await new Promise(resolve => {
+      const req = indexedDB.deleteDatabase("q4b_local_v2");
+      req.onsuccess = req.onerror = req.onblocked = () => resolve();
+    });
+    const api = Q4BStorageAuthorityCandidate;
+    const p10 = payload("g10"), p11 = payload("g11"), p12 = payload("g12");
+    let r = await api.reconcile(p10,"10");
+    if(!r.ok || r.action !== "seed-from-legacy") return fail("seed: " + JSON.stringify(r));
+    r = await api.commit(p11,"11",{reason:"browser-test"});
+    if(!r.ok) return fail("commit: " + JSON.stringify(r));
+    const rb = await api.rollback();
+    if(!rb || rb.sourceGeneration !== "10" || rb.payload !== p10) return fail("rollback snapshot incorrect");
+    r = await api.reconcile(p12,"12");
+    if(!r.ok || r.action !== "replay-wal") return fail("WAL replay: " + JSON.stringify(r));
+    r = await api.reconcile(p11,"11");
+    if(!r.ok || r.action !== "restore-cache-from-authority" || r.payload !== p12) return fail("authority-newer plan: " + JSON.stringify(r));
+    r = await api.reconcile(payload("conflict"),"12");
+    if(r.ok || r.action !== "same-generation-conflict") return fail("same-generation conflict not detected");
+    const a = await api.authority();
+    if(!a || a.sourceGeneration !== "12" || a.payload !== p12 || !a.sha256 || a.sha256.length !== 64) return fail("authority record incorrect");
+    out.textContent = "PASS phase2-authority-candidate generation=12 sha256=" + a.sha256.slice(0,12);
+    document.documentElement.dataset.test="pass";
+  }catch(e){ fail(e && e.stack ? e.stack : String(e)); }
+})();
+</script>
