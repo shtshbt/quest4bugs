@@ -39,9 +39,9 @@ Legend: `NOT STARTED` / `IN PROGRESS` / `READY FOR SOAK` / `BLOCKED` / `DONE`
 | 1C | Boot backfill | **READY FOR SOAK** | existing `q4b_store_v1` is mirrored after boot; no reverse restore | browser wipe/backfill test |
 | 1D | Developer diagnostics | **READY FOR SOAK** | `shadowStatus()`, `verifyShadow()`, `shadowSnapshotMeta()` exposed | use during household soak |
 | 1E | Automated regression + soak | **IN PROGRESS** | Node regressions + public contract + real Chromium IndexedDB smoke green; sustained household soak remains | sustained household verification |
-| 2A | IndexedDB becomes local read authority | **IN PROGRESS** | authority candidate + WAL reconciliation + rollback record implemented and rehearsed as non-authoritative second shadow; read switch still disabled | sustained rehearsal equality, then explicit read-authority promotion |
-| 2B | localStorage rollback mirror | **NOT STARTED** | existing store remains authoritative today | dual-write after promotion |
-| 2C | migration/rollback hardening | **NOT STARTED** | export/import already exists | explicit IDB↔legacy recovery tests |
+| 2A | IndexedDB becomes local read authority | **IN PROGRESS** | authority candidate, WAL reconciliation, cryptographic integrity checks, and crash-safe read-switch scaffold implemented; hard gate remains OFF | automatic readiness must pass (>=300 verified commits across >=3 active days), then explicit activation decision |
+| 2B | localStorage rollback mirror | **IN PROGRESS** | localStorage is currently authority/WAL; future IDB→cache restore is transaction-marker protected with rollback-on-partial-write | exercise under sustained rehearsal before authority activation |
+| 2C | migration/rollback hardening | **IN PROGRESS** | stale/divergent generation rejection, SHA/checksum/byte validation, corrupt-IDB repair rules, rollback records, partial-restore recovery all automated/tested | household soak + final promotion gate |
 | 3A | Cloudflare project/bootstrap | **NOT STARTED** | provider selected conceptually | only after Phase 2 local stability |
 | 3B | R2 versioned family snapshots | **NOT STARTED** | no network dependency in storage-v2 yet | upload/download with integrity metadata |
 | 3C | D1 backup metadata | **NOT STARTED** | none | family/snapshot index + restore metadata |
@@ -66,6 +66,11 @@ Legend: `NOT STARTED` / `IN PROGRESS` / `READY FOR SOAK` / `BLOCKED` / `DONE`
 - [x] Add boot backfill (legacy → shadow only).
 - [x] Expose developer-only verification through `QuestSave`.
 - [x] Real Chromium IndexedDB smoke: legacy→shadow backfill, no reverse restore, and Phase 2 candidate reconciliation.
+- [x] Phase 2 authority candidate is integrated as a non-authoritative second shadow.
+- [x] Disabled read-authority switch scaffold is integrated; hard gate is explicitly `false`.
+- [x] Authority records are validated by schema, byte length, checksum, and SHA-256 before any future restore.
+- [x] Partial authority→cache restore is transaction-marker protected and rolls back on failure/next boot.
+- [x] Automatic sustained-soak metrics/readiness report is integrated; no automatic promotion is permitted.
 - [ ] Perform sustained household soak before changing read authority.
 
 ### Maintenance rule for this table
@@ -389,7 +394,7 @@ Phase 2 may begin only when all are true:
 
 ## Phase 2 compatibility decision — IndexedDB authority + localStorage WAL/cache
 
-**Status: IMPLEMENTED AS CANDIDATE / REHEARSAL; NOT YET GAMEPLAY AUTHORITY**
+**Status: IMPLEMENTED THROUGH DISABLED READ-SWITCH SCAFFOLD; NOT YET GAMEPLAY AUTHORITY**
 
 A pure localStorage→IndexedDB replacement is not compatible with the current QuestSave surface because IndexedDB is asynchronous while several existing callers depend on synchronous in-memory/local persistence semantics. The promotion architecture therefore uses:
 
@@ -832,3 +837,13 @@ Next recommended implementation step: real-browser/household Phase 1 soak using 
 - Added real Chromium tests for Phase 1 backfill/no-reverse-restore and the Phase 2 candidate using the browser's actual IndexedDB implementation.
 - Added deterministic rehearsal wiring: successful legacy saves are coalesced and copied to q4b_local_v2, but candidate data never feeds gameplay during Phase 1.
 - Remaining hard gate for actual read-authority switch: sustained household rehearsal with no unexplained generation/checksum divergence.
+
+
+### 2026-08-17 — Disabled read-authority switch + automatic soak gate
+- Promoted the complete authority→local-cache bootstrap path into the migration branch with `__authorityReadsEnabled=false`; normal behavior therefore remains rehearsal-only.
+- Future restore is accepted only from a structurally valid, checksum/byte-valid and SHA-256-verified IndexedDB authority record.
+- Authority/local generation ordering is deterministic; same-generation divergence stops rather than guessing. Corrupt authority can be repaired only from an equal/newer valid WAL, with the raw corrupt record preserved as rollback evidence.
+- Cache restore uses `q4b_storage_v2_restore_txn_v1` so a failure/crash between payload and generation writes is rolled back before normal store load on the next boot.
+- Added `q4b_storage_v2_soak_stats_v1`, `QuestSave.storageV2SoakStats()` and `QuestSave.storageV2Readiness()`. No child/game payload is copied into the soak statistics record.
+- Current automatic readiness policy: current shadow match, current candidate match with cryptographic verification, zero candidate/verification failures, >=300 verified candidate commits, >=3 active days, no restore-recovery failure, and hard gate still OFF. Readiness is advisory only (`automaticPromotion:false`).
+- The remaining non-automatable gate is sustained normal household use on the migration branch. Do not flip the hard gate merely because unit/browser tests are green.
