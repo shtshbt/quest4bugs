@@ -63,3 +63,64 @@ jobs:
             echo "Potential shadow-to-legacy automatic restore detected" >&2
             exit 1
           fi
+
+  browser-indexeddb-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Locate installed Chromium browser
+        id: chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "No Chromium-family browser found on runner" >&2
+            exit 1
+          fi
+          echo "bin=$CHROME" >> "$GITHUB_OUTPUT"
+          "$CHROME" --version
+
+      - name: Serve repository over localhost
+        shell: bash
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/q4b-http.log 2>&1 &
+          echo $! > /tmp/q4b-http.pid
+          for i in $(seq 1 20); do
+            curl -fsS http://127.0.0.1:8765/shared/storage.js >/dev/null && exit 0
+            sleep 0.25
+          done
+          cat /tmp/q4b-http.log >&2
+          exit 1
+
+      - name: Run real-browser IndexedDB smoke pages
+        env:
+          CHROME: ${{ steps.chrome.outputs.bin }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_page() {
+            page="$1"
+            needle="$2"
+            profile="$(mktemp -d)"
+            echo "::group::$page"
+            output="$($CHROME --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage \
+              --user-data-dir="$profile" --virtual-time-budget=7000 --dump-dom \
+              "http://127.0.0.1:8765/tests/browser/$page" 2>&1)"
+            echo "$output"
+            rm -rf "$profile"
+            echo "$output" | grep -F "$needle" >/dev/null
+            echo "::endgroup::"
+          }
+          run_page storage_shadow_backfill.html "PASS shadow-backfill"
+          run_page storage_shadow_no_reverse_restore.html "PASS no-reverse-restore"
+          run_page storage_authority_candidate.html "PASS phase2-authority-candidate"
+
+      - name: Stop localhost server
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/q4b-http.pid ]; then kill "$(cat /tmp/q4b-http.pid)" 2>/dev/null || true; fi
