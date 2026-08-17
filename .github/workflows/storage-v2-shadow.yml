@@ -41,8 +41,10 @@ jobs:
           found=0
           for f in tests/test_*.js; do
             [ -e "$f" ] || continue
-            # This test targets the generated Phase 2 rehearsal preview below.
-            [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && continue
+            # Until rehearsal is promoted, this test is covered by the preview job.
+            if [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && ! grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then
+              continue
+            fi
             found=1
             echo "::group::$f"
             node "$f"
@@ -57,8 +59,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Phase 1 must remain asymmetric: localStorage is authoritative and the
-          # shadow module must not restore or feed IndexedDB state into gameplay.
+          # Phase 1 remains asymmetric even during Phase 2 rehearsal: localStorage
+          # is the sole gameplay read authority.
           grep -q 'var ok = safeSet(STORE_KEY, serialized)' shared/storage.js
           grep -q '_queueShadow(serialized,_storeGeneration())' shared/storage.js
           if grep -Eq 'Q4BStorageShadow\.(latest|verify)\([^)]*\).*safeSet\(STORE_KEY' shared/storage.js; then
@@ -78,8 +80,15 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Apply deterministic Phase 2 rehearsal patch
-        run: node tools/apply_storage_v2_authority_rehearsal.js
+      - name: Ensure Phase 2 rehearsal integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then
+            echo "Rehearsal already integrated; validating committed source."
+          else
+            node tools/apply_storage_v2_authority_rehearsal.js
+          fi
 
       - name: Validate rehearsal diff and invariants
         shell: bash
@@ -89,14 +98,14 @@ jobs:
           grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js
           grep -q '_queueAuthorityCandidate(serialized,_storeGeneration())' shared/storage.js
           grep -q 'authorityCandidateStatus:authorityCandidateStatus' shared/storage.js
-          # Candidate may receive legacy generations, but must not be used to set the
-          # authoritative legacy store anywhere in the rehearsal wiring.
+          # Rehearsal wiring may write into candidate IDB but must never feed candidate
+          # records into the gameplay localStorage authority.
           if git diff -- shared/storage.js | grep '^+' | grep -Eq 'authorityCandidate.*safeSet\(STORE_KEY|Q4BStorageAuthorityCandidate.*safeSet\(STORE_KEY'; then
             echo "Potential candidate-to-gameplay restore path detected" >&2
             exit 1
           fi
 
-      - name: Run full regression suite against rehearsal preview
+      - name: Run full regression suite against rehearsal source
         shell: bash
         run: |
           set -euo pipefail
