@@ -34,13 +34,15 @@ jobs:
       - name: Check repository diff hygiene
         run: git diff --check
 
-      - name: Run full Quest4Bugs Node regression suite
+      - name: Run current-source Quest4Bugs Node regression suite
         shell: bash
         run: |
           set -euo pipefail
           found=0
           for f in tests/test_*.js; do
             [ -e "$f" ] || continue
+            # This test targets the generated Phase 2 rehearsal preview below.
+            [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && continue
             found=1
             echo "::group::$f"
             node "$f"
@@ -63,6 +65,47 @@ jobs:
             echo "Potential shadow-to-legacy automatic restore detected" >&2
             exit 1
           fi
+
+  phase2-rehearsal-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Apply deterministic Phase 2 rehearsal patch
+        run: node tools/apply_storage_v2_authority_rehearsal.js
+
+      - name: Validate rehearsal diff and invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js
+          grep -q '_queueAuthorityCandidate(serialized,_storeGeneration())' shared/storage.js
+          grep -q 'authorityCandidateStatus:authorityCandidateStatus' shared/storage.js
+          # Candidate may receive legacy generations, but must not be used to set the
+          # authoritative legacy store anywhere in the rehearsal wiring.
+          if git diff -- shared/storage.js | grep '^+' | grep -Eq 'authorityCandidate.*safeSet\(STORE_KEY|Q4BStorageAuthorityCandidate.*safeSet\(STORE_KEY'; then
+            echo "Potential candidate-to-gameplay restore path detected" >&2
+            exit 1
+          fi
+
+      - name: Run full regression suite against rehearsal preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in tests/test_*.js; do
+            [ -e "$f" ] || continue
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
 
   browser-indexeddb-smoke:
     runs-on: ubuntu-latest
