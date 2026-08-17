@@ -1,85 +1,51 @@
 "use strict";
 
-const fs = require("node:fs");
-const path = require("node:path");
+const fs=require("node:fs");
+const path=require("node:path");
+const file=path.resolve(__dirname,"..",".claude_plan","storage_v2_shadow_migration.md");
+let s=fs.readFileSync(file,"utf8");
 
-const file = path.resolve(__dirname, "..", ".claude_plan", "storage_v2_shadow_migration.md");
-let s = fs.readFileSync(file, "utf8");
+function replaceIfPresent(before,after){if(s.includes(before))s=s.replace(before,after);}
+function appendOnce(marker,text){if(!s.includes(marker))s+=text;}
 
-function replaceRequired(before, after, label){
-  if(!s.includes(before)) throw new Error("progress anchor not found: " + label);
-  s = s.replace(before, after);
-}
-
-replaceRequired(
-  "| 1E | Automated regression + soak | **IN PROGRESS** | branch soak CI + full regression + public contract tests green; real-browser soak pending | sustained household/browser verification |",
-  "| 1E | Automated regression + soak | **IN PROGRESS** | Node regressions + public contract + real Chromium IndexedDB smoke green; sustained household soak remains | sustained household verification |",
-  "phase 1E row"
-);
-replaceRequired(
-  "| 2A | IndexedDB becomes local read authority | **NOT STARTED** | prohibited during Phase 1 | requires Phase 1 soak exit criteria |",
+replaceIfPresent(
   "| 2A | IndexedDB becomes local read authority | **IN PROGRESS** | authority candidate + WAL reconciliation + rollback record implemented and rehearsed as non-authoritative second shadow; read switch still disabled | sustained rehearsal equality, then explicit read-authority promotion |",
-  "phase 2A row"
+  "| 2A | IndexedDB becomes local read authority | **IN PROGRESS** | authority candidate, WAL reconciliation, cryptographic integrity checks, and crash-safe read-switch scaffold implemented; hard gate remains OFF | automatic readiness must pass (>=300 verified commits across >=3 active days), then explicit activation decision |"
+);
+replaceIfPresent(
+  "| 2B | localStorage rollback mirror | **NOT STARTED** | existing store remains authoritative today | dual-write after promotion |",
+  "| 2B | localStorage rollback mirror | **IN PROGRESS** | localStorage is currently authority/WAL; future IDB→cache restore is transaction-marker protected with rollback-on-partial-write | exercise under sustained rehearsal before authority activation |"
+);
+replaceIfPresent(
+  "| 2C | migration/rollback hardening | **NOT STARTED** | export/import already exists | explicit IDB↔legacy recovery tests |",
+  "| 2C | migration/rollback hardening | **IN PROGRESS** | stale/divergent generation rejection, SHA/checksum/byte validation, corrupt-IDB repair rules, rollback records, partial-restore recovery all automated/tested | household soak + final promotion gate |"
 );
 
-if(!s.includes("- [x] Real Chromium IndexedDB smoke")){
-  replaceRequired(
-    "- [ ] Perform real-browser soak before changing read authority.",
-    "- [x] Real Chromium IndexedDB smoke: legacy→shadow backfill, no reverse restore, and Phase 2 candidate reconciliation.\n- [ ] Perform sustained household soak before changing read authority.",
-    "browser soak checklist"
+if(!s.includes("- [x] Phase 2 authority candidate is integrated as a non-authoritative second shadow.")){
+  const anchor="- [x] Real Chromium IndexedDB smoke: legacy→shadow backfill, no reverse restore, and Phase 2 candidate reconciliation.\n";
+  if(!s.includes(anchor))throw new Error("checklist anchor missing");
+  s=s.replace(anchor,anchor+
+    "- [x] Phase 2 authority candidate is integrated as a non-authoritative second shadow.\n"+
+    "- [x] Disabled read-authority switch scaffold is integrated; hard gate is explicitly `false`.\n"+
+    "- [x] Authority records are validated by schema, byte length, checksum, and SHA-256 before any future restore.\n"+
+    "- [x] Partial authority→cache restore is transaction-marker protected and rolls back on failure/next boot.\n"+
+    "- [x] Automatic sustained-soak metrics/readiness report is integrated; no automatic promotion is permitted.\n"
   );
 }
 
-const phase2Heading = "# PHASE 2 — Promote IndexedDB to local authority\n";
-if(!s.includes("## Phase 2 compatibility decision — IndexedDB authority + localStorage WAL/cache")){
-  const insert = [
-    "",
-    "## Phase 2 compatibility decision — IndexedDB authority + localStorage WAL/cache",
-    "",
-    "**Status: IMPLEMENTED AS CANDIDATE / REHEARSAL; NOT YET GAMEPLAY AUTHORITY**",
-    "",
-    "A pure localStorage→IndexedDB replacement is not compatible with the current QuestSave surface because IndexedDB is asynchronous while several existing callers depend on synchronous in-memory/local persistence semantics. The promotion architecture therefore uses:",
-    "",
-    "```text",
-    "synchronous QuestSave mutation",
-    "        |",
-    "        v",
-    "localStorage q4b_store_v1 + q4b_store_gen   <- WAL / boot cache / rollback path",
-    "        | exact successful generation",
-    "        v",
-    "IndexedDB q4b_local_v2                       <- durable candidate authority",
-    "```",
-    "",
-    "Boot reconciliation rules are deterministic:",
-    "",
-    "1. no IDB authority + valid legacy WAL → seed IDB from legacy;",
-    "2. legacy generation newer than IDB → replay WAL into IDB;",
-    "3. IDB generation newer than legacy → return a cache-restore plan, but do not apply it during Phase 1 rehearsal;",
-    "4. same generation + same payload → matched;",
-    "5. same generation + different payload → stop as conflict; never guess;",
-    "6. every authority replacement preserves the previous authority record as an IndexedDB rollback record;",
-    "7. SHA-256 plus deterministic checksum/byte length are recorded for integrity diagnostics.",
-    "",
-    "During rehearsal, storage.js only queues successful legacy generations into the candidate IDB through a serialized/coalescing queue. Candidate records are never read into gameplay state.",
-    ""
-  ].join("\n");
-  replaceRequired(phase2Heading, phase2Heading + insert + "\n", "phase 2 compatibility section");
-}
+const compatStatus="**Status: IMPLEMENTED AS CANDIDATE / REHEARSAL; NOT YET GAMEPLAY AUTHORITY**";
+replaceIfPresent(compatStatus,"**Status: IMPLEMENTED THROUGH DISABLED READ-SWITCH SCAFFOLD; NOT YET GAMEPLAY AUTHORITY**");
 
-if(!s.includes("### 2026-08-17 — Phase 2 authority candidate rehearsal")){
-  s += [
-    "",
-    "",
-    "### 2026-08-17 — Phase 2 authority candidate rehearsal",
-    "",
-    "- Added shared/storage_authority.js with validated canonical snapshots, generation ordering, SHA-256, rollback record preservation, and deterministic WAL reconciliation.",
-    "- Added Node tests covering seed, normal commit, stale rejection, same-generation divergence, rollback, WAL replay, authority-newer restore planning, and IndexedDB failure containment.",
-    "- Added real Chromium tests for Phase 1 backfill/no-reverse-restore and the Phase 2 candidate using the browser's actual IndexedDB implementation.",
-    "- Added deterministic rehearsal wiring: successful legacy saves are coalesced and copied to q4b_local_v2, but candidate data never feeds gameplay during Phase 1.",
-    "- Remaining hard gate for actual read-authority switch: sustained household rehearsal with no unexplained generation/checksum divergence.",
-    ""
-  ].join("\n");
-}
+appendOnce("### 2026-08-17 — Disabled read-authority switch + automatic soak gate",[
+  "\n\n### 2026-08-17 — Disabled read-authority switch + automatic soak gate\n",
+  "- Promoted the complete authority→local-cache bootstrap path into the migration branch with `__authorityReadsEnabled=false`; normal behavior therefore remains rehearsal-only.\n",
+  "- Future restore is accepted only from a structurally valid, checksum/byte-valid and SHA-256-verified IndexedDB authority record.\n",
+  "- Authority/local generation ordering is deterministic; same-generation divergence stops rather than guessing. Corrupt authority can be repaired only from an equal/newer valid WAL, with the raw corrupt record preserved as rollback evidence.\n",
+  "- Cache restore uses `q4b_storage_v2_restore_txn_v1` so a failure/crash between payload and generation writes is rolled back before normal store load on the next boot.\n",
+  "- Added `q4b_storage_v2_soak_stats_v1`, `QuestSave.storageV2SoakStats()` and `QuestSave.storageV2Readiness()`. No child/game payload is copied into the soak statistics record.\n",
+  "- Current automatic readiness policy: current shadow match, current candidate match with cryptographic verification, zero candidate/verification failures, >=300 verified candidate commits, >=3 active days, no restore-recovery failure, and hard gate still OFF. Readiness is advisory only (`automaticPromotion:false`).\n",
+  "- The remaining non-automatable gate is sustained normal household use on the migration branch. Do not flip the hard gate merely because unit/browser tests are green.\n"
+].join(""));
 
-fs.writeFileSync(file, s);
-console.log("Updated storage-v2 Phase 2 rehearsal progress tracker");
+fs.writeFileSync(file,s);
+console.log("Updated storage-v2 progress through disabled read switch and soak metrics");
