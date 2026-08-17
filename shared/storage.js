@@ -208,10 +208,16 @@
         try{
           __authorityLastResult=await api.commit(next.payload,next.generation,{reason:"phase1-rehearsal"});
           __authorityLastCommitAt=Date.now();
-          if(__authorityLastResult&&__authorityLastResult.ok)_writeAuthorityReceipt(next.payload,next.generation,__authorityLastResult);
+          var __authorityVerify=null;
+          if(__authorityLastResult&&__authorityLastResult.ok){
+            _writeAuthorityReceipt(next.payload,next.generation,__authorityLastResult);
+            try{__authorityVerify=await api.verifyLegacy(next.payload,next.generation);}catch(eVerify){__authorityVerify={match:false,error:(eVerify&&eVerify.message)||String(eVerify)};}
+          }
+          _recordSoakResult(__authorityLastResult,__authorityVerify,next.generation);
         }catch(e){
           __authorityLoadError=(e&&e.message)||String(e);
           __authorityLastResult={ok:false,reason:"rehearsal-exception",error:__authorityLoadError};
+          _recordSoakResult(__authorityLastResult,null,next.generation);
         }
       }
     }).catch(function(e){
@@ -266,6 +272,77 @@
   var __authorityBootstrapPlan=null;
   var __authorityRestoreRecovery=null;
   var __authorityBootstrapBlockedWrites=0;
+
+  /* ---------------- storage-v2 sustained soak metrics ----------------
+     Diagnostic metadata only. No child/game payload is copied into this record. */
+  var SOAK_STATS_KEY="q4b_storage_v2_soak_stats_v1";
+  function _blankSoakStats(){return {v:1,startedAt:0,firstSuccessAt:0,lastSuccessAt:0,lastFailureAt:0,successfulCommits:0,verifiedMatches:0,verificationMismatches:0,failedCommits:0,repairs:0,staleRejects:0,conflicts:0,consecutiveVerified:0,lastGeneration:null,lastError:null,days:{}};}
+  function _readSoakStats(){
+    var raw=safeGet(SOAK_STATS_KEY,null), st=null;
+    try{if(raw)st=JSON.parse(raw);}catch(_){}
+    if(!st||st.v!==1)st=_blankSoakStats();
+    if(!st.days||typeof st.days!=="object")st.days={};
+    return st;
+  }
+  function _soakDayKey(ts){var d=new Date(ts);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+  function _writeSoakStats(st){try{return safeSet(SOAK_STATS_KEY,JSON.stringify(st));}catch(_){return false;}}
+  function _recordSoakResult(commitResult,verification,generation){
+    var t=Date.now(), st=_readSoakStats();
+    if(!st.startedAt)st.startedAt=t;
+    st.lastGeneration=String(generation==null?"0":generation);
+    if(commitResult&&commitResult.ok){
+      st.successfulCommits=(st.successfulCommits||0)+1;
+      if(!st.firstSuccessAt)st.firstSuccessAt=t;
+      st.lastSuccessAt=t;
+      st.days[_soakDayKey(t)]=(st.days[_soakDayKey(t)]||0)+1;
+      if(commitResult.reason==="repair-corrupt-authority"||commitResult.previousIntegrityError)st.repairs=(st.repairs||0)+1;
+      if(verification&&verification.match&&verification.authorityValid!==false){
+        st.verifiedMatches=(st.verifiedMatches||0)+1;
+        st.consecutiveVerified=(st.consecutiveVerified||0)+1;
+        st.lastError=null;
+      }else{
+        st.verificationMismatches=(st.verificationMismatches||0)+1;
+        st.consecutiveVerified=0;
+        st.lastFailureAt=t;
+        st.lastError=(verification&&verification.error)||"candidate verification mismatch";
+      }
+    }else{
+      st.failedCommits=(st.failedCommits||0)+1;
+      st.consecutiveVerified=0;
+      st.lastFailureAt=t;
+      var reason=(commitResult&&commitResult.reason)||"candidate commit failed";
+      st.lastError=(commitResult&&commitResult.error)||reason;
+      if(reason==="stale-generation")st.staleRejects=(st.staleRejects||0)+1;
+      if(reason==="same-generation-divergence")st.conflicts=(st.conflicts||0)+1;
+    }
+    _writeSoakStats(st);
+    return st;
+  }
+  function storageV2SoakStats(){
+    var st=_readSoakStats(), days=Object.keys(st.days||{}).filter(function(k){return st.days[k]>0;}).sort();
+    var spanDays=0;
+    if(st.firstSuccessAt&&st.lastSuccessAt)spanDays=Math.floor((st.lastSuccessAt-st.firstSuccessAt)/86400000)+1;
+    return Object.assign({},st,{activeDays:days.length,calendarDays:days,spanDays:spanDays});
+  }
+  async function storageV2Readiness(){
+    var shadow=await verifyShadow();
+    var candidate=await verifyAuthorityCandidate();
+    var soak=storageV2SoakStats();
+    var promotion=authorityPromotionStatus();
+    var checks={
+      hardGateStillOff:promotion.enabled===false,
+      shadowCurrent:!!(shadow&&shadow.match),
+      candidateCurrent:!!(candidate&&candidate.match),
+      candidateCryptoVerified:!!(candidate&&candidate.cryptoVerified),
+      noVerificationMismatch:(soak.verificationMismatches||0)===0,
+      noCandidateFailure:(soak.failedCommits||0)===0,
+      enoughVerifiedCommits:(soak.verifiedMatches||0)>=300,
+      enoughActiveDays:(soak.activeDays||0)>=3,
+      noRestoreRecoveryFailure:!(promotion.restoreRecovery&&/failed|invalid/.test(String(promotion.restoreRecovery.state||"")))
+    };
+    var eligible=Object.keys(checks).every(function(k){return checks[k]===true;});
+    return {eligible:eligible,checks:checks,soak:soak,shadow:shadow,candidate:candidate,promotion:promotion,policy:{minimumVerifiedCommits:300,minimumActiveDays:3,automaticPromotion:false}};
+  }
 
   function _storageV2FastChecksum(text){
     text=String(text==null?"":text);
@@ -1788,6 +1865,7 @@
     authorityCandidateStatus:authorityCandidateStatus, verifyAuthorityCandidate:verifyAuthorityCandidate, authorityCandidateSnapshotMeta:authorityCandidateSnapshotMeta,
     // storage-v2 Phase 2 promotion diagnostics; switch is compile-time disabled pending soak
     authorityPromotionStatus:authorityPromotionStatus, authorityReconcileNow:authorityReconcileNow, authorityReadSwitchEnabled:authorityReadSwitchEnabled,
+    storageV2SoakStats:storageV2SoakStats, storageV2Readiness:storageV2Readiness,
     // legacy compat
     loadKey:loadKey, saveKey:saveKey,
     // ui
