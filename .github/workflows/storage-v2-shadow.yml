@@ -41,8 +41,10 @@ jobs:
           found=0
           for f in tests/test_*.js; do
             [ -e "$f" ] || continue
-            # Until rehearsal is promoted, this test is covered by the preview job.
             if [ "$f" = "tests/test_storage_authority_rehearsal_integration.js" ] && ! grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then
+              continue
+            fi
+            if [ "$f" = "tests/test_storage_authority_switch_preview.js" ] && ! grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
               continue
             fi
             found=1
@@ -59,8 +61,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Phase 1 remains asymmetric even during Phase 2 rehearsal: localStorage
-          # is the sole gameplay read authority.
           grep -q 'var ok = safeSet(STORE_KEY, serialized)' shared/storage.js
           grep -q '_queueShadow(serialized,_storeGeneration())' shared/storage.js
           if grep -Eq 'Q4BStorageShadow\.(latest|verify)\([^)]*\).*safeSet\(STORE_KEY' shared/storage.js; then
@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
 
-  phase2-rehearsal-preview:
+  phase2-rehearsal-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -80,36 +80,68 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Ensure Phase 2 rehearsal integration
+      - name: Verify Phase 2 rehearsal integration
         shell: bash
         run: |
           set -euo pipefail
-          if grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js; then
-            echo "Rehearsal already integrated; validating committed source."
+          grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js
+          grep -q '_queueAuthorityCandidate(serialized,_storeGeneration())' shared/storage.js
+          grep -q 'authorityCandidateStatus:authorityCandidateStatus' shared/storage.js
+
+      - name: Run rehearsal storage regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in tests/test_storage*.js; do
+            [ -e "$f" ] || continue
+            if [ "$f" = "tests/test_storage_authority_switch_preview.js" ] && ! grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
+              continue
+            fi
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+
+  phase2-read-switch-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Ensure disabled read-authority switch scaffold
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q "storage-v2 Phase 2 read-authority switch (disabled)" shared/storage.js; then
+            echo "Disabled switch scaffold already integrated; validating committed source."
           else
-            node tools/apply_storage_v2_authority_rehearsal.js
+            node tools/apply_storage_v2_authority_switch_disabled.js
           fi
 
-      - name: Validate rehearsal diff and invariants
+      - name: Validate hard gate and restore safeguards
         shell: bash
         run: |
           set -euo pipefail
           git diff --check
-          grep -q "storage-v2 Phase 2 authority rehearsal" shared/storage.js
-          grep -q '_queueAuthorityCandidate(serialized,_storeGeneration())' shared/storage.js
-          grep -q 'authorityCandidateStatus:authorityCandidateStatus' shared/storage.js
-          # Rehearsal wiring may write into candidate IDB but must never feed candidate
-          # records into the gameplay localStorage authority.
-          if git diff -- shared/storage.js | grep '^+' | grep -Eq 'authorityCandidate.*safeSet\(STORE_KEY|Q4BStorageAuthorityCandidate.*safeSet\(STORE_KEY'; then
-            echo "Potential candidate-to-gameplay restore path detected" >&2
+          grep -q 'var __authorityReadsEnabled=false;' shared/storage.js
+          grep -q 'AUTHORITY_RESTORE_TXN_KEY="q4b_storage_v2_restore_txn_v1"' shared/storage.js
+          grep -q 'authorityReadSwitchEnabled:authorityReadSwitchEnabled' shared/storage.js
+          if grep -q 'var __authorityReadsEnabled=true;' shared/storage.js; then
+            echo "Read-authority hard gate unexpectedly enabled" >&2
             exit 1
           fi
 
-      - name: Run full regression suite against rehearsal source
+      - name: Run storage regressions against disabled switch source
         shell: bash
         run: |
           set -euo pipefail
-          for f in tests/test_*.js; do
+          for f in tests/test_storage*.js; do
             [ -e "$f" ] || continue
             echo "::group::$f"
             node "$f"
