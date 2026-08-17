@@ -120,8 +120,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout
+      - name: Sparse checkout browser test inputs
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            shared
+            tests/browser
 
       - name: Locate installed Chromium browser
         id: chrome
