@@ -34,11 +34,11 @@ Legend: `NOT STARTED` / `IN PROGRESS` / `READY FOR SOAK` / `BLOCKED` / `DONE`
 | Phase | Scope | Status | Current result | Next gate |
 |---|---|---|---|---|
 | 0 | Architecture / branch isolation | **DONE** | Dedicated branch created; main untouched | keep branch rebased/merged from main periodically |
-| 1A | Standalone IndexedDB shadow module | **DONE** | `shared/storage_shadow.js` + tests added | CI + integration hook |
-| 1B | Shadow write hook from `storage.js` | **NOT STARTED** | localStorage still sole code path | add best-effort post-persist hook |
-| 1C | Boot backfill | **NOT STARTED** | no automatic backfill yet | enqueue current legacy payload after boot |
-| 1D | Developer diagnostics | **PARTIAL** | shadow module has verification primitives | expose through `QuestSave` without UI changes |
-| 1E | Automated regression + soak | **NOT STARTED** | existing tests present, no branch CI yet | add branch CI and run all storage regressions |
+| 1A | Standalone IndexedDB shadow module | **DONE** | module + failure/coalescing tests; CI green | maintain under soak CI |
+| 1B | Shadow write hook from `storage.js` | **READY FOR SOAK** | best-effort post-legacy-success shadow write integrated on migration branch | real-browser equality soak |
+| 1C | Boot backfill | **READY FOR SOAK** | existing `q4b_store_v1` is mirrored after boot; no reverse restore | browser wipe/backfill test |
+| 1D | Developer diagnostics | **READY FOR SOAK** | `shadowStatus()`, `verifyShadow()`, `shadowSnapshotMeta()` exposed | use during household soak |
+| 1E | Automated regression + soak | **IN PROGRESS** | branch soak CI + full regression + public contract tests green; real-browser soak pending | sustained household/browser verification |
 | 2A | IndexedDB becomes local read authority | **NOT STARTED** | prohibited during Phase 1 | requires Phase 1 soak exit criteria |
 | 2B | localStorage rollback mirror | **NOT STARTED** | existing store remains authoritative today | dual-write after promotion |
 | 2C | migration/rollback hardening | **NOT STARTED** | export/import already exists | explicit IDB↔legacy recovery tests |
@@ -60,11 +60,11 @@ Legend: `NOT STARTED` / `IN PROGRESS` / `READY FOR SOAK` / `BLOCKED` / `DONE`
 - [x] Added `tests/test_storage_shadow.js`.
 - [x] Shadow module is non-authoritative and has no gameplay read path.
 - [x] Shadow record includes generation, payload size, timestamp, and deterministic checksum.
-- [ ] Add branch-specific CI.
-- [ ] Freeze/test the `QuestSave` public contract.
-- [ ] Wire successful `persist()` to shadow queue.
-- [ ] Add boot backfill.
-- [ ] Expose developer-only verification through `QuestSave`.
+- [x] Add branch-specific CI; now running in Phase 1 soak mode.
+- [x] Freeze/test the `QuestSave` public contract.
+- [x] Wire successful `persist()` to shadow queue after authoritative legacy success.
+- [x] Add boot backfill (legacy → shadow only).
+- [x] Expose developer-only verification through `QuestSave`.
 - [ ] Perform real-browser soak before changing read authority.
 
 ### Maintenance rule for this table
@@ -155,7 +155,7 @@ Therefore:
 
 ## Phase 1A — Standalone shadow module
 
-**Status: DONE (code exists; CI still to be added)**
+**Status: DONE — standalone tests and branch CI green**
 
 File: `shared/storage_shadow.js`
 
@@ -194,13 +194,13 @@ Current checksum is an equality diagnostic, not a cryptographic integrity guaran
 - [x] payload metadata is deterministic;
 - [x] shadow read cannot affect gameplay;
 - [x] write failures remain local to module;
-- [ ] branch CI executes the shadow tests successfully.
+- [x] branch CI executes the shadow tests successfully.
 
 ---
 
 ## Phase 1B — Minimal persistence hook
 
-**Status: NOT STARTED**
+**Status: READY FOR SOAK — integrated on `agent/storage-v2-shadow`**
 
 Modify only the persistence boundary in `shared/storage.js`.
 
@@ -250,17 +250,17 @@ Requirements for loader:
 
 ### Phase 1B exit criteria
 
-- [ ] all legacy save tests unchanged/green;
-- [ ] `persist()` return behavior unchanged;
-- [ ] IndexedDB blocked/unavailable does not alter legacy save result;
-- [ ] rapid repeated saves coalesce shadow writes;
-- [ ] generation written to shadow corresponds to the successfully persisted legacy generation.
+- [x] all legacy save tests unchanged/green;
+- [x] `persist()` return behavior unchanged in automated regression/integration tests;
+- [x] IndexedDB blocked/unavailable does not alter legacy save result in failure-isolation tests;
+- [x] rapid repeated saves coalesce shadow writes;
+- [x] generation written to shadow corresponds to the successfully persisted legacy generation in integration tests.
 
 ---
 
 ## Phase 1C — Boot backfill
 
-**Status: NOT STARTED**
+**Status: READY FOR SOAK — integrated, reverse restore intentionally absent**
 
 Once the legacy store is loaded and normalized, enqueue one authoritative snapshot into shadow storage.
 
@@ -274,17 +274,17 @@ Important: this is **backfill only**, never restore.
 
 ### Phase 1C exit criteria
 
-- [ ] old localStorage-only fixture produces shadow after boot;
-- [ ] no user-visible prompt;
+- [x] old localStorage-only fixture produces shadow after boot in integration test;
+- [x] no user-visible prompt is introduced by the backfill path;
 - [ ] no mutation of legacy payload beyond existing normalization rules;
 - [ ] deleting IndexedDB and rebooting recreates the mirror;
-- [ ] deleting legacy localStorage does **not** restore from IndexedDB in Phase 1.
+- [x] code/CI authority guard confirms there is no IndexedDB → legacy automatic restore path in Phase 1; browser-level destructive test still belongs to soak.
 
 ---
 
 ## Phase 1D — Developer diagnostics
 
-**Status: PARTIAL**
+**Status: READY FOR SOAK — integrated and covered by regression tests**
 
 Expose developer-only methods via `QuestSave`:
 
@@ -315,16 +315,16 @@ No normal child UI should expose this during Phase 1.
 
 ### Phase 1D exit criteria
 
-- [ ] one console call can prove current shadow equality;
-- [ ] mismatch is diagnostic-only;
-- [ ] diagnostics never mutate either copy;
-- [ ] unsupported IndexedDB produces structured result rather than an uncaught exception.
+- [x] `QuestSave.verifyShadow()` can prove current shadow equality;
+- [x] mismatch is diagnostic-only;
+- [x] diagnostics never mutate either copy by design/test;
+- [x] unsupported/failing IndexedDB produces structured diagnostics rather than an uncaught exception.
 
 ---
 
 ## Phase 1E — Regression CI and real-use soak
 
-**Status: NOT STARTED**
+**Status: IN PROGRESS — automated portion green; real-browser/household soak remains**
 
 ### Automated regression
 
@@ -374,13 +374,13 @@ This criterion is intentionally event/behavior based rather than tied to Komoreb
 
 Phase 2 may begin only when all are true:
 
-- [ ] branch CI green;
-- [ ] public `QuestSave` contract test green;
-- [ ] no shadow failure can affect legacy persistence;
+- [x] branch CI green;
+- [x] public `QuestSave` contract test green;
+- [x] automated failure-isolation test confirms shadow failure does not affect legacy persistence;
 - [ ] real-browser shadow equality observed during sustained use;
 - [ ] IndexedDB wipe/backfill scenario verified;
 - [ ] legacy wipe does not trigger unauthorized restore;
-- [ ] rollback is still simply “disable shadow hook”.
+- [x] rollback is still simply “disable shadow hook”; localStorage remains sole authority.
 
 ---
 
@@ -781,4 +781,15 @@ Branch comparison immediately after scaffold: 3 commits ahead of `main`, 0 behin
 
 This document expanded to cover Phase 0–5, Cloudflare R2/D1 architecture, Komorebi parallel-development rules, phase exit criteria, immediate work queue, decision log, and progress dashboard.
 
-Next recommended implementation step: branch CI + `QuestSave` contract test, then Phase 1B hook.
+Next recommended implementation step: real-browser/household Phase 1 soak using `QuestSave.verifyShadow()`, while continuing Komorebi work on `main`. Do not start Phase 2 authority promotion until soak exit criteria pass.
+
+
+### 2026-08-17 — Phase 1B/1C/1D promoted to migration branch
+
+- Branch CI and QuestSave contract regression were established and green.
+- The deterministic integration preview was tested repeatedly against the full Node regression suite before promotion.
+- The guarded shallow-checkout promotion workflow re-applied the exact patch, ran diff validation and the full regression suite, then committed the tested `shared/storage.js` to `agent/storage-v2-shadow`.
+- `shared/storage.js` now queues a best-effort IndexedDB shadow only after successful legacy persistence, performs boot backfill from legacy to shadow, and exposes read-only shadow diagnostics.
+- `localStorage/q4b_store_v1` remains the sole gameplay authority. There is no IndexedDB-to-legacy automatic restore path in Phase 1.
+- CI was then switched from integration-preview mode to Phase 1 soak mode, where every branch push verifies the authority invariant and runs the full Node regression suite.
+- Remaining Phase 1 gate: real-browser/household soak and destructive browser scenarios (IndexedDB wipe/backfill, sustained checksum equality).
