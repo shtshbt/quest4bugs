@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  node-regression:
+  source-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -22,7 +22,48 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Run Quest4Bugs Node regression tests
+      - name: Run current-source regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          for f in tests/test_*.js; do
+            [ -e "$f" ] || continue
+            # This test targets the generated Phase 1B/1C/1D preview below.
+            [ "$f" = "tests/test_storage_shadow_integration.js" ] && continue
+            found=1
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+          if [ "$found" -ne 1 ]; then
+            echo "No tests/test_*.js files found" >&2
+            exit 1
+          fi
+
+  phase1-integration-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Apply deterministic Phase 1B/1C/1D patch
+        run: node tools/apply_storage_v2_shadow_hook.js
+
+      - name: Show generated storage.js diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          git diff -- shared/storage.js
+
+      - name: Run full regression suite against integrated preview
         shell: bash
         run: |
           set -euo pipefail
