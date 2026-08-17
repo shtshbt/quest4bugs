@@ -77,7 +77,20 @@ replaceRequired(
   "next step"
 );
 
-s += `\n\n### 2026-08-17 — Phase 1B/1C/1D promoted to migration branch\n\n- Branch CI and QuestSave contract regression were established and green.\n- The deterministic integration preview was tested repeatedly against the full Node regression suite before promotion.\n- The guarded shallow-checkout promotion workflow re-applied the exact patch, ran diff validation and the full regression suite, then committed the tested `shared/storage.js` to `agent/storage-v2-shadow`.\n- `shared/storage.js` now queues a best-effort IndexedDB shadow only after successful legacy persistence, performs boot backfill from legacy to shadow, and exposes read-only shadow diagnostics.\n- `localStorage/q4b_store_v1` remains the sole gameplay authority. There is no IndexedDB-to-legacy automatic restore path in Phase 1.\n- CI was then switched from integration-preview mode to Phase 1 soak mode, where every branch push verifies the authority invariant and runs the full Node regression suite.\n- Remaining Phase 1 gate: real-browser/household soak and destructive browser scenarios (IndexedDB wipe/backfill, sustained checksum equality).\n`;
+s += [
+  "",
+  "",
+  "### 2026-08-17 — Phase 1B/1C/1D promoted to migration branch",
+  "",
+  "- Branch CI and QuestSave contract regression were established and green.",
+  "- The deterministic integration preview was tested repeatedly against the full Node regression suite before promotion.",
+  "- The guarded shallow-checkout promotion workflow re-applied the exact patch, ran diff validation and the full regression suite, then committed the tested `shared/storage.js` to `agent/storage-v2-shadow`.",
+  "- `shared/storage.js` now queues a best-effort IndexedDB shadow only after successful legacy persistence, performs boot backfill from legacy to shadow, and exposes read-only shadow diagnostics.",
+  "- `localStorage/q4b_store_v1` remains the sole gameplay authority. There is no IndexedDB-to-legacy automatic restore path in Phase 1.",
+  "- CI was then switched from integration-preview mode to Phase 1 soak mode, where every branch push verifies the authority invariant and runs the full Node regression suite.",
+  "- Remaining Phase 1 gate: real-browser/household soak and destructive browser scenarios (IndexedDB wipe/backfill, sustained checksum equality).",
+  ""
+].join("\n");
 
 fs.writeFileSync(file, s);
 console.log("Updated storage-v2 Phase 1 progress tracker");
