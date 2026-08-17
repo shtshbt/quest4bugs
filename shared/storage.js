@@ -165,6 +165,96 @@
     });
   }
 
+  /* ---------------- storage-v2 Phase 2 authority rehearsal ----------------
+     This is still non-authoritative in Phase 1. The candidate IndexedDB receives
+     successful legacy generations through a serialized/coalescing queue so the
+     exact future WAL->IDB commit path is exercised without any gameplay reads. */
+  var __authorityLoadPromise=null;
+  var __authorityLoadError=null;
+  var __authorityPending=null;
+  var __authorityRunning=false;
+  var __authorityLastResult=null;
+  var __authorityLastCommitAt=0;
+  function _authorityScriptUrl(){
+    if(!__storageScriptSrc)return null;
+    return __storageScriptSrc.replace(/storage\.js(?:\?.*)?$/,"storage_authority.js");
+  }
+  function _loadAuthorityCandidate(){
+    if(global.Q4BStorageAuthorityCandidate)return Promise.resolve(global.Q4BStorageAuthorityCandidate);
+    if(__authorityLoadPromise)return __authorityLoadPromise;
+    var d=global.document, url=_authorityScriptUrl();
+    if(!d||!d.createElement||!url)return Promise.resolve(null);
+    __authorityLoadPromise=new Promise(function(resolve){
+      try{
+        var s=d.createElement("script");
+        s.src=url; s.async=true;
+        s.onload=function(){ resolve(global.Q4BStorageAuthorityCandidate||null); };
+        s.onerror=function(){ __authorityLoadError="storage_authority.js load failed"; resolve(null); };
+        var host=d.head||d.documentElement||d.body;
+        if(!host||!host.appendChild){ __authorityLoadError="no script host"; resolve(null); return; }
+        host.appendChild(s);
+      }catch(e){ __authorityLoadError=(e&&e.message)||String(e); resolve(null); }
+    });
+    return __authorityLoadPromise;
+  }
+  function _drainAuthorityCandidate(){
+    if(__authorityRunning)return;
+    __authorityRunning=true;
+    _loadAuthorityCandidate().then(async function(api){
+      if(!api){ __authorityPending=null; return; }
+      while(__authorityPending){
+        var next=__authorityPending;
+        __authorityPending=null;
+        try{
+          __authorityLastResult=await api.commit(next.payload,next.generation,{reason:"phase1-rehearsal"});
+          __authorityLastCommitAt=Date.now();
+        }catch(e){
+          __authorityLoadError=(e&&e.message)||String(e);
+          __authorityLastResult={ok:false,reason:"rehearsal-exception",error:__authorityLoadError};
+        }
+      }
+    }).catch(function(e){
+      __authorityLoadError=(e&&e.message)||String(e);
+      __authorityPending=null;
+    }).then(function(){
+      __authorityRunning=false;
+      if(__authorityPending)_drainAuthorityCandidate();
+    });
+  }
+  function _queueAuthorityCandidate(payload,generation){
+    if(payload===null||payload===undefined)return false;
+    __authorityPending={payload:String(payload),generation:String(generation==null?"0":generation)};
+    _drainAuthorityCandidate();
+    return true;
+  }
+  function authorityCandidateStatus(){
+    return _loadAuthorityCandidate().then(function(api){
+      var base=api?api.status():{supported:false};
+      base.loaded=!!api;
+      base.pending=!!__authorityPending;
+      base.running=__authorityRunning;
+      base.loaderError=__authorityLoadError;
+      base.lastResult=__authorityLastResult;
+      base.lastCommitAt=__authorityLastCommitAt;
+      return base;
+    });
+  }
+  function verifyAuthorityCandidate(){
+    var payload=safeGet(STORE_KEY,null), generation=_storeGeneration();
+    return _loadAuthorityCandidate().then(function(api){
+      if(!api)return {supported:false,exists:false,match:false,error:__authorityLoadError||"authority candidate unavailable"};
+      return api.verifyLegacy(payload,generation);
+    });
+  }
+  function authorityCandidateSnapshotMeta(){
+    return _loadAuthorityCandidate().then(async function(api){
+      if(!api)return {supported:false,exists:false,error:__authorityLoadError||"authority candidate unavailable"};
+      var a=await api.authority(), r=await api.rollback();
+      function meta(x){return x?{generation:x.sourceGeneration,writtenAt:x.writtenAt,payloadBytes:x.payloadBytes,checksum:x.checksum,sha256:x.sha256||null}:null;}
+      return {supported:true,exists:!!a,authority:meta(a),rollback:meta(r)};
+    });
+  }
+
   function now(){return Date.now();}
   function pad2(n){return (n<10?"0":"")+n;}
   function stamp(){
@@ -278,6 +368,7 @@
       if(safeSet(STORE_GEN_KEY,String(nextGeneration)))memGeneration=String(nextGeneration);
       /* Phase 1: shadow is strictly post-legacy-success and never awaited. */
       _queueShadow(serialized,_storeGeneration());
+      _queueAuthorityCandidate(serialized,_storeGeneration());
     }
     if(!ok){
       __saveDegraded = true;
@@ -1502,6 +1593,9 @@
   /* Phase 1C: existing legacy saves receive a mirror without a gameplay write.
      This is backfill only; no IndexedDB -> localStorage restoration exists here. */
   _shadowBackfill();
+  /* Phase 2 rehearsal: seed/replay candidate from the current synchronous WAL.
+     Candidate state is never read back into gameplay during Phase 1. */
+  (function(){var p=safeGet(STORE_KEY,null);if(p!==null)_queueAuthorityCandidate(p,_storeGeneration());})();
   /* PA-1: 起動時は同期成功実績で初期 status を決める。 lastSuccess があり 24h 以内
      なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。 */
   (function(){
@@ -1541,6 +1635,8 @@
     pushAll:pushAll, pullAll:pullAll, syncDown:syncDown, exportAll:exportAll, importAll:importAll,
     // storage-v2 Phase 1 diagnostics (read-only; never restore)
     shadowStatus:shadowStatus, verifyShadow:verifyShadow, shadowSnapshotMeta:shadowSnapshotMeta,
+    // storage-v2 Phase 2 rehearsal diagnostics (candidate never feeds gameplay in Phase 1)
+    authorityCandidateStatus:authorityCandidateStatus, verifyAuthorityCandidate:verifyAuthorityCandidate, authorityCandidateSnapshotMeta:authorityCandidateSnapshotMeta,
     // legacy compat
     loadKey:loadKey, saveKey:saveKey,
     // ui
