@@ -1,0 +1,40 @@
+name: Storage v2 shadow tests
+
+on:
+  push:
+    branches:
+      - agent/storage-v2-shadow
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  node-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run Quest4Bugs Node regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          for f in tests/test_*.js; do
+            [ -e "$f" ] || continue
+            found=1
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+          if [ "$found" -ne 1 ]; then
+            echo "No tests/test_*.js files found" >&2
+            exit 1
+          fi
