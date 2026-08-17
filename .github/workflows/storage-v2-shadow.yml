@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  source-regression:
+  phase1-soak-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -22,48 +22,19 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Run current-source regression tests
+      - name: Verify Phase 1 integration is present
         shell: bash
         run: |
           set -euo pipefail
-          found=0
-          for f in tests/test_*.js; do
-            [ -e "$f" ] || continue
-            # This test targets the generated Phase 1B/1C/1D preview below.
-            [ "$f" = "tests/test_storage_shadow_integration.js" ] && continue
-            found=1
-            echo "::group::$f"
-            node "$f"
-            echo "::endgroup::"
-          done
-          if [ "$found" -ne 1 ]; then
-            echo "No tests/test_*.js files found" >&2
-            exit 1
-          fi
+          grep -q "storage-v2 Phase 1 shadow mirror" shared/storage.js
+          grep -q "shadowStatus:shadowStatus" shared/storage.js
+          grep -q "verifyShadow:verifyShadow" shared/storage.js
+          grep -q "shadowSnapshotMeta:shadowSnapshotMeta" shared/storage.js
 
-  phase1-integration-preview:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Check repository diff hygiene
+        run: git diff --check
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Apply deterministic Phase 1B/1C/1D patch
-        run: node tools/apply_storage_v2_shadow_hook.js
-
-      - name: Show generated storage.js diff
-        shell: bash
-        run: |
-          set -euo pipefail
-          git diff --check
-          git diff -- shared/storage.js
-
-      - name: Run full regression suite against integrated preview
+      - name: Run full Quest4Bugs Node regression suite
         shell: bash
         run: |
           set -euo pipefail
@@ -80,10 +51,15 @@ jobs:
             exit 1
           fi
 
-      - name: Upload tested integrated storage.js
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: storage-v2-integrated-preview
-          path: shared/storage.js
-          retention-days: 3
+      - name: Guard Phase 1 authority invariant
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Phase 1 must remain asymmetric: localStorage is authoritative and the
+          # shadow module must not restore or feed IndexedDB state into gameplay.
+          grep -q 'var ok = safeSet(STORE_KEY, serialized)' shared/storage.js
+          grep -q '_queueShadow(serialized,_storeGeneration())' shared/storage.js
+          if grep -Eq 'Q4BStorageShadow\.(latest|verify)\([^)]*\).*safeSet\(STORE_KEY' shared/storage.js; then
+            echo "Potential shadow-to-legacy automatic restore detected" >&2
+            exit 1
+          fi
