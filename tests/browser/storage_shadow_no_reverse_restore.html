@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Q4B storage shadow no reverse restore browser smoke</title>
+<pre id="result">RUNNING</pre>
+<script>
+(async function(){
+  const out = document.getElementById("result");
+  function fail(msg){ out.textContent = "FAIL " + msg; document.documentElement.dataset.test="fail"; }
+  try{
+    localStorage.clear();
+    await new Promise((resolve,reject) => {
+      const del = indexedDB.deleteDatabase("q4b_shadow_v1");
+      del.onsuccess = del.onerror = del.onblocked = () => resolve();
+    });
+    const payload = JSON.stringify({v:2,profiles:[{id:"p-shadow",name:"OnlyShadow"}],current:"p-shadow",kv:{},tombstones:{}});
+    await new Promise((resolve,reject) => {
+      const req = indexedDB.open("q4b_shadow_v1",1);
+      req.onupgradeneeded = () => {
+        if(!req.result.objectStoreNames.contains("snapshots")) req.result.createObjectStore("snapshots",{keyPath:"id"});
+      };
+      req.onerror = () => reject(req.error || new Error("seed open failed"));
+      req.onsuccess = () => {
+        const db = req.result;
+        const tx = db.transaction("snapshots","readwrite");
+        tx.objectStore("snapshots").put({id:"authoritative",mirrorSchema:1,sourceStoreKey:"q4b_store_v1",sourceGeneration:"99",writtenAt:Date.now(),payload:payload,payloadBytes:payload.length,checksum:"seed"});
+        tx.oncomplete = () => { db.close(); resolve(); };
+        tx.onerror = () => reject(tx.error || new Error("seed write failed"));
+      };
+    });
+    const script = document.createElement("script");
+    script.src = "../../shared/storage.js";
+    script.onload = async () => {
+      try{
+        await new Promise(r => setTimeout(r, 500));
+        if(localStorage.getItem("q4b_store_v1") !== null) return fail("shadow silently restored legacy store");
+        const verify = await QuestSave.verifyShadow();
+        if(verify.match) return fail("verify should not report match when legacy is absent");
+        out.textContent = "PASS no-reverse-restore legacy-remains-absent";
+        document.documentElement.dataset.test="pass";
+      }catch(e){ fail(e && e.stack ? e.stack : String(e)); }
+    };
+    script.onerror = () => fail("storage.js failed to load");
+    document.head.appendChild(script);
+  }catch(e){ fail(e && e.stack ? e.stack : String(e)); }
+})();
+</script>
