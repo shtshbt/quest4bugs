@@ -202,11 +202,11 @@
             return;
           }
           if(incomingGen === currentGen && currentIntegrity.ok){
-            if(samePayload){
-              decision={ok:true,changed:false,reason:"already-current",generation:current.sourceGeneration,checksum:current.checksum};
+            if(samePayload && !opts.forceSameGeneration){
+              decision={ok:true,changed:false,reason:"already-current",generation:current.sourceGeneration,checksum:current.checksum,sha256:current.sha256||null};
               return;
             }
-            if(!opts.forceSameGeneration){
+            if(!samePayload && !opts.forceSameGeneration){
               decision={ok:false,reason:"same-generation-divergence",authorityGeneration:current.sourceGeneration,incomingGeneration:incoming.sourceGeneration,authorityChecksum:current.checksum,incomingChecksum:incoming.checksum};
               try{tx.abort();}catch(_){}
               return;
@@ -220,7 +220,8 @@
             return;
           }
           try{
-            var rollbackRecord=Object.assign({},current,{id:ROLLBACK_ID,rollbackSavedAt:Date.now(),rollbackReason:opts.reason||"authority-replaced",rollbackCorrupt:!currentIntegrity.ok,rollbackIntegrityError:currentIntegrity.ok?null:currentIntegrity.error});
+            var integrityError=opts.repairIntegrityError||(!currentIntegrity.ok?currentIntegrity.error:null);
+            var rollbackRecord=Object.assign({},current,{id:ROLLBACK_ID,rollbackSavedAt:Date.now(),rollbackReason:opts.reason||"authority-replaced",rollbackCorrupt:!!integrityError,rollbackIntegrityError:integrityError});
             store.put(rollbackRecord);
           }catch(e2){ recordFailure(e2); try{tx.abort();}catch(_){} return; }
         }
@@ -291,7 +292,7 @@
          record while preserving the raw corrupt record as rollback evidence. */
       var rawGen=generationNumber(raw.sourceGeneration), legacyGen=generationNumber(legacyGeneration);
       if(legacyExists && legacyGen>=rawGen){
-        var repaired=await commit(legacyPayload,legacyGeneration,{reason:"repair-corrupt-authority",forceSameGeneration:true});
+        var repaired=await commit(legacyPayload,legacyGeneration,{reason:"repair-corrupt-authority",forceSameGeneration:true,repairIntegrityError:verified.error});
         return Object.assign({action:repaired.ok?"repair-corrupt-authority":"repair-corrupt-authority-failed",previousIntegrityError:verified.error},repaired);
       }
       return {ok:false,action:"invalid-authority",error:verified.error,authorityGeneration:raw.sourceGeneration==null?null:String(raw.sourceGeneration),legacyGeneration:String(legacyGeneration==null?"0":legacyGeneration)};
