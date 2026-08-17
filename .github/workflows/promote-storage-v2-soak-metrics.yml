@@ -1,0 +1,75 @@
+name: Promote storage v2 soak metrics
+
+on:
+  push:
+    branches:
+      - agent/storage-v2-shadow
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    if: contains(github.event.head_commit.message, '[promote-storage-v2-soak-metrics]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Sparse checkout migration inputs
+        uses: actions/checkout@v4
+        with:
+          ref: agent/storage-v2-shadow
+          fetch-depth: 1
+          sparse-checkout: |
+            shared
+            tests
+            tools
+            .github
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Refuse duplicate soak metrics integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q "storage-v2 sustained soak metrics" shared/storage.js; then
+            echo "Soak metrics already integrated" >&2
+            exit 1
+          fi
+
+      - name: Apply deterministic soak metrics patch
+        run: node tools/apply_storage_v2_soak_metrics.js
+
+      - name: Validate safety gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          grep -q 'SOAK_STATS_KEY="q4b_storage_v2_soak_stats_v1"' shared/storage.js
+          grep -q 'storageV2Readiness:storageV2Readiness' shared/storage.js
+          grep -q 'automaticPromotion:false' shared/storage.js
+          grep -q 'var __authorityReadsEnabled=false;' shared/storage.js
+
+      - name: Run storage regression suite before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in tests/test_storage*.js; do
+            [ -e "$f" ] || continue
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+
+      - name: Commit tested soak metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add shared/storage.js
+          git diff --cached --quiet && { echo "No storage.js changes to commit" >&2; exit 1; }
+          git commit -m "integrate storage v2 sustained soak metrics"
+          git push origin HEAD:agent/storage-v2-shadow
