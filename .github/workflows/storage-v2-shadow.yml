@@ -236,6 +236,7 @@ jobs:
           run_page storage_shadow_backfill.html "PASS shadow-backfill"
           run_page storage_shadow_no_reverse_restore.html "PASS no-reverse-restore"
           run_page storage_authority_candidate.html "PASS phase2-authority-candidate"
+          run_page storage_authority_read_switch_enabled_copy.html "PASS enabled-copy authority restore"
 
       - name: Stop localhost server
         if: always()
