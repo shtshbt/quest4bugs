@@ -71,7 +71,7 @@ Legend: `NOT STARTED` / `IN PROGRESS` / `READY FOR SOAK` / `BLOCKED` / `DONE`
 - [x] Authority records are validated by schema, byte length, checksum, and SHA-256 before any future restore.
 - [x] Partial authority→cache restore is transaction-marker protected and rolls back on failure/next boot.
 - [x] Automatic sustained-soak metrics/readiness report is integrated; no automatic promotion is permitted.
-- [x] One-shot promotion/progress workflows were removed after use; permanent CI remains.
+- [x] One-shot promotion/progress workflows and trigger notes removed after use; permanent CI remains.
 - [ ] Perform sustained household soak before changing read authority.
 
 ### Maintenance rule for this table
@@ -690,7 +690,7 @@ Cloud restore is never the only copy. A restore operation must generate a pre-re
 7. crash-safe authority→cache restore transaction;
 8. automatic soak metrics/readiness reporting;
 9. real-browser enabled-copy test of future authority restore;
-10. cleanup of one-shot migration workflows.
+10. cleanup of one-shot migration workflows and trigger notes.
 
 ### Current gate
 
