@@ -149,7 +149,8 @@ async function waitUntil(fn, timeout=1000){
     assert.equal(ctx.__local.backing.get("q4b_store_gen"),"10");
     assert.equal(ctx.__local.backing.has("q4b_storage_v2_restore_txn_v1"),false);
     assert.equal(ctx.QuestSave.authorityPromotionStatus().restoreRecovery.state,"partial-rollback");
-    assert.equal((await ctx.QuestSave.currentProfile()).name,"old10");
+    assert.equal(ctx.QuestSave.currentProfile(),"p1");
+    assert.equal((await ctx.QuestSave.profiles())[0].name,"old10");
   }
 
   // Same-generation conflict never mutates the local cache. Bootstrap unlocks
