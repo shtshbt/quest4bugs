@@ -737,16 +737,122 @@
     return {profile:p,changed:changed};
   }
 
+  /* --- 保存の競合解決 --------------------------------------------------------
+     二台で遊んで CAS が弾かれたときの突き合わせ。捕獲は append-only の union で、
+     メダル経済の追加データも同じ扱いにする。local の丸ごとコピーで返すと、remote
+     側の奉納・道具・メダルが黙って消え、「獲得の記録は不滅」(tools_design 2 章
+     不変条件 4 と 6) が競合経路だけ守られない。
+     方針は 1 つ: どちらの側の記録も減らさない。判断に迷う場面では多い側・進んだ側を
+     採り、少しの取りすぎは許して取りこぼしを許さない。 */
+
+  function objectOf(value){return isObject(value)?value:{};}
+
+  /* 奉納ログの union。鍵は cat + 周回 + 日付。奉納は 1 カテゴリ 1 周につき 1 回なので
+     普段は cat + lap で足りるが、同じ周回を別の日に捧げた記録 (競合中の二重奉納) が
+     来たときは、片方を消すより 2 行残すほうを選ぶ。並びは日付順に寄せる。 */
+  function mergeUroLogs(localLog,remoteLog){
+    var seen=Object.create(null),merged=[];
+    (Array.isArray(remoteLog)?remoteLog:[]).concat(Array.isArray(localLog)?localLog:[]).forEach(function(entry){
+      if(!isObject(entry))return;
+      var key=entry.cat+"|"+entry.lap+"|"+entry.date;
+      if(seen[key])return;
+      seen[key]=true;
+      merged.push(entry);
+    });
+    merged.sort(function(a,b){
+      if(a.date!==b.date)return a.date<b.date?-1:1;
+      if(a.cat!==b.cat)return a.cat<b.cat?-1:1;
+      return (a.lap||0)-(b.lap||0);
+    });
+    return merged;
+  }
+
+  /* 道具は種類ごとに、個体を失わない側を丸ごと採る。件数の多い側、同数なら残耐久の
+     合計が大きい側。片方で壊れた 1 本が古い写しで戻ることはあるが、逆 (授かった
+     1 本が競合で消える) は起こさない。コレクションを奪う操作は存在しない。 */
+  function mergeToolBoxes(localTools,remoteTools){
+    function group(list){
+      var byType=Object.create(null);
+      (Array.isArray(list)?list:[]).forEach(function(entry){
+        if(!isObject(entry)||typeof entry.type!=="string")return;
+        (byType[entry.type]||(byType[entry.type]=[])).push(entry);
+      });
+      return byType;
+    }
+    function total(list){
+      return list.reduce(function(sum,entry){return sum+(Number.isFinite(entry.remaining)?entry.remaining:0);},0);
+    }
+    var local=group(localTools),remote=group(remoteTools),seen=Object.create(null),merged=[];
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(type){
+      if(seen[type])return;
+      seen[type]=true;
+      var mine=local[type]||[],theirs=remote[type]||[];
+      var keep=mine.length!==theirs.length
+        ?(mine.length>theirs.length?mine:theirs)
+        :(total(theirs)>total(mine)?theirs:mine);
+      merged=merged.concat(keep);
+    });
+    return merged;
+  }
+
+  /* メダルは再授与しないので、記録が 1 つでもある側を残す。同じ銘が両側にあるときは
+     先に成立したほうの日付を採る (あとから来た写しで獲得日を書き換えない)。 */
+  function mergeTrophies(localTrophies,remoteTrophies){
+    var merged={},local=objectOf(localTrophies),remote=objectOf(remoteTrophies);
+    Object.keys(remote).forEach(function(id){merged[id]=remote[id];});
+    Object.keys(local).forEach(function(id){
+      var mine=local[id],theirs=merged[id];
+      if(!theirs||String(mine.at)<String(theirs.at))merged[id]=mine;
+    });
+    return merged;
+  }
+
+  /* 安定判定の窓は進んだ側 (有効回答が多い側) を残す。20 問ぶんの積み上げを
+     競合で捨てると、鋳造が理由なく遠のく。 */
+  function mergeTrophyProgress(localProgress,remoteProgress){
+    var merged={},local=objectOf(localProgress),remote=objectOf(remoteProgress);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      var mine=local[cat],theirs=merged[cat];
+      if(!theirs||(isObject(mine)&&(mine.n||0)>=((isObject(theirs)&&theirs.n)||0)))merged[cat]=mine;
+    });
+    return merged;
+  }
+
+  /* Lv10 クリア時刻はリセット周回のロックの起点。遅いほうを採る = 直近のクリアを
+     採る。早いほうを採ると、片方の端末の古い記録でロックが先に明ける。 */
+  function mergeClearTimes(localTimes,remoteTimes){
+    var merged={},local=objectOf(localTimes),remote=objectOf(remoteTimes);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      if(!merged[cat]||String(local[cat])>String(merged[cat]))merged[cat]=local[cat];
+    });
+    return merged;
+  }
+
+  /* カテゴリごとの整数は大きいほうを採る (到達 Lv、周回数、鋳造済み周回)。
+     いずれも「そこまで進んだ」という記録で、下がることはない。 */
+  function mergeMaxByCat(localMap,remoteMap){
+    var merged={},local=objectOf(localMap),remote=objectOf(remoteMap);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      var mine=local[cat],theirs=merged[cat];
+      if(!Number.isFinite(theirs)||(Number.isFinite(mine)&&mine>theirs))merged[cat]=mine;
+    });
+    return merged;
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
     var merged=JSON.parse(JSON.stringify(localProfile)), catches={};
+    var remote=isObject(remoteProfile)?remoteProfile:{};
     Object.keys(remoteCatches).concat(Object.keys(localCatches)).forEach(function(id){
       if(catches[id])return;
-      var remote=remoteCatches[id], local=localCatches[id], entry={}, key;
-      if(remote)for(key in remote)entry[key]=remote[key];
+      var remoteEntry=remoteCatches[id], local=localCatches[id], entry={}, key;
+      if(remoteEntry)for(key in remoteEntry)entry[key]=remoteEntry[key];
       if(local)for(key in local)entry[key]=local[key];
-      entry.records=(remote&&remote.records||[]).concat(local&&local.records||[]);
+      entry.records=(remoteEntry&&remoteEntry.records||[]).concat(local&&local.records||[]);
       entry.n=entry.records.length;
       var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
       if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
@@ -754,6 +860,21 @@
     });
     merged.collection.catches=catches;
     merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
+    merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
+    merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
+    merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
+    merged.trophyProgress=mergeTrophyProgress(localProfile&&localProfile.trophyProgress,remote.trophyProgress);
+    merged.lv10ClearAt=mergeClearTimes(localProfile&&localProfile.lv10ClearAt,remote.lv10ClearAt);
+    merged.maxLv=mergeMaxByCat(localProfile&&localProfile.maxLv,remote.maxLv);
+    /* 装備は 1 枠なので union できない。local を優先し、統合後の道具箱に本体が
+       無ければ remote の装備、それも無ければ外す (normalizeProfile と同じ自己修復)。
+       道具そのものは残っているので、外れても選び直せば済む。 */
+    var owned=Object.create(null);
+    merged.tools.forEach(function(entry){owned[entry.type]=true;});
+    var wanted=[localProfile&&localProfile.equippedToolId,remote.equippedToolId].filter(function(type){
+      return typeof type==="string"&&owned[type];
+    });
+    merged.equippedToolId=wanted.length?wanted[0]:null;
     return merged;
   }
 
@@ -2900,6 +3021,9 @@
     collectionConfig:COLLECTION_CONFIG,
     createProfile:createProfile,
     normalizeProfile:normalizeProfile,
+    /* 保存の競合解決。二台で遊んだときにだけ通る経路なので、実機では滅多に踏まない。
+       テストから直接叩けないと、記録が消えないことを確かめる手段が無くなる。 */
+    mergeProfiles:mergeProfileCatches,
     validateVolume:validateVolume,
     qualifiesForGauge:qualifiesForGauge,
     drawCapture:drawCapture,
