@@ -242,23 +242,36 @@ test("15.5 the trophy species stays catchable exactly as before", () => {
 
 test("15.5 every trophy points at a real species of a real volume", () => {
   const catalog = new Map(context.Q4B_BUGS.map(species => [species.id, species]));
-  const inVolume = new Set(volume.species.map(species => species.id));
+  /* 代表虫は「その cat を投入した巻の中の種」。地域ごとに巻の種を束ねて引く
+     (地域の巻は I / II / III と増えるので、1 巻に閉じた判定にしない)。 */
+  const byRegion = new Map();
+  Object.keys(context.Q4B_KOMOREBI_VOLUMES).forEach(key => {
+    const vol = context.Q4B_KOMOREBI_VOLUMES[key];
+    if(!byRegion.has(vol.regionId)) byRegion.set(vol.regionId, new Set());
+    const bucket = byRegion.get(vol.regionId);
+    vol.species.forEach(species => bucket.add(species.id));
+  });
   trophies.list().forEach(trophy => {
     assert.ok(komorebi.categories[trophy.cat], trophy.trophyId + " names an unknown category");
     const sp = catalog.get(trophy.speciesId);
     assert.ok(sp, trophy.trophyId + " names a species that is not in bugs.js");
-    assert.equal(inVolume.has(trophy.speciesId), true, trophy.trophyId + " names a species outside its volume");
+    const bucket = byRegion.get(trophy.regionId);
+    assert.ok(bucket, trophy.trophyId + " names a region without volumes");
+    assert.equal(bucket.has(trophy.speciesId), true, trophy.trophyId + " names a species outside its volume");
     /* 金色化は色の差し替えだけ。素材を用意しない (ui_design 6 章)。 */
     const gold = trophies.goldSpecies(sp);
     assert.deepEqual(gold.colors, trophies.goldColors);
     assert.deepEqual(sp.colors, catalog.get(trophy.speciesId).colors, "the catalog entry was mutated");
     assert.ok(context.Q4BReward.svg(gold, false).length > 100, "the gold species does not render");
   });
-  /* トロフィーは volume の freeze 時に代表虫を凍結するので、未公開カテゴリには
-     まだ存在しない。公開済みのカテゴリが 1 個ずつ持っていることを見る。 */
+  /* 事前準備方式 (runbook 1 章) なので、未公開の更新のトロフィーも先に入っている。
+     見るのは「公開済みのカテゴリが 1 個ずつ持っていること」と「重複がないこと」。 */
   const released = Object.keys(komorebi.categories).filter(komorebi.isReleased);
-  assert.equal(trophies.list().length, released.length, "every released category needs exactly one trophy");
   released.forEach(cat => assert.ok(trophies.forCat(cat), cat + " has no trophy"));
+  const cats = trophies.list().map(trophy => trophy.cat);
+  assert.equal(new Set(cats).size, cats.length, "two trophies share one category");
+  const ids = trophies.list().map(trophy => trophy.trophyId);
+  assert.equal(new Set(ids).size, ids.length, "two trophies share one id");
 });
 
 console.log("RESULT " + passed + " passed, 0 failed");
