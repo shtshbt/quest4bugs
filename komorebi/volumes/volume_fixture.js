@@ -45,7 +45,8 @@
   /* オーストラリア遠征 I = 更新 2 の巻 (release_linkage 2 章)。2026-08-17 freeze。
      選抜と レア度の根拠は zukan_foundry/reports/au_expedition1_freeze_draft.md。
      命名済み 97 種から写真品質で 13 種を落として 84 種、配分は マダガスカル遠征 I の
-     実カウントに合わせて N 57 / R 17 / SR 帯 10 (看板 papilio_ulysses のみ SSR)。
+     実カウントに合わせて N 57 / R 17 / SR 帯 10。SR 帯の内訳も揃えてあり、
+     SSR 3 (看板 papilio_ulysses + 非看板 2) / SR 7。
      frozen なので以後この配列と denominator は増やさない (決定 4)。 */
   volumes.volume_fixture_australia={
     id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",
@@ -57,14 +58,14 @@
     frozen:true, denominator:84,
     species:[
       {id:"papilio_ulysses", rarity:"SSR", flagship:true},
+      {id:"lamprima_aurata", rarity:"SSR", flagship:false},
+      {id:"podacanthus_viridiroseus", rarity:"SSR", flagship:false},
       {id:"chrysolopus_spectabilis", rarity:"SR", flagship:false},
       {id:"dasypodia_selenophora", rarity:"SR", flagship:false},
       {id:"eupoecila_australasiae", rarity:"SR", flagship:false},
       {id:"extatosoma_tiaratum", rarity:"SR", flagship:false},
-      {id:"lamprima_aurata", rarity:"SR", flagship:false},
       {id:"myrmecia_forficata", rarity:"SR", flagship:false},
       {id:"papilio_aegeus", rarity:"SR", flagship:false},
-      {id:"podacanthus_viridiroseus", rarity:"SR", flagship:false},
       {id:"tectocoris_diophthalmus", rarity:"SR", flagship:false},
       {id:"acripeza_reticulata", rarity:"R", flagship:false},
       {id:"acrophylla_titan", rarity:"R", flagship:false},

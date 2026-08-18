@@ -31,8 +31,8 @@
        未割当の SR 予備: papilio_aegeus、tectocoris_diophthalmus、
        eupoecila_australasiae、dasypodia_selenophora、myrmecia_forficata。 */
     {trophyId:"australia_diagram_model",cat:"kom_diagram_model",speciesId:"papilio_ulysses",regionId:"australia",regionName:"オーストラリアえんせい"},        // 看板 (SSR) ウリッセスアゲハ
-    {trophyId:"australia_unit_convert",cat:"kom_unit_convert",speciesId:"podacanthus_viridiroseus",regionId:"australia",regionName:"オーストラリアえんせい"},  // SR ベニバネナナフシ
-    {trophyId:"australia_kuku_ura",cat:"kom_kuku_ura",speciesId:"lamprima_aurata",regionId:"australia",regionName:"オーストラリアえんせい"},                 // SR アウラタキンイロクワガタ
+    {trophyId:"australia_unit_convert",cat:"kom_unit_convert",speciesId:"podacanthus_viridiroseus",regionId:"australia",regionName:"オーストラリアえんせい"},  // SSR ベニバネナナフシ
+    {trophyId:"australia_kuku_ura",cat:"kom_kuku_ura",speciesId:"lamprima_aurata",regionId:"australia",regionName:"オーストラリアえんせい"},                 // SSR アウラタキンイロクワガタ
     {trophyId:"australia_kuku_dan3",cat:"kom_kuku_dan3",speciesId:"extatosoma_tiaratum",regionId:"australia",regionName:"オーストラリアえんせい"},           // SR ユウレイヒレアシナナフシ
     {trophyId:"australia_kuku_dan4",cat:"kom_kuku_dan4",speciesId:"chrysolopus_spectabilis",regionId:"australia",regionName:"オーストラリアえんせい"}        // SR ホシゾラゾウムシ
   ];
