@@ -1,0 +1,27 @@
+const fs = require('fs');
+
+const path = 'shared/storage.js';
+let src = fs.readFileSync(path, 'utf8');
+
+if (src.includes('storage-v2 remote soak diagnostics')) {
+  console.log('remote diagnostics already integrated');
+  process.exit(0);
+}
+
+const scheduleNeedle = '    _writeSoakStats(st);\n    return st;';
+if (!src.includes(scheduleNeedle)) throw new Error('soak result marker not found');
+src = src.replace(scheduleNeedle, '    _writeSoakStats(st);\n    _scheduleStorageV2RemoteDiagnostics();\n    return st;');
+
+const insertNeedle = '  function _storageV2FastChecksum(text){';
+if (!src.includes(insertNeedle)) throw new Error('storage v2 insertion marker not found');
+
+const block = `  /* ---------------- storage-v2 remote soak diagnostics ----------------\n     Monitoring only: uploads aggregate migration counters/checks to the already-configured\n     private Fieldnote GitHub repository. No profiles, answers, collection state, save payload,\n     checksum, or other child/game data is included. Failure is always non-fatal. */\n  var __storageV2DiagTimer=null;\n  var __storageV2DiagLastPushAt=0;\n  var __storageV2DiagLastError=null;\n  var STORAGE_V2_DIAG_MIN_INTERVAL_MS=5*60*1000;\n  function _storageV2MonitorId(){\n    var k=\"q4b_storage_v2_monitor_id_v1\", v=safeGet(k,null);\n    if(v)return v;\n    v=\"m\"+Math.random().toString(36).slice(2,10)+\"-\"+Date.now().toString(36);\n    try{safeSet(k,v);}catch(_){}\n    return v;\n  }\n  function _storageV2DiagPath(cfg){\n    return basePath(cfg)+\"/diagnostics/storage-v2/\"+escPathPart(_storageV2MonitorId())+\".json\";\n  }\n  function _storageV2DiagDoc(readiness){\n    var soak=(readiness&&readiness.soak)||storageV2SoakStats();\n    var promotion=(readiness&&readiness.promotion)||authorityPromotionStatus();\n    return {\n      schema:\"quest4bugs.storage-v2-diagnostics.v1\",\n      recordedAt:Date.now(),\n      monitorId:_storageV2MonitorId(),\n      hardGateEnabled:!!(promotion&&promotion.enabled),\n      eligible:!!(readiness&&readiness.eligible),\n      checks:(readiness&&readiness.checks)||{},\n      soak:{\n        successfulCommits:soak.successfulCommits||0,\n        verifiedMatches:soak.verifiedMatches||0,\n        verificationMismatches:soak.verificationMismatches||0,\n        failedCommits:soak.failedCommits||0,\n        repairs:soak.repairs||0,\n        staleRejects:soak.staleRejects||0,\n        conflicts:soak.conflicts||0,\n        consecutiveVerified:soak.consecutiveVerified||0,\n        activeDays:soak.activeDays||0,\n        spanDays:soak.spanDays||0,\n        firstSuccessAt:soak.firstSuccessAt||0,\n        lastSuccessAt:soak.lastSuccessAt||0,\n        lastFailureAt:soak.lastFailureAt||0,\n        lastGeneration:soak.lastGeneration||null,\n        lastError:soak.lastError||null\n      }\n    };\n  }\n  async function pushStorageV2RemoteDiagnosticsNow(){\n    try{\n      var cfg=getConfig();\n      if(!cfg.enabled)return {ok:false,skipped:true,reason:\"github-sync-disabled\"};\n      var readiness=await storageV2Readiness();\n      var doc=_storageV2DiagDoc(readiness);\n      var p=_storageV2DiagPath(cfg), remote=null, attempt=0, res=null;\n      for(attempt=0;attempt<3;attempt++){\n        remote=await githubGet(cfg,p);\n        var body={message:\"storage-v2 diagnostics \"+stamp(),content:stringToBase64(JSON.stringify(doc,null,2))};\n        if(remote&&remote.sha)body.sha=remote.sha;\n        res=await fetch(githubUrl(cfg,p),{method:\"PUT\",headers:Object.assign({\"Content-Type\":\"application/json\"},authHeaders(cfg)),body:JSON.stringify(body)});\n        if(res.ok){\n          __storageV2DiagLastPushAt=Date.now();\n          __storageV2DiagLastError=null;\n          return {ok:true,path:p,recordedAt:doc.recordedAt,verifiedMatches:doc.soak.verifiedMatches,activeDays:doc.soak.activeDays,eligible:doc.eligible};\n        }\n        if(res.status===409||res.status===422){await sleep(200*(attempt+1));continue;}\n        throw new Error(\"diagnostics PUT failed: \"+res.status);\n      }\n      throw new Error(\"diagnostics PUT conflict retries exhausted\");\n    }catch(e){\n      __storageV2DiagLastError=(e&&e.message)||String(e);\n      return {ok:false,error:__storageV2DiagLastError};\n    }\n  }\n  function _scheduleStorageV2RemoteDiagnostics(){\n    try{if(!getConfig().enabled)return;}catch(_){return;}\n    if(__storageV2DiagTimer)return;\n    var elapsed=Date.now()-(__storageV2DiagLastPushAt||0);\n    var delay=__storageV2DiagLastPushAt?Math.max(30000,STORAGE_V2_DIAG_MIN_INTERVAL_MS-elapsed):30000;\n    __storageV2DiagTimer=setTimeout(function(){\n      __storageV2DiagTimer=null;\n      pushStorageV2RemoteDiagnosticsNow().catch(function(){});\n    },delay);\n  }\n  function storageV2RemoteDiagnosticsStatus(){\n    return {enabled:!!getConfig().enabled,monitorId:_storageV2MonitorId(),lastPushAt:__storageV2DiagLastPushAt,lastError:__storageV2DiagLastError,minIntervalMs:STORAGE_V2_DIAG_MIN_INTERVAL_MS};\n  }\n\n`;
+
+src = src.replace(insertNeedle, block + insertNeedle);
+
+const exportNeedle = 'storageV2Readiness:storageV2Readiness';
+if (!src.includes(exportNeedle)) throw new Error('QuestSave export marker not found');
+src = src.replace(exportNeedle, exportNeedle + ',pushStorageV2RemoteDiagnosticsNow:pushStorageV2RemoteDiagnosticsNow,storageV2RemoteDiagnosticsStatus:storageV2RemoteDiagnosticsStatus');
+
+fs.writeFileSync(path, src);
+console.log('integrated storage-v2 remote diagnostics');
