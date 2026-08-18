@@ -10,9 +10,8 @@ const path = require("node:path");
 const { bootKomorebi, plainText, KOMOREBI_FILES } = require("./fake_dom.js");
 
 const root = path.resolve(__dirname, "..");
+/* engine と generator は KOMOREBI_FILES の既定に入っている (更新 2 で公開するため)。 */
 const files = KOMOREBI_FILES.slice();
-files.splice(files.indexOf("komorebi/trophies.js"), 0,
-  "komorebi/diagram_engine.js", "komorebi/diagram_model_generator.js");
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 function seeded(seed){
@@ -126,12 +125,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.match(plain(), /かいせつ/, "解説カード (explainCard) がフィードバックに出ていない");
   }
 
-  test("the category is implemented behind release 9", () => {
+  test("the category is implemented behind release 2", () => {
+    /* 2026-08-17 決定: 受験 ROI 優先で release 9 から 2 へ前倒し。
+       更新 2 (オーストラリア遠征 I) の k10 枠を単位換算と 2 本立てにする。 */
     assert.equal(komorebi.categories.kom_diagram_model.course, "k10");
     assert.equal(komorebi.categories.kom_diagram_model.name, "数量関係の図化");
     assert.equal(komorebi.categories.kom_diagram_model.maxLv, 10);
-    assert.equal(komorebi.categories.kom_diagram_model.release, 9);
-    assert.equal(komorebi.isReleased("kom_diagram_model"), false);
+    assert.equal(komorebi.categories.kom_diagram_model.release, 2);
+    assert.equal(komorebi.isReleased("kom_diagram_model"), false, "CURRENT_RELEASE が 2 未満のうちは画面に出さない");
     assert.ok(komorebi.sessionStarters.kom_diagram_model);
   });
 

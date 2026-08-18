@@ -23,7 +23,10 @@
        release 9 なので CURRENT_RELEASE=1 の画面には一切出ない。 */
     kom_ratio_forms:{course:"k10",name:"割合の表現変換",maxLv:10,release:9},
     kom_johou_seiri:{course:"k10",name:"情報整理",maxLv:10,release:9},
-    kom_diagram_model:{course:"k10",name:"数量関係の図化",maxLv:10,release:9},
+    /* 図化だけ release 9 から 2 へ前倒し (2026-08-17 決定)。受験 ROI が 3 本の中で
+       最も高く、線分図・面積図・表は割合と速さの土台になるため、更新 2 の k10 枠を
+       単位換算と 2 本立てにする。engine + generator は index.html で読込み済み。 */
+    kom_diagram_model:{course:"k10",name:"数量関係の図化",maxLv:10,release:2},
     kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:4},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
