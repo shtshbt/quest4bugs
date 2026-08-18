@@ -99,6 +99,21 @@ git push origin main
   --dedup-strategy skip --resume --no-merge --io-workers 2
 ```
 
+### fetch 統合 round の launcher (tools/fetch_round/)
+
+freeze draft 3 本の対象を 1 コマンドで撃つ入口。既定は dry-run で、対象を数えて
+`zukan_foundry/rounds/<date>/species.json` と `manifest.md` を書くだけ。batch は
+`--execute` を明示したときだけ起動する。
+
+```bash
+tools/fetch_round/run_fetch_round.sh                     # 対象を列挙 (既定 dry-run)
+tools/fetch_round/run_fetch_round.sh --waves borneo_w1 --execute
+```
+
+対象は borneo 優先順 4 波 + 予備 96 種、mg 4.2 の追加 fetch 44 種と再取得 16 種、
+au 5 章の差し替え候補 8 種。名前はレポートの表から機械的に読むので、レポートを
+編集したら `zukan_foundry/tests/test_build_round_list.py` を回して整合を見る。
+
 ### Tier 順 (skill 内蔵)
 1-5. Museum (GBIF: USNM / NHMUK / RMNH / MNHN / etc) — CC0 / CC-BY-4.0
 6. Wikimedia Commons (WMC)

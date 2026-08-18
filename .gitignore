@@ -23,3 +23,6 @@ zukan_cards/_pipeline/
 zukan_cards/_inbox/
 zukan_cards/_archive/
 __pycache__/
+
+# fetch round の実行ログ (species.json と manifest.md は残す)
+zukan_foundry/rounds/*/batch_*.log
