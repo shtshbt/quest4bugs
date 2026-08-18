@@ -1,0 +1,74 @@
+{
+  "species_id": "cosmodes_elegans",
+  "species_ja": "Cosmodes elegans",
+  "scientific_name": "Cosmodes elegans",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cosmodes elegans female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cosmodes_elegans_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cosmodes_elegans_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2011-10-19 23:54:23",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Female specimen of Cosmodes elegans photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cosmodes_elegans_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Cosmodes_elegans_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCosmodeselegansfemalejpg_resized.jpg",
+    "display": "processed/WMCFileCosmodeselegansfemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCosmodeselegansfemalejpg_54.webp",
+      "108": "thumb/WMCFileCosmodeselegansfemalejpg_108.webp",
+      "216": "thumb/WMCFileCosmodeselegansfemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "2312d27d0454825a63f357b4152e90fba8ca8a02534051148f57ee8164a7b6f4",
+  "processing": {
+    "cropBox": [
+      0,
+      3,
+      600,
+      367
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCosmodeselegansfemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

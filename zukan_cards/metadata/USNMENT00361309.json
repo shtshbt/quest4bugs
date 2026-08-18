@@ -1,0 +1,76 @@
+{
+  "species_id": "ictinogomphus_australis",
+  "species_ja": "Ictinogomphus australis",
+  "scientific_name": "Ictinogomphus australis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00361309",
+    "occurrenceId": "http://n2t.net/ark:/65665/351bfb33c-7bd7-4c23-98e9-7302ed2bed0a",
+    "persistentId": "http://n2t.net/ark:/65665/351bfb33c-7bd7-4c23-98e9-7302ed2bed0a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "W. Stuber",
+    "eventDate": "1930",
+    "eventYear": 1930,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Hollandia, Indonesia",
+    "preparations": "Envelope",
+    "decimalLatitude": -2.5331,
+    "decimalLongitude": 140.717
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319050839",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319050839",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16349534&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00361309_resized.jpg",
+    "display": "processed/USNMENT00361309_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00361309_54.webp",
+      "108": "thumb/USNMENT00361309_108.webp",
+      "216": "thumb/USNMENT00361309_216.webp"
+    }
+  },
+  "original_sha256": "976bb130c727bb0b9afb898e8d6f72568c0a74a8324247d3c7e7ea0a083eecd2",
+  "processing": {
+    "cropBox": [
+      612,
+      403,
+      1413,
+      898
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00361309_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

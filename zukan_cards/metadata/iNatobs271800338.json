@@ -1,0 +1,80 @@
+{
+  "species_id": "austrosipyloidea_carterus",
+  "species_ja": "Austrosipyloidea carterus",
+  "scientific_name": "Austrosipyloidea carterus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "rich_fuller (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_271800338",
+    "occurrenceId": "https://www.inaturalist.org/observations/271800338",
+    "persistentId": "https://www.inaturalist.org/observations/271800338",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "rich_fuller",
+    "eventDate": "2025-04-20",
+    "eventYear": 2025,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Beaudesert QLD 4285, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -28.0164366164,
+    "decimalLongitude": 153.0142373272,
+    "coordinatesObscured": false,
+    "iNatObservationId": "271800338",
+    "iNatPhotoId": "488922166",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/271800338",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/488922166/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs271800338_resized.jpg",
+    "display": "processed/iNatobs271800338_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs271800338_54.webp",
+      "108": "thumb/iNatobs271800338_108.webp",
+      "216": "thumb/iNatobs271800338_216.webp"
+    }
+  },
+  "original_sha256": "4a7ae06175fc43c7d5c3c8eb6ded934c0d7d359ba41562599cdaa6d8a1c0b134",
+  "processing": {
+    "cropBox": [
+      196,
+      292,
+      1600,
+      1200
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs271800338_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

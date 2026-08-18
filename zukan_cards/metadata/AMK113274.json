@@ -1,0 +1,76 @@
+{
+  "species_id": "anoplognathus_viridiaeneus",
+  "species_ja": "Anoplognathus viridiaeneus",
+  "scientific_name": "Anoplognathus viridiaeneus",
+  "credit_line": "Australian Museum",
+  "creator": "Miles Hale",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.113274",
+    "occurrenceId": "3fbbab60-4784-4cca-a18d-2a7b0d09ff91",
+    "persistentId": "3fbbab60-4784-4cca-a18d-2a7b0d09ff91",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Daniels",
+    "eventDate": "1979-02-03",
+    "eventYear": 1979,
+    "country": "Australia",
+    "localityVerbatim": "Sabugal Knoll, Engadine",
+    "localityNormalized": "Sabugal Knoll, Engadine, Australia",
+    "preparations": null,
+    "decimalLatitude": -34.06,
+    "decimalLongitude": 150.98389
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100172917",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100172917",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=6bc7e21e-86bb-4ed6-baa2-70a0d70f0279",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK113274_resized.jpg",
+    "display": "processed/AMK113274_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK113274_54.webp",
+      "108": "thumb/AMK113274_108.webp",
+      "216": "thumb/AMK113274_216.webp"
+    }
+  },
+  "original_sha256": "d9ce6335ff5b83cbff299dc227179c51770c93f37b9c85e358dc76ec7a79c947",
+  "processing": {
+    "cropBox": [
+      117,
+      2,
+      378,
+      377
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK113274_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "oechalia_schellenbergii",
+  "species_ja": "Oechalia schellenbergii",
+  "scientific_name": "Oechalia schellenbergii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Glenda Walter",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Oechalia schellenbergii 63084710.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Oechalia_schellenbergii_63084710.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Oechalia_schellenbergii_63084710.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Glenda Walter",
+    "eventDate": "2020-03-07",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Schellenberg's soldier bug (Oechalia schellenbergii)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Oechalia_schellenbergii_63084710.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Oechalia_schellenbergii_63084710.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileOechaliaschellenbergii63084710jpg_resized.jpg",
+    "display": "processed/WMCFileOechaliaschellenbergii63084710jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOechaliaschellenbergii63084710jpg_54.webp",
+      "108": "thumb/WMCFileOechaliaschellenbergii63084710jpg_108.webp",
+      "216": "thumb/WMCFileOechaliaschellenbergii63084710jpg_216.webp"
+    }
+  },
+  "original_sha256": "b584f28605390b2e3cf562fcec3ec7ca12941ea121b9a5e475eee407e83cb574",
+  "processing": {
+    "cropBox": [
+      257,
+      77,
+      808,
+      673
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOechaliaschellenbergii63084710jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

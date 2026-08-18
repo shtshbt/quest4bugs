@@ -1,0 +1,74 @@
+{
+  "species_id": "acrossidius_tasmaniae",
+  "species_ja": "Acrossidius tasmaniae",
+  "scientific_name": "Acrossidius tasmaniae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Desmond W. Helmore",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:COLE Scarabaeidae Acrossidius tasmaniae.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Acrossidius_tasmaniae.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Acrossidius_tasmaniae.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Desmond W. Helmore",
+    "eventDate": "1975–2000",
+    "eventYear": 1975,
+    "country": null,
+    "localityVerbatim": "(Coleoptera: Scarabaeidae) Acrossidius tasmaniae illustrated by Des Helmore.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Acrossidius_tasmaniae.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/COLE_Scarabaeidae_Acrossidius_tasmaniae.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_resized.jpg",
+    "display": "processed/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_54.webp",
+      "108": "thumb/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_108.webp",
+      "216": "thumb/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_216.webp"
+    }
+  },
+  "original_sha256": "014818ead7d6e76a507c5838c83c7857935f77ec16bc8fdb43594fc5462d1fb8",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3134,
+      4104
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCOLEScarabaeidaeAcrossidiustasmaniaepng_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

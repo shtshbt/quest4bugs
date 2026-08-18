@@ -1,0 +1,74 @@
+{
+  "species_id": "hierodula_werneri",
+  "species_ja": "Hierodula werneri",
+  "scientific_name": "Hierodula werneri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "(c) Lachlan Copeland, some rights reserved (CC BY-SA)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hierodula werneri, Middle Point NT 0822, Australia imported from iNaturalist photo 523873292.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hierodula_werneri,_Middle_Point_NT_0822,_Australia_imported_from_iNaturalist_photo_523873292.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hierodula_werneri,_Middle_Point_NT_0822,_Australia_imported_from_iNaturalist_photo_523873292.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "(c) Lachlan Copeland, some rights reserved (CC BY-SA)",
+    "eventDate": "16 May 2025",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Photo of Hierodula werneri (undefined) uploaded from iNaturalist.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hierodula_werneri,_Middle_Point_NT_0822,_Australia_imported_from_iNaturalist_photo_523873292.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Hierodula_werneri%2C_Middle_Point_NT_0822%2C_Australia_imported_from_iNaturalist_photo_523873292.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_resized.jpg",
+    "display": "processed/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_54.webp",
+      "108": "thumb/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_108.webp",
+      "216": "thumb/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_216.webp"
+    }
+  },
+  "original_sha256": "19b15e65b18eb2b49b206dc56aeeb5b9f75181e930e86c8386fdde447e2ca36a",
+  "processing": {
+    "cropBox": [
+      111,
+      255,
+      2048,
+      1248
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHierodulawerneriMiddlePointNT0822AustraliaimportedfromiNaturalistphoto523873292jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

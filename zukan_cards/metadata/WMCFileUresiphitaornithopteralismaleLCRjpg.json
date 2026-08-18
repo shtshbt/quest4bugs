@@ -1,0 +1,74 @@
+{
+  "species_id": "uresiphita_ornithopteralis",
+  "species_ja": "Uresiphita ornithopteralis",
+  "scientific_name": "Uresiphita ornithopteralis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Uresiphita ornithopteralis male LCR.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Uresiphita_ornithopteralis_male_LCR.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Uresiphita_ornithopteralis_male_LCR.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2015-05-19 23:24:32",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Male specimen of Uresiphita ornithopteralis photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Uresiphita_ornithopteralis_male_LCR.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Uresiphita_ornithopteralis_male_LCR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileUresiphitaornithopteralismaleLCRjpg_resized.jpg",
+    "display": "processed/WMCFileUresiphitaornithopteralismaleLCRjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileUresiphitaornithopteralismaleLCRjpg_54.webp",
+      "108": "thumb/WMCFileUresiphitaornithopteralismaleLCRjpg_108.webp",
+      "216": "thumb/WMCFileUresiphitaornithopteralismaleLCRjpg_216.webp"
+    }
+  },
+  "original_sha256": "07268dd13783e5fb324ff9cde25fac3c588de35bae3bb36968661e7385566813",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      600,
+      413
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileUresiphitaornithopteralismaleLCRjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

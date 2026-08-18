@@ -1,0 +1,74 @@
+{
+  "species_id": "paropsisterna_cloelia",
+  "species_ja": "Paropsisterna cloelia",
+  "scientific_name": "Paropsisterna cloelia",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Zoe Quested",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Paropsisterna cloelia.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Paropsisterna_cloelia.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Paropsisterna_cloelia.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Zoe Quested",
+    "eventDate": "2019-09-20",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Eucalyptus Variegated Beetle (Paropsisterna cloelia). Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Paropsisterna_cloelia.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Paropsisterna_cloelia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileParopsisternacloeliajpg_resized.jpg",
+    "display": "processed/WMCFileParopsisternacloeliajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileParopsisternacloeliajpg_54.webp",
+      "108": "thumb/WMCFileParopsisternacloeliajpg_108.webp",
+      "216": "thumb/WMCFileParopsisternacloeliajpg_216.webp"
+    }
+  },
+  "original_sha256": "f2be6a079dc73e34110fee75801fb3fdc3fe2731b27cb4bcf5a67effd07a2d02",
+  "processing": {
+    "cropBox": [
+      304,
+      786,
+      1111,
+      1803
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileParopsisternacloeliajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

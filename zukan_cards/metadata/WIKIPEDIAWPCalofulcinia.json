@@ -1,0 +1,74 @@
+{
+  "species_id": "calofulcinia_paraoxypila",
+  "species_ja": "Calofulcinia paraoxypila",
+  "scientific_name": "Calofulcinia paraoxypila",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Plates: Dru Drury (1725–1803). Text: John Obadiah Westwood (1805–1893)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Calofulcinia",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Calofulcinia",
+    "persistentId": "https://en.wikipedia.org/wiki/Calofulcinia",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Plates: Dru Drury (1725–1803). Text: John Obadiah Westwood (1805–1893)",
+    "eventDate": "1782",
+    "eventYear": 1782,
+    "country": null,
+    "localityVerbatim": "Plate XLIII. 1. MANTIS (HARPAX) OCELLARIA (= Pseudocreobotra ocellata).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Calofulcinia",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Pseudocreobotra_ocellata.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPCalofulcinia_resized.jpg",
+    "display": "processed/WIKIPEDIAWPCalofulcinia_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPCalofulcinia_54.webp",
+      "108": "thumb/WIKIPEDIAWPCalofulcinia_108.webp",
+      "216": "thumb/WIKIPEDIAWPCalofulcinia_216.webp"
+    }
+  },
+  "original_sha256": "fc254483c5aa1a2d50867a76662224fa24f664a654ee283573e7b2d690e3905e",
+  "processing": {
+    "cropBox": [
+      23,
+      0,
+      862,
+      660
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPCalofulcinia_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

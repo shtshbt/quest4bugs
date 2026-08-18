@@ -1,0 +1,74 @@
+{
+  "species_id": "onchestus_rentzi",
+  "species_ja": "Onchestus rentzi",
+  "scientific_name": "Onchestus rentzi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "BJinsect (talk) 20:33, 29 June 2008 (UTC)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Onchestus rentzi.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Onchestus_rentzi.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Onchestus_rentzi.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "BJinsect (talk) 20:33, 29 June 2008 (UTC)",
+    "eventDate": "30/June/2008",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "two, male and female onchestus rentzi pinned, photo taken at the QLD museum, brisbane, southbank.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Onchestus_rentzi.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Onchestus_rentzi.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileOnchestusrentziJPG_resized.jpg",
+    "display": "processed/WMCFileOnchestusrentziJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOnchestusrentziJPG_54.webp",
+      "108": "thumb/WMCFileOnchestusrentziJPG_108.webp",
+      "216": "thumb/WMCFileOnchestusrentziJPG_216.webp"
+    }
+  },
+  "original_sha256": "4c7d127244ccc61257c1ed0a56c67a885cefe7cee249fa65b4e60327245630f0",
+  "processing": {
+    "cropBox": [
+      292,
+      0,
+      1866,
+      1944
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOnchestusrentziJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "candovia_granulosa",
+  "species_ja": "Candovia granulosa",
+  "scientific_name": "Candovia granulosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Greg Tasney",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Candovia granulosa 455227903.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Candovia_granulosa_455227903.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Candovia_granulosa_455227903.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Greg Tasney",
+    "eventDate": "2024-12-02",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Granulated Candovia (Candovia granulosa) in Australia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Candovia_granulosa_455227903.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Candovia_granulosa_455227903.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCandoviagranulosa455227903jpg_resized.jpg",
+    "display": "processed/WMCFileCandoviagranulosa455227903jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCandoviagranulosa455227903jpg_54.webp",
+      "108": "thumb/WMCFileCandoviagranulosa455227903jpg_108.webp",
+      "216": "thumb/WMCFileCandoviagranulosa455227903jpg_216.webp"
+    }
+  },
+  "original_sha256": "bc30f66e9d54fee29ac390e075f71c9669f998f2f4ec0020a13359eb1d7c60c2",
+  "processing": {
+    "cropBox": [
+      314,
+      0,
+      1992,
+      1483
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCandoviagranulosa455227903jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

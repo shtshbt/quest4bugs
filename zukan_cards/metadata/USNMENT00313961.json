@@ -1,0 +1,76 @@
+{
+  "species_id": "orthetrum_villosovittatum",
+  "species_ja": "Orthetrum villosovittatum",
+  "scientific_name": "Orthetrum villosovittatum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00313961",
+    "occurrenceId": "http://n2t.net/ark:/65665/3b6000f84-39f4-4824-9feb-af85ba713dcf",
+    "persistentId": "http://n2t.net/ark:/65665/3b6000f84-39f4-4824-9feb-af85ba713dcf",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Kennedy",
+    "eventDate": "1977-11-17",
+    "eventYear": 1977,
+    "country": "Solomon Islands",
+    "localityVerbatim": null,
+    "localityNormalized": "creek off Mantaniku River, Honiara, Solomon Islands",
+    "preparations": "Envelope",
+    "decimalLatitude": -9.44148,
+    "decimalLongitude": 159.961
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321317621",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321317621",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16373452&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00313961_resized.jpg",
+    "display": "processed/USNMENT00313961_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00313961_54.webp",
+      "108": "thumb/USNMENT00313961_108.webp",
+      "216": "thumb/USNMENT00313961_216.webp"
+    }
+  },
+  "original_sha256": "89a57056ac03d2a5b7566f0bb62dc1b001162e73164d417086d1491a9664f188",
+  "processing": {
+    "cropBox": [
+      663,
+      404,
+      1570,
+      896
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00313961_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

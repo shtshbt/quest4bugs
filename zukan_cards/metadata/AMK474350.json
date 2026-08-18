@@ -1,0 +1,76 @@
+{
+  "species_id": "xylotrupes_australicus",
+  "species_ja": "Xylotrupes australicus",
+  "scientific_name": "Xylotrupes australicus",
+  "credit_line": "Australian Museum",
+  "creator": "Melville Fong",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.474350",
+    "occurrenceId": "297b28f6-2e83-4cf9-91e3-a73300098c3d",
+    "persistentId": "297b28f6-2e83-4cf9-91e3-a73300098c3d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2009-03-18",
+    "eventYear": 2009,
+    "country": "Australia",
+    "localityVerbatim": "Two Mile Creek, Hervey Range",
+    "localityNormalized": "Two Mile Creek, Hervey Range, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.381111,
+    "decimalLongitude": 146.44917
+  },
+  "source": {
+    "gbifOccurrenceKey": "2596642351",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2596642351",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=34c36495-e4b3-4787-83ef-94b0e26d768d",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK474350_resized.jpg",
+    "display": "processed/AMK474350_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK474350_54.webp",
+      "108": "thumb/AMK474350_108.webp",
+      "216": "thumb/AMK474350_216.webp"
+    }
+  },
+  "original_sha256": "d4b6f55c745f45446bc452c7383912d917d3d6cc179cf2c8ebd48e095b5b2b75",
+  "processing": {
+    "cropBox": [
+      25,
+      0,
+      305,
+      424
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK474350_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "myrmecia_pyriformis",
+  "species_ja": "Myrmecia pyriformis",
+  "scientific_name": "Myrmecia pyriformis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Shannon Hartman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Myrmecia pyriformis casent0217501 p 1 high.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Myrmecia_pyriformis_casent0217501_p_1_high.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Myrmecia_pyriformis_casent0217501_p_1_high.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Shannon Hartman",
+    "eventDate": "2011-04-13 15:39:14",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Myrmecia pyriformis worker specimen",
+    "localityNormalized": "Myrmecia pyriformis worker specimen",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Myrmecia_pyriformis_casent0217501_p_1_high.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Myrmecia_pyriformis_casent0217501_p_1_high.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_resized.jpg",
+    "display": "processed/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_54.webp",
+      "108": "thumb/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_108.webp",
+      "216": "thumb/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_216.webp"
+    }
+  },
+  "original_sha256": "a884935954664365aed980d18273a17bd7a582d5601dca2f4e5a1d8bbfdb9544",
+  "processing": {
+    "cropBox": [
+      0,
+      2,
+      1179,
+      803
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMyrmeciapyriformiscasent0217501p1highjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "atriplectides_dubius",
+  "species_ja": "Atriplectides dubius",
+  "scientific_name": "Atriplectides dubius",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014027156",
+    "occurrenceId": "a0bd5777-9637-42ad-ad11-3edb05ffce95",
+    "persistentId": "a0bd5777-9637-42ad-ad11-3edb05ffce95",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1931-01",
+    "eventYear": 1931,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330264766",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/a0bd5777-9637-42ad-ad11-3edb05ffce95",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/2211bac0-64e2-48a5-90e2-1432d1fc3b31",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014027156_resized.jpg",
+    "display": "processed/NHMUK014027156_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014027156_54.webp",
+      "108": "thumb/NHMUK014027156_108.webp",
+      "216": "thumb/NHMUK014027156_216.webp"
+    }
+  },
+  "original_sha256": "27fedde75072c945d3d9d2e73a48969f0e1eec3ddd62acf7a92f4f9cf93566cc",
+  "processing": {
+    "cropBox": [
+      612,
+      588,
+      958,
+      935
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014027156_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

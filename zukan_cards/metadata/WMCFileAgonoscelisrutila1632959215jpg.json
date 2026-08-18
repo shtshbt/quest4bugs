@@ -1,0 +1,74 @@
+{
+  "species_id": "agonoscelis_rutila",
+  "species_ja": "Agonoscelis rutila",
+  "scientific_name": "Agonoscelis rutila",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Atlas of Living Australia (Dew%2C%20Steven)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Agonoscelis rutila 1632959215.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Agonoscelis_rutila_1632959215.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Agonoscelis_rutila_1632959215.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Atlas of Living Australia (Dew%2C%20Steven)",
+    "eventDate": "2016-09-18 11:09:00",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Agonoscelis rutila 1632959215",
+    "localityNormalized": "Agonoscelis rutila 1632959215",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Agonoscelis_rutila_1632959215.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Agonoscelis_rutila_1632959215.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAgonoscelisrutila1632959215jpg_resized.jpg",
+    "display": "processed/WMCFileAgonoscelisrutila1632959215jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAgonoscelisrutila1632959215jpg_54.webp",
+      "108": "thumb/WMCFileAgonoscelisrutila1632959215jpg_108.webp",
+      "216": "thumb/WMCFileAgonoscelisrutila1632959215jpg_216.webp"
+    }
+  },
+  "original_sha256": "8581d8f6a504f19b7f1d4e5f99be2112923208a4c72803d5e2dea0ef405ef223",
+  "processing": {
+    "cropBox": [
+      236,
+      69,
+      413,
+      433
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAgonoscelisrutila1632959215jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

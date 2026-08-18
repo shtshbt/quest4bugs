@@ -1,0 +1,74 @@
+{
+  "species_id": "caedicia_simplex",
+  "species_ja": "Caedicia simplex",
+  "scientific_name": "Caedicia simplex",
+  "credit_line": "Wikimedia Commons",
+  "creator": "georgiasteel",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Caedicia simplex 30021493.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Caedicia_simplex_30021493.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Caedicia_simplex_30021493.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "georgiasteel",
+    "eventDate": "2019-01-08",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Australian Common Garden Katydid (Caedicia simplex)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Caedicia_simplex_30021493.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Caedicia_simplex_30021493.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileCaediciasimplex30021493jpg_resized.jpg",
+    "display": "processed/WMCFileCaediciasimplex30021493jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCaediciasimplex30021493jpg_54.webp",
+      "108": "thumb/WMCFileCaediciasimplex30021493jpg_108.webp",
+      "216": "thumb/WMCFileCaediciasimplex30021493jpg_216.webp"
+    }
+  },
+  "original_sha256": "b2df1871f97112c331ca049ef5e8a6748d15334840eb361b88bd9a3fc95b2876",
+  "processing": {
+    "cropBox": [
+      383,
+      1017,
+      1348,
+      1557
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCaediciasimplex30021493jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

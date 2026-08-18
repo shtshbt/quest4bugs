@@ -1,0 +1,76 @@
+{
+  "species_id": "austrogomphus_guerini",
+  "species_ja": "Austrogomphus guerini",
+  "scientific_name": "Austrogomphus guerini",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827225",
+    "occurrenceId": "http://n2t.net/ark:/65665/35d4bdeab-8ca8-474e-819c-defea56dd998",
+    "persistentId": "http://n2t.net/ark:/65665/35d4bdeab-8ca8-474e-819c-defea56dd998",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly",
+    "eventDate": "1972-12-15",
+    "eventYear": 1972,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Murrumbidgee River at Point Hut Crossing, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -35.4521,
+    "decimalLongitude": 149.074
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319311171",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319311171",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16391000&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00827225_resized.jpg",
+    "display": "processed/USNMENT00827225_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827225_54.webp",
+      "108": "thumb/USNMENT00827225_108.webp",
+      "216": "thumb/USNMENT00827225_216.webp"
+    }
+  },
+  "original_sha256": "55b6476d9659bf992505172b32a476a67591fb4ddf7f4890b63b2157b613b5c0",
+  "processing": {
+    "cropBox": [
+      778,
+      472,
+      1394,
+      1137
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827225_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

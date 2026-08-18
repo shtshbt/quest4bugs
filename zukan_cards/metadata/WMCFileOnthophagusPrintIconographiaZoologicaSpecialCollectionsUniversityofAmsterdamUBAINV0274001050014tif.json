@@ -1,0 +1,74 @@
+{
+  "species_id": "onthophagus_taurus",
+  "species_ja": "Onthophagus taurus",
+  "scientific_name": "Onthophagus taurus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ebastia1",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Onthophagus - Print - Iconographia Zoologica - Special Collections University of Amsterdam - UBAINV0274 001 05 0014.tif",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Onthophagus_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_001_05_0014.tif",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Onthophagus_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_001_05_0014.tif",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ebastia1",
+    "eventDate": "2017-02-20 23:09:58",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Onthophagus",
+    "localityNormalized": "Onthophagus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Onthophagus_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_001_05_0014.tif",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Onthophagus_-_Print_-_Iconographia_Zoologica_-_Special_Collections_University_of_Amsterdam_-_UBAINV0274_001_05_0014.tif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_resized.jpg",
+    "display": "processed/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_54.webp",
+      "108": "thumb/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_108.webp",
+      "216": "thumb/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_216.webp"
+    }
+  },
+  "original_sha256": "e85bae46877512793e7e90e75aaaa435def0b57a24607340972c4f5c8db0a5a2",
+  "processing": {
+    "cropBox": [
+      849,
+      946,
+      1044,
+      1316
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOnthophagusPrintIconographiaZoologicaSpecialCollectionsUniversityofAmsterdamUBAINV0274001050014tif_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

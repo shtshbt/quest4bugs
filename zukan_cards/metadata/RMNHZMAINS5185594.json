@@ -1,0 +1,76 @@
+{
+  "species_id": "tisiphone_abeona",
+  "species_ja": "Tisiphone abeona",
+  "scientific_name": "Tisiphone abeona",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.5185594",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5185594",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5185594",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Imago",
+    "recordedBy": "Kalis J.P.A.",
+    "eventDate": "1937-03-01/1937-03-31",
+    "eventYear": 1937,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Koelawi, Indonesia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": -1.520834,
+    "decimalLongitude": 119.88152
+  },
+  "source": {
+    "gbifOccurrenceKey": "4921324836",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4921324836",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.5185594_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHZMAINS5185594_resized.jpg",
+    "display": "processed/RMNHZMAINS5185594_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS5185594_54.webp",
+      "108": "thumb/RMNHZMAINS5185594_108.webp",
+      "216": "thumb/RMNHZMAINS5185594_216.webp"
+    }
+  },
+  "original_sha256": "1ffca70654ea3004552b870f439b8df176cab427bc8fb8e0c8dd4af66e255e18",
+  "processing": {
+    "cropBox": [
+      541,
+      406,
+      1448,
+      1059
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS5185594_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

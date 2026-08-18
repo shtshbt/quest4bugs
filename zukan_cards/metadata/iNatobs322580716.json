@@ -1,0 +1,80 @@
+{
+  "species_id": "persectania_ewingii",
+  "species_ja": "Persectania ewingii",
+  "scientific_name": "Persectania ewingii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bioshots_jm (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_322580716",
+    "occurrenceId": "https://www.inaturalist.org/observations/322580716",
+    "persistentId": "https://www.inaturalist.org/observations/322580716",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bioshots_jm",
+    "eventDate": "2025-10-24",
+    "eventYear": 2025,
+    "country": "AU",
+    "localityVerbatim": null,
+    "localityNormalized": "South Australia, AU, AU",
+    "preparations": null,
+    "decimalLatitude": -34.5044339398,
+    "decimalLongitude": 139.0096088299,
+    "coordinatesObscured": true,
+    "iNatObservationId": "322580716",
+    "iNatPhotoId": "583584533",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/322580716",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/583584533/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs322580716_resized.jpg",
+    "display": "processed/iNatobs322580716_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs322580716_54.webp",
+      "108": "thumb/iNatobs322580716_108.webp",
+      "216": "thumb/iNatobs322580716_216.webp"
+    }
+  },
+  "original_sha256": "9e1b7867b153911ed9f3180901fabaf946e0db52fb41227488ba61fb588cb9c8",
+  "processing": {
+    "cropBox": [
+      627,
+      0,
+      1413,
+      1401
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs322580716_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
