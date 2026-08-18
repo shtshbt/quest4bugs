@@ -23,6 +23,31 @@
     {trophyId:"madagascar_kuku_dan5",cat:"kom_kuku_dan5",speciesId:"benihoshi_oo_ageha",regionId:"madagascar",regionName:"マダガスカルえんせい"}
   ];
 
+  /* --- 更新 2 (オーストラリア遠征 I) のメダル代表種 (未確定。freeze 待ち) -----------
+     release_linkage 3 章の規定: 同一更新に複数 cat が入る場合、看板を割り当てるのは
+     k10 側 1 本を既定とし、残りは同じ volume の SR 帯から個別指定する。
+     更新 2 は k10 が 2 本 (単位換算・図化) になったため、看板をどちらに立てるかは
+     ユーザ確定事項。下は既定案 (カレンダー先頭の k10 = 単位換算に看板)。
+
+     種 id と rarity の根拠: zukan_foundry/reports/au_expedition1_freeze_draft.md
+     2.1 章 (SR 7 種) と 3 章 (看板 = papilio_ulysses)。volume freeze で確定するまで
+     コメントのまま置く (未確定の speciesId を実配列に入れると、金の虫が描けない
+     カテゴリが黙って生まれる)。
+
+     公開日に必要なこと: CURRENT_RELEASE を 2 にすると、更新 2 の 5 cat が
+     「公開済み」になる。tests/test_komorebi_release_gate.js は公開済み cat すべてに
+     トロフィーがあることを要求するので、下の 5 行を有効化しないと落ちる。
+
+     {trophyId:"australia_unit_convert",cat:"kom_unit_convert",speciesId:"papilio_ulysses",regionId:"australia",regionName:"オーストラリアえんせい"},        // 看板 (SSR)
+     {trophyId:"australia_diagram_model",cat:"kom_diagram_model",speciesId:"podacanthus_viridiroseus",regionId:"australia",regionName:"オーストラリアえんせい"}, // SR ベニバネナナフシ
+     {trophyId:"australia_kuku_ura",cat:"kom_kuku_ura",speciesId:"lamprima_aurata",regionId:"australia",regionName:"オーストラリアえんせい"},                 // SR アウラタキンイロクワガタ
+     {trophyId:"australia_kuku_dan3",cat:"kom_kuku_dan3",speciesId:"extatosoma_tiaratum",regionId:"australia",regionName:"オーストラリアえんせい"},           // SR ユウレイヒレアシナナフシ
+     {trophyId:"australia_kuku_dan4",cat:"kom_kuku_dan4",speciesId:"chrysolopus_spectabilis",regionId:"australia",regionName:"オーストラリアえんせい"},       // SR ホシゾラゾウムシ
+
+     未割当の SR 予備: papilio_aegeus (メスアカモンキアゲハ)、tectocoris_diophthalmus
+     (ダイダイキンカメムシ)。看板を図化側に移す場合は 1 行目と 2 行目の speciesId を
+     入れ替えるだけでよい。 */
+
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
 
   function list(){return TROPHIES.map(function(trophy){return trophy;});}
