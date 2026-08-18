@@ -203,3 +203,19 @@ ausemade.com.au / Minibeast Wildlife / phasmatodea.com など、豪州昆虫界�
 原典または Queensland Museum の標本記録で翅端までの全長値を確認できれば、この判定を
 「一致」へ格上げできる。なお、ミンミンゼミのように bugs.js に規約の揺れが既にある点は
 今回のスコープ外 (AU 遠征 I 外の既存種) として触れていない。
+
+### 5.5 適用済み (2026-08-18)
+
+5.1 の修正案を `shared/bugs.js` に反映した。sizeMm 11 種 (#7, #9, #10, #11, #15,
+#17, #19, #23, #25, #26, #29)、habitat 1 種 (#5 キボシエゾトンボ、
+`pond, forest` → `pond, stream`)、学名 1 種 (#1 ムネスジヤンマ、
+`Aeshna brevistyla` → `Adversaeschna brevistyla`、jaName は不変)。
+
+#26 チャバネカマキリは sizeMm `[64,70]` のみ適用した。habitat は「grassland は
+やや外れる可能性あり (要 user 判断)」と留保され具体的な置換値が示されていないため、
+`forest_edge, grassland` のまま据え置いている。
+
+見出しは「要修正 14 種」だが、表本体 (この節の元表) は 13 行しかなく、#20
+ナカグロハナムグリ (Chondropyga dorsalis) が 5.1/5.2/5.3 いずれにも記載されて
+いない。本節作成時点でこの種の照合結果は存在しないため未適用 (現行値のまま)。
+14 種目の記載漏れとみられ、user 確認待ち。
