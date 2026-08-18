@@ -134,7 +134,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.categories.kom_diagram_model.name, "数量関係の図化");
     assert.equal(komorebi.categories.kom_diagram_model.maxLv, 10);
     assert.equal(komorebi.categories.kom_diagram_model.release, 2);
-    assert.equal(komorebi.isReleased("kom_diagram_model"), false, "CURRENT_RELEASE が 2 未満のうちは画面に出さない");
+    assert.equal(komorebi.isReleased("kom_diagram_model"), komorebi.currentRelease() >= 2,
+      "CURRENT_RELEASE と release 番号の関係が崩れている");
     assert.ok(komorebi.sessionStarters.kom_diagram_model);
     /* 更新 2 の巻がこのカテゴリを載せていること (公開日に CURRENT_RELEASE を
        上げるだけで小道に出るための結線)。 */

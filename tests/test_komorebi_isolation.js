@@ -110,11 +110,15 @@ test("komorebi selector contains only areaOnly komorebi species", () => {
 
 test("Stage A keeps categories and save state in the komorebi namespace", () => {
   const komorebi = injected.Q4B_KOMOREBI;
-  /* 公開済みは初回更新の 5 本 (倍速カレンダー)。実装だけ先に進んだカテゴリは
-     宣言されているが未公開で、リリースゲート側 (test_komorebi_release_gate.js) が
-     押さえている。 */
+  /* 公開済みは release 番号が CURRENT_RELEASE 以下のものだけ。実装だけ先に進んだ
+     カテゴリは宣言されているが未公開で、更新カレンダーとの照合はリリースゲート側
+     (test_komorebi_release_gate.js) が押さえている。ここで見るのは隔離、つまり
+     「番号を超えたカテゴリが 1 本も混ざらないこと」。 */
   assert.deepEqual(Object.keys(komorebi.categories).filter(komorebi.isReleased),
-    ["kom_ratio","kom_kuku_dan2","kom_kuku_run","kom_pi314","kom_kuku_dan5"]);
+    Object.keys(komorebi.categories).filter(cat => komorebi.categories[cat].release <= komorebi.currentRelease()));
+  /* 初回更新の 5 本はどの更新でも公開済みのまま。 */
+  ["kom_ratio","kom_kuku_dan2","kom_kuku_run","kom_pi314","kom_kuku_dan5"]
+    .forEach(cat => assert.equal(komorebi.isReleased(cat), true, cat + " went missing from the released set"));
   const state = komorebi.createProfile();
   /* Lv の枠は未公開カテゴリにも作る。解禁の日に保存データの移行を要らなくするため。
      値は 1 のままで、遊べるようになるまで動かない。 */

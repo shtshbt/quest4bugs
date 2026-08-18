@@ -32,7 +32,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
         assert.ok(trophies.forCat(cat), cat + " is released but has no trophy");
       }
     });
-    assert.equal(komorebi.currentRelease(), 1);
+    assert.equal(Number.isInteger(komorebi.currentRelease()) && komorebi.currentRelease() >= 1, true);
   });
 
   test("the eight recitation tables unlock in teaching order, two per update", () => {
@@ -57,19 +57,31 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     });
   });
 
-  test("the release number matches the first row of the update calendar", () => {
-    /* 更新カレンダー (docs/komorebi_release_linkage.md 2 章) との齟齬を防ぐ。 */
+  /* 更新カレンダー (docs/komorebi_release_linkage.md 2 章) の 1 行を読む。
+     行頭の更新番号は "1 (初回)" のように注記が付くことがある。 */
+  function calendarRow(calendar, update){
+    const row = new RegExp("\\|\\s*" + update + "(?:\\s*\\([^)]*\\))?\\s*\\|[^|]*\\|[^|]*\\|([^|]*)\\|").exec(calendar);
+    assert.ok(row, "the calendar no longer has a row for update " + update);
+    return row[1].split("+").map(text => text.trim()).filter(text => text && text.indexOf("なし") < 0);
+  }
+
+  test("the released set matches the update calendar up to the current release", () => {
+    /* 公開済み集合は「更新 1 から CURRENT_RELEASE までの行の和」。1 行だけを見ると
+       CURRENT_RELEASE を上げた瞬間に必ず落ちるので、番号ぶんの行を足して比べる。 */
     const calendar = fs.readFileSync(path.join(root, "docs/komorebi_release_linkage.md"), "utf8");
-    const row = /\|\s*1 \(初回\)\s*\|[^|]*\|[^|]*\|([^|]*)\|/.exec(calendar);
-    assert.ok(row, "the calendar no longer has a first update row");
-    const planned = row[1].split("+").map(text => text.trim()).filter(Boolean);
+    const planned = [];
+    for(let update = 1; update <= komorebi.currentRelease(); update++){
+      calendarRow(calendar, update).forEach(cat => planned.push(cat));
+    }
     const released = Object.keys(komorebi.categories).filter(komorebi.isReleased).sort();
     assert.deepEqual(released, planned.slice().sort(), "the shipped set differs from the calendar");
   });
 
-  /* 更新 2 のカテゴリを先に実装した状況を作る。volume 側も先に挙げてしまった、
-     という最悪のケースを再現する。 */
-  komorebi.categories.kom_future_demo = { course: "k10", name: "みらいの小道", maxLv: 10, release: 2 };
+  /* 次の更新のカテゴリを先に実装した状況を作る。volume 側も先に挙げてしまった、
+     という最悪のケースを再現する。番号は CURRENT_RELEASE の 1 つ先に取り、
+     公開番号を上げてもこのケースが「未公開」であり続けるようにする。 */
+  const nextRelease = komorebi.currentRelease() + 1;
+  komorebi.categories.kom_future_demo = { course: "k10", name: "みらいの小道", maxLv: 10, release: nextRelease };
   volume.categories.push("kom_future_demo");
   trophies.list().push({ trophyId: "future_demo", cat: "kom_future_demo", speciesId: "oo_onaga_yamamayu",
     regionId: "madagascar", regionName: "マダガスカルえんせい" });
@@ -94,7 +106,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
        いまはトロフィーページに居るので、仕込んでから地図へ戻って再描画させる。 */
     context.Q4B_KOMOREBI_VOLUMES.volume_future_stage = {
       id: "volume_future_stage", regionId: "australia", regionName: "オーストラリア",
-      current: false, expedition: 2, release: 2,
+      current: false, expedition: 9, release: nextRelease,
       categories: ["kom_kuku_run"], blurb: "未来の巻。", frozen: true, denominator: 1,
       species: [{ id: "kom_future_stage_sr_01", rarity: "SSR", flagship: true }]
     };
@@ -107,8 +119,16 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   });
 
   test("an unreleased trophy does not sit on the goal board", () => {
-    assert.match(plain(), /0／3/, "the trophy page counted another course or an unreleased slot: " + plain().slice(0, 200));
-    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3);
+    /* 目標ボードに出るのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
+       CURRENT_RELEASE で動くので、期待値も同じ規則から作る (kom_future_demo は
+       このテストの中で足した k10 の偽カテゴリなので、どちらにせよ入らない)。 */
+    const slots = trophies.list().filter(trophy => {
+      const entry = komorebi.categories[trophy.cat];
+      return entry && komorebi.isReleased(trophy.cat) && entry.course === "k5";
+    }).length;
+    assert.ok(slots > 0, "the k5 goal board went empty");
+    assert.match(plain(), new RegExp("0／" + slots), "the trophy page counted another course or an unreleased slot: " + plain().slice(0, 200));
+    assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, slots);
   });
 
   console.log("RESULT " + passed + " passed, 0 failed");

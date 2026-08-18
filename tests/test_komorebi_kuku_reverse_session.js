@@ -53,8 +53,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   test("both categories are implemented but held back until their updates", () => {
     assert.equal(komorebi.categories.kom_kuku_ura.release, 2);
     assert.equal(komorebi.categories.kom_kuku_inverse.release, 3);
-    assert.equal(komorebi.isReleased("kom_kuku_ura"), false);
-    assert.equal(komorebi.isReleased("kom_kuku_inverse"), false);
+    assert.equal(komorebi.isReleased("kom_kuku_ura"), komorebi.currentRelease() >= 2);
+    assert.equal(komorebi.isReleased("kom_kuku_inverse"), komorebi.currentRelease() >= 3);
     assert.ok(komorebi.sessionStarters.kom_kuku_ura);
     assert.ok(komorebi.sessionStarters.kom_kuku_inverse);
   });

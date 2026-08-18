@@ -1,7 +1,7 @@
 /* 1 地域複数巻の画面 (volume_zukan_design 3 章)。
    ピンは地域に 1 本、カテゴリボタンには遠征 badge、地域図鑑は全巻一括 + 遠征
-   チップ、小道トップに共通図鑑。placeholder のオーストラリア遠征 I はロックし、
-   遠征 II / III を注入して公開済みの巻だけによる多巻の挙動を固定する。
+   チップ、小道トップに共通図鑑。オーストラリア遠征 I は外し、遠征 II / III を
+   注入して公開済みの巻だけによる多巻の挙動を固定する。
    node tests/test_komorebi_region_grouping.js で実行。 */
 const assert = require("node:assert/strict");
 const path = require("node:path");
@@ -18,6 +18,17 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   await settle();
   const app = context.__app;
   const plain = () => plainText(app.innerHTML);
+  /* 地図を描き直す (共通図鑑へ行って戻ると再描画される)。 */
+  function rerender(){
+    app.querySelector('[data-action="path-zukan"]').click();
+    app.querySelector('[data-action="back"]').click();
+  }
+
+  /* この検査の主題は地域のまとめ方であって、その日に何巻が公開されているかではない。
+     CURRENT_RELEASE を上げても対象が変わらないよう、実データのオーストラリア遠征 I は
+     外し、マダガスカル 1 地域だけの世界を作り直してから見る (遠征 II / III は下で注入)。 */
+  delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
+  rerender();
 
   test("the map draws one pin per opened region and none per volume", () => {
     const pins = app.querySelectorAll("[data-region-id]");
@@ -88,9 +99,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     ]
   };
 
-  /* 地図を開き直してオーストラリアを選ぶ (共通図鑑へ行って戻ると再描画される)。 */
-  app.querySelector('[data-action="path-zukan"]').click();
-  app.querySelector('[data-action="back"]').click();
+  /* 地図を開き直してオーストラリアを選ぶ。 */
+  rerender();
   const auPin = app.querySelectorAll("[data-region-id]").filter(p => p.attrs["data-region-id"] === "australia")[0];
   assert.ok(auPin, "australia pin is gone");
   auPin.click();
@@ -129,7 +139,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.match(body, /Ⅱ 0／3/);
     assert.match(body, /Ⅲ 0／2/);
     assert.match(body, /合計 0／5/);
-    assert.doesNotMatch(body, /Ⅰ 0／11/);
+    assert.doesNotMatch(body, /Ⅰ 0／/);
     const cards = (app.innerHTML.match(/zukan-card/g) || []).length;
     assert.equal(cards, 5, "the grid does not merge only the released volumes: " + cards);
   });
