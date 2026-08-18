@@ -184,6 +184,46 @@ test("diagnoses use canonical labels and their selected error exists",function()
   });
 });
 
+test("the answer a diagnosis prints is the value of the formula it prints",function(){
+  /* 診断は「しき」と「こたえ」を並べて見せる。値を手で書くと隣の式と合わなくなる
+     (分速 80m の読み替えでは 80 ÷ 60 の隣に 1.3 が手で置かれていた)。 */
+  var checked=0;
+  eachQuestion(function(question){
+    if(question.format!=="diagnosis")return;
+    var match=/^しき (\d+(?:\.\d+)?) ([×÷+-]) (\d+(?:\.\d+)?)$/.exec(question.work[0]);
+    if(!match)return;
+    var left=Number(match[1]),right=Number(match[3]),value;
+    if(match[2]==="×")value=left*right;
+    else if(match[2]==="÷")value=left/right;
+    else if(match[2]==="+")value=left+right;
+    else value=left-right;
+    checked++;
+    assert.equal(question.shownAnswer,value,question.work.join(" / "));
+  });
+  assert.equal(checked>0,true);
+});
+
+test("the minute-to-hour conversion takes every number from one model",function(){
+  var found=0;
+  eachQuestion(function(question){
+    if(question.pattern!=="rate_convert")return;
+    var model=question.model;
+    assert.equal(!!model,true,question.text);
+    assert.equal(question.text.indexOf("分速 "+model.metresPerMinute+"m")>=0,true,question.text);
+    var hourly=model.metresPerMinute*model.minutesPerHour/model.metresPerKilometre;
+    var reversed=model.metresPerMinute/model.minutesPerHour;
+    if(question.format==="diagnosis"){
+      assert.equal(question.expectedAnswer,hourly,question.text);
+      if(question.errorType!=="correct")assert.equal(question.shownAnswer,reversed,question.work.join(" / "));
+    }else{
+      assert.equal(question.ans,hourly,question.text);
+      assert.equal(question.diagnosisWrongValue,reversed,question.text);
+    }
+    found++;
+  });
+  assert.equal(found>0,true);
+});
+
 test("train, chase, and stream parameters obey their bounds",function(){
   eachQuestion(function(question){
     if(question.model&&question.model.trainLength!=null){

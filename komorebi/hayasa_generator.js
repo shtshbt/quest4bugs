@@ -198,10 +198,25 @@
     return setNumericAnswer(question,answer,answerUnit);
   }
 
+  /* 分速 m から時速 km への読み替え。本文も式も答えも、この 3 つの数から出す。
+     診断で見せる誤答案の値だけを手で書くと、隣に並ぶ式と合わなくなる
+     (80 ÷ 60 の答案に 1.3 が置かれていた。式の値は 1.33… である)。 */
+  function rateConvertModel(){
+    return {metresPerMinute:80,minutesPerHour:60,metresPerKilometre:1000};
+  }
+
   function makeRateConvert(lv,format,random,patternId){
-    var question=baseQuestion(lv,format,"num","rate_convert","unit",{d:80,t:60},{speed:"時速km",time:null,dist:null},"speed","分速 80m は 時速 何 km ですか。",patternId);
-    question.given=["speed"];question.context="walk";question.correctExpression="80 × 60 ÷ 1000";question.diagnosisWrongExpression="80 ÷ 60";question.diagnosisWrongValue=1.3;
-    return setNumericAnswer(question,4.8,"時速km");
+    var model=rateConvertModel();
+    var hourly=model.metresPerMinute*model.minutesPerHour/model.metresPerKilometre;
+    /* 時速と分速の取り違え: 1 分を 60 で割って 1 時間ぶんにしたつもりの答案
+       (curriculum 9.3 の答案例)。割り切れないので表示は formatNumber が丸める。 */
+    var reversed=model.metresPerMinute/model.minutesPerHour;
+    var question=baseQuestion(lv,format,"num","rate_convert","unit",{d:model.metresPerMinute,t:model.minutesPerHour},{speed:"時速km",time:null,dist:null},"speed","分速 "+model.metresPerMinute+"m は 時速 何 km ですか。",patternId);
+    question.given=["speed"];question.context="walk";question.model=model;
+    question.correctExpression=model.metresPerMinute+" × "+model.minutesPerHour+" ÷ "+model.metresPerKilometre;
+    question.diagnosisWrongExpression=model.metresPerMinute+" ÷ "+model.minutesPerHour;
+    question.diagnosisWrongValue=reversed;
+    return setNumericAnswer(question,hourly,"時速km");
   }
 
   function makeRateCompare(lv,random,patternId){
