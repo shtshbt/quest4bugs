@@ -109,3 +109,97 @@ freeze 前の AU 84 種のうち 46 種が、`shared/render.js` に存在しな�
 
 同じ欠陥は AU 84 の外にまだ 15 種残っている (マダガスカル遠征 II 予備在庫など)。
 今回は出荷対象外なので触っていない。次の巻の freeze 前に同じ検査を通すこと。
+
+## 5. 外部照合結果 (2026-08-18)
+
+1 章の要スポットチェック 30 種について、学名で WebSearch し、`sizeMm` (寸法規則は
+0 章のとおり) / `habitat` / 生態記述が公開文献・データベースと整合するかを個別に
+確認した。判定は 3 分類:
+
+- **一致**: 文献と整合。根拠 URL 1 本を付す。
+- **要修正**: 文献値と乖離。修正案と根拠を付す。
+- **文献不足**: 種特異的な信頼できる情報源が見つからず、確認できず。user の専門判断待ち。
+
+結果: **一致 9 種 / 要修正 14 種 / 文献不足 7 種** (計 30 種)。
+
+情報源について: 博物館 (Australian Museum, Museums Victoria)、政府系 (agriculture.gov.au
+の DAFF バッタ識別ガイド)、査読誌 (Records of the Australian Museum、原記載 Zootaxa 論文、
+PMC 掲載論文)、大学 (University of Hertfordshire AERU)、Atlas of Living
+Australia / Australian Faunal Directory を優先して当たった。ただし、これらの一次資料が
+存在しない普通種・地味な種が多く、その場合は Brisbane Insects / ozanimals.com /
+ausemade.com.au / Minibeast Wildlife / phasmatodea.com など、豪州昆虫界隈で広く参照される
+専門愛好家サイトを補助的に採用した (該当箇所は所見に明記)。Wikipedia は一次文献
+(Moulds 1990 の "Australian Cicadas"、Theischinger & Hawking 2006 の CSIRO 図鑑など) を
+出典として引ける場合のみ採用した。
+
+### 5.1 要修正 (14 種)
+
+| # | 和名 | 学名 | 現行案 | 修正案 | 根拠 |
+|---|---|---|---|---|---|
+| 1 | ムネスジヤンマ | Aeshna brevistyla | sizeMm [60,70] | 学名を **Adversaeschna brevistyla** に修正 (Watson 1992 の再分類、AFD/ALA 準拠の現行受理学名)。sizeMm は文献間で 50〜80mm とばらつき確定できず、5.2 の文献不足も参照 | [ALA / AFD](https://bie.ala.org.au/species/Adversaeschna+brevistyla) |
+| 5 | キボシエゾトンボ | Hemicordulia australiae | habitat [pond, forest] | habitat を **pond, stream** 系へ (forest の裏付けなし、実態は池・小川をパトロールしホバリングする種。sizeMm [42,50] は文献と一致でそのまま可) | [Brisbane Insects](https://www.brisbaneinsects.com/brisbane_dragons/AustraliaEmerald.htm) |
+| 7 | キノカワバッタ | Coryphistes ruricola | sizeMm [25,40] | **[40,50]** (ozanimals.com 40-50mm、Brisbane Insects/Esperance Fauna も独立に約50mmを報告。上限が過小だった) | [ozanimals.com](https://www.ozanimals.com/Insect/Bark-mimicking-Grasshopper/Coryphistes/ruricola.html) |
+| 9 | セスジチャイロバッタ | Gastrimargus musicus | sizeMm [30,50] | **[25,50]** (DAFF: 雄25-35mm/雌35-50mm。規約 [小さい方の下限, 大きい方の上限] 適用で下限を25へ) | [DAFF locust ID guide](https://www.agriculture.gov.au/biosecurity-trade/pests-diseases-weeds/locusts/about/id-guide/description_of_adults/7_yellow_winged_locust_gastrimargus_musicus) |
+| 10 | トサカバッタ | Goniaea australasiae | sizeMm [30,45] | **[30,52]** (雄〜35mm/雌〜52mm、Brisbane Insects も独立に約50mmを報告。上限が過小だった) | [Friends of Queens Park Bushland](https://www.friendsofqueensparkbushland.org.au/wildlife/goniaea-australasiae/) |
+| 11 | ミドリガシラバッタ | Oedaleus australis | sizeMm [25,40] | **[20,35]** (DAFF: 雄20-30mm/雌25-35mm。規約適用で [20,35]。上限が過大だった) | [DAFF locust ID guide](https://www.agriculture.gov.au/biosecurity-trade/pests-diseases-weeds/locusts/about/id-guide/description_of_adults/6_eastern_plague_grasshopper_oedaleus_australis) |
+| 15 | クロモンヤガ | Agrotis munda | sizeMm(開張) [35,45] | **[30,40]** (複数独立ページで開張30-40mmに収束、40mm超のデータなし) | [ausemade.com.au](https://ausemade.com.au/flora-fauna/fauna/insects/moths/agrotis-munda/) |
+| 17 | アオバネナナフシ | Anchiale briareus | sizeMm [110,160] | **[110,170]** (専門ナナフシサイトが最大170mmと明記。上限が過小だった) | [phasmatodea.com](https://www.phasmatodea.com/curiosities) |
+| 19 | イトアシナナフシ | Sipyloidea larryi | sizeMm [70,100] | **[50,90]** (原記載 Zootaxa 1570 のホロタイプ雌80mm、Minibeast Wildlife の雄50-80mm。上限100mmの裏付けなし) | [原記載関連 (ResearchGate)](https://www.researchgate.net/figure/Sipyloidea-larryi-holotype-female-Garradunga-note-parasite_fig30_287837852) |
+| 23 | カレエダホソカマキリ | Archimantis sobrina | sizeMm [60,80] | **[60,90]** (Minibeast Wildlife 飼育ガイドが最大約90mmと明記。上限が過小だった) | [Minibeast Wildlife 飼育ガイド (PDF)](https://shop.minibeastwildlife.com.au/content/Minibeast%20Wildlife%20Care%20Guide%20-%20Archimantis%20sobrina.pdf) |
+| 25 | マルバネカマキリ | Neomantis australis | sizeMm [25,35] | **[18,25]** (専門ブリーダー筋で成体最大25mmと複数独立に一致。上限35mmの裏付けなし) | [Bug Frenzy](https://bugfrenzy.com.au/product/net-winged-mantis-neomantis-australis-sub-adults/) |
+| 26 | チャバネカマキリ | Sphodropoda quinquedens | sizeMm [50,70]、habitat [forest_edge, grassland] | sizeMm **[64,70]** (Milledge 2005, Records of the Australian Museum の改訂論文実測値: 雄64mm/雌70mm。下限が過小だった)。habitat は「灌木・樹上性、乾燥地のユーカリ林」の記述が中心で、grassland はやや外れる可能性あり (要 user 判断) | [Records of the Australian Museum (Milledge 2005)](https://media.australian.museum/media/Uploads/Journals/18016/1442_complete.pdf) |
+| 29 | シロバネナナフシ | Megacrania batesii | sizeMm [100,130] | **[76,137]** (Hsiung 2007, Journal of Orthoptera Research 16:207 実測値: 雄76-87mm/雌98-137mm。規約適用で [76,137]) | [Wikipedia (Hsiung 2007 引用)](https://en.wikipedia.org/wiki/Megacrania_batesii) |
+
+### 5.2 文献不足 (7 種)
+
+| # | 和名 | 学名 | 現行案 | 所見 |
+|---|---|---|---|---|
+| 3 | ハラナガアオイトトンボ | Austrolestes analis | sizeMm [36,44] | 文献が「腹部長 3-3.2cm」のみを報告し体長全体の値がない。他ソースは「全長約3cm強」の定性記述のみで、[36,44] との整合を確認できない | [Wikipedia (Slender ringtail)](https://en.wikipedia.org/wiki/Slender_ringtail) |
+| 8 | アカスネバッタ | Cryptobothrus chrysophorus | sizeMm [18,28] | 唯一見つかった数値が専門愛好家サイトの単一点データ (体長30mm) のみで、範囲・雌雄差の記載なし。habitat の grassland 自体は自然保護区の記録で裏付けられる | [Brisbane Insects](https://www.brisbaneinsects.com/brisbane_grasshoppers/GoldenBandwing.htm) |
+| 13 | ダイダイオビゼミ | Henicopsaltria eydouxii | sizeMm [50,65] (翅端までの全長として推定) | 文献にあるのは前翅長45-60mm (最頻50-55mm、Moulds 1990 / Queensland Museum 2011 由来) のみで、翅端まで全長の直接値なし。habitat の forest は dry/wet sclerophyll forest 等の記述と整合。詳細は 5.4 の内部一貫性チェックを参照 | [Wikipedia (Moulds 1990 引用)](https://en.wikipedia.org/wiki/Henicopsaltria_eydouxii) |
+| 18 | イボアタマナナフシ | Candovia strumosa | sizeMm [60,90] | 属改訂論文 (Forni et al. 2022) は新種のみに実測値を記載し、本種の種固有値はなし。近縁種メスが52-90mm程度という断片情報はあり、現行案と大きく矛盾はしないが確証なし | なし |
+| 24 | クロボシカマキリ | Mantis octospilota | sizeMm [50,70] | 出典未記載の Wikipedia 記述 (「2インチ超」) 以外に種特異的一次情報源が見つからず | なし |
+| 27 | ホシバネユスリカ | Polypedilum nubifer | sizeMm [4,6] | 査読論文 (Cranston 2016, Zootaxa) は蛹殻長5.5-7.5mmを報告するが成虫体長の記載はない。測定部位が異なり単純比較不可。habitat (pond, marsh) は富栄養化した止水に大発生するとの記述と整合 | [Cranston 2016 (PubMed)](https://pubmed.ncbi.nlm.nih.gov/27394199/) |
+| 28 | カスリシマトビケラ | Asmicridea edwardsii | sizeMm [8,12] | 分類学的record・標本記録は存在するが、体長・前翅長いずれの実測値も一次資料で確認できず。Trichoptera 科レベルの一般値 (前翅長4-20mm程度) と大きな矛盾はない | なし |
+
+### 5.3 一致 (9 種)
+
+| # | 和名 | 学名 | 根拠 |
+|---|---|---|---|
+| 2 | ハバビロイトトンボ | Austroargiolestes icteromelas | [Wikipedia (Theischinger & Hawking 2006, CSIRO 引用)](https://en.wikipedia.org/wiki/Common_flatwing) |
+| 4 | ワモンアオイトトンボ | Austrolestes leda | [Brisbane Insects](https://www.brisbaneinsects.com/brisbane_damsels/Ringtail.htm) |
+| 6 | オセアニアハネビロトンボ | Tramea loewii | [Brisbane Insects](https://www.brisbaneinsects.com/brisbane_dragons/CommonGlider.htm) |
+| 12 | ダイダイサシガメ | Gminatus australis | [Museums Victoria](https://collections.museumsvictoria.com.au/species/8555) |
+| 14 | ネッタイマキバサシガメ | Nabis kinbergii | [Univ. of Hertfordshire AERU](https://sitem.herts.ac.uk/aeru/bpdb/Reports/2327.htm) |
+| 16 | マダラナナフシ | Anchiale austrotessulata | [Brisbane Insects](https://www.brisbaneinsects.com/brisbane_hoppers/tessulata.htm) |
+| 21 | キイロブチコガネ | Cyclocephala signaticollis | [PMC 掲載論文](https://pmc.ncbi.nlm.nih.gov/articles/PMC4802167/) |
+| 22 | ヒョウモンハナムグリ | Neorrhina punctatum | [Australian Museum](https://australian.museum/learn/animals/insects/punctate-flower-chafer-beetle/) |
+| 30 | キモンセセリモドキガ | Synemon plana | [Wikipedia (Clarke 2000 引用)](https://en.wikipedia.org/wiki/Synemon_plana) |
+
+### 5.4 セミの寸法規則 (翅端まで vs 体長) の内部一貫性チェック
+
+#13 ダイダイオビゼミの現行案 [50,65]mm は 0 章の規則 (セミ = 翅端までの全長) に沿って
+見積もられたと見られるが、直接その全長を報告する文献は見つからなかった (5.2 のとおり
+文献不足)。判断材料として、bugs.js 内の既存セミ種の登録値と公開実測値を突き合わせた。
+
+- **アブラゼミ** (Graptopsaltria nigrofuscata、日本産、bugs.js 既存): 文献の「翅端まで」
+  値は53-60mmで複数情報源が収束。bugs.js 登録値 `sizeMm:[53,60]` と完全一致。
+  → 登録値は「翅端まで」規則に忠実。
+- **ミンミンゼミ** (Hyalessa maculaticollis、日本産、bugs.js 既存): 文献の「翅端まで」
+  値は約55-63mm、「体長 (翅を除く)」値は29-39mm。ところが bugs.js 登録値
+  `sizeMm:[33,38]` は後者の体長値に近い。→ この種は「翅端まで」規則が徹底されておらず、
+  bugs.js 全体では規約の適用に既存の揺れがある。
+- **ウスキバネオオゼミ** (Cyclochila australasiae、AU 遠征 I 同バッチ、3 章で追加済・
+  確信度 high 扱いのため 30 種表の対象外): 文献の前翅長は50-58mm、裸の体長は約40mm。
+  bugs.js 登録値 `sizeMm:[55,70]` は体長40mmより明らかに前翅長50-58mm寄りで、かつ
+  それをやや上回る (頭胸部の分の上乗せと解釈できる)。→ AU 遠征 I バッチの見積もり
+  プロセスは「前翅長 + 頭胸部相当」で翅端までの全長を近似していると考えられる。
+- ダイダイオビゼミの文献前翅長は45-60mm (最頻50-55mm)。ウスキバネオオゼミと同じ
+  「前翅長→翅端までの全長」の見積もり方を適用すると、現行案 [50,65]mm は前翅長データの
+  レンジとほぼ整合し、少なくとも同一バッチ内では一貫した見積もりになっている。
+
+**結論**: 直接の文献的裏付けがないため 5.2 の「文献不足」区分はそのまま維持するが、
+バッチ内一貫性の観点では現行案 [50,65]mm を積極的に修正する根拠はない。Moulds (1990)
+原典または Queensland Museum の標本記録で翅端までの全長値を確認できれば、この判定を
+「一致」へ格上げできる。なお、ミンミンゼミのように bugs.js に規約の揺れが既にある点は
+今回のスコープ外 (AU 遠征 I 外の既存種) として触れていない。
