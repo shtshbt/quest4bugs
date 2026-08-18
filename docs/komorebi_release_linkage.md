@@ -18,18 +18,27 @@
 
 ## 2. 更新カレンダー (相対番号。日付は運用開始時に確定)
 
-| 更新 | 地域 volume | 看板 (確保済) | 新カテゴリ | 備考 |
-|---|---|---|---|---|
-| 1 (初回) | マダガスカル遠征 I | コメットガ | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | k10 2 + k5 3。ratio は Lv1-10 一括投入 |
-| 2 | オーストラリア遠征 I | ユリシス | kom_unit_convert + kom_diagram_model + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | k10 2 + k5 3。図化は release 9 から前倒し |
-| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_frac_flow + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | |
-| 4 | コスタリカ遠征 I | ハキリアリ | kom_kuku_bridge + kom_equation_select + kom_kuku_dan8 + kom_kuku_dan9 | 学習カテゴリ 17 本はここで出揃う |
-| 5 | マダガスカル遠征 II | マダガスカルオオゴキブリ | (なし。図鑑の巻のみ) | II 巻のカテゴリ帰属は freeze 時に他地域公開済み cat から指定 (地域内 1 cat 1 遠征の規則は維持) |
-| 6 | オーストラリア遠征 II | クリスマスビートル | (なし。図鑑の巻のみ) | |
-| 7 | ボルネオ遠征 II | モーレンカンプオオカブト | (なし。図鑑の巻のみ) | ボルネオ在庫はここで打ち止め (200) |
-| 8 | コスタリカ遠征 II | ビワハゴロモ | (なし。図鑑の巻のみ) | |
-| 9 | マダガスカル遠征 III | (volume freeze 時に指名) | 9 月 LOGOS ゲート判定の結果枠 (kom_kisokusei / kom_hayasa / 既存 cat の Lv 追加) | |
-| 10 以降 | オーストラリア III、コスタリカ III、新地域 (Tier 2) | 同上 | kom_exhaustive_search (新 kind 実装後)、予備在庫、Lv 追加 | 新地域 harvest は更新 6 ごろまでに開始 |
+| 更新 | 地域 volume | 看板 (確保済) | 新カテゴリ | 新 採集道具 | 備考 |
+|---|---|---|---|---|---|
+| 1 (初回) | マダガスカル遠征 I | コメットガ | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | (なし) | k10 2 + k5 3。ratio は Lv1-10 一括投入 |
+| 2 | オーストラリア遠征 I | ユリシス | kom_unit_convert + kom_diagram_model + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | ちょうネット / トンボ用メッシュネット / 灯火採集セット / バナナトラップ | k10 2 + k5 3。図化は release 9 から前倒し。道具はスイッチ別 (下記) |
+| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_frac_flow + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | スイーピングネット / さかなとりあみ | |
+| 4 | コスタリカ遠征 I | ハキリアリ | kom_kuku_bridge + kom_equation_select + kom_kuku_dan8 + kom_kuku_dan9 | ビーティングセット / 吸虫管 | 学習カテゴリ 17 本はここで出揃う |
+| 5 | マダガスカル遠征 II | マダガスカルオオゴキブリ | (なし。図鑑の巻のみ) | 高所用長竿 / 落とし穴トラップ / フントラップ | II 巻のカテゴリ帰属は freeze 時に他地域公開済み cat から指定 (地域内 1 cat 1 遠征の規則は維持)。道具 11 種はここで出揃う |
+| 6 | オーストラリア遠征 II | クリスマスビートル | (なし。図鑑の巻のみ) | (なし) | |
+| 7 | ボルネオ遠征 II | モーレンカンプオオカブト | (なし。図鑑の巻のみ) | (なし) | ボルネオ在庫はここで打ち止め (200) |
+| 8 | コスタリカ遠征 II | ビワハゴロモ | (なし。図鑑の巻のみ) | (なし) | |
+| 9 | マダガスカル遠征 III | (volume freeze 時に指名) | 9 月 LOGOS ゲート判定の結果枠 (kom_kisokusei / kom_hayasa / 既存 cat の Lv 追加) | (なし) | |
+| 10 以降 | オーストラリア III、コスタリカ III、新地域 (Tier 2) | 同上 | kom_exhaustive_search (新 kind 実装後)、予備在庫、Lv 追加 | (なし) | 新地域 harvest は更新 6 ごろまでに開始 |
+
+- 道具列の読み方 (2026-08-17 決定): 道具の release 番号は上の更新番号と同じ体系だが、公開は
+  更新番号だけでは開かない。`komorebi/app.js` の `MEDAL_ECONOMY_ON` が独立したスイッチとして
+  前段にあり、これが false の間はメダル経済一式 (採集道具・かがやきのうろ・交換ポップアップ・
+  装備効果・耐久表示) が丸ごと出ない。地域 volume は新奇性が効くうちに出したいが、道具は
+  手が止まりかけた頃に効くので、同じ deploy に束ねないための分離。
+- したがって更新 2 の deploy は「AU I の巻 + 学習カテゴリ 5 本」だけで、道具は別日の
+  deploy (`MEDAL_ECONOMY_ON` を true にして cache を上げるだけ) になる。スイッチが
+  false の間に成立したメダルは、うろの初回訪問で遡って奉納できる。
 
 - 更新 2 の kom_diagram_model 追加 (2026-08-17 決定): 受験 ROI 優先で release 9 から前倒しした。線分図・面積図・表は割合と速さの土台で、3 本の待機カテゴリ (ratio_forms / johou_seiri / diagram_model) の中で最も早く効く。更新 2 の前倒し公開 (implementation_plan 4 章) と束ねる。
 - 在庫収支: 更新 9 まで 9 volume ≒ 900 種需要 vs seeds 1,104。後処理の目減りを 1 割と見ても成立。更新 10 以降は AU III / CR III (在庫各 300 で III まで可) と Tier 2 新地域 (フィリピン、ニューギニア等) の harvest で継ぐ。
@@ -44,7 +53,7 @@
 - 同一更新で複数 cat が入る場合 (倍速では毎回 4 から 5 本)、看板を割り当てるのは k10 側 1 本を既定とし、残りの cat は trophy manifest で volume 内の別種 (SR 帯) を個別指定する。
 - 更新 1 の割当 (komorebi/trophies.js に確定済み): kom_ratio = コメットガ (oo_onaga_yamamayu、看板)、kom_pi314 = medama_yamamayu、kom_kuku_dan2 = kanmuri_kareha_kamakiri、kom_kuku_dan5 = benihoshi_oo_ageha、kom_kuku_run = oo_togeashi_kirigirisu。
 - 更新 2 以降の割当表は volume freeze 時 (種のレアリティ確定後) に本書へ追記する。
-- 更新 2 の既定案は `komorebi/trophies.js` に有効化待ちのコメントとして置いてある (看板 papilio_ulysses を k10 の単位換算に、残り 4 本は AU I の SR 帯から個別指定)。k10 が 2 本になったため、看板を単位換算と図化のどちらに立てるかは freeze 時のユーザ確定事項。
+- 更新 2 の割当 (2026-08-17 の volume freeze で確定、`komorebi/trophies.js`): kom_diagram_model = ウリッセスアゲハ (papilio_ulysses、看板)、kom_unit_convert = podacanthus_viridiroseus、kom_kuku_ura = lamprima_aurata、kom_kuku_dan3 = extatosoma_tiaratum、kom_kuku_dan4 = chrysolopus_spectabilis。k10 が 2 本あるため、看板は受験 ROI で前倒しした図化に立てた。未割当の SR 予備は papilio_aegeus / tectocoris_diophthalmus / eupoecila_australasiae / dasypodia_selenophora / myrmecia_forficata。
 
 ## 4. 図鑑側の前提パイプライン (各 volume の公開前に必要)
 
