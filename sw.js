@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v153";  /* v153: 本編ロースターのタガメ写真誤参照17種+ファイル名衝突8種をcatalogから除去、1種(oo_ruri_osamushi)を正しい写真へ再リンク。 */
+var CACHE = "q4b-cache-v154";  /* v154: komorebi Phase 3 (演出) 統合 + AU遠征I guild照合13種のbugs.js反映。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
