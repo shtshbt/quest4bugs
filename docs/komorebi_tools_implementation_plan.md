@@ -52,6 +52,32 @@
 6. volume freeze チェックリストへの guild カバレッジ確認の追記 (`docs/komorebi_release_linkage.md` 4 章)
 7. テスト: ロック境界 (7 日前後)、周回カウント、2 枚交換、ウィジェット状態遷移
 
+#### 検収指摘の残課題 (2026-08-17 の独立レビュー)
+
+Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの。いずれも
+`MEDAL_ECONOMY_ON=false` の間は表に出ないが、経済を公開する前に片づける。
+
+1. 保存の競合解決がメダル経済の追加データを捨てる (経済 deploy 前に要修正)
+   `komorebi/app.js` の `mergeProfileCatches` は `collection.catches` だけを
+   突き合わせ、それ以外は local 側の丸ごとコピーを返す。二台で遊んで競合したとき、
+   remote 側の `uroLog` / `tools` / `equippedToolId` / `trophies` / `lv10ClearAt` が
+   黙って消える。奉納の記録は不滅という約束 (設計書 2 章 不変条件 4) が競合経路
+   だけ守られていない。捕獲と同じく append-only の突き合わせに直す。
+2. catalog の jaName が仮称 64 種で学名のまま
+   `zukan_config/zukan_catalog.js` のオーストラリア遠征 I 84 件のうち 64 件で
+   `jaName` が学名 (例: `Simosyrphus grandicornis`) になっている。取得時点の
+   metadata をそのまま写したため。マダガスカル遠征 I は 0 件で、そちらとは不整合。
+   画面表示は `shared/bugs.js` の `jaName` を見るので子どもの目には触れないが、
+   provenance としては誤り。命名確定 (nameStatus を standard にする作業) の
+   タイミングで catalog 側もまとめて是正する。
+3. 御神木パネルのうろ入口が portal に配線されていない
+   `shared/breeding.js` の入口は `Q4B_KOMOREBI.medalEconomyOn()` と
+   `toolsReleased()` を読むが、portal (`index.html`) は `komorebi/app.js` を
+   読み込まないため常に非表示になる。小道の地図下端の入口はスイッチ 1 行で
+   有効になるので公開自体は成立するが、御神木側も出すなら portal へ判定を
+   渡す配線が要る (軽量なフラグモジュールを読ませるか、`breedingPanelHTML` の
+   呼び出しに値を渡すか)。経済 deploy と同時に決める。
+
 ### Phase 3: 演出
 
 1. 道具アイコン SVG 11 種
@@ -63,18 +89,18 @@
 
 | 担当 | 役割 |
 |---|---|
-| orchestrator (本セッション) | 計画管理、Phase 間の統合レビュー、経済不変条件の最終検証、commit / 公開判断 |
-| opus subagent | 経済コア (tools.js の instance / 耐久、抽選統合、リセット周回)。exploit 面の再点検を含む |
-| sonnet subagent | 調査 (Phase 0)、UI (uro.js、ウィジェット、リザルト表示)、テスト実装、SVG アセット |
-| bonsai (advisory) | フレーバーテキスト草案 (道具説明、破損・奉納メッセージ)。出力は orchestrator が検収してから採用 |
+| 統括 | 計画管理、Phase 間の統合レビュー、経済不変条件の最終検証、commit / 公開判断 |
+| 実装担当 (経済コア) | tools.js の instance / 耐久、抽選統合、リセット周回。exploit 面の再点検を含む |
+| 実装担当 (調査・UI) | 調査 (Phase 0)、UI (uro.js、ウィジェット、リザルト表示)、テスト実装、SVG アセット |
+| 文案担当 (助言のみ) | フレーバーテキスト草案 (道具説明、破損・奉納メッセージ)。草案は統括が検収してから採用 |
 
-subagent には対象ファイルと仕様書該当節のみを渡し、影響範囲外 (他ゲーム・zukan パイプライン) への変更を禁止する。
+各担当には対象ファイルと仕様書該当節のみを渡し、影響範囲外 (他ゲーム・zukan パイプライン) への変更を禁止する。
 
 ## 3. 品質ゲート
 
 - 全テスト green (既存 + 新規)
 - 経済不変条件チェックリスト (設計書 2 章の 6 か条) を Phase ごとに目視確認
-- strict-reviewer による独立レビュー (Phase 1 と 2 の完了時)
+- 実装者とは別枠の独立レビュー (Phase 1 と 2 の完了時)
 - 実機確認: 二人ぶんの profile での動作 (course 分離、道具・うろの表示、破損イベント)
 - セーブ後方互換: 旧セーブの読込みで例外が出ないこと (additive 検証)
 
