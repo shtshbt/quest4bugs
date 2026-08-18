@@ -1156,6 +1156,7 @@
     overlay.className="kom-modal";
     overlay.id="komAmberModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +toolSceneHtml(capture,toolUse)
       +ratioCaptureHtml(capture)
       +toolStatusHtml(toolUse)
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
@@ -1739,6 +1740,25 @@
     return art||tool.emoji||"🔧";
   }
 
+  /* 捕獲ビネット (tools_design 9 章)。道具を装備して 1 匹とれた回だけ、その道具の
+     採集シーンを捕獲カードの上に 1 枚置く。絵が描くのは場面であって種ではない。
+     とれた虫はすぐ下の捕獲カードが描くので、ここで種を描き分けると絵と結果が
+     食い違って見える。表示だけの層で、抽選にも耐久にも一切さわらない。
+
+     出すのは 3 つとも満たしたときだけ: 経済が公開されている (toolsModule)、その回に
+     道具を使った (toolUse)、実際に 1 匹とれた (capture)。MEDAL_ECONOMY_ON が false の
+     間は 1 つめで落ちるので、従来の捕獲演出のまま 1 要素も増えない。 */
+  function toolSceneHtml(capture,toolUse){
+    var tools=toolsModule(),scenes=global.Q4B_KOMOREBI_TOOL_SCENES;
+    if(!tools||!toolUse||!capture||!scenes||typeof scenes.svg!=="function")return "";
+    var tool=tools.byId(toolUse.type);
+    if(!tool||!scenes.has(tool.id))return "";
+    var line=scenes.caption(tool.id);
+    return '<figure class="kom-tool-scene">'+scenes.svg(tool.id)
+      +(line?'<figcaption class="kom-tool-scene-line">'+displayText(line)+'</figcaption>':"")
+      +'</figure>';
+  }
+
   /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
      防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
      未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
@@ -1794,6 +1814,7 @@
       ?'<p class="ratio-amber-gain">🔶 '+displayText("こはくを "+result.amberGained+"こ ひろった！")+'</p>':"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
       +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber
+      +toolSceneHtml(result&&result.capture,result&&result.tool)
       +ratioCaptureHtml(result&&result.capture)+toolStatusHtml(result&&result.tool)+'</div>';
   }
 

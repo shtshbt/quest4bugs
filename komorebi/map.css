@@ -411,6 +411,31 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-tool-break strong{font-size:15px}
 .kom-tool-break span{font-size:12.5px;color:#E4C4A6}
 
+/* 捕獲ビネット (tools_design 9 章)。道具ごとの採集シーンを捕獲カードの上に 1 枚。
+   絵は表示だけの層なので、捕獲カードより先に目に入ってはいけない: 幅を捕獲カードの
+   絵より少し広い程度に抑え、動きは「まだ そこに 居る」ぶんだけに留める。
+   色は SVG 側の presentation attribute が既定を持っている (CSS が無くても潰れない)。 */
+.kom-tool-scene{margin:14px 0 0;padding:0;text-align:center}
+.tool-scene{display:block;width:min(100%,320px);height:auto;margin:0 auto;
+  border:1.5px solid #2F5C4A;border-radius:14px;background:#0B1F19;overflow:hidden}
+.kom-tool-scene-line{margin:7px 0 0;color:#B9D2A8;font-size:12.5px;line-height:1.65}
+/* 場面の中で動くのは 3 つだけ。あかり (呼ぶもの)、虫 (来たもの)、水面 (居る場所)。 */
+@keyframes scene-lamp-breathe{0%,100%{opacity:1}50%{opacity:.72}}
+@keyframes scene-glow-breathe{0%,100%{opacity:.22}50%{opacity:.34}}
+@keyframes scene-flit{0%,100%{transform:translate(0,0)}50%{transform:translate(2.5px,-3px)}}
+@keyframes scene-stir{0%,100%{transform:translate(0,0)}50%{transform:translate(1.5px,0)}}
+.tool-scene .scene-lamp{animation:scene-lamp-breathe 2.6s ease-in-out infinite}
+.tool-scene .scene-glow{animation:scene-glow-breathe 2.6s ease-in-out infinite}
+.tool-scene .scene-flit-a{animation:scene-flit 2.2s ease-in-out infinite}
+.tool-scene .scene-flit-b{animation:scene-flit 2.9s ease-in-out infinite .4s}
+.tool-scene .scene-flit-c{animation:scene-flit 3.4s ease-in-out infinite .8s}
+.tool-scene .scene-stir{animation:scene-stir 1.8s ease-in-out infinite}
+/* 場面の動きは飾りなので、止めても伝わるものが何も減らない。 */
+@media (prefers-reduced-motion:reduce){
+  .tool-scene .scene-lamp,.tool-scene .scene-glow,.tool-scene .scene-flit-a,
+  .tool-scene .scene-flit-b,.tool-scene .scene-flit-c,.tool-scene .scene-stir{animation:none}
+}
+
 /* 採集道具のアイコン。線は文字色に馴染ませ、2 色目だけを --tool-accent で差す。
    置く場所ごとに大きさだけを変え、絵そのものは 1 本を共用する。 */
 .tool-icon{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.28em;flex:none}
