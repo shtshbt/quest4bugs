@@ -146,6 +146,28 @@ test("a broken lap counter is refused instead of repaired", () => {
     app.querySelector('[data-action="back"]').click();
   }
 
+  test("a medal earned before the clear time was recorded still opens a lap", () => {
+    /* lv10ClearAt は Phase 1 で入れた。それより前に成立していたメダルには起点が無く、
+       そのままではロックが永久に明けずリセット周回へ入れない。授与日で埋める。 */
+    const legacy = komorebi.createProfile();
+    legacy.lv.kom_ratio = 10;
+    legacy.maxLv.kom_ratio = 10;
+    legacy.trophies = { madagascar_ratio: { cat: "kom_ratio", speciesId: "oo_onaga_yamamayu", at: "2026-08-01" } };
+    delete legacy.lv10ClearAt;
+    const loaded = komorebi.normalizeProfile(JSON.parse(JSON.stringify(legacy)));
+    assert.equal(loaded.changed, true);
+    assert.equal(loaded.profile.lv10ClearAt.kom_ratio, "2026-08-01", "ロックの起点が埋まっていない");
+    const readyAt = trophyMod.resetReadyAt(loaded.profile, "kom_ratio");
+    assert.equal(readyAt, Date.parse("2026-08-01") + 7 * DAY);
+    assert.equal(trophyMod.canReset(loaded.profile, "kom_ratio", readyAt), true, "旧メダルの周回が開かない");
+    /* 2 度目は何も変わらない (毎回の起動で保存が走り続けない)。 */
+    assert.equal(komorebi.normalizeProfile(JSON.parse(JSON.stringify(loaded.profile))).changed, false);
+    /* 既に起点があるセーブは書き換えない。 */
+    const kept = JSON.parse(JSON.stringify(loaded.profile));
+    kept.lv10ClearAt.kom_ratio = "2026-09-09T00:00:00.000Z";
+    assert.equal(komorebi.normalizeProfile(kept).profile.lv10ClearAt.kom_ratio, "2026-09-09T00:00:00.000Z");
+  });
+
   const profile = komorebi.profile();
   /* 1 周目のメダルを成立させ、ロックが明けた状態を作る。 */
   profile.lv.kom_ratio = 10;

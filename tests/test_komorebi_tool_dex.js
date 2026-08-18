@@ -55,10 +55,17 @@ test("breaking the last tool of a kind never erases its dex entry", () => {
 test("a broken dex is refused instead of repaired", () => {
   assert.ok(tools.validateDex({}), "無い状態は正しい (additive の既定)");
   assert.ok(tools.validateDex({ toolDex: { cho_net: "2026-08-17" } }));
-  [{ toolDex: { ghost_net: "2026-08-17" } }, { toolDex: { cho_net: 20260817 } },
-    { toolDex: { cho_net: "" } }, { toolDex: [] }].forEach(broken => {
+  [{ toolDex: { cho_net: 20260817 } }, { toolDex: { cho_net: "" } }, { toolDex: [] }].forEach(broken => {
     assert.throws(() => tools.validateDex(broken), /道具図鑑/, JSON.stringify(broken));
   });
+});
+
+test("a dex entry for a tool this build does not know yet is carried, not refused", () => {
+  /* 図鑑は先の更新で増える台帳。新しい道具を知っている端末が書いた記録を古い端末が
+     読むことがあり、そこで throw するとその端末は競合解決ごと動かなくなる。 */
+  const future = { toolDex: { cho_net: "2026-08-17", malaise_trap: "2026-10-01" } };
+  assert.ok(tools.validateDex(future));
+  assert.equal(future.toolDex.malaise_trap, "2026-10-01", "知らない道具の記録が消えた");
 });
 
 /* ---- 画面と保存 (fake DOM) ---- */
@@ -99,9 +106,9 @@ test("a broken dex is refused instead of repaired", () => {
     assert.equal(typeof first.profile.toolDex, "object");
     const again = komorebi.normalizeProfile(JSON.parse(JSON.stringify(first.profile)));
     assert.equal(again.changed, false, "毎回の起動で保存が走り続ける");
-    /* 壊れた台帳は通さない。 */
+    /* 壊れた台帳は通さない (形の誤りだけ。知らない道具の id は素通しする)。 */
     const broken = komorebi.createProfile();
-    broken.toolDex = { ghost_net: "2026-08-17" };
+    broken.toolDex = { cho_net: 20260817 };
     assert.throws(() => komorebi.normalizeProfile(broken), /道具図鑑/);
   });
 

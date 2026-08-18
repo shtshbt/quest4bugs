@@ -232,13 +232,17 @@
     return typeof at==="string"&&at?at:null;
   }
 
+  /* 知らない道具の id は弾かず、そのまま持ち越す。図鑑は先の更新で増える台帳なので、
+     新しい道具を知っている端末が書いた記録を古い端末が読むことがある。そこで throw
+     すると、その端末は保存の競合解決 (remote を読み直す経路) ごと動かなくなる。
+     弾くのは形の誤り (日付が文字列でない、空) だけ。 */
   function validateDex(profile){
     if(!isObject(profile))throw new Error("保存データが正しくありません");
     var dex=profile.toolDex;
     if(dex==null)return profile;
     if(!isObject(dex))throw new Error("道具図鑑の形式が正しくありません");
     Object.keys(dex).forEach(function(id){
-      if(!BY_ID[id]||typeof dex[id]!=="string"||!dex[id])throw new Error("道具図鑑の形式が正しくありません");
+      if(typeof dex[id]!=="string"||!dex[id])throw new Error("道具図鑑の形式が正しくありません");
     });
     return profile;
   }

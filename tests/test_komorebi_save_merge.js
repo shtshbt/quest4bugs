@@ -57,6 +57,27 @@ test("the same offering seen from two devices is written once", () => {
   assert.equal(merge(local, remote).uroLog.length, 1, "同じ奉納が 2 行に増えた");
 });
 
+test("the two offerings of one lap fall on the same day, and both survive", () => {
+  /* 2 周目以降は 1 度の鋳造で 2 枚出て、その 2 枚は同じ日に続けて捧げられる。
+     cat + 周回 + 日付だけを鍵にすると 2 行が 1 行に潰れ、記録が消えるうえに
+     捧げ待ちが 1 枚増えて道具がもう 1 つ出てしまう。 */
+  const lap2 = komorebi.createProfile();
+  lap2.uroLog = [offering("kom_ratio", 1, "2026-08-17", "cho_net"),
+    offering("kom_ratio", 2, "2026-09-01", "cho_net"),
+    offering("kom_ratio", 2, "2026-09-01", "light_trap")];
+  assert.equal(merge(lap2, komorebi.createProfile()).uroLog.length, 3, "同じ日の 2 枚が 1 行に潰れた");
+  /* 同じ道具を 2 つ選んだ場合も 2 行のまま。 */
+  const twice = komorebi.createProfile();
+  twice.uroLog = [offering("kom_ratio", 2, "2026-09-01", "cho_net"),
+    offering("kom_ratio", 2, "2026-09-01", "cho_net")];
+  assert.equal(merge(twice, komorebi.createProfile()).uroLog.length, 2);
+  /* 片側にしか届いていない 2 枚目も残る (どちらを local にしても同じ)。 */
+  const half = komorebi.createProfile();
+  half.uroLog = [offering("kom_ratio", 2, "2026-09-01", "cho_net")];
+  assert.equal(merge(half, twice).uroLog.length, 2);
+  assert.equal(merge(twice, half).uroLog.length, 2);
+});
+
 test("two laps of one category keep two rows, and so does a same-lap clash", () => {
   const local = komorebi.createProfile();
   const remote = komorebi.createProfile();
@@ -83,7 +104,7 @@ test("a tool box never shrinks through a conflict", () => {
   assert.equal(types.join(","), "banana_trap,cho_net,light_trap");
 });
 
-test("of two views of one kind the fuller side wins, then the less worn one", () => {
+test("tools merge one instance at a time, so a fresh one never loses to worn copies", () => {
   const local = komorebi.createProfile();
   const remote = komorebi.createProfile();
   /* 件数が違えば多い側。片側で壊した 1 本が古い写しで戻ることはあるが、
@@ -92,12 +113,22 @@ test("of two views of one kind the fuller side wins, then the less worn one", ()
   remote.tools = [{ type: "cho_net", remaining: 30 }];
   assert.equal(merge(local, remote).tools.length, 2);
   assert.equal(merge(remote, local).tools.length, 2, "local と remote を入れ替えても同じ");
-  /* 同数なら残耐久の合計が大きい側。減った側を正としない。 */
+  /* 同数なら残りの大きい側。減った側を正としない。 */
   const worn = komorebi.createProfile(), fresh = komorebi.createProfile();
   worn.tools = [{ type: "cho_net", remaining: 4 }];
   fresh.tools = [{ type: "cho_net", remaining: 28 }];
   assert.equal(merge(worn, fresh).tools[0].remaining, 28);
   assert.equal(merge(fresh, worn).tools[0].remaining, 28);
+  /* 授かったばかりの 1 本は、本数だけ多い壊れかけの写しに負けない。丸ごと片側を
+     採ると、メダルを払ったのに何も残らない結果になる。 */
+  const justGranted = komorebi.createProfile(), nearlyBroken = komorebi.createProfile();
+  justGranted.tools = [{ type: "cho_net", remaining: 30 }];
+  nearlyBroken.tools = [{ type: "cho_net", remaining: 1 }, { type: "cho_net", remaining: 1 }];
+  [merge(justGranted, nearlyBroken), merge(nearlyBroken, justGranted)].forEach(merged => {
+    const left = merged.tools.map(tool => tool.remaining).sort((a, b) => b - a);
+    assert.equal(left.length, 2, "本数が減った");
+    assert.equal(left[0], 30, "授かったばかりの 1 本が壊れかけの写しに負けた");
+  });
 });
 
 test("the equipped slot follows the local choice, or repairs itself", () => {
@@ -177,6 +208,44 @@ test("a reset done on the other device is replayed here, not just counted", () =
   assert.equal(trophies.award(merged, "kom_ratio", "2026-09-01"), null);
 });
 
+test("a reset done on this device is not undone by the other device's stale window", () => {
+  /* 手元がリセット済み、向こうが前の周のまま。安定判定を「進んだ側」だけで選ぶと
+     リセット前の 20 問が次の周の実績に化け、Lv1 のまま次の答えで 2 枚成立する。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.lv.kom_ratio = 1; local.maxLv.kom_ratio = 10;
+  local.adapt.kom_ratio = { n: 0, recent: [] };
+  local.trophyProgress.kom_ratio = { n: 0, recent: [] };
+  local.lapCount.kom_ratio = 2; local.mintedLaps.kom_ratio = 1;
+  remote.lv.kom_ratio = 10; remote.maxLv.kom_ratio = 10;
+  remote.adapt.kom_ratio = { n: 250, recent: new Array(10).fill(1) };
+  remote.trophyProgress.kom_ratio = { n: 25, recent: new Array(20).fill(1) };
+  remote.lapCount.kom_ratio = 1; remote.mintedLaps.kom_ratio = 1;
+  const merged = merge(local, remote);
+  assert.equal(merged.lapCount.kom_ratio, 2);
+  assert.equal(merged.lv.kom_ratio, 1, "自分のリセットが向こうの古い Lv で消えた");
+  assert.equal(merged.trophyProgress.kom_ratio.n, 0, "前の周の 20 問が持ち込まれた");
+  const trophies = context.Q4B_KOMOREBI_TROPHIES;
+  assert.equal(trophies.qualifies(merged, "kom_ratio"), false, "統合しただけで鋳造が成立する");
+  assert.equal(trophies.award(merged, "kom_ratio", "2026-09-01"), null);
+});
+
+test("a lap the remote already relearned is not demoted back to level one", () => {
+  /* 向こうがリセット後に Lv10 まで戻していたら、その周回の進みをそのまま採る。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.lv.kom_ratio = 10; local.maxLv.kom_ratio = 10;
+  local.trophyProgress.kom_ratio = { n: 25, recent: new Array(20).fill(1) };
+  remote.lv.kom_ratio = 9; remote.maxLv.kom_ratio = 10;
+  remote.adapt.kom_ratio = { n: 90, recent: [1, 1, 1] };
+  remote.trophyProgress.kom_ratio = { n: 6, recent: [1, 1, 1, 1, 1, 1] };
+  remote.lapCount.kom_ratio = 2; remote.mintedLaps.kom_ratio = 1;
+  const merged = merge(local, remote);
+  assert.equal(merged.lv.kom_ratio, 9, "向こうの周回の進みが Lv1 に潰れた");
+  assert.equal(merged.adapt.kom_ratio.n, 90);
+  assert.equal(merged.trophyProgress.kom_ratio.n, 6, "手元の前の周の窓が残った");
+});
+
 test("a lap the local device already ran keeps its own progress", () => {
   const local = komorebi.createProfile();
   const remote = komorebi.createProfile();
@@ -228,10 +297,13 @@ test("a merged profile is still a profile the loader accepts", () => {
   remote.tools = [{ type: "light_trap", remaining: 30 }];
   remote.trophies = { madagascar_pi314: { cat: "kom_pi314", speciesId: "medama_yamamayu", at: "2026-08-18" } };
   const merged = komorebi.normalizeProfile(clone(merge(local, remote)));
-  assert.equal(merged.changed, false, "統合した結果がそのままでは読めない形になっている");
   assert.equal(merged.profile.uroLog.length, 2);
   assert.equal(merged.profile.tools.length, 2);
   assert.equal(merged.profile.equippedToolId, "cho_net");
+  /* 1 度読めば落ち着く。2 度目で書き戻しが起きるなら、毎回の保存が止まらない。
+     (1 度目は向こうのメダルにロックの起点を埋める migration が走る。) */
+  const again = komorebi.normalizeProfile(clone(merged.profile));
+  assert.equal(again.changed, false, "統合した結果が読むたびに書き換わる");
 });
 
 /* ---- 実際の保存経路 (CAS の衝突 → 再保存) ---- */
@@ -281,6 +353,38 @@ test("a merged profile is still a profile the loader accepts", () => {
     assert.equal(live.__saved.komorebi.uroLog.length, 2);
     assert.equal(live.__saved.komorebi.tools.length, 2);
   });
+
+  await (async () => {
+    /* 競合を解いたあとの再送に失敗したとき。呼び出し側は手元の profile を巻き戻すので、
+       ここで revision まで向こうに合わせてしまうと、次の保存が競合なしで通り、
+       向こうの記録を知らない古い profile がそのまま上書きしてしまう。 */
+    const beforeRows = live.__saved.komorebi.uroLog.length;
+    const saveVersionedNow = live.QuestSave.saveVersioned;
+    let calls = 0;
+    live.QuestSave.saveVersioned = function(){
+      calls++;
+      if(calls === 1) return Promise.resolve({ ok: false, reason: "conflict" });
+      if(calls === 2) return Promise.reject(new Error("boom"));
+      return saveVersionedNow.apply(this, arguments);
+    };
+    let failed = false;
+    await app.recordAnswer("kom_ratio",
+      { sessionId: "merge", submissionId: "m-2", format: "normal", kind: "num", correct: true, final: true },
+      volume, () => 0.5).catch(() => { failed = true; });
+    /* 次の保存はまだ古い revision で出るので、もう一度競合して統合をやり直す。 */
+    await app.recordAnswer("kom_ratio",
+      { sessionId: "merge", submissionId: "m-3", format: "normal", kind: "num", correct: true, final: true },
+      volume, () => 0.5).catch(() => {});
+    await settle();
+    live.QuestSave.saveVersioned = saveVersionedNow;
+
+    test("a failed retry does not let the next save overwrite the other device", () => {
+      assert.equal(failed, true, "再送の失敗が呼び出し側へ届いていない");
+      assert.ok(live.__saved.komorebi.uroLog.length >= beforeRows,
+        "巻き戻した profile が向こうの奉納を上書きした");
+      assert.ok(live.__saved.komorebi.trophies.madagascar_pi314, "巻き戻した profile がメダルを消した");
+    });
+  })();
 
   console.log(`RESULT ${passed} passed, 0 failed`);
 })().catch(error => { console.error(error); process.exit(1); });

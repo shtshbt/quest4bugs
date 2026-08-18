@@ -725,6 +725,18 @@
     Object.keys(p.lv10ClearAt).forEach(function(cat){
       if(typeof p.lv10ClearAt[cat]!=="string"||!p.lv10ClearAt[cat])throw new Error("クリア日データの形式が正しくありません");
     });
+    /* 起点を記録する前に成立していたメダル (Phase 1 より前のセーブ) には起点が無く、
+       そのままだとロックが永久に明けずリセット周回へ入れない。授与日で埋める。
+       日付だけの文字列でも Date.parse は通るので、ロックの計算は同じに動く。 */
+    if(global.Q4B_KOMOREBI_TROPHIES){
+      global.Q4B_KOMOREBI_TROPHIES.list().forEach(function(trophy){
+        var record=p.trophies[trophy.trophyId];
+        if(!isObject(record)||p.lv10ClearAt[trophy.cat])return;
+        if(typeof record.at!=="string"||!record.at)return;
+        p.lv10ClearAt[trophy.cat]=record.at;
+        changed=true;
+      });
+    }
     /* メダル経済の追加分。古いセーブには無いので既定値を補い、形が違うものは通さない
        (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。 */
     if(p.tools==null){p.tools=[];changed=true;}
@@ -753,17 +765,27 @@
 
   function objectOf(value){return isObject(value)?value:{};}
 
-  /* 奉納ログの union。鍵は cat + 周回 + 日付。奉納は 1 カテゴリ 1 周につき 1 回なので
-     普段は cat + lap で足りるが、同じ周回を別の日に捧げた記録 (競合中の二重奉納) が
-     来たときは、片方を消すより 2 行残すほうを選ぶ。並びは日付順に寄せる。 */
+  /* 奉納ログの union。鍵は cat + 周回 + 日付 + 道具で、同じ鍵の行が何本あるかまで見る。
+     2 周目以降は 1 度の鋳造で 2 枚出て、その 2 枚は同じ日に続けて捧げられるので、
+     鍵が 1 つでは 2 行が 1 行に潰れてしまう。潰れると記録が消えるだけでなく、
+     uro.pending が「まだ捧げていない」と数えて道具がもう 1 つ出てしまう。
+     同じ鍵は本数の多い側を採る (両側が同じなら 1 度きり)。並びは日付順に寄せる。 */
   function mergeUroLogs(localLog,remoteLog){
-    var seen=Object.create(null),merged=[];
-    (Array.isArray(remoteLog)?remoteLog:[]).concat(Array.isArray(localLog)?localLog:[]).forEach(function(entry){
-      if(!isObject(entry))return;
-      var key=entry.cat+"|"+entry.lap+"|"+entry.date;
+    function group(list){
+      var byKey=Object.create(null);
+      (Array.isArray(list)?list:[]).forEach(function(entry){
+        if(!isObject(entry))return;
+        var key=entry.cat+"|"+entry.lap+"|"+entry.date+"|"+entry.tool;
+        (byKey[key]||(byKey[key]=[])).push(entry);
+      });
+      return byKey;
+    }
+    var local=group(localLog),remote=group(remoteLog),seen=Object.create(null),merged=[];
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(key){
       if(seen[key])return;
       seen[key]=true;
-      merged.push(entry);
+      var mine=local[key]||[],theirs=remote[key]||[];
+      merged=merged.concat(mine.length>=theirs.length?mine:theirs);
     });
     merged.sort(function(a,b){
       if(a.date!==b.date)return a.date<b.date?-1:1;
@@ -773,9 +795,10 @@
     return merged;
   }
 
-  /* 道具は種類ごとに、個体を失わない側を丸ごと採る。件数の多い側、同数なら残耐久の
-     合計が大きい側。片方で壊れた 1 本が古い写しで戻ることはあるが、逆 (授かった
-     1 本が競合で消える) は起こさない。コレクションを奪う操作は存在しない。 */
+  /* 道具は種類ごとに、残りの多い順に並べて 1 本ずつ突き合わせる。本数は多い側に、
+     各 1 本の残耐久は大きい側に寄せる。丸ごと片側を採ると、授かったばかりの 1 本が
+     「本数だけ多い、ほとんど壊れかけの写し」に負けて消える (メダルを払ったのに
+     何も残らない)。コレクションを奪う操作は存在しない。 */
   function mergeToolBoxes(localTools,remoteTools){
     function group(list){
       var byType=Object.create(null);
@@ -783,20 +806,23 @@
         if(!isObject(entry)||typeof entry.type!=="string")return;
         (byType[entry.type]||(byType[entry.type]=[])).push(entry);
       });
+      Object.keys(byType).forEach(function(type){
+        byType[type].sort(function(a,b){
+          return (Number.isFinite(b.remaining)?b.remaining:0)-(Number.isFinite(a.remaining)?a.remaining:0);
+        });
+      });
       return byType;
-    }
-    function total(list){
-      return list.reduce(function(sum,entry){return sum+(Number.isFinite(entry.remaining)?entry.remaining:0);},0);
     }
     var local=group(localTools),remote=group(remoteTools),seen=Object.create(null),merged=[];
     Object.keys(remote).concat(Object.keys(local)).forEach(function(type){
       if(seen[type])return;
       seen[type]=true;
-      var mine=local[type]||[],theirs=remote[type]||[];
-      var keep=mine.length!==theirs.length
-        ?(mine.length>theirs.length?mine:theirs)
-        :(total(theirs)>total(mine)?theirs:mine);
-      merged=merged.concat(keep);
+      var mine=local[type]||[],theirs=remote[type]||[],count=Math.max(mine.length,theirs.length),i;
+      for(i=0;i<count;i++){
+        var a=mine[i],b=theirs[i];
+        if(a&&b)merged.push((Number.isFinite(a.remaining)?a.remaining:0)>=(Number.isFinite(b.remaining)?b.remaining:0)?a:b);
+        else merged.push(a||b);
+      }
     });
     return merged;
   }
@@ -825,7 +851,8 @@
   }
 
   /* 安定判定の窓は進んだ側 (有効回答が多い側) を残す。20 問ぶんの積み上げを
-     競合で捨てると、鋳造が理由なく遠のく。 */
+     競合で捨てると、鋳造が理由なく遠のく。周回が食い違うカテゴリだけは、この
+     あとの mergeLapScopedState が周回に合う側で上書きする。 */
   function mergeTrophyProgress(localProgress,remoteProgress){
     var merged={},local=objectOf(localProgress),remote=objectOf(remoteProgress);
     Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
@@ -859,6 +886,39 @@
     return merged;
   }
 
+  /* 周回に属する状態 (いまの Lv、昇降の 10 問窓、安定判定の 20 問窓) は、統合後の
+     周回に居る側から丸ごと採る。周回が 1 つ後ろの側の値を混ぜると、リセット前の Lv と
+     20 問がそのまま次の周の実績に化けて、競合を起こすだけで Lv1 のままメダルが
+     2 枚成立してしまう (鋳造源は習熟のみ、という不変条件 3 が破れる)。
+     両方が同じ周回に居るときは手元の Lv をそのまま使う (窓は進んだ側)。 */
+  function mergeLapScopedState(merged,localProfile,remoteProfile){
+    var local=objectOf(localProfile),remote=objectOf(remoteProfile);
+    function lapAt(profile,cat){
+      var value=objectOf(profile.lapCount)[cat];
+      return Number.isInteger(value)&&value>=1?value:1;
+    }
+    function windowOf(profile,cat){
+      var entry=objectOf(profile.trophyProgress)[cat];
+      return isObject(entry)?entry:{n:0,recent:[]};
+    }
+    Object.keys(CATEGORIES).forEach(function(cat){
+      var want=Number.isInteger(merged.lapCount[cat])&&merged.lapCount[cat]>=1?merged.lapCount[cat]:1;
+      var mineAt=lapAt(local,cat)===want,theirsAt=lapAt(remote,cat)===want;
+      /* 両方が同じ周回。mergeTrophyProgress の結果 (進んだ側) をそのまま使う。 */
+      if(mineAt&&theirsAt)return;
+      if(theirsAt){
+        var theirLv=objectOf(remote.lv)[cat],theirAdapt=objectOf(remote.adapt)[cat];
+        merged.lv[cat]=Number.isInteger(theirLv)&&theirLv>=1?theirLv:1;
+        merged.adapt[cat]=isObject(theirAdapt)?theirAdapt:{n:0,recent:[]};
+        merged.trophyProgress[cat]=windowOf(remote,cat);
+        return;
+      }
+      /* 手元がこの周回に居る。向こうの前の周の窓は持ち込まない。 */
+      merged.trophyProgress[cat]=windowOf(local,cat);
+    });
+    return merged;
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
@@ -886,19 +946,9 @@
     merged.maxLv=mergeMaxByCat(localProfile&&localProfile.maxLv,remote.maxLv);
     merged.lapCount=mergeMaxByCat(localProfile&&localProfile.lapCount,remote.lapCount);
     merged.mintedLaps=mergeMaxByCat(localProfile&&localProfile.mintedLaps,remote.mintedLaps);
-    /* 向こうの端末でリセット周回に入っていたら、そのリセットをこちらにも通す。
-       周回番号だけ進んで Lv と安定判定の窓が前の周のまま残ると、Lv10 に居るだけで
-       次の周のメダルが即座に成立してしまう (競合を起こすだけで 2 枚もらえる穴)。
-       戻すのは Lv の進行だけで、図鑑・捕獲済み・奉納記録・到達 Lv には触れない。 */
-    var localLaps=objectOf(localProfile&&localProfile.lapCount);
-    Object.keys(merged.lapCount).forEach(function(cat){
-      if(!hasOwn(CATEGORIES,cat))return;
-      var mine=Number.isInteger(localLaps[cat])&&localLaps[cat]>=1?localLaps[cat]:1;
-      if(!(merged.lapCount[cat]>mine))return;
-      if(isObject(merged.lv))merged.lv[cat]=1;
-      if(isObject(merged.adapt))merged.adapt[cat]={n:0,recent:[]};
-      merged.trophyProgress[cat]={n:0,recent:[]};
-    });
+    /* 周回に属する状態は、統合後の周回に居る側から採る (リセットを取りこぼさない)。
+       戻るのは Lv の進行だけで、図鑑・捕獲済み・奉納記録・到達 Lv には触れない。 */
+    mergeLapScopedState(merged,localProfile,remote);
     /* 装備は 1 枠なので union できない。local を優先し、統合後の道具箱に本体が
        無ければ remote の装備、それも無ければ外す (normalizeProfile と同じ自己修復)。
        道具そのものは残っているので、外れても選び直せば済む。 */
@@ -920,10 +970,13 @@
       if(!result||result.reason!=="conflict")throw new Error("保存できません");
       return QuestSave.loadVersioned("komorebi",profileId,null).then(function(latest){
         var remoteProfile=normalizeProfile(latest.data).profile;
-        profile=mergeProfileCatches(localProfile,remoteProfile);
-        profileRevision=latest.revision;
-        return QuestSave.saveVersioned("komorebi",profileId,profile,profileRevision).then(function(retry){
+        var mergedProfile=mergeProfileCatches(localProfile,remoteProfile);
+        /* 統合の結果を画面と revision に反映するのは、書き込みが通ってから。先に
+           revision だけ進めると、再送に失敗して呼び出し側が巻き戻したときに
+           「向こうの記録を知らない古い profile」が競合なしで上書きしてしまう。 */
+        return QuestSave.saveVersioned("komorebi",profileId,mergedProfile,latest.revision).then(function(retry){
           if(!retry||!retry.ok)throw new Error("保存の競合を解消できません");
+          profile=mergedProfile;
           profileRevision=retry.revision;
           return true;
         });
@@ -2622,7 +2675,8 @@
      形を使う (捕獲以外の知らせを別の見た目で出さない)。 */
   function showMedalExchange(medal,onDone,run){
     var uro=uroModule();
-    if(!uro||!global.document)return;
+    /* 出せない場面でも約束は返す。黙って返ると 2 枚交換の続きが止まったままになる。 */
+    if(!uro||!global.document){if(onDone)onDone(null);return;}
     var choices=toolChoices();
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
@@ -2724,8 +2778,11 @@
       if(tool.release>release)return {locked:true};
       return {id:tool.id,name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
     });
+    /* 装備の見え方は こはくの画面と同じ判定にそろえる。未公開の道具を装備したままの
+       セーブで、片方の画面が「そうび中」もう片方が「なし」になるのを避ける。 */
+    var equipped=equippedToolOf(profile);
     return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
-      equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log,dex:dex};
+      equippedToolId:equipped?profile.equippedToolId:null,durability:tools.durability,entries:log,dex:dex};
   }
 
   function renderUro(backId){
@@ -2968,8 +3025,17 @@
         var type=button.getAttribute("data-equip")||null;
         /* 既に選ばれている札を押しても保存を起こさない (連打で保存が並ばない)。 */
         if((profile.equippedToolId||null)===type)return;
+        var before=profile.equippedToolId||null;
         if(!tools.equip(profile,type))return;
-        saveProfile().then(rerender).catch(rerender);
+        /* 保存に失敗したら持ち替えも戻す。画面だけ替わって次の捕獲では前の道具が
+           効いている、という食い違いを残さない。 */
+        var saved;
+        try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+        saved.then(rerender).catch(function(){
+          tools.equip(profile,before);
+          global.alert("ほぞんに しっぱいしました。そうびは そのままだよ");
+          rerender();
+        });
       });
     });
   }

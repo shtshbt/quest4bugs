@@ -91,12 +91,33 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
    release と一致していること (`test_komorebi_portal_gate.js` が見張る)
 3. volume freeze チェック: 公開する各道具に対象種が 1 種以上いること
 4. 全テストを 4 状態 (CURRENT_RELEASE 1/2 × MEDAL_ECONOMY_ON on/off) で通す
-5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。今回
-   増えたのは `komorebi/economy_flag.js` と `komorebi/assets/tool_icons.js` の 2 本で、
-   どちらも `sw.js` の precache と両 index.html の script に入っている
+5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。sw.js は
+   query を含む URL で一致を見るため、`?v=` を据え置くと復帰した端末が古い実装を
+   使い続ける (点火日に御神木のうろ入口が出ない、という形で表に出る)。
+   Phase 2 で中身が変わったのは次の通り。
+   新規: `komorebi/economy_flag.js`、`komorebi/assets/tool_icons.js`
+   (どちらも sw.js の precache と index.html の script に追加済み)。
+   要 bump: `komorebi/app.js`、`komorebi/trophies.js`、`komorebi/tools.js`、
+   `komorebi/uro.js`、`komorebi/map.css`、`shared/breeding.js`
+   (breeding.js は portal と小道の両方の index.html に `?v=` がある)
 6. 実機確認: 御神木パネルと小道の地図下端の両方に うろの入口が出ること、
    こはく呼び出し画面に道具の札が出ること、Lv10 クリアから 7 日でリセットボタンが
    出ること
+
+#### Phase 2 の独立レビューで挙がった観測 (2026-08-18、未対応)
+
+1. リセット周回はゲージの供給を落とさない。こはくは `maxLv` で 0.4 に減衰する
+   (`feedSideRewards`) が、ゲージは `qualifiesForGauge` が Lv を見ないため、
+   周回中の易しい問題でも 8 問 1 匹のまま進む。不変条件 1 (レート不変) は
+   文字どおり守られている一方、1 匹あたりの実時間コストは下がる。ゲージを
+   `maxLv` で減衰させるのは不変条件 1 に触れるので、まず発行速度の実測
+   (10 章の保留事項 2 と同じ枠) で様子を見る
+2. 保存の競合解決は `anslog` / `srs` / `stats` / `collection.gauge` /
+   `amberAcc` を local 優先のままにしている。とくに `anslog` は発行速度の監視に
+   使う演習ログなので、二台運用が続くなら union の対象に足す
+3. `validateTools` は知らない道具 id を throw で弾く (Phase 1 の判断)。道具図鑑
+   (`validateDex`) は素通しに直したが、道具の instance 側は据え置き。将来の更新で
+   道具が増えたあと、古い端末が新しいセーブを読めなくなる余地が残る
 
 #### 検収指摘の残課題 (2026-08-17 の独立レビュー)
 
@@ -109,10 +130,14 @@ Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの
    remote 側の `uroLog` / `tools` / `equippedToolId` / `trophies` / `lv10ClearAt` が
    黙って消え、奉納の記録は不滅という約束 (設計書 2 章 不変条件 4) が競合経路
    だけ守られていなかった。どちらの側の記録も減らさない統合に直した:
-   uroLog は cat + 周回 + 日付の union、tools は種類ごとに件数の多い側 (同数なら
-   残耐久の合計が大きい側)、trophies と toolDex は union で早い日付を優先、
-   trophyProgress は進んだ側、lv10ClearAt は直近、maxLv / lapCount / mintedLaps は
-   大きい側。`tests/test_komorebi_save_merge.js` が競合シナリオを固定する。
+   uroLog は cat + 周回 + 日付 + 道具を鍵にした本数つきの union (2 周目の 2 枚は
+   同じ日に並ぶので、鍵が粗いと 1 行に潰れて記録が消え、道具が 1 つ余計に出る)、
+   tools は種類ごとに残りの多い順で 1 本ずつ突き合わせ (本数は多い側・各 1 本の
+   残りは大きい側)、trophies と toolDex は union で早い日付を優先、lv10ClearAt は
+   直近、maxLv / lapCount / mintedLaps は大きい側。周回に属する状態 (いまの Lv、
+   昇降の窓、安定判定の窓) は統合後の周回に居る側から丸ごと採る。再送に失敗した
+   ときは revision を進めないので、次の保存がもう一度競合して統合をやり直す。
+   `tests/test_komorebi_save_merge.js` が競合シナリオを固定する。
 2. catalog の jaName が仮称 64 種で学名のまま
    `zukan_config/zukan_catalog.js` のオーストラリア遠征 I 84 件のうち 64 件で
    `jaName` が学名 (例: `Simosyrphus grandicornis`) になっている。取得時点の
