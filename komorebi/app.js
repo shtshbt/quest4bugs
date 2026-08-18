@@ -2732,7 +2732,7 @@
   var grantedOverlay=null;
 
   function showToolGrantedModal(toolId,firstOfKind){
-    var tools=toolsModule(),tool=tools&&tools.byId(toolId);
+    var tools=toolsModule(),tool=tools&&tools.byId(toolId),uro=uroModule();
     if(!tool||!global.document)return;
     closeModal(grantedOverlay);
     var overlay=document.createElement("div");
@@ -2741,8 +2741,15 @@
     overlay.id="komToolModal";
     /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
     var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
+    /* 奉納の小演出 (tools_design 9 章)。「うろが すこし あかるくなった」と書くだけ
+       では、明るくなった うろを見るのに もう 1 画面ぶん歩かせることになる。捧げた
+       直後の輝きをその場で 1 枚出し、ひらく動きだけを添える。輝きの値は捧げたあとの
+       奉納ログから出るので、演出のためだけの数を持たない。 */
+    var hollow=uro&&typeof uro.hollowHtml==="function"?uro.hollowHtml(uro.glow(profile),"is-blooming"):"";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +'<div class="uro-granted"><p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
+      +'<div class="uro-granted'+(firstOfKind?" is-first":"")+'">'
+      +hollow
+      +'<p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
       +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
       +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'

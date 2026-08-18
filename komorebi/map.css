@@ -410,6 +410,19 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   border:1.5px solid #B06B3C;border-radius:10px;background:#33261E;color:#FFD2A8}
 .kom-tool-break strong{font-size:15px}
 .kom-tool-break span{font-size:12.5px;color:#E4C4A6}
+/* 破損の小演出 (tools_design 9 章)。1 度だけ ゆれて 止まる。壊れたことは文字が
+   言っているので、動きは「あ、いま 壊れた」を気づかせるところまでで足りる。
+   繰り返す動きにすると、リザルトを読んでいる間ずっと視界の端が動く。 */
+@keyframes kom-break-shake{0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-3px)}40%{transform:translateX(3px)}
+  60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+@keyframes kom-break-tilt{0%{transform:rotate(0)}45%{transform:rotate(-14deg)}100%{transform:rotate(-8deg)}}
+.kom-tool-break{animation:kom-break-shake .42s ease-in-out 1}
+/* 傾くのは道具の絵だけ。文字ごと倒すと、読ませたい 1 行が読みにくくなる。 */
+.kom-tool-break .tool-icon{animation:kom-break-tilt .5s ease-out both}
+@media (prefers-reduced-motion:reduce){
+  .kom-tool-break,.kom-tool-break .tool-icon{animation:none}
+}
 
 /* 捕獲ビネット (tools_design 9 章)。道具ごとの採集シーンを捕獲カードの上に 1 枚。
    絵は表示だけの層なので、捕獲カードより先に目に入ってはいけない: 幅を捕獲カードの
@@ -526,3 +539,22 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-granted-face{margin:0;font-size:46px}
 .uro-granted-name{margin:6px 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
 .uro-granted-note,.uro-granted-hint{margin:0 0 4px;color:#CDE3BA;font-size:13px;line-height:1.6}
+
+/* 奉納と初回授与の小演出 (tools_design 9 章)。どちらも 1 度だけ動いて止まる。
+   捧げた直後の うろを その場で 1 枚出し、ひらく動きを添える。輝きの値は奉納ログ
+   から出ているので、演出のためだけの数は持たない。 */
+.uro-granted .uro-hollow{margin:0 auto 8px;width:min(42vw,124px)}
+@keyframes uro-bloom{0%{opacity:.25;transform:scale(.9)}60%{opacity:1;transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+.uro-hollow.is-blooming{animation:uro-bloom .85s ease-out both}
+/* 初めての 1 本。道具の絵がひと呼吸だけ大きくなり、図鑑に載った行が続いて出る。
+   11 種すべてを一度は授かる、という第二の完成目標の 1 目盛りぶんの合図。 */
+@keyframes uro-first-pop{0%{transform:scale(.7);opacity:0}55%{transform:scale(1.16);opacity:1}100%{transform:scale(1)}}
+@keyframes uro-first-slide{0%{transform:translateY(6px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.uro-granted.is-first .uro-granted-face{animation:uro-first-pop .6s ease-out both .2s}
+.uro-granted.is-first .uro-granted-dex{animation:uro-first-slide .45s ease-out both .7s;
+  text-shadow:0 0 10px rgba(255,216,107,.5)}
+@media (prefers-reduced-motion:reduce){
+  .uro-hollow.is-blooming,.uro-granted.is-first .uro-granted-face,
+  .uro-granted.is-first .uro-granted-dex{animation:none}
+  .uro-mote-a,.uro-mote-b,.uro-mote-c{animation:none}
+}
