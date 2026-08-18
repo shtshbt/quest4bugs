@@ -309,11 +309,14 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .ratio-choice.is-selected{border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 2px 0 #80691F}
 
 /* 単位換算の回答。数と単位を分けて受け取る。数だけだと「別の単位で計算し切った
-   答え」がただの計算違いに見えてしまい、何を直せばよいか渡せない。 */
+   答え」がただの計算違いに見えてしまい、何を直せばよいか渡せない。
+   chip の文字は 16px で選択肢 (.ratio-choice 19px、real-device 指摘 2026-08-15 で
+   決まった水準) より小さく、実機で「選択肢が小さい」指摘 (2026-08-17)。
+   単位ラベルは短いので 19px でも折返し・幅崩れは起きない。 */
 .num-unit-form{flex-wrap:wrap}
 .unit-choices{display:flex;flex-wrap:wrap;gap:8px;flex-basis:100%}
 .unit-chip{min-height:44px;padding:9px 16px;border:2px solid #4D765E;border-radius:999px;
-  background:#17332B;color:#F3FFE2;font:800 16px/1.2 inherit;cursor:pointer}
+  background:#17332B;color:#F3FFE2;font:800 19px/1.2 inherit;cursor:pointer}
 .unit-chip:hover{border-color:#D6B653}
 .unit-chip.is-selected{border-color:#D6B653;background:#E6C764;color:#26321F;box-shadow:0 2px 0 #80691F}
 .unit-chip:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
