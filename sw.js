@@ -35,6 +35,7 @@ var CORE = [
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
   "./komorebi/diagram_engine.js", "./komorebi/diagram_model_generator.js",
+  "./komorebi/economy_flag.js",
   "./komorebi/trophies.js", "./komorebi/tools.js", "./komorebi/uro.js",
   "./komorebi/volumes/volume_fixture.js",
   "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",

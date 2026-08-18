@@ -1,19 +1,20 @@
 (function(global){
   "use strict";
 
-  /* 公開済みの更新番号 (release_linkage 2 章の更新カレンダー)。実装は先へ進めて
-     公開はここ 1 か所で段階解禁する。これが無いと「実装済み未公開」のカテゴリが
-     次の deploy でそのまま子どもの画面に出てしまう。 */
-  var CURRENT_RELEASE=2;
-
-  /* メダル経済 (採集道具・かがやきのうろ・メダル交換) の公開スイッチ。更新番号とは
-     独立させてある。地域 volume の公開は新奇性が効くうちに出したいが、道具は
-     手が止まりかけた頃に出すほうが効くので、同じ deploy に束ねない
-     (2026-08-17 決定)。false の間はメダルの挙動が道具の実装前と 1 ビットも
-     変わらない: 金の虫が増えるだけで、交換ポップアップもうろの入口も出ず、
-     抽選も乱数の消費本数も動かない。off の間に成立したメダルは、うろの初回訪問で
-     遡って奉納できる (uro.pending)。公開日はこの 1 行を true にして cache を上げる。 */
-  var MEDAL_ECONOMY_ON=false;
+  /* 公開スイッチ (更新番号 CURRENT_RELEASE とメダル経済 MEDAL_ECONOMY_ON) の実体は
+     komorebi/economy_flag.js が持つ。御神木パネルを描く portal は app.js を
+     読み込まないので、判定に要る 2 つの数だけを切り出して両方から読む
+     (tools_implementation_plan 検収指摘 3)。off の間に成立したメダルは、うろの
+     初回訪問で遡って奉納できる (uro.pending)。
+     読み込み忘れを黙って「全部未公開」に落とさず、その場で止める。公開済みの
+     カテゴリまで消えた画面を出すより、読めなかったと言うほうがよい。 */
+  function economyFlags(){
+    var flags=global.Q4B_KOMOREBI_ECONOMY;
+    if(!flags)throw new Error("公開スイッチを読み込めません");
+    return flags;
+  }
+  function currentRelease(){return economyFlags().currentRelease();}
+  function medalEconomyOn(){return economyFlags().on();}
 
   /* release は「どの更新で公開するか」。volume manifest がそのカテゴリを挙げていても、
      release が CURRENT_RELEASE を超える間は選択肢に出さない。 */
@@ -52,7 +53,7 @@
 
   function isReleased(cat){
     var entry=CATEGORIES[cat];
-    return !!entry&&entry.release<=CURRENT_RELEASE;
+    return !!entry&&entry.release<=currentRelease();
   }
 
   /* 段暗唱は 1 段 = 1 カテゴリ。cat 名が段番号を持つので、dan3 以降は
@@ -266,17 +267,17 @@
      効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js を読み込んでいない
      文脈 (単体テスト) では常に「未装備」に倒れる。 */
 
-  function toolsModule(){return MEDAL_ECONOMY_ON?(global.Q4B_KOMOREBI_TOOLS||null):null;}
+  function toolsModule(){return medalEconomyOn()?(global.Q4B_KOMOREBI_TOOLS||null):null;}
 
+  /* 判定そのものは economy_flag に置いてある (portal と共用)。ここでは tools.js を
+     読み込んでいない文脈で「公開済み」と答えないよう、実物の有無だけ足す。 */
   function toolsReleased(){
-    var tools=toolsModule();
-    if(!tools)return false;
-    return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
+    return !!toolsModule()&&economyFlags().toolsReleased();
   }
 
   function releasedTools(){
-    var tools=toolsModule();
-    return tools?tools.list().filter(function(tool){return tool.release<=CURRENT_RELEASE;}):[];
+    var tools=toolsModule(),release=currentRelease();
+    return tools?tools.list().filter(function(tool){return tool.release<=release;}):[];
   }
 
   /* ゲートは 2 段。まず MEDAL_ECONOMY_ON でメダル経済ごと開いているか、次に
@@ -286,7 +287,7 @@
     var tools=toolsModule();
     if(!tools)return null;
     var tool=tools.equippedTool(targetProfile);
-    return tool&&tool.release<=CURRENT_RELEASE?tool:null;
+    return tool&&tool.release<=currentRelease()?tool:null;
   }
 
   /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。 */
@@ -624,7 +625,7 @@
      カテゴリと同じく CURRENT_RELEASE 1 か所で公開が決まり、デプロイは番号を
      上げるだけになる (事前準備方式)。release 無しの volume は公開済み扱い。 */
   function isVolumeReleased(volume){
-    return !Number.isInteger(volume.release)||volume.release<=CURRENT_RELEASE;
+    return !Number.isInteger(volume.release)||volume.release<=currentRelease();
   }
 
   function regionList(){
@@ -2241,7 +2242,7 @@
 
   /* 表示語彙はメダル経済のスイッチに連動させる。off の間は従来のトロフィー表記の
      ままにして、「メダル」の初出を うろと道具の公開と同じ日に揃える。 */
-  function medalWording(){return MEDAL_ECONOMY_ON;}
+  function medalWording(){return medalEconomyOn();}
 
   function trophyEntranceHtml(){
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
@@ -2906,8 +2907,8 @@
        出しておかないと、重み 3 倍の有無を単体で確かめられない。 */
     pickSpecies:pickSpecies,
     /* メダル経済の公開スイッチ。うろの入口は小道の地図下端と御神木パネルの 2 か所に
-       あり、後者は shared/breeding.js が描くので、判定を 1 か所から配る。 */
-    medalEconomyOn:function(){return MEDAL_ECONOMY_ON;},
+       あり、後者は shared/breeding.js が economy_flag を直接読んで描く。 */
+    medalEconomyOn:medalEconomyOn,
     toolsReleased:toolsReleased,
     releasedTools:releasedTools,
     earnedMedals:function(){return earnedMedals();},
@@ -2933,7 +2934,7 @@
     startKukuRunSession:startKukuRunSession,
     sessionStarters:SESSION_STARTERS,
     isReleased:isReleased,
-    currentRelease:function(){return CURRENT_RELEASE;},
+    currentRelease:currentRelease,
     dan2QuestionBodyHtml:dan2QuestionBodyHtml,
     formatCourseText:formatCourseText,
     applyPerformance:applyPerformance,
@@ -2945,12 +2946,13 @@
     zukanFilterState:function(){return zukanFilter;},
     profile:function(){return profile;}
   };
-  /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。
-     ハーネスが Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生やす。常設の API に
-     置くと、配信された画面の console 1 行でメダル経済が開いてしまう。
-     実運用で動かすのは冒頭の MEDAL_ECONOMY_ON の 1 行だけ。 */
-  if(global.Q4B_KOMOREBI_TEST_HOOKS){
-    global.Q4B_KOMOREBI.setMedalEconomyOn=function(on){MEDAL_ECONOMY_ON=!!on;};
+  /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。実体は
+     economy_flag 側にあり、ここはそこへの転送でしかない。ハーネスが
+     Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生える。
+     実運用で動かすのは economy_flag.js の 2 行だけ。 */
+  if(global.Q4B_KOMOREBI_TEST_HOOKS&&economyFlags().setOn){
+    global.Q4B_KOMOREBI.setMedalEconomyOn=function(on){economyFlags().setOn(on);};
+    global.Q4B_KOMOREBI.setCurrentRelease=function(value){economyFlags().setCurrentRelease(value);};
   }
 
   if(!global.Q4B_KOMOREBI_NO_BOOT&&global.document)boot();
