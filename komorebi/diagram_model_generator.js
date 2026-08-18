@@ -1,5 +1,5 @@
 /* komorebi diagram_model generator (kom_diagram_model)
- * curriculum: docs/komorebi_diagram_model_curriculum.md v0.3.4
+ * curriculum: docs/komorebi_diagram_model_curriculum.md v0.3.6
  * Uses Q4B_KOMOREBI_DIAGRAM_ENGINE for spec/mutate/render. Injected random only.
  */
 (function(global){
@@ -124,17 +124,49 @@
   var RECT_VALS=[[120,7],[250,3],[90,7],[80,6],[60,8],[110,4],[150,5],[70,9]];
   var TABLE_VALS=[[18,12,15,9],[20,10,16,14],[17,13,19,11],[22,18,14,16],
     [21,14,13,19],[16,11,18,12],[23,15,12,17],[19,17,21,13]];
-  var DECOY_VALS=[3,5,7,25,35,55,75,95,110,130,220,340,800,900];
+  /* 使わない数 (本文にだけ置く数) の上限。値ラベルの 4 桁上限 (curriculum 11 章) と
+     そろえる。使わない数は extra_quantity で図に載ることがあるため同じ枠に入れる。 */
+  var DECOY_MAX=9999;
 
   /* ---------- semantic model builders (13) ---------- */
 
+  /* 使わない数は、その問題が扱う数と同じ桁で作る。固定表から引くと「全部で 20 こ」の
+     となりに「となりのかごには 900 こ」が並び、本文の数だけ桁が 2 つずれる。桁は
+     模型の量から導く。基準に取るのは、使わない数と同じ単位を持つ量に限る。面積図は
+     ねだん (円) と個数 (本) が同居しており、全量から取ると桁の幅が単位をまたぐ。 */
+  function decoyStep(max){return max>=1000?100:(max>=100?10:1);}
+  function decoyRange(model,unit){
+    var vals=[];
+    function collect(matchUnit){
+      model.quantities.forEach(function(e){
+        if(model.unused.indexOf(e.id)>=0)return;   /* 使わない数どうしで桁を引き継がない */
+        if(e.role==="rate")return;                 /* 割合は無単位の 10 から 90 で量ではない */
+        if(!(e.value>0))return;
+        if(matchUnit&&e.unit!==unit)return;
+        vals.push(e.value);
+      });
+    }
+    collect(!!unit);
+    if(!vals.length)collect(false);
+    if(!vals.length)return null;
+    var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),step=decoyStep(mx);
+    var lo=Math.max(step,Math.ceil(mn/2/step)*step);
+    var hi=Math.min(DECOY_MAX,Math.floor(mx*1.5/step)*step);
+    return hi<lo?null:{lo:lo,hi:hi,step:step};
+  }
+  function drawDecoy(model,s,unit,taken){
+    var r=decoyRange(model,unit);
+    if(!r)throw new Error("使わない数の桁を決められません "+model.relation);
+    var cand=[],v;
+    for(v=r.lo;v<=r.hi;v+=r.step)if(taken.indexOf(v)<0)cand.push(v);
+    if(!cand.length)throw new Error("使わない数の候補がありません "+model.relation);
+    return cand[Math.floor(s.random()*cand.length)];
+  }
   function withDecoy(model,s,ctx,n){
-    var vals=[],i;
+    var taken=model.quantities.map(function(e){return e.value;}),i;
     for(i=0;i<n;i++){
-      var d=DECOY_VALS[Math.floor(s.random()*DECOY_VALS.length)];
-      while(model.quantities.some(function(e){return e.value===d;})||vals.indexOf(d)>=0)
-        d=DECOY_VALS[Math.floor(s.random()*DECOY_VALS.length)];
-      vals.push(d);
+      var d=drawDecoy(model,s,ctx&&ctx.unit,taken);
+      taken.push(d);
       var id="x"+i;
       model.quantities.push(Q(id,"count",d,"","(使わない)",true));
       model.unused.push(id);
@@ -243,8 +275,7 @@
     else{m.text=ctx.of+"の "+r+"% が"+ctx.part+"です。"+ctx.base+"は "+B+" "+ctx.unit+"です。"+ctx.q+"。";m.textNumbers=[r,B];}
     m.patternId="percent_part:bar_percent";m.ctx=ctx;
     if(opt.bus){
-      var d=DECOY_VALS[Math.floor(s.random()*DECOY_VALS.length)];
-      while(m.quantities.some(function(e){return e.value===d;}))d=DECOY_VALS[Math.floor(s.random()*DECOY_VALS.length)];
+      var d=drawDecoy(m,s,ctx.unit,m.quantities.map(function(e){return e.value;}));
       m.quantities.push(Q("bus","count",d,ctx.unit,ctx.extraLabel,true));
       m.unused.push("bus");
       m.text+=ctx.extra.replace("{d}",String(d));
@@ -271,7 +302,7 @@
       else{m.text="残りが "+rest+" 円になりました。持っていたお金の "+r+"% を使いました。はじめは何円ですか。";m.textNumbers=[rest,r];}
     }
     m.base="base";m.used="used";m.rest="rest";m.rate="rate";
-    m.patternId="remainder_percent:bar_percent";m.ctx={decoy:"さいふには べつに {d} 円入っています。"};
+    m.patternId="remainder_percent:bar_percent";m.ctx={unit:"円",decoy:"さいふには べつに {d} 円入っています。"};
     return withDecoy(m,s,m.ctx,opt.decoyN||0);
   }
   function mTwoStep(s,variant,decoyN){
@@ -298,7 +329,7 @@
     }
     m.base="base";m.final="fin";m.rate1="ra";m.rate2="rb";m.keep1="ka";
     m.unknown="fin";m.patternId="two_step_percent:"+variant+":bar_percent";
-    m.ctx={decoy:"さいふには べつに {d} 円入っています。"};
+    m.ctx={unit:"円",decoy:"さいふには べつに {d} 円入っています。"};
     return withDecoy(m,s,m.ctx,decoyN||0);
   }
   function mRect(s,opt){
@@ -366,7 +397,7 @@
     if(t3given){m.text+="3 年生は全部で "+(d3+c3)+" 人です。";m.textNumbers.push(d3+c3);}
     m.text+="4 年生は全部で何人ですか。";
     m.blanks=blanks;
-    m.patternId="table2:table:"+blanks;m.ctx={decoy:"アンケートに答えなかった人が {d} 人います。"};
+    m.patternId="table2:table:"+blanks;m.ctx={unit:"人",decoy:"アンケートに答えなかった人が {d} 人います。"};
     return withDecoy(m,s,m.ctx,opt.decoyN||0);
   }
   function mTablePair(s){

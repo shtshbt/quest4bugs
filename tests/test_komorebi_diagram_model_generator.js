@@ -1,5 +1,5 @@
 "use strict";
-/* kom_diagram_model generator tests: curriculum v0.3.4, 検証 11-41 + 敵ソルバー 4 本 */
+/* kom_diagram_model generator tests: curriculum v0.3.6, 検証 11-44 + 敵ソルバー 4 本 */
 var assert=require("node:assert/strict");
 var fs=require("node:fs");
 var path=require("node:path");
@@ -642,6 +642,104 @@ test("golden. 生成セットの形式列が付録 A のスロット構造を再
       assert.equal(got,shape,"lv"+fset.lv+" スロット構造");
     });
   });
+});
+
+/* --- 42-44. 本文の数 / 図の値 / 正解の内部値の整合 (複数シード) -----------------
+   19 は「図の値が本文の数に含まれる」までしか見ておらず、本文に置いた数そのものの
+   桁は誰も検査していなかった。使わない数が固定表から引かれていたため、Lv1 の
+   「全部で 20 こ」に「となりのかごには 900 こ」が並ぶ状態を素通りさせていた。 */
+var CONSIST_SEEDS=[20260817,4423,90210,777001,31337];
+var CONSIST_SETS=12;
+/* 使わない数は、同じ単位の実量の幅の外へ 1 桁出ない。生成器の設計窓は
+   [最小/2, 最大×3/2] で、下の係数はその窓に丸めぶんの余裕を足したもの。 */
+var DECOY_FACTOR=2.5;
+
+function inText(text,value){
+  return new RegExp("(^|[^0-9])"+value+"([^0-9]|$)").test(text);
+}
+function realValues(model,unit){
+  var out=[];
+  model.quantities.forEach(function(e){
+    if(model.unused.indexOf(e.id)>=0||e.role==="rate"||!(e.value>0))return;
+    if(unit&&e.unit!==unit)return;
+    out.push(e.value);
+  });
+  return out;
+}
+/* 正解として認めるのは、量そのものか、量どうしの 1 手 (和・差)、および割合の残り */
+function derivable(model,value){
+  var vs=[],rates=[];
+  model.quantities.forEach(function(e){
+    if(e.role==="rate")rates.push(e.value);else vs.push(e.value);
+  });
+  if(vs.indexOf(value)>=0)return true;
+  var i,j;
+  for(i=0;i<vs.length;i++)for(j=0;j<vs.length;j++){
+    if(i===j)continue;
+    if(vs[i]+vs[j]===value||vs[i]-vs[j]===value)return true;
+  }
+  for(i=0;i<rates.length;i++)if(100-rates[i]===value)return true;
+  return false;
+}
+function consistencyChecks(lv,q){
+  var m=q._model,tag="lv"+lv+" "+q.patternId;
+  var qty={};m.quantities.forEach(function(e){qty[e.value]=1;});
+
+  /* 42. 模型が本文に置いたと申告した数は、本文にその数として現れる */
+  m.textNumbers.forEach(function(v){
+    assert.ok(inText(m.text,v),tag+" 本文に無い数 "+v+" ["+m.text+"]");
+  });
+
+  /* 43. 図の値ラベルは、表示文字列も内部値も模型の量と一致する (桁の取りちがえ検出) */
+  (q._specs||[]).forEach(function(spec){
+    E.labelItems(spec,m,{pair:q.variant==="pair"}).forEach(function(it){
+      if(!it.value||it.num==null)return;
+      var shown=String(it.text).match(/\d+/);
+      assert.ok(shown,tag+" 値ラベルに数が無い "+it.text);
+      assert.equal(Number(shown[0]),it.num,tag+" 表示 "+it.text+" と内部値 "+it.num+" の不一致");
+      assert.ok(qty[it.num],tag+" 図の値 "+it.num+" が模型の量に無い");
+      assert.ok(inText(m.text,it.num),tag+" 図の値 "+it.num+" が本文に無い");
+    });
+  });
+
+  /* 44. 使わない数は正図に置かれない */
+  if(q._correctSpec){
+    var okNums=E.figureNumbers(q._correctSpec,m,{pair:q.variant==="pair"});
+    m.unused.forEach(function(id){
+      var e=m.quantities.filter(function(x){return x.id===id;})[0];
+      assert.ok(okNums.indexOf(e.value)<0,tag+" 正図に使わない数 "+e.value);
+    });
+  }
+
+  /* 44b. 使わない数の桁が本文の実量とそろっている (今回の回帰対象) */
+  m.unused.forEach(function(id){
+    var e=m.quantities.filter(function(x){return x.id===id;})[0];
+    var pool=realValues(m,e.unit);
+    if(!pool.length)pool=realValues(m,null);
+    assert.ok(pool.length,tag+" 桁の基準になる量が無い");
+    var lo=Math.min.apply(null,pool),hi=Math.max.apply(null,pool);
+    assert.ok(e.value*DECOY_FACTOR>=lo&&e.value<=hi*DECOY_FACTOR,
+      tag+" 使わない数 "+e.value+" の桁が実量 "+lo+"-"+hi+" から外れる ["+m.text+"]");
+  });
+
+  /* 44c. normal の正解は模型の量から 1 手で導ける整数 */
+  if(q.format==="normal"){
+    assert.ok(Number.isInteger(q.ans)&&q.ans>0,tag+" 正解 "+q.ans);
+    assert.ok(derivable(m,q.ans),tag+" 正解 "+q.ans+" が模型の量から導けない");
+  }
+}
+
+test("42-44. 本文の数と図・正解の内部値が Lv1 から 10 で整合する (複数シード)",function(){
+  var checked=0;
+  CONSIST_SEEDS.forEach(function(seed){
+    var ses=G.createSession(seeded(seed));
+    for(var lv=1;lv<=10;lv++){
+      for(var i=0;i<CONSIST_SETS;i++){
+        G.generateSet(ses,lv).forEach(function(q){consistencyChecks(lv,q);checked++;});
+      }
+    }
+  });
+  assert.equal(checked,CONSIST_SEEDS.length*10*CONSIST_SETS*5,"検査した問題数");
 });
 
 console.log("");
