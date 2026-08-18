@@ -64,6 +64,7 @@
 4. 標本写真の zukan-fetch (museum tier)。リードタイム最大の工程で、更新 1 の volume は Phase 3 実装と並行して先行着手する
 5. volume freeze (分母確定、以後増やさない。決定 4)
 - 未在庫の看板 (チャニナナフシ) は must-have 再試行を継続し、確保できるまで看板に立てない。
+- guild カバレッジ確認: 公開中の各道具に対象種が1種以上いるか (11 種の matcher を volume の種構成へ仮適用。対象ゼロの道具が残ったまま公開すると、道具だけ出て実際には何も拾えない。`komorebi_tools_implementation_plan.md` Phase 0 の監査手順と同じ)。
 
 ## 5. 検証点
 

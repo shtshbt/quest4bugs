@@ -204,13 +204,18 @@
      「残量が今の耐久上限を超えている」だけは上限へ丸めて直す。耐久を後から
      下方調整したとき、それ以前に配った道具を持っている子のセーブが丸ごと
      読めなくなるのは、壊れたデータではなく仕様変更の側の問題だから。
-     装備だけ残って本体が無い状態を黙って外すのと同じ自己修復方針。 */
+     装備だけ残って本体が無い状態を黙って外すのと同じ自己修復方針。
+     知らない道具の id は弾かず、そのまま持ち越す (validateDex と同じ方針)。
+     道具箱は先の更新で増える台帳で、新しい道具を知っている端末が書いた
+     instance を古い端末が読むことがある。そこで throw すると、その端末は
+     保存の競合解決 (remote を読み直す経路) ごと動かなくなる。耐久上限の
+     丸めは、知っている道具にだけ効かせる (知らない道具の上限は分からない)。 */
   function validateTools(tools){
     if(!Array.isArray(tools))throw new Error("道具データの形式が正しくありません");
     tools.forEach(function(entry){
-      if(!isObject(entry)||typeof entry.type!=="string"||!BY_ID[entry.type])throw new Error("道具データの形式が正しくありません");
+      if(!isObject(entry)||typeof entry.type!=="string"||!entry.type)throw new Error("道具データの形式が正しくありません");
       if(!Number.isInteger(entry.remaining)||entry.remaining<1)throw new Error("道具データの形式が正しくありません");
-      if(entry.remaining>DURABILITY)entry.remaining=DURABILITY;
+      if(BY_ID[entry.type]&&entry.remaining>DURABILITY)entry.remaining=DURABILITY;
     });
     return tools;
   }

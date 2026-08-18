@@ -246,7 +246,7 @@ test("an old save without any of the new keys still loads", () => {
 test("a save with a broken tool box is refused, a dangling equip is repaired", () => {
   const base = () => JSON.parse(JSON.stringify(komorebi.createProfile()));
   const broken = base();
-  broken.tools = [{ type: "ghost_net", remaining: 3 }];
+  broken.tools = [{ type: "cho_net", remaining: 0 }];
   assert.throws(() => komorebi.normalizeProfile(broken), /道具データ/);
   const badLog = base();
   badLog.uroLog = [{ cat: "kom_ratio" }];
@@ -257,6 +257,21 @@ test("a save with a broken tool box is refused, a dangling equip is repaired", (
   const repaired = komorebi.normalizeProfile(dangling);
   assert.equal(repaired.profile.equippedToolId, null);
   assert.equal(repaired.changed, true);
+});
+
+test("a tool this build does not know yet is carried through normalizeProfile, not refused", () => {
+  /* 道具箱は先の更新で増える台帳。新しい道具を知っている端末が書いた instance を
+     古い端末が読むことがあり、そこで throw するとその端末は保存の競合解決
+     (remote を読み直す経路) ごと動かなくなる (validateDex の知らない道具の id を
+     素通しする方針と同じで、tools.js の validateTools 側も同じに揃えた)。 */
+  const future = JSON.parse(JSON.stringify(komorebi.createProfile()));
+  future.tools = [{ type: "malaise_trap", remaining: 12 }];
+  future.equippedToolId = "malaise_trap";
+  const loaded = komorebi.normalizeProfile(future);
+  assert.equal(loaded.profile.tools.length, 1, "知らない道具の instance が消えた");
+  assert.equal(loaded.profile.tools[0].type, "malaise_trap");
+  /* 本体が (知らない道具でも) 手元にあるので、装備は外さない。 */
+  assert.equal(loaded.profile.equippedToolId, "malaise_trap");
 });
 
 /* ---- 道具が動かす 2 つ ---- */

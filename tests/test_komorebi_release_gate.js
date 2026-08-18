@@ -77,6 +77,18 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.deepEqual(released, planned.slice().sort(), "the shipped set differs from the calendar");
   });
 
+  test("section 4's volume freeze checklist still asks for guild coverage", () => {
+    /* 公開する各道具に対象種が 1 種以上いるかの確認 (guild カバレッジ)。volume
+       freeze (分母確定) の直前に見るべき項目で、抜けると道具だけ公開されて
+       実際には何も拾えない volume ができる (komorebi_tools_implementation_plan.md
+       Phase 2 観測 3)。4 章の外へ迷い込んでいないことも合わせて見る。 */
+    const doc = fs.readFileSync(path.join(root, "docs/komorebi_release_linkage.md"), "utf8");
+    const section4 = doc.split(/^## 4\. /m)[1].split(/^## 5\. /m)[0];
+    assert.match(section4, /volume freeze/, "volume freeze の項目が見当たらない");
+    assert.match(section4, /guild カバレッジ/, "guild カバレッジのチェック項目が消えた");
+    assert.match(section4, /対象種が1種以上/, "対象種が1種以上いるかの条件が消えた");
+  });
+
   /* 次の更新のカテゴリを先に実装した状況を作る。volume 側も先に挙げてしまった、
      という最悪のケースを再現する。番号は CURRENT_RELEASE の 1 つ先に取り、
      公開番号を上げてもこのケースが「未公開」であり続けるようにする。 */

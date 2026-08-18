@@ -148,6 +148,34 @@ test("the equipped slot follows the local choice, or repairs itself", () => {
   assert.equal(merge(dangling, komorebi.createProfile()).equippedToolId, null);
 });
 
+/* ---- 演習ログ (発行速度の監視) ---- */
+
+test("the exercise log never loses a day+category recorded on either device", () => {
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.anslog = { "2026-08-17": { kom_ratio: { n: 5, ok: 4, t: [3, 1, 1, 0], x: 0 } } };
+  remote.anslog = { "2026-08-18": { kom_pi314: { n: 1, ok: 1, t: [1, 0, 0, 0], x: 0 } } };
+  const merged = merge(local, remote);
+  assert.equal(Object.keys(merged.anslog).sort().join(","), "2026-08-17,2026-08-18", "片側の日が消えた");
+  assert.equal(merged.anslog["2026-08-17"].kom_ratio.n, 5);
+  assert.equal(merged.anslog["2026-08-18"].kom_pi314.n, 1);
+});
+
+test("the exercise log keeps the more-answered side of a clashing day+category whole", () => {
+  /* n だけ多い側・ok/t/x は別の側、のように鍵の中で field を混ぜると、正答数が
+     回答数を上回るような壊れた 1 日ぶんの記録になる。鍵ごとに 1 つのオブジェクトを
+     丸ごと採る (uroLog が鍵ごとに本数の多い配列を丸ごと採るのと同じ考え方)。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.anslog = { "2026-08-17": { kom_ratio: { n: 8, ok: 3, t: [1, 1, 1, 5], x: 1 } } };
+  remote.anslog = { "2026-08-17": { kom_ratio: { n: 5, ok: 5, t: [5, 0, 0, 0], x: 0 } } };
+  const merged = merge(local, remote);
+  assert.deepEqual(merged.anslog["2026-08-17"].kom_ratio, { n: 8, ok: 3, t: [1, 1, 1, 5], x: 1 },
+    "多い側のオブジェクトが丸ごと残らず、正答数が回答数を上回るような形に混ざった");
+  /* 入れ替えても同じ (多い側を採るのは対称)。 */
+  assert.deepEqual(merge(remote, local).anslog["2026-08-17"].kom_ratio, { n: 8, ok: 3, t: [1, 1, 1, 5], x: 1 });
+});
+
 /* ---- メダルと周回の起点 ---- */
 
 test("a medal minted on either device is still there after the merge", () => {

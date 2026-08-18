@@ -165,12 +165,29 @@ test("a broken save shape is refused instead of being silently repaired", () => 
   [
     {},
     [{ type: "cho_net" }],
+    [{ type: "" , remaining: 3 }],
     [{ type: "cho_net", remaining: 0 }],
     [{ type: "cho_net", remaining: -1 }],
     [{ type: "cho_net", remaining: 1.5 }],
-    [{ type: "ghost_net", remaining: 3 }],
     [null]
   ].forEach(broken => assert.throws(() => tools.validateTools(broken), /道具データ/, JSON.stringify(broken)));
+});
+
+test("a tool instance for a kind this build does not know yet is carried, not refused", () => {
+  /* 道具箱は先の更新で増える台帳。新しい道具を知っている端末が書いた instance を
+     古い端末が読むことがあり、そこで throw するとその端末は競合解決ごと動かなくなる
+     (validateDex の「知らない道具の id は素通しする」方針と同じ)。 */
+  const future = [{ type: "cho_net", remaining: 12 }, { type: "malaise_trap", remaining: 30 }];
+  const kept = tools.validateTools(future);
+  assert.equal(kept.length, 2, "知らない道具の instance が消えた");
+  assert.equal(kept[1].type, "malaise_trap");
+  assert.equal(kept[1].remaining, 30);
+  /* 知らない道具の耐久上限は分からないので、丸めは効かせない (既知の道具にだけ効く)。 */
+  const untouched = tools.validateTools([{ type: "malaise_trap", remaining: 999 }]);
+  assert.equal(untouched[0].remaining, 999, "知らない道具の残量が丸められた");
+  /* 形の誤り (種類が無い、残量が壊れている) は、知らない道具でも通さない。 */
+  [{ type: "malaise_trap" }, { type: "malaise_trap", remaining: 0 }, { type: "malaise_trap", remaining: 1.5 }]
+    .forEach(entry => assert.throws(() => tools.validateTools([entry]), /道具データ/, JSON.stringify(entry)));
 });
 
 test("a remaining life above the current durability is clamped, not refused", () => {

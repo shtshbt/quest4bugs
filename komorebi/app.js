@@ -929,6 +929,28 @@
     return merged;
   }
 
+  /* 演習ログ (発行速度の監視に使う anslog) の union。uroLog と同じ「どちらの側の記録も
+     減らさない」方針だが、鍵は日付 + カテゴリで、1 つの鍵に対して答えた数 (n) が多い
+     ほうを丸ごと採る。n は多い側・ok/t/x は少ない側、のように鍵の中で field を混ぜると
+     正答数が回答数を上回るような壊れた 1 日ぶんの記録になるので、uroLog が鍵ごとに
+     本数の多い配列を丸ごと採るのと同じ考えで、鍵ごとに 1 つのオブジェクトを丸ごと採る。 */
+  function mergeAnsLog(localLog,remoteLog){
+    var local=objectOf(localLog),remote=objectOf(remoteLog),merged={};
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(day){
+      if(merged[day])return;
+      var localDay=objectOf(local[day]),remoteDay=objectOf(remote[day]),day2={};
+      Object.keys(remoteDay).concat(Object.keys(localDay)).forEach(function(cat){
+        if(day2[cat])return;
+        var mine=localDay[cat],theirs=remoteDay[cat];
+        if(!mine){day2[cat]=theirs;return;}
+        if(!theirs){day2[cat]=mine;return;}
+        day2[cat]=(mine.n||0)>=(theirs.n||0)?mine:theirs;
+      });
+      merged[day]=day2;
+    });
+    return merged;
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
@@ -948,6 +970,7 @@
     merged.collection.catches=catches;
     merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
     merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
+    merged.anslog=mergeAnsLog(localProfile&&localProfile.anslog,remote.anslog);
     merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
     merged.toolDex=mergeToolDex(localProfile&&localProfile.toolDex,remote.toolDex);
     merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
