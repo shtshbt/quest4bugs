@@ -886,6 +886,19 @@
     merged.maxLv=mergeMaxByCat(localProfile&&localProfile.maxLv,remote.maxLv);
     merged.lapCount=mergeMaxByCat(localProfile&&localProfile.lapCount,remote.lapCount);
     merged.mintedLaps=mergeMaxByCat(localProfile&&localProfile.mintedLaps,remote.mintedLaps);
+    /* 向こうの端末でリセット周回に入っていたら、そのリセットをこちらにも通す。
+       周回番号だけ進んで Lv と安定判定の窓が前の周のまま残ると、Lv10 に居るだけで
+       次の周のメダルが即座に成立してしまう (競合を起こすだけで 2 枚もらえる穴)。
+       戻すのは Lv の進行だけで、図鑑・捕獲済み・奉納記録・到達 Lv には触れない。 */
+    var localLaps=objectOf(localProfile&&localProfile.lapCount);
+    Object.keys(merged.lapCount).forEach(function(cat){
+      if(!hasOwn(CATEGORIES,cat))return;
+      var mine=Number.isInteger(localLaps[cat])&&localLaps[cat]>=1?localLaps[cat]:1;
+      if(!(merged.lapCount[cat]>mine))return;
+      if(isObject(merged.lv))merged.lv[cat]=1;
+      if(isObject(merged.adapt))merged.adapt[cat]={n:0,recent:[]};
+      merged.trophyProgress[cat]={n:0,recent:[]};
+    });
     /* 装備は 1 枠なので union できない。local を優先し、統合後の道具箱に本体が
        無ければ remote の装備、それも無ければ外す (normalizeProfile と同じ自己修復)。
        道具そのものは残っているので、外れても選び直せば済む。 */

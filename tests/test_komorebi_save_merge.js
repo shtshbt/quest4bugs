@@ -153,6 +153,43 @@ test("the reset lock starts from the most recent level ten clear", () => {
   assert.equal(merged.lv10ClearAt.kom_pi314, "2026-08-18T00:00:00.000Z");
 });
 
+test("a reset done on the other device is replayed here, not just counted", () => {
+  /* 周回番号だけ進んで Lv と安定判定の窓が前の周のまま残ると、Lv10 に居るだけで
+     次の周のメダルが即座に成立する (競合を起こすだけで 2 枚もらえる穴)。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.lv.kom_ratio = 10; local.maxLv.kom_ratio = 10;
+  local.adapt.kom_ratio = { n: 40, recent: new Array(10).fill(1) };
+  local.trophyProgress.kom_ratio = { n: 20, recent: new Array(20).fill(1) };
+  local.mintedLaps.kom_ratio = 1;
+  remote.lv.kom_ratio = 1; remote.maxLv.kom_ratio = 10;
+  remote.lapCount.kom_ratio = 2;
+  remote.mintedLaps.kom_ratio = 1;
+  const merged = merge(local, remote);
+  assert.equal(merged.lapCount.kom_ratio, 2);
+  assert.equal(merged.lv.kom_ratio, 1, "向こうのリセットが Lv に通っていない");
+  assert.equal(merged.adapt.kom_ratio.n, 0, "昇降の窓が前の周のまま残った");
+  assert.equal(merged.trophyProgress.kom_ratio.n, 0, "安定判定の窓が前の周のまま残った");
+  /* 到達 Lv と図鑑は戻さない。戻すのは Lv の進行だけ。 */
+  assert.equal(merged.maxLv.kom_ratio, 10);
+  const trophies = context.Q4B_KOMOREBI_TROPHIES;
+  assert.equal(trophies.qualifies(merged, "kom_ratio"), false, "統合しただけで鋳造が成立する");
+  assert.equal(trophies.award(merged, "kom_ratio", "2026-09-01"), null);
+});
+
+test("a lap the local device already ran keeps its own progress", () => {
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.lv.kom_ratio = 7; local.maxLv.kom_ratio = 10;
+  local.adapt.kom_ratio = { n: 30, recent: [1, 1, 1] };
+  local.lapCount.kom_ratio = 2; local.mintedLaps.kom_ratio = 1;
+  remote.lv.kom_ratio = 4; remote.maxLv.kom_ratio = 10;
+  remote.lapCount.kom_ratio = 2; remote.mintedLaps.kom_ratio = 1;
+  const merged = merge(local, remote);
+  assert.equal(merged.lv.kom_ratio, 7, "自分で走っていた周回の Lv が巻き戻った");
+  assert.equal(merged.adapt.kom_ratio.n, 30);
+});
+
 test("the highest level reached is never rolled back by a merge", () => {
   const local = komorebi.createProfile();
   const remote = komorebi.createProfile();
