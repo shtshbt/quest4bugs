@@ -450,11 +450,25 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-waiting{padding:2px 8px;border-radius:999px;background:#B6963D;color:#20180A;font-size:12px;font-weight:900}
 .kom-uro-page{padding-bottom:28px}
 .uro-hollow{margin:6px auto 14px;width:min(60vw,190px)}
-.uro-hollow svg{display:block;width:100%;height:auto}
+.uro-hollow svg{display:block;width:100%;height:auto;overflow:visible}
 .uro-bark{fill:#2B4034}
 .uro-mouth{fill:#08160F}
 .uro-light{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.92);
   filter:drop-shadow(0 0 calc(var(--uro-glow,0) * 26px) rgba(255,226,140,.85))}
+/* 強さだけでなく 範囲 も同じ 1 本から出す (design 4 章)。halo は まわりへ にじむ
+   ひかりで、捧げるほど 濃く 広くなる。倍率の下限を 0 にしないのは、1 枚目の
+   変化が「無から出た」ではなく「すこし 広がった」に見えるようにするため。 */
+.uro-halo{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.34);filter:blur(9px);
+  transform-box:fill-box;transform-origin:center;
+  transform:scale(calc(0.6 + var(--uro-glow,0) * 0.5))}
+.uro-mote{fill:#FFF3C8;opacity:calc(var(--uro-glow,0) * 0.85)}
+@keyframes uro-mote-rise{0%,100%{transform:translate(0,0)}50%{transform:translate(1.5px,-4px)}}
+.uro-mote-a{animation:uro-mote-rise 3.4s ease-in-out infinite}
+.uro-mote-b{animation:uro-mote-rise 4.2s ease-in-out infinite .6s}
+.uro-mote-c{animation:uro-mote-rise 3.8s ease-in-out infinite 1.2s}
+/* 入口の札。地図の上でも 明るさが 見えるように、同じ変数で ふちと 影を動かす。 */
+.uro-open{box-shadow:0 0 calc(var(--uro-glow,0) * 18px) rgba(255,226,140,calc(var(--uro-glow,0) * 0.55))}
+.uro-open strong{text-shadow:0 0 calc(var(--uro-glow,0) * 10px) rgba(255,226,140,.9)}
 .uro-pending,.uro-box,.uro-dex,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .uro-pending h2,.uro-box h2,.uro-dex h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
 .uro-pending-list,.uro-box-list,.uro-log-list,.uro-picks{margin:0;padding:0;list-style:none}

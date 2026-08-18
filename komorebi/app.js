@@ -2665,7 +2665,7 @@
   function uroEntranceHtml(){
     if(!uroAvailable())return "";
     var uro=uroModule();
-    return uro.entranceHtml({text:displayText,count:uro.glow(profile).count,pending:pendingMedals().length});
+    return uro.entranceHtml({text:displayText,glow:uro.glow(profile),pending:pendingMedals().length});
   }
 
   /* 奉納の実行。メダル 1 枚 = 道具 1 つの固定相場で、残高という状態は作らない。
