@@ -68,11 +68,17 @@ function matches(element, selector){
 
 function makeApp(){
   return {
-    _html: "", _extra: [], _elements: [],
+    _html: "", _extra: [], _elements: [], listeners: {},
     get innerHTML(){ return this._html + this._extra.join(""); },
     set innerHTML(value){ this._html = value; this._extra = []; this._elements = parseElements(value, this); },
     style: {}, classList: { toggle(){}, add(){}, remove(){} },
-    setAttribute(){}, getAttribute(){ return null; }, addEventListener(){},
+    setAttribute(){}, getAttribute(){ return null; },
+    /* モーダルは overlay 1 枚に click を委譲して中のボタンを見分ける。listener を
+       捨てていると、その分岐がテストから一切触れない (画面には出るのに押せない、を
+       捕まえられない)。dispatch は target を指定して委譲を再現するための入口。 */
+    addEventListener(type, fn){ (this.listeners[type] = this.listeners[type] || []).push(fn); },
+    dispatch(type, target){ (this.listeners[type] || []).forEach(fn => fn({ preventDefault(){}, target: target || this })); },
+    click(){ this.dispatch("click", this); },
     insertAdjacentHTML(){}, appendChild(child){ return child; },
     querySelector(selector){ return this._elements.filter(el => matches(el, selector))[0] || null; },
     querySelectorAll(selector){ return this._elements.filter(el => matches(el, selector)); }
@@ -165,7 +171,8 @@ const KOMOREBI_FILES = [
      index.html の読込み順と同じ。公開時に release gate テストが
      sessionStarters.kom_diagram_model を探すため、既定の起動一覧に入れておく。 */
   "komorebi/diagram_engine.js", "komorebi/diagram_model_generator.js",
-  "komorebi/trophies.js", "komorebi/app.js"
+  "komorebi/trophies.js", "komorebi/tools.js", "komorebi/uro.js",
+  "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };
