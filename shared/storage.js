@@ -316,6 +316,7 @@
       if(reason==="same-generation-divergence")st.conflicts=(st.conflicts||0)+1;
     }
     _writeSoakStats(st);
+    _scheduleStorageV2RemoteDiagnostics();
     return st;
   }
   function storageV2SoakStats(){
@@ -342,6 +343,93 @@
     };
     var eligible=Object.keys(checks).every(function(k){return checks[k]===true;});
     return {eligible:eligible,checks:checks,soak:soak,shadow:shadow,candidate:candidate,promotion:promotion,policy:{minimumVerifiedCommits:300,minimumActiveDays:3,automaticPromotion:false}};
+  }
+
+  /* ---------------- storage-v2 remote soak diagnostics ----------------
+     Monitoring only: uploads aggregate migration counters/checks to the already-configured
+     private Fieldnote GitHub repository. No profiles, answers, collection state, save payload,
+     checksum, or other child/game data is included. Failure is always non-fatal. */
+  var __storageV2DiagTimer=null;
+  var __storageV2DiagLastPushAt=0;
+  var __storageV2DiagLastError=null;
+  var STORAGE_V2_DIAG_MIN_INTERVAL_MS=5*60*1000;
+  function _storageV2MonitorId(){
+    var k="q4b_storage_v2_monitor_id_v1", v=safeGet(k,null);
+    if(v)return v;
+    v="m"+Math.random().toString(36).slice(2,10)+"-"+Date.now().toString(36);
+    try{safeSet(k,v);}catch(_){}
+    return v;
+  }
+  function _storageV2DiagPath(cfg){
+    return basePath(cfg)+"/diagnostics/storage-v2/"+escPathPart(_storageV2MonitorId())+".json";
+  }
+  function _storageV2DiagDoc(readiness){
+    var soak=(readiness&&readiness.soak)||storageV2SoakStats();
+    var promotion=(readiness&&readiness.promotion)||authorityPromotionStatus();
+    return {
+      schema:"quest4bugs.storage-v2-diagnostics.v1",
+      recordedAt:Date.now(),
+      monitorId:_storageV2MonitorId(),
+      hardGateEnabled:!!(promotion&&promotion.enabled),
+      eligible:!!(readiness&&readiness.eligible),
+      checks:(readiness&&readiness.checks)||{},
+      soak:{
+        successfulCommits:soak.successfulCommits||0,
+        verifiedMatches:soak.verifiedMatches||0,
+        verificationMismatches:soak.verificationMismatches||0,
+        failedCommits:soak.failedCommits||0,
+        repairs:soak.repairs||0,
+        staleRejects:soak.staleRejects||0,
+        conflicts:soak.conflicts||0,
+        consecutiveVerified:soak.consecutiveVerified||0,
+        activeDays:soak.activeDays||0,
+        spanDays:soak.spanDays||0,
+        firstSuccessAt:soak.firstSuccessAt||0,
+        lastSuccessAt:soak.lastSuccessAt||0,
+        lastFailureAt:soak.lastFailureAt||0,
+        lastGeneration:soak.lastGeneration||null,
+        lastError:soak.lastError||null
+      }
+    };
+  }
+  async function pushStorageV2RemoteDiagnosticsNow(){
+    try{
+      var cfg=getConfig();
+      if(!cfg.enabled)return {ok:false,skipped:true,reason:"github-sync-disabled"};
+      var readiness=await storageV2Readiness();
+      var doc=_storageV2DiagDoc(readiness);
+      var p=_storageV2DiagPath(cfg), remote=null, attempt=0, res=null;
+      for(attempt=0;attempt<3;attempt++){
+        remote=await githubGet(cfg,p);
+        var body={message:"storage-v2 diagnostics "+stamp(),content:stringToBase64(JSON.stringify(doc,null,2))};
+        if(remote&&remote.sha)body.sha=remote.sha;
+        res=await fetch(githubUrl(cfg,p),{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},authHeaders(cfg)),body:JSON.stringify(body)});
+        if(res.ok){
+          __storageV2DiagLastPushAt=Date.now();
+          __storageV2DiagLastError=null;
+          return {ok:true,path:p,recordedAt:doc.recordedAt,verifiedMatches:doc.soak.verifiedMatches,activeDays:doc.soak.activeDays,eligible:doc.eligible};
+        }
+        if(res.status===409||res.status===422){await sleep(200*(attempt+1));continue;}
+        throw new Error("diagnostics PUT failed: "+res.status);
+      }
+      throw new Error("diagnostics PUT conflict retries exhausted");
+    }catch(e){
+      __storageV2DiagLastError=(e&&e.message)||String(e);
+      return {ok:false,error:__storageV2DiagLastError};
+    }
+  }
+  function _scheduleStorageV2RemoteDiagnostics(){
+    try{if(!getConfig().enabled)return;}catch(_){return;}
+    if(__storageV2DiagTimer)return;
+    var elapsed=Date.now()-(__storageV2DiagLastPushAt||0);
+    var delay=__storageV2DiagLastPushAt?Math.max(30000,STORAGE_V2_DIAG_MIN_INTERVAL_MS-elapsed):30000;
+    __storageV2DiagTimer=setTimeout(function(){
+      __storageV2DiagTimer=null;
+      pushStorageV2RemoteDiagnosticsNow().catch(function(){});
+    },delay);
+  }
+  function storageV2RemoteDiagnosticsStatus(){
+    return {enabled:!!getConfig().enabled,monitorId:_storageV2MonitorId(),lastPushAt:__storageV2DiagLastPushAt,lastError:__storageV2DiagLastError,minIntervalMs:STORAGE_V2_DIAG_MIN_INTERVAL_MS};
   }
 
   function _storageV2FastChecksum(text){
@@ -1865,7 +1953,7 @@
     authorityCandidateStatus:authorityCandidateStatus, verifyAuthorityCandidate:verifyAuthorityCandidate, authorityCandidateSnapshotMeta:authorityCandidateSnapshotMeta,
     // storage-v2 Phase 2 promotion diagnostics; switch is compile-time disabled pending soak
     authorityPromotionStatus:authorityPromotionStatus, authorityReconcileNow:authorityReconcileNow, authorityReadSwitchEnabled:authorityReadSwitchEnabled,
-    storageV2SoakStats:storageV2SoakStats, storageV2Readiness:storageV2Readiness,
+    storageV2SoakStats:storageV2SoakStats, storageV2Readiness:storageV2Readiness,pushStorageV2RemoteDiagnosticsNow:pushStorageV2RemoteDiagnosticsNow,storageV2RemoteDiagnosticsStatus:storageV2RemoteDiagnosticsStatus,
     // legacy compat
     loadKey:loadKey, saveKey:saveKey,
     // ui
