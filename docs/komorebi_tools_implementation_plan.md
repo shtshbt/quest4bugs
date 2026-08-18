@@ -157,9 +157,53 @@ Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの
 ### Phase 3: 演出
 
 1. 済 道具アイコン SVG 11 種 (Phase 2 で先取り。`komorebi/assets/tool_icons.js`)
-2. 捕獲ビネット (道具ごとの採集シーン)。優先順: 灯火 (夜景) → 落とし穴 → バナナトラップ → 残り
-3. うろの輝き (奉納数連動の CSS 変数)、奉納・初回授与・破損の小演出
-4. 子ども向けメッセージ文言の確定 (「見たことない虫に であいやすくなりそうだ…!」等)
+2. 済 捕獲ビネット (道具ごとの採集シーン)。優先順: 灯火 (夜景) → 落とし穴 → バナナトラップ → 残り
+3. 済 うろの輝き (奉納数連動の CSS 変数)、奉納・初回授与・破損の小演出
+4. 済 子ども向けメッセージ文言の確定 (「見たことない虫に であいやすくなりそうだ…!」等)
+
+#### Phase 3 の実装結果 (2026-08-18)
+
+branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、抽選・耐久・保存には
+一切さわらない。`MEDAL_ECONOMY_ON=false` の間は 1 要素も増えない。
+
+| 対象 | ファイル | 内容 |
+|---|---|---|
+| 捕獲ビネット | `komorebi/assets/tool_scenes.js` (新規) | 道具ごとの採集シーン 11 種 (SVG) と、添える 1 行 |
+| ビネットの配線 | `komorebi/app.js` | `toolSceneHtml` を捕獲リザルトとこはくのモーダルの 2 か所へ |
+| うろの輝き | `komorebi/uro.js`, `komorebi/map.css` | halo と 光の粒。強さも 範囲も `--uro-glow` 1 本から導く。入口の札にも同じ変数 |
+| 小演出 | `komorebi/app.js`, `komorebi/map.css` | 授与モーダルに捧げた直後の うろ、初回授与の合図、破損の 1 度きりのゆれ |
+| 文言 | `komorebi/tools.js`, `komorebi/uro.js` | 5 歳コースの かな名 (`yomi` + `displayName`)、誤った読みの除去、漢字の使いどころ |
+
+決めたこと。
+
+- ビネットが描くのは場面であって種ではない。とれた虫はすぐ下の捕獲カードが描くので、
+  ここで種を描き分けると絵と結果が食い違って見える
+- 出すのは 3 つとも満たしたときだけ (経済が公開されている / その回に道具を使った /
+  実際に 1 匹とれた)。壊れた回でもその 1 匹はとれているので出す
+- 色は SVG の presentation attribute に既定を持たせる。CSS を読み込んでいない文脈でも
+  絵が潰れない (アイコンが `stroke="currentColor"` で潰れないのと同じ考え方)
+- CSS の transform は SVG の transform 属性を置き換える。ゆれを掛ける g と位置を持つ g を
+  分けてある (混ぜると虫が原点へ飛ぶ)
+- 輝きの変数は 1 本だけ。2 本に割ると片方だけ動いている状態が作れてしまう。段階クラスも
+  作らない (「レベルが上がった」に見える)。設計書 10 章 保留事項 6 はこれで片づいた
+- 道具の名前は実在の採集法の名前なので漢字が残る。小道のふりがなは語の辞書引きなので、
+  そのまま出すと 5 歳コースで読めない (灯火採集セット) か、部分一致で誤った読みが付く
+  (吸虫管 の 虫 に「むし」)。`yomi` を足し、5 歳コースだけ かなの名前へ倒す
+- 名前いがいの文は、読みが付く 4 字 (虫・白・中・見) だけに限る
+
+テスト (新規): `test_komorebi_tool_scenes.js` / `test_komorebi_fx.js` /
+`test_komorebi_wording.js`。4 状態 (CURRENT_RELEASE 1/2 × MEDAL_ECONOMY_ON on/off) で
+全件 green。
+
+統合時の注意。
+
+- `?v=` と `sw.js` の CACHE 名は Phase 3 では上げていない。統合時に一括で上げる
+- 新規配信ファイル: `komorebi/assets/tool_scenes.js` (`sw.js` の precache と
+  `komorebi/index.html` の script には追加済み)
+- 要 bump: `komorebi/app.js`、`komorebi/uro.js`、`komorebi/tools.js`、`komorebi/map.css`
+- `komorebi/map.css` は 65 行目の `@media (prefers-reduced-motion:reduce)` で
+  `*{animation:none!important}` を既に持つ。Phase 3 で足した個別の停止行はその念押しで、
+  片方だけ消しても動きは止まる
 
 ## 2. 作業分担
 
