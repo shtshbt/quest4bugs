@@ -1,0 +1,66 @@
+# 補修 3 波 (au2_repair 8 + published_repair 23 + honpen_repair 25 = 56 種) の
+# refetch 対象 species_id リスト。zukan_fetch_batch.py --refetch-ids 用。
+# 生成元: zukan_foundry/rounds/2026-08-18_r2/manifest.md の wave 列。
+# 1 行 1 species_id。# 以降はコメント (このヘッダ行を含む)。
+
+# au2_repair (8)
+acrossidius_tasmaniae
+adoryphorus_couloni
+onthophagus_taurus
+neolethaeus_australiensis
+didymuria_violescens
+phricta_spinosa
+hierodula_majuscula
+calofulcinia_paraoxypila
+
+# published_repair (23)
+kiboshi_kuro_hishibatta
+coccinella_transversalis
+coelophora_inaequalis
+kinoko_kikuimushi
+suzukuri_konajirami
+oo_beni_hagoromo
+kuroboshi_maru_kaigaramushi
+ohishiba_kuro_aburamushi
+afurika_yamato_shijimi
+akamarubane_monki_tateha
+hagata_murasaki
+suji_mori_tonbo
+gin_haneguro_tonbo
+madagasukaru_gin_yanma
+haneashi_ito_tonbo
+tsuchiiro_ito_tonbo
+kanmuri_kareha_kamakiri
+chamadara_tobibatta
+madagasukaru_oo_gokiburi
+scutiphora_pedicellata
+tsuya_oozu_ari
+aka_tobibatta
+neomantis_australis
+
+# honpen_repair (25)
+ageha_himebachi
+akahane_mushi
+amami_shika_kuwagata
+ao_kamikiri
+beni_bekkoubachi
+hamasuzu
+kuro_suzu
+ooki_no_komushi
+oomizuao_oki
+ranran_hana_kamakiri_dummy
+sekai_saichou_nanafushi
+tennen_kimadara_seseri
+tokara_nokogiri_kuwagata
+yaeyama_koku_kuwagata
+yaeyama_nokogiri_kuwagata
+yakushima_noko_kuwagata
+yamato_batta
+suji_kuwagata
+akamadara_hanamuguri
+hiroobi_midorishijimi
+ginichimonji_seseri
+himekimadara_seseri
+oohikage_janome
+hime_kijanome
+oni_kuwa_kamikiri

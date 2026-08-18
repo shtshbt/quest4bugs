@@ -29,6 +29,10 @@
 #                              優先順リストなど) を、別途組んだ species list で撃つとき用。
 #                              manifest は <path> と同じディレクトリの manifest.md を見る
 #                              (無くても実行は止めない。species list が唯一の真実)
+#   --refetch-ids <path>       既に emit 済みでも --resume の skip から除外し再処理する
+#                              species_id リスト (1 行 1 id) を zukan_fetch_batch.py に渡す。
+#                              写真の質が悪いカードの補修用。新取得が quality gate を通った
+#                              ときだけ旧カードを退避して置き換える (batch.py 側の仕組み)。
 
 set -euo pipefail
 
@@ -49,6 +53,7 @@ QUALITY_GATE=1
 MERGE=0
 OUT_DIR=""
 FROM_LIST=""
+REFETCH_IDS=""
 
 die() { echo "error: $*" >&2; exit 2; }
 
@@ -66,12 +71,14 @@ while [[ $# -gt 0 ]]; do
     --merge)                MERGE=1; shift ;;
     --out-dir)              OUT_DIR="${2:?--out-dir needs a value}"; shift 2 ;;
     --from-list)            FROM_LIST="${2:?--from-list needs a value}"; shift 2 ;;
+    --refetch-ids)          REFETCH_IDS="${2:?--refetch-ids needs a value}"; shift 2 ;;
     -h|--help)              sed -n '2,30p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *)                      die "unknown option: $1" ;;
   esac
 done
 
 [[ -x "$VENV_PY" ]] || die "venv python が無い: $VENV_PY (VENV_PY= で上書き可)"
+[[ -n "$REFETCH_IDS" && ! -f "$REFETCH_IDS" ]] && die "refetch-ids ファイルが無い: $REFETCH_IDS"
 
 if [[ -z "$OUT_DIR" ]]; then
   OUT_DIR="$REPO/zukan_foundry/rounds/$(date +%Y-%m-%d)"
@@ -121,6 +128,7 @@ batch_args=(
 )
 [[ "$MERGE" -eq 0 ]] && batch_args+=(--no-merge)
 [[ "$QUALITY_GATE" -eq 0 ]] && batch_args+=(--no-quality-gate)
+[[ -n "$REFETCH_IDS" ]] && batch_args+=(--refetch-ids "$REFETCH_IDS")
 
 if [[ "$EXECUTE" -ne 1 ]]; then
   echo >&2
