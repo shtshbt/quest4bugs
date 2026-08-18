@@ -372,3 +372,7 @@ Polymorphanisus quadripunctatus は occurrence 6 と極端に少なく写真確�
 3. Apis koschevnikovi (サバミツバチ) を同属照合で除外した判断 (1.1)。
 4. 写真取得を 96 種前後まで広げる案 (3.2)。ボルネオ遠征 II の候補が 85 種前後まで縮む。追加 harvest の要否は `zukan_foundry/reports/volume2_rarity_frames.md` 3 章と合わせて判断したい。
 5. 地域 blurb の第 1 案と対案 (4 章)。
+
+## 承認記録
+
+- 2026-08-18: user 承認。選抜 84 種と SSR3 構成は draft 通り (Pyrops whiteheadi の CR II 看板との同科懸念は認識の上で維持)。写真取得は本 draft の優先順リストで着手可。

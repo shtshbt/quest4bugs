@@ -162,3 +162,9 @@ Fulgora laternaria は occurrence 95、Chalcosoma moellenkampi は occurrence 41
 4. ボルネオの追加 harvest の実施時期 (5.1)。更新 3 の準備と並行させるか、更新 3 の公開後に回すか。
 5. 更新 5 と 6 の順序を、準備の進み具合で入れ替えてよいか (6 章)。
 6. `docs/zukan_stock_ledger.md` の must-have 看板の行に写真確保列を足す修正 (4.3)。
+
+## 決定記録 (2026-08-18 user 承認)
+
+- MG II 看板: Phyllocrania paradoxa (ネジレカンムリカマキリ) に差し替え (旧予定のマダガスカルオオゴキブリは MG I で R 収録済みのため)
+- AU II 看板: Anoplognathus viridiaeneus (King Christmas Beetle)
+- 更新 5 と 6 を入れ替え: 更新 5 = AU II (写真 174 種既存で最短)、更新 6 = MG II
