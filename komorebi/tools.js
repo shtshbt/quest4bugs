@@ -215,10 +215,45 @@
     return instance?byId(instance.type):null;
   }
 
-  function grant(profile,typeId){
+  /* --- 道具図鑑 (design 6 章) -------------------------------------------------
+     初めて授かった日だけを残す台帳。「11 種すべてを一度は授かる」という第二の
+     完成目標で、いま何本持っているか (道具箱) とは別の記録。壊れて手元から消えても
+     ここからは消えない (獲得の記録は不滅)。 */
+
+  function dexOf(profile){
+    if(!isObject(profile))throw new Error("保存データが正しくありません");
+    if(!isObject(profile.toolDex))profile.toolDex={};
+    return profile.toolDex;
+  }
+
+  function firstGrantAt(profile,typeId){
+    var dex=isObject(profile)&&isObject(profile.toolDex)?profile.toolDex:null;
+    var at=dex?dex[typeId]:null;
+    return typeof at==="string"&&at?at:null;
+  }
+
+  /* 知らない道具の id は弾かず、そのまま持ち越す。図鑑は先の更新で増える台帳なので、
+     新しい道具を知っている端末が書いた記録を古い端末が読むことがある。そこで throw
+     すると、その端末は保存の競合解決 (remote を読み直す経路) ごと動かなくなる。
+     弾くのは形の誤り (日付が文字列でない、空) だけ。 */
+  function validateDex(profile){
+    if(!isObject(profile))throw new Error("保存データが正しくありません");
+    var dex=profile.toolDex;
+    if(dex==null)return profile;
+    if(!isObject(dex))throw new Error("道具図鑑の形式が正しくありません");
+    Object.keys(dex).forEach(function(id){
+      if(typeof dex[id]!=="string"||!dex[id])throw new Error("道具図鑑の形式が正しくありません");
+    });
+    return profile;
+  }
+
+  /* 図鑑に載るのは授与日を渡した授与だけ。日付なしの呼び出し (テストの下ごしらえ)
+     で台帳が埋まると、初回授与の記録が実際の授与日とずれる。 */
+  function grant(profile,typeId,today){
     if(!BY_ID[typeId])throw new Error("道具の指定が正しくありません");
     var instance={type:typeId,remaining:DURABILITY};
     toolsOf(profile).push(instance);
+    if(typeof today==="string"&&today&&!firstGrantAt(profile,typeId))dexOf(profile)[typeId]=today;
     /* 何も装備していないときだけ自動で装備する。装備中の道具を勝手に置き換えない。 */
     if(!equipped(profile))profile.equippedToolId=typeId;
     return instance;
@@ -252,6 +287,8 @@
     matches:matches,
     countTargets:countTargets,
     validateTools:validateTools,
+    validateDex:validateDex,
+    firstGrantAt:firstGrantAt,
     ownedOf:ownedOf,
     equipped:equipped,
     equippedTool:equippedTool,

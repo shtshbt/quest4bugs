@@ -13,7 +13,7 @@ const context = {console, setTimeout, clearTimeout};
 context.window = context;
 context.Q4B_KOMOREBI_NO_BOOT = true;
 vm.createContext(context);
-for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/app.js"]){
+for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "komorebi/economy_flag.js", "komorebi/app.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 

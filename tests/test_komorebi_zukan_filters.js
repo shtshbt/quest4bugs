@@ -21,7 +21,7 @@ unit.window = unit;
 unit.Q4B_KEISAN_NO_BOOT = true;
 unit.Q4B_KOMOREBI_NO_BOOT = true;
 vm.createContext(unit);
-for(const file of ["shared/bugs.js", "shared/reward.js", "keisan/app.js", "komorebi/volumes/volume_fixture.js", "komorebi/app.js"]){
+for(const file of ["shared/bugs.js", "shared/reward.js", "keisan/app.js", "komorebi/volumes/volume_fixture.js", "komorebi/economy_flag.js", "komorebi/app.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), unit);
 }
 

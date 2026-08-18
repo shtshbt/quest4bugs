@@ -21,7 +21,7 @@ function loadContext(){
   for(const file of ["shared/bugs.js", "shared/render.js", "shared/bug_archetypes.js",
     "shared/reward.js", "shared/kuku_phrases.js",
     "komorebi/volumes/volume_fixture.js", "komorebi/kuku_run.js", "komorebi/kuku_dan2.js",
-    "komorebi/trophies.js", "komorebi/app.js"]){
+    "komorebi/trophies.js", "komorebi/economy_flag.js", "komorebi/app.js"]){
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;

@@ -321,7 +321,9 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     const capture = { id: "ameiro_tonbo", rarity: "N", isNew: true, n: 1, size: 40, shiny: false };
     const question = { cat: "kom_ratio", format: "normal", kind: "num", text: "た", ans: 5 };
     const left = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 12, broke: false, swapped: false } });
-    assert.match(plainText(left), /🥅 12／30/);
+    assert.match(plainText(left), /12／30/);
+    /* 道具の絵は交換画面と同じ 1 本 (komorebi/assets/tool_icons.js)。 */
+    assert.match(left, /class="tool-icon"/, "リザルトの道具アイコンが共用のものでない");
     const broke = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 0, broke: true, swapped: false } });
     assert.match(plainText(broke), /あみが やぶれた!/);
     assert.match(plainText(broke), /うろで また もらおう/);

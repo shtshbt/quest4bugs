@@ -124,13 +124,15 @@
 
 | 対象 | ファイル | 内容 |
 |---|---|---|
-| メダル (旧トロフィー) | `komorebi/trophies.js` | 表示文字列をメダル化。セーブキー (trophyProgress) は互換のため変更しない。鋳造時に交換フローを起動 |
-| 道具・guild matcher | `komorebi/tools.js` (新規) | 道具定義 11 種、matcher、instance 管理 (所持・装備・耐久) |
+| 公開スイッチ | `komorebi/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal は app.js を読まないので、御神木パネルの入口の判定はここから配る |
+| メダル (旧トロフィー) | `komorebi/trophies.js` | 表示文字列をメダル化。セーブキー (trophyProgress) は互換のため変更しない。鋳造時に交換フローを起動。周回の勘定とリセットロックの判定もここ |
+| 道具・guild matcher | `komorebi/tools.js` (新規) | 道具定義 11 種、matcher、instance 管理 (所持・装備・耐久)、道具図鑑の台帳 |
 | かがやきのうろ | `komorebi/uro.js` (新規) | 奉納ログ、交換 UI、メダルラック、道具図鑑 |
+| 道具アイコン | `komorebi/assets/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・装備ウィジェット・リザルトで共用 |
 | 抽選 | `komorebi/app.js` | pickSpecies の guild 重み、drawCapture の振替確率加算、リザルトの耐久表示、破損イベント |
-| こはく呼び出し | `komorebi/app.js` amberCallCapture / showAmberCaptureModal | 道具ウィジェット、効果適用、耐久消費 |
-| セーブ | `shared/storage.js` (QuestSave) | profile に tools (instance list)、uroLog、リセットロック時刻を追加 (additive のみ) |
-| リセット周回 | `komorebi/app.js` | 7 日ロック判定、リセットボタン、確認ポップアップ、周回カウント |
+| こはく呼び出し | `komorebi/app.js` renderZukan / amberCallCapture | 道具ウィジェット、効果適用、耐久消費 |
+| セーブ | `shared/storage.js` (QuestSave) | profile に tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount / mintedLaps を追加 (additive のみ)。競合解決は記録を減らさない union |
+| リセット周回 | `komorebi/app.js` + `komorebi/trophies.js` | 7 日ロック判定、リセットボタン、確認ポップアップ、周回カウント、2 枚交換 |
 | 種データ | `komorebi/data/*.json` | 既存 habitat / tags の guild カバレッジ監査。不足種への追記 |
 | キャッシュ | `sw.js` + `?v=` | 配信ファイル変更時の CACHE bump (現行 q4b-cache-v146) |
 | テスト | `tests/` | 経済不変条件・ロック・重み・耐久のテスト追加 |

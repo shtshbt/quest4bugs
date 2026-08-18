@@ -14,6 +14,15 @@
     return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
+  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、
+     読み込んでいない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・
+     図鑑・ほうのうの記録で同じ 1 本を通す。 */
+  function toolFace(toolId,emoji){
+    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var art=icons&&typeof icons.svg==="function"?icons.svg(toolId):"";
+    return art||emoji||"🔧";
+  }
+
   /* 奉納ログは記録であって残高ではない。壊れた形を黙って通すと、周回の星が
      数えられなくなる (獲得の記録は不滅、という約束が守れない)。 */
   function validateLog(log){
@@ -63,7 +72,11 @@
     var waiting=pending(profile,medals);
     var found=waiting.filter(function(item){return item.cat===medal.cat;})[0];
     if(!found)return null;
-    var entry={cat:found.cat,speciesId:found.speciesId,lap:offeredCount(profile,found.cat)+1,date:today,tool:toolId};
+    /* 星の数は鋳造された周回そのもの。2 周目の 2 枚はどちらも ★★ になる
+       (周回は星で重なる)。周回を持たないメダル (移行分・旧テスト) では
+       これまで通り奉納の順番で数える。 */
+    var lap=Number.isInteger(found.lap)&&found.lap>0?found.lap:offeredCount(profile,found.cat)+1;
+    var entry={cat:found.cat,speciesId:found.speciesId,lap:lap,date:today,tool:toolId};
     entries(profile).push(entry);
     return entry;
   }
@@ -89,19 +102,24 @@
   function toolPickHtml(tool,text,disabled){
     var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは 出番が ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
     return '<li><button type="button" class="uro-pick" data-tool="'+escapeHtml(tool.id)+'"'+(disabled?' disabled aria-disabled="true"':'')+'>'
-      +'<span class="uro-pick-face">'+tool.emoji+'</span>'
+      +'<span class="uro-pick-face">'+toolFace(tool.id,tool.emoji)+'</span>'
       +'<span class="uro-pick-body"><span class="uro-pick-name">'+text(tool.name)+'</span>'
       +note
       +'<span class="uro-pick-blurb">'+text(tool.blurb)+'</span></span></button></li>';
   }
 
-  /* 鋳造成立の瞬間に出す即時交換。メダルを持ち歩く画面は作らない。 */
+  /* 鋳造成立の瞬間に出す即時交換。メダルを持ち歩く画面は作らない。
+     2 周目以降は 1 度の鋳造で 2 枚出るので、いま何枚目かを添える (total > 1 のとき
+     だけ)。枚数が見えないと、1 枚選んだ直後にまた同じ画面が出てくることになる。 */
   function exchangeHtml(opts){
     var text=opts.text,tools=opts.tools||[];
     var picks=tools.map(function(tool){return toolPickHtml(tool,text,tool.targets===0);}).join("")
       ||'<li class="uro-pick-empty">'+text("いま えらべる どうぐは ないよ")+'</li>';
+    var total=Number.isInteger(opts.total)?opts.total:1,index=Number.isInteger(opts.index)?opts.index:1;
+    var counter=total>1?'<p class="uro-mint-count">'+text(total+"まいの うち "+index+"まいめ")+'</p>':"";
     return '<div class="uro-exchange">'
       +'<p class="uro-mint">🏅 '+text(opts.medalName+"を かくとく!")+'</p>'
+      +counter
       +'<p class="uro-mint-note">'+text("かがやきのうろに ささげて、どうぐを ひとつ もらおう")+'</p>'
       +'<ul class="uro-picks">'+picks+'</ul>'
       +'<p class="uro-hint">'+text("見たことない虫に であいやすくなりそうだ…!")+'</p></div>';
@@ -136,12 +154,33 @@
           ?'<span class="uro-box-spare">'+text("よび")+'</span>'
           :'<button type="button" class="uro-equip" data-tool="'+escapeHtml(item.type)+'">'+text("そうびする")+'</button>';
       return '<li class="uro-box-row'+(active?" is-equipped":"")+'">'
-        +'<span class="uro-box-face">'+item.emoji+'</span>'
+        +'<span class="uro-box-face">'+toolFace(item.type,item.emoji)+'</span>'
         +'<span class="uro-box-name">'+text(item.name)+'</span>'
         +'<span class="uro-box-left">'+item.remaining+'／'+opts.durability+'</span>'
         +action+'</li>';
     }).join("")||'<li class="uro-box-empty">'+text("まだ どうぐを もっていないよ")+'</li>';
     return '<section class="uro-box"><h2>'+text("どうぐばこ")+'</h2><ul class="uro-box-list">'+rows+'</ul></section>';
+  }
+
+  /* 道具図鑑 (design 6 章)。初めて授かった日だけを並べる。未公開の枠も 🔒 のまま
+     数だけ出す: ゴールが何個かが見えないと「11 種すべて」が目標にならない。
+     どうぐばこ (いま何本あるか) とは別の台帳で、壊れてもここからは消えない。 */
+  function dexSectionHtml(opts){
+    var text=opts.text,dex=opts.dex||[];
+    if(!dex.length)return "";
+    var got=dex.filter(function(item){return item.at;}).length;
+    var cells=dex.map(function(item){
+      if(item.locked)return '<li class="uro-dex-slot is-locked"><span class="uro-dex-face">🔒</span>'
+        +'<span class="uro-dex-name">'+text("？？？")+'</span></li>';
+      if(!item.at)return '<li class="uro-dex-slot is-empty"><span class="uro-dex-face">'+toolFace(item.id,item.emoji)+'</span>'
+        +'<span class="uro-dex-name">'+text(item.name)+'</span>'
+        +'<span class="uro-dex-at">'+text("まだ")+'</span></li>';
+      return '<li class="uro-dex-slot is-got"><span class="uro-dex-face">'+toolFace(item.id,item.emoji)+'</span>'
+        +'<span class="uro-dex-name">'+text(item.name)+'</span>'
+        +'<span class="uro-dex-at">'+escapeHtml(item.at)+'</span></li>';
+    }).join("");
+    return '<section class="uro-dex"><h2>'+text("どうぐ図かん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
+      +'<ul class="uro-dex-list">'+cells+'</ul></section>';
   }
 
   function logSectionHtml(opts){
@@ -154,7 +193,7 @@
       return '<li class="uro-log-row"><span class="uro-log-name">🏅 '+text(entry.name)+'</span>'
         +'<span class="uro-log-cat">'+text(entry.catName)+'</span>'
         +'<span class="uro-log-lap" aria-label="'+escapeHtml(entry.lap+"しゅうめ")+'">'+stars+'</span>'
-        +'<span class="uro-log-tool">'+entry.toolEmoji+' '+text(entry.toolName)+'</span>'
+        +'<span class="uro-log-tool">'+toolFace(entry.toolId,entry.toolEmoji)+' '+text(entry.toolName)+'</span>'
         +'<span class="uro-log-date">'+escapeHtml(entry.date)+'</span></li>';
     }).join("");
     return '<section class="uro-log"><h2>'+text("ほうのうの きろく")+'</h2><ul class="uro-log-list">'+rows+'</ul></section>';
@@ -167,6 +206,7 @@
       +hollowHtml(state)
       +pendingSectionHtml(opts)
       +boxSectionHtml(opts)
+      +dexSectionHtml(opts)
       +logSectionHtml(opts);
   }
 

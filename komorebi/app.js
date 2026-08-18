@@ -1,19 +1,20 @@
 (function(global){
   "use strict";
 
-  /* 公開済みの更新番号 (release_linkage 2 章の更新カレンダー)。実装は先へ進めて
-     公開はここ 1 か所で段階解禁する。これが無いと「実装済み未公開」のカテゴリが
-     次の deploy でそのまま子どもの画面に出てしまう。 */
-  var CURRENT_RELEASE=2;
-
-  /* メダル経済 (採集道具・かがやきのうろ・メダル交換) の公開スイッチ。更新番号とは
-     独立させてある。地域 volume の公開は新奇性が効くうちに出したいが、道具は
-     手が止まりかけた頃に出すほうが効くので、同じ deploy に束ねない
-     (2026-08-17 決定)。false の間はメダルの挙動が道具の実装前と 1 ビットも
-     変わらない: 金の虫が増えるだけで、交換ポップアップもうろの入口も出ず、
-     抽選も乱数の消費本数も動かない。off の間に成立したメダルは、うろの初回訪問で
-     遡って奉納できる (uro.pending)。公開日はこの 1 行を true にして cache を上げる。 */
-  var MEDAL_ECONOMY_ON=false;
+  /* 公開スイッチ (更新番号 CURRENT_RELEASE とメダル経済 MEDAL_ECONOMY_ON) の実体は
+     komorebi/economy_flag.js が持つ。御神木パネルを描く portal は app.js を
+     読み込まないので、判定に要る 2 つの数だけを切り出して両方から読む
+     (tools_implementation_plan 検収指摘 3)。off の間に成立したメダルは、うろの
+     初回訪問で遡って奉納できる (uro.pending)。
+     読み込み忘れを黙って「全部未公開」に落とさず、その場で止める。公開済みの
+     カテゴリまで消えた画面を出すより、読めなかったと言うほうがよい。 */
+  function economyFlags(){
+    var flags=global.Q4B_KOMOREBI_ECONOMY;
+    if(!flags)throw new Error("公開スイッチを読み込めません");
+    return flags;
+  }
+  function currentRelease(){return economyFlags().currentRelease();}
+  function medalEconomyOn(){return economyFlags().on();}
 
   /* release は「どの更新で公開するか」。volume manifest がそのカテゴリを挙げていても、
      release が CURRENT_RELEASE を超える間は選択肢に出さない。 */
@@ -52,7 +53,7 @@
 
   function isReleased(cat){
     var entry=CATEGORIES[cat];
-    return !!entry&&entry.release<=CURRENT_RELEASE;
+    return !!entry&&entry.release<=currentRelease();
   }
 
   /* 段暗唱は 1 段 = 1 カテゴリ。cat 名が段番号を持つので、dan3 以降は
@@ -266,17 +267,17 @@
      効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js を読み込んでいない
      文脈 (単体テスト) では常に「未装備」に倒れる。 */
 
-  function toolsModule(){return MEDAL_ECONOMY_ON?(global.Q4B_KOMOREBI_TOOLS||null):null;}
+  function toolsModule(){return medalEconomyOn()?(global.Q4B_KOMOREBI_TOOLS||null):null;}
 
+  /* 判定そのものは economy_flag に置いてある (portal と共用)。ここでは tools.js を
+     読み込んでいない文脈で「公開済み」と答えないよう、実物の有無だけ足す。 */
   function toolsReleased(){
-    var tools=toolsModule();
-    if(!tools)return false;
-    return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
+    return !!toolsModule()&&economyFlags().toolsReleased();
   }
 
   function releasedTools(){
-    var tools=toolsModule();
-    return tools?tools.list().filter(function(tool){return tool.release<=CURRENT_RELEASE;}):[];
+    var tools=toolsModule(),release=currentRelease();
+    return tools?tools.list().filter(function(tool){return tool.release<=release;}):[];
   }
 
   /* ゲートは 2 段。まず MEDAL_ECONOMY_ON でメダル経済ごと開いているか、次に
@@ -286,7 +287,7 @@
     var tools=toolsModule();
     if(!tools)return null;
     var tool=tools.equippedTool(targetProfile);
-    return tool&&tool.release<=CURRENT_RELEASE?tool:null;
+    return tool&&tool.release<=currentRelease()?tool:null;
   }
 
   /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。 */
@@ -624,7 +625,7 @@
      カテゴリと同じく CURRENT_RELEASE 1 か所で公開が決まり、デプロイは番号を
      上げるだけになる (事前準備方式)。release 無しの volume は公開済み扱い。 */
   function isVolumeReleased(volume){
-    return !Number.isInteger(volume.release)||volume.release<=CURRENT_RELEASE;
+    return !Number.isInteger(volume.release)||volume.release<=currentRelease();
   }
 
   function regionList(){
@@ -669,9 +670,10 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    /* tools / uroLog / equippedToolId / lv10ClearAt はメダル経済の追加分
-       (tools_design 11 章)。既存キーは 1 つも動かさない additive の追記。 */
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},tools:[],uroLog:[],equippedToolId:null};
+    /* tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount /
+       mintedLaps はメダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも
+       動かさない additive の追記。 */
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],toolDex:{},uroLog:[],equippedToolId:null};
   }
 
   function normalizeProfile(data){
@@ -684,7 +686,7 @@
     else if(typeof p.unlocked!=="boolean")throw new Error("解禁データの形式が正しくありません");
     if(p.discoverySeen==null){p.discoverySeen=false;changed=true;}
     else if(typeof p.discoverySeen!=="boolean")throw new Error("発見データの形式が正しくありません");
-    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt"].forEach(function(key){
+    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt","lapCount","mintedLaps"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
     });
@@ -715,19 +717,36 @@
     if(global.Q4B_KOMOREBI_TROPHIES){
       global.Q4B_KOMOREBI_TROPHIES.validateTrophies(p.trophies);
       global.Q4B_KOMOREBI_TROPHIES.validateProgress(p.trophyProgress);
+      /* 周回の 2 つの整数 (lapCount / mintedLaps)。壊れたまま通すと、ロックの起点も
+         鋳造の回数も数えられなくなる。 */
+      global.Q4B_KOMOREBI_TROPHIES.validateLaps(p);
     }
-    /* Lv10 クリア時刻はリセット周回のロック計算 (Phase 2) の起点。値は ISO 文字列。 */
+    /* Lv10 クリア時刻はリセット周回のロックの起点。値は ISO 文字列。 */
     Object.keys(p.lv10ClearAt).forEach(function(cat){
       if(typeof p.lv10ClearAt[cat]!=="string"||!p.lv10ClearAt[cat])throw new Error("クリア日データの形式が正しくありません");
     });
+    /* 起点を記録する前に成立していたメダル (Phase 1 より前のセーブ) には起点が無く、
+       そのままだとロックが永久に明けずリセット周回へ入れない。授与日で埋める。
+       日付だけの文字列でも Date.parse は通るので、ロックの計算は同じに動く。 */
+    if(global.Q4B_KOMOREBI_TROPHIES){
+      global.Q4B_KOMOREBI_TROPHIES.list().forEach(function(trophy){
+        var record=p.trophies[trophy.trophyId];
+        if(!isObject(record)||p.lv10ClearAt[trophy.cat])return;
+        if(typeof record.at!=="string"||!record.at)return;
+        p.lv10ClearAt[trophy.cat]=record.at;
+        changed=true;
+      });
+    }
     /* メダル経済の追加分。古いセーブには無いので既定値を補い、形が違うものは通さない
        (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。 */
     if(p.tools==null){p.tools=[];changed=true;}
+    if(p.toolDex==null){p.toolDex={};changed=true;}
     if(p.uroLog==null){p.uroLog=[];changed=true;}
     if(!hasOwn(p,"equippedToolId")){p.equippedToolId=null;changed=true;}
     else if(p.equippedToolId!==null&&typeof p.equippedToolId!=="string")throw new Error("道具データの形式が正しくありません");
     if(global.Q4B_KOMOREBI_TOOLS){
       global.Q4B_KOMOREBI_TOOLS.validateTools(p.tools);
+      global.Q4B_KOMOREBI_TOOLS.validateDex(p);
       /* 装備だけが残って本体が無い状態は形の誤りではなく取りこぼし。黙って外す。 */
       if(p.equippedToolId&&!global.Q4B_KOMOREBI_TOOLS.ownedOf(p,p.equippedToolId).length){p.equippedToolId=null;changed=true;}
     }else if(!Array.isArray(p.tools))throw new Error("道具データの形式が正しくありません");
@@ -736,16 +755,181 @@
     return {profile:p,changed:changed};
   }
 
+  /* --- 保存の競合解決 --------------------------------------------------------
+     二台で遊んで CAS が弾かれたときの突き合わせ。捕獲は append-only の union で、
+     メダル経済の追加データも同じ扱いにする。local の丸ごとコピーで返すと、remote
+     側の奉納・道具・メダルが黙って消え、「獲得の記録は不滅」(tools_design 2 章
+     不変条件 4 と 6) が競合経路だけ守られない。
+     方針は 1 つ: どちらの側の記録も減らさない。判断に迷う場面では多い側・進んだ側を
+     採り、少しの取りすぎは許して取りこぼしを許さない。 */
+
+  function objectOf(value){return isObject(value)?value:{};}
+
+  /* 奉納ログの union。鍵は cat + 周回 + 日付 + 道具で、同じ鍵の行が何本あるかまで見る。
+     2 周目以降は 1 度の鋳造で 2 枚出て、その 2 枚は同じ日に続けて捧げられるので、
+     鍵が 1 つでは 2 行が 1 行に潰れてしまう。潰れると記録が消えるだけでなく、
+     uro.pending が「まだ捧げていない」と数えて道具がもう 1 つ出てしまう。
+     同じ鍵は本数の多い側を採る (両側が同じなら 1 度きり)。並びは日付順に寄せる。 */
+  function mergeUroLogs(localLog,remoteLog){
+    function group(list){
+      var byKey=Object.create(null);
+      (Array.isArray(list)?list:[]).forEach(function(entry){
+        if(!isObject(entry))return;
+        var key=entry.cat+"|"+entry.lap+"|"+entry.date+"|"+entry.tool;
+        (byKey[key]||(byKey[key]=[])).push(entry);
+      });
+      return byKey;
+    }
+    var local=group(localLog),remote=group(remoteLog),seen=Object.create(null),merged=[];
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(key){
+      if(seen[key])return;
+      seen[key]=true;
+      var mine=local[key]||[],theirs=remote[key]||[];
+      merged=merged.concat(mine.length>=theirs.length?mine:theirs);
+    });
+    merged.sort(function(a,b){
+      if(a.date!==b.date)return a.date<b.date?-1:1;
+      if(a.cat!==b.cat)return a.cat<b.cat?-1:1;
+      return (a.lap||0)-(b.lap||0);
+    });
+    return merged;
+  }
+
+  /* 道具は種類ごとに、残りの多い順に並べて 1 本ずつ突き合わせる。本数は多い側に、
+     各 1 本の残耐久は大きい側に寄せる。丸ごと片側を採ると、授かったばかりの 1 本が
+     「本数だけ多い、ほとんど壊れかけの写し」に負けて消える (メダルを払ったのに
+     何も残らない)。コレクションを奪う操作は存在しない。 */
+  function mergeToolBoxes(localTools,remoteTools){
+    function group(list){
+      var byType=Object.create(null);
+      (Array.isArray(list)?list:[]).forEach(function(entry){
+        if(!isObject(entry)||typeof entry.type!=="string")return;
+        (byType[entry.type]||(byType[entry.type]=[])).push(entry);
+      });
+      Object.keys(byType).forEach(function(type){
+        byType[type].sort(function(a,b){
+          return (Number.isFinite(b.remaining)?b.remaining:0)-(Number.isFinite(a.remaining)?a.remaining:0);
+        });
+      });
+      return byType;
+    }
+    var local=group(localTools),remote=group(remoteTools),seen=Object.create(null),merged=[];
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(type){
+      if(seen[type])return;
+      seen[type]=true;
+      var mine=local[type]||[],theirs=remote[type]||[],count=Math.max(mine.length,theirs.length),i;
+      for(i=0;i<count;i++){
+        var a=mine[i],b=theirs[i];
+        if(a&&b)merged.push((Number.isFinite(a.remaining)?a.remaining:0)>=(Number.isFinite(b.remaining)?b.remaining:0)?a:b);
+        else merged.push(a||b);
+      }
+    });
+    return merged;
+  }
+
+  /* メダルは再授与しないので、記録が 1 つでもある側を残す。同じ銘が両側にあるときは
+     先に成立したほうの日付を採る (あとから来た写しで獲得日を書き換えない)。 */
+  function mergeTrophies(localTrophies,remoteTrophies){
+    var merged={},local=objectOf(localTrophies),remote=objectOf(remoteTrophies);
+    Object.keys(remote).forEach(function(id){merged[id]=remote[id];});
+    Object.keys(local).forEach(function(id){
+      var mine=local[id],theirs=merged[id];
+      if(!theirs||String(mine.at)<String(theirs.at))merged[id]=mine;
+    });
+    return merged;
+  }
+
+  /* 道具図鑑も同じ扱い。初めて授かった日は片側にしか無いことがあるので union し、
+     両側にあるときは早いほうを残す。 */
+  function mergeToolDex(localDex,remoteDex){
+    var merged={},local=objectOf(localDex),remote=objectOf(remoteDex);
+    Object.keys(remote).forEach(function(id){merged[id]=remote[id];});
+    Object.keys(local).forEach(function(id){
+      if(!merged[id]||String(local[id])<String(merged[id]))merged[id]=local[id];
+    });
+    return merged;
+  }
+
+  /* 安定判定の窓は進んだ側 (有効回答が多い側) を残す。20 問ぶんの積み上げを
+     競合で捨てると、鋳造が理由なく遠のく。周回が食い違うカテゴリだけは、この
+     あとの mergeLapScopedState が周回に合う側で上書きする。 */
+  function mergeTrophyProgress(localProgress,remoteProgress){
+    var merged={},local=objectOf(localProgress),remote=objectOf(remoteProgress);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      var mine=local[cat],theirs=merged[cat];
+      if(!theirs||(isObject(mine)&&(mine.n||0)>=((isObject(theirs)&&theirs.n)||0)))merged[cat]=mine;
+    });
+    return merged;
+  }
+
+  /* Lv10 クリア時刻はリセット周回のロックの起点。遅いほうを採る = 直近のクリアを
+     採る。早いほうを採ると、片方の端末の古い記録でロックが先に明ける。 */
+  function mergeClearTimes(localTimes,remoteTimes){
+    var merged={},local=objectOf(localTimes),remote=objectOf(remoteTimes);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      if(!merged[cat]||String(local[cat])>String(merged[cat]))merged[cat]=local[cat];
+    });
+    return merged;
+  }
+
+  /* カテゴリごとの整数は大きいほうを採る (到達 Lv、周回数、鋳造済み周回)。
+     いずれも「そこまで進んだ」という記録で、下がることはない。 */
+  function mergeMaxByCat(localMap,remoteMap){
+    var merged={},local=objectOf(localMap),remote=objectOf(remoteMap);
+    Object.keys(remote).forEach(function(cat){merged[cat]=remote[cat];});
+    Object.keys(local).forEach(function(cat){
+      var mine=local[cat],theirs=merged[cat];
+      if(!Number.isFinite(theirs)||(Number.isFinite(mine)&&mine>theirs))merged[cat]=mine;
+    });
+    return merged;
+  }
+
+  /* 周回に属する状態 (いまの Lv、昇降の 10 問窓、安定判定の 20 問窓) は、統合後の
+     周回に居る側から丸ごと採る。周回が 1 つ後ろの側の値を混ぜると、リセット前の Lv と
+     20 問がそのまま次の周の実績に化けて、競合を起こすだけで Lv1 のままメダルが
+     2 枚成立してしまう (鋳造源は習熟のみ、という不変条件 3 が破れる)。
+     両方が同じ周回に居るときは手元の Lv をそのまま使う (窓は進んだ側)。 */
+  function mergeLapScopedState(merged,localProfile,remoteProfile){
+    var local=objectOf(localProfile),remote=objectOf(remoteProfile);
+    function lapAt(profile,cat){
+      var value=objectOf(profile.lapCount)[cat];
+      return Number.isInteger(value)&&value>=1?value:1;
+    }
+    function windowOf(profile,cat){
+      var entry=objectOf(profile.trophyProgress)[cat];
+      return isObject(entry)?entry:{n:0,recent:[]};
+    }
+    Object.keys(CATEGORIES).forEach(function(cat){
+      var want=Number.isInteger(merged.lapCount[cat])&&merged.lapCount[cat]>=1?merged.lapCount[cat]:1;
+      var mineAt=lapAt(local,cat)===want,theirsAt=lapAt(remote,cat)===want;
+      /* 両方が同じ周回。mergeTrophyProgress の結果 (進んだ側) をそのまま使う。 */
+      if(mineAt&&theirsAt)return;
+      if(theirsAt){
+        var theirLv=objectOf(remote.lv)[cat],theirAdapt=objectOf(remote.adapt)[cat];
+        merged.lv[cat]=Number.isInteger(theirLv)&&theirLv>=1?theirLv:1;
+        merged.adapt[cat]=isObject(theirAdapt)?theirAdapt:{n:0,recent:[]};
+        merged.trophyProgress[cat]=windowOf(remote,cat);
+        return;
+      }
+      /* 手元がこの周回に居る。向こうの前の周の窓は持ち込まない。 */
+      merged.trophyProgress[cat]=windowOf(local,cat);
+    });
+    return merged;
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
     var merged=JSON.parse(JSON.stringify(localProfile)), catches={};
+    var remote=isObject(remoteProfile)?remoteProfile:{};
     Object.keys(remoteCatches).concat(Object.keys(localCatches)).forEach(function(id){
       if(catches[id])return;
-      var remote=remoteCatches[id], local=localCatches[id], entry={}, key;
-      if(remote)for(key in remote)entry[key]=remote[key];
+      var remoteEntry=remoteCatches[id], local=localCatches[id], entry={}, key;
+      if(remoteEntry)for(key in remoteEntry)entry[key]=remoteEntry[key];
       if(local)for(key in local)entry[key]=local[key];
-      entry.records=(remote&&remote.records||[]).concat(local&&local.records||[]);
+      entry.records=(remoteEntry&&remoteEntry.records||[]).concat(local&&local.records||[]);
       entry.n=entry.records.length;
       var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
       if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
@@ -753,6 +937,27 @@
     });
     merged.collection.catches=catches;
     merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
+    merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
+    merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
+    merged.toolDex=mergeToolDex(localProfile&&localProfile.toolDex,remote.toolDex);
+    merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
+    merged.trophyProgress=mergeTrophyProgress(localProfile&&localProfile.trophyProgress,remote.trophyProgress);
+    merged.lv10ClearAt=mergeClearTimes(localProfile&&localProfile.lv10ClearAt,remote.lv10ClearAt);
+    merged.maxLv=mergeMaxByCat(localProfile&&localProfile.maxLv,remote.maxLv);
+    merged.lapCount=mergeMaxByCat(localProfile&&localProfile.lapCount,remote.lapCount);
+    merged.mintedLaps=mergeMaxByCat(localProfile&&localProfile.mintedLaps,remote.mintedLaps);
+    /* 周回に属する状態は、統合後の周回に居る側から採る (リセットを取りこぼさない)。
+       戻るのは Lv の進行だけで、図鑑・捕獲済み・奉納記録・到達 Lv には触れない。 */
+    mergeLapScopedState(merged,localProfile,remote);
+    /* 装備は 1 枠なので union できない。local を優先し、統合後の道具箱に本体が
+       無ければ remote の装備、それも無ければ外す (normalizeProfile と同じ自己修復)。
+       道具そのものは残っているので、外れても選び直せば済む。 */
+    var owned=Object.create(null);
+    merged.tools.forEach(function(entry){owned[entry.type]=true;});
+    var wanted=[localProfile&&localProfile.equippedToolId,remote.equippedToolId].filter(function(type){
+      return typeof type==="string"&&owned[type];
+    });
+    merged.equippedToolId=wanted.length?wanted[0]:null;
     return merged;
   }
 
@@ -765,10 +970,13 @@
       if(!result||result.reason!=="conflict")throw new Error("保存できません");
       return QuestSave.loadVersioned("komorebi",profileId,null).then(function(latest){
         var remoteProfile=normalizeProfile(latest.data).profile;
-        profile=mergeProfileCatches(localProfile,remoteProfile);
-        profileRevision=latest.revision;
-        return QuestSave.saveVersioned("komorebi",profileId,profile,profileRevision).then(function(retry){
+        var mergedProfile=mergeProfileCatches(localProfile,remoteProfile);
+        /* 統合の結果を画面と revision に反映するのは、書き込みが通ってから。先に
+           revision だけ進めると、再送に失敗して呼び出し側が巻き戻したときに
+           「向こうの記録を知らない古い profile」が競合なしで上書きしてしまう。 */
+        return QuestSave.saveVersioned("komorebi",profileId,mergedProfile,latest.revision).then(function(retry){
           if(!retry||!retry.ok)throw new Error("保存の競合を解消できません");
+          profile=mergedProfile;
           profileRevision=retry.revision;
           return true;
         });
@@ -805,10 +1013,11 @@
       trophyModule.noteAnswer(targetProfile,cat,lvAtAnswer,ok);
       minted=trophyModule.award(targetProfile,cat,todayString());
       if(minted){
-        /* リセット周回の 7 日ロック (Phase 2) はこの時刻から数える。鋳造の瞬間にしか
-           書かないので、後から Lv が下がっても起点は動かない。 */
+        /* リセット周回の 7 日ロックはこの時刻から数える。鋳造の瞬間にしか書かないので
+           後から Lv が下がっても起点は動かないが、周回して鋳造し直したときは
+           そのつど上書きする (ロックは直近のクリアから数える)。 */
         if(!isObject(targetProfile.lv10ClearAt))targetProfile.lv10ClearAt={};
-        if(!targetProfile.lv10ClearAt[cat])targetProfile.lv10ClearAt[cat]=new Date().toISOString();
+        targetProfile.lv10ClearAt[cat]=new Date().toISOString();
       }
     }
     /* 返り値は「このひと問で鋳造が成立したメダル」(無ければ null)。交換フローの
@@ -1521,6 +1730,15 @@
       +note+'</div>';
   }
 
+  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、読み込んで
+     いない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・ウィジェット・
+     リザルトの 4 か所で同じ 1 本を通す (場所ごとに絵が違うと同じ道具に見えない)。 */
+  function toolFaceHtml(tool,options){
+    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var art=icons&&typeof icons.svg==="function"?icons.svg(tool.id,options):"";
+    return art||tool.emoji||"🔧";
+  }
+
   /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
      防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
      未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
@@ -1529,11 +1747,12 @@
     if(!tools||!toolUse)return "";
     var tool=tools.byId(toolUse.type);
     if(!tool)return "";
-    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+tool.emoji+' '+toolUse.remaining+'／'+tools.durability+'</p>';
+    var face=toolFaceHtml(tool);
+    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+face+' '+toolUse.remaining+'／'+tools.durability+'</p>';
     var after=toolUse.swapped
       ?"よびの "+tool.name+"に もちかえた!"
       :"そうびが なくなった。うろで また もらおう";
-    return '<p class="kom-tool-break" role="status"><strong>'+tool.emoji+' '+displayText(tool.breakText)+'</strong>'
+    return '<p class="kom-tool-break" role="status"><strong>'+face+' '+displayText(tool.breakText)+'</strong>'
       +'<span>'+displayText(after)+'</span></p>';
   }
 
@@ -2154,8 +2373,84 @@
       var badgeHtml=badge?'<span class="path-badge" aria-label="'+attrText("遠征 "+badge)+'">'+badge+'</span>':"";
       if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'" data-volume-id="'+escapeHtml(volume.id)+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
       else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText(blocked)+'</span></button>';
+      /* リセット周回の入口は そのカテゴリのすぐ下に出す。地図の別の場所に置くと、
+         どの小道を戻すのかが押す瞬間に見えない。 */
+      buttons+=resetChoiceHtml(cat);
     });
     return buttons;
+  }
+
+  /* --- リセット周回 (tools_design 5 章) --------------------------------------
+     Lv10 クリアから 7 日のロックが明けたカテゴリに、Lv1 へ戻すボタンが出る。
+     選ぶのは本人で、戻るのは Lv の進行だけ。図鑑・捕獲済み・奉納記録・到達 Lv には
+     触れない (不変条件 6)。メダル経済が閉じている間は出さない: 戻して得られるのが
+     メダルだけなので、経済の外では損しかしない。 */
+
+  function trophiesModuleOrNull(){return global.Q4B_KOMOREBI_TROPHIES||null;}
+
+  function resetReady(cat){
+    var trophyMod=trophiesModuleOrNull();
+    if(!uroAvailable()||!trophyMod||!profile)return false;
+    if(!hasOwn(CATEGORIES,cat)||CATEGORIES[cat].course!==profileType)return false;
+    return trophyMod.canReset(profile,cat,Date.now());
+  }
+
+  function resetChoiceHtml(cat){
+    if(!resetReady(cat))return "";
+    return '<button type="button" class="path-reset" data-reset-cat="'+escapeHtml(cat)+'">'
+      +'🔁 <span class="path-reset-name">'+displayText(CATEGORIES[cat].name+"を Lv1 から もういちど")+'</span>'
+      +'<span class="path-reset-note">'+displayText("メダル 2まい")+'</span></button>';
+  }
+
+  /* 確認は 1 枚。文面は仕様どおりで、失うものが無いことも同じ画面で言う
+     (「リセット」という語だけを見せると、集めた虫が消えると読める)。 */
+  function showResetConfirm(cat,onYes){
+    if(!global.document)return;
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komResetModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +'<div class="kom-reset-ask"><p class="kom-reset-title">'+displayText("Lv1 に リセットしますか?")+'</p>'
+      +'<p class="kom-reset-prize">'+displayText("リセットして もういちど Lv10 に なったら、メダルが 2まい!")+'</p>'
+      +'<p class="kom-reset-keep">'+displayText("ずかんも つかまえた虫も ほうのうの きろくも そのままだよ")+'</p></div>'
+      +'<button type="button" class="kom-reset-go" data-action="reset-yes">'+displayText("リセットする")+'</button>'
+      +'<button type="button" class="kom-modal-close">'+displayText("やめる")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      var target=event.target;
+      if(target===overlay||target.className==="kom-modal-close"){closeModal(overlay);return;}
+      var action=target.getAttribute?target.getAttribute("data-action"):null;
+      if(action!=="reset-yes"&&target.closest){
+        var host=target.closest('[data-action="reset-yes"]');
+        if(host)action="reset-yes";
+      }
+      if(action!=="reset-yes")return;
+      closeModal(overlay);
+      onYes();
+    });
+    document.body.appendChild(overlay);
+    var close=overlay.querySelector(".kom-modal-close");
+    if(close)close.focus();
+  }
+
+  /* 実行。周回番号と安定判定の窓は trophies 側、Lv と昇降バッファはこちら側で、
+     まとめて 1 回の保存に載せる。保存に失敗したら丸ごと巻き戻す。 */
+  function resetCategoryLap(cat,onDone){
+    var trophyMod=trophiesModuleOrNull();
+    if(!resetReady(cat)||!trophyMod){if(onDone)onDone(false);return;}
+    var before=JSON.parse(JSON.stringify(profile));
+    var lap=trophyMod.beginNextLap(profile,cat);
+    if(!lap){if(onDone)onDone(false);return;}
+    profile.lv[cat]=1;
+    /* 昇降は adapt の 10 問窓で決まる。空にしないと、前の周の当たりを持ったまま
+       Lv1 が始まって 1 問目で上がってしまう。 */
+    profile.adapt[cat]={n:0,recent:[]};
+    var saved;
+    try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+    saved.then(function(){if(onDone)onDone(true);}).catch(function(){
+      profile=before;
+      global.alert("ほぞんに しっぱいしました。Lv は そのままだよ");
+      if(onDone)onDone(false);
+    });
   }
 
   function pathPanelHtml(region){
@@ -2183,6 +2478,15 @@
 
   function bindPathPanel(region){
     document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(region.regionId);});
+    Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-reset-cat]"),function(button){
+      button.addEventListener("click",function(){
+        var cat=button.getAttribute("data-reset-cat");
+        showResetConfirm(cat,function(){
+          button.disabled=true;
+          resetCategoryLap(cat,function(){renderMap(region.regionId);});
+        });
+      });
+    });
     Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-cat]"),function(button){
       var cat=button.getAttribute("data-cat"),start=SESSION_STARTERS[cat];
       /* 捕獲プールはボタンが属する巻。badge が示す対応をここが実行する。 */
@@ -2241,7 +2545,7 @@
 
   /* 表示語彙はメダル経済のスイッチに連動させる。off の間は従来のトロフィー表記の
      ままにして、「メダル」の初出を うろと道具の公開と同じ日に揃える。 */
-  function medalWording(){return MEDAL_ECONOMY_ON;}
+  function medalWording(){return medalEconomyOn();}
 
   function trophyEntranceHtml(){
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
@@ -2292,13 +2596,25 @@
   }
 
   /* 獲得済みメダルを鋳造順に並べる。順序は奉納の対応づけ (uro.pending) の基準に
-     なるので、日付が同じ場合は trophies.js の宣言順で安定させる。 */
+     なるので、日付が同じ場合は trophies.js の宣言順で安定させる。
+     1 カテゴリ 1 枚ではない: 1 周目は 1 枚、2 周目以降は 1 周につき 2 枚なので、
+     周回した cat はその枚数ぶん並ぶ (捧げ待ちが 2 枚出るのはこのため)。 */
   function earnedMedals(){
-    return releasedTrophies().filter(function(trophy){return profile.trophies[trophy.trophyId];}).map(function(trophy){
+    var trophyMod=trophyModule(),medals=[];
+    releasedTrophies().forEach(function(trophy){
       var record=profile.trophies[trophy.trophyId];
-      return {trophyId:trophy.trophyId,cat:trophy.cat,speciesId:record.speciesId||trophy.speciesId,
-        at:record.at,name:medalSpeciesName(record.speciesId||trophy.speciesId)+"のメダル"};
-    }).sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:0;});
+      if(!record)return;
+      var speciesId=record.speciesId||trophy.speciesId,name=medalSpeciesName(speciesId)+"のメダル";
+      var laps=trophyMod.mintedLaps(profile,trophy.cat),lap,i,count;
+      for(lap=1;lap<=laps;lap++){
+        count=trophyMod.medalsForLap(lap);
+        for(i=0;i<count;i++){
+          medals.push({trophyId:trophy.trophyId,cat:trophy.cat,speciesId:speciesId,
+            at:record.at,lap:lap,name:name});
+        }
+      }
+    });
+    return medals.sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:a.lap-b.lap;});
   }
 
   function pendingMedals(){
@@ -2336,16 +2652,18 @@
   function offerMedal(medal,toolId,onDone){
     var uro=uroModule(),tools=toolsModule();
     if(!uro||!tools)return;
-    var before=JSON.parse(JSON.stringify(profile));
-    var entry=uro.redeem(profile,earnedMedals(),medal,toolId,todayString());
+    var before=JSON.parse(JSON.stringify(profile)),today=todayString();
+    var entry=uro.redeem(profile,earnedMedals(),medal,toolId,today);
     if(!entry){if(onDone)onDone(null);return;}
-    tools.grant(profile,toolId);
+    /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
+    var firstOfKind=!tools.firstGrantAt(profile,toolId);
+    tools.grant(profile,toolId,today);
     var saved;
     try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
-    saved.then(function(){if(onDone)onDone(entry);}).catch(function(){
+    saved.then(function(){if(onDone)onDone(entry,firstOfKind);}).catch(function(){
       profile=before;
       global.alert("ほぞんに しっぱいしました。メダルは そのままだよ");
-      if(onDone)onDone(null);
+      if(onDone)onDone(null,false);
     });
   }
 
@@ -2355,15 +2673,17 @@
 
   /* 鋳造成立の瞬間に出す即時交換ポップアップ。こはくの捕獲カードと同じモーダルの
      形を使う (捕獲以外の知らせを別の見た目で出さない)。 */
-  function showMedalExchange(medal,onDone){
+  function showMedalExchange(medal,onDone,run){
     var uro=uroModule();
-    if(!uro||!global.document)return;
+    /* 出せない場面でも約束は返す。黙って返ると 2 枚交換の続きが止まったままになる。 */
+    if(!uro||!global.document){if(onDone)onDone(null);return;}
     var choices=toolChoices();
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
     overlay.id="komMedalModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +uro.exchangeHtml({text:displayText,medalName:medal.name,tools:choices})
+      +uro.exchangeHtml({text:displayText,medalName:medal.name,tools:choices,
+        index:run&&run.index,total:run&&run.total})
       +'<button type="button" class="kom-modal-close">'+displayText("あとにする")+'</button></div>';
     overlay.addEventListener("click",function(event){
       var target=event.target;
@@ -2375,9 +2695,9 @@
         if(host)toolId=host.getAttribute("data-tool");
       }
       if(!toolId)return;
-      offerMedal(medal,toolId,function(entry){
+      offerMedal(medal,toolId,function(entry,firstOfKind){
         closeModal(overlay);
-        if(entry)showToolGrantedModal(toolId);
+        if(entry)showToolGrantedModal(toolId,firstOfKind);
         if(onDone)onDone(entry);
       });
     });
@@ -2386,32 +2706,54 @@
     if(close)close.focus();
   }
 
-  function showToolGrantedModal(toolId){
+  /* さずかった の知らせは 1 枚だけ立てる。2 周目の 2 枚交換では交換 → 授与 →
+     交換 → 授与 と続くので、前の 1 枚を残すと最後に閉じるボタンが 2 つ重なる。 */
+  var grantedOverlay=null;
+
+  function showToolGrantedModal(toolId,firstOfKind){
     var tools=toolsModule(),tool=tools&&tools.byId(toolId);
     if(!tool||!global.document)return;
+    closeModal(grantedOverlay);
     var overlay=document.createElement("div");
+    grantedOverlay=overlay;
     overlay.className="kom-modal";
     overlay.id="komToolModal";
+    /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
+    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +'<div class="uro-granted"><p class="uro-granted-face">'+tool.emoji+'</p>'
+      +'<div class="uro-granted"><p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
       +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
+      +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
       +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
     overlay.addEventListener("click",function(event){
-      if(event.target===overlay||event.target.className==="kom-modal-close")closeModal(overlay);
+      if(event.target!==overlay&&event.target.className!=="kom-modal-close")return;
+      closeModal(overlay);
+      if(grantedOverlay===overlay)grantedOverlay=null;
     });
     document.body.appendChild(overlay);
   }
 
-  function offerMintedMedal(trophy){
-    if(!uroAvailable()||!global.document)return;
-    var medal=earnedMedals().filter(function(item){return item.trophyId===trophy.trophyId;})[0];
-    if(!medal)return;
-    /* 既に捧げ済みなら出さない。鋳造は 1 回きりだが、保存の再送などで二度呼ばれても
-       ポップアップが 2 枚出ないようにする。 */
-    if(!pendingMedals().some(function(item){return item.trophyId===medal.trophyId;}))return;
-    showMedalExchange(medal,null);
+  /* 鋳造の瞬間に出す交換。2 周目以降は 1 度の鋳造で 2 枚なので、1 枚選び終えたら
+     残りぶんをそのまま続けて出す (道具を 2 つ選ぶ = ポップアップ 2 回)。
+     「あとにする」で閉じたときは追わない。残りは うろの捧げ待ちに並ぶ。
+     既に捧げ済みなら 1 枚も出さない。保存の再送などで二度呼ばれてもポップアップが
+     重ならないようにする。 */
+  function offerMintedMedal(trophy,onDone){
+    if(!uroAvailable()||!global.document){if(onDone)onDone();return;}
+    var waiting=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
+    var total=waiting.length;
+    if(!total){if(onDone)onDone();return;}
+    function step(index){
+      var left=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
+      if(!left.length){if(onDone)onDone();return;}
+      showMedalExchange(left[0],function(entry){
+        if(entry)step(index+1);
+        else if(onDone)onDone();
+      },{index:index,total:total});
+    }
+    step(1);
   }
 
   function uroPageOptions(){
@@ -2426,11 +2768,21 @@
       var tool=tools.byId(entry.tool),category=CATEGORIES[entry.cat];
       return {cat:entry.cat,lap:entry.lap,date:entry.date,
         name:medalSpeciesName(entry.speciesId)+"のメダル",
-        catName:category?category.name:entry.cat,
+        catName:category?category.name:entry.cat,toolId:entry.tool,
         toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
     });
+    /* 道具図鑑は 11 種ぶんの枠を常に並べる。未公開のぶんは名前を伏せて 🔒 だけ出す
+       (何を集めるかは伏せたまま、いくつ集めるかは見せる)。 */
+    var release=currentRelease();
+    var dex=tools.list().map(function(tool){
+      if(tool.release>release)return {locked:true};
+      return {id:tool.id,name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+    });
+    /* 装備の見え方は こはくの画面と同じ判定にそろえる。未公開の道具を装備したままの
+       セーブで、片方の画面が「そうび中」もう片方が「なし」になるのを避ける。 */
+    var equipped=equippedToolOf(profile);
     return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
-      equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log};
+      equippedToolId:equipped?profile.equippedToolId:null,durability:tools.durability,entries:log,dex:dex};
   }
 
   function renderUro(backId){
@@ -2630,6 +2982,64 @@
     if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(false);
   }
 
+  /* --- こはく呼び出し画面のインライン道具ウィジェット (tools_design 7 章) --------
+     現在の装備を常時表示し、その場で なし / 所持道具 に切り替える。既定値は今の装備
+     なので、いつもどおり呼ぶだけなら 0 タップで済む。呼ぶたびに「道具を使いますか?」と
+     訊く yes/no のモーダルは作らない (狩りの途中で手を止めさせない)。
+     道具を 1 つも持っていない間は、空の器も出さない。 */
+  function toolWidgetHtml(){
+    var tools=toolsModule();
+    if(!tools||!toolsReleased()||demoMode)return "";
+    var release=currentRelease(),seen={},owned=[];
+    (profile.tools||[]).forEach(function(instance){
+      if(seen[instance.type])return;
+      var tool=tools.byId(instance.type);
+      if(!tool||tool.release>release)return;
+      seen[instance.type]=true;
+      var stock=tools.ownedOf(profile,instance.type);
+      owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1});
+    });
+    if(!owned.length)return "";
+    /* 未公開の道具を装備したままの状態は「なし」として見せる (効果も出ていない)。 */
+    var now=equippedToolOf(profile),equippedId=now?profile.equippedToolId:null;
+    var chips='<button type="button" class="tool-chip'+(equippedId?"":" is-on")+'" data-equip="" aria-pressed="'+(equippedId?"false":"true")+'">'
+      +displayText("なし")+'</button>';
+    owned.forEach(function(item){
+      var on=item.type===equippedId;
+      chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
+        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
+        +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
+        +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
+    });
+    return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
+      +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
+      +(now?toolFaceHtml(now)+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
+      +'<div class="zukan-tool-chips">'+chips+'</div></div>';
+  }
+
+  function bindToolWidget(rerender){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-equip]"),function(button){
+      button.addEventListener("click",function(){
+        var tools=toolsModule();
+        if(!tools)return;
+        var type=button.getAttribute("data-equip")||null;
+        /* 既に選ばれている札を押しても保存を起こさない (連打で保存が並ばない)。 */
+        if((profile.equippedToolId||null)===type)return;
+        var before=profile.equippedToolId||null;
+        if(!tools.equip(profile,type))return;
+        /* 保存に失敗したら持ち替えも戻す。画面だけ替わって次の捕獲では前の道具が
+           効いている、という食い違いを残さない。 */
+        var saved;
+        try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+        saved.then(rerender).catch(function(){
+          tools.equip(profile,before);
+          global.alert("ほぞんに しっぱいしました。そうびは そのままだよ");
+          rerender();
+        });
+      });
+    });
+  }
+
   function renderZukan(regionId){
     var region=regionById(regionId),collection=viewCollection();
     var entries=regionEntries(region,collection);
@@ -2642,7 +3052,8 @@
     /* こはくの残高と よぶ ボタン。demo モードは保存に触れない約束なので出さない。 */
     var canCall=!demoMode&&amberWallet()&&amberCallVolume(region);
     var amberLine='<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong>'
-      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>';
+      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>'
+      +toolWidgetHtml();
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(region.regionName+"の小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(region.regionName+"の ずかん")+'</h1>'
       +'<p>'+displayText("あつめた虫")+'　<strong>'+regionProgressHtml(region,collection)+'</strong>'
@@ -2654,6 +3065,7 @@
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
     var call=document.querySelector('[data-action="amber-call"]');
     if(call)call.addEventListener("click",function(){amberCallCapture(region,function(){renderZukan(regionId);});});
+    bindToolWidget(function(){renderZukan(regionId);});
     bindZukanFilters(function(){renderZukan(regionId);});
     bindZukanCards(entries,function(){renderZukan(regionId);});
     mountZukanModeToggle(function(){renderZukan(regionId);});
@@ -2899,6 +3311,9 @@
     collectionConfig:COLLECTION_CONFIG,
     createProfile:createProfile,
     normalizeProfile:normalizeProfile,
+    /* 保存の競合解決。二台で遊んだときにだけ通る経路なので、実機では滅多に踏まない。
+       テストから直接叩けないと、記録が消えないことを確かめる手段が無くなる。 */
+    mergeProfiles:mergeProfileCatches,
     validateVolume:validateVolume,
     qualifiesForGauge:qualifiesForGauge,
     drawCapture:drawCapture,
@@ -2906,8 +3321,8 @@
        出しておかないと、重み 3 倍の有無を単体で確かめられない。 */
     pickSpecies:pickSpecies,
     /* メダル経済の公開スイッチ。うろの入口は小道の地図下端と御神木パネルの 2 か所に
-       あり、後者は shared/breeding.js が描くので、判定を 1 か所から配る。 */
-    medalEconomyOn:function(){return MEDAL_ECONOMY_ON;},
+       あり、後者は shared/breeding.js が economy_flag を直接読んで描く。 */
+    medalEconomyOn:medalEconomyOn,
     toolsReleased:toolsReleased,
     releasedTools:releasedTools,
     earnedMedals:function(){return earnedMedals();},
@@ -2933,7 +3348,7 @@
     startKukuRunSession:startKukuRunSession,
     sessionStarters:SESSION_STARTERS,
     isReleased:isReleased,
-    currentRelease:function(){return CURRENT_RELEASE;},
+    currentRelease:currentRelease,
     dan2QuestionBodyHtml:dan2QuestionBodyHtml,
     formatCourseText:formatCourseText,
     applyPerformance:applyPerformance,
@@ -2945,12 +3360,13 @@
     zukanFilterState:function(){return zukanFilter;},
     profile:function(){return profile;}
   };
-  /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。
-     ハーネスが Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生やす。常設の API に
-     置くと、配信された画面の console 1 行でメダル経済が開いてしまう。
-     実運用で動かすのは冒頭の MEDAL_ECONOMY_ON の 1 行だけ。 */
-  if(global.Q4B_KOMOREBI_TEST_HOOKS){
-    global.Q4B_KOMOREBI.setMedalEconomyOn=function(on){MEDAL_ECONOMY_ON=!!on;};
+  /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。実体は
+     economy_flag 側にあり、ここはそこへの転送でしかない。ハーネスが
+     Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生える。
+     実運用で動かすのは economy_flag.js の 2 行だけ。 */
+  if(global.Q4B_KOMOREBI_TEST_HOOKS&&economyFlags().setOn){
+    global.Q4B_KOMOREBI.setMedalEconomyOn=function(on){economyFlags().setOn(on);};
+    global.Q4B_KOMOREBI.setCurrentRelease=function(value){economyFlags().setCurrentRelease(value);};
   }
 
   if(!global.Q4B_KOMOREBI_NO_BOOT&&global.document)boot();

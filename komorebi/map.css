@@ -103,7 +103,15 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:#12302A;color:#CFE7A8;font:800 14px/1.3 inherit;cursor:pointer}
 .path-progress{font-size:13px;color:#A9C79B}
 .path-progress strong{color:#FFE9A8;font-size:16px}
-.path-choice:focus-visible,.path-zukan:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+/* リセット周回の入口。カテゴリのボタンのすぐ下に、控えめな一段として置く。
+   小道を選ぶボタンと同じ強さで出すと、遊びに来た子が最初に押してしまう。 */
+.path-reset{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:-4px;
+  padding:8px 14px;border:1.5px dashed #B6963D;border-radius:12px;background:#1D2A18;
+  color:#FFE9A8;font:800 13px/1.4 inherit;text-align:left;cursor:pointer}
+.path-reset:disabled{opacity:.55;cursor:default}
+.path-reset-note{margin-left:auto;padding:2px 8px;border-radius:999px;background:#B6963D;
+  color:#20180A;font-size:11.5px;font-weight:900;white-space:nowrap}
+.path-choice:focus-visible,.path-zukan:focus-visible,.path-reset:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.map-leader{animation:none}}
 
 /* 地域の形。世界地図では小さすぎて読めないので、ここで単独に大きく見せる。 */
@@ -358,6 +366,20 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:linear-gradient(180deg,#293A25,#192D24);color:#FFE08A;font:800 13px/1.2 inherit;cursor:pointer}
 .zukan-amber-call:hover{border-color:#FFD86B}
 .zukan-amber-call:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+/* こはく呼び出し画面のインライン道具ウィジェット。現装備は常時見えていて、
+   札を押すだけで切り替わる (モーダルを挟まない)。 */
+.zukan-tool{margin:8px auto 0;max-width:640px}
+.zukan-tool-now{margin:0 0 6px;text-align:center;font-size:13px;font-weight:800;color:#9FBE90}
+.zukan-tool-now strong{color:#FFE9A8;font-size:14.5px}
+.zukan-tool-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tool-chip{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:5px 11px;
+  border:1.5px solid #3E6B57;border-radius:999px;background:#12302A;color:#CFE7A8;
+  font:800 12.5px/1.2 inherit;cursor:pointer}
+.tool-chip.is-on{border-color:#FFD86B;background:#1B3327;color:#FFE9A8}
+.tool-chip-left{font-variant-numeric:tabular-nums;color:#9FBE90}
+.tool-chip.is-on .tool-chip-left{color:#CDE3BA}
+.tool-chip-spare{padding:1px 6px;border-radius:999px;background:#2B3A25;color:#9FBE90;font-size:11px}
+.tool-chip:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 .ratio-amber-gain{margin:12px 0;padding:9px 12px;border:1.5px solid #B6963D;border-radius:10px;
   background:#2B3A25;color:#FFE08A;font-weight:800}
 
@@ -389,6 +411,15 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-tool-break strong{font-size:15px}
 .kom-tool-break span{font-size:12.5px;color:#E4C4A6}
 
+/* 採集道具のアイコン。線は文字色に馴染ませ、2 色目だけを --tool-accent で差す。
+   置く場所ごとに大きさだけを変え、絵そのものは 1 本を共用する。 */
+.tool-icon{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.28em;flex:none}
+.tool-icon-accent{stroke:var(--tool-accent,#FFD86B)}
+.uro-pick-face .tool-icon{width:28px;height:28px;vertical-align:0}
+.uro-box-face .tool-icon{width:24px;height:24px;vertical-align:0}
+.uro-granted-face .tool-icon{width:52px;height:52px;vertical-align:0}
+.uro-log-tool .tool-icon{width:18px;height:18px}
+
 /* かがやきのうろ。輝きは --uro-glow (0 から 1 の連続値) 1 本で決まる。
    段階クラスを足すと「レベルが上がった」に見えてしまう (design 4 章)。 */
 .uro-waiting{padding:2px 8px;border-radius:999px;background:#B6963D;color:#20180A;font-size:12px;font-weight:900}
@@ -399,8 +430,8 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-mouth{fill:#08160F}
 .uro-light{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.92);
   filter:drop-shadow(0 0 calc(var(--uro-glow,0) * 26px) rgba(255,226,140,.85))}
-.uro-pending,.uro-box,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
-.uro-pending h2,.uro-box h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
+.uro-pending,.uro-box,.uro-dex,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
+.uro-pending h2,.uro-box h2,.uro-dex h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
 .uro-pending-list,.uro-box-list,.uro-log-list,.uro-picks{margin:0;padding:0;list-style:none}
 .uro-offer{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;margin-bottom:8px;
   padding:10px 14px;border:2px solid #FFD86B;border-radius:14px;
@@ -414,13 +445,35 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:#20402F;color:#DFF3CE;font:800 13px/1.2 inherit;cursor:pointer}
 .uro-box-spare{padding:6px 10px;color:#9FBE90;font-size:12.5px;font-weight:800}
 .uro-box-empty,.uro-log-empty,.uro-pick-empty{margin:0;color:#9FBE90;font-size:13px;line-height:1.7}
+/* どうぐ図かん。11 種ぶんの枠を常に並べ、未公開は 🔒 のまま数だけ見せる。 */
+.uro-dex h2 strong{color:#FFD86B;font-variant-numeric:tabular-nums}
+.uro-dex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;
+  margin:0;padding:0;list-style:none}
+.uro-dex-slot{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 6px;
+  border:1.5px solid #2F5C4A;border-radius:12px;background:#12251E;text-align:center}
+.uro-dex-slot.is-got{border-color:#FFD86B;background:#1B3327}
+.uro-dex-slot.is-empty,.uro-dex-slot.is-locked{opacity:.6}
+.uro-dex-face{font-size:24px;line-height:1}
+.uro-dex-face svg{width:26px;height:26px}
+.uro-dex-name{font-size:11.5px;font-weight:800;color:#CFE7A8;line-height:1.35}
+.uro-dex-at{font-size:10.5px;color:#8FAE82;font-variant-numeric:tabular-nums}
+.uro-granted-dex{margin:0 0 6px;color:#FFD86B;font-size:13px;font-weight:800}
 .uro-log-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:6px;
   padding:8px 12px;border:1.5px solid #244A3D;border-radius:12px;background:#0C201B;font-size:13px;color:#DDEDCE}
 .uro-log-cat{color:#9FBE90}
 .uro-log-lap{color:#FFD86B;letter-spacing:1px}
 .uro-log-date{margin-left:auto;color:#8FAE82;font-variant-numeric:tabular-nums;font-size:12px}
 .uro-mint{margin:0 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
+.uro-mint-count{display:inline-block;margin:0 0 6px;padding:2px 10px;border-radius:999px;
+  background:#B6963D;color:#20180A;font-size:12.5px;font-weight:900}
 .uro-mint-note{margin:0 0 12px;color:#CDE3BA;font-size:13px;line-height:1.6}
+/* リセット周回の確認。失うものが無いことを同じ画面で言う。 */
+.kom-reset-title{margin:4px 0 6px;color:#FFE9A8;font-size:19px;font-weight:900}
+.kom-reset-prize{margin:0 0 8px;color:#FFD86B;font-size:14.5px;font-weight:800;line-height:1.7}
+.kom-reset-keep{margin:0;color:#B9D2A8;font-size:13px;line-height:1.7}
+.kom-reset-go{margin-top:12px;min-height:44px;padding:9px 22px;border:2px solid #B6963D;
+  border-radius:12px;background:#3B2A16;color:#FFE9A8;font:900 15px/1.3 inherit;cursor:pointer}
+.kom-reset-go:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 .uro-pick{display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px;padding:10px 12px;
   border:2px solid #6E9A5B;border-radius:14px;background:#193026;color:#EAF7DC;text-align:left;cursor:pointer}
 .uro-pick:disabled{border-color:#3A4A3E;background:#141F1A;color:#7C8E78;cursor:default}

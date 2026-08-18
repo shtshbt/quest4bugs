@@ -44,25 +44,100 @@
 
 ### Phase 2: 周回とターゲティングの完成
 
-1. リセット周回: Lv10 クリア時刻の記録、7 日ロック判定、リセットボタン + 確認ポップアップ、周回カウント、2 枚交換フロー
-2. こはく呼び出し画面のインライン道具ウィジェット (現装備表示 + タップ切替)
-3. 残り道具 7 種の追加 (更新カレンダーに分散させ、各更新の目玉を兼ねる)
-4. 道具図鑑 (初回授与の記録)
-5. MG I 種データの habitat/tags 遡及追記 (Phase 0 監査で列挙した不足分)
-6. volume freeze チェックリストへの guild カバレッジ確認の追記 (`docs/komorebi_release_linkage.md` 4 章)
-7. テスト: ロック境界 (7 日前後)、周回カウント、2 枚交換、ウィジェット状態遷移
+1. 済 リセット周回: Lv10 クリア時刻の記録、7 日ロック判定、リセットボタン + 確認ポップアップ、周回カウント、2 枚交換フロー
+2. 済 こはく呼び出し画面のインライン道具ウィジェット (現装備表示 + タップ切替)
+3. 済 残り道具 7 種の追加 (Phase 1 で 11 種すべてを定義済み。公開は release 3-5 に分散)
+4. 済 道具図鑑 (初回授与の記録)
+5. 未 MG I 種データの habitat/tags 遡及追記 (Phase 0 監査で列挙した不足分)
+6. 未 volume freeze チェックリストへの guild カバレッジ確認の追記 (`docs/komorebi_release_linkage.md` 4 章)
+7. 済 テスト: ロック境界 (7 日前後)、周回カウント、2 枚交換、ウィジェット状態遷移
+
+#### Phase 2 の実装結果 (2026-08-18)
+
+追加・変更したファイル。
+
+| 対象 | ファイル | 内容 |
+|---|---|---|
+| 公開スイッチ | `komorebi/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal と小道の両方が読む |
+| 道具アイコン | `komorebi/assets/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・ウィジェット・リザルトで共用 |
+| 周回 | `komorebi/trophies.js` | lapOf / mintedLaps / medalCount / resetReadyAt / canReset / beginNextLap。award が周回対応 |
+| リセットとウィジェット | `komorebi/app.js` | リセットボタン + 確認ポップアップ、2 枚交換の連続、道具ウィジェット、競合解決の拡張 |
+| 図鑑と枚数表示 | `komorebi/uro.js` | 道具図鑑の節、交換ポップアップの「n まいの うち m まいめ」、奉納ログの周回星 |
+| 御神木の入口 | `shared/breeding.js`, `index.html` | economy_flag を読んで判定する。portal の変更は script 1 行 |
+
+セーブに増えたキー (すべて additive、既存キーは不変)。
+
+| キー | 形 | 役目 |
+|---|---|---|
+| `lapCount` | {cat: 1 以上の整数} | いま何周目か (既定 1) |
+| `mintedLaps` | {cat: 0 以上の整数} | どの周回まで鋳造したか (既定 0)。枚数はここから導出 |
+| `toolDex` | {toolId: 日付文字列} | 道具図鑑。各道具の初回授与日 |
+
+Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変えた (ロックは直近の
+クリアから数える)。`trophies` の獲得日は初回のままで、周回では書き換えない。
+
+テスト (新規): `test_komorebi_portal_gate.js` / `test_komorebi_save_merge.js` /
+`test_komorebi_reset_lap.js` / `test_komorebi_tool_widget.js` /
+`test_komorebi_tool_dex.js` / `test_komorebi_tool_icons.js`。
+
+#### 点火手順 (メダル経済の公開)
+
+1. `komorebi/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする。更新番号を
+   同時に上げるなら `CURRENT_RELEASE` も同じファイルで動かす。実運用で触るのは
+   この 2 行だけで、`komorebi/app.js` には公開スイッチの実体を置かない
+2. 道具 1 本ずつの `release` (`komorebi/tools.js`) が公開したい更新番号以下か確認する。
+   更新 2 で開くのは先行 4 種 (ちょうネット / トンボ用メッシュネット / 灯火採集セット /
+   バナナトラップ)。`economy_flag.js` の `toolsFirstRelease` は tools.js の最小
+   release と一致していること (`test_komorebi_portal_gate.js` が見張る)
+3. volume freeze チェック: 公開する各道具に対象種が 1 種以上いること
+4. 全テストを 4 状態 (CURRENT_RELEASE 1/2 × MEDAL_ECONOMY_ON on/off) で通す
+5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。sw.js は
+   query を含む URL で一致を見るため、`?v=` を据え置くと復帰した端末が古い実装を
+   使い続ける (点火日に御神木のうろ入口が出ない、という形で表に出る)。
+   Phase 2 で中身が変わったのは次の通り。
+   新規: `komorebi/economy_flag.js`、`komorebi/assets/tool_icons.js`
+   (どちらも sw.js の precache と index.html の script に追加済み)。
+   要 bump: `komorebi/app.js`、`komorebi/trophies.js`、`komorebi/tools.js`、
+   `komorebi/uro.js`、`komorebi/map.css`、`shared/breeding.js`
+   (breeding.js は portal と小道の両方の index.html に `?v=` がある)
+6. 実機確認: 御神木パネルと小道の地図下端の両方に うろの入口が出ること、
+   こはく呼び出し画面に道具の札が出ること、Lv10 クリアから 7 日でリセットボタンが
+   出ること
+
+#### Phase 2 の独立レビューで挙がった観測 (2026-08-18、未対応)
+
+1. リセット周回はゲージの供給を落とさない。こはくは `maxLv` で 0.4 に減衰する
+   (`feedSideRewards`) が、ゲージは `qualifiesForGauge` が Lv を見ないため、
+   周回中の易しい問題でも 8 問 1 匹のまま進む。不変条件 1 (レート不変) は
+   文字どおり守られている一方、1 匹あたりの実時間コストは下がる。ゲージを
+   `maxLv` で減衰させるのは不変条件 1 に触れるので、まず発行速度の実測
+   (10 章の保留事項 2 と同じ枠) で様子を見る
+2. 保存の競合解決は `anslog` / `srs` / `stats` / `collection.gauge` /
+   `amberAcc` を local 優先のままにしている。とくに `anslog` は発行速度の監視に
+   使う演習ログなので、二台運用が続くなら union の対象に足す
+3. `validateTools` は知らない道具 id を throw で弾く (Phase 1 の判断)。道具図鑑
+   (`validateDex`) は素通しに直したが、道具の instance 側は据え置き。将来の更新で
+   道具が増えたあと、古い端末が新しいセーブを読めなくなる余地が残る
 
 #### 検収指摘の残課題 (2026-08-17 の独立レビュー)
 
 Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの。いずれも
 `MEDAL_ECONOMY_ON=false` の間は表に出ないが、経済を公開する前に片づける。
 
-1. 保存の競合解決がメダル経済の追加データを捨てる (経済 deploy 前に要修正)
+1. 済 (2026-08-18) 保存の競合解決がメダル経済の追加データを捨てる
    `komorebi/app.js` の `mergeProfileCatches` は `collection.catches` だけを
-   突き合わせ、それ以外は local 側の丸ごとコピーを返す。二台で遊んで競合したとき、
+   突き合わせ、それ以外は local 側の丸ごとコピーを返していた。二台で遊んで競合すると
    remote 側の `uroLog` / `tools` / `equippedToolId` / `trophies` / `lv10ClearAt` が
-   黙って消える。奉納の記録は不滅という約束 (設計書 2 章 不変条件 4) が競合経路
-   だけ守られていない。捕獲と同じく append-only の突き合わせに直す。
+   黙って消え、奉納の記録は不滅という約束 (設計書 2 章 不変条件 4) が競合経路
+   だけ守られていなかった。どちらの側の記録も減らさない統合に直した:
+   uroLog は cat + 周回 + 日付 + 道具を鍵にした本数つきの union (2 周目の 2 枚は
+   同じ日に並ぶので、鍵が粗いと 1 行に潰れて記録が消え、道具が 1 つ余計に出る)、
+   tools は種類ごとに残りの多い順で 1 本ずつ突き合わせ (本数は多い側・各 1 本の
+   残りは大きい側)、trophies と toolDex は union で早い日付を優先、lv10ClearAt は
+   直近、maxLv / lapCount / mintedLaps は大きい側。周回に属する状態 (いまの Lv、
+   昇降の窓、安定判定の窓) は統合後の周回に居る側から丸ごと採る。再送に失敗した
+   ときは revision を進めないので、次の保存がもう一度競合して統合をやり直す。
+   `tests/test_komorebi_save_merge.js` が競合シナリオを固定する。
 2. catalog の jaName が仮称 64 種で学名のまま
    `zukan_config/zukan_catalog.js` のオーストラリア遠征 I 84 件のうち 64 件で
    `jaName` が学名 (例: `Simosyrphus grandicornis`) になっている。取得時点の
@@ -70,17 +145,18 @@ Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの
    画面表示は `shared/bugs.js` の `jaName` を見るので子どもの目には触れないが、
    provenance としては誤り。命名確定 (nameStatus を standard にする作業) の
    タイミングで catalog 側もまとめて是正する。
-3. 御神木パネルのうろ入口が portal に配線されていない
-   `shared/breeding.js` の入口は `Q4B_KOMOREBI.medalEconomyOn()` と
-   `toolsReleased()` を読むが、portal (`index.html`) は `komorebi/app.js` を
-   読み込まないため常に非表示になる。小道の地図下端の入口はスイッチ 1 行で
-   有効になるので公開自体は成立するが、御神木側も出すなら portal へ判定を
-   渡す配線が要る (軽量なフラグモジュールを読ませるか、`breedingPanelHTML` の
-   呼び出しに値を渡すか)。経済 deploy と同時に決める。
+3. 済 (2026-08-18) 御神木パネルのうろ入口が portal に配線されていない
+   `shared/breeding.js` の入口は `Q4B_KOMOREBI` を読んでいたが、portal
+   (`index.html`) は `komorebi/app.js` を読み込まないため常に非表示だった。
+   軽量なフラグモジュール `komorebi/economy_flag.js` を新設し、判定に要る 2 つの数
+   (CURRENT_RELEASE / MEDAL_ECONOMY_ON) をそこへ移した。app.js と breeding.js の
+   両方がそれを読む。portal の変更は script 1 行だけで、app.js は読み込まないまま。
+   tools.js を持たない portal のために控えの番号 (`toolsFirstRelease`) を置き、
+   tools.js の最小 release との一致を `tests/test_komorebi_portal_gate.js` が見張る。
 
 ### Phase 3: 演出
 
-1. 道具アイコン SVG 11 種
+1. 済 道具アイコン SVG 11 種 (Phase 2 で先取り。`komorebi/assets/tool_icons.js`)
 2. 捕獲ビネット (道具ごとの採集シーン)。優先順: 灯火 (夜景) → 落とし穴 → バナナトラップ → 残り
 3. うろの輝き (奉納数連動の CSS 変数)、奉納・初回授与・破損の小演出
 4. 子ども向けメッセージ文言の確定 (「見たことない虫に であいやすくなりそうだ…!」等)
