@@ -153,11 +153,13 @@ test("4. no balance is ever stored, only an append-only offering log", () => {
 
 test("5. without a tool the draw is bit for bit what it was before tools existed", () => {
   const bare = komorebi.createProfile();
-  const armedButUnreleased = equippedProfile("cho_net");
   /* 道具を持ち装備までしていても、release が公開番号を超えている間は効果ゼロ。
-     deploy と公開の分離 (implementation_plan Phase 1) がここで効く。 */
-  assert.equal(komorebi.toolsReleased(), false);
-  assert.equal(komorebi.releasedTools().length, 0);
+     deploy と公開の分離 (implementation_plan Phase 1) がここで効く。CURRENT_RELEASE を
+     どこまで上げても未公開のままの 1 本を選ぶ。 */
+  const unreleased = tools.list().filter(tool => tool.release > komorebi.currentRelease())[0];
+  assert.ok(unreleased, "every tool is already published; the gate cannot be tested");
+  const armedButUnreleased = equippedProfile(unreleased.id);
+  assert.equal(komorebi.releasedTools().some(tool => tool.id === unreleased.id), false);
   const plain = captureIds(bare, 7, 240);
   const armed = captureIds(armedButUnreleased, 7, 240);
   assert.ok(plain.length > 0, "the fixture produced no capture at all");

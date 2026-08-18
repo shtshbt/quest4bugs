@@ -113,19 +113,24 @@ test("the glow climbs continuously and never reports a level", () => {
     app.querySelector('[data-action="back"]').click();
   }
 
-  test("nothing about tools or the hollow reaches the screen before its release", () => {
-    assert.equal(komorebi.toolsReleased(), false);
-    assert.equal(app.querySelector('[data-action="uro"]'), null, "the hollow is open before its update");
-    assert.equal(plain().indexOf("かがやきのうろ"), -1);
+  /* 公開は道具の release 番号 1 本で決まる (CATEGORIES と同じ体系)。CURRENT_RELEASE を
+     どこまで上げてあっても、この関係だけは崩れない形で見る。 */
+  const earliestTool = Math.min.apply(null, tools.list().map(tool => tool.release));
+  const gateOpen = komorebi.currentRelease() >= earliestTool;
+
+  test("tools and the hollow appear exactly when their update is published", () => {
+    assert.equal(komorebi.toolsReleased(), gateOpen);
+    assert.equal(!!app.querySelector('[data-action="uro"]'), gateOpen, "the hollow ignored the release gate");
+    if(!gateOpen) assert.equal(plain().indexOf("かがやきのうろ"), -1, "the hollow is named before its update");
   });
 
-  /* 更新 2 の公開を先取りする。CATEGORIES と同じく、道具も release 番号 1 本で開く。 */
+  /* 更新 2 の公開を先取りして、以降を公開後の画面として見る。 */
   tools.list().forEach(tool => { if(tool.release === 2) tool.release = 1; });
   backToMap();
 
   test("once released the hollow sits under the map next to the medals", () => {
     assert.equal(komorebi.toolsReleased(), true);
-    assert.equal(komorebi.releasedTools().length, 4, "the first four tools open together");
+    assert.ok(komorebi.releasedTools().length >= 4, "the first four tools open together");
     assert.ok(app.querySelector('[data-action="uro"]'), "no hollow entrance under the map");
     assert.match(plain(), /かがやきのうろ/);
   });

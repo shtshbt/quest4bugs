@@ -267,16 +267,19 @@
     return tools?tools.list().filter(function(tool){return tool.release<=CURRENT_RELEASE;}):[];
   }
 
+  /* ゲートは道具 1 本ずつで見る。公開済みの道具が 1 つでもあれば全部が効く、では
+     更新をまたいだ先行実装が漏れる。 */
   function equippedToolOf(targetProfile){
     var tools=toolsModule();
-    if(!tools||!toolsReleased())return null;
-    return tools.equippedTool(targetProfile);
+    if(!tools)return null;
+    var tool=tools.equippedTool(targetProfile);
+    return tool&&tool.release<=CURRENT_RELEASE?tool:null;
   }
 
   /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。 */
   function consumeToolDurability(targetProfile){
     var tools=toolsModule();
-    if(!tools||!toolsReleased())return null;
+    if(!tools||!equippedToolOf(targetProfile))return null;
     return tools.consume(targetProfile);
   }
 
