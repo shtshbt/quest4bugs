@@ -44,7 +44,8 @@ function solve(body){
   await settle();
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
-  const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
+  /* 3.14 の段は更新 1 = マダガスカル遠征 I のカテゴリ。実 manifest がそのまま起動元。 */
+  const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
   const plain = () => plainText(app.innerHTML);
 
   test("the category ships in the first update", () => {

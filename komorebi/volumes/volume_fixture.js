@@ -42,16 +42,45 @@
     species:[{"id": "oo_onaga_yamamayu", "rarity": "SSR", "flagship": true},{"id": "hagata_murasaki", "rarity": "SR", "flagship": false}, {"id": "akamarubane_monki_tateha", "rarity": "R", "flagship": false}, {"id": "serikorunisu_nokogiri_kuwagata", "rarity": "R", "flagship": false}, {"id": "madagasukaru_oo_gokiburi", "rarity": "R", "flagship": false}, {"id": "oo_beni_hagoromo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "afurika_onashi_ageha", "rarity": "N", "flagship": false}, {"id": "suji_tsumaaka_shirochou", "rarity": "N", "flagship": false}, {"id": "usucha_hekusodon", "rarity": "N", "flagship": false}, {"id": "ameiro_tonbo", "rarity": "N", "flagship": false}, {"id": "tsuya_oozu_ari", "rarity": "N", "flagship": false}, {"id": "gin_haneguro_tonbo", "rarity": "N", "flagship": false}, {"id": "harabiro_aka_tonbo", "rarity": "N", "flagship": false}, {"id": "ao_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "daidai_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_mori_tonbo", "rarity": "SR", "flagship": false}, {"id": "akaashi_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "obibane_tonbo", "rarity": "N", "flagship": false}, {"id": "haneashi_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "midori_kawa_tonbo", "rarity": "R", "flagship": false}, {"id": "sorairo_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "murasaki_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "suji_mori_tonbo", "rarity": "N", "flagship": false}, {"id": "kuro_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "sukeba_chou_tonbo", "rarity": "SR", "flagship": false}, {"id": "kuro_beni_tonbo", "rarity": "N", "flagship": false}, {"id": "kuro_hime_tonbo", "rarity": "N", "flagship": false}, {"id": "sesuji_aka_tonbo", "rarity": "N", "flagship": false}, {"id": "tsuchiiro_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "hyoutan_tonbo", "rarity": "R", "flagship": false}, {"id": "shikatsuno_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_gin_yanma", "rarity": "SR", "flagship": false}, {"id": "misuji_yama_tonbo", "rarity": "R", "flagship": false}, {"id": "megane_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "ruriiro_tonbo", "rarity": "N", "flagship": false}, {"id": "ko_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "kinbane_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "hikari_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "indo_nanafushi", "rarity": "N", "flagship": false}, {"id": "benihoshi_oo_ageha", "rarity": "SSR", "flagship": false},{"id": "usuki_obi_ageha", "rarity": "R", "flagship": false}, {"id": "midori_suji_ageha", "rarity": "N", "flagship": false}, {"id": "onaga_suji_ageha", "rarity": "N", "flagship": false}, {"id": "madara_tsumaaka_shirochou", "rarity": "N", "flagship": false}, {"id": "afurika_usuki_shirochou", "rarity": "N", "flagship": false}, {"id": "shinju_tateha", "rarity": "R", "flagship": false}, {"id": "obimon_tateha", "rarity": "N", "flagship": false}, {"id": "rurimon_kuro_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "chairo_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "afurika_yamato_shijimi", "rarity": "N", "flagship": false}, {"id": "medama_yamamayu", "rarity": "SR", "flagship": false}, {"id": "chairo_oo_yamamayu", "rarity": "R", "flagship": false}, {"id": "fujiiro_suzume", "rarity": "R", "flagship": false}, {"id": "fukurou_tomoe", "rarity": "N", "flagship": false}, {"id": "tatesuji_yaga", "rarity": "N", "flagship": false}, {"id": "saku_kikuimushi", "rarity": "N", "flagship": false}, {"id": "kinoko_kikuimushi", "rarity": "N", "flagship": false}, {"id": "madagasukaru_ooari", "rarity": "N", "flagship": false}, {"id": "usu_hime_kiari", "rarity": "N", "flagship": false}, {"id": "afurika_shiwaari", "rarity": "N", "flagship": false}, {"id": "midoribane_hoso_batta", "rarity": "N", "flagship": false}, {"id": "chamadara_tobibatta", "rarity": "N", "flagship": false}, {"id": "aka_tobibatta", "rarity": "N", "flagship": false}, {"id": "toge_hiza_inago", "rarity": "N", "flagship": false}, {"id": "miiro_batta", "rarity": "N", "flagship": false}, {"id": "nettai_ie_koorogi", "rarity": "N", "flagship": false}, {"id": "futahoshi_koorogi", "rarity": "N", "flagship": false}, {"id": "kiboshi_kuro_hishibatta", "rarity": "N", "flagship": false}, {"id": "oo_togeashi_kirigirisu", "rarity": "SR", "flagship": false}, {"id": "futasuji_tsuyumushi", "rarity": "N", "flagship": false}, {"id": "afurika_eda_kamakiri", "rarity": "R", "flagship": false}, {"id": "togarigashira_kamakiri", "rarity": "R", "flagship": false}, {"id": "kanmuri_kareha_kamakiri", "rarity": "SR", "flagship": false}, {"id": "afurika_oo_kamakiri", "rarity": "R", "flagship": false}, {"id": "hosonaga_kamakiri", "rarity": "N", "flagship": false}, {"id": "oo_shizuku_awafuki", "rarity": "R", "flagship": false}, {"id": "madagasukaru_oo_tagame", "rarity": "SSR", "flagship": false},{"id": "suzukuri_konajirami", "rarity": "N", "flagship": false}, {"id": "ohishiba_kuro_aburamushi", "rarity": "N", "flagship": false}, {"id": "kuroboshi_maru_kaigaramushi", "rarity": "N", "flagship": false}, {"id": "batta_kinbae", "rarity": "N", "flagship": false}, {"id": "onaji_shoujoubae", "rarity": "N", "flagship": false}]
   };
 
-  volumes.volume_fixture_australia=volume({
-    id:"volume_fixture_australia", expedition:1, regionId:"australia", regionName:"オーストラリア",
+  /* オーストラリア遠征 I = 更新 2 の巻 (release_linkage 2 章)。マダガスカル遠征 I と
+     同じ literal 構造にしてあり、freeze 後は species / denominator / placeholder の
+     3 点だけを差し替えれば実データになる (事前準備方式。runbook 3 章・5 章)。
+
+     ▼ freeze 時の差し替え点 (根拠: zukan_foundry/reports/au_expedition1_freeze_draft.md)
+       1. species: 下の合成 11 種を、選抜 84 種 (SR 7 / R 15 / N 62) に置き換える。
+          看板は papilio_ulysses (ウリッセスアゲハ) 1 種だけを rarity:"SSR", flagship:true に
+          する (MG I と同じく看板のみ SSR、他の SR 帯は rarity:"SR")。
+       2. denominator: 84 に直す (species.length と一致しないと起動時に例外)。
+       3. placeholder:true の行を消す。これが残っている間は地図・地域図鑑・共通図鑑の
+          分母から除外され、合成種が子どもの画面に出ることはない。
+       4. 前提作業: shared/bugs.js の rarity (AU 84 種は現在すべて仮値 N) と、
+          Lepidoptera 11 種の groupJa / renderer (一律 "ガ" / "ga" で登録されている) を
+          先に直す。zukan_config/zukan_catalog.js への 84 件 append も freeze 前提。
+     release / expedition / categories / blurb は確定済みなので freeze 時に触らない。 */
+  volumes.volume_fixture_australia={
+    id:"volume_fixture_australia", regionId:"australia", regionName:"オーストラリア",
+    current:false, expedition:1, release:2,
     placeholder:true,
-    /* 見た目確認用の合成 fixture (実 manifest は freeze 時に差し替え)。
-       kom_kuku_inverse と kom_frac_flow は release 3 なので、ここに挙げても
-       CURRENT_RELEASE を上げるまで画面には出ない (ゲートの見本)。 */
-    categories:["kom_ratio","kom_kuku_dan2","kom_pi314","kom_kuku_dan5","kom_kuku_inverse","kom_frac_flow"],
+    /* 更新 2 の実カテゴリ 5 本。k10 2 本 (単位換算・図化) + k5 3 本 (うら読み・3 の段・4 の段)。
+       図化は 2026-08-17 に release 9 から前倒しした分 (受験 ROI 優先)。 */
+    categories:["kom_unit_convert","kom_diagram_model","kom_kuku_ura","kom_kuku_dan3","kom_kuku_dan4"],
     blurb:"南半球の大陸。日本の 20 倍。かわいた大地とユーカリの森が広がる。",
-    prefix:"kom_fixture_au", counts:{n:6,r:3,sr:1}
-  });
+    frozen:true, denominator:11,
+    /* ↓ ここが差し替え対象。合成 11 種 (実カタログに存在しない id)。 */
+    species:[
+      {id:"kom_fixture_au_n_01", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_n_02", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_n_03", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_n_04", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_n_05", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_n_06", rarity:"N", flagship:false},
+      {id:"kom_fixture_au_r_01", rarity:"R", flagship:false},
+      {id:"kom_fixture_au_r_02", rarity:"R", flagship:false},
+      {id:"kom_fixture_au_r_03", rarity:"R", flagship:false},
+      {id:"kom_fixture_au_sr_01", rarity:"SR", flagship:false},
+      {id:"kom_fixture_au_sr_flagship", rarity:"SSR", flagship:true}
+    ]
+  };
 
   volumes.volume_fixture_borneo=volume({
     id:"volume_fixture_borneo", expedition:1, regionId:"borneo", regionName:"ボルネオ",

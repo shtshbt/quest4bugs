@@ -25,8 +25,10 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   await settle();
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
+  /* 更新 2 = オーストラリア遠征 I の manifest がこのカテゴリを載せている (前倒し後)。
+     写しを作らず実 manifest で起動し、結線ごと固定する。 */
   const originalVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
-  const volume = Object.assign({}, originalVolume, { categories: originalVolume.categories.concat(["kom_diagram_model"]) });
+  const volume = originalVolume;
   const plain = () => plainText(app.innerHTML);
 
   /* --- 図の読み取り。SVG のラベル (名前・値・?・くくり) を座標ごと取り出す。 --- */
@@ -134,6 +136,10 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.categories.kom_diagram_model.release, 2);
     assert.equal(komorebi.isReleased("kom_diagram_model"), false, "CURRENT_RELEASE が 2 未満のうちは画面に出さない");
     assert.ok(komorebi.sessionStarters.kom_diagram_model);
+    /* 更新 2 の巻がこのカテゴリを載せていること (公開日に CURRENT_RELEASE を
+       上げるだけで小道に出るための結線)。 */
+    assert.ok(originalVolume.categories.indexOf("kom_diagram_model") >= 0,
+      "オーストラリア遠征 I の manifest が図化を載せていない");
   });
 
   const profile = komorebi.profile();
