@@ -63,7 +63,11 @@
     var waiting=pending(profile,medals);
     var found=waiting.filter(function(item){return item.cat===medal.cat;})[0];
     if(!found)return null;
-    var entry={cat:found.cat,speciesId:found.speciesId,lap:offeredCount(profile,found.cat)+1,date:today,tool:toolId};
+    /* 星の数は鋳造された周回そのもの。2 周目の 2 枚はどちらも ★★ になる
+       (周回は星で重なる)。周回を持たないメダル (移行分・旧テスト) では
+       これまで通り奉納の順番で数える。 */
+    var lap=Number.isInteger(found.lap)&&found.lap>0?found.lap:offeredCount(profile,found.cat)+1;
+    var entry={cat:found.cat,speciesId:found.speciesId,lap:lap,date:today,tool:toolId};
     entries(profile).push(entry);
     return entry;
   }
@@ -95,13 +99,18 @@
       +'<span class="uro-pick-blurb">'+text(tool.blurb)+'</span></span></button></li>';
   }
 
-  /* 鋳造成立の瞬間に出す即時交換。メダルを持ち歩く画面は作らない。 */
+  /* 鋳造成立の瞬間に出す即時交換。メダルを持ち歩く画面は作らない。
+     2 周目以降は 1 度の鋳造で 2 枚出るので、いま何枚目かを添える (total > 1 のとき
+     だけ)。枚数が見えないと、1 枚選んだ直後にまた同じ画面が出てくることになる。 */
   function exchangeHtml(opts){
     var text=opts.text,tools=opts.tools||[];
     var picks=tools.map(function(tool){return toolPickHtml(tool,text,tool.targets===0);}).join("")
       ||'<li class="uro-pick-empty">'+text("いま えらべる どうぐは ないよ")+'</li>';
+    var total=Number.isInteger(opts.total)?opts.total:1,index=Number.isInteger(opts.index)?opts.index:1;
+    var counter=total>1?'<p class="uro-mint-count">'+text(total+"まいの うち "+index+"まいめ")+'</p>':"";
     return '<div class="uro-exchange">'
       +'<p class="uro-mint">🏅 '+text(opts.medalName+"を かくとく!")+'</p>'
+      +counter
       +'<p class="uro-mint-note">'+text("かがやきのうろに ささげて、どうぐを ひとつ もらおう")+'</p>'
       +'<ul class="uro-picks">'+picks+'</ul>'
       +'<p class="uro-hint">'+text("見たことない虫に であいやすくなりそうだ…!")+'</p></div>';

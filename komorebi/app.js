@@ -670,9 +670,10 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    /* tools / uroLog / equippedToolId / lv10ClearAt はメダル経済の追加分
-       (tools_design 11 章)。既存キーは 1 つも動かさない additive の追記。 */
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},tools:[],uroLog:[],equippedToolId:null};
+    /* tools / uroLog / equippedToolId / lv10ClearAt / lapCount / mintedLaps は
+       メダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも動かさない
+       additive の追記。 */
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],uroLog:[],equippedToolId:null};
   }
 
   function normalizeProfile(data){
@@ -685,7 +686,7 @@
     else if(typeof p.unlocked!=="boolean")throw new Error("解禁データの形式が正しくありません");
     if(p.discoverySeen==null){p.discoverySeen=false;changed=true;}
     else if(typeof p.discoverySeen!=="boolean")throw new Error("発見データの形式が正しくありません");
-    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt"].forEach(function(key){
+    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt","lapCount","mintedLaps"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
     });
@@ -716,8 +717,11 @@
     if(global.Q4B_KOMOREBI_TROPHIES){
       global.Q4B_KOMOREBI_TROPHIES.validateTrophies(p.trophies);
       global.Q4B_KOMOREBI_TROPHIES.validateProgress(p.trophyProgress);
+      /* 周回の 2 つの整数 (lapCount / mintedLaps)。壊れたまま通すと、ロックの起点も
+         鋳造の回数も数えられなくなる。 */
+      global.Q4B_KOMOREBI_TROPHIES.validateLaps(p);
     }
-    /* Lv10 クリア時刻はリセット周回のロック計算 (Phase 2) の起点。値は ISO 文字列。 */
+    /* Lv10 クリア時刻はリセット周回のロックの起点。値は ISO 文字列。 */
     Object.keys(p.lv10ClearAt).forEach(function(cat){
       if(typeof p.lv10ClearAt[cat]!=="string"||!p.lv10ClearAt[cat])throw new Error("クリア日データの形式が正しくありません");
     });
@@ -866,6 +870,8 @@
     merged.trophyProgress=mergeTrophyProgress(localProfile&&localProfile.trophyProgress,remote.trophyProgress);
     merged.lv10ClearAt=mergeClearTimes(localProfile&&localProfile.lv10ClearAt,remote.lv10ClearAt);
     merged.maxLv=mergeMaxByCat(localProfile&&localProfile.maxLv,remote.maxLv);
+    merged.lapCount=mergeMaxByCat(localProfile&&localProfile.lapCount,remote.lapCount);
+    merged.mintedLaps=mergeMaxByCat(localProfile&&localProfile.mintedLaps,remote.mintedLaps);
     /* 装備は 1 枠なので union できない。local を優先し、統合後の道具箱に本体が
        無ければ remote の装備、それも無ければ外す (normalizeProfile と同じ自己修復)。
        道具そのものは残っているので、外れても選び直せば済む。 */
@@ -927,10 +933,11 @@
       trophyModule.noteAnswer(targetProfile,cat,lvAtAnswer,ok);
       minted=trophyModule.award(targetProfile,cat,todayString());
       if(minted){
-        /* リセット周回の 7 日ロック (Phase 2) はこの時刻から数える。鋳造の瞬間にしか
-           書かないので、後から Lv が下がっても起点は動かない。 */
+        /* リセット周回の 7 日ロックはこの時刻から数える。鋳造の瞬間にしか書かないので
+           後から Lv が下がっても起点は動かないが、周回して鋳造し直したときは
+           そのつど上書きする (ロックは直近のクリアから数える)。 */
         if(!isObject(targetProfile.lv10ClearAt))targetProfile.lv10ClearAt={};
-        if(!targetProfile.lv10ClearAt[cat])targetProfile.lv10ClearAt[cat]=new Date().toISOString();
+        targetProfile.lv10ClearAt[cat]=new Date().toISOString();
       }
     }
     /* 返り値は「このひと問で鋳造が成立したメダル」(無ければ null)。交換フローの
@@ -2276,8 +2283,84 @@
       var badgeHtml=badge?'<span class="path-badge" aria-label="'+attrText("遠征 "+badge)+'">'+badge+'</span>':"";
       if(!blocked)buttons+='<button type="button" class="path-choice" data-cat="'+cat+'" data-volume-id="'+escapeHtml(volume.id)+'"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText("Lv "+profile.lv[cat])+'</span></button>';
       else buttons+='<button type="button" class="path-choice" disabled aria-disabled="true"><span class="path-choice-name">'+displayText(CATEGORIES[cat].name)+'</span>'+badgeHtml+'<span class="path-choice-note">'+displayText(blocked)+'</span></button>';
+      /* リセット周回の入口は そのカテゴリのすぐ下に出す。地図の別の場所に置くと、
+         どの小道を戻すのかが押す瞬間に見えない。 */
+      buttons+=resetChoiceHtml(cat);
     });
     return buttons;
+  }
+
+  /* --- リセット周回 (tools_design 5 章) --------------------------------------
+     Lv10 クリアから 7 日のロックが明けたカテゴリに、Lv1 へ戻すボタンが出る。
+     選ぶのは本人で、戻るのは Lv の進行だけ。図鑑・捕獲済み・奉納記録・到達 Lv には
+     触れない (不変条件 6)。メダル経済が閉じている間は出さない: 戻して得られるのが
+     メダルだけなので、経済の外では損しかしない。 */
+
+  function trophiesModuleOrNull(){return global.Q4B_KOMOREBI_TROPHIES||null;}
+
+  function resetReady(cat){
+    var trophyMod=trophiesModuleOrNull();
+    if(!uroAvailable()||!trophyMod||!profile)return false;
+    if(!hasOwn(CATEGORIES,cat)||CATEGORIES[cat].course!==profileType)return false;
+    return trophyMod.canReset(profile,cat,Date.now());
+  }
+
+  function resetChoiceHtml(cat){
+    if(!resetReady(cat))return "";
+    return '<button type="button" class="path-reset" data-reset-cat="'+escapeHtml(cat)+'">'
+      +'🔁 <span class="path-reset-name">'+displayText(CATEGORIES[cat].name+"を Lv1 から もういちど")+'</span>'
+      +'<span class="path-reset-note">'+displayText("メダル 2まい")+'</span></button>';
+  }
+
+  /* 確認は 1 枚。文面は仕様どおりで、失うものが無いことも同じ画面で言う
+     (「リセット」という語だけを見せると、集めた虫が消えると読める)。 */
+  function showResetConfirm(cat,onYes){
+    if(!global.document)return;
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komResetModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +'<div class="kom-reset-ask"><p class="kom-reset-title">'+displayText("Lv1 に リセットしますか?")+'</p>'
+      +'<p class="kom-reset-prize">'+displayText("リセットして もういちど Lv10 に なったら、メダルが 2まい!")+'</p>'
+      +'<p class="kom-reset-keep">'+displayText("ずかんも つかまえた虫も ほうのうの きろくも そのままだよ")+'</p></div>'
+      +'<button type="button" class="kom-reset-go" data-action="reset-yes">'+displayText("リセットする")+'</button>'
+      +'<button type="button" class="kom-modal-close">'+displayText("やめる")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      var target=event.target;
+      if(target===overlay||target.className==="kom-modal-close"){closeModal(overlay);return;}
+      var action=target.getAttribute?target.getAttribute("data-action"):null;
+      if(action!=="reset-yes"&&target.closest){
+        var host=target.closest('[data-action="reset-yes"]');
+        if(host)action="reset-yes";
+      }
+      if(action!=="reset-yes")return;
+      closeModal(overlay);
+      onYes();
+    });
+    document.body.appendChild(overlay);
+    var close=overlay.querySelector(".kom-modal-close");
+    if(close)close.focus();
+  }
+
+  /* 実行。周回番号と安定判定の窓は trophies 側、Lv と昇降バッファはこちら側で、
+     まとめて 1 回の保存に載せる。保存に失敗したら丸ごと巻き戻す。 */
+  function resetCategoryLap(cat,onDone){
+    var trophyMod=trophiesModuleOrNull();
+    if(!resetReady(cat)||!trophyMod){if(onDone)onDone(false);return;}
+    var before=JSON.parse(JSON.stringify(profile));
+    var lap=trophyMod.beginNextLap(profile,cat);
+    if(!lap){if(onDone)onDone(false);return;}
+    profile.lv[cat]=1;
+    /* 昇降は adapt の 10 問窓で決まる。空にしないと、前の周の当たりを持ったまま
+       Lv1 が始まって 1 問目で上がってしまう。 */
+    profile.adapt[cat]={n:0,recent:[]};
+    var saved;
+    try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+    saved.then(function(){if(onDone)onDone(true);}).catch(function(){
+      profile=before;
+      global.alert("ほぞんに しっぱいしました。Lv は そのままだよ");
+      if(onDone)onDone(false);
+    });
   }
 
   function pathPanelHtml(region){
@@ -2305,6 +2388,15 @@
 
   function bindPathPanel(region){
     document.querySelector('#pathPanel [data-action="zukan"]').addEventListener("click",function(){renderZukan(region.regionId);});
+    Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-reset-cat]"),function(button){
+      button.addEventListener("click",function(){
+        var cat=button.getAttribute("data-reset-cat");
+        showResetConfirm(cat,function(){
+          button.disabled=true;
+          resetCategoryLap(cat,function(){renderMap(region.regionId);});
+        });
+      });
+    });
     Array.prototype.forEach.call(document.querySelectorAll("#pathPanel [data-cat]"),function(button){
       var cat=button.getAttribute("data-cat"),start=SESSION_STARTERS[cat];
       /* 捕獲プールはボタンが属する巻。badge が示す対応をここが実行する。 */
@@ -2414,13 +2506,25 @@
   }
 
   /* 獲得済みメダルを鋳造順に並べる。順序は奉納の対応づけ (uro.pending) の基準に
-     なるので、日付が同じ場合は trophies.js の宣言順で安定させる。 */
+     なるので、日付が同じ場合は trophies.js の宣言順で安定させる。
+     1 カテゴリ 1 枚ではない: 1 周目は 1 枚、2 周目以降は 1 周につき 2 枚なので、
+     周回した cat はその枚数ぶん並ぶ (捧げ待ちが 2 枚出るのはこのため)。 */
   function earnedMedals(){
-    return releasedTrophies().filter(function(trophy){return profile.trophies[trophy.trophyId];}).map(function(trophy){
+    var trophyMod=trophyModule(),medals=[];
+    releasedTrophies().forEach(function(trophy){
       var record=profile.trophies[trophy.trophyId];
-      return {trophyId:trophy.trophyId,cat:trophy.cat,speciesId:record.speciesId||trophy.speciesId,
-        at:record.at,name:medalSpeciesName(record.speciesId||trophy.speciesId)+"のメダル"};
-    }).sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:0;});
+      if(!record)return;
+      var speciesId=record.speciesId||trophy.speciesId,name=medalSpeciesName(speciesId)+"のメダル";
+      var laps=trophyMod.mintedLaps(profile,trophy.cat),lap,i,count;
+      for(lap=1;lap<=laps;lap++){
+        count=trophyMod.medalsForLap(lap);
+        for(i=0;i<count;i++){
+          medals.push({trophyId:trophy.trophyId,cat:trophy.cat,speciesId:speciesId,
+            at:record.at,lap:lap,name:name});
+        }
+      }
+    });
+    return medals.sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:a.lap-b.lap;});
   }
 
   function pendingMedals(){
@@ -2477,7 +2581,7 @@
 
   /* 鋳造成立の瞬間に出す即時交換ポップアップ。こはくの捕獲カードと同じモーダルの
      形を使う (捕獲以外の知らせを別の見た目で出さない)。 */
-  function showMedalExchange(medal,onDone){
+  function showMedalExchange(medal,onDone,run){
     var uro=uroModule();
     if(!uro||!global.document)return;
     var choices=toolChoices();
@@ -2485,7 +2589,8 @@
     overlay.className="kom-modal";
     overlay.id="komMedalModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +uro.exchangeHtml({text:displayText,medalName:medal.name,tools:choices})
+      +uro.exchangeHtml({text:displayText,medalName:medal.name,tools:choices,
+        index:run&&run.index,total:run&&run.total})
       +'<button type="button" class="kom-modal-close">'+displayText("あとにする")+'</button></div>';
     overlay.addEventListener("click",function(event){
       var target=event.target;
@@ -2526,14 +2631,25 @@
     document.body.appendChild(overlay);
   }
 
-  function offerMintedMedal(trophy){
-    if(!uroAvailable()||!global.document)return;
-    var medal=earnedMedals().filter(function(item){return item.trophyId===trophy.trophyId;})[0];
-    if(!medal)return;
-    /* 既に捧げ済みなら出さない。鋳造は 1 回きりだが、保存の再送などで二度呼ばれても
-       ポップアップが 2 枚出ないようにする。 */
-    if(!pendingMedals().some(function(item){return item.trophyId===medal.trophyId;}))return;
-    showMedalExchange(medal,null);
+  /* 鋳造の瞬間に出す交換。2 周目以降は 1 度の鋳造で 2 枚なので、1 枚選び終えたら
+     残りぶんをそのまま続けて出す (道具を 2 つ選ぶ = ポップアップ 2 回)。
+     「あとにする」で閉じたときは追わない。残りは うろの捧げ待ちに並ぶ。
+     既に捧げ済みなら 1 枚も出さない。保存の再送などで二度呼ばれてもポップアップが
+     重ならないようにする。 */
+  function offerMintedMedal(trophy,onDone){
+    if(!uroAvailable()||!global.document){if(onDone)onDone();return;}
+    var waiting=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
+    var total=waiting.length;
+    if(!total){if(onDone)onDone();return;}
+    function step(index){
+      var left=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
+      if(!left.length){if(onDone)onDone();return;}
+      showMedalExchange(left[0],function(entry){
+        if(entry)step(index+1);
+        else if(onDone)onDone();
+      },{index:index,total:total});
+    }
+    step(1);
   }
 
   function uroPageOptions(){

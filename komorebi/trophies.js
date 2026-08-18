@@ -15,6 +15,13 @@
   /* 仮置き。design 16 章の未確定事項 1 (最終値は実測後)。 */
   var STABILITY={windowSize:20,minAnswers:20,minAccuracy:0.85};
 
+  /* リセット周回 (tools_design 5 章)。Lv10 クリアから 7 日の暦ゲートを置き、その
+     あとで本人が選んだときだけ Lv1 に戻す。週 1 回程度の全周回 (Lv1-10 + 安定判定
+     = 実質 100 問超の 85% 正答) は farming ではなく復習で、暦時間のロックが上限を
+     定めるので無限の蛇口にはならない。2 周目以降の鋳造は 2 枚。 */
+  var RESET_LOCK_DAYS=7;
+  var DAY_MS=24*60*60*1000;
+
   /* cat 1 つにトロフィー 1 個。代表虫はその cat の最終 Lv 帯を投入した volume の
      看板が既定で、k5 cat は看板が 1 種しかないので同じ volume の別 SR を指定する
      (design 6.7)。捕獲抽選には一切影響しない。表示専用の対応づけ。 */
@@ -107,16 +114,111 @@
     return ok/entry.recent.length>=STABILITY.minAccuracy;
   }
 
-  /* 一度獲得したトロフィーは後の Lv 降格でも失わない。再授与もしない。 */
+  /* --- 周回 --------------------------------------------------------------
+     周回は 2 つの整数だけで数える。lapCount は「いま何周目か」(既定 1)、
+     mintedLaps は「どの周回まで鋳造したか」(既定 0)。残高ではなく到達の記録で、
+     枚数はここから導出する (1 周目 1 枚、2 周目以降は 1 周につき 2 枚)。 */
+
+  function countMap(profile,key){
+    if(!isObject(profile))throw new Error("保存データが正しくありません");
+    if(!isObject(profile[key]))profile[key]={};
+    return profile[key];
+  }
+
+  function lapOf(profile,cat){
+    var value=isObject(profile)&&isObject(profile.lapCount)?profile.lapCount[cat]:null;
+    return Number.isInteger(value)&&value>=1?value:1;
+  }
+
+  function mintedLaps(profile,cat){
+    var value=isObject(profile)&&isObject(profile.mintedLaps)?profile.mintedLaps[cat]:null;
+    if(Number.isInteger(value)&&value>=0)return value;
+    /* 周回を作る前に成立していた旧セーブは「1 周ぶん鋳造済み」とみなす。書き戻しは
+       しない (読むたびに同じ答えが出るので、保存を起こす理由がない)。 */
+    var trophy=forCat(cat);
+    return trophy&&isObject(profile)&&isObject(profile.trophies)&&profile.trophies[trophy.trophyId]?1:0;
+  }
+
+  function medalsForLap(lap){return lap<=1?1:2;}
+
+  /* その cat でこれまでに鋳造したメダルの総数。奉納ログとの突き合わせ (uro.pending)
+     はこの数で行うので、周回が進めば捧げ待ちが 2 枚並ぶ。 */
+  function medalCount(profile,cat){
+    var laps=mintedLaps(profile,cat),total=0,lap;
+    for(lap=1;lap<=laps;lap++)total+=medalsForLap(lap);
+    return total;
+  }
+
+  /* ロックが明ける時刻 (ミリ秒)。起点は最後に Lv10 を安定クリアした瞬間で、
+     鋳造のときにしか書かないので、あとで Lv が下がっても動かない。 */
+  function resetReadyAt(profile,cat){
+    var at=isObject(profile)&&isObject(profile.lv10ClearAt)?profile.lv10ClearAt[cat]:null;
+    if(typeof at!=="string"||!at)return null;
+    var time=Date.parse(at);
+    return Number.isFinite(time)?time+RESET_LOCK_DAYS*DAY_MS:null;
+  }
+
+  /* リセットできるのは、今の周回のメダルが鋳造済みで、かつロックが明けたとき。
+     境界はちょうど 7 日で開ける (7 日目に押せない日が 1 日できるほうが不親切)。 */
+  function canReset(profile,cat,nowMs){
+    if(!forCat(cat))return false;
+    if(mintedLaps(profile,cat)<lapOf(profile,cat))return false;
+    var ready=resetReadyAt(profile,cat);
+    if(ready===null||!Number.isFinite(nowMs))return false;
+    return nowMs>=ready;
+  }
+
+  /* 次の周回へ進める。触るのは周回番号と安定判定の窓だけで、図鑑・捕獲済み・
+     奉納記録には一切手を出さない (不変条件 6)。Lv と adapt の巻き戻しは呼び出し側
+     (app.js) が同じ 1 回の保存の中で行う。
+     到達 Lv (maxLv) は下げない: 下げると習熟済みの減衰が外れて、易しい問題で
+     こはくを稼ぐ道がそのまま開いてしまう。 */
+  function beginNextLap(profile,cat){
+    if(!forCat(cat))throw new Error("カテゴリが正しくありません");
+    var lap=lapOf(profile,cat);
+    if(mintedLaps(profile,cat)<lap)return null;
+    countMap(profile,"lapCount")[cat]=lap+1;
+    /* 安定判定の窓は周回ごとに引き直す。前の周の 20 問が残っていると、Lv10 へ
+       戻った瞬間に鋳造が成立してしまう。 */
+    countMap(profile,"trophyProgress")[cat]={n:0,recent:[]};
+    return lap+1;
+  }
+
+  /* 一度獲得したトロフィーは後の Lv 降格でも失わない。同じ周回では再授与しない。
+     周回が進んだときだけ、新しい 1 周ぶんとして鋳造が成立する。返り値は鋳造した
+     周回と枚数を添えたトロフィーの写し (交換フローの起動点)。 */
   function award(profile,cat,today){
     if(typeof today!=="string"||!today)throw new Error("授与日の指定が正しくありません");
     var trophy=forCat(cat);
     if(!trophy)return null;
     if(!isObject(profile.trophies))profile.trophies={};
-    if(profile.trophies[trophy.trophyId])return null;
+    var lap=lapOf(profile,cat);
+    if(mintedLaps(profile,cat)>=lap)return null;
     if(!qualifies(profile,cat))return null;
-    profile.trophies[trophy.trophyId]={cat:cat,speciesId:trophy.speciesId,at:today};
-    return trophy;
+    /* 金の虫の表示は初回の獲得日のまま。周回で日付が書き換わると、最初に届いた日が
+       記録から消えてしまう。 */
+    if(!profile.trophies[trophy.trophyId])profile.trophies[trophy.trophyId]={cat:cat,speciesId:trophy.speciesId,at:today};
+    countMap(profile,"mintedLaps")[cat]=lap;
+    var minted={},key;
+    for(key in trophy)if(Object.prototype.hasOwnProperty.call(trophy,key))minted[key]=trophy[key];
+    minted.lap=lap;
+    minted.medals=medalsForLap(lap);
+    return minted;
+  }
+
+  /* 周回の 2 つの整数の形。壊れた値を通すと、ロックの起点も鋳造の回数も
+     数えられなくなる。 */
+  function validateLaps(profile){
+    if(!isObject(profile))throw new Error("保存データが正しくありません");
+    [["lapCount",1],["mintedLaps",0]].forEach(function(pair){
+      var map=profile[pair[0]];
+      if(map==null)return;
+      if(!isObject(map))throw new Error("周回データの形式が正しくありません");
+      Object.keys(map).forEach(function(cat){
+        if(!Number.isInteger(map[cat])||map[cat]<pair[1])throw new Error("周回データの形式が正しくありません");
+      });
+    });
+    return profile;
   }
 
   /* 表示語彙はメダル経済のスイッチに連動させる。経済が閉じている間は従来のトロフィー
@@ -139,14 +241,23 @@
   global.Q4B_KOMOREBI_TROPHIES={
     goldColors:GOLD_COLORS.slice(),
     stability:STABILITY,
+    resetLockDays:RESET_LOCK_DAYS,
     list:list,
     forCat:forCat,
     goldSpecies:goldSpecies,
     noteAnswer:noteAnswer,
     qualifies:qualifies,
     award:award,
+    lapOf:lapOf,
+    mintedLaps:mintedLaps,
+    medalsForLap:medalsForLap,
+    medalCount:medalCount,
+    resetReadyAt:resetReadyAt,
+    canReset:canReset,
+    beginNextLap:beginNextLap,
     displayName:displayName,
     validateProgress:validateProgress,
-    validateTrophies:validateTrophies
+    validateTrophies:validateTrophies,
+    validateLaps:validateLaps
   };
 })(typeof window!=="undefined"?window:globalThis);

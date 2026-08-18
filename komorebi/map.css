@@ -103,7 +103,15 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:#12302A;color:#CFE7A8;font:800 14px/1.3 inherit;cursor:pointer}
 .path-progress{font-size:13px;color:#A9C79B}
 .path-progress strong{color:#FFE9A8;font-size:16px}
-.path-choice:focus-visible,.path-zukan:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+/* リセット周回の入口。カテゴリのボタンのすぐ下に、控えめな一段として置く。
+   小道を選ぶボタンと同じ強さで出すと、遊びに来た子が最初に押してしまう。 */
+.path-reset{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:-4px;
+  padding:8px 14px;border:1.5px dashed #B6963D;border-radius:12px;background:#1D2A18;
+  color:#FFE9A8;font:800 13px/1.4 inherit;text-align:left;cursor:pointer}
+.path-reset:disabled{opacity:.55;cursor:default}
+.path-reset-note{margin-left:auto;padding:2px 8px;border-radius:999px;background:#B6963D;
+  color:#20180A;font-size:11.5px;font-weight:900;white-space:nowrap}
+.path-choice:focus-visible,.path-zukan:focus-visible,.path-reset:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.map-leader{animation:none}}
 
 /* 地域の形。世界地図では小さすぎて読めないので、ここで単独に大きく見せる。 */
@@ -417,7 +425,16 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-log-lap{color:#FFD86B;letter-spacing:1px}
 .uro-log-date{margin-left:auto;color:#8FAE82;font-variant-numeric:tabular-nums;font-size:12px}
 .uro-mint{margin:0 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
+.uro-mint-count{display:inline-block;margin:0 0 6px;padding:2px 10px;border-radius:999px;
+  background:#B6963D;color:#20180A;font-size:12.5px;font-weight:900}
 .uro-mint-note{margin:0 0 12px;color:#CDE3BA;font-size:13px;line-height:1.6}
+/* リセット周回の確認。失うものが無いことを同じ画面で言う。 */
+.kom-reset-title{margin:4px 0 6px;color:#FFE9A8;font-size:19px;font-weight:900}
+.kom-reset-prize{margin:0 0 8px;color:#FFD86B;font-size:14.5px;font-weight:800;line-height:1.7}
+.kom-reset-keep{margin:0;color:#B9D2A8;font-size:13px;line-height:1.7}
+.kom-reset-go{margin-top:12px;min-height:44px;padding:9px 22px;border:2px solid #B6963D;
+  border-radius:12px;background:#3B2A16;color:#FFE9A8;font:900 15px/1.3 inherit;cursor:pointer}
+.kom-reset-go:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 .uro-pick{display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px;padding:10px 12px;
   border:2px solid #6E9A5B;border-radius:14px;background:#193026;color:#EAF7DC;text-align:left;cursor:pointer}
 .uro-pick:disabled{border-color:#3A4A3E;background:#141F1A;color:#7C8E78;cursor:default}
