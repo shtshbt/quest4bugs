@@ -2639,10 +2639,16 @@
     if(close)close.focus();
   }
 
+  /* さずかった の知らせは 1 枚だけ立てる。2 周目の 2 枚交換では交換 → 授与 →
+     交換 → 授与 と続くので、前の 1 枚を残すと最後に閉じるボタンが 2 つ重なる。 */
+  var grantedOverlay=null;
+
   function showToolGrantedModal(toolId,firstOfKind){
     var tools=toolsModule(),tool=tools&&tools.byId(toolId);
     if(!tool||!global.document)return;
+    closeModal(grantedOverlay);
     var overlay=document.createElement("div");
+    grantedOverlay=overlay;
     overlay.className="kom-modal";
     overlay.id="komToolModal";
     /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
@@ -2655,7 +2661,9 @@
       +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
     overlay.addEventListener("click",function(event){
-      if(event.target===overlay||event.target.className==="kom-modal-close")closeModal(overlay);
+      if(event.target!==overlay&&event.target.className!=="kom-modal-close")return;
+      closeModal(overlay);
+      if(grantedOverlay===overlay)grantedOverlay=null;
     });
     document.body.appendChild(overlay);
   }
