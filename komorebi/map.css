@@ -409,6 +409,7 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-box-left{margin-left:auto;font-variant-numeric:tabular-nums;color:#CDE3BA;font-size:13px}
 .uro-equip,.uro-unequip{padding:6px 12px;border:1.5px solid #6E9A5B;border-radius:10px;
   background:#20402F;color:#DFF3CE;font:800 13px/1.2 inherit;cursor:pointer}
+.uro-box-spare{padding:6px 10px;color:#9FBE90;font-size:12.5px;font-weight:800}
 .uro-box-empty,.uro-log-empty,.uro-pick-empty{margin:0;color:#9FBE90;font-size:13px;line-height:1.7}
 .uro-log-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:6px;
   padding:8px 12px;border:1.5px solid #244A3D;border-radius:12px;background:#0C201B;font-size:13px;color:#DDEDCE}

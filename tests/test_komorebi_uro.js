@@ -85,6 +85,21 @@ test("the glow climbs continuously and never reports a level", () => {
   assert.equal(/レベル|だんかい|ランク/.test(html), false, "the hollow must not show a level");
 });
 
+test("the tool box marks the second net of a kind as a spare, not a button", () => {
+  const html = uro.pageHtml({
+    text: t => t, glow: uro.glow({ uroLog: [] }), pending: [], durability: 30, entries: [],
+    equippedToolId: "cho_net",
+    owned: [
+      { type: "cho_net", remaining: 12, first: true, name: "ちょうネット", emoji: "🥅" },
+      { type: "cho_net", remaining: 30, first: false, name: "ちょうネット", emoji: "🥅" }
+    ]
+  });
+  assert.equal((html.match(/class="uro-unequip"/g) || []).length, 1, "only the net in hand can be taken off");
+  assert.equal(/uro-equip/.test(html), false, "a spare of the equipped kind needs no button");
+  assert.match(html, /uro-box-spare/);
+  assert.match(html, /12／30/);
+});
+
 /* ---- 画面と本線 (fake DOM) ---- */
 
 (async () => {

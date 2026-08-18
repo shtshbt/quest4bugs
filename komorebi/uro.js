@@ -127,15 +127,19 @@
   function boxSectionHtml(opts){
     var text=opts.text,owned=opts.owned||[];
     var rows=owned.map(function(item){
-      var equipped=item.type===opts.equippedToolId&&item.first;
-      return '<li class="uro-box-row'+(equipped?" is-equipped":"")+'">'
+      /* 装備は種類で 1 枠、実際に減るのはその種類の先頭 1 本。2 本目以降は予備なので、
+         押しても何も起きないボタンではなく「よび」とだけ書く。 */
+      var sameKind=item.type===opts.equippedToolId,active=sameKind&&item.first;
+      var action=active
+        ?'<button type="button" class="uro-unequip" data-action="uro-unequip">'+text("はずす")+'</button>'
+        :sameKind
+          ?'<span class="uro-box-spare">'+text("よび")+'</span>'
+          :'<button type="button" class="uro-equip" data-tool="'+escapeHtml(item.type)+'">'+text("そうびする")+'</button>';
+      return '<li class="uro-box-row'+(active?" is-equipped":"")+'">'
         +'<span class="uro-box-face">'+item.emoji+'</span>'
         +'<span class="uro-box-name">'+text(item.name)+'</span>'
         +'<span class="uro-box-left">'+item.remaining+'／'+opts.durability+'</span>'
-        +(equipped
-          ?'<button type="button" class="uro-unequip" data-action="uro-unequip">'+text("はずす")+'</button>'
-          :'<button type="button" class="uro-equip" data-tool="'+escapeHtml(item.type)+'">'+text("そうびする")+'</button>')
-        +'</li>';
+        +action+'</li>';
     }).join("")||'<li class="uro-box-empty">'+text("まだ どうぐを もっていないよ")+'</li>';
     return '<section class="uro-box"><h2>'+text("どうぐばこ")+'</h2><ul class="uro-box-list">'+rows+'</ul></section>';
   }
