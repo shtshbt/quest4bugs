@@ -2868,6 +2868,55 @@
     if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(false);
   }
 
+  /* --- こはく呼び出し画面のインライン道具ウィジェット (tools_design 7 章) --------
+     現在の装備を常時表示し、その場で なし / 所持道具 に切り替える。既定値は今の装備
+     なので、いつもどおり呼ぶだけなら 0 タップで済む。呼ぶたびに「道具を使いますか?」と
+     訊く yes/no のモーダルは作らない (狩りの途中で手を止めさせない)。
+     道具を 1 つも持っていない間は、空の器も出さない。 */
+  function toolWidgetHtml(){
+    var tools=toolsModule();
+    if(!tools||!toolsReleased()||demoMode)return "";
+    var release=currentRelease(),seen={},owned=[];
+    (profile.tools||[]).forEach(function(instance){
+      if(seen[instance.type])return;
+      var tool=tools.byId(instance.type);
+      if(!tool||tool.release>release)return;
+      seen[instance.type]=true;
+      var stock=tools.ownedOf(profile,instance.type);
+      owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1});
+    });
+    if(!owned.length)return "";
+    /* 未公開の道具を装備したままの状態は「なし」として見せる (効果も出ていない)。 */
+    var now=equippedToolOf(profile),equippedId=now?profile.equippedToolId:null;
+    var chips='<button type="button" class="tool-chip'+(equippedId?"":" is-on")+'" data-equip="" aria-pressed="'+(equippedId?"false":"true")+'">'
+      +displayText("なし")+'</button>';
+    owned.forEach(function(item){
+      var on=item.type===equippedId;
+      chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
+        +item.tool.emoji+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
+        +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
+        +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
+    });
+    return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
+      +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
+      +(now?now.emoji+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
+      +'<div class="zukan-tool-chips">'+chips+'</div></div>';
+  }
+
+  function bindToolWidget(rerender){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-equip]"),function(button){
+      button.addEventListener("click",function(){
+        var tools=toolsModule();
+        if(!tools)return;
+        var type=button.getAttribute("data-equip")||null;
+        /* 既に選ばれている札を押しても保存を起こさない (連打で保存が並ばない)。 */
+        if((profile.equippedToolId||null)===type)return;
+        if(!tools.equip(profile,type))return;
+        saveProfile().then(rerender).catch(rerender);
+      });
+    });
+  }
+
   function renderZukan(regionId){
     var region=regionById(regionId),collection=viewCollection();
     var entries=regionEntries(region,collection);
@@ -2880,7 +2929,8 @@
     /* こはくの残高と よぶ ボタン。demo モードは保存に触れない約束なので出さない。 */
     var canCall=!demoMode&&amberWallet()&&amberCallVolume(region);
     var amberLine='<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong>'
-      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>';
+      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>'
+      +toolWidgetHtml();
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(region.regionName+"の小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(region.regionName+"の ずかん")+'</h1>'
       +'<p>'+displayText("あつめた虫")+'　<strong>'+regionProgressHtml(region,collection)+'</strong>'
@@ -2892,6 +2942,7 @@
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
     var call=document.querySelector('[data-action="amber-call"]');
     if(call)call.addEventListener("click",function(){amberCallCapture(region,function(){renderZukan(regionId);});});
+    bindToolWidget(function(){renderZukan(regionId);});
     bindZukanFilters(function(){renderZukan(regionId);});
     bindZukanCards(entries,function(){renderZukan(regionId);});
     mountZukanModeToggle(function(){renderZukan(regionId);});
