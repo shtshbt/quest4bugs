@@ -42,8 +42,11 @@
   function additionPairs(){
     var pairs=[];
     /* 同じ数どうしを足す組は使わない。8 と 8 だと誤答の 8-8 が 0 になり、
-       余分に足す型 8+8+8 も見た目が正解と近すぎて、何を誤ったのか指せない。 */
-    for(var a=3;a<=12;a++)for(var b=2;b<=10;b++)if(a!==b&&a+b<=20)pairs.push([a,b]);
+       余分に足す型 8+8+8 も見た目が正解と近すぎて、何を誤ったのか指せない。
+       先の数を大きい側に固定するのは、演算の取り違えの肢 a-b を正の式に保つため。
+       小さい側を先にすると 7-8 の形になり、演算と順序の両方を外した肢になって
+       どちらを誤ったのか指せない (curriculum 4 章が加法で置かないと決めた形)。 */
+    for(var a=3;a<=12;a++)for(var b=2;b<=10;b++)if(b<a&&a+b<=20)pairs.push([a,b]);
     return pairs;
   }
 
@@ -107,12 +110,22 @@
     return {primary:"ことばでは なく 数の かんけいを 見る",alternate:alternate[structure]};
   }
 
+  /* 引き算の肢が負になってよいのは順序の反転だけで、そこでは負になること自体が
+     「どちらから引くか」の誤りの中身である (curriculum 4 章)。ほかの型で負の式が
+     出ると、負の数をまだ習っていない子には誤りの型ではなく読めない式が並ぶ。 */
+  function negativeSubtraction(text){
+    var pattern=/(\d+)-(\d+)/g,match;
+    while((match=pattern.exec(text)))if(Number(match[1])<Number(match[2]))return true;
+    return false;
+  }
+
   function validateEntries(entries){
     var texts={},correct=0;
     if(!Array.isArray(entries)||entries.length!==4)throw new Error("選択肢は4個必要です");
     entries.forEach(function(entry){
       if(!entry||typeof entry.text!=="string"||!entry.text||typeof entry.type!=="string"||!entry.type)throw new Error("選択肢の形式が正しくありません");
       if(texts[entry.text])throw new Error("選択肢が重複しています");
+      if(entry.type!=="order_reversal"&&negativeSubtraction(entry.text))throw new Error("引き算の選択肢が負になります "+entry.text);
       texts[entry.text]=true;if(entry.type==="correct")correct++;
     });
     if(correct!==1)throw new Error("正解の選択肢が正しくありません");
@@ -181,9 +194,20 @@
     return choiceQuestion(lv,"unknown_unit",context,"÷",numbers,text,basicEntries("÷",numbers),random);
   }
 
-  function irrelevantValue(numbers,random){
-    var candidates=[6,7,8,9,10,11,12].filter(function(value){return numbers.indexOf(value)<0;});
-    return pick(candidates,random);
+  /* 余分な数は動作主の年齢として本文に埋まるので、小学生の年齢の幅から出せない
+     (curriculum 5 章の Lv9)。その幅だけを見て引くと、余分な数から作る肢が式として
+     成立しないことがある。年齢は問題の数と無関係に選ばれるのに、肢は問題の数と
+     組ませるためである。数の側の条件を模型から出して幅と重ねる。
+     減少では ひかれる数を超えない (12-9 は罠だが 10-12 は負の数で、まだ習って
+     いない)。同数のまとまりでは 1 くみぶんとの積を九九に収める (curriculum 2 章。
+     8×12 は正しい式 8×6 と同じ土俵に立っていない)。 */
+  var IRRELEVANT_AGES=[6,7,8,9,10,11,12];
+  function irrelevantValue(operation,numbers,random){
+    var first=numbers[0];
+    return pick(IRRELEVANT_AGES.filter(function(value){
+      if(numbers.indexOf(value)>=0)return false;
+      return operation==="-"?first-value>=1:first*value<=81;
+    }),random);
   }
 
   function mixedEntries(operation,numbers){
@@ -221,7 +245,7 @@
     var base=pick(["decrease","groups"],random),operation,pair;
     if(base==="decrease"){operation="-";pair=pick(subtractionPairs(),random);}
     else{operation="×";pair=pick(multiplicationPairs(),random);}
-    var numbers=pair.concat([irrelevantValue(pair,random)]),text=mixedText(context,base,numbers);
+    var numbers=pair.concat([irrelevantValue(operation,pair,random)]),text=mixedText(context,base,numbers);
     return choiceQuestion(lv,"mixed",context,operation,numbers,text,mixedEntries(operation,numbers),random);
   }
 

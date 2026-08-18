@@ -126,6 +126,35 @@ test("subtraction and division contain exactly one order-reversal choice",functi
   });
 });
 
+test("only the order-reversal choice subtracts a bigger number",function(){
+  /* 順序の反転だけは負になるのが誤りの中身そのもの (curriculum 4 章)。ほかの型で
+     負の式が出ると、負の数をまだ習っていない子には誤りの型ではなく読めない式が
+     並ぶ。加法の Lv で 7-8 を置かないという 4 章の決定もここに含まれる。 */
+  eachQuestion(function(question){
+    values(question.choiceOperations).forEach(function(type,index){
+      if(type==="order_reversal")return;
+      (question.choices[index].match(/\d+-\d+/g)||[]).forEach(function(part){
+        var pair=part.split("-");
+        assert.equal(Number(pair[0])>=Number(pair[1]),true,question.text+" / "+question.choices[index]);
+      });
+    });
+  });
+});
+
+test("Lv9 irrelevant information keeps its formula inside the k5 range",function(){
+  /* 不要情報の肢は「文中の数を順に拾った」誤りで、正しい式と同じ土俵に立って
+     いなければならない。年齢の幅だけを見て余分な数を引くと、減少では 10-12 の
+     負の式が、同数のまとまりでは 8×12 の九九の外の式が出る (curriculum 2 章)。 */
+  corpus[9].forEach(function(set){set.forEach(function(question){
+    var extra=question.numbers[2],first=question.numbers[0];
+    var index=values(question.choiceOperations).indexOf("irrelevant_information");
+    assert.equal(index>=0,true);
+    assert.equal(extra>=6&&extra<=12,true,question.text);
+    if(question.operation==="-")assert.equal(first-extra>=1,true,question.choices[index]);
+    else assert.equal(first*extra<=81,true,question.choices[index]);
+  });});
+});
+
 test("Lv9 irrelevant information uses a different kind of quantity",function(){
   corpus[9].forEach(function(set){set.forEach(function(question){
     var extra=question.numbers[2];
