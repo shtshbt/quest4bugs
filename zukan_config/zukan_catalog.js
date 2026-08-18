@@ -45477,6 +45477,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00250289_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00250289_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00250289_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00250289_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00250289_216.webp",
@@ -45524,6 +45525,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK494205_L2_grade.webp",
+        resized: "zukan_cards/original/AMK494205_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK494205_54.webp",
         thumb108: "zukan_cards/thumb/AMK494205_108.webp",
         thumb216: "zukan_cards/thumb/AMK494205_216.webp",
@@ -45569,6 +45571,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUK015925004_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUK015925004_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUK015925004_54.webp",
         thumb108: "zukan_cards/thumb/NHMUK015925004_108.webp",
         thumb216: "zukan_cards/thumb/NHMUK015925004_216.webp",
@@ -45616,6 +45619,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00311327_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00311327_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00311327_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00311327_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00311327_216.webp",
@@ -45663,6 +45667,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK475269_L2_grade.webp",
+        resized: "zukan_cards/original/AMK475269_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK475269_54.webp",
         thumb108: "zukan_cards/thumb/AMK475269_108.webp",
         thumb216: "zukan_cards/thumb/AMK475269_216.webp",
@@ -45708,6 +45713,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileCtenomorphachronus03jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileCtenomorphachronus03jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileCtenomorphachronus03jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileCtenomorphachronus03jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileCtenomorphachronus03jpg_216.webp",
@@ -45753,6 +45759,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFilePolypedilumnubiferinat270879334jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFilePolypedilumnubiferinat270879334jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFilePolypedilumnubiferinat270879334jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFilePolypedilumnubiferinat270879334jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFilePolypedilumnubiferinat270879334jpg_216.webp",
@@ -45798,6 +45805,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileTectocorisdiophthalmusfemaleadultwitheggsdorsoolateraljpg_216.webp",
@@ -45843,6 +45851,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK618667_L2_grade.webp",
+        resized: "zukan_cards/original/AMK618667_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK618667_54.webp",
         thumb108: "zukan_cards/thumb/AMK618667_108.webp",
         thumb216: "zukan_cards/thumb/AMK618667_216.webp",
@@ -45888,6 +45897,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileAnchialeaustrotessulataSamuelFrankel605360593jpeg_216.webp",
@@ -45939,6 +45949,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs203207456_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs203207456_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs203207456_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs203207456_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs203207456_216.webp",
@@ -45986,6 +45997,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK584674_L2_grade.webp",
+        resized: "zukan_cards/original/AMK584674_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK584674_54.webp",
         thumb108: "zukan_cards/thumb/AMK584674_108.webp",
         thumb216: "zukan_cards/thumb/AMK584674_216.webp",
@@ -46031,6 +46043,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUK012500106_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUK012500106_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUK012500106_54.webp",
         thumb108: "zukan_cards/thumb/NHMUK012500106_108.webp",
         thumb216: "zukan_cards/thumb/NHMUK012500106_216.webp",
@@ -46078,6 +46091,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00350072_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00350072_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00350072_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00350072_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00350072_216.webp",
@@ -46123,6 +46137,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK622942_L2_grade.webp",
+        resized: "zukan_cards/original/AMK622942_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK622942_54.webp",
         thumb108: "zukan_cards/thumb/AMK622942_108.webp",
         thumb216: "zukan_cards/thumb/AMK622942_216.webp",
@@ -46168,6 +46183,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileAcrophyllatitan2jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileAcrophyllatitan2jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileAcrophyllatitan2jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileAcrophyllatitan2jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileAcrophyllatitan2jpg_216.webp",
@@ -46213,6 +46229,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE668142_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE668142_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE668142_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE668142_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE668142_216.webp",
@@ -46258,6 +46275,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_216.webp",
@@ -46305,6 +46323,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00273587_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00273587_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00273587_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00273587_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00273587_216.webp",
@@ -46350,6 +46369,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK622521_L2_grade.webp",
+        resized: "zukan_cards/original/AMK622521_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK622521_54.webp",
         thumb108: "zukan_cards/thumb/AMK622521_108.webp",
         thumb216: "zukan_cards/thumb/AMK622521_216.webp",
@@ -46401,6 +46421,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs154263336_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs154263336_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs154263336_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs154263336_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs154263336_216.webp",
@@ -46448,6 +46469,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK474256_L2_grade.webp",
+        resized: "zukan_cards/original/AMK474256_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK474256_54.webp",
         thumb108: "zukan_cards/thumb/AMK474256_108.webp",
         thumb216: "zukan_cards/thumb/AMK474256_216.webp",
@@ -46493,6 +46515,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK620098_L2_grade.webp",
+        resized: "zukan_cards/original/AMK620098_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK620098_54.webp",
         thumb108: "zukan_cards/thumb/AMK620098_108.webp",
         thumb216: "zukan_cards/thumb/AMK620098_216.webp",
@@ -46540,6 +46563,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK405433_L2_grade.webp",
+        resized: "zukan_cards/original/AMK405433_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK405433_54.webp",
         thumb108: "zukan_cards/thumb/AMK405433_108.webp",
         thumb216: "zukan_cards/thumb/AMK405433_216.webp",
@@ -46587,6 +46611,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK287219_L2_grade.webp",
+        resized: "zukan_cards/original/AMK287219_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK287219_54.webp",
         thumb108: "zukan_cards/thumb/AMK287219_108.webp",
         thumb216: "zukan_cards/thumb/AMK287219_216.webp",
@@ -46634,6 +46659,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK135602_L2_grade.webp",
+        resized: "zukan_cards/original/AMK135602_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK135602_54.webp",
         thumb108: "zukan_cards/thumb/AMK135602_108.webp",
         thumb216: "zukan_cards/thumb/AMK135602_216.webp",
@@ -46679,6 +46705,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/RMNHZMAINS5178440_L2_grade.webp",
+        resized: "zukan_cards/original/RMNHZMAINS5178440_resized.jpg",
         thumb54: "zukan_cards/thumb/RMNHZMAINS5178440_54.webp",
         thumb108: "zukan_cards/thumb/RMNHZMAINS5178440_108.webp",
         thumb216: "zukan_cards/thumb/RMNHZMAINS5178440_216.webp",
@@ -46724,6 +46751,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileOrthoderaministralisNZAC06001821jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileOrthoderaministralisNZAC06001821jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileOrthoderaministralisNZAC06001821jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileOrthoderaministralisNZAC06001821jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileOrthoderaministralisNZAC06001821jpg_216.webp",
@@ -46771,6 +46799,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00273708_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00273708_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00273708_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00273708_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00273708_216.webp",
@@ -46818,6 +46847,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE1435083_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE1435083_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE1435083_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE1435083_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE1435083_216.webp",
@@ -46865,6 +46895,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK584706_L2_grade.webp",
+        resized: "zukan_cards/original/AMK584706_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK584706_54.webp",
         thumb108: "zukan_cards/thumb/AMK584706_108.webp",
         thumb216: "zukan_cards/thumb/AMK584706_216.webp",
@@ -46910,6 +46941,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileNabiskinbergiijpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileNabiskinbergiijpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileNabiskinbergiijpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileNabiskinbergiijpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileNabiskinbergiijpg_216.webp",
@@ -46957,6 +46989,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK255710_L2_grade.webp",
+        resized: "zukan_cards/original/AMK255710_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK255710_54.webp",
         thumb108: "zukan_cards/thumb/AMK255710_108.webp",
         thumb216: "zukan_cards/thumb/AMK255710_216.webp",
@@ -47004,6 +47037,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/RMNHZMAINS5182127_L2_grade.webp",
+        resized: "zukan_cards/original/RMNHZMAINS5182127_resized.jpg",
         thumb54: "zukan_cards/thumb/RMNHZMAINS5182127_54.webp",
         thumb108: "zukan_cards/thumb/RMNHZMAINS5182127_108.webp",
         thumb216: "zukan_cards/thumb/RMNHZMAINS5182127_216.webp",
@@ -47049,6 +47083,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUK012505240_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUK012505240_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUK012505240_54.webp",
         thumb108: "zukan_cards/thumb/NHMUK012505240_108.webp",
         thumb216: "zukan_cards/thumb/NHMUK012505240_216.webp",
@@ -47096,6 +47131,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00331947_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00331947_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00331947_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00331947_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00331947_216.webp",
@@ -47141,6 +47177,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileFiddlerBeetleScarabaeidaeEupoecilaaustralasiae27038381872jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileFiddlerBeetleScarabaeidaeEupoecilaaustralasiae27038381872jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileFiddlerBeetleScarabaeidaeEupoecilaaustralasiae27038381872jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileFiddlerBeetleScarabaeidaeEupoecilaaustralasiae27038381872jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileFiddlerBeetleScarabaeidaeEupoecilaaustralasiae27038381872jpg_216.webp",
@@ -47186,6 +47223,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileNeorrhinapunctatum343231784jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileNeorrhinapunctatum343231784jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileNeorrhinapunctatum343231784jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileNeorrhinapunctatum343231784jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileNeorrhinapunctatum343231784jpg_216.webp",
@@ -47233,6 +47271,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE1436396_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE1436396_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE1436396_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE1436396_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE1436396_216.webp",
@@ -47278,6 +47317,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE668140_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE668140_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE668140_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE668140_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE668140_216.webp",
@@ -47325,6 +47365,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK305254_L2_grade.webp",
+        resized: "zukan_cards/original/AMK305254_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK305254_54.webp",
         thumb108: "zukan_cards/thumb/AMK305254_108.webp",
         thumb216: "zukan_cards/thumb/AMK305254_216.webp",
@@ -47370,6 +47411,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileChondropygadorsalis454779434jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileChondropygadorsalis454779434jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileChondropygadorsalis454779434jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileChondropygadorsalis454779434jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileChondropygadorsalis454779434jpg_216.webp",
@@ -47417,6 +47459,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00386511_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00386511_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00386511_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00386511_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00386511_216.webp",
@@ -47464,6 +47507,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUK015556665_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUK015556665_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUK015556665_54.webp",
         thumb108: "zukan_cards/thumb/NHMUK015556665_108.webp",
         thumb216: "zukan_cards/thumb/NHMUK015556665_216.webp",
@@ -47509,6 +47553,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE1054829_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE1054829_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE1054829_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE1054829_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE1054829_216.webp",
@@ -47554,6 +47599,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE668114_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE668114_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE668114_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE668114_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE668114_216.webp",
@@ -47599,6 +47645,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK622575_L2_grade.webp",
+        resized: "zukan_cards/original/AMK622575_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK622575_54.webp",
         thumb108: "zukan_cards/thumb/AMK622575_108.webp",
         thumb216: "zukan_cards/thumb/AMK622575_216.webp",
@@ -47644,6 +47691,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileBothwingsopenjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileBothwingsopenjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileBothwingsopenjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileBothwingsopenjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileBothwingsopenjpg_216.webp",
@@ -47689,6 +47737,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUK014499636_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUK014499636_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUK014499636_54.webp",
         thumb108: "zukan_cards/thumb/NHMUK014499636_108.webp",
         thumb216: "zukan_cards/thumb/NHMUK014499636_216.webp",
@@ -47734,6 +47783,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileMiridonbeanjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileMiridonbeanjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileMiridonbeanjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileMiridonbeanjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileMiridonbeanjpg_216.webp",
@@ -47779,6 +47829,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileAgrotismundamaleLCRjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileAgrotismundamaleLCRjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileAgrotismundamaleLCRjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileAgrotismundamaleLCRjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileAgrotismundamaleLCRjpg_216.webp",
@@ -47826,6 +47877,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00349663_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00349663_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00349663_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00349663_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00349663_216.webp",
@@ -47873,6 +47925,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK267408_L2_grade.webp",
+        resized: "zukan_cards/original/AMK267408_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK267408_54.webp",
         thumb108: "zukan_cards/thumb/AMK267408_108.webp",
         thumb216: "zukan_cards/thumb/AMK267408_216.webp",
@@ -47918,6 +47971,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileAnotherMaleTropidoderusChildreniijpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileAnotherMaleTropidoderusChildreniijpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_216.webp",
@@ -47969,6 +48023,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs327759524_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs327759524_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs327759524_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs327759524_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs327759524_216.webp",
@@ -48020,6 +48075,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs329556630_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs329556630_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs329556630_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs329556630_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs329556630_216.webp",
@@ -48067,6 +48123,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00360051_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00360051_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00360051_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00360051_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00360051_216.webp",
@@ -48114,6 +48171,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK475365_L2_grade.webp",
+        resized: "zukan_cards/original/AMK475365_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK475365_54.webp",
         thumb108: "zukan_cards/thumb/AMK475365_108.webp",
         thumb216: "zukan_cards/thumb/AMK475365_216.webp",
@@ -48159,6 +48217,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/NHMUKBMNHE845071_L2_grade.webp",
+        resized: "zukan_cards/original/NHMUKBMNHE845071_resized.jpg",
         thumb54: "zukan_cards/thumb/NHMUKBMNHE845071_54.webp",
         thumb108: "zukan_cards/thumb/NHMUKBMNHE845071_108.webp",
         thumb216: "zukan_cards/thumb/NHMUKBMNHE845071_216.webp",
@@ -48206,6 +48265,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT01567117_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT01567117_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT01567117_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT01567117_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT01567117_216.webp",
@@ -48251,6 +48311,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileMyrmeciaforficatacasent0914026p1highjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileMyrmeciaforficatacasent0914026p1highjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_216.webp",
@@ -48298,6 +48359,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK519253_L2_grade.webp",
+        resized: "zukan_cards/original/AMK519253_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK519253_54.webp",
         thumb108: "zukan_cards/thumb/AMK519253_108.webp",
         thumb216: "zukan_cards/thumb/AMK519253_216.webp",
@@ -48345,6 +48407,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/MNHNL88287_L2_grade.webp",
+        resized: "zukan_cards/original/MNHNL88287_resized.jpg",
         thumb54: "zukan_cards/thumb/MNHNL88287_54.webp",
         thumb108: "zukan_cards/thumb/MNHNL88287_108.webp",
         thumb216: "zukan_cards/thumb/MNHNL88287_216.webp",
@@ -48390,6 +48453,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg_216.webp",
@@ -48437,6 +48501,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK105221_L2_grade.webp",
+        resized: "zukan_cards/original/AMK105221_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK105221_54.webp",
         thumb108: "zukan_cards/thumb/AMK105221_108.webp",
         thumb216: "zukan_cards/thumb/AMK105221_216.webp",
@@ -48484,6 +48549,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK461609_L2_grade.webp",
+        resized: "zukan_cards/original/AMK461609_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK461609_54.webp",
         thumb108: "zukan_cards/thumb/AMK461609_108.webp",
         thumb216: "zukan_cards/thumb/AMK461609_216.webp",
@@ -48535,6 +48601,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs197573116_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs197573116_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs197573116_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs197573116_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs197573116_216.webp",
@@ -48582,6 +48649,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00361709_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00361709_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00361709_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00361709_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00361709_216.webp",
@@ -48627,6 +48695,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK620855_L2_grade.webp",
+        resized: "zukan_cards/original/AMK620855_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK620855_54.webp",
         thumb108: "zukan_cards/thumb/AMK620855_108.webp",
         thumb216: "zukan_cards/thumb/AMK620855_216.webp",
@@ -48672,6 +48741,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileCandoviastrumosa453625215jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileCandoviastrumosa453625215jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileCandoviastrumosa453625215jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileCandoviastrumosa453625215jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileCandoviastrumosa453625215jpg_216.webp",
@@ -48719,6 +48789,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK293741_L2_grade.webp",
+        resized: "zukan_cards/original/AMK293741_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK293741_54.webp",
         thumb108: "zukan_cards/thumb/AMK293741_108.webp",
         thumb216: "zukan_cards/thumb/AMK293741_216.webp",
@@ -48764,6 +48835,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileAgrotisinfusafemalejpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileAgrotisinfusafemalejpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileAgrotisinfusafemalejpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileAgrotisinfusafemalejpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileAgrotisinfusafemalejpg_216.webp",
@@ -48809,6 +48881,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileMiomantiscaffra251261857jpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileMiomantiscaffra251261857jpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileMiomantiscaffra251261857jpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileMiomantiscaffra251261857jpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileMiomantiscaffra251261857jpg_216.webp",
@@ -48856,6 +48929,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00359835_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00359835_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00359835_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00359835_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00359835_216.webp",
@@ -48903,6 +48977,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK421400_L2_grade.webp",
+        resized: "zukan_cards/original/AMK421400_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK421400_54.webp",
         thumb108: "zukan_cards/thumb/AMK421400_108.webp",
         thumb216: "zukan_cards/thumb/AMK421400_216.webp",
@@ -48948,6 +49023,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileSipyloidealarryijpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileSipyloidealarryijpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileSipyloidealarryijpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileSipyloidealarryijpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileSipyloidealarryijpg_216.webp",
@@ -48993,6 +49069,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK675972_L2_grade.webp",
+        resized: "zukan_cards/original/AMK675972_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK675972_54.webp",
         thumb108: "zukan_cards/thumb/AMK675972_108.webp",
         thumb216: "zukan_cards/thumb/AMK675972_216.webp",
@@ -49040,6 +49117,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK422735_L2_grade.webp",
+        resized: "zukan_cards/original/AMK422735_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK422735_54.webp",
         thumb108: "zukan_cards/thumb/AMK422735_108.webp",
         thumb216: "zukan_cards/thumb/AMK422735_216.webp",
@@ -49087,6 +49165,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK492822_L2_grade.webp",
+        resized: "zukan_cards/original/AMK492822_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK492822_54.webp",
         thumb108: "zukan_cards/thumb/AMK492822_108.webp",
         thumb216: "zukan_cards/thumb/AMK492822_216.webp",
@@ -49132,6 +49211,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/WMCFileDasypodiaselenophoramalejpg_L2_grade.webp",
+        resized: "zukan_cards/original/WMCFileDasypodiaselenophoramalejpg_resized.jpg",
         thumb54: "zukan_cards/thumb/WMCFileDasypodiaselenophoramalejpg_54.webp",
         thumb108: "zukan_cards/thumb/WMCFileDasypodiaselenophoramalejpg_108.webp",
         thumb216: "zukan_cards/thumb/WMCFileDasypodiaselenophoramalejpg_216.webp",
@@ -49183,6 +49263,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs389240952_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs389240952_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs389240952_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs389240952_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs389240952_216.webp",
@@ -49230,6 +49311,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/USNMENT00827056_L2_grade.webp",
+        resized: "zukan_cards/original/USNMENT00827056_resized.jpg",
         thumb54: "zukan_cards/thumb/USNMENT00827056_54.webp",
         thumb108: "zukan_cards/thumb/USNMENT00827056_108.webp",
         thumb216: "zukan_cards/thumb/USNMENT00827056_216.webp",
@@ -49281,6 +49363,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/iNatobs84402040_L2_grade.webp",
+        resized: "zukan_cards/original/iNatobs84402040_resized.jpg",
         thumb54: "zukan_cards/thumb/iNatobs84402040_54.webp",
         thumb108: "zukan_cards/thumb/iNatobs84402040_108.webp",
         thumb216: "zukan_cards/thumb/iNatobs84402040_216.webp",
@@ -49328,6 +49411,7 @@
       image: {
         version: "1",
         display: "zukan_cards/processed/AMK294337_L2_grade.webp",
+        resized: "zukan_cards/original/AMK294337_resized.jpg",
         thumb54: "zukan_cards/thumb/AMK294337_54.webp",
         thumb108: "zukan_cards/thumb/AMK294337_108.webp",
         thumb216: "zukan_cards/thumb/AMK294337_216.webp",
