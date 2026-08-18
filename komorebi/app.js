@@ -297,6 +297,16 @@
     return tools.consume(targetProfile);
   }
 
+  /* 画面に出す道具の名前。5 歳コースには かなの名前が返る (tools.js の yomi)。
+     道具の名前は実在の採集法の名前なので漢字が残り、小道のふりがなは辞書引きなので、
+     そのまま出すと読めないか、部分一致で誤った読みが付く。名前を出す 6 か所すべてを
+     この 1 本に通す。 */
+  function toolName(tool){
+    var tools=global.Q4B_KOMOREBI_TOOLS;
+    if(!tool)return "";
+    return tools&&typeof tools.displayName==="function"?tools.displayName(tool,profileType):(tool.name||"");
+  }
+
   function cloneTools(targetProfile){
     return JSON.parse(JSON.stringify({tools:targetProfile.tools||[],equippedToolId:targetProfile.equippedToolId||null}));
   }
@@ -1156,6 +1166,7 @@
     overlay.className="kom-modal";
     overlay.id="komAmberModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +toolSceneHtml(capture,toolUse)
       +ratioCaptureHtml(capture)
       +toolStatusHtml(toolUse)
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
@@ -1739,6 +1750,25 @@
     return art||tool.emoji||"🔧";
   }
 
+  /* 捕獲ビネット (tools_design 9 章)。道具を装備して 1 匹とれた回だけ、その道具の
+     採集シーンを捕獲カードの上に 1 枚置く。絵が描くのは場面であって種ではない。
+     とれた虫はすぐ下の捕獲カードが描くので、ここで種を描き分けると絵と結果が
+     食い違って見える。表示だけの層で、抽選にも耐久にも一切さわらない。
+
+     出すのは 3 つとも満たしたときだけ: 経済が公開されている (toolsModule)、その回に
+     道具を使った (toolUse)、実際に 1 匹とれた (capture)。MEDAL_ECONOMY_ON が false の
+     間は 1 つめで落ちるので、従来の捕獲演出のまま 1 要素も増えない。 */
+  function toolSceneHtml(capture,toolUse){
+    var tools=toolsModule(),scenes=global.Q4B_KOMOREBI_TOOL_SCENES;
+    if(!tools||!toolUse||!capture||!scenes||typeof scenes.svg!=="function")return "";
+    var tool=tools.byId(toolUse.type);
+    if(!tool||!scenes.has(tool.id))return "";
+    var line=scenes.caption(tool.id);
+    return '<figure class="kom-tool-scene">'+scenes.svg(tool.id)
+      +(line?'<figcaption class="kom-tool-scene-line">'+displayText(line)+'</figcaption>':"")
+      +'</figure>';
+  }
+
   /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
      防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
      未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
@@ -1750,7 +1780,7 @@
     var face=toolFaceHtml(tool);
     if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+face+' '+toolUse.remaining+'／'+tools.durability+'</p>';
     var after=toolUse.swapped
-      ?"よびの "+tool.name+"に もちかえた!"
+      ?"よびの "+toolName(tool)+"に もちかえた!"
       :"そうびが なくなった。うろで また もらおう";
     return '<p class="kom-tool-break" role="status"><strong>'+face+' '+displayText(tool.breakText)+'</strong>'
       +'<span>'+displayText(after)+'</span></p>';
@@ -1794,6 +1824,7 @@
       ?'<p class="ratio-amber-gain">🔶 '+displayText("こはくを "+result.amberGained+"こ ひろった！")+'</p>':"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
       +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber
+      +toolSceneHtml(result&&result.capture,result&&result.tool)
       +ratioCaptureHtml(result&&result.capture)+toolStatusHtml(result&&result.tool)+'</div>';
   }
 
@@ -2630,7 +2661,7 @@
       var targets=volume&&tools?volume.species.filter(function(species){
         return tools.matches(tool.id,global.Q4BReward&&global.Q4BReward.spById?global.Q4BReward.spById(species.id):null);
       }).length:null;
-      return {id:tool.id,name:tool.name,emoji:tool.emoji,guild:tool.guild,blurb:tool.blurb,targets:targets};
+      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,guild:tool.guild,blurb:tool.blurb,targets:targets};
     });
   }
 
@@ -2644,7 +2675,7 @@
   function uroEntranceHtml(){
     if(!uroAvailable())return "";
     var uro=uroModule();
-    return uro.entranceHtml({text:displayText,count:uro.glow(profile).count,pending:pendingMedals().length});
+    return uro.entranceHtml({text:displayText,glow:uro.glow(profile),pending:pendingMedals().length});
   }
 
   /* 奉納の実行。メダル 1 枚 = 道具 1 つの固定相場で、残高という状態は作らない。
@@ -2711,7 +2742,7 @@
   var grantedOverlay=null;
 
   function showToolGrantedModal(toolId,firstOfKind){
-    var tools=toolsModule(),tool=tools&&tools.byId(toolId);
+    var tools=toolsModule(),tool=tools&&tools.byId(toolId),uro=uroModule();
     if(!tool||!global.document)return;
     closeModal(grantedOverlay);
     var overlay=document.createElement("div");
@@ -2719,10 +2750,17 @@
     overlay.className="kom-modal";
     overlay.id="komToolModal";
     /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
-    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
+    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ ずかんに のこったよ")+'</p>':"";
+    /* 奉納の小演出 (tools_design 9 章)。「うろが すこし あかるくなった」と書くだけ
+       では、明るくなった うろを見るのに もう 1 画面ぶん歩かせることになる。捧げた
+       直後の輝きをその場で 1 枚出し、ひらく動きだけを添える。輝きの値は捧げたあとの
+       奉納ログから出るので、演出のためだけの数を持たない。 */
+    var hollow=uro&&typeof uro.hollowHtml==="function"?uro.hollowHtml(uro.glow(profile),"is-blooming"):"";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +'<div class="uro-granted"><p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
-      +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
+      +'<div class="uro-granted'+(firstOfKind?" is-first":"")+'">'
+      +hollow
+      +'<p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
+      +'<p class="uro-granted-name">'+displayText(toolName(tool)+"を さずかった!")+'</p>'
       +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
       +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
@@ -2762,21 +2800,21 @@
       var tool=tools.byId(instance.type),first=!seen[instance.type];
       seen[instance.type]=true;
       return {type:instance.type,remaining:instance.remaining,first:first,
-        name:tool?tool.name:instance.type,emoji:tool?tool.emoji:"🔧"};
+        name:tool?toolName(tool):instance.type,emoji:tool?tool.emoji:"🔧"};
     });
     var log=uro.entries(profile).map(function(entry){
       var tool=tools.byId(entry.tool),category=CATEGORIES[entry.cat];
       return {cat:entry.cat,lap:entry.lap,date:entry.date,
         name:medalSpeciesName(entry.speciesId)+"のメダル",
         catName:category?category.name:entry.cat,toolId:entry.tool,
-        toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
+        toolName:tool?toolName(tool):entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
     });
     /* 道具図鑑は 11 種ぶんの枠を常に並べる。未公開のぶんは名前を伏せて 🔒 だけ出す
        (何を集めるかは伏せたまま、いくつ集めるかは見せる)。 */
     var release=currentRelease();
     var dex=tools.list().map(function(tool){
       if(tool.release>release)return {locked:true};
-      return {id:tool.id,name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
     });
     /* 装備の見え方は こはくの画面と同じ判定にそろえる。未公開の道具を装備したままの
        セーブで、片方の画面が「そうび中」もう片方が「なし」になるのを避ける。 */
@@ -3007,13 +3045,13 @@
     owned.forEach(function(item){
       var on=item.type===equippedId;
       chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
-        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
+        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(toolName(item.tool))+'</span>'
         +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
         +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
     });
     return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
       +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
-      +(now?toolFaceHtml(now)+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
+      +(now?toolFaceHtml(now)+" "+displayText(toolName(now)):displayText("なし"))+'</strong></p>'
       +'<div class="zukan-tool-chips">'+chips+'</div></div>';
   }
 

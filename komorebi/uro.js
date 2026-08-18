@@ -89,18 +89,31 @@
   }
 
   /* 輝きは CSS 変数 1 本で渡す。段階クラスを作ると「レベルが上がった」に見えて、
-     連続変化という決定 (design 4 章) が崩れる。 */
-  function hollowHtml(state){
-    return '<div class="uro-hollow" style="--uro-glow:'+state.value+'" aria-hidden="true">'
+     連続変化という決定 (design 4 章) が崩れる。強さ (うろの中の あかり) と 範囲
+     (まわりへ にじむ ひかりと 光の粒) は、どちらも同じ 1 本から CSS 側で導く。
+     変数を 2 本に割ると、片方だけ動いている状態が作れてしまう。
+
+     class は掛かり口としてだけ置く。何枚捧げたかは style の数値にしか現れない。 */
+  function hollowHtml(state,extraClass){
+    return '<div class="uro-hollow'+(extraClass?" "+extraClass:"")+'" style="--uro-glow:'+state.value+'" aria-hidden="true">'
       +'<svg viewBox="0 0 120 120">'
+      +'<ellipse class="uro-halo" cx="60" cy="64" rx="54" ry="58"></ellipse>'
       +'<path class="uro-bark" d="M14 6 C34 2 86 2 106 6 L112 114 L8 114 Z"></path>'
       +'<ellipse class="uro-mouth" cx="60" cy="64" rx="30" ry="38"></ellipse>'
       +'<ellipse class="uro-light" cx="60" cy="64" rx="26" ry="34"></ellipse>'
-      +'</svg></div>';
+      /* 光の粒は うろの口より上に置く。中に描くと あかりに溶けて見えないので、
+         「あふれて のぼっていく」ぶんだけを外へ出す。 */
+      +'<g class="uro-motes">'
+      +'<circle class="uro-mote uro-mote-a" cx="50" cy="20" r="2.4"></circle>'
+      +'<circle class="uro-mote uro-mote-b" cx="70" cy="14" r="1.8"></circle>'
+      +'<circle class="uro-mote uro-mote-c" cx="60" cy="3" r="2.1"></circle>'
+      +'<circle class="uro-mote uro-mote-b" cx="78" cy="24" r="1.6"></circle>'
+      +'<circle class="uro-mote uro-mote-a" cx="42" cy="9" r="1.5"></circle>'
+      +'</g></svg></div>';
   }
 
   function toolPickHtml(tool,text,disabled){
-    var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは 出番が ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
+    var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは でばんが ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
     return '<li><button type="button" class="uro-pick" data-tool="'+escapeHtml(tool.id)+'"'+(disabled?' disabled aria-disabled="true"':'')+'>'
       +'<span class="uro-pick-face">'+toolFace(tool.id,tool.emoji)+'</span>'
       +'<span class="uro-pick-body"><span class="uro-pick-name">'+text(tool.name)+'</span>'
@@ -125,10 +138,14 @@
       +'<p class="uro-hint">'+text("見たことない虫に であいやすくなりそうだ…!")+'</p></div>';
   }
 
+  /* 入口の札にも同じ変数を通す。うろの中に入らないと明るさが分からないのでは、
+     「捧げるほど うろが 輝く」が地図の上では 1 度も見えないことになる。 */
   function entranceHtml(opts){
     var text=opts.text,waiting=opts.pending||0;
-    return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="uro">'
-      +'✨ <span>'+text("かがやきのうろ")+'</span> <strong>'+(opts.count||0)+'</strong>'
+    var state=isObject(opts.glow)?opts.glow:{count:opts.count||0,value:0};
+    return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open uro-open"'
+      +' data-action="uro" style="--uro-glow:'+state.value+'">'
+      +'✨ <span>'+text("かがやきのうろ")+'</span> <strong>'+(state.count||0)+'</strong>'
       +(waiting?'<span class="uro-waiting">'+text("ささげる メダル "+waiting)+'</span>':"")+'</button></div>';
   }
 
@@ -179,7 +196,7 @@
         +'<span class="uro-dex-name">'+text(item.name)+'</span>'
         +'<span class="uro-dex-at">'+escapeHtml(item.at)+'</span></li>';
     }).join("");
-    return '<section class="uro-dex"><h2>'+text("どうぐ図かん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
+    return '<section class="uro-dex"><h2>'+text("どうぐ ずかん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
       +'<ul class="uro-dex-list">'+cells+'</ul></section>';
   }
 
@@ -211,6 +228,7 @@
   }
 
   global.Q4B_KOMOREBI_URO={
+    hollowHtml:hollowHtml,
     validateLog:validateLog,
     entries:entries,
     offeredCount:offeredCount,

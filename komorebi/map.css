@@ -410,6 +410,44 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   border:1.5px solid #B06B3C;border-radius:10px;background:#33261E;color:#FFD2A8}
 .kom-tool-break strong{font-size:15px}
 .kom-tool-break span{font-size:12.5px;color:#E4C4A6}
+/* 破損の小演出 (tools_design 9 章)。1 度だけ ゆれて 止まる。壊れたことは文字が
+   言っているので、動きは「あ、いま 壊れた」を気づかせるところまでで足りる。
+   繰り返す動きにすると、リザルトを読んでいる間ずっと視界の端が動く。 */
+@keyframes kom-break-shake{0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-3px)}40%{transform:translateX(3px)}
+  60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+@keyframes kom-break-tilt{0%{transform:rotate(0)}45%{transform:rotate(-14deg)}100%{transform:rotate(-8deg)}}
+.kom-tool-break{animation:kom-break-shake .42s ease-in-out 1}
+/* 傾くのは道具の絵だけ。文字ごと倒すと、読ませたい 1 行が読みにくくなる。 */
+.kom-tool-break .tool-icon{animation:kom-break-tilt .5s ease-out both}
+@media (prefers-reduced-motion:reduce){
+  .kom-tool-break,.kom-tool-break .tool-icon{animation:none}
+}
+
+/* 捕獲ビネット (tools_design 9 章)。道具ごとの採集シーンを捕獲カードの上に 1 枚。
+   絵は表示だけの層なので、捕獲カードより先に目に入ってはいけない: 幅を捕獲カードの
+   絵より少し広い程度に抑え、動きは「まだ そこに 居る」ぶんだけに留める。
+   色は SVG 側の presentation attribute が既定を持っている (CSS が無くても潰れない)。 */
+.kom-tool-scene{margin:14px 0 0;padding:0;text-align:center}
+.tool-scene{display:block;width:min(100%,320px);height:auto;margin:0 auto;
+  border:1.5px solid #2F5C4A;border-radius:14px;background:#0B1F19;overflow:hidden}
+.kom-tool-scene-line{margin:7px 0 0;color:#B9D2A8;font-size:12.5px;line-height:1.65}
+/* 場面の中で動くのは 3 つだけ。あかり (呼ぶもの)、虫 (来たもの)、水面 (居る場所)。 */
+@keyframes scene-lamp-breathe{0%,100%{opacity:1}50%{opacity:.72}}
+@keyframes scene-glow-breathe{0%,100%{opacity:.22}50%{opacity:.34}}
+@keyframes scene-flit{0%,100%{transform:translate(0,0)}50%{transform:translate(2.5px,-3px)}}
+@keyframes scene-stir{0%,100%{transform:translate(0,0)}50%{transform:translate(1.5px,0)}}
+.tool-scene .scene-lamp{animation:scene-lamp-breathe 2.6s ease-in-out infinite}
+.tool-scene .scene-glow{animation:scene-glow-breathe 2.6s ease-in-out infinite}
+.tool-scene .scene-flit-a{animation:scene-flit 2.2s ease-in-out infinite}
+.tool-scene .scene-flit-b{animation:scene-flit 2.9s ease-in-out infinite .4s}
+.tool-scene .scene-flit-c{animation:scene-flit 3.4s ease-in-out infinite .8s}
+.tool-scene .scene-stir{animation:scene-stir 1.8s ease-in-out infinite}
+/* 場面の動きは飾りなので、止めても伝わるものが何も減らない。 */
+@media (prefers-reduced-motion:reduce){
+  .tool-scene .scene-lamp,.tool-scene .scene-glow,.tool-scene .scene-flit-a,
+  .tool-scene .scene-flit-b,.tool-scene .scene-flit-c,.tool-scene .scene-stir{animation:none}
+}
 
 /* 採集道具のアイコン。線は文字色に馴染ませ、2 色目だけを --tool-accent で差す。
    置く場所ごとに大きさだけを変え、絵そのものは 1 本を共用する。 */
@@ -425,11 +463,25 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-waiting{padding:2px 8px;border-radius:999px;background:#B6963D;color:#20180A;font-size:12px;font-weight:900}
 .kom-uro-page{padding-bottom:28px}
 .uro-hollow{margin:6px auto 14px;width:min(60vw,190px)}
-.uro-hollow svg{display:block;width:100%;height:auto}
+.uro-hollow svg{display:block;width:100%;height:auto;overflow:visible}
 .uro-bark{fill:#2B4034}
 .uro-mouth{fill:#08160F}
 .uro-light{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.92);
   filter:drop-shadow(0 0 calc(var(--uro-glow,0) * 26px) rgba(255,226,140,.85))}
+/* 強さだけでなく 範囲 も同じ 1 本から出す (design 4 章)。halo は まわりへ にじむ
+   ひかりで、捧げるほど 濃く 広くなる。倍率の下限を 0 にしないのは、1 枚目の
+   変化が「無から出た」ではなく「すこし 広がった」に見えるようにするため。 */
+.uro-halo{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.34);filter:blur(9px);
+  transform-box:fill-box;transform-origin:center;
+  transform:scale(calc(0.6 + var(--uro-glow,0) * 0.5))}
+.uro-mote{fill:#FFF3C8;opacity:calc(var(--uro-glow,0) * 0.85)}
+@keyframes uro-mote-rise{0%,100%{transform:translate(0,0)}50%{transform:translate(1.5px,-4px)}}
+.uro-mote-a{animation:uro-mote-rise 3.4s ease-in-out infinite}
+.uro-mote-b{animation:uro-mote-rise 4.2s ease-in-out infinite .6s}
+.uro-mote-c{animation:uro-mote-rise 3.8s ease-in-out infinite 1.2s}
+/* 入口の札。地図の上でも 明るさが 見えるように、同じ変数で ふちと 影を動かす。 */
+.uro-open{box-shadow:0 0 calc(var(--uro-glow,0) * 18px) rgba(255,226,140,calc(var(--uro-glow,0) * 0.55))}
+.uro-open strong{text-shadow:0 0 calc(var(--uro-glow,0) * 10px) rgba(255,226,140,.9)}
 .uro-pending,.uro-box,.uro-dex,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
 .uro-pending h2,.uro-box h2,.uro-dex h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
 .uro-pending-list,.uro-box-list,.uro-log-list,.uro-picks{margin:0;padding:0;list-style:none}
@@ -445,7 +497,7 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:#20402F;color:#DFF3CE;font:800 13px/1.2 inherit;cursor:pointer}
 .uro-box-spare{padding:6px 10px;color:#9FBE90;font-size:12.5px;font-weight:800}
 .uro-box-empty,.uro-log-empty,.uro-pick-empty{margin:0;color:#9FBE90;font-size:13px;line-height:1.7}
-/* どうぐ図かん。11 種ぶんの枠を常に並べ、未公開は 🔒 のまま数だけ見せる。 */
+/* どうぐ ずかん。11 種ぶんの枠を常に並べ、未公開は 🔒 のまま数だけ見せる。 */
 .uro-dex h2 strong{color:#FFD86B;font-variant-numeric:tabular-nums}
 .uro-dex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;
   margin:0;padding:0;list-style:none}
@@ -487,3 +539,22 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-granted-face{margin:0;font-size:46px}
 .uro-granted-name{margin:6px 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
 .uro-granted-note,.uro-granted-hint{margin:0 0 4px;color:#CDE3BA;font-size:13px;line-height:1.6}
+
+/* 奉納と初回授与の小演出 (tools_design 9 章)。どちらも 1 度だけ動いて止まる。
+   捧げた直後の うろを その場で 1 枚出し、ひらく動きを添える。輝きの値は奉納ログ
+   から出ているので、演出のためだけの数は持たない。 */
+.uro-granted .uro-hollow{margin:0 auto 8px;width:min(42vw,124px)}
+@keyframes uro-bloom{0%{opacity:.25;transform:scale(.9)}60%{opacity:1;transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+.uro-hollow.is-blooming{animation:uro-bloom .85s ease-out both}
+/* 初めての 1 本。道具の絵がひと呼吸だけ大きくなり、図鑑に載った行が続いて出る。
+   11 種すべてを一度は授かる、という第二の完成目標の 1 目盛りぶんの合図。 */
+@keyframes uro-first-pop{0%{transform:scale(.7);opacity:0}55%{transform:scale(1.16);opacity:1}100%{transform:scale(1)}}
+@keyframes uro-first-slide{0%{transform:translateY(6px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.uro-granted.is-first .uro-granted-face{animation:uro-first-pop .6s ease-out both .2s}
+.uro-granted.is-first .uro-granted-dex{animation:uro-first-slide .45s ease-out both .7s;
+  text-shadow:0 0 10px rgba(255,216,107,.5)}
+@media (prefers-reduced-motion:reduce){
+  .uro-hollow.is-blooming,.uro-granted.is-first .uro-granted-face,
+  .uro-granted.is-first .uro-granted-dex{animation:none}
+  .uro-mote-a,.uro-mote-b,.uro-mote-c{animation:none}
+}
