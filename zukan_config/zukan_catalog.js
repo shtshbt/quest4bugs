@@ -48881,7 +48881,7 @@
       jaName: "キンモンチョウトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
-      sexCovered: "m",
+      sexCovered: "f",
       specimen: {
         institution: "National Museum of Natural History, Smithsonian Institution",
         institutionCode: "USNM",
