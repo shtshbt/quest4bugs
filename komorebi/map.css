@@ -377,3 +377,56 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-trophy-name{margin:9px 0 3px;color:#F6FFE4;font-size:14px;font-weight:900;line-height:1.5;overflow-wrap:anywhere}
 .kom-trophy-cond{margin:0;color:#9FBE90;font-size:12.5px;line-height:1.55}
 .kom-trophy-slot.is-earned .kom-trophy-cond{color:#FFD86B;font-variant-numeric:tabular-nums}
+
+/* 採集道具の残耐久と破損 (tools_design 7 章)。減る瞬間が常に見えていることが要点で、
+   目立たせすぎると捕獲そのものより道具の話になってしまう。 */
+.kom-tool-left{margin:8px 0 0;color:#CDE3BA;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.kom-tool-break{display:flex;flex-direction:column;gap:3px;margin:10px 0 0;padding:8px 12px;
+  border:1.5px solid #B06B3C;border-radius:10px;background:#33261E;color:#FFD2A8}
+.kom-tool-break strong{font-size:15px}
+.kom-tool-break span{font-size:12.5px;color:#E4C4A6}
+
+/* かがやきのうろ。輝きは --uro-glow (0 から 1 の連続値) 1 本で決まる。
+   段階クラスを足すと「レベルが上がった」に見えてしまう (design 4 章)。 */
+.uro-waiting{padding:2px 8px;border-radius:999px;background:#B6963D;color:#20180A;font-size:12px;font-weight:900}
+.kom-uro-page{padding-bottom:28px}
+.uro-hollow{margin:6px auto 14px;width:min(60vw,190px)}
+.uro-hollow svg{display:block;width:100%;height:auto}
+.uro-bark{fill:#2B4034}
+.uro-mouth{fill:#08160F}
+.uro-light{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.92);
+  filter:drop-shadow(0 0 calc(var(--uro-glow,0) * 26px) rgba(255,226,140,.85))}
+.uro-pending,.uro-box,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
+.uro-pending h2,.uro-box h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
+.uro-pending-list,.uro-box-list,.uro-log-list,.uro-picks{margin:0;padding:0;list-style:none}
+.uro-offer{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;margin-bottom:8px;
+  padding:10px 14px;border:2px solid #FFD86B;border-radius:14px;
+  background:linear-gradient(180deg,#3A3018,#1E2B22);color:#FFE9A8;font:900 15px/1.4 inherit;cursor:pointer}
+.uro-offer-go{margin-left:auto;font-size:13px}
+.uro-box-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;padding:9px 12px;
+  border:1.5px solid #2F5C4A;border-radius:12px;background:#0E2721;color:#E8F5DA;font-size:14px}
+.uro-box-row.is-equipped{border-color:#FFD86B;background:#1B3327}
+.uro-box-left{margin-left:auto;font-variant-numeric:tabular-nums;color:#CDE3BA;font-size:13px}
+.uro-equip,.uro-unequip{padding:6px 12px;border:1.5px solid #6E9A5B;border-radius:10px;
+  background:#20402F;color:#DFF3CE;font:800 13px/1.2 inherit;cursor:pointer}
+.uro-box-empty,.uro-log-empty,.uro-pick-empty{margin:0;color:#9FBE90;font-size:13px;line-height:1.7}
+.uro-log-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:6px;
+  padding:8px 12px;border:1.5px solid #244A3D;border-radius:12px;background:#0C201B;font-size:13px;color:#DDEDCE}
+.uro-log-cat{color:#9FBE90}
+.uro-log-lap{color:#FFD86B;letter-spacing:1px}
+.uro-log-date{margin-left:auto;color:#8FAE82;font-variant-numeric:tabular-nums;font-size:12px}
+.uro-mint{margin:0 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
+.uro-mint-note{margin:0 0 12px;color:#CDE3BA;font-size:13px;line-height:1.6}
+.uro-pick{display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px;padding:10px 12px;
+  border:2px solid #6E9A5B;border-radius:14px;background:#193026;color:#EAF7DC;text-align:left;cursor:pointer}
+.uro-pick:disabled{border-color:#3A4A3E;background:#141F1A;color:#7C8E78;cursor:default}
+.uro-pick-face{font-size:26px}
+.uro-pick-body{display:flex;flex-direction:column;gap:2px}
+.uro-pick-name{font-size:15px;font-weight:900}
+.uro-pick-guild{font-size:12.5px;color:#FFD86B}
+.uro-pick-out{font-size:12.5px;color:#B79A6A}
+.uro-pick-blurb{font-size:12.5px;color:#B9D2A8;line-height:1.6}
+.uro-hint{margin:10px 0 0;color:#FFE9A8;font-size:13.5px;font-weight:800}
+.uro-granted-face{margin:0;font-size:46px}
+.uro-granted-name{margin:6px 0 4px;color:#FFD86B;font-size:18px;font-weight:900}
+.uro-granted-note,.uro-granted-hint{margin:0 0 4px;color:#CDE3BA;font-size:13px;line-height:1.6}

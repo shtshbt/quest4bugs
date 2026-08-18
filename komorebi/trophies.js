@@ -1,7 +1,9 @@
 (function(global){
   "use strict";
 
-  /* 学習達成トロフィー (design 6.6)。小道専用のマスター虫は新設せず、既存種の
+  /* 学習達成のメダル (design 6.6 / tools_design 3 章)。表示名は「メダル」だが、
+     保存キー (trophyProgress / trophies) は互換のため旧名のまま据え置く。
+     小道専用のマスター虫は新設せず、既存種の
      パラメトリック SVG を金色化して授与する。地域を重ねるほど新規マスター種の
      選定が厳しくなり持続不能になるため。
 
@@ -104,8 +106,11 @@
     return trophy;
   }
 
+  /* 銘は種名付き (tools_design 3 章)。「マダガスカルオオゴキブリのメダル」のように、
+     どのカテゴリを納めたかが名前で分かる。保存キー (trophyProgress / trophies) は
+     互換のためリネームしない。 */
   function displayName(trophy,speciesName){
-    return trophy.regionName+"の きんいろ"+(speciesName||"トロフィー");
+    return (speciesName||"きんいろ")+"のメダル";
   }
 
   global.Q4B_KOMOREBI_TROPHIES={

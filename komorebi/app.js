@@ -53,7 +53,11 @@
   var COLLECTION_CONFIG={
     gaugeNeed:global.Q4BReward?global.Q4BReward.NEED_DEFAULT:8,
     pityChances:[0,0.25,0.5,0.75,1],
-    flagshipWeight:0.25
+    flagshipWeight:0.25,
+    /* 採集道具が動かすのは「どの虫か」と「新顔か」の 2 つだけ (tools_design 8 章)。
+       8 問 1 匹のレートとレアリティ表 (pickTier) には触れない。 */
+    toolGuildWeight:3,
+    toolFreshBoost:0.25
   };
   var RARITIES=["N","R","SR","SSR"];
   /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
@@ -176,8 +180,24 @@
     return RARITIES[tier];
   }
 
-  function pickSpecies(species,random){
-    var weights=species.map(function(item){return item.flagship?COLLECTION_CONFIG.flagshipWeight:1;});
+  /* 道具の guild 判定は種データ (bugs.js) 側のフィールドで行う。volume の
+     manifest は {id, rarity, flagship} しか持たないので、カタログを引き直す。 */
+  function toolMatchesSpecies(tool,speciesId){
+    var tools=global.Q4B_KOMOREBI_TOOLS,reward=global.Q4BReward;
+    if(!tool||!tools||!reward||!reward.spById)return false;
+    return tools.matches(tool.id,reward.spById(speciesId));
+  }
+
+  /* equippedTool は省略可。渡さない (未装備) ときの挙動は道具の実装前と 1 ビットも
+     変わらない: 重みも乱数の消費本数も同じ。基本ループは道具なしで永久に無料
+     (不変条件 5) という約束を、コードの形で守るための引数の置き方。 */
+  function pickSpecies(species,random,equippedTool){
+    var weights=species.map(function(item){
+      var weight=item.flagship?COLLECTION_CONFIG.flagshipWeight:1;
+      /* 対象 guild は 3 倍。排他にはしない (抽選の意外性を残す)。 */
+      if(equippedTool&&toolMatchesSpecies(equippedTool,item.id))weight*=COLLECTION_CONFIG.toolGuildWeight;
+      return weight;
+    });
     var total=weights.reduce(function(sum,weight){return sum+weight;},0);
     var value=randomValue(random)*total;
     for(var i=0;i<species.length;i++){
@@ -187,14 +207,19 @@
     return species[species.length-1];
   }
 
-  function drawCapture(volume,catches,pityDuplicates,random){
+  function drawCapture(volume,catches,pityDuplicates,random,equippedTool){
     validateVolume(volume);
     validateCatches(catches,false);
     if(!Number.isInteger(pityDuplicates)||pityDuplicates<0||pityDuplicates>=COLLECTION_CONFIG.pityChances.length)throw new Error("救済データの形式が正しくありません");
     var tiers=RARITIES.filter(function(rarity){return volume.species.some(function(species){return species.rarity===rarity;});});
     var incompleteTiers=tiers.filter(function(rarity){return volume.species.some(function(species){return species.rarity===rarity&&!hasOwn(catches,species.id);});});
     var tier=pickTier(tiers,random),pityApplied=false;
+    /* 未発見ブーストは pity と同じ層に足す。現行 drawCapture は同一 tier 内で未捕獲種を
+       絶対優先するので、ダブりは「完成済み tier を引いた時」にしか起きない。だから
+       効かせる場所は完成 tier から未完成 tier への振替確率で、レアリティ表ではない
+       (tools_design 8 章)。 */
     var pityChance=COLLECTION_CONFIG.pityChances[pityDuplicates];
+    if(equippedTool)pityChance=Math.min(1,pityChance+COLLECTION_CONFIG.toolFreshBoost);
     if(incompleteTiers.indexOf(tier)<0&&incompleteTiers.length&&pityChance>0&&randomValue(random)<pityChance){
       tier=pickTier(incompleteTiers,random);
       pityApplied=true;
@@ -202,7 +227,7 @@
     var candidates=volume.species.filter(function(species){return species.rarity===tier;});
     var fresh=candidates.filter(function(species){return !hasOwn(catches,species.id);});
     if(fresh.length)candidates=fresh;
-    var species=pickSpecies(candidates,random);
+    var species=pickSpecies(candidates,random,equippedTool);
     var isNew=!hasOwn(catches,species.id);
     return {
       species:species,
@@ -223,6 +248,47 @@
     return {id:id,rarity:draw.species.rarity,flagship:draw.species.flagship,isNew:recorded.isNew,n:collection.catches[id].n,size:recorded.size,sex:recorded.sex,shiny:recorded.shiny,pityApplied:draw.pityApplied};
   }
 
+  /* --- 採集道具の接続 --------------------------------------------------------
+     道具は profile 直下 (tools / equippedToolId) に住み、collection の外にある。
+     捕獲の 2 経路 (ゲージ・こはく呼び出し) はどちらも drawCapture を通るので、
+     効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js を読み込んでいない
+     文脈 (単体テスト) では常に「未装備」に倒れる。 */
+
+  function toolsModule(){return global.Q4B_KOMOREBI_TOOLS||null;}
+
+  function toolsReleased(){
+    var tools=toolsModule();
+    if(!tools)return false;
+    return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
+  }
+
+  function releasedTools(){
+    var tools=toolsModule();
+    return tools?tools.list().filter(function(tool){return tool.release<=CURRENT_RELEASE;}):[];
+  }
+
+  function equippedToolOf(targetProfile){
+    var tools=toolsModule();
+    if(!tools||!toolsReleased())return null;
+    return tools.equippedTool(targetProfile);
+  }
+
+  /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。 */
+  function consumeToolDurability(targetProfile){
+    var tools=toolsModule();
+    if(!tools||!toolsReleased())return null;
+    return tools.consume(targetProfile);
+  }
+
+  function cloneTools(targetProfile){
+    return JSON.parse(JSON.stringify({tools:targetProfile.tools||[],equippedToolId:targetProfile.equippedToolId||null}));
+  }
+
+  function restoreTools(targetProfile,snapshot){
+    targetProfile.tools=snapshot.tools;
+    targetProfile.equippedToolId=snapshot.equippedToolId;
+  }
+
   function cloneCollection(collection){return JSON.parse(JSON.stringify(collection));}
   function replaceCollection(target,source){
     Object.keys(target).forEach(function(key){delete target[key];});
@@ -235,7 +301,7 @@
     validateAnswer(answer);
     validateVolume(volume);
     if(typeof random!=="function")throw new Error("乱数の指定が正しくありません");
-    var next=cloneCollection(targetProfile.collection),capture=null;
+    var next=cloneCollection(targetProfile.collection),capture=null,toolUse=null;
     if(next.submissionSessionId!==answer.sessionId){
       next.submissionSessionId=answer.sessionId;
       next.processedSubmissionIds=[];
@@ -247,11 +313,12 @@
       next.gauge++;
       if(next.gauge>=COLLECTION_CONFIG.gaugeNeed){
         next.gauge-=COLLECTION_CONFIG.gaugeNeed;
-        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random),random);
+        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random,equippedToolOf(targetProfile)),random);
+        toolUse=consumeToolDurability(targetProfile);
       }
     }
     replaceCollection(targetProfile.collection,next);
-    return {counted:counted,duplicate:false,gauge:next.gauge,capture:capture};
+    return {counted:counted,duplicate:false,gauge:next.gauge,capture:capture,tool:toolUse};
   }
 
   function volumeProgress(volume,collection){
@@ -586,7 +653,9 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{}};
+    /* tools / uroLog / equippedToolId / lv10ClearAt はメダル経済の追加分
+       (tools_design 11 章)。既存キーは 1 つも動かさない additive の追記。 */
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},tools:[],uroLog:[],equippedToolId:null};
   }
 
   function normalizeProfile(data){
@@ -599,7 +668,7 @@
     else if(typeof p.unlocked!=="boolean")throw new Error("解禁データの形式が正しくありません");
     if(p.discoverySeen==null){p.discoverySeen=false;changed=true;}
     else if(typeof p.discoverySeen!=="boolean")throw new Error("発見データの形式が正しくありません");
-    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs"].forEach(function(key){
+    ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
     });
@@ -631,6 +700,23 @@
       global.Q4B_KOMOREBI_TROPHIES.validateTrophies(p.trophies);
       global.Q4B_KOMOREBI_TROPHIES.validateProgress(p.trophyProgress);
     }
+    /* Lv10 クリア時刻はリセット周回のロック計算 (Phase 2) の起点。値は ISO 文字列。 */
+    Object.keys(p.lv10ClearAt).forEach(function(cat){
+      if(typeof p.lv10ClearAt[cat]!=="string"||!p.lv10ClearAt[cat])throw new Error("クリア日データの形式が正しくありません");
+    });
+    /* メダル経済の追加分。古いセーブには無いので既定値を補い、形が違うものは通さない
+       (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。 */
+    if(p.tools==null){p.tools=[];changed=true;}
+    if(p.uroLog==null){p.uroLog=[];changed=true;}
+    if(!hasOwn(p,"equippedToolId")){p.equippedToolId=null;changed=true;}
+    else if(p.equippedToolId!==null&&typeof p.equippedToolId!=="string")throw new Error("道具データの形式が正しくありません");
+    if(global.Q4B_KOMOREBI_TOOLS){
+      global.Q4B_KOMOREBI_TOOLS.validateTools(p.tools);
+      /* 装備だけが残って本体が無い状態は形の誤りではなく取りこぼし。黙って外す。 */
+      if(p.equippedToolId&&!global.Q4B_KOMOREBI_TOOLS.ownedOf(p,p.equippedToolId).length){p.equippedToolId=null;changed=true;}
+    }else if(!Array.isArray(p.tools))throw new Error("道具データの形式が正しくありません");
+    if(global.Q4B_KOMOREBI_URO)global.Q4B_KOMOREBI_URO.validateLog(p.uroLog);
+    else if(!Array.isArray(p.uroLog))throw new Error("奉納データの形式が正しくありません");
     return {profile:p,changed:changed};
   }
 
@@ -698,11 +784,20 @@
     }
     /* 安定判定は「その回答を出したときの Lv」で数える。昇降のあとの Lv で数えると、
        Lv9 の正答が Lv10 の実績に化ける。 */
+    var minted=null;
     if(trophyModule){
       trophyModule.noteAnswer(targetProfile,cat,lvAtAnswer,ok);
-      trophyModule.award(targetProfile,cat,todayString());
+      minted=trophyModule.award(targetProfile,cat,todayString());
+      if(minted){
+        /* リセット周回の 7 日ロック (Phase 2) はこの時刻から数える。鋳造の瞬間にしか
+           書かないので、後から Lv が下がっても起点は動かない。 */
+        if(!isObject(targetProfile.lv10ClearAt))targetProfile.lv10ClearAt={};
+        if(!targetProfile.lv10ClearAt[cat])targetProfile.lv10ClearAt[cat]=new Date().toISOString();
+      }
     }
-    return targetProfile;
+    /* 返り値は「このひと問で鋳造が成立したメダル」(無ければ null)。交換フローの
+       起動点になるので、UI の副作用は trophies.js ではなく呼び出し側に置く。 */
+    return minted;
   }
 
   function recordResult(cat,ok,ms){
@@ -790,22 +885,30 @@
       global.alert("🔶こはくが たりないよ（"+cost+"こ いるよ）");
       return;
     }
-    var before=cloneCollection(profile.collection),capture;
+    /* 巻き戻しは捕獲だけでなく道具の耐久も戻す。財布・図鑑・道具箱が別々に
+       進んだ状態を残さない。 */
+    var before=cloneCollection(profile.collection),beforeTools=cloneTools(profile),capture,toolUse=null;
     function refund(){
       save.amberAdd(profileId,cost);
       global.alert("ほぞんに しっぱいしました。こはくは かえしたよ");
+    }
+    function rollback(){
+      replaceCollection(profile.collection,before);
+      restoreTools(profile,beforeTools);
     }
     try{
       /* 購入捕獲は重複救済に乗せない (段位 0 で引く)。救済は 8 正答 = 1 捕獲という
          学習量の対価であり、こはく連打が SR/SSR へ誘導される抜け道になっていた
          (2026-08-15 実機で farming を確認)。段位の進行・後退も購入では起こさない:
-         recordCapture が上書きする前の段位を引き戻し、学習側の積み上げを守る。 */
+         recordCapture が上書きする前の段位を引き戻し、学習側の積み上げを守る。
+         道具はゲージ捕獲と同じに扱う (装備中は 1 回ぶん減る)。 */
       var keptPity=profile.collection.pityDuplicates;
-      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random),Math.random);
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(profile)),Math.random);
       if(keptPity!=null)profile.collection.pityDuplicates=keptPity;
       else delete profile.collection.pityDuplicates;
+      toolUse=consumeToolDurability(profile);
     }catch(error){
-      replaceCollection(profile.collection,before);
+      rollback();
       refund();
       return;
     }
@@ -813,9 +916,9 @@
     try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
     saved.then(function(){
       rerender();
-      showAmberCaptureModal(capture);
+      showAmberCaptureModal(capture,toolUse);
     }).catch(function(){
-      replaceCollection(profile.collection,before);
+      rollback();
       refund();
       rerender();
     });
@@ -823,12 +926,13 @@
 
   /* よぶ の捕獲カード。セッションのフィードバックと同じ ratioCaptureHtml を
      モーダルで見せる (捕獲の情報を別実装にしない)。 */
-  function showAmberCaptureModal(capture){
+  function showAmberCaptureModal(capture,toolUse){
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
     overlay.id="komAmberModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
       +ratioCaptureHtml(capture)
+      +toolStatusHtml(toolUse)
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
     overlay.addEventListener("click",function(event){
       if((event.target===overlay||event.target.className==="kom-modal-close")&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
@@ -838,36 +942,44 @@
     if(close)close.focus();
   }
 
+  /* 巻き戻しは profile 全体で取る。捕獲は collection に、道具の耐久は profile 直下に
+     住んでいるので、collection だけのスナップショットでは道具が戻らない
+     (保存に失敗したのに あみだけ 1 回ぶん減る、という穴になる)。 */
   function recordAnswer(cat,answer,volume,random){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     if(random!=null&&typeof random!=="function")return Promise.reject(new Error("乱数の指定が正しくありません"));
-    var before,result;
+    var before=JSON.parse(JSON.stringify(profile)),result;
     try{
-      before=cloneCollection(profile.collection);
       result=applyAnswer(profile,cat,answer,volume,random||Math.random);
-    }catch(error){return Promise.reject(error);}
+    }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
     return saveProfile().then(function(){result.amberGained=feedSideRewards(cat,result);return result;}).catch(function(error){
-      replaceCollection(profile.collection,before);
+      profile=before;
       throw error;
     });
   }
 
   function recordSubmission(cat,answer,volume,random,correct,elapsed,interrupted){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
-    var before=JSON.parse(JSON.stringify(profile)),result;
+    var before=JSON.parse(JSON.stringify(profile)),result,minted=null;
     try{
       result=applyAnswer(profile,cat,answer,volume,random);
       var masteredAtAnswer=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
       if(!result.duplicate){
-        applyPerformance(profile,cat,correct,elapsed);
+        minted=applyPerformance(profile,cat,correct,elapsed);
         if(qualifiesForAnswerLog(answer))profile.anslog=rewardEngine().logAnswer(profile.anslog,cat,correct,elapsed,interrupted,todayString());
       }
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);
     var saved;
     try{saved=saveProfile();}catch(error){profile=before;return Promise.reject(error);}
-    return saved.then(function(){result.amberGained=feedSideRewards(cat,result,masteredAtAnswer);return result;}).catch(function(error){profile=before;throw error;});
+    return saved.then(function(){
+      result.amberGained=feedSideRewards(cat,result,masteredAtAnswer);
+      /* メダルは取得した瞬間に捧げる (不変条件 4: 残高ゼロ)。保存が通ってから
+         起動するので、鋳造だけ画面に出て保存が消える、が起きない。 */
+      if(minted)offerMintedMedal(minted);
+      return result;
+    }).catch(function(error){profile=before;throw error;});
   }
 
   function speciesForArea(bugs){
@@ -1393,6 +1505,22 @@
       +note+'</div>';
   }
 
+  /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
+     防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
+     未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
+  function toolStatusHtml(toolUse){
+    var tools=toolsModule();
+    if(!tools||!toolUse)return "";
+    var tool=tools.byId(toolUse.type);
+    if(!tool)return "";
+    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+tool.emoji+' '+toolUse.remaining+'／'+tools.durability+'</p>';
+    var after=toolUse.swapped
+      ?"よびの "+tool.name+"に もちかえた!"
+      :"そうびが なくなった。うろで また もらおう";
+    return '<p class="kom-tool-break" role="status"><strong>'+tool.emoji+' '+displayText(tool.breakText)+'</strong>'
+      +'<span>'+displayText(after)+'</span></p>';
+  }
+
   /* 段暗唱は「なぜ駄目だったか」を言わないと理不尽になる。時間切れと言い間違いは
      子どもにとって別のことなので、区別して伝える。 */
   var DAN2_REASONS={
@@ -1430,7 +1558,8 @@
     var amber=(correct&&result&&Number.isFinite(result.amberGained)&&result.amberGained>0)
       ?'<p class="ratio-amber-gain">🔶 '+displayText("こはくを "+result.amberGained+"こ ひろった！")+'</p>':"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
-      +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber+ratioCaptureHtml(result&&result.capture)+'</div>';
+      +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber
+      +ratioCaptureHtml(result&&result.capture)+toolStatusHtml(result&&result.tool)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -2075,9 +2204,11 @@
     if(blurb)blurb.innerHTML='<strong>'+displayText(volume.regionName)+'</strong><span>'+displayText(volume.blurb)+'</span>';
   }
 
-  /* --- トロフィー ------------------------------------------------------------
+  /* --- メダル ----------------------------------------------------------------
      入口は地図の下端に置き、専用ページへ送る (ui_design 6 章)。最初の数週間は
-     獲得ゼロなので、空の棚をトップに常時置くと虚しく場所も食う。 */
+     獲得ゼロなので、空の棚をトップに常時置くと虚しく場所も食う。
+     旧称はトロフィー。保存キー (trophies / trophyProgress) は互換のため据え置き、
+     変えるのは表示だけ (tools_design 3 章)。 */
 
   function trophyModule(){
     var module=global.Q4B_KOMOREBI_TROPHIES;
@@ -2094,7 +2225,7 @@
   function trophyEntranceHtml(){
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="trophies">'
-      +'🏆 <span>'+displayText("トロフィー")+'</span> <strong>'+earned+'／'+all.length+'</strong></button></div>';
+      +'🏅 <span>'+displayText("メダル")+'</span> <strong>'+earned+'／'+all.length+'</strong></button></div>';
   }
 
   function trophySlotHtml(trophy){
@@ -2118,10 +2249,194 @@
     hideZukanModeToggle();
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
-      +'<div class="kom-title"><h1>'+displayText("きんいろトロフィー")+'</h1>'
+      +'<div class="kom-title"><h1>'+displayText("きんいろメダル")+'</h1>'
       +'<p>'+displayText("カテゴリを Lv10 クリアすると もらえる")+'　<strong>'+earned+'／'+all.length+'</strong></p></div>'
       +'<ul class="kom-trophy-grid">'+all.map(trophySlotHtml).join("")+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volumeId);});
+  }
+
+  /* --- かがやきのうろ --------------------------------------------------------
+     メダルの着地点 (tools_design 4 章)。入口は地図の下端に置き、かせきそうびと同じ
+     「一角のボタンから専用ページへ」の配置パターンを踏襲する。新しい画面遷移文法は
+     作らない。道具が 1 つも公開されていない間は入口ごと出さない。 */
+
+  function uroModule(){return global.Q4B_KOMOREBI_URO||null;}
+
+  function uroAvailable(){return !!uroModule()&&!!toolsModule()&&toolsReleased()&&!demoMode;}
+
+  function medalSpeciesName(speciesId){
+    var reward=global.Q4BReward,sp=reward&&reward.spById?reward.spById(speciesId):null;
+    return sp?speciesName(sp):speciesId;
+  }
+
+  /* 獲得済みメダルを鋳造順に並べる。順序は奉納の対応づけ (uro.pending) の基準に
+     なるので、日付が同じ場合は trophies.js の宣言順で安定させる。 */
+  function earnedMedals(){
+    return releasedTrophies().filter(function(trophy){return profile.trophies[trophy.trophyId];}).map(function(trophy){
+      var record=profile.trophies[trophy.trophyId];
+      return {trophyId:trophy.trophyId,cat:trophy.cat,speciesId:record.speciesId||trophy.speciesId,
+        at:record.at,name:medalSpeciesName(record.speciesId||trophy.speciesId)+"のメダル"};
+    }).sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:0;});
+  }
+
+  function pendingMedals(){
+    var uro=uroModule();
+    return uro?uro.pending(profile,earnedMedals()):[];
+  }
+
+  /* 交換画面に出す道具。公開済みのものだけを並べ、いまの遠征に対象種が 1 種も
+     いない道具はグレーアウトする (design 6 章)。 */
+  function toolChoices(){
+    var volume=currentToolVolume(),tools=toolsModule();
+    return releasedTools().map(function(tool){
+      var targets=volume&&tools?volume.species.filter(function(species){
+        return tools.matches(tool.id,global.Q4BReward&&global.Q4BReward.spById?global.Q4BReward.spById(species.id):null);
+      }).length:null;
+      return {id:tool.id,name:tool.name,emoji:tool.emoji,guild:tool.guild,blurb:tool.blurb,targets:targets};
+    });
+  }
+
+  function currentToolVolume(){
+    var regions=regionList().filter(function(region){return !region.placeholder;});
+    if(!regions.length)return null;
+    var current=regions.filter(function(region){return region.current;})[0]||regions[0];
+    return amberCallVolume(current);
+  }
+
+  function uroEntranceHtml(){
+    if(!uroAvailable())return "";
+    var uro=uroModule();
+    return uro.entranceHtml({text:displayText,count:uro.glow(profile).count,pending:pendingMedals().length});
+  }
+
+  /* 奉納の実行。メダル 1 枚 = 道具 1 つの固定相場で、残高という状態は作らない。
+     保存に失敗したら道具も記録も巻き戻す。 */
+  function offerMedal(medal,toolId,onDone){
+    var uro=uroModule(),tools=toolsModule();
+    if(!uro||!tools)return;
+    var before=JSON.parse(JSON.stringify(profile));
+    var entry=uro.redeem(profile,earnedMedals(),medal,toolId,todayString());
+    if(!entry){if(onDone)onDone(null);return;}
+    tools.grant(profile,toolId);
+    var saved;
+    try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
+    saved.then(function(){if(onDone)onDone(entry);}).catch(function(){
+      profile=before;
+      global.alert("ほぞんに しっぱいしました。メダルは そのままだよ");
+      if(onDone)onDone(null);
+    });
+  }
+
+  function closeModal(overlay){
+    if(overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
+  }
+
+  /* 鋳造成立の瞬間に出す即時交換ポップアップ。こはくの捕獲カードと同じモーダルの
+     形を使う (捕獲以外の知らせを別の見た目で出さない)。 */
+  function showMedalExchange(medal,onDone){
+    var uro=uroModule();
+    if(!uro||!global.document)return;
+    var choices=toolChoices();
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komMedalModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +uro.exchangeHtml({text:displayText,medalName:medal.name,tools:choices})
+      +'<button type="button" class="kom-modal-close">'+displayText("あとにする")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      var target=event.target;
+      if(target===overlay||target.className==="kom-modal-close"){closeModal(overlay);if(onDone)onDone(null);return;}
+      /* 実 DOM ではボタンの中の span が target になる。data-tool を持つ親まで辿る。 */
+      var toolId=target.getAttribute?target.getAttribute("data-tool"):null;
+      if(!toolId&&target.closest){
+        var host=target.closest("[data-tool]");
+        if(host)toolId=host.getAttribute("data-tool");
+      }
+      if(!toolId)return;
+      offerMedal(medal,toolId,function(entry){
+        closeModal(overlay);
+        if(entry)showToolGrantedModal(toolId);
+        if(onDone)onDone(entry);
+      });
+    });
+    document.body.appendChild(overlay);
+    var close=overlay.querySelector(".kom-modal-close");
+    if(close)close.focus();
+  }
+
+  function showToolGrantedModal(toolId){
+    var tools=toolsModule(),tool=tools&&tools.byId(toolId);
+    if(!tool||!global.document)return;
+    var overlay=document.createElement("div");
+    overlay.className="kom-modal";
+    overlay.id="komToolModal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +'<div class="uro-granted"><p class="uro-granted-face">'+tool.emoji+'</p>'
+      +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
+      +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
+      +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
+      +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
+    overlay.addEventListener("click",function(event){
+      if(event.target===overlay||event.target.className==="kom-modal-close")closeModal(overlay);
+    });
+    document.body.appendChild(overlay);
+  }
+
+  function offerMintedMedal(trophy){
+    if(!uroAvailable()||!global.document)return;
+    var medal=earnedMedals().filter(function(item){return item.trophyId===trophy.trophyId;})[0];
+    if(!medal)return;
+    /* 既に捧げ済みなら出さない。鋳造は 1 回きりだが、保存の再送などで二度呼ばれても
+       ポップアップが 2 枚出ないようにする。 */
+    if(!pendingMedals().some(function(item){return item.trophyId===medal.trophyId;}))return;
+    showMedalExchange(medal,null);
+  }
+
+  function uroPageOptions(){
+    var uro=uroModule(),tools=toolsModule(),seen={};
+    var owned=(profile.tools||[]).map(function(instance){
+      var tool=tools.byId(instance.type),first=!seen[instance.type];
+      seen[instance.type]=true;
+      return {type:instance.type,remaining:instance.remaining,first:first,
+        name:tool?tool.name:instance.type,emoji:tool?tool.emoji:"🔧"};
+    });
+    var log=uro.entries(profile).map(function(entry){
+      var tool=tools.byId(entry.tool),category=CATEGORIES[entry.cat];
+      return {cat:entry.cat,lap:entry.lap,date:entry.date,
+        name:medalSpeciesName(entry.speciesId)+"のメダル",
+        catName:category?category.name:entry.cat,
+        toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
+    });
+    return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
+      equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log};
+  }
+
+  function renderUro(backId){
+    hideZukanModeToggle();
+    var uro=uroModule();
+    document.getElementById("app").innerHTML='<main class="kom-page kom-uro-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
+      +uro.pageHtml(uroPageOptions())+'</main>';
+    document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(backId);});
+    Array.prototype.forEach.call(document.querySelectorAll(".uro-offer"),function(button){
+      button.addEventListener("click",function(){
+        var cat=button.getAttribute("data-cat");
+        var medal=pendingMedals().filter(function(item){return item.cat===cat;})[0];
+        if(!medal)return;
+        showMedalExchange(medal,function(){renderUro(backId);});
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".uro-equip"),function(button){
+      button.addEventListener("click",function(){
+        var tools=toolsModule();
+        if(!tools.equip(profile,button.getAttribute("data-tool")))return;
+        saveProfile().then(function(){renderUro(backId);}).catch(function(){renderUro(backId);});
+      });
+    });
+    var unequip=document.querySelector('[data-action="uro-unequip"]');
+    if(unequip)unequip.addEventListener("click",function(){
+      toolsModule().equip(profile,null);
+      saveProfile().then(function(){renderUro(backId);}).catch(function(){renderUro(backId);});
+    });
   }
 
   function renderMap(selectedId){
@@ -2147,10 +2462,13 @@
       +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(regions,currentRegion.regionId,selected.regionId)+'</section>'
       +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section>'
       +pathZukanEntranceHtml()
-      +trophyEntranceHtml()+'</main>';
+      +trophyEntranceHtml()
+      +uroEntranceHtml()+'</main>';
     bindPathPanel(selected);
     document.querySelector('[data-action="trophies"]').addEventListener("click",function(){renderTrophies(selected.regionId);});
     document.querySelector('[data-action="path-zukan"]').addEventListener("click",function(){renderCommonZukan(selected.regionId);});
+    var uroEntrance=document.querySelector('[data-action="uro"]');
+    if(uroEntrance)uroEntrance.addEventListener("click",function(){renderUro(selected.regionId);});
     Array.prototype.forEach.call(document.querySelectorAll(".map-pin"),function(pin){
       var region=regionById(pin.getAttribute("data-region-id"));
       if(region.placeholder)return;
@@ -2557,8 +2875,18 @@
     validateVolume:validateVolume,
     qualifiesForGauge:qualifiesForGauge,
     drawCapture:drawCapture,
+    /* 道具の guild 重みを乱数 1 本で検査するための窓。抽選の中身なので公開 API に
+       出しておかないと、重み 3 倍の有無を単体で確かめられない。 */
+    pickSpecies:pickSpecies,
+    toolsReleased:toolsReleased,
+    releasedTools:releasedTools,
+    earnedMedals:function(){return earnedMedals();},
+    pendingMedals:function(){return pendingMedals();},
     applyAnswer:applyAnswer,
     recordAnswer:recordAnswer,
+    /* 実運用の本線 (セッションの 1 問はここを通る)。鋳造 → 即時交換の起動点なので、
+       テストからも同じ入口を叩けるようにしておく。 */
+    recordSubmission:recordSubmission,
     volumeProgress:volumeProgress,
     mapPinState:mapPinState,
     validateMapPayload:validateMapPayload,
