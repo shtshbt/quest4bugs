@@ -2876,7 +2876,12 @@
       ratioPool=data[3];
       return normalized.changed?saveProfile():true;
     /* renderMap を直接渡すと Promise の解決値が selectedId として届いてしまう。 */
-    }).then(function(){renderMap();}).catch(renderError);
+    }).then(function(){
+      /* 御神木パネルのうろ入口はページをまたぐので、?uro=1 で直接うろへ着地させる
+         (地図を 1 枚はさむと「押したのに別の画面が出た」になる)。未公開なら地図。 */
+      if(/[?&]uro\b/.test(global.location&&global.location.search||"")&&uroAvailable()){renderUro();return;}
+      renderMap();
+    }).catch(renderError);
   }
 
   global.komorebiLayEgg=komorebiLayEgg;

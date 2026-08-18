@@ -158,6 +158,27 @@
       + '</div>';
   }
 
+  /* --- かがやきのうろ 入口 (小道段の下) ---
+     うろの入口は小道の地図下端にもあるが、御神木で卵を見に来たときにも届くよう
+     こちらにも置く。判定は小道側の 1 か所 (komorebi/app.js の MEDAL_ECONOMY_ON) が
+     持ち、この関数はそれを読むだけ。小道 app を読み込んでいないページでは
+     判定材料が無いので出さない (未公開時と同じ扱い)。 */
+  function uroReleased(){
+    var kom = global.Q4B_KOMOREBI;
+    return !!(kom && typeof kom.medalEconomyOn === "function" && kom.medalEconomyOn());
+  }
+
+  /* かせきそうびのカードと同じ「一角のボタンから専用ページへ」の配置。
+     新しい画面遷移の文法は作らない。 */
+  function uroEntranceHTML(){
+    if(!uroReleased()) return '';
+    return ''
+      + '<a class="q4b-uro-entrance" href="./komorebi/index.html?uro=1"'
+      +   ' style="display:flex;align-items:center;gap:6px;justify-content:center;border:1.5px solid #C8A24A;background:#FFF8E4;border-radius:12px;padding:8px 10px;margin-top:8px;color:#7A5A1E;font-size:13px;font-weight:800;text-decoration:none">'
+      +   '<span style="font-size:16px">🌟</span><span>かがやきのうろ</span>'
+      + '</a>';
+  }
+
   /* --- ホーム卵パネル (上限3) ---
      opts: {onTap, onAdd, onHatch, eggs: [...], pendingEggs: [...], pendingCount: N} */
   function homeBreedingPanelHTML(opts){
@@ -208,7 +229,8 @@
         + '<div style="display:grid;grid-template-columns:repeat('+komMax+',1fr);gap:8px">'
         +   komCards.join('')
         + '</div>'
-        + '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:6px">'+komHint+'</div>';
+        + '<div style="font-size:12px;color:#6B7A5E;text-align:center;margin-top:6px">'+komHint+'</div>'
+        + uroEntranceHTML();
     }
     var pendBanner = opts.pendingCount > 0
       ? '<div class="q4b-egg-pending-banner" style="background:#FFF6E0;border:1.5px solid #F2A33C;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;font-weight:700;color:#8A5C2C;cursor:pointer"'
