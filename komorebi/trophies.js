@@ -45,6 +45,29 @@
     {trophyId:"australia_kuku_dan4",cat:"kom_kuku_dan4",speciesId:"chrysolopus_spectabilis",regionId:"australia",regionName:"オーストラリアえんせい"}        // SR ホシゾラゾウムシ
   ];
 
+  /* --- 更新 5 (オーストラリア遠征 II) のメダル代表種 (据え置き。有効化しない) --------
+     更新 5 は学習カテゴリを伴わない図鑑ドロップなので、新規トロフィーは 0 件。
+     AU II が manifest で挙げる 4 本 (kom_kuku_bridge / kom_equation_select /
+     kom_kuku_dan8 / kom_kuku_dan9) は コスタリカ遠征 I (更新 4) から借りた cat で、
+     release_linkage 3 章の規定 (代表虫 = その cat の最終 Lv 帯を投入した巻の看板) では
+     代表虫は CR I 側に立つ。cat は 1 本につきトロフィー 1 個なので
+     (tests/test_komorebi_acceptance.js 15.5 が cat と trophyId の一意を見る)、
+     下の 4 行を CR I 側の行と同時に入れることはできない。
+
+     代表虫を AU II 側へ移す判断をしたときだけ、CR I 側の同じ cat の行を外して
+     入れ替える。種の根拠は zukan_foundry/reports/au_expedition2_freeze_draft.md
+     2.1 章 (SSR) と 2.2 章 (SR)。
+
+     {trophyId:"australia2_kuku_bridge",cat:"kom_kuku_bridge",speciesId:"anoplognathus_viridiaeneus",regionId:"australia",regionName:"オーストラリアえんせい"}, // 看板 (SSR) キンミドリコガネ
+     {trophyId:"australia2_equation_select",cat:"kom_equation_select",speciesId:"aleeta_curvicosta",regionId:"australia",regionName:"オーストラリアえんせい"},  // SSR コナフキゼミ
+     {trophyId:"australia2_kuku_dan8",cat:"kom_kuku_dan8",speciesId:"dryococelus_australe",regionId:"australia",regionName:"オーストラリアえんせい"},          // SSR クロオオナナフシ
+     {trophyId:"australia2_kuku_dan9",cat:"kom_kuku_dan9",speciesId:"xylotrupes_australicus",regionId:"australia",regionName:"オーストラリアえんせい"},        // SR クロツノカブト
+
+     未割当の SR 予備: castiarina_sexplagiata (ダイダイオビタマムシ)、
+     podacanthus_typhon (モモバネナナフシ)、rhyothemis_graphiptera
+     (キンモンチョウトンボ)、cosmodes_elegans (ミドリモンヤガ)、
+     hierodula_werneri (オオミドリカマキリ)、thopha_saccata (オオフクロゼミ)。 */
+
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
 
   function list(){return TROPHIES.map(function(trophy){return trophy;});}
