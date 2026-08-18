@@ -160,12 +160,16 @@
 
   /* --- かがやきのうろ 入口 (小道段の下) ---
      うろの入口は小道の地図下端にもあるが、御神木で卵を見に来たときにも届くよう
-     こちらにも置く。判定は小道側の 1 か所 (komorebi/app.js の MEDAL_ECONOMY_ON) が
-     持ち、この関数はそれを読むだけ。小道 app を読み込んでいないページでは
+     こちらにも置く。判定は小道側 (komorebi/app.js の MEDAL_ECONOMY_ON と道具ごとの
+     release) が持ち、この関数はそれを読むだけ。小道 app を読み込んでいないページでは
      判定材料が無いので出さない (未公開時と同じ扱い)。 */
   function uroReleased(){
     var kom = global.Q4B_KOMOREBI;
-    return !!(kom && typeof kom.medalEconomyOn === "function" && kom.medalEconomyOn());
+    if(!kom || typeof kom.medalEconomyOn !== "function" || !kom.medalEconomyOn()) return false;
+    /* 経済のスイッチだけでは足りない。道具は 1 本ずつ release 番号を持つので、
+       公開済みの道具が 1 本も無い更新では、うろへ行っても交換できるものが無い。
+       小道側の uroAvailable と同じ 2 段判定にそろえる。 */
+    return typeof kom.toolsReleased === "function" && kom.toolsReleased();
   }
 
   /* かせきそうびのカードと同じ「一角のボタンから専用ページへ」の配置。
