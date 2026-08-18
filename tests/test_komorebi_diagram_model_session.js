@@ -174,6 +174,35 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(profile.stats.kom_ratio, undefined);
   });
 
+  /* Lv1-10 の起動 smoke。図型は Lv で入れ替わる (帯 → 帯そろえ → 複数帯 → 百分率帯 →
+     面積図 → 表) ので、更新 2 で公開する前に、全 Lv が例外なく 1 問目を描き、
+     回答手段まで結線されていることを固定する。ここでは解答せず描画だけを見る
+     (Lv ごとの解法は tests/test_komorebi_diagram_model_generator.js が 400 セットで担う)。 */
+  const levelReport = [];
+  for(let lv = 1; lv <= 10; lv++){
+    profile.lv.kom_diagram_model = lv;
+    profile.maxLv.kom_diagram_model = Math.max(profile.maxLv.kom_diagram_model, lv);
+    await komorebi.sessionStarters.kom_diagram_model(volume, seeded(20260817 + lv));
+    await settle();
+    const html = app.innerHTML;
+    levelReport.push({
+      lv: lv,
+      figures: (html.match(/<svg[^>]*aria-label="/g) || []).length,
+      answerable: !!(app.querySelector("[data-choice-index]") || app.querySelector("[data-multi-index]")
+        || app.querySelector("[data-answer-form]")),
+      firstOfFive: /第1／5問/.test(plain())
+    });
+  }
+
+  test("every level from 1 to 10 starts and draws a figure with an answer control", () => {
+    assert.equal(levelReport.length, 10);
+    levelReport.forEach(entry => {
+      assert.ok(entry.figures >= 1, "Lv" + entry.lv + " の図が描かれていない");
+      assert.equal(entry.answerable, true, "Lv" + entry.lv + " に回答手段が無い");
+      assert.equal(entry.firstOfFive, true, "Lv" + entry.lv + " が 5 問セットで始まっていない");
+    });
+  });
+
   console.log("RESULT " + passed + " passed, 0 failed");
 })().catch(error => {
   console.error("FAIL " + error.message);
