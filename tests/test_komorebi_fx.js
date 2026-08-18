@@ -142,7 +142,7 @@ test("動く演出はすべて prefers-reduced-motion で止まる", () => {
     test("初めての 1 本には合図が付く (初回授与の小演出)", () => {
       const html = lastOverlay().innerHTML;
       assert.match(html, /class="uro-granted is-first"/, "初回授与の合図が無い");
-      assert.match(plainText(html), /はじめての どうぐ! どうぐ図かんに のこったよ/);
+      assert.match(plainText(html), /はじめての どうぐ! どうぐ ずかんに のこったよ/);
     });
 
     test("入口の輝きは 1 枚ぶん進む", () => {

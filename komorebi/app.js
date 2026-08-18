@@ -297,6 +297,16 @@
     return tools.consume(targetProfile);
   }
 
+  /* 画面に出す道具の名前。5 歳コースには かなの名前が返る (tools.js の yomi)。
+     道具の名前は実在の採集法の名前なので漢字が残り、小道のふりがなは辞書引きなので、
+     そのまま出すと読めないか、部分一致で誤った読みが付く。名前を出す 6 か所すべてを
+     この 1 本に通す。 */
+  function toolName(tool){
+    var tools=global.Q4B_KOMOREBI_TOOLS;
+    if(!tool)return "";
+    return tools&&typeof tools.displayName==="function"?tools.displayName(tool,profileType):(tool.name||"");
+  }
+
   function cloneTools(targetProfile){
     return JSON.parse(JSON.stringify({tools:targetProfile.tools||[],equippedToolId:targetProfile.equippedToolId||null}));
   }
@@ -1770,7 +1780,7 @@
     var face=toolFaceHtml(tool);
     if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+face+' '+toolUse.remaining+'／'+tools.durability+'</p>';
     var after=toolUse.swapped
-      ?"よびの "+tool.name+"に もちかえた!"
+      ?"よびの "+toolName(tool)+"に もちかえた!"
       :"そうびが なくなった。うろで また もらおう";
     return '<p class="kom-tool-break" role="status"><strong>'+face+' '+displayText(tool.breakText)+'</strong>'
       +'<span>'+displayText(after)+'</span></p>';
@@ -2651,7 +2661,7 @@
       var targets=volume&&tools?volume.species.filter(function(species){
         return tools.matches(tool.id,global.Q4BReward&&global.Q4BReward.spById?global.Q4BReward.spById(species.id):null);
       }).length:null;
-      return {id:tool.id,name:tool.name,emoji:tool.emoji,guild:tool.guild,blurb:tool.blurb,targets:targets};
+      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,guild:tool.guild,blurb:tool.blurb,targets:targets};
     });
   }
 
@@ -2740,7 +2750,7 @@
     overlay.className="kom-modal";
     overlay.id="komToolModal";
     /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
-    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
+    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ ずかんに のこったよ")+'</p>':"";
     /* 奉納の小演出 (tools_design 9 章)。「うろが すこし あかるくなった」と書くだけ
        では、明るくなった うろを見るのに もう 1 画面ぶん歩かせることになる。捧げた
        直後の輝きをその場で 1 枚出し、ひらく動きだけを添える。輝きの値は捧げたあとの
@@ -2750,7 +2760,7 @@
       +'<div class="uro-granted'+(firstOfKind?" is-first":"")+'">'
       +hollow
       +'<p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
-      +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
+      +'<p class="uro-granted-name">'+displayText(toolName(tool)+"を さずかった!")+'</p>'
       +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
       +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
@@ -2790,21 +2800,21 @@
       var tool=tools.byId(instance.type),first=!seen[instance.type];
       seen[instance.type]=true;
       return {type:instance.type,remaining:instance.remaining,first:first,
-        name:tool?tool.name:instance.type,emoji:tool?tool.emoji:"🔧"};
+        name:tool?toolName(tool):instance.type,emoji:tool?tool.emoji:"🔧"};
     });
     var log=uro.entries(profile).map(function(entry){
       var tool=tools.byId(entry.tool),category=CATEGORIES[entry.cat];
       return {cat:entry.cat,lap:entry.lap,date:entry.date,
         name:medalSpeciesName(entry.speciesId)+"のメダル",
         catName:category?category.name:entry.cat,toolId:entry.tool,
-        toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
+        toolName:tool?toolName(tool):entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
     });
     /* 道具図鑑は 11 種ぶんの枠を常に並べる。未公開のぶんは名前を伏せて 🔒 だけ出す
        (何を集めるかは伏せたまま、いくつ集めるかは見せる)。 */
     var release=currentRelease();
     var dex=tools.list().map(function(tool){
       if(tool.release>release)return {locked:true};
-      return {id:tool.id,name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
     });
     /* 装備の見え方は こはくの画面と同じ判定にそろえる。未公開の道具を装備したままの
        セーブで、片方の画面が「そうび中」もう片方が「なし」になるのを避ける。 */
@@ -3035,13 +3045,13 @@
     owned.forEach(function(item){
       var on=item.type===equippedId;
       chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
-        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
+        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(toolName(item.tool))+'</span>'
         +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
         +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
     });
     return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
       +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
-      +(now?toolFaceHtml(now)+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
+      +(now?toolFaceHtml(now)+" "+displayText(toolName(now)):displayText("なし"))+'</strong></p>'
       +'<div class="zukan-tool-chips">'+chips+'</div></div>';
   }
 

@@ -113,7 +113,7 @@
   }
 
   function toolPickHtml(tool,text,disabled){
-    var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは 出番が ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
+    var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは でばんが ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
     return '<li><button type="button" class="uro-pick" data-tool="'+escapeHtml(tool.id)+'"'+(disabled?' disabled aria-disabled="true"':'')+'>'
       +'<span class="uro-pick-face">'+toolFace(tool.id,tool.emoji)+'</span>'
       +'<span class="uro-pick-body"><span class="uro-pick-name">'+text(tool.name)+'</span>'
@@ -196,7 +196,7 @@
         +'<span class="uro-dex-name">'+text(item.name)+'</span>'
         +'<span class="uro-dex-at">'+escapeHtml(item.at)+'</span></li>';
     }).join("");
-    return '<section class="uro-dex"><h2>'+text("どうぐ図かん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
+    return '<section class="uro-dex"><h2>'+text("どうぐ ずかん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
       +'<ul class="uro-dex-list">'+cells+'</ul></section>';
   }
 

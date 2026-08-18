@@ -58,7 +58,13 @@
 
   /* release は「どの更新で交換できるようになるか」。CATEGORIES と同じ番号体系で、
      公開は app.js の CURRENT_RELEASE 1 か所で決める。先行 4 種だけが更新 2 で出る
-     (MG I に対象種がいる組。対象ゼロの道具を並べても交換画面が虚しくなるだけ)。 */
+     (MG I に対象種がいる組。対象ゼロの道具を並べても交換画面が虚しくなるだけ)。
+
+     yomi は 5 歳コースで名前の代わりに出す かな。道具の名前は実在の採集法の名前
+     なので漢字が残る (吸虫管・高所用長竿)。小道のふりがなは語の辞書引きで、辞書に
+     無い語は素通りするか、部分一致で誤った読みが付く (吸虫管 の 虫 に「むし」)。
+     読めない名前と 誤った読み のどちらも避けるため、5 歳コースには かなの名前を
+     渡す。漢字を含まない名前は yomi を持たない (同じ文字列を 2 度書かない)。 */
   var TOOLS=[
     {
       id:"cho_net",name:"ちょうネット",emoji:"🥅",release:2,
@@ -70,14 +76,14 @@
       }
     },
     {
-      id:"tonbo_net",name:"トンボ用メッシュネット",emoji:"🕸",release:2,
+      id:"tonbo_net",name:"トンボ用メッシュネット",yomi:"トンボようメッシュネット",emoji:"🕸",release:2,
       guild:"トンボ",
       blurb:"めの こまかい あみ。すばやい トンボの はねを いためない。",
       breakText:"あみが やぶれた!",
       match:function(sp){return sp.order==="Odonata";}
     },
     {
-      id:"light_trap",name:"灯火採集セット",emoji:"🔦",release:2,
+      id:"light_trap",name:"灯火採集セット",yomi:"とうかさいしゅうセット",emoji:"🔦",release:2,
       guild:"よるに とぶ 虫",
       blurb:"よるに 白い ぬのを てらす あかり。ガたちが つぎつぎ やってくる。",
       breakText:"ライトが きえた!",
@@ -87,8 +93,8 @@
     },
     {
       id:"banana_trap",name:"バナナトラップ",emoji:"🍌",release:2,
-      guild:"木の しるに あつまる 虫",
-      blurb:"あまく じゅくした バナナ。木の しるが すきな 虫が あつまる。",
+      guild:"きの しるに あつまる 虫",
+      blurb:"あまく じゅくした バナナ。きの しるが すきな 虫が あつまる。",
       breakText:"バナナが なくなった!",
       match:function(sp){return inSet(sp.family,SAP_FAMILY)||inSet(sp.groupJa,SAP_GROUP);}
     },
@@ -96,30 +102,30 @@
        release が CURRENT_RELEASE を超える間は交換画面にも道具箱にも出ない。 */
     {
       id:"sweep_net",name:"スイーピングネット",emoji:"🌾",release:3,
-      guild:"草はらの バッタや カメムシ",
+      guild:"くさはらの バッタや カメムシ",
       blurb:"くさむらを さっと なでる あみ。かくれた バッタが とびだす。",
       breakText:"あみが やぶれた!",
       match:function(sp){return inSet(sp.order,SWEEP_ORDER)&&anyOf(habitatOf(sp),GRASS_HABITAT);}
     },
     {
       id:"water_net",name:"さかなとりあみ",emoji:"🐟",release:3,
-      guild:"水べの 虫",
-      blurb:"水の 中を すくう あみ。池や 川に すむ 虫が あみに のる。",
+      guild:"みずべの 虫",
+      blurb:"みずの 中を すくう あみ。いけや かわに すむ 虫が あみに のる。",
       breakText:"あみが やぶれた!",
       match:function(sp){return anyOf(habitatOf(sp),WATER_HABITAT);}
     },
     {
       id:"beating_set",name:"ビーティングセット",emoji:"🪵",release:4,
       guild:"えだに かくれる 虫",
-      blurb:"えだを たたいて 白い ぬのに おとす。かくれんぼの 名人が おちてくる。",
+      blurb:"えだを たたいて 白い ぬのに おとす。かくれんぼの めいじんが おちてくる。",
       breakText:"ぬのが やぶれた!",
       match:function(sp){
         return sp.order==="Phasmatodea"||inSet(sp.family,BEATING_FAMILY)||inSet(sp.groupJa,BEATING_GROUP);
       }
     },
     {
-      id:"aspirator",name:"吸虫管",emoji:"🧪",release:4,
-      guild:"とても小さい 虫",
+      id:"aspirator",name:"吸虫管",yomi:"きゅうちゅうかん",emoji:"🧪",release:4,
+      guild:"とても ちいさい 虫",
       blurb:"ちいさな 虫を すいこむ ほそい くだ。つまめない 虫も つかまえられる。",
       breakText:"くだが つまった!",
       match:function(sp){
@@ -128,16 +134,16 @@
       }
     },
     {
-      id:"long_pole",name:"高所用長竿",emoji:"🎣",release:5,
+      id:"long_pole",name:"高所用長竿",yomi:"こうしょようながざお",emoji:"🎣",release:5,
       guild:"たかい ところの 虫",
-      blurb:"たかい えだまで とどく ながい さお。こずえの 虫に 手が とどく。",
+      blurb:"たかい えだまで とどく ながい さお。こずえの 虫に てが とどく。",
       breakText:"さおが おれた!",
       match:function(sp){return anyOf(habitatOf(sp),HIGH_HABITAT)||anyOf(tagsOf(sp),HIGH_TAGS);}
     },
     {
-      id:"pitfall_trap",name:"落とし穴トラップ",emoji:"🕳",release:5,
-      guild:"地めんを あるく 虫",
-      blurb:"地めんに うめた コップ。あるく 虫が ぽとりと おちる。",
+      id:"pitfall_trap",name:"落とし穴トラップ",yomi:"おとしあなトラップ",emoji:"🕳",release:5,
+      guild:"じめんを あるく 虫",
+      blurb:"じめんに うめた コップ。あるく 虫が ぽとりと おちる。",
       breakText:"コップが われた!",
       match:function(sp){
         if(inSet(sp.family,GROUND_FAMILY)||inSet(sp.groupJa,GROUND_GROUP))return true;
@@ -160,6 +166,15 @@
 
   function list(){return TOOLS.slice();}
   function byId(id){return BY_ID[id]||null;}
+
+  /* 画面に出す名前。5 歳コースだけ かなの名前へ倒す (yomi を持つ道具のみ)。
+     ここを 1 本にしておくと、交換画面・どうぐばこ・図鑑・ウィジェット・リザルト・
+     ほうのうの記録で名前が食い違わない。 */
+  function displayName(tool,course){
+    var entry=typeof tool==="string"?byId(tool):tool;
+    if(!entry)return "";
+    return course==="k5"&&entry.yomi?entry.yomi:entry.name;
+  }
 
   /* guild 判定。種データが無い (差し替え途中など) 場合は「対象でない」に倒す。
      ここで throw すると 1 種の欠けで捕獲そのものが止まる。 */
@@ -284,6 +299,7 @@
     durability:DURABILITY,
     list:list,
     byId:byId,
+    displayName:displayName,
     matches:matches,
     countTargets:countTargets,
     validateTools:validateTools,

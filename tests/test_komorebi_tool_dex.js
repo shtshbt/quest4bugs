@@ -137,7 +137,7 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
 
   test("an empty dex still shows every slot so the goal has a size", () => {
     const text = plain();
-    assert.match(text, /どうぐ図かん/);
+    assert.match(text, /どうぐ ずかん/);
     assert.match(text, /0／11/, "11 種ぶんの枠が並んでいない");
     /* 公開済みは名前が出て「まだ」、未公開は伏せたまま数だけ。 */
     assert.match(text, /ちょうネット/);
@@ -157,7 +157,7 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
       assert.equal(live.firstGrantAt(profile, "cho_net"), context.__saved.komorebi.toolDex.cho_net,
         "図鑑の日付が保存されていない");
       assert.ok(live.firstGrantAt(profile, "cho_net"), "初回授与が記録されていない");
-      assert.match(plainText(lastOverlay().innerHTML), /はじめての どうぐ! どうぐ図かんに のこったよ/);
+      assert.match(plainText(lastOverlay().innerHTML), /はじめての どうぐ! どうぐ ずかんに のこったよ/);
     });
 
     test("the hollow now counts one of eleven", () => {
