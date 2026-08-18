@@ -443,12 +443,21 @@
     throw new Error("この問題形式はこの判定を使えません");
   }
 
+  /* 同じ次元で指数も同じ単位は同じ大きさで、mL と cm³ がそれに当たる
+     (curriculum 3 章。橋の実体は「指数が同じ」という 1 事実である)。
+     単位の一致を id で見ると、Lv2 と Lv6 で 1mL = 1cm³ を渡した直後に、
+     250mL を 250cm³ と答えた子をその等式ごと誤答にしてしまう。 */
+  function sameSizeUnit(leftId,rightId){
+    var left=unit(leftId),right=unit(rightId);
+    return left.dimension===right.dimension&&left.exp===right.exp;
+  }
+
   function judgeNumUnit(question,value,unitId){
     if(!isObject(question)||question.kind!=="num_unit"||question.ansUnit!==question.to)throw new Error("数値と単位の問題指定が正しくありません");
     var selectedUnit=unit(unitId),targetUnit=unit(question.to);
     if(selectedUnit.dimension!==targetUnit.dimension)throw new Error("答えの単位が正しくありません");
     var input=quantityFromValue(value),expected=expectedQuantity(question);
-    if(unitId===question.to&&equalQuantities(input,expected))return {correct:true,state:"correct",note:""};
+    if(sameSizeUnit(unitId,question.to)&&equalQuantities(input,expected))return {correct:true,state:"correct",note:""};
     if(equalQuantities(physicalQuantity(input,unitId),physicalQuantity(expected,question.to))){
       /* 同じ量を別の単位で言い切った答え。正解の単位を 2 回並べると
          「…は km² と同じ量だけど、きかれているのは km²」になって意味を成さない。 */

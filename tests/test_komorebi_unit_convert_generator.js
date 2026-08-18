@@ -235,6 +235,44 @@ test("judgeNumUnit returns correct other_unit and wrong states",function(){
   assert.equal(wrong.note,"");
 });
 
+test("the millilitre and cubic centimetre bridge accepts either unit",function(){
+  /* mL と cm³ は指数が同じで (curriculum 3 章)、250mL と 250cm³ は同じ量である。
+     両方が選択肢に並ぶ橋の問題で mL を誤答にすると、Lv2 と Lv6 で渡した
+     1mL = 1cm³ をその場で否定することになる。 */
+  var bridges=[];
+  corpus[6].forEach(function(set){set.forEach(function(question){
+    if(question.from.unit==="mL"&&question.to==="cm3")bridges.push(question);
+  });});
+  assert.equal(bridges.length>0,true);
+  bridges.forEach(function(question){
+    assert.equal(values(question.unitChoices).indexOf("mL")>=0,true);
+    assert.equal(values(question.unitChoices).indexOf("cm3")>=0,true);
+    var asked=unitConvert.judgeNumUnit(question,question.ans,"cm3");
+    var twin=unitConvert.judgeNumUnit(question,question.ans,"mL");
+    assert.equal(asked.correct,true);
+    assert.equal(twin.correct,true);
+    assert.equal(twin.state,"correct");
+    assert.equal(twin.note,"");
+    /* 大きさの違う単位は今までどおり「量は合っているが単位が問いと違う」で受ける。 */
+    var litres=unitConvert.formatQuantity(unitConvert.convert(question.from,question.from.unit,"L"));
+    var other=unitConvert.judgeNumUnit(question,litres,"L");
+    assert.equal(other.correct,false);
+    assert.equal(other.state,"other_unit");
+  });
+});
+
+test("unit choices are judged by their exponent and not by their name",function(){
+  eachQuestion(function(question){
+    if(question.kind!=="num_unit")return;
+    values(question.unitChoices).forEach(function(unitId){
+      var verdict=unitConvert.judgeNumUnit(question,question.ans,unitId);
+      var sameSize=units[unitId].exp===units[question.to].exp;
+      assert.equal(verdict.correct,sameSize,question.text+" / "+unitId);
+      if(sameSize)assert.equal(verdict.note,"");
+    });
+  });
+});
+
 test("Lv5 uses only the four two-step area ladder units",function(){
   var allowed=["m2","a","ha","km2"];
   corpus[5].forEach(function(set){set.forEach(function(question){
