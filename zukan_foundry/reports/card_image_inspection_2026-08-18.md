@@ -395,3 +395,36 @@ kiboshi_kuro_hishibatta (キボシクロヒシバッタ) のcatalogエントリ�
 ### 6.4 スコープ外で見つかった関連事象 (未対応、別途対応要)
 
 catalog全体 (1052件時点) をkiboshi_kuro_hishibattaの誤参照パターンで横断検索したところ、同じ物理ファイル (WIKIPEDIAWP_L2_grade.webp、タガメの写真) をimage.displayに持つ本編 (非komorebi、areaOnly指定なし) のspeciesエントリが17件見つかった: ageha_himebachi、akahane_mushi、amami_shika_kuwagata、ao_kamikiri、beni_bekkoubachi、hamasuzu、kuro_suzu、ooki_no_komushi、oomizuao_oki、ranran_hana_kamakiri_dummy、sekai_saichou_nanafushi、tennen_kimadara_seseri、tokara_nokogiri_kuwagata、yaeyama_koku_kuwagata、yaeyama_nokogiri_kuwagata、yakushima_noko_kuwagata、yamato_batta。これらは今回のcard画像内容検査 (公開中168種=komorebiマダガスカルI/オーストラリアI、および未公開1160件=zukan_cards/metadataに実写metadataがある種) のいずれの走査対象にも含まれておらず (本編ロースターは今回未検査)、今回のタスク範囲外のため未修正のまま残している。ただしkiboshi_kuro_hishibattaと同一パターンの誤参照であることは確実 (画像=タガメ、specimenデータは各種バラバラの無関係な内容) なので、本編ロースターを対象にした同種の画像内容検査・catalog修正を別タスクとして早期に行うことを推奨する。
+
+### 6.5 対応記録 (2026-08-18 追記その2): 本編ロースター17種の修正、および catalog全体の display パス重複の横断検査
+
+6.4で発見された本編17種を、122ed87/582d5c6と同じプロトコル (自身の正しい写真・metadataがzukan_cards/に存在するか species_id と学名の両方で検索 → 存在すれば正しい参照へ、存在しなければcatalogから削除してrenderer SVGフォールバック) で処置した。
+
+**17種の検索結果**: 17種いずれについても、species_id完全一致・学名 (属+種小名、亜種/著者/亜属括弧を除いた canonical 形) 一致のどちらでも、zukan_cards/metadata以下 (1319件) に専用の正しいmetadata/写真は見つからなかった。4種 (oomizuao_oki、tennen_kimadara_seseri、tokara_nokogiri_kuwagata、yakushima_noko_kuwagata) は基準種 (それぞれ oomizuao=Actias aliena、kokimadara_seseri=Ochlodes venata、amami_nokogiri_kuwagata=Prosopocoilus dissimilis、nokogiri_kuwagata=Prosopocoilus inclinatus) の写真と属+種小名が一致したが、いずれも亜種限定 (xenia/sagitta/elegans/yakushimaensis) の別カタログentryであり、かつその基準種photoは既に該当の基準種entry自身が使用中だった。ここで流用すると亜種entryと基準種entryが同一物理ファイルを共有する新たな重複を作ってしまうため (今回のタスク自体が検出・是正しようとしている欠陥クラスと同じ形になる)、専用写真なしと判断し17種全件をcatalogから削除した。
+
+**catalog全体の display パス重複の機械検査 (タガメ以外)**: 「複数 speciesId が同一のimage.displayパスを参照する」パターンをcatalog全件 (17種削除後1012件) に対して機械的に検出した。検出された重複は33グループ。うち27グループは、参照している全speciesの学名 (属+種小名) が完全一致しており、和名違い (例: gengorou/nami_gengorou はどちらも Cybister chinensis)・性別/型違い (例: oomurasaki/sasakia_oomurasaki_ss はどちらも Sasakia charonda) など、同一の実在種を指す図鑑上の別entryが同じ実写を意図的に共有している健全なケースと判断し、無変更で残した。
+
+残り6グループ (9 species) は、参照している複数speciesの学名が互いに異なっており、タガメ誤参照と同種の欠陥だった: WMCFilejpg_L2_grade.webp (suji_kuwagata=Dorcus striatipennis が gengorou/nami_gengorou=Cybister chinensis の物理ファイルを共有)、WMCFileAidtotheidentificationofinsectsPlate1257796343040jpg_L2_grade.webp (oo_ruri_osamushi=Damaster gehinii が sedo_oo_gomimushi=Cychrus morawitzi の物理ファイルを共有)、WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate32jpg_L2_grade.webp (akamadara_hanamuguri=Anthracophora rusticola が kuwagata_hanamuguri=Glycyphana fulvistemma の物理ファイルを共有)、WMCFileFavoniusP1020551jpg_L2_grade.webp (hiroobi_midorishijimi=Favonius cognatus が fuji_midorishijimi=Sibataniozephyrus fujisanus の物理ファイルを共有)、WMCFileRhopaloceranihonicaBHL22784764jpg_L2_grade.webp (ginichimonji_seseri/himekimadara_seseri/oohikage_janome/hime_kijanome の4種が hoshichabane_seseri=Aeromachus inachus の物理ファイルを共有)、WMCFileDeadbodyofsawyerbeetle2jpg_L2_grade.webp (oni_kuwa_kamikiri=Megopis sinica が usuba_kamikiri=Aegosoma sinicum sinicum の物理ファイルを共有)。
+
+原因はタガメの件とは別の機序で、いずれもWikimedia CommonsのFile:タイトルが日本語(非ASCII)のみで構成される場合に、ローカル物理ファイル名生成時に非ASCII文字が全て脱落し「WMCFilejpg」のような空/汎用basenameに複数種の異なる写真が衝突していた (zukan_cards/metadata以下には衝突basenameにつき1件のmetadata.jsonしか存在せず、後着fetchが先着の物理ファイルを上書きしていたとみられる)。各basenameのmetadata.jsonのspecies_idを「本来の持ち主」として特定し、それ以外のspeciesId (上記9種) を誤参照側と判定した。
+
+9種のうち **oo_ruri_osamushi** はspecies_id完全一致で専用の正しいmetadata/写真 (zukan_cards/metadata/ETHZENT0591832.json、Carabus gehinii、Entomological Collection ETH Zürich、シート標本、Hokkaido/Yamabe 1967年採集) が未使用のまま存在したため、catalogのspecimen/source/imageブロックをこの正しい参照に張り替えた (scientificNameも、旧entryの "Damaster gehinii" からbugs.js側のロースター表記と一致する "Carabus gehinii" に更新)。なお旧entryが参照していた画像 (Wikimedia Commonsの1880年代の複合図版、5種のオサムシ類を1枚に描いたプレート) は、衝突の有無を別にしても本報告の判定基準では「種でない (複合図版)」に該当する不良画像であり、張り替えにより二重の問題が同時に解消された。
+
+残り8種 (suji_kuwagata、akamadara_hanamuguri、hiroobi_midorishijimi、ginichimonji_seseri、himekimadara_seseri、oohikage_janome、hime_kijanome、oni_kuwa_kamikiri) はspecies_id・学名のいずれでも専用の未使用metadataが見つからず、17種と同じ扱い (catalogから削除、SVGフォールバック) とした。
+
+**処置件数と内訳**:
+
+| 区分 | 件数 | 内訳 |
+|---|---:|---|
+| catalogから削除 (17種、6.4のタガメ誤参照) | 17 | ageha_himebachi、akahane_mushi、amami_shika_kuwagata、ao_kamikiri、beni_bekkoubachi、hamasuzu、kuro_suzu、ooki_no_komushi、oomizuao_oki、ranran_hana_kamakiri_dummy、sekai_saichou_nanafushi、tennen_kimadara_seseri、tokara_nokogiri_kuwagata、yaeyama_koku_kuwagata、yaeyama_nokogiri_kuwagata、yakushima_noko_kuwagata、yamato_batta |
+| catalogから削除 (横断検査で新規発見、ファイル名衝突) | 8 | suji_kuwagata、akamadara_hanamuguri、hiroobi_midorishijimi、ginichimonji_seseri、himekimadara_seseri、oohikage_janome、hime_kijanome、oni_kuwa_kamikiri |
+| 正しい参照へ再リンク (専用写真あり) | 1 | oo_ruri_osamushi → ETHZENT0591832 (Carabus gehinii) |
+| 無変更 (同一実在種の意図的な写真共有と判定) | 27グループ / 61 speciesId | 6.5本文参照。処置不要 |
+
+catalogエントリ数は1029 → 1004 (25件減、うち17件は6.4記載分、8件は今回の横断検査で新規発見)。再fetch候補は上記25種 (6.4の17種＋今回の8種)。
+
+**回帰テスト**: `tests/test_zukan_catalog_display_dedup.js` を新規追加した。catalog内のimage.displayパスがspeciesId間で重複する全ケースを機械的に洗い出し、参照元の学名 (属+種小名) が全て一致する場合のみ許容し、異なる学名が同一物理ファイルを参照するケースをゼロと恒常的にassertする (今回の欠陥クラス — 誤参照・ファイル名衝突 — の再発防止)。学名が完全一致するだけの意図的な写真共有 (27グループ) は許容対象として維持している。実装時に既存の健全なentry (例: gengorou) のdisplayを一時的に別entryのパスへ差し替えて注入テストを行い、テストが正しく落ちることを確認した (検証後は元に戻し、catalog.jsのdiffがこの注入によって汚染されていないことを確認済み)。
+
+**4状態テスト**: `komorebi/docs/komorebi_tools_implementation_plan.md` §点火手順の作法に従い、`tests/test_*.js` 全65本 (JSのみ、test_media_pipeline_contract.pyは対象外) を CURRENT_RELEASE {1,2} × MEDAL_ECONOMY_ON {true,false} の4状態全てで実行し、全状態・全ファイルでPASSを確認した。検証後 `komorebi/economy_flag.js` を元の値 (CURRENT_RELEASE=2、MEDAL_ECONOMY_ON=false) に復元し、git diffがゼロであることを確認した。
+
+**配信**: `zukan_config/zukan_catalog.js` の `?v=` を6エントリポイント (battle.html、eitango/index.html、index.html、kanji/index.html、keisan/index.html、komorebi/index.html) で 0.3.1 → 0.3.2 へ、`sw.js` の CACHE を `q4b-cache-v152` → `q4b-cache-v153` へbumpした。
