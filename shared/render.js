@@ -293,6 +293,13 @@
     +'<circle cx="25" cy="48" r="13" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
     +'<circle cx="21" cy="45" r="2.6" fill="'+K+'"/>'
     +'<path d="M20 37 l-4 -8 M28 36 l2 -9 M30 68 l0 7 M44 72 l0 7 M58 70 l0 7 M72 72 l0 7" '+leg+'/>';
+  }else if(b.t==="nanafushi"){ /* stick insect: 極端に細長い体・長い脚(3対とも大きく張り出す)・長い触角 */
+    inner='<path d="M45 26 L28 14 L10 20 M45 48 L18 44 L4 56 M45 70 L22 78 L8 96 M55 26 L72 14 L90 20 M55 48 L82 44 L96 56 M55 70 L78 78 L92 96" '+leg+'/>'
+    +'<rect x="45" y="13" width="10" height="76" rx="5" fill="'+c1+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M45 30 h10 M45 46 h10 M45 62 h10 M45 78 h10" stroke="'+c2+'" stroke-width="2" opacity=".7"/>'
+    +'<ellipse cx="50" cy="11" rx="6.5" ry="7" fill="'+c2+'" stroke="'+K+'" stroke-width="3"/>'
+    +'<path d="M46 8 C36 -2 24 -6 14 -10 M54 8 C64 -2 76 -6 86 -10" fill="none" stroke="'+c2+'" stroke-width="2.5" stroke-linecap="round"/>'
+    +'<circle cx="47" cy="10" r="1.6" fill="#fff"/><circle cx="53" cy="10" r="1.6" fill="#fff"/>';
   }else if(b.t==="dango"){
     inner='<path d="M19 68 A31 31 0 0 1 81 68 Z" fill="'+c1+'" stroke="'+K+'" stroke-width="3" stroke-linejoin="round"/>'
     +'<path d="M30 47 A40 40 0 0 0 30 68 M44 39 A60 60 0 0 0 42 68 M58 39 A60 60 0 0 1 60 68 M70 47 A40 40 0 0 1 70 68" fill="none" stroke="'+c2+'" stroke-width="3"/>'
