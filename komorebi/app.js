@@ -670,10 +670,10 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    /* tools / uroLog / equippedToolId / lv10ClearAt / lapCount / mintedLaps は
-       メダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも動かさない
-       additive の追記。 */
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],uroLog:[],equippedToolId:null};
+    /* tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount /
+       mintedLaps はメダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも
+       動かさない additive の追記。 */
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],toolDex:{},uroLog:[],equippedToolId:null};
   }
 
   function normalizeProfile(data){
@@ -728,11 +728,13 @@
     /* メダル経済の追加分。古いセーブには無いので既定値を補い、形が違うものは通さない
        (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。 */
     if(p.tools==null){p.tools=[];changed=true;}
+    if(p.toolDex==null){p.toolDex={};changed=true;}
     if(p.uroLog==null){p.uroLog=[];changed=true;}
     if(!hasOwn(p,"equippedToolId")){p.equippedToolId=null;changed=true;}
     else if(p.equippedToolId!==null&&typeof p.equippedToolId!=="string")throw new Error("道具データの形式が正しくありません");
     if(global.Q4B_KOMOREBI_TOOLS){
       global.Q4B_KOMOREBI_TOOLS.validateTools(p.tools);
+      global.Q4B_KOMOREBI_TOOLS.validateDex(p);
       /* 装備だけが残って本体が無い状態は形の誤りではなく取りこぼし。黙って外す。 */
       if(p.equippedToolId&&!global.Q4B_KOMOREBI_TOOLS.ownedOf(p,p.equippedToolId).length){p.equippedToolId=null;changed=true;}
     }else if(!Array.isArray(p.tools))throw new Error("道具データの形式が正しくありません");
@@ -811,6 +813,17 @@
     return merged;
   }
 
+  /* 道具図鑑も同じ扱い。初めて授かった日は片側にしか無いことがあるので union し、
+     両側にあるときは早いほうを残す。 */
+  function mergeToolDex(localDex,remoteDex){
+    var merged={},local=objectOf(localDex),remote=objectOf(remoteDex);
+    Object.keys(remote).forEach(function(id){merged[id]=remote[id];});
+    Object.keys(local).forEach(function(id){
+      if(!merged[id]||String(local[id])<String(merged[id]))merged[id]=local[id];
+    });
+    return merged;
+  }
+
   /* 安定判定の窓は進んだ側 (有効回答が多い側) を残す。20 問ぶんの積み上げを
      競合で捨てると、鋳造が理由なく遠のく。 */
   function mergeTrophyProgress(localProgress,remoteProgress){
@@ -866,6 +879,7 @@
     merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
     merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
     merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
+    merged.toolDex=mergeToolDex(localProfile&&localProfile.toolDex,remote.toolDex);
     merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
     merged.trophyProgress=mergeTrophyProgress(localProfile&&localProfile.trophyProgress,remote.trophyProgress);
     merged.lv10ClearAt=mergeClearTimes(localProfile&&localProfile.lv10ClearAt,remote.lv10ClearAt);
@@ -2562,16 +2576,18 @@
   function offerMedal(medal,toolId,onDone){
     var uro=uroModule(),tools=toolsModule();
     if(!uro||!tools)return;
-    var before=JSON.parse(JSON.stringify(profile));
-    var entry=uro.redeem(profile,earnedMedals(),medal,toolId,todayString());
+    var before=JSON.parse(JSON.stringify(profile)),today=todayString();
+    var entry=uro.redeem(profile,earnedMedals(),medal,toolId,today);
     if(!entry){if(onDone)onDone(null);return;}
-    tools.grant(profile,toolId);
+    /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
+    var firstOfKind=!tools.firstGrantAt(profile,toolId);
+    tools.grant(profile,toolId,today);
     var saved;
     try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
-    saved.then(function(){if(onDone)onDone(entry);}).catch(function(){
+    saved.then(function(){if(onDone)onDone(entry,firstOfKind);}).catch(function(){
       profile=before;
       global.alert("ほぞんに しっぱいしました。メダルは そのままだよ");
-      if(onDone)onDone(null);
+      if(onDone)onDone(null,false);
     });
   }
 
@@ -2602,9 +2618,9 @@
         if(host)toolId=host.getAttribute("data-tool");
       }
       if(!toolId)return;
-      offerMedal(medal,toolId,function(entry){
+      offerMedal(medal,toolId,function(entry,firstOfKind){
         closeModal(overlay);
-        if(entry)showToolGrantedModal(toolId);
+        if(entry)showToolGrantedModal(toolId,firstOfKind);
         if(onDone)onDone(entry);
       });
     });
@@ -2613,15 +2629,18 @@
     if(close)close.focus();
   }
 
-  function showToolGrantedModal(toolId){
+  function showToolGrantedModal(toolId,firstOfKind){
     var tools=toolsModule(),tool=tools&&tools.byId(toolId);
     if(!tool||!global.document)return;
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
     overlay.id="komToolModal";
+    /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
+    var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
       +'<div class="uro-granted"><p class="uro-granted-face">'+tool.emoji+'</p>'
       +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
+      +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
       +'<p class="uro-granted-hint">'+displayText("見たことない虫に であいやすくなりそうだ…!")+'</p></div>'
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
@@ -2667,8 +2686,15 @@
         catName:category?category.name:entry.cat,
         toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
     });
+    /* 道具図鑑は 11 種ぶんの枠を常に並べる。未公開のぶんは名前を伏せて 🔒 だけ出す
+       (何を集めるかは伏せたまま、いくつ集めるかは見せる)。 */
+    var release=currentRelease();
+    var dex=tools.list().map(function(tool){
+      if(tool.release>release)return {locked:true};
+      return {name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+    });
     return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
-      equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log};
+      equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log,dex:dex};
   }
 
   function renderUro(backId){

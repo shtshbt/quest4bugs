@@ -418,8 +418,8 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .uro-mouth{fill:#08160F}
 .uro-light{fill:#FFE9A8;opacity:calc(var(--uro-glow,0) * 0.92);
   filter:drop-shadow(0 0 calc(var(--uro-glow,0) * 26px) rgba(255,226,140,.85))}
-.uro-pending,.uro-box,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
-.uro-pending h2,.uro-box h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
+.uro-pending,.uro-box,.uro-dex,.uro-log{margin:0 auto 18px;padding:0 clamp(10px,3vw,20px);max-width:920px}
+.uro-pending h2,.uro-box h2,.uro-dex h2,.uro-log h2{margin:0 0 8px;color:#FFE9A8;font-size:15px}
 .uro-pending-list,.uro-box-list,.uro-log-list,.uro-picks{margin:0;padding:0;list-style:none}
 .uro-offer{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;margin-bottom:8px;
   padding:10px 14px;border:2px solid #FFD86B;border-radius:14px;
@@ -433,6 +433,19 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:#20402F;color:#DFF3CE;font:800 13px/1.2 inherit;cursor:pointer}
 .uro-box-spare{padding:6px 10px;color:#9FBE90;font-size:12.5px;font-weight:800}
 .uro-box-empty,.uro-log-empty,.uro-pick-empty{margin:0;color:#9FBE90;font-size:13px;line-height:1.7}
+/* どうぐ図かん。11 種ぶんの枠を常に並べ、未公開は 🔒 のまま数だけ見せる。 */
+.uro-dex h2 strong{color:#FFD86B;font-variant-numeric:tabular-nums}
+.uro-dex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;
+  margin:0;padding:0;list-style:none}
+.uro-dex-slot{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 6px;
+  border:1.5px solid #2F5C4A;border-radius:12px;background:#12251E;text-align:center}
+.uro-dex-slot.is-got{border-color:#FFD86B;background:#1B3327}
+.uro-dex-slot.is-empty,.uro-dex-slot.is-locked{opacity:.6}
+.uro-dex-face{font-size:24px;line-height:1}
+.uro-dex-face svg{width:26px;height:26px}
+.uro-dex-name{font-size:11.5px;font-weight:800;color:#CFE7A8;line-height:1.35}
+.uro-dex-at{font-size:10.5px;color:#8FAE82;font-variant-numeric:tabular-nums}
+.uro-granted-dex{margin:0 0 6px;color:#FFD86B;font-size:13px;font-weight:800}
 .uro-log-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:6px;
   padding:8px 12px;border:1.5px solid #244A3D;border-radius:12px;background:#0C201B;font-size:13px;color:#DDEDCE}
 .uro-log-cat{color:#9FBE90}

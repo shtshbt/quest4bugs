@@ -153,6 +153,27 @@
     return '<section class="uro-box"><h2>'+text("どうぐばこ")+'</h2><ul class="uro-box-list">'+rows+'</ul></section>';
   }
 
+  /* 道具図鑑 (design 6 章)。初めて授かった日だけを並べる。未公開の枠も 🔒 のまま
+     数だけ出す: ゴールが何個かが見えないと「11 種すべて」が目標にならない。
+     どうぐばこ (いま何本あるか) とは別の台帳で、壊れてもここからは消えない。 */
+  function dexSectionHtml(opts){
+    var text=opts.text,dex=opts.dex||[];
+    if(!dex.length)return "";
+    var got=dex.filter(function(item){return item.at;}).length;
+    var cells=dex.map(function(item){
+      if(item.locked)return '<li class="uro-dex-slot is-locked"><span class="uro-dex-face">🔒</span>'
+        +'<span class="uro-dex-name">'+text("？？？")+'</span></li>';
+      if(!item.at)return '<li class="uro-dex-slot is-empty"><span class="uro-dex-face">'+item.emoji+'</span>'
+        +'<span class="uro-dex-name">'+text(item.name)+'</span>'
+        +'<span class="uro-dex-at">'+text("まだ")+'</span></li>';
+      return '<li class="uro-dex-slot is-got"><span class="uro-dex-face">'+item.emoji+'</span>'
+        +'<span class="uro-dex-name">'+text(item.name)+'</span>'
+        +'<span class="uro-dex-at">'+escapeHtml(item.at)+'</span></li>';
+    }).join("");
+    return '<section class="uro-dex"><h2>'+text("どうぐ図かん")+'　<strong>'+got+'／'+dex.length+'</strong></h2>'
+      +'<ul class="uro-dex-list">'+cells+'</ul></section>';
+  }
+
   function logSectionHtml(opts){
     var text=opts.text,log=opts.entries||[];
     if(!log.length)return '<section class="uro-log"><h2>'+text("ほうのうの きろく")+'</h2>'
@@ -176,6 +197,7 @@
       +hollowHtml(state)
       +pendingSectionHtml(opts)
       +boxSectionHtml(opts)
+      +dexSectionHtml(opts)
       +logSectionHtml(opts);
   }
 
