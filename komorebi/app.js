@@ -2908,9 +2908,6 @@
     /* メダル経済の公開スイッチ。うろの入口は小道の地図下端と御神木パネルの 2 か所に
        あり、後者は shared/breeding.js が描くので、判定を 1 か所から配る。 */
     medalEconomyOn:function(){return MEDAL_ECONOMY_ON;},
-    /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用)。実運用で動かすのは
-       冒頭の MEDAL_ECONOMY_ON の 1 行だけで、ここは呼ばない。 */
-    setMedalEconomyOn:function(on){MEDAL_ECONOMY_ON=!!on;},
     toolsReleased:toolsReleased,
     releasedTools:releasedTools,
     earnedMedals:function(){return earnedMedals();},
@@ -2948,5 +2945,13 @@
     zukanFilterState:function(){return zukanFilter;},
     profile:function(){return profile;}
   };
+  /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。
+     ハーネスが Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生やす。常設の API に
+     置くと、配信された画面の console 1 行でメダル経済が開いてしまう。
+     実運用で動かすのは冒頭の MEDAL_ECONOMY_ON の 1 行だけ。 */
+  if(global.Q4B_KOMOREBI_TEST_HOOKS){
+    global.Q4B_KOMOREBI.setMedalEconomyOn=function(on){MEDAL_ECONOMY_ON=!!on;};
+  }
+
   if(!global.Q4B_KOMOREBI_NO_BOOT&&global.document)boot();
 })(window);

@@ -151,6 +151,9 @@ function bootKomorebi(options){
   context.global = context;
   vm.createContext(context);
   context.Q4B_KEISAN_NO_BOOT = true;
+  /* テストハーネスであることの印。app.js はこれが立っているときだけ
+     公開ゲートの切替 seam を生やす (配信画面には生えない)。 */
+  context.Q4B_KOMOREBI_TEST_HOOKS = true;
   for(const file of options.files){
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }

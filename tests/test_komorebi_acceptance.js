@@ -265,9 +265,19 @@ test("15.5 every trophy points at a real species of a real volume", () => {
     assert.ok(context.Q4BReward.svg(gold, false).length > 100, "the gold species does not render");
   });
   /* 事前準備方式 (runbook 1 章) なので、未公開の更新のトロフィーも先に入っている。
-     見るのは「公開済みのカテゴリが 1 個ずつ持っていること」と「重複がないこと」。 */
-  const released = Object.keys(komorebi.categories).filter(komorebi.isReleased);
+     そこで比べるのは公開済みどうし: 公開済みカテゴリの集合と、公開済みトロフィーの
+     cat 集合が完全に一致すること。片側だけの検査 (「公開済み cat がトロフィーを
+     持つ」だけ) にすると、逆向きの取りこぼし (公開されていない cat 名を指す
+     トロフィーや、カテゴリ表から消えた cat の残骸) を見逃す。 */
+  const released = Object.keys(komorebi.categories).filter(komorebi.isReleased).sort();
+  /* trophies.list() は vm realm の中で作られた配列なので、そのまま deepEqual に
+     かけると prototype 違いで落ちる。Array.from でこちら側の配列に写してから比べる。 */
+  const releasedTrophyCats = Array.from(trophies.list())
+    .filter(trophy => komorebi.isReleased(trophy.cat)).map(trophy => trophy.cat).sort();
+  assert.deepEqual(releasedTrophyCats, released,
+    "the released trophies and the released categories are not the same set");
   released.forEach(cat => assert.ok(trophies.forCat(cat), cat + " has no trophy"));
+  /* 未公開ぶんも含めて、cat と trophyId はどちらも一意。 */
   const cats = trophies.list().map(trophy => trophy.cat);
   assert.equal(new Set(cats).size, cats.length, "two trophies share one category");
   const ids = trophies.list().map(trophy => trophy.trophyId);

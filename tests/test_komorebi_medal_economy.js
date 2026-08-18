@@ -13,6 +13,8 @@ const root = path.resolve(__dirname, "..");
 const context = { console, setTimeout, clearTimeout };
 context.window = context;
 context.Q4B_KOMOREBI_NO_BOOT = true;
+/* 公開ゲートの切替 seam はハーネスの印を立てた文脈でだけ生える (app.js 末尾)。 */
+context.Q4B_KOMOREBI_TEST_HOOKS = true;
 vm.createContext(context);
 for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js",
   "komorebi/trophies.js", "komorebi/tools.js", "komorebi/uro.js", "komorebi/app.js"]){
@@ -154,18 +156,47 @@ test("4. no balance is ever stored, only an append-only offering log", () => {
 
 test("5. without a tool the draw is bit for bit what it was before tools existed", () => {
   const bare = komorebi.createProfile();
-  /* 道具を持ち装備までしていても、release が公開番号を超えている間は効果ゼロ。
-     deploy と公開の分離 (implementation_plan Phase 1) がここで効く。CURRENT_RELEASE を
-     どこまで上げても未公開のままの 1 本を選ぶ。 */
+  const plain = captureIds(bare, 7, 240);
+  assert.ok(plain.length > 0, "the fixture produced no capture at all");
+
+  /* ゲートの 1 段目: 経済のスイッチが閉じている間は、どの道具を装備していても効果ゼロ。
+     公開済みの 1 本を装備しても変わらないことを見るので、release も開けておく。 */
+  const closedSwitchBefore = komorebi.medalEconomyOn();
+  const sample = tools.list()[0], sampleRelease = sample.release;
+  komorebi.setMedalEconomyOn(false);
+  sample.release = 1;
+  try{
+    assert.equal(komorebi.releasedTools().length, 0, "tools were published while the switch was closed");
+    const anyTool = equippedProfile(sample.id);
+    assert.equal(captureIds(anyTool, 7, 240).join(","), plain.join(","), "a tool worked while the switch was closed");
+    assert.equal(anyTool.tools[0].remaining, 30, "a tool wore out while the switch was closed");
+  } finally {
+    sample.release = sampleRelease;
+    komorebi.setMedalEconomyOn(closedSwitchBefore);
+  }
+
+  /* ゲートの 2 段目: スイッチを開けたうえで、release が公開番号を超えている 1 本は
+     やはり効果ゼロ。スイッチを閉じたまま見ると 1 段目のほうが効いてしまい、道具
+     1 本ずつのゲート (implementation_plan Phase 1) を検査したことにならない。
+     公開済みの 1 本と未公開の 1 本が同時にある状態を作って区別を見る。 */
   const unreleased = tools.list().filter(tool => tool.release > komorebi.currentRelease())[0];
   assert.ok(unreleased, "every tool is already published; the gate cannot be tested");
-  const armedButUnreleased = equippedProfile(unreleased.id);
-  assert.equal(komorebi.releasedTools().some(tool => tool.id === unreleased.id), false);
-  const plain = captureIds(bare, 7, 240);
-  const armed = captureIds(armedButUnreleased, 7, 240);
-  assert.ok(plain.length > 0, "the fixture produced no capture at all");
-  assert.equal(armed.join(","), plain.join(","), "an unreleased tool changed the draw");
-  assert.equal(armedButUnreleased.tools[0].remaining, 30, "an unreleased tool must not wear out");
+  const opened = tools.list().filter(tool => tool.id !== unreleased.id)[0];
+  const beforeSwitch = komorebi.medalEconomyOn(), beforeRelease = opened.release;
+  komorebi.setMedalEconomyOn(true);
+  opened.release = 1;
+  try{
+    const published = komorebi.releasedTools().map(tool => tool.id);
+    assert.ok(published.indexOf(opened.id) >= 0, "the published tool is missing from the list");
+    assert.equal(published.indexOf(unreleased.id), -1, "an unreleased tool leaked into the published list");
+    const armedButUnreleased = equippedProfile(unreleased.id);
+    const armed = captureIds(armedButUnreleased, 7, 240);
+    assert.equal(armed.join(","), plain.join(","), "an unreleased tool changed the draw");
+    assert.equal(armedButUnreleased.tools[0].remaining, 30, "an unreleased tool must not wear out");
+  } finally {
+    opened.release = beforeRelease;
+    komorebi.setMedalEconomyOn(beforeSwitch);
+  }
 });
 
 test("5. the gauge itself never asks for a tool", () => {
