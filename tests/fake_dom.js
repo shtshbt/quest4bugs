@@ -68,11 +68,17 @@ function matches(element, selector){
 
 function makeApp(){
   return {
-    _html: "", _extra: [], _elements: [],
+    _html: "", _extra: [], _elements: [], listeners: {},
     get innerHTML(){ return this._html + this._extra.join(""); },
     set innerHTML(value){ this._html = value; this._extra = []; this._elements = parseElements(value, this); },
     style: {}, classList: { toggle(){}, add(){}, remove(){} },
-    setAttribute(){}, getAttribute(){ return null; }, addEventListener(){},
+    setAttribute(){}, getAttribute(){ return null; },
+    /* モーダルは overlay 1 枚に click を委譲して中のボタンを見分ける。listener を
+       捨てていると、その分岐がテストから一切触れない (画面には出るのに押せない、を
+       捕まえられない)。dispatch は target を指定して委譲を再現するための入口。 */
+    addEventListener(type, fn){ (this.listeners[type] = this.listeners[type] || []).push(fn); },
+    dispatch(type, target){ (this.listeners[type] || []).forEach(fn => fn({ preventDefault(){}, target: target || this })); },
+    click(){ this.dispatch("click", this); },
     insertAdjacentHTML(){}, appendChild(child){ return child; },
     querySelector(selector){ return this._elements.filter(el => matches(el, selector))[0] || null; },
     querySelectorAll(selector){ return this._elements.filter(el => matches(el, selector)); }
@@ -160,7 +166,8 @@ const KOMOREBI_FILES = [
   "komorebi/kuku_run.js", "komorebi/kuku_dan2.js", "komorebi/pi314_generator.js",
   "komorebi/unit_convert_generator.js", "komorebi/kuku_reverse_generator.js",
   "komorebi/frac_flow_generator.js", "komorebi/kuku_bridge_generator.js",
-  "komorebi/equation_select_generator.js", "komorebi/trophies.js", "komorebi/app.js"
+  "komorebi/equation_select_generator.js", "komorebi/trophies.js",
+  "komorebi/tools.js", "komorebi/uro.js", "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };

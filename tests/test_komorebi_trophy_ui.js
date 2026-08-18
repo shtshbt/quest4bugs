@@ -1,5 +1,5 @@
-/* トロフィーページを画面から確かめる。判定 (test_komorebi_acceptance.js) が正しくても、
-   入口が地図に出ない・未獲得の枠が並ばない・金色にならない、は画面側の話。
+/* メダル (旧トロフィー) ページを画面から確かめる。判定 (test_komorebi_acceptance.js)
+   が正しくても、入口が地図に出ない・未獲得の枠が並ばない・金色にならない、は画面側の話。
    node tests/test_komorebi_trophy_ui.js で実行。 */
 const assert = require("node:assert/strict");
 const path = require("node:path");
@@ -20,17 +20,19 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const profile = komorebi.profile();
   const plain = () => plainText(app.innerHTML);
 
-  test("the map carries a trophy entrance that counts what has been won", () => {
+  test("the map carries a medal entrance that counts what has been won", () => {
     const entrance = app.querySelector('[data-action="trophies"]');
-    assert.ok(entrance, "no trophy entrance under the map: " + plain().slice(-200));
+    assert.ok(entrance, "no medal entrance under the map: " + plain().slice(-200));
     assert.match(plain(), /0／3/, "the entrance does not show the course count: " + plain().slice(-160));
+    /* 表示だけがメダルに変わり、保存キーは trophyProgress のまま (tools_design 3 章)。 */
+    assert.match(plain(), /🏅 メダル/, "the entrance still calls it a trophy: " + plain().slice(-160));
   });
 
   app.querySelector('[data-action="trophies"]').click();
 
-  test("an empty trophy page is a goal board, not an empty room", () => {
+  test("an empty medal page is a goal board, not an empty room", () => {
     const text = plain();
-    assert.match(text, /きんいろトロフィー/);
+    assert.match(text, /きんいろメダル/);
     assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, 3, "every k5 category needs a slot");
     assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 3);
     /* 条件が「Lv10 到達」ではなく「Lv10 クリア」であることが見える形になっていること。 */
@@ -49,11 +51,12 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   app.querySelector('[data-action="back"]').click();
   app.querySelector('[data-action="trophies"]').click();
 
-  test("a won trophy shows the gold insect, its name and the date", () => {
+  test("a won medal shows the gold insect, its name and the date", () => {
     const text = plain();
     assert.equal((app.innerHTML.match(/is-earned/g) || []).length, 1);
     assert.equal((app.innerHTML.match(/is-locked/g) || []).length, 2);
-    assert.match(text, /マダガスカルえんせいの きんいろオオトゲアシキリギリス/);
+    /* 銘は種名付き (tools_design 3 章)。 */
+    assert.match(text, /オオトゲアシキリギリスのメダル/);
     assert.match(text, /2026-08-13 かくとく/);
     assert.match(plain(), /1／3/);
   });
