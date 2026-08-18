@@ -347,3 +347,51 @@ II巻準備の worker が事前に検出していた8件 (au_expedition2_freeze_
 公開中168種のうち8種 (futasuji_tsuyumushi、hosonaga_kamakiri、midori_suji_ageha、onaji_shoujoubae、saku_kikuimushi、tatesuji_yaga、toge_hiza_inago、usucha_hekusodon) はzukan_cards以下に対応するmetadataが存在せず、bugs.js上でrenderer (procedural drawing) によって描画される種であることをzukan_config/zukan_catalog.jsおよびshared/bugs.jsの参照で確認した。これらは写真cardの内容検査という本タスクの対象外である。
 
 この検査は読み取り専用で実施し、コード・catalog・zukan_cards以下のいずれのファイルも変更していない。
+
+## 6. 対応記録 (2026-08-18 追記): 推奨処置の適用と再fetch候補
+
+上記の推奨処置を、user承認のもと公開中 (マダガスカルI・オーストラリアI) の範囲で一括適用した。方針は「不良写真はzukan_config/zukan_catalog.jsからエントリを外し、shared/zukan_render.js / shared/zukan_detail.jsの標準fallback (SVG描画・出典表記なし) に委ねる」。zukan_cards以下の物理ファイルは変更していない (catalog側の参照のみ変更)。
+
+### 6.1 誤参照バグ (最優先節) の原因
+
+kiboshi_kuro_hishibatta (キボシクロヒシバッタ) のcatalogエントリは、image.display以下がmadagasukaru_oo_tagame (マダガスカルオオタガメ) と全く同じ物理ファイル (WIKIPEDIAWP_L2_grade.webp 一式) を指す一方、specimen/sourceはWikipedia「カニ」記事のデータになっており、名称・画像・source データが三者三様に食い違っていた。zukan_cards/metadata以下にkiboshi_kuro_hishibatta自身のmetadata (species_idで検索、scientificName "Oxytettix arius"で検索とも0件) は存在せず、専用の正しい写真は取得されていない。よってcatalogからエントリごと削除し、renderer (SVGのbatta描画) fallbackへ切り替えた。madagasukaru_oo_tagame側のエントリ (image/specimen/sourceとも「タガメ」で一貫) は誤りがないことを確認し、無変更で維持した。
+
+### 6.2 適用結果
+
+- catalogから削除: 23種 (誤参照バグ1種 + 品質問題22種)。zukan_config/zukan_catalog.jsのentry数は1052 → 1029。
+- 品質問題は本文表 (11-41行目) に22行 (kiboshi_kuro_hishibattaを除く) 記載されており、初回の一括適用指示で見積もった「21件」より1件多かった。原因は指示側の集計ずれと判断し、表に載った22件全件を処置した (超過1件はneomantis_australisで、他と同じく「別種の疑い」として写真が種の実態と一致しないため対象に含めて妥当と判断)。
+- 除外後、shared/zukan_render.js (catalog miss → SVG/bespoke fallback) と shared/zukan_detail.js (catalog miss → specimenInfoHTML が空文字、出典/ライセンス表記なし) の経路をtests/test_zukan_catalog_bad_photo_removal.jsで検証し、いずれも正しく機能することを確認した。thumb54/108/216を含め、削除した23種の物理ファイル名への参照はcatalog以外のどのcommittedファイルにも残っていない (repo全体をgrepして確認)。
+
+### 6.3 再fetch候補 (catalogから外した23種)
+
+| species_id | 和名 | 旧source (institution / catalogNumber) | 問題分類 |
+|---|---|---|---|
+| kiboshi_kuro_hishibatta | キボシクロヒシバッタ | WIKIPEDIA / WP:カニ (誤って madagasukaru_oo_tagame の写真ファイルを共有参照) | catalog誤参照 (別種の写真) |
+| coccinella_transversalis | ヤマイチテントウ | AM / K.135602 | 種でない (単一個体の全身像でない) |
+| coelophora_inaequalis | カタボシテントウ | AM / K.255710 | 種でない (ラベルが大半、本体極小) |
+| kinoko_kikuimushi | キノコキクイムシ | AM / K.618096 | 種でない (不定形の塊のみ) |
+| suzukuri_konajirami | スヅクリコナジラミ | NHMUK / NHMUK010134465 | 種でない (ラベルのみ) |
+| oo_beni_hagoromo | オオベニハゴロモ | NHMUK / NHMUK010634825 | 種でない (ラベルのみ) |
+| kuroboshi_maru_kaigaramushi | クロボシマルカイガラムシ | NHMUK / NHMUK014273276 | 種でない (ラベル+微小断片) |
+| ohishiba_kuro_aburamushi | オヒシバクロアブラムシ | NHMUK / NHMUK014865400 | 種でない (ラベル/容器/封筒) |
+| afurika_yamato_shijimi | アフリカヤマトシジミ | RMNH / RMNH.INS.1416690 | 種でない (ラベルが大半、断片のみ) |
+| akamarubane_monki_tateha | アカマルバネモンキタテハ | RMNH / RMNH.INS.378693 | 種でない (ラベル台紙のみ) |
+| hagata_murasaki | ハガタムラサキ | RMNH / RMNH.INS.378953 | 種でない (ラベル台紙のみ) |
+| suji_mori_tonbo | スジモリトンボ | USNM / USNMENT00277591 | 種でない (2個体合成) |
+| gin_haneguro_tonbo | ギンハネグロトンボ | USNM / USNMENT00278005 | 種でない (2個体合成) |
+| madagasukaru_gin_yanma | マダガスカルギンヤンマ | USNM / USNMENT00328292 | 種でない (破損標本、3パーツ分離) |
+| haneashi_ito_tonbo | ハネアシイトトンボ | USNM / USNMENT00343942 | 種でない (ラベルが大半) |
+| tsuchiiro_ito_tonbo | ツチイロイトトンボ | USNM / USNMENT00391718 | 種でない (2個体合成) |
+| kanmuri_kareha_kamakiri | カンムリカレハカマキリ | WIKIPEDIA / WP:Phyllocrania | 種でない (2個体+コイン) |
+| chamadara_tobibatta | チャマダラトビバッタ | WMC / File:DruryV1P049AA.jpg | 種でない (1837年博物図版、異種混在) |
+| madagasukaru_oo_gokiburi | マダガスカルオオゴキブリ | WMC / File:Gromphadorhina portentosa 2.jpg | 種でない (脱皮殻/未成熟+成虫の2物体) |
+| scutiphora_pedicellata | (和名なし、Scutiphora pedicellata) | WMC / File:Metallic Shield Bug...jpg | 種でない (3パネル合成コラージュ) |
+| tsuya_oozu_ari | ツヤオオズアリ | WMC / File:Pheidole megacephala 333840401.jpg | 種でない (アリ2個体+別種死骸混入) |
+| aka_tobibatta | アカトビバッタ | WMC / File:Red locust with Metarhizium.jpg | 種でない (菌害死個体の集合) |
+| neomantis_australis | (和名なし、Neomantis australis) | iNat / iNat_obs_197573116 | 別種の疑い (カマキリの体制と不一致) |
+
+再fetchはzukan-fetch skillのtier順 (museum → WMC → iNat → Wikipedia infobox) に従い、上記のうち既にWMC/iNat/Wikipediaまで手を尽くして本結果になった種 (kanmuri_kareha_kamakiri、chamadara_tobibatta、madagasukaru_oo_gokiburi、scutiphora_pedicellata、tsuya_oozu_ari、aka_tobibatta、neomantis_australis、kiboshi_kuro_hishibatta) は同一tierの再検索では同じ結果に収束しやすい点に注意し、別catalogNumber個体の再検索や次段tierへの切替を検討する。
+
+### 6.4 スコープ外で見つかった関連事象 (未対応、別途対応要)
+
+catalog全体 (1052件時点) をkiboshi_kuro_hishibattaの誤参照パターンで横断検索したところ、同じ物理ファイル (WIKIPEDIAWP_L2_grade.webp、タガメの写真) をimage.displayに持つ本編 (非komorebi、areaOnly指定なし) のspeciesエントリが17件見つかった: ageha_himebachi、akahane_mushi、amami_shika_kuwagata、ao_kamikiri、beni_bekkoubachi、hamasuzu、kuro_suzu、ooki_no_komushi、oomizuao_oki、ranran_hana_kamakiri_dummy、sekai_saichou_nanafushi、tennen_kimadara_seseri、tokara_nokogiri_kuwagata、yaeyama_koku_kuwagata、yaeyama_nokogiri_kuwagata、yakushima_noko_kuwagata、yamato_batta。これらは今回のcard画像内容検査 (公開中168種=komorebiマダガスカルI/オーストラリアI、および未公開1160件=zukan_cards/metadataに実写metadataがある種) のいずれの走査対象にも含まれておらず (本編ロースターは今回未検査)、今回のタスク範囲外のため未修正のまま残している。ただしkiboshi_kuro_hishibattaと同一パターンの誤参照であることは確実 (画像=タガメ、specimenデータは各種バラバラの無関係な内容) なので、本編ロースターを対象にした同種の画像内容検査・catalog修正を別タスクとして早期に行うことを推奨する。
