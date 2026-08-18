@@ -14,6 +14,15 @@
     return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
+  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、
+     読み込んでいない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・
+     図鑑・ほうのうの記録で同じ 1 本を通す。 */
+  function toolFace(toolId,emoji){
+    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var art=icons&&typeof icons.svg==="function"?icons.svg(toolId):"";
+    return art||emoji||"🔧";
+  }
+
   /* 奉納ログは記録であって残高ではない。壊れた形を黙って通すと、周回の星が
      数えられなくなる (獲得の記録は不滅、という約束が守れない)。 */
   function validateLog(log){
@@ -93,7 +102,7 @@
   function toolPickHtml(tool,text,disabled){
     var note=disabled?'<span class="uro-pick-out">'+text("この えんせいでは 出番が ないよ")+'</span>':'<span class="uro-pick-guild">'+text(tool.guild)+'</span>';
     return '<li><button type="button" class="uro-pick" data-tool="'+escapeHtml(tool.id)+'"'+(disabled?' disabled aria-disabled="true"':'')+'>'
-      +'<span class="uro-pick-face">'+tool.emoji+'</span>'
+      +'<span class="uro-pick-face">'+toolFace(tool.id,tool.emoji)+'</span>'
       +'<span class="uro-pick-body"><span class="uro-pick-name">'+text(tool.name)+'</span>'
       +note
       +'<span class="uro-pick-blurb">'+text(tool.blurb)+'</span></span></button></li>';
@@ -145,7 +154,7 @@
           ?'<span class="uro-box-spare">'+text("よび")+'</span>'
           :'<button type="button" class="uro-equip" data-tool="'+escapeHtml(item.type)+'">'+text("そうびする")+'</button>';
       return '<li class="uro-box-row'+(active?" is-equipped":"")+'">'
-        +'<span class="uro-box-face">'+item.emoji+'</span>'
+        +'<span class="uro-box-face">'+toolFace(item.type,item.emoji)+'</span>'
         +'<span class="uro-box-name">'+text(item.name)+'</span>'
         +'<span class="uro-box-left">'+item.remaining+'／'+opts.durability+'</span>'
         +action+'</li>';
@@ -163,10 +172,10 @@
     var cells=dex.map(function(item){
       if(item.locked)return '<li class="uro-dex-slot is-locked"><span class="uro-dex-face">🔒</span>'
         +'<span class="uro-dex-name">'+text("？？？")+'</span></li>';
-      if(!item.at)return '<li class="uro-dex-slot is-empty"><span class="uro-dex-face">'+item.emoji+'</span>'
+      if(!item.at)return '<li class="uro-dex-slot is-empty"><span class="uro-dex-face">'+toolFace(item.id,item.emoji)+'</span>'
         +'<span class="uro-dex-name">'+text(item.name)+'</span>'
         +'<span class="uro-dex-at">'+text("まだ")+'</span></li>';
-      return '<li class="uro-dex-slot is-got"><span class="uro-dex-face">'+item.emoji+'</span>'
+      return '<li class="uro-dex-slot is-got"><span class="uro-dex-face">'+toolFace(item.id,item.emoji)+'</span>'
         +'<span class="uro-dex-name">'+text(item.name)+'</span>'
         +'<span class="uro-dex-at">'+escapeHtml(item.at)+'</span></li>';
     }).join("");
@@ -184,7 +193,7 @@
       return '<li class="uro-log-row"><span class="uro-log-name">🏅 '+text(entry.name)+'</span>'
         +'<span class="uro-log-cat">'+text(entry.catName)+'</span>'
         +'<span class="uro-log-lap" aria-label="'+escapeHtml(entry.lap+"しゅうめ")+'">'+stars+'</span>'
-        +'<span class="uro-log-tool">'+entry.toolEmoji+' '+text(entry.toolName)+'</span>'
+        +'<span class="uro-log-tool">'+toolFace(entry.toolId,entry.toolEmoji)+' '+text(entry.toolName)+'</span>'
         +'<span class="uro-log-date">'+escapeHtml(entry.date)+'</span></li>';
     }).join("");
     return '<section class="uro-log"><h2>'+text("ほうのうの きろく")+'</h2><ul class="uro-log-list">'+rows+'</ul></section>';

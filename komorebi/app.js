@@ -1664,6 +1664,15 @@
       +note+'</div>';
   }
 
+  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、読み込んで
+     いない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・ウィジェット・
+     リザルトの 4 か所で同じ 1 本を通す (場所ごとに絵が違うと同じ道具に見えない)。 */
+  function toolFaceHtml(tool,options){
+    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var art=icons&&typeof icons.svg==="function"?icons.svg(tool.id,options):"";
+    return art||tool.emoji||"🔧";
+  }
+
   /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
      防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
      未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
@@ -1672,11 +1681,12 @@
     if(!tools||!toolUse)return "";
     var tool=tools.byId(toolUse.type);
     if(!tool)return "";
-    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+tool.emoji+' '+toolUse.remaining+'／'+tools.durability+'</p>';
+    var face=toolFaceHtml(tool);
+    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+face+' '+toolUse.remaining+'／'+tools.durability+'</p>';
     var after=toolUse.swapped
       ?"よびの "+tool.name+"に もちかえた!"
       :"そうびが なくなった。うろで また もらおう";
-    return '<p class="kom-tool-break" role="status"><strong>'+tool.emoji+' '+displayText(tool.breakText)+'</strong>'
+    return '<p class="kom-tool-break" role="status"><strong>'+face+' '+displayText(tool.breakText)+'</strong>'
       +'<span>'+displayText(after)+'</span></p>';
   }
 
@@ -2638,7 +2648,7 @@
     /* 初めての 1 本だけ、道具図鑑に載ったことを添える (2 本目からは言わない)。 */
     var dex=firstOfKind?'<p class="uro-granted-dex">'+displayText("はじめての どうぐ! どうぐ図かんに のこったよ")+'</p>':"";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +'<div class="uro-granted"><p class="uro-granted-face">'+tool.emoji+'</p>'
+      +'<div class="uro-granted"><p class="uro-granted-face">'+toolFaceHtml(tool)+'</p>'
       +'<p class="uro-granted-name">'+displayText(tool.name+"を さずかった!")+'</p>'
       +dex
       +'<p class="uro-granted-note">'+displayText("うろが すこし あかるくなった")+'</p>'
@@ -2683,7 +2693,7 @@
       var tool=tools.byId(entry.tool),category=CATEGORIES[entry.cat];
       return {cat:entry.cat,lap:entry.lap,date:entry.date,
         name:medalSpeciesName(entry.speciesId)+"のメダル",
-        catName:category?category.name:entry.cat,
+        catName:category?category.name:entry.cat,toolId:entry.tool,
         toolName:tool?tool.name:entry.tool,toolEmoji:tool?tool.emoji:"🔧"};
     });
     /* 道具図鑑は 11 種ぶんの枠を常に並べる。未公開のぶんは名前を伏せて 🔒 だけ出す
@@ -2691,7 +2701,7 @@
     var release=currentRelease();
     var dex=tools.list().map(function(tool){
       if(tool.release>release)return {locked:true};
-      return {name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+      return {id:tool.id,name:tool.name,emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
     });
     return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
       equippedToolId:profile.equippedToolId||null,durability:tools.durability,entries:log,dex:dex};
@@ -2919,13 +2929,13 @@
     owned.forEach(function(item){
       var on=item.type===equippedId;
       chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
-        +item.tool.emoji+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
+        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(item.tool.name)+'</span>'
         +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
         +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
     });
     return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
       +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
-      +(now?now.emoji+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
+      +(now?toolFaceHtml(now)+" "+displayText(now.name):displayText("なし"))+'</strong></p>'
       +'<div class="zukan-tool-chips">'+chips+'</div></div>';
   }
 

@@ -408,6 +408,15 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .kom-tool-break strong{font-size:15px}
 .kom-tool-break span{font-size:12.5px;color:#E4C4A6}
 
+/* 採集道具のアイコン。線は文字色に馴染ませ、2 色目だけを --tool-accent で差す。
+   置く場所ごとに大きさだけを変え、絵そのものは 1 本を共用する。 */
+.tool-icon{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.28em;flex:none}
+.tool-icon-accent{stroke:var(--tool-accent,#FFD86B)}
+.uro-pick-face .tool-icon{width:28px;height:28px;vertical-align:0}
+.uro-box-face .tool-icon{width:24px;height:24px;vertical-align:0}
+.uro-granted-face .tool-icon{width:52px;height:52px;vertical-align:0}
+.uro-log-tool .tool-icon{width:18px;height:18px}
+
 /* かがやきのうろ。輝きは --uro-glow (0 から 1 の連続値) 1 本で決まる。
    段階クラスを足すと「レベルが上がった」に見えてしまう (design 4 章)。 */
 .uro-waiting{padding:2px 8px;border-radius:999px;background:#B6963D;color:#20180A;font-size:12px;font-weight:900}
