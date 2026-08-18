@@ -128,10 +128,11 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     app.querySelector('[data-action="back"]').click();
   }
 
-  /* 公開は道具の release 番号 1 本で決まる (CATEGORIES と同じ体系)。CURRENT_RELEASE を
-     どこまで上げてあっても、この関係だけは崩れない形で見る。 */
+  /* 公開ゲートは 2 段。メダル経済そのもののスイッチ (MEDAL_ECONOMY_ON) が開いていて、
+     かつ道具の release 番号が CURRENT_RELEASE 以下であること。地域 volume の公開と
+     道具の公開を別の deploy に分けたので、更新番号だけでは開かない (2026-08-17 決定)。 */
   const earliestTool = Math.min.apply(null, tools.list().map(tool => tool.release));
-  const gateOpen = komorebi.currentRelease() >= earliestTool;
+  const gateOpen = komorebi.medalEconomyOn() && komorebi.currentRelease() >= earliestTool;
 
   test("tools and the hollow appear exactly when their update is published", () => {
     assert.equal(komorebi.toolsReleased(), gateOpen);
@@ -139,7 +140,22 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     if(!gateOpen) assert.equal(plain().indexOf("かがやきのうろ"), -1, "the hollow is named before its update");
   });
 
-  /* 更新 2 の公開を先取りして、以降を公開後の画面として見る。 */
+  test("the medal economy switch alone keeps the hollow shut", () => {
+    /* 道具を全部 公開済みにしても、スイッチが閉じていれば入口は出ない。
+       AU I の公開 (CURRENT_RELEASE=2) に道具が付いてこないことの担保。 */
+    const before = tools.list().map(tool => tool.release);
+    komorebi.setMedalEconomyOn(false);
+    tools.list().forEach(tool => { tool.release = 1; });
+    backToMap();
+    assert.equal(komorebi.toolsReleased(), false, "the tools opened without the switch");
+    assert.equal(komorebi.releasedTools().length, 0);
+    assert.equal(app.querySelector('[data-action="uro"]'), null, "the hollow opened without the switch");
+    assert.equal(plain().indexOf("かがやきのうろ"), -1, "the hollow is named while the switch is off");
+    tools.list().forEach((tool, index) => { tool.release = before[index]; });
+  });
+
+  /* スイッチと 更新 2 の公開を先取りして、以降を公開後の画面として見る。 */
+  komorebi.setMedalEconomyOn(true);
   tools.list().forEach(tool => { if(tool.release === 2) tool.release = 1; });
   backToMap();
 

@@ -43,13 +43,14 @@ function sequence(values){
     return values[index++];
   };
 }
-/* 道具の公開ゲートを開ける。実装は先へ進めて公開だけ後から解禁するので、
-   既定 (CURRENT_RELEASE=1) では道具は 1 つも表に出ない。 */
+/* 道具の公開ゲートを 2 段とも開ける。実装は先へ進めて公開だけ後から解禁するので、
+   既定 (MEDAL_ECONOMY_ON=false) では道具は 1 つも表に出ない。 */
 function withReleasedTool(toolId, fn){
   const tool = tools.byId(toolId);
-  const before = tool.release;
+  const before = tool.release, beforeSwitch = komorebi.medalEconomyOn();
   tool.release = 1;
-  try{ return fn(); } finally { tool.release = before; }
+  komorebi.setMedalEconomyOn(true);
+  try{ return fn(); } finally { tool.release = before; komorebi.setMedalEconomyOn(beforeSwitch); }
 }
 function equippedProfile(toolId){
   const profile = komorebi.createProfile();
