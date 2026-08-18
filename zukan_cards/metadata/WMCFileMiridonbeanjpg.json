@@ -1,0 +1,74 @@
+{
+  "species_id": "creontiades_dilutus",
+  "species_ja": "Creontiades dilutus",
+  "scientific_name": "Creontiades dilutus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Jhereward",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Miridonbean.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Miridonbean.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Miridonbean.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jhereward",
+    "eventDate": "2012-06-02",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Photo of a green mirid on a green bean",
+    "localityNormalized": "Photo of a green mirid on a green bean",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Miridonbean.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Miridonbean.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMiridonbeanjpg_resized.jpg",
+    "display": "processed/WMCFileMiridonbeanjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMiridonbeanjpg_54.webp",
+      "108": "thumb/WMCFileMiridonbeanjpg_108.webp",
+      "216": "thumb/WMCFileMiridonbeanjpg_216.webp"
+    }
+  },
+  "original_sha256": "08a955238cb66c64812daf4573c56f90340b28dfe59a3e38201aacc1ef7d9d64",
+  "processing": {
+    "cropBox": [
+      0,
+      5,
+      397,
+      251
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMiridonbeanjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

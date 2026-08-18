@@ -1,0 +1,76 @@
+{
+  "species_id": "papilio_aegeus",
+  "species_ja": "メスアカモンキアゲハ",
+  "scientific_name": "Papilio aegeus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.5182127",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5182127",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.5182127",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Imago",
+    "recordedBy": "Mastrigt H.J.G. van (Henk)",
+    "eventDate": "2001-05-06/2001-05-16",
+    "eventYear": 2001,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Otodemo, Indonesia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": -2.745807,
+    "decimalLongitude": 136.477769
+  },
+  "source": {
+    "gbifOccurrenceKey": "4921309861",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4921309861",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.5182127_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHZMAINS5182127_resized.jpg",
+    "display": "processed/RMNHZMAINS5182127_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS5182127_54.webp",
+      "108": "thumb/RMNHZMAINS5182127_108.webp",
+      "216": "thumb/RMNHZMAINS5182127_216.webp"
+    }
+  },
+  "original_sha256": "dab2c2585b9ec2163cdb9abaad3e481d07a80c9b66d1ae199c68dd26aa51a59c",
+  "processing": {
+    "cropBox": [
+      565,
+      1,
+      1890,
+      1113
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS5182127_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

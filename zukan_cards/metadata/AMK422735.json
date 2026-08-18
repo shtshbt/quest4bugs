@@ -1,0 +1,76 @@
+{
+  "species_id": "neoaratus_hercules",
+  "species_ja": "Neoaratus hercules",
+  "scientific_name": "Neoaratus hercules",
+  "credit_line": "Australian Museum",
+  "creator": "Marian Simpson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.422735",
+    "occurrenceId": "2d660cd4-be72-437a-abd8-ec8d5d8d88a5",
+    "persistentId": "2d660cd4-be72-437a-abd8-ec8d5d8d88a5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Daniels & A. Daniels",
+    "eventDate": "1992-01-19",
+    "eventYear": 1992,
+    "country": "Australia",
+    "localityVerbatim": "Mount William National Park: horse yards area",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -40.866665,
+    "decimalLongitude": 148.16667
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446173674",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2446173674",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=537ba279-bd22-4202-bcd8-eed92d119c88",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK422735_resized.jpg",
+    "display": "processed/AMK422735_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK422735_54.webp",
+      "108": "thumb/AMK422735_108.webp",
+      "216": "thumb/AMK422735_216.webp"
+    }
+  },
+  "original_sha256": "f60a679b5f49b79f36f613f0937e2b3068534e0cd2e04257144c40bf28933c24",
+  "processing": {
+    "cropBox": [
+      69,
+      0,
+      255,
+      425
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK422735_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

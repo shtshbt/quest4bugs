@@ -1,0 +1,74 @@
+{
+  "species_id": "chondropyga_dorsalis",
+  "species_ja": "ナカグロハナムグリ",
+  "scientific_name": "Chondropyga dorsalis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Zac Holt",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chondropyga dorsalis 454779434.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chondropyga_dorsalis_454779434.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chondropyga_dorsalis_454779434.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Zac Holt",
+    "eventDate": "2024-12-02",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Cowboy Beetle (Chondropyga dorsalis) in Australia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chondropyga_dorsalis_454779434.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Chondropyga_dorsalis_454779434.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileChondropygadorsalis454779434jpg_resized.jpg",
+    "display": "processed/WMCFileChondropygadorsalis454779434jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChondropygadorsalis454779434jpg_54.webp",
+      "108": "thumb/WMCFileChondropygadorsalis454779434jpg_108.webp",
+      "216": "thumb/WMCFileChondropygadorsalis454779434jpg_216.webp"
+    }
+  },
+  "original_sha256": "efac5ff2962a7bd178a85172699ce9bab352a2c4a871925729fc7de3eefd4b1e",
+  "processing": {
+    "cropBox": [
+      288,
+      494,
+      1207,
+      1537
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChondropygadorsalis454779434jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

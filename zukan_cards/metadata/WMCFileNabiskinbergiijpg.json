@@ -1,0 +1,74 @@
+{
+  "species_id": "nabis_kinbergii",
+  "species_ja": "ネッタイマキバサシガメ",
+  "scientific_name": "Nabis kinbergii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Christopher Stephens",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Nabis kinbergii.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Nabis_kinbergii.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Nabis_kinbergii.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Christopher Stephens",
+    "eventDate": "2020-04-30",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Pacific Damsel Bug (Nabis kinbergii). Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Nabis_kinbergii.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Nabis_kinbergii.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileNabiskinbergiijpg_resized.jpg",
+    "display": "processed/WMCFileNabiskinbergiijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNabiskinbergiijpg_54.webp",
+      "108": "thumb/WMCFileNabiskinbergiijpg_108.webp",
+      "216": "thumb/WMCFileNabiskinbergiijpg_216.webp"
+    }
+  },
+  "original_sha256": "6e278dbe941bd2d847ad9dd78aa23567ed0c8b43166a66dcccac6513b8eb4aea",
+  "processing": {
+    "cropBox": [
+      113,
+      305,
+      1406,
+      1015
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNabiskinbergiijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

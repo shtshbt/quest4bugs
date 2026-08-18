@@ -1,0 +1,76 @@
+{
+  "species_id": "coryphistes_ruricola",
+  "species_ja": "Coryphistes ruricola",
+  "scientific_name": "Coryphistes ruricola",
+  "credit_line": "Australian Museum",
+  "creator": "Louise Smith",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.267408",
+    "occurrenceId": "d7b976a5-2e38-439f-80b9-c35193784868",
+    "persistentId": "d7b976a5-2e38-439f-80b9-c35193784868",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2009-03-18",
+    "eventYear": 2009,
+    "country": "Australia",
+    "localityVerbatim": "Two Mile Creek, Hervey Range",
+    "localityNormalized": "Two Mile Creek, Hervey Range, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.381111,
+    "decimalLongitude": 146.44917
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100260187",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100260187",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=792dc91b-0c11-4a4f-a8d6-9a5d6fd0be93",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK267408_resized.jpg",
+    "display": "processed/AMK267408_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK267408_54.webp",
+      "108": "thumb/AMK267408_108.webp",
+      "216": "thumb/AMK267408_216.webp"
+    }
+  },
+  "original_sha256": "b385c307287a34a2f8aca46985aec922831056663cc2a44f9e30c771b4fdb170",
+  "processing": {
+    "cropBox": [
+      0,
+      240,
+      408,
+      360
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK267408_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

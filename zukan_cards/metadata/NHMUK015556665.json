@@ -1,0 +1,76 @@
+{
+  "species_id": "stenotus_binotatus",
+  "species_ja": "フタスジカスミカメ",
+  "scientific_name": "Stenotus binotatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015556665",
+    "occurrenceId": "26839566-6e42-41f9-81b2-3d4260c56615",
+    "persistentId": "26839566-6e42-41f9-81b2-3d4260c56615",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Dr Mike Ashworth",
+    "eventDate": "2023-07-13",
+    "eventYear": 2023,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Craig Gwladys Country Park, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.68319,
+    "decimalLongitude": -3.782974
+  },
+  "source": {
+    "gbifOccurrenceKey": "4413242704",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/26839566-6e42-41f9-81b2-3d4260c56615",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/db30350e-33fd-4ed7-81b6-62ff57336d47",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015556665_resized.jpg",
+    "display": "processed/NHMUK015556665_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015556665_54.webp",
+      "108": "thumb/NHMUK015556665_108.webp",
+      "216": "thumb/NHMUK015556665_216.webp"
+    }
+  },
+  "original_sha256": "66a84844e0f33246b034c6c643fecef88414c83f34e1e16dd2cd422809297138",
+  "processing": {
+    "cropBox": [
+      232,
+      327,
+      794,
+      615
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015556665_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

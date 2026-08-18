@@ -1,0 +1,74 @@
+{
+  "species_id": "megacrania_batesii",
+  "species_ja": "Megacrania batesii",
+  "scientific_name": "Megacrania batesii",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)845071",
+    "occurrenceId": "c153f759-8625-4b0d-a82a-a952d9f0e797",
+    "persistentId": "c153f759-8625-4b0d-a82a-a952d9f0e797",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Lectotype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Solomon Islands",
+    "localityVerbatim": null,
+    "localityNormalized": "Solomon Islands",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826413295",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c153f759-8625-4b0d-a82a-a952d9f0e797",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/aa147d17-75b7-491e-a289-8b0d274d284d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE845071_resized.jpg",
+    "display": "processed/NHMUKBMNHE845071_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE845071_54.webp",
+      "108": "thumb/NHMUKBMNHE845071_108.webp",
+      "216": "thumb/NHMUKBMNHE845071_216.webp"
+    }
+  },
+  "original_sha256": "825dbdc1cf392161250664cb4bff9a217a087229b34fa6dbd631d5d3809fff3a",
+  "processing": {
+    "cropBox": [
+      74,
+      81,
+      988,
+      2160
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE845071_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

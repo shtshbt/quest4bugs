@@ -1,0 +1,74 @@
+{
+  "species_id": "neorrhina_punctatum",
+  "species_ja": "ヒョウモンハナムグリ",
+  "scientific_name": "Neorrhina punctatum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Simon Taylor",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Neorrhina punctatum 343231784.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Neorrhina_punctatum_343231784.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Neorrhina_punctatum_343231784.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Simon Taylor",
+    "eventDate": "2023-12-29",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Punctate Flower Chafer (Neorrhina punctatum)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Neorrhina_punctatum_343231784.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Neorrhina_punctatum_343231784.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileNeorrhinapunctatum343231784jpg_resized.jpg",
+    "display": "processed/WMCFileNeorrhinapunctatum343231784jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNeorrhinapunctatum343231784jpg_54.webp",
+      "108": "thumb/WMCFileNeorrhinapunctatum343231784jpg_108.webp",
+      "216": "thumb/WMCFileNeorrhinapunctatum343231784jpg_216.webp"
+    }
+  },
+  "original_sha256": "06278ba911e17b670826f7928b36cee93c6298618acacae171e091cdb3bbe49f",
+  "processing": {
+    "cropBox": [
+      44,
+      405,
+      1426,
+      1562
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNeorrhinapunctatum343231784jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

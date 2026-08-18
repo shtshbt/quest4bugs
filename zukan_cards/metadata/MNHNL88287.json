@@ -1,0 +1,76 @@
+{
+  "species_id": "chrysolopus_spectabilis",
+  "species_ja": "Chrysolopus spectabilis",
+  "scientific_name": "Chrysolopus spectabilis",
+  "credit_line": "National Museum of Natural History, Luxembourg",
+  "creator": "National Museum of Natural History, Luxembourg",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Luxembourg",
+    "institutionCode": "MNHNL",
+    "collectionCode": null,
+    "catalogNumber": "MNHNL88287",
+    "occurrenceId": "DSS0043900002TGR::DSS00439000020C3::",
+    "persistentId": "DSS0043900002TGR::DSS00439000020C3::",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hans Fruhstorfer",
+    "eventDate": "1899-12-30",
+    "eventYear": 1899,
+    "country": "Australia",
+    "localityVerbatim": "Australia",
+    "localityNormalized": "Australia, Australia",
+    "preparations": "pinned specimen",
+    "decimalLatitude": -25.0,
+    "decimalLongitude": 135.0
+  },
+  "source": {
+    "gbifOccurrenceKey": "1891612092",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1891612092",
+    "sourceMediaUrl": "https://archimg.mnhn.lu/Collections/Invertebrate-zoology/Arthropoda-specimens/MNHNL88287-2.jpg",
+    "datasetKey": "962f59bc-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/MNHNL88287_resized.jpg",
+    "display": "processed/MNHNL88287_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/MNHNL88287_54.webp",
+      "108": "thumb/MNHNL88287_108.webp",
+      "216": "thumb/MNHNL88287_216.webp"
+    }
+  },
+  "original_sha256": "eab4b2994b252a5d4e75e595a7f02116ac62434ca70859d3b03fbd1278c1da29",
+  "processing": {
+    "cropBox": [
+      562,
+      1095,
+      4673,
+      2871
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/MNHNL88287_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

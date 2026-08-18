@@ -1,0 +1,74 @@
+{
+  "species_id": "agrotis_munda",
+  "species_ja": "Agrotis munda",
+  "scientific_name": "Agrotis munda",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Agrotis munda male LCR.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Agrotis_munda_male_LCR.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Agrotis_munda_male_LCR.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2011-10-19 00:46:04",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Male specimen of Agrotis munda photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Agrotis_munda_male_LCR.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Agrotis_munda_male_LCR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAgrotismundamaleLCRjpg_resized.jpg",
+    "display": "processed/WMCFileAgrotismundamaleLCRjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAgrotismundamaleLCRjpg_54.webp",
+      "108": "thumb/WMCFileAgrotismundamaleLCRjpg_108.webp",
+      "216": "thumb/WMCFileAgrotismundamaleLCRjpg_216.webp"
+    }
+  },
+  "original_sha256": "66c70cf1598581dfac53ad6ed49caf6b3108154d4bedba76352d3f7eed419a8f",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      600,
+      410
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAgrotismundamaleLCRjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

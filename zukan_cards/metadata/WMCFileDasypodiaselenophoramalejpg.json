@@ -1,0 +1,74 @@
+{
+  "species_id": "dasypodia_selenophora",
+  "species_ja": "Dasypodia selenophora",
+  "scientific_name": "Dasypodia selenophora",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dasypodia selenophora male.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dasypodia_selenophora_male.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dasypodia_selenophora_male.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2011-10-05 22:55:25",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Male specimen of Dasypodia selenophora photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dasypodia_selenophora_male.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Dasypodia_selenophora_male.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDasypodiaselenophoramalejpg_resized.jpg",
+    "display": "processed/WMCFileDasypodiaselenophoramalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDasypodiaselenophoramalejpg_54.webp",
+      "108": "thumb/WMCFileDasypodiaselenophoramalejpg_108.webp",
+      "216": "thumb/WMCFileDasypodiaselenophoramalejpg_216.webp"
+    }
+  },
+  "original_sha256": "19df1b68f2c4486359eabf5dd2515c98aa8c2e4d833f7172f77b1db6aeb36b25",
+  "processing": {
+    "cropBox": [
+      2,
+      0,
+      600,
+      386
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDasypodiaselenophoramalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "tramea_loewii",
+  "species_ja": "オセアニアハネビロトンボ",
+  "scientific_name": "Tramea loewii",
+  "credit_line": "Australian Museum",
+  "creator": "Nicole O'Donnell",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.305254",
+    "occurrenceId": "7fa3bfef-428b-4b6a-8ee0-4f2fc39fb959",
+    "persistentId": "7fa3bfef-428b-4b6a-8ee0-4f2fc39fb959",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Theischinger",
+    "eventDate": "1986-01-29",
+    "eventYear": 1986,
+    "country": "Australia",
+    "localityVerbatim": "Mount Molloy to Maryfarms",
+    "localityNormalized": "Mount Molloy to Maryfarms, Australia",
+    "preparations": null,
+    "decimalLatitude": -16.666666,
+    "decimalLongitude": 145.33333
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100280634",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100280634",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=d49694ec-1347-48fa-8ff8-a463e6dfff5c",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK305254_resized.jpg",
+    "display": "processed/AMK305254_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK305254_54.webp",
+      "108": "thumb/AMK305254_108.webp",
+      "216": "thumb/AMK305254_216.webp"
+    }
+  },
+  "original_sha256": "39098da1bf5d6ede4c68ba5b32473f138e619d70e41fe0c37b339f805eb943e7",
+  "processing": {
+    "cropBox": [
+      204,
+      9,
+      463,
+      317
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK305254_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

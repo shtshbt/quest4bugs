@@ -1,0 +1,74 @@
+{
+  "species_id": "agrotis_infusa",
+  "species_ja": "Agrotis infusa",
+  "scientific_name": "Agrotis infusa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Agrotis infusa female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Agrotis_infusa_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Agrotis_infusa_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2011-10-19 00:31:51",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Female specimen of Agrotis infusa photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Agrotis_infusa_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Agrotis_infusa_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAgrotisinfusafemalejpg_resized.jpg",
+    "display": "processed/WMCFileAgrotisinfusafemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAgrotisinfusafemalejpg_54.webp",
+      "108": "thumb/WMCFileAgrotisinfusafemalejpg_108.webp",
+      "216": "thumb/WMCFileAgrotisinfusafemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "fc79474ecc28ffb4a7f2ee963948e95b97057594908299d861d3bf9c418f8b55",
+  "processing": {
+    "cropBox": [
+      0,
+      8,
+      600,
+      343
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAgrotisinfusafemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

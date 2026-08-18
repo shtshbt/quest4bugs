@@ -1,0 +1,76 @@
+{
+  "species_id": "diplacodes_haematodes",
+  "species_ja": "Diplacodes haematodes",
+  "scientific_name": "Diplacodes haematodes",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00273587",
+    "occurrenceId": "http://n2t.net/ark:/65665/398c68efc-c4dc-493d-9aa9-e6282151868d",
+    "persistentId": "http://n2t.net/ark:/65665/398c68efc-c4dc-493d-9aa9-e6282151868d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "C. Flint",
+    "eventDate": "1972-09-03/1972-09-08",
+    "eventYear": 1972,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "The Rocks, Freshwater Creek, near Cairns, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -16.9306,
+    "decimalLongitude": 145.699
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320655676",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320655676",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16363406&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00273587_resized.jpg",
+    "display": "processed/USNMENT00273587_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00273587_54.webp",
+      "108": "thumb/USNMENT00273587_108.webp",
+      "216": "thumb/USNMENT00273587_216.webp"
+    }
+  },
+  "original_sha256": "af82b313ea124d0aca39ee80be4d6501aee9714dfef2f32f5388f2bb489aa29a",
+  "processing": {
+    "cropBox": [
+      592,
+      497,
+      1023,
+      1085
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00273587_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

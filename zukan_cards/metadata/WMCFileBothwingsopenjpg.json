@@ -1,0 +1,74 @@
+{
+  "species_id": "podacanthus_viridiroseus",
+  "species_ja": "Podacanthus viridiroseus",
+  "scientific_name": "Podacanthus viridiroseus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Benjamin a jacob bjaco18",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Both wings open.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Both_wings_open.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Both_wings_open.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Benjamin a jacob bjaco18",
+    "eventDate": "10/5/08",
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": "Red-winged Stick Insect (Podacanthus viridiroseus)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Both_wings_open.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Both_wings_open.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileBothwingsopenjpg_resized.jpg",
+    "display": "processed/WMCFileBothwingsopenjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBothwingsopenjpg_54.webp",
+      "108": "thumb/WMCFileBothwingsopenjpg_108.webp",
+      "216": "thumb/WMCFileBothwingsopenjpg_216.webp"
+    }
+  },
+  "original_sha256": "d024f0e0eab5b67afd3c20086ba38773d793b67debdb1a51a6997f89155f9f87",
+  "processing": {
+    "cropBox": [
+      54,
+      0,
+      2298,
+      1944
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBothwingsopenjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

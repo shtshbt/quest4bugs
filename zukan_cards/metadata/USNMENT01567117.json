@@ -1,0 +1,76 @@
+{
+  "species_id": "mictis_profana",
+  "species_ja": "Mictis profana",
+  "scientific_name": "Mictis profana",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01567117",
+    "occurrenceId": "http://n2t.net/ark:/65665/311a6898b-cc4b-42d8-aa21-f30a786d5cb0",
+    "persistentId": "http://n2t.net/ark:/65665/311a6898b-cc4b-42d8-aa21-f30a786d5cb0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Messer",
+    "eventDate": "1990-12-01/1990-12-31",
+    "eventYear": 1990,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Halmahera Island, Jailolo District, Kampung Pasir Putih, Indonesia",
+    "preparations": "Pinned",
+    "decimalLatitude": 0.8833,
+    "decimalLongitude": 127.683
+  },
+  "source": {
+    "gbifOccurrenceKey": "3758714322",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/3758714322",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16536078&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT01567117_resized.jpg",
+    "display": "processed/USNMENT01567117_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01567117_54.webp",
+      "108": "thumb/USNMENT01567117_108.webp",
+      "216": "thumb/USNMENT01567117_216.webp"
+    }
+  },
+  "original_sha256": "9c1b33826d73fd9eac897dddbf1ac93a2b2401d1b0877a15295f197413dbf586",
+  "processing": {
+    "cropBox": [
+      335,
+      0,
+      1592,
+      1500
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01567117_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

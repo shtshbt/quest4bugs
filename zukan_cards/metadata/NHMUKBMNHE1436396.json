@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_neohumeralis",
+  "species_ja": "パーキンスミバエ",
+  "scientific_name": "Bactrocera neohumeralis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1436396",
+    "occurrenceId": "1e3e14b7-84b0-4055-9a75-0de2c24dc3be",
+    "persistentId": "1e3e14b7-84b0-4055-9a75-0de2c24dc3be",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dr Ian M. White|Dr David L. Hancock",
+    "eventDate": "1990-10",
+    "eventYear": 1990,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "St. Lucia, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.502,
+    "decimalLongitude": 153.0065
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270001992",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/1e3e14b7-84b0-4055-9a75-0de2c24dc3be",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c0e4b3d4-e8aa-4da2-ab51-4b46b664c041",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1436396_resized.jpg",
+    "display": "processed/NHMUKBMNHE1436396_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1436396_54.webp",
+      "108": "thumb/NHMUKBMNHE1436396_108.webp",
+      "216": "thumb/NHMUKBMNHE1436396_216.webp"
+    }
+  },
+  "original_sha256": "4a2b2ef4dc964c9e7bdcb4452aa7beb8f0b19dba3331029e26ba6f3d997cf5dd",
+  "processing": {
+    "cropBox": [
+      829,
+      759,
+      1166,
+      1085
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1436396_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

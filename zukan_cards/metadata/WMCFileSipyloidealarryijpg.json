@@ -1,0 +1,74 @@
+{
+  "species_id": "sipyloidea_larryi",
+  "species_ja": "Sipyloidea larryi",
+  "scientific_name": "Sipyloidea larryi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tim",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sipyloidea larryi.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sipyloidea_larryi.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sipyloidea_larryi.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tim",
+    "eventDate": "2021-07-28",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Cyclone Larry Stick Insect (Sipyloidea larryi). Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sipyloidea_larryi.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Sipyloidea_larryi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileSipyloidealarryijpg_resized.jpg",
+    "display": "processed/WMCFileSipyloidealarryijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSipyloidealarryijpg_54.webp",
+      "108": "thumb/WMCFileSipyloidealarryijpg_108.webp",
+      "216": "thumb/WMCFileSipyloidealarryijpg_216.webp"
+    }
+  },
+  "original_sha256": "77d9d2a6df3d5fd6ef726b17e3d90881f6d8da7c07f39170661d8260f864bff9",
+  "processing": {
+    "cropBox": [
+      157,
+      0,
+      1683,
+      1261
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSipyloidealarryijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

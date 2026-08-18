@@ -1,0 +1,76 @@
+{
+  "species_id": "psaltoda_plaga",
+  "species_ja": "Psaltoda plaga",
+  "scientific_name": "Psaltoda plaga",
+  "credit_line": "Australian Museum",
+  "creator": "Rhiannon Stephens",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.294337",
+    "occurrenceId": "c2314b74-0072-4efe-bec7-6cafa5b81b82",
+    "persistentId": "c2314b74-0072-4efe-bec7-6cafa5b81b82",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Whitmount",
+    "eventDate": "1996-01",
+    "eventYear": 1996,
+    "country": "Australia",
+    "localityVerbatim": "Lower Portland near Junction Colo and Hawkesbury River",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -33.43833,
+    "decimalLongitude": 150.88306
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100273328",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100273328",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=8376852c-85be-4d76-9865-822129fcfcda",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK294337_resized.jpg",
+    "display": "processed/AMK294337_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK294337_54.webp",
+      "108": "thumb/AMK294337_108.webp",
+      "216": "thumb/AMK294337_216.webp"
+    }
+  },
+  "original_sha256": "65b509edf9bd3fee98ef1f8c9a5377edff48f5252e48a4d024e4ef44da27f1ea",
+  "processing": {
+    "cropBox": [
+      123,
+      76,
+      263,
+      365
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK294337_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "orthetrum_sabina",
+  "species_ja": "ハラボソトンボ",
+  "scientific_name": "Orthetrum sabina",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386511",
+    "occurrenceId": "http://n2t.net/ark:/65665/3cb537b5a-3a26-4756-ac5a-74dc9695d464",
+    "persistentId": "http://n2t.net/ark:/65665/3cb537b5a-3a26-4756-ac5a-74dc9695d464",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "M. Khing",
+    "eventDate": "1998-10-14",
+    "eventYear": 1998,
+    "country": "Myanmar",
+    "localityVerbatim": null,
+    "localityNormalized": "Kanbalu Township; Chatthin Wildlife Sanctuary, Lake Kye-in, Myanmar",
+    "preparations": "Envelope",
+    "decimalLatitude": 23.6217,
+    "decimalLongitude": 95.5317
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321799103",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321799103",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16393949&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00386511_resized.jpg",
+    "display": "processed/USNMENT00386511_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386511_54.webp",
+      "108": "thumb/USNMENT00386511_108.webp",
+      "216": "thumb/USNMENT00386511_216.webp"
+    }
+  },
+  "original_sha256": "d8e8bed212309a56f85b1f2afd930e00486f498c8fa8ae0e3964c5a6684acd37",
+  "processing": {
+    "cropBox": [
+      116,
+      620,
+      909,
+      1152
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386511_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

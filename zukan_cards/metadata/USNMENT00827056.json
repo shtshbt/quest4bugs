@@ -1,0 +1,76 @@
+{
+  "species_id": "austrolestes_analis",
+  "species_ja": "Austrolestes analis",
+  "scientific_name": "Austrolestes analis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827056",
+    "occurrenceId": "http://n2t.net/ark:/65665/312cdd9dd-5554-4906-8a8f-8a381ab570a0",
+    "persistentId": "http://n2t.net/ark:/65665/312cdd9dd-5554-4906-8a8f-8a381ab570a0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly",
+    "eventDate": "1972-12-11",
+    "eventYear": 1972,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Alexandra, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -37.1918,
+    "decimalLongitude": 145.709
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317627633",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317627633",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16330783&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00827056_resized.jpg",
+    "display": "processed/USNMENT00827056_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827056_54.webp",
+      "108": "thumb/USNMENT00827056_108.webp",
+      "216": "thumb/USNMENT00827056_216.webp"
+    }
+  },
+  "original_sha256": "a5117a66d2d7b7eaa9fd776a87772a403d74197640dca12f9254dcd7ec3e1ef2",
+  "processing": {
+    "cropBox": [
+      148,
+      18,
+      2000,
+      1539
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827056_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

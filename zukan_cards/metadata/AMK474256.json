@@ -1,0 +1,76 @@
+{
+  "species_id": "exaireta_spinigera",
+  "species_ja": "Exaireta spinigera",
+  "scientific_name": "Exaireta spinigera",
+  "credit_line": "Australian Museum",
+  "creator": "Karen Li",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.474256",
+    "occurrenceId": "c663abd3-54c1-4332-974a-9e6827292e73",
+    "persistentId": "c663abd3-54c1-4332-974a-9e6827292e73",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Daniels",
+    "eventDate": "1978-10-01",
+    "eventYear": 1978,
+    "country": "Australia",
+    "localityVerbatim": "Stanwell Tops",
+    "localityNormalized": "Stanwell Tops, Australia",
+    "preparations": null,
+    "decimalLatitude": -34.22,
+    "decimalLongitude": 150.99194
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446262732",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2446262732",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=c54ac886-5316-494e-bf99-0f39fc1c8b6f",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK474256_resized.jpg",
+    "display": "processed/AMK474256_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK474256_54.webp",
+      "108": "thumb/AMK474256_108.webp",
+      "216": "thumb/AMK474256_216.webp"
+    }
+  },
+  "original_sha256": "864cf80938dfb593f4479a7e58b9087a55dd839b4c613ee1994d5adcd561231d",
+  "processing": {
+    "cropBox": [
+      14,
+      139,
+      650,
+      387
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK474256_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

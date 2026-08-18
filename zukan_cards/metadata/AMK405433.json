@@ -1,0 +1,76 @@
+{
+  "species_id": "eristalinus_punctulatus",
+  "species_ja": "Eristalinus punctulatus",
+  "scientific_name": "Eristalinus punctulatus",
+  "credit_line": "Australian Museum",
+  "creator": "Tony Power",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.405433",
+    "occurrenceId": "36e87090-45ff-4d11-aad6-43dc9a77db70",
+    "persistentId": "36e87090-45ff-4d11-aad6-43dc9a77db70",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G. Daniels & A. Daniels",
+    "eventDate": "1993-11-07",
+    "eventYear": 1993,
+    "country": "Australia",
+    "localityVerbatim": "5 km NE of Leyburn",
+    "localityNormalized": "5 km NE of Leyburn, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.966667,
+    "decimalLongitude": 151.63333
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100320789",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100320789",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=7b9966a5-9d32-4337-bc26-93c10496362a",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK405433_resized.jpg",
+    "display": "processed/AMK405433_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK405433_54.webp",
+      "108": "thumb/AMK405433_108.webp",
+      "216": "thumb/AMK405433_216.webp"
+    }
+  },
+  "original_sha256": "1b3d4549ad7ddba050b3bcd91bd0098762972603691312d803c84450ce89c6d8",
+  "processing": {
+    "cropBox": [
+      63,
+      143,
+      284,
+      346
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK405433_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

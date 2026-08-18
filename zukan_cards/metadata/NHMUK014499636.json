@@ -1,0 +1,74 @@
+{
+  "species_id": "asmicridea_edwardsii",
+  "species_ja": "Asmicridea edwardsii",
+  "scientific_name": "Asmicridea edwardsii",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014499636",
+    "occurrenceId": "fc6ca72f-4a53-4ebd-b3b6-189e99ee219e",
+    "persistentId": "fc6ca72f-4a53-4ebd-b3b6-189e99ee219e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1933-02-10",
+    "eventYear": 1933,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330241097",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/fc6ca72f-4a53-4ebd-b3b6-189e99ee219e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/1203aa7b-75ad-4d60-ab4c-f88eae688f7b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014499636_resized.jpg",
+    "display": "processed/NHMUK014499636_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014499636_54.webp",
+      "108": "thumb/NHMUK014499636_108.webp",
+      "216": "thumb/NHMUK014499636_216.webp"
+    }
+  },
+  "original_sha256": "ca863484c3faf386edca0704135833741920868fe1a219d328e212856a2db8d4",
+  "processing": {
+    "cropBox": [
+      669,
+      655,
+      994,
+      1018
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014499636_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

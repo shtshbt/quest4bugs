@@ -1,0 +1,74 @@
+{
+  "species_id": "archimantis_sobrina",
+  "species_ja": "Archimantis sobrina",
+  "scientific_name": "Archimantis sobrina",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Jean and Fred Hort from Perth, Australia",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Archimantis sobrina - Flickr - jeans Photos.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Archimantis_sobrina_-_Flickr_-_jeans_Photos.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Archimantis_sobrina_-_Flickr_-_jeans_Photos.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jean and Fred Hort from Perth, Australia",
+    "eventDate": "Taken on 16 November 2012, 12:24",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Mallee Grass Mantis feeding on a fly which had come for a feed of nectar and pollen on the grass-tree Xanthorrhoea preissii flower. www.inaturalist.org/observations/346356020 Explored 5 Apr 2026 #309",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Archimantis_sobrina_-_Flickr_-_jeans_Photos.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Archimantis_sobrina_-_Flickr_-_jeans_Photos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_resized.jpg",
+    "display": "processed/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_54.webp",
+      "108": "thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_108.webp",
+      "216": "thumb/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_216.webp"
+    }
+  },
+  "original_sha256": "3facdc50539b92c4c431d592d1a0637785691135219eeb804cb116836e0e5a2a",
+  "processing": {
+    "cropBox": [
+      0,
+      371,
+      1971,
+      3631
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileArchimantissobrinaFlickrjeansPhotosjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

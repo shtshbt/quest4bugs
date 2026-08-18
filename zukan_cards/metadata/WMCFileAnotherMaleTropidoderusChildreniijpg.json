@@ -1,0 +1,74 @@
+{
+  "species_id": "tropidoderus_childrenii",
+  "species_ja": "Tropidoderus childrenii",
+  "scientific_name": "Tropidoderus childrenii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "B jacob (talk)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Another Male Tropidoderus Childrenii.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Another_Male_Tropidoderus_Childrenii.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Another_Male_Tropidoderus_Childrenii.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "B jacob (talk)",
+    "eventDate": "2008-06-05",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "another male w:tropidoderus childrenii",
+    "localityNormalized": "another male w:tropidoderus childrenii",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Another_Male_Tropidoderus_Childrenii.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Another_Male_Tropidoderus_Childrenii.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAnotherMaleTropidoderusChildreniijpg_resized.jpg",
+    "display": "processed/WMCFileAnotherMaleTropidoderusChildreniijpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_54.webp",
+      "108": "thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_108.webp",
+      "216": "thumb/WMCFileAnotherMaleTropidoderusChildreniijpg_216.webp"
+    }
+  },
+  "original_sha256": "7b9d23e20b86532bbe956052b5db4716bdecc6f584c1d38e51b5c72e6e7d2a14",
+  "processing": {
+    "cropBox": [
+      984,
+      490,
+      1865,
+      1689
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnotherMaleTropidoderusChildreniijpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

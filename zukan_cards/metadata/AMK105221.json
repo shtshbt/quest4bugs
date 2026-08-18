@@ -1,0 +1,76 @@
+{
+  "species_id": "amegilla_chlorocyanea",
+  "species_ja": "Amegilla chlorocyanea",
+  "scientific_name": "Amegilla chlorocyanea",
+  "credit_line": "Australian Museum",
+  "creator": "Linda Lockett",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.105221",
+    "occurrenceId": "a4231bcc-fa7d-4647-877e-baff2d56086a",
+    "persistentId": "a4231bcc-fa7d-4647-877e-baff2d56086a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "J.O. Campbell",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -22.486944,
+    "decimalLongitude": 144.43167
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100165839",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100165839",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=212d0f0e-0e71-4e5e-9c08-acb360d4c666",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK105221_resized.jpg",
+    "display": "processed/AMK105221_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK105221_54.webp",
+      "108": "thumb/AMK105221_108.webp",
+      "216": "thumb/AMK105221_216.webp"
+    }
+  },
+  "original_sha256": "7a12cea1c26feb42444392b6f57adc969f9d61680fe69505a6be02286bfb61f5",
+  "processing": {
+    "cropBox": [
+      26,
+      17,
+      306,
+      274
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK105221_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

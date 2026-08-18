@@ -1,0 +1,76 @@
+{
+  "species_id": "ocybadistes_walkeri",
+  "species_ja": "Ocybadistes walkeri",
+  "scientific_name": "Ocybadistes walkeri",
+  "credit_line": "Australian Museum",
+  "creator": "Liz Niggley",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.461609",
+    "occurrenceId": "43d585fd-708e-4b11-932b-9781926638d5",
+    "persistentId": "43d585fd-708e-4b11-932b-9781926638d5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "M.J. Murphy",
+    "eventDate": "2011-10-08",
+    "eventYear": 2011,
+    "country": "Australia",
+    "localityVerbatim": "Timmallallie National Park, opposite The Duke",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -31.139166,
+    "decimalLongitude": 149.12555
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446186641",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2446186641",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=8359b892-a49e-4ff8-91ea-3708e9ac5fe7",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK461609_resized.jpg",
+    "display": "processed/AMK461609_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK461609_54.webp",
+      "108": "thumb/AMK461609_108.webp",
+      "216": "thumb/AMK461609_216.webp"
+    }
+  },
+  "original_sha256": "e75a94263b66c7483f53dccbc4aa149cc0f944684c7ed4968753d62eadccf82a",
+  "processing": {
+    "cropBox": [
+      0,
+      81,
+      650,
+      246
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK461609_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

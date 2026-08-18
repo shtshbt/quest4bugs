@@ -1,0 +1,74 @@
+{
+  "species_id": "vanessa_itea",
+  "species_ja": "モンキアカタテハ",
+  "scientific_name": "Vanessa itea",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)668140",
+    "occurrenceId": "411ee364-7941-4bc7-8061-e40a39af6909",
+    "persistentId": "411ee364-7941-4bc7-8061-e40a39af6909",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "New Zealand",
+    "localityVerbatim": null,
+    "localityNormalized": "New Zealand",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057118825",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/411ee364-7941-4bc7-8061-e40a39af6909",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c31b739e-ba79-4392-8540-252e32c2f417",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE668140_resized.jpg",
+    "display": "processed/NHMUKBMNHE668140_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE668140_54.webp",
+      "108": "thumb/NHMUKBMNHE668140_108.webp",
+      "216": "thumb/NHMUKBMNHE668140_216.webp"
+    }
+  },
+  "original_sha256": "20b1c966875f76c7b80ec75fbd3865137f9a53751ac064c453898a0b7944ac1e",
+  "processing": {
+    "cropBox": [
+      398,
+      132,
+      1032,
+      443
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE668140_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "acrophylla_titan",
+  "species_ja": "Acrophylla titan",
+  "scientific_name": "Acrophylla titan",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Scott W. Gavins",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Acrophylla titan 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Acrophylla_titan_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Acrophylla_titan_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Scott W. Gavins",
+    "eventDate": "2025-01-18",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Acrophylla titan. Talegalla Weir QLD 4650, Australia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Acrophylla_titan_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Acrophylla_titan_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAcrophyllatitan2jpg_resized.jpg",
+    "display": "processed/WMCFileAcrophyllatitan2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAcrophyllatitan2jpg_54.webp",
+      "108": "thumb/WMCFileAcrophyllatitan2jpg_108.webp",
+      "216": "thumb/WMCFileAcrophyllatitan2jpg_216.webp"
+    }
+  },
+  "original_sha256": "54af48a48f4af4d417ae1555b90afe3a49497a4eb9be99c5fd0f4c7d8db046e3",
+  "processing": {
+    "cropBox": [
+      281,
+      0,
+      1207,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAcrophyllatitan2jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

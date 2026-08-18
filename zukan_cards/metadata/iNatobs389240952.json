@@ -1,0 +1,80 @@
+{
+  "species_id": "sphodropoda_quinquedens",
+  "species_ja": "Sphodropoda quinquedens",
+  "scientific_name": "Sphodropoda quinquedens",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "sturuss (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_389240952",
+    "occurrenceId": "https://www.inaturalist.org/observations/389240952",
+    "persistentId": "https://www.inaturalist.org/observations/389240952",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "sturuss",
+    "eventDate": "2026-08-08",
+    "eventYear": 2026,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Townsville QLD, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.2282488609,
+    "decimalLongitude": 146.7684152346,
+    "coordinatesObscured": false,
+    "iNatObservationId": "389240952",
+    "iNatPhotoId": "712966695",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/389240952",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/712966695/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs389240952_resized.jpg",
+    "display": "processed/iNatobs389240952_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs389240952_54.webp",
+      "108": "thumb/iNatobs389240952_108.webp",
+      "216": "thumb/iNatobs389240952_216.webp"
+    }
+  },
+  "original_sha256": "ffa594acbd77cff7e81ccf2637360bdbb2224d902b82315f8a7712f5c2ead222",
+  "processing": {
+    "cropBox": [
+      56,
+      439,
+      1740,
+      1074
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs389240952_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

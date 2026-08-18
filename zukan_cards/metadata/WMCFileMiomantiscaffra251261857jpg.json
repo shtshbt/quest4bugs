@@ -1,0 +1,74 @@
+{
+  "species_id": "miomantis_caffra",
+  "species_ja": "Miomantis caffra",
+  "scientific_name": "Miomantis caffra",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tyler McBeth",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Miomantis caffra 251261857.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Miomantis_caffra_251261857.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Miomantis_caffra_251261857.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tyler McBeth",
+    "eventDate": "2023-01-09",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "South African Mantis (Miomantis caffra)",
+    "localityNormalized": "South African Mantis (Miomantis caffra)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Miomantis_caffra_251261857.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Miomantis_caffra_251261857.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileMiomantiscaffra251261857jpg_resized.jpg",
+    "display": "processed/WMCFileMiomantiscaffra251261857jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMiomantiscaffra251261857jpg_54.webp",
+      "108": "thumb/WMCFileMiomantiscaffra251261857jpg_108.webp",
+      "216": "thumb/WMCFileMiomantiscaffra251261857jpg_216.webp"
+    }
+  },
+  "original_sha256": "7d351fc14546aee55be204bc85f597dabda46d19b6c4abc61fbe401b0b7162ba",
+  "processing": {
+    "cropBox": [
+      357,
+      320,
+      716,
+      970
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMiomantiscaffra251261857jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

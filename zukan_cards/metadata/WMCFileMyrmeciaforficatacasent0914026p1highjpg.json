@@ -1,0 +1,74 @@
+{
+  "species_id": "myrmecia_forficata",
+  "species_ja": "Myrmecia forficata",
+  "scientific_name": "Myrmecia forficata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Zach Lieberman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Myrmecia forficata casent0914026 p 1 high.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Myrmecia_forficata_casent0914026_p_1_high.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Myrmecia_forficata_casent0914026_p_1_high.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Zach Lieberman",
+    "eventDate": "2014-08-05 10:49:56",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Myrmecia forficata worker",
+    "localityNormalized": "Myrmecia forficata worker",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Myrmecia_forficata_casent0914026_p_1_high.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Myrmecia_forficata_casent0914026_p_1_high.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMyrmeciaforficatacasent0914026p1highjpg_resized.jpg",
+    "display": "processed/WMCFileMyrmeciaforficatacasent0914026p1highjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_54.webp",
+      "108": "thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_108.webp",
+      "216": "thumb/WMCFileMyrmeciaforficatacasent0914026p1highjpg_216.webp"
+    }
+  },
+  "original_sha256": "37f66993f3b98b7de84f8307faac441de77ab68868f9bd804f4efe2609560096",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1084,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMyrmeciaforficatacasent0914026p1highjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
