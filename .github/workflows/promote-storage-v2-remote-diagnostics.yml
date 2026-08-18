@@ -1,0 +1,76 @@
+name: Promote storage v2 remote diagnostics
+
+on:
+  push:
+    branches:
+      - agent/storage-v2-shadow
+    paths:
+      - tools/apply_storage_v2_remote_diagnostics.js
+      - .github/workflows/promote-storage-v2-remote-diagnostics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Sparse checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            shared
+            tests
+            tools
+            .github/workflows
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Apply deterministic patch
+        run: node tools/apply_storage_v2_remote_diagnostics.js
+
+      - name: Validate privacy and hard gate invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          grep -q 'storage-v2 remote soak diagnostics' shared/storage.js
+          grep -q 'quest4bugs.storage-v2-diagnostics.v1' shared/storage.js
+          grep -q 'pushStorageV2RemoteDiagnosticsNow:pushStorageV2RemoteDiagnosticsNow' shared/storage.js
+          grep -q 'var __authorityReadsEnabled=false;' shared/storage.js
+          if grep -A80 'function _storageV2DiagDoc' shared/storage.js | grep -Eq 'profiles|tombstones|\.payload|collection|answers'; then
+            echo 'Remote diagnostics appears to include game/child payload fields' >&2
+            exit 1
+          fi
+
+      - name: Run storage regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in tests/test_storage*.js; do
+            [ -e "$f" ] || continue
+            echo "::group::$f"
+            node "$f"
+            echo "::endgroup::"
+          done
+
+      - name: Commit tested patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- shared/storage.js; then
+            echo 'No storage.js change needed'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add shared/storage.js
+          git commit -m 'integrate storage v2 remote diagnostics'
+          git push origin HEAD:agent/storage-v2-shadow
