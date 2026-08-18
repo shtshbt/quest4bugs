@@ -22,6 +22,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 
   /* 目標ボードに並ぶのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
      CURRENT_RELEASE で動くので、期待値も同じ規則から作る。 */
+  const medalOn = komorebi.medalEconomyOn();
   const k5Slots = trophies.list().filter(trophy => {
     const entry = komorebi.categories[trophy.cat];
     return entry && komorebi.isReleased(trophy.cat) && entry.course === "k5";
@@ -32,15 +33,18 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.ok(entrance, "no medal entrance under the map: " + plain().slice(-200));
     assert.ok(k5Slots > 0, "the k5 goal board went empty");
     assert.match(plain(), new RegExp("0／" + k5Slots), "the entrance does not show the course count: " + plain().slice(-160));
-    /* 表示だけがメダルに変わり、保存キーは trophyProgress のまま (tools_design 3 章)。 */
-    assert.match(plain(), /🏅 メダル/, "the entrance still calls it a trophy: " + plain().slice(-160));
+    /* 表示語彙は MEDAL_ECONOMY_ON に連動する。経済が閉じている間は従来のトロフィー
+       表記のままで、開いた日に初めて「メダル」になる。保存キーはどちらでも
+       trophyProgress のまま (tools_design 3 章)。 */
+    assert.match(plain(), medalOn ? /🏅 メダル/ : /🏆 トロフィー/,
+      "the entrance vocabulary ignored the medal economy switch: " + plain().slice(-160));
   });
 
   app.querySelector('[data-action="trophies"]').click();
 
   test("an empty medal page is a goal board, not an empty room", () => {
     const text = plain();
-    assert.match(text, /きんいろメダル/);
+    assert.match(text, medalOn ? /きんいろメダル/ : /きんいろトロフィー/);
     assert.equal((app.innerHTML.match(/kom-trophy-slot/g) || []).length, k5Slots, "every k5 category needs a slot");
     assert.equal((app.innerHTML.match(/is-locked/g) || []).length, k5Slots);
     /* 条件が「Lv10 到達」ではなく「Lv10 クリア」であることが見える形になっていること。 */
@@ -63,8 +67,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     const text = plain();
     assert.equal((app.innerHTML.match(/is-earned/g) || []).length, 1);
     assert.equal((app.innerHTML.match(/is-locked/g) || []).length, k5Slots - 1);
-    /* 銘は種名付き (tools_design 3 章)。 */
-    assert.match(text, /オオトゲアシキリギリスのメダル/);
+    /* 公開後の銘は種名付き (tools_design 3 章)。公開前は地域名 + きんいろ + 種名。 */
+    assert.match(text, medalOn ? /オオトゲアシキリギリスのメダル/ : /マダガスカルえんせいの きんいろオオトゲアシキリギリス/);
     assert.match(text, /2026-08-13 かくとく/);
     assert.match(plain(), new RegExp("1／" + k5Slots));
   });

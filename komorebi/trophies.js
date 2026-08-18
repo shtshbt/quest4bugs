@@ -1,8 +1,9 @@
 (function(global){
   "use strict";
 
-  /* 学習達成のメダル (design 6.6 / tools_design 3 章)。表示名は「メダル」だが、
-     保存キー (trophyProgress / trophies) は互換のため旧名のまま据え置く。
+  /* 学習達成のメダル (design 6.6 / tools_design 3 章)。表示名はメダル経済の公開後だけ
+     「メダル」で、それまでは従来のトロフィー表記 (displayName を参照)。
+     保存キー (trophyProgress / trophies) はどちらでも互換のため旧名のまま据え置く。
      小道専用のマスター虫は新設せず、既存種の
      パラメトリック SVG を金色化して授与する。地域を重ねるほど新規マスター種の
      選定が厳しくなり持続不能になるため。
@@ -118,10 +119,20 @@
     return trophy;
   }
 
-  /* 銘は種名付き (tools_design 3 章)。「マダガスカルオオゴキブリのメダル」のように、
-     どのカテゴリを納めたかが名前で分かる。保存キー (trophyProgress / trophies) は
-     互換のためリネームしない。 */
+  /* 表示語彙はメダル経済のスイッチに連動させる。経済が閉じている間は従来のトロフィー
+     表記のままにし、「メダル」という言葉の初出を うろと道具の公開と同じ日に揃える
+     (先に名前だけ変わると、捧げ先の無い画面で語彙だけ浮く)。
+     小道 app を読み込んでいない文脈では従来表記に倒す。 */
+  function medalWording(){
+    var kom=global.Q4B_KOMOREBI;
+    return !!(kom&&typeof kom.medalEconomyOn==="function"&&kom.medalEconomyOn());
+  }
+
+  /* 公開後の銘は種名付き (tools_design 3 章)。「マダガスカルオオゴキブリのメダル」の
+     ように、どのカテゴリを納めたかが名前で分かる。保存キー (trophyProgress /
+     trophies) は互換のためリネームしない。 */
   function displayName(trophy,speciesName){
+    if(!medalWording())return trophy.regionName+"の きんいろ"+(speciesName||"トロフィー");
     return (speciesName||"きんいろ")+"のメダル";
   }
 

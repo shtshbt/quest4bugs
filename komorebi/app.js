@@ -2220,11 +2220,12 @@
     if(blurb)blurb.innerHTML='<strong>'+displayText(volume.regionName)+'</strong><span>'+displayText(volume.blurb)+'</span>';
   }
 
-  /* --- メダル ----------------------------------------------------------------
+  /* --- メダル (経済公開前はトロフィー) ---------------------------------------
      入口は地図の下端に置き、専用ページへ送る (ui_design 6 章)。最初の数週間は
      獲得ゼロなので、空の棚をトップに常時置くと虚しく場所も食う。
-     旧称はトロフィー。保存キー (trophies / trophyProgress) は互換のため据え置き、
-     変えるのは表示だけ (tools_design 3 章)。 */
+     保存キー (trophies / trophyProgress) は互換のため据え置き、変えるのは表示だけ。
+     その表示も MEDAL_ECONOMY_ON に連動させ、語彙の切り替えを経済の公開日に揃える
+     (tools_design 3 章)。 */
 
   function trophyModule(){
     var module=global.Q4B_KOMOREBI_TROPHIES;
@@ -2238,10 +2239,15 @@
     return trophyModule().list().filter(function(trophy){return isReleased(trophy.cat);}).filter(function(trophy){return CATEGORIES[trophy.cat].course===profileType;});
   }
 
+  /* 表示語彙はメダル経済のスイッチに連動させる。off の間は従来のトロフィー表記の
+     ままにして、「メダル」の初出を うろと道具の公開と同じ日に揃える。 */
+  function medalWording(){return MEDAL_ECONOMY_ON;}
+
   function trophyEntranceHtml(){
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    var label=medalWording()?'🏅 <span>'+displayText("メダル")+'</span>':'🏆 <span>'+displayText("トロフィー")+'</span>';
     return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="trophies">'
-      +'🏅 <span>'+displayText("メダル")+'</span> <strong>'+earned+'／'+all.length+'</strong></button></div>';
+      +label+' <strong>'+earned+'／'+all.length+'</strong></button></div>';
   }
 
   function trophySlotHtml(trophy){
@@ -2265,7 +2271,7 @@
     hideZukanModeToggle();
     var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
-      +'<div class="kom-title"><h1>'+displayText("きんいろメダル")+'</h1>'
+      +'<div class="kom-title"><h1>'+displayText(medalWording()?"きんいろメダル":"きんいろトロフィー")+'</h1>'
       +'<p>'+displayText("カテゴリを Lv10 クリアすると もらえる")+'　<strong>'+earned+'／'+all.length+'</strong></p></div>'
       +'<ul class="kom-trophy-grid">'+all.map(trophySlotHtml).join("")+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(volumeId);});
