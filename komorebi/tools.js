@@ -185,11 +185,17 @@
     return profile.tools;
   }
 
+  /* 形の誤り (種類が無い、残量が整数でない、0 以下) は通さない。ただし
+     「残量が今の耐久上限を超えている」だけは上限へ丸めて直す。耐久を後から
+     下方調整したとき、それ以前に配った道具を持っている子のセーブが丸ごと
+     読めなくなるのは、壊れたデータではなく仕様変更の側の問題だから。
+     装備だけ残って本体が無い状態を黙って外すのと同じ自己修復方針。 */
   function validateTools(tools){
     if(!Array.isArray(tools))throw new Error("道具データの形式が正しくありません");
     tools.forEach(function(entry){
       if(!isObject(entry)||typeof entry.type!=="string"||!BY_ID[entry.type])throw new Error("道具データの形式が正しくありません");
-      if(!Number.isInteger(entry.remaining)||entry.remaining<1||entry.remaining>DURABILITY)throw new Error("道具データの形式が正しくありません");
+      if(!Number.isInteger(entry.remaining)||entry.remaining<1)throw new Error("道具データの形式が正しくありません");
+      if(entry.remaining>DURABILITY)entry.remaining=DURABILITY;
     });
     return tools;
   }

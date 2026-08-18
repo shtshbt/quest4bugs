@@ -166,11 +166,22 @@ test("a broken save shape is refused instead of being silently repaired", () => 
     {},
     [{ type: "cho_net" }],
     [{ type: "cho_net", remaining: 0 }],
-    [{ type: "cho_net", remaining: 31 }],
+    [{ type: "cho_net", remaining: -1 }],
     [{ type: "cho_net", remaining: 1.5 }],
     [{ type: "ghost_net", remaining: 3 }],
     [null]
   ].forEach(broken => assert.throws(() => tools.validateTools(broken), /道具データ/, JSON.stringify(broken)));
+});
+
+test("a remaining life above the current durability is clamped, not refused", () => {
+  /* 耐久を後から下げたとき、それ以前に配った道具を持っている子のセーブが丸ごと
+     読めなくなるのは仕様変更の側の問題。上限へ丸めて通す (dangling equip の
+     自己修復と同じ方針)。 */
+  const save = [{ type: "cho_net", remaining: tools.durability + 1 }, { type: "light_trap", remaining: 999 }];
+  const fixed = tools.validateTools(save);
+  assert.deepEqual(fixed.map(entry => entry.remaining), [tools.durability, tools.durability]);
+  /* 引数そのものを直す (呼び出し側が別の配列を持ち歩かなくてよい)。 */
+  assert.equal(save[0].remaining, tools.durability);
 });
 
 console.log(`RESULT ${passed} passed, 0 failed`);
