@@ -1,0 +1,702 @@
+[
+ {
+  "id": "acrossidius_tasmaniae",
+  "ja": "Acrossidius tasmaniae",
+  "sci": "Acrossidius tasmaniae"
+ },
+ {
+  "id": "adoryphorus_couloni",
+  "ja": "Adoryphorus couloni",
+  "sci": "Adoryphorus couloni"
+ },
+ {
+  "id": "onthophagus_taurus",
+  "ja": "ウシツノコガネ",
+  "sci": "Onthophagus taurus"
+ },
+ {
+  "id": "neolethaeus_australiensis",
+  "ja": "ゴマフナガカメムシ",
+  "sci": "Neolethaeus australiensis"
+ },
+ {
+  "id": "didymuria_violescens",
+  "ja": "フタイロナナフシ",
+  "sci": "Didymuria violescens"
+ },
+ {
+  "id": "phricta_spinosa",
+  "ja": "オオトゲキリギリス",
+  "sci": "Phricta spinosa"
+ },
+ {
+  "id": "hierodula_majuscula",
+  "ja": "モエギオオカマキリ",
+  "sci": "Hierodula majuscula"
+ },
+ {
+  "id": "calofulcinia_paraoxypila",
+  "ja": "キメダマカマキリ",
+  "sci": "Calofulcinia paraoxypila"
+ },
+ {
+  "id": "kiboshi_kuro_hishibatta",
+  "ja": "キボシクロヒシバッタ",
+  "sci": "Oxytettix arius"
+ },
+ {
+  "id": "coccinella_transversalis",
+  "ja": "ヤマイチテントウ",
+  "sci": "Coccinella transversalis"
+ },
+ {
+  "id": "coelophora_inaequalis",
+  "ja": "カタボシテントウ",
+  "sci": "Coelophora inaequalis"
+ },
+ {
+  "id": "kinoko_kikuimushi",
+  "ja": "キノコキクイムシ",
+  "sci": "Xyleborus affinis"
+ },
+ {
+  "id": "suzukuri_konajirami",
+  "ja": "スヅクリコナジラミ",
+  "sci": "Paraleyrodes bondari"
+ },
+ {
+  "id": "oo_beni_hagoromo",
+  "ja": "オオベニハゴロモ",
+  "sci": "Flatida rosea"
+ },
+ {
+  "id": "kuroboshi_maru_kaigaramushi",
+  "ja": "クロボシマルカイガラムシ",
+  "sci": "Morganella conspicua"
+ },
+ {
+  "id": "ohishiba_kuro_aburamushi",
+  "ja": "オヒシバクロアブラムシ",
+  "sci": "Hysteroneura setariae"
+ },
+ {
+  "id": "afurika_yamato_shijimi",
+  "ja": "アフリカヤマトシジミ",
+  "sci": "Zizeeria knysna"
+ },
+ {
+  "id": "akamarubane_monki_tateha",
+  "ja": "アカマルバネモンキタテハ",
+  "sci": "Aterica rabena"
+ },
+ {
+  "id": "hagata_murasaki",
+  "ja": "ハガタムラサキ",
+  "sci": "Hypolimnas dexithea"
+ },
+ {
+  "id": "suji_mori_tonbo",
+  "ja": "スジモリトンボ",
+  "sci": "Neodythemis hildebrandti"
+ },
+ {
+  "id": "gin_haneguro_tonbo",
+  "ja": "ギンハネグロトンボ",
+  "sci": "Palpopleura vestita"
+ },
+ {
+  "id": "madagasukaru_gin_yanma",
+  "ja": "マダガスカルギンヤンマ",
+  "sci": "Anax tumorifer"
+ },
+ {
+  "id": "haneashi_ito_tonbo",
+  "ja": "ハネアシイトトンボ",
+  "sci": "Proplatycnemis malgassica"
+ },
+ {
+  "id": "tsuchiiro_ito_tonbo",
+  "ja": "ツチイロイトトンボ",
+  "sci": "Lestes ochraceus"
+ },
+ {
+  "id": "kanmuri_kareha_kamakiri",
+  "ja": "カンムリカレハカマキリ",
+  "sci": "Phyllocrania illudens"
+ },
+ {
+  "id": "chamadara_tobibatta",
+  "ja": "チャマダラトビバッタ",
+  "sci": "Cyrtacanthacris tatarica"
+ },
+ {
+  "id": "madagasukaru_oo_gokiburi",
+  "ja": "マダガスカルオオゴキブリ",
+  "sci": "Gromphadorhina portentosa"
+ },
+ {
+  "id": "scutiphora_pedicellata",
+  "ja": "ホシミドリキンカメムシ",
+  "sci": "Scutiphora pedicellata"
+ },
+ {
+  "id": "tsuya_oozu_ari",
+  "ja": "ツヤオオズアリ",
+  "sci": "Pheidole megacephala"
+ },
+ {
+  "id": "aka_tobibatta",
+  "ja": "アカトビバッタ",
+  "sci": "Nomadacris septemfasciata"
+ },
+ {
+  "id": "neomantis_australis",
+  "ja": "マルバネカマキリ",
+  "sci": "Neomantis australis"
+ },
+ {
+  "id": "ageha_himebachi",
+  "ja": "アゲハヒメバチ",
+  "sci": "Trogus mactator"
+ },
+ {
+  "id": "akahane_mushi",
+  "ja": "アカハネムシ",
+  "sci": "Pseudopyrochroa rufula"
+ },
+ {
+  "id": "amami_shika_kuwagata",
+  "ja": "アマミシカクワガタ",
+  "sci": "Rhaetulus recticornis"
+ },
+ {
+  "id": "ao_kamikiri",
+  "ja": "アオカミキリ",
+  "sci": "Schwarzerium quadricolle"
+ },
+ {
+  "id": "beni_bekkoubachi",
+  "ja": "ベッコウクモバチ",
+  "sci": "Cyphononyx confluens"
+ },
+ {
+  "id": "hamasuzu",
+  "ja": "ハマスズ",
+  "sci": "Dianemobius csikii"
+ },
+ {
+  "id": "kuro_suzu",
+  "ja": "クロスズ",
+  "sci": "Dianemobius furumagiensis"
+ },
+ {
+  "id": "ooki_no_komushi",
+  "ja": "オオキノコムシ",
+  "sci": "Encaustes praenobilis"
+ },
+ {
+  "id": "oomizuao_oki",
+  "ja": "オキナワオオミズアオ",
+  "sci": "Actias aliena xenia"
+ },
+ {
+  "id": "ranran_hana_kamakiri_dummy",
+  "ja": "ニセハナカマキリ",
+  "sci": "Phyllothelys werneri"
+ },
+ {
+  "id": "sekai_saichou_nanafushi",
+  "ja": "セカイサイチョウナナフシ",
+  "sci": "Phryganistria chinensis zhaoi"
+ },
+ {
+  "id": "tennen_kimadara_seseri",
+  "ja": "コキマダラセセリ亜種サギッタ",
+  "sci": "Ochlodes venata sagitta"
+ },
+ {
+  "id": "tokara_nokogiri_kuwagata",
+  "ja": "トカラノコギリクワガタ",
+  "sci": "Prosopocoilus dissimilis elegans"
+ },
+ {
+  "id": "yaeyama_koku_kuwagata",
+  "ja": "ヤエヤマコクワガタ",
+  "sci": "Dorcus amamianus yaeyamaensis"
+ },
+ {
+  "id": "yaeyama_nokogiri_kuwagata",
+  "ja": "ヤエヤマノコギリクワガタ",
+  "sci": "Prosopocoilus pseudodissimilis"
+ },
+ {
+  "id": "yakushima_noko_kuwagata",
+  "ja": "ヤクシマノコギリクワガタ",
+  "sci": "Prosopocoilus inclinatus yakushimaensis"
+ },
+ {
+  "id": "yamato_batta",
+  "ja": "ヤマトバッタ",
+  "sci": "Epacromius japonicus"
+ },
+ {
+  "id": "suji_kuwagata",
+  "ja": "スジクワガタ",
+  "sci": "Dorcus striatipennis"
+ },
+ {
+  "id": "akamadara_hanamuguri",
+  "ja": "アカマダラハナムグリ",
+  "sci": "Anthracophora rusticola"
+ },
+ {
+  "id": "hiroobi_midorishijimi",
+  "ja": "ヒロオビミドリシジミ",
+  "sci": "Favonius cognatus"
+ },
+ {
+  "id": "ginichimonji_seseri",
+  "ja": "ギンイチモンジセセリ",
+  "sci": "Leptalina unicolor"
+ },
+ {
+  "id": "himekimadara_seseri",
+  "ja": "ヒメキマダラセセリ",
+  "sci": "Ochlodes ochracea"
+ },
+ {
+  "id": "oohikage_janome",
+  "ja": "オオヒカゲ",
+  "sci": "Ninguta schrenckii"
+ },
+ {
+  "id": "hime_kijanome",
+  "ja": "ヒメキマダラヒカゲ",
+  "sci": "Zophoessa callipteris"
+ },
+ {
+  "id": "oni_kuwa_kamikiri",
+  "ja": "オオウスバカミキリ",
+  "sci": "Megopis sinica"
+ },
+ {
+  "id": "atta_cephalotes",
+  "ja": "Atta cephalotes",
+  "sci": "Atta cephalotes"
+ },
+ {
+  "id": "morpho_helenor",
+  "ja": "ヘレノールモルフォ",
+  "sci": "Morpho helenor"
+ },
+ {
+  "id": "tropidacris_cristata",
+  "ja": "シタベニオオバッタ",
+  "sci": "Tropidacris cristata"
+ },
+ {
+  "id": "caligo_atreus",
+  "ja": "Caligo atreus",
+  "sci": "Caligo atreus"
+ },
+ {
+  "id": "choeradodis_rhombicollis",
+  "ja": "Choeradodis rhombicollis",
+  "sci": "Choeradodis rhombicollis"
+ },
+ {
+  "id": "copiphora_rhinoceros",
+  "ja": "Copiphora rhinoceros",
+  "sci": "Copiphora rhinoceros"
+ },
+ {
+  "id": "umbonia_crassicornis",
+  "ja": "Umbonia crassicornis",
+  "sci": "Umbonia crassicornis"
+ },
+ {
+  "id": "eacles_imperialis",
+  "ja": "Eacles imperialis",
+  "sci": "Eacles imperialis"
+ },
+ {
+  "id": "mecistogaster_ornata",
+  "ja": "Mecistogaster ornata",
+  "sci": "Mecistogaster ornata"
+ },
+ {
+  "id": "trychopeplus_laciniatus",
+  "ja": "Trychopeplus laciniatus",
+  "sci": "Trychopeplus laciniatus"
+ },
+ {
+  "id": "euglossa_imperialis",
+  "ja": "Euglossa imperialis",
+  "sci": "Euglossa imperialis"
+ },
+ {
+  "id": "anartia_fatima",
+  "ja": "Anartia fatima",
+  "sci": "Anartia fatima"
+ },
+ {
+  "id": "camponotus_sericeiventris",
+  "ja": "Camponotus sericeiventris",
+  "sci": "Camponotus sericeiventris"
+ },
+ {
+  "id": "siproeta_stelenes",
+  "ja": "ミドリタテハ",
+  "sci": "Siproeta stelenes"
+ },
+ {
+  "id": "dryas_iulia",
+  "ja": "チャイロドクチョウ",
+  "sci": "Dryas iulia"
+ },
+ {
+  "id": "synoeca_septentrionalis",
+  "ja": "Synoeca septentrionalis",
+  "sci": "Synoeca septentrionalis"
+ },
+ {
+  "id": "apoica_pallens",
+  "ja": "Apoica pallens",
+  "sci": "Apoica pallens"
+ },
+ {
+  "id": "ascalapha_odorata",
+  "ja": "オドラジゴクオオヤガ",
+  "sci": "Ascalapha odorata"
+ },
+ {
+  "id": "pseudoxycheila_tarsalis",
+  "ja": "Pseudoxycheila tarsalis",
+  "sci": "Pseudoxycheila tarsalis"
+ },
+ {
+  "id": "ancognatha_vulgaris",
+  "ja": "ブルガリスエボシコガネカブト",
+  "sci": "Ancognatha vulgaris"
+ },
+ {
+  "id": "automeris_zugana",
+  "ja": "Automeris zugana",
+  "sci": "Automeris zugana"
+ },
+ {
+  "id": "heliconius_hecale",
+  "ja": "Heliconius hecale",
+  "sci": "Heliconius hecale"
+ },
+ {
+  "id": "hetaerina_titia",
+  "ja": "Hetaerina titia",
+  "sci": "Hetaerina titia"
+ },
+ {
+  "id": "libellula_herculea",
+  "ja": "Libellula herculea",
+  "sci": "Libellula herculea"
+ },
+ {
+  "id": "lirometopum_coronatum",
+  "ja": "Lirometopum coronatum",
+  "sci": "Lirometopum coronatum"
+ },
+ {
+  "id": "pseudovates_chlorophaea",
+  "ja": "Pseudovates chlorophaea",
+  "sci": "Pseudovates chlorophaea"
+ },
+ {
+  "id": "acanthops_godmani",
+  "ja": "Acanthops godmani",
+  "sci": "Acanthops godmani"
+ },
+ {
+  "id": "wasmannia_auropunctata",
+  "ja": "Wasmannia auropunctata",
+  "sci": "Wasmannia auropunctata"
+ },
+ {
+  "id": "canthidium_aurifex",
+  "ja": "Canthidium aurifex",
+  "sci": "Canthidium aurifex"
+ },
+ {
+  "id": "cyclocephala_lunulata",
+  "ja": "Cyclocephala lunulata",
+  "sci": "Cyclocephala lunulata"
+ },
+ {
+  "id": "copris_lugubris",
+  "ja": "Copris lugubris",
+  "sci": "Copris lugubris"
+ },
+ {
+  "id": "ornidia_obesa",
+  "ja": "Ornidia obesa",
+  "sci": "Ornidia obesa"
+ },
+ {
+  "id": "cephaloleia_belti",
+  "ja": "Cephaloleia belti",
+  "sci": "Cephaloleia belti"
+ },
+ {
+  "id": "dichotomius_satanas",
+  "ja": "Dichotomius satanas",
+  "sci": "Dichotomius satanas"
+ },
+ {
+  "id": "hortensia_similis",
+  "ja": "Hortensia similis",
+  "sci": "Hortensia similis"
+ },
+ {
+  "id": "trigona_fulviventris",
+  "ja": "Trigona fulviventris",
+  "sci": "Trigona fulviventris"
+ },
+ {
+  "id": "ectatomma_ruidum",
+  "ja": "Ectatomma ruidum",
+  "sci": "Ectatomma ruidum"
+ },
+ {
+  "id": "abracris_flavolineata",
+  "ja": "Abracris flavolineata",
+  "sci": "Abracris flavolineata"
+ },
+ {
+  "id": "sargus_fasciatus",
+  "ja": "Sargus fasciatus",
+  "sci": "Sargus fasciatus"
+ },
+ {
+  "id": "bombus_ephippiatus",
+  "ja": "Bombus ephippiatus",
+  "sci": "Bombus ephippiatus"
+ },
+ {
+  "id": "cochliomyia_macellaria",
+  "ja": "Cochliomyia macellaria",
+  "sci": "Cochliomyia macellaria"
+ },
+ {
+  "id": "chelobasis_perplexa",
+  "ja": "Chelobasis perplexa",
+  "sci": "Chelobasis perplexa"
+ },
+ {
+  "id": "polistes_instabilis",
+  "ja": "Polistes instabilis",
+  "sci": "Polistes instabilis"
+ },
+ {
+  "id": "chlorogonalia_coeruleovittata",
+  "ja": "Chlorogonalia coeruleovittata",
+  "sci": "Chlorogonalia coeruleovittata"
+ },
+ {
+  "id": "eurysternus_caribaeus",
+  "ja": "Eurysternus caribaeus",
+  "sci": "Eurysternus caribaeus"
+ },
+ {
+  "id": "atopsyche_majada",
+  "ja": "Atopsyche majada",
+  "sci": "Atopsyche majada"
+ },
+ {
+  "id": "leptonema_albovirens",
+  "ja": "Leptonema albovirens",
+  "sci": "Leptonema albovirens"
+ },
+ {
+  "id": "scione_maculipennis",
+  "ja": "Scione maculipennis",
+  "sci": "Scione maculipennis"
+ },
+ {
+  "id": "mahanarva_costaricensis",
+  "ja": "Mahanarva costaricensis",
+  "sci": "Mahanarva costaricensis"
+ },
+ {
+  "id": "palpada_agrorum",
+  "ja": "Palpada agrorum",
+  "sci": "Palpada agrorum"
+ },
+ {
+  "id": "prosapia_simulans",
+  "ja": "Prosapia simulans",
+  "sci": "Prosapia simulans"
+ },
+ {
+  "id": "orthemis_discolor",
+  "ja": "Orthemis discolor",
+  "sci": "Orthemis discolor"
+ },
+ {
+  "id": "orsilochides_variabilis",
+  "ja": "Orsilochides variabilis",
+  "sci": "Orsilochides variabilis"
+ },
+ {
+  "id": "erythrodiplax_funerea",
+  "ja": "Erythrodiplax funerea",
+  "sci": "Erythrodiplax funerea"
+ },
+ {
+  "id": "augocoris_gomesii",
+  "ja": "Augocoris gomesii",
+  "sci": "Augocoris gomesii"
+ },
+ {
+  "id": "dysdercus_bimaculatus",
+  "ja": "Dysdercus bimaculatus",
+  "sci": "Dysdercus bimaculatus"
+ },
+ {
+  "id": "graphocephala_albomaculata",
+  "ja": "Graphocephala albomaculata",
+  "sci": "Graphocephala albomaculata"
+ },
+ {
+  "id": "neoconocephalus_triops",
+  "ja": "Neoconocephalus triops",
+  "sci": "Neoconocephalus triops"
+ },
+ {
+  "id": "hetaerina_occisa",
+  "ja": "Hetaerina occisa",
+  "sci": "Hetaerina occisa"
+ },
+ {
+  "id": "mimetica_incisa",
+  "ja": "Mimetica incisa",
+  "sci": "Mimetica incisa"
+ },
+ {
+  "id": "helicopsyche_incisa",
+  "ja": "Helicopsyche incisa",
+  "sci": "Helicopsyche incisa"
+ },
+ {
+  "id": "chromacris_trogon",
+  "ja": "Chromacris trogon",
+  "sci": "Chromacris trogon"
+ },
+ {
+  "id": "nectopsyche_punctata",
+  "ja": "Nectopsyche punctata",
+  "sci": "Nectopsyche punctata"
+ },
+ {
+  "id": "copiphora_cultricornis",
+  "ja": "Copiphora cultricornis",
+  "sci": "Copiphora cultricornis"
+ },
+ {
+  "id": "pseudophasma_unicolor",
+  "ja": "Pseudophasma unicolor",
+  "sci": "Pseudophasma unicolor"
+ },
+ {
+  "id": "philophyllia_guttulata",
+  "ja": "Philophyllia guttulata",
+  "sci": "Philophyllia guttulata"
+ },
+ {
+  "id": "erythemis_peruviana",
+  "ja": "Erythemis peruviana",
+  "sci": "Erythemis peruviana"
+ },
+ {
+  "id": "pycnopalpa_bicordata",
+  "ja": "Pycnopalpa bicordata",
+  "sci": "Pycnopalpa bicordata"
+ },
+ {
+  "id": "vates_pectinicornis",
+  "ja": "Vates pectinicornis",
+  "sci": "Vates pectinicornis"
+ },
+ {
+  "id": "gynacantha_nervosa",
+  "ja": "Gynacantha nervosa",
+  "sci": "Gynacantha nervosa"
+ },
+ {
+  "id": "argia_oenea",
+  "ja": "Argia oenea",
+  "sci": "Argia oenea"
+ },
+ {
+  "id": "mecistogaster_modesta",
+  "ja": "Mecistogaster modesta",
+  "sci": "Mecistogaster modesta"
+ },
+ {
+  "id": "oncotophasma_martini",
+  "ja": "Oncotophasma martini",
+  "sci": "Oncotophasma martini"
+ },
+ {
+  "id": "liturgusa_maya",
+  "ja": "Liturgusa maya",
+  "sci": "Liturgusa maya"
+ },
+ {
+  "id": "prisopus_biolleyi",
+  "ja": "Prisopus biolleyi",
+  "sci": "Prisopus biolleyi"
+ },
+ {
+  "id": "stagmomantis_carolina",
+  "ja": "Stagmomantis carolina",
+  "sci": "Stagmomantis carolina"
+ },
+ {
+  "id": "macromantis_hyalina",
+  "ja": "Macromantis hyalina",
+  "sci": "Macromantis hyalina"
+ },
+ {
+  "id": "metriophasma_diocles",
+  "ja": "Metriophasma diocles",
+  "sci": "Metriophasma diocles"
+ },
+ {
+  "id": "stagmatoptera_biocellata",
+  "ja": "Stagmatoptera biocellata",
+  "sci": "Stagmatoptera biocellata"
+ },
+ {
+  "id": "pterinoxylus_speciosus",
+  "ja": "Pterinoxylus speciosus",
+  "sci": "Pterinoxylus speciosus"
+ },
+ {
+  "id": "tithrone_roseipennis",
+  "ja": "Tithrone roseipennis",
+  "sci": "Tithrone roseipennis"
+ },
+ {
+  "id": "anartia_jatrophae",
+  "ja": "ウスベニタテハ",
+  "sci": "Anartia jatrophae"
+ },
+ {
+  "id": "urbanus_proteus",
+  "ja": "オナガセセリ",
+  "sci": "Urbanus proteus"
+ },
+ {
+  "id": "astraptes_fulgerator",
+  "ja": "Astraptes fulgerator",
+  "sci": "Astraptes fulgerator"
+ }
+]

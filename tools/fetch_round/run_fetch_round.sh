@@ -24,6 +24,11 @@
 #   --no-quality-gate         品質ゲートを無効化する
 #   --merge                   catalog.js への append を batch 内で行う (既定は --no-merge)
 #   --out-dir <path>          round 成果物の置き場 (既定 zukan_foundry/rounds/<date>)
+#   --from-list <path>        既存の species.json をそのまま撃つ (builder を起動しない)。
+#                              3 本の freeze draft に無い波 (画像補修の再取得や新しい遠征の
+#                              優先順リストなど) を、別途組んだ species list で撃つとき用。
+#                              manifest は <path> と同じディレクトリの manifest.md を見る
+#                              (無くても実行は止めない。species list が唯一の真実)
 
 set -euo pipefail
 
@@ -43,6 +48,7 @@ QUALITY_MAX_SOURCES=4
 QUALITY_GATE=1
 MERGE=0
 OUT_DIR=""
+FROM_LIST=""
 
 die() { echo "error: $*" >&2; exit 2; }
 
@@ -59,12 +65,12 @@ while [[ $# -gt 0 ]]; do
     --no-quality-gate)      QUALITY_GATE=0; shift ;;
     --merge)                MERGE=1; shift ;;
     --out-dir)              OUT_DIR="${2:?--out-dir needs a value}"; shift 2 ;;
+    --from-list)            FROM_LIST="${2:?--from-list needs a value}"; shift 2 ;;
     -h|--help)              sed -n '2,30p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *)                      die "unknown option: $1" ;;
   esac
 done
 
-[[ -f "$BUILDER" ]] || die "builder が無い: $BUILDER"
 [[ -x "$VENV_PY" ]] || die "venv python が無い: $VENV_PY (VENV_PY= で上書き可)"
 
 if [[ -z "$OUT_DIR" ]]; then
@@ -72,24 +78,36 @@ if [[ -z "$OUT_DIR" ]]; then
 fi
 mkdir -p "$OUT_DIR"
 
-SPECIES_JSON="$OUT_DIR/species.json"
-MANIFEST="$OUT_DIR/manifest.md"
+if [[ -n "$FROM_LIST" ]]; then
+  # 3 本の freeze draft (borneo/mg/au 5 章) に無い波を撃つ経路。builder はその 3 本しか
+  # 読めないので、別途組んだ species list をそのまま使う。waves/regions/limit/spares/
+  # include-carded は builder 専用なので、このモードでは無視する (silently no-op)。
+  [[ -f "$FROM_LIST" ]] || die "species list が無い: $FROM_LIST"
+  SPECIES_JSON="$FROM_LIST"
+  MANIFEST="$(dirname "$FROM_LIST")/manifest.md"
+  echo "=== 既存の species list を使用 (builder は起動しない) ===" >&2
+else
+  [[ -f "$BUILDER" ]] || die "builder が無い: $BUILDER"
+  SPECIES_JSON="$OUT_DIR/species.json"
+  MANIFEST="$OUT_DIR/manifest.md"
 
-builder_args=(
-  --json "$SPECIES_JSON"
-  --manifest "$MANIFEST"
-  --regions "$REGIONS"
-  --spares "$SPARES"
-)
-[[ -n "$WAVES" ]] && builder_args+=(--waves "$WAVES")
-[[ "$LIMIT" -gt 0 ]] && builder_args+=(--limit "$LIMIT")
-[[ "$INCLUDE_CARDED" -eq 1 ]] && builder_args+=(--include-carded)
+  builder_args=(
+    --json "$SPECIES_JSON"
+    --manifest "$MANIFEST"
+    --regions "$REGIONS"
+    --spares "$SPARES"
+  )
+  [[ -n "$WAVES" ]] && builder_args+=(--waves "$WAVES")
+  [[ "$LIMIT" -gt 0 ]] && builder_args+=(--limit "$LIMIT")
+  [[ "$INCLUDE_CARDED" -eq 1 ]] && builder_args+=(--include-carded)
 
-echo "=== 対象の組み立て ===" >&2
-"$VENV_PY" "$BUILDER" "${builder_args[@]}"
+  echo "=== 対象の組み立て ===" >&2
+  "$VENV_PY" "$BUILDER" "${builder_args[@]}"
+fi
+
 COUNT=$("$VENV_PY" -c "import json,sys; print(len(json.load(open(sys.argv[1], encoding='utf-8'))))" "$SPECIES_JSON")
 echo "species list : $SPECIES_JSON" >&2
-echo "manifest     : $MANIFEST" >&2
+echo "manifest     : $MANIFEST$([[ -f "$MANIFEST" ]] || echo ' (無し)')" >&2
 
 batch_args=(
   "$VENV_PY" "$BATCH"
