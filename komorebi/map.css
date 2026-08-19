@@ -157,9 +157,6 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .ratio-waza h3{margin:0 0 9px;color:#FFE08A;font-size:20px}
 .ratio-waza p{display:grid;grid-template-columns:auto 1fr;gap:9px;margin:7px 0;line-height:1.65}
 .ratio-waza strong{color:#FFE9A8;white-space:nowrap}
-.ratio-capture{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0;padding:14px;border:2px solid #D6B653;border-radius:14px;background:#233D2E;color:#FFF3C6}
-.ratio-capture strong{font-size:18px}
-.ratio-capture span{padding:3px 9px;border-radius:999px;background:#0D251E;color:#FFE08A;font-weight:900}
 .ratio-next{display:block;width:100%;margin-top:18px}
 .ratio-choice:focus-visible,.ratio-part:focus-visible,.ratio-submit:focus-visible,.ratio-reset:focus-visible,.ratio-next:focus-visible,.ratio-number-form input:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
 @media (max-width:520px){
@@ -175,7 +172,10 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 /* Lv 表示。本編の lvDotsHTML と同じ ●✗○ 表記。 */
 .ratio-lv{display:inline-block;margin-top:4px;font-size:13px;letter-spacing:.12em;color:#CFE7A8;font-weight:700}
 
-/* 捕獲カード。本編 showCapture と同じ情報 (絵・和名・レア度・サイズ・NEW か 何匹め)。 */
+/* 捕獲カード。本編 showCapture と同じ情報 (絵・和名・レア度・サイズ・NEW か 何匹め)。
+   .ratio-capture の定義はこの 1 か所だけにする。stage C の横並び版 (display:flex と
+   .ratio-capture span の丸チップ) を上に残していた間は、display を打ち消していない
+   ぶんだけ子要素が横 5 列に潰れ、132px 角の絵が細い縦棒になっていた (2026-08-18 修正)。 */
 .ratio-capture{margin-top:14px;padding:14px;border:2px solid #D8C768;border-radius:16px;
   background:linear-gradient(180deg,#1B3F31,#122C24);text-align:center}
 .ratio-capture>strong{display:block;font-size:17px;color:#FFE9A8;margin-bottom:8px}

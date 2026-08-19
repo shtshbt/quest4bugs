@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v155";  /* v155: komorebi保存競合解決のanslog統合・道具id前方互換 + ナナフシ専用renderer追加とPhasmatodea種27件のbugs.js反映。 */
+var CACHE = "q4b-cache-v156";  /* v156: 小道の捕獲カードが横並びに潰れる不具合の修正 (map.css の .ratio-capture 旧定義を削除)。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
