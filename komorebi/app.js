@@ -1743,24 +1743,39 @@
     return '<aside class="ratio-waza"><h3>'+displayText("かいせつ")+'</h3><p><span>'+displayText(card.text)+'</span></p></aside>';
   }
 
-  /* 本編 keisan/app.js の showCapture と同じ情報を出す: 虫の SVG、和名、レア度タグ、
-     サイズ、NEW か 何匹め。SVG と TIERNAME は Q4BReward を使い回し、別実装にしない。
-     bugs.js に種が無い場合 (差し替え途中など) は名前とレア度まで落として描く。 */
+  /* 本編 keisan/app.js の showCapture と同じ情報を、同じ形で出す: 裏 (📖) から表へ
+     1 秒で返る 1 枚のカードに、虫の絵・和名・レア度タグ・サイズ・NEW か 何匹め を
+     載せる。本編の .flipwrap > .flip > .face.front / .face.back と同じ入れ子で、
+     クラス名だけ小道の名前空間 (ratio-) に置く。CSS は map.css が自分で持ち、
+     keisan/style.css の .flipwrap 系には一切ぶら下がらない (各ゲーム自己完結)。
+
+     SVG と TIERNAME は Q4BReward を使い回し、別実装にしない。bugs.js に種が無い
+     場合 (差し替え途中など) は名前とレア度まで落として描く。 */
   function ratioCaptureHtml(capture){
     if(!capture)return "";
     var reward=global.Q4BReward,sp=reward&&reward.spById?reward.spById(capture.id):null;
     var tier=sp?sp.r:null;
     var tierName=(reward&&reward.TIERNAME&&tier!=null)?reward.TIERNAME[tier]:capture.rarity;
-    var art=(sp&&reward.svg)?'<div class="ratio-capture-art r'+tier+'">'+reward.svg(sp,capture.shiny)+'</div>':"";
+    /* レア度が引けない種では枠色クラスを付けない。"rnull" という無効なクラスが
+       出ると、後から .ratio-face-front.r0 を足したときに黙って外れる。 */
+    var rank=(tier==null)?"":" r"+tier;
+    var art=(sp&&reward.svg)?'<div class="ratio-capture-art">'+reward.svg(sp,capture.shiny)+'</div>':"";
     var name=sp?speciesName(sp):capture.id;
     var size=capture.size?'<span class="ratio-capture-size">'+capture.size+'mm</span>':"";
     var tag=capture.isNew
-      ?'<span class="ratio-capture-new">'+displayText("ずかんに とうろく")+'</span>'
+      ?'<span class="ratio-capture-new">✨ '+displayText("ずかんに とうろく")+'</span>'
       :'<span class="ratio-capture-again">'+displayText(capture.n+"匹め")+'</span>';
     var note=(sp&&sp.note)?'<p class="ratio-capture-note">'+displayText(sp.note)+'</p>':"";
     return '<div class="ratio-capture" role="status"><strong>'+displayText("つかまえた！")+'</strong>'
-      +art+'<div class="ratio-capture-name">'+displayText(name)+(capture.shiny?" ✨":"")+'</div>'
-      +'<div class="ratio-capture-meta"><span class="ratio-capture-tier r'+tier+'">'+displayText(tierName)+'</span>'+size+tag+'</div>'
+      +'<div class="ratio-flipwrap"><div class="ratio-flip">'
+      +'<div class="ratio-face ratio-face-front'+rank+'">'
+      +art
+      +'<div class="ratio-capture-name">'+displayText(name)+(capture.shiny?" ✨":"")+'</div>'
+      +'<div class="ratio-capture-meta"><span class="ratio-capture-tier'+rank+'">'+displayText(tierName)+'</span>'+size+tag+'</div>'
+      +'</div>'
+      /* 裏面は返る途中の 0.6 秒しか見えない飾りで、読み上げる中身はない。 */
+      +'<div class="ratio-face ratio-face-back" aria-hidden="true"><span>📖</span></div>'
+      +'</div></div>'
       +note+'</div>';
   }
 
