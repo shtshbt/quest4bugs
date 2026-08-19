@@ -1,0 +1,74 @@
+{
+  "species_id": "morpho_helenor",
+  "species_ja": "ヘレノールモルフォ",
+  "scientific_name": "Morpho helenor",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "808207",
+    "occurrenceId": "09541412-8afa-4690-b2b1-1c8b4ea33272",
+    "persistentId": "09541412-8afa-4690-b2b1-1c8b4ea33272",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Venezuela (Bolivarian Republic of)",
+    "localityVerbatim": null,
+    "localityNormalized": "Venezuela (Bolivarian Republic of)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3457668658",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/09541412-8afa-4690-b2b1-1c8b4ea33272",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f06c3be7-287f-4f11-a609-00bf3183c02f",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK808207_resized.jpg",
+    "display": "processed/NHMUK808207_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK808207_54.webp",
+      "108": "thumb/NHMUK808207_108.webp",
+      "216": "thumb/NHMUK808207_216.webp"
+    }
+  },
+  "original_sha256": "7ba12c6983d57e2a51a6f16a8081d782b6d8fc786cf361fe78a81f194f319585",
+  "processing": {
+    "cropBox": [
+      74,
+      108,
+      1075,
+      938
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK808207_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

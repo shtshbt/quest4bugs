@@ -1,0 +1,74 @@
+{
+  "species_id": "graphium_agamemnon",
+  "species_ja": "コモンタイマイ",
+  "scientific_name": "Graphium agamemnon",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)669724",
+    "occurrenceId": "5559ab92-316f-41ba-845a-5a332ec45ac0",
+    "persistentId": "5559ab92-316f-41ba-845a-5a332ec45ac0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "India",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055585400",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/5559ab92-316f-41ba-845a-5a332ec45ac0",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f833009e-3a2d-4bc7-8102-5115a6832c51",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE669724_resized.jpg",
+    "display": "processed/NHMUKBMNHE669724_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE669724_54.webp",
+      "108": "thumb/NHMUKBMNHE669724_108.webp",
+      "216": "thumb/NHMUKBMNHE669724_216.webp"
+    }
+  },
+  "original_sha256": "8aa012ddadec2467271e9e378cbdda79b15c66e0f3613104c36f719a69096022",
+  "processing": {
+    "cropBox": [
+      38,
+      98,
+      1394,
+      1023
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE669724_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

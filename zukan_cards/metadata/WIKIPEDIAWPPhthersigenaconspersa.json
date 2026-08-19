@@ -1,0 +1,74 @@
+{
+  "species_id": "phthersigena_conspersa",
+  "species_ja": "Phthersigena conspersa",
+  "scientific_name": "Phthersigena conspersa",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Marabuto E, Rodrigues I, Henriques S",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Phthersigena conspersa",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Phthersigena_conspersa",
+    "persistentId": "https://en.wikipedia.org/wiki/Phthersigena_conspersa",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Marabuto E, Rodrigues I, Henriques S",
+    "eventDate": "2008-10-15 23:02:22",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Male Sphodromantis viridis from near Campono Maior (Évora) – credit Eduardo Marabuto.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Phthersigena_conspersa",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Male_Sphodromantis_viridis_from_near_Campo_Maior_%28%C3%89vora%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPhthersigenaconspersa_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPhthersigenaconspersa_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPhthersigenaconspersa_54.webp",
+      "108": "thumb/WIKIPEDIAWPPhthersigenaconspersa_108.webp",
+      "216": "thumb/WIKIPEDIAWPPhthersigenaconspersa_216.webp"
+    }
+  },
+  "original_sha256": "9127bf0259e9bea2d8e0fd9943c067fcff6df7d3382a93a90f7b7f0169a4f5d2",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3456,
+      2193
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPhthersigenaconspersa_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

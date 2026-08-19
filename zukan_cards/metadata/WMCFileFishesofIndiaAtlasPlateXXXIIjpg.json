@@ -1,0 +1,74 @@
+{
+  "species_id": "sargus_fasciatus",
+  "species_ja": "Sargus fasciatus",
+  "scientific_name": "Sargus fasciatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "George Henry Ford",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Fishes of India. Atlas. Plate XXXII.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Fishes_of_India._Atlas._Plate_XXXII.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Fishes_of_India._Atlas._Plate_XXXII.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "George Henry Ford",
+    "eventDate": "1878",
+    "eventYear": 1878,
+    "country": null,
+    "localityVerbatim": "1 – Nandus marmoratus (=Nandus nandus), 2 – Pristolepis malabaricus (=Pristolepis marginata), 3 – Pristolepis fasciatus (=Pristolepis fasciata), 4 – Crenidens indicus (=Crenidens crenidens), 5 – Sargus noct (=Diplodus noct).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Fishes_of_India._Atlas._Plate_XXXII.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Fishes_of_India._Atlas._Plate_XXXII.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_resized.jpg",
+    "display": "processed/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_54.webp",
+      "108": "thumb/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_108.webp",
+      "216": "thumb/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_216.webp"
+    }
+  },
+  "original_sha256": "8340ccbb5d84b37d97c897053e3200bfeeff9cfeff64fdf9cbfec70a07f8dd34",
+  "processing": {
+    "cropBox": [
+      11,
+      91,
+      1492,
+      1925
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFishesofIndiaAtlasPlateXXXIIjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

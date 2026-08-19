@@ -1,0 +1,80 @@
+{
+  "species_id": "zanna_tenebrosa",
+  "species_ja": "Zanna tenebrosa",
+  "scientific_name": "Zanna tenebrosa",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "jeanpaulboerekamps (iNaturalist)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_67184038",
+    "occurrenceId": "https://www.inaturalist.org/observations/67184038",
+    "persistentId": "https://www.inaturalist.org/observations/67184038",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "jeanpaulboerekamps",
+    "eventDate": "2017-07-12",
+    "eventYear": 2017,
+    "country": "MG",
+    "localityVerbatim": null,
+    "localityNormalized": "Fianarantsoa, MG, MG",
+    "preparations": null,
+    "decimalLatitude": -21.8525301658,
+    "decimalLongitude": 46.8428662403,
+    "coordinatesObscured": false,
+    "iNatObservationId": "67184038",
+    "iNatPhotoId": "108484374",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/67184038",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/108484374/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs67184038_resized.jpg",
+    "display": "processed/iNatobs67184038_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs67184038_54.webp",
+      "108": "thumb/iNatobs67184038_108.webp",
+      "216": "thumb/iNatobs67184038_216.webp"
+    }
+  },
+  "original_sha256": "22cd0cda820dc289ace137885465b0a42009f44033bed0a9d611185905a9733b",
+  "processing": {
+    "cropBox": [
+      155,
+      223,
+      948,
+      819
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs67184038_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

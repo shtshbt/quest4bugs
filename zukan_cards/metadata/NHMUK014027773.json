@@ -1,0 +1,74 @@
+{
+  "species_id": "kosrheithrus_tillyardi",
+  "species_ja": "Kosrheithrus tillyardi",
+  "scientific_name": "Kosrheithrus tillyardi",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014027773",
+    "occurrenceId": "c091c9c6-8b94-48cc-a2f5-39f39470fb18",
+    "persistentId": "c091c9c6-8b94-48cc-a2f5-39f39470fb18",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1885-01-19",
+    "eventYear": 1885,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330259763",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/c091c9c6-8b94-48cc-a2f5-39f39470fb18",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/38796021-ed6a-4175-b8b0-50f6b8065923",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014027773_resized.jpg",
+    "display": "processed/NHMUK014027773_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014027773_54.webp",
+      "108": "thumb/NHMUK014027773_108.webp",
+      "216": "thumb/NHMUK014027773_216.webp"
+    }
+  },
+  "original_sha256": "0efda23ecf38308989a015a6c76acb33bf0cd9bb71c23e2e9cb793e5bbadc594",
+  "processing": {
+    "cropBox": [
+      493,
+      491,
+      961,
+      1049
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014027773_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

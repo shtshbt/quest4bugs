@@ -1,0 +1,74 @@
+{
+  "species_id": "eurysternus_caribaeus",
+  "species_ja": "Eurysternus caribaeus",
+  "scientific_name": "Eurysternus caribaeus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Carvalho et al. (2023)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dung beetles (10.3897-BDJ.11.e96101) Figure 4.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dung_beetles_(10.3897-BDJ.11.e96101)_Figure_4.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dung_beetles_(10.3897-BDJ.11.e96101)_Figure_4.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Carvalho et al. (2023)",
+    "eventDate": "2023-03-16",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Figure 4 Dorsal habitus of dung beetle species collected in the Tapajós National Forest and/or Carajás National Forest. A Eurysternus caribaeus (Herbst, 1789); B Eurysternus cavatus Génier, 2009; C Eurysternus cayennensis Castelnau, 1840; D Eurysternus cyclops Génier, 2009; E Eurysternus fallaciosus Génier, 2009; F Eurysternus foedus Guérin-Méneville, 1844; G Eurysternus hamaticollis Balthasar, 1939; H Eurysternus hypocrita Balthasar, 1939; I Eurysternus plebejus Harold, 1880; J Eurysternus wittmerorum Martinez, 1988; L Hansreia oxygona (Perty, 1830); M Isocopris imitator (Felsche, 1901); N Isocopris nitidus (Luederwaldt, 1922); O Ontherus carinifrons Luederwaldt, 1930; P Onthophagus digitifer Boucomont, 1932; Q Onthophagus onthochromus Arrow, 1913. Scale bar: 1 mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dung_beetles_(10.3897-BDJ.11.e96101)_Figure_4.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Dung_beetles_%2810.3897-BDJ.11.e96101%29_Figure_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_resized.jpg",
+    "display": "processed/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_54.webp",
+      "108": "thumb/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_108.webp",
+      "216": "thumb/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_216.webp"
+    }
+  },
+  "original_sha256": "9456e4d549d63f5fee5c463cb1bebff53b9a81a824cd714a8cf8e8df687e9fcc",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2480,
+      3425
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDungbeetles103897BDJ11e96101Figure4jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

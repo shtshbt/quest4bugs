@@ -1,0 +1,74 @@
+{
+  "species_id": "traulia_azureipennis",
+  "species_ja": "Traulia azureipennis",
+  "scientific_name": "Traulia azureipennis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498348",
+    "occurrenceId": "80cd7507-3bcd-4eeb-a77f-151a090647e0",
+    "persistentId": "80cd7507-3bcd-4eeb-a77f-151a090647e0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417312",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/80cd7507-3bcd-4eeb-a77f-151a090647e0",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/2c311a14-0ab0-4901-8b9a-1cecdb410ccd",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012498348_resized.jpg",
+    "display": "processed/NHMUK012498348_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498348_54.webp",
+      "108": "thumb/NHMUK012498348_108.webp",
+      "216": "thumb/NHMUK012498348_216.webp"
+    }
+  },
+  "original_sha256": "ed4ffb485b5a4834257d85fd89db16a837961b4d3759d63b9981240c61c04aca",
+  "processing": {
+    "cropBox": [
+      684,
+      258,
+      826,
+      736
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498348_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

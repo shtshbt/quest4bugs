@@ -1,0 +1,74 @@
+{
+  "species_id": "ecnomus_continentalis",
+  "species_ja": "Ecnomus continentalis",
+  "scientific_name": "Ecnomus continentalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014411891",
+    "occurrenceId": "8b236683-513d-4eb9-9410-431235870231",
+    "persistentId": "8b236683-513d-4eb9-9410-431235870231",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1884-10-05",
+    "eventYear": 1884,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330265561",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/8b236683-513d-4eb9-9410-431235870231",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/235b9df3-bf78-4c94-89b9-27c9fbe2a8a7",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014411891_resized.jpg",
+    "display": "processed/NHMUK014411891_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014411891_54.webp",
+      "108": "thumb/NHMUK014411891_108.webp",
+      "216": "thumb/NHMUK014411891_216.webp"
+    }
+  },
+  "original_sha256": "572ba3fcd0dd31bc717f6da4c9863599b67db5522b1e01ba7739c6a96133032e",
+  "processing": {
+    "cropBox": [
+      682,
+      428,
+      908,
+      729
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014411891_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

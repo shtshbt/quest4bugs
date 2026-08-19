@@ -1,0 +1,74 @@
+{
+  "species_id": "heteronychus_arator",
+  "species_ja": "Heteronychus arator",
+  "scientific_name": "Heteronychus arator",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Peter de Lange",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Heteronychus arator 53065377.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Heteronychus_arator_53065377.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Heteronychus_arator_53065377.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Peter de Lange",
+    "eventDate": "2019-09-28",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "African Black Beetle (Heteronychus arator)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Heteronychus_arator_53065377.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Heteronychus_arator_53065377.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileHeteronychusarator53065377jpg_resized.jpg",
+    "display": "processed/WMCFileHeteronychusarator53065377jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHeteronychusarator53065377jpg_54.webp",
+      "108": "thumb/WMCFileHeteronychusarator53065377jpg_108.webp",
+      "216": "thumb/WMCFileHeteronychusarator53065377jpg_216.webp"
+    }
+  },
+  "original_sha256": "bc7c71c1f48ffe8fb5799ddab6b5be674c8a94dd160145db14387389bf514b52",
+  "processing": {
+    "cropBox": [
+      106,
+      26,
+      1707,
+      1416
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHeteronychusarator53065377jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

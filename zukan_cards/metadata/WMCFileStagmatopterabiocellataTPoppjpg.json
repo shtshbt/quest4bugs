@@ -1,0 +1,74 @@
+{
+  "species_id": "stagmatoptera_biocellata",
+  "species_ja": "Stagmatoptera biocellata",
+  "scientific_name": "Stagmatoptera biocellata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Tanja Popp",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Stagmatoptera biocellata TPopp.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Stagmatoptera_biocellata_TPopp.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Stagmatoptera_biocellata_TPopp.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tanja Popp",
+    "eventDate": "2015-03-31 10:33:55",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Stagmatoptera biocellata (Saussure, 1869) ♂ Herkunft: Venezuela, Maracay",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Stagmatoptera_biocellata_TPopp.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Stagmatoptera_biocellata_TPopp.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileStagmatopterabiocellataTPoppjpg_resized.jpg",
+    "display": "processed/WMCFileStagmatopterabiocellataTPoppjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileStagmatopterabiocellataTPoppjpg_54.webp",
+      "108": "thumb/WMCFileStagmatopterabiocellataTPoppjpg_108.webp",
+      "216": "thumb/WMCFileStagmatopterabiocellataTPoppjpg_216.webp"
+    }
+  },
+  "original_sha256": "edc90f2ac3a5eac5504d45b1e5245076a6b790694f12c68c7bf3ebc52efbf511",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3413,
+      2628
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileStagmatopterabiocellataTPoppjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.47), rotate 0 CCW"
+}

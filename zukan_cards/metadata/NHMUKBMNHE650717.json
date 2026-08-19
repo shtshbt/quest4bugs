@@ -1,0 +1,76 @@
+{
+  "species_id": "apis_dorsata",
+  "species_ja": "オオミツバチ",
+  "scientific_name": "Apis dorsata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)650717",
+    "occurrenceId": "287c5ccf-c2cd-4ec3-b116-7f56e82bda13",
+    "persistentId": "287c5ccf-c2cd-4ec3-b116-7f56e82bda13",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "N Bradbear",
+    "eventDate": "1986",
+    "eventYear": 1986,
+    "country": "Bhutan",
+    "localityVerbatim": null,
+    "localityNormalized": "Phuntsholing, Bhutan",
+    "preparations": null,
+    "decimalLatitude": 26.859975,
+    "decimalLongitude": 89.394186
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057133386",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/287c5ccf-c2cd-4ec3-b116-7f56e82bda13",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8573faa6-9210-427a-81c1-2ae847b57164",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE650717_resized.jpg",
+    "display": "processed/NHMUKBMNHE650717_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE650717_54.webp",
+      "108": "thumb/NHMUKBMNHE650717_108.webp",
+      "216": "thumb/NHMUKBMNHE650717_216.webp"
+    }
+  },
+  "original_sha256": "334da3282d4341755686116ec04b733364745c507b06dd65debedf98251d1b57",
+  "processing": {
+    "cropBox": [
+      68,
+      140,
+      1379,
+      993
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE650717_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

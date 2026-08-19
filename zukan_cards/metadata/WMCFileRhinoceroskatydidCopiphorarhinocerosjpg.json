@@ -1,0 +1,75 @@
+{
+  "species_id": "copiphora_rhinoceros",
+  "species_ja": "Copiphora rhinoceros",
+  "scientific_name": "Copiphora rhinoceros",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Greg Hume",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhinoceros katydid - Copiphora rhinoceros.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhinoceros_katydid_-_Copiphora_rhinoceros.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhinoceros_katydid_-_Copiphora_rhinoceros.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Greg Hume",
+    "eventDate": "2017-02-14 16:12:33",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Rhinoceros katydid - Copiphora rhinoceros. Taken at the Cincinnati Zoo.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhinoceros_katydid_-_Copiphora_rhinoceros.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Rhinoceros_katydid_-_Copiphora_rhinoceros.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_resized.jpg",
+    "display": "processed/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_54.webp",
+      "108": "thumb/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_108.webp",
+      "216": "thumb/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_216.webp"
+    }
+  },
+  "original_sha256": "64cb412fc93511e55bce00b806587770c14675ae4b844cbab9f2ce719a4316e6",
+  "processing": {
+    "cropBox": [
+      351,
+      1004,
+      2996,
+      1911
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhinoceroskatydidCopiphorarhinocerosjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.95), rotate 180 CCW"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "micronecta_annae",
+  "species_ja": "Micronecta annae",
+  "scientific_name": "Micronecta annae",
+  "credit_line": "Australian Museum",
+  "creator": "Karen Li",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.503217",
+    "occurrenceId": "50012607-6044-4dbe-9222-7e6b077a4227",
+    "persistentId": "50012607-6044-4dbe-9222-7e6b077a4227",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "A. Leask",
+    "eventDate": "1997-03-24",
+    "eventYear": 1997,
+    "country": "Australia",
+    "localityVerbatim": "Bombala River at Cambalong",
+    "localityNormalized": "Bombala River at Cambalong, Australia",
+    "preparations": null,
+    "decimalLatitude": -36.890278,
+    "decimalLongitude": 149.11194
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276504086",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276504086",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=e0c529af-8e45-48fc-9f01-15eb059e8ecb",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK503217_resized.jpg",
+    "display": "processed/AMK503217_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK503217_54.webp",
+      "108": "thumb/AMK503217_108.webp",
+      "216": "thumb/AMK503217_216.webp"
+    }
+  },
+  "original_sha256": "22aed516959333bddb5e693c1f122e4dbc4b39a9a0b04dccbe8503b671ca72ea",
+  "processing": {
+    "cropBox": [
+      138,
+      0,
+      604,
+      383
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK503217_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

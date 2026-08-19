@@ -1,0 +1,74 @@
+{
+  "species_id": "leptonema_ranomafana",
+  "species_ja": "Leptonema ranomafana",
+  "scientific_name": "Leptonema ranomafana",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012502494",
+    "occurrenceId": "ac62bf98-e7ee-4c49-8ad4-619ef6a9d4b2",
+    "persistentId": "ac62bf98-e7ee-4c49-8ad4-619ef6a9d4b2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1988-11",
+    "eventYear": 1988,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Madagascar",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330255056",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/ac62bf98-e7ee-4c49-8ad4-619ef6a9d4b2",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/de1d247c-4d1d-4782-8869-5493fd51dcdd",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012502494_resized.jpg",
+    "display": "processed/NHMUK012502494_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012502494_54.webp",
+      "108": "thumb/NHMUK012502494_108.webp",
+      "216": "thumb/NHMUK012502494_216.webp"
+    }
+  },
+  "original_sha256": "24f6823c44f8ab850834dd9d7cc1960574423bcd1ea7a7e154f7334f6c767d7d",
+  "processing": {
+    "cropBox": [
+      688,
+      724,
+      923,
+      1103
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012502494_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

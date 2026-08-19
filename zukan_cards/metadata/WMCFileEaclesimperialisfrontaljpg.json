@@ -1,0 +1,74 @@
+{
+  "species_id": "eacles_imperialis",
+  "species_ja": "Eacles imperialis",
+  "scientific_name": "Eacles imperialis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Gamfeld",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Eacles imperialis frontal.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Eacles_imperialis_frontal.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Eacles_imperialis_frontal.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Gamfeld",
+    "eventDate": "2026-06-13 23:45:54",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "Frontal image of adult male Eacles imperialis, found in Wharton State Forest, NJ (June 2026).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Eacles_imperialis_frontal.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Eacles_imperialis_frontal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileEaclesimperialisfrontaljpg_resized.jpg",
+    "display": "processed/WMCFileEaclesimperialisfrontaljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEaclesimperialisfrontaljpg_54.webp",
+      "108": "thumb/WMCFileEaclesimperialisfrontaljpg_108.webp",
+      "216": "thumb/WMCFileEaclesimperialisfrontaljpg_216.webp"
+    }
+  },
+  "original_sha256": "89e2d7caf4d641a60f07f73fcd89cb1a93dd94e3246062ec1267b919b227ddd7",
+  "processing": {
+    "cropBox": [
+      0,
+      1017,
+      6192,
+      4128
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEaclesimperialisfrontaljpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

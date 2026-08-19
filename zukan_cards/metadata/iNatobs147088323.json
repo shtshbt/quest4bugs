@@ -1,0 +1,80 @@
+{
+  "species_id": "ima_fusca",
+  "species_ja": "Ima fusca",
+  "scientific_name": "Ima fusca",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "graces_field_journal (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_147088323",
+    "occurrenceId": "https://www.inaturalist.org/observations/147088323",
+    "persistentId": "https://www.inaturalist.org/observations/147088323",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "graces_field_journal",
+    "eventDate": "2022-10-02",
+    "eventYear": 2022,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Cooktown QLD 4895, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -15.4716933717,
+    "decimalLongitude": 145.2611231813,
+    "coordinatesObscured": false,
+    "iNatObservationId": "147088323",
+    "iNatPhotoId": "253034604",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/147088323",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/253034604/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs147088323_resized.jpg",
+    "display": "processed/iNatobs147088323_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs147088323_54.webp",
+      "108": "thumb/iNatobs147088323_108.webp",
+      "216": "thumb/iNatobs147088323_216.webp"
+    }
+  },
+  "original_sha256": "424e571c3f0e5015c88ab82759bfb320069146fc816d9e3060eae2934966a694",
+  "processing": {
+    "cropBox": [
+      76,
+      63,
+      475,
+      90
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs147088323_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "scolypopa_australis",
+  "species_ja": "Scolypopa australis",
+  "scientific_name": "Scolypopa australis",
+  "credit_line": "Australian Museum",
+  "creator": "Sarah Webb",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.317579",
+    "occurrenceId": "1a9578b2-091b-4c5d-ade5-35da0f740619",
+    "persistentId": "1a9578b2-091b-4c5d-ade5-35da0f740619",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "L. Wilkie & H.M. Smith",
+    "eventDate": "2000-11-25",
+    "eventYear": 2000,
+    "country": "Australia",
+    "localityVerbatim": "Eastern slope of Malabar Ridge above Neds Beach",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -31.5175,
+    "decimalLongitude": 159.06056
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100288172",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100288172",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=6326f7d8-2248-409a-a74f-cf1a92984151",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK317579_resized.jpg",
+    "display": "processed/AMK317579_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK317579_54.webp",
+      "108": "thumb/AMK317579_108.webp",
+      "216": "thumb/AMK317579_216.webp"
+    }
+  },
+  "original_sha256": "1a915e777ec45df9e5be8c4e79c8cc5ae28cbf45f1d75789a710c995c3c84fe9",
+  "processing": {
+    "cropBox": [
+      0,
+      12,
+      650,
+      412
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK317579_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

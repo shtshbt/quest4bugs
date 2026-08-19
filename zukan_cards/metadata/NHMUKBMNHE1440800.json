@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_cucurbitae",
+  "species_ja": "ウリミバエ",
+  "scientific_name": "Bactrocera cucurbitae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1440800",
+    "occurrenceId": "3a3d332b-1d65-4f04-95a7-644180f36a57",
+    "persistentId": "3a3d332b-1d65-4f04-95a7-644180f36a57",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dr Ian M. White",
+    "eventDate": "1994-04",
+    "eventYear": 1994,
+    "country": "Brunei Darussalam",
+    "localityVerbatim": null,
+    "localityNormalized": "Kampung Tanjong, Brunei Agriculture Research Center, Brunei Darussalam",
+    "preparations": null,
+    "decimalLatitude": 4.8964,
+    "decimalLongitude": 114.8509
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270007454",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/3a3d332b-1d65-4f04-95a7-644180f36a57",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9837a851-fcd0-4560-92a5-8237fa96433d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1440800_resized.jpg",
+    "display": "processed/NHMUKBMNHE1440800_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1440800_54.webp",
+      "108": "thumb/NHMUKBMNHE1440800_108.webp",
+      "216": "thumb/NHMUKBMNHE1440800_216.webp"
+    }
+  },
+  "original_sha256": "a4fa8f82516f5b9551181440755a6418b9e9b6c853e5bb7c27492f57b2fc5c38",
+  "processing": {
+    "cropBox": [
+      803,
+      892,
+      1082,
+      1382
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1440800_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

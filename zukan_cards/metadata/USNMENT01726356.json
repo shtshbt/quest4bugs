@@ -1,0 +1,74 @@
+{
+  "species_id": "xylocopa_latipes",
+  "species_ja": "Xylocopa latipes",
+  "scientific_name": "Xylocopa latipes",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pixel Acuity LLC",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01726356",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c9b91125-0610-4142-813a-321966d75d92",
+    "persistentId": "http://n2t.net/ark:/65665/3c9b91125-0610-4142-813a-321966d75d92",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "O. D. & R. Inger",
+    "eventDate": "1950-05-07",
+    "eventYear": 1950,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "in burrows in approx. 25\" 109 | North Borneo, E. Coast Residency, Kinabatangan Dist., nr. Mouth Little Kretan River, Malaysia",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2900393034",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2900393034",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=14943213&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT01726356_resized.jpg",
+    "display": "processed/USNMENT01726356_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01726356_54.webp",
+      "108": "thumb/USNMENT01726356_108.webp",
+      "216": "thumb/USNMENT01726356_216.webp"
+    }
+  },
+  "original_sha256": "7901d83dbdaea8a19de597bdeec48297ba365c05efb96bf59182ff995e597897",
+  "processing": {
+    "cropBox": [
+      489,
+      267,
+      925,
+      1097
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01726356_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

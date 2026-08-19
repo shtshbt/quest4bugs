@@ -1,0 +1,74 @@
+{
+  "species_id": "odontomantis_planiceps",
+  "species_ja": "Odontomantis planiceps",
+  "scientific_name": "Odontomantis planiceps",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496352",
+    "occurrenceId": "42887d03-b30b-4a70-85dd-0015f2866649",
+    "persistentId": "42887d03-b30b-4a70-85dd-0015f2866649",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403812",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/42887d03-b30b-4a70-85dd-0015f2866649",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/6102eb61-8496-42d4-984d-8c91e8b5ab14",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496352_resized.jpg",
+    "display": "processed/NHMUK012496352_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496352_54.webp",
+      "108": "thumb/NHMUK012496352_108.webp",
+      "216": "thumb/NHMUK012496352_216.webp"
+    }
+  },
+  "original_sha256": "a39a991d2c492c39e8ec88aa7026e1b2f92efd3ca97cc314be95912e762e3071",
+  "processing": {
+    "cropBox": [
+      20,
+      121,
+      629,
+      659
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496352_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

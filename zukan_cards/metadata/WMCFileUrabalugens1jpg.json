@@ -1,0 +1,74 @@
+{
+  "species_id": "uraba_lugens",
+  "species_ja": "Uraba lugens",
+  "scientific_name": "Uraba lugens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Unknown authorUnknown author",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Uraba lugens 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Uraba_lugens_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Uraba_lugens_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Unknown authorUnknown author",
+    "eventDate": "2013-06-28 23:45:16",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Uraba lugens",
+    "localityNormalized": "Uraba lugens",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Uraba_lugens_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Uraba_lugens_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileUrabalugens1jpg_resized.jpg",
+    "display": "processed/WMCFileUrabalugens1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileUrabalugens1jpg_54.webp",
+      "108": "thumb/WMCFileUrabalugens1jpg_108.webp",
+      "216": "thumb/WMCFileUrabalugens1jpg_216.webp"
+    }
+  },
+  "original_sha256": "c6b0cc6ec8ea9bdb78dca8eaa9fcd7622698338164f735210f99fadd932d53f5",
+  "processing": {
+    "cropBox": [
+      0,
+      2,
+      299,
+      147
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileUrabalugens1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

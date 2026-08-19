@@ -1,0 +1,74 @@
+{
+  "species_id": "lissopimpla_excelsa",
+  "species_ja": "Lissopimpla excelsa",
+  "scientific_name": "Lissopimpla excelsa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015358546",
+    "occurrenceId": "d7203d20-1fd5-474b-a747-70a4df7ded4e",
+    "persistentId": "d7203d20-1fd5-474b-a747-70a4df7ded4e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "4974340668",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/d7203d20-1fd5-474b-a747-70a4df7ded4e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/4a847518-180a-4825-9352-2968e95a14f9",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015358546_resized.jpg",
+    "display": "processed/NHMUK015358546_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015358546_54.webp",
+      "108": "thumb/NHMUK015358546_108.webp",
+      "216": "thumb/NHMUK015358546_216.webp"
+    }
+  },
+  "original_sha256": "825556a8b691ce038d07c969663090e3ab6394719c93da95e42f375308e93491",
+  "processing": {
+    "cropBox": [
+      45,
+      63,
+      1399,
+      491
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015358546_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

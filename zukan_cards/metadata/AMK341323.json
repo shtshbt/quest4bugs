@@ -1,0 +1,76 @@
+{
+  "species_id": "aedes_rubrithorax",
+  "species_ja": "Aedes rubrithorax",
+  "scientific_name": "Aedes rubrithorax",
+  "credit_line": "Australian Museum",
+  "creator": "Penny Walker",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.341323",
+    "occurrenceId": "3b2e490a-2e27-4a1d-8457-2ae7b471d951",
+    "persistentId": "3b2e490a-2e27-4a1d-8457-2ae7b471d951",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "C.B. Kloss",
+    "eventDate": "1914-12-14",
+    "eventYear": 1914,
+    "country": "Thailand",
+    "localityVerbatim": "Koh Mensi, West Island",
+    "localityNormalized": "Koh Mensi, West Island, Thailand",
+    "preparations": null,
+    "decimalLatitude": 11.716945,
+    "decimalLongitude": 102.52111
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100304226",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100304226",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=11366876-42ad-4504-9943-8fb93098bcc1",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK341323_resized.jpg",
+    "display": "processed/AMK341323_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK341323_54.webp",
+      "108": "thumb/AMK341323_108.webp",
+      "216": "thumb/AMK341323_216.webp"
+    }
+  },
+  "original_sha256": "e77f66f81a723da7321cb2013e7413edd4c8b2b20c6c5a991a00a59c2048480a",
+  "processing": {
+    "cropBox": [
+      114,
+      21,
+      499,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK341323_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

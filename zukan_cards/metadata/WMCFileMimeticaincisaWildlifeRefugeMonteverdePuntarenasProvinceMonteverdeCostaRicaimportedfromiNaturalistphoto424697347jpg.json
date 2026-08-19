@@ -1,0 +1,74 @@
+{
+  "species_id": "mimetica_incisa",
+  "species_ja": "Mimetica incisa",
+  "scientific_name": "Mimetica incisa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "(c) Justin Williams, some rights reserved (CC BY)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mimetica incisa, Wildlife Refuge Monteverde, Puntarenas Province, Monteverde, Costa Rica imported from iNaturalist photo 424697347.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mimetica_incisa,_Wildlife_Refuge_Monteverde,_Puntarenas_Province,_Monteverde,_Costa_Rica_imported_from_iNaturalist_photo_424697347.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mimetica_incisa,_Wildlife_Refuge_Monteverde,_Puntarenas_Province,_Monteverde,_Costa_Rica_imported_from_iNaturalist_photo_424697347.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "(c) Justin Williams, some rights reserved (CC BY)",
+    "eventDate": "2024-07-15",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Photo of Mimetica incisa (undefined) uploaded from iNaturalist.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mimetica_incisa,_Wildlife_Refuge_Monteverde,_Puntarenas_Province,_Monteverde,_Costa_Rica_imported_from_iNaturalist_photo_424697347.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Mimetica_incisa%2C_Wildlife_Refuge_Monteverde%2C_Puntarenas_Province%2C_Monteverde%2C_Costa_Rica_imported_from_iNaturalist_photo_424697347.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_resized.jpg",
+    "display": "processed/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_54.webp",
+      "108": "thumb/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_108.webp",
+      "216": "thumb/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_216.webp"
+    }
+  },
+  "original_sha256": "62a4a54d7812ab203561c9860ea5692aaeaf9365e478f1b65fdd5ea58d13c8e2",
+  "processing": {
+    "cropBox": [
+      124,
+      347,
+      1979,
+      1772
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMimeticaincisaWildlifeRefugeMonteverdePuntarenasProvinceMonteverdeCostaRicaimportedfromiNaturalistphoto424697347jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

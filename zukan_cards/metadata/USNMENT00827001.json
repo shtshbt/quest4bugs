@@ -1,0 +1,76 @@
+{
+  "species_id": "neurobasis_longipes",
+  "species_ja": "Neurobasis longipes",
+  "scientific_name": "Neurobasis longipes",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827001",
+    "occurrenceId": "http://n2t.net/ark:/65665/34cb0bb46-809b-489d-937e-76bc7c57fedc",
+    "persistentId": "http://n2t.net/ark:/65665/34cb0bb46-809b-489d-937e-76bc7c57fedc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly & A. Donnelly",
+    "eventDate": "1999-01-23",
+    "eventYear": 1999,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "vic. Batang Ai, trib. Ulu Ai River, Malaysia",
+    "preparations": "Envelope",
+    "decimalLatitude": 1.2,
+    "decimalLongitude": 112.07
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318936599",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318936599",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16354194&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00827001_resized.jpg",
+    "display": "processed/USNMENT00827001_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827001_54.webp",
+      "108": "thumb/USNMENT00827001_108.webp",
+      "216": "thumb/USNMENT00827001_216.webp"
+    }
+  },
+  "original_sha256": "01c5b39cb022d7a086c87a7f1340885f4f2f4cc1afd10668ee63cc3c2d0d0ab5",
+  "processing": {
+    "cropBox": [
+      458,
+      689,
+      1438,
+      1134
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827001_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

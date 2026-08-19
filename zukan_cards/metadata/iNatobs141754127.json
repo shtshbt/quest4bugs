@@ -1,0 +1,80 @@
+{
+  "species_id": "agrotis_porphyricollis",
+  "species_ja": "Agrotis porphyricollis",
+  "scientific_name": "Agrotis porphyricollis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "claudiarose (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_141754127",
+    "occurrenceId": "https://www.inaturalist.org/observations/141754127",
+    "persistentId": "https://www.inaturalist.org/observations/141754127",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "claudiarose",
+    "eventDate": "2022-10-23",
+    "eventYear": 2022,
+    "country": "AU",
+    "localityVerbatim": null,
+    "localityNormalized": "Australian Capital Territory, AU, AU",
+    "preparations": null,
+    "decimalLatitude": -35.5915333494,
+    "decimalLongitude": 149.0133714242,
+    "coordinatesObscured": true,
+    "iNatObservationId": "141754127",
+    "iNatPhotoId": "242917626",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/141754127",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/242917626/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs141754127_resized.jpg",
+    "display": "processed/iNatobs141754127_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs141754127_54.webp",
+      "108": "thumb/iNatobs141754127_108.webp",
+      "216": "thumb/iNatobs141754127_216.webp"
+    }
+  },
+  "original_sha256": "203feadc59c35c13d7d4ae7c47058ea7d60aa9dccb2345d5ee57fd6939aa91d7",
+  "processing": {
+    "cropBox": [
+      12,
+      326,
+      1380,
+      1435
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs141754127_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

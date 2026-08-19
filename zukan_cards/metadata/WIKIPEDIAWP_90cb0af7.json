@@ -1,0 +1,74 @@
+{
+  "species_id": "ranran_hana_kamakiri_dummy",
+  "species_ja": "ニセハナカマキリ",
+  "scientific_name": "Phyllothelys werneri",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Luc Viatour",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:カマキリ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AA",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AA",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Luc Viatour",
+    "eventDate": "2008-11-11",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Rhombodera basalis",
+    "localityNormalized": "Rhombodera basalis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9E%E3%82%AD%E3%83%AA",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Rhombodera_basalis_1_Luc_Viatour.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_90cb0af7_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_90cb0af7_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_90cb0af7_54.webp",
+      "108": "thumb/WIKIPEDIAWP_90cb0af7_108.webp",
+      "216": "thumb/WIKIPEDIAWP_90cb0af7_216.webp"
+    }
+  },
+  "original_sha256": "9f7d248f490964f62dcb6606f860672d2ff03e9727440314e24b1c9f5b1086ae",
+  "processing": {
+    "cropBox": [
+      0,
+      215,
+      4202,
+      2662
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_90cb0af7_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

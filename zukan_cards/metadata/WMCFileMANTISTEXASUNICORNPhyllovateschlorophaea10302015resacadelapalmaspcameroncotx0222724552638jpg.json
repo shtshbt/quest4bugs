@@ -1,0 +1,74 @@
+{
+  "species_id": "pseudovates_chlorophaea",
+  "species_ja": "Pseudovates chlorophaea",
+  "scientific_name": "Pseudovates chlorophaea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "ALAN SCHMIERER",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:MANTIS, TEXAS UNICORN (Phyllovates chlorophaea) (10-30-2015) resaca de la palma s p, cameron co, tx -02 (22724552638).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:MANTIS,_TEXAS_UNICORN_(Phyllovates_chlorophaea)_(10-30-2015)_resaca_de_la_palma_s_p,_cameron_co,_tx_-02_(22724552638).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:MANTIS,_TEXAS_UNICORN_(Phyllovates_chlorophaea)_(10-30-2015)_resaca_de_la_palma_s_p,_cameron_co,_tx_-02_(22724552638).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ALAN SCHMIERER",
+    "eventDate": "2015-10-31 07:52:18",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "\"Bugs\"",
+    "localityNormalized": "\"Bugs\"",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:MANTIS,_TEXAS_UNICORN_(Phyllovates_chlorophaea)_(10-30-2015)_resaca_de_la_palma_s_p,_cameron_co,_tx_-02_(22724552638).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/MANTIS%2C_TEXAS_UNICORN_%28Phyllovates_chlorophaea%29_%2810-30-2015%29_resaca_de_la_palma_s_p%2C_cameron_co%2C_tx_-02_%2822724552638%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_resized.jpg",
+    "display": "processed/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_54.webp",
+      "108": "thumb/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_108.webp",
+      "216": "thumb/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_216.webp"
+    }
+  },
+  "original_sha256": "4e4b1f7fffbcdedc88f031cf8360eb0898051c3f8659e7e960694b3fa0fa9c41",
+  "processing": {
+    "cropBox": [
+      0,
+      494,
+      4023,
+      3232
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMANTISTEXASUNICORNPhyllovateschlorophaea10302015resacadelapalmaspcameroncotx0222724552638jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "tyriobapta_torrida",
+  "species_ja": "Tyriobapta torrida",
+  "scientific_name": "Tyriobapta torrida",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00327564",
+    "occurrenceId": "http://n2t.net/ark:/65665/3bd50cbd4-61af-4cac-b892-829f3a40e14d",
+    "persistentId": "http://n2t.net/ark:/65665/3bd50cbd4-61af-4cac-b892-829f3a40e14d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": "L. Long",
+    "eventDate": "1948",
+    "eventYear": 1948,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Ampah, Indonesia",
+    "preparations": "Envelope",
+    "decimalLatitude": -1.80172,
+    "decimalLongitude": 115.155
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321483541",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321483541",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16319511&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00327564_resized.jpg",
+    "display": "processed/USNMENT00327564_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00327564_54.webp",
+      "108": "thumb/USNMENT00327564_108.webp",
+      "216": "thumb/USNMENT00327564_216.webp"
+    }
+  },
+  "original_sha256": "861ef356cae05dab2ced8d25a91e6a191fadc522ecc8b913d0d826d20062d4b2",
+  "processing": {
+    "cropBox": [
+      951,
+      552,
+      1468,
+      1127
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00327564_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

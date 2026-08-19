@@ -1,0 +1,74 @@
+{
+  "species_id": "tetragonula_carbonaria",
+  "species_ja": "Tetragonula carbonaria",
+  "scientific_name": "Tetragonula carbonaria",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)650921",
+    "occurrenceId": "b96c4c5c-f379-4b7a-b6b5-67a02cfbaaea",
+    "persistentId": "b96c4c5c-f379-4b7a-b6b5-67a02cfbaaea",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Queensland, Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055659189",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b96c4c5c-f379-4b7a-b6b5-67a02cfbaaea",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/3c6805c3-a408-47b2-bdf0-8c11db7b6ad7",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE650921_resized.jpg",
+    "display": "processed/NHMUKBMNHE650921_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE650921_54.webp",
+      "108": "thumb/NHMUKBMNHE650921_108.webp",
+      "216": "thumb/NHMUKBMNHE650921_216.webp"
+    }
+  },
+  "original_sha256": "5d6f6757931b49fca4a2bea7b7a8f39a81d3565944372c98be730a054958aea6",
+  "processing": {
+    "cropBox": [
+      85,
+      0,
+      1440,
+      1156
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE650921_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

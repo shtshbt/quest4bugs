@@ -1,0 +1,76 @@
+{
+  "species_id": "polyrhachis_ammon",
+  "species_ja": "Polyrhachis ammon",
+  "scientific_name": "Polyrhachis ammon",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.382097",
+    "occurrenceId": "3cff8261-a900-4319-af11-6f4a179f737e",
+    "persistentId": "3cff8261-a900-4319-af11-6f4a179f737e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.A. Cassis & M.R.B. Gray",
+    "eventDate": "1993-02-04/1993-04-09",
+    "eventYear": 1993,
+    "country": "Australia",
+    "localityVerbatim": "5.9km NE from creek crossing on Morgon Creek. Leasehold land.",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -28.775278,
+    "decimalLongitude": 152.31305
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276469975",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276469975",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=f1636160-f594-4f54-902d-a38368cba791",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK382097_resized.jpg",
+    "display": "processed/AMK382097_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK382097_54.webp",
+      "108": "thumb/AMK382097_108.webp",
+      "216": "thumb/AMK382097_216.webp"
+    }
+  },
+  "original_sha256": "4f83579e867d0408f3e5fbbcbbb43d49834dc12188008869eb4aa977a23830ff",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      610,
+      390
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK382097_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

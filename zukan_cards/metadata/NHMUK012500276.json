@@ -1,0 +1,74 @@
+{
+  "species_id": "aschiphasma_annulipes",
+  "species_ja": "Aschiphasma annulipes",
+  "scientific_name": "Aschiphasma annulipes",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012500276",
+    "occurrenceId": "068f5e84-fcf8-4bd0-9f84-9606e4193c78",
+    "persistentId": "068f5e84-fcf8-4bd0-9f84-9606e4193c78",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826412351",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/068f5e84-fcf8-4bd0-9f84-9606e4193c78",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b1c9e891-97fb-4df6-ab3e-a2886fbb2931",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012500276_resized.jpg",
+    "display": "processed/NHMUK012500276_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012500276_54.webp",
+      "108": "thumb/NHMUK012500276_108.webp",
+      "216": "thumb/NHMUK012500276_216.webp"
+    }
+  },
+  "original_sha256": "ad2d38e32665dc4f7f98158e16517052f12578ebc59af788c601d2647dd6b9ca",
+  "processing": {
+    "cropBox": [
+      378,
+      56,
+      889,
+      880
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012500276_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

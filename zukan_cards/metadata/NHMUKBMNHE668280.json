@@ -1,0 +1,74 @@
+{
+  "species_id": "junonia_hedonia",
+  "species_ja": "イワサキタテハモドキ",
+  "scientific_name": "Junonia hedonia",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)668280",
+    "occurrenceId": "a13bb5b4-56c4-43d7-a782-091caff6da6a",
+    "persistentId": "a13bb5b4-56c4-43d7-a782-091caff6da6a",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055748295",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/a13bb5b4-56c4-43d7-a782-091caff6da6a",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/596f464e-21db-485b-8e6f-b1e40c5612c8",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE668280_resized.jpg",
+    "display": "processed/NHMUKBMNHE668280_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE668280_54.webp",
+      "108": "thumb/NHMUKBMNHE668280_108.webp",
+      "216": "thumb/NHMUKBMNHE668280_216.webp"
+    }
+  },
+  "original_sha256": "a0d8e6ee318173b52109bbc0c2d0ba5696ebb916f0d3dd20e108b48b52549198",
+  "processing": {
+    "cropBox": [
+      145,
+      81,
+      1401,
+      711
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE668280_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

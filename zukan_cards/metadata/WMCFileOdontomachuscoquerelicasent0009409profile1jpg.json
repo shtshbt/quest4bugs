@@ -1,0 +1,74 @@
+{
+  "species_id": "odontomachus_coquereli",
+  "species_ja": "Odontomachus coquereli",
+  "scientific_name": "Odontomachus coquereli",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Odontomachus coquereli casent0009409 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Odontomachus_coquereli_casent0009409_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Odontomachus_coquereli_casent0009409_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2005-10-24 11:43:32",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Odontomachus coquereli specimen casent0009409.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Odontomachus_coquereli_casent0009409_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Odontomachus_coquereli_casent0009409_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_resized.jpg",
+    "display": "processed/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_54.webp",
+      "108": "thumb/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_108.webp",
+      "216": "thumb/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "019c9797d09f1e3a780481c6c001e6b333686be87eca32befc94cb04cb931753",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOdontomachuscoquerelicasent0009409profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

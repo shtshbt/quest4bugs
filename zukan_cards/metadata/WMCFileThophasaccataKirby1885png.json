@@ -1,0 +1,74 @@
+{
+  "species_id": "thopha_saccata",
+  "species_ja": "Thopha saccata",
+  "scientific_name": "Thopha saccata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "William Forsell Kirby (1844-1912)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Thopha saccata Kirby 1885.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Thopha_saccata_Kirby_1885.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Thopha_saccata_Kirby_1885.png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "William Forsell Kirby (1844-1912)",
+    "eventDate": "2013-08-21 16:37:26",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "A drawing of Thopha saccata",
+    "localityNormalized": "A drawing of Thopha saccata",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Thopha_saccata_Kirby_1885.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Thopha_saccata_Kirby_1885.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileThophasaccataKirby1885png_resized.jpg",
+    "display": "processed/WMCFileThophasaccataKirby1885png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileThophasaccataKirby1885png_54.webp",
+      "108": "thumb/WMCFileThophasaccataKirby1885png_108.webp",
+      "216": "thumb/WMCFileThophasaccataKirby1885png_216.webp"
+    }
+  },
+  "original_sha256": "e29e33c6f05ca2416953f1dd0de19b93a41eb7f7a1e5bf0add0e0c6616e77c32",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1258,
+      474
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileThophasaccataKirby1885png_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

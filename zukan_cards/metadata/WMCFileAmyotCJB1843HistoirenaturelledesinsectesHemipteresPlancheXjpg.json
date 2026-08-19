@@ -1,0 +1,74 @@
+{
+  "species_id": "umbonia_crassicornis",
+  "species_ja": "Umbonia crassicornis",
+  "scientific_name": "Umbonia crassicornis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Amyot et Audinet Serville, numérisation Broken Rusk",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Amyot C.J.B.1843 Histoire naturelle des insectes. Hemipteres. Planche X.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Amyot_C.J.B.1843_Histoire_naturelle_des_insectes._Hemipteres._Planche_X.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Amyot_C.J.B.1843_Histoire_naturelle_des_insectes._Hemipteres._Planche_X.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Amyot et Audinet Serville, numérisation Broken Rusk",
+    "eventDate": "10/12/2007",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Amyot, C. J.-B. et J. G. Audinet-Serville (1843). Histoire naturelle des insectes. Hémiptères. Paris, Librairie encyclopédique de Roret. Planche X. Pour compéter l'ouvrage disponible par ailleurs en pdf mais avec les planches en noir et blanc : (PDF)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Amyot_C.J.B.1843_Histoire_naturelle_des_insectes._Hemipteres._Planche_X.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Amyot_C.J.B.1843_Histoire_naturelle_des_insectes._Hemipteres._Planche_X.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_resized.jpg",
+    "display": "processed/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_54.webp",
+      "108": "thumb/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_108.webp",
+      "216": "thumb/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_216.webp"
+    }
+  },
+  "original_sha256": "978cdab19d24129cf358a7cc4a51df71d771a7d011414fb5a75809773117be9d",
+  "processing": {
+    "cropBox": [
+      777,
+      602,
+      3266,
+      4545
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

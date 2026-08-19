@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_carambolae",
+  "species_ja": "Bactrocera carambolae",
+  "scientific_name": "Bactrocera carambolae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)698647",
+    "occurrenceId": "7f73d6a6-88cb-4933-9ea4-0f29bb56c78c",
+    "persistentId": "7f73d6a6-88cb-4933-9ea4-0f29bb56c78c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Mr Henry S. Barlow",
+    "eventDate": "1993-07-16",
+    "eventYear": 1993,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Genting Sempah, Genting tea estate, Malaysia",
+    "preparations": null,
+    "decimalLatitude": 3.35,
+    "decimalLongitude": 101.7833
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270003403",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/7f73d6a6-88cb-4933-9ea4-0f29bb56c78c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/88d9a780-162a-47f0-98ef-5a61824d09d9",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE698647_resized.jpg",
+    "display": "processed/NHMUKBMNHE698647_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE698647_54.webp",
+      "108": "thumb/NHMUKBMNHE698647_108.webp",
+      "216": "thumb/NHMUKBMNHE698647_216.webp"
+    }
+  },
+  "original_sha256": "83d63bde2e05a5f1779ebcd566f7f8c66e78bf39f5f4163a0062ead4e00c48e1",
+  "processing": {
+    "cropBox": [
+      923,
+      833,
+      1118,
+      1178
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE698647_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

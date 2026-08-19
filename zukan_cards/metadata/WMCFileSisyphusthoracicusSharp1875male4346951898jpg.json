@@ -1,0 +1,74 @@
+{
+  "species_id": "sisyphus_thoracicus",
+  "species_ja": "Sisyphus thoracicus",
+  "scientific_name": "Sisyphus thoracicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sisyphus thoracicus Sharp, 1875 male (4346951898).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sisyphus_thoracicus_Sharp,_1875_male_(4346951898).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sisyphus_thoracicus_Sharp,_1875_male_(4346951898).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2010-02-10 20:46",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Familie: Scarabaeidae Groesse: 6,7 mm Fundort: Malaysia, Borneo, Sabah, Mt. Kinabalu, 500 m leg. A.Smetana, 1988; det. J.Scheuern, 1993 Photo: U.Schmidt, 2010",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sisyphus_thoracicus_Sharp,_1875_male_(4346951898).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Sisyphus_thoracicus_Sharp%2C_1875_male_%284346951898%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_resized.jpg",
+    "display": "processed/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_54.webp",
+      "108": "thumb/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_108.webp",
+      "216": "thumb/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_216.webp"
+    }
+  },
+  "original_sha256": "f8472c44d4156938b5fee5a52e9e89b26fb3fa71d5aaa546835ca12d8e656ee5",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      5703,
+      5360
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSisyphusthoracicusSharp1875male4346951898jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

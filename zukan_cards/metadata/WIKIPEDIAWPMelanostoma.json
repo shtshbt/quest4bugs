@@ -1,0 +1,74 @@
+{
+  "species_id": "melanostoma_sylvarum",
+  "species_ja": "Melanostoma sylvarum",
+  "scientific_name": "Melanostoma sylvarum",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Alvesgaspar",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Melanostoma",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Melanostoma",
+    "persistentId": "https://en.wikipedia.org/wiki/Melanostoma",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alvesgaspar",
+    "eventDate": "2009-02",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Female hoverfly: Melanostoma scalare",
+    "localityNormalized": "Female hoverfly: Melanostoma scalare",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Melanostoma",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Hoverfly_February_2009-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPMelanostoma_resized.jpg",
+    "display": "processed/WIKIPEDIAWPMelanostoma_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPMelanostoma_54.webp",
+      "108": "thumb/WIKIPEDIAWPMelanostoma_108.webp",
+      "216": "thumb/WIKIPEDIAWPMelanostoma_216.webp"
+    }
+  },
+  "original_sha256": "37ba568fa4cd4c85c131cff22c58d2611a52aff21c640774582a4f6e85d97cbc",
+  "processing": {
+    "cropBox": [
+      388,
+      444,
+      1974,
+      1336
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPMelanostoma_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

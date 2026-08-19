@@ -1,0 +1,74 @@
+{
+  "species_id": "hortensia_similis",
+  "species_ja": "Hortensia similis",
+  "scientific_name": "Hortensia similis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Richard Stovall",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hortensia similis 98337656.jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hortensia_similis_98337656.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hortensia_similis_98337656.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Richard Stovall",
+    "eventDate": "2020-10-01",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Hortensia similis",
+    "localityNormalized": "Hortensia similis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hortensia_similis_98337656.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Hortensia_similis_98337656.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHortensiasimilis98337656jpeg_resized.jpg",
+    "display": "processed/WMCFileHortensiasimilis98337656jpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHortensiasimilis98337656jpeg_54.webp",
+      "108": "thumb/WMCFileHortensiasimilis98337656jpeg_108.webp",
+      "216": "thumb/WMCFileHortensiasimilis98337656jpeg_216.webp"
+    }
+  },
+  "original_sha256": "2dcd1afda0b877f7555fa3d1a55dd57d7fbfed7d45c877ef7e2d98c30622f5dd",
+  "processing": {
+    "cropBox": [
+      689,
+      513,
+      1364,
+      856
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHortensiasimilis98337656jpeg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

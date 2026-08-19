@@ -1,0 +1,74 @@
+{
+  "species_id": "canthydrus_guttula",
+  "species_ja": "Canthydrus guttula",
+  "scientific_name": "Canthydrus guttula",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Edmund Reitter",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Canthydrus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Canthydrus",
+    "persistentId": "https://en.wikipedia.org/wiki/Canthydrus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Edmund Reitter",
+    "eventDate": "1908",
+    "eventYear": 1908,
+    "country": null,
+    "localityVerbatim": "Noterus clavicornis",
+    "localityNormalized": "Noterus clavicornis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Canthydrus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Noterus_clavicornis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPCanthydrus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPCanthydrus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPCanthydrus_54.webp",
+      "108": "thumb/WIKIPEDIAWPCanthydrus_108.webp",
+      "216": "thumb/WIKIPEDIAWPCanthydrus_216.webp"
+    }
+  },
+  "original_sha256": "7873f1bcc001a491eb480c3feed14156e7e341698aea4e93624fc2efc72427a5",
+  "processing": {
+    "cropBox": [
+      37,
+      11,
+      242,
+      298
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPCanthydrus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

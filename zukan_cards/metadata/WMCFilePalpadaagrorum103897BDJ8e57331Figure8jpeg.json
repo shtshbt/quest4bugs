@@ -1,0 +1,74 @@
+{
+  "species_id": "palpada_agrorum",
+  "species_ja": "Palpada agrorum",
+  "scientific_name": "Palpada agrorum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Chisausky JL, Soley NM, Kassim L, Bryan CJ, Miranda GFG, Gage KL, Sipes SD (2020) Syrphidae of Southern Illinois: Diversity, floral associations, and preliminary assessment of their efficacy as pollinators. Biodiversity Data Journal 8: e57331.",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Palpada agrorum (10.3897-BDJ.8.e57331) Figure 8 .jpeg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Palpada_agrorum_(10.3897-BDJ.8.e57331)_Figure_8_.jpeg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Palpada_agrorum_(10.3897-BDJ.8.e57331)_Figure_8_.jpeg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Chisausky JL, Soley NM, Kassim L, Bryan CJ, Miranda GFG, Gage KL, Sipes SD (2020) Syrphidae of Southern Illinois: Diversity, floral associations, and preliminary assessment of their efficacy as pollinators. Biodiversity Data Journal 8: e57331.",
+    "eventDate": "2020-10-29",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Figure 8 ; Collected specimen of Palpada agrorum, with scale.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Palpada_agrorum_(10.3897-BDJ.8.e57331)_Figure_8_.jpeg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Palpada_agrorum_%2810.3897-BDJ.8.e57331%29_Figure_8_.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_resized.jpg",
+    "display": "processed/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_54.webp",
+      "108": "thumb/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_108.webp",
+      "216": "thumb/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_216.webp"
+    }
+  },
+  "original_sha256": "39f99c4ba30757854677814feb4688aaf96e62d7205b9c86bd8d5bb122319149",
+  "processing": {
+    "cropBox": [
+      51,
+      0,
+      229,
+      317
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePalpadaagrorum103897BDJ8e57331Figure8jpeg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

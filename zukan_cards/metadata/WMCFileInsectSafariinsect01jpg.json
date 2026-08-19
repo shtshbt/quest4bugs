@@ -1,0 +1,74 @@
+{
+  "species_id": "pyrops_cultellata",
+  "species_ja": "Pyrops cultellata",
+  "scientific_name": "Pyrops cultellata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Joe Mabel",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Insect Safari - insect 01.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Insect_Safari_-_insect_01.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Insect_Safari_-_insect_01.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Joe Mabel",
+    "eventDate": "2009-01-10",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Saiva (Fulgoridae). Part of Don Ehlen's \"Insect Safari\" collection. This is Pyrops itoi, which can be distinguished from its relative Pyrops cultellatus by having no line drawn from the eye to about one fourth of the head process and the head process not flattened from the sides. It was previously known as Saiva cultellata.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Insect_Safari_-_insect_01.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Insect_Safari_-_insect_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileInsectSafariinsect01jpg_resized.jpg",
+    "display": "processed/WMCFileInsectSafariinsect01jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileInsectSafariinsect01jpg_54.webp",
+      "108": "thumb/WMCFileInsectSafariinsect01jpg_108.webp",
+      "216": "thumb/WMCFileInsectSafariinsect01jpg_216.webp"
+    }
+  },
+  "original_sha256": "221e66bdba7ec0824e241a04088a630b983fc042b2ac1f9499465a93d406127c",
+  "processing": {
+    "cropBox": [
+      0,
+      108,
+      3263,
+      2249
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileInsectSafariinsect01jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

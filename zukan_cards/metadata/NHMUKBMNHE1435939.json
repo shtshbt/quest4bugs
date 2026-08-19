@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_dorsalis",
+  "species_ja": "ミカンコミバエ",
+  "scientific_name": "Bactrocera dorsalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1435939",
+    "occurrenceId": "66f7ce39-c584-4849-a9da-3f34b9a260c2",
+    "persistentId": "66f7ce39-c584-4849-a9da-3f34b9a260c2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "H Bignayan|National Mango Research and Development Center",
+    "eventDate": "1994-12",
+    "eventYear": 1994,
+    "country": "Philippines",
+    "localityVerbatim": null,
+    "localityNormalized": "Jordan, Philippines",
+    "preparations": null,
+    "decimalLatitude": 10.5957,
+    "decimalLongitude": 122.582
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270001864",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/66f7ce39-c584-4849-a9da-3f34b9a260c2",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/99a43c0d-f1ec-4250-b749-6ef189b626a2",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1435939_resized.jpg",
+    "display": "processed/NHMUKBMNHE1435939_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1435939_54.webp",
+      "108": "thumb/NHMUKBMNHE1435939_108.webp",
+      "216": "thumb/NHMUKBMNHE1435939_216.webp"
+    }
+  },
+  "original_sha256": "1be6e4834c626f11b4a657e3e3d77dc82bb5bb7a0b0ffafda333d5987f5528e6",
+  "processing": {
+    "cropBox": [
+      539,
+      555,
+      975,
+      833
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1435939_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

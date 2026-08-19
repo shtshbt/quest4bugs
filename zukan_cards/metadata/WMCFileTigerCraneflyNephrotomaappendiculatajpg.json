@@ -1,0 +1,74 @@
+{
+  "species_id": "nephrotoma_australasiae",
+  "species_ja": "Nephrotoma australasiae",
+  "scientific_name": "Nephrotoma australasiae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "JarroNevsbaru",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tiger Cranefly Nephrotoma appendiculata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tiger_Cranefly_Nephrotoma_appendiculata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tiger_Cranefly_Nephrotoma_appendiculata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "JarroNevsbaru",
+    "eventDate": "2023-05-10 18:30:46",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "A tiger cranefly (Nephrotoma appendiculata). Photographed in Staffordshire, UK.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tiger_Cranefly_Nephrotoma_appendiculata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Tiger_Cranefly_Nephrotoma_appendiculata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileTigerCraneflyNephrotomaappendiculatajpg_resized.jpg",
+    "display": "processed/WMCFileTigerCraneflyNephrotomaappendiculatajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTigerCraneflyNephrotomaappendiculatajpg_54.webp",
+      "108": "thumb/WMCFileTigerCraneflyNephrotomaappendiculatajpg_108.webp",
+      "216": "thumb/WMCFileTigerCraneflyNephrotomaappendiculatajpg_216.webp"
+    }
+  },
+  "original_sha256": "718470cf20c1025cc60a4e4e75f46dda9e1fb59dd73fcdf21fecf2a0247aee0b",
+  "processing": {
+    "cropBox": [
+      0,
+      102,
+      2672,
+      4000
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTigerCraneflyNephrotomaappendiculatajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

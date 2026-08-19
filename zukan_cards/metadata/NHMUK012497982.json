@@ -1,0 +1,74 @@
+{
+  "species_id": "sympaestria_acutelobata",
+  "species_ja": "Sympaestria acutelobata",
+  "scientific_name": "Sympaestria acutelobata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012497982",
+    "occurrenceId": "e3b05dc6-8785-4978-8aac-0684a2aa2748",
+    "persistentId": "e3b05dc6-8785-4978-8aac-0684a2aa2748",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826411688",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/e3b05dc6-8785-4978-8aac-0684a2aa2748",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/2973af1a-ac11-4a14-90bc-2817ca3b4802",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012497982_resized.jpg",
+    "display": "processed/NHMUK012497982_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012497982_54.webp",
+      "108": "thumb/NHMUK012497982_108.webp",
+      "216": "thumb/NHMUK012497982_216.webp"
+    }
+  },
+  "original_sha256": "05028fd8063c85a1e818245f6cbd67555fa8233d9609fbbffa802968a125173a",
+  "processing": {
+    "cropBox": [
+      10,
+      106,
+      1067,
+      933
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012497982_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

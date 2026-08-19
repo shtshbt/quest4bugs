@@ -1,0 +1,74 @@
+{
+  "species_id": "dolichoderus_thoracicus",
+  "species_ja": "Dolichoderus thoracicus",
+  "scientific_name": "Dolichoderus thoracicus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Jidanni",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ant raft Central Taiwan.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ant_raft_Central_Taiwan.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ant_raft_Central_Taiwan.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jidanni",
+    "eventDate": "2024-01-04 13:06:33",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "It's almost as if these Dolichoderus thoracicus ants and their eggs had special instructions: \"Stay calm and together. Wait until some wind gust or other disturbance blows you safely to the shore.\" On the surface of this white plastic 17 liter pail of water, in the central Taiwan hills.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ant_raft_Central_Taiwan.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Ant_raft_Central_Taiwan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileAntraftCentralTaiwanjpg_resized.jpg",
+    "display": "processed/WMCFileAntraftCentralTaiwanjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAntraftCentralTaiwanjpg_54.webp",
+      "108": "thumb/WMCFileAntraftCentralTaiwanjpg_108.webp",
+      "216": "thumb/WMCFileAntraftCentralTaiwanjpg_216.webp"
+    }
+  },
+  "original_sha256": "0a4325132333dc4495f993795e1b60e4a2da1cf423f877574640d4879c2b2fa7",
+  "processing": {
+    "cropBox": [
+      194,
+      270,
+      799,
+      1280
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAntraftCentralTaiwanjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "orgizomyia_zigzag",
+  "species_ja": "Orgizomyia zigzag",
+  "scientific_name": "Orgizomyia zigzag",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Austen, E. E. (Ernest Edward), 1867-1938",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Orgizomyia",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Orgizomyia",
+    "persistentId": "https://en.wikipedia.org/wiki/Orgizomyia",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Austen, E. E. (Ernest Edward), 1867-1938",
+    "eventDate": "1906",
+    "eventYear": 1906,
+    "country": null,
+    "localityVerbatim": "Chrysops relicta female",
+    "localityNormalized": "Chrysops relicta female",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Orgizomyia",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Chrysops_relicta_f.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPOrgizomyia_resized.jpg",
+    "display": "processed/WIKIPEDIAWPOrgizomyia_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPOrgizomyia_54.webp",
+      "108": "thumb/WIKIPEDIAWPOrgizomyia_108.webp",
+      "216": "thumb/WIKIPEDIAWPOrgizomyia_216.webp"
+    }
+  },
+  "original_sha256": "4614637c9c0ed0ada1dbbbdafddfa66b9b71672b690e9b3be1eb856f18f48898",
+  "processing": {
+    "cropBox": [
+      124,
+      19,
+      1246,
+      1178
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPOrgizomyia_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

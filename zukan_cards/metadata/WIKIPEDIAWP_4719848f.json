@@ -1,0 +1,74 @@
+{
+  "species_id": "graphocephala_albomaculata",
+  "species_ja": "Graphocephala albomaculata",
+  "scientific_name": "Graphocephala albomaculata",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "PD files",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:アミガサハゴロモ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%9F%E3%82%AC%E3%82%B5%E3%83%8F%E3%82%B4%E3%83%AD%E3%83%A2",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%9F%E3%82%AC%E3%82%B5%E3%83%8F%E3%82%B4%E3%83%AD%E3%83%A2",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "PD files",
+    "eventDate": "2013-07-17",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Amigasa-Hagoromo Pochazia albomaculata (Uhler, 1896) (Ricaniidae). Male from Yokohama, Kanagawa, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%9F%E3%82%AC%E3%82%B5%E3%83%8F%E3%82%B4%E3%83%AD%E3%83%A2",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Pochazia_albomaculata_001_Male_from_Yokohama%2C_JPN.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_4719848f_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_4719848f_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_4719848f_54.webp",
+      "108": "thumb/WIKIPEDIAWP_4719848f_108.webp",
+      "216": "thumb/WIKIPEDIAWP_4719848f_216.webp"
+    }
+  },
+  "original_sha256": "c23e418ac84c1ba0b27a5a30bd7442aecda8bf0947a6a65390cb97c8663af484",
+  "processing": {
+    "cropBox": [
+      314,
+      399,
+      2883,
+      2125
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_4719848f_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

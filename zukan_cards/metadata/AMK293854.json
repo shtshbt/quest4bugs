@@ -1,0 +1,76 @@
+{
+  "species_id": "psaltoda_moerens",
+  "species_ja": "Psaltoda moerens",
+  "scientific_name": "Psaltoda moerens",
+  "credit_line": "Australian Museum",
+  "creator": "Robyn Gardner",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.293854",
+    "occurrenceId": "fe55b66a-c1b7-4730-ab1f-13170e714321",
+    "persistentId": "fe55b66a-c1b7-4730-ab1f-13170e714321",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "C.N. Smithers, B.J. Day & K.C. Khoo",
+    "eventDate": "1983-11-13",
+    "eventYear": 1983,
+    "country": "Australia",
+    "localityVerbatim": "Tuglo Homestead and Wildlife Refuge, Singleton",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -32.24222,
+    "decimalLongitude": 151.27112
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100272845",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100272845",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=1227342f-b86c-4796-b617-d419fbd73596",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK293854_resized.jpg",
+    "display": "processed/AMK293854_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK293854_54.webp",
+      "108": "thumb/AMK293854_108.webp",
+      "216": "thumb/AMK293854_216.webp"
+    }
+  },
+  "original_sha256": "f9ffd081f0ef3f34c6841315375dff5fab9ae3381607f33cb4497b9c963c26d6",
+  "processing": {
+    "cropBox": [
+      0,
+      31,
+      650,
+      429
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK293854_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "paragymnopleurus_sparsus",
+  "species_ja": "Paragymnopleurus sparsus",
+  "scientific_name": "Paragymnopleurus sparsus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "S.E. Thorpe",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Paragymnopleurus sparsus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Paragymnopleurus_sparsus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Paragymnopleurus_sparsus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "S.E. Thorpe",
+    "eventDate": "2013-01-26",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Paragymnopleurus sparsus (male), length about 14 mm",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Paragymnopleurus_sparsus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Paragymnopleurus_sparsus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileParagymnopleurussparsusjpg_resized.jpg",
+    "display": "processed/WMCFileParagymnopleurussparsusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileParagymnopleurussparsusjpg_54.webp",
+      "108": "thumb/WMCFileParagymnopleurussparsusjpg_108.webp",
+      "216": "thumb/WMCFileParagymnopleurussparsusjpg_216.webp"
+    }
+  },
+  "original_sha256": "a42eb070c38aed8ad86a627fb3047f98d83e79fa4807715e48b8a7e5d29a747d",
+  "processing": {
+    "cropBox": [
+      0,
+      23,
+      1306,
+      834
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileParagymnopleurussparsusjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

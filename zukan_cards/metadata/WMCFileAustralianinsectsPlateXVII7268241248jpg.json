@@ -1,0 +1,74 @@
+{
+  "species_id": "onthophagus_australis",
+  "species_ja": "Onthophagus australis",
+  "scientific_name": "Onthophagus australis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Froggatt, W. W.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Australian insects (Plate XVII) (7268241248).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XVII)_(7268241248).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XVII)_(7268241248).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Froggatt, W. W.",
+    "eventDate": "1907",
+    "eventYear": 1907,
+    "country": null,
+    "localityVerbatim": "Plate XJ-Il.—COLEOPTERA.",
+    "localityNormalized": "Plate XJ-Il.—COLEOPTERA.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XVII)_(7268241248).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Australian_insects_%28Plate_XVII%29_%287268241248%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAustralianinsectsPlateXVII7268241248jpg_resized.jpg",
+    "display": "processed/WMCFileAustralianinsectsPlateXVII7268241248jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAustralianinsectsPlateXVII7268241248jpg_54.webp",
+      "108": "thumb/WMCFileAustralianinsectsPlateXVII7268241248jpg_108.webp",
+      "216": "thumb/WMCFileAustralianinsectsPlateXVII7268241248jpg_216.webp"
+    }
+  },
+  "original_sha256": "7b4ca07a01153f96b52e3f693831236acb09166b755f460c5a19ee5741dc79a5",
+  "processing": {
+    "cropBox": [
+      232,
+      272,
+      1610,
+      2913
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAustralianinsectsPlateXVII7268241248jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

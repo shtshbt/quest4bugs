@@ -1,0 +1,74 @@
+{
+  "species_id": "lectrides_varians",
+  "species_ja": "Lectrides varians",
+  "scientific_name": "Lectrides varians",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010113722",
+    "occurrenceId": "fdeb1542-1f22-46bf-81df-c7c63e8e8b5b",
+    "persistentId": "fdeb1542-1f22-46bf-81df-c7c63e8e8b5b",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1917-01-03",
+    "eventYear": 1917,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3409166542",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/fdeb1542-1f22-46bf-81df-c7c63e8e8b5b",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c0bf560f-b9b4-4ef9-a22d-1d26cf618232",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK010113722_resized.jpg",
+    "display": "processed/NHMUK010113722_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010113722_54.webp",
+      "108": "thumb/NHMUK010113722_108.webp",
+      "216": "thumb/NHMUK010113722_216.webp"
+    }
+  },
+  "original_sha256": "b9a665d84e6104ca5c9e5a739ef2659d8a9449d27f900727c4772145df2e902b",
+  "processing": {
+    "cropBox": [
+      11,
+      0,
+      1128,
+      3216
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010113722_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "helictopleurus_vadoni",
+  "species_ja": "Helictopleurus vadoni",
+  "scientific_name": "Helictopleurus vadoni",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Rossini et al. (2024)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Helictopleurus vadoni (10.3897-BDJ.12.e120304) Figure 3c.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_vadoni_(10.3897-BDJ.12.e120304)_Figure_3c.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Helictopleurus_vadoni_(10.3897-BDJ.12.e120304)_Figure_3c.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Rossini et al. (2024)",
+    "eventDate": "2024-06-14",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Figure 3c Helictopleurus vadoni.",
+    "localityNormalized": "Figure 3c Helictopleurus vadoni.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Helictopleurus_vadoni_(10.3897-BDJ.12.e120304)_Figure_3c.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Helictopleurus_vadoni_%2810.3897-BDJ.12.e120304%29_Figure_3c.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_resized.jpg",
+    "display": "processed/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_54.webp",
+      "108": "thumb/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_108.webp",
+      "216": "thumb/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_216.webp"
+    }
+  },
+  "original_sha256": "892b3f7d9c03d68a0c9a1d4df4674f350cb49ec8b442408302237f54a5cc9e6c",
+  "processing": {
+    "cropBox": [
+      23,
+      6,
+      601,
+      811
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHelictopleurusvadoni103897BDJ12e120304Figure3cjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

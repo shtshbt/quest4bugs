@@ -1,0 +1,74 @@
+{
+  "species_id": "aedes_vigilax",
+  "species_ja": "ハマベヤブカ",
+  "scientific_name": "Aedes vigilax",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Lycaon",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Wuchereria bancrofti LifeCycle.gif",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Wuchereria_bancrofti_LifeCycle.gif",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Wuchereria_bancrofti_LifeCycle.gif",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Lycaon",
+    "eventDate": "2008-11-05 14:15:20",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Wuchereria bancrofti Life cycle of Wuchereria bancrofti Different species of the following genera of mosquitoes are vectors of W. bancrofti filariasis depending on geographical distribution. Among them are: Culex (C. annulirostris, C. bitaeniorhynchus, C. quinquefasciatus, and C. pipiens); Anopheles (A. arabinensis, A. bancroftii, A. farauti, A. funestus, A. gambiae, A. koliensis, A. melas, A. merus, A. punctulatus and A. wellcomei); Aedes (A. aegypti, A. aquasalis, A. bellator, A. cooki, A. darlingi, A. kochi, A. polynesiensis, A. pseudoscutellaris, A. rotumae, A. scapularis, and A. vigilax); Mansonia (M. pseudotitillans, M. uniformis); Coquillettidia (C. juxtamansonia). During a blood meal, an infected mosquito introduces third-stage filarial larvae onto the skin of the human host, where they penetrate into the bite wound. They develop in adults that commonly reside in the lymphatics. The female worms measure 80 to 100 mm in length and 0.24 to 0.30 mm in diameter, while the males measure about 40 mm by .1 mm. Adults produce microfilariae measuring 244 to 296 μm by 7.5 to 10 μm, which are sheathed and have nocturnal periodicity, except the South Pacific microfilariae which have the absence of marked periodicity. The microfilariae migrate into lymph and blood channels moving actively through lymph and blood. A mosquito ingests the microfilariae during a blood meal. After ingestion, the microfilariae lose their sheaths and some of them work their way through the wall of the proventriculus and cardiac portion of the mosquito's midgut and reach the thoracic muscles. There the microfilariae develop into first-stage larvae and subsequently into third-stage infective larvae. The third-stage infective larvae migrate through the hemocoel to the mosquito's prosbocis and can infect another human when the mosquito takes a blood meal.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Wuchereria_bancrofti_LifeCycle.gif",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Wuchereria_bancrofti_LifeCycle.gif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileWuchereriabancroftiLifeCyclegif_resized.jpg",
+    "display": "processed/WMCFileWuchereriabancroftiLifeCyclegif_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileWuchereriabancroftiLifeCyclegif_54.webp",
+      "108": "thumb/WMCFileWuchereriabancroftiLifeCyclegif_108.webp",
+      "216": "thumb/WMCFileWuchereriabancroftiLifeCyclegif_216.webp"
+    }
+  },
+  "original_sha256": "c0cbdfee6cd78e5e860706f925dbc192fc496008c4b44235c56ebdb9c1d234e0",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      513,
+      414
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileWuchereriabancroftiLifeCyclegif_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

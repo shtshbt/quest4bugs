@@ -1,0 +1,74 @@
+{
+  "species_id": "amantis_reticulata",
+  "species_ja": "Amantis reticulata",
+  "scientific_name": "Amantis reticulata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496467",
+    "occurrenceId": "7fe4b220-75ba-459f-bc15-e8bbb3026239",
+    "persistentId": "7fe4b220-75ba-459f-bc15-e8bbb3026239",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Singapore",
+    "localityVerbatim": null,
+    "localityNormalized": "Singapore",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403524",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/7fe4b220-75ba-459f-bc15-e8bbb3026239",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/35e8aa17-f0d7-4e94-9176-b8d9f4b33daf",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496467_resized.jpg",
+    "display": "processed/NHMUK012496467_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496467_54.webp",
+      "108": "thumb/NHMUK012496467_108.webp",
+      "216": "thumb/NHMUK012496467_216.webp"
+    }
+  },
+  "original_sha256": "598c8423796a846bf5dbaceb6e8c838a298ca9dcca0d635dfde8a749ff643414",
+  "processing": {
+    "cropBox": [
+      45,
+      190,
+      771,
+      617
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496467_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

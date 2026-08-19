@@ -1,0 +1,74 @@
+{
+  "species_id": "notalina_moselyi",
+  "species_ja": "Notalina moselyi",
+  "scientific_name": "Notalina moselyi",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014409058",
+    "occurrenceId": "aa4167e4-0a7c-4a74-81a1-efc03469c3ab",
+    "persistentId": "aa4167e4-0a7c-4a74-81a1-efc03469c3ab",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1915-11-20",
+    "eventYear": 1915,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330236366",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/aa4167e4-0a7c-4a74-81a1-efc03469c3ab",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/641929dd-e892-4103-b742-a77541b6c021",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014409058_resized.jpg",
+    "display": "processed/NHMUK014409058_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014409058_54.webp",
+      "108": "thumb/NHMUK014409058_108.webp",
+      "216": "thumb/NHMUK014409058_216.webp"
+    }
+  },
+  "original_sha256": "3e06184bfa805ef2857dfea8a54308f8868572b6a41e4383aca4e7fbd1149e9c",
+  "processing": {
+    "cropBox": [
+      582,
+      582,
+      936,
+      979
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014409058_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

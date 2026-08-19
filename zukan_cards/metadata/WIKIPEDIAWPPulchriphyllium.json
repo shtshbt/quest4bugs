@@ -1,0 +1,74 @@
+{
+  "species_id": "pulchriphyllium_mannani",
+  "species_ja": "Pulchriphyllium mannani",
+  "scientific_name": "Pulchriphyllium mannani",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Royce T. Cumming, Stéphane Le Tirant, Jackson B. Linde, Megan E. Solan, Evelyn Marie Foley, Norman Enrico C. Eulin, Ramon Lavado, Michael F. Whiting, Sven Bradler, Sarah Bank (2023) On seven undescribed leaf insect species revealed within the recent “Tree of Leaves” (Phasmatodea, Phylliidae). ZooKeys 1173: pp. 145–229",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Pulchriphyllium",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Pulchriphyllium",
+    "persistentId": "https://en.wikipedia.org/wiki/Pulchriphyllium",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Royce T. Cumming, Stéphane Le Tirant, Jackson B. Linde, Megan E. Solan, Evelyn Marie Foley, Norman Enrico C. Eulin, Ramon Lavado, Michael F. Whiting, Sven Bradler, Sarah Bank (2023) On seven undescribed leaf insect species revealed within the recent “Tree of Leaves” (Phasmatodea, Phylliidae). ZooKeys 1173: pp. 145–229",
+    "eventDate": "3 August 2023",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Figure 23. Eggs from Pulchriphyllium bioculatum-like species, where the eggs are known A–C Pulchriphyllium bioculatum from West Malaysia (Coll RC #18-042) D–F Pulchriphyllium crurifolium stat. rev., comb. nov. from the Seychelles (Coll RC #18-233) G–I Pulchriphyllium agathyrsus from Sri Lanka (Coll RC #18-232). Top row, dorsal view. Middle row, lateral view. Bottom row, anterior view.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Pulchriphyllium",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Eggs_from_Pulchriphyllium_A%E2%80%93C_P._bioculatum_D%E2%80%93F_P._crurifolium_G%E2%80%93I_P._agathyrsus_%2810.3897_zookeys.1173.104413%29_Figure_23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPulchriphyllium_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPulchriphyllium_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPulchriphyllium_54.webp",
+      "108": "thumb/WIKIPEDIAWPPulchriphyllium_108.webp",
+      "216": "thumb/WIKIPEDIAWPPulchriphyllium_216.webp"
+    }
+  },
+  "original_sha256": "29627e9a1ec5cdbed09d5d3f5eef1fcfb465afd56b3a5d22a31553a41eec1991",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2088,
+      2608
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPulchriphyllium_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

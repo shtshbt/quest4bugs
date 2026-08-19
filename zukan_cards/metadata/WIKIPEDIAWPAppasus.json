@@ -1,0 +1,74 @@
+{
+  "species_id": "appasus_quadrivittatus",
+  "species_ja": "Appasus quadrivittatus",
+  "scientific_name": "Appasus quadrivittatus",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Dieno",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Appasus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Appasus",
+    "persistentId": "https://en.wikipedia.org/wiki/Appasus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dieno",
+    "eventDate": "2007-06-04",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Diplonychus japonicus コオイムシ ko:물자라",
+    "localityNormalized": "Diplonychus japonicus コオイムシ ko:물자라",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Appasus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Diplonychusjaponicus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPAppasus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPAppasus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPAppasus_54.webp",
+      "108": "thumb/WIKIPEDIAWPAppasus_108.webp",
+      "216": "thumb/WIKIPEDIAWPAppasus_216.webp"
+    }
+  },
+  "original_sha256": "7520efb2ca8d0c129f3378c5ddcb636df2e81b389441f6720396698a1c0b6bf5",
+  "processing": {
+    "cropBox": [
+      86,
+      45,
+      324,
+      271
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPAppasus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

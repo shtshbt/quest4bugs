@@ -1,0 +1,74 @@
+{
+  "species_id": "mahanarva_costaricensis",
+  "species_ja": "Mahanarva costaricensis",
+  "scientific_name": "Mahanarva costaricensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "iNaturalist user: wafflemaster135",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Mahanarva costaricensis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mahanarva_costaricensis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mahanarva_costaricensis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "iNaturalist user: wafflemaster135",
+    "eventDate": "2019-06-03",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Mahanarva costaricensis. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mahanarva_costaricensis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/28/Mahanarva_costaricensis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileMahanarvacostaricensisjpg_resized.jpg",
+    "display": "processed/WMCFileMahanarvacostaricensisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMahanarvacostaricensisjpg_54.webp",
+      "108": "thumb/WMCFileMahanarvacostaricensisjpg_108.webp",
+      "216": "thumb/WMCFileMahanarvacostaricensisjpg_216.webp"
+    }
+  },
+  "original_sha256": "cffb992e1d59cde8f0a96c2bbd8d86c2c017dd895aa7adb440e6f2d4f883079a",
+  "processing": {
+    "cropBox": [
+      648,
+      687,
+      1116,
+      1312
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMahanarvacostaricensisjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

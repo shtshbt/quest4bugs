@@ -1,0 +1,74 @@
+{
+  "species_id": "toxodera_hauseri",
+  "species_ja": "Toxodera hauseri",
+  "scientific_name": "Toxodera hauseri",
+  "credit_line": "Wikimedia Commons",
+  "creator": "dhfischer",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Toxodera hauseri 452685591.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Toxodera_hauseri_452685591.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Toxodera_hauseri_452685591.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "dhfischer",
+    "eventDate": "2024-11-01",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Toxodera hauseri in Malaysia",
+    "localityNormalized": "Toxodera hauseri in Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Toxodera_hauseri_452685591.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Toxodera_hauseri_452685591.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileToxoderahauseri452685591jpg_resized.jpg",
+    "display": "processed/WMCFileToxoderahauseri452685591jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileToxoderahauseri452685591jpg_54.webp",
+      "108": "thumb/WMCFileToxoderahauseri452685591jpg_108.webp",
+      "216": "thumb/WMCFileToxoderahauseri452685591jpg_216.webp"
+    }
+  },
+  "original_sha256": "7191ddaa20acdc73dfcc93dd90309a80825c81b60c9ada7b3504d50cc19ca749",
+  "processing": {
+    "cropBox": [
+      27,
+      280,
+      1801,
+      1205
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileToxoderahauseri452685591jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

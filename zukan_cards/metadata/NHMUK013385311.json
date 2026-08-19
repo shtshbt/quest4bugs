@@ -1,0 +1,74 @@
+{
+  "species_id": "cryptotympana_aquila",
+  "species_ja": "Cryptotympana aquila",
+  "scientific_name": "Cryptotympana aquila",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013385311",
+    "occurrenceId": "129e1f4c-0bd8-4228-b26b-1edbf0541b27",
+    "persistentId": "129e1f4c-0bd8-4228-b26b-1edbf0541b27",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Thailand",
+    "localityVerbatim": null,
+    "localityNormalized": "Thailand",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1847650131",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/129e1f4c-0bd8-4228-b26b-1edbf0541b27",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/584b1416-088a-472e-9a7c-201202b96860",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013385311_resized.jpg",
+    "display": "processed/NHMUK013385311_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013385311_54.webp",
+      "108": "thumb/NHMUK013385311_108.webp",
+      "216": "thumb/NHMUK013385311_216.webp"
+    }
+  },
+  "original_sha256": "43997434a22d1f268077e4dda5b7463b5af8a8a99e210fcd77599fd69e9a945a",
+  "processing": {
+    "cropBox": [
+      481,
+      122,
+      746,
+      958
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013385311_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

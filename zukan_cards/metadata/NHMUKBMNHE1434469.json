@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_cacuminata",
+  "species_ja": "Bactrocera cacuminata",
+  "scientific_name": "Bactrocera cacuminata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1434469",
+    "occurrenceId": "b4633729-e584-4b2c-b271-41a3a6f7630e",
+    "persistentId": "b4633729-e584-4b2c-b271-41a3a6f7630e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dr Ian M. White|Dr David L. Hancock",
+    "eventDate": "1990-10",
+    "eventYear": 1990,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "St. Lucia, Australia",
+    "preparations": null,
+    "decimalLatitude": -27.502,
+    "decimalLongitude": 153.0065
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270000772",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b4633729-e584-4b2c-b271-41a3a6f7630e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/fb583a56-d0c3-4f1c-ac93-4bae338bd644",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1434469_resized.jpg",
+    "display": "processed/NHMUKBMNHE1434469_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1434469_54.webp",
+      "108": "thumb/NHMUKBMNHE1434469_108.webp",
+      "216": "thumb/NHMUKBMNHE1434469_216.webp"
+    }
+  },
+  "original_sha256": "9674ec495fc46e78c3cf587309c5de1552398c2044bf2526418e81aa67106d47",
+  "processing": {
+    "cropBox": [
+      277,
+      609,
+      1421,
+      2106
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1434469_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "troides_amphrysus",
+  "species_ja": "アンフリサスキシタアゲハ",
+  "scientific_name": "Troides amphrysus",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Pablo Cocito",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00669380",
+    "occurrenceId": "http://n2t.net/ark:/65665/3cbb8bb24-047a-4ca4-adc0-1829a9dd759d",
+    "persistentId": "http://n2t.net/ark:/65665/3cbb8bb24-047a-4ca4-adc0-1829a9dd759d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "[Not Stated]",
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": "[Not Stated] Borneo",
+    "preparations": "pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321807898",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321807898",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=14026123&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00669380_resized.jpg",
+    "display": "processed/USNMENT00669380_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00669380_54.webp",
+      "108": "thumb/USNMENT00669380_108.webp",
+      "216": "thumb/USNMENT00669380_216.webp"
+    }
+  },
+  "original_sha256": "bfd38bf51e62ed286524f2c483ab544c1c47d0a19093256e4877eb0a829ffcad",
+  "processing": {
+    "cropBox": [
+      57,
+      39,
+      587,
+      418
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00669380_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

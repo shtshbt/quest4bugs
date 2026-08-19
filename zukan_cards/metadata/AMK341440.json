@@ -1,0 +1,76 @@
+{
+  "species_id": "toxorhynchites_speciosus",
+  "species_ja": "Toxorhynchites speciosus",
+  "scientific_name": "Toxorhynchites speciosus",
+  "credit_line": "Australian Museum",
+  "creator": "Alanah Kazlauskas",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.341440",
+    "occurrenceId": "b6aa64a5-6106-4890-86ab-3cedc79f3661",
+    "persistentId": "b6aa64a5-6106-4890-86ab-3cedc79f3661",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "T.L. Bancroft",
+    "eventDate": "1923-03",
+    "eventYear": 1923,
+    "country": "Australia",
+    "localityVerbatim": "Eidsvold",
+    "localityNormalized": "Eidsvold, Australia",
+    "preparations": null,
+    "decimalLatitude": -25.370556,
+    "decimalLongitude": 151.1225
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100304342",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100304342",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=7352936f-59fe-4c8a-a7ee-012c2d8d3e2b",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK341440_resized.jpg",
+    "display": "processed/AMK341440_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK341440_54.webp",
+      "108": "thumb/AMK341440_108.webp",
+      "216": "thumb/AMK341440_216.webp"
+    }
+  },
+  "original_sha256": "3d6393ae54c727de8979a2cfc5eb1967223e877661b0b92ca6eaa05ab6a2204c",
+  "processing": {
+    "cropBox": [
+      0,
+      27,
+      586,
+      329
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK341440_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

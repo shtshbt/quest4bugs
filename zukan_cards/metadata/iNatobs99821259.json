@@ -1,0 +1,80 @@
+{
+  "species_id": "sphodropoda_tristis",
+  "species_ja": "Sphodropoda tristis",
+  "scientific_name": "Sphodropoda tristis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bethlea_bell (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_99821259",
+    "occurrenceId": "https://www.inaturalist.org/observations/99821259",
+    "persistentId": "https://www.inaturalist.org/observations/99821259",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bethlea_bell",
+    "eventDate": "2021-10-31",
+    "eventYear": 2021,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Gracemere QLD 4702, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -23.460062,
+    "decimalLongitude": 150.4628637,
+    "coordinatesObscured": false,
+    "iNatObservationId": "99821259",
+    "iNatPhotoId": "166487270",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/99821259",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/166487270/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs99821259_resized.jpg",
+    "display": "processed/iNatobs99821259_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs99821259_54.webp",
+      "108": "thumb/iNatobs99821259_108.webp",
+      "216": "thumb/iNatobs99821259_216.webp"
+    }
+  },
+  "original_sha256": "32e4625a34f4d58eeafab09e1edf812247fd64a1ff3d149d12330e33acec9c63",
+  "processing": {
+    "cropBox": [
+      279,
+      597,
+      749,
+      1439
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs99821259_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

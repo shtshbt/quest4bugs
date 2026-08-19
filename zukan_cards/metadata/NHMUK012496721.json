@@ -1,0 +1,74 @@
+{
+  "species_id": "xantia_borneensis",
+  "species_ja": "Xantia borneensis",
+  "scientific_name": "Xantia borneensis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496721",
+    "occurrenceId": "0cd7cba2-bcb4-4d63-b6e4-2c595b33c9da",
+    "persistentId": "0cd7cba2-bcb4-4d63-b6e4-2c595b33c9da",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826404429",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/0cd7cba2-bcb4-4d63-b6e4-2c595b33c9da",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9439913d-a0cc-41d9-bcba-5d579e24eed8",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496721_resized.jpg",
+    "display": "processed/NHMUK012496721_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496721_54.webp",
+      "108": "thumb/NHMUK012496721_108.webp",
+      "216": "thumb/NHMUK012496721_216.webp"
+    }
+  },
+  "original_sha256": "e74e8e4891c6d2c488df87a933190634cce7e76f978e7395caba5b6bc3f4e812",
+  "processing": {
+    "cropBox": [
+      558,
+      0,
+      826,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496721_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

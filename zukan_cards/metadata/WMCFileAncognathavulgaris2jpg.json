@@ -1,0 +1,74 @@
+{
+  "species_id": "ancognatha_vulgaris",
+  "species_ja": "ブルガリスエボシコガネカブト",
+  "scientific_name": "Ancognatha vulgaris",
+  "credit_line": "Wikimedia Commons",
+  "creator": "JohnSka",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ancognatha vulgaris 2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ancognatha_vulgaris_2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ancognatha_vulgaris_2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "JohnSka",
+    "eventDate": "2013-03-07 16:49:38",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Ancognatha vulgaris (Dynastinae, Cyclocephalini), sex unknown",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ancognatha_vulgaris_2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Ancognatha_vulgaris_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAncognathavulgaris2jpg_resized.jpg",
+    "display": "processed/WMCFileAncognathavulgaris2jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAncognathavulgaris2jpg_54.webp",
+      "108": "thumb/WMCFileAncognathavulgaris2jpg_108.webp",
+      "216": "thumb/WMCFileAncognathavulgaris2jpg_216.webp"
+    }
+  },
+  "original_sha256": "3fe84c2e6dc66a8686d0d4ac4edee7387ec444f8923157b9b278bee1a40ee7fa",
+  "processing": {
+    "cropBox": [
+      184,
+      0,
+      2472,
+      3115
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAncognathavulgaris2jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

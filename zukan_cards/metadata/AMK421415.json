@@ -1,0 +1,76 @@
+{
+  "species_id": "heteropternis_obscurella",
+  "species_ja": "Heteropternis obscurella",
+  "scientific_name": "Heteropternis obscurella",
+  "credit_line": "Australian Museum",
+  "creator": "Suzanne van Megen",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.421415",
+    "occurrenceId": "a921a925-cc8a-4a89-a35a-7bdff423a050",
+    "persistentId": "a921a925-cc8a-4a89-a35a-7bdff423a050",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D.C.F. Rentz & B.J.R. Richardson",
+    "eventDate": "2012-01-19",
+    "eventYear": 2012,
+    "country": "Australia",
+    "localityVerbatim": "Nude Creek near Oasis Roadhouse, off Kennedy Development Road",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -18.866667,
+    "decimalLongitude": 144.5
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100325109",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100325109",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=88892c1b-2569-4691-aa7b-3b0ec0d70b0b",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK421415_resized.jpg",
+    "display": "processed/AMK421415_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK421415_54.webp",
+      "108": "thumb/AMK421415_108.webp",
+      "216": "thumb/AMK421415_216.webp"
+    }
+  },
+  "original_sha256": "d4d6c8b51c23a1ba663cd52c1fe55aa8627e5b5a839d855bd1e0eada9467e040",
+  "processing": {
+    "cropBox": [
+      228,
+      0,
+      317,
+      344
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK421415_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

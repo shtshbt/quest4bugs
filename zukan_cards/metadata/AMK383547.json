@@ -1,0 +1,76 @@
+{
+  "species_id": "myrmecia_nigrocincta",
+  "species_ja": "Myrmecia nigrocincta",
+  "scientific_name": "Myrmecia nigrocincta",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.383547",
+    "occurrenceId": "67a9b555-374b-48d0-88ee-c242101d5a4f",
+    "persistentId": "67a9b555-374b-48d0-88ee-c242101d5a4f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.A. Williams",
+    "eventDate": "1999-03-01/1999-03-30",
+    "eventYear": 1999,
+    "country": "Australia",
+    "localityVerbatim": "Sea Acres Nature Reserve, Port Macquarie",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -31.448334,
+    "decimalLongitude": 152.91777
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276607643",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276607643",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=989f7272-ce80-4d89-be46-f829d3529dab",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK383547_resized.jpg",
+    "display": "processed/AMK383547_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK383547_54.webp",
+      "108": "thumb/AMK383547_108.webp",
+      "216": "thumb/AMK383547_216.webp"
+    }
+  },
+  "original_sha256": "d611be90ed8cd78d1bc249477db97935a1763436f8a27529f87843d951dd4272",
+  "processing": {
+    "cropBox": [
+      94,
+      0,
+      476,
+      394
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK383547_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

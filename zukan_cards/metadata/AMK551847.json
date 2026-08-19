@@ -1,0 +1,76 @@
+{
+  "species_id": "this_canus",
+  "species_ja": "This canus",
+  "scientific_name": "This canus",
+  "credit_line": "Australian Museum",
+  "creator": "Bettina Orellana",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.551847",
+    "occurrenceId": "89b1cd86-2af8-4a0b-b666-33cc4602c1a9",
+    "persistentId": "89b1cd86-2af8-4a0b-b666-33cc4602c1a9",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D.K. McAlpine & B.J. Day",
+    "eventDate": "1998-11-22",
+    "eventYear": 1998,
+    "country": "Australia",
+    "localityVerbatim": "Bunker Bay",
+    "localityNormalized": "Bunker Bay, Australia",
+    "preparations": null,
+    "decimalLatitude": -33.545277,
+    "decimalLongitude": 115.04056
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276569230",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276569230",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=e904bca7-252a-498e-b9b4-7c7847ee2d4d",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK551847_resized.jpg",
+    "display": "processed/AMK551847_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK551847_54.webp",
+      "108": "thumb/AMK551847_108.webp",
+      "216": "thumb/AMK551847_216.webp"
+    }
+  },
+  "original_sha256": "5c6090b46c03981be862e224bb1be4293b2a8c25a889f10f8e796371e99f4f2d",
+  "processing": {
+    "cropBox": [
+      98,
+      0,
+      617,
+      378
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK551847_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

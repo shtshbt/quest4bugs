@@ -1,0 +1,74 @@
+{
+  "species_id": "anartia_jatrophae",
+  "species_ja": "ウスベニタテハ",
+  "scientific_name": "Anartia jatrophae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anartia jatrophae MHNT Guadeloupe female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anartia_jatrophae_MHNT_Guadeloupe_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anartia_jatrophae_MHNT_Guadeloupe_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "Taken on 19 May 2013",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "White Peacock, Two views of same specimen.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anartia_jatrophae_MHNT_Guadeloupe_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Anartia_jatrophae_MHNT_Guadeloupe_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_resized.jpg",
+    "display": "processed/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_54.webp",
+      "108": "thumb/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_108.webp",
+      "216": "thumb/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "9e1e937a6ced50f7173b0021e69b2757f48c7b3ab452f854c21a7442f9544ada",
+  "processing": {
+    "cropBox": [
+      265,
+      0,
+      4998,
+      7216
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "camponotus_repens",
+  "species_ja": "Camponotus repens",
+  "scientific_name": "Camponotus repens",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Camponotus repens casent0104623 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Camponotus_repens_casent0104623_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Camponotus_repens_casent0104623_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2005-08-16 13:45:24",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Camponotus repens specimen casent0104623.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Camponotus_repens_casent0104623_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Camponotus_repens_casent0104623_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCamponotusrepenscasent0104623profile1jpg_resized.jpg",
+    "display": "processed/WMCFileCamponotusrepenscasent0104623profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCamponotusrepenscasent0104623profile1jpg_54.webp",
+      "108": "thumb/WMCFileCamponotusrepenscasent0104623profile1jpg_108.webp",
+      "216": "thumb/WMCFileCamponotusrepenscasent0104623profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "8920ee440e646d37ea4b142df507e88c0d4e70e1f361209955994db0a8fdcbbe",
+  "processing": {
+    "cropBox": [
+      0,
+      23,
+      1166,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCamponotusrepenscasent0104623profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

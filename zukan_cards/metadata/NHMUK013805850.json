@@ -1,0 +1,74 @@
+{
+  "species_id": "parectatosoma_hystrix",
+  "species_ja": "Parectatosoma hystrix",
+  "scientific_name": "Parectatosoma hystrix",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013805850",
+    "occurrenceId": "e27423d5-7f06-4e75-9b7f-e9a12b4de1d1",
+    "persistentId": "e27423d5-7f06-4e75-9b7f-e9a12b4de1d1",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3116771470",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/e27423d5-7f06-4e75-9b7f-e9a12b4de1d1",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/83e2190d-854c-4b33-9d3c-ee81a1222501",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013805850_resized.jpg",
+    "display": "processed/NHMUK013805850_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013805850_54.webp",
+      "108": "thumb/NHMUK013805850_108.webp",
+      "216": "thumb/NHMUK013805850_216.webp"
+    }
+  },
+  "original_sha256": "0948d05e2f443a605d0de17e013a59a74aae6086bc0d3512de4d6ba3b9564077",
+  "processing": {
+    "cropBox": [
+      570,
+      0,
+      894,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013805850_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

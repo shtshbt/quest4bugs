@@ -1,0 +1,74 @@
+{
+  "species_id": "liturgusa_maya",
+  "species_ja": "Liturgusa maya",
+  "scientific_name": "Liturgusa maya",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Rivera J, Picón-Rentería P, Avendaño JM, Román AC, Betancourt-Cargua L",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Liturgusa maya, female, Peru.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Liturgusa_maya,_female,_Peru.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Liturgusa_maya,_female,_Peru.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Rivera J, Picón-Rentería P, Avendaño JM, Román AC, Betancourt-Cargua L",
+    "eventDate": "2025",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Female Liturgusa maya from Tumbes, Peru",
+    "localityNormalized": "Female Liturgusa maya from Tumbes, Peru",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Liturgusa_maya,_female,_Peru.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Liturgusa_maya%2C_female%2C_Peru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileLiturgusamayafemalePerujpg_resized.jpg",
+    "display": "processed/WMCFileLiturgusamayafemalePerujpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLiturgusamayafemalePerujpg_54.webp",
+      "108": "thumb/WMCFileLiturgusamayafemalePerujpg_108.webp",
+      "216": "thumb/WMCFileLiturgusamayafemalePerujpg_216.webp"
+    }
+  },
+  "original_sha256": "f0fc0a20b42bf45cb3f362bf8db6a4c6b5ab79bfe7c54a6f6784763de8aabcca",
+  "processing": {
+    "cropBox": [
+      25,
+      25,
+      1066,
+      1359
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLiturgusamayafemalePerujpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "neurothemis_terminata",
+  "species_ja": "ナンヨウベッコウトンボ",
+  "scientific_name": "Neurothemis terminata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00827382",
+    "occurrenceId": "http://n2t.net/ark:/65665/333704f0f-9c68-49a1-a1b7-e7267a7ed2a6",
+    "persistentId": "http://n2t.net/ark:/65665/333704f0f-9c68-49a1-a1b7-e7267a7ed2a6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "T. Donnelly",
+    "eventDate": "1997-07-05",
+    "eventYear": 1997,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Menanggul R. nr. Sukau, Malaysia",
+    "preparations": "Envelope",
+    "decimalLatitude": 5.4967,
+    "decimalLongitude": 118.238
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318365388",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318365388",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16326716&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00827382_resized.jpg",
+    "display": "processed/USNMENT00827382_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00827382_54.webp",
+      "108": "thumb/USNMENT00827382_108.webp",
+      "216": "thumb/USNMENT00827382_216.webp"
+    }
+  },
+  "original_sha256": "e7b6045b5bdb7c2e52998c574cf4555488002b2a0dbc90f69cb83ffb7c34a051",
+  "processing": {
+    "cropBox": [
+      934,
+      520,
+      1437,
+      1136
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00827382_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

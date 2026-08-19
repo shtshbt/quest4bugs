@@ -1,0 +1,76 @@
+{
+  "species_id": "erythemis_peruviana",
+  "species_ja": "Erythemis peruviana",
+  "scientific_name": "Erythemis peruviana",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00282762",
+    "occurrenceId": "http://n2t.net/ark:/65665/39a683a46-aac0-4374-816d-bdc93feef2ea",
+    "persistentId": "http://n2t.net/ark:/65665/39a683a46-aac0-4374-816d-bdc93feef2ea",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "N. Adams",
+    "eventDate": "1993-06-20",
+    "eventYear": 1993,
+    "country": "Trinidad and Tobago",
+    "localityVerbatim": null,
+    "localityNormalized": "Nariva Swamp, 5 kilometers south of Lower Manzanilla, Trinidad and Tobago",
+    "preparations": "Envelope",
+    "decimalLatitude": 10.47,
+    "decimalLongitude": -61.05
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320692751",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320692751",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16419695&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00282762_resized.jpg",
+    "display": "processed/USNMENT00282762_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00282762_54.webp",
+      "108": "thumb/USNMENT00282762_108.webp",
+      "216": "thumb/USNMENT00282762_216.webp"
+    }
+  },
+  "original_sha256": "b806c82a6a00cf95d626ce35cedee4128ad0c5746de29170f3fe26d3a0d17dd0",
+  "processing": {
+    "cropBox": [
+      846,
+      185,
+      1424,
+      896
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00282762_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

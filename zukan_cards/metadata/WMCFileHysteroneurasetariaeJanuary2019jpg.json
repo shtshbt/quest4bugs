@@ -1,0 +1,74 @@
+{
+  "species_id": "ohishiba_kuro_aburamushi",
+  "species_ja": "オヒシバクロアブラムシ",
+  "scientific_name": "Hysteroneura setariae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Jesse Rorabaugh",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hysteroneura setariae - January 2019.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hysteroneura_setariae_-_January_2019.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hysteroneura_setariae_-_January_2019.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jesse Rorabaugh",
+    "eventDate": "2019-01-01",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Hysteroneura setariae (Rusty Plum Aphid) seen in California, USA",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hysteroneura_setariae_-_January_2019.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hysteroneura_setariae_-_January_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileHysteroneurasetariaeJanuary2019jpg_resized.jpg",
+    "display": "processed/WMCFileHysteroneurasetariaeJanuary2019jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHysteroneurasetariaeJanuary2019jpg_54.webp",
+      "108": "thumb/WMCFileHysteroneurasetariaeJanuary2019jpg_108.webp",
+      "216": "thumb/WMCFileHysteroneurasetariaeJanuary2019jpg_216.webp"
+    }
+  },
+  "original_sha256": "e2d6ca7495781a9ff71159c47d78036228585c337d34343eb396079715a5ba94",
+  "processing": {
+    "cropBox": [
+      227,
+      226,
+      1799,
+      1449
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHysteroneurasetariaeJanuary2019jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

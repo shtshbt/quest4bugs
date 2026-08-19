@@ -1,0 +1,74 @@
+{
+  "species_id": "velinus_nigrigenu",
+  "species_ja": "Velinus nigrigenu",
+  "scientific_name": "Velinus nigrigenu",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "あおもりくま（Aomorikuma）",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Velinus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Velinus",
+    "persistentId": "https://en.wikipedia.org/wiki/Velinus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "あおもりくま（Aomorikuma）",
+    "eventDate": "2008-04-02",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "カメムシ目 カメムシ亜目 サシガメ科 ヤニサシガメ",
+    "localityNormalized": "カメムシ目 カメムシ亜目 サシガメ科 ヤニサシガメ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Velinus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/%E3%83%A4%E3%83%8B%E3%82%B5%E3%82%B7%E3%82%AC%E3%83%A1%EF%BC%92.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPVelinus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPVelinus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPVelinus_54.webp",
+      "108": "thumb/WIKIPEDIAWPVelinus_108.webp",
+      "216": "thumb/WIKIPEDIAWPVelinus_216.webp"
+    }
+  },
+  "original_sha256": "5e2bffd91bea3f8c177993f30ad2853eaffae0e73ea5f244c9d855bbb388d59f",
+  "processing": {
+    "cropBox": [
+      130,
+      7,
+      1059,
+      1045
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPVelinus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

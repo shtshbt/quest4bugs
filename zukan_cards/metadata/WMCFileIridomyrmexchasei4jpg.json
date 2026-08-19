@@ -1,0 +1,74 @@
+{
+  "species_id": "iridomyrmex_chasei",
+  "species_ja": "Iridomyrmex chasei",
+  "scientific_name": "Iridomyrmex chasei",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Lucinda Gibson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Iridomyrmex chasei 4.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Iridomyrmex_chasei_4.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Iridomyrmex_chasei_4.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Lucinda Gibson",
+    "eventDate": "2014-08-20",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Specimen: ANTWEB1008640 Iridomyrmex chasei photographed by Lucinda Gibson, California Academy of Science. Sourced from www.antweb.org.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Iridomyrmex_chasei_4.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Iridomyrmex_chasei_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileIridomyrmexchasei4jpg_resized.jpg",
+    "display": "processed/WMCFileIridomyrmexchasei4jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileIridomyrmexchasei4jpg_54.webp",
+      "108": "thumb/WMCFileIridomyrmexchasei4jpg_108.webp",
+      "216": "thumb/WMCFileIridomyrmexchasei4jpg_216.webp"
+    }
+  },
+  "original_sha256": "a8ce38c44e919e7dfaaf50b6e892dbf52748c822312d2eaa25d28e72fe045ba8",
+  "processing": {
+    "cropBox": [
+      0,
+      52,
+      1588,
+      744
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileIridomyrmexchasei4jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

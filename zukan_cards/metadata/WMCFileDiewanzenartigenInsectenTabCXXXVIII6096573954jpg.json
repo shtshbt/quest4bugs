@@ -1,0 +1,74 @@
+{
+  "species_id": "augocoris_gomesii",
+  "species_ja": "Augocoris gomesii",
+  "scientific_name": "Augocoris gomesii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Hahn, Carl Wilhelm; Herrich-Schäffer, G. A. W",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Die wanzenartigen Insecten (Tab. CXXXVIII) (6096573954).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Die_wanzenartigen_Insecten_(Tab._CXXXVIII)_(6096573954).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Die_wanzenartigen_Insecten_(Tab._CXXXVIII)_(6096573954).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hahn, Carl Wilhelm; Herrich-Schäffer, G. A. W",
+    "eventDate": "1831",
+    "eventYear": 1831,
+    "country": null,
+    "localityVerbatim": "Fig. 429. Cimex perspicuus Fig. 430. Cimex limbatus Fig. 431. Augocoris gomesii Fig. 432. Augocoris rugulosus",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Die_wanzenartigen_Insecten_(Tab._CXXXVIII)_(6096573954).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Die_wanzenartigen_Insecten_%28Tab._CXXXVIII%29_%286096573954%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_resized.jpg",
+    "display": "processed/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_54.webp",
+      "108": "thumb/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_108.webp",
+      "216": "thumb/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_216.webp"
+    }
+  },
+  "original_sha256": "05233c0e0ee02f68d658acd12e812c470f047e30b4392e8d85c5379ba9ce6511",
+  "processing": {
+    "cropBox": [
+      0,
+      416,
+      1490,
+      2573
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "lyramorpha_rosea",
+  "species_ja": "Lyramorpha rosea",
+  "scientific_name": "Lyramorpha rosea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Final Muscid",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lyramorpha rosea specimen dorsal.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lyramorpha_rosea_specimen_dorsal.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lyramorpha_rosea_specimen_dorsal.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Final Muscid",
+    "eventDate": "2023-05-29",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Pinned specimen of Lyramorpha rosea caught in Sydney, Australia. Dorsal side.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lyramorpha_rosea_specimen_dorsal.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Lyramorpha_rosea_specimen_dorsal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileLyramorpharoseaspecimendorsaljpg_resized.jpg",
+    "display": "processed/WMCFileLyramorpharoseaspecimendorsaljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLyramorpharoseaspecimendorsaljpg_54.webp",
+      "108": "thumb/WMCFileLyramorpharoseaspecimendorsaljpg_108.webp",
+      "216": "thumb/WMCFileLyramorpharoseaspecimendorsaljpg_216.webp"
+    }
+  },
+  "original_sha256": "8bd46c5f21e9883714e50851a67965ccb68019f165e53618a33eebc66ba33c2b",
+  "processing": {
+    "cropBox": [
+      82,
+      21,
+      2128,
+      3175
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLyramorpharoseaspecimendorsaljpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "crematogaster_ranavalonae",
+  "species_ja": "Crematogaster ranavalonae",
+  "scientific_name": "Crematogaster ranavalonae",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Crematogaster ranavalonae casent0101762 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Crematogaster_ranavalonae_casent0101762_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Crematogaster_ranavalonae_casent0101762_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2006-05-11 12:25:45",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Crematogaster ranavalonae specimen casent0101762.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Crematogaster_ranavalonae_casent0101762_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Crematogaster_ranavalonae_casent0101762_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_resized.jpg",
+    "display": "processed/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_54.webp",
+      "108": "thumb/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_108.webp",
+      "216": "thumb/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "b2f9642c7948741b05788c6e6b4b3e7d504040b748a57d4c71b7120eb960acbe",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCrematogasterranavalonaecasent0101762profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

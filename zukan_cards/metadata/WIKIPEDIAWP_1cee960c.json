@@ -1,0 +1,74 @@
+{
+  "species_id": "yamato_batta",
+  "species_ja": "ヤマトバッタ",
+  "scientific_name": "Epacromius japonicus",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Bugboy52.40",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:昆虫",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E6%98%86%E8%99%AB",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E6%98%86%E8%99%AB",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bugboy52.40",
+    "eventDate": "2013-02-03 16:29:05",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Collage showing the diversity of insect species. Insect species ordered from top left to bottom right: Long dance fly (Empis livida) Long Nosed Weevil (Rhinotia hemistictus) Assassin bug in the family Reduviidae sub-family Harpactorinae Mole Cricket (Gryllotalpa brachyptera) Emperor gum moth (Opodiphthera eucalypti) European Wasp (Vespula germanica)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E6%98%86%E8%99%AB",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Insect_collage.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_1cee960c_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_1cee960c_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_1cee960c_54.webp",
+      "108": "thumb/WIKIPEDIAWP_1cee960c_108.webp",
+      "216": "thumb/WIKIPEDIAWP_1cee960c_216.webp"
+    }
+  },
+  "original_sha256": "83dd3525ba11f5e10ce7fcc5580894ee405f0206817b8361783179c704d83da5",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2967,
+      2882
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_1cee960c_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

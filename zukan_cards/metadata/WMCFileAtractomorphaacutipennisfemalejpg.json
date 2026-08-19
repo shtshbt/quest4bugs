@@ -1,0 +1,74 @@
+{
+  "species_id": "atractomorpha_acutipennis",
+  "species_ja": "Atractomorpha acutipennis",
+  "scientific_name": "Atractomorpha acutipennis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Christiaan Kooyman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Atractomorpha acutipennis female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Atractomorpha_acutipennis_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Atractomorpha_acutipennis_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Christiaan Kooyman",
+    "eventDate": "2005-06-09",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Female Atractomorpha acutipennis photographed by Christiaan Kooyman on 10 June 2005 near Awae, Cameroon.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Atractomorpha_acutipennis_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Atractomorpha_acutipennis_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAtractomorphaacutipennisfemalejpg_resized.jpg",
+    "display": "processed/WMCFileAtractomorphaacutipennisfemalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAtractomorphaacutipennisfemalejpg_54.webp",
+      "108": "thumb/WMCFileAtractomorphaacutipennisfemalejpg_108.webp",
+      "216": "thumb/WMCFileAtractomorphaacutipennisfemalejpg_216.webp"
+    }
+  },
+  "original_sha256": "b45304f9cf093e738ed6c0549fab760aa2cfb8c3e12994abc4dad3019660c38d",
+  "processing": {
+    "cropBox": [
+      352,
+      227,
+      616,
+      537
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAtractomorphaacutipennisfemalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

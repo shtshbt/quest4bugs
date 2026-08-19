@@ -1,0 +1,80 @@
+{
+  "species_id": "chaetedus_longiceps",
+  "species_ja": "Chaetedus longiceps",
+  "scientific_name": "Chaetedus longiceps",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bettong-whisperer (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_212731962",
+    "occurrenceId": "https://www.inaturalist.org/observations/212731962",
+    "persistentId": "https://www.inaturalist.org/observations/212731962",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bettong-whisperer",
+    "eventDate": "2024-04-30",
+    "eventYear": 2024,
+    "country": "AU",
+    "localityVerbatim": null,
+    "localityNormalized": "Hill St, Frankston, VIC, AU, AU",
+    "preparations": null,
+    "decimalLatitude": -38.15065,
+    "decimalLongitude": 145.1401971667,
+    "coordinatesObscured": false,
+    "iNatObservationId": "212731962",
+    "iNatPhotoId": "375935744",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/212731962",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/375935744/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs212731962_resized.jpg",
+    "display": "processed/iNatobs212731962_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs212731962_54.webp",
+      "108": "thumb/iNatobs212731962_108.webp",
+      "216": "thumb/iNatobs212731962_216.webp"
+    }
+  },
+  "original_sha256": "ff5f0b6105a8fd13f96b2336ab69720cd041fac5e882b9c79c59ac64c66fa87e",
+  "processing": {
+    "cropBox": [
+      295,
+      1163,
+      1319,
+      1786
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs212731962_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

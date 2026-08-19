@@ -1,0 +1,74 @@
+{
+  "species_id": "musgraveia_sulciventris",
+  "species_ja": "Musgraveia sulciventris",
+  "scientific_name": "Musgraveia sulciventris",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Froggatt, W. W.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Australian insects (Plate XXXI) (7268263964).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XXXI)_(7268263964).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XXXI)_(7268263964).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Froggatt, W. W.",
+    "eventDate": "1907",
+    "eventYear": 1907,
+    "country": null,
+    "localityVerbatim": "Plate XXXI. — HEMIPTERA. 1. Biprorulus bibax, Pentatomidae 2. Dysdercus sidae (Montrz.), Pyrrhocorridae 3. Peltophora pedicellata = Scutiphora pedicellata, Pentatomidae 4. Chaerocoris paganus, Pentatomidae 5. Mictis profana, Coreidae 6. Oxycarenus luctuosus, Lygaeidae 7. Plautia affinis (Dallas), Pentatomidae 8. Cuspicona simplex, Pentatomidae 9. Ptilocnemus femoralis Horváth, 1902 10. Dindymus versicolor, Pentatomidae 11. Tectocoris lineola = Tectocoris diophthalmus, Pentatomidae 12. Oncopeltus quadriguttatus, Lygaeidae 13. Oncoscelis sulciventris = Musgraveia sulciventris, Pentatomidae 14. Froggattia olivinia, Tingidae 15. Lygaeus hospes = Spilostethus hospes, Lygaeidae",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Australian_insects_(Plate_XXXI)_(7268263964).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Australian_insects_%28Plate_XXXI%29_%287268263964%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAustralianinsectsPlateXXXI7268263964jpg_resized.jpg",
+    "display": "processed/WMCFileAustralianinsectsPlateXXXI7268263964jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAustralianinsectsPlateXXXI7268263964jpg_54.webp",
+      "108": "thumb/WMCFileAustralianinsectsPlateXXXI7268263964jpg_108.webp",
+      "216": "thumb/WMCFileAustralianinsectsPlateXXXI7268263964jpg_216.webp"
+    }
+  },
+  "original_sha256": "0ade2d601154ceac99deaa69bca5f9dc43542529313afc332d82d480aacd5f0a",
+  "processing": {
+    "cropBox": [
+      0,
+      44,
+      1954,
+      3180
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAustralianinsectsPlateXXXI7268263964jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

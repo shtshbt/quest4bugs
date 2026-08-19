@@ -1,0 +1,74 @@
+{
+  "species_id": "oecophylla_smaragdina",
+  "species_ja": "ツムギアリ",
+  "scientific_name": "Oecophylla smaragdina",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)650001",
+    "occurrenceId": "e433d0b6-8638-4388-986f-a16be3cd02b2",
+    "persistentId": "e433d0b6-8638-4388-986f-a16be3cd02b2",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G A. Rothney",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Barrackpore, Bengal, India",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057003562",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/e433d0b6-8638-4388-986f-a16be3cd02b2",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/690dc368-e825-4c1d-a7df-9ccd05356fd3",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE650001_resized.jpg",
+    "display": "processed/NHMUKBMNHE650001_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE650001_54.webp",
+      "108": "thumb/NHMUKBMNHE650001_108.webp",
+      "216": "thumb/NHMUKBMNHE650001_216.webp"
+    }
+  },
+  "original_sha256": "ae9c75d2773dc6439c595829e2745ef1a7430bb24d567c8ab121582f9ff0a043",
+  "processing": {
+    "cropBox": [
+      32,
+      0,
+      1125,
+      1163
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE650001_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

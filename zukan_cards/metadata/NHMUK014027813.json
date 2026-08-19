@@ -1,0 +1,74 @@
+{
+  "species_id": "tasmanthrus_angustipennis",
+  "species_ja": "Tasmanthrus angustipennis",
+  "scientific_name": "Tasmanthrus angustipennis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014027813",
+    "occurrenceId": "919b7bca-2c8f-4f6c-99d0-0ae2487df4ec",
+    "persistentId": "919b7bca-2c8f-4f6c-99d0-0ae2487df4ec",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1929-12",
+    "eventYear": 1929,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330242747",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/919b7bca-2c8f-4f6c-99d0-0ae2487df4ec",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ac58ec38-ab5b-4533-9046-da9e9543e718",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014027813_resized.jpg",
+    "display": "processed/NHMUK014027813_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014027813_54.webp",
+      "108": "thumb/NHMUK014027813_108.webp",
+      "216": "thumb/NHMUK014027813_216.webp"
+    }
+  },
+  "original_sha256": "63df979b1a121799472a5f5284d18e41734f96282f0f175abad335fa715f6965",
+  "processing": {
+    "cropBox": [
+      511,
+      448,
+      947,
+      1011
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014027813_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "vandiemenella_viatica",
+  "species_ja": "Vandiemenella viatica",
+  "scientific_name": "Vandiemenella viatica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Michael Kearney",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Vandiemenella viatica 112424913.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Vandiemenella_viatica_112424913.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Vandiemenella_viatica_112424913.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Michael Kearney",
+    "eventDate": "2017-07-28",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Vandiemenella viatica",
+    "localityNormalized": "Vandiemenella viatica",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Vandiemenella_viatica_112424913.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/Vandiemenella_viatica_112424913.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileVandiemenellaviatica112424913jpg_resized.jpg",
+    "display": "processed/WMCFileVandiemenellaviatica112424913jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileVandiemenellaviatica112424913jpg_54.webp",
+      "108": "thumb/WMCFileVandiemenellaviatica112424913jpg_108.webp",
+      "216": "thumb/WMCFileVandiemenellaviatica112424913jpg_216.webp"
+    }
+  },
+  "original_sha256": "b7f5f50d88d6266b0e1f05bc3ba37e1037c5515a1e5fadc8e1b43a75351d2c99",
+  "processing": {
+    "cropBox": [
+      50,
+      210,
+      1937,
+      1173
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileVandiemenellaviatica112424913jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

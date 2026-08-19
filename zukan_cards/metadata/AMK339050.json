@@ -1,0 +1,76 @@
+{
+  "species_id": "anopheles_annulipes",
+  "species_ja": "Anopheles annulipes",
+  "scientific_name": "Anopheles annulipes",
+  "credit_line": "Australian Museum",
+  "creator": "Penny Walker",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.339050",
+    "occurrenceId": "66129361-f980-4fd6-8ec0-bacd44a3c6e7",
+    "persistentId": "66129361-f980-4fd6-8ec0-bacd44a3c6e7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "I.M.C. Mackerras",
+    "eventDate": "1922-12",
+    "eventYear": 1922,
+    "country": "Australia",
+    "localityVerbatim": "Eidsvold",
+    "localityNormalized": "Eidsvold, Australia",
+    "preparations": null,
+    "decimalLatitude": -25.370556,
+    "decimalLongitude": 151.1225
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100302608",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100302608",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=038890bc-a075-42fb-8ea9-7eeea7f4bfbb",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK339050_resized.jpg",
+    "display": "processed/AMK339050_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK339050_54.webp",
+      "108": "thumb/AMK339050_108.webp",
+      "216": "thumb/AMK339050_216.webp"
+    }
+  },
+  "original_sha256": "4a020dab905f6d57943910c0ed47f637ab62c4c0a771cdbebf78db0029583887",
+  "processing": {
+    "cropBox": [
+      10,
+      14,
+      631,
+      406
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK339050_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

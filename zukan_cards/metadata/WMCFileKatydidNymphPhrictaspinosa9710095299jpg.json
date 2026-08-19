@@ -1,0 +1,74 @@
+{
+  "species_id": "phricta_spinosa",
+  "species_ja": "オオトゲキリギリス",
+  "scientific_name": "Phricta spinosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bernard DUPONT from FRANCE",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Katydid Nymph (Phricta spinosa) (9710095299).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Katydid_Nymph_(Phricta_spinosa)_(9710095299).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Katydid_Nymph_(Phricta_spinosa)_(9710095299).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bernard DUPONT from FRANCE",
+    "eventDate": "2000-11-01 00:00",
+    "eventYear": 2000,
+    "country": null,
+    "localityVerbatim": "Lync Haven, Cape Tribulation, North Queensland, AUSTRALIA Scanned Slide from Nov 2000",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Katydid_Nymph_(Phricta_spinosa)_(9710095299).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Katydid_Nymph_%28Phricta_spinosa%29_%289710095299%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_resized.jpg",
+    "display": "processed/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_54.webp",
+      "108": "thumb/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_108.webp",
+      "216": "thumb/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_216.webp"
+    }
+  },
+  "original_sha256": "c2c4f524365d36ed96902541db0db29291acfad6322c0db11fee7fc257bfe67d",
+  "processing": {
+    "cropBox": [
+      450,
+      0,
+      3239,
+      2139
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileKatydidNymphPhrictaspinosa9710095299jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

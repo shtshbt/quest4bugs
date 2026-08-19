@@ -1,0 +1,76 @@
+{
+  "species_id": "aedes_notoscriptus",
+  "species_ja": "Aedes notoscriptus",
+  "scientific_name": "Aedes notoscriptus",
+  "credit_line": "Australian Museum",
+  "creator": "Julia Ribas",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.341726",
+    "occurrenceId": "964e0891-c390-4cd4-a470-edc98fd01924",
+    "persistentId": "964e0891-c390-4cd4-a470-edc98fd01924",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "I.M.C. Mackerras",
+    "eventDate": "1922-11-26",
+    "eventYear": 1922,
+    "country": "Australia",
+    "localityVerbatim": "Balmoral",
+    "localityNormalized": "Balmoral, Australia",
+    "preparations": null,
+    "decimalLatitude": -33.816666,
+    "decimalLongitude": 151.26666
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100304622",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100304622",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=125de168-32d4-41d8-ac1d-63299c20add3",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK341726_resized.jpg",
+    "display": "processed/AMK341726_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK341726_54.webp",
+      "108": "thumb/AMK341726_108.webp",
+      "216": "thumb/AMK341726_216.webp"
+    }
+  },
+  "original_sha256": "b2b6d80268e324dbcb1ab736c30884c1852f447d66cc75feac8e98e173aad827",
+  "processing": {
+    "cropBox": [
+      111,
+      0,
+      504,
+      409
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK341726_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "apis_andreniformis",
+  "species_ja": "クロコミツバチ",
+  "scientific_name": "Apis andreniformis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013384175",
+    "occurrenceId": "8a284499-29f8-4184-a6e5-a111c2ed06ea",
+    "persistentId": "8a284499-29f8-4184-a6e5-a111c2ed06ea",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1843513462",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/8a284499-29f8-4184-a6e5-a111c2ed06ea",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/37860f54-e77b-4a13-94fa-5bea8fbb2ad7",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013384175_resized.jpg",
+    "display": "processed/NHMUK013384175_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013384175_54.webp",
+      "108": "thumb/NHMUK013384175_108.webp",
+      "216": "thumb/NHMUK013384175_216.webp"
+    }
+  },
+  "original_sha256": "bf28aca828b3b40a74296bab515dbdd10274f2c63d8460edbe298499745cd97f",
+  "processing": {
+    "cropBox": [
+      300,
+      132,
+      535,
+      412
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013384175_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

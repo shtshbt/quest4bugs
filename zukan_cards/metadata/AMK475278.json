@@ -1,0 +1,76 @@
+{
+  "species_id": "ephippitytha_trigintiduoguttata",
+  "species_ja": "Ephippitytha trigintiduoguttata",
+  "scientific_name": "Ephippitytha trigintiduoguttata",
+  "credit_line": "Australian Museum",
+  "creator": "Andrew Trevor-Jones",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.475278",
+    "occurrenceId": "4c1c2698-b11b-4a7c-bade-e759bd947da6",
+    "persistentId": "4c1c2698-b11b-4a7c-bade-e759bd947da6",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2009-02-01",
+    "eventYear": 2009,
+    "country": "Australia",
+    "localityVerbatim": "Two Mile Creek, Hervey Range",
+    "localityNormalized": "Two Mile Creek, Hervey Range, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.381111,
+    "decimalLongitude": 146.44917
+  },
+  "source": {
+    "gbifOccurrenceKey": "2596662679",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2596662679",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=8b0fd5d8-e6e5-4299-90ed-a6f97f9ff2f8",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK475278_resized.jpg",
+    "display": "processed/AMK475278_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK475278_54.webp",
+      "108": "thumb/AMK475278_108.webp",
+      "216": "thumb/AMK475278_216.webp"
+    }
+  },
+  "original_sha256": "e7f49ae6ea4b01cdbb1c09f3f7524ecc9ab489be7dde2f4655360398404423b4",
+  "processing": {
+    "cropBox": [
+      98,
+      0,
+      455,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK475278_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

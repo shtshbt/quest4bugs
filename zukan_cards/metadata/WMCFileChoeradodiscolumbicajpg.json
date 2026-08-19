@@ -1,0 +1,74 @@
+{
+  "species_id": "choeradodis_rhombicollis",
+  "species_ja": "Choeradodis rhombicollis",
+  "scientific_name": "Choeradodis rhombicollis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "desertnaturalist",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Choeradodis columbica.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Choeradodis_columbica.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Choeradodis_columbica.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "desertnaturalist",
+    "eventDate": "2022-10-01",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Choeradodis columbica. Las Cruces 08145, Peru",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Choeradodis_columbica.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Choeradodis_columbica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileChoeradodiscolumbicajpg_resized.jpg",
+    "display": "processed/WMCFileChoeradodiscolumbicajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChoeradodiscolumbicajpg_54.webp",
+      "108": "thumb/WMCFileChoeradodiscolumbicajpg_108.webp",
+      "216": "thumb/WMCFileChoeradodiscolumbicajpg_216.webp"
+    }
+  },
+  "original_sha256": "0236c6b37713b18b578f53718f086c64f8d7a62996d145b4b30bbb8edec64320",
+  "processing": {
+    "cropBox": [
+      144,
+      313,
+      1885,
+      1023
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChoeradodiscolumbicajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

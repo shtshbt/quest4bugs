@@ -1,0 +1,74 @@
+{
+  "species_id": "akamarubane_monki_tateha",
+  "species_ja": "アカマルバネモンキタテハ",
+  "scientific_name": "Aterica rabena",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz 1910 author of plates unknown",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:SeitzFaunaAfricanaXIIITaf48.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf48.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf48.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz 1910 author of plates unknown",
+    "eventDate": "2012-10-28 20:49:59",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Adalbert Seitz Die Gross-Schmetterlinge der Erde 13: Die Afrikanischen Tagfalter. Plate XIII 48 Hypolimnas dubius, synonym for Hypolimnas anthedon (Doubleday, 1845) Hypolimnas anthedon forma mima Trimen, 1869 Aterica galene (Brown, 1776) Aterica galene theophane Hopffer, 1855 Aterica rabena Neptis frobenia Neptis comorarum Neptis mayottensis Neptis metella Neptis saclava Neptis nemetes Neptis kikideli Neptis agatha Neptis seeldrayersi Neptis nysiades Neptis strigata Neptis trigonophora Neptis nicoteles Neptis melicerta Neptis jamesoni Neptis incongrua Neptis paula Neptis goochii Neptis lermanni Sevenia occidentalium Sevenia morantii Sevenia boisduvali Sevenia howensis Sevenia umbrina",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf48.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e6/SeitzFaunaAfricanaXIIITaf48.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_resized.jpg",
+    "display": "processed/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_54.webp",
+      "108": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_108.webp",
+      "216": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_216.webp"
+    }
+  },
+  "original_sha256": "190970d7c39f4c31a8a3c264070cd8559ad401ad01418f454c62ce15018ec27c",
+  "processing": {
+    "cropBox": [
+      168,
+      61,
+      2942,
+      3960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSeitzFaunaAfricanaXIIITaf48jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

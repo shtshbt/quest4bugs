@@ -1,0 +1,74 @@
+{
+  "species_id": "polymorphanisus_quadripunctatus",
+  "species_ja": "Polymorphanisus quadripunctatus",
+  "scientific_name": "Polymorphanisus quadripunctatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013323347",
+    "occurrenceId": "8000b590-6902-4370-bf45-df9e6f8064aa",
+    "persistentId": "8000b590-6902-4370-bf45-df9e6f8064aa",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1932-09-15",
+    "eventYear": 1932,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1836106346",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/8000b590-6902-4370-bf45-df9e6f8064aa",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c5655afb-3447-48a6-88a2-323bc6a5eaeb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013323347_resized.jpg",
+    "display": "processed/NHMUK013323347_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013323347_54.webp",
+      "108": "thumb/NHMUK013323347_108.webp",
+      "216": "thumb/NHMUK013323347_216.webp"
+    }
+  },
+  "original_sha256": "781a3a012f9cd840219fe34b10d6b759361ef1d06312204270b54914d52897fe",
+  "processing": {
+    "cropBox": [
+      149,
+      169,
+      846,
+      535
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013323347_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

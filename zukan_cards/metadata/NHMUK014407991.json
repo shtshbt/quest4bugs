@@ -1,0 +1,74 @@
+{
+  "species_id": "ulmerochorema_rubiconum",
+  "species_ja": "Ulmerochorema rubiconum",
+  "scientific_name": "Ulmerochorema rubiconum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014407991",
+    "occurrenceId": "6cce5113-d6ec-42a0-a38e-868742d3e4cf",
+    "persistentId": "6cce5113-d6ec-42a0-a38e-868742d3e4cf",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1957-02-24",
+    "eventYear": 1957,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330250326",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6cce5113-d6ec-42a0-a38e-868742d3e4cf",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/257bcc1e-bb43-4eb3-b0bc-fc942e3c417b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014407991_resized.jpg",
+    "display": "processed/NHMUK014407991_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014407991_54.webp",
+      "108": "thumb/NHMUK014407991_108.webp",
+      "216": "thumb/NHMUK014407991_216.webp"
+    }
+  },
+  "original_sha256": "72e0d1d8f8712789547ebb4ed2e2adcf8a0657073681ee4dff956bcc60f99105",
+  "processing": {
+    "cropBox": [
+      602,
+      269,
+      902,
+      636
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014407991_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

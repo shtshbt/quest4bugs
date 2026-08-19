@@ -1,0 +1,76 @@
+{
+  "species_id": "papilio_epiphorbas",
+  "species_ja": "Papilio epiphorbas",
+  "scientific_name": "Papilio epiphorbas",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 727251",
+    "occurrenceId": "urn:uuid:1b77e2e8-c70e-4940-aa39-1f44cb85cc0d",
+    "persistentId": "urn:uuid:1b77e2e8-c70e-4940-aa39-1f44cb85cc0d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1975-08",
+    "eventYear": 1975,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Tananarive, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -18.916667,
+    "decimalLongitude": 47.516667
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039044897",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-727251",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:30db035e-0cc1-41c3-b734-5c16cee6ff89/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT727251_resized.jpg",
+    "display": "processed/YPMENT727251_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT727251_54.webp",
+      "108": "thumb/YPMENT727251_108.webp",
+      "216": "thumb/YPMENT727251_216.webp"
+    }
+  },
+  "original_sha256": "9f9828478934833aaf7c976fd2789019033f3c81d7cb1961dca16833de6058fb",
+  "processing": {
+    "cropBox": [
+      168,
+      0,
+      1040,
+      1556
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT727251_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "metriophasma_diocles",
+  "species_ja": "Metriophasma diocles",
+  "scientific_name": "Metriophasma diocles",
+  "credit_line": "Wikimedia Commons",
+  "creator": "iNaturalist user: Diegophidio",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Metriophasma diocles.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Metriophasma_diocles.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Metriophasma_diocles.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "iNaturalist user: Diegophidio",
+    "eventDate": "2014-07-13",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Metriophasma diocles. Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Metriophasma_diocles.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Metriophasma_diocles.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMetriophasmadioclesjpg_resized.jpg",
+    "display": "processed/WMCFileMetriophasmadioclesjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMetriophasmadioclesjpg_54.webp",
+      "108": "thumb/WMCFileMetriophasmadioclesjpg_108.webp",
+      "216": "thumb/WMCFileMetriophasmadioclesjpg_216.webp"
+    }
+  },
+  "original_sha256": "12ba184ef10585c9c22951075e9e72ce5a82a289615a4e74725904e64215fc80",
+  "processing": {
+    "cropBox": [
+      228,
+      88,
+      1885,
+      1242
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMetriophasmadioclesjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

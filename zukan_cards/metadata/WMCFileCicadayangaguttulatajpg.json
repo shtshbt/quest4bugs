@@ -1,0 +1,74 @@
+{
+  "species_id": "yanga_guttulata",
+  "species_ja": "Yanga guttulata",
+  "scientific_name": "Yanga guttulata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Charles J. Sharp",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cicada yanga guttulata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cicada_yanga_guttulata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cicada_yanga_guttulata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Charles J. Sharp",
+    "eventDate": "2013-10-31 03:29:57",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Cicada (yanga guttulata) in the Anjajavy Forest, Madagascar",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cicada_yanga_guttulata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Cicada_yanga_guttulata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCicadayangaguttulatajpg_resized.jpg",
+    "display": "processed/WMCFileCicadayangaguttulatajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCicadayangaguttulatajpg_54.webp",
+      "108": "thumb/WMCFileCicadayangaguttulatajpg_108.webp",
+      "216": "thumb/WMCFileCicadayangaguttulatajpg_216.webp"
+    }
+  },
+  "original_sha256": "7e8ebeafa3d5a9c309d075757afbbb2c672b30278584a2f2e169697873d46b58",
+  "processing": {
+    "cropBox": [
+      1337,
+      423,
+      2475,
+      2099
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCicadayangaguttulatajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

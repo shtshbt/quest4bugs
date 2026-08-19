@@ -1,0 +1,74 @@
+{
+  "species_id": "champaka_spinosa",
+  "species_ja": "Champaka spinosa",
+  "scientific_name": "Champaka spinosa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013385853",
+    "occurrenceId": "2b553958-726d-4127-9909-4a6fc256e071",
+    "persistentId": "2b553958-726d-4127-9909-4a6fc256e071",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1847650074",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/2b553958-726d-4127-9909-4a6fc256e071",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/df13385d-811f-4f95-bda7-d68559afb338",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013385853_resized.jpg",
+    "display": "processed/NHMUK013385853_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013385853_54.webp",
+      "108": "thumb/NHMUK013385853_108.webp",
+      "216": "thumb/NHMUK013385853_216.webp"
+    }
+  },
+  "original_sha256": "ceee8feec3c74f49a0aa7b776ec56db87ca4d628fe61938039e5bfe5e8b36331",
+  "processing": {
+    "cropBox": [
+      271,
+      50,
+      1099,
+      824
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013385853_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

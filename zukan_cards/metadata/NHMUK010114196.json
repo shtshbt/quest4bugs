@@ -1,0 +1,74 @@
+{
+  "species_id": "oecetis_laustra",
+  "species_ja": "Oecetis laustra",
+  "scientific_name": "Oecetis laustra",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010114196",
+    "occurrenceId": "99b662f5-69f7-46c8-8d3e-fa5062b05357",
+    "persistentId": "99b662f5-69f7-46c8-8d3e-fa5062b05357",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1935-02",
+    "eventYear": 1935,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3409180614",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/99b662f5-69f7-46c8-8d3e-fa5062b05357",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b6e7dd45-c71e-43b0-b7c9-14af2e77b415",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK010114196_resized.jpg",
+    "display": "processed/NHMUK010114196_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010114196_54.webp",
+      "108": "thumb/NHMUK010114196_108.webp",
+      "216": "thumb/NHMUK010114196_216.webp"
+    }
+  },
+  "original_sha256": "9ffd12e92d99a7d087c79173b55d88671dde895b4d0004ace278bac59f726852",
+  "processing": {
+    "cropBox": [
+      7,
+      0,
+      1144,
+      3255
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010114196_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

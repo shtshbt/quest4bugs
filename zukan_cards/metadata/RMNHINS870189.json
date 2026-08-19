@@ -1,0 +1,74 @@
+{
+  "species_id": "astraptes_fulgerator",
+  "species_ja": "Astraptes fulgerator",
+  "scientific_name": "Astraptes fulgerator",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.870189",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.870189",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.870189",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Colombia",
+    "localityVerbatim": null,
+    "localityNormalized": "Colombia",
+    "preparations": "(microscopic slide)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2444197469",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2444197469",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.870189/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS870189_resized.jpg",
+    "display": "processed/RMNHINS870189_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS870189_54.webp",
+      "108": "thumb/RMNHINS870189_108.webp",
+      "216": "thumb/RMNHINS870189_216.webp"
+    }
+  },
+  "original_sha256": "fd0f08c4ee896328efabb66b9545ecb9bde394c70a4de5a2acd976d604d0f217",
+  "processing": {
+    "cropBox": [
+      0,
+      55,
+      1906,
+      563
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS870189_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

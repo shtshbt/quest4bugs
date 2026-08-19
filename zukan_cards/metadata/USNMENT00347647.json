@@ -1,0 +1,76 @@
+{
+  "species_id": "xanthagrion_erythroneurum",
+  "species_ja": "Xanthagrion erythroneurum",
+  "scientific_name": "Xanthagrion erythroneurum",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00347647",
+    "occurrenceId": "http://n2t.net/ark:/65665/3bfee25a7-01f7-49ed-8f37-80abb76f385c",
+    "persistentId": "http://n2t.net/ark:/65665/3bfee25a7-01f7-49ed-8f37-80abb76f385c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "L. Humphries",
+    "eventDate": "1948-01",
+    "eventYear": 1948,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Renmark, Murray River, Australia",
+    "preparations": "Envelope",
+    "decimalLatitude": -34.1731,
+    "decimalLongitude": 140.751
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321542823",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321542823",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16403423&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00347647_resized.jpg",
+    "display": "processed/USNMENT00347647_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00347647_54.webp",
+      "108": "thumb/USNMENT00347647_108.webp",
+      "216": "thumb/USNMENT00347647_216.webp"
+    }
+  },
+  "original_sha256": "7e88491b4c610727e995f1be076901287c9ab650b7a8426be790bb7352656417",
+  "processing": {
+    "cropBox": [
+      720,
+      591,
+      934,
+      1049
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00347647_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

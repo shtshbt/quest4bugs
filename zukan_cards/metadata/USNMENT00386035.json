@@ -1,0 +1,76 @@
+{
+  "species_id": "orthemis_discolor",
+  "species_ja": "Orthemis discolor",
+  "scientific_name": "Orthemis discolor",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00386035",
+    "occurrenceId": "http://n2t.net/ark:/65665/3c2247787-b0a3-4857-9005-486c1f0888df",
+    "persistentId": "http://n2t.net/ark:/65665/3c2247787-b0a3-4857-9005-486c1f0888df",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "N. Adams",
+    "eventDate": "1993-06-27",
+    "eventYear": 1993,
+    "country": "Trinidad and Tobago",
+    "localityVerbatim": null,
+    "localityNormalized": "Edward Trace, 23 kilometers east of Basse Terre, roadside pools, Trinidad and Tobago",
+    "preparations": "Envelope",
+    "decimalLatitude": 10.13,
+    "decimalLongitude": -61.1
+  },
+  "source": {
+    "gbifOccurrenceKey": "1321592678",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1321592678",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16414931&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00386035_resized.jpg",
+    "display": "processed/USNMENT00386035_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00386035_54.webp",
+      "108": "thumb/USNMENT00386035_108.webp",
+      "216": "thumb/USNMENT00386035_216.webp"
+    }
+  },
+  "original_sha256": "1ad8d1e67be4fa3c77013e6197cf8d8695a067446c7dcdfc8fa3e6b8b9d40ccb",
+  "processing": {
+    "cropBox": [
+      780,
+      256,
+      1501,
+      1019
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00386035_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

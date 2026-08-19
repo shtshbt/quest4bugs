@@ -1,0 +1,74 @@
+{
+  "species_id": "aedes_aegypti",
+  "species_ja": "ネッタイシマカ",
+  "scientific_name": "Aedes aegypti",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Original author: US Department of Agriculture; then denoised rescaled, enhanced with adaptive denoising filters and minimal resharpening, then unscaled to original resolution, for easier refitting at various resolutions.",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Aedes aegypti biting human.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Aedes_aegypti_biting_human.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Aedes_aegypti_biting_human.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Original author: US Department of Agriculture; then denoised rescaled, enhanced with adaptive denoising filters and minimal resharpening, then unscaled to original resolution, for easier refitting at various resolutions.",
+    "eventDate": "Last Modified: 05/23/2006",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Ochlerotatus sp. mosquito biting a human.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Aedes_aegypti_biting_human.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Aedes_aegypti_biting_human.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAedesaegyptibitinghumanjpg_resized.jpg",
+    "display": "processed/WMCFileAedesaegyptibitinghumanjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAedesaegyptibitinghumanjpg_54.webp",
+      "108": "thumb/WMCFileAedesaegyptibitinghumanjpg_108.webp",
+      "216": "thumb/WMCFileAedesaegyptibitinghumanjpg_216.webp"
+    }
+  },
+  "original_sha256": "c14a1b959ff6d7305ca9ed35f0fd9f8069b8339667d0e85bd2ab7dc381564c14",
+  "processing": {
+    "cropBox": [
+      0,
+      379,
+      2341,
+      1699
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAedesaegyptibitinghumanjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

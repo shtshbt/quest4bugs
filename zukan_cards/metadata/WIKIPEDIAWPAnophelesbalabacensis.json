@@ -1,0 +1,74 @@
+{
+  "species_id": "anopheles_balabacensis",
+  "species_ja": "Anopheles balabacensis",
+  "scientific_name": "Anopheles balabacensis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "n.n.",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Anopheles balabacensis",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Anopheles_balabacensis",
+    "persistentId": "https://en.wikipedia.org/wiki/Anopheles_balabacensis",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "n.n.",
+    "eventDate": "2012-06-12",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Drawing of a female Ochlerotatus taeniorhynchus (syn. Aedes taeniorhynchus) (Culicidae), the Black Salt Marsh Mosquito.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Anopheles_balabacensis",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Ochlerotatus_taeniorhynchus_syn._Aedes_taeniorhynchus_aka_the_Black_Salt_Marsh_Mosquito.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPAnophelesbalabacensis_resized.jpg",
+    "display": "processed/WIKIPEDIAWPAnophelesbalabacensis_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPAnophelesbalabacensis_54.webp",
+      "108": "thumb/WIKIPEDIAWPAnophelesbalabacensis_108.webp",
+      "216": "thumb/WIKIPEDIAWPAnophelesbalabacensis_216.webp"
+    }
+  },
+  "original_sha256": "99fb98b93dd50d912022b6eccea56132a5d7a4ae28c78fc9db4918e4b7a7177f",
+  "processing": {
+    "cropBox": [
+      88,
+      0,
+      1922,
+      2667
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPAnophelesbalabacensis_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

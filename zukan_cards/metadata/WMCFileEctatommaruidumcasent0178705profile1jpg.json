@@ -1,0 +1,74 @@
+{
+  "species_id": "ectatomma_ruidum",
+  "species_ja": "Ectatomma ruidum",
+  "scientific_name": "Ectatomma ruidum",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ectatomma ruidum casent0178705 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ectatomma_ruidum_casent0178705_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ectatomma_ruidum_casent0178705_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2008-06-27 07:19:06",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Ectatomma ruidum specimen casent0178705.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ectatomma_ruidum_casent0178705_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Ectatomma_ruidum_casent0178705_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileEctatommaruidumcasent0178705profile1jpg_resized.jpg",
+    "display": "processed/WMCFileEctatommaruidumcasent0178705profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEctatommaruidumcasent0178705profile1jpg_54.webp",
+      "108": "thumb/WMCFileEctatommaruidumcasent0178705profile1jpg_108.webp",
+      "216": "thumb/WMCFileEctatommaruidumcasent0178705profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "57dd04fdcc99c96d55bc3dc99054490197ef6aabb58e9dcf02d23aae8ba5ef45",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEctatommaruidumcasent0178705profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

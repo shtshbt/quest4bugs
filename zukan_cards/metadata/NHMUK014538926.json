@@ -1,0 +1,74 @@
+{
+  "species_id": "notalina_fulva",
+  "species_ja": "Notalina fulva",
+  "scientific_name": "Notalina fulva",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014538926",
+    "occurrenceId": "16fa97a0-c69b-4ba7-ac52-8550671662e8",
+    "persistentId": "16fa97a0-c69b-4ba7-ac52-8550671662e8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1915-11-07",
+    "eventYear": 1915,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3409164795",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/16fa97a0-c69b-4ba7-ac52-8550671662e8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/020b8db4-cb8e-4576-a9bb-c6720157ae91",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014538926_resized.jpg",
+    "display": "processed/NHMUK014538926_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014538926_54.webp",
+      "108": "thumb/NHMUK014538926_108.webp",
+      "216": "thumb/NHMUK014538926_216.webp"
+    }
+  },
+  "original_sha256": "3ba099ed008b279dc5236680d932136c5fd708afa676e0a732a8957f3b6fe4b0",
+  "processing": {
+    "cropBox": [
+      210,
+      230,
+      668,
+      789
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014538926_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

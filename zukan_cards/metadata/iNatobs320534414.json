@@ -1,0 +1,80 @@
+{
+  "species_id": "prosapia_simulans",
+  "species_ja": "Prosapia simulans",
+  "scientific_name": "Prosapia simulans",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "phillipsalzinger (iNaturalist)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_320534414",
+    "occurrenceId": "https://www.inaturalist.org/observations/320534414",
+    "persistentId": "https://www.inaturalist.org/observations/320534414",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "phillipsalzinger",
+    "eventDate": "2025-09-25",
+    "eventYear": 2025,
+    "country": "CR",
+    "localityVerbatim": null,
+    "localityNormalized": "Calle Universidad, Puntarenas, CR, CR",
+    "preparations": null,
+    "decimalLatitude": 10.2820216667,
+    "decimalLongitude": -84.7992633333,
+    "coordinatesObscured": false,
+    "iNatObservationId": "320534414",
+    "iNatPhotoId": "579550891",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/320534414",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/579550891/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs320534414_resized.jpg",
+    "display": "processed/iNatobs320534414_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs320534414_54.webp",
+      "108": "thumb/iNatobs320534414_108.webp",
+      "216": "thumb/iNatobs320534414_216.webp"
+    }
+  },
+  "original_sha256": "9f9aae8ee3fb4370eed668d5d7369a4c4695984613d8dbd6f31911e3025f3d94",
+  "processing": {
+    "cropBox": [
+      492,
+      601,
+      872,
+      1046
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs320534414_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

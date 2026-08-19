@@ -1,0 +1,74 @@
+{
+  "species_id": "pseudoxycheila_tarsalis",
+  "species_ja": "Pseudoxycheila tarsalis",
+  "scientific_name": "Pseudoxycheila tarsalis",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "CBG Photography Group",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT01453247",
+    "occurrenceId": "http://n2t.net/ark:/65665/304b80b03-42a9-4992-8ab6-89d487782727",
+    "persistentId": "http://n2t.net/ark:/65665/304b80b03-42a9-4992-8ab6-89d487782727",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "J. Choe",
+    "eventDate": "1984-07-25",
+    "eventYear": 1984,
+    "country": "Costa Rica",
+    "localityVerbatim": null,
+    "localityNormalized": "Monteverde, Costa Rica",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2986793304",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2986793304",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16448009&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT01453247_resized.jpg",
+    "display": "processed/USNMENT01453247_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT01453247_54.webp",
+      "108": "thumb/USNMENT01453247_108.webp",
+      "216": "thumb/USNMENT01453247_216.webp"
+    }
+  },
+  "original_sha256": "26340975915541e25b40aa9a770f4292e814a8b6d58ad30ff826b2e0bb3ebb96",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2000,
+      1241
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT01453247_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

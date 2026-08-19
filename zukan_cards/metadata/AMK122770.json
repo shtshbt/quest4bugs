@@ -1,0 +1,76 @@
+{
+  "species_id": "iridomyrmex_rufoniger",
+  "species_ja": "Iridomyrmex rufoniger",
+  "scientific_name": "Iridomyrmex rufoniger",
+  "credit_line": "Australian Museum",
+  "creator": "Natalie Tees",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.122770",
+    "occurrenceId": "4c73b752-ed64-4ed2-a1d9-89861238e24e",
+    "persistentId": "4c73b752-ed64-4ed2-a1d9-89861238e24e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "L. Wilkie & R. Harris",
+    "eventDate": "1999-02-21/1999-03-14",
+    "eventYear": 1999,
+    "country": "Australia",
+    "localityVerbatim": "Disused fire trail 3.2km S of Pollys Gully Rd, 7.3km from highway jnct. Badja SF",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -36.11111,
+    "decimalLongitude": 149.47389
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276563106",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276563106",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=fc182706-9a76-425b-bbe8-9d3fe9038cb1",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK122770_resized.jpg",
+    "display": "processed/AMK122770_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK122770_54.webp",
+      "108": "thumb/AMK122770_108.webp",
+      "216": "thumb/AMK122770_216.webp"
+    }
+  },
+  "original_sha256": "636ae242c1bdecb547bc64fd0c0e5e1fc24135cbb4541994dc32e04cb4189a7f",
+  "processing": {
+    "cropBox": [
+      45,
+      0,
+      601,
+      413
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK122770_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

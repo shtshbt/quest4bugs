@@ -1,0 +1,74 @@
+{
+  "species_id": "marmessoidea_quadriguttata",
+  "species_ja": "Marmessoidea quadriguttata",
+  "scientific_name": "Marmessoidea quadriguttata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496837",
+    "occurrenceId": "44dbdfeb-ceeb-4c34-b542-3d580033f6d4",
+    "persistentId": "44dbdfeb-ceeb-4c34-b542-3d580033f6d4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Brunei Darussalam",
+    "localityVerbatim": null,
+    "localityNormalized": "Brunei Darussalam",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403720",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/44dbdfeb-ceeb-4c34-b542-3d580033f6d4",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/e1e1565f-083a-4c72-858b-ca9ff4a42048",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496837_resized.jpg",
+    "display": "processed/NHMUK012496837_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496837_54.webp",
+      "108": "thumb/NHMUK012496837_108.webp",
+      "216": "thumb/NHMUK012496837_216.webp"
+    }
+  },
+  "original_sha256": "702c18d4fbc5cf4d3769dfb7b847bb429ed25ed93b42222e879b0cda11e08394",
+  "processing": {
+    "cropBox": [
+      5,
+      0,
+      1129,
+      725
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496837_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

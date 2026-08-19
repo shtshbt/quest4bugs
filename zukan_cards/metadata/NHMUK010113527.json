@@ -1,0 +1,74 @@
+{
+  "species_id": "triplectides_ciuskus",
+  "species_ja": "Triplectides ciuskus",
+  "scientific_name": "Triplectides ciuskus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK010113527",
+    "occurrenceId": "588b0bdc-ba95-4b24-9f43-80268a507b22",
+    "persistentId": "588b0bdc-ba95-4b24-9f43-80268a507b22",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1914-01-20",
+    "eventYear": 1914,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3409182694",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/588b0bdc-ba95-4b24-9f43-80268a507b22",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/709ff300-e6ad-4cbe-aeea-007170b5adb7",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK010113527_resized.jpg",
+    "display": "processed/NHMUK010113527_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK010113527_54.webp",
+      "108": "thumb/NHMUK010113527_108.webp",
+      "216": "thumb/NHMUK010113527_216.webp"
+    }
+  },
+  "original_sha256": "33fa00dbdc960caa587384d8c4e235dd7b7c269f45423347c06f11bc27dbdd5c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1068,
+      3263
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK010113527_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

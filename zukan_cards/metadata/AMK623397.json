@@ -1,0 +1,74 @@
+{
+  "species_id": "pycnostictus_seriatus",
+  "species_ja": "Pycnostictus seriatus",
+  "scientific_name": "Pycnostictus seriatus",
+  "credit_line": "Australian Museum",
+  "creator": "Debbie Dukes",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.623397",
+    "occurrenceId": "9f7d45f7-b7f6-40ab-9a57-0060c2ebcdbc",
+    "persistentId": "9f7d45f7-b7f6-40ab-9a57-0060c2ebcdbc",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276499263",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276499263",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=7b9234c6-f675-4d8a-912b-b63de5092eca",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK623397_resized.jpg",
+    "display": "processed/AMK623397_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK623397_54.webp",
+      "108": "thumb/AMK623397_108.webp",
+      "216": "thumb/AMK623397_216.webp"
+    }
+  },
+  "original_sha256": "f30e2489078f6a80832fc53b014bde562aed09a22450a3afdf7c3d7dff8f601b",
+  "processing": {
+    "cropBox": [
+      0,
+      182,
+      384,
+      326
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK623397_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

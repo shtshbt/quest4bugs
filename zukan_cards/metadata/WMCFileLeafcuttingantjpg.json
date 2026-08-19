@@ -1,0 +1,74 @@
+{
+  "species_id": "atta_cephalotes",
+  "species_ja": "Atta cephalotes",
+  "scientific_name": "Atta cephalotes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "US gov",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Leaf-cutting ant.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Leaf-cutting_ant.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Leaf-cutting_ant.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "US gov",
+    "eventDate": "2007-03-27 12:10:33",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Image taken from: http://www.ars.usda.gov/is/graphics/photos/k5860-1.htm Image Number K5860-1 Leaf-cutting ants, such as this foraging worker of Atta cephalotes, are the primary herbivores of tropical areas such as Central America. they can be serious agricultural pests. Photo by Scott Bauer.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Leaf-cutting_ant.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Leaf-cutting_ant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileLeafcuttingantjpg_resized.jpg",
+    "display": "processed/WMCFileLeafcuttingantjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLeafcuttingantjpg_54.webp",
+      "108": "thumb/WMCFileLeafcuttingantjpg_108.webp",
+      "216": "thumb/WMCFileLeafcuttingantjpg_216.webp"
+    }
+  },
+  "original_sha256": "9b032ab563e1795a5c515f9fd9e431e677a6c496e880860aff694bf3ff87de28",
+  "processing": {
+    "cropBox": [
+      133,
+      232,
+      536,
+      435
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLeafcuttingantjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "pycnopalpa_bicordata",
+  "species_ja": "Pycnopalpa bicordata",
+  "scientific_name": "Pycnopalpa bicordata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Thomas Fuhrmann",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Area de Proteção Ambiental Quilombos do Médio Ribeira - Thomas-Fuhrmann (2023- 10) Pycnopalpa bicordata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Area_de_Prote%C3%A7%C3%A3o_Ambiental_Quilombos_do_M%C3%A9dio_Ribeira_-_Thomas-Fuhrmann_(2023-_10)_Pycnopalpa_bicordata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Area_de_Prote%C3%A7%C3%A3o_Ambiental_Quilombos_do_M%C3%A9dio_Ribeira_-_Thomas-Fuhrmann_(2023-_10)_Pycnopalpa_bicordata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Thomas Fuhrmann",
+    "eventDate": "2021-05-03 20:45:19",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Image from the Area de Proteção Ambiental Quilombos do Médio Ribeira in the southern Atlantic Forest - Pycnopalpa bicordata",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Area_de_Prote%C3%A7%C3%A3o_Ambiental_Quilombos_do_M%C3%A9dio_Ribeira_-_Thomas-Fuhrmann_(2023-_10)_Pycnopalpa_bicordata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Area_de_Prote%C3%A7%C3%A3o_Ambiental_Quilombos_do_M%C3%A9dio_Ribeira_-_Thomas-Fuhrmann_%282023-_10%29_Pycnopalpa_bicordata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_resized.jpg",
+    "display": "processed/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_54.webp",
+      "108": "thumb/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_108.webp",
+      "216": "thumb/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_216.webp"
+    }
+  },
+  "original_sha256": "42d5bcbfaae79084a0355649b880fb45b3f0fd76c08927bf7df9387a24dd01c5",
+  "processing": {
+    "cropBox": [
+      628,
+      944,
+      4343,
+      2883
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAreadeProteoAmbientalQuilombosdoMdioRibeiraThomasFuhrmann202310Pycnopalpabicordatajpg_34f2e0ff_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_bryoniae",
+  "species_ja": "Bactrocera bryoniae",
+  "scientific_name": "Bactrocera bryoniae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1435002",
+    "occurrenceId": "18736a68-43a4-4c8d-90c8-407c8b4e780f",
+    "persistentId": "18736a68-43a4-4c8d-90c8-407c8b4e780f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "John Smart",
+    "eventDate": "1957-10-17",
+    "eventYear": 1957,
+    "country": "Papua New Guinea",
+    "localityVerbatim": null,
+    "localityNormalized": "Maprik (Nr), Papua New Guinea",
+    "preparations": null,
+    "decimalLatitude": -3.6275,
+    "decimalLongitude": 143.0553
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270000652",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/18736a68-43a4-4c8d-90c8-407c8b4e780f",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d50be136-3da0-4c75-adfe-0c7df0c8d965",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1435002_resized.jpg",
+    "display": "processed/NHMUKBMNHE1435002_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1435002_54.webp",
+      "108": "thumb/NHMUKBMNHE1435002_108.webp",
+      "216": "thumb/NHMUKBMNHE1435002_216.webp"
+    }
+  },
+  "original_sha256": "1fc8298d1b5565da36f71c3d3ae3fcb102fa5d120b2b7ee654820a1565f951a6",
+  "processing": {
+    "cropBox": [
+      567,
+      333,
+      777,
+      541
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1435002_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

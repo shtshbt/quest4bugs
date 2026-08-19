@@ -1,0 +1,74 @@
+{
+  "species_id": "hiroobi_midorishijimi",
+  "species_ja": "ヒロオビミドリシジミ",
+  "scientific_name": "Favonius cognatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Notafly",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:FavoniusP1020551.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Notafly",
+    "eventDate": "2023-10-08",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Various Lycaenidae from the East Palearctic Antigius butleri (Fenton, 1882) euthea Smart BOW = Araragi enthea (Janson, 1877) Artopoetes pryeri (Murray, 1873) Chrysozephyrus kabrua niitakanus Kano, 1928 Chrysozephyrus nishikaze (Araki &amp; Sibatani, 1941) Chrysozephyrus smaragdinus (Bremer, 1861) Favonius cognatus (Staudinger, 1892) Favonius fujisanus Matsumura, 1910 now Sibataniozephyrus fujisanus (Matsumura, 1910) Favonius jezoensis (Matsumura, 1915) Japonica lutea (Hewitson, 1865) Japonica saepestriata (Hewitson, 1865) Lycaena sultan (Lang, 1884) Lycaena pang (Oberthür, 1886) Lycaena phlaeas daimio (Seitz, [1909]) Lycaena margelanica Staudinger, 1881 Lycaena standfussi (Grum-Grshimailo, 1891)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:FavoniusP1020551.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/FavoniusP1020551.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileFavoniusP1020551jpg_d4e65de8_resized.jpg",
+    "display": "processed/WMCFileFavoniusP1020551jpg_d4e65de8_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFavoniusP1020551jpg_d4e65de8_54.webp",
+      "108": "thumb/WMCFileFavoniusP1020551jpg_d4e65de8_108.webp",
+      "216": "thumb/WMCFileFavoniusP1020551jpg_d4e65de8_216.webp"
+    }
+  },
+  "original_sha256": "75629e89f4cfa3de30abdbe866f5eb867e20ffd45e18be19efaeff0268de149c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3525,
+      2378
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFavoniusP1020551jpg_d4e65de8_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

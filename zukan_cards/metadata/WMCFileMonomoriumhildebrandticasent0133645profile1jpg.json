@@ -1,0 +1,74 @@
+{
+  "species_id": "syllophopsis_hildebrandti",
+  "species_ja": "Syllophopsis hildebrandti",
+  "scientific_name": "Syllophopsis hildebrandti",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Erin Prado",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Monomorium hildebrandti casent0133645 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Monomorium_hildebrandti_casent0133645_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Monomorium_hildebrandti_casent0133645_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Erin Prado",
+    "eventDate": "2009-01-14 09:23:44",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Monomorium hildebrandti specimen casent0133645.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Monomorium_hildebrandti_casent0133645_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Monomorium_hildebrandti_casent0133645_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_resized.jpg",
+    "display": "processed/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_54.webp",
+      "108": "thumb/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_108.webp",
+      "216": "thumb/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "ebb0c90de508cfa638a00c4d0657279aa93fa3b6b229904efbac94939ef646a8",
+  "processing": {
+    "cropBox": [
+      0,
+      30,
+      1164,
+      775
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMonomoriumhildebrandticasent0133645profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

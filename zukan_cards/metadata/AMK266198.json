@@ -1,0 +1,76 @@
+{
+  "species_id": "caledia_captiva",
+  "species_ja": "Caledia captiva",
+  "scientific_name": "Caledia captiva",
+  "credit_line": "Australian Museum",
+  "creator": "Paul Ibbetson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.266198",
+    "occurrenceId": "40207f8d-32e3-4afc-9b47-2216aa1c38bb",
+    "persistentId": "40207f8d-32e3-4afc-9b47-2216aa1c38bb",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2009-01-16",
+    "eventYear": 2009,
+    "country": "Australia",
+    "localityVerbatim": "Two Mile Creek, Hervey Range",
+    "localityNormalized": "Two Mile Creek, Hervey Range, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.381111,
+    "decimalLongitude": 146.44917
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100259256",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100259256",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=3e2b59e5-b4f7-4970-9538-4bd83f5745e0",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK266198_resized.jpg",
+    "display": "processed/AMK266198_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK266198_54.webp",
+      "108": "thumb/AMK266198_108.webp",
+      "216": "thumb/AMK266198_216.webp"
+    }
+  },
+  "original_sha256": "fb72ae8e7d812515cb317d76b8985b190d57b7842e601a6151d30e4e191c3222",
+  "processing": {
+    "cropBox": [
+      0,
+      219,
+      345,
+      360
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK266198_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

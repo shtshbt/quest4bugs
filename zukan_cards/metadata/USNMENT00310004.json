@@ -1,0 +1,76 @@
+{
+  "species_id": "neurothemis_fluctuans",
+  "species_ja": "フチトリベッコウトンボ",
+  "scientific_name": "Neurothemis fluctuans",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00310004",
+    "occurrenceId": "http://n2t.net/ark:/65665/33758e208-9187-4466-84b2-c68f1d712364",
+    "persistentId": "http://n2t.net/ark:/65665/33758e208-9187-4466-84b2-c68f1d712364",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "A. Wegner",
+    "eventDate": "1956-12-07",
+    "eventYear": 1956,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Samarinda, Indonesia",
+    "preparations": "Envelope",
+    "decimalLatitude": -0.49481,
+    "decimalLongitude": 117.144
+  },
+  "source": {
+    "gbifOccurrenceKey": "1318453818",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1318453818",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16398000&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00310004_resized.jpg",
+    "display": "processed/USNMENT00310004_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00310004_54.webp",
+      "108": "thumb/USNMENT00310004_108.webp",
+      "216": "thumb/USNMENT00310004_216.webp"
+    }
+  },
+  "original_sha256": "1693ec5610073f1f2b41cfeeb102ae439637f95fe5a5ab2a3d1be56f939b10b0",
+  "processing": {
+    "cropBox": [
+      971,
+      567,
+      1460,
+      1018
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00310004_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

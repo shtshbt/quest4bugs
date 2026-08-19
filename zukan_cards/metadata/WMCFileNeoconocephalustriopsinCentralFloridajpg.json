@@ -1,0 +1,74 @@
+{
+  "species_id": "neoconocephalus_triops",
+  "species_ja": "Neoconocephalus triops",
+  "scientific_name": "Neoconocephalus triops",
+  "credit_line": "Wikimedia Commons",
+  "creator": "The Eloquent Peasant",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Neoconocephalus triops in Central Florida.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Neoconocephalus_triops_in_Central_Florida.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Neoconocephalus_triops_in_Central_Florida.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "The Eloquent Peasant",
+    "eventDate": "2024-08-17 10:05:04",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "Neoconocephalus triops in Central Florida",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Neoconocephalus_triops_in_Central_Florida.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Neoconocephalus_triops_in_Central_Florida.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileNeoconocephalustriopsinCentralFloridajpg_resized.jpg",
+    "display": "processed/WMCFileNeoconocephalustriopsinCentralFloridajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileNeoconocephalustriopsinCentralFloridajpg_54.webp",
+      "108": "thumb/WMCFileNeoconocephalustriopsinCentralFloridajpg_108.webp",
+      "216": "thumb/WMCFileNeoconocephalustriopsinCentralFloridajpg_216.webp"
+    }
+  },
+  "original_sha256": "99283333854dc591128f5ac4c252bb5cd863a91bbfff6432c89f8cfb225ea2ed",
+  "processing": {
+    "cropBox": [
+      103,
+      721,
+      3539,
+      1750
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileNeoconocephalustriopsinCentralFloridajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

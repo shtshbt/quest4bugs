@@ -1,0 +1,74 @@
+{
+  "species_id": "acanthops_godmani",
+  "species_ja": "Acanthops godmani",
+  "scientific_name": "Acanthops godmani",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Pdeley",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Acanthops",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Acanthops",
+    "persistentId": "https://en.wikipedia.org/wiki/Acanthops",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Pdeley",
+    "eventDate": "2016-12-02 18:15:35",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "View from above on a male Dead Leaf Mantis, probably Acanthops fuscifolia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Acanthops",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/1500leafmantis_DSC4582_DxO.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPAcanthops_resized.jpg",
+    "display": "processed/WIKIPEDIAWPAcanthops_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPAcanthops_54.webp",
+      "108": "thumb/WIKIPEDIAWPAcanthops_108.webp",
+      "216": "thumb/WIKIPEDIAWPAcanthops_216.webp"
+    }
+  },
+  "original_sha256": "43dea5b7a379a71456612433361c73bb2875704ddb857138452b041edc71c2e7",
+  "processing": {
+    "cropBox": [
+      131,
+      0,
+      772,
+      1500
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPAcanthops_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

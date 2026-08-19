@@ -1,0 +1,74 @@
+{
+  "species_id": "cheumatopsyche_modica",
+  "species_ja": "Cheumatopsyche modica",
+  "scientific_name": "Cheumatopsyche modica",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014414014",
+    "occurrenceId": "fcd9b6b0-39e4-4d38-be73-206ac365ea17",
+    "persistentId": "fcd9b6b0-39e4-4d38-be73-206ac365ea17",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1918-01",
+    "eventYear": 1918,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330257099",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/fcd9b6b0-39e4-4d38-be73-206ac365ea17",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/75c0cc98-8c38-47b4-a39a-0961b9b1a20e",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014414014_resized.jpg",
+    "display": "processed/NHMUK014414014_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014414014_54.webp",
+      "108": "thumb/NHMUK014414014_108.webp",
+      "216": "thumb/NHMUK014414014_216.webp"
+    }
+  },
+  "original_sha256": "d38d22bc8b947d4887939ec37f052652428891b9486934cc6e08fcf25e969379",
+  "processing": {
+    "cropBox": [
+      588,
+      571,
+      979,
+      1074
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014414014_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

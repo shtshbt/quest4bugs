@@ -1,0 +1,74 @@
+{
+  "species_id": "locris_vicina",
+  "species_ja": "Locris vicina",
+  "scientific_name": "Locris vicina",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bouteille E, Le Cesne M, Soulier-Perkins A (2021) Cercopidae spittle-bugs (Hemiptera, Cicadomorpha) of Madagascar: a new species of Bourgoinrana and revision of the Locris species. ZooKeys 1023: 29-47.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Locris vicina (10.3897-zookeys.1023.58733) Figure 7.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Locris_vicina_(10.3897-zookeys.1023.58733)_Figure_7.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Locris_vicina_(10.3897-zookeys.1023.58733)_Figure_7.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bouteille E, Le Cesne M, Soulier-Perkins A (2021) Cercopidae spittle-bugs (Hemiptera, Cicadomorpha) of Madagascar: a new species of Bourgoinrana and revision of the Locris species. ZooKeys 1023: 29-47.",
+    "eventDate": "2021-03-10",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Figure 7. Locris vicina (Signoret, 1860), male terminalia, in lateral view and distribution map A pygofer, anal tube, aedeagus, left paramere and left subgenital plate B aedeagus C left paramere D left subgenital E distribution map. Scale bars: 1 mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Locris_vicina_(10.3897-zookeys.1023.58733)_Figure_7.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Locris_vicina_%2810.3897-zookeys.1023.58733%29_Figure_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_resized.jpg",
+    "display": "processed/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_54.webp",
+      "108": "thumb/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_108.webp",
+      "216": "thumb/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_216.webp"
+    }
+  },
+  "original_sha256": "5551df5e4b3f3ad0e22a066fd8bc1a7bcd0ba954645459c763952fc5fd76dd6e",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      1810
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLocrisvicina103897zookeys102358733Figure7jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

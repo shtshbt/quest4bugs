@@ -1,0 +1,76 @@
+{
+  "species_id": "ceratitis_malgassa",
+  "species_ja": "Ceratitis malgassa",
+  "scientific_name": "Ceratitis malgassa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1442182",
+    "occurrenceId": "f3e6f30b-76f6-4b41-b831-6f1daa5bb7e8",
+    "persistentId": "f3e6f30b-76f6-4b41-b831-6f1daa5bb7e8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Donald d'Emmerez de Charmoy",
+    "eventDate": "1916",
+    "eventYear": 1916,
+    "country": "Mauritius",
+    "localityVerbatim": null,
+    "localityNormalized": "Mauritius",
+    "preparations": null,
+    "decimalLatitude": -20.3484,
+    "decimalLongitude": 57.5522
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270003258",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/f3e6f30b-76f6-4b41-b831-6f1daa5bb7e8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/73c1ebc2-54d1-471e-9590-ae0186e2bb5d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1442182_resized.jpg",
+    "display": "processed/NHMUKBMNHE1442182_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1442182_54.webp",
+      "108": "thumb/NHMUKBMNHE1442182_108.webp",
+      "216": "thumb/NHMUKBMNHE1442182_216.webp"
+    }
+  },
+  "original_sha256": "150123fb92af2c603c368a5724104be8bba9b34b285aa7b967bd64b548058f3c",
+  "processing": {
+    "cropBox": [
+      570,
+      640,
+      869,
+      926
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1442182_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "wasmannia_auropunctata",
+  "species_ja": "Wasmannia auropunctata",
+  "scientific_name": "Wasmannia auropunctata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Wasmannia auropunctata casent0173249 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Wasmannia_auropunctata_casent0173249_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Wasmannia_auropunctata_casent0173249_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2007-06-08 16:00:03",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Wasmannia auropunctata specimen casent0173249.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Wasmannia_auropunctata_casent0173249_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/83/Wasmannia_auropunctata_casent0173249_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_resized.jpg",
+    "display": "processed/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_54.webp",
+      "108": "thumb/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_108.webp",
+      "216": "thumb/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "815e93080c152718a812802f77c932a4e018a7ae99c6ff6a5884d3c3072ec2de",
+  "processing": {
+    "cropBox": [
+      0,
+      53,
+      1057,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileWasmanniaauropunctatacasent0173249profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

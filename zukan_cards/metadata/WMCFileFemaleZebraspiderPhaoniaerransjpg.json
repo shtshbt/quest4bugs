@@ -1,0 +1,74 @@
+{
+  "species_id": "phaonia_errans",
+  "species_ja": "Phaonia errans",
+  "scientific_name": "Phaonia errans",
+  "credit_line": "Wikimedia Commons",
+  "creator": "多多123",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Female Zebra spider, Phaonia errans.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Female_Zebra_spider,_Phaonia_errans.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Female_Zebra_spider,_Phaonia_errans.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "多多123",
+    "eventDate": "2023-08-06 12:02:50",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "A Phaonia errans being ingested by a female Salticus scenicus.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Female_Zebra_spider,_Phaonia_errans.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Female_Zebra_spider%2C_Phaonia_errans.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileFemaleZebraspiderPhaoniaerransjpg_resized.jpg",
+    "display": "processed/WMCFileFemaleZebraspiderPhaoniaerransjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFemaleZebraspiderPhaoniaerransjpg_54.webp",
+      "108": "thumb/WMCFileFemaleZebraspiderPhaoniaerransjpg_108.webp",
+      "216": "thumb/WMCFileFemaleZebraspiderPhaoniaerransjpg_216.webp"
+    }
+  },
+  "original_sha256": "033756ba4b329e192b0df7c71dcfc532b0054f4e64e8a4e3523217cd4b6a4550",
+  "processing": {
+    "cropBox": [
+      410,
+      553,
+      2887,
+      2234
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFemaleZebraspiderPhaoniaerransjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

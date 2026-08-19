@@ -1,0 +1,74 @@
+{
+  "species_id": "polyrhachis_armata",
+  "species_ja": "Polyrhachis armata",
+  "scientific_name": "Polyrhachis armata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Liu C, Fischer G, Garcia FH, Yamane S, Liu Q, Peng YQ, Economo EP, Guénard B, Pierce NE (2020) Ants of the Hengduan Mountains: a new altitudinal survey and updated checklist for Yunnan Province highlight an understudied insect biodiversity hotspot. ZooKeys 978: 1-171.",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Polyrhachis armata (10.3897-zookeys.978.55767) Figure 42.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Polyrhachis_armata_(10.3897-zookeys.978.55767)_Figure_42.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Polyrhachis_armata_(10.3897-zookeys.978.55767)_Figure_42.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Liu C, Fischer G, Garcia FH, Yamane S, Liu Q, Peng YQ, Economo EP, Guénard B, Pierce NE (2020) Ants of the Hengduan Mountains: a new altitudinal survey and updated checklist for Yunnan Province highlight an understudied insect biodiversity hotspot. ZooKeys 978: 1-171.",
+    "eventDate": "2020-10-26",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Figure 42; Polyrhachis armata worker (MCZ-ENT00763282) A mesosoma in profile view B mesosoma in dorsal view C head in front view D global distribution map.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Polyrhachis_armata_(10.3897-zookeys.978.55767)_Figure_42.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Polyrhachis_armata_%2810.3897-zookeys.978.55767%29_Figure_42.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_resized.jpg",
+    "display": "processed/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_54.webp",
+      "108": "thumb/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_108.webp",
+      "216": "thumb/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_216.webp"
+    }
+  },
+  "original_sha256": "805bac4400a05c0b3aa450ce9f92d0aa8c502cdde7f4f057a81cf2143d6ad0e4",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      2175
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePolyrhachisarmata103897zookeys97855767Figure42jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "paragymnopleurus_maurus",
+  "species_ja": "Paragymnopleurus maurus",
+  "scientific_name": "Paragymnopleurus maurus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013386081",
+    "occurrenceId": "e8f4c057-ca9f-4fd7-a78b-ae79bc86171e",
+    "persistentId": "e8f4c057-ca9f-4fd7-a78b-ae79bc86171e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1847650292",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/e8f4c057-ca9f-4fd7-a78b-ae79bc86171e",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d2446441-58b9-4915-8289-82d657853c0f",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013386081_resized.jpg",
+    "display": "processed/NHMUK013386081_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013386081_54.webp",
+      "108": "thumb/NHMUK013386081_108.webp",
+      "216": "thumb/NHMUK013386081_216.webp"
+    }
+  },
+  "original_sha256": "b5bc66a33d4f31a2baa420333625e8ae5881724b322fe197fa66275f3e2f4568",
+  "processing": {
+    "cropBox": [
+      322,
+      136,
+      632,
+      549
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013386081_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

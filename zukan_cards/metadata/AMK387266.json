@@ -1,0 +1,76 @@
+{
+  "species_id": "rhytidoponera_victoriae",
+  "species_ja": "Rhytidoponera victoriae",
+  "scientific_name": "Rhytidoponera victoriae",
+  "credit_line": "Australian Museum",
+  "creator": "Raphael Al Muhana",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.387266",
+    "occurrenceId": "15cf44a4-1c7c-47fc-a863-1a3297520681",
+    "persistentId": "15cf44a4-1c7c-47fc-a863-1a3297520681",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Australian Museum party",
+    "eventDate": "2001-02-18/2001-02-27",
+    "eventYear": 2001,
+    "country": "Australia",
+    "localityVerbatim": "Western slope of Malabar Ridge S of Kims Lookout trail",
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -31.515833,
+    "decimalLongitude": 159.05861
+  },
+  "source": {
+    "gbifOccurrenceKey": "5276453998",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5276453998",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=88e09c2c-8c4d-4ef7-9102-8d3f0ecd29a5",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK387266_resized.jpg",
+    "display": "processed/AMK387266_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK387266_54.webp",
+      "108": "thumb/AMK387266_108.webp",
+      "216": "thumb/AMK387266_216.webp"
+    }
+  },
+  "original_sha256": "d8870fe3b7bf5733da11f86c6a7ce7e3411e4c0891d4eb44207e44bee5f7f44c",
+  "processing": {
+    "cropBox": [
+      0,
+      21,
+      650,
+      369
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK387266_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

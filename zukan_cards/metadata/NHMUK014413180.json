@@ -1,0 +1,74 @@
+{
+  "species_id": "nectopsyche_punctata",
+  "species_ja": "Nectopsyche punctata",
+  "scientific_name": "Nectopsyche punctata",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014413180",
+    "occurrenceId": "b39e5dc3-c8a2-43b2-8073-7c6d9e5f5e50",
+    "persistentId": "b39e5dc3-c8a2-43b2-8073-7c6d9e5f5e50",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1932-10",
+    "eventYear": 1932,
+    "country": "Argentina",
+    "localityVerbatim": null,
+    "localityNormalized": "Argentina",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330272484",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b39e5dc3-c8a2-43b2-8073-7c6d9e5f5e50",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9e1c8122-a2c9-4ce9-aefb-12c29fee5b36",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014413180_resized.jpg",
+    "display": "processed/NHMUK014413180_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014413180_54.webp",
+      "108": "thumb/NHMUK014413180_108.webp",
+      "216": "thumb/NHMUK014413180_216.webp"
+    }
+  },
+  "original_sha256": "c42ac34f33f481fffcc54bd578d470774d1b32d2dc661d70de19585fe64c15a0",
+  "processing": {
+    "cropBox": [
+      555,
+      636,
+      930,
+      963
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014413180_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

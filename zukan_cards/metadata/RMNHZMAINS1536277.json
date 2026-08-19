@@ -1,0 +1,74 @@
+{
+  "species_id": "ardices_glatignyi",
+  "species_ja": "Ardices glatignyi",
+  "scientific_name": "Ardices glatignyi",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "ZMA.INS.1536277",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1536277",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/ZMA.INS.1536277",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "D. R. Holmes",
+    "eventDate": "1970-04-08",
+    "eventYear": 1970,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Mornington Peninsula, Red Hill, Australia",
+    "preparations": "WholeOrganism (air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "5201152492",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5201152492",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/ZMA.INS.1536277_1/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHZMAINS1536277_resized.jpg",
+    "display": "processed/RMNHZMAINS1536277_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHZMAINS1536277_54.webp",
+      "108": "thumb/RMNHZMAINS1536277_108.webp",
+      "216": "thumb/RMNHZMAINS1536277_216.webp"
+    }
+  },
+  "original_sha256": "becd168cc7e2dff129cf7eaf52a345c53ee98be544762bc44b53a467aa077472",
+  "processing": {
+    "cropBox": [
+      155,
+      0,
+      1920,
+      1581
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHZMAINS1536277_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "mesaner_sarpedon",
+  "species_ja": "Mesaner sarpedon",
+  "scientific_name": "Mesaner sarpedon",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Photograph: Frank C. Müller, Baden-Baden",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:List of Phasmatodea of Australia",
+    "occurrenceId": "https://en.wikipedia.org/wiki/List_of_Phasmatodea_of_Australia",
+    "persistentId": "https://en.wikipedia.org/wiki/List_of_Phasmatodea_of_Australia",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Photograph: Frank C. Müller, Baden-Baden",
+    "eventDate": "Taken on 7 July 2007",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Bildinhalt: Australische Gespenstschrecke, Extatosoma tiaratum, im Frankfurter Zoo Aufnahmeort: Zoo, Frankfurt am Main, Deutschland",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/List_of_Phasmatodea_of_Australia",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Australische_Gespenstschrecke_%28fcm%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPListofPhasmatodeaofAustralia_resized.jpg",
+    "display": "processed/WIKIPEDIAWPListofPhasmatodeaofAustralia_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPListofPhasmatodeaofAustralia_54.webp",
+      "108": "thumb/WIKIPEDIAWPListofPhasmatodeaofAustralia_108.webp",
+      "216": "thumb/WIKIPEDIAWPListofPhasmatodeaofAustralia_216.webp"
+    }
+  },
+  "original_sha256": "18effa85908bc05f29e72fe2f162e6857df23d19dd593be4f71ebdd2a0d1702f",
+  "processing": {
+    "cropBox": [
+      113,
+      82,
+      2491,
+      1832
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPListofPhasmatodeaofAustralia_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

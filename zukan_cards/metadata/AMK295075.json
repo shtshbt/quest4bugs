@@ -1,0 +1,76 @@
+{
+  "species_id": "aleeta_curvicosta",
+  "species_ja": "Aleeta curvicosta",
+  "scientific_name": "Aleeta curvicosta",
+  "credit_line": "Australian Museum",
+  "creator": "Wendy Greenfield",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.295075",
+    "occurrenceId": "b17c693b-27c5-43c3-b5d5-21ebff220f42",
+    "persistentId": "b17c693b-27c5-43c3-b5d5-21ebff220f42",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "J. Leask & A. Leask",
+    "eventDate": "1994-01-09/1994-01-15",
+    "eventYear": 1994,
+    "country": "Australia",
+    "localityVerbatim": "Hungry Head, nr. Urunga",
+    "localityNormalized": "Hungry Head, nr. Urunga, Australia",
+    "preparations": null,
+    "decimalLatitude": -30.521389,
+    "decimalLongitude": 153.02806
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100274050",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100274050",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=3684c46a-abaf-4283-bb22-080eadbe98fc",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK295075_resized.jpg",
+    "display": "processed/AMK295075_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK295075_54.webp",
+      "108": "thumb/AMK295075_108.webp",
+      "216": "thumb/AMK295075_216.webp"
+    }
+  },
+  "original_sha256": "1e4b225eb8848e7acef648a760c4c9a234119669c6beb800d03970616e65529e",
+  "processing": {
+    "cropBox": [
+      215,
+      109,
+      278,
+      312
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK295075_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

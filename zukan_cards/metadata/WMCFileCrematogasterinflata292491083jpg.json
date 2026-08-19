@@ -1,0 +1,74 @@
+{
+  "species_id": "crematogaster_inflata",
+  "species_ja": "Crematogaster inflata",
+  "scientific_name": "Crematogaster inflata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Jonghyun Park",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Crematogaster inflata 292491083.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Crematogaster_inflata_292491083.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Crematogaster_inflata_292491083.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Jonghyun Park",
+    "eventDate": "2022-12-31",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Crematogaster inflata",
+    "localityNormalized": "Crematogaster inflata",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Crematogaster_inflata_292491083.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Crematogaster_inflata_292491083.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCrematogasterinflata292491083jpg_resized.jpg",
+    "display": "processed/WMCFileCrematogasterinflata292491083jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCrematogasterinflata292491083jpg_54.webp",
+      "108": "thumb/WMCFileCrematogasterinflata292491083jpg_108.webp",
+      "216": "thumb/WMCFileCrematogasterinflata292491083jpg_216.webp"
+    }
+  },
+  "original_sha256": "f19e5c91b4d0fc08955dbbdbc80e20b840b865741015d5ba53f1591109718507",
+  "processing": {
+    "cropBox": [
+      574,
+      200,
+      1572,
+      1220
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCrematogasterinflata292491083jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

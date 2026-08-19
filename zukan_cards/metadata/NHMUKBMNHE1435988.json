@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_endiandrae",
+  "species_ja": "Bactrocera endiandrae",
+  "scientific_name": "Bactrocera endiandrae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1435988",
+    "occurrenceId": "b19d5d8f-f8c7-40f8-8b48-0d3ab27c34cf",
+    "persistentId": "b19d5d8f-f8c7-40f8-8b48-0d3ab27c34cf",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Dr Kenneth A. Spencer",
+    "eventDate": "1973-11",
+    "eventYear": 1973,
+    "country": "Papua New Guinea",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Baiyer River, Papua New Guinea",
+    "preparations": null,
+    "decimalLatitude": -5.5147,
+    "decimalLongitude": 144.1402
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270001827",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b19d5d8f-f8c7-40f8-8b48-0d3ab27c34cf",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/59a6ec7d-d920-4a7e-aedd-238a9468a819",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1435988_resized.jpg",
+    "display": "processed/NHMUKBMNHE1435988_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1435988_54.webp",
+      "108": "thumb/NHMUKBMNHE1435988_108.webp",
+      "216": "thumb/NHMUKBMNHE1435988_216.webp"
+    }
+  },
+  "original_sha256": "6a630c2a9a2c34bdd143fd55758ae260cb3bc365ff4ac05582e8be4486983dcf",
+  "processing": {
+    "cropBox": [
+      748,
+      642,
+      1068,
+      1069
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1435988_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

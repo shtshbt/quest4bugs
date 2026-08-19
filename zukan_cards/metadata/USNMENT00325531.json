@@ -1,0 +1,76 @@
+{
+  "species_id": "libellula_herculea",
+  "species_ja": "Libellula herculea",
+  "scientific_name": "Libellula herculea",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Picturae",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00325531",
+    "occurrenceId": "http://n2t.net/ark:/65665/301d99b12-9e7e-4ee7-a0d0-ebb97e3c767d",
+    "persistentId": "http://n2t.net/ark:/65665/301d99b12-9e7e-4ee7-a0d0-ebb97e3c767d",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "D. Janzen",
+    "eventDate": "1977-08-27/1977-08-29",
+    "eventYear": 1977,
+    "country": "Costa Rica",
+    "localityVerbatim": null,
+    "localityNormalized": "Tortuguero National Park, Costa Rica",
+    "preparations": "Envelope",
+    "decimalLatitude": 10.4487,
+    "decimalLongitude": -83.5071
+  },
+  "source": {
+    "gbifOccurrenceKey": "1317244409",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1317244409",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=16318361&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00325531_resized.jpg",
+    "display": "processed/USNMENT00325531_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00325531_54.webp",
+      "108": "thumb/USNMENT00325531_108.webp",
+      "216": "thumb/USNMENT00325531_216.webp"
+    }
+  },
+  "original_sha256": "00a92cd70d19e51ed9a6034e71308db3eac597704e7b44c06d756bb4d5bb92c1",
+  "processing": {
+    "cropBox": [
+      879,
+      172,
+      1721,
+      1070
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00325531_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

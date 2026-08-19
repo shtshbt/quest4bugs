@@ -1,0 +1,74 @@
+{
+  "species_id": "nisitrus_vittatus",
+  "species_ja": "Nisitrus vittatus",
+  "scientific_name": "Nisitrus vittatus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012497570",
+    "occurrenceId": "41a17e33-a797-4035-99c8-ad0a88936c2c",
+    "persistentId": "41a17e33-a797-4035-99c8-ad0a88936c2c",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826412726",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/41a17e33-a797-4035-99c8-ad0a88936c2c",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/41430bff-c433-43b6-b298-11829ac9ccbd",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012497570_resized.jpg",
+    "display": "processed/NHMUK012497570_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012497570_54.webp",
+      "108": "thumb/NHMUK012497570_108.webp",
+      "216": "thumb/NHMUK012497570_216.webp"
+    }
+  },
+  "original_sha256": "10d0d2dcc164a8b63582046c7ebaa3c606334a66efb51f63df07fa1ee9a63b8c",
+  "processing": {
+    "cropBox": [
+      220,
+      111,
+      824,
+      897
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012497570_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "oncotophasma_martini",
+  "species_ja": "Oncotophasma martini",
+  "scientific_name": "Oncotophasma martini",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Frank Hennemann",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:ナナフシ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%83%8A%E3%83%8A%E3%83%95%E3%82%B7",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%83%8A%E3%83%8A%E3%83%95%E3%82%B7",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Frank Hennemann",
+    "eventDate": "2019-01-16 20:36:09",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Myronides glaucus Hennemann, 2021 (female)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%83%8A%E3%83%8A%E3%83%95%E3%82%B7",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Myronides_glaucus_Hennemann%2C_2021_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_5eca4850_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_5eca4850_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_5eca4850_54.webp",
+      "108": "thumb/WIKIPEDIAWP_5eca4850_108.webp",
+      "216": "thumb/WIKIPEDIAWP_5eca4850_216.webp"
+    }
+  },
+  "original_sha256": "d6de0e737819227926bded92c2be623317fcdc83577e1ea2d76525128abbaddd",
+  "processing": {
+    "cropBox": [
+      0,
+      138,
+      1600,
+      1191
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_5eca4850_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "polistes_humilis",
+  "species_ja": "Polistes humilis",
+  "scientific_name": "Polistes humilis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)650242",
+    "occurrenceId": "6f0a2dec-bf50-4036-b488-20ddb0f3e198",
+    "persistentId": "6f0a2dec-bf50-4036-b488-20ddb0f3e198",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "F A. Rodway",
+    "eventDate": "1924-06",
+    "eventYear": 1924,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Nowra, Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057338787",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6f0a2dec-bf50-4036-b488-20ddb0f3e198",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b529a180-2ef7-4b5c-8074-e71145592c83",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE650242_resized.jpg",
+    "display": "processed/NHMUKBMNHE650242_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE650242_54.webp",
+      "108": "thumb/NHMUKBMNHE650242_108.webp",
+      "216": "thumb/NHMUKBMNHE650242_216.webp"
+    }
+  },
+  "original_sha256": "5bd918eb7ed7fea6a47405fd6b6df8c2842e2b0df842682de0a093c9aabaf222",
+  "processing": {
+    "cropBox": [
+      119,
+      89,
+      1109,
+      649
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE650242_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,76 @@
+{
+  "species_id": "siproeta_stelenes",
+  "species_ja": "ミドリタテハ",
+  "scientific_name": "Siproeta stelenes",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Paul Shamble",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 410449",
+    "occurrenceId": "urn:uuid:b2845b4a-f714-42b6-bb42-acc9d1bcfc1e",
+    "persistentId": "urn:uuid:b2845b4a-f714-42b6-bb42-acc9d1bcfc1e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "Pedro Paprzycki",
+    "eventDate": "1940-10-23",
+    "eventYear": 1940,
+    "country": "Peru",
+    "localityVerbatim": null,
+    "localityNormalized": "Satipo, Peru",
+    "preparations": null,
+    "decimalLatitude": -11.253874,
+    "decimalLongitude": -74.638323
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039151066",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-410449",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:40ea5926-e066-47bf-a455-7ebad2d19daf/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT410449_resized.jpg",
+    "display": "processed/YPMENT410449_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT410449_54.webp",
+      "108": "thumb/YPMENT410449_108.webp",
+      "216": "thumb/YPMENT410449_216.webp"
+    }
+  },
+  "original_sha256": "d48a81627d9965d451f1bcbe86d4dfd665fe82eccc2a5c340e06238fa8f75630",
+  "processing": {
+    "cropBox": [
+      117,
+      0,
+      1037,
+      1593
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT410449_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

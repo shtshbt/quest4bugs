@@ -1,0 +1,74 @@
+{
+  "species_id": "adoryphorus_couloni",
+  "species_ja": "Adoryphorus couloni",
+  "scientific_name": "Adoryphorus couloni",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Desmond W. Helmore",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:COLE Scarabaeidae Adoryphorus couloni 1.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Adoryphorus_couloni_1.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Adoryphorus_couloni_1.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Desmond W. Helmore",
+    "eventDate": "1975–2000",
+    "eventYear": 1975,
+    "country": null,
+    "localityVerbatim": "(Coleoptera: Scarabaeidae) Adoryphorus couloni illustrated by Des Helmore.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:COLE_Scarabaeidae_Adoryphorus_couloni_1.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/COLE_Scarabaeidae_Adoryphorus_couloni_1.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_resized.jpg",
+    "display": "processed/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_54.webp",
+      "108": "thumb/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_108.webp",
+      "216": "thumb/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_216.webp"
+    }
+  },
+  "original_sha256": "6f27002ed9550389929b7889800feeb9c9befe570926bc1cb20427e47813b96a",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3532,
+      5412
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "myrmecia_pilosula",
+  "species_ja": "Myrmecia pilosula",
+  "scientific_name": "Myrmecia pilosula",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Shannon Hartman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Myrmecia pilosula specimen mandibles.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Myrmecia_pilosula_specimen_mandibles.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Myrmecia_pilosula_specimen_mandibles.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Shannon Hartman",
+    "eventDate": "2011-11-04",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Specimen photograph of M. pilosula front",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Myrmecia_pilosula_specimen_mandibles.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Myrmecia_pilosula_specimen_mandibles.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_resized.jpg",
+    "display": "processed/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_54.webp",
+      "108": "thumb/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_108.webp",
+      "216": "thumb/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_216.webp"
+    }
+  },
+  "original_sha256": "031af4354633a4d9ae3ba2fdf69441dc2409b9fb5776f0260d967ab2799d5437",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      786,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMyrmeciapilosulaspecimenmandiblesjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "bothroponera_wasmannii",
+  "species_ja": "Bothroponera wasmannii",
+  "scientific_name": "Bothroponera wasmannii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "April Nobile",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pachycondyla wasmannii casent0101038 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pachycondyla_wasmannii_casent0101038_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pachycondyla_wasmannii_casent0101038_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "April Nobile",
+    "eventDate": "2007-11-19 15:55:29",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Pachycondyla wasmannii specimen casent0101038.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pachycondyla_wasmannii_casent0101038_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Pachycondyla_wasmannii_casent0101038_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePachycondylawasmanniicasent0101038profile1jpg_resized.jpg",
+    "display": "processed/WMCFilePachycondylawasmanniicasent0101038profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePachycondylawasmanniicasent0101038profile1jpg_54.webp",
+      "108": "thumb/WMCFilePachycondylawasmanniicasent0101038profile1jpg_108.webp",
+      "216": "thumb/WMCFilePachycondylawasmanniicasent0101038profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "488f454e1399e4c3754295b079f87159ebd018bb5befc2fffac6dc606365069f",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePachycondylawasmanniicasent0101038profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

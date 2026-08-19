@@ -1,0 +1,74 @@
+{
+  "species_id": "hierodula_majuscula",
+  "species_ja": "モエギオオカマキリ",
+  "scientific_name": "Hierodula majuscula",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Stephan Kleinfelder",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Hierodula majuscula L4 larvae.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Hierodula_majuscula_L4_larvae.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Hierodula_majuscula_L4_larvae.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Stephan Kleinfelder",
+    "eventDate": "2019-12-04 16:18:13",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "This is the 4th larval stadium of Hierodula majuscula. It's from terraristic breeding.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Hierodula_majuscula_L4_larvae.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Hierodula_majuscula_L4_larvae.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileHierodulamajusculaL4larvaejpg_resized.jpg",
+    "display": "processed/WMCFileHierodulamajusculaL4larvaejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHierodulamajusculaL4larvaejpg_54.webp",
+      "108": "thumb/WMCFileHierodulamajusculaL4larvaejpg_108.webp",
+      "216": "thumb/WMCFileHierodulamajusculaL4larvaejpg_216.webp"
+    }
+  },
+  "original_sha256": "029d131f1195afeadf0bb0da3a13824c821f4533b4b6df57b7053f82854ccf55",
+  "processing": {
+    "cropBox": [
+      2027,
+      0,
+      3446,
+      1652
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHierodulamajusculaL4larvaejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

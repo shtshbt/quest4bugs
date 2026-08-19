@@ -1,0 +1,76 @@
+{
+  "species_id": "acraea_strattipocles",
+  "species_ja": "Acraea strattipocles",
+  "scientific_name": "Acraea strattipocles",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Aimee Burg",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 708821",
+    "occurrenceId": "urn:uuid:13f5fa71-2fd1-490b-b9c3-c5e9c799afe4",
+    "persistentId": "urn:uuid:13f5fa71-2fd1-490b-b9c3-c5e9c799afe4",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Edward Diehl",
+    "eventDate": "1953-04-06",
+    "eventYear": 1953,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Ivondro, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -18.267942,
+    "decimalLongitude": 49.36585
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039039062",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-708821",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:af284c25-f796-469a-a45e-03791fad0814/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT708821_resized.jpg",
+    "display": "processed/YPMENT708821_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT708821_54.webp",
+      "108": "thumb/YPMENT708821_108.webp",
+      "216": "thumb/YPMENT708821_216.webp"
+    }
+  },
+  "original_sha256": "2579d7e3083cb0c539fa2297c1c7f2b6ac91c39e506e322482570ce892fb1453",
+  "processing": {
+    "cropBox": [
+      35,
+      0,
+      1128,
+      1543
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT708821_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

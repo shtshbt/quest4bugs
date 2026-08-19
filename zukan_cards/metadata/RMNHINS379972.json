@@ -1,0 +1,74 @@
+{
+  "species_id": "acraea_zitja",
+  "species_ja": "Acraea zitja",
+  "scientific_name": "Acraea zitja",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.379972",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.379972",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.379972",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "South Africa",
+    "localityVerbatim": null,
+    "localityNormalized": "South Africa",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443659359",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443659359",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.379972_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS379972_resized.jpg",
+    "display": "processed/RMNHINS379972_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS379972_54.webp",
+      "108": "thumb/RMNHINS379972_108.webp",
+      "216": "thumb/RMNHINS379972_216.webp"
+    }
+  },
+  "original_sha256": "6b598b661c59dd2a02ebe669cc6032c75814b7872c99a4f0e4ffa22e476c2f5b",
+  "processing": {
+    "cropBox": [
+      0,
+      28,
+      1882,
+      940
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS379972_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

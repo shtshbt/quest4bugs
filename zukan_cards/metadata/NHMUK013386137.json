@@ -1,0 +1,74 @@
+{
+  "species_id": "liatongus_femoratus",
+  "species_ja": "Liatongus femoratus",
+  "scientific_name": "Liatongus femoratus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK013386137",
+    "occurrenceId": "95f41f74-5505-46fc-af56-1ea3207d29f7",
+    "persistentId": "95f41f74-5505-46fc-af56-1ea3207d29f7",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1847650396",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/95f41f74-5505-46fc-af56-1ea3207d29f7",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/5f9c34ee-dc5c-4a20-a656-bdc968f12ed3",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK013386137_resized.jpg",
+    "display": "processed/NHMUK013386137_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK013386137_54.webp",
+      "108": "thumb/NHMUK013386137_108.webp",
+      "216": "thumb/NHMUK013386137_216.webp"
+    }
+  },
+  "original_sha256": "2f3c8f0c0c673494abf25c48b1f3cf48ca80e91c867a65a594e5d8803dabbb9c",
+  "processing": {
+    "cropBox": [
+      258,
+      300,
+      462,
+      557
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK013386137_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

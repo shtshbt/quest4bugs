@@ -1,0 +1,74 @@
+{
+  "species_id": "euoniticellus_fulvus",
+  "species_ja": "Euoniticellus fulvus",
+  "scientific_name": "Euoniticellus fulvus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Emil Hochdanz",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Euoniticellus.fulvus.-.calwer.21.12.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Euoniticellus.fulvus.-.calwer.21.12.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Euoniticellus.fulvus.-.calwer.21.12.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Emil Hochdanz",
+    "eventDate": "1876",
+    "eventYear": 1876,
+    "country": null,
+    "localityVerbatim": "Euoniticellus fulvus, from Calwer's Käferbuch, Table 21, Picture 12. Taxonomy was updated to 2008, using mostly the sites Fauna Europaea and BioLib. Please contact Sarefo if the determination is wrong!",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Euoniticellus.fulvus.-.calwer.21.12.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Euoniticellus.fulvus.-.calwer.21.12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileEuoniticellusfulvuscalwer2112jpg_resized.jpg",
+    "display": "processed/WMCFileEuoniticellusfulvuscalwer2112jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEuoniticellusfulvuscalwer2112jpg_54.webp",
+      "108": "thumb/WMCFileEuoniticellusfulvuscalwer2112jpg_108.webp",
+      "216": "thumb/WMCFileEuoniticellusfulvuscalwer2112jpg_216.webp"
+    }
+  },
+  "original_sha256": "2f0d86461a8b611a3f4518f871a2190a22a9ff22df995a2b145dc84cfee074a0",
+  "processing": {
+    "cropBox": [
+      0,
+      7,
+      212,
+      244
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEuoniticellusfulvuscalwer2112jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

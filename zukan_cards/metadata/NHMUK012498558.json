@@ -1,0 +1,74 @@
+{
+  "species_id": "amphibotettix_longipes",
+  "species_ja": "Amphibotettix longipes",
+  "scientific_name": "Amphibotettix longipes",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498558",
+    "occurrenceId": "971bdd17-173a-402b-9789-8536765f4768",
+    "persistentId": "971bdd17-173a-402b-9789-8536765f4768",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826419718",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/971bdd17-173a-402b-9789-8536765f4768",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/34de4b30-383c-47da-b6d2-0cb96a28155d",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012498558_resized.jpg",
+    "display": "processed/NHMUK012498558_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498558_54.webp",
+      "108": "thumb/NHMUK012498558_108.webp",
+      "216": "thumb/NHMUK012498558_216.webp"
+    }
+  },
+  "original_sha256": "8efb788d7c58f0a6941b4d6d1850aab6fe2561886df8e0cad6d1a1c6795d3521",
+  "processing": {
+    "cropBox": [
+      377,
+      313,
+      493,
+      814
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498558_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "lyssa_zampa",
+  "species_ja": "オオツバメガ",
+  "scientific_name": "Lyssa zampa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "lovelymon lamin",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Lyssa zampa 58312480.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Lyssa_zampa_58312480.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Lyssa_zampa_58312480.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "lovelymon lamin",
+    "eventDate": "2019-11-26",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Tropical Swallowtail Moth (Lyssa zampa)",
+    "localityNormalized": "Tropical Swallowtail Moth (Lyssa zampa)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Lyssa_zampa_58312480.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Lyssa_zampa_58312480.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileLyssazampa58312480jpg_resized.jpg",
+    "display": "processed/WMCFileLyssazampa58312480jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileLyssazampa58312480jpg_54.webp",
+      "108": "thumb/WMCFileLyssazampa58312480jpg_108.webp",
+      "216": "thumb/WMCFileLyssazampa58312480jpg_216.webp"
+    }
+  },
+  "original_sha256": "fae725990284fd979c65dd8ac6559bbfb23bf00e47264bba7d4f7884f0d4edb8",
+  "processing": {
+    "cropBox": [
+      0,
+      116,
+      2048,
+      1671
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileLyssazampa58312480jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

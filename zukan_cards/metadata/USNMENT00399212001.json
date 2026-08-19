@@ -1,0 +1,76 @@
+{
+  "species_id": "aphis_craccivora",
+  "species_ja": "Aphis craccivora",
+  "scientific_name": "Aphis craccivora",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Colin Favret",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00399212.001",
+    "occurrenceId": "http://n2t.net/ark:/65665/3e2a7b8f8-ea06-4dda-9071-5ffee7b9207e",
+    "persistentId": "http://n2t.net/ark:/65665/3e2a7b8f8-ea06-4dda-9071-5ffee7b9207e",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "T. Cockerell",
+    "eventDate": "1902-08-10",
+    "eventYear": 1902,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "Rociada, United States of America",
+    "preparations": "Slide section",
+    "decimalLatitude": 35.8322,
+    "decimalLongitude": -105.42
+  },
+  "source": {
+    "gbifOccurrenceKey": "1322326046",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1322326046",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=9137279&h=1034",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00399212001_resized.jpg",
+    "display": "processed/USNMENT00399212001_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00399212001_54.webp",
+      "108": "thumb/USNMENT00399212001_108.webp",
+      "216": "thumb/USNMENT00399212001_216.webp"
+    }
+  },
+  "original_sha256": "e0bf70ebbaf44719a0f4d8633e3859ad493c74b3843669f09f5abc2e00811ea5",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1034,
+      774
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00399212001_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

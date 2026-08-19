@@ -1,0 +1,76 @@
+{
+  "species_id": "kallima_sylvia",
+  "species_ja": "Kallima sylvia",
+  "scientific_name": "Kallima sylvia",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)501616",
+    "occurrenceId": "afb1b10c-015a-4d1f-8b29-9bcd43f976a0",
+    "persistentId": "afb1b10c-015a-4d1f-8b29-9bcd43f976a0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "P Lipscombe",
+    "eventDate": "1999-07-21",
+    "eventYear": 1999,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Greater London; Township: Bromley-by-Bow, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 51.5224,
+    "decimalLongitude": -0.0086
+  },
+  "source": {
+    "gbifOccurrenceKey": "1291259344",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/afb1b10c-015a-4d1f-8b29-9bcd43f976a0",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/aa86716e-d9d5-4c46-bec0-a13fc177d733",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE501616_resized.jpg",
+    "display": "processed/NHMUKBMNHE501616_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE501616_54.webp",
+      "108": "thumb/NHMUKBMNHE501616_108.webp",
+      "216": "thumb/NHMUKBMNHE501616_216.webp"
+    }
+  },
+  "original_sha256": "f51d078660fe7667bbf516a14783e4385ede3133e93cf8cca203c19ce98b950c",
+  "processing": {
+    "cropBox": [
+      208,
+      81,
+      1440,
+      1709
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE501616_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

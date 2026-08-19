@@ -1,0 +1,74 @@
+{
+  "species_id": "ooki_no_komushi",
+  "species_ja": "オオキノコムシ",
+  "scientific_name": "Encaustes praenobilis",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:ゴミムシダマシ科",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9F%E3%83%A0%E3%82%B7%E3%83%80%E3%83%9E%E3%82%B7%E7%A7%91",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9F%E3%83%A0%E3%82%B7%E3%83%80%E3%83%9E%E3%82%B7%E7%A7%91",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2001-04-18 05:59",
+    "eventYear": 2001,
+    "country": null,
+    "localityVerbatim": "Familie: Tenebrionidae Groesse: 16-20 mm Fundort: Namibia, Omaruru leg. U.Schmidt, 1994; det. M.Lillig Photo: U.Schmidt, 2006",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9F%E3%83%A0%E3%82%B7%E3%83%80%E3%83%9E%E3%82%B7%E7%A7%91",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Gonopus_tibialis_%28Fabricius%2C_1798%29_%283989862005%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_69cecdc4_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_69cecdc4_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_69cecdc4_54.webp",
+      "108": "thumb/WIKIPEDIAWP_69cecdc4_108.webp",
+      "216": "thumb/WIKIPEDIAWP_69cecdc4_216.webp"
+    }
+  },
+  "original_sha256": "f424fe33a3306221cb3c8b44029855d10ad7a0336e4c414e00f9a88b097b41bf",
+  "processing": {
+    "cropBox": [
+      4,
+      0,
+      806,
+      576
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_69cecdc4_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

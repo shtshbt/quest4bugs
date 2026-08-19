@@ -1,0 +1,74 @@
+{
+  "species_id": "copris_lugubris",
+  "species_ja": "Copris lugubris",
+  "scientific_name": "Copris lugubris",
+  "credit_line": "Wikimedia Commons",
+  "creator": "URSchmidt",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Copris lugubris Boheman, 1858 Male.png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Copris_lugubris_Boheman,_1858_Male.png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Copris_lugubris_Boheman,_1858_Male.png",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "URSchmidt",
+    "eventDate": "2023-02-06",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Copris lugubris Boheman, 1858 Maennchen Familie: Scarabaeidae Groesse: 18,8 mm Verbreitung: Mexiko bis Ecuador Fundort: Mexiko, Yucatan, Quintana Roo, Nuevo X-Can leg. VIII.1978; det. H.P.Marx Foto: U.Schmidt, 2023",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Copris_lugubris_Boheman,_1858_Male.png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Copris_lugubris_Boheman%2C_1858_Male.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCoprislugubrisBoheman1858Malepng_resized.jpg",
+    "display": "processed/WMCFileCoprislugubrisBoheman1858Malepng_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCoprislugubrisBoheman1858Malepng_54.webp",
+      "108": "thumb/WMCFileCoprislugubrisBoheman1858Malepng_108.webp",
+      "216": "thumb/WMCFileCoprislugubrisBoheman1858Malepng_216.webp"
+    }
+  },
+  "original_sha256": "a359e597f5f9ac76b29bab417e960313133171c7ec39575ec4ae4e3fc86e5927",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2325,
+      1665
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCoprislugubrisBoheman1858Malepng_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

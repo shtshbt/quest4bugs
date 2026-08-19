@@ -1,0 +1,74 @@
+{
+  "species_id": "marmessoidea_rubescens",
+  "species_ja": "Marmessoidea rubescens",
+  "scientific_name": "Marmessoidea rubescens",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012500174",
+    "occurrenceId": "fd9dc247-96fd-451a-87a7-a4f1927ef3a5",
+    "persistentId": "fd9dc247-96fd-451a-87a7-a4f1927ef3a5",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826412471",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/fd9dc247-96fd-451a-87a7-a4f1927ef3a5",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f89bee85-5f66-4d5d-8443-8a3633e00160",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012500174_resized.jpg",
+    "display": "processed/NHMUK012500174_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012500174_54.webp",
+      "108": "thumb/NHMUK012500174_108.webp",
+      "216": "thumb/NHMUK012500174_216.webp"
+    }
+  },
+  "original_sha256": "7c60ee16ce7ad52e83b507e3601ed4c20daea8b9baf1e5df50486170c1663496",
+  "processing": {
+    "cropBox": [
+      0,
+      86,
+      1130,
+      1111
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012500174_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

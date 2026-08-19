@@ -1,0 +1,74 @@
+{
+  "species_id": "kiboshi_kuro_hishibatta",
+  "species_ja": "キボシクロヒシバッタ",
+  "scientific_name": "Oxytettix arius",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Biopics Dan Boone Honguyenseo Bernard Picton Biopics Philippe Boujon Splette Nosferattus Rushenb",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:カニ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%8B",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%8B",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Biopics Dan Boone Honguyenseo Bernard Picton Biopics Philippe Boujon Splette Nosferattus Rushenb",
+    "eventDate": "2022-12-28",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Nine species from nine families of the infraorder Brachyura.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%8B",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Brachyura_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_b00e34de_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_b00e34de_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_b00e34de_54.webp",
+      "108": "thumb/WIKIPEDIAWP_b00e34de_108.webp",
+      "216": "thumb/WIKIPEDIAWP_b00e34de_216.webp"
+    }
+  },
+  "original_sha256": "aeb32fb0b3ed4f37304a143ad9bf1224f7d6e20324ef21beea44b8c748196d97",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      3263,
+      1764
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_b00e34de_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

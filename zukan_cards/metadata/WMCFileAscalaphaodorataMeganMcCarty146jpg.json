@@ -1,0 +1,74 @@
+{
+  "species_id": "ascalapha_odorata",
+  "species_ja": "オドラジゴクオオヤガ",
+  "scientific_name": "Ascalapha odorata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Meganmccarty",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Ascalapha odorata, Megan McCarty146.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Ascalapha_odorata,_Megan_McCarty146.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Ascalapha_odorata,_Megan_McCarty146.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Meganmccarty",
+    "eventDate": "2009-09-27",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Male Black Witch (Ascalapha odorata)",
+    "localityNormalized": "Male Black Witch (Ascalapha odorata)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Ascalapha_odorata,_Megan_McCarty146.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Ascalapha_odorata%2C_Megan_McCarty146.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileAscalaphaodorataMeganMcCarty146jpg_resized.jpg",
+    "display": "processed/WMCFileAscalaphaodorataMeganMcCarty146jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAscalaphaodorataMeganMcCarty146jpg_54.webp",
+      "108": "thumb/WMCFileAscalaphaodorataMeganMcCarty146jpg_108.webp",
+      "216": "thumb/WMCFileAscalaphaodorataMeganMcCarty146jpg_216.webp"
+    }
+  },
+  "original_sha256": "9bd927261330b03425bcd9ddb407037ec454cdb4b795a6689e37405a9265b4e0",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2974,
+      1959
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAscalaphaodorataMeganMcCarty146jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

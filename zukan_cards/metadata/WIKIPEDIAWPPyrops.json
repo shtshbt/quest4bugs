@@ -1,0 +1,74 @@
+{
+  "species_id": "pyrops_sidereus",
+  "species_ja": "Pyrops sidereus",
+  "scientific_name": "Pyrops sidereus",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Ziegler175",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Pyrops",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Pyrops",
+    "persistentId": "https://en.wikipedia.org/wiki/Pyrops",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ziegler175",
+    "eventDate": "2000-11",
+    "eventYear": 2000,
+    "country": null,
+    "localityVerbatim": "Pyrops candelaria",
+    "localityNormalized": "Pyrops candelaria",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Pyrops",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/ICPyropsCandelaria.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPPyrops_resized.jpg",
+    "display": "processed/WIKIPEDIAWPPyrops_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPPyrops_54.webp",
+      "108": "thumb/WIKIPEDIAWPPyrops_108.webp",
+      "216": "thumb/WIKIPEDIAWPPyrops_216.webp"
+    }
+  },
+  "original_sha256": "af070c978b751f7c52c98896ed83b081443dfe389f8d4ce96bba3d5e927e7c49",
+  "processing": {
+    "cropBox": [
+      535,
+      338,
+      1503,
+      2546
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPPyrops_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

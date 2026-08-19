@@ -1,0 +1,74 @@
+{
+  "species_id": "junonia_iphita",
+  "species_ja": "クロタテハモドキ",
+  "scientific_name": "Junonia iphita",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)668281",
+    "occurrenceId": "be0c1aa9-c7a0-4a1c-97ed-1c003bc98174",
+    "persistentId": "be0c1aa9-c7a0-4a1c-97ed-1c003bc98174",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "Township: Mysore, India",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1055307966",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/be0c1aa9-c7a0-4a1c-97ed-1c003bc98174",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f3cb2d68-2117-4ee4-a7ed-66971095044e",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE668281_resized.jpg",
+    "display": "processed/NHMUKBMNHE668281_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE668281_54.webp",
+      "108": "thumb/NHMUKBMNHE668281_108.webp",
+      "216": "thumb/NHMUKBMNHE668281_216.webp"
+    }
+  },
+  "original_sha256": "e47cacb04c7d1078e0dec5fb0caf1bf51b2a01f474d930efdec63f2cc9bd459b",
+  "processing": {
+    "cropBox": [
+      29,
+      72,
+      1262,
+      766
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE668281_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

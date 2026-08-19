@@ -1,0 +1,74 @@
+{
+  "species_id": "valanga_nigricornis",
+  "species_ja": "Valanga nigricornis",
+  "scientific_name": "Valanga nigricornis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012498435",
+    "occurrenceId": "668c820f-569b-4554-8907-12bd774ece57",
+    "persistentId": "668c820f-569b-4554-8907-12bd774ece57",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Indonesia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826417232",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/668c820f-569b-4554-8907-12bd774ece57",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/f7daccb1-a6c7-41b9-9b0c-ffc00c6d306e",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012498435_resized.jpg",
+    "display": "processed/NHMUK012498435_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012498435_54.webp",
+      "108": "thumb/NHMUK012498435_108.webp",
+      "216": "thumb/NHMUK012498435_216.webp"
+    }
+  },
+  "original_sha256": "d915115442058209d053d0c8728a67a7c5459aa155a9e21b4ad3f44a7dae07cc",
+  "processing": {
+    "cropBox": [
+      391,
+      49,
+      975,
+      899
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012498435_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

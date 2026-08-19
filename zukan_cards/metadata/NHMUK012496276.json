@@ -1,0 +1,74 @@
+{
+  "species_id": "hierodula_venosa",
+  "species_ja": "Hierodula venosa",
+  "scientific_name": "Hierodula venosa",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496276",
+    "occurrenceId": "df377d89-1281-4fa1-88da-5295a1b8adef",
+    "persistentId": "df377d89-1281-4fa1-88da-5295a1b8adef",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403641",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/df377d89-1281-4fa1-88da-5295a1b8adef",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/b20f3379-efa6-437b-b585-bf6037f22beb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496276_resized.jpg",
+    "display": "processed/NHMUK012496276_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496276_54.webp",
+      "108": "thumb/NHMUK012496276_108.webp",
+      "216": "thumb/NHMUK012496276_216.webp"
+    }
+  },
+  "original_sha256": "5a6489540323ae5a9198fb7966328c9da74932dc96a045787c561bf3d813a6b6",
+  "processing": {
+    "cropBox": [
+      13,
+      126,
+      1164,
+      879
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496276_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

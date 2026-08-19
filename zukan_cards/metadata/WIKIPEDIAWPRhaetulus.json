@@ -1,0 +1,75 @@
+{
+  "species_id": "amami_shika_kuwagata",
+  "species_ja": "アマミシカクワガタ",
+  "scientific_name": "Rhaetulus recticornis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Siga",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Rhaetulus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Rhaetulus",
+    "persistentId": "https://en.wikipedia.org/wiki/Rhaetulus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Siga",
+    "eventDate": "2009-03-01",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Rhaetulus didieri",
+    "localityNormalized": "Rhaetulus didieri",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Rhaetulus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/70/Blblupside.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPRhaetulus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPRhaetulus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPRhaetulus_54.webp",
+      "108": "thumb/WIKIPEDIAWPRhaetulus_108.webp",
+      "216": "thumb/WIKIPEDIAWPRhaetulus_216.webp"
+    }
+  },
+  "original_sha256": "de4fa93bf71d888be4c3c7618522c7084ed96246d95de4728eeb2110684a8960",
+  "processing": {
+    "cropBox": [
+      69,
+      211,
+      3055,
+      1426
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPRhaetulus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.60), rotate 270 CCW"
+}

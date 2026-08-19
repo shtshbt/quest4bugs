@@ -1,0 +1,74 @@
+{
+  "species_id": "helicoverpa_punctigera",
+  "species_ja": "Helicoverpa punctigera",
+  "scientific_name": "Helicoverpa punctigera",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Helicoverpa punctigera male.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Helicoverpa_punctigera_male.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Helicoverpa_punctigera_male.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "eventDate": "2011-10-26 23:20:24",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Male specimen of Helicoverpa punctigera photographed by Birgit E. Rhode, Landcare Research New Zealand Ltd.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Helicoverpa_punctigera_male.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/Helicoverpa_punctigera_male.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHelicoverpapunctigeramalejpg_resized.jpg",
+    "display": "processed/WMCFileHelicoverpapunctigeramalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHelicoverpapunctigeramalejpg_54.webp",
+      "108": "thumb/WMCFileHelicoverpapunctigeramalejpg_108.webp",
+      "216": "thumb/WMCFileHelicoverpapunctigeramalejpg_216.webp"
+    }
+  },
+  "original_sha256": "e048f8b01566ea25705e4584c413977241519089ce2269dba72ccf48cfe2fb24",
+  "processing": {
+    "cropBox": [
+      0,
+      12,
+      600,
+      403
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHelicoverpapunctigeramalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

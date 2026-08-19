@@ -1,0 +1,74 @@
+{
+  "species_id": "bubas_bison",
+  "species_ja": "Bubas bison",
+  "scientific_name": "Bubas bison",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bisson-Cottard (Firm); Depuiset, A.; Fischbach, Gustave; Poteau, J.; Quartley, J.; Rothschild, J.; Specht, Friedrich; Vizetelly, Henry",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Musée entomologique illustré (6008704976).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_entomologique_illustr%C3%A9_(6008704976).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_entomologique_illustr%C3%A9_(6008704976).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bisson-Cottard (Firm); Depuiset, A.; Fischbach, Gustave; Poteau, J.; Quartley, J.; Rothschild, J.; Specht, Friedrich; Vizetelly, Henry",
+    "eventDate": "between 1876 and 1878<div style=\"display: none;\">date QS:P,+1876-00-00T00:00:00Z/8,P1319,+1876-00-00T00:00:00Z/9,P1326,+1878-00-00T00:00:00Z/9</div>",
+    "eventYear": 1876,
+    "country": null,
+    "localityVerbatim": "Musée entomologique illustré : histoire naturelle iconographique des insectes : publiée par une réunion d'entomologistes français et étrangers / sous la direction de J. Rothschild. Pl. 21 Fig. Name in text Accepted name 1 Gymnopleurus pilularis Gymnopleurus geoffroyi 2 Sisyphus schaefferi Sisyphus schaefferi 3 Onthophagus hubneri Unknown 4 Onthophagus taurus Onthophagus taurus 5 Onthophagus nutans Onthophagus nutans 6 Onthophagus vacca Onthophagus vacca 7 Onthophagus coenobita Onthophagus coenobita 8 Onthophagus nuchicornis Onthophagus nuchicornis 9 Onthophagus lemur Onthophagus lemur 10 Onthophagus schreberi Unknown 11 Onthophagus fracticornis Onthophagus fracticornis 12 Oniticellus flavipes Unknown 13 Bubas bison Bubas bison 14 Copris lunaris Copris lunaris 15 Aphodius erraticus Aphodius erraticus 16 Aphodius scrutator Aphodius scrutator 17 Aphodius fossor Aphodius fossor 18 Aphodius haemorrhoidalis Sigorus porcus 19 Aphodius foetens Aphodius foetens 20 Aphodius fimetarius Aphodius fimetarius 21 Aphodius ater Unknown 22 Aphodius foetidus Aphodius foetidus 23 Aphodius sordidus Unknown 24 Aphodius nitidulus Bodilus ictericus 25 Aphodius bimaculatus Unknown 26 Aphodius rufus Unknown",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_entomologique_illustr%C3%A9_(6008704976).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Mus%C3%A9e_entomologique_illustr%C3%A9_%286008704976%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileMuseentomologiqueillustr6008704976jpg_resized.jpg",
+    "display": "processed/WMCFileMuseentomologiqueillustr6008704976jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMuseentomologiqueillustr6008704976jpg_54.webp",
+      "108": "thumb/WMCFileMuseentomologiqueillustr6008704976jpg_108.webp",
+      "216": "thumb/WMCFileMuseentomologiqueillustr6008704976jpg_216.webp"
+    }
+  },
+  "original_sha256": "3a3cc428dc24c6be92b858415e2ceace93f1972c6b38bc58fc950f6d5fc909ef",
+  "processing": {
+    "cropBox": [
+      382,
+      376,
+      1754,
+      2609
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMuseentomologiqueillustr6008704976jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

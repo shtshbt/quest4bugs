@@ -1,0 +1,74 @@
+{
+  "species_id": "culicoides_moreli",
+  "species_ja": "Culicoides moreli",
+  "scientific_name": "Culicoides moreli",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014855459",
+    "occurrenceId": "305f0d16-c34a-4f71-b387-3cb705351437",
+    "persistentId": "305f0d16-c34a-4f71-b387-3cb705351437",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Gambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Gambia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3915787518",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/305f0d16-c34a-4f71-b387-3cb705351437",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/da4c971a-9a0d-4984-b099-3cf246ec8e20",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014855459_resized.jpg",
+    "display": "processed/NHMUK014855459_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014855459_54.webp",
+      "108": "thumb/NHMUK014855459_108.webp",
+      "216": "thumb/NHMUK014855459_216.webp"
+    }
+  },
+  "original_sha256": "fed33038ba287f73f4e874c40b3ab3e206203270369cc969ff514b97726d38f7",
+  "processing": {
+    "cropBox": [
+      349,
+      46,
+      1422,
+      424
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014855459_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

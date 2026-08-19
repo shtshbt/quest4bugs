@@ -1,0 +1,80 @@
+{
+  "species_id": "ciulfina_biseriata",
+  "species_ja": "Ciulfina biseriata",
+  "scientific_name": "Ciulfina biseriata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "graces_field_journal (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_147088284",
+    "occurrenceId": "https://www.inaturalist.org/observations/147088284",
+    "persistentId": "https://www.inaturalist.org/observations/147088284",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "graces_field_journal",
+    "eventDate": "2022-10-02",
+    "eventYear": 2022,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Lakeland QLD 4871, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -15.7551129008,
+    "decimalLongitude": 145.0142487004,
+    "coordinatesObscured": false,
+    "iNatObservationId": "147088284",
+    "iNatPhotoId": "253033918",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/147088284",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/253033918/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs147088284_resized.jpg",
+    "display": "processed/iNatobs147088284_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs147088284_54.webp",
+      "108": "thumb/iNatobs147088284_108.webp",
+      "216": "thumb/iNatobs147088284_216.webp"
+    }
+  },
+  "original_sha256": "d3870a2e5ec1a64207fc6271b7ceb023778cd8e580ab5d2cc8ce9149a6640559",
+  "processing": {
+    "cropBox": [
+      297,
+      0,
+      1368,
+      1936
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs147088284_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "trychopeplus_laciniatus",
+  "species_ja": "Trychopeplus laciniatus",
+  "scientific_name": "Trychopeplus laciniatus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "aparrot1 (iNaturalist)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_129637075",
+    "occurrenceId": "https://www.inaturalist.org/observations/129637075",
+    "persistentId": "https://www.inaturalist.org/observations/129637075",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "aparrot1",
+    "eventDate": "2022-08-05",
+    "eventYear": 2022,
+    "country": "CR",
+    "localityVerbatim": null,
+    "localityNormalized": "Pococi, Limon, CR, CR",
+    "preparations": null,
+    "decimalLatitude": 10.1735616667,
+    "decimalLongitude": -83.9139866667,
+    "coordinatesObscured": false,
+    "iNatObservationId": "129637075",
+    "iNatPhotoId": "220335746",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/129637075",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/220335746/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs129637075_resized.jpg",
+    "display": "processed/iNatobs129637075_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs129637075_54.webp",
+      "108": "thumb/iNatobs129637075_108.webp",
+      "216": "thumb/iNatobs129637075_216.webp"
+    }
+  },
+  "original_sha256": "f992c5424350017d6686e43e1adfa669d14dacd7ec9add0c97769c7161d48505",
+  "processing": {
+    "cropBox": [
+      392,
+      348,
+      1474,
+      1854
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs129637075_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

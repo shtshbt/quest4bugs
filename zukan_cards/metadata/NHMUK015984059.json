@@ -1,0 +1,74 @@
+{
+  "species_id": "tropidoderus_gracilifemur",
+  "species_ja": "Tropidoderus gracilifemur",
+  "scientific_name": "Tropidoderus gracilifemur",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015984059",
+    "occurrenceId": "9c6069d5-40d7-4769-be2f-0af04313ec59",
+    "persistentId": "9c6069d5-40d7-4769-be2f-0af04313ec59",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "4925616228",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/9c6069d5-40d7-4769-be2f-0af04313ec59",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8741c4c2-1aab-4d89-a9ab-e8dc1b53e5c9",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015984059_resized.jpg",
+    "display": "processed/NHMUK015984059_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015984059_54.webp",
+      "108": "thumb/NHMUK015984059_108.webp",
+      "216": "thumb/NHMUK015984059_216.webp"
+    }
+  },
+  "original_sha256": "e2e6a3527e2636b7a91bb6a351a922c0b3bd7d71f5b3274b8acc81606f93cb48",
+  "processing": {
+    "cropBox": [
+      335,
+      0,
+      1032,
+      960
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015984059_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

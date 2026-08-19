@@ -1,0 +1,74 @@
+{
+  "species_id": "rhantus_latus",
+  "species_ja": "Rhantus latus",
+  "scientific_name": "Rhantus latus",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "L. Shyamal",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Rhantus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Rhantus",
+    "persistentId": "https://en.wikipedia.org/wiki/Rhantus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "L. Shyamal",
+    "eventDate": "2008-03-02",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Dytiscidae, probably Sandracottus dejeani, diving beetle from Rock pool, Thiruvannamalai, India",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Rhantus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a9/DivingBeetle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPRhantus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPRhantus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPRhantus_54.webp",
+      "108": "thumb/WIKIPEDIAWPRhantus_108.webp",
+      "216": "thumb/WIKIPEDIAWPRhantus_216.webp"
+    }
+  },
+  "original_sha256": "2d3c4d5751238f82bc80fbf7feb895c02737c77e739006a2da75653811ce090a",
+  "processing": {
+    "cropBox": [
+      115,
+      181,
+      781,
+      610
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPRhantus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

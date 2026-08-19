@@ -1,0 +1,74 @@
+{
+  "species_id": "camponotus_sericeiventris",
+  "species_ja": "Camponotus sericeiventris",
+  "scientific_name": "Camponotus sericeiventris",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "M. Kweskin",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00531996",
+    "occurrenceId": "http://n2t.net/ark:/65665/3a5f111b4-cd84-40e2-a235-23cf5c8b3f36",
+    "persistentId": "http://n2t.net/ark:/65665/3a5f111b4-cd84-40e2-a235-23cf5c8b3f36",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Syntype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": "N. Banks",
+    "eventDate": "1924-07-15",
+    "eventYear": 1924,
+    "country": "Panama",
+    "localityVerbatim": null,
+    "localityNormalized": "Canal Zone; Barro Colorado, Panama",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320954030",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320954030",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=11634122&h=993",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00531996_resized.jpg",
+    "display": "processed/USNMENT00531996_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00531996_54.webp",
+      "108": "thumb/USNMENT00531996_108.webp",
+      "216": "thumb/USNMENT00531996_216.webp"
+    }
+  },
+  "original_sha256": "0c1909eb431963f33c2085715271d57323ba61ad5233a1eb5561bcba8bf03384",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      993,
+      762
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00531996_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

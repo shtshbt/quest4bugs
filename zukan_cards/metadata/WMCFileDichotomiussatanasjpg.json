@@ -1,0 +1,74 @@
+{
+  "species_id": "dichotomius_satanas",
+  "species_ja": "Dichotomius satanas",
+  "scientific_name": "Dichotomius satanas",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Ángela María Gómez Montoya",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Dichotomius satanas.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Dichotomius_satanas.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Dichotomius_satanas.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ángela María Gómez Montoya",
+    "eventDate": "2021-01",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "Dichotomius satanas. Species of insect.",
+    "localityNormalized": "Dichotomius satanas. Species of insect.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Dichotomius_satanas.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Dichotomius_satanas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDichotomiussatanasjpg_resized.jpg",
+    "display": "processed/WMCFileDichotomiussatanasjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDichotomiussatanasjpg_54.webp",
+      "108": "thumb/WMCFileDichotomiussatanasjpg_108.webp",
+      "216": "thumb/WMCFileDichotomiussatanasjpg_216.webp"
+    }
+  },
+  "original_sha256": "6b7e0f5c405530f4227bd33caf5d04b3f262f487f23fb9c39491088f0ae655d7",
+  "processing": {
+    "cropBox": [
+      15,
+      4,
+      680,
+      433
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDichotomiussatanasjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

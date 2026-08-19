@@ -1,0 +1,74 @@
+{
+  "species_id": "castiarina_sexplagiata",
+  "species_ja": "Castiarina sexplagiata",
+  "scientific_name": "Castiarina sexplagiata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Andrew Allen",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Castiarina sexplagiata 247307907.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Castiarina_sexplagiata_247307907.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Castiarina_sexplagiata_247307907.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Andrew Allen",
+    "eventDate": "2022-12-11",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Castiarina sexplagiata",
+    "localityNormalized": "Castiarina sexplagiata",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Castiarina_sexplagiata_247307907.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Castiarina_sexplagiata_247307907.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCastiarinasexplagiata247307907jpg_resized.jpg",
+    "display": "processed/WMCFileCastiarinasexplagiata247307907jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCastiarinasexplagiata247307907jpg_54.webp",
+      "108": "thumb/WMCFileCastiarinasexplagiata247307907jpg_108.webp",
+      "216": "thumb/WMCFileCastiarinasexplagiata247307907jpg_216.webp"
+    }
+  },
+  "original_sha256": "7468b47abb4c94f23d855e2c473ac82fa5ed34eb69a91c60a78edf6a4b5dc601",
+  "processing": {
+    "cropBox": [
+      635,
+      248,
+      1484,
+      1211
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCastiarinasexplagiata247307907jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

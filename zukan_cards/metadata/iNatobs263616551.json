@@ -1,0 +1,80 @@
+{
+  "species_id": "torbia_viridissima",
+  "species_ja": "Torbia viridissima",
+  "scientific_name": "Torbia viridissima",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bioshots_jm (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_263616551",
+    "occurrenceId": "https://www.inaturalist.org/observations/263616551",
+    "persistentId": "https://www.inaturalist.org/observations/263616551",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bioshots_jm",
+    "eventDate": "2025-03-02",
+    "eventYear": 2025,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Blanchetown SA 5357, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -34.344737,
+    "decimalLongitude": 139.525245,
+    "coordinatesObscured": false,
+    "iNatObservationId": "263616551",
+    "iNatPhotoId": "473614564",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/263616551",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/473614564/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs263616551_resized.jpg",
+    "display": "processed/iNatobs263616551_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs263616551_54.webp",
+      "108": "thumb/iNatobs263616551_108.webp",
+      "216": "thumb/iNatobs263616551_216.webp"
+    }
+  },
+  "original_sha256": "8e540921fb4b8f474fed7eaacb3dd8c9c764f0499c202e70c835e3e9e0fcf1c6",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1920,
+      1327
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs263616551_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

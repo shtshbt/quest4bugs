@@ -1,0 +1,76 @@
+{
+  "species_id": "stenocatantops_angustifrons",
+  "species_ja": "Stenocatantops angustifrons",
+  "scientific_name": "Stenocatantops angustifrons",
+  "credit_line": "Australian Museum",
+  "creator": "Paul Ibbetson",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.265456",
+    "occurrenceId": "849f2298-a2ed-4027-87ca-0171d9cc9f91",
+    "persistentId": "849f2298-a2ed-4027-87ca-0171d9cc9f91",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2008-03-12",
+    "eventYear": 2008,
+    "country": "Australia",
+    "localityVerbatim": "Marks street, Hermit Park, Townsville",
+    "localityNormalized": "Marks street, Hermit Park, Townsville, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.282778,
+    "decimalLongitude": 146.80055
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100258482",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100258482",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=c68d5e3f-9d58-40ae-a2ec-1e727aa04ca0",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK265456_resized.jpg",
+    "display": "processed/AMK265456_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK265456_54.webp",
+      "108": "thumb/AMK265456_108.webp",
+      "216": "thumb/AMK265456_216.webp"
+    }
+  },
+  "original_sha256": "8a70fb976d216b156b4995aca293ce492fb6690a8b13cf3a9d925b27d2cec71b",
+  "processing": {
+    "cropBox": [
+      0,
+      267,
+      394,
+      363
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK265456_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

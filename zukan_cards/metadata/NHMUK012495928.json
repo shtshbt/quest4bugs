@@ -1,0 +1,74 @@
+{
+  "species_id": "ceratocrania_macra",
+  "species_ja": "Ceratocrania macra",
+  "scientific_name": "Ceratocrania macra",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012495928",
+    "occurrenceId": "b66909d0-fe09-44a6-aac5-3b2c1d5fbaa0",
+    "persistentId": "b66909d0-fe09-44a6-aac5-3b2c1d5fbaa0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403685",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/b66909d0-fe09-44a6-aac5-3b2c1d5fbaa0",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/42360242-9483-4992-91d9-f6770feafef4",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012495928_resized.jpg",
+    "display": "processed/NHMUK012495928_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012495928_54.webp",
+      "108": "thumb/NHMUK012495928_108.webp",
+      "216": "thumb/NHMUK012495928_216.webp"
+    }
+  },
+  "original_sha256": "849a61c1d38f0fbe553104e8f8d25e08239be2f782a9a38c7168d20c1f124950",
+  "processing": {
+    "cropBox": [
+      546,
+      0,
+      889,
+      921
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012495928_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

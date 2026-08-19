@@ -1,0 +1,75 @@
+{
+  "species_id": "yaeyama_koku_kuwagata",
+  "species_ja": "ヤエヤマコクワガタ",
+  "scientific_name": "Dorcus amamianus yaeyamaensis",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "keusju",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:クワガタ属",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "keusju",
+    "eventDate": "2008-09-21",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Dorcus hopei binodulosus",
+    "localityNormalized": "Dorcus hopei binodulosus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Dhb.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_43565d14_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_43565d14_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_43565d14_54.webp",
+      "108": "thumb/WIKIPEDIAWP_43565d14_108.webp",
+      "216": "thumb/WIKIPEDIAWP_43565d14_216.webp"
+    }
+  },
+  "original_sha256": "4a76aaa00578f728fadc1497c384905cbe0fb52df5fc0bc1e5fc8702ba7ab66c",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1733,
+      1512
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_43565d14_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.47), rotate 90 CCW"
+}

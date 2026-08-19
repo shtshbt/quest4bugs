@@ -1,0 +1,74 @@
+{
+  "species_id": "camponotus_quadrimaculatus",
+  "species_ja": "Camponotus quadrimaculatus",
+  "scientific_name": "Camponotus quadrimaculatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Erin Prado",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Camponotus quadrimaculatus casent0146549 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Camponotus_quadrimaculatus_casent0146549_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Camponotus_quadrimaculatus_casent0146549_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Erin Prado",
+    "eventDate": "2009-08-04 11:15:41",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Camponotus quadrimaculatus specimen casent0146549.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Camponotus_quadrimaculatus_casent0146549_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/Camponotus_quadrimaculatus_casent0146549_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_resized.jpg",
+    "display": "processed/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_54.webp",
+      "108": "thumb/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_108.webp",
+      "216": "thumb/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "7ee83cf390958d89dd4155fe5ffe4f01d3b279babcc7f3b1a122a700b501b5df",
+  "processing": {
+    "cropBox": [
+      8,
+      0,
+      933,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCamponotusquadrimaculatuscasent0146549profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

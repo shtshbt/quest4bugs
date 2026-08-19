@@ -1,0 +1,74 @@
+{
+  "species_id": "aphilorheithrus_stepheni",
+  "species_ja": "Aphilorheithrus stepheni",
+  "scientific_name": "Aphilorheithrus stepheni",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014027736",
+    "occurrenceId": "bece6b58-0c18-4030-99c1-08c52bbe40f8",
+    "persistentId": "bece6b58-0c18-4030-99c1-08c52bbe40f8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Paratype",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1930-01",
+    "eventYear": 1930,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330255739",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/bece6b58-0c18-4030-99c1-08c52bbe40f8",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/6ed6075c-2f99-4cc2-ba03-40ac4afbfa21",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014027736_resized.jpg",
+    "display": "processed/NHMUK014027736_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014027736_54.webp",
+      "108": "thumb/NHMUK014027736_108.webp",
+      "216": "thumb/NHMUK014027736_216.webp"
+    }
+  },
+  "original_sha256": "913a36b7446410c24ba6fbee92a265af84dc09bc63f23b4fd2b4602c1bf37f92",
+  "processing": {
+    "cropBox": [
+      510,
+      430,
+      1016,
+      1027
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014027736_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

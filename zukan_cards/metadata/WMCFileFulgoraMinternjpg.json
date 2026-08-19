@@ -1,0 +1,74 @@
+{
+  "species_id": "pyrops_sultanus",
+  "species_ja": "Pyrops sultanus",
+  "scientific_name": "Pyrops sultanus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "R Mintern",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:FulgoraMintern.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:FulgoraMintern.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:FulgoraMintern.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "R Mintern",
+    "eventDate": "1874",
+    "eventYear": 1874,
+    "country": null,
+    "localityVerbatim": "1 Fulgora brevirostris 2 Fulgora gigantea 3 Fulgora stellata",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:FulgoraMintern.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/FulgoraMintern.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileFulgoraMinternjpg_resized.jpg",
+    "display": "processed/WMCFileFulgoraMinternjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileFulgoraMinternjpg_54.webp",
+      "108": "thumb/WMCFileFulgoraMinternjpg_108.webp",
+      "216": "thumb/WMCFileFulgoraMinternjpg_216.webp"
+    }
+  },
+  "original_sha256": "2205b1e33a0ce33ddc1dda3c5af5afe55bfb27831678391701cfb4608236dc57",
+  "processing": {
+    "cropBox": [
+      0,
+      87,
+      1819,
+      2928
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileFulgoraMinternjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

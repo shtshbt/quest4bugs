@@ -1,0 +1,74 @@
+{
+  "species_id": "graciella_compacta",
+  "species_ja": "Graciella compacta",
+  "scientific_name": "Graciella compacta",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Hectonichus",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Graciella compacta",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Graciella_compacta",
+    "persistentId": "https://en.wikipedia.org/wiki/Graciella_compacta",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hectonichus",
+    "eventDate": "2013-08-04",
+    "eventYear": 2013,
+    "country": null,
+    "localityVerbatim": "Museum specimen of Tragocephala variegata. On display at the Museo Civico di Storia Naturale di Milano",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Graciella_compacta",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Cerambycidae_-_Tragocephala_variegata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPGraciellacompacta_resized.jpg",
+    "display": "processed/WIKIPEDIAWPGraciellacompacta_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPGraciellacompacta_54.webp",
+      "108": "thumb/WIKIPEDIAWPGraciellacompacta_108.webp",
+      "216": "thumb/WIKIPEDIAWPGraciellacompacta_216.webp"
+    }
+  },
+  "original_sha256": "a48940567275403379937fc084845c17bf225179eb4771ef5bb4e09d880d4cd6",
+  "processing": {
+    "cropBox": [
+      279,
+      201,
+      839,
+      1446
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPGraciellacompacta_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

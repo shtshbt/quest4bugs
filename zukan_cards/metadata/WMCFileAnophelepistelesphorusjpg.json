@@ -1,0 +1,74 @@
+{
+  "species_id": "anophelepis_telesphorus",
+  "species_ja": "Anophelepis telesphorus",
+  "scientific_name": "Anophelepis telesphorus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Siobhan Leachman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Anophelepis telesphorus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Anophelepis_telesphorus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Anophelepis_telesphorus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Siobhan Leachman",
+    "eventDate": "2019-03-13",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "Short-winged Stick Insect (Anophelepis telesphorus). Species of insect.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Anophelepis_telesphorus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Anophelepis_telesphorus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileAnophelepistelesphorusjpg_resized.jpg",
+    "display": "processed/WMCFileAnophelepistelesphorusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAnophelepistelesphorusjpg_54.webp",
+      "108": "thumb/WMCFileAnophelepistelesphorusjpg_108.webp",
+      "216": "thumb/WMCFileAnophelepistelesphorusjpg_216.webp"
+    }
+  },
+  "original_sha256": "c1163d1969745d8088068e5e437f5eadbd3c9f968bbf9c98ee229b5bc46c35b9",
+  "processing": {
+    "cropBox": [
+      281,
+      0,
+      1250,
+      2009
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAnophelepistelesphorusjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

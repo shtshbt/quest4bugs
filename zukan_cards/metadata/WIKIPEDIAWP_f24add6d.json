@@ -1,0 +1,74 @@
+{
+  "species_id": "beni_bekkoubachi",
+  "species_ja": "ベッコウクモバチ",
+  "scientific_name": "Cyphononyx confluens",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "XXN",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:ベッコウバチ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%83%E3%82%B3%E3%82%A6%E3%83%90%E3%83%81",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%83%E3%82%B3%E3%82%A6%E3%83%90%E3%83%81",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "XXN",
+    "eventDate": "2017-07-01 14:33:12",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "This wasp was moving backwards dragging the spider. This was taken near my home in Rockwall, TX, USA. Wasp species: Tachypompilus Ferrugineus",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%83%E3%82%B3%E3%82%A6%E3%83%90%E3%83%81",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/Wasp-Spider_Hunting.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_f24add6d_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_f24add6d_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_f24add6d_54.webp",
+      "108": "thumb/WIKIPEDIAWP_f24add6d_108.webp",
+      "216": "thumb/WIKIPEDIAWP_f24add6d_216.webp"
+    }
+  },
+  "original_sha256": "a441fca1899fd0f9ace2ccd42b1883d25f7964ee9233757835c172ea68ec7c30",
+  "processing": {
+    "cropBox": [
+      20,
+      0,
+      936,
+      730
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_f24add6d_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

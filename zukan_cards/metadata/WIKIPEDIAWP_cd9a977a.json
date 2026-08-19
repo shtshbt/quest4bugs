@@ -1,0 +1,75 @@
+{
+  "species_id": "yaeyama_nokogiri_kuwagata",
+  "species_ja": "ヤエヤマノコギリクワガタ",
+  "scientific_name": "Prosopocoilus pseudodissimilis",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "keusju",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:ノコギリクワガタ属",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%83%8E%E3%82%B3%E3%82%AE%E3%83%AA%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%83%8E%E3%82%B3%E3%82%AE%E3%83%AA%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "keusju",
+    "eventDate": "2008-09-21",
+    "eventYear": 2008,
+    "country": null,
+    "localityVerbatim": "Prosopocoilus",
+    "localityNormalized": "Prosopocoilus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%83%8E%E3%82%B3%E3%82%AE%E3%83%AA%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Nokogirikuwagata.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_cd9a977a_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_cd9a977a_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_cd9a977a_54.webp",
+      "108": "thumb/WIKIPEDIAWP_cd9a977a_108.webp",
+      "216": "thumb/WIKIPEDIAWP_cd9a977a_216.webp"
+    }
+  },
+  "original_sha256": "fd1daedb6eecb857e6fe1327a309d259e16b05d459a02ea8f8fb00c1d14ac6ce",
+  "processing": {
+    "cropBox": [
+      5,
+      0,
+      633,
+      480
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_cd9a977a_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.66), rotate 180 CCW"
+}

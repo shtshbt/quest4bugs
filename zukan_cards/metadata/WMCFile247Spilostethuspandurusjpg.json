@@ -1,0 +1,74 @@
+{
+  "species_id": "spilostethus_pandurus",
+  "species_ja": "Spilostethus pandurus",
+  "scientific_name": "Spilostethus pandurus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Anna N Chapman",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:247 Spilostethus pandurus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:247_Spilostethus_pandurus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:247_Spilostethus_pandurus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Anna N Chapman",
+    "eventDate": "Taken on 4 April 2018, 10:58:23",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Spilostethus pandurus, Nea Makri 190 05, Greece, Apr 4, 2018 · 10:58 AM EEST, 38.089801 23.976326.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:247_Spilostethus_pandurus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/247_Spilostethus_pandurus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFile247Spilostethuspandurusjpg_resized.jpg",
+    "display": "processed/WMCFile247Spilostethuspandurusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile247Spilostethuspandurusjpg_54.webp",
+      "108": "thumb/WMCFile247Spilostethuspandurusjpg_108.webp",
+      "216": "thumb/WMCFile247Spilostethuspandurusjpg_216.webp"
+    }
+  },
+  "original_sha256": "c67dc823568c0289128decec913abd99dc9c58f078a5a530ee59c37c193603c8",
+  "processing": {
+    "cropBox": [
+      439,
+      102,
+      957,
+      1384
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile247Spilostethuspandurusjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

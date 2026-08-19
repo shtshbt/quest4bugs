@@ -1,0 +1,80 @@
+{
+  "species_id": "onthophagus_taurus",
+  "species_ja": "ウシツノコガネ",
+  "scientific_name": "Onthophagus taurus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "alexey_yabs (iNaturalist)",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_368370946",
+    "occurrenceId": "https://www.inaturalist.org/observations/368370946",
+    "persistentId": "https://www.inaturalist.org/observations/368370946",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "alexey_yabs",
+    "eventDate": "2026-05-25",
+    "eventYear": 2026,
+    "country": "Uzbekistan",
+    "localityVerbatim": null,
+    "localityNormalized": "Bo'stonliq, Ugam-Chatkal, Tashkent, Uzbekistan, Uzbekistan",
+    "preparations": null,
+    "decimalLatitude": 41.468095,
+    "decimalLongitude": 69.9543566667,
+    "coordinatesObscured": false,
+    "iNatObservationId": "368370946",
+    "iNatPhotoId": "672804080",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/368370946",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/672804080/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs368370946_resized.jpg",
+    "display": "processed/iNatobs368370946_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs368370946_54.webp",
+      "108": "thumb/iNatobs368370946_108.webp",
+      "216": "thumb/iNatobs368370946_216.webp"
+    }
+  },
+  "original_sha256": "b4110046323b588e7863bc7ba04c0df59c9bbd84235adcafdede3d2cb382eee9",
+  "processing": {
+    "cropBox": [
+      297,
+      731,
+      1229,
+      1659
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs368370946_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

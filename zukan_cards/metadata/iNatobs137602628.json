@@ -1,0 +1,80 @@
+{
+  "species_id": "heteracris_zolotarevskyi",
+  "species_ja": "Heteracris zolotarevskyi",
+  "scientific_name": "Heteracris zolotarevskyi",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "n_armstrong (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_137602628",
+    "occurrenceId": "https://www.inaturalist.org/observations/137602628",
+    "persistentId": "https://www.inaturalist.org/observations/137602628",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "n_armstrong",
+    "eventDate": "2015-05-23",
+    "eventYear": 2015,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Ambalavao, Madagascar, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -22.1889440103,
+    "decimalLongitude": 46.8845779429,
+    "coordinatesObscured": false,
+    "iNatObservationId": "137602628",
+    "iNatPhotoId": "235042354",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/137602628",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/235042354/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs137602628_resized.jpg",
+    "display": "processed/iNatobs137602628_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs137602628_54.webp",
+      "108": "thumb/iNatobs137602628_108.webp",
+      "216": "thumb/iNatobs137602628_216.webp"
+    }
+  },
+  "original_sha256": "e05e71313e250613eccc107e66014764bd2b2b329cb3ec9d11cdf4c477a18d23",
+  "processing": {
+    "cropBox": [
+      655,
+      337,
+      1763,
+      1043
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs137602628_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

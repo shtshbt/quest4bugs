@@ -1,0 +1,74 @@
+{
+  "species_id": "acraea_encedon",
+  "species_ja": "Acraea encedon",
+  "scientific_name": "Acraea encedon",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)668100",
+    "occurrenceId": "db53577a-39c1-4c3b-bf73-cd1663829a50",
+    "persistentId": "db53577a-39c1-4c3b-bf73-cd1663829a50",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Sierra Leone",
+    "localityVerbatim": null,
+    "localityNormalized": "Sierra Leone",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1057617376",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/db53577a-39c1-4c3b-bf73-cd1663829a50",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/8a5ecd4d-d9e2-4eec-8619-d03601255400",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE668100_resized.jpg",
+    "display": "processed/NHMUKBMNHE668100_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE668100_54.webp",
+      "108": "thumb/NHMUKBMNHE668100_108.webp",
+      "216": "thumb/NHMUKBMNHE668100_216.webp"
+    }
+  },
+  "original_sha256": "a74d902c5af436eda0662d2534740b83243c31d3606bc40d7e7540807c5a2653",
+  "processing": {
+    "cropBox": [
+      229,
+      144,
+      1336,
+      645
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE668100_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

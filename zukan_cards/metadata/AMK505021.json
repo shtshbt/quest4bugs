@@ -1,0 +1,76 @@
+{
+  "species_id": "micronecta_robusta",
+  "species_ja": "Micronecta robusta",
+  "scientific_name": "Micronecta robusta",
+  "credit_line": "Australian Museum",
+  "creator": "Siwan Loong",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.505021",
+    "occurrenceId": "a47fe7a3-247d-4c40-8c7e-abe39c74f9e8",
+    "persistentId": "a47fe7a3-247d-4c40-8c7e-abe39c74f9e8",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "E. Turak",
+    "eventDate": "1995-03-27",
+    "eventYear": 1995,
+    "country": "Australia",
+    "localityVerbatim": "Billabong Creek upstream of Jerilderie",
+    "localityNormalized": "Billabong Creek upstream of Jerilderie, Australia",
+    "preparations": null,
+    "decimalLatitude": -35.353054,
+    "decimalLongitude": 145.76083
+  },
+  "source": {
+    "gbifOccurrenceKey": "2446243110",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2446243110",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=48cd4977-3ff6-4fb1-b692-2e566c07047d",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK505021_resized.jpg",
+    "display": "processed/AMK505021_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK505021_54.webp",
+      "108": "thumb/AMK505021_108.webp",
+      "216": "thumb/AMK505021_216.webp"
+    }
+  },
+  "original_sha256": "14bca36896c940f527094ff4b56a5e68391b633493ad4455789020fe3f2a31a9",
+  "processing": {
+    "cropBox": [
+      190,
+      12,
+      574,
+      393
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK505021_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "helvia_cardinalis",
+  "species_ja": "Helvia cardinalis",
+  "scientific_name": "Helvia cardinalis",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK012496330",
+    "occurrenceId": "885c1c39-96a3-4cda-a83d-340924d7fe01",
+    "persistentId": "885c1c39-96a3-4cda-a83d-340924d7fe01",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Malaysia",
+    "localityVerbatim": null,
+    "localityNormalized": "Malaysia",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "1826403318",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/885c1c39-96a3-4cda-a83d-340924d7fe01",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/ea8a3100-e0d6-41a5-ba5f-baecab0beadb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK012496330_resized.jpg",
+    "display": "processed/NHMUK012496330_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK012496330_54.webp",
+      "108": "thumb/NHMUK012496330_108.webp",
+      "216": "thumb/NHMUK012496330_216.webp"
+    }
+  },
+  "original_sha256": "5d76febef3c33f2e99a058efd6d9f67110b309fbce01174a95b8cb4b16dad672",
+  "processing": {
+    "cropBox": [
+      329,
+      162,
+      625,
+      811
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK012496330_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

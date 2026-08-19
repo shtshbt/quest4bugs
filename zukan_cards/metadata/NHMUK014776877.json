@@ -1,0 +1,74 @@
+{
+  "species_id": "culicoides_enderleini",
+  "species_ja": "Culicoides enderleini",
+  "scientific_name": "Culicoides enderleini",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014776877",
+    "occurrenceId": "74503ba5-973f-4cba-929d-4f659bdfe089",
+    "persistentId": "74503ba5-973f-4cba-929d-4f659bdfe089",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Senegal",
+    "localityVerbatim": null,
+    "localityNormalized": "Senegal",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3915798689",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/74503ba5-973f-4cba-929d-4f659bdfe089",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/d3e7b462-3f82-4ddd-bd5a-658ee7fbf9fb",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014776877_resized.jpg",
+    "display": "processed/NHMUK014776877_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014776877_54.webp",
+      "108": "thumb/NHMUK014776877_108.webp",
+      "216": "thumb/NHMUK014776877_216.webp"
+    }
+  },
+  "original_sha256": "c432d529f3e53bf15808b6b173d1422d2ffeafdbb05321380c744036604cc1b9",
+  "processing": {
+    "cropBox": [
+      137,
+      19,
+      1440,
+      442
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014776877_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

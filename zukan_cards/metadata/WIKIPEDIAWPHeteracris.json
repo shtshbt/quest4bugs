@@ -1,0 +1,74 @@
+{
+  "species_id": "heteracris_nigricornis",
+  "species_ja": "Heteracris nigricornis",
+  "scientific_name": "Heteracris nigricornis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Plates: Dru Drury (1725–1803). Text: John Obadiah Westwood (1805–1893)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Heteracris",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Heteracris",
+    "persistentId": "https://en.wikipedia.org/wiki/Heteracris",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Plates: Dru Drury (1725–1803). Text: John Obadiah Westwood (1805–1893)",
+    "eventDate": "1770",
+    "eventYear": 1770,
+    "country": null,
+    "localityVerbatim": "Plate XLI. Pycnodictya obscura.",
+    "localityNormalized": "Plate XLI. Pycnodictya obscura.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Heteracris",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Pycnodictya_obscura_Illustrations_of_Exotic_Entomology_II_41.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPHeteracris_resized.jpg",
+    "display": "processed/WIKIPEDIAWPHeteracris_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPHeteracris_54.webp",
+      "108": "thumb/WIKIPEDIAWPHeteracris_108.webp",
+      "216": "thumb/WIKIPEDIAWPHeteracris_216.webp"
+    }
+  },
+  "original_sha256": "116f0ca5900213ec1b815682375e456efd579d56271ae5443a7a5f5ae61f3e83",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      649,
+      634
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPHeteracris_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

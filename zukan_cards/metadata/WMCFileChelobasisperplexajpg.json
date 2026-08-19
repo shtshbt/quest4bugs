@@ -1,0 +1,74 @@
+{
+  "species_id": "chelobasis_perplexa",
+  "species_ja": "Chelobasis perplexa",
+  "scientific_name": "Chelobasis perplexa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "C.L. Staines",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chelobasis perplexa.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chelobasis_perplexa.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chelobasis_perplexa.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "C.L. Staines",
+    "eventDate": "2012",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "(Untitled)",
+    "localityNormalized": "(Untitled)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chelobasis_perplexa.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Chelobasis_perplexa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileChelobasisperplexajpg_resized.jpg",
+    "display": "processed/WMCFileChelobasisperplexajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChelobasisperplexajpg_54.webp",
+      "108": "thumb/WMCFileChelobasisperplexajpg_108.webp",
+      "216": "thumb/WMCFileChelobasisperplexajpg_216.webp"
+    }
+  },
+  "original_sha256": "6817178a541f173fbf6adfec1600a72fe01d5f03fd36bea481da354c05ac714f",
+  "processing": {
+    "cropBox": [
+      19,
+      20,
+      277,
+      475
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChelobasisperplexajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

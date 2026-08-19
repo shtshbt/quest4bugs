@@ -1,0 +1,76 @@
+{
+  "species_id": "mecistogaster_ornata",
+  "species_ja": "Mecistogaster ornata",
+  "scientific_name": "Mecistogaster ornata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Jessica Louton",
+  "fetched_date": "2026-08-18",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00389017",
+    "occurrenceId": "http://n2t.net/ark:/65665/36c4e1144-162c-4238-9818-6b40045e2c98",
+    "persistentId": "http://n2t.net/ark:/65665/36c4e1144-162c-4238-9818-6b40045e2c98",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": "W. Steiner",
+    "eventDate": "1983-12-04",
+    "eventYear": 1983,
+    "country": "Guyana",
+    "localityVerbatim": null,
+    "localityNormalized": "Mazaruni-Potaro District; Takutu Mountains, Guyana",
+    "preparations": "Envelope",
+    "decimalLatitude": 6.25,
+    "decimalLongitude": -59.08
+  },
+  "source": {
+    "gbifOccurrenceKey": "1319651086",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1319651086",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=11112912&h=2000",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00389017_resized.jpg",
+    "display": "processed/USNMENT00389017_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00389017_54.webp",
+      "108": "thumb/USNMENT00389017_108.webp",
+      "216": "thumb/USNMENT00389017_216.webp"
+    }
+  },
+  "original_sha256": "28f2183510b9053a3f8ffc00a0710087f4b5da65752208a2eb36b1b86bec0cae",
+  "processing": {
+    "cropBox": [
+      0,
+      547,
+      1481,
+      1217
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00389017_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

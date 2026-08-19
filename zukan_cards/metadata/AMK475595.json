@@ -1,0 +1,76 @@
+{
+  "species_id": "pogonortalis_doclea",
+  "species_ja": "Pogonortalis doclea",
+  "scientific_name": "Pogonortalis doclea",
+  "credit_line": "Australian Museum",
+  "creator": "David Morris",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.475595",
+    "occurrenceId": "c7493251-5ef7-43ef-bd24-ee3a4be92d6f",
+    "persistentId": "c7493251-5ef7-43ef-bd24-ee3a4be92d6f",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "G.V. Cocks",
+    "eventDate": "2010-02-09",
+    "eventYear": 2010,
+    "country": "Australia",
+    "localityVerbatim": "Marks street, Hermit Park, Townsville",
+    "localityNormalized": "Marks street, Hermit Park, Townsville, Australia",
+    "preparations": null,
+    "decimalLatitude": -19.282778,
+    "decimalLongitude": 146.80055
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270033376",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1270033376",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=4620a759-d35f-4b94-8ecc-90df17a90265",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK475595_resized.jpg",
+    "display": "processed/AMK475595_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK475595_54.webp",
+      "108": "thumb/AMK475595_108.webp",
+      "216": "thumb/AMK475595_216.webp"
+    }
+  },
+  "original_sha256": "bbbec668ac883ba7f2c25459cef1d462ae8a6e4001b404567e7f035a50cd757d",
+  "processing": {
+    "cropBox": [
+      5,
+      0,
+      650,
+      434
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK475595_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

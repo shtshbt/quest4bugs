@@ -1,0 +1,76 @@
+{
+  "species_id": "dryococelus_australe",
+  "species_ja": "Dryococelus australe",
+  "scientific_name": "Dryococelus australe",
+  "credit_line": "Australian Museum",
+  "creator": "David Britton",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Australian Museum",
+    "institutionCode": "AM",
+    "collectionCode": "Entomology",
+    "catalogNumber": "K.115660",
+    "occurrenceId": "4262368c-2461-47c6-af31-07ab18a36948",
+    "persistentId": "4262368c-2461-47c6-af31-07ab18a36948",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "P.R. Redley",
+    "eventDate": null,
+    "eventYear": null,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Australia",
+    "preparations": null,
+    "decimalLatitude": -31.54861,
+    "decimalLongitude": 159.08278
+  },
+  "source": {
+    "gbifOccurrenceKey": "1100174647",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1100174647",
+    "sourceMediaUrl": "https://images.ala.org.au/image/proxyImageThumbnailLarge?imageId=41e628bf-a702-4514-adce-ddd5396e76c0",
+    "datasetKey": "dce8feb0-6c89-11de-8225-b8a03c50a862",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/AMK115660_resized.jpg",
+    "display": "processed/AMK115660_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/AMK115660_54.webp",
+      "108": "thumb/AMK115660_108.webp",
+      "216": "thumb/AMK115660_216.webp"
+    }
+  },
+  "original_sha256": "30b640023ad6336ab92f2b86fd91ad85ac95bd334f66d473756450c71c6a67fa",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      329,
+      650
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/AMK115660_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

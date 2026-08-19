@@ -1,0 +1,80 @@
+{
+  "species_id": "candovia_annulata",
+  "species_ja": "Candovia annulata",
+  "scientific_name": "Candovia annulata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bunjaree_cottages (iNaturalist)",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_149207229",
+    "occurrenceId": "https://www.inaturalist.org/observations/149207229",
+    "persistentId": "https://www.inaturalist.org/observations/149207229",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bunjaree_cottages",
+    "eventDate": "2023-02-12",
+    "eventYear": 2023,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "62 Railway Parade, Wentworth Falls NSW 2782, Australia, Australia",
+    "preparations": null,
+    "decimalLatitude": -33.7188984,
+    "decimalLongitude": 150.3892475,
+    "coordinatesObscured": false,
+    "iNatObservationId": "149207229",
+    "iNatPhotoId": "257073657",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/149207229",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/257073657/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs149207229_resized.jpg",
+    "display": "processed/iNatobs149207229_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs149207229_54.webp",
+      "108": "thumb/iNatobs149207229_108.webp",
+      "216": "thumb/iNatobs149207229_216.webp"
+    }
+  },
+  "original_sha256": "8cf05daa65596c6de9a109064bf58eb3cea43f32a180989005492041a94d4a73",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1836,
+      1111
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs149207229_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

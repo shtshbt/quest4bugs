@@ -1,0 +1,74 @@
+{
+  "species_id": "acrophylla_wuelfingi",
+  "species_ja": "Acrophylla wuelfingi",
+  "scientific_name": "Acrophylla wuelfingi",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Steve Fitzgerald",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Acrophylla wuelfingi SF25284-2.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Acrophylla_wuelfingi_SF25284-2.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Acrophylla_wuelfingi_SF25284-2.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Steve Fitzgerald",
+    "eventDate": "2025-10-11 06:41:12",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Acrophylla wuelfingi in Cairns, Queensland, Australia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Acrophylla_wuelfingi_SF25284-2.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Acrophylla_wuelfingi_SF25284-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAcrophyllawuelfingiSF252842jpg_resized.jpg",
+    "display": "processed/WMCFileAcrophyllawuelfingiSF252842jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAcrophyllawuelfingiSF252842jpg_54.webp",
+      "108": "thumb/WMCFileAcrophyllawuelfingiSF252842jpg_108.webp",
+      "216": "thumb/WMCFileAcrophyllawuelfingiSF252842jpg_216.webp"
+    }
+  },
+  "original_sha256": "d98383cbc4fe4ef5070814e7a52620c3d193b747f072c1660b1669f781a6494b",
+  "processing": {
+    "cropBox": [
+      786,
+      0,
+      4692,
+      3672
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAcrophyllawuelfingiSF252842jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

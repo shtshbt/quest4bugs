@@ -1,0 +1,76 @@
+{
+  "species_id": "bactrocera_musae",
+  "species_ja": "Bactrocera musae",
+  "scientific_name": "Bactrocera musae",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-08-14",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "BMNH(E)1438290",
+    "occurrenceId": "593ed760-ef4f-4d61-9834-7e4fdf27c6ea",
+    "persistentId": "593ed760-ef4f-4d61-9834-7e4fdf27c6ea",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": "Noel L. Krauss",
+    "eventDate": "1949-06",
+    "eventYear": 1949,
+    "country": "Australia",
+    "localityVerbatim": null,
+    "localityNormalized": "Deeral (Nr), Australia",
+    "preparations": null,
+    "decimalLatitude": -17.2224,
+    "decimalLongitude": 145.9157
+  },
+  "source": {
+    "gbifOccurrenceKey": "1270004633",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/593ed760-ef4f-4d61-9834-7e4fdf27c6ea",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/9fa27f9a-43a2-4802-bcf3-f1522e612008",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUKBMNHE1438290_resized.jpg",
+    "display": "processed/NHMUKBMNHE1438290_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUKBMNHE1438290_54.webp",
+      "108": "thumb/NHMUKBMNHE1438290_108.webp",
+      "216": "thumb/NHMUKBMNHE1438290_216.webp"
+    }
+  },
+  "original_sha256": "69a52e68dfe9563d997eaaf392f019e8b70f563331113758596a95895de9f4dc",
+  "processing": {
+    "cropBox": [
+      684,
+      369,
+      869,
+      700
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUKBMNHE1438290_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
