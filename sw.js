@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v157";  /* v157: 小道の捕獲カードを本編と同じ形 (裏から返るレア度枠つき 230x300) に揃えた。 */
+var CACHE = "q4b-cache-v158";  /* v158: ホームの学習グラフ / つうさん / ベスト日 / れんぞく日数に こみち を算入し、小道側に切り捨てない daily を追加。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
