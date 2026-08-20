@@ -683,7 +683,7 @@
     /* tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount /
        mintedLaps はメダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも
        動かさない additive の追記。 */
-    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],toolDex:{},uroLog:[],equippedToolId:null};
+    return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},daily:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],toolDex:{},uroLog:[],equippedToolId:null};
   }
 
   function normalizeProfile(data){
@@ -699,6 +699,29 @@
     ["lv","maxLv","stats","recent","adapt","anslog","trophies","trophyProgress","srs","lv10ClearAt","lapCount","mintedLaps"].forEach(function(key){
       if(p[key]==null){p[key]={};changed=true;}
       else if(typeof p[key]!=="object"||Array.isArray(p[key]))throw new Error("保存データの形式が正しくありません");
+    });
+    /* daily: 日ごとの解答数 (ホームの学習グラフ / れんぞく日数 / つうさん問題数 の元)。
+       anslog は 180 日で切り捨てられるので生涯ぶんを保てない。教科側の keisan p.daily と
+       同じ {n,ok} 形にして、ポータルが 3 教科と同じ関数で読めるようにする。既存 save は
+       anslog を畳んで一度だけ種を入れる (小道は 2026-08-13 開設なので現時点で欠落なし)。 */
+    if(p.daily==null){p.daily={};changed=true;}
+    else if(typeof p.daily!=="object"||Array.isArray(p.daily))throw new Error("保存データの形式が正しくありません");
+    if(!Object.keys(p.daily).length&&Object.keys(p.anslog).length){
+      Object.keys(p.anslog).forEach(function(d){
+        var cats=p.anslog[d],n=0,ok=0,cat;
+        if(!cats||typeof cats!=="object")return;
+        for(cat in cats){
+          if(!Object.prototype.hasOwnProperty.call(cats,cat))continue;
+          n+=(cats[cat]&&cats[cat].n)||0;
+          ok+=(cats[cat]&&cats[cat].ok)||0;
+        }
+        if(n>0)p.daily[d]={n:n,ok:ok};
+      });
+      changed=true;
+    }
+    Object.keys(p.daily).forEach(function(d){
+      var e=p.daily[d];
+      if(!e||typeof e!=="object"||Array.isArray(e)||!Number.isInteger(e.n)||e.n<0||!Number.isInteger(e.ok)||e.ok<0||e.ok>e.n)throw new Error("保存データの形式が正しくありません");
     });
     Object.keys(CATEGORIES).forEach(function(cat){
       if(p.lv[cat]==null){p.lv[cat]=1;changed=true;}
@@ -951,6 +974,20 @@
     return merged;
   }
 
+  /* 日ごとの解答数は端末ごとに増える一方なので、日単位で多いほうを採る (anslog と同じ規則)。
+     足し算にすると、同じ日を両端末が見ているだけで二重に増える。 */
+  function mergeDailyTotals(localDaily,remoteDaily){
+    var local=objectOf(localDaily),remote=objectOf(remoteDaily),merged={};
+    Object.keys(remote).concat(Object.keys(local)).forEach(function(day){
+      if(merged[day])return;
+      var mine=local[day],theirs=remote[day];
+      if(!mine){merged[day]=theirs;return;}
+      if(!theirs){merged[day]=mine;return;}
+      merged[day]={n:Math.max(mine.n||0,theirs.n||0),ok:Math.max(mine.ok||0,theirs.ok||0)};
+    });
+    return merged;
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
@@ -971,6 +1008,7 @@
     merged.collection.totalCatches=Object.keys(catches).reduce(function(total,id){return total+catches[id].n;},0);
     merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
     merged.anslog=mergeAnsLog(localProfile&&localProfile.anslog,remote.anslog);
+    merged.daily=mergeDailyTotals(localProfile&&localProfile.daily,remote.daily);
     merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
     merged.toolDex=mergeToolDex(localProfile&&localProfile.toolDex,remote.toolDex);
     merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
@@ -1218,6 +1256,16 @@
     });
   }
 
+  /* anslog と同じ判定で 1 問ぶん数える。anslog は 180 日で切り捨てるが、こちらは
+     切り捨てない (ホームの つうさん / れんぞく日数 が過去を失わないように)。 */
+  function bumpDailyTotal(targetProfile,ok){
+    if(!targetProfile.daily||typeof targetProfile.daily!=="object")targetProfile.daily={};
+    var key=todayString(),entry=targetProfile.daily[key];
+    if(!entry||!Number.isInteger(entry.n))entry=targetProfile.daily[key]={n:0,ok:0};
+    entry.n++;
+    if(ok)entry.ok++;
+  }
+
   function recordSubmission(cat,answer,volume,random,correct,elapsed,interrupted){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     var before=JSON.parse(JSON.stringify(profile)),result,minted=null;
@@ -1226,7 +1274,10 @@
       var masteredAtAnswer=profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
       if(!result.duplicate){
         minted=applyPerformance(profile,cat,correct,elapsed);
-        if(qualifiesForAnswerLog(answer))profile.anslog=rewardEngine().logAnswer(profile.anslog,cat,correct,elapsed,interrupted,todayString());
+        if(qualifiesForAnswerLog(answer)){
+          profile.anslog=rewardEngine().logAnswer(profile.anslog,cat,correct,elapsed,interrupted,todayString());
+          bumpDailyTotal(profile,correct);
+        }
       }
     }catch(error){profile=before;return Promise.reject(error);}
     if(result.duplicate)return Promise.resolve(result);

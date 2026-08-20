@@ -166,6 +166,21 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.normalizeProfile(JSON.parse(JSON.stringify(saved))).profile.srs.kuku.counter, saved.srs.kuku.counter);
   });
 
+  /* ホームの学習グラフ / れんぞく日数 / つうさん問題数 は小道ぶんをここから読む。
+     anslog は 180 日で刈られるので、生涯ぶんは daily 側に残らないといけない。 */
+  test("the session writes the unpruned daily total the portal reads", () => {
+    const saved = context.__saved.komorebi;
+    const days = Object.keys(saved.daily || {});
+    assert.equal(days.length, 1, "1 日ぶんの記録が入っていない: " + JSON.stringify(saved.daily));
+    assert.match(days[0], /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(saved.daily[days[0]].n, 5, "5 問が daily に数えられていない");
+    assert.equal(saved.daily[days[0]].ok, 5);
+    /* anslog と同じ日・同じ問題数を指すこと (数え方が割れていない) */
+    const cats = saved.anslog[days[0]];
+    const fromAnslog = Object.keys(cats).reduce((sum, cat) => sum + cats[cat].n, 0);
+    assert.equal(saved.daily[days[0]].n, fromAnslog);
+  });
+
   test("no timing or speed wording is shown to the child", () => {
     /* categories 3.10: れんぞく九九に時間の可視要素は置かない。 */
     for(const word of ["秒", "タイム", "はやい", "おそい", "スピード"]){
