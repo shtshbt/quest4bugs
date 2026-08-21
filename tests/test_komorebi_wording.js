@@ -132,40 +132,31 @@ test("5 歳コースに出る読みは点検済みのものだけ", () => {
   });
 });
 
-test("小道と共有 UI の道具表示文言が一致する", () => {
-  /* shared/tools_ui.js の faceHtml は公開 API ではないため、配信コードは変えず
-     テスト文脈だけに比較窓を差して 3 実装を直接照合する。 */
+test("小道に残る道具の顔の複製が共有 UI と一致する", () => {
+  /* 捕獲リザルトの場面と道具行は shared/tools_ui.js を捕獲カード
+     (shared/capture_card.js) 経由でそのまま使うようになり、実装が 1 本に落ちた
+     (文言のずれようがない。出る文言は後段の fake DOM テストが確かめる)。小道に
+     残る複製は うろの授与演出の toolFaceHtml だけ。faceHtml は公開 API ではない
+     ため、配信コードは変えずテスト文脈だけに比較窓を差して照合し続ける。 */
   const files = KOMOREBI_FILES.filter(file => file !== "komorebi/app.js");
   const context = bootKomorebi({ root, files, globals: { Q4B_KOMOREBI_NO_BOOT: true } });
   const uiSource = fs.readFileSync(path.join(root, "shared/tools_ui.js"), "utf8").replace(
     "  global.Q4BToolsUI={",
-    "  global.__Q4B_TOOLS_UI_IMPL={faceHtml:faceHtml,sceneHtml:sceneHtml,statusHtml:statusHtml};\n  global.Q4BToolsUI={"
+    "  global.__Q4B_TOOLS_UI_IMPL={faceHtml:faceHtml};\n  global.Q4BToolsUI={"
   );
   vm.runInContext(uiSource, context);
   const appSource = fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8").replace(
     "  global.Q4B_KOMOREBI={",
-    "  global.__Q4B_KOMOREBI_TOOL_UI_IMPL={faceHtml:toolFaceHtml,sceneHtml:toolSceneHtml,statusHtml:toolStatusHtml,text:displayText,setCourse:function(course){profileType=course;}};\n  global.Q4B_KOMOREBI={"
+    "  global.__Q4B_KOMOREBI_TOOL_UI_IMPL={faceHtml:toolFaceHtml};\n  global.Q4B_KOMOREBI={"
   );
   vm.runInContext(appSource, context);
-  context.Q4B_KOMOREBI.setMedalEconomyOn(true);
 
   const local = context.__Q4B_KOMOREBI_TOOL_UI_IMPL;
   const shared = context.__Q4B_TOOLS_UI_IMPL;
-  const tool = context.Q4B_TOOLS.byId("light_trap");
-  const capture = { id: "ameiro_tonbo" };
-  const normal = { type: "light_trap", remaining: 12, broke: false, swapped: false };
-  const swapped = { type: "light_trap", remaining: 100, broke: true, swapped: true };
-  const normalizeClasses = html => html.replace(/q4b-tool-/g, "kom-tool-");
-  const localHtml = [], sharedHtml = [];
-  ["k5", "k10"].forEach(course => {
-    local.setCourse(course);
-    localHtml.push(local.faceHtml(tool), local.sceneHtml(capture, normal),
-      local.statusHtml(normal), local.statusHtml(swapped));
-    sharedHtml.push(shared.faceHtml(tool), normalizeClasses(shared.sceneHtml(capture, normal, local.text)),
-      normalizeClasses(shared.statusHtml(normal, local.text, course)),
-      normalizeClasses(shared.statusHtml(swapped, local.text, course)));
+  context.Q4B_TOOLS.list().forEach(tool => {
+    assert.equal(local.faceHtml(tool), shared.faceHtml(tool),
+      tool.id + " の道具の顔が共有 UI とずれている");
   });
-  assert.deepEqual(localHtml, sharedHtml, "小道と共有 UI の道具表示文言がずれている");
 });
 
 /* ---- 画面に出るところまで (fake DOM、5 歳コース) ---- */

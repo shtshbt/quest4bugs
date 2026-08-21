@@ -103,7 +103,10 @@ test("the scene module is delivered and cached like the rest of the path", () =>
   test("装備して 1 匹とれた回にだけ、その道具の場面が捕獲カードの上に出る", () => {
     const html = komorebi.feedbackHtml(question, true, { capture, tool: use });
     assert.match(html, /class="tool-scene"/, "場面が出ていない");
-    assert.ok(html.indexOf("kom-tool-scene") < html.indexOf("ratio-capture"),
+    /* 場面は共有捕獲カード (q4b-cap-card) の中で、めくり (q4b-cap-flipwrap) より
+       上に置かれる (結果より先に絵が来る順)。 */
+    assert.ok(html.indexOf("q4b-tool-scene") >= 0, "場面の器が出ていない");
+    assert.ok(html.indexOf("q4b-tool-scene") < html.indexOf("q4b-cap-flipwrap"),
       "場面は捕獲カードの上に置く (結果より先に絵が来る順)");
     assert.match(plainText(html), /よるの ぬのに あかりを ともすと/, "灯火の 1 行が出ていない");
     /* 場面は道具ごとに違う。落とし穴なら朝の見回りになる。 */

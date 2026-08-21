@@ -207,8 +207,8 @@ const KOMOREBI_FILES = [
      sessionStarters.kom_diagram_model を探すため、既定の起動一覧に入れておく。 */
   "komorebi/diagram_engine.js", "komorebi/diagram_model_generator.js",
   "shared/tool_icons.js", "shared/tool_scenes.js",
-  "komorebi/trophies.js", "shared/tools.js", "shared/tools_ui.js", "komorebi/uro.js",
-  "shared/economy_flag.js", "komorebi/app.js"
+  "komorebi/trophies.js", "shared/tools.js", "shared/tools_ui.js", "shared/capture_card.js",
+  "komorebi/uro.js", "shared/economy_flag.js", "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };

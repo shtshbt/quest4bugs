@@ -13,7 +13,7 @@ const context = {console, setTimeout, clearTimeout};
 context.window = context;
 context.Q4B_KOMOREBI_NO_BOOT = true;
 vm.createContext(context);
-for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "shared/economy_flag.js", "komorebi/app.js"]){
+for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js", "komorebi/ratio_generator.js", "shared/capture_card.js", "shared/economy_flag.js", "komorebi/app.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 
@@ -137,7 +137,8 @@ test("one full five-question session completes the gauge and shows a capture", (
   assert.equal(profile.collection.gauge, 0);
   assert.equal(profile.collection.totalCatches, 1);
   assert.ok(result.capture);
-  assert.match(komorebi.feedbackHtml(questions[4], true, result), /ratio-capture/);
+  /* 捕獲カードは共有部品 (shared/capture_card.js の q4b-cap-card) で出る。 */
+  assert.match(komorebi.feedbackHtml(questions[4], true, result), /q4b-cap-card/);
 });
 
 test("adaptive progress never exceeds the ten authored curriculum levels", () => {

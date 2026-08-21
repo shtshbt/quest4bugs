@@ -177,12 +177,14 @@ test("動く演出はすべて prefers-reduced-motion で止まる", () => {
     const question = { cat: "kom_ratio", format: "normal", kind: "num", text: "た", ans: 5 };
     const broke = komorebi.feedbackHtml(question, true,
       { capture, tool: { type: "cho_net", remaining: 0, broke: true, swapped: false } });
-    assert.match(broke, /class="kom-tool-break"/, "破損の行が出ていない");
+    /* 破損の行は共有部品 (shared/tools_ui.js の q4b-tool-break) が捕獲カードの中に
+       描く。ゆれの演出は shared/tools.css 側が同じ規則で持つ。 */
+    assert.match(broke, /class="q4b-tool-break"/, "破損の行が出ていない");
     assert.match(broke, /class="tool-icon"/, "傾ける道具の絵が無い");
     /* 減っただけの回は同じ行にしない (毎回ゆれては小イベントにならない)。 */
     const left = komorebi.feedbackHtml(question, true,
       { capture, tool: { type: "cho_net", remaining: 12, broke: false, swapped: false } });
-    assert.equal(left.indexOf("kom-tool-break"), -1);
+    assert.equal(left.indexOf("q4b-tool-break"), -1);
   });
 
   test("no alert was needed anywhere in the effects path", () => {

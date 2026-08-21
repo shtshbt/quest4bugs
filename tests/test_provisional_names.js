@@ -78,9 +78,15 @@ test("the shared detail panel and the path both route names through the helper",
   assert.match(detail, /Q4B_SPECIES_DISPLAY_NAME/, "shared/zukan_detail.js does not use the helper");
   const komorebi = fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8");
   assert.match(komorebi, /Q4B_SPECIES_DISPLAY_NAME/, "komorebi/app.js does not use the helper");
-  for(const marker of ["zukan-name", "ratio-capture-name"]){
-    assert.ok(komorebi.indexOf(marker) >= 0, "the path lost its " + marker + " render point");
-  }
+  assert.ok(komorebi.indexOf("zukan-name") >= 0, "the path lost its zukan-name render point");
+  /* 捕獲カードの名前欄は共有部品 (shared/capture_card.js の q4b-cap-name) が描く。
+     共有部品は sp.jaName をそのまま出すので、小道のアダプタが jaName を helper
+     (speciesName → Q4B_SPECIES_DISPLAY_NAME) の表示名へ差し替えて渡すことで、
+     仮称の印がカードでも外れない。 */
+  assert.ok(komorebi.indexOf("jaName:speciesName(sp)") >= 0,
+    "the capture-card adapter no longer routes names through the helper");
+  const captureCard = fs.readFileSync(path.join(root, "shared/capture_card.js"), "utf8");
+  assert.match(captureCard, /q4b-cap-name/, "the shared card lost its name render point");
   assert.equal(komorebi.indexOf("displayText(sp.jaName)"), -1,
     "a path render point still prints jaName directly");
 });

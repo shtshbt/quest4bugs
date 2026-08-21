@@ -1271,21 +1271,20 @@
     });
   }
 
-  /* よぶ の捕獲カード。セッションのフィードバックと同じ ratioCaptureHtml を
+  /* よぶ の捕獲カード。セッションのフィードバックと同じ captureCardHtml を
      モーダルで見せる (捕獲の情報を別実装にしない)。 */
   function showAmberCaptureModal(capture,toolUse){
     var overlay=document.createElement("div");
     overlay.className="kom-modal";
     overlay.id="komAmberModal";
     overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
-      +toolSceneHtml(capture,toolUse)
-      +ratioCaptureHtml(capture)
-      +toolStatusHtml(toolUse)
+      +captureCardHtml(capture,toolUse)
       +'<button type="button" class="kom-modal-close">'+displayText("とじる")+'</button></div>';
     overlay.addEventListener("click",function(event){
       if((event.target===overlay||event.target.className==="kom-modal-close")&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
     });
     document.body.appendChild(overlay);
+    if(global.Q4BCaptureCard)global.Q4BCaptureCard.attach(overlay);
     var close=overlay.querySelector(".kom-modal-close");
     if(close)close.focus();
   }
@@ -1846,85 +1845,40 @@
     return '<aside class="ratio-waza"><h3>'+displayText("かいせつ")+'</h3><p><span>'+displayText(card.text)+'</span></p></aside>';
   }
 
-  /* 本編 keisan/app.js の showCapture と同じ情報を、同じ形で出す: 裏 (📖) から表へ
-     1 秒で返る 1 枚のカードに、虫の絵・和名・レア度タグ・サイズ・NEW か 何匹め を
-     載せる。本編の .flipwrap > .flip > .face.front / .face.back と同じ入れ子で、
-     クラス名だけ小道の名前空間 (ratio-) に置く。CSS は map.css が自分で持ち、
-     keisan/style.css の .flipwrap 系には一切ぶら下がらない (各ゲーム自己完結)。
-
-     SVG と TIERNAME は Q4BReward を使い回し、別実装にしない。bugs.js に種が無い
-     場合 (差し替え途中など) は名前とレア度まで落として描く。 */
-  function ratioCaptureHtml(capture){
-    if(!capture)return "";
+  /* 捕獲カード。共有部品 (shared/capture_card.js) を、小道の捕獲結果 (recordCapture
+     の返り値) から Q4BReward.record 互換の形へ写して呼ぶ。道具の場面と残り表示は
+     カードが内蔵する (shared/tools_ui.js) ので、toolUse を渡すのは経済が公開の
+     ときだけ: 旧 toolSceneHtml / toolStatusHtml と同じ門で、閉じている間は捕獲の
+     見た目に 1 要素も増えない。名前は speciesName を通す (仮称に「（仮称）」が付く。
+     出所は bugs.js の Q4B_SPECIES_DISPLAY_NAME の 1 本だけ)。photoMode は指定しない:
+     共有部品が Q4BRender.species を呼び、ずかんの しゃしん／イラスト切替に従う
+     (旧 ratioCaptureHtml の Q4BReward.svg と同じ経路)。 */
+  function captureCardHtml(capture,toolUse){
+    var card=global.Q4BCaptureCard;
+    if(!capture||!card)return "";
     var reward=global.Q4BReward,sp=reward&&reward.spById?reward.spById(capture.id):null;
-    var tier=sp?sp.r:null;
-    var tierName=(reward&&reward.TIERNAME&&tier!=null)?reward.TIERNAME[tier]:capture.rarity;
-    /* レア度が引けない種では枠色クラスを付けない。"rnull" という無効なクラスが
-       出ると、後から .ratio-face-front.r0 を足したときに黙って外れる。 */
-    var rank=(tier==null)?"":" r"+tier;
-    var art=(sp&&reward.svg)?'<div class="ratio-capture-art">'+reward.svg(sp,capture.shiny)+'</div>':"";
-    var name=sp?speciesName(sp):capture.id;
-    var size=capture.size?'<span class="ratio-capture-size">'+capture.size+'mm</span>':"";
-    var tag=capture.isNew
-      ?'<span class="ratio-capture-new">✨ '+displayText("ずかんに とうろく")+'</span>'
-      :'<span class="ratio-capture-again">'+displayText(capture.n+"匹め")+'</span>';
-    var note=(sp&&sp.note)?'<p class="ratio-capture-note">'+displayText(sp.note)+'</p>':"";
-    return '<div class="ratio-capture" role="status"><strong>'+displayText("つかまえた！")+'</strong>'
-      +'<div class="ratio-flipwrap"><div class="ratio-flip">'
-      +'<div class="ratio-face ratio-face-front'+rank+'">'
-      +art
-      +'<div class="ratio-capture-name">'+displayText(name)+(capture.shiny?" ✨":"")+'</div>'
-      +'<div class="ratio-capture-meta"><span class="ratio-capture-tier'+rank+'">'+displayText(tierName)+'</span>'+size+tag+'</div>'
-      +'</div>'
-      /* 裏面は返る途中の 0.6 秒しか見えない飾りで、読み上げる中身はない。 */
-      +'<div class="ratio-face ratio-face-back" aria-hidden="true"><span>📖</span></div>'
-      +'</div></div>'
-      +note+'</div>';
+    if(!sp)return "";
+    return card.html({
+      sp:Object.assign({},sp,{jaName:speciesName(sp)}),
+      size:capture.size,
+      shiny:capture.shiny,
+      sex:capture.sex,
+      isNew:capture.isNew,
+      isRecord:capture.isRecord,
+      tier:sp.r,
+      n:capture.n,
+      toolUse:toolsModule()?toolUse:null
+    },{text:displayText,course:profileType});
   }
 
   /* 道具の顔。アイコン (shared/tool_icons.js) があればそれを使い、読み込んで
-     いない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・ウィジェット・
-     リザルトの 4 か所で同じ 1 本を通す (場所ごとに絵が違うと同じ道具に見えない)。 */
+     いない文脈では tools.js の絵文字へ倒す。捕獲リザルトの道具行は共有部品
+     (shared/tools_ui.js) が同じ規則で描くようになったので、ここを通るのは
+     うろの授与演出 (showToolGrantedModal) だけ。 */
   function toolFaceHtml(tool,options){
     var icons=global.Q4B_TOOL_ICONS;
     var art=icons&&typeof icons.svg==="function"?icons.svg(tool.id,options):"";
     return art||tool.emoji||"🔧";
-  }
-
-  /* 捕獲ビネット (tools_design 9 章)。道具を装備して 1 匹とれた回だけ、その道具の
-     採集シーンを捕獲カードの上に 1 枚置く。絵が描くのは場面であって種ではない。
-     とれた虫はすぐ下の捕獲カードが描くので、ここで種を描き分けると絵と結果が
-     食い違って見える。表示だけの層で、抽選にも耐久にも一切さわらない。
-
-     出すのは 3 つとも満たしたときだけ: 経済が公開されている (toolsModule)、その回に
-     道具を使った (toolUse)、実際に 1 匹とれた (capture)。MEDAL_ECONOMY_ON が false の
-     間は 1 つめで落ちるので、従来の捕獲演出のまま 1 要素も増えない。 */
-  function toolSceneHtml(capture,toolUse){
-    var tools=toolsModule(),scenes=global.Q4B_TOOL_SCENES;
-    if(!tools||!toolUse||!capture||!scenes||typeof scenes.svg!=="function")return "";
-    var tool=tools.byId(toolUse.type);
-    if(!tool||!scenes.has(tool.id))return "";
-    var line=scenes.caption(tool.id);
-    return '<figure class="kom-tool-scene">'+scenes.svg(tool.id)
-      +(line?'<figcaption class="kom-tool-scene-line">'+displayText(line)+'</figcaption>':"")
-      +'</figure>';
-  }
-
-  /* 捕獲リザルトの道具行。残りが常に見えることで「いつの間にか壊れた」を構造的に
-     防ぐ (tools_design 7 章)。破損は小イベントで、同種の予備があれば黙って持ち替える。
-     未装備の回は何も出さない (道具なしの基本ループに 1 行も足さない)。 */
-  function toolStatusHtml(toolUse){
-    var tools=toolsModule();
-    if(!tools||!toolUse)return "";
-    var tool=tools.byId(toolUse.type);
-    if(!tool)return "";
-    var face=toolFaceHtml(tool);
-    if(!toolUse.broke)return '<p class="kom-tool-left" role="status">'+face+' '+toolUse.remaining+'／'+tools.durability+'</p>';
-    var after=toolUse.swapped
-      ?"よびの "+toolName(tool)+"に もちかえた!"
-      :"そうびが なくなった。うろで また もらおう";
-    return '<p class="kom-tool-break" role="status"><strong>'+face+' '+displayText(tool.breakText)+'</strong>'
-      +'<span>'+displayText(after)+'</span></p>';
   }
 
   /* 段暗唱は「なぜ駄目だったか」を言わないと理不尽になる。時間切れと言い間違いは
@@ -1965,8 +1919,7 @@
       ?'<p class="ratio-amber-gain">🔶 '+displayText("こはくを "+result.amberGained+"こ ひろった！")+'</p>':"";
     return '<div class="ratio-feedback '+(correct?'is-correct':'is-wrong')+'"><h2>'+displayText(mark)+'</h2>'
       +reasonHtml(question,correct)+(heard?'<p class="dan2-heard">'+displayText(heard)+'</p>':"")+answer+card+amber
-      +toolSceneHtml(result&&result.capture,result&&result.tool)
-      +ratioCaptureHtml(result&&result.capture)+toolStatusHtml(result&&result.tool)+'</div>';
+      +captureCardHtml(result&&result.capture,result&&result.tool)+'</div>';
   }
 
   /* 本編 keisan/app.js の lvDotsHTML と同じ規則。stats ではなく adapt バッファを見る
@@ -2295,6 +2248,8 @@
     var label=last?"小道へ戻る":"次の問題";
     document.getElementById("app").innerHTML=sessionShell(feedbackHtml(question,correct,result)
       +'<button type="button" class="ratio-next" data-action="ratio-next">'+displayText(label)+'</button>');
+    /* めくりのタップ配線 (捕獲カードの飾り)。カードが無い回は何も拾わない。 */
+    if(global.Q4BCaptureCard)global.Q4BCaptureCard.attach(document.getElementById("app"));
     document.querySelector('[data-action="back-map"]').addEventListener("click",function(){var id=session.volumeId;stopDan2Voice();stopDan2Tap();session=null;renderMap(id);});
     document.querySelector('[data-action="ratio-next"]').addEventListener("click",function(){
       if(last){var id=session.volumeId;stopDan2Voice();stopDan2Tap();session=null;renderMap(id);}
