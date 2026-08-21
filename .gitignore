@@ -26,3 +26,9 @@ __pycache__/
 
 # fetch round の実行ログ (species.json と manifest.md は残す)
 zukan_foundry/rounds/*/batch_*.log
+
+# Commercial Cloudflare local outputs / secrets
+dist-commercial/
+.wrangler/
+.dev.vars
+.dev.vars.*

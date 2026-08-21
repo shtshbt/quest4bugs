@@ -1,0 +1,25 @@
+{
+  // Template only. Do not deploy this file unchanged.
+  // After creating the Cloudflare Pages project, run:
+  //   npx wrangler pages download config quest4bugs-commercial
+  // and reconcile the generated config with this template.
+  "name": "quest4bugs-commercial",
+  "pages_build_output_dir": "./dist-commercial",
+  "compatibility_date": "2026-08-21",
+  "d1_databases": [
+    {
+      "binding": "Q4B_DB",
+      "database_name": "quest4bugs-commercial",
+      "database_id": "<D1_DATABASE_ID>"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "Q4B_BACKUPS",
+      "bucket_name": "quest4bugs-commercial-backups"
+    }
+  ],
+  "vars": {
+    "COMMERCIAL_API_ENABLED": "0"
+  }
+}

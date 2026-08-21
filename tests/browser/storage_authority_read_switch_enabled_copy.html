@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Q4B storage authority read-switch enabled-copy smoke</title>
+<pre id="result">RUNNING</pre>
+<script src="../../shared/storage_authority.js"></script>
+<script>
+(async function(){
+  const out=document.getElementById("result");
+  function fail(msg){out.textContent="FAIL "+msg;document.documentElement.dataset.test="fail";}
+  function payload(marker){return JSON.stringify({v:2,profiles:[{id:"p1",name:marker}],current:"p1",kv:{x:{v:1,updated:1,data:{marker}}},tombstones:{}});}
+  try{
+    localStorage.clear();
+    await new Promise(resolve=>{
+      const r=indexedDB.deleteDatabase("q4b_local_v2");
+      r.onsuccess=r.onerror=r.onblocked=()=>resolve();
+    });
+    // Reset module's cached connection state by loading a fresh page profile; DB was
+    // deleted before the first authority API call in this page.
+    const oldPayload=payload("legacy10"), newPayload=payload("authority20");
+    localStorage.setItem("q4b_store_v1",oldPayload);
+    localStorage.setItem("q4b_store_gen","10");
+    const committed=await Q4BStorageAuthorityCandidate.commit(newPayload,"20",{reason:"browser-read-switch-test"});
+    if(!committed.ok)return fail("candidate seed failed: "+JSON.stringify(committed));
+    const verified=await Q4BStorageAuthorityCandidate.verifiedAuthority();
+    if(!verified.ok||!verified.cryptoVerified)return fail("authority not crypto verified: "+JSON.stringify(verified));
+
+    let src=await (await fetch("../../shared/storage.js",{cache:"no-store"})).text();
+    if(!src.includes("var __authorityReadsEnabled=false;"))return fail("hard gate marker missing");
+    src=src.replace("var __authorityReadsEnabled=false;","var __authorityReadsEnabled=true;");
+    src=src.replace("setTimeout(function(){global.location.reload();},0);","global.__q4bTestReloadRequested=true;");
+    window.__q4bTestReloadRequested=false;
+    (0,eval)(src);
+
+    const deadline=Date.now()+5000;
+    while(Date.now()<deadline){
+      if(localStorage.getItem("q4b_store_gen")==="20"&&localStorage.getItem("q4b_store_v1")===newPayload)break;
+      await new Promise(r=>setTimeout(r,25));
+    }
+    if(localStorage.getItem("q4b_store_gen")!=="20")return fail("generation not restored: "+localStorage.getItem("q4b_store_gen"));
+    if(localStorage.getItem("q4b_store_v1")!==newPayload)return fail("payload not restored from verified authority");
+    if(localStorage.getItem("q4b_storage_v2_restore_txn_v1")!==null)return fail("restore transaction marker not cleared");
+    if(!window.__q4bTestReloadRequested)return fail("clean reload was not requested after restore");
+    if(!QuestSave.authorityReadSwitchEnabled())return fail("test copy gate did not enable");
+    const status=QuestSave.authorityPromotionStatus();
+    if(status.bootstrapPending)return fail("bootstrap still pending");
+    const profiles=await QuestSave.profiles();
+    if(!profiles[0]||profiles[0].name!=="authority20")return fail("in-memory store not refreshed");
+    out.textContent="PASS enabled-copy authority restore generation=20 cryptoVerified=true";
+    document.documentElement.dataset.test="pass";
+  }catch(e){fail(e&&e.stack?e.stack:String(e));}
+})();
+</script>

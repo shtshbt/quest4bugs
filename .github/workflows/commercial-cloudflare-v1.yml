@@ -1,0 +1,115 @@
+name: Commercial Cloudflare v1 CI
+
+on:
+  push:
+    branches:
+      - commercial/cloudflare-v1
+  pull_request:
+    branches:
+      - commercial/cloudflare-v1
+
+permissions:
+  contents: read
+
+jobs:
+  storage-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Guard commercial storage transition
+        run: |
+          grep -F 'var __authorityReadsEnabled=false;' shared/storage.js
+          test -f shared/storage_authority.js
+          test -f shared/storage_shadow.js
+      - name: Run Quest4Bugs Node regression suite
+        run: |
+          set -e
+          for f in tests/test_*.js; do
+            echo "== $f =="
+            node "$f"
+          done
+      - name: Run commercial storage stress
+        run: node tests/test_commercial_storage_stress.js
+      - name: Run Cloudflare contract tests
+        run: node tests/test_commercial_cloudflare_contract.mjs
+
+  browser-indexeddb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            shared
+            tests/browser
+      - name: Locate Chromium
+        id: chrome
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          echo "bin=$CHROME" >> "$GITHUB_OUTPUT"
+          "$CHROME" --version
+      - name: Serve files
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/q4b-http.log 2>&1 &
+          echo $! >/tmp/q4b-http.pid
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/shared/storage.js >/dev/null && exit 0; sleep 0.25; done
+          cat /tmp/q4b-http.log
+          exit 1
+      - name: Run IndexedDB browser smoke tests
+        env:
+          CHROME: ${{ steps.chrome.outputs.bin }}
+        run: |
+          set -euo pipefail
+          run_page(){
+            page="$1"; needle="$2"; profile="$(mktemp -d)"
+            out="$($CHROME --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --user-data-dir="$profile" --virtual-time-budget=7000 --dump-dom "http://127.0.0.1:8765/tests/browser/$page" 2>&1)"
+            rm -rf "$profile"
+            echo "$out" | grep -F "$needle" >/dev/null
+          }
+          run_page storage_shadow_backfill.html "PASS shadow-backfill"
+          run_page storage_shadow_no_reverse_restore.html "PASS no-reverse-restore"
+          run_page storage_authority_candidate.html "PASS phase2-authority-candidate"
+          run_page storage_authority_read_switch_enabled_copy.html "PASS enabled-copy authority restore"
+      - if: always()
+        name: Stop server
+        run: test ! -f /tmp/q4b-http.pid || kill "$(cat /tmp/q4b-http.pid)" 2>/dev/null || true
+
+  commercial-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Build static commercial bundle
+        run: node cloudflare/build-static.mjs
+      - name: Verify static/API separation
+        run: |
+          test -f dist-commercial/index.html
+          test -f dist-commercial/shared/storage.js
+          test -f dist-commercial/_routes.json
+          test ! -e dist-commercial/functions
+          test ! -e dist-commercial/tests
+          grep -F '"/api/*"' dist-commercial/_routes.json
+      - name: Check Pages Functions syntax
+        run: |
+          for f in functions/_lib/*.js functions/api/health.js functions/api/backups/index.js 'functions/api/backups/[id].js'; do
+            node --experimental-default-type=module --check "$f"
+          done
+      - name: Guard provisioning state
+        run: |
+          test ! -f wrangler.jsonc
+          test ! -f wrangler.toml
+          grep -F '"COMMERCIAL_API_ENABLED": "0"' cloudflare/wrangler.template.jsonc
+          if grep -R --exclude='*.md' -F 'COMMERCIAL_STAGING_TOKEN=' cloudflare functions shared; then
+            echo 'A staging secret appears to be committed' >&2
+            exit 1
+          fi
