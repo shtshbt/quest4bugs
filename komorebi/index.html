@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="../keisan/style.css?v=0.4.7">
 <link rel="stylesheet" href="map.css?v=0.4.11">
 <link rel="stylesheet" href="../shared/shiny_bonus.css?v=0.1.0">
+<!-- 装備パネル (共有部品)。地色と枠は tools.css が自分で持つ。 -->
+<link rel="stylesheet" href="../shared/tools.css?v=0.1.0">
 </head>
 <body>
 <a href="../index.html" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -30,7 +32,7 @@
 <!-- 九九の読み。段暗唱の表示・れんぞく九九の足場が同じ句を使う。 -->
 <script src="../shared/kuku_phrases.js?v=0.1.0"></script>
 <script>window.Q4B_KEISAN_NO_BOOT=true;</script>
-<script src="../keisan/app.js?v=0.4.39"></script>
+<script src="../keisan/app.js?v=0.4.40"></script>
 <script src="volumes/volume_fixture.js?v=0.3.0"></script>
 <script src="ratio_generator.js?v=0.1.0"></script>
 <script src="kuku_run.js?v=0.1.1"></script>
@@ -52,11 +54,13 @@
 <!-- 公開スイッチ (更新番号とメダル経済)。portal も同じ 1 本を読む。 -->
 <script src="../shared/economy_flag.js?v=0.2.0"></script>
 <!-- 採集道具とかがやきのうろ。uro.js は道具の定義を読むので tools.js のあと。 -->
-<script src="../shared/tool_icons.js?v=0.1.1"></script>
+<script src="../shared/tool_icons.js?v=0.2.0"></script>
 <!-- 捕獲ビネット。道具ごとの採集シーンで、抽選には一切かかわらない表示だけの層。 -->
 <script src="../shared/tool_scenes.js?v=0.2.0"></script>
-<script src="../shared/tools.js?v=0.1.4"></script>
+<script src="../shared/tools.js?v=0.2.0"></script>
+<!-- 装備パネルの共有 UI 部品。tools.js のあと、app.js より前。 -->
+<script src="../shared/tools_ui.js?v=0.1.0"></script>
 <script src="uro.js?v=0.1.2"></script>
-<script src="app.js?v=0.4.5"></script>
+<script src="app.js?v=0.4.6"></script>
 </body>
 </html>

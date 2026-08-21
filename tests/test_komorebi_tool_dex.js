@@ -79,6 +79,8 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
   const trophies = context.Q4B_KOMOREBI_TROPHIES;
   const live = context.Q4B_TOOLS;
   const profile = komorebi.profile();
+  /* 道具と道具図鑑の実体は共有 kv (toolgear)。profile 側の旧フィールドは動かない。 */
+  const gearOf = () => context.QuestSave.toolGearOf("p1");
   const alerts = [];
   context.alert = message => alerts.push(String(message));
 
@@ -154,9 +156,11 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
     await settle();
 
     test("the first tool of its kind says so and lands in the dex", () => {
-      assert.equal(live.firstGrantAt(profile, "cho_net"), context.__saved.komorebi.toolDex.cho_net,
-        "図鑑の日付が保存されていない");
-      assert.ok(live.firstGrantAt(profile, "cho_net"), "初回授与が記録されていない");
+      assert.equal(live.firstGrantAt(gearOf(), "cho_net"), context.__toolGear.p1.toolDex.cho_net,
+        "図鑑の日付が kv に保存されていない");
+      assert.ok(live.firstGrantAt(gearOf(), "cho_net"), "初回授与が記録されていない");
+      /* profile 側の旧台帳へはもう書かない (共有 kv 側が正)。 */
+      assert.equal(Object.keys(profile.toolDex).length, 0, "profile 側の道具図鑑に書き戻された");
       assert.match(plainText(lastOverlay().innerHTML), /はじめての どうぐ! どうぐ ずかんに のこったよ/);
     });
 
@@ -181,8 +185,8 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
     await settle();
 
     test("a second net of the same kind is not a first anymore", () => {
-      assert.equal(live.ownedOf(profile, "cho_net").length, 2);
-      assert.equal(Object.keys(profile.toolDex).length, 1, "同じ道具で図鑑が 2 行になった");
+      assert.equal(live.ownedOf(gearOf(), "cho_net").length, 2);
+      assert.equal(Object.keys(gearOf().toolDex).length, 1, "同じ道具で図鑑が 2 行になった");
       assert.doesNotMatch(plainText(lastOverlay().innerHTML), /はじめての どうぐ/);
       assert.match(plain(), /1／11/);
     });

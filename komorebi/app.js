@@ -66,11 +66,11 @@
   var COLLECTION_CONFIG={
     gaugeNeed:global.Q4BReward?global.Q4BReward.NEED_DEFAULT:8,
     pityChances:[0,0.25,0.5,0.75,1],
-    flagshipWeight:0.25,
+    flagshipWeight:0.25
     /* 採集道具が動かすのは「どの虫か」と「新顔か」の 2 つだけ (tools_design 8 章)。
-       8 問 1 匹のレートとレアリティ表 (pickTier) には触れない。 */
-    toolGuildWeight:3,
-    toolFreshBoost:0.25
+       8 問 1 匹のレートとレアリティ表 (pickTier) には触れない。効きの強さの定数は
+       shared/tools.js (GUILD_WEIGHT / FRESH_BOOST) の 1 か所が持ち、ここには
+       重複定義しない (本編の抽選器と数字がずれるのを構造的に防ぐ)。 */
   };
   var RARITIES=["N","R","SR","SSR"];
   /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
@@ -193,22 +193,19 @@
     return RARITIES[tier];
   }
 
-  /* 道具の guild 判定は種データ (bugs.js) 側のフィールドで行う。volume の
-     manifest は {id, rarity, flagship} しか持たないので、カタログを引き直す。 */
-  function toolMatchesSpecies(tool,speciesId){
-    var tools=global.Q4B_TOOLS,reward=global.Q4BReward;
-    if(!tool||!tools||!reward||!reward.spById)return false;
-    return tools.matches(tool.id,reward.spById(speciesId));
-  }
-
   /* equippedTool は省略可。渡さない (未装備) ときの挙動は道具の実装前と 1 ビットも
      変わらない: 重みも乱数の消費本数も同じ。基本ループは道具なしで永久に無料
      (不変条件 5) という約束を、コードの形で守るための引数の置き方。 */
   function pickSpecies(species,random,equippedTool){
+    var toolsLib=global.Q4B_TOOLS,reward=global.Q4BReward;
     var weights=species.map(function(item){
       var weight=item.flagship?COLLECTION_CONFIG.flagshipWeight:1;
-      /* 対象 guild は 3 倍。排他にはしない (抽選の意外性を残す)。 */
-      if(equippedTool&&toolMatchesSpecies(equippedTool,item.id))weight*=COLLECTION_CONFIG.toolGuildWeight;
+      /* 対象 guild の重み (3 倍) は shared/tools.js の guildWeightFor が唯一の出所。
+         排他にはしない (抽選の意外性を残す)。guild 判定は種データ (bugs.js) 側の
+         フィールドで行う: volume の manifest は {id, rarity, flagship} しか持たない
+         ので、カタログを引き直す。tools.js を読み込んでいない文脈では効かせない
+         (未装備と同じに倒す)。 */
+      if(equippedTool&&toolsLib)weight*=toolsLib.guildWeightFor(equippedTool,reward&&reward.spById?reward.spById(item.id):null);
       return weight;
     });
     var total=weights.reduce(function(sum,weight){return sum+weight;},0);
@@ -232,7 +229,9 @@
        効かせる場所は完成 tier から未完成 tier への振替確率で、レアリティ表ではない
        (tools_design 8 章)。 */
     var pityChance=COLLECTION_CONFIG.pityChances[pityDuplicates];
-    if(equippedTool)pityChance=Math.min(1,pityChance+COLLECTION_CONFIG.toolFreshBoost);
+    /* +0.25 の実体は shared/tools.js の FRESH_BOOST (小道の drawCapture だけが使う)。
+       tools.js を読み込んでいない文脈では未装備と同じに倒す。 */
+    if(equippedTool&&global.Q4B_TOOLS)pityChance=Math.min(1,pityChance+global.Q4B_TOOLS.FRESH_BOOST);
     if(incompleteTiers.indexOf(tier)<0&&incompleteTiers.length&&pityChance>0&&randomValue(random)<pityChance){
       tier=pickTier(incompleteTiers,random);
       pityApplied=true;
@@ -262,12 +261,47 @@
   }
 
   /* --- 採集道具の接続 --------------------------------------------------------
-     道具は profile 直下 (tools / equippedToolId) に住み、collection の外にある。
+     道具の状態 (tools / equippedToolId / toolDex) は profile ではなく、こはくと
+     同じ共有 kv (QuestSave の toolgear wallet) に住む。本編 3 教科と同じ 1 つの
+     道具箱を読むためで、profile 直下の旧フィールドは移行の種としてだけ残る。
      捕獲の 2 経路 (ゲージ・こはく呼び出し) はどちらも drawCapture を通るので、
-     効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js を読み込んでいない
-     文脈 (単体テスト) では常に「未装備」に倒れる。 */
+     効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js や toolgear API を
+     読み込んでいない文脈 (単体テスト・古い storage.js) では常に「未装備」に倒れる。
+
+     Q4BReward.setToolsStore は小道では呼ばない: 小道の抽選器 (applyAnswer /
+     amberCallCapture) が gear を直接読んで自分で耐久を減らすので、reward.js 側の
+     wallet 配線まで生かすと 1 捕獲で 2 回減る (二重消費)。 */
 
   function toolsModule(){return medalEconomyOn()?(global.Q4B_TOOLS||null):null;}
+
+  function gearStore(){
+    var save=global.QuestSave;
+    return save&&typeof save.toolGearOf==="function"&&typeof save.toolGearSet==="function"?save:null;
+  }
+
+  /* boot 前 (単体テストが applyAnswer を直接叩く文脈) は profileId が未設定なので、
+     店と同じ currentProfile へ倒す。boot 後の profileId は currentProfile() と
+     同じ値なので、実運用で読み先が割れることはない。 */
+  function gearProfileId(){
+    if(profileId)return profileId;
+    var save=gearStore();
+    return save&&typeof save.currentProfile==="function"?save.currentProfile():null;
+  }
+
+  /* 読みは毎回 deep clone 相当 (toolGearOf が正規化して組み直す)。返り値を書き
+     換えても、storeToolGear を通すまで共有 kv は動かない。 */
+  function loadToolGear(){
+    var save=gearStore(),pid=gearProfileId();
+    return save&&pid?save.toolGearOf(pid):null;
+  }
+
+  /* 耐久消費・装備切替・授与は、gear の変更が起きたその場でここを通して永続する。
+     profile の保存 (saveProfile) とは独立で、共有 kv なので本編と同じ即時永続の
+     意味論になる (per-kv LWW)。 */
+  function storeToolGear(gear){
+    var save=gearStore(),pid=gearProfileId();
+    if(save&&pid&&gear)save.toolGearSet(pid,gear);
+  }
 
   /* 判定そのものは economy_flag に置いてある (portal と共用)。ここでは tools.js を
      読み込んでいない文脈で「公開済み」と答えないよう、実物の有無だけ足す。 */
@@ -282,19 +316,22 @@
 
   /* ゲートは 2 段。まず MEDAL_ECONOMY_ON でメダル経済ごと開いているか、次に
      道具 1 本ずつの release。公開済みの道具が 1 つでもあれば全部が効く、では
-     更新をまたいだ先行実装が漏れる。 */
-  function equippedToolOf(targetProfile){
+     更新をまたいだ先行実装が漏れる。gear は loadToolGear の返り値 (無ければ null)。 */
+  function equippedToolOf(gear){
     var tools=toolsModule();
-    if(!tools)return null;
-    var tool=tools.equippedTool(targetProfile);
+    if(!tools||!gear)return null;
+    var tool=tools.equippedTool(gear);
     return tool&&tool.release<=currentRelease()?tool:null;
   }
 
-  /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。 */
-  function consumeToolDurability(targetProfile){
+  /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。減ったぶんはその場で
+     共有 kv へ永続し、profile の保存失敗でも巻き戻さない (本編と同じ意味論)。 */
+  function consumeToolDurability(gear){
     var tools=toolsModule();
-    if(!tools||!equippedToolOf(targetProfile))return null;
-    return tools.consume(targetProfile);
+    if(!tools||!equippedToolOf(gear))return null;
+    var used=tools.consume(gear);
+    if(used)storeToolGear(gear);
+    return used;
   }
 
   /* 画面に出す道具の名前。5 歳コースには かなの名前が返る (tools.js の yomi)。
@@ -307,14 +344,11 @@
     return tools&&typeof tools.displayName==="function"?tools.displayName(tool,profileType):(tool.name||"");
   }
 
-  function cloneTools(targetProfile){
-    return JSON.parse(JSON.stringify({tools:targetProfile.tools||[],equippedToolId:targetProfile.equippedToolId||null}));
-  }
-
-  function restoreTools(targetProfile,snapshot){
-    targetProfile.tools=snapshot.tools;
-    targetProfile.equippedToolId=snapshot.equippedToolId;
-  }
+  /* 旧 cloneTools / restoreTools (保存失敗時の道具の巻き戻し) は削除した。道具の
+     耐久は共有 kv に住み、消費の瞬間に永続済みなので、profile の保存失敗で失われる
+     のは高々耐久 1 ポイント。これは本編 (shared/reward.js の walletStore) と同じ
+     許容で、ここで kv まで巻き戻すと、並行して進んだ別ページの消費を上書きして
+     道具が復活する危険のほうが大きい。 */
 
   function cloneCollection(collection){return JSON.parse(JSON.stringify(collection));}
   function replaceCollection(target,source){
@@ -340,8 +374,11 @@
       next.gauge++;
       if(next.gauge>=COLLECTION_CONFIG.gaugeNeed){
         next.gauge-=COLLECTION_CONFIG.gaugeNeed;
-        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random,equippedToolOf(targetProfile)),random);
-        toolUse=consumeToolDurability(targetProfile);
+        /* 道具は targetProfile ではなく共有 kv から読む。消費は consumeToolDurability
+           の中でその場で永続する (profile の保存とは独立)。 */
+        var gear=loadToolGear();
+        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random,equippedToolOf(gear)),random);
+        toolUse=consumeToolDurability(gear);
       }
     }
     replaceCollection(targetProfile.collection,next);
@@ -680,9 +717,11 @@
   function createProfile(){
     var lv={},maxLv={};
     Object.keys(CATEGORIES).forEach(function(cat){lv[cat]=1;maxLv[cat]=1;});
-    /* tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount /
-       mintedLaps はメダル経済の追加分 (tools_design 11 章)。既存キーは 1 つも
-       動かさない additive の追記。 */
+    /* uroLog / lv10ClearAt / lapCount / mintedLaps はメダル経済の追加分
+       (tools_design 11 章)。既存キーは 1 つも動かさない additive の追記。
+       tools / toolDex / equippedToolId は共有 kv (toolgear) へ昇格済みの旧置き場で、
+       新しい save では空のまま動かない。古いクライアントとの共存と、旧 save からの
+       一方向移行 (toolGearMigrateFromProfile) の種としてだけ残す。 */
     return {schemaVersion:1,unlocked:true,discoverySeen:false,lv:lv,maxLv:maxLv,stats:{},recent:{},adapt:{},anslog:{},daily:{},ratioHistory:{itemIds:[],patternIds:[]},collection:{gauge:0,totalCatches:0,catches:{}},trophies:{},trophyProgress:{},srs:{},lv10ClearAt:{},lapCount:{},mintedLaps:{},tools:[],toolDex:{},uroLog:[],equippedToolId:null};
   }
 
@@ -771,7 +810,10 @@
       });
     }
     /* メダル経済の追加分。古いセーブには無いので既定値を補い、形が違うものは通さない
-       (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。 */
+       (奉納の記録は不滅という約束を、壊れた配列のまま引き継がせない)。
+       tools / toolDex / equippedToolId は共有 kv (toolgear) へ昇格済みだが、旧 save の
+       受理・保全はこれまで通り行う: 読むのは移行 (toolGearMigrateFromProfile) だけで、
+       app.js がここへ書き戻すことはもう無い。 */
     if(p.tools==null){p.tools=[];changed=true;}
     if(p.toolDex==null){p.toolDex={};changed=true;}
     if(p.uroLog==null){p.uroLog=[];changed=true;}
@@ -1011,6 +1053,9 @@
     merged.uroLog=mergeUroLogs(localProfile&&localProfile.uroLog,remote.uroLog);
     merged.anslog=mergeAnsLog(localProfile&&localProfile.anslog,remote.anslog);
     merged.daily=mergeDailyTotals(localProfile&&localProfile.daily,remote.daily);
+    /* tools / toolDex の統合は後方互換のためだけに残す: 旧クライアントが profile 側へ
+       書いた記録を競合で消さない。統合結果を道具の正とはしない — 正は共有 kv
+       (toolgear) 側で、app.js はここで作った merged.tools を読まない。 */
     merged.tools=mergeToolBoxes(localProfile&&localProfile.tools,remote.tools);
     merged.toolDex=mergeToolDex(localProfile&&localProfile.toolDex,remote.toolDex);
     merged.trophies=mergeTrophies(localProfile&&localProfile.trophies,remote.trophies);
@@ -1183,16 +1228,16 @@
       global.alert("🔶こはくが たりないよ（"+cost+"こ いるよ）");
       return;
     }
-    /* 巻き戻しは捕獲だけでなく道具の耐久も戻す。財布・図鑑・道具箱が別々に
-       進んだ状態を残さない。 */
-    var before=cloneCollection(profile.collection),beforeTools=cloneTools(profile),capture,toolUse=null;
+    /* 巻き戻すのは捕獲 (collection) だけ。道具の耐久は共有 kv に住み、消費の瞬間に
+       永続済みなので、保存失敗でも巻き戻さない (失うのは高々 1 ポイント。本編と
+       同じ許容で、kv を戻すと並行する別ページの消費を上書きする)。 */
+    var before=cloneCollection(profile.collection),capture,toolUse=null;
     function refund(){
       save.amberAdd(profileId,cost);
       global.alert("ほぞんに しっぱいしました。こはくは かえしたよ");
     }
     function rollback(){
       replaceCollection(profile.collection,before);
-      restoreTools(profile,beforeTools);
     }
     try{
       /* 購入捕獲は重複救済に乗せない (段位 0 で引く)。救済は 8 正答 = 1 捕獲という
@@ -1201,10 +1246,11 @@
          recordCapture が上書きする前の段位を引き戻し、学習側の積み上げを守る。
          道具はゲージ捕獲と同じに扱う (装備中は 1 回ぶん減る)。 */
       var keptPity=profile.collection.pityDuplicates;
-      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(profile)),Math.random);
+      var gear=loadToolGear();
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(gear)),Math.random);
       if(keptPity!=null)profile.collection.pityDuplicates=keptPity;
       else delete profile.collection.pityDuplicates;
-      toolUse=consumeToolDurability(profile);
+      toolUse=consumeToolDurability(gear);
     }catch(error){
       rollback();
       refund();
@@ -1241,9 +1287,10 @@
     if(close)close.focus();
   }
 
-  /* 巻き戻しは profile 全体で取る。捕獲は collection に、道具の耐久は profile 直下に
-     住んでいるので、collection だけのスナップショットでは道具が戻らない
-     (保存に失敗したのに あみだけ 1 回ぶん減る、という穴になる)。 */
+  /* 巻き戻しは profile 全体で取る (collection・統計・ログをまとめて戻す)。道具の
+     耐久はもう profile に住んでおらず、共有 kv 側で消費の瞬間に永続済みなので、
+     ここでは巻き戻さない: 保存に失敗した回に あみが 1 回ぶん減るのは、本編の
+     抽選 (shared/reward.js) と同じ許容 (高々 1 ポイント)。 */
   function recordAnswer(cat,answer,volume,random){
     if(!profile)return Promise.reject(new Error("保存データを読み込めません"));
     if(random!=null&&typeof random!=="function")return Promise.reject(new Error("乱数の指定が正しくありません"));
@@ -2770,19 +2817,28 @@
   }
 
   /* 奉納の実行。メダル 1 枚 = 道具 1 つの固定相場で、残高という状態は作らない。
-     保存に失敗したら道具も記録も巻き戻す。 */
+     奉納の記録 (uroLog) は profile に、道具の授与は共有 kv (toolgear) に書く。
+     道具は uroLog の保存が通ってから授ける: 先に kv へ授けて profile の保存が
+     落ちると、メダルは残るのに道具だけ増える (残高ゼロの原則が破れる)。逆順なら
+     失敗時はメダルが残るだけで、押し直せば済む。 */
   function offerMedal(medal,toolId,onDone){
     var uro=uroModule(),tools=toolsModule();
-    if(!uro||!tools)return;
+    /* toolgear API の無い古い storage.js では授与先が無い。メダルを消費してから
+       道具を取りこぼすくらいなら、奉納そのものを始めない。 */
+    if(!uro||!tools||!gearStore())return;
     var before=JSON.parse(JSON.stringify(profile)),today=todayString();
     var entry=uro.redeem(profile,earnedMedals(),medal,toolId,today);
     if(!entry){if(onDone)onDone(null);return;}
-    /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
-    var firstOfKind=!tools.firstGrantAt(profile,toolId);
-    tools.grant(profile,toolId,today);
     var saved;
     try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
-    saved.then(function(){if(onDone)onDone(entry,firstOfKind);}).catch(function(){
+    saved.then(function(){
+      var gear=loadToolGear();
+      /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
+      var firstOfKind=!tools.firstGrantAt(gear,toolId);
+      tools.grant(gear,toolId,today);
+      storeToolGear(gear);   /* 授与はその場で共有 kv へ (profile の保存とは独立)。 */
+      if(onDone)onDone(entry,firstOfKind);
+    }).catch(function(){
       profile=before;
       global.alert("ほぞんに しっぱいしました。メダルは そのままだよ");
       if(onDone)onDone(null,false);
@@ -2887,7 +2943,10 @@
 
   function uroPageOptions(){
     var uro=uroModule(),tools=toolsModule(),seen={};
-    var owned=(profile.tools||[]).map(function(instance){
+    /* どうぐばこ・装備・道具図鑑は共有 kv (toolgear) を読む。奉納の記録 (uroLog) は
+       小道の物語なので profile のまま。 */
+    var gear=loadToolGear()||{tools:[],equippedToolId:null,toolDex:{}};
+    var owned=gear.tools.map(function(instance){
       var tool=tools.byId(instance.type),first=!seen[instance.type];
       seen[instance.type]=true;
       return {type:instance.type,remaining:instance.remaining,first:first,
@@ -2905,13 +2964,13 @@
     var release=currentRelease();
     var dex=tools.list().map(function(tool){
       if(tool.release>release)return {locked:true};
-      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,at:tools.firstGrantAt(profile,tool.id)};
+      return {id:tool.id,name:toolName(tool),emoji:tool.emoji,at:tools.firstGrantAt(gear,tool.id)};
     });
     /* 装備の見え方は こはくの画面と同じ判定にそろえる。未公開の道具を装備したままの
        セーブで、片方の画面が「そうび中」もう片方が「なし」になるのを避ける。 */
-    var equipped=equippedToolOf(profile);
+    var equipped=equippedToolOf(gear);
     return {text:displayText,glow:uro.glow(profile),pending:pendingMedals(),owned:owned,
-      equippedToolId:equipped?profile.equippedToolId:null,durability:tools.durability,entries:log,dex:dex};
+      equippedToolId:equipped?gear.equippedToolId:null,durability:tools.durability,entries:log,dex:dex};
   }
 
   function renderUro(backId){
@@ -2928,17 +2987,23 @@
         showMedalExchange(medal,function(){renderUro(backId);});
       });
     });
+    /* 装備切替は共有 kv だけを動かす。gear の変更が起きたその場で toolGearSet で
+       永続するので、profile の保存 (saveProfile) は要らない。 */
     Array.prototype.forEach.call(document.querySelectorAll(".uro-equip"),function(button){
       button.addEventListener("click",function(){
-        var tools=toolsModule();
-        if(!tools.equip(profile,button.getAttribute("data-tool")))return;
-        saveProfile().then(function(){renderUro(backId);}).catch(function(){renderUro(backId);});
+        var tools=toolsModule(),gear=loadToolGear();
+        if(!tools||!gear||!tools.equip(gear,button.getAttribute("data-tool")))return;
+        storeToolGear(gear);
+        renderUro(backId);
       });
     });
     var unequip=document.querySelector('[data-action="uro-unequip"]');
     if(unequip)unequip.addEventListener("click",function(){
-      toolsModule().equip(profile,null);
-      saveProfile().then(function(){renderUro(backId);}).catch(function(){renderUro(backId);});
+      var gear=loadToolGear();
+      if(!toolsModule()||!gear)return;
+      toolsModule().equip(gear,null);
+      storeToolGear(gear);
+      renderUro(backId);
     });
   }
 
@@ -3111,62 +3176,31 @@
     if(global.Q4BRender&&global.Q4BRender.setZukanModeToggleVisible)global.Q4BRender.setZukanModeToggleVisible(false);
   }
 
-  /* --- こはく呼び出し画面のインライン道具ウィジェット (tools_design 7 章) --------
-     現在の装備を常時表示し、その場で なし / 所持道具 に切り替える。既定値は今の装備
-     なので、いつもどおり呼ぶだけなら 0 タップで済む。呼ぶたびに「道具を使いますか?」と
-     訊く yes/no のモーダルは作らない (狩りの途中で手を止めさせない)。
-     道具を 1 つも持っていない間は、空の器も出さない。 */
-  function toolWidgetHtml(){
-    var tools=toolsModule();
-    if(!tools||!toolsReleased()||demoMode)return "";
-    var release=currentRelease(),seen={},owned=[];
-    (profile.tools||[]).forEach(function(instance){
-      if(seen[instance.type])return;
-      var tool=tools.byId(instance.type);
-      if(!tool||tool.release>release)return;
-      seen[instance.type]=true;
-      var stock=tools.ownedOf(profile,instance.type);
-      owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1});
-    });
-    if(!owned.length)return "";
-    /* 未公開の道具を装備したままの状態は「なし」として見せる (効果も出ていない)。 */
-    var now=equippedToolOf(profile),equippedId=now?profile.equippedToolId:null;
-    var chips='<button type="button" class="tool-chip'+(equippedId?"":" is-on")+'" data-equip="" aria-pressed="'+(equippedId?"false":"true")+'">'
-      +displayText("なし")+'</button>';
-    owned.forEach(function(item){
-      var on=item.type===equippedId;
-      chips+='<button type="button" class="tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeHtml(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
-        +toolFaceHtml(item.tool)+'<span class="tool-chip-name">'+displayText(toolName(item.tool))+'</span>'
-        +'<span class="tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
-        +(item.spares>0?'<span class="tool-chip-spare">'+displayText("よび "+item.spares)+'</span>':"")+'</button>';
-    });
-    return '<div class="zukan-tool" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
-      +'<p class="zukan-tool-now">'+displayText("いまの そうび")+'　<strong>'
-      +(now?toolFaceHtml(now)+" "+displayText(toolName(now)):displayText("なし"))+'</strong></p>'
-      +'<div class="zukan-tool-chips">'+chips+'</div></div>';
+  /* --- ずかん画面の装備パネル (tools_design 7 章) ------------------------------
+     旧インラインウィジェット (toolWidgetHtml / bindToolWidget) は削除し、本編と
+     同じ共有部品 (shared/tools_ui.js の panelHtml / bindPanel) に置き換えた。
+     表示規則は同じ: 現在の装備を常時表示、札を押すだけで切り替え、道具ゼロや
+     経済が閉じている間はパネルごと出さない。demo モードは保存に触れない約束
+     なので出さない。 */
+  function toolPanelHtml(){
+    var ui=global.Q4BToolsUI;
+    if(!ui||typeof ui.panelHtml!=="function"||demoMode)return "";
+    return ui.panelHtml({gear:loadToolGear(),text:displayText,attrText:attrText,
+      course:profileType,economy:global.Q4B_ECONOMY});
   }
 
-  function bindToolWidget(rerender){
-    Array.prototype.forEach.call(document.querySelectorAll("[data-equip]"),function(button){
-      button.addEventListener("click",function(){
-        var tools=toolsModule();
-        if(!tools)return;
-        var type=button.getAttribute("data-equip")||null;
-        /* 既に選ばれている札を押しても保存を起こさない (連打で保存が並ばない)。 */
-        if((profile.equippedToolId||null)===type)return;
-        var before=profile.equippedToolId||null;
-        if(!tools.equip(profile,type))return;
-        /* 保存に失敗したら持ち替えも戻す。画面だけ替わって次の捕獲では前の道具が
-           効いている、という食い違いを残さない。 */
-        var saved;
-        try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
-        saved.then(rerender).catch(function(){
-          tools.equip(profile,before);
-          global.alert("ほぞんに しっぱいしました。そうびは そのままだよ");
-          rerender();
-        });
-      });
-    });
+  function bindToolPanel(rerender){
+    var ui=global.Q4BToolsUI;
+    if(!ui||typeof ui.bindPanel!=="function")return;
+    /* 既に選ばれている札は bindPanel 側が握りつぶす (連打で書き込みが並ばない)。
+       装備切替は gear の変更が起きたその場で toolGearSet へ (profile の保存とは
+       独立)。同期で終わるので、旧実装の保存失敗時の巻き戻しはもう要らない。 */
+    ui.bindPanel(document,{onEquip:function(type){
+      var tools=toolsModule(),gear=loadToolGear();
+      if(!tools||!gear||!tools.equip(gear,type))return;
+      storeToolGear(gear);
+      rerender();
+    }});
   }
 
   function renderZukan(regionId){
@@ -3181,20 +3215,21 @@
     /* こはくの残高と よぶ ボタン。demo モードは保存に触れない約束なので出さない。 */
     var canCall=!demoMode&&amberWallet()&&amberCallVolume(region);
     var amberLine='<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong>'
-      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>'
-      +toolWidgetHtml();
+      +(canCall?'<button type="button" class="zukan-amber-call" data-action="amber-call">🔶 '+displayText("こはくで よぶ（"+amberCallCost()+"）")+'</button>':"")+'</p>';
     document.getElementById("app").innerHTML='<main class="kom-page zukan-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText(region.regionName+"の小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(region.regionName+"の ずかん")+'</h1>'
       +'<p>'+displayText("あつめた虫")+'　<strong>'+regionProgressHtml(region,collection)+'</strong>'
       +(shown.length!==entries.length?'　<span class="zukan-shown">'+displayText("ひょうじ中 "+shown.length+"種")+'</span>':"")+'</p>'
       +amberLine+'</div>'
+      /* 装備パネルは こはく行の直後に独立カードで置く (本編と同じ共有部品)。 */
+      +toolPanelHtml()
       +expeditionChipsHtml(region)
       +zukanFilterBarHtml(entries)
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(region.regionId);});
     var call=document.querySelector('[data-action="amber-call"]');
     if(call)call.addEventListener("click",function(){amberCallCapture(region,function(){renderZukan(regionId);});});
-    bindToolWidget(function(){renderZukan(regionId);});
+    bindToolPanel(function(){renderZukan(regionId);});
     bindZukanFilters(function(){renderZukan(regionId);});
     bindZukanCards(entries,function(){renderZukan(regionId);});
     mountZukanModeToggle(function(){renderZukan(regionId);});
@@ -3280,10 +3315,13 @@
       /* 残高だけ出す。地域横断のここでは よぶ の対象 volume が曖昧なため、ボタンは
          地域ずかん側にしか置かない。 */
       +'<p class="zukan-amber">🔶 '+displayText("こはく：")+'<strong>'+amberBalance()+'</strong></p></div>'
+      /* 装備パネルは こはく行の直後に独立カードで置く (地域ずかんと同じ共有部品)。 */
+      +toolPanelHtml()
       +'<div class="zukan-chips" role="group" aria-label="'+attrText("ちいきでしぼる")+'">'+regionChips+'</div>'
       +zukanFilterBarHtml(entries)
       +'<ul class="zukan-grid">'+cards+'</ul></main>';
     document.querySelector('[data-action="back"]').addEventListener("click",function(){renderMap(backId);});
+    bindToolPanel(function(){renderCommonZukan(backId);});
     bindZukanFilters(function(){renderCommonZukan(backId);});
     bindZukanCards(entries,function(){renderCommonZukan(backId);});
     mountZukanModeToggle(function(){renderCommonZukan(backId);});
@@ -3418,6 +3456,10 @@
       var normalized=normalizeProfile(data[0].data);
       profile=normalized.profile;
       profileRevision=data[0].revision;
+      /* profile 直下の旧道具 (tools / equippedToolId / toolDex) を共有 kv (toolgear)
+         へ 1 回だけ移す。冪等 (kv が既に在れば何もしない) で、profile 側の
+         フィールドは消さない (古いクライアントとの共存とデータ保全)。 */
+      if(QuestSave.toolGearMigrateFromProfile)QuestSave.toolGearMigrateFromProfile(profileId,profile);
       profileType=data[1]&&data[1].type==="k5"?"k5":"k10";
       worldMap=validateMapPayload(data[2],expeditionVolumes());
       ratioPool=data[3];

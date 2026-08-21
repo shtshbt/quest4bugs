@@ -107,7 +107,12 @@ function plainText(html){
 function bootKomorebi(options){
   const root = options.root;
   const app = makeApp();
-  const saved = {};
+  /* options.saved で起動前のセーブを注入できる (旧 save からの移行テスト用)。 */
+  const saved = options.saved || {};
+  /* 採集道具の共有 kv (shared/storage.js の toolgear wallet の最小版)。
+     of は毎回 deep clone を返し、set は正規化して保存、migrate は kv 未作成かつ
+     profile.tools 非空のときだけ 1 回種を蒔く — 実物と同じ意味論に揃える。 */
+  const toolGear = {};
   let komorebiRevision = 0;
   const context = {
     console,
@@ -142,9 +147,36 @@ function bootKomorebi(options){
         komorebiRevision++;
         return Promise.resolve({ok:true, revision:komorebiRevision});
       },
+      toolGearOf(pid){
+        const entry = toolGear[pid];
+        if(!entry) return { tools: [], equippedToolId: null, toolDex: {}, migrated: false };
+        return JSON.parse(JSON.stringify(entry));
+      },
+      toolGearSet(pid, gear){
+        if(!pid) return false;
+        const data = gear && typeof gear === "object" ? gear : {};
+        const tools = (Array.isArray(data.tools) ? data.tools : [])
+          .filter(e => e && typeof e.type === "string" && e.type
+            && Number.isFinite(e.remaining) && Math.floor(e.remaining) >= 1)
+          .map(e => ({ type: e.type, remaining: Math.floor(e.remaining) }));
+        /* 本体の無い装備は実物の normalizeToolGear と同じく黙って外す。 */
+        let equipped = typeof data.equippedToolId === "string" && data.equippedToolId ? data.equippedToolId : null;
+        if(equipped && !tools.some(e => e.type === equipped)) equipped = null;
+        toolGear[pid] = JSON.parse(JSON.stringify({ tools, equippedToolId: equipped,
+          toolDex: data.toolDex && typeof data.toolDex === "object" && !Array.isArray(data.toolDex) ? data.toolDex : {},
+          migrated: !!data.migrated }));
+        return true;
+      },
+      toolGearMigrateFromProfile(pid, profile){
+        if(!pid || Object.prototype.hasOwnProperty.call(toolGear, pid)) return false;
+        if(!profile || !Array.isArray(profile.tools) || !profile.tools.length) return false;
+        this.toolGearSet(pid, { tools: profile.tools, equippedToolId: profile.equippedToolId,
+          toolDex: profile.toolDex, migrated: true });
+        return true;
+      },
       syncDown: () => Promise.resolve()
     },
-    __app: app, __saved: saved
+    __app: app, __saved: saved, __toolGear: toolGear
   };
   Object.assign(context, options.globals || {});
   context.window = context;
@@ -175,7 +207,7 @@ const KOMOREBI_FILES = [
      sessionStarters.kom_diagram_model を探すため、既定の起動一覧に入れておく。 */
   "komorebi/diagram_engine.js", "komorebi/diagram_model_generator.js",
   "shared/tool_icons.js", "shared/tool_scenes.js",
-  "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js",
+  "komorebi/trophies.js", "shared/tools.js", "shared/tools_ui.js", "komorebi/uro.js",
   "shared/economy_flag.js", "komorebi/app.js"
 ];
 

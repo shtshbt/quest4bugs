@@ -140,15 +140,17 @@ test("5 歳コースに出る読みは点検済みのものだけ", () => {
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
   const live = context.Q4B_TOOLS;
-  const profile = komorebi.profile();
   const alerts = [];
   context.alert = message => alerts.push(String(message));
 
   komorebi.setMedalEconomyOn(true);
   const savedReleases = live.list().map(tool => tool.release);
   live.list().forEach(tool => { tool.release = 1; });
-  live.grant(profile, "light_trap", "2026-08-18");
-  live.grant(profile, "aspirator", "2026-08-18");
+  /* 道具の状態は共有 kv (toolgear) に住むので、下ごしらえも kv へ蒔く。 */
+  const gear = context.QuestSave.toolGearOf("p1");
+  live.grant(gear, "light_trap", "2026-08-18");
+  live.grant(gear, "aspirator", "2026-08-18");
+  context.QuestSave.toolGearSet("p1", gear);
 
   function backToMap(){
     const back = app.querySelector('[data-action="back"]');

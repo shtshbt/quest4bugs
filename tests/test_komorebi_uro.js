@@ -113,6 +113,8 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
   const trophies = context.Q4B_KOMOREBI_TROPHIES;
   const tools = context.Q4B_TOOLS;
   const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
+  /* 道具の状態は profile ではなく共有 kv (toolgear) に住む。 */
+  const gearOf = () => context.QuestSave.toolGearOf("p1");
   const alerts = [];
   context.alert = message => alerts.push(String(message));
 
@@ -219,18 +221,21 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
       assert.equal(profile.uroLog[0].cat, "kom_ratio");
       assert.equal(profile.uroLog[0].tool, "cho_net");
       assert.equal(profile.uroLog[0].lap, 1);
-      assert.equal(profile.tools.length, 1);
-      assert.equal(profile.tools[0].remaining, D);
-      assert.equal(profile.equippedToolId, "cho_net", "the first tool goes straight into the empty slot");
+      /* 授与の着地先は共有 kv。profile 側の旧道具箱はもう増えない。 */
+      assert.equal(gearOf().tools.length, 1);
+      assert.equal(gearOf().tools[0].remaining, D);
+      assert.equal(gearOf().equippedToolId, "cho_net", "the first tool goes straight into the empty slot");
+      assert.equal(profile.tools.length, 0, "the legacy profile tool box grew on a grant");
       assert.equal(komorebi.pendingMedals().length, 0, "the medal must be spent, not stored");
       assert.equal(context.__saved.komorebi.uroLog.length, 1, "the offering must be persisted");
+      assert.equal(context.__toolGear.p1.tools.length, 1, "the granted tool must be persisted in the kv");
     });
 
     test("a second tap on the spent medal grants nothing", () => {
       /* ポップアップが二重に開いた、通信が二度届いた、のどちらでも増えない。 */
       modal.dispatch("click", modal.querySelector('[data-tool="light_trap"]'));
       assert.equal(profile.uroLog.length, 1);
-      assert.equal(profile.tools.length, 1);
+      assert.equal(gearOf().tools.length, 1);
     });
   })();
 
@@ -253,14 +258,14 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     assert.ok(unequip, "an equipped tool needs a way off");
     unequip.click();
     await settle();
-    const equippedAfterOff = profile.equippedToolId;
+    const equippedAfterOff = gearOf().equippedToolId;
     const equip = app.querySelector(".uro-equip");
     assert.ok(equip, "an owned tool needs a way back on");
     equip.click();
     await settle();
     test("the tool box equips and unequips without touching anything else", () => {
       assert.equal(equippedAfterOff, null);
-      assert.equal(profile.equippedToolId, "cho_net");
+      assert.equal(gearOf().equippedToolId, "cho_net");
       assert.equal(profile.collection.totalCatches, 0, "the collection was touched by an equip");
       assert.equal(profile.uroLog.length, 1, "the offering log was touched by an equip");
     });
@@ -290,18 +295,19 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     test("the picked tool arrives without disturbing the equipped one", () => {
       assert.equal(profile.uroLog.length, 2);
       assert.equal(profile.uroLog[1].tool, "light_trap");
-      assert.equal(profile.tools.length, 2);
-      assert.equal(profile.equippedToolId, "cho_net", "a new tool must not steal the equipped slot");
+      assert.equal(gearOf().tools.length, 2);
+      assert.equal(gearOf().equippedToolId, "cho_net", "a new tool must not steal the equipped slot");
       assert.equal(komorebi.pendingMedals().length, 0);
     });
   })();
 
   await (async () => {
-    /* 巻き戻しの穴。捕獲は collection に、耐久は profile 直下に住んでいるので、
-       collection だけのスナップショットでは「保存に失敗したのに あみだけ減る」。 */
+    /* 保存失敗時の巻き戻しは capture (profile 側) だけ。道具の耐久は共有 kv に住み、
+       消費の瞬間に永続するので巻き戻さない: 失うのは高々 1 ポイントで本編と同じ
+       許容 (kv を戻すと並行する別ページの消費を上書きして道具が復活しかねない)。 */
     const live = komorebi.profile();
     live.collection.gauge = 7;
-    const remainingBefore = tools.equipped(live).remaining;
+    const remainingBefore = tools.equipped(gearOf()).remaining;
     const catchesBefore = live.collection.totalCatches;
     const saveVersioned = context.QuestSave.saveVersioned;
     context.QuestSave.saveVersioned = () => Promise.reject(new Error("boom"));
@@ -310,12 +316,15 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
       { sessionId: "rollback", submissionId: "rb-1", format: "normal", kind: "num", correct: true, final: true },
       volume, () => 0.5).catch(() => { failed = true; });
     context.QuestSave.saveVersioned = saveVersioned;
-    test("a failed save rolls the durability back together with the capture", () => {
+    test("a failed save rolls the capture back but the shared gear keeps its one point of wear", () => {
       const rolled = komorebi.profile();
       assert.equal(failed, true, "the save was supposed to fail");
       assert.equal(rolled.collection.totalCatches, catchesBefore, "the capture was not rolled back");
       assert.equal(rolled.collection.gauge, 7, "the gauge was not rolled back");
-      assert.equal(tools.equipped(rolled).remaining, remainingBefore, "the tool wore out for a capture that never happened");
+      assert.equal(tools.equipped(gearOf()).remaining, remainingBefore - 1,
+        "the kv-side consumption must stay: at most one point is the accepted loss");
+      assert.equal(context.__toolGear.p1.tools.some(t => t.remaining === remainingBefore - 1), true,
+        "the consumed durability must be persisted in the kv");
     });
   })();
 

@@ -417,20 +417,9 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   background:linear-gradient(180deg,#293A25,#192D24);color:#FFE08A;font:800 13px/1.2 inherit;cursor:pointer}
 .zukan-amber-call:hover{border-color:#FFD86B}
 .zukan-amber-call:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
-/* こはく呼び出し画面のインライン道具ウィジェット。現装備は常時見えていて、
-   札を押すだけで切り替わる (モーダルを挟まない)。 */
-.zukan-tool{margin:8px auto 0;max-width:640px}
-.zukan-tool-now{margin:0 0 6px;text-align:center;font-size:13px;font-weight:800;color:#9FBE90}
-.zukan-tool-now strong{color:#FFE9A8;font-size:14.5px}
-.zukan-tool-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.tool-chip{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:5px 11px;
-  border:1.5px solid #3E6B57;border-radius:999px;background:#12302A;color:#CFE7A8;
-  font:800 12.5px/1.2 inherit;cursor:pointer}
-.tool-chip.is-on{border-color:#FFD86B;background:#1B3327;color:#FFE9A8}
-.tool-chip-left{font-variant-numeric:tabular-nums;color:#9FBE90}
-.tool-chip.is-on .tool-chip-left{color:#CDE3BA}
-.tool-chip-spare{padding:1px 6px;border-radius:999px;background:#2B3A25;color:#9FBE90;font-size:11px}
-.tool-chip:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
+/* ずかん画面の装備パネルは共有部品 (shared/tools_ui.js + shared/tools.css の
+   .q4b-tool-*) が見た目ごと持つ。旧インラインウィジェット専用の .zukan-tool* /
+   .tool-chip* はここから削除した。 */
 .ratio-amber-gain{margin:12px 0;padding:9px 12px;border:1.5px solid #B6963D;border-radius:10px;
   background:#2B3A25;color:#FFE08A;font-weight:800}
 

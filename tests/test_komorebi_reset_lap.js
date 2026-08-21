@@ -178,7 +178,10 @@ test("a broken lap counter is refused instead of repaired", () => {
   /* 1 周目のぶんは捧げ済みにしておく (捧げ待ちが 0 の状態から 2 周目を見る)。 */
   assert.ok(context.Q4B_KOMOREBI_URO.redeem(profile, komorebi.earnedMedals(),
     { cat: "kom_ratio" }, "banana_trap", "2026-08-10"));
-  tools.grant(profile, "banana_trap");
+  /* 道具の状態は共有 kv (toolgear) に住むので、下ごしらえも kv へ蒔く。 */
+  const seeded = context.QuestSave.toolGearOf("p1");
+  tools.grant(seeded, "banana_trap");
+  context.QuestSave.toolGearSet("p1", seeded);
 
   test("with the economy switch off the reset button never appears", () => {
     komorebi.setMedalEconomyOn(false);
@@ -301,7 +304,7 @@ test("a broken lap counter is refused instead of repaired", () => {
       assert.equal(profile.uroLog.length, 3);
       assert.equal(profile.uroLog[2].tool, "light_trap");
       assert.equal(profile.uroLog[2].lap, 2);
-      assert.equal(profile.tools.length, 3, "2 周目で道具が 2 つ増えていない");
+      assert.equal(context.QuestSave.toolGearOf("p1").tools.length, 3, "2 周目で道具が 2 つ増えていない");
       assert.equal(komorebi.pendingMedals().length, 0, "捧げ待ちが残った");
       /* ロックの起点は 2 周目のクリア時刻に更新される。判定はその時刻からの相対で
          見る (実時計を基準にすると端末の時刻補正で答えが変わる)。 */

@@ -15,6 +15,21 @@ context.window = context;
 context.Q4B_KOMOREBI_NO_BOOT = true;
 /* 公開ゲートの切替 seam はハーネスの印を立てた文脈でだけ生える (app.js 末尾)。 */
 context.Q4B_KOMOREBI_TEST_HOOKS = true;
+/* 道具の状態は共有 kv (QuestSave の toolgear wallet) に住む。boot を通らない
+   この文脈では currentProfile へ倒れるので、最小の store をここに置く。 */
+const toolGearBacking = {};
+context.QuestSave = {
+  currentProfile: () => "p1",
+  toolGearOf(pid){
+    const entry = toolGearBacking[pid];
+    if(!entry) return { tools: [], equippedToolId: null, toolDex: {}, migrated: false };
+    return JSON.parse(JSON.stringify(entry));
+  },
+  toolGearSet(pid, gear){
+    toolGearBacking[pid] = JSON.parse(JSON.stringify(gear));
+    return true;
+  }
+};
 vm.createContext(context);
 for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js",
   "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js", "shared/economy_flag.js", "komorebi/app.js"]){
@@ -55,11 +70,15 @@ function withReleasedTool(toolId, fn){
   komorebi.setMedalEconomyOn(true);
   try{ return fn(); } finally { tool.release = before; komorebi.setMedalEconomyOn(beforeSwitch); }
 }
-function equippedProfile(toolId){
-  const profile = komorebi.createProfile();
-  tools.grant(profile, toolId);
-  return profile;
+/* 共有 kv の道具箱を作り直す。toolId を渡せばその 1 本を授かって装備した状態、
+   null なら空 (未装備) の状態から始まる。旧 equippedProfile の置き換え。 */
+function armGear(toolId){
+  const gear = { tools: [], equippedToolId: null, toolDex: {} };
+  if(toolId) tools.grant(gear, toolId);
+  context.QuestSave.toolGearSet("p1", gear);
+  return gear;
 }
+const gearOf = () => context.QuestSave.toolGearOf("p1");
 function captureIds(profile, seed, answers){
   const random = lcg(seed);
   const ids = [];
@@ -74,12 +93,14 @@ function captureIds(profile, seed, answers){
 
 test("1. eight qualifying answers still make exactly one capture with a net in hand", () => {
   withReleasedTool("tonbo_net", () => {
-    const profile = equippedProfile("tonbo_net");
+    armGear("tonbo_net");
+    const profile = komorebi.createProfile();
     assert.equal(captureIds(profile, 11, 7).length, 0, "the gauge must not pay out early");
     assert.equal(captureIds(profile, 11, 1).length, 1);
     assert.equal(profile.collection.totalCatches, 1);
     /* 80 問で 10 匹。道具は分布を動かすだけで、供給の蛇口には触れない。 */
-    const long = equippedProfile("tonbo_net");
+    armGear("tonbo_net");
+    const long = komorebi.createProfile();
     assert.equal(captureIds(long, 12, 80).length, 10);
     assert.equal(long.collection.totalCatches, 10);
   });
@@ -90,8 +111,12 @@ test("1. eight qualifying answers still make exactly one capture with a net in h
 test("2. the rarity ladder and the pity table are untouched by tools", () => {
   assert.equal(komorebi.collectionConfig.pityChances.join(","), "0,0.25,0.5,0.75,1");
   assert.equal(komorebi.collectionConfig.flagshipWeight, 0.25);
-  assert.equal(komorebi.collectionConfig.toolGuildWeight, 3);
-  assert.equal(komorebi.collectionConfig.toolFreshBoost, 0.25);
+  /* 効果の 2 定数は shared/tools.js の 1 か所が持つ。app.js に重複定義を残さない
+     (本編の抽選器と数字がずれるのを構造的に防ぐ)。 */
+  assert.equal(tools.GUILD_WEIGHT, 3);
+  assert.equal(tools.FRESH_BOOST, 0.25);
+  assert.equal("toolGuildWeight" in komorebi.collectionConfig, false, "guild 重みが app.js に重複定義されている");
+  assert.equal("toolFreshBoost" in komorebi.collectionConfig, false, "未発見ブーストが app.js に重複定義されている");
   /* 全 tier が完成していれば振替の余地が無い。そこでは道具を持っていても
      tier 抽選も乱数の消費本数も未装備と 1 本も違わない。 */
   withReleasedTool("tonbo_net", () => {
@@ -168,9 +193,10 @@ test("5. without a tool the draw is bit for bit what it was before tools existed
   sample.release = 1;
   try{
     assert.equal(komorebi.releasedTools().length, 0, "tools were published while the switch was closed");
-    const anyTool = equippedProfile(sample.id);
+    armGear(sample.id);
+    const anyTool = komorebi.createProfile();
     assert.equal(captureIds(anyTool, 7, 240).join(","), plain.join(","), "a tool worked while the switch was closed");
-    assert.equal(anyTool.tools[0].remaining, D, "a tool wore out while the switch was closed");
+    assert.equal(gearOf().tools[0].remaining, D, "a tool wore out while the switch was closed");
   } finally {
     sample.release = sampleRelease;
     komorebi.setMedalEconomyOn(closedSwitchBefore);
@@ -190,10 +216,11 @@ test("5. without a tool the draw is bit for bit what it was before tools existed
     const published = komorebi.releasedTools().map(tool => tool.id);
     assert.ok(published.indexOf(opened.id) >= 0, "the published tool is missing from the list");
     assert.equal(published.indexOf(unreleased.id), -1, "an unreleased tool leaked into the published list");
-    const armedButUnreleased = equippedProfile(unreleased.id);
+    armGear(unreleased.id);
+    const armedButUnreleased = komorebi.createProfile();
     const armed = captureIds(armedButUnreleased, 7, 240);
     assert.equal(armed.join(","), plain.join(","), "an unreleased tool changed the draw");
-    assert.equal(armedButUnreleased.tools[0].remaining, D, "an unreleased tool must not wear out");
+    assert.equal(gearOf().tools[0].remaining, D, "an unreleased tool must not wear out");
   } finally {
     opened.release = beforeRelease;
     komorebi.setMedalEconomyOn(beforeSwitch);
@@ -201,26 +228,31 @@ test("5. without a tool the draw is bit for bit what it was before tools existed
 });
 
 test("5. the gauge itself never asks for a tool", () => {
+  armGear(null);
   const bare = komorebi.createProfile();
   const ids = captureIds(bare, 3, 800);
   assert.equal(ids.length, 100, "100 captures out of 800 answers, tool or no tool");
-  assert.equal(bare.tools.length, 0);
-  assert.equal(bare.equippedToolId, null);
+  assert.equal(gearOf().tools.length, 0);
+  assert.equal(gearOf().equippedToolId, null);
 });
 
 /* ---- 不変条件 6: コレクションを奪う操作は存在しない ---- */
 
 test("6. breaking, equipping and offering never take a caught insect away", () => {
   withReleasedTool("cho_net", () => {
-    const profile = equippedProfile("cho_net");
+    armGear("cho_net");
+    const profile = komorebi.createProfile();
     captureIds(profile, 21, 40);
     const before = JSON.stringify(profile.collection.catches);
     const total = profile.collection.totalCatches;
-    profile.tools[0].remaining = 1;
-    tools.consume(profile);
-    tools.grant(profile, "cho_net");
-    tools.equip(profile, "cho_net");
-    tools.equip(profile, null);
+    /* 破損・授与・装備切替はすべて共有 kv 側の gear に対して行う。 */
+    const worn = gearOf();
+    worn.tools[0].remaining = 1;
+    tools.consume(worn);
+    tools.grant(worn, "cho_net");
+    tools.equip(worn, "cho_net");
+    tools.equip(worn, null);
+    context.QuestSave.toolGearSet("p1", worn);
     const medals = [{ trophyId: "a", cat: "kom_ratio", speciesId: "oo_onaga_yamamayu", at: "2026-08-17", name: "A" }];
     uro.redeem(profile, medals, medals[0], "cho_net", "2026-08-17");
     assert.equal(JSON.stringify(profile.collection.catches), before, "the collection changed");
@@ -321,12 +353,14 @@ test("the undiscovered boost adds 0.25 to the tier transfer, capped at one", () 
 
 test("a capture spends exactly one durability on both capture routes", () => {
   withReleasedTool("cho_net", () => {
-    const profile = equippedProfile("cho_net");
+    armGear("cho_net");
+    const profile = komorebi.createProfile();
     const first = komorebi.applyAnswer(profile, "kom_ratio", answer(), volume, lcg(5));
     assert.equal(first.tool, null, "a plain answer must not wear the net");
-    assert.equal(profile.tools[0].remaining, D);
+    assert.equal(gearOf().tools[0].remaining, D);
     captureIds(profile, 31, 8 * 5);
-    assert.equal(profile.tools[0].remaining, D - 5, "five captures, five points of wear");
+    /* 消費はその場で共有 kv へ永続している (profile の保存を経由しない)。 */
+    assert.equal(gearOf().tools[0].remaining, D - 5, "five captures, five points of wear");
   });
 });
 
