@@ -86,6 +86,476 @@
   function safeRemove(key){
     try{localStorage.removeItem(key);return true;}catch(e){return false;}
   }
+
+  /* ---------------- storage-v2 Phase 1 shadow mirror ----------------
+     localStorage remains authoritative. IndexedDB is best-effort only and is
+     never read into gameplay state in Phase 1. */
+  var __shadowLoadPromise=null;
+  var __shadowLoadError=null;
+  var __storageScriptSrc=(function(){
+    try{
+      var d=global.document, s=d&&d.currentScript;
+      if(s&&s.src)return String(s.src);
+      s=d&&d.querySelector&&d.querySelector('script[src*="shared/storage.js"]');
+      return s&&s.src?String(s.src):null;
+    }catch(_){return null;}
+  })();
+  function _shadowScriptUrl(){
+    if(!__storageScriptSrc)return null;
+    return __storageScriptSrc.replace(/storage\.js(?:\?.*)?$/,"storage_shadow.js");
+  }
+  function _loadShadow(){
+    if(global.Q4BStorageShadow)return Promise.resolve(global.Q4BStorageShadow);
+    if(__shadowLoadPromise)return __shadowLoadPromise;
+    var d=global.document, url=_shadowScriptUrl();
+    if(!d||!d.createElement||!url)return Promise.resolve(null);
+    __shadowLoadPromise=new Promise(function(resolve){
+      try{
+        var s=d.createElement("script");
+        s.src=url; s.async=true;
+        s.onload=function(){ resolve(global.Q4BStorageShadow||null); };
+        s.onerror=function(){ __shadowLoadError="storage_shadow.js load failed"; resolve(null); };
+        var host=d.head||d.documentElement||d.body;
+        if(!host||!host.appendChild){ __shadowLoadError="no script host"; resolve(null); return; }
+        host.appendChild(s);
+      }catch(e){ __shadowLoadError=(e&&e.message)||String(e); resolve(null); }
+    });
+    return __shadowLoadPromise;
+  }
+  function _queueShadow(payload,generation){
+    try{
+      if(global.Q4BStorageShadow){ global.Q4BStorageShadow.queue(payload,generation); return; }
+      _loadShadow().then(function(shadow){
+        if(shadow)shadow.queue(payload,generation);
+      }).catch(function(e){ __shadowLoadError=(e&&e.message)||String(e); });
+    }catch(e){ __shadowLoadError=(e&&e.message)||String(e); }
+  }
+  function _shadowAuthoritativePayload(){ return safeGet(STORE_KEY,null); }
+  function _shadowBackfill(){
+    var payload=_shadowAuthoritativePayload();
+    if(payload!==null)_queueShadow(payload,_storeGeneration());
+  }
+  function shadowStatus(){
+    if(global.Q4BStorageShadow){
+      var s=global.Q4BStorageShadow.status();
+      if(__shadowLoadError&&!s.lastError)s.loaderError=__shadowLoadError;
+      return Promise.resolve(s);
+    }
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,loaded:false,loaderError:__shadowLoadError};
+      var s=shadow.status(); s.loaded=true; return s;
+    });
+  }
+  function verifyShadow(){
+    var payload=_shadowAuthoritativePayload(), generation=_storeGeneration();
+    if(payload===null)return Promise.resolve({supported:!!global.indexedDB,exists:false,match:false,error:"legacy authoritative store is absent"});
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,exists:false,match:false,error:__shadowLoadError||"shadow module unavailable"};
+      return shadow.verify(payload,generation);
+    });
+  }
+  function shadowSnapshotMeta(){
+    return _loadShadow().then(function(shadow){
+      if(!shadow)return {supported:false,exists:false,error:__shadowLoadError||"shadow module unavailable"};
+      return shadow.latest().then(function(r){
+        if(!r)return {supported:true,exists:false};
+        return {supported:true,exists:true,mirrorSchema:r.mirrorSchema,sourceGeneration:r.sourceGeneration,
+          writtenAt:r.writtenAt,payloadBytes:r.payloadBytes,checksum:r.checksum};
+      });
+    });
+  }
+
+  /* ---------------- storage-v2 Phase 2 authority rehearsal ----------------
+     This is still non-authoritative in Phase 1. The candidate IndexedDB receives
+     successful legacy generations through a serialized/coalescing queue so the
+     exact future WAL->IDB commit path is exercised without any gameplay reads. */
+  var __authorityLoadPromise=null;
+  var __authorityLoadError=null;
+  var __authorityPending=null;
+  var __authorityRunning=false;
+  var __authorityLastResult=null;
+  var __authorityLastCommitAt=0;
+  function _authorityScriptUrl(){
+    if(!__storageScriptSrc)return null;
+    return __storageScriptSrc.replace(/storage\.js(?:\?.*)?$/,"storage_authority.js");
+  }
+  function _loadAuthorityCandidate(){
+    if(global.Q4BStorageAuthorityCandidate)return Promise.resolve(global.Q4BStorageAuthorityCandidate);
+    if(__authorityLoadPromise)return __authorityLoadPromise;
+    var d=global.document, url=_authorityScriptUrl();
+    if(!d||!d.createElement||!url)return Promise.resolve(null);
+    __authorityLoadPromise=new Promise(function(resolve){
+      try{
+        var s=d.createElement("script");
+        s.src=url; s.async=true;
+        s.onload=function(){ resolve(global.Q4BStorageAuthorityCandidate||null); };
+        s.onerror=function(){ __authorityLoadError="storage_authority.js load failed"; resolve(null); };
+        var host=d.head||d.documentElement||d.body;
+        if(!host||!host.appendChild){ __authorityLoadError="no script host"; resolve(null); return; }
+        host.appendChild(s);
+      }catch(e){ __authorityLoadError=(e&&e.message)||String(e); resolve(null); }
+    });
+    return __authorityLoadPromise;
+  }
+  function _drainAuthorityCandidate(){
+    if(__authorityRunning)return;
+    __authorityRunning=true;
+    _loadAuthorityCandidate().then(async function(api){
+      if(!api){ __authorityPending=null; return; }
+      while(__authorityPending){
+        var next=__authorityPending;
+        __authorityPending=null;
+        try{
+          __authorityLastResult=await api.commit(next.payload,next.generation,{reason:"phase1-rehearsal"});
+          __authorityLastCommitAt=Date.now();
+          var __authorityVerify=null;
+          if(__authorityLastResult&&__authorityLastResult.ok){
+            _writeAuthorityReceipt(next.payload,next.generation,__authorityLastResult);
+            try{__authorityVerify=await api.verifyLegacy(next.payload,next.generation);}catch(eVerify){__authorityVerify={match:false,error:(eVerify&&eVerify.message)||String(eVerify)};}
+          }
+          _recordSoakResult(__authorityLastResult,__authorityVerify,next.generation);
+        }catch(e){
+          __authorityLoadError=(e&&e.message)||String(e);
+          __authorityLastResult={ok:false,reason:"rehearsal-exception",error:__authorityLoadError};
+          _recordSoakResult(__authorityLastResult,null,next.generation);
+        }
+      }
+    }).catch(function(e){
+      __authorityLoadError=(e&&e.message)||String(e);
+      __authorityPending=null;
+    }).then(function(){
+      __authorityRunning=false;
+      if(__authorityPending)_drainAuthorityCandidate();
+    });
+  }
+  function _queueAuthorityCandidate(payload,generation){
+    if(payload===null||payload===undefined)return false;
+    __authorityPending={payload:String(payload),generation:String(generation==null?"0":generation)};
+    _drainAuthorityCandidate();
+    return true;
+  }
+  function authorityCandidateStatus(){
+    return _loadAuthorityCandidate().then(function(api){
+      var base=api?api.status():{supported:false};
+      base.loaded=!!api;
+      base.pending=!!__authorityPending;
+      base.running=__authorityRunning;
+      base.loaderError=__authorityLoadError;
+      base.lastResult=__authorityLastResult;
+      base.lastCommitAt=__authorityLastCommitAt;
+      return base;
+    });
+  }
+  function verifyAuthorityCandidate(){
+    var payload=safeGet(STORE_KEY,null), generation=_storeGeneration();
+    return _loadAuthorityCandidate().then(function(api){
+      if(!api)return {supported:false,exists:false,match:false,error:__authorityLoadError||"authority candidate unavailable"};
+      return api.verifyLegacy(payload,generation);
+    });
+  }
+  function authorityCandidateSnapshotMeta(){
+    return _loadAuthorityCandidate().then(async function(api){
+      if(!api)return {supported:false,exists:false,error:__authorityLoadError||"authority candidate unavailable"};
+      var a=await api.authority(), r=await api.rollback();
+      function meta(x){return x?{generation:x.sourceGeneration,writtenAt:x.writtenAt,payloadBytes:x.payloadBytes,checksum:x.checksum,sha256:x.sha256||null}:null;}
+      return {supported:true,exists:!!a,authority:meta(a),rollback:meta(r)};
+    });
+  }
+
+  /* ---------------- storage-v2 Phase 2 read-authority switch (disabled) ----------------
+     Hard gate stays false until sustained household rehearsal passes. Everything below
+     is already testable by flipping the constant only in an isolated test copy. */
+  var __authorityReadsEnabled=false;
+  var AUTHORITY_RECEIPT_KEY="q4b_storage_v2_idb_receipt_v1";
+  var AUTHORITY_RESTORE_TXN_KEY="q4b_storage_v2_restore_txn_v1";
+  var __authorityBootstrapPending=false;
+  var __authorityBootstrapPlan=null;
+  var __authorityRestoreRecovery=null;
+  var __authorityBootstrapBlockedWrites=0;
+
+  /* ---------------- storage-v2 sustained soak metrics ----------------
+     Diagnostic metadata only. No child/game payload is copied into this record. */
+  var SOAK_STATS_KEY="q4b_storage_v2_soak_stats_v1";
+  function _blankSoakStats(){return {v:1,startedAt:0,firstSuccessAt:0,lastSuccessAt:0,lastFailureAt:0,successfulCommits:0,verifiedMatches:0,verificationMismatches:0,failedCommits:0,repairs:0,staleRejects:0,conflicts:0,consecutiveVerified:0,lastGeneration:null,lastError:null,days:{}};}
+  function _readSoakStats(){
+    var raw=safeGet(SOAK_STATS_KEY,null), st=null;
+    try{if(raw)st=JSON.parse(raw);}catch(_){}
+    if(!st||st.v!==1)st=_blankSoakStats();
+    if(!st.days||typeof st.days!=="object")st.days={};
+    return st;
+  }
+  function _soakDayKey(ts){var d=new Date(ts);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+  function _writeSoakStats(st){try{return safeSet(SOAK_STATS_KEY,JSON.stringify(st));}catch(_){return false;}}
+  function _recordSoakResult(commitResult,verification,generation){
+    var t=Date.now(), st=_readSoakStats();
+    if(!st.startedAt)st.startedAt=t;
+    st.lastGeneration=String(generation==null?"0":generation);
+    if(commitResult&&commitResult.ok){
+      st.successfulCommits=(st.successfulCommits||0)+1;
+      if(!st.firstSuccessAt)st.firstSuccessAt=t;
+      st.lastSuccessAt=t;
+      st.days[_soakDayKey(t)]=(st.days[_soakDayKey(t)]||0)+1;
+      if(commitResult.reason==="repair-corrupt-authority"||commitResult.previousIntegrityError)st.repairs=(st.repairs||0)+1;
+      if(verification&&verification.match&&verification.authorityValid!==false){
+        st.verifiedMatches=(st.verifiedMatches||0)+1;
+        st.consecutiveVerified=(st.consecutiveVerified||0)+1;
+        st.lastError=null;
+      }else{
+        st.verificationMismatches=(st.verificationMismatches||0)+1;
+        st.consecutiveVerified=0;
+        st.lastFailureAt=t;
+        st.lastError=(verification&&verification.error)||"candidate verification mismatch";
+      }
+    }else{
+      st.failedCommits=(st.failedCommits||0)+1;
+      st.consecutiveVerified=0;
+      st.lastFailureAt=t;
+      var reason=(commitResult&&commitResult.reason)||"candidate commit failed";
+      st.lastError=(commitResult&&commitResult.error)||reason;
+      if(reason==="stale-generation")st.staleRejects=(st.staleRejects||0)+1;
+      if(reason==="same-generation-divergence")st.conflicts=(st.conflicts||0)+1;
+    }
+    _writeSoakStats(st);
+    _scheduleStorageV2RemoteDiagnostics();
+    return st;
+  }
+  function storageV2SoakStats(){
+    var st=_readSoakStats(), days=Object.keys(st.days||{}).filter(function(k){return st.days[k]>0;}).sort();
+    var spanDays=0;
+    if(st.firstSuccessAt&&st.lastSuccessAt)spanDays=Math.floor((st.lastSuccessAt-st.firstSuccessAt)/86400000)+1;
+    return Object.assign({},st,{activeDays:days.length,calendarDays:days,spanDays:spanDays});
+  }
+  async function storageV2Readiness(){
+    var shadow=await verifyShadow();
+    var candidate=await verifyAuthorityCandidate();
+    var soak=storageV2SoakStats();
+    var promotion=authorityPromotionStatus();
+    var checks={
+      hardGateStillOff:promotion.enabled===false,
+      shadowCurrent:!!(shadow&&shadow.match),
+      candidateCurrent:!!(candidate&&candidate.match),
+      candidateCryptoVerified:!!(candidate&&candidate.cryptoVerified),
+      noVerificationMismatch:(soak.verificationMismatches||0)===0,
+      noCandidateFailure:(soak.failedCommits||0)===0,
+      enoughVerifiedCommits:(soak.verifiedMatches||0)>=300,
+      enoughActiveDays:(soak.activeDays||0)>=3,
+      noRestoreRecoveryFailure:!(promotion.restoreRecovery&&/failed|invalid/.test(String(promotion.restoreRecovery.state||"")))
+    };
+    var eligible=Object.keys(checks).every(function(k){return checks[k]===true;});
+    return {eligible:eligible,checks:checks,soak:soak,shadow:shadow,candidate:candidate,promotion:promotion,policy:{minimumVerifiedCommits:300,minimumActiveDays:3,automaticPromotion:false}};
+  }
+
+  /* ---------------- storage-v2 remote soak diagnostics ----------------
+     Monitoring only: uploads aggregate migration counters/checks to the already-configured
+     private Fieldnote GitHub repository. No profiles, answers, collection state, save payload,
+     checksum, or other child/game data is included. Failure is always non-fatal. */
+  var __storageV2DiagTimer=null;
+  var __storageV2DiagLastPushAt=0;
+  var __storageV2DiagLastError=null;
+  var STORAGE_V2_DIAG_MIN_INTERVAL_MS=5*60*1000;
+  function _storageV2MonitorId(){
+    var k="q4b_storage_v2_monitor_id_v1", v=safeGet(k,null);
+    if(v)return v;
+    v="m"+Math.random().toString(36).slice(2,10)+"-"+Date.now().toString(36);
+    try{safeSet(k,v);}catch(_){}
+    return v;
+  }
+  function _storageV2DiagPath(cfg){
+    return basePath(cfg)+"/diagnostics/storage-v2/"+escPathPart(_storageV2MonitorId())+".json";
+  }
+  function _storageV2DiagDoc(readiness){
+    var soak=(readiness&&readiness.soak)||storageV2SoakStats();
+    var promotion=(readiness&&readiness.promotion)||authorityPromotionStatus();
+    return {
+      schema:"quest4bugs.storage-v2-diagnostics.v1",
+      recordedAt:Date.now(),
+      monitorId:_storageV2MonitorId(),
+      hardGateEnabled:!!(promotion&&promotion.enabled),
+      eligible:!!(readiness&&readiness.eligible),
+      checks:(readiness&&readiness.checks)||{},
+      soak:{
+        successfulCommits:soak.successfulCommits||0,
+        verifiedMatches:soak.verifiedMatches||0,
+        verificationMismatches:soak.verificationMismatches||0,
+        failedCommits:soak.failedCommits||0,
+        repairs:soak.repairs||0,
+        staleRejects:soak.staleRejects||0,
+        conflicts:soak.conflicts||0,
+        consecutiveVerified:soak.consecutiveVerified||0,
+        activeDays:soak.activeDays||0,
+        spanDays:soak.spanDays||0,
+        firstSuccessAt:soak.firstSuccessAt||0,
+        lastSuccessAt:soak.lastSuccessAt||0,
+        lastFailureAt:soak.lastFailureAt||0,
+        lastGeneration:soak.lastGeneration||null,
+        lastError:soak.lastError||null
+      }
+    };
+  }
+  async function pushStorageV2RemoteDiagnosticsNow(){
+    try{
+      var cfg=getConfig();
+      if(!cfg.enabled)return {ok:false,skipped:true,reason:"github-sync-disabled"};
+      var readiness=await storageV2Readiness();
+      var doc=_storageV2DiagDoc(readiness);
+      var p=_storageV2DiagPath(cfg), remote=null, attempt=0, res=null;
+      for(attempt=0;attempt<3;attempt++){
+        remote=await githubGet(cfg,p);
+        var body={message:"storage-v2 diagnostics "+stamp(),content:stringToBase64(JSON.stringify(doc,null,2))};
+        if(remote&&remote.sha)body.sha=remote.sha;
+        res=await fetch(githubUrl(cfg,p),{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},authHeaders(cfg)),body:JSON.stringify(body)});
+        if(res.ok){
+          __storageV2DiagLastPushAt=Date.now();
+          __storageV2DiagLastError=null;
+          return {ok:true,path:p,recordedAt:doc.recordedAt,verifiedMatches:doc.soak.verifiedMatches,activeDays:doc.soak.activeDays,eligible:doc.eligible};
+        }
+        if(res.status===409||res.status===422){await sleep(200*(attempt+1));continue;}
+        throw new Error("diagnostics PUT failed: "+res.status);
+      }
+      throw new Error("diagnostics PUT conflict retries exhausted");
+    }catch(e){
+      __storageV2DiagLastError=(e&&e.message)||String(e);
+      return {ok:false,error:__storageV2DiagLastError};
+    }
+  }
+  function _scheduleStorageV2RemoteDiagnostics(){
+    try{if(!getConfig().enabled)return;}catch(_){return;}
+    if(__storageV2DiagTimer)return;
+    var elapsed=Date.now()-(__storageV2DiagLastPushAt||0);
+    var delay=__storageV2DiagLastPushAt?Math.max(30000,STORAGE_V2_DIAG_MIN_INTERVAL_MS-elapsed):30000;
+    __storageV2DiagTimer=setTimeout(function(){
+      __storageV2DiagTimer=null;
+      pushStorageV2RemoteDiagnosticsNow().catch(function(){});
+    },delay);
+  }
+  function storageV2RemoteDiagnosticsStatus(){
+    return {enabled:!!getConfig().enabled,monitorId:_storageV2MonitorId(),lastPushAt:__storageV2DiagLastPushAt,lastError:__storageV2DiagLastError,minIntervalMs:STORAGE_V2_DIAG_MIN_INTERVAL_MS};
+  }
+
+  function _storageV2FastChecksum(text){
+    text=String(text==null?"":text);
+    var h=0x811c9dc5;
+    for(var i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}
+    return ("00000000"+h.toString(16)).slice(-8);
+  }
+  function _readAuthorityReceipt(){
+    var raw=safeGet(AUTHORITY_RECEIPT_KEY,null), r=null;
+    if(!raw)return null;
+    try{r=JSON.parse(raw);}catch(_){return null;}
+    if(!r||r.v!==1||!/^\d+$/.test(String(r.generation||""))||!r.checksum)return null;
+    return r;
+  }
+  function _writeAuthorityReceipt(payload,generation,result){
+    if(!result||!result.ok||payload==null)return false;
+    var receipt={v:1,generation:String(generation==null?"0":generation),checksum:_storageV2FastChecksum(payload),
+      sha256:result.sha256||null,committedAt:Date.now()};
+    return safeSet(AUTHORITY_RECEIPT_KEY,JSON.stringify(receipt));
+  }
+  function _authorityCacheHint(){
+    var receipt=_readAuthorityReceipt(), payload=safeGet(STORE_KEY,null), generation=_storeGeneration();
+    if(!receipt)return {state:"unknown",legacyExists:payload!==null,legacyGeneration:String(generation)};
+    if(payload===null)return {state:"authority-newer-hint",legacyExists:false,legacyGeneration:String(generation),receiptGeneration:receipt.generation};
+    var lg=parseInt(generation,10)||0, rg=parseInt(receipt.generation,10)||0;
+    if(lg>rg)return {state:"wal-newer",legacyExists:true,legacyGeneration:String(generation),receiptGeneration:receipt.generation};
+    if(lg<rg)return {state:"authority-newer-hint",legacyExists:true,legacyGeneration:String(generation),receiptGeneration:receipt.generation};
+    var cs=_storageV2FastChecksum(payload);
+    if(cs===String(receipt.checksum))return {state:"matched",legacyExists:true,legacyGeneration:String(generation),receiptGeneration:receipt.generation,checksum:cs};
+    return {state:"same-generation-receipt-mismatch",legacyExists:true,legacyGeneration:String(generation),receiptGeneration:receipt.generation,legacyChecksum:cs,receiptChecksum:receipt.checksum};
+  }
+  function _captureLegacyForRestore(){
+    var p=safeGet(STORE_KEY,null);
+    return {exists:p!==null,payload:p,generation:_storeGeneration()};
+  }
+  function _validRestoreTxn(m){
+    return !!(m&&m.v===1&&m.old&&m.next&&/^\d+$/.test(String(m.old.generation||"0"))&&/^\d+$/.test(String(m.next.generation||""))&&typeof m.next.payload==="string");
+  }
+  function _restoreOldFromTxn(m){
+    var ok=true;
+    if(m.old.exists){
+      ok=safeSet(STORE_KEY,String(m.old.payload))&&ok;
+      ok=safeSet(STORE_GEN_KEY,String(m.old.generation||"0"))&&ok;
+    }else{
+      ok=safeRemove(STORE_KEY)&&ok;
+      ok=safeSet(STORE_GEN_KEY,String(m.old.generation||"0"))&&ok;
+    }
+    var p=safeGet(STORE_KEY,null), g=_storeGeneration();
+    if(m.old.exists)ok=ok&&p===String(m.old.payload)&&g===String(m.old.generation||"0");
+    else ok=ok&&p===null&&g===String(m.old.generation||"0");
+    return ok;
+  }
+  function _recoverAuthorityRestoreTxn(){
+    var raw=safeGet(AUTHORITY_RESTORE_TXN_KEY,null), m=null;
+    if(!raw)return {state:"none"};
+    try{m=JSON.parse(raw);}catch(_){return {state:"invalid-marker",recovered:false};}
+    if(!_validRestoreTxn(m))return {state:"invalid-marker",recovered:false};
+    var p=safeGet(STORE_KEY,null), g=_storeGeneration();
+    if(p===m.next.payload&&g===String(m.next.generation)){
+      safeRemove(AUTHORITY_RESTORE_TXN_KEY);
+      return {state:"completed-cleanup",recovered:true,generation:g};
+    }
+    if((m.old.exists?p===String(m.old.payload):p===null)&&g===String(m.old.generation||"0")){
+      safeRemove(AUTHORITY_RESTORE_TXN_KEY);
+      return {state:"old-state-cleanup",recovered:true,generation:g};
+    }
+    var rolledBack=_restoreOldFromTxn(m);
+    if(rolledBack)safeRemove(AUTHORITY_RESTORE_TXN_KEY);
+    return {state:rolledBack?"partial-rollback":"partial-rollback-failed",recovered:rolledBack,generation:_storeGeneration()};
+  }
+  function _applyAuthorityCacheRestore(plan){
+    if(!__authorityReadsEnabled)return {ok:false,applied:false,reason:"read-authority-disabled"};
+    if(!plan||!plan.ok||plan.action!=="restore-cache-from-authority")return {ok:false,applied:false,reason:"not-a-restore-plan"};
+    if(!plan.cryptoVerified)return {ok:false,applied:false,reason:"authority-not-cryptographically-verified"};
+    var candidate=null;
+    try{candidate=JSON.parse(String(plan.payload));}catch(_){return {ok:false,applied:false,reason:"authority-payload-invalid-json"};}
+    if(!candidate||typeof candidate!=="object"||!Array.isArray(candidate.profiles)||!candidate.kv||typeof candidate.kv!=="object")return {ok:false,applied:false,reason:"authority-payload-invalid-shape"};
+    var old=_captureLegacyForRestore();
+    var marker={v:1,startedAt:Date.now(),old:old,next:{payload:String(plan.payload),generation:String(plan.generation),checksum:String(plan.checksum||"")}};
+    if(!safeSet(AUTHORITY_RESTORE_TXN_KEY,JSON.stringify(marker)))return {ok:false,applied:false,reason:"restore-marker-write-failed"};
+    var payloadOk=safeSet(STORE_KEY,marker.next.payload);
+    var generationOk=payloadOk&&safeSet(STORE_GEN_KEY,marker.next.generation);
+    var exact=generationOk&&safeGet(STORE_KEY,null)===marker.next.payload&&_storeGeneration()===marker.next.generation;
+    if(!exact){
+      var recovery=_recoverAuthorityRestoreTxn();
+      return {ok:false,applied:false,reason:"restore-write-failed",recovery:recovery};
+    }
+    safeRemove(AUTHORITY_RESTORE_TXN_KEY);
+    _writeAuthorityReceipt(marker.next.payload,marker.next.generation,plan);
+    _discardStore();
+    loadStore();
+    return {ok:true,applied:true,generation:marker.next.generation};
+  }
+  function _reconcileAuthorityBootstrap(){
+    return _loadAuthorityCandidate().then(async function(api){
+      if(!api){__authorityBootstrapPlan={ok:false,action:"candidate-unavailable",error:__authorityLoadError};return __authorityBootstrapPlan;}
+      var payload=safeGet(STORE_KEY,null), generation=_storeGeneration();
+      var plan=await api.reconcile(payload,generation);
+      __authorityBootstrapPlan=plan;
+      if(plan&&plan.ok&&payload!==null&&(plan.action==="matched"||plan.action==="seed-from-legacy"||plan.action==="replay-wal"||plan.action==="repair-corrupt-authority")){
+        _writeAuthorityReceipt(payload,generation,plan);
+      }
+      if(__authorityReadsEnabled&&plan&&plan.ok&&plan.action==="restore-cache-from-authority"){
+        var applied=_applyAuthorityCacheRestore(plan);
+        __authorityBootstrapPending=false;
+        if(applied&&applied.ok){
+          try{if(global.location&&typeof global.location.reload==="function")setTimeout(function(){global.location.reload();},0);}catch(_){}
+        }
+        return Object.assign({},plan,{restoreResult:applied});
+      }
+      __authorityBootstrapPending=false;
+      return plan;
+    }).catch(function(e){
+      __authorityBootstrapPending=false;
+      __authorityBootstrapPlan={ok:false,action:"bootstrap-exception",error:(e&&e.message)||String(e)};
+      return __authorityBootstrapPlan;
+    });
+  }
+  function authorityPromotionStatus(){
+    return {enabled:__authorityReadsEnabled,bootstrapPending:__authorityBootstrapPending,blockedWrites:__authorityBootstrapBlockedWrites,
+      cacheHint:_authorityCacheHint(),lastPlan:__authorityBootstrapPlan,restoreRecovery:__authorityRestoreRecovery};
+  }
+  function authorityReconcileNow(){return _reconcileAuthorityBootstrap();}
+  function authorityReadSwitchEnabled(){return __authorityReadsEnabled;}
+
   function now(){return Date.now();}
   function pad2(n){return (n<10?"0":"")+n;}
   function stamp(){
@@ -189,13 +659,21 @@
      には degraded フラグを立てて上位 UI から警告できるようにする (新追加#1)。 */
   var __saveDegraded = false;
   function persist(){
+    if(__authorityReadsEnabled&&__authorityBootstrapPending){
+      __authorityBootstrapBlockedWrites++;
+      return false;
+    }
     if(!mem) return true;
-    var ok = safeSet(STORE_KEY, JSON.stringify(mem));
+    var serialized = JSON.stringify(mem);
+    var ok = safeSet(STORE_KEY, serialized);
     if(ok){
       var storedGeneration=parseInt(_storeGeneration(),10)||0;
       var heldGeneration=parseInt(memGeneration,10)||0;
       var nextGeneration=Math.max(storedGeneration,heldGeneration,now())+1;
       if(safeSet(STORE_GEN_KEY,String(nextGeneration)))memGeneration=String(nextGeneration);
+      /* Phase 1: shadow is strictly post-legacy-success and never awaited. */
+      _queueShadow(serialized,_storeGeneration());
+      _queueAuthorityCandidate(serialized,_storeGeneration());
     }
     if(!ok){
       __saveDegraded = true;
@@ -485,7 +963,7 @@
      CAS の目的は「古い snapshot に基づく save が新しい snapshot を上書きする」 race
      の検出。 expectedRevision は caller が load 時点の revision を保持し、 save 時
      に明示渡しする。 一致しなければ書込み拒否 + 退避 + conflicted 状態に。 */
-  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, komorebi:1, breeding:1, battle:1, wallet:1, toolgear:1};
+  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, komorebi:1, breeding:1, battle:1, wallet:1};
   var __conflicted = {};       /* {ns+SEP+key: {expectedRevision, actualRevision}} */
   var CONFLICT_BACKUP_PREFIX = "q4b_conflict_backup_";
   var CONFLICT_BACKUP_MAX_PER_PROFILE = 10;
@@ -760,85 +1238,6 @@
   function amberSet(pid,val){ var store=loadStore(),key=amberKey(pid),existing=store.kv[key]; store.kv[key]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:{amber:Math.max(0,Math.floor(val)||0)}}; persist(); schedulePush(); }
   function amberAdd(pid,n){ var v=amberOf(pid)+(n||0); amberSet(pid,v); return v; }
   function amberSpend(pid,n){ var v=amberOf(pid); if(v<n)return false; amberSet(pid,v-n); return true; }
-
-  /* ---------------- shared 採集道具 (toolgear) wallet（プロフィール単位・全ゲーム共通） ----
-     komorebi profile 直下 (tools / equippedToolId / toolDex) に住んでいた道具の状態を、
-     琥珀と同じ shared kv (toolgear <pid>) へ昇格させる。本編 3 教科からも読み書き
-     するための置き場所で、amber wallet と同じ per-kv LWW に載せる。
-     CAS リトライにしなかった理由: 道具は耐久 100 の消耗品で、二台同時プレイの
-     競合で失われるのは高々数ポイントの残量。復元手順とリトライ機構の複雑さより、
-     wallet と同じ「最後に書いた側が勝つ」単純さを採る (琥珀の数個と同じ許容)。 */
-  function toolGearKey(pid){ return "toolgear"+SEP+pid; }
-  function blankToolGear(){ return {tools:[],equippedToolId:null,toolDex:{},migrated:false}; }
-  /* 壊れた形は捨てず可能な範囲で拾う。tools.js の不変条件 (type は非空文字列、
-     remaining は 1 以上の整数) を満たさない道具だけを黙って落とす。remaining 0 以下は
-     「使い切って壊れた道具」なので、残すと図鑑にも一覧にも出せない亡霊になる。 */
-  function normalizeToolGear(data){
-    var out=blankToolGear(), i, entry, remaining, type, at;
-    data=(data&&typeof data==="object"&&!Array.isArray(data))?data:{};
-    if(Array.isArray(data.tools)){
-      for(i=0;i<data.tools.length;i++){
-        entry=data.tools[i];
-        if(!entry||typeof entry!=="object")continue;
-        if(typeof entry.type!=="string"||!entry.type)continue;
-        remaining=Math.floor(entry.remaining);
-        if(!Number.isFinite(remaining)||remaining<1)continue;
-        /* 丸めは「知っている道具」だけ (shared/tools.js の validateTools と同じ規則)。
-           未知 id は将来の端末が書いたもので、その上限は分からないから触らない。 */
-        if(global.Q4B_TOOLS&&Number.isFinite(global.Q4B_TOOLS.durability)
-          &&typeof global.Q4B_TOOLS.byId==="function"&&global.Q4B_TOOLS.byId(entry.type)){
-          remaining=Math.min(remaining,global.Q4B_TOOLS.durability);
-        }
-        out.tools.push({type:entry.type,remaining:remaining});
-      }
-    }
-    if(typeof data.equippedToolId==="string"&&data.equippedToolId)out.equippedToolId=data.equippedToolId;
-    /* 装備だけ残って本体が無いのは形の誤りではなく取りこぼし。komorebi 側の
-       normalizeProfile と同じく黙って外す。 */
-    if(out.equippedToolId&&!out.tools.some(function(e){return e.type===out.equippedToolId;}))out.equippedToolId=null;
-    if(data.toolDex&&typeof data.toolDex==="object"&&!Array.isArray(data.toolDex)){
-      for(type in data.toolDex){
-        at=data.toolDex[type];
-        if(typeof at==="string"&&at)out.toolDex[type]=at;
-      }
-    }
-    out.migrated=!!data.migrated;
-    return out;
-  }
-  function toolGearOf(pid){
-    if(!pid)return blankToolGear();
-    var e=loadStore().kv[toolGearKey(pid)];
-    if(!e||!e.data)return blankToolGear();
-    /* normalizeToolGear は全 field を新しい object へ組み直すので、返り値は
-       内部 store と共有されない (caller が触っても store に漏れない)。 */
-    return normalizeToolGear(e.data);
-  }
-  function toolGearSet(pid,gear){
-    if(!pid)return false;
-    var store=loadStore(),key=toolGearKey(pid),existing=store.kv[key];
-    store.kv[key]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:normalizeToolGear(gear)};
-    persist();
-    schedulePush();
-    return true;
-  }
-  /* profile 直下 → toolgear kv への一方向移行。kv エントリ自体が無い端末で、
-     profile に道具が居るときだけ 1 回種を蒔く。kv が既に在れば (空でも) 何も
-     しない: 消費して空になった kv を profile の残骸で埋め直すと道具が復活する。
-     profile 側は消さない (古いクライアントとの共存とデータ保全のため)。
-     ※本番は MEDAL_ECONOMY_ON=false のまま交換 UI が閉じており実ユーザーの
-       tools は全員空なので、これは開発 save 向けの保険でしかない。 */
-  function toolGearMigrateFromProfile(pid,profile){
-    if(!pid||!profile||typeof profile!=="object")return false;
-    var store=loadStore(),key=toolGearKey(pid);
-    if(Object.prototype.hasOwnProperty.call(store.kv,key))return false;
-    if(!Array.isArray(profile.tools)||!profile.tools.length)return false;
-    var seed=normalizeToolGear({tools:profile.tools,equippedToolId:profile.equippedToolId,
-      toolDex:profile.toolDex,migrated:true});
-    store.kv[key]={v:1,updated:now(),revision:1,updatedBy:__deviceId,data:seed};
-    persist();
-    schedulePush();
-    return true;
-  }
 
   /* ---------------- shared ごしんぼく rewards（プロフィール単位） ----------
      かせきのかけら: 各教科で 1日30問正解した瞬間に +1（各教科1日1個まで）。
@@ -1495,7 +1894,22 @@
   }
 
   /* ---------------- init ---------------- */
+  /* Future authority-mode crash recovery is safe to run even while the hard gate is off:
+     no marker exists unless an authority cache-restore transaction had started. */
+  __authorityRestoreRecovery=_recoverAuthorityRestoreTxn();
+  if(__authorityReadsEnabled){
+    var __authorityInitialHint=_authorityCacheHint();
+    __authorityBootstrapPending=!(__authorityInitialHint.state==="matched"||__authorityInitialHint.state==="wal-newer");
+  }
   loadStore();
+  /* Phase 1C: existing legacy saves receive a mirror without a gameplay write. */
+  _shadowBackfill();
+  if(__authorityReadsEnabled){
+    _reconcileAuthorityBootstrap();
+  }else{
+    /* Rehearsal remains write-only toward the candidate authority. */
+    (function(){var p=safeGet(STORE_KEY,null);if(p!==null)_queueAuthorityCandidate(p,_storeGeneration());})();
+  }
   /* PA-1: 起動時は同期成功実績で初期 status を決める。 lastSuccess があり 24h 以内
      なら synced とみなしてよい (最後の同期が最近) 、 それ以外は dirty。 */
   (function(){
@@ -1513,7 +1927,6 @@
     currentProfile:currentProfile, setCurrentProfile:setCurrentProfile,
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
-    toolGearOf:toolGearOf, toolGearSet:toolGearSet, toolGearMigrateFromProfile:toolGearMigrateFromProfile,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
@@ -1534,6 +1947,13 @@
     getConfig:getConfig, saveConfig:saveConfig, clearConfig:clearConfig, testConnection:testConnection,
     // bulk sync / backup
     pushAll:pushAll, pullAll:pullAll, syncDown:syncDown, exportAll:exportAll, importAll:importAll,
+    // storage-v2 Phase 1 diagnostics (read-only; never restore)
+    shadowStatus:shadowStatus, verifyShadow:verifyShadow, shadowSnapshotMeta:shadowSnapshotMeta,
+    // storage-v2 Phase 2 rehearsal diagnostics (candidate never feeds gameplay while hard gate=false)
+    authorityCandidateStatus:authorityCandidateStatus, verifyAuthorityCandidate:verifyAuthorityCandidate, authorityCandidateSnapshotMeta:authorityCandidateSnapshotMeta,
+    // storage-v2 Phase 2 promotion diagnostics; switch is compile-time disabled pending soak
+    authorityPromotionStatus:authorityPromotionStatus, authorityReconcileNow:authorityReconcileNow, authorityReadSwitchEnabled:authorityReadSwitchEnabled,
+    storageV2SoakStats:storageV2SoakStats, storageV2Readiness:storageV2Readiness,pushStorageV2RemoteDiagnosticsNow:pushStorageV2RemoteDiagnosticsNow,storageV2RemoteDiagnosticsStatus:storageV2RemoteDiagnosticsStatus,
     // legacy compat
     loadKey:loadKey, saveKey:saveKey,
     // ui
