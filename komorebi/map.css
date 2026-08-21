@@ -69,6 +69,18 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 
 /* エリア表題。10 歳は漢字のまま、5 歳は furi5 の ruby が乗る。 */
 .kom-title{text-align:center;padding:14px 16px 4px}
+/* ずかんの見出しは中央寄せなので、右上に絶対配置される イラスト/しゃしん 切替
+   (shared/zukan_render.js) と重なる。切替のホストがこの見出しブロックなのは、
+   viewport 右上を portal への固定 🏠 リンクが占有しているため (app.js の
+   mountZukanModeToggle 参照)。スマホ幅では題の右 145px ほどが隠れて読めなく
+   なるので、切替 1 段ぶんの高さを見出しの上に空ける。 */
+@media (max-width:700px){
+  .zukan-page .kom-title{padding-top:58px}
+}
+/* 幅があるときは題を下げず、左右に同じだけ余白を取って中央寄せのまま逃がす。 */
+@media (min-width:701px){
+  .zukan-page .kom-title{padding-left:180px;padding-right:180px}
+}
 .kom-title h1{margin:0;font-size:30px;font-weight:900;letter-spacing:.04em;color:#F6FFE4;
   text-shadow:0 2px 0 rgba(6,32,20,.55),0 0 26px rgba(214,238,137,.45)}
 .kom-title h1 rt{font-size:.42em;font-weight:700;color:#CFE7A8;letter-spacing:0}
