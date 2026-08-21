@@ -295,11 +295,25 @@
     if(tier<0) return null;
     var cand = byTier[tier];
     if(caught){ var fresh = cand.filter(function(s){ return !caught[s.id]; }); if(fresh.length) cand = fresh; }
+    /* 🥅 採集道具 (opts.tool): tier 内の最終選択を「夜の重み × guild 重み」の
+       重み付き抽選にする。tool が無いときはこの分岐ごと存在しないのと同じで、
+       結果も乱数の消費本数も従来と完全に同一。
+       注: 小道の道具にはもう 1 つ「未発見 tier 振替 +0.25」(Q4B_TOOLS.FRESH_BOOST)
+       があるが、本編の rollFromPool は上の fresh 優先で tier 内の未捕獲を常に先に
+       出す既存仕様のため、新顔への寄せは既に構造的に入っている。ここに足すと
+       二重取りになるので、本編に効かせるのは guild 重みだけ (2026-08-20 決定)。 */
+    var tw = null;
+    if(opts.tool && cand.length>1 && global.Q4B_TOOLS && typeof global.Q4B_TOOLS.guildWeightFor==="function"){
+      tw = cand.map(function(s){ return global.Q4B_TOOLS.guildWeightFor(opts.tool, s); });
+    }
     /* 昼夜の重み付き抽選（setNight が呼ばれたゲームのみ有効。未使用ゲームは一様のまま） */
     if(_nightActive && cand.length>1){
-      var nw = cand.map(function(s){ return nightFactor(nightOf(s)); });
+      var nw = cand.map(function(s,ci){ return nightFactor(nightOf(s)) * (tw ? tw[ci] : 1); });
       var ntot = nw.reduce(function(a,b){return a+b;},0);
       if(ntot>0){ var rr = random()*ntot; for(var k=0;k<cand.length;k++){ if(rr<nw[k]) return cand[k]; rr-=nw[k]; } }
+    } else if(tw){
+      var ttot = tw.reduce(function(a,b){return a+b;},0);
+      if(ttot>0){ var tr = random()*ttot; for(var m=0;m<cand.length;m++){ if(tr<tw[m]) return cand[m]; tr-=tw[m]; } }
     }
     return cand[Math.floor(random()*cand.length)];
   }
@@ -461,14 +475,29 @@
   var AMBER_CATCH_COST = 30;
   var amberStore = null;  // {get:()->n, add:(n)->n, spend:(n)->bool}
   function setAmberStore(s){ amberStore = s; }
+  /* 🥅 採集道具: 装備中の道具は対象 guild の当選重みを上げ、捕獲 1 回ごとに耐久が
+     減る。効果の中身は shared/tools.js (guildWeightFor / walletStore) に 1 本化して
+     あり、ここは amber と同じく store を差す口だけを持つ。未設定なら道具の実装前と
+     1 ビットも変わらない (後方互換)。効果範囲はゲージ捕獲 (onCorrect) とこはく
+     呼び出し (spendForCatch) の 2 経路のみで、award / awardMaster / hatchEgg には
+     効かせず耐久も減らさない (2026-08-20 決定)。 */
+  var toolsStore = null;  // {equippedTool:()->{type,remaining}|null, consumeOnCapture:()->use|null}
+  function setToolsStore(s){ toolsStore = s; }
   function earnAmber(coll, n){ if(amberStore) amberStore.add(n); else coll.amber = (coll.amber||0) + n; }
   function amberOf(coll){ return amberStore ? amberStore.get() : ((coll && coll.amber) || 0); }
   function spendForCatch(coll, game, boost){
     if(!coll.catches) coll.catches = {};
     if(amberStore){ if(!amberStore.spend(AMBER_CATCH_COST)) return null; }
     else { if((coll.amber||0) < AMBER_CATCH_COST) return null; coll.amber -= AMBER_CATCH_COST; }
-    var sp = rollFromPool(pool(game), coll.catches, boost);
-    return sp ? record(coll, sp, {source:"amber"}) : null;
+    /* 🥅 装備中の道具はこはく呼び出しにも効き、捕獲成立で耐久 1 消費 (経路はゲージと
+       ここの 2 つだけ)。store 未設定なら従来と同一。 */
+    var tool = toolsStore ? toolsStore.equippedTool() : null;
+    var sp = rollFromPool(pool(game), coll.catches, boost, tool ? {tool: tool} : undefined);
+    if(!sp) return null;
+    var result = record(coll, sp, {source:"amber"});
+    var toolUse = tool ? toolsStore.consumeOnCapture() : null;
+    if(toolUse) result.toolUse = toolUse;
+    return result;
   }
 
   /* 新しさ係数: 直近で同じ問題(itemId)を繰り返すほどゲージの進みを軽減する。
@@ -511,9 +540,16 @@
     var threshold = need || NEED_DEFAULT;
     if((coll.gauge||0) < threshold) return null;
     coll.gauge -= threshold;
-    var sp = rollFromPool(pool(game), coll.catches, boost, opts);
+    /* 🥅 装備中の道具をゲージ捕獲の抽選に効かせ、捕獲成立で耐久を 1 消費する。
+       tool の問い合わせはゲージ満了後だけ (満了前の正解では store に触れない)。
+       store 未設定・未装備なら乱数の消費本数まで従来と同一。 */
+    var tool = toolsStore ? toolsStore.equippedTool() : null;
+    var sp = rollFromPool(pool(game), coll.catches, boost, tool ? Object.assign({}, opts, {tool: tool}) : opts);
     if(!sp) return null;
-    return record(coll, sp, {source:"wild", now:opts.now, random:opts.random, game:game, mode:opts.mode});
+    var result = record(coll, sp, {source:"wild", now:opts.now, random:opts.random, game:game, mode:opts.mode});
+    var toolUse = tool ? toolsStore.consumeOnCapture() : null;
+    if(toolUse) result.toolUse = toolUse;
+    return result;
   }
 
   /* guaranteed single catch (for set-completion / bonus gacha, no gauge). boost optional.
@@ -1491,6 +1527,7 @@
     award: award,
     spendForCatch: spendForCatch,
     setAmberStore: setAmberStore,
+    setToolsStore: setToolsStore,
     amberOf: amberOf,
     earnAmber: earnAmber,
     AMBER_CATCH_COST: AMBER_CATCH_COST,
@@ -1505,6 +1542,7 @@
     shinyChanceFor: shinyChanceFor,
     rarityProbabilities: rarityProbabilities,
     selectTier: selectTier,
+    rollFromPool: rollFromPool,
     record: record,
     collectedCount: collectedCount,
     zukanDenomCount: zukanDenomCount,

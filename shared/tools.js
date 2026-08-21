@@ -192,6 +192,20 @@
     return speciesList.filter(function(sp){return matches(toolId,sp);}).length;
   }
 
+  /* --- 効果の定数 (tools_design 8 章) ----------------------------------------
+     道具が抽選をどれだけ動かすかは、この 2 定数と guildWeightFor だけが知っている。
+     小道の抽選器 (komorebi/app.js) と本編の抽選器 (shared/reward.js) は別物のまま
+     残るが、効きの強さはここ 1 か所で再調整できる。 */
+  var GUILD_WEIGHT=3;     /* 対象 guild の当選重み。排他にはしない (抽選の意外性を残す)。 */
+  var FRESH_BOOST=0.25;   /* 未発見 tier への振替に足す確率。小道の drawCapture だけが使う。 */
+
+  /* guild 重み。tool は定義 ({id})・instance ({type})・id 文字列のどれでも受ける。
+     小道は道具の定義を、本編の共有 store は instance を渡すため。対象外の種は 1 倍。 */
+  function guildWeightFor(tool,sp){
+    var id=typeof tool==="string"?tool:(isObject(tool)?(tool.id||tool.type):null);
+    return typeof id==="string"&&matches(id,sp)?GUILD_WEIGHT:1;
+  }
+
   /* --- instance 管理 ---------------------------------------------------------
      道具は個体で持つ。同じ灯火セットを 4 つ持てば耐久は 4 本ぶん別々に減る。
      装備は 1 枠で、equippedToolId は種類を指す。実際に減る個体は同じ種類の
@@ -303,6 +317,55 @@
     return {type:tool.id,remaining:spare?spare.remaining:0,broke:true,swapped:!!spare};
   }
 
+  /* --- 共有 wallet store (本編接続用) ----------------------------------------
+     Q4BReward.setToolsStore に差す口。amber の setAmberStore と同じ設計で、道具の
+     実体 (QuestSave の toolGear) と公開ゲートをここへ閉じ込め、reward.js は
+     「装備中の 1 本を訊く / 捕獲 1 回ぶん減らす」の 2 つしか知らない。
+     ゲートは komorebi/app.js の equippedToolOf と同じ 2 段: economy が閉じている間と、
+     道具の release が現在の release を超えている間は「未装備」に倒れる。倒れている間、
+     reward 側の抽選は乱数の消費本数まで装備前と変わらない。 */
+  function walletStore(questSave,economy,getPid){
+    function ready(){
+      return !!(questSave&&typeof questSave.toolGearOf==="function"
+        &&typeof questSave.toolGearSet==="function"
+        &&economy&&typeof economy.on==="function"&&economy.on()
+        &&typeof economy.currentRelease==="function");
+    }
+    function pidOf(){return typeof getPid==="function"?getPid():null;}
+    /* 装備中 instance。定義の無い種 (新しい端末が書いた id) と未公開 release は
+       「未装備」に倒す。 */
+    function equippedIn(gear){
+      var instance=equipped(gear);
+      if(!instance)return null;
+      var tool=byId(instance.type);
+      if(!tool||tool.release>economy.currentRelease())return null;
+      return instance;
+    }
+    return {
+      /* 装備中の 1 本 {type, remaining} か null。 */
+      equippedTool:function(){
+        if(!ready())return null;
+        var pid=pidOf();
+        if(!pid)return null;
+        var instance=equippedIn(questSave.toolGearOf(pid));
+        return instance?{type:instance.type,remaining:instance.remaining}:null;
+      },
+      /* 捕獲 1 回ぶんの耐久消費。consume の結果 {type,remaining,broke,swapped} を
+         返し、その場で toolGearSet に永続化する。未装備 (ゲートで倒れた場合を含む)
+         なら null で何も減らない。 */
+      consumeOnCapture:function(){
+        if(!ready())return null;
+        var pid=pidOf();
+        if(!pid)return null;
+        var gear=questSave.toolGearOf(pid);
+        if(!equippedIn(gear))return null;
+        var used=consume(gear);
+        if(used)questSave.toolGearSet(pid,gear);
+        return used;
+      }
+    };
+  }
+
   global.Q4B_TOOLS={
     durability:DURABILITY,
     list:list,
@@ -310,6 +373,10 @@
     displayName:displayName,
     matches:matches,
     countTargets:countTargets,
+    GUILD_WEIGHT:GUILD_WEIGHT,
+    FRESH_BOOST:FRESH_BOOST,
+    guildWeightFor:guildWeightFor,
+    walletStore:walletStore,
     validateTools:validateTools,
     validateDex:validateDex,
     firstGrantAt:firstGrantAt,
