@@ -104,9 +104,13 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
    こはく呼び出し画面に道具の札が出ること、Lv10 クリアから 7 日でリセットボタンが
    出ること
 
-#### Phase 2 の独立レビューで挙がった観測 (2026-08-18、未対応)
+#### Phase 2 の独立レビューで挙がった観測 (2026-08-18)
 
-1. リセット周回はゲージの供給を落とさない。こはくは `maxLv` で 0.4 に減衰する
+※ 2 と 3 は commit 4031af5 (2026-08-18) で対応済み。anslog は日×カテゴリで
+   多いほうを採る union になり、道具の instance 側も知らない id を素通しする
+   (`shared/tools.js` の validateTools)。残る未対応は 1 のみ。
+
+1. (未対応) リセット周回はゲージの供給を落とさない。こはくは `maxLv` で 0.4 に減衰する
    (`feedSideRewards`) が、ゲージは `qualifiesForGauge` が Lv を見ないため、
    周回中の易しい問題でも 8 問 1 匹のまま進む。不変条件 1 (レート不変) は
    文字どおり守られている一方、1 匹あたりの実時間コストは下がる。ゲージを
@@ -242,3 +246,33 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 | 二人の profile 差 | course 分離の前提をテストで固定 (k10 profile から k5 カテゴリの鋳造が起きないこと) |
 | 演出の作業膨張 | Phase 3 に隔離。Phase 1-2 の完了を演出に依存させない |
 | 写真パイプラインとの衝突 | zukan_cards / _inbox 系に一切触れない。safety check を毎 commit 実行 |
+
+## 6. 全図鑑化 (2026-08-20 決定・実装)
+
+道具は小道専用から全ゲーム共通のインターフェースへ昇格した。決定と実装の対応:
+
+| 決定 | 実装 |
+|---|---|
+| 効果範囲はゲージ捕獲とこはく呼び出し (本編 3 教科 + 小道) | `shared/reward.js` の onCorrect / spendForCatch に配線。award / awardMaster / hatchEgg / ボス / ヌシには効かせない |
+| 耐久は全図鑑合計で 100 (8 問 1 匹 = 800 問ぶん) | `shared/tools.js` の DURABILITY。調整はこの 1 本 |
+| 入手は小道のメダルのまま | 小道を進めると本編の採集が有利になる導線 |
+| 点火は全配線後に 1 回で | MEDAL_ECONOMY_ON は配線完了まで false のまま |
+
+構成の変更:
+- 状態は共有 kv `toolgear/<pid>` (shared/storage.js、こはくと同じ LWW)。小道は起動時に
+  profile.tools から一方向移行し、以後 profile 側へは書かない
+- モジュールは shared/ へ集約: tools.js / tool_icons.js / tool_scenes.js /
+  economy_flag.js (グローバル名は Q4B_TOOLS / Q4B_TOOL_ICONS / Q4B_TOOL_SCENES /
+  Q4B_ECONOMY)
+- UI は共有部品: 装備パネル `shared/tools_ui.js` (独立カード、全ずかん上部)、
+  統一捕獲カード `shared/capture_card.js`、スタイル `shared/tools.css`
+- komorebi の「未発見振替 +0.25」は本編には足さない。本編の rollFromPool は tier 内で
+  未捕獲を常に優先する構造が既にあり、足すとレアリティ表を道具が動かすことになる
+
+検討済み・保留:
+- えいたんごのヌシ機構の見直し (表示だけ統一カードに揃えた。機構とデータは不可侵)
+- 小道の捕獲フィードバック (feedbackHtml) の統一カード化 (小道は既にシーン + 道具行を
+  持つ最リッチ実装なので急がない)
+- `countTargets` (shared/tools.js) は呼び出し元ゼロの孤児 API。交換画面はインラインで
+  同等計算をしている
+
