@@ -3,7 +3,8 @@
 Status: ACTIVE DESIGN + IMPLEMENTATION LEDGER  
 Branch: `commercial/cloudflare-v1`  
 Created from main: `fabf9f7c40013898919b5115415b5cecae3dba4f` (2026-08-21)  
-Last main sync: `fabf9f7c40013898919b5115415b5cecae3dba4f`
+Last main sync: `fabf9f7c40013898919b5115415b5cecae3dba4f`  
+Current implementation head before this ledger update: `242391144acd951fda0d0ff0c97f40d4ebf81bac`
 
 ## 0. Purpose and branch rule
 
@@ -40,13 +41,13 @@ R2 stores immutable versioned snapshot bodies. D1 stores family/backup metadata 
 
 ## 2. Reused storage-v2 work
 
-The following work from `agent/storage-v2-shadow` is reusable and has been seeded into this branch:
+The following work from `agent/storage-v2-shadow` is reused in this branch:
 
 - `shared/storage_shadow.js`: IndexedDB mirror engine.
 - `shared/storage_authority.js`: future IndexedDB authority candidate, generation ordering, rollback record, checksum and SHA-256 integrity checks, divergence detection, corruption repair.
 - `shared/storage.js`: integration hooks, boot reconciliation, crash-safe restore transaction, diagnostics, `QuestSave` compatibility.
 
-Important: the inherited `shared/storage.js` still has `__authorityReadsEnabled=false`. This is deliberate. Commercial fresh-install promotion to IndexedDB authority is a separate controlled step after CI/stress tests.
+Important: the inherited `shared/storage.js` still has `__authorityReadsEnabled=false`. This is deliberate. Commercial fresh-install promotion to IndexedDB authority is a separate controlled step after automated validation.
 
 The inherited GitHub Fieldnote code is transitional compatibility code only. It must not be presented to commercial users and will be disabled behind commercial mode before external beta.
 
@@ -54,19 +55,21 @@ The inherited GitHub Fieldnote code is transitional compatibility code only. It 
 
 | Phase | Status | Goal | Exit criteria |
 |---|---|---|---|
-| C0 clean split | DONE | Latest main + reusable storage-v2 foundation on dedicated branch | branch exists, main untouched, separate architecture documented |
-| C1 local persistence | IN PROGRESS | Make IndexedDB the commercial local authority with rollback/import compatibility | storage contract tests + browser tests + stress tests green; fresh commercial install does not depend on GitHub/localStorage authority |
-| C2 Cloudflare scaffold | IN PROGRESS | Prepare Pages Functions, D1 schema, R2 contract, build/deploy config | backend code exists, disabled-by-default auth gate, local validation/CI green |
-| C3 cloud backup/restore | BLOCKED: ACCOUNT | Provision Pages/R2/D1 and prove immutable versioned upload/list/restore | staging deployment; create/list/download restore verified; offline failure harmless |
-| C4 family auth | NOT STARTED | Replace staging bearer gate with real parent/family authentication | family identity server-derived, no plaintext long-lived tokens in client storage |
+| C0 clean split | **DONE** | Latest main + reusable storage-v2 foundation on dedicated branch | branch exists, main untouched, separate architecture documented |
+| C1 local persistence | **IMPLEMENTED / VALIDATION PENDING** | Make IndexedDB the commercial local authority with rollback/import compatibility | storage contract + browser + stress CI green; then controlled authority promotion |
+| C2 Cloudflare scaffold | **IMPLEMENTED / VALIDATION PENDING** | Prepare Pages Functions, D1 schema, R2 contract, build/deploy config | CI green; API remains disabled by default until provisioned |
+| C3 cloud backup/restore | **BLOCKED: CLOUDFLARE ACCOUNT** | Provision Pages/R2/D1 and prove immutable versioned upload/list/restore | staging deployment; create/list/download verified; offline failure harmless |
+| C4 family auth | NOT STARTED | Replace staging bearer gate with real parent/family authentication | family identity server-derived, no plaintext long-lived production tokens in client storage |
 | C5 billing/entitlement | NOT STARTED | Subscription state controls premium entitlement | payment webhook/entitlement tests; grace/retry semantics documented |
 | C6 commercial QA/beta | NOT STARTED | Small external release | privacy/terms/support/restore UX/content QA gates complete |
 
 ## 4. C1: local persistence details
 
-### Current state
+### Current implementation
 
-`localStorage` remains the read authority because the reused home-migration code keeps the hard gate off. In parallel, the candidate IndexedDB (`q4b_local_v2`) receives exact successful generations.
+`localStorage` remains the read authority because the reused migration code keeps the hard gate off. In parallel, the candidate IndexedDB (`q4b_local_v2`) receives exact successful generations. This protects the commercial branch while automated tests are run.
+
+Permanent storage tests from the original storage-v2 branch have been ported. A dedicated commercial stress test now performs **2,000 sequential authority generations**, then checks the newest generation, rollback generation, stale-write rejection, and same-generation divergence rejection. Real Chromium smoke pages are also ported.
 
 ### Commercial target
 
@@ -77,39 +80,37 @@ For a fresh commercial origin:
 3. `QuestSave.exportAll()/importAll()` remains the escape hatch and home->commercial transfer path.
 4. No automatic destructive migration. If legacy data is imported, verify structure + generation + SHA-256 before promotion.
 
-### Required automated tests
-
-- storage public contract remains stable;
-- >=1,000 rapid/sequential save generations without loss or stale overwrite;
-- reload/reconcile returns the newest generation;
-- same-generation different-payload conflict is rejected;
-- corrupted IndexedDB record is never silently trusted;
-- repair creates a valid SHA-256 record;
-- rollback snapshot remains readable;
-- simulated failure of IndexedDB/cloud never invalidates a successful local gameplay save;
-- real Chromium smoke tests for IndexedDB open/write/read/reconcile.
-
-There is no longer a requirement for children to answer 300 additional questions. Load/stress volume is an automated test concern; human usage is only a short real-device sanity check after staging exists.
+There is no requirement for children to answer 300 additional questions. Load/stress volume is an automated-test concern; human usage is only a short real-device sanity check after staging exists.
 
 ## 5. C2/C3: Cloudflare backup contract
 
-### Bindings
+### Implemented files
 
-Proposed names:
+- `cloudflare/schema.sql`: D1 family + backup metadata schema.
+- `cloudflare/wrangler.template.jsonc`: provisioning template only; not an active deploy config.
+- `cloudflare/build-static.mjs`: builds `dist-commercial` while excluding development/internal files and writes `_routes.json` so only `/api/*` invokes Functions.
+- `functions/_lib/auth.js`: disabled-by-default staging auth gate.
+- `functions/_lib/backup.js`: snapshot validation, server-side SHA-256, immutable R2 write, D1 metadata transaction, list/get helpers.
+- `functions/api/health.js`: backend/binding health endpoint.
+- `functions/api/backups/index.js`: staging GET list + POST upload.
+- `functions/api/backups/[id].js`: family-scoped download.
+- `shared/storage_cloudflare.js`: browser-side upload/list/download adapter. It is **not wired into gameplay yet**.
+
+### Bindings
 
 - D1: `Q4B_DB`
 - R2: `Q4B_BACKUPS`
 - kill switch: `COMMERCIAL_API_ENABLED`
 
-Before real auth exists, staging endpoints require a secret `COMMERCIAL_STAGING_TOKEN` plus a staging family identifier. Production beta must not use this global staging token design.
+Before real auth exists, staging endpoints require `COMMERCIAL_API_ENABLED=1`, a secret `COMMERCIAL_STAGING_TOKEN`, and a staging family identifier. Production beta must replace this global staging-token design.
 
 ### Snapshot write order
 
 1. authenticate family context;
 2. validate snapshot shape/size;
-3. compute SHA-256 server-side;
+3. compute SHA-256 server-side and reject client-hash mismatch;
 4. write a new immutable R2 object;
-5. in one D1 `batch()` transaction, insert backup metadata and update the family's latest-backup pointer;
+5. in one D1 `batch()` transaction, insert/update family metadata, insert backup metadata, and update latest-backup pointer;
 6. if D1 fails, best-effort delete the newly-created R2 object;
 7. never overwrite a historical R2 snapshot.
 
@@ -121,45 +122,64 @@ Object key convention:
 
 - list returns metadata only;
 - download checks that the requested backup belongs to the authenticated family;
-- client verifies SHA-256 again before importing;
-- restore into `QuestSave` must remain an explicit user/parent action in v1.
+- client verifies SHA-256 again after download;
+- restore into `QuestSave` remains an explicit parent action in v1.
 
 ## 6. Cloudflare deployment plan
 
-Initial hosting choice: Cloudflare Pages + Pages Functions because Q4B is already a static HTML/JS site and Pages provides a natural separate origin and preview deployment model. Functions live in repository-root `/functions`. Static assets are copied into `dist-commercial`; `_routes.json` limits Functions invocation to `/api/*`.
+Initial hosting choice: **Cloudflare Pages + Pages Functions**. Q4B is already a static HTML/JS site, so this supplies a separate commercial origin without forcing an application rewrite. Functions live in repository-root `/functions`. Static assets are copied into `dist-commercial`; `_routes.json` limits Functions invocation to `/api/*`.
 
-Do not create an active production Wrangler file with fake resource IDs. `cloudflare/wrangler.template.jsonc` is a provisioning template. After the Cloudflare project exists, generate/download the actual config from Cloudflare, reconcile it with the template, then commit the real binding IDs/settings only if appropriate.
+Do not deploy `cloudflare/wrangler.template.jsonc` unchanged. After the Cloudflare Pages project exists, download/generate the actual project configuration and reconcile it with the template. No Cloudflare account IDs or secrets are currently committed.
 
 ## 7. Main-sync procedure
 
 Whenever main materially advances:
 
-1. record current commercial branch state and ensure CI green;
+1. ensure the commercial branch validation state is known;
 2. merge main **into** commercial branch;
-3. resolve shared-code conflicts in favor of current main unless the difference is commercial-specific;
-4. rerun all current main tests plus commercial storage/backend tests;
+3. resolve shared-code conflicts in favor of current main unless the difference is intentionally commercial-specific;
+4. rerun current main tests plus commercial storage/backend tests;
 5. update `Last main sync` above;
-6. never make main wait for this merge.
+6. never make main wait for the commercial branch.
 
-## 8. Data/privacy constraints
+## 8. CI
 
-Commercial v1 should minimize child personal data. Backup bodies inevitably contain learning/progress state, so cloud backup changes the privacy surface relative to local-only storage. Before external beta, authentication, retention, deletion, privacy policy, access control, and applicable child-privacy requirements must be reviewed. Do not claim encryption/pseudonymization alone removes those obligations.
+`.github/workflows/commercial-cloudflare-v1.yml` is installed for this branch and contains three gates:
 
-## 9. Immediate next actions
+1. **storage-regression**: current `tests/test_*.js`, storage hard-gate guard, commercial stress test, Cloudflare contract test;
+2. **browser-indexeddb**: real headless Chromium tests for shadow backfill, no reverse restore, authority candidate, and enabled-copy restore;
+3. **commercial-build**: static bundle generation, `/api/*` route isolation, Functions syntax, disabled Wrangler/API provisioning guard, no committed staging secret.
+
+CI workflow is installed; current run result still needs to be recorded here once observable/complete.
+
+## 9. Data/privacy constraints
+
+Commercial v1 should minimize child personal data. Backup bodies contain learning/progress state, so cloud backup changes the privacy surface relative to local-only storage. Before external beta, authentication, retention, deletion, privacy policy, access control, and applicable child-privacy requirements must be reviewed. Encryption or pseudonymization alone must not be treated as removing those obligations.
+
+## 10. Immediate next actions
 
 - [x] Create `commercial/cloudflare-v1` from current main.
 - [x] Seed reusable storage-v2 core files.
-- [ ] Port permanent storage tests and real-browser smoke tests.
-- [ ] Add >=1,000-generation automated stress test.
-- [ ] Add D1 schema and disabled-by-default Pages Functions backup API.
-- [ ] Add commercial cloud client adapter without wiring it into gameplay yet.
-- [ ] Add commercial CI.
-- [ ] Create Cloudflare account / provision Pages + R2 + D1.
-- [ ] Deploy staging on separate origin.
-- [ ] Promote commercial local authority to IndexedDB after automated gates pass.
-- [ ] Integrate periodic cloud snapshot upload/restore UI.
+- [x] Port permanent storage tests and real-browser smoke tests.
+- [x] Add 2,000-generation automated stress test.
+- [x] Add D1 schema and disabled-by-default Pages Functions backup API.
+- [x] Add commercial cloud client adapter without wiring it into gameplay.
+- [x] Add branch-specific commercial CI.
+- [ ] Record first all-green commercial CI run and fix any failures.
+- [ ] Promote commercial fresh-install local authority to IndexedDB after automated gates pass.
+- [ ] Create/connect Cloudflare account and provision Pages + R2 + D1.
+- [ ] Deploy staging on a separate origin.
+- [ ] Prove cloud create/list/download/restore and offline behavior.
+- [ ] Disable/remove end-user GitHub Fieldnote controls in commercial mode.
+- [ ] Add real parent/family authentication.
+- [ ] Integrate periodic cloud snapshot scheduling and parent restore UI.
 
-## 10. Decision log
+## 11. Implementation log
+
+- `3ac17c8e5c3530bd790664415dddc224031e9893` — seeded storage-v2 core onto latest main.
+- `242391144acd951fda0d0ff0c97f40d4ebf81bac` — added Cloudflare backend scaffold, D1/R2 contract, build separation, storage tests, 2,000-generation stress test, browser tests, client adapter, and CI.
+
+## 12. Decision log
 
 - 2026-08-21: Do not migrate home/main storage as a prerequisite for commercialization.
 - 2026-08-21: Keep one repository; use separate branch/deploy/backend rather than a copied commercial repository.
