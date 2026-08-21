@@ -109,7 +109,7 @@ test("equipping is one slot and only for tools that are owned", () => {
   assert.equal(tools.equippedTool(profile).id, "light_trap");
   tools.equip(profile, null);
   assert.equal(profile.equippedToolId, null);
-  assert.equal(tools.equipped(profile), null);
+  assert.equal(tools.equippedTool(profile), null);
   assert.equal(tools.equippedTool(profile), null);
 });
 

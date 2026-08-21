@@ -14,6 +14,7 @@ const vm = require("node:vm");
 const root = path.resolve(__dirname, "..");
 const context = {console, setTimeout, clearTimeout};
 context.window = context;
+context.Q4B_TEST_HOOKS = true;   /* rollFromPool の直叩き seam (配信ページでは生えない) */
 context.Math = Object.create(Math);
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root, "shared/bugs.js"), "utf8"), context);
@@ -78,7 +79,9 @@ function trackingStore(instance){
 }
 
 test("guild weight constants and helper accept every tool shape", () => {
-  assert.equal(tools.GUILD_WEIGHT, 3);
+  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。 */
+  assert.equal(tools.guildWeightFor("cho_net", { tags: ["butterfly"] }), 3);
+  assert.equal(tools.guildWeightFor("cho_net", { tags: ["beetle"] }), 1);
   assert.equal(tools.FRESH_BOOST, 0.25);
   const dragonfly = {id:"x", order:"Odonata"};
   const butterfly = {id:"y", order:"Lepidoptera", family:"Papilionidae"};

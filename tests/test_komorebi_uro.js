@@ -307,7 +307,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
        許容 (kv を戻すと並行する別ページの消費を上書きして道具が復活しかねない)。 */
     const live = komorebi.profile();
     live.collection.gauge = 7;
-    const remainingBefore = tools.equipped(gearOf()).remaining;
+    const remainingBefore = tools.ownedOf(gearOf(), gearOf().equippedToolId)[0].remaining;
     const catchesBefore = live.collection.totalCatches;
     const saveVersioned = context.QuestSave.saveVersioned;
     context.QuestSave.saveVersioned = () => Promise.reject(new Error("boom"));
@@ -321,7 +321,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
       assert.equal(failed, true, "the save was supposed to fail");
       assert.equal(rolled.collection.totalCatches, catchesBefore, "the capture was not rolled back");
       assert.equal(rolled.collection.gauge, 7, "the gauge was not rolled back");
-      assert.equal(tools.equipped(gearOf()).remaining, remainingBefore - 1,
+      assert.equal(tools.ownedOf(gearOf(), gearOf().equippedToolId)[0].remaining, remainingBefore - 1,
         "the kv-side consumption must stay: at most one point is the accepted loss");
       assert.equal(context.__toolGear.p1.tools.some(t => t.remaining === remainingBefore - 1), true,
         "the consumed durability must be persisted in the kv");

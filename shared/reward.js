@@ -1542,7 +1542,6 @@
     shinyChanceFor: shinyChanceFor,
     rarityProbabilities: rarityProbabilities,
     selectTier: selectTier,
-    rollFromPool: rollFromPool,
     record: record,
     collectedCount: collectedCount,
     zukanDenomCount: zukanDenomCount,
@@ -1610,4 +1609,8 @@
     rollShiny: rollShiny,
     spById: spById
   };
+  /* テスト専用 seam。乱数消費の byte 同一性検証 (test_reward_tool_effects) が抽選器を
+     直接叩くために使う。配信ページでは flag が立たないので公開 API には現れない。 */
+  if(global.Q4B_TEST_HOOKS)global.Q4BReward.rollFromPool=rollFromPool;
+
 })(window);

@@ -159,12 +159,12 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
       return true;
     };
     openZukan();
-    const remainingBefore = tools.equipped(gearOf()).remaining;
+    const remainingBefore = tools.ownedOf(gearOf(), gearOf().equippedToolId)[0].remaining;
     app.querySelector('[data-action="amber-call"]').click();
     await settle();
     test("the panel's choice is the one the amber call actually uses", () => {
       assert.equal(gearOf().equippedToolId, "cho_net");
-      assert.equal(tools.equipped(gearOf()).remaining, remainingBefore - 1, "よぶ 1 回で 1 減らない");
+      assert.equal(tools.ownedOf(gearOf(), gearOf().equippedToolId)[0].remaining, remainingBefore - 1, "よぶ 1 回で 1 減らない");
       assert.equal(profile.collection.totalCatches, 1);
     });
   })();

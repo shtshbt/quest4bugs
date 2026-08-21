@@ -116,7 +116,9 @@ test("2. the rarity ladder and the pity table are untouched by tools", () => {
   assert.equal(komorebi.collectionConfig.flagshipWeight, 0.25);
   /* 効果の 2 定数は shared/tools.js の 1 か所が持つ。app.js に重複定義を残さない
      (本編の抽選器と数字がずれるのを構造的に防ぐ)。 */
-  assert.equal(tools.GUILD_WEIGHT, 3);
+  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。 */
+  assert.equal(tools.guildWeightFor("cho_net", { tags: ["butterfly"] }), 3);
+  assert.equal(tools.guildWeightFor("cho_net", { tags: ["beetle"] }), 1);
   assert.equal(tools.FRESH_BOOST, 0.25);
   assert.equal("toolGuildWeight" in komorebi.collectionConfig, false, "guild 重みが app.js に重複定義されている");
   assert.equal("toolFreshBoost" in komorebi.collectionConfig, false, "未発見ブーストが app.js に重複定義されている");
