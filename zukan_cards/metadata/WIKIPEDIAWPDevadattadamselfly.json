@@ -1,0 +1,74 @@
+{
+  "species_id": "devadatta_clavicauda",
+  "species_ja": "Devadatta clavicauda",
+  "scientific_name": "Devadatta clavicauda",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "(c) Cheongweei Gan, some rights reserved (CC BY)",
+  "fetched_date": "2026-08-21",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Devadatta (damselfly)",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Devadatta_%28damselfly%29",
+    "persistentId": "https://en.wikipedia.org/wiki/Devadatta_%28damselfly%29",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "(c) Cheongweei Gan, some rights reserved (CC BY)",
+    "eventDate": "2009-11-21",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Photo of Malayan grisette (Devadetta argyoides) uploaded from iNaturalist.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Devadatta_%28damselfly%29",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Malayan_grisette%2C_Dairy_Farm_Nature_Park%2C_Singapore_imported_from_iNaturalist_photo_214537880.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPDevadattadamselfly_resized.jpg",
+    "display": "processed/WIKIPEDIAWPDevadattadamselfly_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPDevadattadamselfly_54.webp",
+      "108": "thumb/WIKIPEDIAWPDevadattadamselfly_108.webp",
+      "216": "thumb/WIKIPEDIAWPDevadattadamselfly_216.webp"
+    }
+  },
+  "original_sha256": "e12c0ad5fe526023ba09f429fdee4df9b99858931f93c68e1530b7a2d46fea37",
+  "processing": {
+    "cropBox": [
+      278,
+      209,
+      1755,
+      1209
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPDevadattadamselfly_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
