@@ -184,6 +184,33 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
+  test("the real Madagascar II volume (release 5) stays staged and off every surface", () => {
+    /* 事前準備方式の実データ版その 3。マダガスカル遠征 II は release:5 で manifest に
+       仕込み済みで、種 id は bugs.js に実在する。AU II と同じく地域には公開済みの
+       巻 (MG I) があるので、ピンは出るが分母は MG I の 84 のまま動かないこと。 */
+    const mg2 = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_madagascar_2;
+    assert.ok(mg2, "MG II manifest entry is missing");
+    assert.equal(mg2.release, 5);
+    assert.equal(mg2.expedition, 2);
+    assert.equal(mg2.frozen, true);
+    assert.equal(mg2.denominator, 80);
+    assert.equal(mg2.species.length, 80);
+    const flagships = mg2.species.filter(species => species.flagship);
+    assert.equal(flagships.length, 1, "MG II must have exactly one flagship");
+    assert.equal(flagships[0].id, "phyllocrania_paradoxa");
+    assert.equal(flagships[0].rarity, "SSR");
+    assert.ok(mg2.release > komorebi.currentRelease(),
+      "MG II is expected to be staged; update the release-gate fixtures when it ships");
+    /* 地図へ戻って再描画し、巻もその分母も現れないことを見る。 */
+    app.querySelector('[data-action="back"]').click();
+    assert.equal(app.innerHTML.indexOf("volume_fixture_madagascar_2"), -1, "MG II leaked into the map");
+    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "MG II is visible before its release");
+    const pin = app.querySelector('[data-region-id="madagascar"]');
+    assert.ok(pin, "the madagascar pin disappeared");
+    assert.match(pin.getAttribute("aria-label"), /／84、/, "the madagascar denominator counted the staged volume");
+    app.querySelector('[data-action="trophies"]').click();
+  });
+
   test("an unreleased trophy does not sit on the goal board", () => {
     /* 目標ボードに出るのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
        CURRENT_RELEASE で動くので、期待値も同じ規則から作る (kom_future_demo は

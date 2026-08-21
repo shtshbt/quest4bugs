@@ -42,6 +42,112 @@
     species:[{"id": "oo_onaga_yamamayu", "rarity": "SSR", "flagship": true},{"id": "hagata_murasaki", "rarity": "SR", "flagship": false}, {"id": "akamarubane_monki_tateha", "rarity": "R", "flagship": false}, {"id": "serikorunisu_nokogiri_kuwagata", "rarity": "R", "flagship": false}, {"id": "madagasukaru_oo_gokiburi", "rarity": "R", "flagship": false}, {"id": "oo_beni_hagoromo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "afurika_onashi_ageha", "rarity": "N", "flagship": false}, {"id": "suji_tsumaaka_shirochou", "rarity": "N", "flagship": false}, {"id": "usucha_hekusodon", "rarity": "N", "flagship": false}, {"id": "ameiro_tonbo", "rarity": "N", "flagship": false}, {"id": "tsuya_oozu_ari", "rarity": "N", "flagship": false}, {"id": "gin_haneguro_tonbo", "rarity": "N", "flagship": false}, {"id": "harabiro_aka_tonbo", "rarity": "N", "flagship": false}, {"id": "ao_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "daidai_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_mori_tonbo", "rarity": "SR", "flagship": false}, {"id": "akaashi_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "obibane_tonbo", "rarity": "N", "flagship": false}, {"id": "haneashi_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "midori_kawa_tonbo", "rarity": "R", "flagship": false}, {"id": "sorairo_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "murasaki_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "suji_mori_tonbo", "rarity": "N", "flagship": false}, {"id": "kuro_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "sukeba_chou_tonbo", "rarity": "SR", "flagship": false}, {"id": "kuro_beni_tonbo", "rarity": "N", "flagship": false}, {"id": "kuro_hime_tonbo", "rarity": "N", "flagship": false}, {"id": "sesuji_aka_tonbo", "rarity": "N", "flagship": false}, {"id": "tsuchiiro_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "hyoutan_tonbo", "rarity": "R", "flagship": false}, {"id": "shikatsuno_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "madagasukaru_gin_yanma", "rarity": "SR", "flagship": false}, {"id": "misuji_yama_tonbo", "rarity": "R", "flagship": false}, {"id": "megane_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "ruriiro_tonbo", "rarity": "N", "flagship": false}, {"id": "ko_shiokara_tonbo", "rarity": "N", "flagship": false}, {"id": "kinbane_beni_tonbo", "rarity": "R", "flagship": false}, {"id": "hikari_ito_tonbo", "rarity": "N", "flagship": false}, {"id": "indo_nanafushi", "rarity": "N", "flagship": false}, {"id": "benihoshi_oo_ageha", "rarity": "SSR", "flagship": false},{"id": "usuki_obi_ageha", "rarity": "R", "flagship": false}, {"id": "midori_suji_ageha", "rarity": "N", "flagship": false}, {"id": "onaga_suji_ageha", "rarity": "N", "flagship": false}, {"id": "madara_tsumaaka_shirochou", "rarity": "N", "flagship": false}, {"id": "afurika_usuki_shirochou", "rarity": "N", "flagship": false}, {"id": "shinju_tateha", "rarity": "R", "flagship": false}, {"id": "obimon_tateha", "rarity": "N", "flagship": false}, {"id": "rurimon_kuro_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "chairo_tatehamodoki", "rarity": "N", "flagship": false}, {"id": "afurika_yamato_shijimi", "rarity": "N", "flagship": false}, {"id": "medama_yamamayu", "rarity": "SR", "flagship": false}, {"id": "chairo_oo_yamamayu", "rarity": "R", "flagship": false}, {"id": "fujiiro_suzume", "rarity": "R", "flagship": false}, {"id": "fukurou_tomoe", "rarity": "N", "flagship": false}, {"id": "tatesuji_yaga", "rarity": "N", "flagship": false}, {"id": "saku_kikuimushi", "rarity": "N", "flagship": false}, {"id": "kinoko_kikuimushi", "rarity": "N", "flagship": false}, {"id": "madagasukaru_ooari", "rarity": "N", "flagship": false}, {"id": "usu_hime_kiari", "rarity": "N", "flagship": false}, {"id": "afurika_shiwaari", "rarity": "N", "flagship": false}, {"id": "midoribane_hoso_batta", "rarity": "N", "flagship": false}, {"id": "chamadara_tobibatta", "rarity": "N", "flagship": false}, {"id": "aka_tobibatta", "rarity": "N", "flagship": false}, {"id": "toge_hiza_inago", "rarity": "N", "flagship": false}, {"id": "miiro_batta", "rarity": "N", "flagship": false}, {"id": "nettai_ie_koorogi", "rarity": "N", "flagship": false}, {"id": "futahoshi_koorogi", "rarity": "N", "flagship": false}, {"id": "kiboshi_kuro_hishibatta", "rarity": "N", "flagship": false}, {"id": "oo_togeashi_kirigirisu", "rarity": "SR", "flagship": false}, {"id": "futasuji_tsuyumushi", "rarity": "N", "flagship": false}, {"id": "afurika_eda_kamakiri", "rarity": "R", "flagship": false}, {"id": "togarigashira_kamakiri", "rarity": "R", "flagship": false}, {"id": "kanmuri_kareha_kamakiri", "rarity": "SR", "flagship": false}, {"id": "afurika_oo_kamakiri", "rarity": "R", "flagship": false}, {"id": "hosonaga_kamakiri", "rarity": "N", "flagship": false}, {"id": "oo_shizuku_awafuki", "rarity": "R", "flagship": false}, {"id": "madagasukaru_oo_tagame", "rarity": "SSR", "flagship": false},{"id": "suzukuri_konajirami", "rarity": "N", "flagship": false}, {"id": "ohishiba_kuro_aburamushi", "rarity": "N", "flagship": false}, {"id": "kuroboshi_maru_kaigaramushi", "rarity": "N", "flagship": false}, {"id": "batta_kinbae", "rarity": "N", "flagship": false}, {"id": "onaji_shoujoubae", "rarity": "N", "flagship": false}]
   };
 
+  /* マダガスカル遠征 II = 更新 5 の巻 (release_linkage 2 章)。2026-08-21 freeze
+     (発案者が 80 種案を選択)。選抜と レア度の根拠は
+     zukan_foundry/reports/mg_expedition2_freeze_draft.md。写真既存のみの案 A で、
+     配分は rarity_standard 2 章の 80 種スケール (N 55 / R 16 / SR 6 / SSR 3)。
+     看板は phyllocrania_paradoxa (ネジレカンムリカマキリ) のみ flagship。
+
+     更新 5 は学習カテゴリを伴わない図鑑ドロップだが、app.js の validateVolume が
+     空の categories を弾くので、freeze draft 6 章の推奨どおり ボルネオ遠征 I
+     (更新 3) 由来の 4 本を借りる。地域内 1 cat 1 遠征の規則は、マダガスカルが
+     MG I の 5 本 + MG II の 4 本 = 9 本で重複しない (AU II が借りた CR I 由来の
+     4 本とも重複しない)。地域 blurb は MG I と同文 (blurb は地域単位で遠征ごとに
+     変えない。draft 7 章)。
+
+     release:5 のゲートは据え置きなので、CURRENT_RELEASE が 5 に届くまで
+     地図・地域図鑑・抽選・ポータルの分母のいずれにも出ない。frozen なので
+     以後この配列と denominator は増やさない (決定 4)。 */
+  volumes.volume_fixture_madagascar_2={
+    id:"volume_fixture_madagascar_2", regionId:"madagascar", regionName:"マダガスカル",
+    current:false, expedition:2, release:5,
+    categories:["kom_frac_flow","kom_kuku_inverse","kom_kuku_dan6","kom_kuku_dan7"],
+    blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
+    frozen:true, denominator:80,
+    species:[
+      {id:"phyllocrania_paradoxa", rarity:"SSR", flagship:true},
+      {id:"epilissus_splendidus", rarity:"SSR", flagship:false},
+      {id:"madranga_segnita", rarity:"SSR", flagship:false},
+      {id:"papilio_epiphorbas", rarity:"SR", flagship:false},
+      {id:"acraea_strattipocles", rarity:"SR", flagship:false},
+      {id:"appasus_quadrivittatus", rarity:"SR", flagship:false},
+      {id:"parectatosoma_mocquerysi", rarity:"SR", flagship:false},
+      {id:"helictopleurus_quadripunctatus", rarity:"SR", flagship:false},
+      {id:"brancsikia_aeroplana", rarity:"SR", flagship:false},
+      {id:"graciella_compacta", rarity:"R", flagship:false},
+      {id:"helictopleurus_rudicollis", rarity:"R", flagship:false},
+      {id:"helictopleurus_vadoni", rarity:"R", flagship:false},
+      {id:"acraea_encedon", rarity:"R", flagship:false},
+      {id:"colotis_mananhari", rarity:"R", flagship:false},
+      {id:"heteropsis_pauper", rarity:"R", flagship:false},
+      {id:"papilio_oribazus", rarity:"R", flagship:false},
+      {id:"brancsikia_freyi", rarity:"R", flagship:false},
+      {id:"spilostethus_pandurus", rarity:"R", flagship:false},
+      {id:"yanga_guttulata", rarity:"R", flagship:false},
+      {id:"zanna_madagascariensis", rarity:"R", flagship:false},
+      {id:"achrioptera_magnifica", rarity:"R", flagship:false},
+      {id:"parectatosoma_echinus", rarity:"R", flagship:false},
+      {id:"parectatosoma_hystrix", rarity:"R", flagship:false},
+      {id:"atractomorpha_acutipennis", rarity:"R", flagship:false},
+      {id:"heteracris_zolotarevskyi", rarity:"R", flagship:false},
+      {id:"canthydrus_guttula", rarity:"N", flagship:false},
+      {id:"rhantus_latus", rarity:"N", flagship:false},
+      {id:"chopardempusa_neglecta", rarity:"N", flagship:false},
+      {id:"hyalomantis_madagascariensis", rarity:"N", flagship:false},
+      {id:"majanga_basilaris", rarity:"N", flagship:false},
+      {id:"paramantis_prasina", rarity:"N", flagship:false},
+      {id:"paramantis_viridis", rarity:"N", flagship:false},
+      {id:"tisma_freyi", rarity:"N", flagship:false},
+      {id:"amberana_marginata", rarity:"N", flagship:false},
+      {id:"paracopium_dauphinicum", rarity:"N", flagship:false},
+      {id:"sigara_alluaudi", rarity:"N", flagship:false},
+      {id:"acorypha_decisa", rarity:"N", flagship:false},
+      {id:"catantopsis_sacalava", rarity:"N", flagship:false},
+      {id:"eyprepocnemis_smaragdipes", rarity:"N", flagship:false},
+      {id:"gastrimargus_africanus", rarity:"N", flagship:false},
+      {id:"heteracris_nigricornis", rarity:"N", flagship:false},
+      {id:"phymateus_saxosus", rarity:"N", flagship:false},
+      {id:"rhadinacris_schistocercoides", rarity:"N", flagship:false},
+      {id:"trilophidia_cinnabarina", rarity:"N", flagship:false},
+      {id:"hemistigma_affine", rarity:"N", flagship:false},
+      {id:"anopheles_arabiensis", rarity:"N", flagship:false},
+      {id:"anopheles_coustani", rarity:"N", flagship:false},
+      {id:"anopheles_gambiae", rarity:"N", flagship:false},
+      {id:"dacus_demmerezi", rarity:"N", flagship:false},
+      {id:"melanostoma_sylvarum", rarity:"N", flagship:false},
+      {id:"orgizomyia_zigzag", rarity:"N", flagship:false},
+      {id:"tabanocella_longirostris", rarity:"N", flagship:false},
+      {id:"amphipsyche_senegalensis", rarity:"N", flagship:false},
+      {id:"dipseudopsis_longispina", rarity:"N", flagship:false},
+      {id:"leptonema_affine", rarity:"N", flagship:false},
+      {id:"leptonema_ranomafana", rarity:"N", flagship:false},
+      {id:"macrostemum_placidum", rarity:"N", flagship:false},
+      {id:"macrostemum_scriptum", rarity:"N", flagship:false},
+      {id:"anochetus_grandidieri", rarity:"N", flagship:false},
+      {id:"anochetus_madagascarensis", rarity:"N", flagship:false},
+      {id:"aphaenogaster_swammerdami", rarity:"N", flagship:false},
+      {id:"bothroponera_wasmannii", rarity:"N", flagship:false},
+      {id:"camponotus_quadrimaculatus", rarity:"N", flagship:false},
+      {id:"camponotus_repens", rarity:"N", flagship:false},
+      {id:"camponotus_roeseli", rarity:"N", flagship:false},
+      {id:"cataulacus_ebrardi", rarity:"N", flagship:false},
+      {id:"cataulacus_porcatus", rarity:"N", flagship:false},
+      {id:"crematogaster_hova", rarity:"N", flagship:false},
+      {id:"crematogaster_ranavalonae", rarity:"N", flagship:false},
+      {id:"melissotarsus_insularis", rarity:"N", flagship:false},
+      {id:"mystrium_mysticum", rarity:"N", flagship:false},
+      {id:"mystrium_rogeri", rarity:"N", flagship:false},
+      {id:"mystrium_voeltzkowi", rarity:"N", flagship:false},
+      {id:"odontomachus_coquereli", rarity:"N", flagship:false},
+      {id:"paratrechina_glabra", rarity:"N", flagship:false},
+      {id:"strumigenys_dicomas", rarity:"N", flagship:false},
+      {id:"strumigenys_lucomo", rarity:"N", flagship:false},
+      {id:"syllophopsis_hildebrandti", rarity:"N", flagship:false},
+      {id:"technomyrmex_madecassus", rarity:"N", flagship:false},
+      {id:"tetraponera_sahlbergii", rarity:"N", flagship:false}
+    ]
+  };
+
   /* オーストラリア遠征 I = 更新 2 の巻 (release_linkage 2 章)。2026-08-17 freeze。
      選抜と レア度の根拠は zukan_foundry/reports/au_expedition1_freeze_draft.md。
      命名済み 97 種から写真品質で 13 種を落として 84 種、配分は マダガスカル遠征 I の

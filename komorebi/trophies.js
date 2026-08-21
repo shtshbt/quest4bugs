@@ -81,6 +81,29 @@
      (キンモンチョウトンボ)、cosmodes_elegans (ミドリモンヤガ)、
      hierodula_werneri (オオミドリカマキリ)、thopha_saccata (オオフクロゼミ)。 */
 
+  /* --- 更新 5 (マダガスカル遠征 II) のメダル代表種 (据え置き。有効化しない) --------
+     更新 5 は学習カテゴリを伴わない図鑑ドロップなので、新規トロフィーは 0 件。
+     MG II が manifest で挙げる 4 本 (kom_frac_flow / kom_kuku_inverse /
+     kom_kuku_dan6 / kom_kuku_dan7) は ボルネオ遠征 I (更新 3) から借りる cat で、
+     release_linkage 3 章の規定 (代表虫 = その cat の最終 Lv 帯を投入した巻の看板) では
+     代表虫は ボルネオ I 側に立つ (上の borneo_* 4 行が実体)。cat は 1 本につき
+     トロフィー 1 個なので (tests/test_komorebi_acceptance.js 15.5 が cat と
+     trophyId の一意を見る)、下の 4 行を borneo_* の行と同時に入れることはできない。
+
+     代表虫を MG II 側へ移す判断をしたときだけ、ボルネオ I 側の同じ cat の行を
+     外して入れ替える。種の根拠は zukan_foundry/reports/mg_expedition2_freeze_draft.md
+     2.1 章 (SSR) と 2.2 章 (SR)、および承認記録 (2026-08-21 の 80 種案選択)。
+
+     {trophyId:"madagascar2_frac_flow",cat:"kom_frac_flow",speciesId:"phyllocrania_paradoxa",regionId:"madagascar",regionName:"マダガスカルえんせい"},       // 看板 (SSR) ネジレカンムリカマキリ
+     {trophyId:"madagascar2_kuku_inverse",cat:"kom_kuku_inverse",speciesId:"epilissus_splendidus",regionId:"madagascar",regionName:"マダガスカルえんせい"},   // SSR ルリミドリマルコガネ
+     {trophyId:"madagascar2_kuku_dan6",cat:"kom_kuku_dan6",speciesId:"madranga_segnita",regionId:"madagascar",regionName:"マダガスカルえんせい"},             // SSR ベニルリヨコバイ
+     {trophyId:"madagascar2_kuku_dan7",cat:"kom_kuku_dan7",speciesId:"helictopleurus_quadripunctatus",regionId:"madagascar",regionName:"マダガスカルえんせい"}, // SR ヨツボシコガネ
+
+     未割当の SR 予備: papilio_epiphorbas (アサギボシアゲハ)、acraea_strattipocles
+     (ベニゾメホソチョウ)、appasus_quadrivittatus (スジコオイムシ)、
+     parectatosoma_mocquerysi (ベニトゲアシナナフシ)、brancsikia_aeroplana
+     (ハイイロカレハカマキリ)。 */
+
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
 
   function list(){return TROPHIES.map(function(trophy){return trophy;});}
