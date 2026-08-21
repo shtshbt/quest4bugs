@@ -145,6 +145,7 @@ input[type=range]{width:100%}
 .grow span{background:var(--grass);border-radius:10px;padding:6px 10px;font-size:15px}
 </style>
   <link rel="stylesheet" href="../shared/shiny_bonus.css?v=0.1.0">
+  <link rel="stylesheet" href="../shared/tools.css?v=0.1.0">
 </head>
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -185,6 +186,12 @@ input[type=range]{width:100%}
 <script src="../shared/boss_zukan.js?v=0.6.4"></script>
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
+<script src="../shared/economy_flag.js?v=0.2.0"></script>
+<script src="../shared/tools.js?v=0.2.0"></script>
+<script src="../shared/tool_icons.js?v=0.2.0"></script>
+<script src="../shared/tool_scenes.js?v=0.2.0"></script>
+<script src="../shared/tools_ui.js?v=0.1.0"></script>
+<script src="../shared/capture_card.js?v=0.1.0"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
 if(!window.QuestSave){(function(g){var m={};g.QuestSave={
@@ -680,6 +687,11 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
     spend:function(n){return QuestSave.amberSpend(kPidNow(),n);}
   });
 }
+/* 採集道具: 共有ウォレット (QuestSave の toolGear) を捕獲抽選へ差す。
+   公開スイッチが閉じている間は walletStore 側が「未装備」に倒れ、従来と同一。 */
+if(window.Q4BReward&&window.QuestSave&&Q4BReward.setToolsStore&&window.Q4B_TOOLS&&Q4B_TOOLS.walletStore){
+  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,kPidNow));
+}
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
   Q4BReward.setFossilStore({
@@ -983,21 +995,19 @@ function showCatchModal(got){
  /* S5: 保存劣化中の演出前に警告 */
  if(window.QuestSave && QuestSave.warnIfDegraded) QuestSave.warnIfDegraded();
  var sp=got.sp;
- var svgHtml=Q4BReward.svg(sp,got.shiny);
- var badges='';
- if(got.isNew)badges+='<span style="background:#e8f5e9;color:#2e7d32;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ NEW！</span>';
- if(got.isRecord&&!got.isNew)badges+='<span style="background:#fff8e1;color:#f57f17;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">🏆 じこベスト！</span>';
- if(got.shiny)badges+='<span style="background:#f3e5f5;color:#7b1fa2;border-radius:8px;padding:2px 8px;font-size:13px;margin:2px">✨ いろちがい！</span>';
+ /* 何匹めかは呼び出し側しか知らない (shared/capture_card.js の約束どおりここで載せる) */
+ var entry=sp&&ST.coll&&ST.coll.catches?ST.coll.catches[sp.id]:null;
+ if(entry&&typeof entry.n==='number')got.n=entry.n;
+ /* カード本体は共通の捕獲カード (レア度枠 + 道具の行)。モーダル外枠は既存のまま */
+ var card=(window.Q4BCaptureCard&&Q4BCaptureCard.html)?Q4BCaptureCard.html(got,{headline:'むしを つかまえた！'}):'';
+ if(!card)card='<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>';
  var h='<div class="center">'
-  +'<div style="font-size:18px;font-weight:bold;margin-bottom:8px">📖 むしを つかまえた！</div>'
-  +'<div style="width:80px;height:80px;margin:0 auto 6px">'+svgHtml+'</div>'
-  +'<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>'
-  +'<div style="font-size:13px;color:#56714e;margin:2px 0">'+got.size+'mm　'+Q4BReward.TIERNAME[got.tier]+'</div>'
-  +(badges?'<div style="margin:4px 0">'+badges+'</div>':'')
+  +card
   +'<div style="font-size:12px;color:#888;margin-top:4px">'+(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(ST.coll,"kanji"):Q4BReward.collectedCount(ST.coll))+' / '+(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount("kanji"):Q4BReward.poolCount("kanji"))+' しゅ</div>'
   +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やった！</button>'
   +'</div>';
  modal(h);
+ if(window.Q4BCaptureCard&&Q4BCaptureCard.attach)Q4BCaptureCard.attach($('modalIn'));
 }
 function answerInfo(p){
  if(p.key[0]==='h'){ var c=p.key.slice(2); return {disp:c,say:c} }
@@ -1955,6 +1965,10 @@ function renderBugs(){
  var rankName=Q4BReward.rank(ST.coll.total||0);
  var amberNow=Q4BReward.amberOf(ST.coll);
  var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);
+ /* 装備パネル (shared/tools_ui.js)。公開前・道具ゼロは空文字が返り、カードごと出ない */
+ var toolPanel=(window.Q4BToolsUI&&window.QuestSave&&QuestSave.toolGearOf)
+  ?Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(kPidNow()),economy:window.Q4B_ECONOMY})
+  :'';
  var h='<button class="btn sub mini" id="bBk4">← ホーム</button>'
   +'<div class="card center"><div class="partner" style="font-size:54px">'+partnerFace()+'</div><div style="font-weight:bold">あいぼう</div><div class="small">'+((ST.pp||0)<=0?'テストに ごうかくすると たまごが かえるよ':((ST.pp||0)<3?'テストに ごうかくするたび そだつよ':'りっぱな せいちゅうに なった！'))+'</div></div>'
   +'<div class="card" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px">'
@@ -1962,6 +1976,7 @@ function renderBugs(){
   +'<button id="kanji-amber-btn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto"'
   +(canSpend?'':' disabled')
   +'>🔶 こはくで よぶ（30）</button></div>'
+  +toolPanel
   +kanjiMasterSection()
   +(window.Q4BBossZukan?Q4BBossZukan.sectionHTML('kanji'):'')
   +'<div class="card"><div style="font-weight:bold;margin-bottom:6px">📖 むしずかん</div>'
@@ -2024,6 +2039,15 @@ function renderBugs(){
  });
  h+=(filtered.length?'':'<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>')+'</div></div>';
  s.innerHTML=h;
+ // 道具の持ち替え: 保存して描き直す (実効判定は共有ウォレット側が見る)
+ if(toolPanel&&window.Q4BToolsUI&&window.Q4B_TOOLS)Q4BToolsUI.bindPanel(s,{onEquip:function(type){
+  var pid=kPidNow();
+  if(!pid)return;
+  var gear=QuestSave.toolGearOf(pid);
+  if(!Q4B_TOOLS.equip(gear,type))return;
+  QuestSave.toolGearSet(pid,gear);
+  renderBugs();
+ }});
  // タップで詳細モーダル
  s.querySelectorAll('.bug[data-spid]').forEach(function(el){
   el.style.cursor='pointer';
