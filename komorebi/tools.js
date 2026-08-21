@@ -8,7 +8,10 @@
      図鑑で覚えた分類の知識が道具選びに効かなくなる。判定は種データの既存フィールド
      ({order, family, familyJa, groupJa, tags, habitat, sizeMm}) だけを読む。 */
 
-  var DURABILITY=30;
+  /* 耐久は全図鑑ぶんの合計。8 問 1 匹なので 100 回 = 正解 800 問ぶんで、3 教科
+     90 問/日なら 9 日前後もつ。小道だけに効いていた頃の 30 では、本編にも効かせた
+     とたん 3 日弱で溶ける (2026-08-20 決定)。ここ 1 本で再調整できる。 */
+  var DURABILITY=100;
 
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
 

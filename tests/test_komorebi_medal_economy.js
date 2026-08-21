@@ -23,6 +23,7 @@ for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volum
 
 const komorebi = context.Q4B_KOMOREBI;
 const tools = context.Q4B_KOMOREBI_TOOLS;
+const D = tools.durability;   /* 耐久は調整値。数字を直に書かない。 */
 const uro = context.Q4B_KOMOREBI_URO;
 const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
 
@@ -169,7 +170,7 @@ test("5. without a tool the draw is bit for bit what it was before tools existed
     assert.equal(komorebi.releasedTools().length, 0, "tools were published while the switch was closed");
     const anyTool = equippedProfile(sample.id);
     assert.equal(captureIds(anyTool, 7, 240).join(","), plain.join(","), "a tool worked while the switch was closed");
-    assert.equal(anyTool.tools[0].remaining, 30, "a tool wore out while the switch was closed");
+    assert.equal(anyTool.tools[0].remaining, D, "a tool wore out while the switch was closed");
   } finally {
     sample.release = sampleRelease;
     komorebi.setMedalEconomyOn(closedSwitchBefore);
@@ -192,7 +193,7 @@ test("5. without a tool the draw is bit for bit what it was before tools existed
     const armedButUnreleased = equippedProfile(unreleased.id);
     const armed = captureIds(armedButUnreleased, 7, 240);
     assert.equal(armed.join(","), plain.join(","), "an unreleased tool changed the draw");
-    assert.equal(armedButUnreleased.tools[0].remaining, 30, "an unreleased tool must not wear out");
+    assert.equal(armedButUnreleased.tools[0].remaining, D, "an unreleased tool must not wear out");
   } finally {
     opened.release = beforeRelease;
     komorebi.setMedalEconomyOn(beforeSwitch);
@@ -323,9 +324,9 @@ test("a capture spends exactly one durability on both capture routes", () => {
     const profile = equippedProfile("cho_net");
     const first = komorebi.applyAnswer(profile, "kom_ratio", answer(), volume, lcg(5));
     assert.equal(first.tool, null, "a plain answer must not wear the net");
-    assert.equal(profile.tools[0].remaining, 30);
+    assert.equal(profile.tools[0].remaining, D);
     captureIds(profile, 31, 8 * 5);
-    assert.equal(profile.tools[0].remaining, 25, "five captures, five points of wear");
+    assert.equal(profile.tools[0].remaining, D - 5, "five captures, five points of wear");
   });
 });
 

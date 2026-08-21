@@ -23,6 +23,8 @@ unit.window = unit;
 vm.createContext(unit);
 vm.runInContext(fs.readFileSync(path.join(root, "komorebi/uro.js"), "utf8"), unit);
 const uro = unit.Q4B_KOMOREBI_URO;
+/* 耐久は調整値 (komorebi/tools.js の DURABILITY)。数字を直に書かない。 */
+const D = 100;
 
 function medal(cat, speciesId){
   return { trophyId: cat + "_medal", cat, speciesId, at: "2026-08-17", name: speciesId + "のメダル" };
@@ -80,24 +82,24 @@ test("the glow climbs continuously and never reports a level", () => {
   for(let i = 1; i < values.length; i++) assert.ok(values[i] > values[i - 1], "the glow must keep growing");
   assert.ok(values[values.length - 1] < 1, "the glow must stay inside its ceiling");
   const html = uro.pageHtml({ text: t => t, glow: uro.glow(profile), pending: [], owned: [],
-    equippedToolId: null, durability: 30, entries: [] });
+    equippedToolId: null, durability: D, entries: [] });
   assert.match(html, /--uro-glow:0\./, "the glow must ride on one continuous CSS variable");
   assert.equal(/レベル|だんかい|ランク/.test(html), false, "the hollow must not show a level");
 });
 
 test("the tool box marks the second net of a kind as a spare, not a button", () => {
   const html = uro.pageHtml({
-    text: t => t, glow: uro.glow({ uroLog: [] }), pending: [], durability: 30, entries: [],
+    text: t => t, glow: uro.glow({ uroLog: [] }), pending: [], durability: D, entries: [],
     equippedToolId: "cho_net",
     owned: [
       { type: "cho_net", remaining: 12, first: true, name: "ちょうネット", emoji: "🥅" },
-      { type: "cho_net", remaining: 30, first: false, name: "ちょうネット", emoji: "🥅" }
+      { type: "cho_net", remaining: D, first: false, name: "ちょうネット", emoji: "🥅" }
     ]
   });
   assert.equal((html.match(/class="uro-unequip"/g) || []).length, 1, "only the net in hand can be taken off");
   assert.equal(/uro-equip/.test(html), false, "a spare of the equipped kind needs no button");
   assert.match(html, /uro-box-spare/);
-  assert.match(html, /12／30/);
+  assert.ok(html.indexOf("12／" + D) >= 0);
 });
 
 /* ---- 画面と本線 (fake DOM) ---- */
@@ -218,7 +220,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
       assert.equal(profile.uroLog[0].tool, "cho_net");
       assert.equal(profile.uroLog[0].lap, 1);
       assert.equal(profile.tools.length, 1);
-      assert.equal(profile.tools[0].remaining, 30);
+      assert.equal(profile.tools[0].remaining, D);
       assert.equal(profile.equippedToolId, "cho_net", "the first tool goes straight into the empty slot");
       assert.equal(komorebi.pendingMedals().length, 0, "the medal must be spent, not stored");
       assert.equal(context.__saved.komorebi.uroLog.length, 1, "the offering must be persisted");
@@ -246,7 +248,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
   });
 
   await (async () => {
-    assert.match(plain(), /30／30/);
+    assert.ok(plain().indexOf(D + "／" + D) >= 0);
     const unequip = app.querySelector('[data-action="uro-unequip"]');
     assert.ok(unequip, "an equipped tool needs a way off");
     unequip.click();
@@ -321,16 +323,16 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     const capture = { id: "ameiro_tonbo", rarity: "N", isNew: true, n: 1, size: 40, shiny: false };
     const question = { cat: "kom_ratio", format: "normal", kind: "num", text: "た", ans: 5 };
     const left = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 12, broke: false, swapped: false } });
-    assert.match(plainText(left), /12／30/);
+    assert.ok(plainText(left).indexOf("12／" + D) >= 0);
     /* 道具の絵は交換画面と同じ 1 本 (komorebi/assets/tool_icons.js)。 */
     assert.match(left, /class="tool-icon"/, "リザルトの道具アイコンが共用のものでない");
     const broke = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 0, broke: true, swapped: false } });
     assert.match(plainText(broke), /あみが やぶれた!/);
     assert.match(plainText(broke), /うろで また もらおう/);
-    const swapped = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 30, broke: true, swapped: true } });
+    const swapped = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: D, broke: true, swapped: true } });
     assert.match(plainText(swapped), /よびの ちょうネットに もちかえた!/);
     /* 未装備の回は 1 行も足さない。 */
-    assert.equal(plainText(komorebi.feedbackHtml(question, true, { capture, tool: null })).indexOf("／30"), -1);
+    assert.equal(plainText(komorebi.feedbackHtml(question, true, { capture, tool: null })).indexOf("／" + D), -1);
   });
 
   test("no alert was needed anywhere in the happy path", () => {

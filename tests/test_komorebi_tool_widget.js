@@ -76,7 +76,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     const text = plain();
     assert.match(text, /いまの そうび/);
     assert.match(text, /ちょうネット/);
-    assert.match(text, /12／30/, "先頭 1 本の残りが出ていない");
+    assert.ok(text.indexOf("12／" + tools.durability) >= 0, "先頭 1 本の残りが出ていない");
     /* 道具の絵は交換画面と同じ 1 本 (komorebi/assets/tool_icons.js)。 */
     assert.match(app.innerHTML, /class="tool-icon"/, "ウィジェットの道具アイコンが共用のものでない");
     assert.match(text, /よび 1/, "同じ種類の予備が数えられていない");
