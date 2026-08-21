@@ -79,7 +79,9 @@
 
   function addMorningCatchMessage(){
     if(!lastMorningCatchAt || Date.now() - lastMorningCatchAt > 4000) return;
-    var candidates = document.querySelectorAll(".card.center, .mcard, .face.front");
+    /* .q4b-cap-card は統一捕獲カード (shared/capture_card.js)。2026-08-21 の全図鑑化で
+       捕獲表示がこの部品に集約されたので、朝の note もここに出す。 */
+    var candidates = document.querySelectorAll(".card.center, .mcard, .face.front, .q4b-cap-card");
     for(var i=0;i<candidates.length;i++){
       var el = candidates[i];
       if(el.textContent.indexOf("つかまえた") < 0 && !(el.classList.contains("face") && el.textContent.indexOf("✨") >= 0)) continue;
@@ -88,7 +90,7 @@
         var note = document.createElement("div");
         note.className = "q4b-morning-catch-note";
         note.textContent = "🌅 朝露ボーナスで見つけた！";
-        var heading = host.querySelector("h2,h3");
+        var heading = host.querySelector("h2,h3,.q4b-cap-head");
         if(heading && heading.nextSibling) heading.parentNode.insertBefore(note, heading.nextSibling);
         else host.insertBefore(note, host.firstChild);
       }
@@ -99,13 +101,13 @@
 
   function decorate(root){
     root = root || document;
-    var cards = root.querySelectorAll ? root.querySelectorAll(".zc, .spec.shiny, .face.front, .shiny-card") : [];
+    var cards = root.querySelectorAll ? root.querySelectorAll(".zc, .spec.shiny, .face.front, .shiny-card, .q4b-cap-front.q4b-cap-shiny") : [];
     for(var i=0;i<cards.length;i++){
       var card = cards[i];
       if(card.classList.contains("shiny-card") || card.classList.contains("shiny") || card.textContent.indexOf("✨") >= 0){
         card.classList.add("q4b-shiny-card");
-        var safeReveal = card.closest(".modal, .mcard, [data-q4b-zd], .drop-award");
-        if(safeReveal && (card.classList.contains("face") || card.classList.contains("spec")) && !card.dataset.q4bShinyRevealed){
+        var safeReveal = card.closest(".modal, .mcard, [data-q4b-zd], .drop-award, .q4b-cap-card");
+        if(safeReveal && (card.classList.contains("face") || card.classList.contains("spec") || card.classList.contains("q4b-cap-face")) && !card.dataset.q4bShinyRevealed){
           card.dataset.q4bShinyRevealed = "1";
           card.classList.add("q4b-shiny-reveal");
           (function(c){ setTimeout(function(){ c.classList.remove("q4b-shiny-reveal"); }, 1400); })(card);

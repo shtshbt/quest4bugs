@@ -53,7 +53,7 @@ test("M5 shiny and ordinary renderers retain an SVG root across the fixture matr
 test("M5 decoration is host-scoped and idempotent",()=>{
   const source=fs.readFileSync(path.join(root,"shared/shiny_bonus.js"),"utf8");
   assert.equal(source.includes("wrapRenderer"),false);
-  assert.match(source,/safeReveal = card\.closest\("\.modal, \.mcard, \[data-q4b-zd\], \.drop-award"\)/);
+  assert.match(source,/safeReveal = card\.closest\("\.modal, \.mcard, \[data-q4b-zd\], \.drop-award, \.q4b-cap-card"\)/);
   assert.match(source,/!card\.dataset\.q4bShinyRevealed/);
   assert.equal(fs.readFileSync(path.join(root,"shared/shiny_bonus.css"),"utf8").includes(".q4b-shiny-art"),false);
 });
