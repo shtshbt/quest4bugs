@@ -31,7 +31,7 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
      UI 部品は tools.js に乗るので、この順が崩れると読み込み時に落ちる。 */
   const expected = [
     '<script src="../shared/yomi.js?v=0.3.0"></script>',
-    '<script src="../shared/economy_flag.js?v=0.2.0"></script>',
+    '<script src="../shared/economy_flag.js?v=0.2.1"></script>',
     '<script src="../shared/tools.js?v=0.2.0"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',

@@ -44,6 +44,9 @@ const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
 
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
+/* 2026-08-21 に本番の既定が点火 (true) になった。このテストは「閉じているとき
+   何も起きない」を見るものなので、出荷既定に依存せず自分で閉じてから始める。 */
+komorebi.setMedalEconomyOn(false);
 /* submissionId は profile ごとの重複判定に使われる。テスト内で使い回すと
    2 度目が duplicate として落ちるので、呼ぶたびに新しい番号を振る。 */
 let submissionSeq = 0;

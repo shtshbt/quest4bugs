@@ -30,7 +30,7 @@ function slice(startMarker, endMarker){
 
 test("tools 系の script が idiom_data とインライン本体の間に、正しい版と順序で並ぶ", () => {
   const TOOL_SCRIPTS = [
-    '<script src="../shared/economy_flag.js?v=0.2.0"></script>',
+    '<script src="../shared/economy_flag.js?v=0.2.1"></script>',
     '<script src="../shared/tools.js?v=0.2.0"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',

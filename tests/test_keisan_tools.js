@@ -37,7 +37,7 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
   const at = srcs.indexOf("../shared/k5_devs_data.js?v=0.1.0");
   assert.ok(at >= 0, "k5_devs_data.js が見つからない");
   assert.deepEqual(srcs.slice(at + 1, at + 8), [
-    "../shared/economy_flag.js?v=0.2.0",
+    "../shared/economy_flag.js?v=0.2.1",
     "../shared/tools.js?v=0.2.0",
     "../shared/tool_icons.js?v=0.2.0",
     "../shared/tool_scenes.js?v=0.2.0",
@@ -140,6 +140,9 @@ const ctx = makeContext({ QuestSave: questSaveMock() });
 ctx.Q4B_KOMOREBI_TEST_HOOKS = true;   /* economy の切替 seam (テスト専用) を生やす */
 ctx.Q4B_KEISAN_NO_BOOT = true;
 for(const file of KEISAN_TOOL_FILES) load(ctx, file);
+/* 2026-08-21 に本番の既定が点火 (on) になった。off の挙動検査は出荷既定に依存せず
+   自分で閉じてから行う。 */
+ctx.Q4B_ECONOMY.setOn(false);
 
 test("NO_BOOT では walletStore を配線せず、明示呼び出しで 1 回だけ配線する", () => {
   const calls = [];

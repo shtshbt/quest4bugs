@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v159";  /* v159: 採集道具を shared/ へ移し耐久 100 に。ずかん題の遮蔽と保存競合の巻き戻しを修正。 */
+var CACHE = "q4b-cache-v160";  /* v160: 採集道具を全図鑑で公開 (メダル経済 点火)。装備パネルと統一捕獲カードを全ゲームに配る。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
