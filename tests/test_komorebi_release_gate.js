@@ -130,6 +130,33 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
+  test("the real Australia II volume (release 6) stays staged and off every surface", () => {
+    /* 事前準備方式の実データ版。オーストラリア遠征 II は release:6 で manifest に
+       仕込み済みで、種 id は bugs.js に実在する。CURRENT_RELEASE が 6 に届くまで
+       地図 (ピンの分母)・地域図鑑・抽選 (いずれも regionList 経由) に出ないこと。 */
+    const au2 = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia_2;
+    assert.ok(au2, "AU II manifest entry is missing");
+    assert.equal(au2.release, 6);
+    assert.equal(au2.expedition, 2);
+    assert.equal(au2.frozen, true);
+    assert.equal(au2.denominator, 84);
+    assert.equal(au2.species.length, 84);
+    const flagships = au2.species.filter(species => species.flagship);
+    assert.equal(flagships.length, 1, "AU II must have exactly one flagship");
+    assert.equal(flagships[0].id, "anoplognathus_viridiaeneus");
+    assert.equal(flagships[0].rarity, "SSR");
+    assert.ok(au2.release > komorebi.currentRelease(),
+      "AU II is expected to be staged; update the release-gate fixtures when it ships");
+    /* 地図へ戻って再描画し、巻もその分母も現れないことを見る。 */
+    app.querySelector('[data-action="back"]').click();
+    assert.equal(app.innerHTML.indexOf("volume_fixture_australia_2"), -1, "AU II leaked into the map");
+    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "AU II is visible before its release");
+    const pin = app.querySelector('[data-region-id="australia"]');
+    assert.ok(pin, "the australia pin disappeared");
+    assert.match(pin.getAttribute("aria-label"), /／84、/, "the australia denominator counted the staged volume");
+    app.querySelector('[data-action="trophies"]').click();
+  });
+
   test("an unreleased trophy does not sit on the goal board", () => {
     /* 目標ボードに出るのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
        CURRENT_RELEASE で動くので、期待値も同じ規則から作る (kom_future_demo は

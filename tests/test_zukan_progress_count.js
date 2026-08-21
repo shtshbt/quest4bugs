@@ -95,6 +95,44 @@ test("home numerator counts every species the home denominator covers", () => {
   assert.equal(countSpecies(catches), 1512);
 });
 
+test("portal komorebi denominator excludes volumes staged for a future release", () => {
+  /* 事前準備方式 (komorebi/app.js isVolumeReleased) の巻は実 id を bugs.js に持つ。
+     「bugs.js に実在するか」だけで濾すと、未公開の巻 (オーストラリア遠征 II、
+     release:6) の 84 種がポータルの こもれび分母へ先に漏れる。index.html は
+     release > CURRENT_RELEASE の巻を分母から外す (release 無しの巻は公開済み扱い)。 */
+  vm.runInContext(fs.readFileSync(path.join(root, "shared/economy_flag.js"), "utf8"), context);
+  vm.runInContext(fs.readFileSync(path.join(root, "komorebi/volumes/volume_fixture.js"), "utf8"), context);
+  const vols = context.Q4B_KOMOREBI_VOLUMES;
+  const au2 = vols.volume_fixture_australia_2;
+  assert.ok(au2, "AU II volume is staged in the manifest");
+  assert.ok(Number.isInteger(au2.release) && au2.release > context.Q4B_ECONOMY.currentRelease(),
+    "AU II is expected to be staged; update this test's fixtures when it ships");
+  const have = {};
+  for(const sp of context.Q4B_BUGS) have[sp.id] = 1;
+  /* 罠が有効なこと: 未公開巻の 84 種は bugs.js に実在する (架空 id 除外では防げない)。 */
+  assert.equal(au2.species.filter(s => have[s.id]).length, 84);
+  /* index.html の komSpecies と同じ規則の参照実装。 */
+  function portalKomSpecies(releaseNow){
+    const set = {};
+    Object.keys(vols).forEach(k => {
+      const vol = vols[k];
+      if(!vol || (Number.isInteger(vol.release) && vol.release > releaseNow)) return;
+      (vol.species || []).forEach(s => { if(s && have[s.id]) set[s.id] = 1; });
+    });
+    return set;
+  }
+  const now = portalKomSpecies(context.Q4B_ECONOMY.currentRelease());
+  assert.equal(now.anoplognathus_viridiaeneus, undefined, "an unreleased volume leaked into the portal denominator");
+  assert.ok(now.oo_onaga_yamamayu && now.papilio_ulysses, "released volumes must stay in the denominator");
+  /* CURRENT_RELEASE=2 時点の公開分母: マダガスカル I 84 + オーストラリア I 84。 */
+  assert.equal(Object.keys(now).length, 168);
+  /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。 */
+  assert.equal(portalKomSpecies(au2.release).anoplognathus_viridiaeneus, 1);
+  /* ソース断面: index.html が実際にこの規則を実装していること。 */
+  assert.match(portal, /Number\.isInteger\(vol\.release\)&&vol\.release>releaseNow/);
+  assert.match(portal, /window\.Q4B_ECONOMY&&window\.Q4B_ECONOMY\.currentRelease/);
+});
+
 /* ---- 教科別達成度 (zukanDenomCount / zukanCaughtCount) ---- */
 
 const PREDATORS = context.Q4B_BUGS.filter(sp => sp.boss && sp.boss.predator).map(sp => sp.id);

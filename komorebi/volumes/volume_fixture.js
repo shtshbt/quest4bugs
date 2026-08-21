@@ -144,6 +144,116 @@
     ]
   };
 
+  /* オーストラリア遠征 II = 更新 6 の巻 (release_linkage 2 章)。2026-08-18 freeze。
+     選抜と レア度の根拠は zukan_foundry/reports/au_expedition2_freeze_draft.md。
+     写真保有 174 種から 84 種を選び、配分は rarity_standard 1 章の 84 種標準
+     (N 57 / R 17 / SR 7 / SSR 3)。SSR は承認記録 (2026-08-18) の入れ替え後で、
+     看板は anoplognathus_viridiaeneus (キンミドリコガネ) のみ flagship。
+
+     カテゴリは 4 本。更新 6 は新しい学習カテゴリを伴わない図鑑ドロップだが、
+     app.js の expeditionVolumes が空の categories を弾くので、freeze draft 3 章の
+     推奨案どおり コスタリカ遠征 I (更新 4) 由来の 4 本を借りる。地域内で同じ
+     カテゴリが 2 つの遠征に属さないこと (volume_zukan_design 4 章) は、
+     オーストラリアが AU I の 5 本 + AU II の 4 本 = 9 本で重複なしを満たす。
+
+     release:6 のゲートは据え置きなので、CURRENT_RELEASE が 6 に届くまで
+     地図・地域図鑑・抽選・ポータルの分母のいずれにも出ない。frozen なので
+     以後この配列と denominator は増やさない (決定 4)。 */
+  volumes.volume_fixture_australia_2={
+    id:"volume_fixture_australia_2", regionId:"australia", regionName:"オーストラリア",
+    current:false, expedition:2, release:6,
+    categories:["kom_kuku_bridge","kom_equation_select","kom_kuku_dan8","kom_kuku_dan9"],
+    /* 地域 blurb は地域単位で、遠征ごとに変えない (freeze draft 6 章)。 */
+    blurb:"南半球の大陸。日本の 20 倍。かわいた大地とユーカリの森が広がる。",
+    frozen:true, denominator:84,
+    species:[
+      {id:"anoplognathus_viridiaeneus", rarity:"SSR", flagship:true},
+      {id:"aleeta_curvicosta", rarity:"SSR", flagship:false},
+      {id:"dryococelus_australe", rarity:"SSR", flagship:false},
+      {id:"castiarina_sexplagiata", rarity:"SR", flagship:false},
+      {id:"cosmodes_elegans", rarity:"SR", flagship:false},
+      {id:"hierodula_werneri", rarity:"SR", flagship:false},
+      {id:"podacanthus_typhon", rarity:"SR", flagship:false},
+      {id:"rhyothemis_graphiptera", rarity:"SR", flagship:false},
+      {id:"thopha_saccata", rarity:"SR", flagship:false},
+      {id:"xylotrupes_australicus", rarity:"SR", flagship:false},
+      {id:"anoplognathus_montanus", rarity:"R", flagship:false},
+      {id:"belenois_java", rarity:"R", flagship:false},
+      {id:"caedicia_simplex", rarity:"R", flagship:false},
+      {id:"diphlebia_coerulescens", rarity:"R", flagship:false},
+      {id:"hierodula_majuscula", rarity:"R", flagship:false},
+      {id:"lyramorpha_rosea", rarity:"R", flagship:false},
+      {id:"myrmecia_pyriformis", rarity:"R", flagship:false},
+      {id:"neurothemis_stigmatizans", rarity:"R", flagship:false},
+      {id:"onchestus_rentzi", rarity:"R", flagship:false},
+      {id:"paraoxypilus_verreauxii", rarity:"R", flagship:false},
+      {id:"phricta_spinosa", rarity:"R", flagship:false},
+      {id:"podacanthus_keyi", rarity:"R", flagship:false},
+      {id:"porrostoma_rhipidium", rarity:"R", flagship:false},
+      {id:"tettigarcta_tomentosa", rarity:"R", flagship:false},
+      {id:"tisiphone_abeona", rarity:"R", flagship:false},
+      {id:"torbia_viridissima", rarity:"R", flagship:false},
+      {id:"tropidoderus_rhodomus", rarity:"R", flagship:false},
+      {id:"acrophylla_enceladus", rarity:"N", flagship:false},
+      {id:"acrossidius_tasmaniae", rarity:"N", flagship:false},
+      {id:"adoryphorus_couloni", rarity:"N", flagship:false},
+      {id:"agonoscelis_rutila", rarity:"N", flagship:false},
+      {id:"agrotis_porphyricollis", rarity:"N", flagship:false},
+      {id:"atriplectides_dubius", rarity:"N", flagship:false},
+      {id:"austrogomphus_guerini", rarity:"N", flagship:false},
+      {id:"austrolestes_annulosus", rarity:"N", flagship:false},
+      {id:"austrosalomona_falcata", rarity:"N", flagship:false},
+      {id:"austrosipyloidea_carterus", rarity:"N", flagship:false},
+      {id:"bibio_imitator", rarity:"N", flagship:false},
+      {id:"caledia_captiva", rarity:"N", flagship:false},
+      {id:"calofulcinia_paraoxypila", rarity:"N", flagship:false},
+      {id:"camponotus_aeneopilosus", rarity:"N", flagship:false},
+      {id:"candovia_annulata", rarity:"N", flagship:false},
+      {id:"candovia_granulosa", rarity:"N", flagship:false},
+      {id:"chaetedus_longiceps", rarity:"N", flagship:false},
+      {id:"chaetocoelopa_sydneyensis", rarity:"N", flagship:false},
+      {id:"chrysodeixis_argentifera", rarity:"N", flagship:false},
+      {id:"ciulfina_rentzi", rarity:"N", flagship:false},
+      {id:"conocephalus_semivittatus", rarity:"N", flagship:false},
+      {id:"didymuria_violescens", rarity:"N", flagship:false},
+      {id:"diplacodes_melanopsis", rarity:"N", flagship:false},
+      {id:"ephippitytha_trigintiduoguttata", rarity:"N", flagship:false},
+      {id:"euoniticellus_fulvus", rarity:"N", flagship:false},
+      {id:"hellula_hydralis", rarity:"N", flagship:false},
+      {id:"hemicordulia_tau", rarity:"N", flagship:false},
+      {id:"heteronychus_arator", rarity:"N", flagship:false},
+      {id:"heteropternis_obscurella", rarity:"N", flagship:false},
+      {id:"ictinogomphus_australis", rarity:"N", flagship:false},
+      {id:"iridomyrmex_chasei", rarity:"N", flagship:false},
+      {id:"lipotriches_australica", rarity:"N", flagship:false},
+      {id:"lipotriches_flavoviridis", rarity:"N", flagship:false},
+      {id:"macrotona_australis", rarity:"N", flagship:false},
+      {id:"myrmecia_nigriscapa", rarity:"N", flagship:false},
+      {id:"neolethaeus_australiensis", rarity:"N", flagship:false},
+      {id:"oechalia_schellenbergii", rarity:"N", flagship:false},
+      {id:"onthophagus_binodis", rarity:"N", flagship:false},
+      {id:"onthophagus_taurus", rarity:"N", flagship:false},
+      {id:"orthetrum_villosovittatum", rarity:"N", flagship:false},
+      {id:"paraoxypilus_tasmaniensis", rarity:"N", flagship:false},
+      {id:"paropsisterna_cloelia", rarity:"N", flagship:false},
+      {id:"persectania_ewingii", rarity:"N", flagship:false},
+      {id:"phthersigena_conspersa", rarity:"N", flagship:false},
+      {id:"psaltoda_moerens", rarity:"N", flagship:false},
+      {id:"remaudiereana_inornatus", rarity:"N", flagship:false},
+      {id:"sipyloidea_rentzi", rarity:"N", flagship:false},
+      {id:"statilia_apicalis", rarity:"N", flagship:false},
+      {id:"synlestes_weyersii", rarity:"N", flagship:false},
+      {id:"tamasa_tristigma", rarity:"N", flagship:false},
+      {id:"toxorhynchites_speciosus", rarity:"N", flagship:false},
+      {id:"trachymantis_dentifrons", rarity:"N", flagship:false},
+      {id:"tropidoderus_gracilifemur", rarity:"N", flagship:false},
+      {id:"uraba_lugens", rarity:"N", flagship:false},
+      {id:"uresiphita_ornithopteralis", rarity:"N", flagship:false},
+      {id:"xanthagrion_erythroneurum", rarity:"N", flagship:false},
+      {id:"yoyetta_celis", rarity:"N", flagship:false}
+    ]
+  };
+
   volumes.volume_fixture_borneo=volume({
     id:"volume_fixture_borneo", expedition:1, regionId:"borneo", regionName:"ボルネオ",
     placeholder:true,

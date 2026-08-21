@@ -317,9 +317,9 @@ html.q4b-in #q4bGate{display:none!important}
 </div>
 <script src="./shared/storage.js?v=0.4.24"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
-<script src="./shared/bugs.js?v=0.4.16"></script>
+<script src="./shared/bugs.js?v=0.4.17"></script>
 <script src="./shared/render.js?v=0.5.1"></script>
-<script src="./zukan_config/zukan_catalog.js?v=0.3.2"></script>
+<script src="./zukan_config/zukan_catalog.js?v=0.3.3"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
 <script src="./shared/reward.js?v=0.8.10"></script>
@@ -331,7 +331,7 @@ html.q4b-in #q4bGate{display:none!important}
 <script src="./shared/economy_flag.js?v=0.2.1"></script>
 <script src="./shared/breeding.js?v=0.6.8"></script>
 <script src="./shared/breeding_debug.js?v=0.1.1"></script>
-<script src="./komorebi/volumes/volume_fixture.js?v=0.3.0"></script>
+<script src="./komorebi/volumes/volume_fixture.js?v=0.3.1"></script>
 <script src="./shared/zukan_detail.js?v=0.4.3"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
 <script src="./shared/battle.js?v=0.5.3"></script>
@@ -1358,16 +1358,22 @@ function renderDashboard(pid,name){
     function lg(col,lab){return '<span style="display:inline-flex;align-items:center;gap:3px"><span style="width:10px;height:10px;border-radius:2px;background:'+col+'"></span>'+lab+'</span>';}
     var legend='<div class="note" style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap">'+lg(COL.k,"けいさん")+lg(COL.j,"かんじ")+lg(COL.e,"えいご")+lg(COL.m,"こみち")+'</div>';
     var pct=Math.min(100, Math.round(total/pool*100));  /* U5: 100% 超え表示を防ぐ */
-    /* 小道の分母は「volume に載っていて bugs.js に実在する種」の和集合。areaOnly の
-       在庫全数だと未公開の予備在庫まで膨らむ。fixture の架空 id は bugs.js に無いので
-       自動的に外れ、実データ差し替え後は自動で数に入る。分子も同じ集合で数え、
-       fixture 捕獲の孤児レコードを混ぜない。 */
+    /* 小道の分母は「公開済みの volume に載っていて bugs.js に実在する種」の和集合。
+       areaOnly の在庫全数だと未公開の予備在庫まで膨らむ。fixture の架空 id は
+       bugs.js に無いので自動的に外れ、実データ差し替え後は自動で数に入る。
+       事前準備方式で仕込んだ未来の巻 (release > CURRENT_RELEASE) は実 id を持つので、
+       komorebi/app.js の isVolumeReleased と同じ規則で分母から外す (release 無しの
+       巻は公開済み扱い。economy_flag が読めない文脈では release 付きの巻を数えない)。
+       分子も同じ集合で数え、fixture 捕獲や未公開巻の孤児レコードを混ぜない。 */
     var komSpecies={};
     (function(){
       var vols=window.Q4B_KOMOREBI_VOLUMES||{}, have={};
+      var releaseNow=(window.Q4B_ECONOMY&&window.Q4B_ECONOMY.currentRelease)?window.Q4B_ECONOMY.currentRelease():0;
       (window.Q4B_BUGS||[]).forEach(function(b){have[b.id]=1;});
       Object.keys(vols).forEach(function(k){
-        ((vols[k]&&vols[k].species)||[]).forEach(function(s){ if(s&&have[s.id])komSpecies[s.id]=1; });
+        var vol=vols[k];
+        if(!vol||(Number.isInteger(vol.release)&&vol.release>releaseNow))return;
+        (vol.species||[]).forEach(function(s){ if(s&&have[s.id])komSpecies[s.id]=1; });
       });
     })();
     var komCollection=kom&&kom.collection, komCatches=komCollection&&komCollection.catches;
