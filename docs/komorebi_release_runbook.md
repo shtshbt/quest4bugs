@@ -31,7 +31,7 @@
 
 ## 3. リリース日の手順 (更新 N を出す)
 
-1. `komorebi/app.js` の `CURRENT_RELEASE` を N にする (変更はこの 1 行)
+1. `komorebi/economy_flag.js` の `CURRENT_RELEASE` を N にする (変更はこの 1 行)
 2. `sw.js` の CACHE 版数を上げる (オフラインキャッシュの更新)
 3. `komorebi/index.html` の `?v=` を上げる
 4. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
@@ -44,7 +44,7 @@
 更新番号とは別のスイッチで出す (2026-08-17 決定)。地域 volume は新奇性が効くうちに、
 道具は手が止まりかけた頃に出すほうが効くため、同じ deploy に束ねない。
 
-1. `komorebi/app.js` の `MEDAL_ECONOMY_ON` を `true` にする (変更はこの 1 行)
+1. `komorebi/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする (変更はこの 1 行)
 2. `sw.js` の CACHE 版数を上げる
 3. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
 4. commit して push
