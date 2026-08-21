@@ -20,12 +20,9 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const komorebi = context.Q4B_KOMOREBI;
   const reverse = context.Q4B_KOMOREBI_KUKU_REVERSE;
   const uraVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_costa_rica;
-  /* 九九の逆引きは更新 3 = ボルネオ遠征 I のカテゴリ。ボルネオ側はまだ合成 fixture
-     なので、カテゴリだけ足した写しで起動する (他のセッションテストと同じ流儀)。
-     オーストラリア遠征 I は更新 2 の実 manifest になったのでここでは使わない。 */
-  const borneoVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
-  const inverseVolume = Object.assign({}, borneoVolume,
-    { categories: borneoVolume.categories.concat(["kom_kuku_inverse"]) });
+  /* 九九の逆引きは更新 3 = ボルネオ遠征 I のカテゴリ。ボルネオ遠征 I は実 manifest
+     (release:3) になり kom_kuku_inverse を自前で挙げるので、写しを作らずそのまま使う。 */
+  const inverseVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
   const plain = () => plainText(app.innerHTML);
 
   function seeded(seed){

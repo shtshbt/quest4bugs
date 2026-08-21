@@ -18,7 +18,12 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
   const engine = context.Q4B_KOMOREBI_UNIT_CONVERT;
-  const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
+  /* 単位換算は更新 2 = オーストラリア遠征 I のカテゴリ。ボルネオ遠征 I が実 manifest
+     (更新 3 の 4 本) になり kom_unit_convert を挙げなくなったので、カテゴリだけ
+     足した写しで起動する (他のセッションテストと同じ流儀)。 */
+  const borneoVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
+  const volume = Object.assign({}, borneoVolume,
+    { categories: borneoVolume.categories.concat(["kom_unit_convert"]) });
   const plain = () => plainText(app.innerHTML);
 
   function seeded(seed){

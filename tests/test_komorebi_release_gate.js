@@ -157,6 +157,33 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
+  test("the real Borneo I volume (release 3) stays staged and off every surface", () => {
+    /* 事前準備方式の実データ版その 2。ボルネオ遠征 I は release:3 で manifest に
+       仕込み済みで、種 id は bugs.js に実在する。AU II と違い、ボルネオには公開済みの
+       巻が 1 つも無いので、CURRENT_RELEASE が 3 に届くまで地図のピン自体が出ない
+       (旧 placeholder の合成 fixture は「…」ピンを出していた)。 */
+    const borneo = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
+    assert.ok(borneo, "Borneo I manifest entry is missing");
+    assert.equal(borneo.release, 3);
+    assert.equal(borneo.expedition, 1);
+    assert.equal(borneo.frozen, true);
+    assert.equal(borneo.placeholder, undefined, "Borneo I must no longer be a placeholder");
+    assert.equal(borneo.denominator, 84);
+    assert.equal(borneo.species.length, 84);
+    const flagships = borneo.species.filter(species => species.flagship);
+    assert.equal(flagships.length, 1, "Borneo I must have exactly one flagship");
+    assert.equal(flagships[0].id, "trogonoptera_brookiana");
+    assert.equal(flagships[0].rarity, "SSR");
+    assert.ok(borneo.release > komorebi.currentRelease(),
+      "Borneo I is expected to be staged; update the release-gate fixtures when it ships");
+    /* 地図へ戻って再描画し、巻もピンも現れないことを見る。 */
+    app.querySelector('[data-action="back"]').click();
+    assert.equal(app.innerHTML.indexOf("volume_fixture_borneo"), -1, "Borneo I leaked into the map");
+    assert.equal(plain().indexOf("ボルネオ"), -1, "Borneo is visible before its release");
+    assert.equal(app.querySelector('[data-region-id="borneo"]'), null, "the borneo pin appeared before its release");
+    app.querySelector('[data-action="trophies"]').click();
+  });
+
   test("an unreleased trophy does not sit on the goal board", () => {
     /* 目標ボードに出るのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
        CURRENT_RELEASE で動くので、期待値も同じ規則から作る (kom_future_demo は

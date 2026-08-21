@@ -254,13 +254,113 @@
     ]
   };
 
-  volumes.volume_fixture_borneo=volume({
-    id:"volume_fixture_borneo", expedition:1, regionId:"borneo", regionName:"ボルネオ",
-    placeholder:true,
-    categories:["kom_kuku_run","kom_kuku_dan2","kom_kuku_dan3","kom_unit_convert","kom_kuku_bridge"],
-    blurb:"世界で 3 番目に大きな島。3 つの国にまたがる熱帯雨林。",
-    prefix:"kom_fixture_bo", counts:{n:5,r:2,sr:1}
-  });
+  /* ボルネオ遠征 I = 更新 3 の巻 (release_linkage 2 章)。2026-08-18 freeze、
+     2026-08-21 に写真不能 9 種を draft 5 章の予備から差し替え (freeze 承認記録)。
+     選抜と レア度の根拠は zukan_foundry/reports/borneo_expedition1_freeze_draft.md。
+     配分は rarity_standard 1 章の 84 種標準 (N 57 / R 17 / SR 7 / SSR 3)。看板は
+     trogonoptera_brookiana (アカエリアゲハ) のみ flagship。
+
+     カテゴリは更新 3 の新カテゴリ 4 本 (kom_frac_flow / kom_kuku_inverse /
+     kom_kuku_dan6 / kom_kuku_dan7)。地域 blurb は freeze draft 4 章の第 1 案
+     (対案の「世界一長い虫」は本巻に登場しない種を約束するため不採用)。
+
+     release:3 のゲートは据え置きなので、CURRENT_RELEASE が 3 に届くまで
+     地図・地域図鑑・抽選・ポータルの分母のいずれにも出ない (旧 placeholder の
+     合成 fixture と違い、未公開の間はボルネオのピン自体が出ない)。frozen なので
+     以後この配列と denominator は増やさない (決定 4)。 */
+  volumes.volume_fixture_borneo={
+    id:"volume_fixture_borneo", regionId:"borneo", regionName:"ボルネオ",
+    current:false, expedition:1, release:3,
+    categories:["kom_frac_flow","kom_kuku_inverse","kom_kuku_dan6","kom_kuku_dan7"],
+    blurb:"東南アジアのまん中にある大きな島。日本の 2 倍。一年じゅう暑くて雨が多い森が広がる。",
+    frozen:true, denominator:84,
+    species:[
+      {id:"trogonoptera_brookiana", rarity:"SSR", flagship:true},
+      {id:"tacua_speciosa", rarity:"SSR", flagship:false},
+      {id:"pyrops_whiteheadi", rarity:"SSR", flagship:false},
+      {id:"lyssa_zampa", rarity:"SR", flagship:false},
+      {id:"troides_amphrysus", rarity:"SR", flagship:false},
+      {id:"neurobasis_longipes", rarity:"SR", flagship:false},
+      {id:"haaniella_echinata", rarity:"SR", flagship:false},
+      {id:"toxodera_hauseri", rarity:"SR", flagship:false},
+      {id:"discotettix_belzebuth", rarity:"SR", flagship:false},
+      {id:"pulchriphyllium_mannani", rarity:"SR", flagship:false},
+      {id:"kallima_sylvia", rarity:"R", flagship:false},
+      {id:"graphium_agamemnon", rarity:"R", flagship:false},
+      {id:"graphium_antiphates", rarity:"R", flagship:false},
+      {id:"junonia_hedonia", rarity:"R", flagship:false},
+      {id:"pyrops_sultanus", rarity:"R", flagship:false},
+      {id:"pyrops_intricatus", rarity:"R", flagship:false},
+      {id:"penthicodes_farinosa", rarity:"R", flagship:false},
+      {id:"cryptotympana_aquila", rarity:"R", flagship:false},
+      {id:"dundubia_vaginata", rarity:"R", flagship:false},
+      {id:"pycanum_alternatum", rarity:"R", flagship:false},
+      {id:"deroplatys_truncata", rarity:"R", flagship:false},
+      {id:"deroplatys_lobata", rarity:"R", flagship:false},
+      {id:"hierodula_venosa", rarity:"R", flagship:false},
+      {id:"epidares_nolimetangere", rarity:"R", flagship:false},
+      {id:"xylocopa_latipes", rarity:"R", flagship:false},
+      {id:"oecophylla_smaragdina", rarity:"R", flagship:false},
+      {id:"neurothemis_fluctuans", rarity:"R", flagship:false},
+      {id:"liatongus_femoratus", rarity:"N", flagship:false},
+      {id:"sisyphus_thoracicus", rarity:"N", flagship:false},
+      {id:"paragymnopleurus_maurus", rarity:"N", flagship:false},
+      {id:"paragymnopleurus_sparsus", rarity:"N", flagship:false},
+      {id:"megapomponia_merula", rarity:"N", flagship:false},
+      {id:"champaka_spinosa", rarity:"N", flagship:false},
+      {id:"velinus_nigrigenu", rarity:"N", flagship:false},
+      {id:"pyrops_sidereus", rarity:"N", flagship:false},
+      {id:"pyrops_cultellata", rarity:"N", flagship:false},
+      {id:"orthetrum_testaceum", rarity:"N", flagship:false},
+      {id:"tyriobapta_torrida", rarity:"N", flagship:false},
+      {id:"neurothemis_terminata", rarity:"N", flagship:false},
+      {id:"euphaea_impar", rarity:"N", flagship:false},
+      {id:"heliocypha_biseriata", rarity:"N", flagship:false},
+      {id:"rhinagrion_borneense", rarity:"N", flagship:false},
+      {id:"ceriagrion_cerinorubellum", rarity:"N", flagship:false},
+      {id:"devadatta_clavicauda", rarity:"N", flagship:false},
+      {id:"psychomantis_borneensis", rarity:"N", flagship:false},
+      {id:"helvia_cardinalis", rarity:"N", flagship:false},
+      {id:"odontomantis_planiceps", rarity:"N", flagship:false},
+      {id:"ceratocrania_macra", rarity:"N", flagship:false},
+      {id:"amantis_reticulata", rarity:"N", flagship:false},
+      {id:"hierodula_dyaka", rarity:"N", flagship:false},
+      {id:"hapalopeza_tigrina", rarity:"N", flagship:false},
+      {id:"deroplatys_trigonodera", rarity:"N", flagship:false},
+      {id:"aretaon_asperrimus", rarity:"N", flagship:false},
+      {id:"haaniella_grayii", rarity:"N", flagship:false},
+      {id:"hoploclonia_gecko", rarity:"N", flagship:false},
+      {id:"aschiphasma_annulipes", rarity:"N", flagship:false},
+      {id:"dares_verrucosus", rarity:"N", flagship:false},
+      {id:"marmessoidea_rubescens", rarity:"N", flagship:false},
+      {id:"nisitrus_vittatus", rarity:"N", flagship:false},
+      {id:"valanga_nigricornis", rarity:"N", flagship:false},
+      {id:"traulia_azureipennis", rarity:"N", flagship:false},
+      {id:"xantia_borneensis", rarity:"N", flagship:false},
+      {id:"zulpha_perlaria", rarity:"N", flagship:false},
+      {id:"amphibotettix_longipes", rarity:"N", flagship:false},
+      {id:"leptoderes_ornatipennis", rarity:"N", flagship:false},
+      {id:"onomarchus_uninotatus", rarity:"N", flagship:false},
+      {id:"sympaestria_acutelobata", rarity:"N", flagship:false},
+      {id:"lesina_blanchardi", rarity:"N", flagship:false},
+      {id:"junonia_atlites", rarity:"N", flagship:false},
+      {id:"junonia_iphita", rarity:"N", flagship:false},
+      {id:"apis_dorsata", rarity:"N", flagship:false},
+      {id:"apis_andreniformis", rarity:"N", flagship:false},
+      {id:"vespa_tropica", rarity:"N", flagship:false},
+      {id:"polyrhachis_armata", rarity:"N", flagship:false},
+      {id:"crematogaster_inflata", rarity:"N", flagship:false},
+      {id:"dolichoderus_thoracicus", rarity:"N", flagship:false},
+      {id:"bactrocera_carambolae", rarity:"N", flagship:false},
+      {id:"bactrocera_musae", rarity:"N", flagship:false},
+      {id:"bactrocera_cucurbitae", rarity:"N", flagship:false},
+      {id:"bactrocera_frauenfeldi", rarity:"N", flagship:false},
+      {id:"aedes_aegypti", rarity:"N", flagship:false},
+      {id:"anopheles_balabacensis", rarity:"N", flagship:false},
+      {id:"limnocentropus_grandis", rarity:"N", flagship:false},
+      {id:"polymorphanisus_quadripunctatus", rarity:"N", flagship:false}
+    ]
+  };
 
   volumes.volume_fixture_costa_rica=volume({
     id:"volume_fixture_costa_rica", expedition:1, regionId:"costa_rica", regionName:"コスタリカ",

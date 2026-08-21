@@ -42,7 +42,20 @@
     {trophyId:"australia_unit_convert",cat:"kom_unit_convert",speciesId:"podacanthus_viridiroseus",regionId:"australia",regionName:"オーストラリアえんせい"},  // SSR ベニバネナナフシ
     {trophyId:"australia_kuku_ura",cat:"kom_kuku_ura",speciesId:"lamprima_aurata",regionId:"australia",regionName:"オーストラリアえんせい"},                 // SSR アウラタキンイロクワガタ
     {trophyId:"australia_kuku_dan3",cat:"kom_kuku_dan3",speciesId:"extatosoma_tiaratum",regionId:"australia",regionName:"オーストラリアえんせい"},           // SR ユウレイヒレアシナナフシ
-    {trophyId:"australia_kuku_dan4",cat:"kom_kuku_dan4",speciesId:"chrysolopus_spectabilis",regionId:"australia",regionName:"オーストラリアえんせい"}        // SR ホシゾラゾウムシ
+    {trophyId:"australia_kuku_dan4",cat:"kom_kuku_dan4",speciesId:"chrysolopus_spectabilis",regionId:"australia",regionName:"オーストラリアえんせい"},       // SR ホシゾラゾウムシ
+    /* 更新 3 (ボルネオ遠征 I)。2026-08-21 の volume 発射待機仕込みで確定。
+       release_linkage 3 章の規定どおり、看板を割り当てるのは k10 側 1 本
+       (kom_frac_flow) で、残り k5 の 3 本は同じ volume の SR 帯から個別指定する。
+       k5 の 3 本は読みやすい名の種を選んだ (AU I precedent)。cat 4 本の release は
+       3 なので、CURRENT_RELEASE が 3 に届くまでこの 4 行は画面に出ない
+       (事前準備方式。tests/test_komorebi_acceptance.js 15.5 は公開済みどうしを比べる)。
+       未割当の SR 予備: troides_amphrysus (アンフリサスキシタアゲハ)、
+       neurobasis_longipes (ヒスイカワトンボ)、haaniella_echinata (トゲハダナナフシ)、
+       pulchriphyllium_mannani (ウツクシコノハムシ)。 */
+    {trophyId:"borneo_frac_flow",cat:"kom_frac_flow",speciesId:"trogonoptera_brookiana",regionId:"borneo",regionName:"ボルネオえんせい"},   // 看板 (SSR) アカエリアゲハ
+    {trophyId:"borneo_kuku_inverse",cat:"kom_kuku_inverse",speciesId:"lyssa_zampa",regionId:"borneo",regionName:"ボルネオえんせい"},        // SR オオツバメガ
+    {trophyId:"borneo_kuku_dan6",cat:"kom_kuku_dan6",speciesId:"discotettix_belzebuth",regionId:"borneo",regionName:"ボルネオえんせい"},    // SR ツノヒシバッタ
+    {trophyId:"borneo_kuku_dan7",cat:"kom_kuku_dan7",speciesId:"toxodera_hauseri",regionId:"borneo",regionName:"ボルネオえんせい"}          // SR エダカマキリ
   ];
 
   /* --- 更新 6 (オーストラリア遠征 II) のメダル代表種 (据え置き。有効化しない) --------

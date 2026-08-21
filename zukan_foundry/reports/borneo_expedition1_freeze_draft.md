@@ -376,3 +376,20 @@ Polymorphanisus quadripunctatus は occurrence 6 と極端に少なく写真確�
 ## 承認記録
 
 - 2026-08-18: user 承認。選抜 84 種と SSR3 構成は draft 通り (Pyrops whiteheadi の CR II 看板との同科懸念は認識の上で維持)。写真取得は本 draft の優先順リストで着手可。
+- 2026-08-21: 発案者承認済みの写真不能 9 種差し替え。2026-08-21 の補完 fetch round (`zukan_foundry/rounds/2026-08-21/`) でも写真を確保できなかった 9 種を落選とし、5 章の予備から 9 種を補充して 84 種を維持した。落選 9 種は全て N だったため、補充 9 種も N 枠を引き継ぎ、配分は N 57 / R 17 / SR 7 / SSR 3 のまま変わらない。割当は各目の配分意図 (2.1 の表) に沿わせた。
+
+  | 落選 (全て N) | 目 | 補充 (全て N) | 目 |
+  |---|---|---|---|
+  | Onthophagus cervicapra | Coleoptera | Pyrops sidereus | Hemiptera |
+  | Proagoderus watanabei | Coleoptera | Pyrops cultellata | Hemiptera |
+  | Catharsius renaudpauliani | Coleoptera | Hierodula dyaka | Mantodea |
+  | Onthophagus rugicollis | Coleoptera | Hapalopeza tigrina | Mantodea |
+  | Catharsius dayacus | Coleoptera | Deroplatys trigonodera | Mantodea |
+  | Copris sinicus | Coleoptera | Dares verrucosus | Phasmida |
+  | Diesbachia sophiae | Phasmida | Marmessoidea rubescens | Phasmida |
+  | Salomona borneensis | Orthoptera | Sympaestria acutelobata | Orthoptera |
+  | Cheumatopsyche globosa | Trichoptera | Lesina blanchardi | Orthoptera |
+
+  目別の増減: Coleoptera 10→4 (使用可 21 種が全て糞虫で、museum 写真がラベル主体に集中して壊滅したため)、Hemiptera 11→13、Mantodea 9→12、Phasmida 8→9、Orthoptera 10→11、Trichoptera 3→2。糞虫の穴はボルネオらしさを担う Fulgoridae とカマキリ・ナナフシ (看板分類群) へ振り替えた。バトル属性 3 種は維持 (けいさん = 甲虫 4 種)。
+
+  補充 9 種は命名提案書 (2026-08-18) の対象外だったため、標本写真を実見して命名規約 v0.1 で仮称を新規に付けた: Sympaestria acutelobata = コノハキリギリス、Dares verrucosus = イボナナフシ、Pyrops sidereus = ホシゾラビワハゴロモ、Pyrops cultellata = モエギビワハゴロモ、Hierodula dyaka = アメイロカマキリ、Hapalopeza tigrina = シマウデカマキリ、Deroplatys trigonodera = アミメカレハカマキリ、Lesina blanchardi = ヨロイキリギリス、Marmessoidea rubescens = オウギバネナナフシ (いずれも nameStatus provisional。既存 1849 + 新規 84 の全体で和名一意性を機械検証済み)。

@@ -18,11 +18,9 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
   const frac = context.Q4B_KOMOREBI_FRAC_FLOW;
-  /* 分数の解き方は更新 3 = ボルネオ遠征 I のカテゴリ。ボルネオ側はまだ合成 fixture
-     なので、カテゴリだけ足した写しで起動する (他のセッションテストと同じ流儀)。 */
-  const borneoVolume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
-  const volume = Object.assign({}, borneoVolume,
-    { categories: borneoVolume.categories.concat(["kom_frac_flow"]) });
+  /* 分数の解き方は更新 3 = ボルネオ遠征 I のカテゴリ。ボルネオ遠征 I は実 manifest
+     (release:3) になり kom_frac_flow を自前で挙げるので、写しを作らずそのまま使う。 */
+  const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
   const plain = () => plainText(app.innerHTML);
 
   function seeded(seed){

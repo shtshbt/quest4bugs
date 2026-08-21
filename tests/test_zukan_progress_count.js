@@ -107,10 +107,15 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   assert.ok(au2, "AU II volume is staged in the manifest");
   assert.ok(Number.isInteger(au2.release) && au2.release > context.Q4B_ECONOMY.currentRelease(),
     "AU II is expected to be staged; update this test's fixtures when it ships");
+  const borneo = vols.volume_fixture_borneo;
+  assert.ok(borneo, "Borneo I volume is staged in the manifest");
+  assert.ok(Number.isInteger(borneo.release) && borneo.release > context.Q4B_ECONOMY.currentRelease(),
+    "Borneo I is expected to be staged; update this test's fixtures when it ships");
   const have = {};
   for(const sp of context.Q4B_BUGS) have[sp.id] = 1;
   /* 罠が有効なこと: 未公開巻の 84 種は bugs.js に実在する (架空 id 除外では防げない)。 */
   assert.equal(au2.species.filter(s => have[s.id]).length, 84);
+  assert.equal(borneo.species.filter(s => have[s.id]).length, 84);
   /* index.html の komSpecies と同じ規則の参照実装。 */
   function portalKomSpecies(releaseNow){
     const set = {};
@@ -123,10 +128,15 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   }
   const now = portalKomSpecies(context.Q4B_ECONOMY.currentRelease());
   assert.equal(now.anoplognathus_viridiaeneus, undefined, "an unreleased volume leaked into the portal denominator");
+  assert.equal(now.trogonoptera_brookiana, undefined, "the staged Borneo I volume leaked into the portal denominator");
   assert.ok(now.oo_onaga_yamamayu && now.papilio_ulysses, "released volumes must stay in the denominator");
   /* CURRENT_RELEASE=2 時点の公開分母: マダガスカル I 84 + オーストラリア I 84。 */
   assert.equal(Object.keys(now).length, 168);
-  /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。 */
+  /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。
+     更新 3 でボルネオ I の 84 が乗り (168 + 84)、AU II (release 6) はまだ乗らない。 */
+  assert.equal(portalKomSpecies(borneo.release).trogonoptera_brookiana, 1);
+  assert.equal(Object.keys(portalKomSpecies(borneo.release)).length, 252);
+  assert.equal(portalKomSpecies(borneo.release).anoplognathus_viridiaeneus, undefined);
   assert.equal(portalKomSpecies(au2.release).anoplognathus_viridiaeneus, 1);
   /* ソース断面: index.html が実際にこの規則を実装していること。 */
   assert.match(portal, /Number\.isInteger\(vol\.release\)&&vol\.release>releaseNow/);

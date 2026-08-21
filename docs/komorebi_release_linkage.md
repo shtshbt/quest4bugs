@@ -54,6 +54,7 @@
 - 更新 1 の割当 (komorebi/trophies.js に確定済み): kom_ratio = コメットガ (oo_onaga_yamamayu、看板)、kom_pi314 = medama_yamamayu、kom_kuku_dan2 = kanmuri_kareha_kamakiri、kom_kuku_dan5 = benihoshi_oo_ageha、kom_kuku_run = oo_togeashi_kirigirisu。
 - 更新 2 以降の割当表は volume freeze 時 (種のレアリティ確定後) に本書へ追記する。
 - 更新 2 の割当 (2026-08-17 の volume freeze で確定、`komorebi/trophies.js`): kom_diagram_model = ウリッセスアゲハ (papilio_ulysses、看板)、kom_unit_convert = podacanthus_viridiroseus、kom_kuku_ura = lamprima_aurata、kom_kuku_dan3 = extatosoma_tiaratum、kom_kuku_dan4 = chrysolopus_spectabilis。k10 が 2 本あるため、看板は受験 ROI で前倒しした図化に立てた。未割当の SR 予備は papilio_aegeus / tectocoris_diophthalmus / eupoecila_australasiae / dasypodia_selenophora / myrmecia_forficata。
+- 更新 3 の割当 (2026-08-21 の volume 発射待機仕込みで確定、`komorebi/trophies.js`): kom_frac_flow = アカエリアゲハ (trogonoptera_brookiana、看板)、kom_kuku_inverse = lyssa_zampa (オオツバメガ)、kom_kuku_dan6 = discotettix_belzebuth (ツノヒシバッタ)、kom_kuku_dan7 = toxodera_hauseri (エダカマキリ)。規定どおり看板は k10 側 1 本 (frac_flow) に立て、k5 の 3 本は SR 帯から読みやすい名の種を選んだ。未割当の SR 予備は troides_amphrysus / neurobasis_longipes / haaniella_echinata / pulchriphyllium_mannani。
 
 ## 4. 図鑑側の前提パイプライン (各 volume の公開前に必要)
 
