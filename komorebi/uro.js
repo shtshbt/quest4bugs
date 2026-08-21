@@ -149,10 +149,14 @@
       +(waiting?'<span class="uro-waiting">'+text("ささげる メダル "+waiting)+'</span>':"")+'</button></div>';
   }
 
+  /* メダルは鋳造した瞬間に交換する (残高を作らない) ので、ここが埋まるのは 3 つの
+     ときだけ: 公開前にたまっていたぶん、交換で「あとにする」を選んだぶん、2 周目
+     以降の 2 枚目。見出しだけでは「なぜ待っているのか」が伝わらないので 1 行そえる。 */
   function pendingSectionHtml(opts){
     var text=opts.text,waiting=opts.pending||[];
     if(!waiting.length)return "";
-    return '<section class="uro-pending"><h2>'+text("ささげるのを まっている メダル")+'</h2>'
+    return '<section class="uro-pending"><h2>'+text("まだ どうぐに かえていない メダル")+'</h2>'
+      +'<p class="uro-pending-why">'+text("メダルは とった ときに どうぐと かえるよ。これは まだ かえていない ぶん。")+'</p>'
       +'<ul class="uro-pending-list">'+waiting.map(function(medal){
         return '<li><button type="button" class="uro-offer" data-cat="'+escapeHtml(medal.cat)+'">'
           +'🏅 <span>'+text(medal.name)+'</span><span class="uro-offer-go">'+text("ささげる")+'</span></button></li>';

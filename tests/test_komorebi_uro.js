@@ -186,7 +186,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
   test("the hollow shows the waiting medal, an empty tool box and an empty log", () => {
     const text = plain();
     assert.match(text, /かがやきのうろ/);
-    assert.match(text, /ささげるのを まっている メダル/);
+    assert.match(text, /まだ どうぐに かえていない メダル/);
     assert.match(text, /オオオナガヤママユのメダル/);
     assert.match(text, /まだ どうぐを もっていないよ/);
     assert.match(text, /メダルを ささげると、ここに きろくが のこるよ/);
@@ -241,7 +241,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     assert.match(text, /★/);
     assert.match(text, /ちょうネット/);
     assert.match(text, /2026-/);
-    assert.equal(plain().indexOf("ささげるのを まっている メダル"), -1, "a spent medal is still waiting");
+    assert.equal(plain().indexOf("まだ どうぐに かえていない メダル"), -1, "a spent medal is still waiting");
     assert.match(app.innerHTML, /--uro-glow:0\.2/, "the hollow did not brighten");
   });
 
