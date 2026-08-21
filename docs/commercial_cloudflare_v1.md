@@ -6,6 +6,8 @@ Created from main: `fabf9f7c40013898919b5115415b5cecae3dba4f` (2026-08-21)
 Last main sync: `fabf9f7c40013898919b5115415b5cecae3dba4f`  
 Current implementation head before this ledger update: `242391144acd951fda0d0ff0c97f40d4ebf81bac`
 
+Companion operating procedure: [`docs/commercial_development_migration_flow.md`](commercial_development_migration_flow.md). That document is the canonical workflow for parallel `main` development, one-way main -> commercial synchronization, staged IndexedDB promotion, Cloudflare provisioning, deployment, migration, testing, and rollback.
+
 ## 0. Purpose and branch rule
 
 This branch is the commercial product base. The home/family product remains on `main` and may continue rapid Komorebi/content development without waiting for commercial infrastructure.
@@ -142,6 +144,8 @@ Whenever main materially advances:
 5. update `Last main sync` above;
 6. never make main wait for the commercial branch.
 
+The full operating procedure, including sync cadence, conflict rules, release lanes, migration, and rollback, is maintained in [`commercial_development_migration_flow.md`](commercial_development_migration_flow.md).
+
 ## 8. CI
 
 `.github/workflows/commercial-cloudflare-v1.yml` is installed for this branch and contains three gates:
@@ -165,6 +169,7 @@ Commercial v1 should minimize child personal data. Backup bodies contain learnin
 - [x] Add D1 schema and disabled-by-default Pages Functions backup API.
 - [x] Add commercial cloud client adapter without wiring it into gameplay.
 - [x] Add branch-specific commercial CI.
+- [x] Document the ongoing parallel development and migration flow.
 - [ ] Record first all-green commercial CI run and fix any failures.
 - [ ] Promote commercial fresh-install local authority to IndexedDB after automated gates pass.
 - [ ] Create/connect Cloudflare account and provision Pages + R2 + D1.
@@ -178,6 +183,7 @@ Commercial v1 should minimize child personal data. Backup bodies contain learnin
 
 - `3ac17c8e5c3530bd790664415dddc224031e9893` — seeded storage-v2 core onto latest main.
 - `242391144acd951fda0d0ff0c97f40d4ebf81bac` — added Cloudflare backend scaffold, D1/R2 contract, build separation, storage tests, 2,000-generation stress test, browser tests, client adapter, and CI.
+- `6de32b04af9742e965467b4c6bf9b1601ce852a3` — added the canonical parallel development/migration operating procedure.
 
 ## 12. Decision log
 
@@ -187,3 +193,4 @@ Commercial v1 should minimize child personal data. Backup bodies contain learnin
 - 2026-08-21: Reuse storage-v2 as commercial local-persistence foundation.
 - 2026-08-21: Cloudflare is backup/restore infrastructure first, not a realtime gameplay database.
 - 2026-08-21: Replace human “300 questions” soak volume with automated stress testing plus a short real-device staging sanity check.
+- 2026-08-21: Treat the development/migration flow as a maintained operating procedure, not an informal chat decision.
