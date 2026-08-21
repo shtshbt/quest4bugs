@@ -274,6 +274,17 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
     spend:function(n){return QuestSave.amberSpend(pidNow(),n);}
   });
 }
+/* 採集道具: 捕獲抽選 (onCorrect / spendForCatch) に装備中の道具を効かせる共有 wallet。
+   komorebi ページではこのファイルの後に shared/tools.js が読まれるため、道具系の
+   新しいグローバルへの参照は必ず関数内 + window ガードで行う (トップレベルの裸参照は
+   読み込み順しだいで ReferenceError になる)。経済が閉じている間は walletStore 自身が
+   「未装備」に倒れるので、抽選は道具の実装前と変わらない。 */
+function wireKeisanToolsStore(){
+  if(!(window.Q4BReward&&window.QuestSave&&Q4BReward.setToolsStore))return;
+  if(!(window.Q4B_TOOLS&&Q4B_TOOLS.walletStore))return;
+  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,pidNow));
+}
+wireKeisanToolsStore();
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
   Q4BReward.setFossilStore({
@@ -901,6 +912,38 @@ function openMasterBugK(spId){
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'+zukanDetailHTMLK(inner
     +'<button class="btn sm ghost" onclick="closeMd()">とじる</button>')+'</div></div>');
 }
+/* ---------- 採集道具 (共通装備パネル / 統一捕獲カード) ---------- */
+/* 画面文字列パイプ: esc したうえで 5 歳コースだけ furi5 のルビを添える。
+   共通部品 (Q4BToolsUI / Q4BCaptureCard) は文字列をそのまま出すので、
+   escape とふりがなは呼び出し側のここで 1 回だけ通す。 */
+function keisanToolText(p){
+  var k5=!!(p&&p.type==="k5");
+  return function(s){ s=esc(s==null?"":String(s)); return k5?furi5(s):s; };
+}
+/* 属性値パイプ: ルビの HTML は属性に入れられないので esc だけ。 */
+function keisanToolAttrText(s){ return esc(s==null?"":String(s)); }
+/* 装備パネル (独立カード)。経済が閉じている間と道具ゼロの間は panelHtml が
+   空文字を返すので、カードごと出ない。 */
+function keisanToolPanelSection(p){
+  if(!(window.Q4BToolsUI&&Q4BToolsUI.panelHtml&&window.QuestSave&&QuestSave.toolGearOf))return "";
+  return Q4BToolsUI.panelHtml({
+    gear:QuestSave.toolGearOf(pidNow()),
+    text:keisanToolText(p),
+    attrText:keisanToolAttrText,
+    course:p&&p.type,
+    economy:window.Q4B_ECONOMY
+  });
+}
+/* 装備の持ち替え。gear を読み直してから equippedToolId を書き換え、保存できたら
+   ずかんを再描画して「いまの そうび」表示を合わせる。 */
+function keisanEquipTool(typeOrNull){
+  if(!(window.Q4B_TOOLS&&window.QuestSave&&QuestSave.toolGearOf&&QuestSave.toolGearSet))return;
+  var pid=pidNow(); if(!pid)return;
+  var gear=QuestSave.toolGearOf(pid);
+  if(!Q4B_TOOLS.equip(gear,typeOrNull))return;
+  QuestSave.toolGearSet(pid,gear);
+  showZukan();
+}
 /* ---------- zukan ---------- */
 function showZukan(){
   var p=P();
@@ -936,6 +979,7 @@ function showZukan(){
     +'<button id="amberCatchBtn" class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto'+(canSpend?'':'opacity:.45;pointer-events:none')+'"'
     +(canSpend?'':' disabled')
     +' onclick="keisanAmberCatch()">🔶 こはくで よぶ（30）</button></div>';
+  h+=keisanToolPanelSection(p);   /* 装備パネル (経済が閉じている間は空文字) */
   h+=keisanMasterSection();
   if(window.Q4BBossZukan)h+=Q4BBossZukan.sectionHTML("keisan");  /* 👑 ボス昆虫節 */
   /* Q4BReward ベース: tierOf 降順ソート */
@@ -989,6 +1033,8 @@ function showZukan(){
   });
   h+=(filtered.length?'':'<p class="note center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>')+'</div></div>';
   render(h);
+  /* 装備パネルの data-equip 配線。保存と再描画は keisanEquipTool の仕事。 */
+  if(window.Q4BToolsUI&&Q4BToolsUI.bindPanel)Q4BToolsUI.bindPanel(app,{onEquip:keisanEquipTool});
   window.Q4BKeisanScreen="zukan";
   if(window.Q4BRender&&Q4BRender.setZukanModeToggleVisible)Q4BRender.setZukanModeToggleVisible(true,app.querySelector('.scr'));
 }
@@ -1088,9 +1134,24 @@ function showCapture(i,extraMsg,presetGot,boost){
     }
     if(got){
       var sp=got.sp, tier=got.tier, rec=p.coll.catches[sp.id];
+      /* 統一捕獲カード (shared/capture_card.js)。こはく呼び出し (presetGot) なら
+         toolUse が既に載っている。呼び出し文 (extraMsg) は見出しの下の 1 行 (sub)
+         として通し、何匹めは record 済みの coll から添える。 */
+      if(rec&&Number.isFinite(rec.n)&&!Number.isFinite(got.n))got.n=rec.n;
+      var card=(window.Q4BCaptureCard&&Q4BCaptureCard.html)
+        ?Q4BCaptureCard.html(got,{text:keisanToolText(p),sub:extraMsg||"",course:p&&p.type}):"";
+      var h='<div class="scr">'+topBar();
+      if(card){
+        h+='<div class="card center">'+card
+          +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
+          +'<button class="btn ghost sm" onclick="showHome()">ホームへ</button></div></div>';
+        render(h);
+        if(Q4BCaptureCard.attach)Q4BCaptureCard.attach(app);
+        return;
+      }
+      /* カード部品を読み込めていない環境の保険: 従来の flip カード。 */
       var tag=got.isNew?'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！ ずかんに とうろく</span>'
         :'<span class="note">×'+rec.n+'匹め'+(got.isRecord?'・じこベスト こうしん!':'')+'</span>';
-      var h='<div class="scr">'+topBar();
       h+='<div class="card center"><h2>つかまえた！</h2>'+(extraMsg?'<p style="color:var(--amber-d);font-weight:700">'+extraMsg+'</p>':"")
         +'<div class="flipwrap"><div class="flip">'
         +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp,got.shiny)+'</div>'
@@ -6488,16 +6549,29 @@ function fbNext(){
   JLOCK=false; Q.i++; __fbNextLock=false; nextQ();
 }
 function showKeiCatch(got){
-  var sp=got.sp, tags=[];
-  if(got.isNew)tags.push('✨ NEW！ずかん登録'); else if(got.isRecord)tags.push('📏 じこベスト更新');
-  if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
+  /* 統一捕獲カード (shared/capture_card.js)。got は onCorrect の返り値なので、
+     装備中の道具があれば toolUse (場面と残り表示) が既に載っている。何匹めは
+     record 済みの coll から添える。モーダル外枠と「つづける ▶」は従来のまま。 */
+  var p=P();
+  var rec=p&&p.coll&&p.coll.catches?p.coll.catches[got.sp.id]:null;
+  if(rec&&Number.isFinite(rec.n)&&!Number.isFinite(got.n))got.n=rec.n;
+  var inner=(window.Q4BCaptureCard&&Q4BCaptureCard.html)
+    ?Q4BCaptureCard.html(got,{text:keisanToolText(p),course:p&&p.type}):"";
+  if(!inner){
+    /* カード部品を読み込めていない環境の保険: 従来のモーダル本文。 */
+    var sp=got.sp, tags=[];
+    if(got.isNew)tags.push('✨ NEW！ずかん登録'); else if(got.isRecord)tags.push('📏 じこベスト更新');
+    if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
+    inner='<div style="font-weight:800;font-size:18px">📖 つかまえた！</div>'
+      +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp,got.shiny)+'</div>'
+      +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
+      +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
+      +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"");
+  }
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md"><div class="mcard" style="text-align:center">'
-    +'<div style="font-weight:800;font-size:18px">📖 つかまえた！</div>'
-    +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp,got.shiny)+'</div>'
-    +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
-    +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
-    +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"")
+    +inner
     +'<button class="btn" style="margin-top:12px" onclick="keiCatchDone()">つづける ▶</button></div></div>');
+  if(window.Q4BCaptureCard&&Q4BCaptureCard.attach)Q4BCaptureCard.attach($("md")||app);
 }
 var __keiCatchDoneLock=false;
 function keiCatchDone(){
