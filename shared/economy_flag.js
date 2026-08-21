@@ -21,28 +21,19 @@
   var CURRENT_RELEASE=2;
   var MEDAL_ECONOMY_ON=false;
 
-  /* 道具が最初に開く更新番号。tools.js の release 最小値と同じ値で、tools.js を
-     読み込んでいない portal のための控えでしかない。ずれると御神木の入口だけが
-     早く出るので、tests/test_komorebi_portal_gate.js が両者の一致を見張る。 */
-  var TOOLS_FIRST_RELEASE=2;
-
   function currentRelease(){return CURRENT_RELEASE;}
   function on(){return MEDAL_ECONOMY_ON;}
 
   /* ゲートは 2 段。まず経済ごと開いているか、次に道具 1 本ずつの release。
-     tools.js が居る文脈 (小道のページ) では実際の一覧から数え、居ない文脈
-     (portal) では控えの番号で判定する。 */
+     tools.js が無い文脈では、道具を公開済みとして扱わない。 */
   function toolsReleased(){
     if(!MEDAL_ECONOMY_ON)return false;
     var tools=global.Q4B_TOOLS;
-    if(tools&&typeof tools.list==="function"){
-      return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
-    }
-    return TOOLS_FIRST_RELEASE<=CURRENT_RELEASE;
+    if(!tools||typeof tools.list!=="function")return false;
+    return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
   }
 
   global.Q4B_ECONOMY={
-    toolsFirstRelease:TOOLS_FIRST_RELEASE,
     currentRelease:currentRelease,
     on:on,
     toolsReleased:toolsReleased

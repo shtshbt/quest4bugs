@@ -31,11 +31,13 @@
 
 ## 3. リリース日の手順 (更新 N を出す)
 
-1. `komorebi/economy_flag.js` の `CURRENT_RELEASE` を N にする (変更はこの 1 行)
+1. `shared/economy_flag.js` の `CURRENT_RELEASE` を N にする (変更はこの 1 行)
 2. `sw.js` の CACHE 版数を上げる (オフラインキャッシュの更新)
-3. `komorebi/index.html` の `?v=` を上げる
-4. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
-5. commit して push (通常 push。`git push origin main`)
+3. 共有モジュールを読む全ページ (`index.html` / `battle.html` / `keisan/index.html` /
+   `kanji/index.html` / `eitango/index.html` / `komorebi/index.html`) の `?v=` を揃えて上げる
+4. `node tests/test_script_versions.js` — 全ページの版が揃っていることを確認
+5. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
+6. commit して push (通常 push。`git push origin main`)
 
 5 分で終わる想定。教材・種・写真はすべて事前に入っているので、リリース日に内容の作業は発生しない。
 
@@ -44,10 +46,13 @@
 更新番号とは別のスイッチで出す (2026-08-17 決定)。地域 volume は新奇性が効くうちに、
 道具は手が止まりかけた頃に出すほうが効くため、同じ deploy に束ねない。
 
-1. `komorebi/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする (変更はこの 1 行)
+1. `shared/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする (変更はこの 1 行)
 2. `sw.js` の CACHE 版数を上げる
-3. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
-4. commit して push
+3. 共有モジュールを読む全ページ (`index.html` / `battle.html` / `keisan/index.html` /
+   `kanji/index.html` / `eitango/index.html` / `komorebi/index.html`) の `?v=` を揃えて上げる
+4. `node tests/test_script_versions.js` — 全ページの版が揃っていることを確認
+5. `for f in tests/test_*.js; do node $f; done` — 全 green を確認
+6. commit して push
 
 `false` の間に成立したメダルは、うろの初回訪問で遡って奉納できるので取りこぼしはない。
 どの道具が出るかは道具ごとの `release` 番号と `CURRENT_RELEASE` の関係で決まる

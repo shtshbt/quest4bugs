@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { bootKomorebi, KOMOREBI_FILES } = require("./fake_dom.js");
 
 const root = path.resolve(__dirname, "..");
 
@@ -133,6 +134,17 @@ test("Stage A keeps categories and save state in the komorebi namespace", () => 
   assert.match(keisan, /QuestSave\.load\("komorebi",p\.id\)/);
   assert.match(keisan, /QuestSave\.save\("komorebi",p\.id,state\)/);
   assert.match(keisan, /if\(p\.type==="k5"\)\{title=furi5\(title\);body=furi5\(body\);\}/);
+});
+
+test("komorebi boot leaves the shared reward toolsStore null", () => {
+  const files = KOMOREBI_FILES.filter(file => file !== "komorebi/app.js");
+  const context = bootKomorebi({ root, files });
+  const originalSet = context.Q4BReward.setToolsStore;
+  let toolsStore = { equippedTool(){ return null; }, consumeOnCapture(){ return null; } };
+  context.Q4BReward.setToolsStore = function(store){ toolsStore = store; return originalSet(store); };
+  context.Q4BReward.setToolsStore(toolsStore);
+  vm.runInContext(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"), context);
+  assert.equal(toolsStore, null, "小道の起動後も reward 側に道具 wallet が残っている");
 });
 
 console.log(`RESULT ${passed} passed, 0 failed`);

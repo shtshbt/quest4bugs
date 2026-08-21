@@ -169,16 +169,16 @@ input[type=range]{width:100%}
 </div>
 <div class="fb" id="fb"><span id="fbIc">⭕</span></div>
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
-<script src="../shared/storage.js?v=0.4.23"></script>
+<script src="../shared/storage.js?v=0.4.24"></script>
 <script src="../shared/bugs.js?v=0.4.16"></script>
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.1"></script>
 <script src="../zukan_config/zukan_catalog.js?v=0.3.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.1"></script>
-<script src="../shared/reward.js?v=0.8.8"></script>
+<script src="../shared/reward.js?v=0.8.9"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="../shared/breeding.js?v=0.6.7"></script>
+<script src="../shared/breeding.js?v=0.6.8"></script>
 <script src="../shared/breeding_debug.js?v=0.1.1"></script>
 <script src="../shared/zukan_detail.js?v=0.4.3"></script>
 <script src="../shared/zukan_lightbox.js?v=0.2.1"></script>
@@ -999,15 +999,14 @@ function showCatchModal(got){
  var entry=sp&&ST.coll&&ST.coll.catches?ST.coll.catches[sp.id]:null;
  if(entry&&typeof entry.n==='number')got.n=entry.n;
  /* カード本体は共通の捕獲カード (レア度枠 + 道具の行)。モーダル外枠は既存のまま */
- var card=(window.Q4BCaptureCard&&Q4BCaptureCard.html)?Q4BCaptureCard.html(got,{headline:'むしを つかまえた！'}):'';
- if(!card)card='<div style="font-weight:bold;font-size:16px">'+(sp.jaName||sp.id)+'</div>';
+ var card=Q4BCaptureCard.html(got,{headline:'むしを つかまえた！'});
  var h='<div class="center">'
   +card
   +'<div style="font-size:12px;color:#888;margin-top:4px">'+(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(ST.coll,"kanji"):Q4BReward.collectedCount(ST.coll))+' / '+(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount("kanji"):Q4BReward.poolCount("kanji"))+' しゅ</div>'
   +'<button class="btn" style="margin-top:12px" onclick="closeModal()">やった！</button>'
   +'</div>';
  modal(h);
- if(window.Q4BCaptureCard&&Q4BCaptureCard.attach)Q4BCaptureCard.attach($('modalIn'));
+ Q4BCaptureCard.attach($('modalIn'));
 }
 function answerInfo(p){
  if(p.key[0]==='h'){ var c=p.key.slice(2); return {disp:c,say:c} }

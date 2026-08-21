@@ -16,14 +16,14 @@ const root = path.resolve(__dirname, "..");
 let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 
-/* portal の文脈を模す: economy_flag.js と breeding.js だけで、tools.js も app.js も無い。 */
+/* portal の文脈を模す: tools.js と economy_flag.js と breeding.js を読み、app.js は無い。 */
 function portalContext(){
   const context = { console };
   context.window = context;
   context.global = context;
   context.Q4B_KOMOREBI_TEST_HOOKS = true;
   vm.createContext(context);
-  for(const file of ["shared/economy_flag.js", "shared/breeding.js"]){
+  for(const file of ["shared/tools.js", "shared/economy_flag.js", "shared/breeding.js"]){
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
@@ -34,19 +34,15 @@ const economy = portal.Q4B_ECONOMY;
 const panel = opts => portal.Q4BBreeding.homeBreedingPanelHTML(opts);
 const played = () => panel({ eggs: [], pendingEggs: [], komorebiPlayed: true });
 
-/* 道具の一覧を持つ文脈 (小道のページ) も 1 つ作り、控えの番号との一致を見る。 */
-const withTools = { console };
-withTools.window = withTools;
-vm.createContext(withTools);
-vm.runInContext(fs.readFileSync(path.join(root, "shared/tools.js"), "utf8"), withTools);
-const tools = withTools.Q4B_TOOLS;
+const tools = portal.Q4B_TOOLS;
+const earliest = Math.min.apply(null, tools.list().map(tool => tool.release));
 
-test("the fallback release number matches the earliest tool in tools.js", () => {
-  /* portal は tools.js を読み込まないので、economy_flag が控えの番号で判定する。
-     ずれると御神木の入口だけが道具より早く出る。 */
-  const earliest = Math.min.apply(null, tools.list().map(tool => tool.release));
-  assert.equal(economy.toolsFirstRelease, earliest,
-    "economy_flag の控えが tools.js の最小 release とずれている");
+test("the portal loads tools.js before economy_flag.js", () => {
+  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const toolsAt = html.indexOf('<script src="./shared/tools.js');
+  const economyAt = html.indexOf('<script src="./shared/economy_flag.js');
+  assert.ok(toolsAt >= 0 && economyAt > toolsAt,
+    "portal は shared/tools.js を shared/economy_flag.js より先に読む");
 });
 
 test("with the economy switch off the hollow entrance is nowhere in the panel", () => {
@@ -63,14 +59,14 @@ test("with the economy switch off the hollow entrance is nowhere in the panel", 
 
 test("the switch alone is not enough: the update must reach the tools", () => {
   economy.setOn(true);
-  economy.setCurrentRelease(economy.toolsFirstRelease - 1);
+  economy.setCurrentRelease(earliest - 1);
   assert.equal(economy.toolsReleased(), false);
   assert.doesNotMatch(played(), /q4b-uro-entrance/, "道具の更新前に入口が出ている");
 });
 
 test("once both gates open the entrance points at the hollow", () => {
   economy.setOn(true);
-  economy.setCurrentRelease(economy.toolsFirstRelease);
+  economy.setCurrentRelease(earliest);
   assert.equal(economy.toolsReleased(), true);
   const html = played();
   assert.match(html, /q4b-uro-entrance/);

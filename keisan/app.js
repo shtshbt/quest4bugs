@@ -284,7 +284,7 @@ function wireKeisanToolsStore(){
   if(!(window.Q4B_TOOLS&&Q4B_TOOLS.walletStore))return;
   Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,pidNow));
 }
-wireKeisanToolsStore();
+if(!window.Q4B_KEISAN_NO_BOOT)wireKeisanToolsStore();
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
   Q4BReward.setFossilStore({
@@ -1133,36 +1133,19 @@ function showCapture(i,extraMsg,presetGot,boost){
       save();
     }
     if(got){
-      var sp=got.sp, tier=got.tier, rec=p.coll.catches[sp.id];
+      var sp=got.sp, rec=p.coll.catches[sp.id];
       /* 統一捕獲カード (shared/capture_card.js)。こはく呼び出し (presetGot) なら
          toolUse が既に載っている。呼び出し文 (extraMsg) は見出しの下の 1 行 (sub)
          として通し、何匹めは record 済みの coll から添える。 */
       if(rec&&Number.isFinite(rec.n)&&!Number.isFinite(got.n))got.n=rec.n;
-      var card=(window.Q4BCaptureCard&&Q4BCaptureCard.html)
-        ?Q4BCaptureCard.html(got,{text:keisanToolText(p),sub:extraMsg||"",course:p&&p.type}):"";
+      var card=Q4BCaptureCard.html(got,{text:keisanToolText(p),sub:extraMsg||"",course:p&&p.type});
       var h='<div class="scr">'+topBar();
-      if(card){
-        h+='<div class="card center">'+card
-          +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
-          +'<button class="btn ghost sm" onclick="showHome()">ホームへ</button></div></div>';
-        render(h);
-        if(Q4BCaptureCard.attach)Q4BCaptureCard.attach(app);
-        return;
-      }
-      /* カード部品を読み込めていない環境の保険: 従来の flip カード。 */
-      var tag=got.isNew?'<span class="note" style="color:var(--amber-d);font-weight:800">✨ NEW！ ずかんに とうろく</span>'
-        :'<span class="note">×'+rec.n+'匹め'+(got.isRecord?'・じこベスト こうしん!':'')+'</span>';
-      h+='<div class="card center"><h2>つかまえた！</h2>'+(extraMsg?'<p style="color:var(--amber-d);font-weight:700">'+extraMsg+'</p>':"")
-        +'<div class="flipwrap"><div class="flip">'
-        +'<div class="face front r'+tier+'"><div class="bs">'+Q4BReward.svg(sp,got.shiny)+'</div>'
-        +'<div class="bn">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div><span class="rtag r'+tier+'">'+Q4BReward.TIERNAME[tier]+'</span>'
-        +'<span class="note">'+got.size+'mm</span>'+tag+'</div>'
-        +'<div class="face back"><span style="font-size:50px">📖</span></div>'
-        +'</div></div>'
-        +'<p style="background:var(--green-l);border-radius:12px;padding:10px;font-size:15px">'+esc(sp.note||"")+'</p>'
+      h+='<div class="card center">'+card
         +'<button class="btn amber" onclick="showZukan()">ずかんで みる</button>'
         +'<button class="btn ghost sm" onclick="showHome()">ホームへ</button></div></div>';
-      render(h); return;
+      render(h);
+      Q4BCaptureCard.attach(app);
+      return;
     }
   }
   /* legacy fallback (shared scripts not loaded) */
@@ -6555,23 +6538,11 @@ function showKeiCatch(got){
   var p=P();
   var rec=p&&p.coll&&p.coll.catches?p.coll.catches[got.sp.id]:null;
   if(rec&&Number.isFinite(rec.n)&&!Number.isFinite(got.n))got.n=rec.n;
-  var inner=(window.Q4BCaptureCard&&Q4BCaptureCard.html)
-    ?Q4BCaptureCard.html(got,{text:keisanToolText(p),course:p&&p.type}):"";
-  if(!inner){
-    /* カード部品を読み込めていない環境の保険: 従来のモーダル本文。 */
-    var sp=got.sp, tags=[];
-    if(got.isNew)tags.push('✨ NEW！ずかん登録'); else if(got.isRecord)tags.push('📏 じこベスト更新');
-    if(got.shiny&&!got.isNew)tags.push('✨いろちがい');
-    inner='<div style="font-weight:800;font-size:18px">📖 つかまえた！</div>'
-      +'<div style="width:120px;height:120px;margin:8px auto">'+Q4BReward.svg(sp,got.shiny)+'</div>'
-      +'<div style="font-weight:800;font-size:17px">'+esc(sp.jaName)+(got.shiny?' ✨':'')+'</div>'
-      +'<div style="font-size:13px;color:var(--sub)">'+got.size+'mm　<span class="rtag r'+Q4BReward.tierOf(sp)+'">'+Q4BReward.TIERNAME[got.tier]+'</span></div>'
-      +(tags.length?'<div class="note" style="color:var(--amber-d);font-weight:800;margin-top:4px">'+tags.join('　')+'</div>':"");
-  }
+  var inner=Q4BCaptureCard.html(got,{text:keisanToolText(p),course:p&&p.type});
   app.insertAdjacentHTML("beforeend",'<div class="modal" id="md"><div class="mcard" style="text-align:center">'
     +inner
     +'<button class="btn" style="margin-top:12px" onclick="keiCatchDone()">つづける ▶</button></div></div>');
-  if(window.Q4BCaptureCard&&Q4BCaptureCard.attach)Q4BCaptureCard.attach($("md")||app);
+  Q4BCaptureCard.attach($("md")||app);
 }
 var __keiCatchDoneLock=false;
 function keiCatchDone(){

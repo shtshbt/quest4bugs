@@ -87,10 +87,10 @@
 ## 7. 道具の仕様
 
 - instance 制: 各個体が {種類, 残耐久} を持つ。同種複数所持可 (灯火セット 4 つはそれぞれ個別の耐久)
-- 耐久: 30 捕獲 (全道具共通)。未装備の道具は減らない。減るのは捕獲 1 回につき 1 (ゲージ捕獲・こはく呼び出し共通)
+- 耐久: 100 捕獲 (全道具共通・全図鑑合計。2026-08-20 に 30 から引き上げ)。未装備の道具は減らない。減るのは捕獲 1 回につき 1 (ゲージ捕獲・こはく呼び出し共通)
 - 装備は 1 枠。装備中の全捕獲抽選に自動適用される (komorebi のゲージ捕獲、こはく呼び出しの両方)
 - こはく呼び出し画面にインライン道具ウィジェットを置く: 現在の装備を常時表示し、タップで なし / 所持道具に切替。既定値は現在装備 (通常ケースはゼロタップ)。yes/no のモーダルは作らない
-- 捕獲リザルト画面に残耐久を小さく常時表示する (例: 🥅 12/30)。減る瞬間が常に見えることで「いつの間にか壊れた」不満を構造的に防ぐ
+- 捕獲リザルト画面に残耐久を小さく常時表示する (例: 🥅 12/100)。減る瞬間が常に見えることで「いつの間にか壊れた」不満を構造的に防ぐ
 - 破損は小イベント: 「あみが やぶれた!」。同種の予備があれば自動持ち替え + 通知。狩りの途中で操作を要求しない
 - スターター支給はしない。二人が同じルールでメダルを稼ぐ対称性を優先する
 
@@ -115,7 +115,7 @@
 1. ロック日数: 既定 7 日。運用実測で 5 日への短縮を検討
 2. 3 周目以降の鋳造枚数: 既定 2 枚。インフレ観測時に 1 枚へ調整
 3. guild 重み (3 倍) と未発見振替 (+0.25) の数値: 実測で調整
-4. 耐久 30 の数値: 消耗ペース実測で調整
+4. 耐久 100 の数値: 消耗ペース実測で調整
 5. リセット周回の序盤圧縮 (開始 Lv5 等): 初版では入れない。周回が作業化したら検討
 6. うろの輝きの見せ方の詳細
 7. マレーゼトラップ等の上位道具枠の投入時期
@@ -124,17 +124,17 @@
 
 | 対象 | ファイル | 内容 |
 |---|---|---|
-| 公開スイッチ | `komorebi/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal は app.js を読まないので、御神木パネルの入口の判定はここから配る |
+| 公開スイッチ | `shared/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal は app.js を読まないので、御神木パネルの入口の判定はここから配る |
 | メダル (旧トロフィー) | `komorebi/trophies.js` | 表示文字列をメダル化。セーブキー (trophyProgress) は互換のため変更しない。鋳造時に交換フローを起動。周回の勘定とリセットロックの判定もここ |
 | 道具・guild matcher | `shared/tools.js` (新規) | 道具定義 11 種、matcher、instance 管理 (所持・装備・耐久)、道具図鑑の台帳 |
 | かがやきのうろ | `komorebi/uro.js` (新規) | 奉納ログ、交換 UI、メダルラック、道具図鑑 |
 | 道具アイコン | `shared/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・装備ウィジェット・リザルトで共用 |
 | 抽選 | `komorebi/app.js` | pickSpecies の guild 重み、drawCapture の振替確率加算、リザルトの耐久表示、破損イベント |
-| こはく呼び出し | `komorebi/app.js` renderZukan / amberCallCapture | 道具ウィジェット、効果適用、耐久消費 |
-| セーブ | `shared/storage.js` (QuestSave) | profile に tools / toolDex / uroLog / equippedToolId / lv10ClearAt / lapCount / mintedLaps を追加 (additive のみ)。競合解決は記録を減らさない union |
+| こはく呼び出し | `komorebi/app.js` renderZukan / amberCallCapture | 装備パネル (shared/tools_ui.js の独立カード)、効果適用、耐久消費 |
+| セーブ | `shared/storage.js` (QuestSave) | 道具は共有 kv `toolgear/<pid>` (2026-08-20 全図鑑化。profile 側の tools / toolDex / equippedToolId は移行の種として凍結)。uroLog / lv10ClearAt / lapCount / mintedLaps を追加 (additive のみ)。競合解決は記録を減らさない union |
 | リセット周回 | `komorebi/app.js` + `komorebi/trophies.js` | 7 日ロック判定、リセットボタン、確認ポップアップ、周回カウント、2 枚交換 |
 | 種データ | `komorebi/data/*.json` | 既存 habitat / tags の guild カバレッジ監査。不足種への追記 |
-| キャッシュ | `sw.js` + `?v=` | 配信ファイル変更時の CACHE bump (現行 q4b-cache-v146) |
+| キャッシュ | `sw.js` + `?v=` | 配信ファイル変更時の CACHE bump (CACHE 版数は sw.js が正) |
 | テスト | `tests/` | 経済不変条件・ロック・重み・耐久のテスト追加 |
 
 ## 12. 決定履歴

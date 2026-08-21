@@ -18,7 +18,10 @@ const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
 const PAGES = ["index.html", "battle.html", "keisan/index.html",
-  "kanji/index.html", "eitango/index.html", "komorebi/index.html"];
+  "kanji/index.html", "eitango/index.html", "komorebi/index.html",
+  /* 開発用の debug ページも版ずれの巣になる (2026-08-20 に storage/reward が旧版のまま
+     取り残されていた)。配信はされないが同じ規則で見張る。 */
+  "test_zukan.html"];
 
 let passed = 0;
 function test(name, fn) { fn(); passed++; console.log("PASS", name); }

@@ -348,5 +348,50 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     assert.deepEqual(alerts, []);
   });
 
+  /* 授与失敗: メダル消費 (uroLog) と道具授与 (共有 kv) が 2 ストアに割れたので、
+     kv 書き込みが落ちたときに「メダルだけ消えて道具が無い」を作らないこと。
+     uroLog は追加前へ巻き戻り、メダルは捧げ待ちに戻り、約束 (onDone) は返る
+     = 交換モーダルが開いたまま残らない。 */
+  await (async () => {
+    const trophies = context.Q4B_KOMOREBI_TROPHIES;
+    /* 直前までの保存で app 内部の profile が差し替わっている可能性があるので、
+       生きている実体を取り直す。 */
+    const live = komorebi.profile();
+    live.lv.kom_diagram_model = 10;
+    live.maxLv.kom_diagram_model = 10;   /* 鋳造条件: Lv10 到達 + 安定 */
+    for (let i = 0; i < 20; i++) trophies.noteAnswer(live, "kom_diagram_model", 10, true);
+    const minted = trophies.award(live, "kom_diagram_model", "2026-08-11");
+    assert.ok(minted, "前提: 新しいメダルが鋳造できていない (qualifies=" +
+      JSON.stringify({maxLv: live.maxLv.kom_diagram_model,
+        prog: live.trophyProgress && live.trophyProgress.kom_diagram_model,
+        laps: {lap: live.lapCount && live.lapCount.kom_diagram_model,
+               minted: live.mintedLaps && live.mintedLaps.kom_diagram_model}}) + ")");
+    /* どの画面に居ても地図まで戻ってから うろへ (直前の test は画面を動かさない
+       unit 呼びなので、現在地を仮定しない)。 */
+    for (let i = 0; i < 3 && !app.querySelector('[data-action="uro"]'); i++) {
+      const back = app.querySelector('[data-action="back"]');
+      if (back) { back.click(); await settle(); }
+    }
+    app.querySelector('[data-action="uro"]').click();
+    assert.ok(komorebi.pendingMedals().length >= 1, "前提: 捧げ待ちメダルが無い");
+    const logBefore = komorebi.profile().uroLog.length;
+    const gearBefore = JSON.stringify(context.__toolGear.p1);
+    const realSet = context.QuestSave.toolGearSet;
+    context.QuestSave.toolGearSet = () => false;   /* kv 書き込みを落とす */
+    app.querySelector(".uro-offer").click();
+    await settle();
+    const modal = lastOverlay();
+    modal.dispatch("click", modal.querySelector('[data-tool="light_trap"]'));
+    await settle();
+    context.QuestSave.toolGearSet = realSet;
+    test("a failed grant rolls the offering back and still keeps its promise", () => {
+      assert.equal(alerts.pop(), "もういちど ささげてね", "子どもに失敗が伝わっていない");
+      assert.equal(komorebi.profile().uroLog.length, logBefore, "kv 失敗なのに奉納ログが増えた");
+      assert.equal(JSON.stringify(context.__toolGear.p1), gearBefore, "kv 失敗なのに道具が増えた");
+      assert.equal(komorebi.pendingMedals().length, 1, "メダルが捧げ待ちに戻っていない");
+      assert.equal(alerts.length, 0, "余計な alert が出ている");
+    });
+  })();
+
   console.log(`RESULT ${passed} passed, 0 failed`);
 })().catch(error => { console.error(error); process.exit(1); });

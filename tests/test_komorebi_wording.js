@@ -132,6 +132,42 @@ test("5 歳コースに出る読みは点検済みのものだけ", () => {
   });
 });
 
+test("小道と共有 UI の道具表示文言が一致する", () => {
+  /* shared/tools_ui.js の faceHtml は公開 API ではないため、配信コードは変えず
+     テスト文脈だけに比較窓を差して 3 実装を直接照合する。 */
+  const files = KOMOREBI_FILES.filter(file => file !== "komorebi/app.js");
+  const context = bootKomorebi({ root, files, globals: { Q4B_KOMOREBI_NO_BOOT: true } });
+  const uiSource = fs.readFileSync(path.join(root, "shared/tools_ui.js"), "utf8").replace(
+    "  global.Q4BToolsUI={",
+    "  global.__Q4B_TOOLS_UI_IMPL={faceHtml:faceHtml,sceneHtml:sceneHtml,statusHtml:statusHtml};\n  global.Q4BToolsUI={"
+  );
+  vm.runInContext(uiSource, context);
+  const appSource = fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8").replace(
+    "  global.Q4B_KOMOREBI={",
+    "  global.__Q4B_KOMOREBI_TOOL_UI_IMPL={faceHtml:toolFaceHtml,sceneHtml:toolSceneHtml,statusHtml:toolStatusHtml,text:displayText,setCourse:function(course){profileType=course;}};\n  global.Q4B_KOMOREBI={"
+  );
+  vm.runInContext(appSource, context);
+  context.Q4B_KOMOREBI.setMedalEconomyOn(true);
+
+  const local = context.__Q4B_KOMOREBI_TOOL_UI_IMPL;
+  const shared = context.__Q4B_TOOLS_UI_IMPL;
+  const tool = context.Q4B_TOOLS.byId("light_trap");
+  const capture = { id: "ameiro_tonbo" };
+  const normal = { type: "light_trap", remaining: 12, broke: false, swapped: false };
+  const swapped = { type: "light_trap", remaining: 100, broke: true, swapped: true };
+  const normalizeClasses = html => html.replace(/q4b-tool-/g, "kom-tool-");
+  const localHtml = [], sharedHtml = [];
+  ["k5", "k10"].forEach(course => {
+    local.setCourse(course);
+    localHtml.push(local.faceHtml(tool), local.sceneHtml(capture, normal),
+      local.statusHtml(normal), local.statusHtml(swapped));
+    sharedHtml.push(shared.faceHtml(tool), normalizeClasses(shared.sceneHtml(capture, normal, local.text)),
+      normalizeClasses(shared.statusHtml(normal, local.text, course)),
+      normalizeClasses(shared.statusHtml(swapped, local.text, course)));
+  });
+  assert.deepEqual(localHtml, sharedHtml, "小道と共有 UI の道具表示文言がずれている");
+});
+
 /* ---- 画面に出るところまで (fake DOM、5 歳コース) ---- */
 
 (async () => {

@@ -300,7 +300,8 @@
      意味論になる (per-kv LWW)。 */
   function storeToolGear(gear){
     var save=gearStore(),pid=gearProfileId();
-    if(save&&pid&&gear)save.toolGearSet(pid,gear);
+    if(!save||!pid||!gear)return false;
+    return save.toolGearSet(pid,gear);
   }
 
   /* 判定そのものは economy_flag に置いてある (portal と共用)。ここでは tools.js を
@@ -870,7 +871,8 @@
     return merged;
   }
 
-  /* 道具は種類ごとに、残りの多い順に並べて 1 本ずつ突き合わせる。本数は多い側に、
+  /* 凍結済みの旧クライアント互換。道具は種類ごとに、残りの多い順に並べて
+     1 本ずつ突き合わせる。本数は多い側に、
      各 1 本の残耐久は大きい側に寄せる。丸ごと片側を採ると、授かったばかりの 1 本が
      「本数だけ多い、ほとんど壊れかけの写し」に負けて消える (メダルを払ったのに
      何も残らない)。コレクションを奪う操作は存在しない。 */
@@ -914,7 +916,8 @@
     return merged;
   }
 
-  /* 道具図鑑も同じ扱い。初めて授かった日は片側にしか無いことがあるので union し、
+  /* 凍結済みの旧クライアント互換。道具図鑑も同じ扱い。初めて授かった日は
+     片側にしか無いことがあるので union し、
      両側にあるときは早いほうを残す。 */
   function mergeToolDex(localDex,remoteDex){
     var merged={},local=objectOf(localDex),remote=objectOf(remoteDex);
@@ -2825,20 +2828,42 @@
     var uro=uroModule(),tools=toolsModule();
     /* toolgear API の無い古い storage.js では授与先が無い。メダルを消費してから
        道具を取りこぼすくらいなら、奉納そのものを始めない。 */
-    if(!uro||!tools||!gearStore())return;
+    if(!uro||!tools||!gearStore()){
+      /* 失敗でも約束は返す。黙って返ると交換モーダルが残り 2 枚交換も止まる。 */
+      if(onDone)onDone(null,false);
+      return;
+    }
     var before=JSON.parse(JSON.stringify(profile)),today=todayString();
     var entry=uro.redeem(profile,earnedMedals(),medal,toolId,today);
     if(!entry){if(onDone)onDone(null);return;}
     var saved;
     try{saved=saveProfile();}catch(error){saved=Promise.reject(error);}
     saved.then(function(){
-      var gear=loadToolGear();
-      /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
-      var firstOfKind=!tools.firstGrantAt(gear,toolId);
-      tools.grant(gear,toolId,today);
-      storeToolGear(gear);   /* 授与はその場で共有 kv へ (profile の保存とは独立)。 */
-      if(onDone)onDone(entry,firstOfKind);
-    }).catch(function(){
+      var firstOfKind=false;
+      Promise.resolve().then(function(){
+        var gear=loadToolGear();
+        /* 道具図鑑の初回授与かどうかは、授与の前にしか分からない。 */
+        firstOfKind=!tools.firstGrantAt(gear,toolId);
+        tools.grant(gear,toolId,today);
+        /* 授与はその場で共有 kv へ (profile の保存とは独立)。 */
+        if(!storeToolGear(gear))throw new Error("道具を保存できません");
+        return true;
+      }).catch(function(){
+        /* 奉納ログだけが先に保存済みなので、授与失敗時は追加前へ戻して保存し直す。 */
+        profile=before;
+        var restored;
+        try{restored=saveProfile();}catch(error){restored=Promise.reject(error);}
+        return Promise.resolve(restored).catch(function(){}).then(function(){
+          global.alert("もういちど ささげてね");
+          return false;
+        });
+      }).then(function(granted){
+        /* 失敗でも約束は返す (showMedalExchange の契約)。黙って返ると交換モーダルが
+           開いたまま残り、2 周目の 2 枚交換も止まる。 */
+        if(granted){if(onDone)onDone(entry,firstOfKind);}
+        else if(onDone)onDone(null,false);
+      });
+    },function(){
       profile=before;
       global.alert("ほぞんに しっぱいしました。メダルは そのままだよ");
       if(onDone)onDone(null,false);
@@ -3447,6 +3472,8 @@
   }
 
   function boot(){
+    /* 二重消費防止の明示化。小道は共有 reward の wallet を使わず、道具を直接消費する。 */
+    if(global.Q4BReward&&typeof Q4BReward.setToolsStore==="function")Q4BReward.setToolsStore(null);
     if(!global.QuestSave){renderError();return;}
     profileId=QuestSave.currentProfile();
     if(!profileId){renderError();return;}

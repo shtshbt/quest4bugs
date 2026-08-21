@@ -233,16 +233,16 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
   <button data-s="stats"><span class="ic">🗒️</span>きろく</button>
   <button data-s="set"><span class="ic">⚙️</span>せってい</button>
 </div>
-<script src="../shared/storage.js?v=0.4.23"></script>
+<script src="../shared/storage.js?v=0.4.24"></script>
 <script src="../shared/bugs.js?v=0.4.16"></script>
 <script src="../shared/eitango_data.js?v=0.5.1"></script>
 <script src="../shared/render.js?v=0.5.1"></script>
 <script src="../zukan_config/zukan_catalog.js?v=0.3.2"></script>
 <script src="../shared/zukan_render.js?v=0.4.1"></script>
 <script src="../shared/bespoke.js?v=0.3.1"></script>
-<script src="../shared/reward.js?v=0.8.8"></script>
+<script src="../shared/reward.js?v=0.8.9"></script>
 <script src="../shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="../shared/breeding.js?v=0.6.7"></script>
+<script src="../shared/breeding.js?v=0.6.8"></script>
 <script src="../shared/breeding_debug.js?v=0.1.1"></script>
 <script src="../shared/zukan_detail.js?v=0.4.3"></script>
 <script src="../shared/zukan_lightbox.js?v=0.2.1"></script>
@@ -698,7 +698,6 @@ function sharedEitangoCatch(p, channel, value){
    (共有 TIERNAME と同じ 0..4 の番号)。 */
 function captureCardHtml(res,opts){
   if(!res||!res.sp) return '';
-  if(!window.Q4BCaptureCard) return UI.specCard(res);
   const id=res.sp[0];
   const src=SPECIES_SRC[id]||SPECIES_SRC[id.replace(/^nushi_/,'')]||null;
   const spObj=src?Object.assign({},src,{jaName:res.sp[1],note:res.sp[9]||src.note})
@@ -711,7 +710,7 @@ function captureCardHtml(res,opts){
 }
 /* めくりのタップ配線。カードを描いた入れ物ごとに 1 回呼ぶ。 */
 function attachCaptureCard(rootEl){
-  if(window.Q4BCaptureCard&&Q4BCaptureCard.attach) Q4BCaptureCard.attach(rootEl);
+  Q4BCaptureCard.attach(rootEl);
 }
 const Reward = {
   NEED: 8,

@@ -187,11 +187,6 @@
     return !!tool.match(sp);
   }
 
-  function countTargets(toolId,speciesList){
-    if(!Array.isArray(speciesList))return 0;
-    return speciesList.filter(function(sp){return matches(toolId,sp);}).length;
-  }
-
   /* --- 効果の定数 (tools_design 8 章) ----------------------------------------
      道具が抽選をどれだけ動かすかは、この 2 定数と guildWeightFor だけが知っている。
      小道の抽選器 (komorebi/app.js) と本編の抽選器 (shared/reward.js) は別物のまま
@@ -217,7 +212,8 @@
     return profile.tools;
   }
 
-  /* 形の誤り (種類が無い、残量が整数でない、0 以下) は通さない。ただし
+  /* 凍結済みの旧 profile フィールド用 guard。形の誤り (種類が無い、残量が
+     整数でない、0 以下) は通さない。ただし
      「残量が今の耐久上限を超えている」だけは上限へ丸めて直す。耐久を後から
      下方調整したとき、それ以前に配った道具を持っている子のセーブが丸ごと
      読めなくなるのは、壊れたデータではなく仕様変更の側の問題だから。
@@ -372,7 +368,6 @@
     byId:byId,
     displayName:displayName,
     matches:matches,
-    countTargets:countTargets,
     GUILD_WEIGHT:GUILD_WEIGHT,
     FRESH_BOOST:FRESH_BOOST,
     guildWeightFor:guildWeightFor,

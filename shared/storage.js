@@ -783,6 +783,12 @@
         if(typeof entry.type!=="string"||!entry.type)continue;
         remaining=Math.floor(entry.remaining);
         if(!Number.isFinite(remaining)||remaining<1)continue;
+        /* 丸めは「知っている道具」だけ (shared/tools.js の validateTools と同じ規則)。
+           未知 id は将来の端末が書いたもので、その上限は分からないから触らない。 */
+        if(global.Q4B_TOOLS&&Number.isFinite(global.Q4B_TOOLS.durability)
+          &&typeof global.Q4B_TOOLS.byId==="function"&&global.Q4B_TOOLS.byId(entry.type)){
+          remaining=Math.min(remaining,global.Q4B_TOOLS.durability);
+        }
         out.tools.push({type:entry.type,remaining:remaining});
       }
     }

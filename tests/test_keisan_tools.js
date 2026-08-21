@@ -141,11 +141,13 @@ ctx.Q4B_KOMOREBI_TEST_HOOKS = true;   /* economy の切替 seam (テスト専用
 ctx.Q4B_KEISAN_NO_BOOT = true;
 for(const file of KEISAN_TOOL_FILES) load(ctx, file);
 
-test("app.js の読込で walletStore が setToolsStore へ 1 回配線される", () => {
+test("NO_BOOT では walletStore を配線せず、明示呼び出しで 1 回だけ配線する", () => {
   const calls = [];
   const realSet = ctx.Q4BReward.setToolsStore;
   ctx.Q4BReward.setToolsStore = function(store){ calls.push(store); return realSet(store); };
   load(ctx, "keisan/app.js");
+  assert.equal(calls.length, 0, "NO_BOOT なのに setToolsStore が呼ばれた");
+  ctx.wireKeisanToolsStore();
   assert.equal(calls.length, 1, "setToolsStore の呼び出し回数が想定と違う");
   assert.equal(typeof calls[0].equippedTool, "function");
   assert.equal(typeof calls[0].consumeOnCapture, "function");

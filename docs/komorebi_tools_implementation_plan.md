@@ -12,7 +12,7 @@
 - branch: `claude/komorebi-phase3` から派生する作業 branch (`claude/komorebi-tools`) で進め、Phase ごとに親へ戻す
 - セーブ互換: QuestSave への変更は additive のみ。既存キー (trophyProgress 等) はリネームしない
 - 各ゲームの自己完結原則: 変更は `komorebi/` と `shared/storage.js` の追記に限る。他ゲームのディレクトリに触れない
-- 配信ファイル変更時は `?v=` と `sw.js` の CACHE 名 (現行 q4b-cache-v146) を bump
+- 配信ファイル変更時は `?v=` と `sw.js` の CACHE 名 (CACHE 版数は sw.js が正) を bump
 - commit 前 safety check (`git diff --cached --name-only | grep -E '_inbox|_archive|_pipeline|_L1_segmented|_original\.'`) を毎回実行。zukan_cards/metadata の未追跡 JSON (写真パイプライン進行中) には触れない
 - テストは `for f in tests/test_*.js; do node $f; done` で全件通す
 - 目標時期: Phase 1 を才澄の初メダル成立 (ratio の Lv10 + 安定判定) 前に deploy する。現在 Lv6 のため実質今週
@@ -58,7 +58,7 @@
 
 | 対象 | ファイル | 内容 |
 |---|---|---|
-| 公開スイッチ | `komorebi/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal と小道の両方が読む |
+| 公開スイッチ | `shared/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal と小道の両方が読む |
 | 道具アイコン | `shared/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・ウィジェット・リザルトで共用 |
 | 周回 | `komorebi/trophies.js` | lapOf / mintedLaps / medalCount / resetReadyAt / canReset / beginNextLap。award が周回対応 |
 | リセットとウィジェット | `komorebi/app.js` | リセットボタン + 確認ポップアップ、2 枚交換の連続、道具ウィジェット、競合解決の拡張 |
@@ -82,20 +82,20 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
 
 #### 点火手順 (メダル経済の公開)
 
-1. `komorebi/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする。更新番号を
+1. `shared/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする。更新番号を
    同時に上げるなら `CURRENT_RELEASE` も同じファイルで動かす。実運用で触るのは
    この 2 行だけで、`komorebi/app.js` には公開スイッチの実体を置かない
 2. 道具 1 本ずつの `release` (`shared/tools.js`) が公開したい更新番号以下か確認する。
    更新 2 で開くのは先行 4 種 (ちょうネット / トンボ用メッシュネット / 灯火採集セット /
-   バナナトラップ)。`economy_flag.js` の `toolsFirstRelease` は tools.js の最小
-   release と一致していること (`test_komorebi_portal_gate.js` が見張る)
+   バナナトラップ)。portal は `shared/tools.js` を `shared/economy_flag.js` より先に
+   読むこと (`test_komorebi_portal_gate.js` が見張る)
 3. volume freeze チェック: 公開する各道具に対象種が 1 種以上いること
 4. 全テストを 4 状態 (CURRENT_RELEASE 1/2 × MEDAL_ECONOMY_ON on/off) で通す
 5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。sw.js は
    query を含む URL で一致を見るため、`?v=` を据え置くと復帰した端末が古い実装を
    使い続ける (点火日に御神木のうろ入口が出ない、という形で表に出る)。
    Phase 2 で中身が変わったのは次の通り。
-   新規: `komorebi/economy_flag.js`、`shared/tool_icons.js`
+   新規: `shared/economy_flag.js`、`shared/tool_icons.js`
    (どちらも sw.js の precache と index.html の script に追加済み)。
    要 bump: `komorebi/app.js`、`komorebi/trophies.js`、`shared/tools.js`、
    `komorebi/uro.js`、`komorebi/map.css`、`shared/breeding.js`
@@ -152,11 +152,10 @@ Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの
 3. 済 (2026-08-18) 御神木パネルのうろ入口が portal に配線されていない
    `shared/breeding.js` の入口は `Q4B_KOMOREBI` を読んでいたが、portal
    (`index.html`) は `komorebi/app.js` を読み込まないため常に非表示だった。
-   軽量なフラグモジュール `komorebi/economy_flag.js` を新設し、判定に要る 2 つの数
+   軽量なフラグモジュール `shared/economy_flag.js` を新設し、判定に要る 2 つの数
    (CURRENT_RELEASE / MEDAL_ECONOMY_ON) をそこへ移した。app.js と breeding.js の
-   両方がそれを読む。portal の変更は script 1 行だけで、app.js は読み込まないまま。
-   tools.js を持たない portal のために控えの番号 (`toolsFirstRelease`) を置き、
-   tools.js の最小 release との一致を `tests/test_komorebi_portal_gate.js` が見張る。
+   両方がそれを読む。portal は `shared/tools.js` を公開スイッチより先に読み、実際の
+   道具一覧で判定する。app.js は読み込まないまま。
 
 ### Phase 3: 演出
 
@@ -172,7 +171,7 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 
 | 対象 | ファイル | 内容 |
 |---|---|---|
-| 捕獲ビネット | `komorebi/assets/tool_scenes.js` (新規) | 道具ごとの採集シーン 11 種 (SVG) と、添える 1 行 |
+| 捕獲ビネット | `shared/tool_scenes.js` (新規) | 道具ごとの採集シーン 11 種 (SVG) と、添える 1 行 |
 | ビネットの配線 | `komorebi/app.js` | `toolSceneHtml` を捕獲リザルトとこはくのモーダルの 2 か所へ |
 | うろの輝き | `komorebi/uro.js`, `komorebi/map.css` | halo と 光の粒。強さも 範囲も `--uro-glow` 1 本から導く。入口の札にも同じ変数 |
 | 小演出 | `komorebi/app.js`, `komorebi/map.css` | 授与モーダルに捧げた直後の うろ、初回授与の合図、破損の 1 度きりのゆれ |
@@ -202,7 +201,7 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 統合時の注意。
 
 - `?v=` と `sw.js` の CACHE 名は Phase 3 では上げていない。統合時に一括で上げる
-- 新規配信ファイル: `komorebi/assets/tool_scenes.js` (`sw.js` の precache と
+- 新規配信ファイル: `shared/tool_scenes.js` (`sw.js` の precache と
   `komorebi/index.html` の script には追加済み)
 - 要 bump: `komorebi/app.js`、`komorebi/uro.js`、`shared/tools.js`、`komorebi/map.css`
 - `komorebi/map.css` は 65 行目の `@media (prefers-reduced-motion:reduce)` で
@@ -273,6 +272,3 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 - えいたんごのヌシ機構の見直し (表示だけ統一カードに揃えた。機構とデータは不可侵)
 - 小道の捕獲フィードバック (feedbackHtml) の統一カード化 (小道は既にシーン + 道具行を
   持つ最リッチ実装なので急がない)
-- `countTargets` (shared/tools.js) は呼び出し元ゼロの孤児 API。交換画面はインラインで
-  同等計算をしている
-

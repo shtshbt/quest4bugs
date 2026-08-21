@@ -351,7 +351,8 @@
   .spark{position:absolute;font-size:22px;opacity:0;transform:translate(-50%,-50%) scale(0);animation:sparkPop 1.3s ease-out infinite}
   @keyframes sparkPop{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.35)}100%{opacity:0;transform:translate(-50%,-50%) scale(.7)}}
 </style>
-  <link rel="stylesheet" href="./shared/shiny_bonus.css?v=0.1.0">
+  <link rel="stylesheet" href="./shared/tools.css?v=0.1.0">
+<link rel="stylesheet" href="./shared/shiny_bonus.css?v=0.1.0">
 </head>
 <body>
 <a href="./index.html" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2">🏠</a>
@@ -438,7 +439,7 @@
   <div id="battle"></div>
 </div>
 
-<script src="./shared/storage.js?v=0.4.23"></script>
+<script src="./shared/storage.js?v=0.4.24"></script>
 <script src="./shared/bugs.js?v=0.4.16"></script>
 <script src="./shared/kanji_data.js?v=0.5.0"></script>
 <script src="./shared/eitango_data.js?v=0.5.1"></script>
@@ -446,9 +447,9 @@
 <script src="./zukan_config/zukan_catalog.js?v=0.3.2"></script>
 <script src="./shared/zukan_render.js?v=0.4.1"></script>
 <script src="./shared/bespoke.js?v=0.3.1"></script>
-<script src="./shared/reward.js?v=0.8.8"></script>
+<script src="./shared/reward.js?v=0.8.9"></script>
 <script src="./shared/bug_archetypes.js?v=0.3.0"></script>
-<script src="./shared/breeding.js?v=0.6.7"></script>
+<script src="./shared/breeding.js?v=0.6.8"></script>
 <script src="./shared/breeding_debug.js?v=0.1.1"></script>
 <script src="./shared/zukan_detail.js?v=0.4.3"></script>
 <script src="./shared/zukan_lightbox.js?v=0.2.1"></script>
@@ -460,6 +461,14 @@
 <script src="./shared/yomi.js?v=0.3.0"></script>
 <script src="./shared/kuku_phrases.js?v=0.1.0"></script>
 <script src="./shared/k5_devs_data.js?v=0.1.0"></script>
+<!-- keisan/app.js が採集道具の共有部品を参照するため、読み込むページは同じ一式を配る。
+     バトル自体は道具の効果範囲外 (ボス撃破に道具は効かない)。 -->
+<script src="./shared/economy_flag.js?v=0.2.0"></script>
+<script src="./shared/tools.js?v=0.2.0"></script>
+<script src="./shared/tool_icons.js?v=0.2.0"></script>
+<script src="./shared/tool_scenes.js?v=0.2.0"></script>
+<script src="./shared/tools_ui.js?v=0.1.0"></script>
+<script src="./shared/capture_card.js?v=0.1.0"></script>
 <script src="./keisan/app.js?v=0.4.40"></script>
 <script>
 var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
