@@ -1000,7 +1000,9 @@
       if(local)for(key in local)entry[key]=local[key];
       entry.records=(remoteEntry&&remoteEntry.records||[]).concat(local&&local.records||[]);
       entry.n=entry.records.length;
-      var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
+      /* 記録のサイズ field は s (shared/reward.js の record)。size を見ていた頃は
+         sizes が常に空で、二台で遊んだときに最大個体が統合されなかった。 */
+      var sizes=entry.records.map(function(record){return record&&record.s;}).filter(Number.isFinite);
       if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
       catches[id]=entry;
     });

@@ -1463,7 +1463,14 @@ var __autoHatchInflight = {};
 function _mergeKomorebiProfileCatches(localProfile,remoteProfile){
   var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
   var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
-  var merged=JSON.parse(JSON.stringify(localProfile)),catches={};
+  /* 土台は remote 側。ポータルが小道 save に書くのは collection.catches と
+     totalCatches だけ (自動孵化ぶん) なので、local を土台にすると、向こうの端末で
+     増えた道具・装備・奉納・メダル・日別解答数を、こちらの古いスナップショットで
+     まるごと巻き戻してしまう。komorebi/app.js 側の mergeProfileCatches は additive
+     な field を 1 本ずつ union しているが、こちらは差分が捕獲だけなので、remote を
+     土台にするほうが field を数え落とさない。 */
+  var merged=JSON.parse(JSON.stringify(remoteProfile)),catches={};
+  if(!merged.collection)merged.collection={gauge:0,totalCatches:0,catches:{}};
   Object.keys(remoteCatches).concat(Object.keys(localCatches)).forEach(function(id){
     if(catches[id])return;
     var remote=remoteCatches[id],local=localCatches[id],entry={},key;
@@ -1471,7 +1478,9 @@ function _mergeKomorebiProfileCatches(localProfile,remoteProfile){
     if(local)for(key in local)entry[key]=local[key];
     entry.records=(remote&&remote.records||[]).concat(local&&local.records||[]);
     entry.n=entry.records.length;
-    var sizes=entry.records.map(function(record){return record&&record.size;}).filter(Number.isFinite);
+    /* 記録のサイズ field は s (shared/reward.js の record)。size を見ていた頃は
+       sizes が常に空で、統合しても最大個体が更新されなかった。 */
+    var sizes=entry.records.map(function(record){return record&&record.s;}).filter(Number.isFinite);
     if(sizes.length){entry.max=Math.max.apply(Math,sizes);entry.min=Math.min.apply(Math,sizes);}
     catches[id]=entry;
   });

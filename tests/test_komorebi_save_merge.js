@@ -300,19 +300,36 @@ test("the highest level reached is never rolled back by a merge", () => {
 
 /* ---- 捕獲の union は元のまま ---- */
 
+/* 記録 1 件の形は shared/reward.js の record と同じ {d,s,sex,shiny}。サイズは s。
+   ここを size と書いた fixture は本物の save に存在しない形で、統合側が size を
+   読んでいた頃はテストと実装が揃って外していた (2026-08-20)。 */
 test("the catch merge still unions records and recounts the total", () => {
   const local = komorebi.createProfile();
   const remote = komorebi.createProfile();
-  local.collection.catches = { ameiro_tonbo: { n: 1, records: [{ size: 40 }] } };
+  const rec = (s, d) => ({ d, s, sex: "m", shiny: false });
+  local.collection.catches = { ameiro_tonbo: { n: 1, max: 40, min: 40, records: [rec(40, "2026-08-17")] } };
   local.collection.totalCatches = 1;
-  remote.collection.catches = { ameiro_tonbo: { n: 1, records: [{ size: 55 }] },
-    oo_onaga_yamamayu: { n: 1, records: [{ size: 120 }] } };
+  remote.collection.catches = {
+    ameiro_tonbo: { n: 1, max: 55, min: 55, records: [rec(55, "2026-08-18")] },
+    oo_onaga_yamamayu: { n: 1, max: 120, min: 120, records: [rec(120, "2026-08-18")] } };
   remote.collection.totalCatches = 2;
   const merged = merge(local, remote);
   assert.equal(merged.collection.catches.ameiro_tonbo.n, 2);
-  assert.equal(merged.collection.catches.ameiro_tonbo.max, 55);
+  assert.equal(merged.collection.catches.ameiro_tonbo.max, 55, "向こうの端末の最大個体が統合されていない");
   assert.equal(merged.collection.catches.ameiro_tonbo.min, 40);
   assert.equal(merged.collection.totalCatches, 3);
+});
+
+test("a record without a size leaves the stored max and min alone", () => {
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  local.collection.catches = { ameiro_tonbo: { n: 1, max: 40, min: 40, records: [{ d: "2026-08-17" }] } };
+  local.collection.totalCatches = 1;
+  remote.collection.catches = {};
+  remote.collection.totalCatches = 0;
+  const merged = merge(local, remote);
+  assert.equal(merged.collection.catches.ameiro_tonbo.max, 40, "サイズ無しの記録で最大が消えた");
+  assert.equal(merged.collection.catches.ameiro_tonbo.min, 40);
 });
 
 test("a merged profile is still a profile the loader accepts", () => {
