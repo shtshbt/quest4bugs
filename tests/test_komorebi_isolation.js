@@ -100,7 +100,7 @@ test("master species lists exclude areaOnly species", () => {
 
 test("komorebi selector contains only areaOnly komorebi species", () => {
   injected.Q4B_KOMOREBI_NO_BOOT = true;
-  vm.runInContext(fs.readFileSync(path.join(root, "komorebi/economy_flag.js"), "utf8"), injected);
+  vm.runInContext(fs.readFileSync(path.join(root, "shared/economy_flag.js"), "utf8"), injected);
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"), injected);
   const species = injected.Q4B_KOMOREBI.speciesForArea();
   /* 実在の小道の種 + 注入した合成 1 種。すべて areaOnly であることが要点。 */

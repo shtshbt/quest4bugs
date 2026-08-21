@@ -2,14 +2,14 @@
   "use strict";
 
   /* 公開スイッチ (更新番号 CURRENT_RELEASE とメダル経済 MEDAL_ECONOMY_ON) の実体は
-     komorebi/economy_flag.js が持つ。御神木パネルを描く portal は app.js を
+     shared/economy_flag.js が持つ。御神木パネルを描く portal は app.js を
      読み込まないので、判定に要る 2 つの数だけを切り出して両方から読む
      (tools_implementation_plan 検収指摘 3)。off の間に成立したメダルは、うろの
      初回訪問で遡って奉納できる (uro.pending)。
      読み込み忘れを黙って「全部未公開」に落とさず、その場で止める。公開済みの
      カテゴリまで消えた画面を出すより、読めなかったと言うほうがよい。 */
   function economyFlags(){
-    var flags=global.Q4B_KOMOREBI_ECONOMY;
+    var flags=global.Q4B_ECONOMY;
     if(!flags)throw new Error("公開スイッチを読み込めません");
     return flags;
   }
@@ -1850,7 +1850,7 @@
      道具を使った (toolUse)、実際に 1 匹とれた (capture)。MEDAL_ECONOMY_ON が false の
      間は 1 つめで落ちるので、従来の捕獲演出のまま 1 要素も増えない。 */
   function toolSceneHtml(capture,toolUse){
-    var tools=toolsModule(),scenes=global.Q4B_KOMOREBI_TOOL_SCENES;
+    var tools=toolsModule(),scenes=global.Q4B_TOOL_SCENES;
     if(!tools||!toolUse||!capture||!scenes||typeof scenes.svg!=="function")return "";
     var tool=tools.byId(toolUse.type);
     if(!tool||!scenes.has(tool.id))return "";

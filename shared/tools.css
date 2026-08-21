@@ -1,0 +1,127 @@
+/* Quest4Bugs 共通 採集道具 UI (shared/tools_ui.js / shared/capture_card.js)。
+   置かれる地は 2 通りある: 本編 3 教科のクリーム地と、小道の夜の森。どちらでも
+   同じに読めるよう、部品は自分の地色と枠を持ち、外の色に一切依存しない。
+   色はこのファイル内の --q4b-* だけを使う (keisan/style.css や map.css の変数に
+   ぶら下がらない)。クラスは q4b-tool- / q4b-cap- で名前空間を切ってあり、既存の
+   .tool-chip / .flipwrap / .face 系とは掛かり先が重ならない。 */
+
+.q4b-tool-panel,.q4b-cap-card{
+  --q4b-panel:#FFFDF4; --q4b-ink:#2A3D2C; --q4b-sub:#6B7A5E; --q4b-line:#CFDDB2;
+  --q4b-green:#3E7C3F; --q4b-green-d:#2C5F2D; --q4b-green-l:#E2EFCB;
+  --q4b-amber:#F2A33C; --q4b-amber-d:#CF7F14;
+  --q4b-r0:#8FA98F; --q4b-r1:#4F8FD9; --q4b-r2:#9B5FD0; --q4b-r3:#E8B33C; --q4b-r4:#E05A48;
+  /* アイコンの 2 色目。クリーム地のカードの上では夜の森の黄では薄いので濃い側。 */
+  --tool-accent:var(--q4b-amber-d);
+  background:var(--q4b-panel);
+  border:2px solid var(--q4b-line);
+  border-radius:16px;
+  color:var(--q4b-ink);
+  box-sizing:border-box;
+}
+
+/* ---- 装備パネル (独立カード) ---- */
+.q4b-tool-panel{max-width:640px;margin:10px auto;padding:10px 12px 12px;text-align:center}
+.q4b-tool-head{margin:0 0 4px;font-size:15px;font-weight:800;color:var(--q4b-green-d)}
+.q4b-tool-now{margin:0 0 8px;font-size:13px;font-weight:800;color:var(--q4b-sub)}
+.q4b-tool-now strong{color:var(--q4b-amber-d);font-size:14.5px}
+.q4b-tool-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.q4b-tool-chip{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:5px 11px;
+  border:2px solid var(--q4b-line);border-radius:999px;background:var(--q4b-panel);
+  color:var(--q4b-ink);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.q4b-tool-chip.is-on{border-color:var(--q4b-amber);background:#FFF3D8;color:var(--q4b-amber-d)}
+.q4b-tool-chip-left{font-variant-numeric:tabular-nums;color:var(--q4b-sub)}
+.q4b-tool-chip.is-on .q4b-tool-chip-left{color:var(--q4b-amber-d)}
+.q4b-tool-chip-spare{padding:1px 6px;border-radius:999px;background:var(--q4b-green-l);color:var(--q4b-green-d);font-size:11px}
+.q4b-tool-chip:focus-visible{outline:3px solid var(--q4b-amber);outline-offset:3px}
+
+/* ---- 道具アイコン (shared/tool_icons.js)。map.css を読まない本編でも同じ姿に。 ---- */
+.q4b-tool-panel .tool-icon,.q4b-cap-card .tool-icon{
+  display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.28em;flex:none}
+.q4b-tool-panel .tool-icon-accent,.q4b-cap-card .tool-icon-accent{stroke:var(--tool-accent,#CF7F14)}
+
+/* ---- 捕獲リザルトの道具行 (残りと破損) ---- */
+.q4b-tool-left{margin:8px 0 0;color:var(--q4b-green-d);font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.q4b-tool-break{display:flex;flex-direction:column;gap:3px;margin:10px 0 0;padding:8px 12px;
+  border:2px solid var(--q4b-amber);border-radius:12px;background:#FFF1DE;color:var(--q4b-amber-d)}
+.q4b-tool-break strong{font-size:15px}
+.q4b-tool-break span{font-size:12.5px;color:var(--q4b-sub)}
+/* 破損の小演出は map.css と同じ: 1 度だけ ゆれて 止まる。 */
+@keyframes q4b-tool-break-shake{0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-3px)}40%{transform:translateX(3px)}
+  60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+@keyframes q4b-tool-break-tilt{0%{transform:rotate(0)}45%{transform:rotate(-14deg)}100%{transform:rotate(-8deg)}}
+.q4b-tool-break{animation:q4b-tool-break-shake .42s ease-in-out 1}
+.q4b-tool-break .tool-icon{animation:q4b-tool-break-tilt .5s ease-out both}
+
+/* ---- 捕獲ビネット (shared/tool_scenes.js) ---- */
+.q4b-tool-scene{margin:12px 0 0;padding:0;text-align:center}
+.q4b-tool-scene .tool-scene{display:block;width:min(100%,300px);height:auto;margin:0 auto;
+  border:2px solid var(--q4b-line);border-radius:14px;background:#0B1F19;overflow:hidden}
+.q4b-tool-scene-line{margin:7px 0 0;color:var(--q4b-sub);font-size:12.5px;line-height:1.65}
+/* 場面の中で動くのは map.css と同じ 3 つだけ: あかり、虫、水面。 */
+@keyframes q4b-scene-lamp-breathe{0%,100%{opacity:1}50%{opacity:.72}}
+@keyframes q4b-scene-glow-breathe{0%,100%{opacity:.22}50%{opacity:.34}}
+@keyframes q4b-scene-flit{0%,100%{transform:translate(0,0)}50%{transform:translate(2.5px,-3px)}}
+@keyframes q4b-scene-stir{0%,100%{transform:translate(0,0)}50%{transform:translate(1.5px,0)}}
+.q4b-tool-scene .tool-scene .scene-lamp{animation:q4b-scene-lamp-breathe 2.6s ease-in-out infinite}
+.q4b-tool-scene .tool-scene .scene-glow{animation:q4b-scene-glow-breathe 2.6s ease-in-out infinite}
+.q4b-tool-scene .tool-scene .scene-flit-a{animation:q4b-scene-flit 2.2s ease-in-out infinite}
+.q4b-tool-scene .tool-scene .scene-flit-b{animation:q4b-scene-flit 2.9s ease-in-out infinite .4s}
+.q4b-tool-scene .tool-scene .scene-flit-c{animation:q4b-scene-flit 3.4s ease-in-out infinite .8s}
+.q4b-tool-scene .tool-scene .scene-stir{animation:q4b-scene-stir 1.8s ease-in-out infinite}
+
+/* ---- 捕獲カード本体 ---- */
+.q4b-cap-card{max-width:420px;margin:12px auto;padding:14px 14px 16px;text-align:center;
+  box-shadow:0 3px 10px rgba(42,61,44,.18)}
+.q4b-cap-head{display:block;font-size:18px;font-weight:800;color:var(--q4b-green-d)}
+.q4b-cap-sub{margin:4px 0 0;font-size:13px;font-weight:700;color:var(--q4b-amber-d)}
+
+/* めくり。keisan/style.css の .flipwrap 系の移植で、裏 (📖) から 1 秒で表へ返る。 */
+.q4b-cap-flipwrap{perspective:900px;width:230px;max-width:100%;margin:14px auto}
+.q4b-cap-flip{position:relative;width:230px;max-width:100%;height:300px;
+  transform-style:preserve-3d;animation:q4b-cap-flipin 1s ease forwards}
+@keyframes q4b-cap-flipin{0%{transform:rotateY(180deg) scale(.7)}
+  60%{transform:rotateY(180deg) scale(1)}100%{transform:rotateY(0)}}
+.q4b-cap-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;box-sizing:border-box}
+.q4b-cap-back{transform:rotateY(180deg);font-size:50px;
+  background:repeating-linear-gradient(45deg,var(--q4b-green) 0 14px,#4E8C4A 14px 28px);
+  border:4px solid var(--q4b-green-d)}
+.q4b-cap-front{background:var(--q4b-panel);border:4px solid var(--q4b-line)}
+/* レア度枠。keisan と同じ色と光り方。 */
+.q4b-cap-front.r1{border-color:var(--q4b-r1)}
+.q4b-cap-front.r2{border-color:var(--q4b-r2);box-shadow:0 0 22px #9b5fd066}
+.q4b-cap-front.r3{border-color:var(--q4b-r3);box-shadow:0 0 30px #e8b33caa}
+.q4b-cap-front.r4{border-color:var(--q4b-r4);box-shadow:0 0 34px #e05a48aa}
+/* いろちがいは面ごと光る。shared/shiny_bonus.css の .q4b-shiny-* とは別クラスで、
+   あちらの reveal 演出が重なっても互いのスタイルを打ち消さない。 */
+.q4b-cap-front.q4b-cap-shiny{background:linear-gradient(160deg,#FFFDF4 55%,#FFF3C9);
+  box-shadow:0 0 26px #ffd86baa,0 0 8px #fff3c9}
+.q4b-cap-front.q4b-cap-shiny::after{content:"✨";position:absolute;top:6px;right:10px;
+  font-size:22px;filter:drop-shadow(0 0 5px #ffc947);pointer-events:none}
+
+.q4b-cap-art{width:130px;height:130px}
+.q4b-cap-art svg{width:100%;height:100%}
+.q4b-cap-name{font-size:17px;font-weight:800;margin-top:6px}
+.q4b-cap-meta{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;justify-content:center;
+  margin-top:6px;font-size:13px}
+.q4b-cap-tier{display:inline-block;font-size:12px;font-weight:800;color:#fff;
+  border-radius:999px;padding:2px 12px;background:var(--q4b-r0)}
+.q4b-cap-tier.r1{background:var(--q4b-r1)}
+.q4b-cap-tier.r2{background:var(--q4b-r2)}
+.q4b-cap-tier.r3{background:var(--q4b-r3)}
+.q4b-cap-tier.r4{background:var(--q4b-r4)}
+.q4b-cap-size{color:var(--q4b-sub);font-weight:700}
+.q4b-cap-new{color:var(--q4b-amber-d);font-weight:800}
+.q4b-cap-again{color:var(--q4b-sub);font-weight:700}
+.q4b-cap-shiny-tag{color:var(--q4b-amber-d);font-weight:800}
+.q4b-cap-note{margin:10px 0 0;padding:10px;border-radius:12px;background:var(--q4b-green-l);
+  font-size:15px;text-align:left;color:var(--q4b-ink)}
+
+/* 動きはすべて飾り。止めても伝わるものが何も減らない。 */
+@media (prefers-reduced-motion:reduce){
+  .q4b-cap-flip,.q4b-tool-break,.q4b-tool-break .tool-icon,
+  .q4b-tool-scene .tool-scene .scene-lamp,.q4b-tool-scene .tool-scene .scene-glow,
+  .q4b-tool-scene .tool-scene .scene-flit-a,.q4b-tool-scene .tool-scene .scene-flit-b,
+  .q4b-tool-scene .tool-scene .scene-flit-c,.q4b-tool-scene .tool-scene .scene-stir{animation:none}
+}

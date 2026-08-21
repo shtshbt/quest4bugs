@@ -1,4 +1,4 @@
-/* 捕獲ビネット (komorebi/assets/tool_scenes.js、tools_design 9 章)。道具ごとの
+/* 捕獲ビネット (shared/tool_scenes.js、tools_design 9 章)。道具ごとの
    採集シーンが 11 種そろっていること、絵が静的ファイルだけで完結すること、そして
    「表示だけの層」という約束 (装備した回にだけ出る / スイッチが閉じている間は
    1 要素も増えない) を固定する。
@@ -19,10 +19,10 @@ function settle(){ return new Promise(resolve => setTimeout(resolve, 0)); }
 const context = { console };
 context.window = context;
 vm.createContext(context);
-for(const file of ["komorebi/assets/tool_scenes.js", "shared/tools.js"]){
+for(const file of ["shared/tool_scenes.js", "shared/tools.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
-const scenes = context.Q4B_KOMOREBI_TOOL_SCENES;
+const scenes = context.Q4B_TOOL_SCENES;
 const tools = context.Q4B_TOOLS;
 
 test("there is exactly one scene per tool, and no scene without a tool", () => {
@@ -75,10 +75,10 @@ test("every scene comes with one line a child can read", () => {
 
 test("the scene module is delivered and cached like the rest of the path", () => {
   const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
-  assert.match(page, /<script src="assets\/tool_scenes\.js\?v=[^"]+"><\/script>/,
+  assert.match(page, /<script src="\.\.\/shared\/tool_scenes\.js\?v=[^"]+"><\/script>/,
     "小道のページがビネットを読み込んでいない");
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /"\.\/komorebi\/assets\/tool_scenes\.js"/, "ビネットが precache に無い");
+  assert.match(sw, /"\.\/shared\/tool_scenes\.js"/, "ビネットが precache に無い");
 });
 
 /* ---- 捕獲リザルトへの出方 (fake DOM) ---- */

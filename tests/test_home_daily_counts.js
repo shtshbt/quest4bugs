@@ -23,7 +23,7 @@ komCtx.Q4B_KOMOREBI_TEST_HOOKS = true;
 vm.createContext(komCtx);
 for (const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js",
   "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js",
-  "komorebi/economy_flag.js", "komorebi/app.js"]) {
+  "shared/economy_flag.js", "komorebi/app.js"]) {
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), komCtx);
 }
 const komorebi = komCtx.Q4B_KOMOREBI;

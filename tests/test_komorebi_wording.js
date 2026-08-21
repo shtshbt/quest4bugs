@@ -23,11 +23,11 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 const unit = { console };
 unit.window = unit;
 vm.createContext(unit);
-for(const file of ["komorebi/assets/tool_scenes.js", "shared/tools.js", "komorebi/uro.js"]){
+for(const file of ["shared/tool_scenes.js", "shared/tools.js", "komorebi/uro.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), unit);
 }
 const tools = unit.Q4B_TOOLS;
-const scenes = unit.Q4B_KOMOREBI_TOOL_SCENES;
+const scenes = unit.Q4B_TOOL_SCENES;
 
 const KANJI = /[一-鿿]/;
 const KANA_ONLY = /^[ぁ-ゟ゠-ヿー\s]+$/;

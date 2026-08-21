@@ -17,7 +17,7 @@ context.Q4B_KOMOREBI_NO_BOOT = true;
 context.Q4B_KOMOREBI_TEST_HOOKS = true;
 vm.createContext(context);
 for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js",
-  "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js", "komorebi/economy_flag.js", "komorebi/app.js"]){
+  "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js", "shared/economy_flag.js", "komorebi/app.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 

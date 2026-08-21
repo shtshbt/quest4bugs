@@ -160,12 +160,12 @@
 
   /* --- かがやきのうろ 入口 (小道段の下) ---
      うろの入口は小道の地図下端にもあるが、御神木で卵を見に来たときにも届くよう
-     こちらにも置く。判定は komorebi/economy_flag.js が 1 か所で持つ (経済のスイッチと
+     こちらにも置く。判定は shared/economy_flag.js が 1 か所で持つ (経済のスイッチと
      道具ごとの release の 2 段)。portal は komorebi/app.js を読み込まないので、
      判定に要る 2 つの数だけを切り出したそのモジュールを読む。フラグを読み込んで
      いないページでは判定材料が無いので出さない (未公開時と同じ扱い)。 */
   function uroReleased(){
-    var economy = global.Q4B_KOMOREBI_ECONOMY;
+    var economy = global.Q4B_ECONOMY;
     return !!(economy && typeof economy.toolsReleased === "function" && economy.toolsReleased());
   }
 

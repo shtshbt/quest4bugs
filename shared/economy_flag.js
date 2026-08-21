@@ -1,10 +1,11 @@
 (function(global){
   "use strict";
 
-  /* 公開スイッチだけを持つ小さなモジュール。ここに置く理由は 1 つで、御神木パネル
-     (shared/breeding.js) を描く portal が komorebi/app.js を読み込まないから。
-     app.js を portal に読ませると小道 1 本のために地図・セッション・図鑑まで
-     ぶら下がるので、判定に要る 2 つの数だけを切り出して両方から読む。
+  /* 公開スイッチだけを持つ小さなモジュール。shared/ に置く理由は 2 つ。御神木パネル
+     (shared/breeding.js) を描く portal が komorebi/app.js を読み込まないこと、そして
+     採集道具を全ゲーム共通へ広げる改修で本編 3 教科のページもこのスイッチを読むこと。
+     app.js を他のページに読ませると小道 1 本のために地図・セッション・図鑑まで
+     ぶら下がるので、判定に要る 2 つの数だけを切り出して全員が同じ 1 本を読む。
 
      - CURRENT_RELEASE: 公開済みの更新番号 (release_linkage 2 章の更新カレンダー)。
        実装は先へ進めて公開はここ 1 か所で段階解禁する。
@@ -40,7 +41,7 @@
     return TOOLS_FIRST_RELEASE<=CURRENT_RELEASE;
   }
 
-  global.Q4B_KOMOREBI_ECONOMY={
+  global.Q4B_ECONOMY={
     toolsFirstRelease:TOOLS_FIRST_RELEASE,
     currentRelease:currentRelease,
     on:on,
@@ -51,8 +52,8 @@
      ハーネスが Q4B_KOMOREBI_TEST_HOOKS を立てた文脈でだけ生やす。常設の API に
      置くと、配信された画面の console 1 行でメダル経済が開いてしまう。 */
   if(global.Q4B_KOMOREBI_TEST_HOOKS){
-    global.Q4B_KOMOREBI_ECONOMY.setOn=function(value){MEDAL_ECONOMY_ON=!!value;};
-    global.Q4B_KOMOREBI_ECONOMY.setCurrentRelease=function(value){
+    global.Q4B_ECONOMY.setOn=function(value){MEDAL_ECONOMY_ON=!!value;};
+    global.Q4B_ECONOMY.setCurrentRelease=function(value){
       if(!Number.isInteger(value)||value<1)throw new Error("更新番号の指定が正しくありません");
       CURRENT_RELEASE=value;
     };

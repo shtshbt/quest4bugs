@@ -485,7 +485,7 @@
      CAS の目的は「古い snapshot に基づく save が新しい snapshot を上書きする」 race
      の検出。 expectedRevision は caller が load 時点の revision を保持し、 save 時
      に明示渡しする。 一致しなければ書込み拒否 + 退避 + conflicted 状態に。 */
-  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, komorebi:1, breeding:1, battle:1, wallet:1};
+  var CAS_NAMESPACES = {kanji:1, keisan:1, eitango:1, komorebi:1, breeding:1, battle:1, wallet:1, toolgear:1};
   var __conflicted = {};       /* {ns+SEP+key: {expectedRevision, actualRevision}} */
   var CONFLICT_BACKUP_PREFIX = "q4b_conflict_backup_";
   var CONFLICT_BACKUP_MAX_PER_PROFILE = 10;
@@ -760,6 +760,79 @@
   function amberSet(pid,val){ var store=loadStore(),key=amberKey(pid),existing=store.kv[key]; store.kv[key]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:{amber:Math.max(0,Math.floor(val)||0)}}; persist(); schedulePush(); }
   function amberAdd(pid,n){ var v=amberOf(pid)+(n||0); amberSet(pid,v); return v; }
   function amberSpend(pid,n){ var v=amberOf(pid); if(v<n)return false; amberSet(pid,v-n); return true; }
+
+  /* ---------------- shared 採集道具 (toolgear) wallet（プロフィール単位・全ゲーム共通） ----
+     komorebi profile 直下 (tools / equippedToolId / toolDex) に住んでいた道具の状態を、
+     琥珀と同じ shared kv (toolgear <pid>) へ昇格させる。本編 3 教科からも読み書き
+     するための置き場所で、amber wallet と同じ per-kv LWW に載せる。
+     CAS リトライにしなかった理由: 道具は耐久 100 の消耗品で、二台同時プレイの
+     競合で失われるのは高々数ポイントの残量。復元手順とリトライ機構の複雑さより、
+     wallet と同じ「最後に書いた側が勝つ」単純さを採る (琥珀の数個と同じ許容)。 */
+  function toolGearKey(pid){ return "toolgear"+SEP+pid; }
+  function blankToolGear(){ return {tools:[],equippedToolId:null,toolDex:{},migrated:false}; }
+  /* 壊れた形は捨てず可能な範囲で拾う。tools.js の不変条件 (type は非空文字列、
+     remaining は 1 以上の整数) を満たさない道具だけを黙って落とす。remaining 0 以下は
+     「使い切って壊れた道具」なので、残すと図鑑にも一覧にも出せない亡霊になる。 */
+  function normalizeToolGear(data){
+    var out=blankToolGear(), i, entry, remaining, type, at;
+    data=(data&&typeof data==="object"&&!Array.isArray(data))?data:{};
+    if(Array.isArray(data.tools)){
+      for(i=0;i<data.tools.length;i++){
+        entry=data.tools[i];
+        if(!entry||typeof entry!=="object")continue;
+        if(typeof entry.type!=="string"||!entry.type)continue;
+        remaining=Math.floor(entry.remaining);
+        if(!Number.isFinite(remaining)||remaining<1)continue;
+        out.tools.push({type:entry.type,remaining:remaining});
+      }
+    }
+    if(typeof data.equippedToolId==="string"&&data.equippedToolId)out.equippedToolId=data.equippedToolId;
+    /* 装備だけ残って本体が無いのは形の誤りではなく取りこぼし。komorebi 側の
+       normalizeProfile と同じく黙って外す。 */
+    if(out.equippedToolId&&!out.tools.some(function(e){return e.type===out.equippedToolId;}))out.equippedToolId=null;
+    if(data.toolDex&&typeof data.toolDex==="object"&&!Array.isArray(data.toolDex)){
+      for(type in data.toolDex){
+        at=data.toolDex[type];
+        if(typeof at==="string"&&at)out.toolDex[type]=at;
+      }
+    }
+    out.migrated=!!data.migrated;
+    return out;
+  }
+  function toolGearOf(pid){
+    if(!pid)return blankToolGear();
+    var e=loadStore().kv[toolGearKey(pid)];
+    if(!e||!e.data)return blankToolGear();
+    /* normalizeToolGear は全 field を新しい object へ組み直すので、返り値は
+       内部 store と共有されない (caller が触っても store に漏れない)。 */
+    return normalizeToolGear(e.data);
+  }
+  function toolGearSet(pid,gear){
+    if(!pid)return false;
+    var store=loadStore(),key=toolGearKey(pid),existing=store.kv[key];
+    store.kv[key]={v:1,updated:now(),revision:_entryRevision(existing)+1,updatedBy:__deviceId,data:normalizeToolGear(gear)};
+    persist();
+    schedulePush();
+    return true;
+  }
+  /* profile 直下 → toolgear kv への一方向移行。kv エントリ自体が無い端末で、
+     profile に道具が居るときだけ 1 回種を蒔く。kv が既に在れば (空でも) 何も
+     しない: 消費して空になった kv を profile の残骸で埋め直すと道具が復活する。
+     profile 側は消さない (古いクライアントとの共存とデータ保全のため)。
+     ※本番は MEDAL_ECONOMY_ON=false のまま交換 UI が閉じており実ユーザーの
+       tools は全員空なので、これは開発 save 向けの保険でしかない。 */
+  function toolGearMigrateFromProfile(pid,profile){
+    if(!pid||!profile||typeof profile!=="object")return false;
+    var store=loadStore(),key=toolGearKey(pid);
+    if(Object.prototype.hasOwnProperty.call(store.kv,key))return false;
+    if(!Array.isArray(profile.tools)||!profile.tools.length)return false;
+    var seed=normalizeToolGear({tools:profile.tools,equippedToolId:profile.equippedToolId,
+      toolDex:profile.toolDex,migrated:true});
+    store.kv[key]={v:1,updated:now(),revision:1,updatedBy:__deviceId,data:seed};
+    persist();
+    schedulePush();
+    return true;
+  }
 
   /* ---------------- shared ごしんぼく rewards（プロフィール単位） ----------
      かせきのかけら: 各教科で 1日30問正解した瞬間に +1（各教科1日1個まで）。
@@ -1434,6 +1507,7 @@
     currentProfile:currentProfile, setCurrentProfile:setCurrentProfile,
     addProfile:addProfile, updateProfile:updateProfile, deleteProfile:deleteProfile,
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
+    toolGearOf:toolGearOf, toolGearSet:toolGearSet, toolGearMigrateFromProfile:toolGearMigrateFromProfile,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,

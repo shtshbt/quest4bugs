@@ -4,11 +4,13 @@
   /* 道具ごとの捕獲ビネット (tools_design 9 章)。抽選の数学は重みでも、体験は
      「その道具で どうやって とったか」の 1 場面にする。灯火なら夜景にあかりが
      ともって虫が寄ってくる、落とし穴なら朝の見回り、というふうに、道具の名前から
-     実際の採集のしかたが思い浮かぶ絵を 1 枚だけ置く。
+     実際の採集のしかたが思い浮かぶ絵を 1 枚だけ置く。道具は全ゲーム共通なので、
+     この絵も shared/ に置いて小道と本編 3 教科が同じ 1 本を読む。
 
      この絵は表示だけのもので、抽選には一切かかわらない。描くのは場面であって
-     種ではない: 実際に捕れた虫は、すぐ下の捕獲カード (ratioCaptureHtml) が
-     描く。ここで種を描き分けると、絵の虫と捕れた虫が食い違って見える。
+     種ではない: 実際に捕れた虫は、すぐ下の捕獲カード (ratioCaptureHtml や
+     shared/capture_card.js) が描く。ここで種を描き分けると、絵の虫と捕れた虫が
+     食い違って見える。
 
      色は presentation attribute で持たせ、class は CSS の掛かり口としてだけ置く。
      こうしておくと map.css を読み込んでいない文脈でも絵が黒く潰れない (アイコンが
@@ -280,5 +282,5 @@
 
   function caption(toolId){return has(toolId)?CAPTIONS[toolId]:"";}
 
-  global.Q4B_KOMOREBI_TOOL_SCENES={ids:Object.keys(SCENES),has:has,svg:svg,caption:caption};
+  global.Q4B_TOOL_SCENES={ids:Object.keys(SCENES),has:has,svg:svg,caption:caption};
 })(typeof window!=="undefined"?window:globalThis);

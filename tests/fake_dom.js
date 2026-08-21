@@ -174,9 +174,9 @@ const KOMOREBI_FILES = [
      index.html の読込み順と同じ。公開時に release gate テストが
      sessionStarters.kom_diagram_model を探すため、既定の起動一覧に入れておく。 */
   "komorebi/diagram_engine.js", "komorebi/diagram_model_generator.js",
-  "shared/tool_icons.js", "komorebi/assets/tool_scenes.js",
+  "shared/tool_icons.js", "shared/tool_scenes.js",
   "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js",
-  "komorebi/economy_flag.js", "komorebi/app.js"
+  "shared/economy_flag.js", "komorebi/app.js"
 ];
 
 module.exports = { parseAttrs, parseElements, matches, makeApp, plainText, bootKomorebi, KOMOREBI_FILES };
