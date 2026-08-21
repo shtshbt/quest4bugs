@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v158";  /* v158: ホームの学習グラフ / つうさん / ベスト日 / れんぞく日数に こみち を算入し、小道側に切り捨てない daily を追加。 */
+var CACHE = "q4b-cache-v159";  /* v159: 採集道具を shared/ へ移し耐久 100 に。ずかん題の遮蔽と保存競合の巻き戻しを修正。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -35,9 +35,9 @@ var CORE = [
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
   "./komorebi/diagram_engine.js", "./komorebi/diagram_model_generator.js",
-  "./komorebi/economy_flag.js", "./komorebi/assets/tool_icons.js",
+  "./komorebi/economy_flag.js", "./shared/tool_icons.js",
   "./komorebi/assets/tool_scenes.js",
-  "./komorebi/trophies.js", "./komorebi/tools.js", "./komorebi/uro.js",
+  "./komorebi/trophies.js", "./shared/tools.js", "./komorebi/uro.js",
   "./komorebi/volumes/volume_fixture.js",
   "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",

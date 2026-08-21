@@ -14,11 +14,11 @@
     return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
-  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、
+  /* 道具の顔。アイコン (shared/tool_icons.js) があればそれを使い、
      読み込んでいない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・
      図鑑・ほうのうの記録で同じ 1 本を通す。 */
   function toolFace(toolId,emoji){
-    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var icons=global.Q4B_TOOL_ICONS;
     var art=icons&&typeof icons.svg==="function"?icons.svg(toolId):"";
     return art||emoji||"🔧";
   }

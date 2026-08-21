@@ -95,5 +95,5 @@
       +ICONS[toolId]+'</svg>';
   }
 
-  global.Q4B_KOMOREBI_TOOL_ICONS={ids:Object.keys(ICONS),has:has,svg:svg};
+  global.Q4B_TOOL_ICONS={ids:Object.keys(ICONS),has:has,svg:svg};
 })(typeof window!=="undefined"?window:globalThis);

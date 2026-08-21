@@ -128,7 +128,7 @@ test("a broken lap counter is refused instead of repaired", () => {
   const plain = () => plainText(app.innerHTML);
   const komorebi = context.Q4B_KOMOREBI;
   const trophyMod = context.Q4B_KOMOREBI_TROPHIES;
-  const tools = context.Q4B_KOMOREBI_TOOLS;
+  const tools = context.Q4B_TOOLS;
   const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
   const alerts = [];
   context.alert = message => alerts.push(String(message));

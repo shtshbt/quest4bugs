@@ -31,7 +31,7 @@
 
 ### Phase 1: 経済の芯 (初メダル前に出す)
 
-1. `komorebi/tools.js` 新規: 道具定義 (先行 4 種: ちょうネット・灯火採集セット・高所用長竿・落とし穴トラップ。MG I の guild 構成をカバーする組で、Phase 0 の監査結果により差し替え可)、matcher、instance 管理 (所持・装備・耐久)
+1. `shared/tools.js` 新規: 道具定義 (先行 4 種: ちょうネット・灯火採集セット・高所用長竿・落とし穴トラップ。MG I の guild 構成をカバーする組で、Phase 0 の監査結果により差し替え可)、matcher、instance 管理 (所持・装備・耐久)
 2. セーブ追加: tools (instance list)、uroLog、equippedToolId
 3. 抽選統合: pickSpecies の guild 重み 3 倍、drawCapture の未発見振替 +0.25、耐久消費 (捕獲 1 回 = 1)
 4. `komorebi/uro.js` 新規: かがやきのうろ (奉納ログ表示、鋳造時の即時交換ポップアップ、メダルラック)
@@ -59,7 +59,7 @@
 | 対象 | ファイル | 内容 |
 |---|---|---|
 | 公開スイッチ | `komorebi/economy_flag.js` (新規) | CURRENT_RELEASE と MEDAL_ECONOMY_ON の実体。portal と小道の両方が読む |
-| 道具アイコン | `komorebi/assets/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・ウィジェット・リザルトで共用 |
+| 道具アイコン | `shared/tool_icons.js` (新規) | 11 種のライン画。交換画面・どうぐばこ・ウィジェット・リザルトで共用 |
 | 周回 | `komorebi/trophies.js` | lapOf / mintedLaps / medalCount / resetReadyAt / canReset / beginNextLap。award が周回対応 |
 | リセットとウィジェット | `komorebi/app.js` | リセットボタン + 確認ポップアップ、2 枚交換の連続、道具ウィジェット、競合解決の拡張 |
 | 図鑑と枚数表示 | `komorebi/uro.js` | 道具図鑑の節、交換ポップアップの「n まいの うち m まいめ」、奉納ログの周回星 |
@@ -85,7 +85,7 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
 1. `komorebi/economy_flag.js` の `MEDAL_ECONOMY_ON` を `true` にする。更新番号を
    同時に上げるなら `CURRENT_RELEASE` も同じファイルで動かす。実運用で触るのは
    この 2 行だけで、`komorebi/app.js` には公開スイッチの実体を置かない
-2. 道具 1 本ずつの `release` (`komorebi/tools.js`) が公開したい更新番号以下か確認する。
+2. 道具 1 本ずつの `release` (`shared/tools.js`) が公開したい更新番号以下か確認する。
    更新 2 で開くのは先行 4 種 (ちょうネット / トンボ用メッシュネット / 灯火採集セット /
    バナナトラップ)。`economy_flag.js` の `toolsFirstRelease` は tools.js の最小
    release と一致していること (`test_komorebi_portal_gate.js` が見張る)
@@ -95,9 +95,9 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
    query を含む URL で一致を見るため、`?v=` を据え置くと復帰した端末が古い実装を
    使い続ける (点火日に御神木のうろ入口が出ない、という形で表に出る)。
    Phase 2 で中身が変わったのは次の通り。
-   新規: `komorebi/economy_flag.js`、`komorebi/assets/tool_icons.js`
+   新規: `komorebi/economy_flag.js`、`shared/tool_icons.js`
    (どちらも sw.js の precache と index.html の script に追加済み)。
-   要 bump: `komorebi/app.js`、`komorebi/trophies.js`、`komorebi/tools.js`、
+   要 bump: `komorebi/app.js`、`komorebi/trophies.js`、`shared/tools.js`、
    `komorebi/uro.js`、`komorebi/map.css`、`shared/breeding.js`
    (breeding.js は portal と小道の両方の index.html に `?v=` がある)
 6. 実機確認: 御神木パネルと小道の地図下端の両方に うろの入口が出ること、
@@ -156,7 +156,7 @@ Phase 1 の取り込みと更新 2 の公開準備の検収で挙がったもの
 
 ### Phase 3: 演出
 
-1. 済 道具アイコン SVG 11 種 (Phase 2 で先取り。`komorebi/assets/tool_icons.js`)
+1. 済 道具アイコン SVG 11 種 (Phase 2 で先取り。`shared/tool_icons.js`)
 2. 済 捕獲ビネット (道具ごとの採集シーン)。優先順: 灯火 (夜景) → 落とし穴 → バナナトラップ → 残り
 3. 済 うろの輝き (奉納数連動の CSS 変数)、奉納・初回授与・破損の小演出
 4. 済 子ども向けメッセージ文言の確定 (「見たことない虫に であいやすくなりそうだ…!」等)
@@ -172,7 +172,7 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 | ビネットの配線 | `komorebi/app.js` | `toolSceneHtml` を捕獲リザルトとこはくのモーダルの 2 か所へ |
 | うろの輝き | `komorebi/uro.js`, `komorebi/map.css` | halo と 光の粒。強さも 範囲も `--uro-glow` 1 本から導く。入口の札にも同じ変数 |
 | 小演出 | `komorebi/app.js`, `komorebi/map.css` | 授与モーダルに捧げた直後の うろ、初回授与の合図、破損の 1 度きりのゆれ |
-| 文言 | `komorebi/tools.js`, `komorebi/uro.js` | 5 歳コースの かな名 (`yomi` + `displayName`)、誤った読みの除去、漢字の使いどころ |
+| 文言 | `shared/tools.js`, `komorebi/uro.js` | 5 歳コースの かな名 (`yomi` + `displayName`)、誤った読みの除去、漢字の使いどころ |
 
 決めたこと。
 
@@ -200,7 +200,7 @@ branch `claude/komorebi-phase3-fx`。演出はすべて表示だけの層で、�
 - `?v=` と `sw.js` の CACHE 名は Phase 3 では上げていない。統合時に一括で上げる
 - 新規配信ファイル: `komorebi/assets/tool_scenes.js` (`sw.js` の precache と
   `komorebi/index.html` の script には追加済み)
-- 要 bump: `komorebi/app.js`、`komorebi/uro.js`、`komorebi/tools.js`、`komorebi/map.css`
+- 要 bump: `komorebi/app.js`、`komorebi/uro.js`、`shared/tools.js`、`komorebi/map.css`
 - `komorebi/map.css` は 65 行目の `@media (prefers-reduced-motion:reduce)` で
   `*{animation:none!important}` を既に持つ。Phase 3 で足した個別の停止行はその念押しで、
   片方だけ消しても動きは止まる

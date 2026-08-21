@@ -19,11 +19,11 @@ function settle(){ return new Promise(resolve => setTimeout(resolve, 0)); }
 const context = { console };
 context.window = context;
 vm.createContext(context);
-for(const file of ["komorebi/assets/tool_scenes.js", "komorebi/tools.js"]){
+for(const file of ["komorebi/assets/tool_scenes.js", "shared/tools.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 const scenes = context.Q4B_KOMOREBI_TOOL_SCENES;
-const tools = context.Q4B_KOMOREBI_TOOLS;
+const tools = context.Q4B_TOOLS;
 
 test("there is exactly one scene per tool, and no scene without a tool", () => {
   const toolIds = tools.list().map(tool => tool.id).sort();

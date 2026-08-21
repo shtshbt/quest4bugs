@@ -303,7 +303,7 @@
     return {type:tool.id,remaining:spare?spare.remaining:0,broke:true,swapped:!!spare};
   }
 
-  global.Q4B_KOMOREBI_TOOLS={
+  global.Q4B_TOOLS={
     durability:DURABILITY,
     list:list,
     byId:byId,

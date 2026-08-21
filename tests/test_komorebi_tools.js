@@ -1,4 +1,4 @@
-/* 採集道具 (komorebi/tools.js) の単体。matcher は「実在の採集法に対応させる」という
+/* 採集道具 (shared/tools.js) の単体。matcher は「実在の採集法に対応させる」という
    決定 (tools_design 6 章) の実装なので、guild ごとの当たり数を MG I の実データで
    固定する。当たり数が動いたら、種データの語彙か matcher のどちらかが変わっている。
    instance 側は耐久の境界 (満タン → 0)、破損、同種予備への自動持ち替えを見る。
@@ -15,11 +15,11 @@ const context = { console };
 context.window = context;
 context.global = context;
 vm.createContext(context);
-for(const file of ["shared/bugs.js", "komorebi/volumes/volume_fixture.js", "komorebi/tools.js"]){
+for(const file of ["shared/bugs.js", "komorebi/volumes/volume_fixture.js", "shared/tools.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 
-const tools = context.Q4B_KOMOREBI_TOOLS;
+const tools = context.Q4B_TOOLS;
 /* 耐久は調整値。数字を直に書くと、balance を動かすたびにテストが落ちる。
    定数そのものを固定する検査は 1 か所だけ置き、他はこの D を使う。 */
 const D = tools.durability;

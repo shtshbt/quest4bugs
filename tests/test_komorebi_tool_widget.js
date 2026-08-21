@@ -19,7 +19,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   const app = context.__app;
   const plain = () => plainText(app.innerHTML);
   const komorebi = context.Q4B_KOMOREBI;
-  const tools = context.Q4B_KOMOREBI_TOOLS;
+  const tools = context.Q4B_TOOLS;
   const profile = komorebi.profile();
   const alerts = [];
   context.alert = message => alerts.push(String(message));
@@ -77,7 +77,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.match(text, /いまの そうび/);
     assert.match(text, /ちょうネット/);
     assert.ok(text.indexOf("12／" + tools.durability) >= 0, "先頭 1 本の残りが出ていない");
-    /* 道具の絵は交換画面と同じ 1 本 (komorebi/assets/tool_icons.js)。 */
+    /* 道具の絵は交換画面と同じ 1 本 (shared/tool_icons.js)。 */
     assert.match(app.innerHTML, /class="tool-icon"/, "ウィジェットの道具アイコンが共用のものでない");
     assert.match(text, /よび 1/, "同じ種類の予備が数えられていない");
     /* 既定値は今の装備。最初に授かった 1 本がそのまま押された状態で並ぶ。 */

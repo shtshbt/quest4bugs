@@ -33,7 +33,7 @@
      (portal) では控えの番号で判定する。 */
   function toolsReleased(){
     if(!MEDAL_ECONOMY_ON)return false;
-    var tools=global.Q4B_KOMOREBI_TOOLS;
+    var tools=global.Q4B_TOOLS;
     if(tools&&typeof tools.list==="function"){
       return tools.list().some(function(tool){return tool.release<=CURRENT_RELEASE;});
     }

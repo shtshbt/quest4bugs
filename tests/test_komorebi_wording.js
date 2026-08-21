@@ -23,10 +23,10 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 const unit = { console };
 unit.window = unit;
 vm.createContext(unit);
-for(const file of ["komorebi/assets/tool_scenes.js", "komorebi/tools.js", "komorebi/uro.js"]){
+for(const file of ["komorebi/assets/tool_scenes.js", "shared/tools.js", "komorebi/uro.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), unit);
 }
-const tools = unit.Q4B_KOMOREBI_TOOLS;
+const tools = unit.Q4B_TOOLS;
 const scenes = unit.Q4B_KOMOREBI_TOOL_SCENES;
 
 const KANJI = /[一-鿿]/;
@@ -139,7 +139,7 @@ test("5 歳コースに出る読みは点検済みのものだけ", () => {
   await settle();
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
-  const live = context.Q4B_KOMOREBI_TOOLS;
+  const live = context.Q4B_TOOLS;
   const profile = komorebi.profile();
   const alerts = [];
   context.alert = message => alerts.push(String(message));

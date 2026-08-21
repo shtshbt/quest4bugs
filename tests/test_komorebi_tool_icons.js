@@ -16,11 +16,11 @@ function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 const context = { console };
 context.window = context;
 vm.createContext(context);
-for(const file of ["komorebi/assets/tool_icons.js", "komorebi/tools.js", "komorebi/uro.js"]){
+for(const file of ["shared/tool_icons.js", "shared/tools.js", "komorebi/uro.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
-const icons = context.Q4B_KOMOREBI_TOOL_ICONS;
-const tools = context.Q4B_KOMOREBI_TOOLS;
+const icons = context.Q4B_TOOL_ICONS;
+const tools = context.Q4B_TOOLS;
 const uro = context.Q4B_KOMOREBI_URO;
 const text = t => t;
 
@@ -60,7 +60,7 @@ test("the exchange popup, the tool box, the dex and the log share the one icon",
     tools: [{ id: tool.id, name: tool.name, emoji: tool.emoji, guild: tool.guild, blurb: tool.blurb, targets: 3 }] });
   assert.match(exchange, /class="tool-icon"/, "交換画面が絵文字のまま");
 
-  const page = uro.pageHtml({ text, glow: uro.glow({ uroLog: [] }), pending: [], durability: 30,
+  const page = uro.pageHtml({ text, glow: uro.glow({ uroLog: [] }), pending: [], durability: 100,
     equippedToolId: "cho_net",
     owned: [{ type: "cho_net", remaining: 12, first: true, name: tool.name, emoji: tool.emoji }],
     dex: [{ id: "cho_net", name: tool.name, emoji: tool.emoji, at: "2026-08-17" }, { locked: true }],
@@ -79,18 +79,19 @@ test("without the icon module the surfaces fall back to the emoji", () => {
   vm.createContext(bare);
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/uro.js"), "utf8"), bare);
   const html = bare.Q4B_KOMOREBI_URO.pageHtml({ text, glow: { count: 0, value: 0 }, pending: [],
-    durability: 30, equippedToolId: null, entries: [],
+    durability: 100, equippedToolId: null, entries: [],
     owned: [{ type: "cho_net", remaining: 12, first: true, name: "ちょうネット", emoji: "🥅" }] });
   assert.doesNotMatch(html, /tool-icon/);
   assert.match(html, /🥅/, "絵文字の控えまで消えた");
 });
 
+/* 道具は全図鑑共通になったので、絵は shared/ に住む (2026-08-20)。 */
 test("the icon module is delivered and cached like the rest of the path", () => {
   const page = fs.readFileSync(path.join(root, "komorebi/index.html"), "utf8");
-  assert.match(page, /<script src="assets\/tool_icons\.js\?v=[^"]+"><\/script>/,
+  assert.match(page, /<script src="\.\.\/shared\/tool_icons\.js\?v=[^"]+"><\/script>/,
     "小道のページがアイコンを読み込んでいない");
   const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
-  assert.match(sw, /"\.\/komorebi\/assets\/tool_icons\.js"/, "アイコンが precache に無い");
+  assert.match(sw, /"\.\/shared\/tool_icons\.js"/, "アイコンが precache に無い");
 });
 
 console.log(`RESULT ${passed} passed, 0 failed`);

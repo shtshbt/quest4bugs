@@ -38,8 +38,8 @@ const played = () => panel({ eggs: [], pendingEggs: [], komorebiPlayed: true });
 const withTools = { console };
 withTools.window = withTools;
 vm.createContext(withTools);
-vm.runInContext(fs.readFileSync(path.join(root, "komorebi/tools.js"), "utf8"), withTools);
-const tools = withTools.Q4B_KOMOREBI_TOOLS;
+vm.runInContext(fs.readFileSync(path.join(root, "shared/tools.js"), "utf8"), withTools);
+const tools = withTools.Q4B_TOOLS;
 
 test("the fallback release number matches the earliest tool in tools.js", () => {
   /* portal は tools.js を読み込まないので、economy_flag が控えの番号で判定する。

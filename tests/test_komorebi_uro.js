@@ -23,7 +23,7 @@ unit.window = unit;
 vm.createContext(unit);
 vm.runInContext(fs.readFileSync(path.join(root, "komorebi/uro.js"), "utf8"), unit);
 const uro = unit.Q4B_KOMOREBI_URO;
-/* 耐久は調整値 (komorebi/tools.js の DURABILITY)。数字を直に書かない。 */
+/* 耐久は調整値 (shared/tools.js の DURABILITY)。数字を直に書かない。 */
 const D = 100;
 
 function medal(cat, speciesId){
@@ -111,7 +111,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
   const plain = () => plainText(app.innerHTML);
   const komorebi = context.Q4B_KOMOREBI;
   const trophies = context.Q4B_KOMOREBI_TROPHIES;
-  const tools = context.Q4B_KOMOREBI_TOOLS;
+  const tools = context.Q4B_TOOLS;
   const volume = context.Q4B_KOMOREBI_VOLUMES.volume_fixture;
   const alerts = [];
   context.alert = message => alerts.push(String(message));
@@ -324,7 +324,7 @@ test("the tool box marks the second net of a kind as a spare, not a button", () 
     const question = { cat: "kom_ratio", format: "normal", kind: "num", text: "た", ans: 5 };
     const left = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 12, broke: false, swapped: false } });
     assert.ok(plainText(left).indexOf("12／" + D) >= 0);
-    /* 道具の絵は交換画面と同じ 1 本 (komorebi/assets/tool_icons.js)。 */
+    /* 道具の絵は交換画面と同じ 1 本 (shared/tool_icons.js)。 */
     assert.match(left, /class="tool-icon"/, "リザルトの道具アイコンが共用のものでない");
     const broke = komorebi.feedbackHtml(question, true, { capture, tool: { type: "cho_net", remaining: 0, broke: true, swapped: false } });
     assert.match(plainText(broke), /あみが やぶれた!/);

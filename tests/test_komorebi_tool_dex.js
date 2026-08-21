@@ -20,8 +20,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 const unit = { console };
 unit.window = unit;
 vm.createContext(unit);
-vm.runInContext(fs.readFileSync(path.join(root, "komorebi/tools.js"), "utf8"), unit);
-const tools = unit.Q4B_KOMOREBI_TOOLS;
+vm.runInContext(fs.readFileSync(path.join(root, "shared/tools.js"), "utf8"), unit);
+const tools = unit.Q4B_TOOLS;
 
 test("the first grant of a kind is dated, later ones change nothing", () => {
   const profile = { tools: [] };
@@ -77,7 +77,7 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
   const plain = () => plainText(app.innerHTML);
   const komorebi = context.Q4B_KOMOREBI;
   const trophies = context.Q4B_KOMOREBI_TROPHIES;
-  const live = context.Q4B_KOMOREBI_TOOLS;
+  const live = context.Q4B_TOOLS;
   const profile = komorebi.profile();
   const alerts = [];
   context.alert = message => alerts.push(String(message));

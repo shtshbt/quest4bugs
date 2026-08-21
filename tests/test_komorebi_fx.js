@@ -81,7 +81,7 @@ test("動く演出はすべて prefers-reduced-motion で止まる", () => {
   const app = context.__app;
   const komorebi = context.Q4B_KOMOREBI;
   const trophies = context.Q4B_KOMOREBI_TROPHIES;
-  const live = context.Q4B_KOMOREBI_TOOLS;
+  const live = context.Q4B_TOOLS;
   const profile = komorebi.profile();
   const alerts = [];
   context.alert = message => alerts.push(String(message));

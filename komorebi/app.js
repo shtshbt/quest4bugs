@@ -196,7 +196,7 @@
   /* 道具の guild 判定は種データ (bugs.js) 側のフィールドで行う。volume の
      manifest は {id, rarity, flagship} しか持たないので、カタログを引き直す。 */
   function toolMatchesSpecies(tool,speciesId){
-    var tools=global.Q4B_KOMOREBI_TOOLS,reward=global.Q4BReward;
+    var tools=global.Q4B_TOOLS,reward=global.Q4BReward;
     if(!tool||!tools||!reward||!reward.spById)return false;
     return tools.matches(tool.id,reward.spById(speciesId));
   }
@@ -267,7 +267,7 @@
      効果の適用と耐久の消費もこの 2 か所だけに置く。tools.js を読み込んでいない
      文脈 (単体テスト) では常に「未装備」に倒れる。 */
 
-  function toolsModule(){return medalEconomyOn()?(global.Q4B_KOMOREBI_TOOLS||null):null;}
+  function toolsModule(){return medalEconomyOn()?(global.Q4B_TOOLS||null):null;}
 
   /* 判定そのものは economy_flag に置いてある (portal と共用)。ここでは tools.js を
      読み込んでいない文脈で「公開済み」と答えないよう、実物の有無だけ足す。 */
@@ -302,7 +302,7 @@
      そのまま出すと読めないか、部分一致で誤った読みが付く。名前を出す 6 か所すべてを
      この 1 本に通す。 */
   function toolName(tool){
-    var tools=global.Q4B_KOMOREBI_TOOLS;
+    var tools=global.Q4B_TOOLS;
     if(!tool)return "";
     return tools&&typeof tools.displayName==="function"?tools.displayName(tool,profileType):(tool.name||"");
   }
@@ -777,11 +777,11 @@
     if(p.uroLog==null){p.uroLog=[];changed=true;}
     if(!hasOwn(p,"equippedToolId")){p.equippedToolId=null;changed=true;}
     else if(p.equippedToolId!==null&&typeof p.equippedToolId!=="string")throw new Error("道具データの形式が正しくありません");
-    if(global.Q4B_KOMOREBI_TOOLS){
-      global.Q4B_KOMOREBI_TOOLS.validateTools(p.tools);
-      global.Q4B_KOMOREBI_TOOLS.validateDex(p);
+    if(global.Q4B_TOOLS){
+      global.Q4B_TOOLS.validateTools(p.tools);
+      global.Q4B_TOOLS.validateDex(p);
       /* 装備だけが残って本体が無い状態は形の誤りではなく取りこぼし。黙って外す。 */
-      if(p.equippedToolId&&!global.Q4B_KOMOREBI_TOOLS.ownedOf(p,p.equippedToolId).length){p.equippedToolId=null;changed=true;}
+      if(p.equippedToolId&&!global.Q4B_TOOLS.ownedOf(p,p.equippedToolId).length){p.equippedToolId=null;changed=true;}
     }else if(!Array.isArray(p.tools))throw new Error("道具データの形式が正しくありません");
     if(global.Q4B_KOMOREBI_URO)global.Q4B_KOMOREBI_URO.validateLog(p.uroLog);
     else if(!Array.isArray(p.uroLog))throw new Error("奉納データの形式が正しくありません");
@@ -1832,11 +1832,11 @@
       +note+'</div>';
   }
 
-  /* 道具の顔。アイコン (komorebi/assets/tool_icons.js) があればそれを使い、読み込んで
+  /* 道具の顔。アイコン (shared/tool_icons.js) があればそれを使い、読み込んで
      いない文脈では tools.js の絵文字へ倒す。交換画面・どうぐばこ・ウィジェット・
      リザルトの 4 か所で同じ 1 本を通す (場所ごとに絵が違うと同じ道具に見えない)。 */
   function toolFaceHtml(tool,options){
-    var icons=global.Q4B_KOMOREBI_TOOL_ICONS;
+    var icons=global.Q4B_TOOL_ICONS;
     var art=icons&&typeof icons.svg==="function"?icons.svg(tool.id,options):"";
     return art||tool.emoji||"🔧";
   }
