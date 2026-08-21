@@ -219,6 +219,7 @@ details{margin-top:10px}
 summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4px 0}
 </style>
   <link rel="stylesheet" href="../shared/shiny_bonus.css?v=0.1.0">
+  <link rel="stylesheet" href="../shared/tools.css?v=0.1.0">
 </head>
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -251,6 +252,12 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script src="../shared/colloc.js?v=0.3.0"></script>
 <script src="../shared/idiom_data.js?v=0.1.0"></script>
+<script src="../shared/economy_flag.js?v=0.2.0"></script>
+<script src="../shared/tools.js?v=0.2.0"></script>
+<script src="../shared/tool_icons.js?v=0.2.0"></script>
+<script src="../shared/tool_scenes.js?v=0.2.0"></script>
+<script src="../shared/tools_ui.js?v=0.1.0"></script>
+<script src="../shared/capture_card.js?v=0.1.0"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
 const {BASICRAW,P1A,P1B,P1C,P1D,FIELD2RAW,FIELD3RAW,FIELD4RAW,FIELD5RAW,PRE1RAW,ICHIRAW}=window.Q4B_EI_RAW;  /* データは ../shared/eitango_data.js */
@@ -668,8 +675,10 @@ function eitangoResult(raw){
   if(!raw) return null;
   const sp=ALLSP.find(s=>s[0]===raw.sp.id);
   if(!sp) return null;
+  /* toolUse は共有捕獲カードの道具行が読む (未装備なら undefined のまま)。 */
   return {sp,size:raw.size,shiny:raw.shiny,sex:raw.sex,isNew:raw.isNew,isRecord:raw.isRecord,
-    morningBonus:raw.morningBonus,shinyChance:raw.shinyChance,shinySource:raw.shinySource};
+    morningBonus:raw.morningBonus,shinyChance:raw.shinyChance,shinySource:raw.shinySource,
+    toolUse:raw.toolUse};
 }
 function sharedEitangoCatch(p, channel, value){
   if(!window.Q4BReward) return null;
@@ -681,6 +690,28 @@ function sharedEitangoCatch(p, channel, value){
   else{p.pool=coll.gauge;p.poolAcc=coll.acc;}
   p.total=coll.total;
   return eitangoResult(raw);
+}
+/* 共通捕獲カード (shared/capture_card.js) への橋渡し。res は ALLSP の配列行を持つ
+   eitango 内部形なので、カードが読む bugs.js のオブジェクト形へ写し替える。ヌシは
+   元種のオブジェクトを引き直して絵を元種と共有し (spSVG と同じ規則)、名前と説明文
+   だけ ぬしの行のものを使う。レア度はこのページの tier (sp[4]) をそのまま渡す
+   (共有 TIERNAME と同じ 0..4 の番号)。 */
+function captureCardHtml(res,opts){
+  if(!res||!res.sp) return '';
+  if(!window.Q4BCaptureCard) return UI.specCard(res);
+  const id=res.sp[0];
+  const src=SPECIES_SRC[id]||SPECIES_SRC[id.replace(/^nushi_/,'')]||null;
+  const spObj=src?Object.assign({},src,{jaName:res.sp[1],note:res.sp[9]||src.note})
+    :{id:id,jaName:res.sp[1],note:res.sp[9]||''};
+  const result={sp:spObj,size:res.size,shiny:res.shiny,sex:res.sex,
+    isNew:res.isNew,isRecord:res.isRecord,tier:res.sp[4],toolUse:res.toolUse};
+  const c=P&&P.catches?P.catches[id]:null;
+  if(c&&Number.isFinite(c.n)) result.n=c.n;
+  return Q4BCaptureCard.html(result,opts||{});
+}
+/* めくりのタップ配線。カードを描いた入れ物ごとに 1 回呼ぶ。 */
+function attachCaptureCard(rootEl){
+  if(window.Q4BCaptureCard&&Q4BCaptureCard.attach) Q4BCaptureCard.attach(rootEl);
 }
 const Reward = {
   NEED: 8,
@@ -919,6 +950,13 @@ function setupWalletE(){
       spend:function(n){return QuestSave.amberSpend(ePid(),n);}
     });
   }
+  /* 採集道具: 共有 wallet store (shared/tools.js) を reward.js に差す。装備中の
+     道具がゲージ捕獲とこはく呼び出しの抽選に効き、結果へ toolUse が載る。
+     経済が閉じている間は store 側が「未装備」に倒れ、挙動は配線前と変わらない。 */
+  if(window.Q4BReward&&window.QuestSave&&window.Q4B_TOOLS&&window.Q4B_ECONOMY
+    &&Q4BReward.setToolsStore&&Q4B_TOOLS.walletStore){
+    Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,Q4B_ECONOMY,ePid));
+  }
   /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
     Q4BReward.setFossilStore({
@@ -1121,7 +1159,7 @@ function render(){
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(P&&P.catches) checkMastersE();
   if(screen==='home') $('#app').innerHTML=scrHome();
-  if(screen==='zukan') $('#app').innerHTML=scrZukan();
+  if(screen==='zukan'){ $('#app').innerHTML=scrZukan(); bindEitangoToolPanel(); }
   if(screen==='dict'){ $('#app').innerHTML=scrDict(); if(dictQ){ const si=document.querySelector('#app input'); if(si){ si.focus(); si.setSelectionRange(si.value.length,si.value.length); } } }
   if(screen==='progress') $('#app').innerHTML=scrProgress();
   if(screen==='stats') $('#app').innerHTML=scrStats();
@@ -1303,6 +1341,7 @@ function scrZukan(){
     <span style="font-size:15px;font-weight:700">🔶 こはく：<b>${amberNow}</b></span>
     <button class="btn amber" style="margin:0;padding:8px 14px;font-size:14px;width:auto" ${canSpend?'':'disabled'} onclick="eitangoAmberCatch()">🔶 こはくで よぶ（30）</button>
   </div>
+  ${eitangoToolPanelHtml()}
   ${eitangoMasterSection()}
   ${window.Q4BBossZukan?Q4BBossZukan.sectionHTML('eitango'):''}
   <div class="ztabs">${tabs.map(f=>`<button class="${String(f.id)===String(zTab)?'on':''}" onclick="zTab='${f.id}';render()">${f.emoji} ${f.name}</button>`).join('')}</div>
@@ -1351,6 +1390,31 @@ function scrZukan(){
   }).join('') || '<p class="small center" style="grid-column:1/-1">みつからないよ。検索やレア度を変えてみてね。</p>'}</div>
   <p class="small center" style="margin-top:14px">おなじ虫でも もっと大きいのが いるかも．じこベストを ねらおう!</p>`;
 }
+/* 装備パネル (shared/tools_ui.js の独立カード)。経済が閉じている間や道具ゼロの間は
+   panelHtml 側が空文字を返すので、ずかん画面には何も出ない。文言は部品の既定
+   (かな中心) をそのまま使う。 */
+function eitangoToolPanelHtml(){
+  if(!(window.Q4BToolsUI&&window.Q4B_TOOLS&&window.Q4B_ECONOMY
+    &&window.QuestSave&&QuestSave.toolGearOf)) return '';
+  const pid=ePid();
+  if(!pid) return '';
+  return Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(pid),economy:Q4B_ECONOMY});
+}
+/* 持ち替え: 保存してから ずかん画面を描き直す。 */
+function bindEitangoToolPanel(){
+  if(!(window.Q4BToolsUI&&window.Q4B_TOOLS&&window.QuestSave
+    &&QuestSave.toolGearOf&&QuestSave.toolGearSet)) return;
+  const rootEl=document.getElementById('app');
+  if(!rootEl) return;
+  Q4BToolsUI.bindPanel(rootEl,{onEquip:function(typeId){
+    const pid=ePid();
+    if(!pid) return;
+    const gear=QuestSave.toolGearOf(pid);
+    if(!Q4B_TOOLS.equip(gear,typeId)) return;
+    QuestSave.toolGearSet(pid,gear);
+    render();
+  }});
+}
 /* フィールドの習熟率 (0..1)。琥珀 catch の boost と、獲得側の価値減衰の両方が使う。 */
 function eitangoFieldMasteredRatio(fid){
   fid = fid || GFID || 1;
@@ -1377,18 +1441,19 @@ function eitangoAmberCatch(){
   var got=window.Q4BReward ? Q4BReward.spendForCatch(tmp,'eitango',_b) : null;
   if(!got){ UI.toast('🔶 むしが みつからなかった…'); return; }
   touchP();
-  /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して UI.specCard に渡す */
+  /* got.sp はオブジェクト形式。ALLSP から対応配列行を探して共通捕獲カードに渡す */
   var spRow=ALLSP.find(function(s){return s[0]===got.sp.id;});
   if(!spRow){
     /* フォールバック: 簡易表示 */
     UI.toast('🔶 ' + (got.sp.jaName||got.sp.id) + ' を つかまえた！');
     render(); return;
   }
-  var spRes={sp:spRow, size:got.size, shiny:got.shiny, isNew:got.isNew, isRecord:got.isRecord};
-  $('#modal').innerHTML='<div class="mcard"><div class="center"><div style="font-size:16px;font-weight:bold;margin-bottom:8px">🔶 こはく30こで つかまえた！</div>'
-    +UI.specCard(spRes)
+  var spRes={sp:spRow, size:got.size, shiny:got.shiny, sex:got.sex, isNew:got.isNew, isRecord:got.isRecord, toolUse:got.toolUse};
+  $('#modal').innerHTML='<div class="mcard"><div class="center">'
+    +captureCardHtml(spRes,{headline:'🔶 こはく30こで つかまえた！'})
     +'<button class="btn sub" style="margin-top:12px" onclick="closeModal();render()">ずかんで みる</button></div></div>';
   $('#modal').classList.add('show');
+  attachCaptureCard($('#modal'));
 }
 function showSpec(id){
   const s=specById(id);
@@ -2494,10 +2559,11 @@ function showCatch(res,then){
   $('#modal').classList.add('show');
   window.__cn=then||null;
   $('#netBtn').onclick=()=>{
+    /* 見出しは共通捕獲カードが持つ (res は onCorrect 由来なので toolUse も載る)。 */
     $('#modal').innerHTML=`<div class="mcard">
-      <div style="font-weight:800;font-size:19px">つかまえた!</div>
-      ${UI.specCard(res)}
+      ${captureCardHtml(res)}
       <button class="btn" onclick="closeCatch()">つづける ▶</button></div>`;
+    attachCaptureCard($('#modal'));
   };
 }
 function closeCatch(){
@@ -2515,7 +2581,10 @@ function endSession(){
   if(S.mode==='nushi'){
     if(S.correct>=S.need){
       const res=Reward.catchNushi(P,GFID);
-      nushiHtml=`<div style="font-weight:800;font-size:20px;margin-top:8px">👑 ヌシを つかまえた!!</div>${UI.specCard(res)}`;
+      /* ヌシ捕獲は shared/reward.js を通らない独自経路 (Reward.record 直呼び) なので
+         toolUse は付かない。道具の効果範囲はゲージとこはくの 2 経路だけで、ヌシに
+         道具行が出ないのは仕様。 */
+      nushiHtml=captureCardHtml(res,{headline:'👑 ヌシを つかまえた!!'});
     } else {
       nushiHtml=`<div class="card"><b>ヌシは にげていった…</b><p class="small">せいかい ${S.correct}/${S.queue.length}．${S.need}もん いじょうで ゲット．また ちょうせんしよう!</p></div>`;
     }
@@ -2539,6 +2608,7 @@ function endSession(){
   <button class="btn" onclick="renderStart()">もういちど あそぶ</button>
   <button class="btn sub" onclick="screen='zukan';S=null;render();">📖 ずかんを みる</button>
   <button class="btn ghost" onclick="exitToMap()">マップへ もどる</button>`;
+  attachCaptureCard($('#app'));
   S=null;
 }
 
