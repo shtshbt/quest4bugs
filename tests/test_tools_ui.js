@@ -167,17 +167,24 @@ test("statusHtml の破損文はコースの名前で持ち替えを知らせる
   assert.match(plainText(gone), /そうびが なくなった。うろで また もらおう/);
 });
 
-test("sceneHtml は装備して 1 匹とれた回だけ、その道具の場面を返す", () => {
-  const capture = { id: "ameiro_tonbo", isNew: true, n: 1 };
+test("sceneHtml は装備して 対象 guild の虫が 1 匹とれた回だけ、その道具の場面を返す", () => {
+  /* bugs.js を読まない文脈なので、種は呼び出し側と同じ形 (result.sp) で渡す。 */
+  const moth = { id: "ga", sp: { order: "Lepidoptera", family: "Saturniidae", groupJa: "ガ", tags: ["moth"] } };
   const use = { type: "light_trap", remaining: 12, broke: false, swapped: false };
-  const html = ui.sceneHtml(capture, use, value => "《" + value + "》");
+  const html = ui.sceneHtml(moth, use, value => "《" + value + "》");
   assert.match(html, /class="q4b-tool-scene"/);
   assert.match(html, /class="tool-scene"/, "場面の絵が無い");
   assert.ok(html.indexOf("《よるの ぬのに あかりを ともすと、虫が つぎつぎ あつまってきた》") >= 0,
     "1 行が text を通っていない");
   assert.equal(ui.sceneHtml(null, use), "", "とれていない回に場面が出た");
-  assert.equal(ui.sceneHtml(capture, null), "", "未装備の回に場面が出た");
-  assert.equal(ui.sceneHtml(capture, { type: "no_such_tool" }), "", "知らない道具に場面が出た");
+  assert.equal(ui.sceneHtml(moth, null), "", "未装備の回に場面が出た");
+  assert.equal(ui.sceneHtml(moth, { type: "no_such_tool" }), "", "知らない道具に場面が出た");
+  /* 道具は当選重み 3 倍であって排他ではない。対象外の虫に場面を出すと、絵と 1 行が
+     捕れ方の説明として嘘になる (灯火採集で とんぼ、バナナトラップで トンボ)。 */
+  const dragonfly = { id: "tonbo", sp: { order: "Odonata", family: "Libellulidae", groupJa: "トンボ", tags: [] } };
+  assert.equal(ui.sceneHtml(dragonfly, { type: "banana_trap", remaining: 9 }), "",
+    "バナナトラップの場面がトンボに付いた");
+  assert.equal(ui.sceneHtml({ id: "unknown" }, use), "", "種が引けない回に場面が出た");
 });
 
 console.log(`RESULT ${passed} passed, 0 failed`);

@@ -109,10 +109,25 @@ test("the scene module is delivered and cached like the rest of the path", () =>
     assert.ok(html.indexOf("q4b-tool-scene") < html.indexOf("q4b-cap-flipwrap"),
       "場面は捕獲カードの上に置く (結果より先に絵が来る順)");
     assert.match(plainText(html), /よるの ぬのに あかりを ともすと/, "灯火の 1 行が出ていない");
-    /* 場面は道具ごとに違う。落とし穴なら朝の見回りになる。 */
+    /* 場面は道具ごとに違う。落とし穴なら朝の見回りになる。虫は道具の対象 guild から
+       採る: 落とし穴に トンボ を合わせると、絵と 1 行が捕れ方の説明として嘘になる。 */
+    const ground = { id: "usucha_hekusodon", rarity: "N", isNew: true, n: 1, size: 20, shiny: false };
     const morning = komorebi.feedbackHtml(question, true,
-      { capture, tool: { type: "pitfall_trap", remaining: 9, broke: false, swapped: false } });
+      { capture: ground, tool: { type: "pitfall_trap", remaining: 9, broke: false, swapped: false } });
     assert.match(plainText(morning), /あさ いちばんに 見まわりに いくと/);
+  });
+
+  test("対象 guild でない虫がとれた回には、その道具の場面を出さない", () => {
+    /* 道具は当選重み 3 倍であって排他ではないので、装備していても対象外の虫は
+       普通に捕れる。そこで場面を出すと、バナナの絵と「きの しるに あつまっていた」
+       の 1 行が トンボ に付く (2026-08-22 の実機報告)。 */
+    const tonbo = { id: "ameiro_tonbo", rarity: "N", isNew: true, n: 1, size: 40, shiny: false };
+    const banana = { type: "banana_trap", remaining: 9, broke: false, swapped: false };
+    const html = komorebi.feedbackHtml(question, true, { capture: tonbo, tool: banana });
+    assert.equal(html.indexOf("tool-scene"), -1, "バナナトラップの場面がトンボに付いた");
+    assert.equal(plainText(html).indexOf("きの しるに あつまっていた"), -1);
+    /* 耐久は実際に 1 減っているので、残りの行のほうは出す。 */
+    assert.match(html, /class="q4b-tool-left"/, "対象外の回に残りの行まで消えた");
   });
 
   test("道具なしの回と、とれなかった回には出ない", () => {

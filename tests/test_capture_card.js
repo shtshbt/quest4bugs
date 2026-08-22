@@ -86,7 +86,9 @@ test("何匹めと じこベストのしるし", () => {
 });
 
 test("道具を使った回だけ、場面が上に、残りの行が下に付く", () => {
-  const use = { type: "light_trap", remaining: 12, broke: false, swapped: false };
+  /* 道具と虫は対象 guild で組ませる。sp0 は チョウ なので あみ。灯火を合わせると
+     場面が出ないのが正しい挙動になり、この test が見たい配置を見られない。 */
+  const use = { type: "cho_net", remaining: 12, broke: false, swapped: false };
   const html = card.html(result(sp0, { toolUse: use }));
   assert.match(html, /class="q4b-tool-scene"/, "場面が無い");
   assert.ok(html.indexOf("q4b-tool-scene") < html.indexOf("q4b-cap-head"),
@@ -95,7 +97,17 @@ test("道具を使った回だけ、場面が上に、残りの行が下に付�
   assert.ok(html.indexOf("12／" + tools.durability) >= 0, "残りが N／M で出ていない");
   assert.ok(html.indexOf("q4b-cap-note") < html.indexOf("q4b-tool-left"),
     "残りの行はカードの一番下");
-  assert.match(plainText(html), /よるの ぬのに あかりを ともすと/, "灯火の 1 行が無い");
+  assert.match(plainText(html), /まいあがった ところを そっと つつんだ/, "あみの 1 行が無い");
+});
+
+test("対象 guild でない虫がとれた回は、場面だけ出ない", () => {
+  /* 道具は当選重み 3 倍であって排他ではないので、装備していても対象外の虫は
+     普通に捕れる。そこで場面を出すと、絵と 1 行が捕れ方の説明として嘘になる。
+     耐久は実際に 1 減っているので、残りの行のほうは出す。 */
+  const html = card.html(result(sp0, {
+    toolUse: { type: "light_trap", remaining: 12, broke: false, swapped: false } }));
+  assert.equal(html.indexOf("q4b-tool-scene"), -1, "チョウに灯火採集の場面が付いた");
+  assert.match(html, /class="q4b-tool-left" role="status"/, "残りの行まで消えた");
 });
 
 test("道具なしの回は道具の要素が 1 つも出ない", () => {

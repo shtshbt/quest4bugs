@@ -137,6 +137,18 @@
     if(!capture||!useInfo||!tools||!scenes||typeof scenes.svg!=="function")return "";
     var tool=tools.byId(useInfo.type);
     if(!tool||!scenes.has(tool.id))return "";
+    /* 対象 guild の虫だけに出す。道具は当選重み 3 倍であって排他ではないので、
+       装備していても対象外の虫は普通に捕れる。そこでこの場面を出すと、バナナの
+       絵と「きの しるに あつまっていた」の 1 行がトンボに付く。捕れ方の説明として
+       嘘になるうえ、図鑑で覚えた分類と道具の対応も崩れる (実在の採集法に対応させる
+       という tools.js の前提そのもの)。対象外の回は場面を出さない。
+       残り耐久 (statusHtml) は別で、こちらは対象外の回でも出す: 実際に 1 減って
+       いるので、黙って減らすほうが分からない。 */
+    var sp=capture.sp;
+    if(!sp&&capture.id&&global.Q4BReward&&typeof global.Q4BReward.spById==="function")sp=global.Q4BReward.spById(capture.id);
+    /* 種が引けないときも出さない。分からないまま出すのは、対象外に出すのと同じ
+       間違いを確率で引くだけ。 */
+    if(typeof tools.matches!=="function"||!tools.matches(tool.id,sp))return "";
     var t=textFn(text);
     var line=scenes.caption(tool.id);
     return '<figure class="q4b-tool-scene">'+scenes.svg(tool.id)
