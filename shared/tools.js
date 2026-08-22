@@ -310,7 +310,12 @@
     tools.splice(tools.indexOf(instance),1);
     var spare=ownedOf(profile,tool.id)[0]||null;
     if(!spare)profile.equippedToolId=null;
-    return {type:tool.id,remaining:spare?spare.remaining:0,broke:true,swapped:!!spare};
+    /* 別の種類の道具が残っているかは、壊れたあとの知らせを分けるために要る。
+       同じ種類の予備は黙って引き継ぐ (狩りの途中で選ばせない) が、別の種類へは
+       勝手に持ち替えない (guild が変わる)。持っているのに「うろで また もらおう」と
+       言うと、どうぐばこの中身が無いことにされてしまう。 */
+    return {type:tool.id,remaining:spare?spare.remaining:0,broke:true,swapped:!!spare,
+      boxEmpty:tools.length===0};
   }
 
   /* --- 共有 wallet store (本編接続用) ----------------------------------------

@@ -99,6 +99,27 @@ test("a granted tool is owned, auto equipped only when nothing is equipped", () 
   assert.throws(() => tools.grant(profile, "no_such_tool"), /道具の指定/);
 });
 
+test("a break reports whether the tool box still holds anything else", () => {
+  /* 壊れたあとの案内を分けるために要る。同じ種類の予備は swapped で、別の種類が
+     残っているかは boxEmpty で伝える (勝手に持ち替えないので、案内が要る)。 */
+  const spare = { tools: [{ type: "light_trap", remaining: 1 }, { type: "light_trap", remaining: 100 }],
+    equippedToolId: "light_trap", toolDex: {} };
+  /* vm 文脈の object なので deepEqual は使えない (prototype が違う)。 */
+  const shape = used => [used.type, used.remaining, used.broke, used.swapped, used.boxEmpty];
+  assert.deepEqual(shape(tools.consume(spare)), ["light_trap", 100, true, true, false]);
+  assert.equal(spare.equippedToolId, "light_trap", "予備があるのに装備が外れた");
+
+  const other = { tools: [{ type: "light_trap", remaining: 1 }, { type: "cho_net", remaining: 100 }],
+    equippedToolId: "light_trap", toolDex: {} };
+  assert.deepEqual(shape(tools.consume(other)), ["light_trap", 0, true, false, false]);
+  assert.equal(other.equippedToolId, null, "別の種類へ勝手に持ち替えた");
+  assert.deepEqual(other.tools.map(e => e.type + ":" + e.remaining), ["cho_net:100"], "残っていた道具まで消えた");
+
+  const last = { tools: [{ type: "light_trap", remaining: 1 }], equippedToolId: "light_trap", toolDex: {} };
+  assert.deepEqual(shape(tools.consume(last)), ["light_trap", 0, true, false, true]);
+  assert.equal(tools.consume(last), null, "道具ゼロの回に耐久が減った");
+});
+
 test("equipping is one slot and only for tools that are owned", () => {
   const profile = { tools: [], equippedToolId: null };
   tools.grant(profile, "cho_net");

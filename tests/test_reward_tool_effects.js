@@ -211,7 +211,7 @@ test("walletStore consumes durability, persists, and reports broke and swapped",
   const save = saveMock({tools:[{type:"cho_net", remaining:1}, {type:"cho_net", remaining:100}], equippedToolId:"cho_net", toolDex:{}});
   const store = tools.walletStore(save, economyOn, () => "p1");
   assert.deepEqual(plain(store.equippedTool()), {type:"cho_net", remaining:1});
-  assert.deepEqual(plain(store.consumeOnCapture()), {type:"cho_net", remaining:100, broke:true, swapped:true});
+  assert.deepEqual(plain(store.consumeOnCapture()), {type:"cho_net", remaining:100, broke:true, swapped:true, boxEmpty:false});
   assert.equal(save.setCalls, 1);
   assert.equal(save.lastPid, "p1");
   assert.deepEqual(save.peek().tools, [{type:"cho_net", remaining:100}]);
@@ -219,7 +219,9 @@ test("walletStore consumes durability, persists, and reports broke and swapped",
   /* 予備なし: broke + swapped:false、装備が外れて以後は未装備 */
   const save2 = saveMock(gearWith("cho_net", 1));
   const store2 = tools.walletStore(save2, economyOn, () => "p1");
-  assert.deepEqual(plain(store2.consumeOnCapture()), {type:"cho_net", remaining:0, broke:true, swapped:false});
+  /* boxEmpty は壊れたあとの案内を分けるために足した (別の種類が残っていれば うろ
+     ではなく そうび を案内する)。 */
+  assert.deepEqual(plain(store2.consumeOnCapture()), {type:"cho_net", remaining:0, broke:true, swapped:false, boxEmpty:true});
   assert.equal(save2.peek().equippedToolId, null);
   assert.equal(store2.equippedTool(), null);
   assert.equal(store2.consumeOnCapture(), null);

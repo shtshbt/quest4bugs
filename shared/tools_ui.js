@@ -25,6 +25,16 @@
 
   /* 道具の顔。アイコン (shared/tool_icons.js) があればそれを使い、読み込んで
      いない文脈では tools.js の絵文字へ倒す (komorebi の toolFaceHtml と同じ規則)。 */
+  /* ひび。道具ごとの絵は作らない (11 種ぶんの破損画を持つと、道具が増えるたびに
+     絵が 1 枚要る)。道具の絵の上に線を 1 本走らせるだけで「割れた」は伝わる。
+     色は presentation attribute で持たせる: tools.css を読み込んでいない文脈でも
+     線が消えない (アイコンが stroke="currentColor" で潰れないのと同じ考え方)。 */
+  function crackHtml(){
+    return '<svg class="q4b-tool-crack" viewBox="0 0 24 24" aria-hidden="true" fill="none"'
+      +' stroke="#B3541E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+      +'<path d="M13.4 1.5 L10.2 8.6 L14.6 10.4 L9.4 15.2 L12.2 17.4 L7.6 22.5"/></svg>';
+  }
+
   function faceHtml(tool){
     var icons=global.Q4B_TOOL_ICONS;
     var art=icons&&typeof icons.svg==="function"?icons.svg(tool.id):"";
@@ -121,11 +131,18 @@
     var t=textFn(text);
     var face=faceHtml(tool);
     if(!useInfo.broke)return '<p class="q4b-tool-left" role="status">'+face+' '+useInfo.remaining+'／'+tools.durability+'</p>';
+    /* 苦労して授かった 1 本が無くなる場面なので、残りの行と同じ 1 行では流れてしまう。
+       壊れた道具の絵を大きく置き、ひびを 1 本入れて、そのあとどうなるかを言う。 */
     var after=useInfo.swapped
       ?"よびの "+toolName(tool,course)+"に もちかえた!"
-      :"そうびが なくなった。うろで また もらおう";
-    return '<p class="q4b-tool-break" role="status"><strong>'+face+' '+t(tool.breakText)+'</strong>'
-      +'<span>'+t(after)+'</span></p>';
+      :useInfo.boxEmpty===false
+        /* どうぐばこに別の種類が残っている。guild が変わるので勝手には持ち替えない。 */
+        ?"どうぐばこの ほかの どうぐを そうびしよう"
+        :"そうびが なくなった。うろで また もらおう";
+    return '<p class="q4b-tool-break" role="status">'
+      +'<span class="q4b-tool-break-art" aria-hidden="true">'+face+crackHtml()+'</span>'
+      +'<strong>'+t(tool.breakText)+'</strong>'
+      +'<span class="q4b-tool-break-after">'+t(after)+'</span></p>';
   }
 
   /* 捕獲ビネット (komorebi の toolSceneHtml と同じ規則)。道具を装備して 1 匹

@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v165";  /* v165: 採集シーンを対象 guild の虫だけに出す (バナナトラップにトンボ)。 */
+var CACHE = "q4b-cache-v166";  /* v166: 道具の破損を絵とひびの 1 場面にし、他の道具が残る回の案内を直す。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

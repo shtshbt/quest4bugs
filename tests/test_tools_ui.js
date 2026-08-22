@@ -167,6 +167,29 @@ test("statusHtml の破損文はコースの名前で持ち替えを知らせる
   assert.match(plainText(gone), /そうびが なくなった。うろで また もらおう/);
 });
 
+test("どうぐばこに別の種類が残っているなら、うろではなく そうび を案内する", () => {
+  /* 同じ種類の予備は黙って引き継ぐが、別の種類へは勝手に持ち替えない (guild が
+     変わる)。持っているのに「うろで また もらおう」と言うと、どうぐばこの中身が
+     無いことにされてしまう。 */
+  const left = ui.statusHtml({ type: "light_trap", remaining: 0, broke: true, swapped: false,
+    boxEmpty: false }, null, "k10");
+  assert.match(plainText(left), /ライトが きえた!/);
+  assert.match(plainText(left), /どうぐばこの ほかの どうぐを そうびしよう/);
+  assert.equal(plainText(left).indexOf("うろで また もらおう"), -1);
+  /* boxEmpty を知らない古い呼び出しは、これまでどおり うろへ案内する。 */
+  assert.match(plainText(ui.statusHtml({ type: "light_trap", remaining: 0, broke: true, swapped: false })),
+    /うろで また もらおう/);
+});
+
+test("破損は 1 行の知らせではなく、絵とひびのある 1 つの出来事として出す", () => {
+  const broke = ui.statusHtml({ type: "light_trap", remaining: 0, broke: true, swapped: false, boxEmpty: true });
+  assert.match(broke, /class="q4b-tool-break-art"/, "壊れた道具の絵が無い");
+  assert.match(broke, /class="q4b-tool-crack"/, "ひびが無い");
+  /* 壊れていない回に ひび が出ると、残りの行が毎回 破損に見える。 */
+  const alive = ui.statusHtml({ type: "light_trap", remaining: 12, broke: false, swapped: false });
+  assert.equal(alive.indexOf("q4b-tool-crack"), -1, "壊れていない回に ひびが出た");
+});
+
 test("sceneHtml は装備して 対象 guild の虫が 1 匹とれた回だけ、その道具の場面を返す", () => {
   /* bugs.js を読まない文脈なので、種は呼び出し側と同じ形 (result.sp) で渡す。 */
   const moth = { id: "ga", sp: { order: "Lepidoptera", family: "Saturniidae", groupJa: "ガ", tags: ["moth"] } };
