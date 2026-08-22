@@ -1940,6 +1940,25 @@
      区切りではないので、序盤で外しても「この 20 問はもう駄目」にはならず、古い誤答が
      窓から出れば戻る。Lv10 のときだけ出す: それ以外の Lv では窓が動かないので、
      置いても数字が固まったまま意味を持たない。 */
+  /* 「あと何問」= ここから続けて正解したら成立する、その最小の問数。
+     窓は 20 問で回るので、正答数の不足ぶん (17 - いまの正答数) を数えると嘘になる:
+     1 問正解しても、窓から出ていくのが正答なら正答数は動かず、表示が何問解いても
+     「あと 1 もん」で凍ったままになる (実測でこの通りに固まる)。
+     押し出しまで数えたこの値は、正解 1 問につき必ず 1 減る。 */
+  function medalAnswersLeft(recent){
+    var stability=trophiesModuleOrNull().stability;
+    var need=Math.ceil(stability.windowSize*stability.minAccuracy),k,window,ok,i;
+    for(k=0;k<=stability.windowSize;k++){
+      window=recent.slice();
+      for(i=0;i<k;i++)window.push(1);
+      window=window.slice(-stability.windowSize);
+      if(window.length<stability.windowSize)continue;
+      ok=window.reduce(function(sum,value){return sum+value;},0);
+      if(ok>=need)return k;
+    }
+    return stability.windowSize;
+  }
+
   function medalProgressHtml(cat){
     var trophyMod=trophiesModuleOrNull();
     if(!trophyMod||!trophyMod.forCat(cat))return "";
@@ -1953,12 +1972,8 @@
     var entry=profile.trophyProgress&&profile.trophyProgress[cat];
     var recent=entry&&Array.isArray(entry.recent)?entry.recent:[];
     var ok=recent.reduce(function(sum,value){return sum+value;},0);
-    var need=Math.ceil(stability.windowSize*stability.minAccuracy);
-    /* 残りは「あと何問続けて正解すればよいか」。正答数の不足ぶんと、窓がまだ
-       埋まっていないぶんの大きいほうで決まる (どちらも満たさないと成立しない)。 */
-    var left=Math.max(need-ok,stability.windowSize-recent.length,0);
-    return '<span class="ratio-medal" aria-label="'+attrText(word+"の じょうけん、ちょくきん"+stability.windowSize+"もんで "+ok+"もん せいかい、あと "+left+"もん")+'">'
-      +icon+' '+displayText(ok+"／"+stability.windowSize)+' <b>'+displayText("あと"+left+"もん")+'</b></span>';
+    return '<span class="ratio-medal" aria-label="'+attrText(word+"の じょうけん、あと "+medalAnswersLeft(recent)+"もん、ちょくきん"+stability.windowSize+"もんで "+ok+"もん せいかい")+'">'
+      +icon+' <b>'+displayText("あと"+medalAnswersLeft(recent)+"もん")+'</b> '+displayText(ok+"／"+stability.windowSize)+'</span>';
   }
 
   function sessionShell(body){

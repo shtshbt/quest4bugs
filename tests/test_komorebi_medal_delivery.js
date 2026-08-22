@@ -70,6 +70,9 @@ const LEGACY_SAVE = {
     return found ? plainText(found[1]).replace(/\s+/g, " ").trim() : null;
   };
   const need = Math.ceil(trophies.stability.windowSize * trophies.stability.minAccuracy);
+  const answer = (correct, times) => {
+    for(let i = 0; i < times; i++) trophies.noteAnswer(profile, "kom_ratio", 10, correct);
+  };
 
   await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
 
@@ -86,26 +89,41 @@ const LEGACY_SAVE = {
   await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
 
   test("an untouched window shows the whole distance, not a blank", () => {
-    assert.equal(headText(), "🏅 0／" + trophies.stability.windowSize + " あと" + trophies.stability.windowSize + "もん");
+    assert.equal(headText(), "🏅 あと" + trophies.stability.windowSize + "もん 0／" + trophies.stability.windowSize);
   });
 
   for(let i = 0; i < 20; i++) trophies.noteAnswer(profile, "kom_ratio", 10, i < 14);
   await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
 
   test("a full window counts the hits and the distance left", () => {
-    assert.equal(headText(), "🏅 14／20 あと" + (need - 14) + "もん");
+    /* 直近 6 問を外した直後なので、その 6 問が窓から出るまで成立しない。
+       17 - 14 = 3 ではない: 誤答が窓に残っている間は、正解を足しても同じ数の
+       正答が押し出されるだけで正答数が増えない。 */
+    assert.equal(headText(), "🏅 あと17もん 14／20");
+    assert.ok(need - 14 < 17, "the naive shortfall would have understated the distance");
   });
 
-  for(let i = 0; i < 3; i++) trophies.noteAnswer(profile, "kom_ratio", 10, true);
-  await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
+  /* 窓は 20 問で回る。この窓 ([正答 14, 誤答 6] の順) では、正解を足しても
+     出ていくのが正答なので直近 20 問の正答数は 14 のまま動かない。
+     正答数の不足ぶん (17 - 14 = 3) を数えていた頃は、ここで何問解いても
+     「あと 3 もん」で固まっていた (「メーターが動かない」の正体)。
+     押し出しまで数えれば、正解 1 問につき必ず 1 減る。 */
+  const countdown = [];
+  for(let i = 0; i < 4; i++){
+    countdown.push(headText());
+    answer(true, 1);
+    await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
+  }
 
-  test("the window rolls: old answers leave, so no set is ever written off", () => {
-    /* 20 問の区切りではなく rolling。押し出されたのが正答なら数は動かない。
-       ここで数が動かないこと自体が「この 20 問はもう駄目」が存在しない証拠になる。 */
+  test("every correct answer takes exactly one off the countdown", () => {
+    assert.deepEqual(countdown, ["🏅 あと17もん 14／20", "🏅 あと16もん 14／20",
+      "🏅 あと15もん 14／20", "🏅 あと14もん 14／20"],
+      "the countdown froze while the rolling hit count stood still");
+    /* 正答数が動かないのは正しい: 出ていくのも正答なので、直近 20 問のできばえは
+       変わっていない。動かしてよいのは「あと」だけ。 */
     const entry = profile.trophyProgress.kom_ratio;
     assert.equal(entry.recent.length, 20, "the window grew past its size");
     assert.equal(entry.recent.reduce((sum, value) => sum + value, 0), 14);
-    assert.equal(headText(), "🏅 14／20 あと" + (need - 14) + "もん");
   });
 
   profile.lv.kom_ratio = 9;
