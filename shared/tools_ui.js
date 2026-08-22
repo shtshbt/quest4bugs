@@ -139,9 +139,14 @@
         /* どうぐばこに別の種類が残っている。guild が変わるので勝手には持ち替えない。 */
         ?"どうぐばこの ほかの どうぐを そうびしよう"
         :"そうびが なくなった。うろで また もらおう";
+    /* 見送りは感謝の言葉ではなく、その道具が実際にやったことで締める (2026-08-22 決定)。
+       「ありがとう」は稀なイベントでも毎回同じ文なので、繰り返すと定型句になる。
+       捕獲数は耐久そのもの (授かった時点が満タンで、1 捕獲 1 消費、0 で壊れる) なので、
+       この 1 行のために新しい状態を持たない。 */
     return '<p class="q4b-tool-break" role="status">'
       +'<span class="q4b-tool-break-art" aria-hidden="true">'+face+crackHtml()+'</span>'
       +'<strong>'+t(tool.breakText)+'</strong>'
+      +'<span class="q4b-tool-break-log">'+t(tools.durability+"ぴき いっしょに つかまえたね")+'</span>'
       +'<span class="q4b-tool-break-after">'+t(after)+'</span></p>';
   }
 

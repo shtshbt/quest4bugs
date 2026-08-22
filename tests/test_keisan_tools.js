@@ -41,14 +41,14 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
     "../shared/tools.js?v=0.2.2",
     "../shared/tool_icons.js?v=0.2.0",
     "../shared/tool_scenes.js?v=0.2.0",
-    "../shared/tools_ui.js?v=0.1.2",
+    "../shared/tools_ui.js?v=0.1.3",
     "../shared/capture_card.js?v=0.1.0",
     "app.js?v=0.4.40"
   ], "道具系 script の並びか版か app.js の版が想定と違う");
 });
 
 test("index.html が shared/tools.css を読む", () => {
-  assert.match(indexHtml, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.1">/,
+  assert.match(indexHtml, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.2">/,
     "tools.css の link が無い (装備パネルと捕獲カードが素の HTML になる)");
 });
 

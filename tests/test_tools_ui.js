@@ -185,9 +185,15 @@ test("破損は 1 行の知らせではなく、絵とひびのある 1 つの�
   const broke = ui.statusHtml({ type: "light_trap", remaining: 0, broke: true, swapped: false, boxEmpty: true });
   assert.match(broke, /class="q4b-tool-break-art"/, "壊れた道具の絵が無い");
   assert.match(broke, /class="q4b-tool-crack"/, "ひびが無い");
+  /* 見送りは感謝の言葉ではなく、その道具が実際にやったこと。捕獲数は耐久そのもの
+     なので、この 1 行のために新しい状態は持たない (数字は tools.durability と一致)。 */
+  assert.match(plainText(broke), new RegExp(tools.durability + "ぴき いっしょに つかまえたね"),
+    "見送りの 1 行が無い");
+  assert.equal(plainText(broke).indexOf("ありがとう"), -1, "感謝の定型句になっている");
   /* 壊れていない回に ひび が出ると、残りの行が毎回 破損に見える。 */
   const alive = ui.statusHtml({ type: "light_trap", remaining: 12, broke: false, swapped: false });
   assert.equal(alive.indexOf("q4b-tool-crack"), -1, "壊れていない回に ひびが出た");
+  assert.equal(alive.indexOf("いっしょに つかまえたね"), -1, "壊れていない回に見送りが出た");
 });
 
 test("sceneHtml は装備して 対象 guild の虫が 1 匹とれた回だけ、その道具の場面を返す", () => {

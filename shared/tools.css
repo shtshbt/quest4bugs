@@ -44,6 +44,9 @@
 .q4b-tool-break{display:flex;flex-direction:column;align-items:center;gap:5px;margin:10px 0 0;padding:12px;
   border:2px solid var(--q4b-amber);border-radius:12px;background:#FFF1DE;color:var(--q4b-amber-d);text-align:center}
 .q4b-tool-break strong{font-size:17px}
+/* その道具がやったこと。壊れた知らせと「つぎに どうするか」の間に置き、
+   見送りの 1 行として少しだけ強く出す。 */
+.q4b-tool-break .q4b-tool-break-log{font-size:13.5px;font-weight:800;color:var(--q4b-amber-d)}
 .q4b-tool-break .q4b-tool-break-after{font-size:12.5px;color:var(--q4b-sub)}
 /* 壊れた道具の絵。残りの行のアイコン (1.35em) より大きく置いて、1 行の知らせでは
    なく 1 つの出来事として読ませる。ひびは絵の上に重ねる。 */
