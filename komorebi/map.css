@@ -183,6 +183,12 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 
 /* Lv 表示。本編の lvDotsHTML と同じ ●✗○ 表記。 */
 .ratio-lv{display:inline-block;margin-top:4px;font-size:13px;letter-spacing:.12em;color:#CFE7A8;font-weight:700}
+/* メダルの条件 (直近 20 問の rolling window)。Lv ドットの下にもう 1 行だけ。
+   Lv の進み (●✗○) と役割が違うので、色と枠で別のものだと分かるようにする。 */
+.ratio-medal{display:block;margin-top:4px;padding:2px 8px;border:1px solid #6B5A2A;border-radius:999px;
+  background:#241E10;color:#FFE9A8;font-size:12px;font-weight:800;width:fit-content;max-width:100%}
+.ratio-medal b{margin-left:4px;color:#FFD86B}
+.ratio-medal.is-done{border-color:#4F785D;background:#102A24;color:#B6D2A6}
 
 /* 捕獲カードは共有部品 (shared/capture_card.js) が描き、見た目は shared/tools.css
    (q4b-cap- 名前空間) が自分の地色ごと持つ。旧 .ratio-capture 系 (小道の名前空間で

@@ -106,6 +106,8 @@
   var profile=null, profileId=null, profileRevision=0, profileType="k10", worldMap=null, ratioPool=null, session=null;
   var KOMOREBI_ANSWER_TIMER=global.Q4BReward&&global.Q4BReward.answerTimer?global.Q4BReward.answerTimer():null;
   var zukanModalRerender=null;
+  /* 捧げ待ちメダルの回収は 1 回の読み込みにつき 1 度だけ (renderMap を参照)。 */
+  var pendingMedalsSwept=false;
   /* ?demo で見え方だけを差し替える確認用モード。保存には一切触れない
      (Phase 3 のピン状態と一覧の見比べ用。実データが入ったら不要)。 */
   var demoProgress={volume_fixture:3,volume_fixture_australia:11,volume_fixture_borneo:5,volume_fixture_costa_rica:1};
@@ -1931,10 +1933,38 @@
     return '<span class="ratio-lv" aria-label="'+attrText("レベル"+lv+"、10問中"+inBlock+"問め")+'">Lv'+lv+'　'+dots+'</span>';
   }
 
+  /* メダルの条件を解いている画面に出す。ルールが不可視なままだと、Lv10 に上がった
+     あと「解き続けても何も起きない時間」だけが続き、条件を満たしたのか、もう取った
+     のかが本人には分からない。
+     窓は trophies.js が判定に使う直近 20 問そのもの (rolling) を読む。20 問ごとの
+     区切りではないので、序盤で外しても「この 20 問はもう駄目」にはならず、古い誤答が
+     窓から出れば戻る。Lv10 のときだけ出す: それ以外の Lv では窓が動かないので、
+     置いても数字が固まったまま意味を持たない。 */
+  function medalProgressHtml(cat){
+    var trophyMod=trophiesModuleOrNull();
+    if(!trophyMod||!trophyMod.forCat(cat))return "";
+    if(((profile.lv&&profile.lv[cat])||1)!==10)return "";
+    var icon=medalWording()?"🏅":"🏆",word=medalWording()?"メダル":"トロフィー";
+    /* 今の周回ぶんは鋳造済み。同じ条件をもう一度満たしても何も起きない (再授与は
+       しない) ので、そのことを言う。言わないと「クリアしたのに無反応」に見える。 */
+    if(trophyMod.mintedLaps(profile,cat)>=trophyMod.lapOf(profile,cat))
+      return '<span class="ratio-medal is-done" aria-label="'+attrText(word+"は かくとくずみ")+'">'+icon+' '+displayText("かくとくずみ")+'</span>';
+    var stability=trophyMod.stability;
+    var entry=profile.trophyProgress&&profile.trophyProgress[cat];
+    var recent=entry&&Array.isArray(entry.recent)?entry.recent:[];
+    var ok=recent.reduce(function(sum,value){return sum+value;},0);
+    var need=Math.ceil(stability.windowSize*stability.minAccuracy);
+    /* 残りは「あと何問続けて正解すればよいか」。正答数の不足ぶんと、窓がまだ
+       埋まっていないぶんの大きいほうで決まる (どちらも満たさないと成立しない)。 */
+    var left=Math.max(need-ok,stability.windowSize-recent.length,0);
+    return '<span class="ratio-medal" aria-label="'+attrText(word+"の じょうけん、ちょくきん"+stability.windowSize+"もんで "+ok+"もん せいかい、あと "+left+"もん")+'">'
+      +icon+' '+displayText(ok+"／"+stability.windowSize)+' <b>'+displayText("あと"+left+"もん")+'</b></span>';
+  }
+
   function sessionShell(body){
     var cat=session.cat;
     return '<main class="kom-page ratio-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
-      +'<div class="ratio-session-head"><div><h1>'+displayText(CATEGORIES[cat].name)+'</h1><p>'+displayText("第"+(session.index+1)+"／"+session.questions.length+"問")+'</p>'+lvDotsHtml(cat)+'</div>'+gaugeHtml()+'</div>'
+      +'<div class="ratio-session-head"><div><h1>'+displayText(CATEGORIES[cat].name)+'</h1><p>'+displayText("第"+(session.index+1)+"／"+session.questions.length+"問")+'</p>'+lvDotsHtml(cat)+medalProgressHtml(cat)+'</div>'+gaugeHtml()+'</div>'
       +'<section class="ratio-panel">'+body+'</section></main>';
   }
 
@@ -2664,10 +2694,23 @@
     return module;
   }
 
-  /* 未公開カテゴリのトロフィーは枠ごと出さない。取りようのない枠を並べると、
-     目標ボードが「いつまでも埋まらない棚」に見えてしまう。 */
-  function releasedTrophies(){
-    return trophyModule().list().filter(function(trophy){return isReleased(trophy.cat);}).filter(function(trophy){return CATEGORIES[trophy.cat].course===profileType;});
+  /* 画面 (メダルの棚) と奉納 (うろ) が見る一覧。
+     まだ取っていない枠は公開済み・同コースのぶんだけ出す。取りようのない枠を
+     並べると、目標ボードが「いつまでも埋まらない棚」に見えてしまう。
+     獲得済みの記録はこの絞り込みの外に置く。鋳造 (trophies.js の award) には
+     公開ゲートもコースゲートも無いので、表示側だけで絞り込むと「鋳造は済んで
+     いるのに、交換ポップアップにも棚にも うろにも出てこないメダル」が生まれる。
+     mintedLaps は鋳造の瞬間に焼かれて戻らないため、そのメダルは二度と受け取れない
+     (= Lv10 をクリアしたのに何も起きない)。獲得の記録は不滅 (tools_design 2 章)
+     を表示側でも守る。コースが食い違う経路は実在する: けいさんでコースを選ぶ前や、
+     別端末でけいさんの保存がまだ降りていない間は boot の
+     QuestSave.load("keisan") が null を返し、profileType が k10 へ倒れる。 */
+  function medalTrophies(){
+    var earned=profile&&isObject(profile.trophies)?profile.trophies:{};
+    return trophyModule().list().filter(function(trophy){
+      if(earned[trophy.trophyId])return true;
+      return isReleased(trophy.cat)&&CATEGORIES[trophy.cat].course===profileType;
+    });
   }
 
   /* 表示語彙はメダル経済のスイッチに連動させる。off の間は従来のトロフィー表記の
@@ -2675,7 +2718,7 @@
   function medalWording(){return medalEconomyOn();}
 
   function trophyEntranceHtml(){
-    var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    var all=medalTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     var label=medalWording()?'🏅 <span>'+displayText("メダル")+'</span>':'🏆 <span>'+displayText("トロフィー")+'</span>';
     return '<div class="kom-trophy-entrance"><button type="button" class="kom-trophy-open" data-action="trophies">'
       +label+' <strong>'+earned+'／'+all.length+'</strong></button></div>';
@@ -2700,7 +2743,7 @@
 
   function renderTrophies(volumeId){
     hideZukanModeToggle();
-    var all=releasedTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
+    var all=medalTrophies(),earned=all.filter(function(trophy){return profile.trophies[trophy.trophyId];}).length;
     document.getElementById("app").innerHTML='<main class="kom-page kom-trophy-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back">← '+displayText("小道")+'</button></header>'
       +'<div class="kom-title"><h1>'+displayText(medalWording()?"きんいろメダル":"きんいろトロフィー")+'</h1>'
       +'<p>'+displayText("カテゴリを Lv10 クリアすると もらえる")+'　<strong>'+earned+'／'+all.length+'</strong></p></div>'
@@ -2728,7 +2771,7 @@
      周回した cat はその枚数ぶん並ぶ (捧げ待ちが 2 枚出るのはこのため)。 */
   function earnedMedals(){
     var trophyMod=trophyModule(),medals=[];
-    releasedTrophies().forEach(function(trophy){
+    medalTrophies().forEach(function(trophy){
       var record=profile.trophies[trophy.trophyId];
       if(!record)return;
       var speciesId=record.speciesId||trophy.speciesId,name=medalSpeciesName(speciesId)+"のメダル";
@@ -2900,18 +2943,21 @@
     document.body.appendChild(overlay);
   }
 
-  /* 鋳造の瞬間に出す交換。2 周目以降は 1 度の鋳造で 2 枚なので、1 枚選び終えたら
-     残りぶんをそのまま続けて出す (道具を 2 つ選ぶ = ポップアップ 2 回)。
+  /* 捧げ待ちのメダルを 1 枚ずつ交換にかける。cat を渡すとそのカテゴリぶんだけ、
+     渡さなければ全部。2 周目以降は 1 度の鋳造で 2 枚なので、1 枚選び終えたら残りぶんを
+     そのまま続けて出す (道具を 2 つ選ぶ = ポップアップ 2 回)。
      「あとにする」で閉じたときは追わない。残りは うろの捧げ待ちに並ぶ。
      既に捧げ済みなら 1 枚も出さない。保存の再送などで二度呼ばれてもポップアップが
      重ならないようにする。 */
-  function offerMintedMedal(trophy,onDone){
+  function offerMedalQueue(cat,onDone){
     if(!uroAvailable()||!global.document){if(onDone)onDone();return;}
-    var waiting=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
-    var total=waiting.length;
+    function waiting(){
+      return pendingMedals().filter(function(medal){return !cat||medal.cat===cat;});
+    }
+    var total=waiting().length;
     if(!total){if(onDone)onDone();return;}
     function step(index){
-      var left=pendingMedals().filter(function(item){return item.cat===trophy.cat;});
+      var left=waiting();
       if(!left.length){if(onDone)onDone();return;}
       showMedalExchange(left[0],function(entry){
         if(entry)step(index+1);
@@ -2920,6 +2966,9 @@
     }
     step(1);
   }
+
+  /* 鋳造の瞬間に出す交換。 */
+  function offerMintedMedal(trophy,onDone){offerMedalQueue(trophy.cat,onDone);}
 
   function uroPageOptions(){
     var uro=uroModule(),tools=toolsModule(),seen={};
@@ -3023,6 +3072,16 @@
       pin.addEventListener("click",function(){selectRegion(region);});
       pin.addEventListener("focus",function(){selectRegion(region);});
     });
+    /* 取りこぼした捧げ待ちをここで回収する。鋳造の瞬間の交換ポップアップは 2 つの
+       ぶんを取りこぼす: メダル経済が閉じている間に成立したメダル (交換の入口ごと
+       無かったので、黙って捧げ待ちに積まれる) と、うろへ辿り着かなかった子。
+       どちらも本人からは「Lv10 をクリアしたのに何も起こらない」に見える。
+       出すのはページの読み込みごとに 1 度きり。地図はセッションの戻り先でもあるので、
+       毎回出すと「あとにする」を選んでも小道へ入るたびに再び塞がれる。 */
+    if(!pendingMedalsSwept){
+      pendingMedalsSwept=true;
+      offerMedalQueue(null);
+    }
   }
 
   /* 図鑑の絞り込み。本編 keisan の zukanMatchK と同じ語彙 (レア度 tier / 分類キー /

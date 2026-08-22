@@ -83,6 +83,33 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(locked.every(slot => slot.indexOf("<svg") < 0), true, "a locked slot is showing the insect already");
   });
 
+  /* 鋳造にはコースゲートも公開ゲートも無い (trophies.js の award)。表示と奉納が
+     「公開済み × いまのコース」だけを見ていた頃は、コースが食い違ったまま成立した
+     メダルが棚にも うろにも出ず、mintedLaps だけ焼かれて二度と受け取れなかった。
+     コースが食い違う経路は実在する: けいさんでコースを選ぶ前と、別端末でけいさんの
+     保存がまだ降りていない間は、boot の QuestSave.load("keisan") が null を返して
+     profileType が k10 へ倒れる。獲得済みの記録は絞り込みの外に置く。 */
+  profile.maxLv.kom_ratio = 10;
+  profile.lv.kom_ratio = 10;
+  for(let i = 0; i < 20; i++) trophies.noteAnswer(profile, "kom_ratio", 10, true);
+  assert.ok(trophies.award(profile, "kom_ratio", "2026-08-14"), "the k10 medal was not minted");
+
+  app.querySelector('[data-action="back"]').click();
+  app.querySelector('[data-action="trophies"]').click();
+
+  test("a medal won under the other course is still shown and still redeemable", () => {
+    const text = plain();
+    assert.equal((app.innerHTML.match(/is-earned/g) || []).length, 2, "the off-course medal vanished from the shelf");
+    assert.match(text, medalOn ? /オオオナガヤママユのメダル/ : /マダガスカルえんせいの きんいろオオオナガヤママユ/);
+    assert.match(text, /2026-08-14 かくとく/);
+    /* 未獲得の枠は増やさない。目標ボードはいまのコースのままにする。 */
+    assert.equal((app.innerHTML.match(/is-locked/g) || []).length, k5Slots - 1);
+    assert.equal(text.indexOf("割合と比を Lv10 クリア"), -1, "a k10 goal slot leaked into the k5 board");
+    /* 奉納の待ち行列にも並ぶ。ここが空だと、鋳造だけ済んで道具に換えられない。 */
+    assert.equal(komorebi.pendingMedals().some(medal => medal.cat === "kom_ratio"), true,
+      "the off-course medal cannot be offered at the hollow");
+  });
+
   console.log("RESULT " + passed + " passed, 0 failed");
 })().catch(error => {
   console.error("FAIL " + error.message);
