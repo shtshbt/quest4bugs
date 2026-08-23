@@ -76,13 +76,22 @@ test("each guild matcher lands on the number of Madagascar I species it should",
   assert.equal(hits("dung_trap"), 0);
 });
 
-/* 「その場所でその道具が働くか」は当たり数ゼロの言い換え。MG I の当たり数
-   (上の検査) と 1 対 1 に対応することを固定しておくと、片方だけ動いたときに気づく。 */
-test("worksIn mirrors the hit counts: zero targets means the tool is not a tool here", () => {
+/* 「その場所でその道具が働くか」は当たり数ではなく対象率で測る。母数が場所ごとに
+   6 倍ちがう (本編 432-508 種 / 小道の 1 巻 80-84 種) ので、絶対数の下限はどちらか
+   一方でしか正しくならない。MG I の当たり数 (上の検査) と 1 対 1 に対応することを
+   固定しておくと、率か当たり数の片方だけが動いたときに気づく。 */
+test("worksIn measures the guild share, not the raw hit count", () => {
+  const share = tools.GUILD_MIN_SHARE;
+  assert.equal(share, 0.05, "体感できる下限は 5% (2026-08-22 決定)");
   tools.list().forEach(tool => {
-    assert.equal(tools.worksIn(tool.id, mgSpecies), hits(tool.id) > 0,
-      tool.id + " の worksIn が当たり数と食い違う");
+    assert.equal(tools.worksIn(tool.id, mgSpecies), hits(tool.id) / mgSpecies.length >= share,
+      tool.id + " の worksIn が対象率と食い違う");
   });
+  /* MG I の実データでの境界。公開中の 4 本はすべて残り、ビーティング (3/84 = 3.6%)
+     と長竿・フン (0) は「ここでは道具ではない」に倒れる。 */
+  assert.equal(tools.worksIn("light_trap", mgSpecies), true, "MG I の灯火 (7 種) が死札になった");
+  assert.equal(tools.worksIn("banana_trap", mgSpecies), true, "MG I のバナナ (9 種) が死札になった");
+  assert.equal(tools.worksIn("beating_set", mgSpecies), false, "3 種 (3.6%) で働いた");
   assert.equal(tools.worksIn("long_pole", mgSpecies), false, "MG I に対象のいない長竿が働いた");
   /* プールが分からない文脈では取り上げない (分からないことを理由に外すほうが悪い)。 */
   assert.equal(tools.worksIn("long_pole", null), true);

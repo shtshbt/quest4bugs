@@ -227,6 +227,13 @@ test("worksIn は対象 guild が 1 匹でもいるかを見て、プール不�
   assert.equal(tools.worksIn("light_trap", MOTHS), true);
   assert.equal(tools.worksIn("light_trap", BEETLES), false, "甲虫しかいないのに灯火が働いた");
   assert.equal(tools.worksIn("banana_trap", BEETLES), true);
+  /* 下限は種数ではなく割合 (母数が場所ごとに 6 倍ちがうため)。1 匹だけ混じった
+     大きなプールは「いるにはいる」であって、道具として働いてはいない。 */
+  const thin = MOTHS.concat(Array.from({ length: 99 }, (_, i) =>
+    Object.assign({}, BEETLES[0], { id: "b" + i })));
+  assert.equal(tools.worksIn("light_trap", thin), false, "1/100 (1%) で灯火が働いた");
+  assert.equal(tools.worksIn("light_trap", MOTHS.concat(thin.slice(1, 20))), true,
+    "1/20 (5%) の境界で倒れた");
   assert.equal(tools.worksIn("light_trap", null), true, "プール不明で道具を取り上げた");
   assert.equal(tools.worksIn("light_trap", []), true, "空のプールで道具を取り上げた");
   assert.equal(tools.worksIn("no_such_tool", MOTHS), false);
@@ -267,7 +274,8 @@ test("noticeHtml は道具の名前と guild を言い、text の注入が全文
   assert.match(html, /class="q4b-tool-notice"/);
   assert.ok(html.indexOf("《灯火採集セットは よるに とぶ 虫を つかまえる どうぐ。》") >= 0,
     "なぜ ここでは だめかの 1 行が無い");
-  assert.ok(html.indexOf("《ここには その 虫が いないから、ここでは はずしておくね。》") >= 0);
+  assert.ok(html.indexOf("《ここには その 虫が ほとんど いないから、ここでは はずしておくね。》") >= 0,
+    "下限は 0 匹ではなく 5% なので「いない」と言い切らない");
   assert.ok(html.indexOf("どうぐばこには そのまま のこるよ") >= 0, "道具が残ることを言っていない");
   assert.match(html, /class="q4b-tool-notice-ok"/, "閉じる札が無い");
   /* 5 歳コースは かなの名前 (tools.js の yomi)。 */

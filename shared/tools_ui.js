@@ -65,9 +65,9 @@
        course   "k5" | "k10" (5 歳コースは かなの名前)
        economy  {on()} 公開スイッチ。無い / false の間はパネルごと出さない
        release  公開済み更新番号。省略時は economy.currentRelease() へ倒す
-       pool     そのゲームの捕獲プール (種の配列)。渡すと、対象 guild が 1 匹も
-                いない道具を「ここでは つかえない」として選べなくする。省略時は
-                従来どおり全部選べる
+       pool     そのゲームの捕獲プール (種の配列)。渡すと、対象 guild の割合が
+                下限 (tools.js の GUILD_MIN_SHARE) に届かない道具を「ここでは
+                つかえない」として選べなくする。省略時は従来どおり全部選べる
 
      表示規則は komorebi の toolWidgetHtml と同じ: 未公開 release の道具は出さない、
      道具ゼロならパネルごと空文字、同種 2 本目は「よび N」、残りは N／M。 */
@@ -243,7 +243,9 @@
       +'<span class="q4b-tool-notice-art" aria-hidden="true">'+faceHtml(entry)+'</span>'
       +'<strong class="q4b-tool-notice-head">'+t("ここでは つかえない どうぐ")+'</strong>'
       +'<p class="q4b-tool-notice-why">'+t(name+"は "+entry.guild+"を つかまえる どうぐ。")+'</p>'
-      +'<p class="q4b-tool-notice-why">'+t("ここには その 虫が いないから、ここでは はずしておくね。")+'</p>'
+      /* 「いない」ではなく「ほとんど いない」。下限は 0 匹ではなく対象率 5% なので
+         (tools.js の GUILD_MIN_SHARE)、1 匹だけいる巻で「いない」と言うと嘘になる。 */
+      +'<p class="q4b-tool-notice-why">'+t("ここには その 虫が ほとんど いないから、ここでは はずしておくね。")+'</p>'
       +'<p class="q4b-tool-notice-keep">'+t("どうぐばこには そのまま のこるよ。つかえる ばしょでは また そうびされるよ。")+'</p>'
       +'<button type="button" class="q4b-tool-notice-ok">'+t("わかった")+'</button></div>';
   }

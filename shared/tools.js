@@ -187,21 +187,34 @@
     return !!tool.match(sp);
   }
 
-  /* その場所でその道具が働くか。捕獲プール (種の配列) に対象 guild が 1 匹でも
-     いれば true。
+  /* その場所でその道具が働くと言える下限。捕獲プールに占める対象 guild の割合で
+     測り、種数では測らない。プールの母数が場所によって 6 倍ちがう (本編は 432-508 種、
+     小道の 1 巻は 80-84 種) ので、「10 種以上」のような絶対数はどちらか一方でしか
+     正しくならない。10 種は本編では妥当でも、84 種の巻では MG I の灯火 (7 種) と
+     バナナ (9 種) という現に働いている 2 本を殺す。
+
+     5% は「体感できる下限」から決めた (2026-08-22 決定)。対象率 q の道具を装備した
+     ときに場面が出る割合は 3q/(1+2q) なので、q=5% で 14%、7 回に 1 回。これを下回る
+     組は、対象が「いるにはいる」だけで、装備しても何も起きないのと変わらない。 */
+  var GUILD_MIN_SHARE=0.05;
+
+  /* その場所でその道具が働くか。捕獲プール (種の配列) に占める対象 guild の割合が
+     GUILD_MIN_SHARE 以上なら true。
 
      本編は目でプールが割れている (shared/reward.js の gameFor: kanji=チョウ目 /
      keisan=甲虫 / eitango=その他) ので、けいさんに灯火採集セットを持ち込むと対象種が
      1 匹もいない。それでも当選重みは全種 1 倍のまま抽選が回り、耐久だけが 1 捕獲
-     ごとに減って最後は壊れる。何も起きないのに授かった 1 本が溶けるので、対象ゼロは
+     ごとに減って最後は壊れる。何も起きないのに授かった 1 本が溶けるので、下限割れは
      「効きが薄い」ではなく「その場所では道具ではない」として扱う。
 
      プールが分からない文脈 (配列でない / 空) では true に倒す。分からないことを
-     理由に道具を取り上げるのは、対象ゼロを見逃すより悪い。 */
+     理由に道具を取り上げるのは、下限割れを見逃すより悪い。 */
   function worksIn(toolId,pool){
     if(!byId(toolId))return false;
     if(!Array.isArray(pool)||!pool.length)return true;
-    return pool.some(function(sp){return matches(toolId,sp);});
+    var hits=0;
+    pool.forEach(function(sp){if(matches(toolId,sp))hits++;});
+    return hits/pool.length>=GUILD_MIN_SHARE;
   }
 
   /* --- 効果の定数 (tools_design 8 章) ----------------------------------------
@@ -341,7 +354,7 @@
      「装備中の 1 本を訊く / 捕獲 1 回ぶん減らす」の 2 つしか知らない。
      ゲートは komorebi/app.js の equippedToolOf と同じ 3 段: economy が閉じている間、
      道具の release が現在の release を超えている間、そしてその教科の捕獲プールに
-     対象 guild が 1 匹もいない間は「未装備」に倒れる。倒れている間、reward 側の
+     対象 guild の割合が下限 (GUILD_MIN_SHARE) に届かない間は「未装備」に倒れる。倒れている間、reward 側の
      抽選は乱数の消費本数まで装備前と変わらない。
 
      getPool は省略可で、渡すとそのゲームの捕獲プール (種の配列) を返す。3 段目の
@@ -398,6 +411,7 @@
     displayName:displayName,
     matches:matches,
     worksIn:worksIn,
+    GUILD_MIN_SHARE:GUILD_MIN_SHARE,
     FRESH_BOOST:FRESH_BOOST,
     guildWeightFor:guildWeightFor,
     walletStore:walletStore,
