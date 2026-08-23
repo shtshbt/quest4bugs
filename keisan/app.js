@@ -279,10 +279,16 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
    新しいグローバルへの参照は必ず関数内 + window ガードで行う (トップレベルの裸参照は
    読み込み順しだいで ReferenceError になる)。経済が閉じている間は walletStore 自身が
    「未装備」に倒れるので、抽選は道具の実装前と変わらない。 */
+/* けいさんの捕獲プールは甲虫だけ (shared/reward.js の gameFor)。チョウ・トンボ・ガの
+   道具はここでは対象が 1 匹もいないので、walletStore に プールを渡して「未装備」に
+   倒す。倒れている間は当選重みも耐久の消費も動かない (道具の実装前と同一)。 */
+function keisanToolPool(){
+  return (window.Q4BReward&&typeof Q4BReward.pool==="function")?Q4BReward.pool("keisan"):null;
+}
 function wireKeisanToolsStore(){
   if(!(window.Q4BReward&&window.QuestSave&&Q4BReward.setToolsStore))return;
   if(!(window.Q4B_TOOLS&&Q4B_TOOLS.walletStore))return;
-  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,pidNow));
+  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,pidNow,keisanToolPool));
 }
 if(!window.Q4B_KEISAN_NO_BOOT)wireKeisanToolsStore();
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
@@ -765,6 +771,7 @@ function showHome(){
   render(h);
   checkMastersK();
   maybeShowKomorebiDiscovery(p);
+  maybeShowKeisanToolNotice(p);
 }
 
 /* ===== マスター虫（全習得限定）===== */
@@ -931,8 +938,30 @@ function keisanToolPanelSection(p){
     text:keisanToolText(p),
     attrText:keisanToolAttrText,
     course:p&&p.type,
-    economy:window.Q4B_ECONOMY
+    economy:window.Q4B_ECONOMY,
+    pool:keisanToolPool()
   });
+}
+/* 「ここでは つかえない どうぐ」。小道でセットした道具のまま けいさんへ来ると、
+   対象種が 1 匹もいない組がある (チョウ・トンボ・ガの 3 種)。装備そのものは
+   toolgear kv に全ゲーム共通で 1 個なので書き換えない: ここで外すと小道の装備まで
+   消える。倒れているのは「ここ」だけなので、そのことを 1 枚出して伝える。
+   1 ページ読み込みにつき 1 回だけ (画面を行き来するたびに出ると邪魔)。 */
+var keisanToolNoticeShown=false;
+function maybeShowKeisanToolNotice(p){
+  if(keisanToolNoticeShown||$("md"))return;   /* 先客のモーダルを踏まない (#md は 1 枚) */
+  if(!(window.Q4BToolsUI&&Q4BToolsUI.inactiveTool&&window.QuestSave&&QuestSave.toolGearOf))return;
+  var pid=pidNow(); if(!pid)return;
+  var tool=Q4BToolsUI.inactiveTool({
+    gear:QuestSave.toolGearOf(pid),
+    economy:window.Q4B_ECONOMY,
+    pool:keisanToolPool()
+  });
+  if(!tool)return;
+  keisanToolNoticeShown=true;
+  app.insertAdjacentHTML("beforeend",'<div class="modal" id="md" onclick="closeMd(event)"><div class="mcard">'
+    +Q4BToolsUI.noticeHtml(tool,{text:keisanToolText(p),course:p&&p.type})+'</div></div>');
+  if(Q4BToolsUI.bindNotice)Q4BToolsUI.bindNotice(app,{onClose:closeMd});
 }
 /* 装備の持ち替え。gear を読み直してから equippedToolId を書き換え、保存できたら
    ずかんを再描画して「いまの そうび」表示を合わせる。 */

@@ -33,6 +33,27 @@
 .q4b-tool-chip.is-on .q4b-tool-chip-left{color:var(--q4b-amber-d)}
 .q4b-tool-chip-spare{padding:1px 6px;border-radius:999px;background:var(--q4b-green-l);color:var(--q4b-green-d);font-size:11px}
 .q4b-tool-chip:focus-visible{outline:3px solid var(--q4b-amber);outline-offset:3px}
+/* ここでは対象 guild が 1 匹もいない道具。消さずに淡くして、理由を 1 語そえる
+   (消すと「取り上げられた」に見える)。 */
+.q4b-tool-chip.is-dead{border-style:dashed;background:#F4F4EC;color:var(--q4b-sub);cursor:default;opacity:.72}
+.q4b-tool-chip-dead{padding:1px 6px;border-radius:999px;background:#E8E4D6;color:#7A705C;font-size:11px}
+
+/* ---- 「ここでは つかえない」の知らせ ---- */
+.q4b-tool-notice{display:flex;flex-direction:column;align-items:center;gap:6px;
+  max-width:420px;margin:0 auto;padding:16px 14px;text-align:center;
+  background:var(--q4b-panel);border:2px solid var(--q4b-line);border-radius:16px;
+  color:var(--q4b-ink);box-sizing:border-box;
+  --q4b-panel:#FFFDF4;--q4b-ink:#2A3D2C;--q4b-sub:#6B7A5E;--q4b-line:#CFDDB2;
+  --q4b-green-d:#2C5F2D;--q4b-amber:#F2A33C;--q4b-amber-d:#CF7F14;--tool-accent:var(--q4b-amber-d)}
+.q4b-tool-notice-art{display:inline-block;width:52px;height:52px;font-size:40px;line-height:1}
+.q4b-tool-notice .q4b-tool-notice-art .tool-icon{width:52px;height:52px;vertical-align:0}
+.q4b-tool-notice-head{font-size:16px;font-weight:800;color:var(--q4b-green-d)}
+.q4b-tool-notice-why{margin:0;font-size:13.5px;line-height:1.5}
+.q4b-tool-notice-keep{margin:2px 0 0;font-size:12.5px;color:var(--q4b-sub);line-height:1.5}
+.q4b-tool-notice-ok{margin-top:8px;min-height:40px;padding:8px 22px;border:2px solid var(--q4b-amber);
+  border-radius:999px;background:#FFF3D8;color:var(--q4b-amber-d);
+  font-family:inherit;font-size:14px;font-weight:800;cursor:pointer}
+.q4b-tool-notice-ok:focus-visible{outline:3px solid var(--q4b-amber);outline-offset:3px}
 
 /* ---- 道具アイコン (shared/tool_icons.js)。map.css を読まない本編でも同じ姿に。 ---- */
 .q4b-tool-panel .tool-icon,.q4b-cap-card .tool-icon{

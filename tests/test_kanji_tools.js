@@ -32,10 +32,10 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
   const expected = [
     '<script src="../shared/yomi.js?v=0.3.0"></script>',
     '<script src="../shared/economy_flag.js?v=0.2.1"></script>',
-    '<script src="../shared/tools.js?v=0.2.2"></script>',
+    '<script src="../shared/tools.js?v=0.2.3"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',
-    '<script src="../shared/tools_ui.js?v=0.1.3"></script>',
+    '<script src="../shared/tools_ui.js?v=0.1.4"></script>',
     '<script src="../shared/capture_card.js?v=0.1.0"></script>'
   ];
   let cursor = -1;
@@ -50,13 +50,18 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
 });
 
 test("tools.css is linked next to the existing stylesheet", () => {
-  assert.match(source, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.2">/);
+  assert.match(source, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.3">/);
 });
 
 test("the shared tool wallet is wired into the reward draw, with the amber pid getter", () => {
   /* setAmberStore と同じ kPidNow を渡す。pid が割れると道具とこはくで別人になる。 */
   assert.match(source,
-    /Q4BReward\.setToolsStore\(Q4B_TOOLS\.walletStore\(QuestSave,window\.Q4B_ECONOMY,kPidNow\)\)/);
+    /Q4BReward\.setToolsStore\(Q4B_TOOLS\.walletStore\(QuestSave,window\.Q4B_ECONOMY,kPidNow,kanjiToolPool\)\)/);
+  /* 対象 guild ゼロの装備は walletStore が倒す。倒れたことを黙って済ませないよう、
+     ホームで 1 度だけ知らせを出す。 */
+  assert.match(source, /function kanjiToolPool\(\)/, "捕獲プールの getter が無い");
+  assert.match(source, /function maybeShowKanjiToolNotice\(\)/, "つかえない道具の知らせが無い");
+  assert.match(source, /checkMasters\(\); maybeShowKanjiToolNotice\(\)/, "ホームから知らせが呼ばれない");
   const amberAt = source.indexOf("Q4BReward.setAmberStore({");
   const toolsAt = source.indexOf("Q4BReward.setToolsStore(");
   assert.ok(amberAt >= 0 && toolsAt > amberAt, "setToolsStore は setAmberStore の隣に置く");
@@ -64,7 +69,7 @@ test("the shared tool wallet is wired into the reward draw, with the amber pid g
 
 test("renderBugs shows the shared equip panel and rebinds it on redraw", () => {
   const fn = sliceOf("function renderBugs(){", "function _renderBugsFallback(");
-  assert.match(fn, /Q4BToolsUI\.panelHtml\(\{gear:QuestSave\.toolGearOf\(kPidNow\(\)\),economy:window\.Q4B_ECONOMY\}\)/);
+  assert.match(fn, /Q4BToolsUI\.panelHtml\(\{gear:QuestSave\.toolGearOf\(kPidNow\(\)\),economy:window\.Q4B_ECONOMY,pool:kanjiToolPool\(\)\}\)/);
   /* パネルはこはく行の直後・むしずかんフィルタの前 (独立カード)。 */
   const amberRow = fn.indexOf("こはくで よぶ");
   const panelAt = fn.indexOf("+toolPanel");

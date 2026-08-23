@@ -41,6 +41,15 @@
     return art||tool.emoji||"🔧";
   }
 
+  /* その場所でその道具が働かないか。プールを渡されていない文脈では常に false
+     (分からないことを理由に道具を取り上げない)。判定そのものは tools.worksIn の
+     1 本だけが持ち、ここは呼ぶだけ。 */
+  function isDeadHere(toolId,pool){
+    var tools=global.Q4B_TOOLS;
+    if(!tools||typeof tools.worksIn!=="function"||!Array.isArray(pool))return false;
+    return !tools.worksIn(toolId,pool);
+  }
+
   /* 画面に出す道具の名前。5 歳コースには かなの名前 (tools.js の yomi) が返る。 */
   function toolName(tool,course){
     var tools=global.Q4B_TOOLS;
@@ -56,6 +65,9 @@
        course   "k5" | "k10" (5 歳コースは かなの名前)
        economy  {on()} 公開スイッチ。無い / false の間はパネルごと出さない
        release  公開済み更新番号。省略時は economy.currentRelease() へ倒す
+       pool     そのゲームの捕獲プール (種の配列)。渡すと、対象 guild が 1 匹も
+                いない道具を「ここでは つかえない」として選べなくする。省略時は
+                従来どおり全部選べる
 
      表示規則は komorebi の toolWidgetHtml と同じ: 未公開 release の道具は出さない、
      道具ゼロならパネルごと空文字、同種 2 本目は「よび N」、残りは N／M。 */
@@ -79,19 +91,33 @@
       if(!tool||tool.release>release)return;
       seen[instance.type]=true;
       var stock=tools.ownedOf(gear,instance.type);
-      owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1});
+      owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1,
+        dead:isDeadHere(instance.type,options.pool)});
     });
     if(!owned.length)return "";
 
-    /* 未公開の道具を装備したままの状態は「なし」として見せる (効果も出ていない)。 */
+    /* 未公開の道具を装備したままの状態は「なし」として見せる (効果も出ていない)。
+       ここに対象 guild ゼロも同じ扱いで足す: 抽選も耐久も倒れているので、
+       「そうび中」と見せると画面だけが嘘をつく。 */
     var now=typeof tools.equippedTool==="function"?tools.equippedTool(gear):null;
     if(now&&now.release>release)now=null;
+    if(now&&isDeadHere(now.id,options.pool))now=null;
     var equippedId=now?gear.equippedToolId:null;
 
     var chips='<button type="button" class="q4b-tool-chip'+(equippedId?"":" is-on")+'" data-equip="" aria-pressed="'+(equippedId?"false":"true")+'">'
       +text("なし")+'</button>';
     owned.forEach(function(item){
       var on=item.type===equippedId;
+      /* 使えない札は data-equip を持たない (bindPanel が拾わない) 上に disabled。
+         隠さないのは、道具そのものは無くなっていないため: 消すと「取り上げられた」に
+         見える。ここでは選べない、という 1 行だけを足す。 */
+      if(item.dead){
+        chips+='<button type="button" class="q4b-tool-chip is-dead" disabled aria-disabled="true">'
+          +faceHtml(item.tool)+'<span class="q4b-tool-chip-name">'+text(toolName(item.tool,course))+'</span>'
+          +'<span class="q4b-tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
+          +'<span class="q4b-tool-chip-dead">'+text("ここでは つかえない")+'</span></button>';
+        return;
+      }
       chips+='<button type="button" class="q4b-tool-chip'+(on?" is-on":"")+'" data-equip="'+escapeAttr(item.type)+'" aria-pressed="'+(on?"true":"false")+'">'
         +faceHtml(item.tool)+'<span class="q4b-tool-chip-name">'+text(toolName(item.tool,course))+'</span>'
         +'<span class="q4b-tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
@@ -178,10 +204,66 @@
       +'</figure>';
   }
 
+  /* --- 「ここでは つかえない」の知らせ -------------------------------------
+     装備は toolgear kv に プロファイル 1 つあたり 1 個で、全ゲーム共通。だから
+     けいさんで対象ゼロの道具に出会っても、保存された装備は書き換えない (書き換えると
+     小道でセットした 1 本がけいさんを開くたびに消える)。倒すのは「ここ」だけで、
+     そのことを黙って済ませないために 1 枚出す。
+
+     inactiveTool は「ここでは働かない装備」の定義を返す。働く / 未装備 / 経済が
+     閉じている / 未公開 release / プール不明 のときは null。ポップアップを出すか
+     どうかの判定を 4 ゲームで 1 本にする。 */
+  function inactiveTool(opts){
+    var options=opts||{};
+    var tools=global.Q4B_TOOLS,economy=options.economy;
+    if(!tools||!economy||typeof economy.on!=="function"||!economy.on())return null;
+    var gear=options.gear;
+    if(!gear||typeof tools.equippedTool!=="function")return null;
+    var tool=tools.equippedTool(gear);
+    if(!tool)return null;
+    var release=Number.isFinite(options.release)?options.release
+      :(typeof economy.currentRelease==="function"?economy.currentRelease():0);
+    if(tool.release>release)return null;
+    return isDeadHere(tool.id,options.pool)?tool:null;
+  }
+
+  /* 知らせの中身。モーダルの外枠はゲームごとに違う (小道は overlay、けいさんは
+     全画面、かんじは modal) ので、capture_card と同じくカード本体だけを返す。
+     道具の名前だけでなく guild も言う: 「なぜ ここでは だめか」を言わないと、
+     子どもには道具が壊れたのと区別がつかない。 */
+  function noticeHtml(tool,opts){
+    var tools=global.Q4B_TOOLS;
+    if(!tool||!tools)return "";
+    var entry=typeof tool==="string"?tools.byId(tool):(tools.byId(tool.id||tool.type)||tool);
+    if(!entry||!entry.id)return "";
+    var options=opts||{};
+    var t=textFn(options.text);
+    var name=toolName(entry,options.course);
+    return '<div class="q4b-tool-notice" role="status">'
+      +'<span class="q4b-tool-notice-art" aria-hidden="true">'+faceHtml(entry)+'</span>'
+      +'<strong class="q4b-tool-notice-head">'+t("ここでは つかえない どうぐ")+'</strong>'
+      +'<p class="q4b-tool-notice-why">'+t(name+"は "+entry.guild+"を つかまえる どうぐ。")+'</p>'
+      +'<p class="q4b-tool-notice-why">'+t("ここには その 虫が いないから、ここでは はずしておくね。")+'</p>'
+      +'<p class="q4b-tool-notice-keep">'+t("どうぐばこには そのまま のこるよ。つかえる ばしょでは また そうびされるよ。")+'</p>'
+      +'<button type="button" class="q4b-tool-notice-ok">'+t("わかった")+'</button></div>';
+  }
+
+  /* 「わかった」の click 配線。bindPanel と同じ分担で、閉じ方は呼び出し側が持つ。 */
+  function bindNotice(rootEl,handlers){
+    var root=rootEl&&typeof rootEl.querySelector==="function"?rootEl:null;
+    var onClose=handlers&&typeof handlers.onClose==="function"?handlers.onClose:null;
+    if(!root||!onClose)return;
+    var button=root.querySelector(".q4b-tool-notice-ok");
+    if(button)button.addEventListener("click",function(){onClose();});
+  }
+
   global.Q4BToolsUI={
     panelHtml:panelHtml,
     bindPanel:bindPanel,
     statusHtml:statusHtml,
-    sceneHtml:sceneHtml
+    sceneHtml:sceneHtml,
+    inactiveTool:inactiveTool,
+    noticeHtml:noticeHtml,
+    bindNotice:bindNotice
   };
 })(typeof window!=="undefined"?window:globalThis);

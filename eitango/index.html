@@ -219,7 +219,7 @@ details{margin-top:10px}
 summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4px 0}
 </style>
   <link rel="stylesheet" href="../shared/shiny_bonus.css?v=0.1.0">
-  <link rel="stylesheet" href="../shared/tools.css?v=0.1.2">
+  <link rel="stylesheet" href="../shared/tools.css?v=0.1.3">
 </head>
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -253,10 +253,10 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 <script src="../shared/colloc.js?v=0.3.0"></script>
 <script src="../shared/idiom_data.js?v=0.1.0"></script>
 <script src="../shared/economy_flag.js?v=0.2.1"></script>
-<script src="../shared/tools.js?v=0.2.2"></script>
+<script src="../shared/tools.js?v=0.2.3"></script>
 <script src="../shared/tool_icons.js?v=0.2.0"></script>
 <script src="../shared/tool_scenes.js?v=0.2.0"></script>
-<script src="../shared/tools_ui.js?v=0.1.3"></script>
+<script src="../shared/tools_ui.js?v=0.1.4"></script>
 <script src="../shared/capture_card.js?v=0.1.0"></script>
 <script>
 /* ===== inlined word data (was data/words_basic.js, data/words_p1.js) ===== */
@@ -952,9 +952,12 @@ function setupWalletE(){
   /* 採集道具: 共有 wallet store (shared/tools.js) を reward.js に差す。装備中の
      道具がゲージ捕獲とこはく呼び出しの抽選に効き、結果へ toolUse が載る。
      経済が閉じている間は store 側が「未装備」に倒れ、挙動は配線前と変わらない。 */
+  /* えいたんごの捕獲プールはチョウ目でも甲虫でもない虫 (shared/reward.js の gameFor)。
+     チョウ・ガ・樹液の道具はここでは対象がほぼいないので、プールを渡して「未装備」に
+     倒す。倒れている間は当選重みも耐久の消費も動かない。 */
   if(window.Q4BReward&&window.QuestSave&&window.Q4B_TOOLS&&window.Q4B_ECONOMY
     &&Q4BReward.setToolsStore&&Q4B_TOOLS.walletStore){
-    Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,Q4B_ECONOMY,ePid));
+    Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,Q4B_ECONOMY,ePid,eitangoToolPool));
   }
   /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
@@ -1157,7 +1160,7 @@ function render(){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===screen));
   if(!CURID||!P||!profMeta(CURID)){ $('#app').innerHTML=scrChooseProfile(true); return; }
   if(P&&P.catches) checkMastersE();
-  if(screen==='home') $('#app').innerHTML=scrHome();
+  if(screen==='home'){ $('#app').innerHTML=scrHome(); maybeShowEitangoToolNotice(); }
   if(screen==='zukan'){ $('#app').innerHTML=scrZukan(); bindEitangoToolPanel(); }
   if(screen==='dict'){ $('#app').innerHTML=scrDict(); if(dictQ){ const si=document.querySelector('#app input'); if(si){ si.focus(); si.setSelectionRange(si.value.length,si.value.length); } } }
   if(screen==='progress') $('#app').innerHTML=scrProgress();
@@ -1392,12 +1395,37 @@ function scrZukan(){
 /* 装備パネル (shared/tools_ui.js の独立カード)。経済が閉じている間や道具ゼロの間は
    panelHtml 側が空文字を返すので、ずかん画面には何も出ない。文言は部品の既定
    (かな中心) をそのまま使う。 */
+/* えいたんごの捕獲プール。walletStore のゲートと装備パネルと知らせが同じ 1 本を読む。 */
+function eitangoToolPool(){
+  return (window.Q4BReward&&typeof Q4BReward.pool==='function')?Q4BReward.pool('eitango'):null;
+}
 function eitangoToolPanelHtml(){
   if(!(window.Q4BToolsUI&&window.Q4B_TOOLS&&window.Q4B_ECONOMY
     &&window.QuestSave&&QuestSave.toolGearOf)) return '';
   const pid=ePid();
   if(!pid) return '';
-  return Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(pid),economy:Q4B_ECONOMY});
+  return Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(pid),economy:Q4B_ECONOMY,pool:eitangoToolPool()});
+}
+/* 「ここでは つかえない どうぐ」。装備 (toolgear kv) は全ゲーム共通の 1 個なので
+   書き換えず、倒れているのが「ここ」だけであることを 1 枚出して伝える。
+   1 ページ読み込みにつき 1 回だけ。 */
+let eitangoToolNoticeShown=false;
+function maybeShowEitangoToolNotice(){
+  if(eitangoToolNoticeShown) return;
+  if(!(window.Q4BToolsUI&&Q4BToolsUI.inactiveTool&&window.QuestSave&&QuestSave.toolGearOf)) return;
+  if($('#modal').classList.contains('show')) return;   /* 先客のモーダルを踏まない */
+  const pid=ePid();
+  if(!pid) return;
+  const tool=Q4BToolsUI.inactiveTool({
+    gear:QuestSave.toolGearOf(pid),
+    economy:window.Q4B_ECONOMY,
+    pool:eitangoToolPool()
+  });
+  if(!tool) return;
+  eitangoToolNoticeShown=true;
+  $('#modal').innerHTML='<div class="mcard">'+Q4BToolsUI.noticeHtml(tool)+'</div>';
+  $('#modal').classList.add('show');
+  if(Q4BToolsUI.bindNotice)Q4BToolsUI.bindNotice($('#modal'),{onClose:closeModal});
 }
 /* 持ち替え: 保存してから ずかん画面を描き直す。 */
 function bindEitangoToolPanel(){

@@ -187,6 +187,23 @@
     return !!tool.match(sp);
   }
 
+  /* その場所でその道具が働くか。捕獲プール (種の配列) に対象 guild が 1 匹でも
+     いれば true。
+
+     本編は目でプールが割れている (shared/reward.js の gameFor: kanji=チョウ目 /
+     keisan=甲虫 / eitango=その他) ので、けいさんに灯火採集セットを持ち込むと対象種が
+     1 匹もいない。それでも当選重みは全種 1 倍のまま抽選が回り、耐久だけが 1 捕獲
+     ごとに減って最後は壊れる。何も起きないのに授かった 1 本が溶けるので、対象ゼロは
+     「効きが薄い」ではなく「その場所では道具ではない」として扱う。
+
+     プールが分からない文脈 (配列でない / 空) では true に倒す。分からないことを
+     理由に道具を取り上げるのは、対象ゼロを見逃すより悪い。 */
+  function worksIn(toolId,pool){
+    if(!byId(toolId))return false;
+    if(!Array.isArray(pool)||!pool.length)return true;
+    return pool.some(function(sp){return matches(toolId,sp);});
+  }
+
   /* --- 効果の定数 (tools_design 8 章) ----------------------------------------
      道具が抽選をどれだけ動かすかは、この 2 定数と guildWeightFor だけが知っている。
      小道の抽選器 (komorebi/app.js) と本編の抽選器 (shared/reward.js) は別物のまま
@@ -322,10 +339,16 @@
      Q4BReward.setToolsStore に差す口。amber の setAmberStore と同じ設計で、道具の
      実体 (QuestSave の toolGear) と公開ゲートをここへ閉じ込め、reward.js は
      「装備中の 1 本を訊く / 捕獲 1 回ぶん減らす」の 2 つしか知らない。
-     ゲートは komorebi/app.js の equippedToolOf と同じ 2 段: economy が閉じている間と、
-     道具の release が現在の release を超えている間は「未装備」に倒れる。倒れている間、
-     reward 側の抽選は乱数の消費本数まで装備前と変わらない。 */
-  function walletStore(questSave,economy,getPid){
+     ゲートは komorebi/app.js の equippedToolOf と同じ 3 段: economy が閉じている間、
+     道具の release が現在の release を超えている間、そしてその教科の捕獲プールに
+     対象 guild が 1 匹もいない間は「未装備」に倒れる。倒れている間、reward 側の
+     抽選は乱数の消費本数まで装備前と変わらない。
+
+     getPool は省略可で、渡すとそのゲームの捕獲プール (種の配列) を返す。3 段目の
+     ゲートはこれを見る。装備そのもの (toolgear kv の equippedToolId) は書き換えない:
+     kv はプロファイル 1 つに 1 個で全ゲーム共通なので、けいさんで外すと小道の装備まで
+     消える。効かないのは「ここ」だけなので、倒すのも「ここ」だけにする。 */
+  function walletStore(questSave,economy,getPid,getPool){
     function ready(){
       return !!(questSave&&typeof questSave.toolGearOf==="function"
         &&typeof questSave.toolGearSet==="function"
@@ -340,6 +363,7 @@
       if(!instance)return null;
       var tool=byId(instance.type);
       if(!tool||tool.release>economy.currentRelease())return null;
+      if(typeof getPool==="function"&&!worksIn(tool.id,getPool()))return null;
       return instance;
     }
     return {
@@ -373,6 +397,7 @@
     byId:byId,
     displayName:displayName,
     matches:matches,
+    worksIn:worksIn,
     FRESH_BOOST:FRESH_BOOST,
     guildWeightFor:guildWeightFor,
     walletStore:walletStore,

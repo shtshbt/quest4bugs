@@ -31,10 +31,10 @@ function slice(startMarker, endMarker){
 test("tools 系の script が idiom_data とインライン本体の間に、正しい版と順序で並ぶ", () => {
   const TOOL_SCRIPTS = [
     '<script src="../shared/economy_flag.js?v=0.2.1"></script>',
-    '<script src="../shared/tools.js?v=0.2.2"></script>',
+    '<script src="../shared/tools.js?v=0.2.3"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',
-    '<script src="../shared/tools_ui.js?v=0.1.3"></script>',
+    '<script src="../shared/tools_ui.js?v=0.1.4"></script>',
     '<script src="../shared/capture_card.js?v=0.1.0"></script>'
   ];
   const anchor = src.indexOf('<script src="../shared/idiom_data.js');
@@ -52,7 +52,7 @@ test("tools 系の script が idiom_data とインライン本体の間に、正
 });
 
 test("tools.css の link がある", () => {
-  assert.ok(src.includes('<link rel="stylesheet" href="../shared/tools.css?v=0.1.2">'));
+  assert.ok(src.includes('<link rel="stylesheet" href="../shared/tools.css?v=0.1.3">'));
 });
 
 /* ---- 2. setToolsStore の配線 ------------------------------------------------ */
@@ -60,8 +60,12 @@ test("tools.css の link がある", () => {
 test("setupWalletE が walletStore を setToolsStore に差す (pid は amber と同じ ePid)", () => {
   const wallet = slice("function setupWalletE(){", "function eitangoLayEgg(");
   assert.ok(wallet.includes("Q4BReward.setAmberStore"), "amber store の配線が消えた");
-  assert.ok(wallet.includes("Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,Q4B_ECONOMY,ePid))"),
+  assert.ok(wallet.includes("Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,Q4B_ECONOMY,ePid,eitangoToolPool))"),
     "setToolsStore の配線が無い");
+  assert.ok(src.includes("function eitangoToolPool()"), "捕獲プールの getter が無い (対象ゼロの道具を倒せない)");
+  /* 倒れたことを黙って済ませない: ホームで 1 度だけ知らせを出す。 */
+  assert.ok(src.includes("function maybeShowEitangoToolNotice()"), "つかえない道具の知らせが無い");
+  assert.ok(src.includes("scrHome(); maybeShowEitangoToolNotice();"), "ホームから知らせが呼ばれない");
 });
 
 /* ---- 3. ずかん画面の装備パネル --------------------------------------------- */
@@ -79,7 +83,7 @@ test("scrZukan は こはく行の直後、フィルタ前に装備パネルを�
 
 test("装備パネルは共通部品 panelHtml で描き、持ち替えは toolGearSet で保存して再描画する", () => {
   const panel = slice("function eitangoToolPanelHtml(){", "/* フィールドの習熟率");
-  assert.ok(panel.includes("Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(pid),economy:Q4B_ECONOMY})"),
+  assert.ok(panel.includes("Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(pid),economy:Q4B_ECONOMY,pool:eitangoToolPool()})"),
     "panelHtml の呼び出しが無い");
   assert.ok(panel.includes("Q4BToolsUI.bindPanel"), "bindPanel の配線が無い");
   assert.ok(panel.includes("QuestSave.toolGearSet(pid,gear)"), "持ち替えの保存が無い");

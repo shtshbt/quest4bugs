@@ -145,7 +145,7 @@ input[type=range]{width:100%}
 .grow span{background:var(--grass);border-radius:10px;padding:6px 10px;font-size:15px}
 </style>
   <link rel="stylesheet" href="../shared/shiny_bonus.css?v=0.1.0">
-  <link rel="stylesheet" href="../shared/tools.css?v=0.1.2">
+  <link rel="stylesheet" href="../shared/tools.css?v=0.1.3">
 </head>
 <body>
 <a href="../index.html" id="q4b-home-btn" aria-label="メインメニューへ" style="position:fixed;top:8px;right:8px;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:2px solid #CFDDB2;border-radius:12px;font-size:20px;text-decoration:none;box-shadow:0 2px 0 #CFDDB2;">🏠</a>
@@ -187,10 +187,10 @@ input[type=range]{width:100%}
 <script src="../shared/furigana.js?v=0.3.0"></script>
 <script src="../shared/yomi.js?v=0.3.0"></script>
 <script src="../shared/economy_flag.js?v=0.2.1"></script>
-<script src="../shared/tools.js?v=0.2.2"></script>
+<script src="../shared/tools.js?v=0.2.3"></script>
 <script src="../shared/tool_icons.js?v=0.2.0"></script>
 <script src="../shared/tool_scenes.js?v=0.2.0"></script>
-<script src="../shared/tools_ui.js?v=0.1.3"></script>
+<script src="../shared/tools_ui.js?v=0.1.4"></script>
 <script src="../shared/capture_card.js?v=0.1.0"></script>
 <script>
 /* shared/storage.js が見つからない場合の簡易シム（メモリのみ・保存されない） */
@@ -688,9 +688,32 @@ if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
   });
 }
 /* 採集道具: 共有ウォレット (QuestSave の toolGear) を捕獲抽選へ差す。
-   公開スイッチが閉じている間は walletStore 側が「未装備」に倒れ、従来と同一。 */
+   公開スイッチが閉じている間は walletStore 側が「未装備」に倒れ、従来と同一。
+   かんじの捕獲プールはチョウ目だけ (shared/reward.js の gameFor) なので、トンボの
+   道具はここでは対象が 1 匹もいない。プールを渡して同じく「未装備」に倒す。 */
+function kanjiToolPool(){
+  return (window.Q4BReward&&typeof Q4BReward.pool==="function")?Q4BReward.pool("kanji"):null;
+}
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setToolsStore&&window.Q4B_TOOLS&&Q4B_TOOLS.walletStore){
-  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,kPidNow));
+  Q4BReward.setToolsStore(Q4B_TOOLS.walletStore(QuestSave,window.Q4B_ECONOMY,kPidNow,kanjiToolPool));
+}
+/* 「ここでは つかえない どうぐ」。装備 (toolgear kv) は全ゲーム共通の 1 個なので
+   書き換えず、倒れているのが「ここ」だけであることを 1 枚出して伝える。
+   1 ページ読み込みにつき 1 回だけ。 */
+var kanjiToolNoticeShown=false;
+function maybeShowKanjiToolNotice(){
+  if(kanjiToolNoticeShown)return;
+  if(!(window.Q4BToolsUI&&Q4BToolsUI.inactiveTool&&window.QuestSave&&QuestSave.toolGearOf))return;
+  var pid=kPidNow(); if(!pid)return;
+  var tool=Q4BToolsUI.inactiveTool({
+    gear:QuestSave.toolGearOf(pid),
+    economy:window.Q4B_ECONOMY,
+    pool:kanjiToolPool()
+  });
+  if(!tool)return;
+  kanjiToolNoticeShown=true;
+  modal(Q4BToolsUI.noticeHtml(tool));
+  if(Q4BToolsUI.bindNotice)Q4BToolsUI.bindNotice($('modalIn'),{onClose:closeModal});
 }
 /* 卵育成: fossilFragments を卵コストに再利用 + 卵 store を breeding namespace に */
 if(window.Q4BReward&&window.QuestSave&&Q4BReward.setFossilStore){
@@ -803,7 +826,7 @@ function renderHome(){ var s=$('scr-home'); var dc=dueCounts(); var t=todayStr()
  $('bParent').addEventListener('click',parentGate);
  if($('bReviewBanner'))$('bReviewBanner').addEventListener('click',startReview);
  if($('bReviewSmall'))$('bReviewSmall').addEventListener('click',startReview);
- head(); showScr('home'); checkMasters() }
+ head(); showScr('home'); checkMasters(); maybeShowKanjiToolNotice() }
 /* コースはいつでも切替可能。解放状態(ST.un)は両コースぶん保持されるので進捗は消えない */
 function switchMode(){
  CUR.mode=(CUR.mode==='small')?'big':'small';
@@ -1966,7 +1989,7 @@ function renderBugs(){
  var canSpend=(amberNow>=Q4BReward.AMBER_CATCH_COST);
  /* 装備パネル (shared/tools_ui.js)。公開前・道具ゼロは空文字が返り、カードごと出ない */
  var toolPanel=(window.Q4BToolsUI&&window.QuestSave&&QuestSave.toolGearOf)
-  ?Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(kPidNow()),economy:window.Q4B_ECONOMY})
+  ?Q4BToolsUI.panelHtml({gear:QuestSave.toolGearOf(kPidNow()),economy:window.Q4B_ECONOMY,pool:kanjiToolPool()})
   :'';
  var h='<button class="btn sub mini" id="bBk4">← ホーム</button>'
   +'<div class="card center"><div class="partner" style="font-size:54px">'+partnerFace()+'</div><div style="font-weight:bold">あいぼう</div><div class="small">'+((ST.pp||0)<=0?'テストに ごうかくすると たまごが かえるよ':((ST.pp||0)<3?'テストに ごうかくするたび そだつよ':'りっぱな せいちゅうに なった！'))+'</div></div>'

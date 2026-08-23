@@ -216,4 +216,72 @@ test("sceneHtml は装備して 対象 guild の虫が 1 匹とれた回だけ�
   assert.equal(ui.sceneHtml({ id: "unknown" }, use), "", "種が引けない回に場面が出た");
 });
 
+/* --- ここでは つかえない道具 (対象 guild ゼロ) -------------------------------
+   本編は目で捕獲プールが割れているので、けいさん (甲虫) に灯火採集セットを持ち込むと
+   対象種が 1 匹もいない。それでも耐久だけが減って壊れるので、プールを渡された文脈では
+   「その場所では道具ではない」として倒す。 */
+const MOTHS = [{ id: "ga", order: "Lepidoptera", family: "Saturniidae", groupJa: "ガ", tags: ["moth"] }];
+const BEETLES = [{ id: "kuwagata", order: "Coleoptera", family: "Lucanidae", groupJa: "クワガタムシ", tags: [] }];
+
+test("worksIn は対象 guild が 1 匹でもいるかを見て、プール不明では取り上げない", () => {
+  assert.equal(tools.worksIn("light_trap", MOTHS), true);
+  assert.equal(tools.worksIn("light_trap", BEETLES), false, "甲虫しかいないのに灯火が働いた");
+  assert.equal(tools.worksIn("banana_trap", BEETLES), true);
+  assert.equal(tools.worksIn("light_trap", null), true, "プール不明で道具を取り上げた");
+  assert.equal(tools.worksIn("light_trap", []), true, "空のプールで道具を取り上げた");
+  assert.equal(tools.worksIn("no_such_tool", MOTHS), false);
+});
+
+test("パネルは対象ゼロの道具を選べなくし、いまの そうび を なし に倒す", () => {
+  const html = panel({ pool: BEETLES, text: plainText });
+  assert.match(html, /q4b-tool-chip is-dead/, "つかえない札の目印が無い");
+  assert.ok(html.indexOf('data-equip="light_trap"') < 0, "対象ゼロの道具が選べる");
+  assert.match(html, /ここでは つかえない/, "理由の 1 行が無い");
+  assert.match(html, /12／100/, "残りは伏せない (道具は無くなっていない)");
+  assert.match(html, /いまの そうび.*<strong>なし<\/strong>/, "働かない道具が そうび中 に見えている");
+  /* 対象がいるプールでは従来どおり選べる。 */
+  const alive = panel({ pool: MOTHS, text: plainText });
+  assert.match(alive, /data-equip="light_trap"/, "対象がいるのに選べない");
+  /* 判定は道具ごと。同じプールでも吸虫管 (15mm 未満) には対象がいないので倒れる。 */
+  assert.ok(alive.indexOf('data-equip="aspirator"') < 0, "対象ゼロの吸虫管が選べる");
+  /* プールを渡さない文脈は従来どおり (小道の旧呼び出しを壊さない)。 */
+  assert.match(panel({ text: plainText }), /data-equip="light_trap"/);
+});
+
+test("inactiveTool は ここでは働かない装備だけを返す", () => {
+  const args = { gear: gearFull("light_trap"), economy: economyOn };
+  assert.equal(ui.inactiveTool(Object.assign({ pool: BEETLES }, args)).id, "light_trap");
+  assert.equal(ui.inactiveTool(Object.assign({ pool: MOTHS }, args)), null, "働く道具で知らせが出た");
+  assert.equal(ui.inactiveTool(args), null, "プール不明で知らせが出た");
+  assert.equal(ui.inactiveTool({ gear: gearFull(null), economy: economyOn, pool: BEETLES }), null,
+    "未装備で知らせが出た");
+  assert.equal(ui.inactiveTool({ gear: gearFull("light_trap"), economy: economyOff, pool: BEETLES }), null,
+    "経済が閉じているのに知らせが出た");
+  /* 未公開 release の道具は「未装備」扱いなので、知らせも出さない。 */
+  assert.equal(ui.inactiveTool({ gear: gearFull("aspirator"), economy: economyOn, release: 2, pool: BEETLES }),
+    null, "未公開の道具で知らせが出た");
+});
+
+test("noticeHtml は道具の名前と guild を言い、text の注入が全文字列を通る", () => {
+  const html = ui.noticeHtml(tools.byId("light_trap"), { text: value => "《" + value + "》" });
+  assert.match(html, /class="q4b-tool-notice"/);
+  assert.ok(html.indexOf("《灯火採集セットは よるに とぶ 虫を つかまえる どうぐ。》") >= 0,
+    "なぜ ここでは だめかの 1 行が無い");
+  assert.ok(html.indexOf("《ここには その 虫が いないから、ここでは はずしておくね。》") >= 0);
+  assert.ok(html.indexOf("どうぐばこには そのまま のこるよ") >= 0, "道具が残ることを言っていない");
+  assert.match(html, /class="q4b-tool-notice-ok"/, "閉じる札が無い");
+  /* 5 歳コースは かなの名前 (tools.js の yomi)。 */
+  assert.ok(ui.noticeHtml("light_trap", { course: "k5" }).indexOf("とうかさいしゅうセット") >= 0);
+  assert.equal(ui.noticeHtml(null), "", "道具なしで知らせが出た");
+});
+
+test("bindNotice は わかった を 1 度だけ配線する", () => {
+  const app = makeApp();
+  app.innerHTML = ui.noticeHtml(tools.byId("light_trap"));
+  let closed = 0;
+  ui.bindNotice(app, { onClose: () => closed++ });
+  app.querySelector(".q4b-tool-notice-ok").click();
+  assert.equal(closed, 1, "わかった が閉じない");
+});
+
 console.log(`RESULT ${passed} passed, 0 failed`);

@@ -76,6 +76,20 @@ test("each guild matcher lands on the number of Madagascar I species it should",
   assert.equal(hits("dung_trap"), 0);
 });
 
+/* 「その場所でその道具が働くか」は当たり数ゼロの言い換え。MG I の当たり数
+   (上の検査) と 1 対 1 に対応することを固定しておくと、片方だけ動いたときに気づく。 */
+test("worksIn mirrors the hit counts: zero targets means the tool is not a tool here", () => {
+  tools.list().forEach(tool => {
+    assert.equal(tools.worksIn(tool.id, mgSpecies), hits(tool.id) > 0,
+      tool.id + " の worksIn が当たり数と食い違う");
+  });
+  assert.equal(tools.worksIn("long_pole", mgSpecies), false, "MG I に対象のいない長竿が働いた");
+  /* プールが分からない文脈では取り上げない (分からないことを理由に外すほうが悪い)。 */
+  assert.equal(tools.worksIn("long_pole", null), true);
+  assert.equal(tools.worksIn("long_pole", []), true);
+  assert.equal(tools.worksIn("no_such_tool", mgSpecies), false);
+});
+
 test("a matcher reads the species record, never the volume manifest", () => {
   assert.equal(tools.matches("tonbo_net", catalog.get("ameiro_tonbo")), true);
   assert.equal(tools.matches("tonbo_net", catalog.get("oo_onaga_yamamayu")), false);

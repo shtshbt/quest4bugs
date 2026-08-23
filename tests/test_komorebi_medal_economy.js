@@ -369,4 +369,38 @@ test("a capture spends exactly one durability on both capture routes", () => {
   });
 });
 
+/* 巻に対象 guild が 1 匹もいない道具は、その巻では道具として働かない。抽選の
+   重みが全種 1 倍のまま耐久だけが減って壊れるのを防ぐ。長竿とフントラップは
+   MG I に対象がゼロ (test_komorebi_tools.js が当たり数を固定している)。 */
+test("a tool with no target in this volume wears nothing and shifts nothing", () => {
+  withReleasedTool("long_pole", () => {
+    armGear("long_pole");
+    const profile = komorebi.createProfile();
+    const worn = captureIds(profile, 31, 8 * 5);
+    assert.equal(worn.length, 5, "capture cadence must not change");
+    assert.equal(gearOf().tools[0].remaining, D, "a pole with no targets still wore out");
+    /* 装備そのものは書き換えない。kv は全ゲーム共通の 1 個で、ここで外すと
+       本編の装備まで消える。倒れているのは「この巻」だけ。 */
+    assert.equal(gearOf().equippedToolId, "long_pole", "the saved equip was rewritten");
+  });
+  /* 同じ種と同じ乱数列で、未装備のときと 1 匹も違わない (乱数の消費本数も同じ)。 */
+  const withPole = withReleasedTool("long_pole", () => {
+    armGear("long_pole");
+    return captureIds(komorebi.createProfile(), 77, 8 * 6);
+  });
+  armGear(null);
+  const bare = captureIds(komorebi.createProfile(), 77, 8 * 6);
+  assert.deepEqual(withPole, bare, "a tool with no targets moved the draw");
+});
+
+/* 対象がいる巻では従来どおり効く (倒しすぎていないことの裏取り)。 */
+test("a tool with targets in this volume still wears and still shifts", () => {
+  withReleasedTool("tonbo_net", () => {
+    armGear("tonbo_net");
+    const profile = komorebi.createProfile();
+    captureIds(profile, 31, 8 * 5);
+    assert.equal(gearOf().tools[0].remaining, D - 5, "a net with targets did not wear");
+  });
+});
+
 console.log(`RESULT ${passed} passed, 0 failed`);

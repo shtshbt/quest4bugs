@@ -351,7 +351,7 @@
   .spark{position:absolute;font-size:22px;opacity:0;transform:translate(-50%,-50%) scale(0);animation:sparkPop 1.3s ease-out infinite}
   @keyframes sparkPop{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.35)}100%{opacity:0;transform:translate(-50%,-50%) scale(.7)}}
 </style>
-  <link rel="stylesheet" href="./shared/tools.css?v=0.1.2">
+  <link rel="stylesheet" href="./shared/tools.css?v=0.1.3">
 <link rel="stylesheet" href="./shared/shiny_bonus.css?v=0.1.0">
 </head>
 <body>
@@ -464,12 +464,12 @@
 <!-- keisan/app.js が採集道具の共有部品を参照するため、読み込むページは同じ一式を配る。
      バトル自体は道具の効果範囲外 (ボス撃破に道具は効かない)。 -->
 <script src="./shared/economy_flag.js?v=0.2.1"></script>
-<script src="./shared/tools.js?v=0.2.2"></script>
+<script src="./shared/tools.js?v=0.2.3"></script>
 <script src="./shared/tool_icons.js?v=0.2.0"></script>
 <script src="./shared/tool_scenes.js?v=0.2.0"></script>
-<script src="./shared/tools_ui.js?v=0.1.3"></script>
+<script src="./shared/tools_ui.js?v=0.1.4"></script>
 <script src="./shared/capture_card.js?v=0.1.0"></script>
-<script src="./keisan/app.js?v=0.4.40"></script>
+<script src="./keisan/app.js?v=0.4.41"></script>
 <script>
 var BUGS=window.Q4B_BUGS, R=window.Q4BRender, B=window.Q4BBattle, RW=window.Q4BReward;
 var byId={}; BUGS.forEach(function(s){byId[s.id]=s;});

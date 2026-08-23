@@ -317,21 +317,39 @@
     return tools?tools.list().filter(function(tool){return tool.release<=release;}):[];
   }
 
-  /* ゲートは 2 段。まず MEDAL_ECONOMY_ON でメダル経済ごと開いているか、次に
+  /* その巻の捕獲プール (種データの配列)。volume の manifest は {id, rarity, flagship}
+     しか持たないので、道具の guild 判定に要るフィールドはカタログから引き直す
+     (pickSpecies の重み付けと同じ経路)。 */
+  function volumeToolPool(volume){
+    var reward=global.Q4BReward;
+    if(!volume||!Array.isArray(volume.species)||!reward||typeof reward.spById!=="function")return null;
+    return volume.species.map(function(species){return reward.spById(species.id);})
+      .filter(function(sp){return !!sp;});
+  }
+
+  /* ゲートは 3 段。まず MEDAL_ECONOMY_ON でメダル経済ごと開いているか、次に
      道具 1 本ずつの release。公開済みの道具が 1 つでもあれば全部が効く、では
-     更新をまたいだ先行実装が漏れる。gear は loadToolGear の返り値 (無ければ null)。 */
-  function equippedToolOf(gear){
+     更新をまたいだ先行実装が漏れる。gear は loadToolGear の返り値 (無ければ null)。
+
+     3 段目は、その巻に対象 guild が 1 匹もいないとき。抽選の重みが全種 1 倍のまま
+     耐久だけが減って壊れるのを防ぐ。装備そのもの (toolgear kv) は書き換えない:
+     kv は全ゲーム共通の 1 個で、ここで外すと本編の装備まで消える。pool 省略時は
+     この段を掛けない (プールが分からないことを理由に道具を取り上げない)。 */
+  function equippedToolOf(gear,pool){
     var tools=toolsModule();
     if(!tools||!gear)return null;
     var tool=tools.equippedTool(gear);
-    return tool&&tool.release<=currentRelease()?tool:null;
+    if(!tool||tool.release>currentRelease())return null;
+    if(Array.isArray(pool)&&typeof tools.worksIn==="function"&&!tools.worksIn(tool.id,pool))return null;
+    return tool;
   }
 
   /* 捕獲 1 回につき 1。未装備なら null (何も減らない)。減ったぶんはその場で
-     共有 kv へ永続し、profile の保存失敗でも巻き戻さない (本編と同じ意味論)。 */
-  function consumeToolDurability(gear){
+     共有 kv へ永続し、profile の保存失敗でも巻き戻さない (本編と同じ意味論)。
+     pool は equippedToolOf と同じものを渡す: 効かない巻では減らさない。 */
+  function consumeToolDurability(gear,pool){
     var tools=toolsModule();
-    if(!tools||!equippedToolOf(gear))return null;
+    if(!tools||!equippedToolOf(gear,pool))return null;
     var used=tools.consume(gear);
     if(used)storeToolGear(gear);
     return used;
@@ -379,9 +397,9 @@
         next.gauge-=COLLECTION_CONFIG.gaugeNeed;
         /* 道具は targetProfile ではなく共有 kv から読む。消費は consumeToolDurability
            の中でその場で永続する (profile の保存とは独立)。 */
-        var gear=loadToolGear();
-        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random,equippedToolOf(gear)),random);
-        toolUse=consumeToolDurability(gear);
+        var gear=loadToolGear(),pool=volumeToolPool(volume);
+        capture=recordCapture(next,drawCapture(volume,next.catches,next.pityDuplicates||0,random,equippedToolOf(gear,pool)),random);
+        toolUse=consumeToolDurability(gear,pool);
       }
     }
     replaceCollection(targetProfile.collection,next);
@@ -1251,11 +1269,11 @@
          recordCapture が上書きする前の段位を引き戻し、学習側の積み上げを守る。
          道具はゲージ捕獲と同じに扱う (装備中は 1 回ぶん減る)。 */
       var keptPity=profile.collection.pityDuplicates;
-      var gear=loadToolGear();
-      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(gear)),Math.random);
+      var gear=loadToolGear(),pool=volumeToolPool(volume);
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(gear,pool)),Math.random);
       if(keptPity!=null)profile.collection.pityDuplicates=keptPity;
       else delete profile.collection.pityDuplicates;
-      toolUse=consumeToolDurability(gear);
+      toolUse=consumeToolDurability(gear,pool);
     }catch(error){
       rollback();
       refund();
@@ -3097,6 +3115,9 @@
       pendingMedalsSwept=true;
       offerMedalQueue(null);
     }
+    /* 捧げ待ちの回収が塞いでいる間は出さない (モーダルが 2 枚重なる)。地図は
+       セッションの戻り先なので、次に地図へ戻ったときに出る。 */
+    maybeShowInactiveToolNotice();
   }
 
   /* 図鑑の絞り込み。本編 keisan の zukanMatchK と同じ語彙 (レア度 tier / 分類キー /
@@ -3236,11 +3257,58 @@
      表示規則は同じ: 現在の装備を常時表示、札を押すだけで切り替え、道具ゼロや
      経済が閉じている間はパネルごと出さない。demo モードは保存に触れない約束
      なので出さない。 */
+  /* 小道ぜんたいの捕獲プール = 公開済みの巻の種の和。パネルと知らせはこちらを見る:
+     パネルは巻に属さない画面 (地域をまたぐ ずかん) にあるので、1 つの巻に対象が
+     いないだけで「つかえない」と言うと、その道具が効く別の巻まで否定してしまう。
+     巻ごとの効きは equippedToolOf が volumeToolPool で別に見ている。 */
+  function komorebiToolPool(){
+    var seen={},pool=[];
+    /* 巻データが読めない間 (boot 前・データ差し替え中) は null を返して判定ごと
+       降ろす。ここで throw すると、道具の表示ひとつで地図とずかんが落ちる。 */
+    try{
+      expeditionVolumes().filter(isVolumeReleased).forEach(function(volume){
+        (volumeToolPool(volume)||[]).forEach(function(sp){
+          if(!sp||!sp.id||seen[sp.id])return;
+          seen[sp.id]=true;
+          pool.push(sp);
+        });
+      });
+    }catch(error){return null;}
+    return pool.length?pool:null;
+  }
+
   function toolPanelHtml(){
     var ui=global.Q4BToolsUI;
     if(!ui||typeof ui.panelHtml!=="function"||demoMode)return "";
     return ui.panelHtml({gear:loadToolGear(),text:displayText,attrText:attrText,
-      course:profileType,economy:global.Q4B_ECONOMY});
+      course:profileType,economy:global.Q4B_ECONOMY,pool:komorebiToolPool()});
+  }
+
+  /* 「ここでは つかえない どうぐ」。本編でセットした道具のまま小道へ来たとき用。
+     装備 (toolgear kv) は全ゲーム共通の 1 個なので書き換えず、倒れているのが
+     「ここ」だけであることを 1 枚出して伝える。1 ページ読み込みにつき 1 回だけ。 */
+  var toolNoticeShown=false;
+  function maybeShowInactiveToolNotice(){
+    var ui=global.Q4BToolsUI;
+    if(toolNoticeShown||demoMode||!ui||typeof ui.inactiveTool!=="function")return;
+    if(!global.document||document.querySelector(".kom-modal"))return;   /* 先客のモーダルを踏まない */
+    var tool=ui.inactiveTool({gear:loadToolGear(),economy:global.Q4B_ECONOMY,pool:komorebiToolPool()});
+    if(!tool)return;
+    toolNoticeShown=true;
+    var overlay=document.createElement("div");
+    overlay.id="toolNoticeOv";
+    overlay.className="kom-modal";
+    overlay.innerHTML='<div class="kom-modal-card" role="dialog" aria-modal="true">'
+      +ui.noticeHtml(tool,{text:displayText,course:profileType})+'</div>';
+    overlay.addEventListener("click",function(event){
+      if(event.target===overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
+    });
+    document.body.appendChild(overlay);
+    if(typeof ui.bindNotice==="function")ui.bindNotice(overlay,{onClose:function(){
+      if(overlay.parentNode)overlay.parentNode.removeChild(overlay);
+    }});
+    var ok=overlay.querySelector(".q4b-tool-notice-ok");
+    if(ok)ok.focus();
   }
 
   function bindToolPanel(rerender){

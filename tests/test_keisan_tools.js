@@ -38,17 +38,17 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
   assert.ok(at >= 0, "k5_devs_data.js が見つからない");
   assert.deepEqual(srcs.slice(at + 1, at + 8), [
     "../shared/economy_flag.js?v=0.2.1",
-    "../shared/tools.js?v=0.2.2",
+    "../shared/tools.js?v=0.2.3",
     "../shared/tool_icons.js?v=0.2.0",
     "../shared/tool_scenes.js?v=0.2.0",
-    "../shared/tools_ui.js?v=0.1.3",
+    "../shared/tools_ui.js?v=0.1.4",
     "../shared/capture_card.js?v=0.1.0",
-    "app.js?v=0.4.40"
+    "app.js?v=0.4.41"
   ], "道具系 script の並びか版か app.js の版が想定と違う");
 });
 
 test("index.html が shared/tools.css を読む", () => {
-  assert.match(indexHtml, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.2">/,
+  assert.match(indexHtml, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.3">/,
     "tools.css の link が無い (装備パネルと捕獲カードが素の HTML になる)");
 });
 
@@ -56,8 +56,14 @@ test("index.html が shared/tools.css を読む", () => {
 
 test("app.js が walletStore を setToolsStore に差す", () => {
   assert.match(appSrc,
-    /Q4BReward\.setToolsStore\(Q4B_TOOLS\.walletStore\(QuestSave,window\.Q4B_ECONOMY,pidNow\)\)/,
+    /Q4BReward\.setToolsStore\(Q4B_TOOLS\.walletStore\(QuestSave,window\.Q4B_ECONOMY,pidNow,keisanToolPool\)\)/,
     "共有 wallet の配線が無い (道具が捕獲に効かない)");
+  /* 対象 guild ゼロの装備は walletStore が倒す。倒れたことを黙って済ませないよう、
+     ホームで 1 度だけ知らせを出す。 */
+  assert.match(appSrc, /function keisanToolPool\(\)/, "捕獲プールの getter が無い");
+  assert.match(appSrc, /function maybeShowKeisanToolNotice\(p\)/, "つかえない道具の知らせが無い");
+  assert.match(appSrc, /maybeShowKomorebiDiscovery\(p\);\n  maybeShowKeisanToolNotice\(p\);/,
+    "ホームから知らせが呼ばれない");
 });
 
 test("道具系グローバルへのトップレベル参照が無い", () => {
@@ -101,7 +107,8 @@ test("ずかん画面が装備パネルを描いて配線する", () => {
 
 function questSaveMock(){
   const gear = {
-    tools: [{ type: "cho_net", remaining: 100 }, { type: "light_trap", remaining: 40 }],
+    tools: [{ type: "cho_net", remaining: 100 }, { type: "light_trap", remaining: 40 },
+      { type: "banana_trap", remaining: 70 }],
     equippedToolId: null,
     toolDex: {}
   };
@@ -163,8 +170,39 @@ test("装備パネルは経済 off で空、on でパネルと data-equip が出
   ctx.Q4B_ECONOMY.setOn(true);
   const html = ctx.keisanToolPanelSection({ type: "k10" });
   assert.match(html, /q4b-tool-panel/, "パネルの器が無い");
-  assert.match(html, /data-equip="cho_net"/, "所持している道具の札が無い");
+  assert.match(html, /data-equip="banana_trap"/, "所持している道具の札が無い");
   assert.match(html, /data-equip=""/, "なし の札が無い");
+  ctx.Q4B_ECONOMY.setOn(false);
+});
+
+/* けいさんの捕獲プールは甲虫だけなので、チョウ・ガの道具はここでは対象がゼロ。
+   選べない札にして理由を出す (装備そのものは全ゲーム共通なので書き換えない)。 */
+test("対象 guild がゼロの道具は札が選べず、理由が出る", () => {
+  ctx.Q4B_ECONOMY.setOn(true);
+  const html = ctx.keisanToolPanelSection({ type: "k10" });
+  assert.doesNotMatch(html, /data-equip="cho_net"/, "対象ゼロの道具が選べる");
+  assert.doesNotMatch(html, /data-equip="light_trap"/, "対象ゼロの道具が選べる");
+  assert.match(html, /q4b-tool-chip is-dead/, "つかえない札の目印が無い");
+  assert.match(html, /ここでは つかえない/, "理由の 1 行が無い");
+  ctx.Q4B_ECONOMY.setOn(false);
+});
+
+/* 対象ゼロの道具を装備したままでも、抽選も耐久も動かない (未装備と同じに倒れる)。 */
+test("対象 guild がゼロの装備は walletStore が未装備に倒す", () => {
+  ctx.Q4B_ECONOMY.setOn(true);
+  ctx.showZukan = function(){};
+  ctx.keisanEquipTool("cho_net");
+  const store = ctx.Q4B_TOOLS.walletStore(ctx.QuestSave, ctx.Q4B_ECONOMY, () => "p1", ctx.keisanToolPool);
+  assert.equal(store.equippedTool(), null, "対象ゼロなのに装備が見えている");
+  assert.equal(store.consumeOnCapture(), null, "対象ゼロなのに耐久が減った");
+  assert.equal(ctx.QuestSave.toolGearOf("p1").tools.filter(t => t.type === "cho_net")[0].remaining, 100,
+    "耐久が減っている");
+  /* 装備そのものは書き換えない (kv は全ゲーム共通で、小道の装備まで消える)。 */
+  assert.equal(ctx.QuestSave.toolGearOf("p1").equippedToolId, "cho_net", "保存された装備が書き換わった");
+  /* 対象がいる道具に持ち替えれば、同じ store でふつうに効く。 */
+  ctx.keisanEquipTool("banana_trap");
+  assert.equal(store.equippedTool().type, "banana_trap", "対象がいる道具まで倒れている");
+  ctx.keisanEquipTool(null);
   ctx.Q4B_ECONOMY.setOn(false);
 });
 
