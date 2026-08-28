@@ -482,10 +482,14 @@
   volumes.volume_fixture_costa_rica=volume({
     id:"volume_fixture_costa_rica", expedition:1, regionId:"costa_rica", regionName:"コスタリカ",
     /* release の指定が無く内部では更新 1 扱いだった。画面に出ないのは placeholder の
-       おかげで、番号による制御が効いていなかった。実データ化のときに release を付け
-       忘れると漏れるので、いま最後の枠を与えておく (2026-08-28)。写真 0/84 で全巻中
-       もっとも遠いため、準備できた順の方針では最後尾になる。 */
-    placeholder:true, release:8,
+       おかげで、番号による制御が効いていなかった。実データ化のときに付け忘れると
+       漏れるので、未割り当てを表す番号を明示的に置く (2026-08-28)。
+
+       99 は「枠が未割り当て」の印である。isVolumeReleased は release が整数でない
+       volume を公開済みへ倒すので (release 無しの巻は公開済み扱い、という旧仕様)、
+       null や undefined は使えない。どの枠に入るかは準備が整った時点で決め、そのとき
+       この 99 を実際の番号へ書き換える。 */
+    placeholder:true, release:99,
     categories:["kom_ratio","kom_kuku_dan4","kom_kuku_ura","kom_equation_select"],
     blurb:"中央アメリカの小さな国。九州ほどの広さに世界の生きものの 5% がすむ。",
     prefix:"kom_fixture_cr", counts:{n:6,r:2,sr:1}
