@@ -351,9 +351,13 @@
   }
   /* 個体記録の一意 ID。komorebi の競合統合が「同じ記録の写し」と「たまたま同内容の
      別個体」を見分けるために発生時に振る。cid の無い時代の記録は全 field 一致で
-     判定される (komorebi/app.js の recordKey)。 */
+     判定される (komorebi/app.js の recordKey)。
+
+     時刻は混ぜない。混ぜると同じ種を同じ乱数列で捕った 2 回が ms 差で別 id になり、
+     seed を固定して 2 回まわす検証 (tests/test_reward_tool_effects.js) が毎回落ちる。
+     必要なのは 1 種の records の中で重ならないことだけで、乱数 1 本で足りる。 */
   function newRecordId(){
-    return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+    return Math.random().toString(36).slice(2,12);
   }
   function pushRecord(entry, size, sex, shiny){
     if(!entry.records) entry.records=[];

@@ -22,7 +22,7 @@
 |---|---|---|---|---|---|
 | 1 (初回) | マダガスカル遠征 I | コメットガ | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | (なし) | k10 2 + k5 3。ratio は Lv1-10 一括投入 |
 | 2 | オーストラリア遠征 I | ユリシス | kom_unit_convert + kom_diagram_model + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | ちょうネット / トンボ用メッシュネット / 灯火採集セット / バナナトラップ | k10 2 + k5 3。図化は release 9 から前倒し。道具はスイッチ別 (下記) |
-| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_frac_flow + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | スイーピングネット / さかなとりあみ | |
+| 3 | ボルネオ遠征 I | アカエリトリバネアゲハ | kom_frac_flow + kom_ratio_forms + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | スイーピングネット / さかなとりあみ | k10 2 + k5 3。ratio_forms は 2026-08-28 に release 9 から前倒し (下記) |
 | 4 | コスタリカ遠征 I | ハキリアリ | kom_kuku_bridge + kom_equation_select + kom_kuku_dan8 + kom_kuku_dan9 | ビーティングセット / 吸虫管 | 学習カテゴリ 17 本はここで出揃う |
 | 5 | マダガスカル遠征 II | マダガスカルオオゴキブリ | (なし。図鑑の巻のみ) | 高所用長竿 / 落とし穴トラップ / フントラップ | II 巻のカテゴリ帰属は freeze 時に他地域公開済み cat から指定 (地域内 1 cat 1 遠征の規則は維持)。道具 11 種はここで出揃う |
 | 6 | オーストラリア遠征 II | クリスマスビートル | (なし。図鑑の巻のみ) | (なし) | |
@@ -40,6 +40,7 @@
   deploy (`MEDAL_ECONOMY_ON` を true にして cache を上げるだけ) になる。スイッチが
   false の間に成立したメダルは、うろの初回訪問で遡って奉納できる。
 
+- 更新 3 の kom_ratio_forms 追加 (2026-08-28 決定): 巻あたり k10 2 本を下限とする方針で release 9 から前倒しした。更新 3 の k10 が kom_frac_flow 1 本だけだと、10 歳コースの子はボルネオ I の 84 種を 1 カテゴリで消費しきり、残りはこはく購入 (学習を経ない経路) でしか埋まらない。こはく呼び出しはコースを見ずに巻を選ぶ (`komorebi/app.js` の amberCallVolume) ため、学習カテゴリが薄い巻は図鑑を対価なしで配ることになる。ゲート待ちの kom_kisokusei / kom_hayasa には触れず、予備在庫の本カテゴリだけを動かして 2026-08-13 の「9 月の模試を見てから決める」判断を維持する。
 - 更新 2 の kom_diagram_model 追加 (2026-08-17 決定): 受験 ROI 優先で release 9 から前倒しした。線分図・面積図・表は割合と速さの土台で、3 本の待機カテゴリ (ratio_forms / johou_seiri / diagram_model) の中で最も早く効く。更新 2 の前倒し公開 (implementation_plan 4 章) と束ねる。
 - 在庫収支: 更新 9 まで 9 volume ≒ 900 種需要 vs seeds 1,104。後処理の目減りを 1 割と見ても成立。更新 10 以降は AU III / CR III (在庫各 300 で III まで可) と Tier 2 新地域 (フィリピン、ニューギニア等) の harvest で継ぐ。
 - 段カテゴリの解禁順 (2, 5, 3, 4, 6, 7, 8, 9) は roster 3.2 章の段順のまま、1 更新 2 本の倍速で出す。全 8 段が更新 4 (8 週目) で出揃う。

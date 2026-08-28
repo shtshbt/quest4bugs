@@ -31,7 +31,11 @@
     kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:9},
     /* k10 新 3 カテゴリ (2026-08-14 決定)。表示名は各 curriculum doc の題名。
        release 9 なので CURRENT_RELEASE=1 の画面には一切出ない。 */
-    kom_ratio_forms:{course:"k10",name:"割合の表現変換",maxLv:10,release:9},
+    /* 2026-08-28 前倒し: 更新 3 の k10 が分数の解き方 1 本だけで、10 歳コースの子は
+       ボルネオ I の 84 種を 1 カテゴリで消費してしまう (図鑑がこはく購入でだけ埋まる
+       状態になる)。予備在庫の本カテゴリをゲート待ちの 2 本 (kisokusei / hayasa) より
+       先に出して、巻あたり k10 2 本の下限を満たす。 */
+    kom_ratio_forms:{course:"k10",name:"割合の表現変換",maxLv:10,release:3},
     kom_johou_seiri:{course:"k10",name:"情報整理",maxLv:10,release:9},
     /* 図化だけ release 9 から 2 へ前倒し (2026-08-17 決定)。受験 ROI が 3 本の中で
        最も高く、線分図・面積図・表は割合と速さの土台になるため、更新 2 の k10 枠を

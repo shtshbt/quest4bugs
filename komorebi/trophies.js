@@ -53,6 +53,9 @@
        neurobasis_longipes (ヒスイカワトンボ)、haaniella_echinata (トゲハダナナフシ)、
        pulchriphyllium_mannani (ウツクシコノハムシ)。 */
     {trophyId:"borneo_frac_flow",cat:"kom_frac_flow",speciesId:"trogonoptera_brookiana",regionId:"borneo",regionName:"ボルネオえんせい"},   // 看板 (SSR) アカエリアゲハ
+    /* 2026-08-28 追加。k10 2 本目 (割合の表現変換) の代表虫は、看板が frac_flow で
+       埋まっているので上の未割当 SR 予備の先頭から採る。 */
+    {trophyId:"borneo_ratio_forms",cat:"kom_ratio_forms",speciesId:"troides_amphrysus",regionId:"borneo",regionName:"ボルネオえんせい"}, // SR アンフリサスキシタアゲハ
     {trophyId:"borneo_kuku_inverse",cat:"kom_kuku_inverse",speciesId:"lyssa_zampa",regionId:"borneo",regionName:"ボルネオえんせい"},        // SR オオツバメガ
     {trophyId:"borneo_kuku_dan6",cat:"kom_kuku_dan6",speciesId:"discotettix_belzebuth",regionId:"borneo",regionName:"ボルネオえんせい"},    // SR ツノヒシバッタ
     {trophyId:"borneo_kuku_dan7",cat:"kom_kuku_dan7",speciesId:"toxodera_hauseri",regionId:"borneo",regionName:"ボルネオえんせい"}          // SR エダカマキリ

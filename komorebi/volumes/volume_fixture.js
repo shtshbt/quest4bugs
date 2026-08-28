@@ -377,7 +377,9 @@
   volumes.volume_fixture_borneo={
     id:"volume_fixture_borneo", regionId:"borneo", regionName:"ボルネオ",
     current:false, expedition:1, release:3,
-    categories:["kom_frac_flow","kom_kuku_inverse","kom_kuku_dan6","kom_kuku_dan7"],
+    /* k10 は 2 本 (分数の解き方 + 割合の表現変換)。1 本だけだと 10 歳コースの子が
+       84 種を 1 カテゴリで消費し、残りはこはく購入でしか埋まらない (2026-08-28)。 */
+    categories:["kom_frac_flow","kom_ratio_forms","kom_kuku_inverse","kom_kuku_dan6","kom_kuku_dan7"],
     blurb:"東南アジアのまん中にある大きな島。日本の 2 倍。一年じゅう暑くて雨が多い森が広がる。",
     frozen:true, denominator:84,
     species:[

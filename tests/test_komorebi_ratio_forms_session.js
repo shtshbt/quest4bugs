@@ -64,12 +64,15 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     return asked;
   }
 
-  test("the category is implemented behind release 9", () => {
+  /* 2026-08-28 に release 9 から更新 3 へ前倒し。巻あたり k10 2 本の下限を満たすため
+     (更新 3 の k10 が kom_frac_flow 1 本だけだと、10 歳コースの子はボルネオ I の
+     84 種を 1 カテゴリで消費し、残りはこはく購入でしか埋まらない)。 */
+  test("the category shipped with update 3 and is open", () => {
     assert.equal(komorebi.categories.kom_ratio_forms.course, "k10");
     assert.equal(komorebi.categories.kom_ratio_forms.name, "割合の表現変換");
     assert.equal(komorebi.categories.kom_ratio_forms.maxLv, 10);
-    assert.equal(komorebi.categories.kom_ratio_forms.release, 9);
-    assert.equal(komorebi.isReleased("kom_ratio_forms"), false);
+    assert.equal(komorebi.categories.kom_ratio_forms.release, 3);
+    assert.equal(komorebi.isReleased("kom_ratio_forms"), true);
     assert.ok(komorebi.sessionStarters.kom_ratio_forms);
   });
 
