@@ -108,9 +108,9 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   assert.ok(Number.isInteger(au2.release) && au2.release > context.Q4B_ECONOMY.currentRelease(),
     "AU II is expected to be staged; update this test's fixtures when it ships");
   const borneo = vols.volume_fixture_borneo;
-  assert.ok(borneo, "Borneo I volume is staged in the manifest");
-  assert.ok(Number.isInteger(borneo.release) && borneo.release > context.Q4B_ECONOMY.currentRelease(),
-    "Borneo I is expected to be staged; update this test's fixtures when it ships");
+  assert.ok(borneo, "Borneo I volume is in the manifest");
+  assert.ok(Number.isInteger(borneo.release) && borneo.release <= context.Q4B_ECONOMY.currentRelease(),
+    "Borneo I shipped with update 3; it must count as released now");
   const mg2 = vols.volume_fixture_madagascar_2;
   assert.ok(mg2, "Madagascar II volume is staged in the manifest");
   assert.ok(Number.isInteger(mg2.release) && mg2.release > context.Q4B_ECONOMY.currentRelease(),
@@ -133,11 +133,11 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   }
   const now = portalKomSpecies(context.Q4B_ECONOMY.currentRelease());
   assert.equal(now.anoplognathus_viridiaeneus, undefined, "an unreleased volume leaked into the portal denominator");
-  assert.equal(now.trogonoptera_brookiana, undefined, "the staged Borneo I volume leaked into the portal denominator");
+  assert.equal(now.trogonoptera_brookiana, 1, "the released Borneo I volume must join the portal denominator");
   assert.equal(now.phyllocrania_paradoxa, undefined, "the staged Madagascar II volume leaked into the portal denominator");
   assert.ok(now.oo_onaga_yamamayu && now.papilio_ulysses, "released volumes must stay in the denominator");
-  /* CURRENT_RELEASE=2 時点の公開分母: マダガスカル I 84 + オーストラリア I 84。 */
-  assert.equal(Object.keys(now).length, 168);
+  /* CURRENT_RELEASE=3 時点の公開分母: MG I 84 + AU I 84 + ボルネオ I 84。 */
+  assert.equal(Object.keys(now).length, 252);
   /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。
      更新 3 でボルネオ I の 84 が乗り (168 + 84)、MG II (release 5) はまだ乗らない。
      更新 5 で MG II の 80 が乗り (252 + 80)、AU II (release 6) はまだ乗らない。 */

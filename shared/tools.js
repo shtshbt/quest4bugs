@@ -217,6 +217,17 @@
     return hits/pool.length>=GUILD_MIN_SHARE;
   }
 
+  /* 巻をまたぐ画面 (小道のずかんのパネル) 用: プールのどれか 1 つで働けば true。
+     公開巻の和プールに worksIn を当てると、対象の少ない巻を 1 つ公開するたびに
+     割合が薄まり、現に働いている巻ごと「つかえない」に倒れる (更新 3 のボルネオ
+     公開で灯火が 8.3%→4.8% に薄まる)。働く場所が 1 つでもあるなら取り上げない。
+     プールが 1 つも分からない文脈は worksIn と同じく true に倒す。 */
+  function worksInAny(toolId,pools){
+    if(!byId(toolId))return false;
+    if(!Array.isArray(pools)||!pools.length)return true;
+    return pools.some(function(pool){return worksIn(toolId,pool);});
+  }
+
   /* --- 効果の定数 (tools_design 8 章) ----------------------------------------
      道具が抽選をどれだけ動かすかは、この 2 定数と guildWeightFor だけが知っている。
      小道の抽選器 (komorebi/app.js) と本編の抽選器 (shared/reward.js) は別物のまま
@@ -411,6 +422,7 @@
     displayName:displayName,
     matches:matches,
     worksIn:worksIn,
+    worksInAny:worksInAny,
     GUILD_MIN_SHARE:GUILD_MIN_SHARE,
     FRESH_BOOST:FRESH_BOOST,
     guildWeightFor:guildWeightFor,

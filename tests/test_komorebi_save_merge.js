@@ -298,7 +298,7 @@ test("the highest level reached is never rolled back by a merge", () => {
   assert.equal(komorebi.normalizeProfile(clone(merged)).profile.maxLv.kom_ratio, 10);
 });
 
-/* ---- 捕獲の union は元のまま ---- */
+/* ---- 捕獲の union (重複を増やさない) ---- */
 
 /* 記録 1 件の形は shared/reward.js の record と同じ {d,s,sex,shiny}。サイズは s。
    ここを size と書いた fixture は本物の save に存在しない形で、統合側が size を
@@ -330,6 +330,71 @@ test("a record without a size leaves the stored max and min alone", () => {
   const merged = merge(local, remote);
   assert.equal(merged.collection.catches.ameiro_tonbo.max, 40, "サイズ無しの記録で最大が消えた");
   assert.equal(merged.collection.catches.ameiro_tonbo.min, 40);
+});
+
+test("a shared catch history is not doubled by a conflict", () => {
+  /* 競合時は両側が共通の履歴を丸ごと持っている。連結だと統合のたびに履歴が
+     倍化し (2→4→8…)、採集数が数百匹に膨張する (2026-08 マダガスカルの事故)。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  const shared = { d: "2026-08-17", s: 40, sex: "m", shiny: false, cid: "k1a" };
+  local.collection.catches = { ameiro_tonbo: { n: 2, max: 55, min: 40,
+    records: [clone(shared), { d: "2026-08-18", s: 55, sex: "f", shiny: false, cid: "k2a" }] } };
+  local.collection.totalCatches = 2;
+  remote.collection.catches = { ameiro_tonbo: { n: 2, max: 48, min: 40,
+    records: [clone(shared), { d: "2026-08-18", s: 48, sex: "m", shiny: false, cid: "k2b" }] } };
+  remote.collection.totalCatches = 2;
+  const merged = merge(local, remote);
+  assert.equal(merged.collection.catches.ameiro_tonbo.n, 3, "共通の履歴が倍化した");
+  assert.equal(merged.collection.totalCatches, 3);
+  /* 統合を何度重ねても増えない (毎回の保存競合が積む形)。 */
+  const again = merge(clone(merged), remote);
+  assert.equal(again.collection.catches.ameiro_tonbo.n, 3, "統合を繰り返すたびに履歴が増える");
+});
+
+test("two real catches that look identical keep both records via their ids", () => {
+  /* 同じ日に同じ大きさ・性別で 2 匹目を捕ることはある。cid が違えば別個体。 */
+  const local = komorebi.createProfile();
+  local.collection.catches = { ameiro_tonbo: { n: 2, max: 40, min: 40, records: [
+    { d: "2026-08-17", s: 40, sex: "m", shiny: false, cid: "x1" },
+    { d: "2026-08-17", s: 40, sex: "m", shiny: false, cid: "x2" }] } };
+  local.collection.totalCatches = 2;
+  const merged = merge(local, komorebi.createProfile());
+  assert.equal(merged.collection.catches.ameiro_tonbo.n, 2, "同内容の別個体が 1 匹に潰れた");
+});
+
+test("old records without an id are unioned by their content", () => {
+  /* cid の無い時代の記録は全 field 一致で同一と見る。同内容の別個体は畳まれる
+     副作用があるが、膨張した save の自己修復を優先する。 */
+  const local = komorebi.createProfile();
+  const remote = komorebi.createProfile();
+  const rec = { d: "2026-08-17", s: 40, sex: "m", shiny: false };
+  local.collection.catches = { ameiro_tonbo: { n: 1, max: 40, min: 40, records: [clone(rec)] } };
+  local.collection.totalCatches = 1;
+  remote.collection.catches = { ameiro_tonbo: { n: 2, max: 40, min: 38,
+    records: [clone(rec), { d: "2026-08-17", s: 38, sex: "m", shiny: false }] } };
+  remote.collection.totalCatches = 2;
+  const merged = merge(local, remote);
+  assert.equal(merged.collection.catches.ameiro_tonbo.n, 2, "cid 無しの共通記録が倍化した");
+});
+
+test("an inflated save heals itself when loaded", () => {
+  const p = komorebi.createProfile();
+  const rec1 = { d: "2026-08-01", s: 40, sex: "m", shiny: false };
+  const rec2 = { d: "2026-08-02", s: 52, sex: "f", shiny: true };
+  const records = [];
+  for(let i = 0; i < 8; i++){ records.push(clone(rec1)); records.push(clone(rec2)); }
+  p.collection.catches = { ameiro_tonbo: { n: 16, max: 52, min: 40, records } };
+  p.collection.totalCatches = 16;
+  const healed = komorebi.normalizeProfile(clone(p));
+  assert.equal(healed.changed, true, "膨張した save が修復されていない");
+  assert.equal(healed.profile.collection.catches.ameiro_tonbo.n, 2, "膨張した履歴が畳まれていない");
+  assert.equal(healed.profile.collection.totalCatches, 2, "採集の合計が再計算されていない");
+  assert.equal(healed.profile.collection.catches.ameiro_tonbo.max, 52);
+  assert.equal(healed.profile.collection.catches.ameiro_tonbo.min, 40);
+  /* 直した save は読むたびに書き換わらない。 */
+  const again = komorebi.normalizeProfile(clone(healed.profile));
+  assert.equal(again.changed, false, "直した save が読むたびに書き換わる");
 });
 
 test("a merged profile is still a profile the loader accepts", () => {

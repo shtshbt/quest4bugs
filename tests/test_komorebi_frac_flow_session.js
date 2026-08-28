@@ -45,9 +45,9 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     button.click();
   }
 
-  test("the category is implemented but held back until its update", () => {
+  test("the category shipped with update 3 and is open", () => {
     assert.equal(komorebi.categories.kom_frac_flow.release, 3);
-    assert.equal(komorebi.isReleased("kom_frac_flow"), false);
+    assert.equal(komorebi.isReleased("kom_frac_flow"), true);
     assert.ok(komorebi.sessionStarters.kom_frac_flow);
   });
 

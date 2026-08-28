@@ -42,11 +42,15 @@
   }
 
   /* その場所でその道具が働かないか。プールを渡されていない文脈では常に false
-     (分からないことを理由に道具を取り上げない)。判定そのものは tools.worksIn の
-     1 本だけが持ち、ここは呼ぶだけ。 */
-  function isDeadHere(toolId,pool){
+     (分からないことを理由に道具を取り上げない)。判定そのものは tools.worksIn /
+     worksInAny の 2 本だけが持ち、ここは呼ぶだけ。pools (巻ごとのプールの配列) が
+     来ていればそちらを優先する: 巻をまたぐ画面で和プールの割合を使うと、対象の
+     少ない巻の公開で割合が薄まり、働いている巻ごと否定してしまうため。 */
+  function isDeadHere(toolId,pool,pools){
     var tools=global.Q4B_TOOLS;
-    if(!tools||typeof tools.worksIn!=="function"||!Array.isArray(pool))return false;
+    if(!tools)return false;
+    if(Array.isArray(pools)&&pools.length&&typeof tools.worksInAny==="function")return !tools.worksInAny(toolId,pools);
+    if(typeof tools.worksIn!=="function"||!Array.isArray(pool))return false;
     return !tools.worksIn(toolId,pool);
   }
 
@@ -68,6 +72,8 @@
        pool     そのゲームの捕獲プール (種の配列)。渡すと、対象 guild の割合が
                 下限 (tools.js の GUILD_MIN_SHARE) に届かない道具を「ここでは
                 つかえない」として選べなくする。省略時は従来どおり全部選べる
+       pools    巻ごとのプールの配列 (小道のような多巻の画面用)。渡すと pool より
+                優先し、どれか 1 巻で働く道具は選べるままにする
 
      表示規則は komorebi の toolWidgetHtml と同じ: 未公開 release の道具は出さない、
      道具ゼロならパネルごと空文字、同種 2 本目は「よび N」、残りは N／M。 */
@@ -92,7 +98,7 @@
       seen[instance.type]=true;
       var stock=tools.ownedOf(gear,instance.type);
       owned.push({type:instance.type,tool:tool,remaining:stock[0].remaining,spares:stock.length-1,
-        dead:isDeadHere(instance.type,options.pool)});
+        dead:isDeadHere(instance.type,options.pool,options.pools)});
     });
     if(!owned.length)return "";
 
@@ -101,7 +107,7 @@
        「そうび中」と見せると画面だけが嘘をつく。 */
     var now=typeof tools.equippedTool==="function"?tools.equippedTool(gear):null;
     if(now&&now.release>release)now=null;
-    if(now&&isDeadHere(now.id,options.pool))now=null;
+    if(now&&isDeadHere(now.id,options.pool,options.pools))now=null;
     var equippedId=now?gear.equippedToolId:null;
 
     var chips='<button type="button" class="q4b-tool-chip'+(equippedId?"":" is-on")+'" data-equip="" aria-pressed="'+(equippedId?"false":"true")+'">'
@@ -224,7 +230,7 @@
     var release=Number.isFinite(options.release)?options.release
       :(typeof economy.currentRelease==="function"?economy.currentRelease():0);
     if(tool.release>release)return null;
-    return isDeadHere(tool.id,options.pool)?tool:null;
+    return isDeadHere(tool.id,options.pool,options.pools)?tool:null;
   }
 
   /* 知らせの中身。モーダルの外枠はゲームごとに違う (小道は overlay、けいさんは

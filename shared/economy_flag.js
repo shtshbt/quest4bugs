@@ -18,7 +18,7 @@
 
      点火はこの 2 行だけを動かす。 */
 
-  var CURRENT_RELEASE=2;
+  var CURRENT_RELEASE=3;   /* 2026-08-27 更新 3: ボルネオ Ⅰ (84 種) + カテゴリ 4 本 */
   var MEDAL_ECONOMY_ON=true;   /* 2026-08-21 点火。全図鑑化 (reconcile 通過) と同時に公開 */
 
   function currentRelease(){return CURRENT_RELEASE;}

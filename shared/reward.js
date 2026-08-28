@@ -349,9 +349,15 @@
     if(r && (r.m+r.f)>0) return Math.random() < r.m/(r.m+r.f) ? "m" : "f";
     return Math.random() < 0.5 ? "m" : "f";
   }
+  /* 個体記録の一意 ID。komorebi の競合統合が「同じ記録の写し」と「たまたま同内容の
+     別個体」を見分けるために発生時に振る。cid の無い時代の記録は全 field 一致で
+     判定される (komorebi/app.js の recordKey)。 */
+  function newRecordId(){
+    return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  }
   function pushRecord(entry, size, sex, shiny){
     if(!entry.records) entry.records=[];
-    entry.records.push({d:todayStr(), s:size, sex:sex, shiny:!!shiny});
+    entry.records.push({d:todayStr(), s:size, sex:sex, shiny:!!shiny, cid:newRecordId()});
   }
   /* レガシー catches (records 無し・n>=1) から仮想の個体履歴を再構成する。
      方針(docs/zukan_enhancement_plan.md 79-83 参照):
@@ -453,7 +459,7 @@
       records: prevRecords
     };
     /* records[i] に reared/bornAt を含めて push。reared:false の record には field を追加しない (LWW 安全)。 */
-    var rec = {d:todayStr(), s:size, sex:sex, shiny:!!shiny};
+    var rec = {d:todayStr(), s:size, sex:sex, shiny:!!shiny, cid:newRecordId()};
     if(reared){ rec.reared=true; if(bornAt) rec.bornAt=bornAt; }
     if(!coll.catches[sp.id].records) coll.catches[sp.id].records=[];
     coll.catches[sp.id].records.push(rec);

@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v168";  /* v168: 対象 guild ゼロの道具はその場所では働かせず、理由を 1 枚出す。 */
+var CACHE = "q4b-cache-v169";  /* v169: 更新 3 (ボルネオ Ⅰ) 公開 + 捕獲履歴が競合統合で倍化するバグの修正。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",

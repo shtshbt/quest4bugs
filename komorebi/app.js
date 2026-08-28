@@ -804,6 +804,25 @@
     else if(!Number.isInteger(p.collection.totalCatches)||p.collection.totalCatches<0)throw new Error("採集データの形式が正しくありません");
     if(p.collection.catches==null){p.collection.catches={};changed=true;}
     else if(typeof p.collection.catches!=="object"||Array.isArray(p.collection.catches))throw new Error("採集データの形式が正しくありません");
+    /* 統合が記録の連結だった頃の save は、競合のたびに捕獲履歴が倍化している。
+       読み込みで同じ記録を 1 件に畳んで自己修復する。判定は統合と同じ
+       dedupRecords なので、直した端末と古い端末が混在しても読むたびに元へ戻る。 */
+    var catchesRepaired=false;
+    Object.keys(p.collection.catches).forEach(function(id){
+      var entry=p.collection.catches[id];
+      if(!isObject(entry)||!Array.isArray(entry.records)||!entry.records.length)return;
+      var records=dedupRecords(entry.records);
+      if(records.length===entry.records.length)return;
+      entry.records=records;
+      entry.n=records.length;
+      catchesRepaired=true;changed=true;
+    });
+    if(catchesRepaired){
+      p.collection.totalCatches=Object.keys(p.collection.catches).reduce(function(total,id){
+        var entry=p.collection.catches[id];
+        return total+(isObject(entry)&&Number.isInteger(entry.n)?entry.n:0);
+      },0);
+    }
     validateCollection(p.collection);
     /* 壊れたトロフィーデータを黙って受けない。トロフィーは再授与しないので、
        形が崩れたまま通すと二度と直せない。 */
@@ -1053,6 +1072,28 @@
     return merged;
   }
 
+  /* 個体記録の同一性。新しい記録は shared/reward.js が発生時に振る cid、cid の無い
+     時代の記録は全 field の一致で見る。競合の統合では両側が共通の履歴を丸ごと
+     持っているのが普通なので、素朴な連結は統合のたびに履歴を倍化させる
+     (2→4→8… で採集数が数百匹に膨張した 2026-08 の事故の原因)。同じ記録は 1 件に
+     畳み、どちらか片側にしか無い記録だけを足す。cid の無い同内容の記録 (同じ日に
+     同じ大きさ・性別・shiny) も 1 件に畳まれるが、古いクライアントが膨らませた
+     save が混ざっても読むたびに元へ戻る自己修復のほうを採る。 */
+  function recordKey(record){
+    if(record&&typeof record.cid==="string"&&record.cid)return "c:"+record.cid;
+    var value=isObject(record)?record:{};
+    return "s:"+JSON.stringify(Object.keys(value).sort().map(function(key){return [key,value[key]];}));
+  }
+  function dedupRecords(records){
+    var seen=Object.create(null);
+    return records.filter(function(record){
+      var key=recordKey(record);
+      if(seen[key])return false;
+      seen[key]=true;
+      return true;
+    });
+  }
+
   function mergeProfileCatches(localProfile,remoteProfile){
     var localCatches=localProfile&&localProfile.collection&&localProfile.collection.catches||{};
     var remoteCatches=remoteProfile&&remoteProfile.collection&&remoteProfile.collection.catches||{};
@@ -1063,7 +1104,7 @@
       var remoteEntry=remoteCatches[id], local=localCatches[id], entry={}, key;
       if(remoteEntry)for(key in remoteEntry)entry[key]=remoteEntry[key];
       if(local)for(key in local)entry[key]=local[key];
-      entry.records=(remoteEntry&&remoteEntry.records||[]).concat(local&&local.records||[]);
+      entry.records=dedupRecords((remoteEntry&&remoteEntry.records||[]).concat(local&&local.records||[]));
       entry.n=entry.records.length;
       /* 記録のサイズ field は s (shared/reward.js の record)。size を見ていた頃は
          sizes が常に空で、二台で遊んだときに最大個体が統合されなかった。 */
@@ -3257,31 +3298,31 @@
      表示規則は同じ: 現在の装備を常時表示、札を押すだけで切り替え、道具ゼロや
      経済が閉じている間はパネルごと出さない。demo モードは保存に触れない約束
      なので出さない。 */
-  /* 小道ぜんたいの捕獲プール = 公開済みの巻の種の和。パネルと知らせはこちらを見る:
-     パネルは巻に属さない画面 (地域をまたぐ ずかん) にあるので、1 つの巻に対象が
-     いないだけで「つかえない」と言うと、その道具が効く別の巻まで否定してしまう。
-     巻ごとの効きは equippedToolOf が volumeToolPool で別に見ている。 */
-  function komorebiToolPool(){
-    var seen={},pool=[];
+  /* 小道ぜんたいの捕獲プール = 公開済みの巻ごとのプールの配列。パネルと知らせは
+     こちらを見る: パネルは巻に属さない画面 (地域をまたぐ ずかん) にあるので、
+     1 つの巻に対象がいないだけで「つかえない」と言うと、その道具が効く別の巻まで
+     否定してしまう。和プール 1 本に割合の下限を当てるのも同じ穴で、対象の少ない
+     巻を公開するたびに割合が薄まり、働いている巻ごと倒れる (更新 3 で灯火が
+     4.8% に薄まった)。だから巻ごとの配列で渡し、判定は worksInAny (どれか 1 巻で
+     働けばよい)。巻ごとの効きは equippedToolOf が volumeToolPool で別に見ている。 */
+  function komorebiToolPools(){
     /* 巻データが読めない間 (boot 前・データ差し替え中) は null を返して判定ごと
        降ろす。ここで throw すると、道具の表示ひとつで地図とずかんが落ちる。 */
     try{
+      var pools=[];
       expeditionVolumes().filter(isVolumeReleased).forEach(function(volume){
-        (volumeToolPool(volume)||[]).forEach(function(sp){
-          if(!sp||!sp.id||seen[sp.id])return;
-          seen[sp.id]=true;
-          pool.push(sp);
-        });
+        var pool=volumeToolPool(volume);
+        if(Array.isArray(pool)&&pool.length)pools.push(pool);
       });
+      return pools.length?pools:null;
     }catch(error){return null;}
-    return pool.length?pool:null;
   }
 
   function toolPanelHtml(){
     var ui=global.Q4BToolsUI;
     if(!ui||typeof ui.panelHtml!=="function"||demoMode)return "";
     return ui.panelHtml({gear:loadToolGear(),text:displayText,attrText:attrText,
-      course:profileType,economy:global.Q4B_ECONOMY,pool:komorebiToolPool()});
+      course:profileType,economy:global.Q4B_ECONOMY,pools:komorebiToolPools()});
   }
 
   /* 「ここでは つかえない どうぐ」。本編でセットした道具のまま小道へ来たとき用。
@@ -3292,7 +3333,7 @@
     var ui=global.Q4BToolsUI;
     if(toolNoticeShown||demoMode||!ui||typeof ui.inactiveTool!=="function")return;
     if(!global.document||document.querySelector(".kom-modal"))return;   /* 先客のモーダルを踏まない */
-    var tool=ui.inactiveTool({gear:loadToolGear(),economy:global.Q4B_ECONOMY,pool:komorebiToolPool()});
+    var tool=ui.inactiveTool({gear:loadToolGear(),economy:global.Q4B_ECONOMY,pools:komorebiToolPools()});
     if(!tool)return;
     toolNoticeShown=true;
     var overlay=document.createElement("div");

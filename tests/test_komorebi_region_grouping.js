@@ -28,6 +28,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
      CURRENT_RELEASE を上げても対象が変わらないよう、実データのオーストラリア遠征 I は
      外し、マダガスカル 1 地域だけの世界を作り直してから見る (遠征 II / III は下で注入)。 */
   delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
+  delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
   rerender();
 
   test("the map draws one pin per opened region and none per volume", () => {

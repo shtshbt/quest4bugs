@@ -157,11 +157,10 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
-  test("the real Borneo I volume (release 3) stays staged and off every surface", () => {
-    /* 事前準備方式の実データ版その 2。ボルネオ遠征 I は release:3 で manifest に
-       仕込み済みで、種 id は bugs.js に実在する。AU II と違い、ボルネオには公開済みの
-       巻が 1 つも無いので、CURRENT_RELEASE が 3 に届くまで地図のピン自体が出ない
-       (旧 placeholder の合成 fixture は「…」ピンを出していた)。 */
+  test("the real Borneo I volume (release 3) is live on the map since update 3", () => {
+    /* 事前準備方式の実データ版その 2。ボルネオ遠征 I は更新 3 で公開済み。
+       freeze した中身 (種数・看板) が公開で動いていないことと、地図にピンが
+       立って分母 84 を名乗ることを見る。 */
     const borneo = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
     assert.ok(borneo, "Borneo I manifest entry is missing");
     assert.equal(borneo.release, 3);
@@ -174,13 +173,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(flagships.length, 1, "Borneo I must have exactly one flagship");
     assert.equal(flagships[0].id, "trogonoptera_brookiana");
     assert.equal(flagships[0].rarity, "SSR");
-    assert.ok(borneo.release > komorebi.currentRelease(),
-      "Borneo I is expected to be staged; update the release-gate fixtures when it ships");
-    /* 地図へ戻って再描画し、巻もピンも現れないことを見る。 */
+    assert.ok(borneo.release <= komorebi.currentRelease(),
+      "Borneo I shipped with update 3; it must count as released now");
+    /* 地図へ戻って再描画し、ピンが立って分母 84 を名乗ることを見る。 */
     app.querySelector('[data-action="back"]').click();
-    assert.equal(app.innerHTML.indexOf("volume_fixture_borneo"), -1, "Borneo I leaked into the map");
-    assert.equal(plain().indexOf("ボルネオ"), -1, "Borneo is visible before its release");
-    assert.equal(app.querySelector('[data-region-id="borneo"]'), null, "the borneo pin appeared before its release");
+    assert.ok(plain().indexOf("ボルネオ") >= 0, "Borneo is missing from the map after its release");
+    const pin = app.querySelector('[data-region-id="borneo"]');
+    assert.ok(pin, "the borneo pin is missing after its release");
+    assert.match(pin.getAttribute("aria-label"), /／84、/, "the borneo denominator is wrong");
     app.querySelector('[data-action="trophies"]').click();
   });
 
