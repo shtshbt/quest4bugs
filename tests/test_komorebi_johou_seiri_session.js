@@ -120,8 +120,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.categories.kom_johou_seiri.course, "k10");
     assert.equal(komorebi.categories.kom_johou_seiri.name, "情報整理");
     assert.equal(komorebi.categories.kom_johou_seiri.maxLv, 10);
-    assert.equal(komorebi.categories.kom_johou_seiri.release, 9);
-    assert.equal(komorebi.isReleased("kom_johou_seiri"), false);
+    assert.equal(komorebi.categories.kom_johou_seiri.release, 4);
+    assert.equal(komorebi.isReleased("kom_johou_seiri"), false /* CURRENT_RELEASE=3 < 4 */);
     assert.ok(komorebi.sessionStarters.kom_johou_seiri);
   });
 

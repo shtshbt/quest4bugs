@@ -139,16 +139,19 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   /* CURRENT_RELEASE=3 時点の公開分母: MG I 84 + AU I 84 + ボルネオ I 84。 */
   assert.equal(Object.keys(now).length, 252);
   /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。
-     更新 3 でボルネオ I の 84 が乗り (168 + 84)、MG II (release 5) はまだ乗らない。
-     更新 5 で MG II の 80 が乗り (252 + 80)、AU II (release 6) はまだ乗らない。 */
+     2026-08-28 の再編で AU II が更新 6 から 4 へ繰り上がり、MG II は 5 のまま。
+     更新 3 でボルネオ I の 84 が乗り (168 + 84)、AU II も MG II もまだ乗らない。
+     更新 4 で AU II の 84 が乗り (252 + 84)、MG II はまだ乗らない。
+     更新 5 で MG II の 80 が乗る (336 + 80)。 */
   assert.equal(portalKomSpecies(borneo.release).trogonoptera_brookiana, 1);
   assert.equal(Object.keys(portalKomSpecies(borneo.release)).length, 252);
   assert.equal(portalKomSpecies(borneo.release).phyllocrania_paradoxa, undefined);
   assert.equal(portalKomSpecies(borneo.release).anoplognathus_viridiaeneus, undefined);
-  assert.equal(portalKomSpecies(mg2.release).phyllocrania_paradoxa, 1);
-  assert.equal(Object.keys(portalKomSpecies(mg2.release)).length, 332);
-  assert.equal(portalKomSpecies(mg2.release).anoplognathus_viridiaeneus, undefined);
   assert.equal(portalKomSpecies(au2.release).anoplognathus_viridiaeneus, 1);
+  assert.equal(Object.keys(portalKomSpecies(au2.release)).length, 336);
+  assert.equal(portalKomSpecies(au2.release).phyllocrania_paradoxa, undefined);
+  assert.equal(portalKomSpecies(mg2.release).phyllocrania_paradoxa, 1);
+  assert.equal(Object.keys(portalKomSpecies(mg2.release)).length, 416);
   /* ソース断面: index.html が実際にこの規則を実装していること。 */
   assert.match(portal, /Number\.isInteger\(vol\.release\)&&vol\.release>releaseNow/);
   assert.match(portal, /window\.Q4B_ECONOMY&&window\.Q4B_ECONOMY\.currentRelease/);

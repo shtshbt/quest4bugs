@@ -91,8 +91,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.categories.kom_hayasa.course, "k10");
     assert.equal(komorebi.categories.kom_hayasa.name, "速さ");
     assert.equal(komorebi.categories.kom_hayasa.maxLv, 10);
-    assert.equal(komorebi.categories.kom_hayasa.release, 9);
-    assert.equal(komorebi.isReleased("kom_hayasa"), false);
+    assert.equal(komorebi.categories.kom_hayasa.release, 4);
+    assert.equal(komorebi.isReleased("kom_hayasa"), false /* CURRENT_RELEASE=3 < 4 */);
     assert.ok(komorebi.sessionStarters.kom_hayasa);
   });
 

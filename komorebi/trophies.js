@@ -58,26 +58,33 @@
     {trophyId:"borneo_ratio_forms",cat:"kom_ratio_forms",speciesId:"troides_amphrysus",regionId:"borneo",regionName:"ボルネオえんせい"}, // SR アンフリサスキシタアゲハ
     {trophyId:"borneo_kuku_inverse",cat:"kom_kuku_inverse",speciesId:"lyssa_zampa",regionId:"borneo",regionName:"ボルネオえんせい"},        // SR オオツバメガ
     {trophyId:"borneo_kuku_dan6",cat:"kom_kuku_dan6",speciesId:"discotettix_belzebuth",regionId:"borneo",regionName:"ボルネオえんせい"},    // SR ツノヒシバッタ
-    {trophyId:"borneo_kuku_dan7",cat:"kom_kuku_dan7",speciesId:"toxodera_hauseri",regionId:"borneo",regionName:"ボルネオえんせい"}          // SR エダカマキリ
+    {trophyId:"borneo_kuku_dan7",cat:"kom_kuku_dan7",speciesId:"toxodera_hauseri",regionId:"borneo",regionName:"ボルネオえんせい"},         // SR エダカマキリ
+    /* 更新 4 (オーストラリア遠征 II)。2026-08-28 の再編で更新 6 から繰り上げ、下の
+       据え置きブロックを有効化した。cat の顔ぶれは再編で変わっている: 元案は コスタリカ
+       遠征 I から借りる 4 本 (kuku_bridge / equation_select / kuku_dan8 / kuku_dan9) を
+       想定していたが、AU II が自前の k10 2 本と k5 2 本を持つ形に変えたため、種は
+       freeze draft の 4 種をそのまま使い cat だけを差し替えた。
+       看板は k10 側 1 本 (kom_hayasa) に与え、残り 3 本は同じ巻の SSR と SR 帯から個別
+       指定する (release_linkage 3 章、ボルネオ I と同じ規定)。 */
+    {trophyId:"australia2_hayasa",cat:"kom_hayasa",speciesId:"anoplognathus_viridiaeneus",regionId:"australia",regionName:"オーストラリアえんせい"},  // 看板 (SSR) キンミドリコガネ
+    {trophyId:"australia2_johou_seiri",cat:"kom_johou_seiri",speciesId:"aleeta_curvicosta",regionId:"australia",regionName:"オーストラリアえんせい"}, // SSR コナフキゼミ
+    {trophyId:"australia2_equation_select",cat:"kom_equation_select",speciesId:"dryococelus_australe",regionId:"australia",regionName:"オーストラリアえんせい"}, // SSR クロオオナナフシ
+    {trophyId:"australia2_kuku_dan8",cat:"kom_kuku_dan8",speciesId:"xylotrupes_australicus",regionId:"australia",regionName:"オーストラリアえんせい"}, // SR クロツノカブト
+    /* 更新 5 (マダガスカル遠征 II)。2026-08-28 の再編で、借り物の 4 本から自前の 3 本 +
+       暫定 1 本の構成へ変えた。看板は k10 側 1 本 (kom_kisokusei) に与える。
+       分数の解き方は暫定でこの巻にも載るが、代表虫はボルネオ I 側 (borneo_frac_flow)
+       のままである。cat 1 本にトロフィー 1 個の規定どおりで、ここには行を作らない。
+       整数の性質の実装が入ったら epilissus_splendidus (SSR ルリミドリマルコガネ) を
+       与える。種の根拠は mg_expedition2_freeze_draft.md 2.1 / 2.2 章。 */
+    {trophyId:"madagascar2_kisokusei",cat:"kom_kisokusei",speciesId:"phyllocrania_paradoxa",regionId:"madagascar",regionName:"マダガスカルえんせい"}, // 看板 (SSR) ネジレカンムリカマキリ
+    {trophyId:"madagascar2_kuku_bridge",cat:"kom_kuku_bridge",speciesId:"madranga_segnita",regionId:"madagascar",regionName:"マダガスカルえんせい"},  // SSR ベニルリヨコバイ
+    {trophyId:"madagascar2_kuku_dan9",cat:"kom_kuku_dan9",speciesId:"helictopleurus_quadripunctatus",regionId:"madagascar",regionName:"マダガスカルえんせい"} // SR ヨツボシコガネ
   ];
 
-  /* --- 更新 6 (オーストラリア遠征 II) のメダル代表種 (据え置き。有効化しない) --------
-     更新 6 は学習カテゴリを伴わない図鑑ドロップなので、新規トロフィーは 0 件。
-     AU II が manifest で挙げる 4 本 (kom_kuku_bridge / kom_equation_select /
-     kom_kuku_dan8 / kom_kuku_dan9) は コスタリカ遠征 I (更新 4) から借りる cat で、
-     release_linkage 3 章の規定 (代表虫 = その cat の最終 Lv 帯を投入した巻の看板) では
-     代表虫は CR I 側に立つ。cat は 1 本につきトロフィー 1 個なので
-     (tests/test_komorebi_acceptance.js 15.5 が cat と trophyId の一意を見る)、
-     下の 4 行を CR I 側の行と同時に入れることはできない。
-
-     代表虫を AU II 側へ移す判断をしたときだけ、CR I 側の同じ cat の行を外して
-     入れ替える。種の根拠は zukan_foundry/reports/au_expedition2_freeze_draft.md
-     2.1 章 (SSR) と 2.2 章 (SR)、および承認記録 (2026-08-18) の SSR 入れ替え。
-
-     {trophyId:"australia2_kuku_bridge",cat:"kom_kuku_bridge",speciesId:"anoplognathus_viridiaeneus",regionId:"australia",regionName:"オーストラリアえんせい"}, // 看板 (SSR) キンミドリコガネ
-     {trophyId:"australia2_equation_select",cat:"kom_equation_select",speciesId:"aleeta_curvicosta",regionId:"australia",regionName:"オーストラリアえんせい"},  // SSR コナフキゼミ
-     {trophyId:"australia2_kuku_dan8",cat:"kom_kuku_dan8",speciesId:"dryococelus_australe",regionId:"australia",regionName:"オーストラリアえんせい"},          // SSR クロオオナナフシ
-     {trophyId:"australia2_kuku_dan9",cat:"kom_kuku_dan9",speciesId:"xylotrupes_australicus",regionId:"australia",regionName:"オーストラリアえんせい"},        // SR クロツノカブト
+  /* --- 旧 更新 6 (オーストラリア遠征 II) の据え置きブロックは 2026-08-28 に有効化した ---
+     AU II は再編で更新 4 へ繰り上がり、自前の k10 2 本と k5 2 本を持つ巻になった。
+     代表種 4 種は freeze draft 2.1 / 2.2 章の選定をそのまま使い、cat だけを新しい
+     顔ぶれへ差し替えて上の TROPHIES に入れてある。
 
      未割当の SR 予備: castiarina_sexplagiata (ダイダイオビタマムシ)、
      podacanthus_typhon (モモバネナナフシ)、rhyothemis_graphiptera

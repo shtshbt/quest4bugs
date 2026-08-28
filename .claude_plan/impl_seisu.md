@@ -1,6 +1,6 @@
 # round N: kom_seisu 実装
 
-仕様の正本: `docs/komorebi_seisu_curriculum.md` (v0.5)。共通要件: `.claude_plan/k10_new_cats_common.md`。
+仕様の正本: `docs/komorebi_seisu_curriculum.md` (v0.6)。共通要件: `.claude_plan/k10_new_cats_common.md`。
 
 共通要件からの逸脱が 2 点ある。先に読むこと。
 

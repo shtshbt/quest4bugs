@@ -35,9 +35,47 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(Number.isInteger(komorebi.currentRelease()) && komorebi.currentRelease() >= 1, true);
   });
 
-  test("the eight recitation tables unlock in teaching order, two per update", () => {
-    /* 指導順 (2, 5, 3, 4, 6, 7, 8, 9) を 2 本ずつの倍速で出す (2026-08-14 決定:
-       すでに 7×8 を足し算処理しており、段は 8 週間で出揃わせる)。
+  test("every volume carries at least two learning categories per course", () => {
+    /* 再編 (2026-08-28) の唯一の規則。更新番号は枠で、地域も学習カテゴリも準備でき次第
+       あてはめる。並べ替えのたびに番号と地域の対応を書き換えるのではなく、この不変条件
+       だけを検査する (release_linkage 2.0)。
+
+       下限を割った巻は、そのコースの子にとって学習を経ずに図鑑が埋まる巻になる。こはく
+       呼び出しはコースを見ずに巻を選ぶ (komorebi/app.js の amberCallVolume) ため、学習
+       カテゴリの薄い巻は図鑑を対価なしで配ることになる。
+
+       placeholder の巻は合成データなので対象外。カテゴリ未定の枠も同じく除く。 */
+    Object.values(context.Q4B_KOMOREBI_VOLUMES).forEach(volume => {
+      if(volume.placeholder === true) return;
+      const courses = volume.categories.map(cat => komorebi.categories[cat].course);
+      const k10 = courses.filter(course => course === "k10").length;
+      const k5 = courses.filter(course => course === "k5").length;
+      assert.ok(k10 >= 2, volume.id + " has only " + k10 + " k10 categories (needs 2)");
+      assert.ok(k5 >= 2, volume.id + " has only " + k5 + " k5 categories (needs 2)");
+    });
+  });
+
+  test("a volume never reuses a category already spent in its own region", () => {
+    /* 地域内 1 cat 1 遠征。地域をまたいだ再利用は許す (分数の解き方がボルネオ I と
+       マダガスカル II の両方に付いていた前例)。同じ地域の中で重ねると、2 巻目が
+       1 巻目の学習をもう一度要求するだけになり、遠征の意味が消える。 */
+    const byRegion = {};
+    Object.values(context.Q4B_KOMOREBI_VOLUMES).forEach(volume => {
+      if(volume.placeholder === true) return;
+      const seen = byRegion[volume.regionId] || (byRegion[volume.regionId] = {});
+      volume.categories.forEach(cat => {
+        assert.equal(seen[cat], undefined,
+          volume.regionId + " uses " + cat + " in more than one expedition");
+        seen[cat] = volume.id;
+      });
+    });
+  });
+
+  test("the eight recitation tables unlock in teaching order", () => {
+    /* 指導順 (2, 5, 3, 4, 6, 7, 8, 9) は不変。速度は 2026-08-28 の再編で落とした。
+       1 巻あたり k5 を 2 本とする規則 (release_linkage 2.0) の下では、更新 4 と 5 の
+       k5 枠が各 2 本しかなく、九九の外へ と 文章題の式えらび が 1 枠ずつ占めるため、
+       段は 1 本ずつになる。出揃うのは更新 4 ではなく更新 5。
        エンジンは段番号駆動なので実装は CATEGORIES の 1 行だけ。 */
     const dans = Object.keys(komorebi.categories)
       .map(cat => /^kom_kuku_dan(\d)$/.exec(cat))
@@ -45,7 +83,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
       .map(m => ({ cat: m[0], dan: Number(m[1]), release: komorebi.categories[m[0]].release }))
       .sort((a, b) => a.release - b.release);
     assert.deepEqual(dans.map(entry => entry.dan), [2, 5, 3, 4, 6, 7, 8, 9]);
-    assert.deepEqual(dans.map(entry => entry.release), [1, 1, 2, 2, 3, 3, 4, 4]);
+    assert.deepEqual(dans.map(entry => entry.release), [1, 1, 2, 2, 3, 3, 4, 5]);
     dans.forEach(entry => {
       assert.ok(komorebi.sessionStarters[entry.cat], entry.cat + " has no starter");
       assert.equal(komorebi.categories[entry.cat].course, "k5");
@@ -130,13 +168,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
-  test("the real Australia II volume (release 6) stays staged and off every surface", () => {
-    /* 事前準備方式の実データ版。オーストラリア遠征 II は release:6 で manifest に
-       仕込み済みで、種 id は bugs.js に実在する。CURRENT_RELEASE が 6 に届くまで
+  test("the real Australia II volume (release 4) stays staged and off every surface", () => {
+    /* 事前準備方式の実データ版。オーストラリア遠征 II は 2026-08-28 の再編で更新 6 から
+       4 へ繰り上がった (写真 84/84 と manifest 凍結が済んでおり、写真ゼロのコスタリカ I
+       を先に置くとチェーンが止まるため)。CURRENT_RELEASE が 4 に届くまで
        地図 (ピンの分母)・地域図鑑・抽選 (いずれも regionList 経由) に出ないこと。 */
     const au2 = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia_2;
     assert.ok(au2, "AU II manifest entry is missing");
-    assert.equal(au2.release, 6);
+    assert.equal(au2.release, 4);
     assert.equal(au2.expedition, 2);
     assert.equal(au2.frozen, true);
     assert.equal(au2.denominator, 84);

@@ -103,8 +103,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(komorebi.categories.kom_kisokusei.course, "k10");
     assert.equal(komorebi.categories.kom_kisokusei.name, "きまりと数えかた");
     assert.equal(komorebi.categories.kom_kisokusei.maxLv, 10);
-    assert.equal(komorebi.categories.kom_kisokusei.release, 9);
-    assert.equal(komorebi.isReleased("kom_kisokusei"), false);
+    assert.equal(komorebi.categories.kom_kisokusei.release, 5);
+    assert.equal(komorebi.isReleased("kom_kisokusei"), false /* CURRENT_RELEASE=3 < 5 */);
     assert.ok(komorebi.sessionStarters.kom_kisokusei);
   });
 

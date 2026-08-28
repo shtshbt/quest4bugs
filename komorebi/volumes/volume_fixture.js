@@ -61,7 +61,13 @@
   volumes.volume_fixture_madagascar_2={
     id:"volume_fixture_madagascar_2", regionId:"madagascar", regionName:"マダガスカル",
     current:false, expedition:2, release:5,
-    categories:["kom_frac_flow","kom_kuku_inverse","kom_kuku_dan6","kom_kuku_dan7"],
+    /* 2026-08-28 再編。k5 3 本 (九九の逆引き / 6 の段 / 7 の段) はボルネオ I からの
+       借り物だったので返し、自前の 2 本に入れ替えた。k10 も本来は 整数の性質 +
+       きまりと数えかた の 2 本にする予定だが、整数の性質はまだ実装が無い (設計は
+       v0.6 まで完了)。それまでの暫定として 分数の解き方 を借りたまま残す。
+       実装が入ったら kom_frac_flow を kom_seisu に差し替え、分数の解き方をボルネオ
+       専属に戻すこと。 */
+    categories:["kom_kisokusei","kom_frac_flow","kom_kuku_bridge","kom_kuku_dan9"],
     blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
     frozen:true, denominator:80,
     species:[
@@ -267,8 +273,11 @@
      以後この配列と denominator は増やさない (決定 4)。 */
   volumes.volume_fixture_australia_2={
     id:"volume_fixture_australia_2", regionId:"australia", regionName:"オーストラリア",
-    current:false, expedition:2, release:6,
-    categories:["kom_kuku_bridge","kom_equation_select","kom_kuku_dan8","kom_kuku_dan9"],
+    /* 2026-08-28 再編で更新 6 から 4 へ繰り上げ。写真 84/84 と manifest 凍結が済んでおり、
+       写真ゼロのコスタリカ I を先に置くとチェーンが止まるため入れ替えた。カテゴリは
+       AU I が使う 5 本を避け (地域内 1 cat 1 遠征)、k10 2 本と k5 2 本を自前で持つ。 */
+    current:false, expedition:2, release:4,
+    categories:["kom_hayasa","kom_johou_seiri","kom_equation_select","kom_kuku_dan8"],
     /* 地域 blurb は地域単位で、遠征ごとに変えない (freeze draft 6 章)。 */
     blurb:"南半球の大陸。日本の 20 倍。かわいた大地とユーカリの森が広がる。",
     frozen:true, denominator:84,
@@ -472,7 +481,11 @@
 
   volumes.volume_fixture_costa_rica=volume({
     id:"volume_fixture_costa_rica", expedition:1, regionId:"costa_rica", regionName:"コスタリカ",
-    placeholder:true,
+    /* release の指定が無く内部では更新 1 扱いだった。画面に出ないのは placeholder の
+       おかげで、番号による制御が効いていなかった。実データ化のときに release を付け
+       忘れると漏れるので、いま最後の枠を与えておく (2026-08-28)。写真 0/84 で全巻中
+       もっとも遠いため、準備できた順の方針では最後尾になる。 */
+    placeholder:true, release:8,
     categories:["kom_ratio","kom_kuku_dan4","kom_kuku_ura","kom_equation_select"],
     blurb:"中央アメリカの小さな国。九州ほどの広さに世界の生きものの 5% がすむ。",
     prefix:"kom_fixture_cr", counts:{n:6,r:2,sr:1}

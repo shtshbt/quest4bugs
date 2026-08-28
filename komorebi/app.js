@@ -27,8 +27,12 @@
     kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:2},
     kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:3},
     kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:3},
-    kom_kisokusei:{course:"k10",name:"きまりと数えかた",maxLv:10,release:9},
-    kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:9},
+    /* 2026-08-28 再編。更新番号は「枠」で、地域も学習カテゴリも準備できた順にあてはめる
+       (release_linkage 2 章)。写真ゼロの巻を先の番号に置くとチェーン全体が止まるため、
+       完成済みの巻から出す。きまりと数えかた・速さ・情報整理は release 9 で寝ていたが、
+       模試ゲートの撤廃 (roster 記録 13) で待つ理由が無くなったので前倒しした。 */
+    kom_kisokusei:{course:"k10",name:"きまりと数えかた",maxLv:10,release:5},
+    kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:4},
     /* k10 新 3 カテゴリ (2026-08-14 決定)。表示名は各 curriculum doc の題名。
        release 9 なので CURRENT_RELEASE=1 の画面には一切出ない。 */
     /* 2026-08-28 前倒し: 更新 3 の k10 が分数の解き方 1 本だけで、10 歳コースの子は
@@ -36,12 +40,12 @@
        状態になる)。予備在庫の本カテゴリをゲート待ちの 2 本 (kisokusei / hayasa) より
        先に出して、巻あたり k10 2 本の下限を満たす。 */
     kom_ratio_forms:{course:"k10",name:"割合の表現変換",maxLv:10,release:3},
-    kom_johou_seiri:{course:"k10",name:"情報整理",maxLv:10,release:9},
+    kom_johou_seiri:{course:"k10",name:"情報整理",maxLv:10,release:4},
     /* 図化だけ release 9 から 2 へ前倒し (2026-08-17 決定)。受験 ROI が 3 本の中で
        最も高く、線分図・面積図・表は割合と速さの土台になるため、更新 2 の k10 枠を
        単位換算と 2 本立てにする。engine + generator は index.html で読込み済み。 */
     kom_diagram_model:{course:"k10",name:"数量関係の図化",maxLv:10,release:2},
-    kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:4},
+    kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:5},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
        (release_linkage 2 章の倍速カレンダー)。エンジンは段番号駆動なので
@@ -52,7 +56,7 @@
     kom_kuku_dan6:{course:"k5",name:"6の段暗唱",maxLv:10,release:3},
     kom_kuku_dan7:{course:"k5",name:"7の段暗唱",maxLv:10,release:3},
     kom_kuku_dan8:{course:"k5",name:"8の段暗唱",maxLv:10,release:4},
-    kom_kuku_dan9:{course:"k5",name:"9の段暗唱",maxLv:10,release:4}
+    kom_kuku_dan9:{course:"k5",name:"9の段暗唱",maxLv:10,release:5}
   };
 
   function isReleased(cat){
