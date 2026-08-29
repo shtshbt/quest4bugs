@@ -34,6 +34,7 @@ var CORE = [
   "./komorebi/kuku_bridge_generator.js", "./komorebi/equation_select_generator.js",
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
+  "./komorebi/seisu_generator.js",
   "./komorebi/diagram_engine.js", "./komorebi/diagram_model_generator.js",
   "./shared/economy_flag.js", "./shared/tool_icons.js",
   "./shared/tool_scenes.js",

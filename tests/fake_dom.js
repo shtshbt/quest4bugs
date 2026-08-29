@@ -202,6 +202,7 @@ const KOMOREBI_FILES = [
   "komorebi/unit_convert_generator.js", "komorebi/kuku_reverse_generator.js",
   "komorebi/frac_flow_generator.js", "komorebi/kuku_bridge_generator.js",
   "komorebi/equation_select_generator.js",
+  "komorebi/seisu_generator.js",
   /* 図化は更新 2 で公開する (2026-08-17 前倒し決定)。engine → generator の順で、
      index.html の読込み順と同じ。公開時に release gate テストが
      sessionStarters.kom_diagram_model を探すため、既定の起動一覧に入れておく。 */

@@ -32,6 +32,9 @@
        完成済みの巻から出す。きまりと数えかた・速さ・情報整理は release 9 で寝ていたが、
        模試ゲートの撤廃 (roster 記録 13) で待つ理由が無くなったので前倒しした。 */
     kom_kisokusei:{course:"k10",name:"きまりと数えかた",maxLv:10,release:5},
+    /* 整数の性質は マダガスカル遠征 II (更新 5) の k10 2 本目。CURRENT_RELEASE=3 の
+       画面には出ない (curriculum v0.6、release_linkage 2 章)。 */
+    kom_seisu:{course:"k10",name:"整数の性質",maxLv:10,release:5},
     kom_hayasa:{course:"k10",name:"速さ",maxLv:10,release:4},
     /* k10 新 3 カテゴリ (2026-08-14 決定)。表示名は各 curriculum doc の題名。
        release 9 なので CURRENT_RELEASE=1 の画面には一切出ない。 */
@@ -1813,7 +1816,7 @@
   }
 
   function answerText(question){
-    /* 図化の find_all だけ正解集合が ansSet (生成器の契約)。他カテゴリは ans。 */
+    /* 図化と整数の性質の find_all は正解集合が ansSet (生成器の契約)。他カテゴリは ans。 */
     if(question.kind==="find_all")return (Array.isArray(question.ans)?question.ans:question.ansSet).map(function(index){return question.choices[index];}).join("　");
     if(question.kind==="frac"){
       /* 表現変換の分数は {n,d}。表記は doc 7.5 の「3/8」形。 */
@@ -1856,6 +1859,12 @@
     return engine;
   }
 
+  function seisuEngine(){
+    var engine=global.Q4B_KOMOREBI_SEISU;
+    if(!engine)throw new Error("整数の性質を読み込めません");
+    return engine;
+  }
+
   /* 図化の find_all 判定。生成器は正解集合を ansSet で持ち、judge を公開しないので
      ここで集合一致を取る (順不同・重複と範囲外は不正)。 */
   function judgeDiagramFindAll(question,answer){
@@ -1888,6 +1897,9 @@
     }
     if(question.cat==="kom_johou_seiri"&&question.kind==="find_all")return johouEngine().judge(question,answer);
     if(question.cat==="kom_diagram_model"&&question.kind==="find_all")return judgeDiagramFindAll(question,answer);
+    /* 整数の性質は 9.3 章の契約どおり ansSet を持つ。生成器が judge を公開しているので
+       そちらに渡す (ans は null なので judgeStandardAnswer では数値比較に落ちてしまう)。 */
+    if(question.cat==="kom_seisu"&&question.kind==="find_all")return seisuEngine().judge(question,answer);
     if(question.cat==="kom_frac_flow")return fracEngine().judge(question,answer);
     if(isDanCat(question.cat))return !!(session.verdict&&session.verdict.correct);
     if(question.kind==="num_unit"){
@@ -2594,6 +2606,7 @@
     kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません"),
     kom_ratio_forms:startRatioFormsSession,
     kom_johou_seiri:startGeneratedSession("kom_johou_seiri","Q4B_KOMOREBI_JOHOU_SEIRI","情報整理を読み込めません"),
+    kom_seisu:startGeneratedSession("kom_seisu","Q4B_KOMOREBI_SEISU","整数の性質を読み込めません"),
     kom_diagram_model:startDiagramModelSession};
   Object.keys(CATEGORIES).forEach(function(cat){
     if(danOfCategory(cat))SESSION_STARTERS[cat]=startKukuDanSession(cat);

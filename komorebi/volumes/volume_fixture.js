@@ -62,12 +62,10 @@
     id:"volume_fixture_madagascar_2", regionId:"madagascar", regionName:"マダガスカル",
     current:false, expedition:2, release:5,
     /* 2026-08-28 再編。k5 3 本 (九九の逆引き / 6 の段 / 7 の段) はボルネオ I からの
-       借り物だったので返し、自前の 2 本に入れ替えた。k10 も本来は 整数の性質 +
-       きまりと数えかた の 2 本にする予定だが、整数の性質はまだ実装が無い (設計は
-       v0.6 まで完了)。それまでの暫定として 分数の解き方 を借りたまま残す。
-       実装が入ったら kom_frac_flow を kom_seisu に差し替え、分数の解き方をボルネオ
-       専属に戻すこと。 */
-    categories:["kom_kisokusei","kom_frac_flow","kom_kuku_bridge","kom_kuku_dan9"],
+       借り物だったので返し、自前の 2 本に入れ替えた。k10 も 整数の性質 +
+       きまりと数えかた の自前 2 本になった。暫定で借りていた 分数の解き方 は
+       実装が入ったので外し、ボルネオ遠征 I 専属に戻した。 */
+    categories:["kom_seisu","kom_kisokusei","kom_kuku_bridge","kom_kuku_dan9"],
     blurb:"アフリカの東にうかぶ大きな島。日本の 1.6 倍。ここにしかいない虫がとても多い。",
     frozen:true, denominator:80,
     species:[

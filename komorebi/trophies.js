@@ -70,12 +70,13 @@
     {trophyId:"australia2_johou_seiri",cat:"kom_johou_seiri",speciesId:"aleeta_curvicosta",regionId:"australia",regionName:"オーストラリアえんせい"}, // SSR コナフキゼミ
     {trophyId:"australia2_equation_select",cat:"kom_equation_select",speciesId:"dryococelus_australe",regionId:"australia",regionName:"オーストラリアえんせい"}, // SSR クロオオナナフシ
     {trophyId:"australia2_kuku_dan8",cat:"kom_kuku_dan8",speciesId:"xylotrupes_australicus",regionId:"australia",regionName:"オーストラリアえんせい"}, // SR クロツノカブト
-    /* 更新 5 (マダガスカル遠征 II)。2026-08-28 の再編で、借り物の 4 本から自前の 3 本 +
-       暫定 1 本の構成へ変えた。看板は k10 側 1 本 (kom_kisokusei) に与える。
-       分数の解き方は暫定でこの巻にも載るが、代表虫はボルネオ I 側 (borneo_frac_flow)
-       のままである。cat 1 本にトロフィー 1 個の規定どおりで、ここには行を作らない。
-       整数の性質の実装が入ったら epilissus_splendidus (SSR ルリミドリマルコガネ) を
-       与える。種の根拠は mg_expedition2_freeze_draft.md 2.1 / 2.2 章。 */
+    /* 更新 5 (マダガスカル遠征 II)。2026-08-28 の再編で、借り物の 4 本から自前の 4 本へ
+       変えた。看板は k10 側 1 本 (kom_kisokusei) に与える。
+       暫定で借りていた 分数の解き方 は 整数の性質 の実装が入ったので巻から外し、
+       代表虫もボルネオ I 側 (borneo_frac_flow) のままである。整数の性質には
+       epilissus_splendidus (SSR ルリミドリマルコガネ) を与えた。
+       種の根拠は mg_expedition2_freeze_draft.md 2.1 / 2.2 章。 */
+    {trophyId:"madagascar2_seisu",cat:"kom_seisu",speciesId:"epilissus_splendidus",regionId:"madagascar",regionName:"マダガスカルえんせい"}, // SSR ルリミドリマルコガネ
     {trophyId:"madagascar2_kisokusei",cat:"kom_kisokusei",speciesId:"phyllocrania_paradoxa",regionId:"madagascar",regionName:"マダガスカルえんせい"}, // 看板 (SSR) ネジレカンムリカマキリ
     {trophyId:"madagascar2_kuku_bridge",cat:"kom_kuku_bridge",speciesId:"madranga_segnita",regionId:"madagascar",regionName:"マダガスカルえんせい"},  // SSR ベニルリヨコバイ
     {trophyId:"madagascar2_kuku_dan9",cat:"kom_kuku_dan9",speciesId:"helictopleurus_quadripunctatus",regionId:"madagascar",regionName:"マダガスカルえんせい"} // SR ヨツボシコガネ
