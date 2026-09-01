@@ -15,7 +15,7 @@ bulk_migrate phase で **`zukan_cards/_inbox/` の 4.6 GB / 869 files** を誤�
 - `git push --mirror` — 同上
 - `git push --force --tags` — 全 tag 盲目的 force、巨大 history 復活リスク
 - `git push --force` (生 force) — sandbox で blocked、必要時は `--force-with-lease=ref:旧SHA` を必ず使う
-- backup branch の `git branch -D` — `main-pre-cleanup-backup`、`backup/before-image-cleanup` 等は安全網
+- `main-pre-cleanup-backup` の `git branch -D` — 書き換え前履歴を持つ唯一の ref (物理 backup にも無い)
 - `git stash drop` / `git stash clear` — stash は保全 (誤削除リスク)
 - `git filter-repo` を現作業 repo で実行 — 必ず別 mirror clone で
 - `git reset --hard` を巨大 commit 上で実行する前に backup なしで進む
@@ -69,37 +69,46 @@ git push origin main
 | catalog 反映済 | 893 種 (残 320 = museum + iNat CC0 + Wikipedia 全 fail の hard-core) |
 | GitHub repo size | ~206 MB (元 1.7 GB から 88% 削減) |
 
-## ☢️ `_inbox` を git 履歴に抱えた branch (2026-09-01 判明)
+## ☢️ `_inbox` を git 履歴に抱えた branch (2026-09-01 に 4 本 → 1 本へ削減)
 
-事故の当事者である `_inbox` は **main からは消えたが、4 本の backup branch の履歴には生きている**。
+事故の当事者である `_inbox` は main からは消えたが、**backup branch の履歴には生きている**。
+2026-09-01 時点で残るのは 1 本だけ。
 
-| branch | `_inbox` in git | 中身 |
+| branch | `_inbox` in git | 扱い |
 |---|---|---|
-| `main-pre-cleanup-backup` | 1102 files / **5.9 GB** | history rewrite 前 |
-| `backup/before-image-cleanup` | 1102 files / **5.9 GB** | 同上 |
-| `pb2-only` | 555 files / **814 MB** | 2026-06-23 の作業 backup |
-| `zukan-batch-c-clean` | 555 files / **814 MB** | 同上 |
-| `main` | 0 files | 安全 |
+| `main-pre-cleanup-backup` | 1102 files / **5.9 GB** | **残す**。書き換え前履歴を持つ唯一の ref (物理 backup にも `aba3f09` は無い) |
+| `main` / その他 | 0 files | 安全 |
 
-2026-09-01 まで、このうち 3 本の upstream が `origin/main` を指していた。その状態で
-branch を checkout して素の `git push` を打つと、**`origin/main` へ 814MB から 5.9GB の
-`_inbox` を送ろうとする**。2 GB 制限を叩いた事故の再現経路そのもの。
+**この branch で `git push` を打たない。** upstream は解除済みで、素の `git push` は
+送り先不明で止まる。**upstream を再設定しないこと。** `origin/main` を upstream に持つ
+local branch は `main` だけでよい。checkout する用があるときも、用が済んだら `main` か
+作業 branch へ戻る。
 
-対処済み: 3 本の upstream を解除した (`git branch --unset-upstream`)。branch 本体は
-1 本も消していない。**upstream を再設定しないこと。** `origin/main` を upstream に持つ
-local branch は `main` だけでよい。
+危険だったのは upstream 設定だった。`origin/main` を指した状態でこの branch を checkout
+して素の `git push` を打つと、**`origin/main` へ 5.9 GB の `_inbox` を送ろうとする**。
+2 GB 制限を叩いた事故の再現経路そのもの。
 
-これらの branch では `git push` を打たない。checkout する用があるときも、用が済んだら
-`main` か作業 branch へ戻る。
+### 2026-09-01 に削除した 3 本
+
+いずれも内容が main にあり (two-dot で 15 万行前後の削除)、`_inbox` の実ファイルも
+`zukan_cards/_inbox` に全数あるため、固有情報ゼロと確認して削除した。
+
+| branch | `_inbox` | 削除の根拠 |
+|---|---|---|
+| `pb2-only` (`ac354e5`) | 555 files / 814 MB | `main-pre-cleanup-backup` から到達可 + 物理 backup にもある |
+| `zukan-batch-c-clean` (`a6bf29a`) | 555 files / 814 MB | catalog 897 種 → main は 1256 種。worktree ごと削除 (965 MB 回収) |
+| `backup/before-image-cleanup` (`8bf9084`) | 1102 files / 5.9 GB | 物理 backup (5.6 GB) に同じ commit があり冗長 |
+
+照合の詳細は `docs/archived_branches.md`。
 
 ## 🔵 保全されてる ref / backup (削除禁止、動作確認期間中)
 
 ### ローカル branches
-- `main-pre-cleanup-backup` (旧 `aba3f09`、history rewrite 前)
-- `backup/before-image-cleanup` (旧 `8bf9084`、zukan +81 + PB-2)
+- `main-pre-cleanup-backup` (旧 `aba3f09`、history rewrite 前)。**物理 backup にも無い唯一の保持者**なので、`_inbox` 5.9 GB を抱えていても残す
+- ~~`backup/before-image-cleanup`~~ (旧 `8bf9084`) は 2026-09-01 に削除。物理 backup と重複していた
 
 ### stash
-- 4 件保持 (旧 dirty 状態 / pb2-only state / untracked batch_c file / old WIP)
+- 6 件保持 (旧 dirty 状態 / pb2-only state / untracked batch_c file / old WIP ほか)
 
 ### 別 path
 - `/home/shota/quest4bugs-history-clean.git` (cleaned mirror)

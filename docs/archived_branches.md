@@ -2,10 +2,13 @@
 
 作業ブランチの名札だけを外し、名前と到達点の対応をここに残す。
 
-対象は **main に完全マージ済み** のブランチに限る。ここに載っている commit は
-すべて `origin/main` の履歴から到達できるので、ブランチを消してもコードは 1 行も
-失われない。失われるのは「どの作業がどの commit で終わったか」という対応情報だけで、
-それを補うのがこの表である。
+対象は **固有情報を持たない** ブランチに限る。多くは main に完全マージ済みで、その場合
+commit は `origin/main` の履歴から到達できるので、ブランチを消してもコードは 1 行も
+失われない。マージ済みでない古いスナップショットも、内容が main にあることを 1 件ずつ
+照合したうえで削除している (照合手順は末尾の「未マージ表示の読み方」)。
+
+失われるのは「どの作業がどの commit で終わったか」という対応情報だけで、それを補うのが
+この表である。
 
 復元は 1 行。
 
@@ -18,6 +21,8 @@ git branch claude/t04-q4b-photo-audit dc17fcb
 ```bash
 git merge-base --is-ancestor <branch> origin/main && echo "マージ済み"
 ```
+
+これが偽になるブランチは、内容で照合してから判断する (「未マージ表示の読み方」)。
 
 ## 2026-09-01 削除分
 
@@ -118,6 +123,30 @@ git 上は「未マージ 5 commits」と出るが、**中身はすべて main �
 main はさらに `subject_for_order()` (Lepidoptera を かんじ、Coleoptera を けいさん、
 他を えいたんご へ振る `shared/reward.js` の `gameFor` と同じ規則) も持つ。
 
+### 履歴書き換え周辺の backup ブランチ (2026-06-23)
+
+どちらも古いスナップショットで、**マージしてはいけない**。
+
+| ブランチ | two-dot (`git diff --stat main <branch>`) | tip |
+|---|---|---|
+| `pb2-only` | **−165,405 行** | `ac354e5` breeding namespace を CAS API へ移行 (B-2) |
+| `zukan-batch-c-clean` | **−157,728 行** | `a6bf29a` catalog 893 種反映 |
+
+B-2 の移行も catalog 893 種も main に入っている (main の catalog は 1,256 種)。
+
+**main に無い catalog エントリが 9 件 / 26 件あるが、これは別件**。2026-08 の archive
+巻き込みバグ (`zukan_foundry/reports/card_image_inspection_round123_2026-08-18.md`) で
+ライブから消えた 31 種の一部で、backup branch とは無関係。復旧の正規ルートは
+`zukan_cards/_archive` (1.3 GB、ローカルにあり)。backup branch が持つのは `_inbox` の
+生写真 2 件だけで、失われた processed / metadata は入っていない。**復旧源にはならない。**
+
+**この 2 本は `_inbox` を 555 files / 814 MB ぶん git 履歴に抱えていた。**
+固有情報ゼロと確認のうえ 2026-09-01 に削除した (`zukan-batch-c-clean` は worktree ごと、
+965 MB 回収)。`_inbox` の実ファイルは `zukan_cards/_inbox` に全数あり (1203 files / 1.7 GB)、
+git の複製は不要だった。同日 `backup/before-image-cleanup` (`8bf9084`、1102 files / 5.9 GB)
+も物理 backup と重複のため削除。`_inbox` を抱えた branch は
+`main-pre-cleanup-backup` 1 本だけになった。CLAUDE.md の同名の節を参照。
+
 ## 「未マージ」表示の読み方
 
 このページに 2 度出てきたとおり、`git branch` の ahead / behind は **commit の到達性**
@@ -141,27 +170,5 @@ git diff --stat main <branch>
 
 | ブランチ | 状態 | 理由 |
 |---|---|---|
-| `main-pre-cleanup-backup` | 履歴書き換え前の安全網 | CLAUDE.md で削除禁止 |
-| `backup/before-image-cleanup` | 同上 | CLAUDE.md で削除禁止 |
-| `pb2-only` / `zukan-batch-c-clean` | 2026-06-23 周辺の作業 backup | 中身は main にある (下記)。削除の判断は別途 |
+| `main-pre-cleanup-backup` | 履歴書き換え前の安全網 | CLAUDE.md で削除禁止。物理 backup (5.6 GB) にも `aba3f09` が無く、この ref だけが書き換え前履歴を持つ |
 | `dev` | 分岐に見えたが解消済み | 2026-09-01 に `git branch -f dev origin/dev` で付け替え。256 ahead / 256 behind の正体は history rewrite 前後の SHA 差で、tree は完全一致だった |
-
-### pb2-only と zukan-batch-c-clean の照合 (2026-09-01)
-
-どちらも古いスナップショットで、**マージしてはいけない**。
-
-| ブランチ | two-dot (`git diff --stat main <branch>`) | tip |
-|---|---|---|
-| `pb2-only` | **−165,405 行** | `ac354e5` breeding namespace を CAS API へ移行 (B-2) |
-| `zukan-batch-c-clean` | **−157,728 行** | `a6bf29a` catalog 893 種反映 |
-
-B-2 の移行も catalog 893 種も main に入っている (main の catalog は 1,256 種)。
-
-**main に無い catalog エントリが 9 件 / 26 件あるが、これは別件**。2026-08 の archive
-巻き込みバグ (`zukan_foundry/reports/card_image_inspection_round123_2026-08-18.md`) で
-ライブから消えた 31 種の一部で、backup branch とは無関係。復旧の正規ルートは
-`zukan_cards/_archive` (1.3 GB、ローカルにあり)。backup branch が持つのは `_inbox` の
-生写真 2 件だけで、失われた processed / metadata は入っていない。**復旧源にはならない。**
-
-**この 2 本は `_inbox` を 555 files / 814 MB ぶん git 履歴に抱えている。**
-CLAUDE.md の「`_inbox` を git 履歴に抱えた branch」を読むこと。
