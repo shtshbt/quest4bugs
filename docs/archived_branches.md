@@ -97,13 +97,50 @@ git 上は「未マージ 5 commits」と出るが、**中身はすべて main �
 未割当 SR 予備 6 種も根拠元の `zukan_foundry/reports/au_expedition2_freeze_draft.md`
 (main にあり) に全種載っている。
 
+### 種在庫 harvest の resume 修正 (2026-07-17)
+
+| ブランチ | 到達 SHA | 主な成果物 |
+|---|---|---|
+| `claude/photo-acquisition-and-fixes` | `39cf09a` | 却下済み種を sidecar に記録し、resume 時の GBIF 再問い合わせを止める修正 |
+
+これも git 上は「未マージ 1 commit」だが、**修正は main に入っている**。
+`tools/campaign3/t11_species_reserve/harvest_seeds.py` に `rejects_path` /
+`load_rejects` / `known rejects` / `rejected.add` の 4 要素がすべてある。
+
+**マージしてはいけない。** main のほうが上位互換で、木の比較では 134,716 行の削除に
+なる。ブランチにあって main に無い行は 2 行だけで、どちらも main 側で発展している。
+
+| ブランチの行 | main の状態 |
+|---|---|
+| `"""Serve harvested seeds to ReserveEngine offline."""` | 同じ docstring が拡張されている |
+| `self.seeds, _ = load_cache(cache_path)` | `self.seeds = [self._normalize(seed) for seed in seeds]` に発展 (正規化が追加) |
+
+main はさらに `subject_for_order()` (Lepidoptera を かんじ、Coleoptera を けいさん、
+他を えいたんご へ振る `shared/reward.js` の `gameFor` と同じ規則) も持つ。
+
+## 「未マージ」表示の読み方
+
+このページに 2 度出てきたとおり、`git branch` の ahead / behind は **commit の到達性**
+しか見ていない。同じ内容が別の commit として main に入っていると、内容が重複していても
+「未マージ」と表示される。今回はどちらも、後日の作り直しで main 側に取り込まれていた。
+
+判断は commit 数ではなく内容で行う。
+
+```bash
+# ブランチにあって main に無いものだけを見る (three-dot ではなく two-dot)
+git diff --stat main <branch>
+```
+
+`main <branch>` の two-dot が大量の **削除** を示したら、そのブランチは main より古い
+スナップショットで、マージは巻き戻しを意味する。three-dot (`main...<branch>`) は
+分岐点からの差なので、この判断には使えない。
+
 ## 削除しないもの
 
 保全対象は CLAUDE.md「保全されてる ref / backup」が正本。ここには理由だけ書く。
 
 | ブランチ | 状態 | 理由 |
 |---|---|---|
-| `claude/photo-acquisition-and-fixes` | **未マージ 1 commit** | GBIF の resume で却下済み種を再問い合わせしない修正 |
 | `main-pre-cleanup-backup` | 履歴書き換え前の安全網 | CLAUDE.md で削除禁止 |
 | `backup/before-image-cleanup` | 同上 | CLAUDE.md で削除禁止 |
 | `pb2-only` / `zukan-batch-c-clean` | 2026-06-23 周辺の作業 backup | 中身未確認。判断は別途 |
