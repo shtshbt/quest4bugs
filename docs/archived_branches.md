@@ -52,13 +52,57 @@ quest4bugs の略。T06 から T08 は名札が残っていない。
 | `claude/komorebi-phase3` | `04ff7fe` | `docs/komorebi_tools_design.md` と実装計画書の追加 |
 | `claude/komorebi-phase3-fx` | `acf0916` | Phase 3 (演出) の実装結果と統合時の注意を実装計画書へ追記 |
 
+### オーストラリア遠征 II の作業ブランチ (2026-08-18)
+
+| ブランチ | 到達 SHA | 主な成果物 |
+|---|---|---|
+| `claude/au2-ready` | `1aff78c` | AU II 84 種の bugs.js 登録・図鑑カタログ収録・volume 凍結・標本の性別修正 |
+
+git 上は「未マージ 5 commits」と出るが、**中身はすべて main にある**。2026-08-28 の
+リリース枠再編 (`2c3034a`) で AU II の作業が main 側にやり直しで取り込まれ、commit だけが
+取り残された形。削除前に 1 本ずつ照合した結果は以下。
+
+| ブランチの commit | main の状態 |
+|---|---|
+| `ab1e505` 84 種を bugs.js へ登録 | 84 / 84 種あり |
+| `6652cf8` 84 種を図鑑カタログへ収録 | 画像 410 / 410 あり |
+| `6a2adf5` AU II volume を実データで凍結 | `volume_fixture_australia_2` あり (同一 84 種) |
+| `1aff78c` キンモンチョウトンボの標本の性別 | `sexCovered: "f"` 適用済み |
+| `3208151` 更新 5 のメダル代表種の対応表 | 無い。ただし後述のとおり陳腐化している |
+
+**このブランチをマージしてはいけない。** main のほうが新しく、正しい。
+
+- ブランチは AU II を `release:5` に置くが、再編後の正は `release:4`
+  (`docs/komorebi_release_linkage.md` の更新カレンダー。更新 5 はマダガスカル遠征 II)
+- ブランチは AU II のカテゴリを CR I から借りた 4 本 (`kom_kuku_bridge` /
+  `kom_equation_select` / `kom_kuku_dan8` / `kom_kuku_dan9`) と想定していたが、再編で
+  AU II は `kom_hayasa` / `kom_johou_seiri` / `kom_equation_select` / `kom_kuku_dan8` を
+  自前で持つようになった (1 巻 k10 2 本 k5 2 本の不変条件)
+- 木そのものを比べると `main` から `au2-ready` は 47,674 行の削除になる。マージは
+  2 週間ぶんの巻き戻しを意味する
+
+唯一 main に無かった `3208151` の trophies.js コメントブロックも、移植せずに捨ててよい。
+「据え置き、有効化しない」としていた 4 種は main ですでに有効化済みで、しかも同一種:
+
+| メモの提案 | main の実装 |
+|---|---|
+| `anoplognathus_viridiaeneus` (看板 SSR) | `australia2_hayasa` |
+| `aleeta_curvicosta` (SSR) | `australia2_johou_seiri` |
+| `dryococelus_australe` (SSR) | `australia2_equation_select` |
+| `xylotrupes_australicus` (SR) | `australia2_kuku_dan8` |
+
+メモが「入れられない」とした理由も両方すでに成立していない。AU II は借りた cat ではなく
+自前の cat を持ち、1 cat に 2 トロフィーの実例も main に 4 組ある (`kom_frac_flow` /
+`kom_kuku_dan6` / `kom_kuku_dan7` / `kom_kuku_inverse` の borneo と madagascar2)。
+未割当 SR 予備 6 種も根拠元の `zukan_foundry/reports/au_expedition2_freeze_draft.md`
+(main にあり) に全種載っている。
+
 ## 削除しないもの
 
 保全対象は CLAUDE.md「保全されてる ref / backup」が正本。ここには理由だけ書く。
 
 | ブランチ | 状態 | 理由 |
 |---|---|---|
-| `claude/au2-ready` | **未マージ 5 commits** | オーストラリア遠征 II の 84 種が実データで入っている (bugs.js 登録、図鑑カタログ収録、volume 凍結、更新 5 のメダル代表種)。未公開の資産そのもの |
 | `claude/photo-acquisition-and-fixes` | **未マージ 1 commit** | GBIF の resume で却下済み種を再問い合わせしない修正 |
 | `main-pre-cleanup-backup` | 履歴書き換え前の安全網 | CLAUDE.md で削除禁止 |
 | `backup/before-image-cleanup` | 同上 | CLAUDE.md で削除禁止 |
