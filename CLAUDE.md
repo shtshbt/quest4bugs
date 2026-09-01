@@ -69,6 +69,29 @@ git push origin main
 | catalog 反映済 | 893 種 (残 320 = museum + iNat CC0 + Wikipedia 全 fail の hard-core) |
 | GitHub repo size | ~206 MB (元 1.7 GB から 88% 削減) |
 
+## ☢️ `_inbox` を git 履歴に抱えた branch (2026-09-01 判明)
+
+事故の当事者である `_inbox` は **main からは消えたが、4 本の backup branch の履歴には生きている**。
+
+| branch | `_inbox` in git | 中身 |
+|---|---|---|
+| `main-pre-cleanup-backup` | 1102 files / **5.9 GB** | history rewrite 前 |
+| `backup/before-image-cleanup` | 1102 files / **5.9 GB** | 同上 |
+| `pb2-only` | 555 files / **814 MB** | 2026-06-23 の作業 backup |
+| `zukan-batch-c-clean` | 555 files / **814 MB** | 同上 |
+| `main` | 0 files | 安全 |
+
+2026-09-01 まで、このうち 3 本の upstream が `origin/main` を指していた。その状態で
+branch を checkout して素の `git push` を打つと、**`origin/main` へ 814MB から 5.9GB の
+`_inbox` を送ろうとする**。2 GB 制限を叩いた事故の再現経路そのもの。
+
+対処済み: 3 本の upstream を解除した (`git branch --unset-upstream`)。branch 本体は
+1 本も消していない。**upstream を再設定しないこと。** `origin/main` を upstream に持つ
+local branch は `main` だけでよい。
+
+これらの branch では `git push` を打たない。checkout する用があるときも、用が済んだら
+`main` か作業 branch へ戻る。
+
 ## 🔵 保全されてる ref / backup (削除禁止、動作確認期間中)
 
 ### ローカル branches
