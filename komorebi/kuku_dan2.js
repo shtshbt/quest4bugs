@@ -1,21 +1,32 @@
 (function(global){
   "use strict";
 
+  /* 秒数は 2026-09-01 に一律 1.3 倍へ緩和した。旧表は最速が 2.0 秒/句 (Lv4・Lv8) で、
+     唱え始めの息継ぎを入れると口が回りきらない速さだった。段番号でこの表を変えない
+     (2 の段も 9 の段も同じ秒数) ので、いちばん唱えにくい段が通る速さに合わせてある。
+     Lv10 は旧 13 秒 = 1.44 秒/句 で、Lv9 (2.78) からも他 Lv の天井 (2.0) からも外れた
+     一点だった。表の最終段は「その句数での天井」であるべきなので、Lv4・Lv8 と同じ
+     2.6 秒/句 に戻して 23 秒とする。 */
   var DAN2_CONFIG={
     setSize:5,
     levels:[
-      {lv:1,chunkLength:3,display:"read",seconds:12},
-      {lv:2,chunkLength:3,display:"read",seconds:10},
-      {lv:3,chunkLength:3,display:"recall",seconds:8},
-      {lv:4,chunkLength:3,display:"recall",seconds:6},
-      {lv:5,chunkLength:5,display:"read",seconds:15},
-      {lv:6,chunkLength:5,display:"read",seconds:13},
-      {lv:7,chunkLength:5,display:"recall",seconds:12},
-      {lv:8,chunkLength:5,display:"recall",seconds:10},
-      {lv:9,chunkLength:9,display:"recall",seconds:25},
-      {lv:10,chunkLength:9,display:"recall",seconds:13}
+      {lv:1,chunkLength:3,display:"read",seconds:16},
+      {lv:2,chunkLength:3,display:"read",seconds:13},
+      {lv:3,chunkLength:3,display:"recall",seconds:10},
+      {lv:4,chunkLength:3,display:"recall",seconds:8},
+      {lv:5,chunkLength:5,display:"read",seconds:20},
+      {lv:6,chunkLength:5,display:"read",seconds:17},
+      {lv:7,chunkLength:5,display:"recall",seconds:16},
+      {lv:8,chunkLength:5,display:"recall",seconds:13},
+      {lv:9,chunkLength:9,display:"recall",seconds:32},
+      {lv:10,chunkLength:9,display:"recall",seconds:23}
     ]
   };
+  /* 音声認識は発話が終わってから終端を確定するまでに間がある (端末差はあるが 1-2 秒)。
+     タップ暗唱にはこの間が無いので、同じ limitMs を両モードで使うと音声だけが実質
+     短い制限で走る。差のぶんは判定側で足す: chunk.limitMs はタップ基準のまま置き、
+     音声経路 (judgeChunk / timeoutVerdict / 画面のバー) が limitMsFor で猶予を乗せる。 */
+  var VOICE_GRACE_MS=2000;
   var VARIANTS={
     3:[[1,2,3],[4,5,6],[7,8,9]],
     5:[[1,2,3,4,5],[5,6,7,8,9]],
@@ -309,12 +320,20 @@
     return {state:"wrong_phrase",matched:phraseMatch.matched,missing:phraseMatch.missing};
   }
 
-  function judgeTiming(chunk,elapsedMs){
+  /* そのモードで実際に使う制限時間。タップは chunk の値そのまま、音声は認識ラグぶんを
+     足したもの。画面のバーと締めのタイマーもこれを見るので、判定と見た目がずれない。 */
+  function limitMsFor(chunk,mode){
     if(!isObject(chunk)||typeof chunk.limitMs!=="number"||!isFinite(chunk.limitMs)||chunk.limitMs<0){
       throw new Error("制限時間の指定が正しくありません");
     }
+    if(mode!=="voice"&&mode!=="tap")throw new Error("入力モードの指定が正しくありません");
+    return chunk.limitMs+(mode==="voice"?VOICE_GRACE_MS:0);
+  }
+
+  function judgeTiming(chunk,elapsedMs,mode){
+    var limitMs=limitMsFor(chunk,mode===undefined?"tap":mode);
     if(typeof elapsedMs!=="number"||!isFinite(elapsedMs)||elapsedMs<0)throw new Error("回答時間の指定が正しくありません");
-    return {inTime:elapsedMs<=chunk.limitMs,limitMs:chunk.limitMs};
+    return {inTime:elapsedMs<=limitMs,limitMs:limitMs};
   }
 
   function judgeChunk(chunk,transcript,elapsedMs){
@@ -322,7 +341,7 @@
     if(transcriptResult.state==="recognition_failure"){
       return {state:"recognition_failure",correct:false,counted:false,inTime:null};
     }
-    var timing=judgeTiming(chunk,elapsedMs),correct=transcriptResult.state==="correct_phrase"&&timing.inTime;
+    var timing=judgeTiming(chunk,elapsedMs,"voice"),correct=transcriptResult.state==="correct_phrase"&&timing.inTime;
     var result={
       state:transcriptResult.state,
       correct:correct,
@@ -341,8 +360,8 @@
      (categories 3.2: バー切れ = 不正解)。詰まった句は特定できないので還流しない。 */
   function timeoutVerdict(chunk){
     validateChunkPhrases(chunk);
-    if(typeof chunk.limitMs!=="number"||!isFinite(chunk.limitMs))throw new Error("制限時間の指定が正しくありません");
-    return {state:"timeout",correct:false,counted:true,inTime:false,timedOut:true,limitMs:chunk.limitMs,matched:0,missing:-1};
+    /* 声を出さないままバーが尽きる経路は音声モードにしかないので、猶予込みで報告する。 */
+    return {state:"timeout",correct:false,counted:true,inTime:false,timedOut:true,limitMs:limitMsFor(chunk,"voice"),matched:0,missing:-1};
   }
 
   /* ---- タップ暗唱 (音声認識が実用に達しない端末向けの代替経路) ----
@@ -405,7 +424,7 @@
     validateChunkPhrases(chunk);
     if(!Array.isArray(answers)||answers.length>chunk.phrases.length)throw new Error("回答の指定が正しくありません");
     answers.forEach(function(value){if(!isInteger(value))throw new Error("回答の指定が正しくありません");});
-    var timing=judgeTiming(chunk,elapsedMs),wrongIndexes=[],matched=0;
+    var timing=judgeTiming(chunk,elapsedMs,"tap"),wrongIndexes=[],matched=0;
     chunk.phrases.forEach(function(phrase,index){
       if(index<answers.length&&answers[index]===phrase.ans){matched++;return;}
       wrongIndexes.push(index);
@@ -434,6 +453,8 @@
     buildChunk:buildChunk,
     buildSet:buildSet,
     judgeTranscript:judgeTranscript,
+    voiceGraceMs:VOICE_GRACE_MS,
+    limitMsFor:limitMsFor,
     judgeTiming:judgeTiming,
     judgeChunk:judgeChunk,
     timeoutVerdict:timeoutVerdict,

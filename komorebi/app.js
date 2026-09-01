@@ -1194,10 +1194,16 @@
     if(!Array.isArray(recent)||!Number.isInteger(adapt.n)||!Array.isArray(adapt.recent))throw new Error("統計データが正しくありません");
     recent.push(ok?1:0);while(recent.length>20)recent.shift();
     adapt.n++;adapt.recent.push(ok?1:0);while(adapt.recent.length>20)adapt.recent.shift();
+    /* 昇降は 10 問ブロックごと。昇格 8 以上 / 維持 5-7 / 降格 4 以下 (帯幅 3)。
+       2026-09-01 に 9 以上 / 5 以下から緩めた。旧値は真の正答率 p の子について
+       昇格と降格の確率が p≈0.7 で釣り合い、それを 10 段すべてで課していたので、
+       「7 割できる子は Lv10 に到達できない」= 各 Lv で 8 割を要求する設計に
+       なっていた。片方だけ下げると維持帯が 2 値に痩せて Lv 間を往復するので、
+       帯幅 3 を保つよう降格側も一緒に下げてある。均衡点は p≈0.6 に移る。 */
     if(adapt.n%10===0){
       var ok10=adapt.recent.slice(-10).reduce(function(sum,value){return sum+value;},0);
-      if(ok10>=9&&targetProfile.lv[cat]<CATEGORIES[cat].maxLv){targetProfile.lv[cat]++;targetProfile.maxLv[cat]=Math.max(targetProfile.maxLv[cat],targetProfile.lv[cat]);}
-      else if(ok10<=5&&targetProfile.lv[cat]>1)targetProfile.lv[cat]--;
+      if(ok10>=8&&targetProfile.lv[cat]<CATEGORIES[cat].maxLv){targetProfile.lv[cat]++;targetProfile.maxLv[cat]=Math.max(targetProfile.maxLv[cat],targetProfile.lv[cat]);}
+      else if(ok10<=4&&targetProfile.lv[cat]>1)targetProfile.lv[cat]--;
     }
     /* 安定判定は「その回答を出したときの Lv」で数える。昇降のあとの Lv で数えると、
        Lv9 の正答が Lv10 の実績に化ける。 */
@@ -2145,6 +2151,9 @@
     var Ctor=speechCtor();
     if(!Ctor){dan2Status("この ブラウザでは こえが つかえません");return;}
     if(session.voice&&session.voice.listening)return;
+    /* 音声は認識ラグぶんの猶予込みで走らせる。バー・締めのタイマー・時間切れ判定が
+       同じ値を見ないと、見た目が尽きたのに判定は時間内 (またはその逆) になる。 */
+    var voiceLimit=dan2Engine().limitMsFor(chunk,"voice");
     var rec=new Ctor(),active=session;
     session.voice={rec:rec,listening:true,startedAt:Date.now(),speechEndAt:0,timer:null};
     rec.lang="ja-JP";rec.interimResults=false;rec.maxAlternatives=3;rec.continuous=false;
@@ -2190,10 +2199,10 @@
       stopDan2Voice();
       freezeTimebar();
       session.verdict=dan2Engine().timeoutVerdict(chunk);
-      submitAnswer({transcript:"",elapsedMs:chunk.limitMs+1});
-    },chunk.limitMs+200);
+      submitAnswer({transcript:"",elapsedMs:voiceLimit+1});
+    },voiceLimit+200);
     dan2Status("きいています…");
-    startTimebar(chunk.limitMs);
+    startTimebar(voiceLimit);
     try{rec.start();}catch(error){stopDan2Voice();dan2Status("こえを はじめられませんでした");}
   }
 

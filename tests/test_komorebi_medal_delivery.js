@@ -92,21 +92,26 @@ const LEGACY_SAVE = {
     assert.equal(headText(), "🏅 あと" + trophies.stability.windowSize + "もん 0／" + trophies.stability.windowSize);
   });
 
-  for(let i = 0; i < 20; i++) trophies.noteAnswer(profile, "kom_ratio", 10, i < 14);
+  /* 窓を「正答 hits 本 → 残りぜんぶ誤答」の順で埋める。閾値に 3 問足りない位置に
+     置くのは、その 3 問を足すだけでは成立しないこと (押し出しの効き) を見るため。
+     閾値そのものは stability から引くので、合格線を動かしても検査は生き残る。 */
+  const size = trophies.stability.windowSize;
+  const hits = need - 3;
+  for(let i = 0; i < size; i++) trophies.noteAnswer(profile, "kom_ratio", 10, i < hits);
   await komorebi.sessionStarters.kom_ratio(volume, () => 0.5);
 
   test("a full window counts the hits and the distance left", () => {
-    /* 直近 6 問を外した直後なので、その 6 問が窓から出るまで成立しない。
-       17 - 14 = 3 ではない: 誤答が窓に残っている間は、正解を足しても同じ数の
-       正答が押し出されるだけで正答数が増えない。 */
-    assert.equal(headText(), "🏅 あと17もん 14／20");
-    assert.ok(need - 14 < 17, "the naive shortfall would have understated the distance");
+    /* 直後に誤答が並んでいるので、それが窓から出るまで成立しない。不足ぶん
+       (need - hits = 3) ではない: 誤答が窓に残っている間は、正解を足しても
+       同じ数の正答が押し出されるだけで正答数が増えない。 */
+    assert.equal(headText(), "🏅 あと" + need + "もん " + hits + "／" + size);
+    assert.ok(need - hits < need, "the naive shortfall would have understated the distance");
   });
 
-  /* 窓は 20 問で回る。この窓 ([正答 14, 誤答 6] の順) では、正解を足しても
-     出ていくのが正答なので直近 20 問の正答数は 14 のまま動かない。
-     正答数の不足ぶん (17 - 14 = 3) を数えていた頃は、ここで何問解いても
-     「あと 3 もん」で固まっていた (「メーターが動かない」の正体)。
+  /* 窓は size 問で回る。この窓 ([正答 hits, 誤答 size-hits] の順) では、正解を足しても
+     出ていくのが正答なので直近 size 問の正答数は hits のまま動かない。
+     正答数の不足ぶんを数えていた頃は、ここで何問解いても「あと 3 もん」で
+     固まっていた (「メーターが動かない」の正体)。
      押し出しまで数えれば、正解 1 問につき必ず 1 減る。 */
   const countdown = [];
   for(let i = 0; i < 4; i++){
@@ -116,14 +121,14 @@ const LEGACY_SAVE = {
   }
 
   test("every correct answer takes exactly one off the countdown", () => {
-    assert.deepEqual(countdown, ["🏅 あと17もん 14／20", "🏅 あと16もん 14／20",
-      "🏅 あと15もん 14／20", "🏅 あと14もん 14／20"],
+    const expected = [0, 1, 2, 3].map(step => "🏅 あと" + (need - step) + "もん " + hits + "／" + size);
+    assert.deepEqual(countdown, expected,
       "the countdown froze while the rolling hit count stood still");
-    /* 正答数が動かないのは正しい: 出ていくのも正答なので、直近 20 問のできばえは
+    /* 正答数が動かないのは正しい: 出ていくのも正答なので、直近 size 問のできばえは
        変わっていない。動かしてよいのは「あと」だけ。 */
     const entry = profile.trophyProgress.kom_ratio;
-    assert.equal(entry.recent.length, 20, "the window grew past its size");
-    assert.equal(entry.recent.reduce((sum, value) => sum + value, 0), 14);
+    assert.equal(entry.recent.length, size, "the window grew past its size");
+    assert.equal(entry.recent.reduce((sum, value) => sum + value, 0), hits);
   });
 
   profile.lv.kom_ratio = 9;

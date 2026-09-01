@@ -27,9 +27,9 @@ function sequence(valuesToReturn){
 
 test("levelPlan matches all ten tempo levels",function(){
   var expected=[
-    [1,3,"read",12],[2,3,"read",10],[3,3,"recall",8],[4,3,"recall",6],
-    [5,5,"read",15],[6,5,"read",13],[7,5,"recall",12],[8,5,"recall",10],
-    [9,9,"recall",25],[10,9,"recall",13]
+    [1,3,"read",16],[2,3,"read",13],[3,3,"recall",10],[4,3,"recall",8],
+    [5,5,"read",20],[6,5,"read",17],[7,5,"recall",16],[8,5,"recall",13],
+    [9,9,"recall",32],[10,9,"recall",23]
   ];
   var previous=null;
   expected.forEach(function(row){
@@ -41,6 +41,42 @@ test("levelPlan matches all ten tempo levels",function(){
     }
     previous=plan;
   });
+});
+
+/* 表は句数のちがうブロック (3 句 / 5 句 / 9 句) をまたぐので、秒数をそのまま比べても
+   速さは分からない。1 句あたりで見ると Lv10 が 1.44 秒/句 と、他ブロックの天井
+   (2.0 秒/句) より速い一点になっていた時期がある。段番号でこの表は変わらないため、
+   9 の段もこの速さで唱えることになる。天井はブロック間でそろえる。 */
+test("no level demands a faster pace per phrase than the block ceilings",function(){
+  var pace=[],lv;
+  for(lv=1;lv<=10;lv++){
+    var plan=kuku.levelPlan(lv);
+    pace.push(plan.seconds/plan.chunkLength);
+  }
+  var fastest=Math.min.apply(null,pace);
+  assert.equal(fastest>=2.5,true,"the tightest level dropped below 2.5 seconds per phrase: "+fastest);
+  /* Lv10 は表の最終段なので最速でよいが、他ブロックの天井から外れてはいけない。 */
+  var blockCeilings=[pace[3],pace[7],pace[9]];
+  var spread=Math.max.apply(null,blockCeilings)-Math.min.apply(null,blockCeilings);
+  assert.equal(spread<=0.2,true,"the block ceilings drifted apart: "+blockCeilings.join(", "));
+});
+
+/* 音声認識は発話終端の確定に間があるので、同じ句を同じ速さで唱えてもタップより
+   実測 elapsed が伸びる。両モードが同じ limitMs を見ていた頃は、音声だけが実質
+   短い制限で走っていた。 */
+test("voice gets the recognition grace and tap does not",function(){
+  var chunk=kuku.buildChunk(2,10,0);
+  assert.equal(kuku.limitMsFor(chunk,"tap"),23000);
+  assert.equal(kuku.limitMsFor(chunk,"voice"),23000+kuku.voiceGraceMs);
+  assert.throws(function(){kuku.limitMsFor(chunk,"pen");},/入力モード/);
+
+  /* タップの締切ちょうど過ぎは、音声なら猶予の内側でまだ時間内。 */
+  assert.equal(kuku.judgeTiming(chunk,23001,"tap").inTime,false);
+  assert.equal(kuku.judgeTiming(chunk,23001,"voice").inTime,true);
+  assert.equal(kuku.judgeTiming(chunk,23000+kuku.voiceGraceMs+1,"voice").inTime,false);
+  /* 猶予は音声経路の判定そのものに乗る (画面のバーだけの飾りではない)。 */
+  assert.equal(kuku.judgeTapChunk(chunk,[2,4,6,8,10,12,14,16,18],23001).correct,false);
+  assert.equal(kuku.timeoutVerdict(chunk).limitMs,23000+kuku.voiceGraceMs);
 });
 
 test("chunkVariants preserves the three fixed chunk layouts",function(){
@@ -118,13 +154,14 @@ test("phrase order cannot be rearranged",function(){
 
 test("judgeTiming includes the exact limit and excludes one millisecond over",function(){
   var chunk=kuku.buildChunk(2,3,0);
-  assert.deepEqual(plain(kuku.judgeTiming(chunk,8000)),{inTime:true,limitMs:8000});
-  assert.deepEqual(plain(kuku.judgeTiming(chunk,8001)),{inTime:false,limitMs:8000});
+  assert.deepEqual(plain(kuku.judgeTiming(chunk,10000,"tap")),{inTime:true,limitMs:10000});
+  assert.deepEqual(plain(kuku.judgeTiming(chunk,10001,"tap")),{inTime:false,limitMs:10000});
 });
 
 test("judgeChunk marks a correct phrase over time as counted timeout",function(){
   var chunk=kuku.buildChunk(2,1,0);
-  var result=kuku.judgeChunk(chunk,"にいちがにににんがしにさんがろく",12001);
+  /* Lv1 は 16 秒 + 音声猶予 2 秒。その 1ms 超え。 */
+  var result=kuku.judgeChunk(chunk,"にいちがにににんがしにさんがろく",18001);
   assert.equal(result.state,"correct_phrase");
   assert.equal(result.correct,false);
   assert.equal(result.timedOut,true);
@@ -268,7 +305,8 @@ test("judgeTapChunk flags a wrong tap with its phrase index",function(){
 
 test("judgeTapChunk counts a correct recitation over time as timeout like the voice path",function(){
   var chunk=kuku.buildChunk(2,1,0);
-  var result=kuku.judgeTapChunk(chunk,[2,4,6],12001);
+  /* タップに認識ラグの猶予は乗らないので、Lv1 の 16 秒ちょうど過ぎで切れる。 */
+  var result=kuku.judgeTapChunk(chunk,[2,4,6],16001);
   assert.equal(result.state,"correct_phrase");
   assert.equal(result.correct,false);
   assert.equal(result.counted,true);

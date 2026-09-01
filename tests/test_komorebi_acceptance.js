@@ -175,24 +175,48 @@ test("15.5 reaching level ten alone awards nothing", () => {
   assert.deepEqual(Object.keys(profile.trophies), []);
 });
 
-test("15.5 the stable-clear rule needs twenty level ten answers at 85 percent", () => {
+test("15.5 the stable-clear rule needs a full window of level ten answers at the floor", () => {
+  const size = trophies.stability.windowSize;
+  /* 合格に要る正答数。閾値そのものを検査に持ち込むと 0.85 → 0.70 のような調整で
+     全部書き換えることになるので、境界の性質 (floor は通る / その 1 問下は落ちる)
+     だけを固定する。 */
+  const need = Math.ceil(size * trophies.stability.minAccuracy);
+
   const profile = reachLv10(komorebi.createProfile(), "kom_ratio");
-  for(let i = 0; i < 19; i++) trophies.noteAnswer(profile, "kom_ratio", 10, true);
-  assert.equal(trophies.qualifies(profile, "kom_ratio"), false, "nineteen answers must not be enough");
+  for(let i = 0; i < size - 1; i++) trophies.noteAnswer(profile, "kom_ratio", 10, true);
+  assert.equal(trophies.qualifies(profile, "kom_ratio"), false, "a partial window must not be enough");
   trophies.noteAnswer(profile, "kom_ratio", 10, true);
   assert.equal(trophies.qualifies(profile, "kom_ratio"), true);
 
-  /* 17 / 20 = 85% がちょうど閾値。16 / 20 = 80% は届かない。 */
+  /* ちょうど閾値ぶんの正答は通る。 */
   const floor = reachLv10(komorebi.createProfile(), "kom_ratio");
-  for(let i = 0; i < 20; i++) trophies.noteAnswer(floor, "kom_ratio", 10, i >= 3);
-  assert.equal(trophies.qualifies(floor, "kom_ratio"), true, "17 of 20 is exactly the floor and must pass");
+  for(let i = 0; i < size; i++) trophies.noteAnswer(floor, "kom_ratio", 10, i >= size - need);
+  assert.equal(trophies.qualifies(floor, "kom_ratio"), true, need + " of " + size + " is exactly the floor and must pass");
 
+  /* その 1 問下は届かない。 */
   const shaky = reachLv10(komorebi.createProfile(), "kom_ratio");
-  for(let i = 0; i < 20; i++) trophies.noteAnswer(shaky, "kom_ratio", 10, i >= 4);
-  assert.equal(trophies.qualifies(shaky, "kom_ratio"), false, "16 of 20 is below the floor");
+  for(let i = 0; i < size; i++) trophies.noteAnswer(shaky, "kom_ratio", 10, i >= size - need + 1);
+  assert.equal(trophies.qualifies(shaky, "kom_ratio"), false, (need - 1) + " of " + size + " is below the floor");
   /* 窓は直近 20 問。正答を重ねれば誤答が押し出されて条件を満たす。 */
-  for(let i = 0; i < 4; i++) trophies.noteAnswer(shaky, "kom_ratio", 10, true);
+  for(let i = 0; i < size; i++) trophies.noteAnswer(shaky, "kom_ratio", 10, true);
   assert.equal(trophies.qualifies(shaky, "kom_ratio"), true);
+});
+
+/* 合格線は Lv の昇降帯と揃えて読む値。降格帯 (10 問中 4 問以下) を 2 ブロック続けた
+   成績でメダルが出てしまうと「Lv10 を維持できている証」にならないし、昇格帯の下限
+   (10 問中 8 問) を 2 ブロック保っても出ないなら、Lv10 に居座れるのに永久に取れない
+   帯が開く。閾値を動かすときはこの 2 つの間に入れる。 */
+test("15.5 the medal floor sits between the demotion band and the promotion band", () => {
+  const size = trophies.stability.windowSize;
+  const demoted = reachLv10(komorebi.createProfile(), "kom_ratio");
+  for(let i = 0; i < size; i++) trophies.noteAnswer(demoted, "kom_ratio", 10, i % 10 < 4);
+  assert.equal(trophies.qualifies(demoted, "kom_ratio"), false,
+    "two blocks deep in the demotion band still earned the medal");
+
+  const promoted = reachLv10(komorebi.createProfile(), "kom_ratio");
+  for(let i = 0; i < size; i++) trophies.noteAnswer(promoted, "kom_ratio", 10, i % 10 < 8);
+  assert.equal(trophies.qualifies(promoted, "kom_ratio"), true,
+    "two blocks at the promotion floor did not earn the medal");
 });
 
 test("15.5 answers given below level ten do not count toward the trophy", () => {
