@@ -234,14 +234,31 @@
     return Number.isFinite(time)?time+RESET_LOCK_DAYS*DAY_MS:null;
   }
 
-  /* リセットできるのは、今の周回のメダルが鋳造済みで、かつロックが明けたとき。
-     境界はちょうど 7 日で開ける (7 日目に押せない日が 1 日できるほうが不親切)。 */
-  function canReset(profile,cat,nowMs){
-    if(!forCat(cat))return false;
-    if(mintedLaps(profile,cat)<lapOf(profile,cat))return false;
+  /* ロックが明けるまでの残り日数。今の周回のメダルをまだ鋳造していない (= Lv10 を
+     安定クリアしていない) 間は null で、「画面に出すものがない」ことを表す。明けて
+     いれば 0。
+     ロックはこの設計で唯一の暦ゲートで、可視であることを理由に採用されたもの
+     (tools_design 記録 142: 安定判定への 3 日ルール案は「不可視の制約が不具合に
+     見える」ため不採用、可視の暦ゲートであるリセットロックで代替)。残り日数を
+     返すのはそのため。出さずに黙ってボタンを隠すと、不採用にしたはずの不可視の
+     制約そのものになる。
+     端数は切り上げる: 明ける前の日を「あと 0 日」と出すと、押せないのに押せそうに
+     見える。 */
+  function resetDaysLeft(profile,cat,nowMs){
+    if(!forCat(cat))return null;
+    if(mintedLaps(profile,cat)<lapOf(profile,cat))return null;
     var ready=resetReadyAt(profile,cat);
-    if(ready===null||!Number.isFinite(nowMs))return false;
-    return nowMs>=ready;
+    if(ready===null||!Number.isFinite(nowMs))return null;
+    if(nowMs>=ready)return 0;
+    return Math.ceil((ready-nowMs)/DAY_MS);
+  }
+
+  /* リセットできるのは、今の周回のメダルが鋳造済みで、かつロックが明けたとき。
+     境界はちょうど 7 日で開ける (7 日目に押せない日が 1 日できるほうが不親切)。
+     ゲートの判定は残り日数と 1 つの実装を共有する。別々に書くと、ボタンが
+     「あと 0 日」と言っているのに押せない (またはその逆) がいつか起きる。 */
+  function canReset(profile,cat,nowMs){
+    return resetDaysLeft(profile,cat,nowMs)===0;
   }
 
   /* 次の周回へ進める。触るのは周回番号と安定判定の窓だけで、図鑑・捕獲済み・
@@ -329,6 +346,7 @@
     medalsForLap:medalsForLap,
     medalCount:medalCount,
     resetReadyAt:resetReadyAt,
+    resetDaysLeft:resetDaysLeft,
     canReset:canReset,
     beginNextLap:beginNextLap,
     displayName:displayName,

@@ -2649,17 +2649,33 @@
 
   function trophiesModuleOrNull(){return global.Q4B_KOMOREBI_TROPHIES||null;}
 
-  function resetReady(cat){
+  /* ロックの残り日数。null は「この小道にはリセットの話がまだ無い」(Lv10 を安定
+     クリアしていない、他コース、メダル経済が閉じている) で、0 なら今すぐ押せる。 */
+  function resetGateDays(cat){
     var trophyMod=trophiesModuleOrNull();
-    if(!uroAvailable()||!trophyMod||!profile)return false;
-    if(!hasOwn(CATEGORIES,cat)||CATEGORIES[cat].course!==profileType)return false;
-    return trophyMod.canReset(profile,cat,Date.now());
+    if(!uroAvailable()||!trophyMod||!profile)return null;
+    if(!hasOwn(CATEGORIES,cat)||CATEGORIES[cat].course!==profileType)return null;
+    return trophyMod.resetDaysLeft(profile,cat,Date.now());
   }
 
+  function resetReady(cat){return resetGateDays(cat)===0;}
+
+  /* ロック中も枠は出す。7 日ゲートは可視であることを理由に採用された仕組みなので
+     (tools_design 記録 142)、黙って隠すと Lv10 をクリアした本人には「クリアしたのに
+     何も起きない日が続く」だけになり、いつ押せるようになるのかも分からない。
+     押せない間は disabled にして、残り日数をボタンの中に出す。 */
   function resetChoiceHtml(cat){
-    if(!resetReady(cat))return "";
+    var days=resetGateDays(cat);
+    if(days===null)return "";
+    var name=CATEGORIES[cat].name+"を Lv1 から もういちど";
+    if(days>0){
+      return '<button type="button" class="path-reset" disabled aria-label="'
+        +attrText(name+"、あと "+days+"日で えらべます")+'">'
+        +'🔁 <span class="path-reset-name">'+displayText(name)+'</span>'
+        +'<span class="path-reset-note">'+displayText("あと"+days+"日")+'</span></button>';
+    }
     return '<button type="button" class="path-reset" data-reset-cat="'+escapeHtml(cat)+'">'
-      +'🔁 <span class="path-reset-name">'+displayText(CATEGORIES[cat].name+"を Lv1 から もういちど")+'</span>'
+      +'🔁 <span class="path-reset-name">'+displayText(name)+'</span>'
       +'<span class="path-reset-note">'+displayText("メダル 2まい")+'</span></button>';
   }
 

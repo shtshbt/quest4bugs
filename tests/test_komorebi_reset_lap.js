@@ -49,11 +49,40 @@ test("the lock is exactly seven days from the level ten clear", () => {
   assert.equal(trophies.canReset(profile, "kom_ratio", clearedAt + 30 * DAY), true, "7 日を過ぎても開かない");
 });
 
+/* 残り日数は画面に出す値。ロックは「可視の暦ゲート」であることを理由に採用された
+   仕組みなので (tools_design 記録 142)、待ち時間が読めることが仕様の一部になる。 */
+test("the remaining days count down and hit zero exactly when the lock opens", () => {
+  const profile = stableProfile("kom_ratio");
+  assert.ok(trophies.award(profile, "kom_ratio", "2026-08-17"));
+  const clearedAt = Date.parse("2026-08-17T09:00:00.000Z");
+  profile.lv10ClearAt.kom_ratio = new Date(clearedAt).toISOString();
+
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt), 7, "クリア直後は 7 日");
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt + 1 * DAY), 6);
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt + 6 * DAY), 1);
+  /* 端数は切り上げる。明ける前を「あと 0 日」と出すと、押せないのに押せそうに見える。 */
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt + 7 * DAY - 1), 1,
+    "1 ミリ秒足りない時点が「あと 0 日」になった");
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt + 7 * DAY), 0);
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", clearedAt + 30 * DAY), 0);
+
+  /* ゲートと残り日数は 1 つの実装を共有する。別々だと「あと 0 日」なのに押せない
+     (またはその逆) がいつか起きる。 */
+  [0, 1, 6, 7, 30].forEach(days => {
+    const now = clearedAt + days * DAY;
+    assert.equal(trophies.canReset(profile, "kom_ratio", now),
+      trophies.resetDaysLeft(profile, "kom_ratio", now) === 0,
+      days + " 日目でゲートと残り日数が食い違った");
+  });
+});
+
 test("a category with no medal yet can never be reset", () => {
   const profile = stableProfile("kom_ratio");
   /* 鋳造前は起点そのものが無い。ロックの計算にも入らない。 */
   assert.equal(trophies.resetReadyAt(profile, "kom_ratio"), null);
   assert.equal(trophies.canReset(profile, "kom_ratio", Date.now()), false);
+  /* 残り日数も null。画面はこれを「出すものが無い」と読んで枠ごと消す。 */
+  assert.equal(trophies.resetDaysLeft(profile, "kom_ratio", Date.now()), null);
   /* 周回だけ進めることもできない。 */
   assert.equal(trophies.beginNextLap(profile, "kom_ratio"), null);
   assert.equal(trophies.lapOf(profile, "kom_ratio"), 1);
@@ -196,10 +225,26 @@ test("a broken lap counter is refused instead of repaired", () => {
   tools.list().forEach(tool => { if(tool.release === 2) tool.release = 1; });
   backToMap();
 
-  test("the reset button waits for the seven day lock", () => {
+  /* ロック中も枠は出して残り日数を見せる。隠してしまうと、Lv10 をクリアした本人には
+     「クリアしたのに何も起きない日が続く」だけになり、いつ押せるのかも分からない。
+     7 日ゲートは可視であることを理由に採用された仕組み (tools_design 記録 142)。 */
+  test("during the lock the button shows how many days are left instead of hiding", () => {
     profile.lv10ClearAt.kom_ratio = new Date(Date.now() - 6 * DAY).toISOString();
     backToMap();
-    assert.equal(app.querySelector("[data-reset-cat]"), null, "6 日でリセットボタンが出た");
+    assert.equal(app.querySelector("[data-reset-cat]"), null, "ロック中なのに押せる状態で出た");
+    assert.match(plain(), /割合と比を Lv1 から もういちど/, "ロック中に枠ごと消えた");
+    assert.match(plain(), /あと1日/, "残り日数が出ていない");
+    /* 押せないことは disabled で伝える。見た目だけ薄くして押せてしまうと、確認
+       ポップアップまで進んでから何も起きない。 */
+    const locked = app.querySelector(".path-reset");
+    assert.ok(locked, "ロック中のボタンが描かれていない");
+    assert.ok(locked.getAttribute("disabled") !== null, "ロック中のボタンが押せる状態だった");
+
+    /* まだメダルの出ていないカテゴリには枠ごと出ない (待つものが無い)。 */
+    assert.equal(app.querySelectorAll(".path-reset").length, 1);
+  });
+
+  test("the reset button opens after the seven day lock", () => {
     /* 境界そのものは canReset の単体で見る。画面側は実時計を読むので、7 日ちょうどを
        またがせると端末の時刻補正 1 ミリ秒で結果が変わる。 */
     profile.lv10ClearAt.kom_ratio = new Date(Date.now() - 7 * DAY - 1000).toISOString();
@@ -207,8 +252,11 @@ test("a broken lap counter is refused instead of repaired", () => {
     const button = app.querySelector("[data-reset-cat]");
     assert.ok(button, "7 日たってもリセットボタンが出ない");
     assert.equal(button.getAttribute("data-reset-cat"), "kom_ratio");
+    assert.equal(button.getAttribute("disabled"), null, "明けたのに押せないままだった");
     assert.match(plain(), /割合と比を Lv1 から もういちど/);
+    /* 明けたら残り日数はごほうびの表示に入れ替わる。両方出ると何を待つのか読めない。 */
     assert.match(plain(), /メダル 2まい/);
+    assert.equal(/あと\d+日/.test(plain()), false, "明けたのに残り日数が残っている");
     /* まだメダルの出ていないカテゴリには出ない。 */
     assert.equal(app.querySelectorAll("[data-reset-cat]").length, 1);
   });

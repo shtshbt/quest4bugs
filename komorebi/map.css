@@ -120,7 +120,11 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
 .path-reset{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:-4px;
   padding:8px 14px;border:1.5px dashed #B6963D;border-radius:12px;background:#1D2A18;
   color:#FFE9A8;font:800 13px/1.4 inherit;text-align:left;cursor:pointer}
-.path-reset:disabled{opacity:.55;cursor:default}
+/* ロック中は「待ち」であって「壊れている」ではない。押せないことは伝えつつ、残り
+   日数は読める濃さを保つ (読めない数字なら暦ゲートを可視にした意味がない)。金色の
+   丸薬はごほうび (メダル 2まい) の印なので、待ちの側は落ち着いた色に分ける。 */
+.path-reset:disabled{opacity:.72;cursor:default;border-style:dotted}
+.path-reset:disabled .path-reset-note{background:#3B4A33;color:#DCE9D3}
 .path-reset-note{margin-left:auto;padding:2px 8px;border-radius:999px;background:#B6963D;
   color:#20180A;font-size:11.5px;font-weight:900;white-space:nowrap}
 .path-choice:focus-visible,.path-zukan:focus-visible,.path-reset:focus-visible,.map-pin:focus-visible{outline:3px solid #FFD86B;outline-offset:3px}
