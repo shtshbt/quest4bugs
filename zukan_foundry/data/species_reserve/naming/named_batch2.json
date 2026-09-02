@@ -1,0 +1,311 @@
+[
+ {
+  "id": "anochetus_madagascarensis",
+  "jaName": "キイロナガアゴアリ",
+  "scientificName": "Anochetus madagascarensis",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#C9A23A",
+   "#8A5E28"
+  ],
+  "featureNote": "全身が黄金色に近い黄色のアリで、頭の前にまっすぐ細長いアゴが突き出し、腰のくびれが深い。",
+  "photoSeen": true
+ },
+ {
+  "id": "anopheles_gambiae",
+  "jaName": "ガンビアハマダラカ",
+  "scientificName": "Anopheles gambiae",
+  "order": "Diptera",
+  "family": "Culicidae",
+  "familyJa": "カ科",
+  "colors": [
+   "#E4D6A6",
+   "#6E4E30"
+  ],
+  "featureNote": "淡い麦わら色の翅に濃褐色の斑がまだらに並び、胴は褐色の細身の蚊。標本は脚の大半が欠けている。",
+  "photoSeen": true,
+  "note": "ガンビアハマダラカは日本の医動物学文献で本種に実際に使われている名。地域名 (ガンビア) + 写真で確認できるまだら翅 (ハマダラカ) で規約とも整合するためこれを採用。nameStatus の扱いは要判断。",
+  "nameStatusOverride": "standard"
+ },
+ {
+  "id": "aphaenogaster_swammerdami",
+  "jaName": "アカアシナガアリ",
+  "scientificName": "Aphaenogaster swammerdami",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#A5502A",
+   "#46281A"
+  ],
+  "featureNote": "赤褐色の体にとても長い脚をもち、腹部だけが黒褐色で艶がある大型のアリ。",
+  "photoSeen": true
+ },
+ {
+  "id": "brancsikia_freyi",
+  "jaName": "ヒシムネカマキリ",
+  "scientificName": "Brancsikia freyi",
+  "order": "Mantodea",
+  "family": "Majangidae",
+  "familyJa": "カマキリ目",
+  "colors": [
+   "#9A7A50",
+   "#4A3320"
+  ],
+  "featureNote": "前胸が木の葉のように菱形に大きく張り出し、全身が濃淡の褐色まだらで枯れ葉にそっくり。",
+  "photoSeen": true
+ },
+ {
+  "id": "dipseudopsis_longispina",
+  "jaName": "シロボシトビケラ",
+  "scientificName": "Dipseudopsis longispina",
+  "order": "Trichoptera",
+  "family": "Dipseudopsidae",
+  "familyJa": "トビケラ目",
+  "colors": [
+   "#8A7A44",
+   "#E6DFC4"
+  ],
+  "featureNote": "オリーブ褐色の前翅に小さな白い斑が散り、後翅はうすく半透明で、体より長い触角をもつ。",
+  "photoSeen": true
+ },
+ {
+  "id": "gastrimargus_africanus",
+  "jaName": "マダラミドリバッタ",
+  "scientificName": "Gastrimargus africanus",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [
+   "#6B8A2E",
+   "#7A4A2E"
+  ],
+  "featureNote": "緑を帯びた体に褐色のまだらが乗り、後脚のすねは緑色で、長い翅にも緑の細かい斑が散る。",
+  "photoSeen": true,
+  "note": "写真は Wikipedia 由来の Gastrimargus africanus africanus 雄 (Tanzania 産の基亜種)。種は一致するがマダガスカル産個体群ではない点に注意。"
+ },
+ {
+  "id": "helictopleurus_rudicollis",
+  "jaName": "アカオビミドリコガネ",
+  "scientificName": "Helictopleurus rudicollis",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "colors": [
+   "#2E8B3A",
+   "#B5651D"
+  ],
+  "featureNote": "金属光沢のある緑の丸い体で、上翅の中ほどに赤銅色の斑が帯のように横に並ぶ。",
+  "photoSeen": true
+ },
+ {
+  "id": "heteropsis_pauper",
+  "jaName": "ヒトツメジャノメ",
+  "scientificName": "Heteropsis pauper",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "colors": [
+   "#C9853A",
+   "#3A2C1E"
+  ],
+  "featureNote": "樺色の丸みのある翅で、前翅に黄色い輪と白い瞳をもつ黒い目玉模様が一つずつ入る。",
+  "photoSeen": true
+ },
+ {
+  "id": "hyalomantis_madagascariensis",
+  "jaName": "アカメミドリカマキリ",
+  "scientificName": "Hyalomantis madagascariensis",
+  "order": "Mantodea",
+  "family": "Nanomantidae",
+  "familyJa": "カマキリ目",
+  "colors": [
+   "#4CAF3A",
+   "#D8402A"
+  ],
+  "featureNote": "鮮やかな葉緑色の体と網目模様の翅をもち、大きな複眼が赤く際立つ小型のカマキリ。",
+  "photoSeen": true,
+  "note": "画像ファイル名は Hyalomantis punctata だが、GBIF で punctata は H. madagascariensis の synonym と確認 (撮影地も Andasibe-Mantadia NP, Madagascar)。写真は対象種で正しい。"
+ },
+ {
+  "id": "leiophasma_flaviceps",
+  "jaName": "アオアシナナフシ",
+  "scientificName": "Leiophasma flaviceps",
+  "order": "Phasmatodea",
+  "family": "Anisacanthidae",
+  "familyJa": "ナナフシ目",
+  "colors": [
+   "#B05A28",
+   "#2E6E62"
+  ],
+  "featureNote": "赤褐色の細い枝そっくりの体に青緑色の脚が目立ち、長い触角が前方へ伸びる。",
+  "photoSeen": true
+ },
+ {
+  "id": "melissotarsus_insularis",
+  "jaName": "チャイロタルアリ",
+  "scientificName": "Melissotarsus insularis",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#C07838",
+   "#7A4520"
+  ],
+  "featureNote": "ずんぐりした樽形の体が一様な橙褐色で、頭が幅広く、脚は短く太い。",
+  "photoSeen": true
+ },
+ {
+  "id": "phyllocrania_paradoxa",
+  "jaName": "ネジレカンムリカマキリ",
+  "scientificName": "Phyllocrania paradoxa",
+  "order": "Mantodea",
+  "family": "Hymenopodidae",
+  "familyJa": "ハナカマキリ科",
+  "colors": [
+   "#857A4E",
+   "#4E4228"
+  ],
+  "featureNote": "頭の上にねじれた葉のような冠状の突起が立ち、全身が枯れ葉色で、脚にも葉状の張り出しがある。",
+  "photoSeen": true,
+  "note": "familyJa はハナカマキリ科だが、枯れ葉に化ける本種に「ハナカマキリ」の尾は誤解を招くため、batch1 の Phymateus (オンブバッタ科→バッタ) の前例に合わせ目レベルの「カマキリ」で終える。"
+ },
+ {
+  "id": "strumigenys_dicomas",
+  "jaName": "ハリアゴアリ",
+  "scientificName": "Strumigenys dicomas",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#D4A035",
+   "#8A5E1E"
+  ],
+  "featureNote": "黄金色の小さなアリで、体に比べて頭が大きく細長く、針のように細いアゴが前へ突き出す。",
+  "photoSeen": true
+ },
+ {
+  "id": "strumigenys_lucomo",
+  "jaName": "キイロケブカアリ",
+  "scientificName": "Strumigenys lucomo",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#D9A93F",
+   "#925F1F"
+  ],
+  "featureNote": "黄金色の小さなアリで、腹部に長い立毛がまばらに立ち、下向きに曲がった短いアゴをもつ。",
+  "photoSeen": true
+ },
+ {
+  "id": "acorypha_decisa",
+  "jaName": "",
+  "scientificName": "Acorypha decisa",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [],
+  "featureNote": "褐色のバッタが写っているが、metadata 上は同属別種の生態写真であり対象種ではない。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/WIKIPEDIAWPAcorypha_L2_grade.webp) は Wikipedia 属記事の infobox 由来で、localityVerbatim に 'Male Acorypha glaucopsis photographed near Bodjekali, Benin' とある。写っているのは同属別種 A. glaucopsis (GBIF で独立の有効種) のため、対象種 A. decisa の特徴を確認できず命名しない。"
+ },
+ {
+  "id": "bemisia_tabaci",
+  "jaName": "",
+  "scientificName": "Bemisia tabaci",
+  "order": "Hemiptera",
+  "family": "Aleyrodidae",
+  "familyJa": "コナジラミ科",
+  "colors": [],
+  "featureNote": "ラベル 2 枚と丸い淡黄色のスライドマウントのみが写り、虫体は点状で形態を判別できない。",
+  "photoSeen": false,
+  "reason": "NHMUK 標本 (zukan_cards/processed/NHMUK010135388_L2_grade.webp) はスライドマウントとラベル (Cotton, Kenya, 1962) のみで、微小なコナジラミ本体の色や模様は一切見えない。なお本種には実在の標準和名タバココナジラミがあり、仮称を作る対象かどうか自体の再検討を推奨。"
+ },
+ {
+  "id": "culicoides_imicola",
+  "jaName": "",
+  "scientificName": "Culicoides imicola",
+  "order": "Diptera",
+  "family": "Ceratopogonidae",
+  "familyJa": "ハエ目",
+  "colors": [],
+  "featureNote": "黄色いカバーグラス片 4 枚とラベルのみが写り、虫は点にしか見えない。",
+  "photoSeen": false,
+  "reason": "NHMUK 標本 (zukan_cards/processed/NHMUK014772667_L2_grade.webp) はカバーグラスマウント 4 枚とラベル (Zambia, 1989, at light) のみで、微小なヌカカ類の虫体形態を判別できないため命名しない。"
+ },
+ {
+  "id": "culicoides_leucostictus",
+  "jaName": "",
+  "scientificName": "Culicoides leucostictus",
+  "order": "Diptera",
+  "family": "Ceratopogonidae",
+  "familyJa": "ハエ目",
+  "colors": [],
+  "featureNote": "黄色いカバーグラス片 4 枚とラベルのみが写り、虫は点にしか見えない。",
+  "photoSeen": false,
+  "reason": "NHMUK 標本 (zukan_cards/processed/NHMUK014854759_L2_grade.webp) はカバーグラスマウント 4 枚とラベル (Gambia, 1978, at light) のみで、虫体形態を判別できないため命名しない。"
+ },
+ {
+  "id": "macrostemum_placidum",
+  "jaName": "",
+  "scientificName": "Macrostemum placidum",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": [],
+  "featureNote": "黄色と黒の縞の翅をもつトビケラが写っているが、metadata 上は北米産の同属別種の写真。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/WIKIPEDIAWPMacrostemum_L2_grade.webp) は Wikipedia 属記事由来の 'Zebra Caddis (Macrostemum zebratum), Ottawa, Ontario, Canada'。同属別種 M. zebratum のため対象種の特徴を確認できず命名しない。"
+ },
+ {
+  "id": "musca_confiscata",
+  "jaName": "",
+  "scientificName": "Musca confiscata",
+  "order": "Diptera",
+  "family": "Muscidae",
+  "familyJa": "イエバエ科",
+  "colors": [],
+  "featureNote": "白黒の線画で描かれた蚊 (Culex) が写っており、イエバエ科の対象種とは科レベルで別の昆虫。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/WIKIPEDIAWPMuscafly_L2_grade.webp) は 'Culex taeniorhynchus' の白黒図版。対象のイエバエ属ではなく蚊であり、しかも写真ですらないため命名しない。fetch pipeline の Wikipedia fallback の取り違えとして要修正。"
+ },
+ {
+  "id": "paramantis_viridis",
+  "jaName": "",
+  "scientificName": "Paramantis viridis",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": [],
+  "featureNote": "褐色の細身のカマキリが写っているが、metadata 上は同属別種 Paramantis sacra の写真。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/WIKIPEDIAWPParamantis_L2_grade.webp) は Wikipedia 属記事由来の 'Paramantis sacra'。GBIF で sacra は viridis とは独立の有効種と確認したため、対象種の特徴を確認できず命名しない。"
+ },
+ {
+  "id": "sigara_alluaudi",
+  "jaName": "",
+  "scientificName": "Sigara alluaudi",
+  "order": "Hemiptera",
+  "family": "Corixidae",
+  "familyJa": "ミズムシ科",
+  "colors": [],
+  "featureNote": "縞模様のミズムシ類のぼやけた水中写真だが、metadata 上はベルギー産の同属別種 Sigara striata。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/WIKIPEDIAWPSigara_L2_grade.webp) は Wikipedia 属記事由来の 'Sigara striata' (Commanster, Belgium)。同属別種のため対象種の特徴を確認できず命名しない。画質も不鮮明。"
+ },
+ {
+  "id": "trialeurodes_vaporariorum",
+  "jaName": "",
+  "scientificName": "Trialeurodes vaporariorum",
+  "order": "Hemiptera",
+  "family": "Aleyrodidae",
+  "familyJa": "コナジラミ科",
+  "colors": [],
+  "featureNote": "赤いラベル 2 枚と丸いバルサムマウントのみが写り、虫体は判別できない。",
+  "photoSeen": false,
+  "reason": "NHMUK 標本 (zukan_cards/processed/NHMUK013505006_L2_grade.webp) はタイプシリーズのバルサムマウントとラベルのみで、コナジラミ本体の形態は一切見えないため命名しない。なお本種には実在の標準和名オンシツコナジラミがあり、仮称を作る対象かどうか自体の再検討を推奨。"
+ }
+]

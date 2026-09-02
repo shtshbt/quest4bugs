@@ -1,0 +1,443 @@
+[
+ {
+  "id": "lasioglossum_urbanum",
+  "jaName": "ルリガオコハナバチ",
+  "scientificName": "Lasioglossum urbanum",
+  "order": "Hymenoptera",
+  "family": "Halictidae",
+  "familyJa": "コハナバチ科",
+  "colors": [
+   "#2F5A5C",
+   "#1C2426"
+  ],
+  "featureNote": "顔の中央が金属光沢のある青緑色で、その両側に灰黒色の大きな複眼があり、顔の下ぶちには白っぽい長い毛が房になって垂れる。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "正面から撮った頭部の接写 (USNMENT00535183) で確認。青緑色に光る顔から命名。全身像ではないため、体の斑紋は確認できていない。全身写真への差し替え候補。"
+ },
+ {
+  "id": "euploea_corinna",
+  "jaName": "シロテンマダラ",
+  "scientificName": "Euploea corinna",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "colors": [
+   "#4A2A1E",
+   "#F2EADA"
+  ],
+  "featureNote": "こげ茶色の翅の外縁に沿って白い小さな斑が一列に並び、前翅の先寄りにはそれより大きな白斑がいくつか散る。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "展翅標本 (NHMUKBMNHE668114) で確認。白い斑点から命名。本種はマダラチョウ亜科で、和名の末尾はこの群の慣行にならいマダラとした。"
+ },
+ {
+  "id": "goniaea_australasiae",
+  "jaName": "トサカバッタ",
+  "scientificName": "Goniaea australasiae",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [
+   "#A0592A",
+   "#5E3216"
+  ],
+  "featureNote": "背の中央を稜が一本通り、上から見ると体は前後にとがった細い舟形になる。たたんだ翅は腹の先を越えて伸び、後脚のすねに小さなとげが並ぶ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面写真 (AMK622575) で確認。標本は一様な赤錆色で生時の体色を判定できないため、色ではなく背に立つ稜 (トサカ) で命名。"
+ },
+ {
+  "id": "podacanthus_viridiroseus",
+  "jaName": "ベニバネナナフシ",
+  "scientificName": "Podacanthus viridiroseus",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [
+   "#E27CAE",
+   "#6E9A3C"
+  ],
+  "featureNote": "緑色の細長い体から大きな後翅を広げ、その面のほとんどが桃紅色で、翅の前縁だけが緑色に残る。腹は濃い赤色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "翅を開いた生態写真で確認。後翅の紅色から命名。batch4 のアオバネナナフシ (Anchiale briareus) と同じ構成だが色が異なる。"
+ },
+ {
+  "id": "asmicridea_edwardsii",
+  "jaName": "カスリシマトビケラ",
+  "scientificName": "Asmicridea edwardsii",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": [
+   "#E6DECA",
+   "#7A5A38"
+  ],
+  "featureNote": "淡い黄白色の翅の全面に褐色のかすり模様が散り、翅の外縁には細かい毛が並ぶ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "台紙付き標本 (NHMUK014499636) で確認。虫の下に採集ラベルが重なるが、翅のかすり模様は判別できる。"
+ },
+ {
+  "id": "creontiades_dilutus",
+  "jaName": "アシナガミドリカスミカメ",
+  "scientificName": "Creontiades dilutus",
+  "order": "Hemiptera",
+  "family": "Miridae",
+  "familyJa": "カスミカメムシ科",
+  "colors": [
+   "#8C9A5C",
+   "#54463A"
+  ],
+  "featureNote": "淡い緑色の細長い体に、体長ほどもある細い脚と触角をもち、翅の後半の膜質部だけが褐色に透ける。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "側面の生態写真で確認。体長に対して極端に長い脚と緑色の体から命名。写真はやや不鮮明で、翅の細かい斑紋までは追えない。"
+ },
+ {
+  "id": "myrmecia_pilosula",
+  "jaName": "クロガオキバハリアリ",
+  "scientificName": "Myrmecia pilosula",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#26292B",
+   "#C08A2E"
+  ],
+  "featureNote": "黒い頭の両側に大きな複眼があり、その下から頭と同じくらい長い黄金色の大あごが二本前へ伸びて、内側に細かい歯がびっしり並ぶ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "頭部を正面から撮った標本写真で確認。黒い顔と黄金色の大あごから命名。末尾は Myrmecia 属の和名キバハリアリを置いた。頭部だけの接写のため全身写真への差し替え候補。"
+ },
+ {
+  "id": "agrotis_munda",
+  "jaName": "クロモンヤガ",
+  "scientificName": "Agrotis munda",
+  "order": "Lepidoptera",
+  "family": "Noctuidae",
+  "familyJa": "ヤガ科",
+  "colors": [
+   "#8A7A5E",
+   "#4A3A2A"
+  ],
+  "featureNote": "灰褐色の前翅の中ほどに濃褐色の細長い斑が前後に並び、後翅は白っぽい無地。胸の背に毛の束が立つ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "展翅標本の背面写真で確認。前翅の黒い斑から命名。"
+ },
+ {
+  "id": "austrolestes_leda",
+  "jaName": "ワモンアオイトトンボ",
+  "scientificName": "Austrolestes leda",
+  "order": "Odonata",
+  "family": "Lestidae",
+  "familyJa": "アオイトトンボ科",
+  "colors": [
+   "#A8874E",
+   "#4A3A28"
+  ],
+  "featureNote": "細長い腹の節の継ぎ目ごとに淡色の輪がめぐり、透明な翅の先近くに濃褐色の縁紋が一つずつある。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "側面標本 (USNMENT00349663) で確認。標本は退色して麦わら色になっているため、色ではなく腹の輪状の模様で命名。末尾は科の和名アオイトトンボで、オオアオイトトンボと同じ構成。"
+ },
+ {
+  "id": "coryphistes_ruricola",
+  "jaName": "キノカワバッタ",
+  "scientificName": "Coryphistes ruricola",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [
+   "#8A6A48",
+   "#46301E"
+  ],
+  "featureNote": "灰褐色の地に濃淡のまだらが樹皮のように入り、たたんだ翅は腹の先を越えて細くとがる。複眼は淡い橙色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面写真 (AMK267408) で確認。樹皮に似たまだら模様から命名。"
+ },
+ {
+  "id": "tropidoderus_childrenii",
+  "jaName": "ワカクサナナフシ",
+  "scientificName": "Tropidoderus childrenii",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [
+   "#8CB066",
+   "#C6D69E"
+  ],
+  "featureNote": "全身が若草色の細長い体で、脚も同じ色。前脚を頭の前へまっすぐそろえて伸ばし、体の下側は白っぽく抜ける。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "生態写真で確認。写真は雄で、明るい黄緑色の体色から命名。翅はたたまれており、後翅の色は確認していない。"
+ },
+ {
+  "id": "cyclocephala_signaticollis",
+  "jaName": "キイロブチコガネ",
+  "scientificName": "Cyclocephala signaticollis",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "colors": [
+   "#E6C22E",
+   "#6A4A1C"
+  ],
+  "featureNote": "つやのある黄色の体で、前胸の背に濃褐色の斑がいくつも散り、上翅にも同じ色の細い筋が縦に入る。脚は褐色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "斜め前から撮った生態写真で確認。黄色い地色と前胸の斑から命名。写真は強い照明で黄色が誇張されている可能性がある。"
+ },
+ {
+  "id": "mantis_octospilota",
+  "jaName": "クロボシカマキリ",
+  "scientificName": "Mantis octospilota",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": [
+   "#E6E0C6",
+   "#8A6A3C"
+  ],
+  "featureNote": "翅を立てて広げた姿で、淡い黄白色の後翅の付け根寄りに小さな黒点が数個並ぶ。体と脚は淡い褐色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "威嚇姿勢の生態写真で確認。後翅に並ぶ黒点から命名。"
+ },
+ {
+  "id": "hemicordulia_australiae",
+  "jaName": "キボシエゾトンボ",
+  "scientificName": "Hemicordulia australiae",
+  "order": "Odonata",
+  "family": "Corduliidae",
+  "familyJa": "エゾトンボ科",
+  "colors": [
+   "#2A2620",
+   "#C69A3E"
+  ],
+  "featureNote": "黒い細長い腹の節ごとに左右一対の黄色い斑が並び、透明な翅の先近くに黒褐色の縁紋がある。胸は太くずんぐりしている。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "側面標本 (USNMENT00360051) で確認。標本は胸の金属光沢を失って褐色に退色しているため、腹に残る黄斑で命名。末尾は科の和名エゾトンボで、ハネビロエゾトンボと同じ構成。"
+ },
+ {
+  "id": "austracris_guttulosa",
+  "jaName": "シロスジオオバッタ",
+  "scientificName": "Austracris guttulosa",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [
+   "#A06A2E",
+   "#E6DCC0"
+  ],
+  "featureNote": "褐色の大きな体の背の中央に、頭からたたんだ翅の先まで白っぽい筋が一本通り、後脚のもも節にも同じ色の細い筋が走る。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面写真 (AMK475365) で確認。背を通る白い筋から命名。"
+ },
+ {
+  "id": "megacrania_batesii",
+  "jaName": "シロバネナナフシ",
+  "scientificName": "Megacrania batesii",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [
+   "#8E9C5E",
+   "#F0EADC"
+  ],
+  "featureNote": "胸と脚が緑色で、左右に広げた後翅は白く半透明。腹は太めで、橙褐色の節が数珠のように並ぶ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面標本 (NHMUKBMNHE845071) で確認。白い後翅から命名。腹の橙褐色は乾燥標本の退色である可能性があるため名前には使っていない。"
+ },
+ {
+  "id": "mictis_profana",
+  "jaName": "ジュウジヘリカメムシ",
+  "scientificName": "Mictis profana",
+  "order": "Hemiptera",
+  "family": "Coreidae",
+  "familyJa": "ヘリカメムシ科",
+  "colors": [
+   "#4A2C1C",
+   "#E4C67C"
+  ],
+  "featureNote": "こげ茶色の背中に淡黄色の太い筋が斜めに交差し、たすきをかけたような模様になる。後脚のもも節が大きくふくらむ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面標本 (USNMENT01567117) で確認。背の交差する筋から命名。既存和名ジュウジナガカメムシとは科も末尾も異なり、名前を丸ごと含んではいない。"
+ },
+ {
+  "id": "myrmecia_forficata",
+  "jaName": "ハラグロキバハリアリ",
+  "scientificName": "Myrmecia forficata",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#8A4228",
+   "#1E1A18"
+  ],
+  "featureNote": "赤褐色の頭と胸をもち、腹だけが黒く光る。頭の前には内側に歯の並ぶ細長い大あごが伸び、脚も赤褐色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "側面標本写真で確認。黒い腹から命名。batch4 のアカムネクロハラアリ (Iridomyrmex purpureus) と体色の傾向が近いため、末尾を属の和名キバハリアリにして区別した。"
+ },
+ {
+  "id": "acripeza_reticulata",
+  "jaName": "アミメキリギリス",
+  "scientificName": "Acripeza reticulata",
+  "order": "Orthoptera",
+  "family": "Tettigoniidae",
+  "familyJa": "キリギリス科",
+  "colors": [
+   "#6E2E20",
+   "#2A1A16"
+  ],
+  "featureNote": "こげ茶色のずんぐりした体に、腹の半ばまでしか届かない短い翅を左右へ張り出し、その翅の全面に濃淡の網目模様が広がる。触角は体長より長い。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面写真 (AMK519253) で確認。翅の網目模様から命名。短い翅も特徴だが、既存和名コバネキリギリスを丸ごと含む名前になるため修飾語はアミメのみにした。"
+ },
+ {
+  "id": "vespula_germanica",
+  "jaName": "ヨーロッパクロスズメバチ",
+  "scientificName": "Vespula germanica",
+  "order": "Hymenoptera",
+  "family": "Vespidae",
+  "familyJa": "スズメバチ科",
+  "colors": [
+   "#E6B81E",
+   "#1C1A18"
+  ],
+  "featureNote": "黒い胸に黄色の斑が入り、黄色い腹には節ごとに黒い帯と点が並ぶ。脚は黄褐色で、翅は褐色を帯びる。",
+  "photoSeen": true,
+  "nameStatus": "standard",
+  "nameStatusOverride": "standard",
+  "note": "日本語文献で本種に通用しているヨーロッパクロスズメバチを採用 (キオビクロスズメバチ Vespula vulgaris とは別種)。標本 (NHMUK010635102) で黄黒の体色を確認した。標本の頭部と胸に白いかびが付着している。"
+ },
+ {
+  "id": "hellyethira_simplex",
+  "jaName": "",
+  "scientificName": "Hellyethira simplex",
+  "order": "Trichoptera",
+  "family": "Hydroptilidae",
+  "familyJa": "ヒメトビケラ科",
+  "colors": [],
+  "featureNote": "画面のほとんどが採集ラベルで、台紙の上端に微小な虫の一部が見えるだけ。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK014408939_L2_grade.webp) は Toowoomba の採集ラベルと Wings on slide の注記が画面を占め、虫本体はほぼ写っていない。翅は別のプレパラートに移されており命名できない。"
+ },
+ {
+  "id": "paraoxypilus_tasmaniensis",
+  "jaName": "",
+  "scientificName": "Paraoxypilus tasmaniensis",
+  "order": "Mantodea",
+  "family": "Nanomantidae",
+  "familyJa": "カマキリ目",
+  "colors": [],
+  "featureNote": "左側に樹皮色のカマキリの頭と前脚が写るが、その右に続く大きなぎざぎざの塊が体なのか背景の樹皮片なのか判別できない。",
+  "photoSeen": false,
+  "reason": "display 画像 (iNatobs261438772_L2_grade.webp) は背景の樹皮片まで虫と一体に切り抜かれており、体の後半の境界が定まらない。original を見ると塊は枝に付いた樹皮とみられ、カードとして誤解を招くため命名しない。"
+ },
+ {
+  "id": "orthetrum_villosovittatum",
+  "jaName": "",
+  "scientificName": "Orthetrum villosovittatum",
+  "order": "Odonata",
+  "family": "Libellulidae",
+  "familyJa": "トンボ科",
+  "colors": [],
+  "featureNote": "腹部が途中で断ち切られた状態で、全体の体形を確認できない。",
+  "photoSeen": false,
+  "reason": "display 画像 (USNMENT00313961_L2_grade.webp) は腹部が折れた破損標本で、original の台紙には外れた腹部の破片が二つ別置きされている。図鑑カードとして不適切なため命名しない。ラベルは亜種 bismarkianum のソロモン諸島産個体で、産地もオーストラリアではない。"
+ },
+ {
+  "id": "adoryphorus_couloni",
+  "jaName": "",
+  "scientificName": "Adoryphorus couloni",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "colors": [],
+  "featureNote": "白黒の点描イラストで、丸みのある体形と上翅の縦条は分かるが体色を判定できない。",
+  "photoSeen": false,
+  "reason": "display 画像 (WMCFileCOLEScarabaeidaeAdoryphoruscouloni1png_L2_grade.webp) は写真ではなくペン画。colors を写真から決められないため命名しない (batch4 の Acrossidius tasmaniae と同じ理由)。"
+ },
+ {
+  "id": "sphodropoda_tristis",
+  "jaName": "",
+  "scientificName": "Sphodropoda tristis",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": [],
+  "featureNote": "淡い灰白色と褐色のまだらの虫が枝にぶら下がって写るが、輪郭がぼやけて頭と腹の向きも定まらない。",
+  "photoSeen": false,
+  "reason": "display 画像 (iNatobs99821259_L2_grade.webp) は original で虫が画面の隅に小さく写っているため crop が著しくぼやける。体の各部を特定できないため命名しない。"
+ },
+ {
+  "id": "culex_annulirostris",
+  "jaName": "",
+  "scientificName": "Culex annulirostris",
+  "order": "Diptera",
+  "family": "Culicidae",
+  "familyJa": "カ科",
+  "colors": [],
+  "featureNote": "台紙に貼られた蚊が淡褐色の影のようにしか写らず、脚と口吻の輪状の斑を確認できない。",
+  "photoSeen": false,
+  "reason": "display 画像 (AMK339219_L2_grade.webp) は虫が極小でピントも合っておらず、本種の特徴である口吻の白い輪を判別できないため命名しない。"
+ },
+ {
+  "id": "triplectides_ciuskus",
+  "jaName": "",
+  "scientificName": "Triplectides ciuskus",
+  "order": "Trichoptera",
+  "family": "Leptoceridae",
+  "familyJa": "ヒゲナガトビケラ科",
+  "colors": [],
+  "featureNote": "スライドガラスの中央に小さな封入標本が一点あるだけで、成虫の全身像がない。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK010113527_L2_grade.webp) は Tillyard coll. の type スライドで、画面の大半が手書きラベルとガラス。体色も翅の形も確認できないため命名しない。"
+ },
+ {
+  "id": "onthophagus_taurus",
+  "jaName": "",
+  "scientificName": "Onthophagus taurus",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "colors": [],
+  "featureNote": "黒っぽい糞虫が背面から描かれた古い彩色図版で、本種の特徴である長い角ももたない個体が描かれている。",
+  "photoSeen": false,
+  "reason": "display 画像 (WMCFileOnthophagusPrint...tif_L2_grade.webp) は Iconographia Zoologica の版画で写真ではない。写真から色を決める要件を満たさないため命名しない。"
+ },
+ {
+  "id": "anopheles_annulipes",
+  "jaName": "",
+  "scientificName": "Anopheles annulipes",
+  "order": "Diptera",
+  "family": "Culicidae",
+  "familyJa": "カ科",
+  "colors": [],
+  "featureNote": "画面の大半が採集ラベルとカラースケールで、左端の台紙に付いた蚊は脚の輪郭しか見えない。",
+  "photoSeen": false,
+  "reason": "display 画像 (AMK339050_L2_grade.webp) は虫の占有面積が小さく、翅の斑や脚の帯を確認できないため命名しない。"
+ },
+ {
+  "id": "ciulfina_rentzi",
+  "jaName": "",
+  "scientificName": "Ciulfina rentzi",
+  "order": "Mantodea",
+  "family": "Nanomantidae",
+  "familyJa": "カマキリ目",
+  "colors": [],
+  "featureNote": "幹に張り付いたカマキリが逆光の黒い影として写り、体色も斑紋も見えない。",
+  "photoSeen": false,
+  "reason": "display 画像 (iNatobs178507505_L2_grade.webp) は明るい背景に対して被写体が露出不足のシルエットになっている。colors を写真から決められないため命名しない。"
+ }
+]

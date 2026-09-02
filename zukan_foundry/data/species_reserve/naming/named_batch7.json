@@ -1,0 +1,419 @@
+[
+ {
+  "id": "achrioptera_impennis",
+  "jaName": "",
+  "scientificName": "Achrioptera impennis",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [],
+  "featureNote": "葉の落ちた細い枝が画面いっぱいに広がるだけで、虫の姿がどこにもない。",
+  "photoSeen": false,
+  "reason": "display 画像 (iNatobs20496837_L2_grade.webp) は枝の茂みで、original を見ても枝と枯れ草と丘しか写っていない。虫を見つけられないため命名しない。写真の差し替え候補。"
+ },
+ {
+  "id": "acraea_ranavalona",
+  "jaName": "",
+  "scientificName": "Acraea ranavalona",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "colors": [],
+  "featureNote": "台紙の中央に折りたたんだ紙包みが置かれるだけで、翅も体も出ていない。",
+  "photoSeen": false,
+  "reason": "display 画像 (RMNHINS379448_L2_grade.webp) は Naturalis の台紙写真で、学名を書いた紙と三角紙だけが写る。標本が包まれたままのため命名しない。"
+ },
+ {
+  "id": "bemisia_tabaci",
+  "jaName": "",
+  "scientificName": "Bemisia tabaci",
+  "order": "Hemiptera",
+  "family": "Aleyrodidae",
+  "familyJa": "コナジラミ科",
+  "colors": [],
+  "featureNote": "手書きラベル二枚とプレパラートの円板が並ぶだけで、虫は円板上の小さな点にしかならない。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK010135388_L2_grade.webp) は Bemisia tabaci (Genn.) のラベルと封入円板で、体長 1 mm 前後の個体は形も色も判別できない。本種は標準和名タバココナジラミをもつが、写真から colors と featureNote を決められないため命名しない。"
+ },
+ {
+  "id": "macrostemum_placidum",
+  "jaName": "",
+  "scientificName": "Macrostemum placidum",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": [],
+  "featureNote": "こげ茶の翅に黄色の帯が入る大型のトビケラが一頭写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Macrostemum 属記事 infobox の Zebra_Caddis.jpg で、北米産の別種 Macrostemum zebratum の写真。本種の姿ではないため命名しない。"
+ },
+ {
+  "id": "culicoides_leucostictus",
+  "jaName": "",
+  "scientificName": "Culicoides leucostictus",
+  "order": "Diptera",
+  "family": "Ceratopogonidae",
+  "familyJa": "ヌカカ科",
+  "colors": [],
+  "featureNote": "採集ラベルと、微小標本を封じた黄色い樹脂ブロックが四つ並ぶだけ。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK014854759_L2_grade.webp) では虫がブロック中央の点にしかならず、翅の斑も体色も確認できないため命名しない。"
+ },
+ {
+  "id": "culicoides_imicola",
+  "jaName": "",
+  "scientificName": "Culicoides imicola",
+  "order": "Diptera",
+  "family": "Ceratopogonidae",
+  "familyJa": "ヌカカ科",
+  "colors": [],
+  "featureNote": "ZAMBIA の採集ラベルと、樹脂ブロック四つが並ぶだけ。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK014772667_L2_grade.webp) は同館の Culicoides スライド標本群と同じ構図で、虫本体を判別できないため命名しない。"
+ },
+ {
+  "id": "sigara_alluaudi",
+  "jaName": "",
+  "scientificName": "Sigara alluaudi",
+  "order": "Hemiptera",
+  "family": "Corixidae",
+  "familyJa": "ミズムシ科",
+  "colors": [],
+  "featureNote": "細かい横しまの入る舟形の体と、へら状の長い後脚をもつミズムシが写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Sigara 属記事 infobox の Sigara.striata.jpg で、ヨーロッパ産の別種 Sigara striata の写真。加えて解像度が低く輪郭もぼやけるため命名しない。"
+ },
+ {
+  "id": "paramantis_viridis",
+  "jaName": "",
+  "scientificName": "Paramantis viridis",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": [],
+  "featureNote": "淡い褐色の細身のカマキリが側面から写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Paramantis 属記事 infobox の Paramantis_sacra.jpg で、別種 Paramantis sacra の写真。本種の姿ではないため命名しない。"
+ },
+ {
+  "id": "acorypha_decisa",
+  "jaName": "",
+  "scientificName": "Acorypha decisa",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [],
+  "featureNote": "褐色の体の背にクリーム色の線が通るバッタが側面から写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Acorypha 属記事 infobox の Acorypha_glaucopsis_male.jpg で、別種 Acorypha glaucopsis の雄。本種の姿ではないため命名しない。"
+ },
+ {
+  "id": "musca_confiscata",
+  "jaName": "",
+  "scientificName": "Musca confiscata",
+  "order": "Diptera",
+  "family": "Muscidae",
+  "familyJa": "イエバエ科",
+  "colors": [],
+  "featureNote": "細長い脚と羽毛状の触角をもつカの白黒図版で、イエバエの姿ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Musca (fly) 記事の Culex_taeniorhynchus.jpg で、カ科の別種を描いた白黒図版。写真でもなく対象種でもないため命名しない。本種は標準和名コガタイエバエをもつが、写真がないので colors を決められない。"
+ },
+ {
+  "id": "trialeurodes_vaporariorum",
+  "jaName": "",
+  "scientificName": "Trialeurodes vaporariorum",
+  "order": "Hemiptera",
+  "family": "Aleyrodidae",
+  "familyJa": "コナジラミ科",
+  "colors": [],
+  "featureNote": "赤いラベル二枚とプレパラートの円板だけで、虫の姿がない。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK013505006_L2_grade.webp) は type series のバルサム封入標本で、円板上に虫を認められない。本種は標準和名オンシツコナジラミをもつが、写真から featureNote を書けないため命名しない。"
+ },
+ {
+  "id": "rhadinacris_schistocercoides",
+  "jaName": "",
+  "scientificName": "Rhadinacris schistocercoides",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [],
+  "featureNote": "黄緑の体に褐色の斑が散る大型のバッタが写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Cyrtacanthacridinae 亜科記事の SGR_laying.jpg で、産卵中のサバクトビバッタ Schistocerca gregaria。別属別種のため命名しない。"
+ },
+ {
+  "id": "crematogaster_kelleri",
+  "jaName": "コハクシリアゲアリ",
+  "scientificName": "Crematogaster kelleri",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#C89043",
+   "#4A2A18"
+  ],
+  "featureNote": "頭と胸と脚が透きとおる琥珀色で、腹部だけが濃い茶色。腹部は先のとがった心臓形で、背中側へ反り上がる。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "標本写真 (USNMENT00528881) で確認。琥珀色の前半から命名。display 画像では虫が針とラベルの上に小さく写るが、original を拡大すると各部を判別できる。",
+  "rarity": "N"
+ },
+ {
+  "id": "eyprepocnemis_smaragdipes",
+  "jaName": "",
+  "scientificName": "Eyprepocnemis smaragdipes",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [],
+  "featureNote": "灰褐色のバッタ二頭が重なって写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Eyprepocnemis 属記事 infobox の E_plorans.jpg で、別種 Eyprepocnemis plorans。本種の姿ではないため命名しない。"
+ },
+ {
+  "id": "pycnocrania_grandidieri",
+  "jaName": "",
+  "scientificName": "Pycnocrania grandidieri",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": [],
+  "featureNote": "画面いっぱいに白い石の表面が写るだけで、虫が入っていない。",
+  "photoSeen": false,
+  "reason": "original (iNatobs2007529) では左手前に灰色のバッタが写っているのに、L2 は隣の白い石だけを切り抜いている。display 画像に虫がいないため命名しない。crop のやり直し候補。"
+ },
+ {
+  "id": "helina_impuncta",
+  "jaName": "",
+  "scientificName": "Helina impuncta",
+  "order": "Diptera",
+  "family": "Muscidae",
+  "familyJa": "イエバエ科",
+  "colors": [],
+  "featureNote": "一枚の図版に十数頭のハエが格子状に並ぶだけで、どれが本種か分からない。",
+  "photoSeen": false,
+  "reason": "media の実体は 1790 年刊行の彩色図版 (Commons: EuropäischenZweiflügeligen1790TafCCXLVI.jpg) で写真ではなく、複数種が同一画面に並ぶ。本種は標準和名キイロホソイエバエをもつが、個体を特定できないため命名しない。"
+ },
+ {
+  "id": "culicoides_enderleini",
+  "jaName": "",
+  "scientificName": "Culicoides enderleini",
+  "order": "Diptera",
+  "family": "Ceratopogonidae",
+  "familyJa": "ヌカカ科",
+  "colors": [],
+  "featureNote": "手書きラベル、番号札、樹脂ブロック四つが横一列に並ぶだけ。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUK014776877_L2_grade.webp) は他の Culicoides と同じスライド標本の構図で、虫本体を判別できないため命名しない。"
+ },
+ {
+  "id": "paracopium_dauphinicum",
+  "jaName": "シリアカクログンバイ",
+  "scientificName": "Paracopium dauphinicum",
+  "order": "Hemiptera",
+  "family": "Tingidae",
+  "familyJa": "グンバイムシ科",
+  "colors": [
+   "#221E1C",
+   "#A0561F"
+  ],
+  "featureNote": "黒い体の背面いちめんに細かなくぼみが並び、翅の後ろ三分の一だけが飴色に透けて網目が見える。体の外ふちには白い小さな点が点々と並び、触角は長くて先が太い。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "背面写真 (USNMENT00866528) で確認。尻の側だけが飴色になる配色から命名。スケールは 2 mm。",
+  "rarity": "N"
+ },
+ {
+  "id": "camponotus_roeseli",
+  "jaName": "アズキイロオオアリ",
+  "scientificName": "Camponotus roeseli",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#3A2622",
+   "#7A4A38"
+  ],
+  "featureNote": "全身が黒みの強い小豆色でつやがあり、頭は大きく、幅の広い三角形のあごが下を向く。脚と触角は体よりやや明るい赤茶色。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "AntWeb 由来の側面標本写真 (casent0101602) で確認。小豆色の体から命名。標本は腹部が胸から外れて別置きされている。既出のマダガスカルオオアリ (Camponotus dufouri) と重ならない名にした。",
+  "rarity": "N"
+ },
+ {
+  "id": "papilio_oribazus",
+  "jaName": "アサギオビアゲハ",
+  "scientificName": "Papilio oribazus",
+  "order": "Lepidoptera",
+  "family": "Papilionidae",
+  "familyJa": "アゲハチョウ科",
+  "colors": [
+   "#2A2320",
+   "#8FCBBC"
+  ],
+  "featureNote": "こげ茶の翅の中ほどを浅葱色の太い帯が横切り、外ふち沿いにも同じ色の丸い斑が並ぶ。後翅の先はしっぽのようにのびる。裏面は茶色で、帯と斑がクリーム色に変わる。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "展翅標本の表裏二面 (YPM ENT 727974) で確認。浅葱色の帯から命名。前翅長は約 5 cm。",
+  "rarity": "N"
+ },
+ {
+  "id": "leptonema_ranomafana",
+  "jaName": "ムジバネシマトビケラ",
+  "scientificName": "Leptonema ranomafana",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": [
+   "#6A3418",
+   "#B98A55"
+  ],
+  "featureNote": "屋根形にたたんだ翅に模様がなく一様で、翅脈がわずかに濃く浮く。頭と胸は明るい黄土色で、体より長い触角が一本のびる。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "標本写真 (NHMUK012502494、MADAGASCAR ラベル) で確認。無地の栗色の翅から命名。虫はラベルに貼られていて小さく、細部はぼやける。同属の Leptonema affine (ハネビロシマトビケラ) と対になる命名。 独立検証で栗色が L2 grading による彩度上昇の疑いと指摘され、構造特徴ベースのムジバネシマトビケラへ改名 (2026-08-14)。",
+  "rarity": "N"
+ },
+ {
+  "id": "appasus_quadrivittatus",
+  "jaName": "",
+  "scientificName": "Appasus quadrivittatus",
+  "order": "Hemiptera",
+  "family": "Belostomatidae",
+  "familyJa": "コオイムシ科",
+  "colors": [],
+  "featureNote": "背に卵を一面に貼り付けた水生カメムシが写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Appasus 属記事 infobox の Diplonychusjaponicus.jpg で、日本産の別種コオイムシ Appasus japonicus。既存和名をもつ実在種の写真であり、本種の名として使うと誤りになるため命名しない。"
+ },
+ {
+  "id": "mystrium_voeltzkowi",
+  "jaName": "シワムネナガアゴアリ",
+  "scientificName": "Mystrium voeltzkowi",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#3A3028",
+   "#8A5030"
+  ],
+  "featureNote": "頭と胸の表面に細かいしわが一面に刻まれてざらつき、まっすぐ前へのびる細長いあごをもつ。脚と腹は赤みのある茶色で、体全体に短い毛が生える。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "AntWeb 由来の側面標本写真 (casent0101952) で確認。しわの刻まれた胸から命名。同属の Mystrium rogeri (クロナガアゴアリ)、Mystrium mysticum (クロヒゲナガアリ) と区別できる語を選んだ。スケールは 1 mm。",
+  "rarity": "N"
+ },
+ {
+  "id": "paramantis_prasina",
+  "jaName": "ミドリフチカマキリ",
+  "scientificName": "Paramantis prasina",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": [
+   "#4A4038",
+   "#96A45E"
+  ],
+  "featureNote": "細長い灰褐色の体で、たたんだ前翅の外ふちに沿って淡い黄緑の細い線が一本走る。かま状の前脚は内側が黄橙色で、とげが並ぶ。触角は体の半分ほどの長さ。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "生きた個体の側面写真で確認。翅のふちを走る黄緑の線から命名。出典の Commons file 名 (Chipeque.jpg) に学名が含まれないため、同定は commons 側の記載に依存する。同属の Paramantis viridis は写真が別種 (P. sacra) だったので命名を見送った。 独立検証の追加所見: Commons 原文は撮影者の未確認推測 (species to be identified) であり同定確認/写真差し替えキュー対象 (2026-08-14)。",
+  "rarity": "N"
+ },
+ {
+  "id": "achrioptera_magnifica",
+  "jaName": "",
+  "scientificName": "Achrioptera magnifica",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [],
+  "featureNote": "橙褐色の細長いナナフシが背面から写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "media の実体は en:Achrioptera 属記事の Acanthoderus_horridus.jpg で、別属別種の図。本種の姿ではないため命名しない。"
+ },
+ {
+  "id": "madranga_segnita",
+  "jaName": "ベニルリヨコバイ",
+  "scientificName": "Madranga segnita",
+  "order": "Hemiptera",
+  "family": "Cicadellidae",
+  "familyJa": "ヨコバイ科",
+  "colors": [
+   "#EE3C15",
+   "#1E6BDC"
+  ],
+  "featureNote": "朱赤の体に、前翅を縦に走る太い青い筋が左右それぞれ二本ずつ入り、前胸の上にも青い丸斑がある。脚は白っぽく、目は黒い。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "葉の上の生態写真 (Commons: Leafhopper (Madranga segnita)) で確認。赤地に青い筋という配色から命名。",
+  "rarity": "N"
+ },
+ {
+  "id": "syllophopsis_hildebrandti",
+  "jaName": "アメイロケブカアリ",
+  "scientificName": "Syllophopsis hildebrandti",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": [
+   "#C99A47",
+   "#8A5A2C"
+  ],
+  "featureNote": "全身が淡い黄あめ色で、卵形の腹部は長い白い毛におおわれ、中央に濃い茶色のしみが広がる。頭の横に小さな黒い目が一つある。",
+  "photoSeen": true,
+  "nameStatus": "provisional",
+  "note": "AntWeb 由来の側面標本写真 (casent0133645) で確認。淡黄色の体と毛深い腹から命名。旧 Monomorium 属で、画像ファイル名も Monomorium hildebrandti になっている。スケールは 0.5 mm。 独立検証で batch1 ウスチャケブカアリとの 1 字違い近接を指摘され、アメイロケブカアリへ改名 (2026-08-14)。",
+  "rarity": "N"
+ },
+ {
+  "id": "acraea_zitja",
+  "jaName": "",
+  "scientificName": "Acraea zitja",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "colors": [],
+  "featureNote": "台紙と小さなラベルだけで、蝶の姿がない。",
+  "photoSeen": false,
+  "reason": "display 画像 (RMNHINS379972_L2_grade.webp) は Naturalis の台紙写真で、学名ラベルと再収納の注記票が写るだけ。標本が入っていないため命名しない。"
+ },
+ {
+  "id": "parectatosoma_hystrix",
+  "jaName": "",
+  "scientificName": "Parectatosoma hystrix",
+  "order": "Phasmatodea",
+  "family": "Anisacanthidae",
+  "familyJa": "ナナフシ目",
+  "colors": [],
+  "featureNote": "橙色の前胸と、とげの並ぶ緑黒色の中胸をもつナナフシが背面から写るが、本種の個体ではない。",
+  "photoSeen": false,
+  "reason": "original の判定ラベルに Epidares nolimetangere (de Haan) 1842 / SARAWAK, Mt Serapi 150m と読め、バーコードも NHMUK 012498110 で metadata の catalogNumber (NHMUK013805850) と一致しない。ボルネオ産の別属別種の写真であり、マダガスカル産の本種として使えないため命名しない。metadata と media の紐付けを要確認。"
+ },
+ {
+  "id": "ceratitis_malgassa",
+  "jaName": "",
+  "scientificName": "Ceratitis malgassa",
+  "order": "Diptera",
+  "family": "Tephritidae",
+  "familyJa": "ミバエ科",
+  "colors": [],
+  "featureNote": "台紙の先に貼られた 2 mm ほどのハエが白飛びして写り、翅の斑紋も体色も読み取れない。",
+  "photoSeen": false,
+  "reason": "display 画像 (NHMUKBMNHE1442182_L2_grade.webp) は露出が強く輪郭がにじむ。ミバエで最も重要な翅の斑紋を判別できないため命名しない。ラベルは Mauritius 産の個体。"
+ },
+ {
+  "id": "phaonia_errans",
+  "jaName": "",
+  "scientificName": "Phaonia errans",
+  "order": "Diptera",
+  "family": "Muscidae",
+  "familyJa": "イエバエ科",
+  "colors": [],
+  "featureNote": "白黒まだらのハエトリグモが本種を捕らえた場面で、画面の主役はクモ。ハエは腹側を上にして脚の下に横たわる。",
+  "photoSeen": false,
+  "reason": "media は Commons: Female Zebra spider, Phaonia errans.jpg で、ハエトリグモ Salticus scenicus の捕食写真。図鑑カードにするとクモの写真と誤解されるため命名しない。本種は標準和名ヤマトゲアシイエバエをもつが、体色を写真から決められない。差し替え候補。"
+ }
+]

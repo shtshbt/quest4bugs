@@ -1,0 +1,231 @@
+[
+  {
+    "id": "amberana_marginata",
+    "jaName": "ベニツヤアワフキ",
+    "scientificName": "Amberana marginata",
+    "order": "Hemiptera",
+    "family": "Cercopidae",
+    "familyJa": "カメムシ目（半翅目）",
+    "colors": ["#A93321", "#3F150E"],
+    "featureNote": "つやのある紅色の翅を屋根形にたたみ、夜の枝に数匹で集まってとまる。",
+    "photoSeen": true
+  },
+  {
+    "id": "anopheles_coustani",
+    "jaName": "アシナガハマダラカ",
+    "scientificName": "Anopheles coustani",
+    "order": "Diptera",
+    "family": "Culicidae",
+    "familyJa": "カ科",
+    "colors": ["#8A7355", "#3E332A"],
+    "featureNote": "淡い茶色の細い体で、体よりはるかに長い脚が目立つ。",
+    "photoSeen": true
+  },
+  {
+    "id": "brancsikia_aeroplana",
+    "jaName": "ハイイロカレハカマキリ",
+    "scientificName": "Brancsikia aeroplana",
+    "order": "Mantodea",
+    "family": "Majangidae",
+    "familyJa": "カマキリ目",
+    "colors": ["#8B7B66", "#57493C"],
+    "featureNote": "灰褐色のまだら模様で、胸から腹にかけて枯れ葉そっくりの平たい張り出しが広がる。",
+    "photoSeen": true
+  },
+  {
+    "id": "chopardempusa_neglecta",
+    "jaName": "",
+    "scientificName": "Chopardempusa neglecta",
+    "order": "Mantodea",
+    "family": "Empusidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "crematogaster_kelleri",
+    "jaName": "",
+    "scientificName": "Crematogaster kelleri",
+    "order": "Hymenoptera",
+    "family": "Formicidae",
+    "photoSeen": false,
+    "reason": "USNM 標本の採集データが Fort Wayne, USA 1929 (C. Kennedy 採集) でマダガスカル固有種と矛盾し、北米産 Crematogaster 別種の可能性が高い。さらに写真はピンとラベルが画面の大半を占め、種の特徴が確認できない。"
+  },
+  {
+    "id": "dacus_demmerezi",
+    "jaName": "チャイロミバエ",
+    "scientificName": "Dacus demmerezi",
+    "order": "Diptera",
+    "family": "Tephritidae",
+    "familyJa": "ミバエ科",
+    "colors": ["#8C4A26", "#C0965F"],
+    "featureNote": "赤茶色のずんぐりした体に、うすい琥珀色の透明な翅をもつ。",
+    "photoSeen": true
+  },
+  {
+    "id": "dipseudopsis_pauliani",
+    "jaName": "",
+    "scientificName": "Dipseudopsis pauliani",
+    "order": "Trichoptera",
+    "family": "Dipseudopsidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of minor insects of Sri Lanka」の風景写真 (Pigeon Island の岩) で昆虫が写っておらず、L2 はほぼ白紙になっている。"
+  },
+  {
+    "id": "enicophlebia_hilara",
+    "jaName": "",
+    "scientificName": "Enicophlebia hilara",
+    "order": "Mantodea",
+    "family": "Nanomantidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "eyprepocnemis_smaragdipes",
+    "jaName": "",
+    "scientificName": "Eyprepocnemis smaragdipes",
+    "order": "Orthoptera",
+    "family": "Acrididae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia 属記事「Eyprepocnemis」の infobox 写真 (Sicily, Palermo 産 Eyprepocnemis plorans の交尾ペア) で別種。smaragdipes の特徴であるエメラルド色の脚も見えない。"
+  },
+  {
+    "id": "helictopleurus_quadripunctatus",
+    "jaName": "ヨツボシコガネ",
+    "scientificName": "Helictopleurus quadripunctatus",
+    "order": "Coleoptera",
+    "family": "Scarabaeidae",
+    "familyJa": "コガネムシ科",
+    "colors": ["#C8862F", "#1C1916"],
+    "featureNote": "だいだい色の上翅に黒い丸紋が並び、頭と前胸は黒くつやがある。",
+    "photoSeen": true
+  },
+  {
+    "id": "helina_impuncta",
+    "jaName": "",
+    "scientificName": "Helina impuncta",
+    "order": "Diptera",
+    "family": "Muscidae",
+    "photoSeen": false,
+    "reason": "画像は Meigen の古い図譜 1 枚全体 (十数種のハエが並ぶ図版) で、単一種の標本写真ではない。GBIF vernacular にキイロホソイエバエの和名記録があるが、写真が使えないため命名見送り。"
+  },
+  {
+    "id": "leptonema_affine",
+    "jaName": "ハネビロシマトビケラ",
+    "scientificName": "Leptonema affine",
+    "order": "Trichoptera",
+    "family": "Hydropsychidae",
+    "familyJa": "シマトビケラ科",
+    "colors": ["#C3AB7A", "#6E5638"],
+    "featureNote": "麦わら色の幅広い翅を大きく広げ、うすい褐色のまだら模様がある。",
+    "photoSeen": true
+  },
+  {
+    "id": "mystrium_mysticum",
+    "jaName": "クロヒゲナガアリ",
+    "scientificName": "Mystrium mysticum",
+    "order": "Hymenoptera",
+    "family": "Formicidae",
+    "familyJa": "アリ科",
+    "colors": ["#3B2B21", "#B5773C"],
+    "featureNote": "黒褐色で翅をもつ雄アリの標本で、大きな目と淡い橙色の長い触角が目立つ。",
+    "photoSeen": true
+  },
+  {
+    "id": "mystrium_rogeri",
+    "jaName": "クロナガアゴアリ",
+    "scientificName": "Mystrium rogeri",
+    "order": "Hymenoptera",
+    "family": "Formicidae",
+    "familyJa": "アリ科",
+    "colors": ["#3C3630", "#B27A3E"],
+    "featureNote": "ざらざらした黒い体で、頭の前に刃のような長いアゴが突き出し、腹の先は琥珀色。",
+    "photoSeen": true
+  },
+  {
+    "id": "platycalymma_dichroica",
+    "jaName": "",
+    "scientificName": "Platycalymma dichroica",
+    "order": "Mantodea",
+    "family": "Nanomantidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "pycnocrania_grandidieri",
+    "jaName": "",
+    "scientificName": "Pycnocrania grandidieri",
+    "order": "Orthoptera",
+    "family": "Acrididae",
+    "photoSeen": false,
+    "reason": "L2 が地衣類に覆われた岩だけを切り出しており虫が写っていない。元写真 (iNat, Itremo) では左端に岩そっくりの灰色のバッタが写っているが crop 対象を誤っている。再 crop すれば救済可能。"
+  },
+  {
+    "id": "rhadinacris_schistocercoides",
+    "jaName": "",
+    "scientificName": "Rhadinacris schistocercoides",
+    "order": "Orthoptera",
+    "family": "Acrididae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「Cyrtacanthacridinae」の infobox 写真 (Mauritania で産卵する Schistocerca gregaria) で別種。"
+  },
+  {
+    "id": "tarachomantis_caldwelli",
+    "jaName": "",
+    "scientificName": "Tarachomantis caldwelli",
+    "order": "Mantodea",
+    "family": "Mantidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "technomyrmex_madecassus",
+    "jaName": "キイロヒラフシアリ",
+    "scientificName": "Technomyrmex madecassus",
+    "order": "Hymenoptera",
+    "family": "Formicidae",
+    "familyJa": "アリ科",
+    "colors": ["#D9A648", "#A8752C"],
+    "featureNote": "全身がつやのある、こはく色がかった黄色の小さなアリ。",
+    "photoSeen": true
+  },
+  {
+    "id": "tetraponera_sahlbergii",
+    "jaName": "ホソナガクロアリ",
+    "scientificName": "Tetraponera sahlbergii",
+    "order": "Hymenoptera",
+    "family": "Formicidae",
+    "familyJa": "アリ科",
+    "colors": ["#241C16", "#7A4A28"],
+    "featureNote": "棒のように細長い黒い体で、目が大きく脚は赤褐色。",
+    "photoSeen": true
+  },
+  {
+    "id": "tisma_acutipennis",
+    "jaName": "",
+    "scientificName": "Tisma acutipennis",
+    "order": "Mantodea",
+    "family": "Mantidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "tisma_pauliani",
+    "jaName": "",
+    "scientificName": "Tisma pauliani",
+    "order": "Mantodea",
+    "family": "Mantidae",
+    "photoSeen": false,
+    "reason": "画像は Wikipedia「List of mantis genera and species」の infobox 図 (南米産 Acanthops falcataria の雌成虫) で対象種の写真ではない。"
+  },
+  {
+    "id": "zanna_madagascariensis",
+    "jaName": "マダガスカルビワハゴロモ",
+    "scientificName": "Zanna madagascariensis",
+    "order": "Hemiptera",
+    "family": "Fulgoridae",
+    "familyJa": "カメムシ目（半翅目）",
+    "colors": ["#C05A2A", "#4A382C"],
+    "featureNote": "上へ反り返った赤橙色の長い鼻先と、こげ茶色のまだら模様の体をもつ。",
+    "photoSeen": true
+  }
+]

@@ -1,0 +1,1458 @@
+[
+ {
+  "id": "nanos_viettei",
+  "sci": "Nanos viettei",
+  "ja": "Nanos viettei",
+  "seedId": "gbif_1088081",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tabanocella_longirostris",
+  "sci": "Tabanocella longirostris",
+  "ja": "Tabanocella longirostris",
+  "seedId": "gbif_1501217",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "orius_laevigatus",
+  "sci": "Orius laevigatus",
+  "ja": "Orius laevigatus",
+  "seedId": "gbif_4487146",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "pheidole_spinosa",
+  "sci": "Pheidole spinosa",
+  "ja": "Pheidole spinosa",
+  "seedId": "gbif_12260833",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "achrioptera_impennis",
+  "sci": "Achrioptera impennis",
+  "ja": "Achrioptera impennis",
+  "seedId": "gbif_1412418",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "macrostemum_scriptum",
+  "sci": "Macrostemum scriptum",
+  "ja": "Macrostemum scriptum",
+  "seedId": "gbif_1439303",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "neoemadiellus_humerosanguineum",
+  "sci": "Neoemadiellus humerosanguineum",
+  "ja": "Neoemadiellus humerosanguineum",
+  "seedId": "gbif_1070419",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "drosophila_albomicans",
+  "sci": "Drosophila albomicans",
+  "ja": "Drosophila albomicans",
+  "seedId": "gbif_5073538",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "anochetus_grandidieri",
+  "sci": "Anochetus grandidieri",
+  "ja": "Anochetus grandidieri",
+  "seedId": "gbif_1319532",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "phymateus_saxosus",
+  "sci": "Phymateus saxosus",
+  "ja": "Phymateus saxosus",
+  "seedId": "gbif_1728307",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "parectatosoma_echinus",
+  "sci": "Parectatosoma echinus",
+  "ja": "Parectatosoma echinus",
+  "seedId": "gbif_1416156",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "macrostemum_adpictum",
+  "sci": "Macrostemum adpictum",
+  "ja": "Macrostemum adpictum",
+  "seedId": "gbif_1439365",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "epilissus_splendidus",
+  "sci": "Epilissus splendidus",
+  "ja": "Epilissus splendidus",
+  "seedId": "gbif_4757295",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "naucoris_madagascariensis",
+  "sci": "Naucoris madagascariensis",
+  "ja": "Naucoris madagascariensis",
+  "seedId": "gbif_9287623",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "monomorium_termitobium",
+  "sci": "Monomorium termitobium",
+  "ja": "Monomorium termitobium",
+  "seedId": "gbif_1314620",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tisma_freyi",
+  "sci": "Tisma freyi",
+  "ja": "Tisma freyi",
+  "seedId": "gbif_1404829",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "amphipsyche_senegalensis",
+  "sci": "Amphipsyche senegalensis",
+  "ja": "Amphipsyche senegalensis",
+  "seedId": "gbif_1440558",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "eucampsipoda_madagascarensis",
+  "sci": "Eucampsipoda madagascarensis",
+  "ja": "Eucampsipoda madagascarensis",
+  "seedId": "gbif_1638333",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "acraea_ranavalona",
+  "sci": "Acraea ranavalona",
+  "ja": "Acraea ranavalona",
+  "seedId": "gbif_5135896",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "catantopsis_sacalava",
+  "sci": "Catantopsis sacalava",
+  "ja": "Catantopsis sacalava",
+  "seedId": "gbif_1711928",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "spathomorpha_adefa",
+  "sci": "Spathomorpha adefa",
+  "ja": "Spathomorpha adefa",
+  "seedId": "gbif_1413656",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "chimarra_fenoevo",
+  "sci": "Chimarra fenoevo",
+  "ja": "Chimarra fenoevo",
+  "seedId": "gbif_10972819",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_neoamplicollis",
+  "sci": "Helictopleurus neoamplicollis",
+  "ja": "Helictopleurus neoamplicollis",
+  "seedId": "gbif_1094327",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "anopheles_arabiensis",
+  "sci": "Anopheles arabiensis",
+  "ja": "Anopheles arabiensis",
+  "seedId": "gbif_1650772",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tanindrazanus_marginatus",
+  "sci": "Tanindrazanus marginatus",
+  "ja": "Tanindrazanus marginatus",
+  "seedId": "gbif_8720514",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "bothroponera_cambouei",
+  "sci": "Bothroponera cambouei",
+  "ja": "Bothroponera cambouei",
+  "seedId": "gbif_8292442",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "liturgusella_malagassa",
+  "sci": "Liturgusella malagassa",
+  "ja": "Liturgusella malagassa",
+  "seedId": "gbif_1406909",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "parectatosoma_mocquerysi",
+  "sci": "Parectatosoma mocquerysi",
+  "ja": "Parectatosoma mocquerysi",
+  "seedId": "gbif_1416159",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_seyrigi",
+  "sci": "Dipseudopsis seyrigi",
+  "ja": "Dipseudopsis seyrigi",
+  "seedId": "gbif_1438970",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nanos_mirjae",
+  "sci": "Nanos mirjae",
+  "ja": "Nanos mirjae",
+  "seedId": "gbif_7955058",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "anopheles_gambiae",
+  "sci": "Anopheles gambiae",
+  "ja": "Anopheles gambiae",
+  "seedId": "gbif_1650518",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "bemisia_tabaci",
+  "sci": "Bemisia tabaci",
+  "ja": "Bemisia tabaci",
+  "seedId": "gbif_2012126",
+  "nameStatus": "standard"
+ },
+ {
+  "id": "anochetus_madagascarensis",
+  "sci": "Anochetus madagascarensis",
+  "ja": "Anochetus madagascarensis",
+  "seedId": "gbif_1319548",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "pseudodatames_memorabilis",
+  "sci": "Pseudodatames memorabilis",
+  "ja": "Pseudodatames memorabilis",
+  "seedId": "gbif_1415872",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "macrostemum_placidum",
+  "sci": "Macrostemum placidum",
+  "ja": "Macrostemum placidum",
+  "seedId": "gbif_1439306",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_fasciolatus",
+  "sci": "Helictopleurus fasciolatus",
+  "ja": "Helictopleurus fasciolatus",
+  "seedId": "gbif_1094339",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "culicoides_leucostictus",
+  "sci": "Culicoides leucostictus",
+  "ja": "Culicoides leucostictus",
+  "seedId": "gbif_1632392",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "toxopus_toliara",
+  "sci": "Toxopus toliara",
+  "ja": "Toxopus toliara",
+  "seedId": "gbif_8784366",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "aphaenogaster_swammerdami",
+  "sci": "Aphaenogaster swammerdami",
+  "ja": "Aphaenogaster swammerdami",
+  "seedId": "gbif_1316011",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "heteropsis_pauper",
+  "sci": "Heteropsis pauper",
+  "ja": "Heteropsis pauper",
+  "seedId": "gbif_10512715",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "phyllocrania_paradoxa",
+  "sci": "Phyllocrania paradoxa",
+  "ja": "Phyllocrania paradoxa",
+  "seedId": "gbif_1406423",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gastrimargus_africanus",
+  "sci": "Gastrimargus africanus",
+  "ja": "Gastrimargus africanus",
+  "seedId": "gbif_5099553",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "virgasia_simplex",
+  "sci": "Virgasia simplex",
+  "ja": "Virgasia simplex",
+  "seedId": "gbif_1415836",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_displicens",
+  "sci": "Leptonema displicens",
+  "ja": "Leptonema displicens",
+  "seedId": "gbif_5053875",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nanos_dubitatus",
+  "sci": "Nanos dubitatus",
+  "ja": "Nanos dubitatus",
+  "seedId": "gbif_1088072",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "culicoides_imicola",
+  "sci": "Culicoides imicola",
+  "ja": "Culicoides imicola",
+  "seedId": "gbif_1632059",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "hovacoris_bipunctatus",
+  "sci": "Hovacoris bipunctatus",
+  "ja": "Hovacoris bipunctatus",
+  "seedId": "gbif_8899919",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "melissotarsus_insularis",
+  "sci": "Melissotarsus insularis",
+  "ja": "Melissotarsus insularis",
+  "seedId": "gbif_1316288",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "hyalomantis_madagascariensis",
+  "sci": "Hyalomantis madagascariensis",
+  "ja": "Hyalomantis madagascariensis",
+  "seedId": "gbif_1403937",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "rubellia_nigro_signata",
+  "sci": "Rubellia nigro-signata",
+  "ja": "Rubellia nigro-signata",
+  "seedId": "gbif_1728814",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "cirsia_madegassa",
+  "sci": "Cirsia madegassa",
+  "ja": "Cirsia madegassa",
+  "seedId": "gbif_1415843",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "chimarra_dybowskina",
+  "sci": "Chimarra dybowskina",
+  "ja": "Chimarra dybowskina",
+  "seedId": "gbif_1431054",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "apotolamprus_marojejyensis",
+  "sci": "Apotolamprus marojejyensis",
+  "ja": "Apotolamprus marojejyensis",
+  "seedId": "gbif_1094551",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nycteribia_stylidiopsis",
+  "sci": "Nycteribia stylidiopsis",
+  "ja": "Nycteribia stylidiopsis",
+  "seedId": "gbif_1639185",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gibbosella_vangocris",
+  "sci": "Gibbosella vangocris",
+  "ja": "Gibbosella vangocris",
+  "seedId": "gbif_8897449",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "strumigenys_dicomas",
+  "sci": "Strumigenys dicomas",
+  "ja": "Strumigenys dicomas",
+  "seedId": "gbif_7480435",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "brancsikia_freyi",
+  "sci": "Brancsikia freyi",
+  "ja": "Brancsikia freyi",
+  "seedId": "gbif_1406134",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leiophasma_flaviceps",
+  "sci": "Leiophasma flaviceps",
+  "ja": "Leiophasma flaviceps",
+  "seedId": "gbif_1416190",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_longispina",
+  "sci": "Dipseudopsis longispina",
+  "ja": "Dipseudopsis longispina",
+  "seedId": "gbif_1438916",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_rudicollis",
+  "sci": "Helictopleurus rudicollis",
+  "ja": "Helictopleurus rudicollis",
+  "seedId": "gbif_1094361",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "drosophila_bipectinata",
+  "sci": "Drosophila bipectinata",
+  "ja": "Drosophila bipectinata",
+  "seedId": "gbif_5074478",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "sigara_alluaudi",
+  "sci": "Sigara alluaudi",
+  "ja": "Sigara alluaudi",
+  "seedId": "gbif_9525136",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "strumigenys_lucomo",
+  "sci": "Strumigenys lucomo",
+  "ja": "Strumigenys lucomo",
+  "seedId": "gbif_7556992",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paramantis_viridis",
+  "sci": "Paramantis viridis",
+  "ja": "Paramantis viridis",
+  "seedId": "gbif_1405310",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "acorypha_decisa",
+  "sci": "Acorypha decisa",
+  "ja": "Acorypha decisa",
+  "seedId": "gbif_1713909",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leiophasma_nigrotuberculatum",
+  "sci": "Leiophasma nigrotuberculatum",
+  "ja": "Leiophasma nigrotuberculatum",
+  "seedId": "gbif_1416177",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_conicum",
+  "sci": "Leptonema conicum",
+  "ja": "Leptonema conicum",
+  "seedId": "gbif_5053894",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "musca_confiscata",
+  "sci": "Musca confiscata",
+  "ja": "Musca confiscata",
+  "seedId": "gbif_1524823",
+  "nameStatus": "standard"
+ },
+ {
+  "id": "trialeurodes_vaporariorum",
+  "sci": "Trialeurodes vaporariorum",
+  "ja": "Trialeurodes vaporariorum",
+  "seedId": "gbif_2012132",
+  "nameStatus": "standard"
+ },
+ {
+  "id": "mystrium_rogeri",
+  "sci": "Mystrium rogeri",
+  "ja": "Mystrium rogeri",
+  "seedId": "gbif_5036013",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "brancsikia_aeroplana",
+  "sci": "Brancsikia aeroplana",
+  "ja": "Brancsikia aeroplana",
+  "seedId": "gbif_1406136",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "rhadinacris_schistocercoides",
+  "sci": "Rhadinacris schistocercoides",
+  "ja": "Rhadinacris schistocercoides",
+  "seedId": "gbif_1707177",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leiophasma_vaginatum",
+  "sci": "Leiophasma vaginatum",
+  "ja": "Leiophasma vaginatum",
+  "seedId": "gbif_1416178",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_milae",
+  "sci": "Leptonema milae",
+  "ja": "Leptonema milae",
+  "seedId": "gbif_5053858",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "epilissus_emmae",
+  "sci": "Epilissus emmae",
+  "ja": "Epilissus emmae",
+  "seedId": "gbif_5992516",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "penicillidia_leptothrinax",
+  "sci": "Penicillidia leptothrinax",
+  "ja": "Penicillidia leptothrinax",
+  "seedId": "gbif_1639373",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "zanna_madagascariensis",
+  "sci": "Zanna madagascariensis",
+  "ja": "Zanna madagascariensis",
+  "seedId": "gbif_2065422",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tetraponera_sahlbergii",
+  "sci": "Tetraponera sahlbergii",
+  "ja": "Tetraponera sahlbergii",
+  "seedId": "gbif_1319275",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "platycalymma_dichroica",
+  "sci": "Platycalymma dichroica",
+  "ja": "Platycalymma dichroica",
+  "seedId": "gbif_6543161",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "antongilia_laciniata",
+  "sci": "Antongilia laciniata",
+  "ja": "Antongilia laciniata",
+  "seedId": "gbif_5050551",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_olsoufieffi",
+  "sci": "Dipseudopsis olsoufieffi",
+  "ja": "Dipseudopsis olsoufieffi",
+  "seedId": "gbif_1438950",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_neuter",
+  "sci": "Helictopleurus neuter",
+  "ja": "Helictopleurus neuter",
+  "seedId": "gbif_1094392",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "crematogaster_kelleri",
+  "sci": "Crematogaster kelleri",
+  "ja": "Crematogaster kelleri",
+  "seedId": "gbif_1324588",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tarachomantis_caldwelli",
+  "sci": "Tarachomantis caldwelli",
+  "ja": "Tarachomantis caldwelli",
+  "seedId": "gbif_1404689",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "pseudonogastris_aculeata",
+  "sci": "Pseudonogastris aculeata",
+  "ja": "Pseudonogastris aculeata",
+  "seedId": "gbif_1415867",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_affine",
+  "sci": "Leptonema affine",
+  "ja": "Leptonema affine",
+  "seedId": "gbif_5053859",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_quadripunctatus",
+  "sci": "Helictopleurus quadripunctatus",
+  "ja": "Helictopleurus quadripunctatus",
+  "seedId": "gbif_1094370",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "notiolaphria_coerulescens",
+  "sci": "Notiolaphria coerulescens",
+  "ja": "Notiolaphria coerulescens",
+  "seedId": "gbif_11139468",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "toliarus_trichrous",
+  "sci": "Toliarus trichrous",
+  "ja": "Toliarus trichrous",
+  "seedId": "gbif_8783544",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "technomyrmex_madecassus",
+  "sci": "Technomyrmex madecassus",
+  "ja": "Technomyrmex madecassus",
+  "seedId": "gbif_1320077",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tisma_acutipennis",
+  "sci": "Tisma acutipennis",
+  "ja": "Tisma acutipennis",
+  "seedId": "gbif_1404826",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "eyprepocnemis_smaragdipes",
+  "sci": "Eyprepocnemis smaragdipes",
+  "ja": "Eyprepocnemis smaragdipes",
+  "seedId": "gbif_1701112",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leiophasma_operculatum",
+  "sci": "Leiophasma operculatum",
+  "ja": "Leiophasma operculatum",
+  "seedId": "gbif_1416187",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_pauliani",
+  "sci": "Dipseudopsis pauliani",
+  "ja": "Dipseudopsis pauliani",
+  "seedId": "gbif_1438922",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "epilissus_apotolamproides",
+  "sci": "Epilissus apotolamproides",
+  "ja": "Epilissus apotolamproides",
+  "seedId": "gbif_5992514",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dacus_demmerezi",
+  "sci": "Dacus demmerezi",
+  "ja": "Dacus demmerezi",
+  "seedId": "gbif_1625506",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tanindrazanus_harinhali",
+  "sci": "Tanindrazanus harinhali",
+  "ja": "Tanindrazanus harinhali",
+  "seedId": "gbif_8752977",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "mystrium_mysticum",
+  "sci": "Mystrium mysticum",
+  "ja": "Mystrium mysticum",
+  "seedId": "gbif_5036011",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tisma_pauliani",
+  "sci": "Tisma pauliani",
+  "ja": "Tisma pauliani",
+  "seedId": "gbif_1404830",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "pycnocrania_grandidieri",
+  "sci": "Pycnocrania grandidieri",
+  "ja": "Pycnocrania grandidieri",
+  "seedId": "gbif_1700838",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paranisacantha_poulaini",
+  "sci": "Paranisacantha poulaini",
+  "ja": "Paranisacantha poulaini",
+  "seedId": "gbif_1416195",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "potamyia_ifanadiana",
+  "sci": "Potamyia ifanadiana",
+  "ja": "Potamyia ifanadiana",
+  "seedId": "gbif_9923742",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_marsyas",
+  "sci": "Helictopleurus marsyas",
+  "ja": "Helictopleurus marsyas",
+  "seedId": "gbif_1094324",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helina_impuncta",
+  "sci": "Helina impuncta",
+  "ja": "Helina impuncta",
+  "seedId": "gbif_5069511",
+  "nameStatus": "standard"
+ },
+ {
+  "id": "nasatus_davidouvrardi",
+  "sci": "Nasatus davidouvrardi",
+  "ja": "Nasatus davidouvrardi",
+  "seedId": "gbif_8035221",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "enicophlebia_hilara",
+  "sci": "Enicophlebia hilara",
+  "ja": "Enicophlebia hilara",
+  "seedId": "gbif_1404008",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "xerantherix_parvipennis",
+  "sci": "Xerantherix parvipennis",
+  "ja": "Xerantherix parvipennis",
+  "seedId": "gbif_1416199",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gyrocarisa_steineri",
+  "sci": "Gyrocarisa steineri",
+  "ja": "Gyrocarisa steineri",
+  "seedId": "gbif_1435335",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "anopheles_coustani",
+  "sci": "Anopheles coustani",
+  "ja": "Anopheles coustani",
+  "seedId": "gbif_1650651",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "amberana_marginata",
+  "sci": "Amberana marginata",
+  "ja": "Amberana marginata",
+  "seedId": "gbif_2019211",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "chopardempusa_neglecta",
+  "sci": "Chopardempusa neglecta",
+  "ja": "Chopardempusa neglecta",
+  "seedId": "gbif_6930877",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "catantopsis_malagassus",
+  "sci": "Catantopsis malagassus",
+  "ja": "Catantopsis malagassus",
+  "seedId": "gbif_1711931",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "antongilia_muricata",
+  "sci": "Antongilia muricata",
+  "ja": "Antongilia muricata",
+  "seedId": "gbif_5050544",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_mitrata",
+  "sci": "Dipseudopsis mitrata",
+  "ja": "Dipseudopsis mitrata",
+  "seedId": "gbif_1438975",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "culicoides_enderleini",
+  "sci": "Culicoides enderleini",
+  "ja": "Culicoides enderleini",
+  "seedId": "gbif_1631125",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paracopium_dauphinicum",
+  "sci": "Paracopium dauphinicum",
+  "ja": "Paracopium dauphinicum",
+  "seedId": "gbif_7563942",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "camponotus_roeseli",
+  "sci": "Camponotus roeseli",
+  "ja": "Camponotus roeseli",
+  "seedId": "gbif_5034097",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "papilio_oribazus",
+  "sci": "Papilio oribazus",
+  "ja": "Papilio oribazus",
+  "seedId": "gbif_1938161",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "enicophlebia_pallida",
+  "sci": "Enicophlebia pallida",
+  "ja": "Enicophlebia pallida",
+  "seedId": "gbif_1404007",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leiophasma_brevivalvis",
+  "sci": "Leiophasma brevivalvis",
+  "ja": "Leiophasma brevivalvis",
+  "seedId": "gbif_1416192",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_ranomafana",
+  "sci": "Leptonema ranomafana",
+  "ja": "Leptonema ranomafana",
+  "seedId": "gbif_5053865",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "apotolamprus_quadrinotatus",
+  "sci": "Apotolamprus quadrinotatus",
+  "ja": "Apotolamprus quadrinotatus",
+  "seedId": "gbif_1094569",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "appasus_quadrivittatus",
+  "sci": "Appasus quadrivittatus",
+  "ja": "Appasus quadrivittatus",
+  "seedId": "gbif_9981950",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "mystrium_voeltzkowi",
+  "sci": "Mystrium voeltzkowi",
+  "ja": "Mystrium voeltzkowi",
+  "seedId": "gbif_5036010",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paramantis_prasina",
+  "sci": "Paramantis prasina",
+  "ja": "Paramantis prasina",
+  "seedId": "gbif_1405317",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "finotina_radama",
+  "sci": "Finotina radama",
+  "ja": "Finotina radama",
+  "seedId": "gbif_1700421",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "achrioptera_magnifica",
+  "sci": "Achrioptera magnifica",
+  "ja": "Achrioptera magnifica",
+  "seedId": "gbif_1412417",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "leptonema_zahradniki",
+  "sci": "Leptonema zahradniki",
+  "ja": "Leptonema zahradniki",
+  "seedId": "gbif_5053870",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "laccophilus_posticus",
+  "sci": "Laccophilus posticus",
+  "ja": "Laccophilus posticus",
+  "seedId": "gbif_5874089",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "anopheles_mascarensis",
+  "sci": "Anopheles mascarensis",
+  "ja": "Anopheles mascarensis",
+  "seedId": "gbif_1650537",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "madranga_segnita",
+  "sci": "Madranga segnita",
+  "ja": "Madranga segnita",
+  "seedId": "gbif_2036101",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "syllophopsis_hildebrandti",
+  "sci": "Syllophopsis hildebrandti",
+  "ja": "Syllophopsis hildebrandti",
+  "seedId": "gbif_9466604",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "acraea_zitja",
+  "sci": "Acraea zitja",
+  "ja": "Acraea zitja",
+  "seedId": "gbif_5135977",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "mantasoa_maculata",
+  "sci": "Mantasoa maculata",
+  "ja": "Mantasoa maculata",
+  "seedId": "gbif_1405322",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "oxya_humeralis",
+  "sci": "Oxya humeralis",
+  "ja": "Oxya humeralis",
+  "seedId": "gbif_1700931",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "parectatosoma_hystrix",
+  "sci": "Parectatosoma hystrix",
+  "ja": "Parectatosoma hystrix",
+  "seedId": "gbif_1416154",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tinodes_tafo",
+  "sci": "Tinodes tafo",
+  "ja": "Tinodes tafo",
+  "seedId": "gbif_9471286",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nanos_binotatus",
+  "sci": "Nanos binotatus",
+  "ja": "Nanos binotatus",
+  "seedId": "gbif_1088059",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "ceratitis_malgassa",
+  "sci": "Ceratitis malgassa",
+  "ja": "Ceratitis malgassa",
+  "seedId": "gbif_1626050",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "papilio_epiphorbas",
+  "sci": "Papilio epiphorbas",
+  "ja": "Papilio epiphorbas",
+  "seedId": "gbif_1937692",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "euchomena_madecassa",
+  "sci": "Euchomena madecassa",
+  "ja": "Euchomena madecassa",
+  "seedId": "gbif_1406177",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "oedaleus_virgula",
+  "sci": "Oedaleus virgula",
+  "ja": "Oedaleus virgula",
+  "seedId": "gbif_1714099",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "onogastris_pardalina",
+  "sci": "Onogastris pardalina",
+  "ja": "Onogastris pardalina",
+  "seedId": "gbif_1415766",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gyrocarisa_acuta",
+  "sci": "Gyrocarisa acuta",
+  "ja": "Gyrocarisa acuta",
+  "seedId": "gbif_1435334",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_splendidicollis",
+  "sci": "Helictopleurus splendidicollis",
+  "ja": "Helictopleurus splendidicollis",
+  "seedId": "gbif_1094373",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paracopium_glabricorne",
+  "sci": "Paracopium glabricorne",
+  "ja": "Paracopium glabricorne",
+  "seedId": "gbif_7921284",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "liotrigona_mahafalya",
+  "sci": "Liotrigona mahafalya",
+  "ja": "Liotrigona mahafalya",
+  "seedId": "gbif_1340272",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "acraea_strattipocles",
+  "sci": "Acraea strattipocles",
+  "ja": "Acraea strattipocles",
+  "seedId": "gbif_5136085",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "tarachomantis_analamazoatra",
+  "sci": "Tarachomantis analamazoatra",
+  "ja": "Tarachomantis analamazoatra",
+  "seedId": "gbif_7631381",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "hemistigma_affine",
+  "sci": "Hemistigma affine",
+  "ja": "Hemistigma affine",
+  "seedId": "gbif_5791792",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gymnobothrus_variabilis",
+  "sci": "Gymnobothrus variabilis",
+  "ja": "Gymnobothrus variabilis",
+  "seedId": "gbif_1703402",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "onogastris_pauliani",
+  "sci": "Onogastris pauliani",
+  "ja": "Onogastris pauliani",
+  "seedId": "gbif_1415769",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "dipseudopsis_curvata",
+  "sci": "Dipseudopsis curvata",
+  "ja": "Dipseudopsis curvata",
+  "seedId": "gbif_1438979",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "graciella_compacta",
+  "sci": "Graciella compacta",
+  "ja": "Graciella compacta",
+  "seedId": "gbif_5003580",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "bactrocera_musae",
+  "sci": "Bactrocera musae",
+  "ja": "Bactrocera musae",
+  "seedId": "gbif_5087606",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "bekilya_tuleara",
+  "sci": "Bekilya tuleara",
+  "ja": "Bekilya tuleara",
+  "seedId": "gbif_9658001",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "crematogaster_hova",
+  "sci": "Crematogaster hova",
+  "ja": "Crematogaster hova",
+  "seedId": "gbif_1325190",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "acraea_encedon",
+  "sci": "Acraea encedon",
+  "ja": "Acraea encedon",
+  "seedId": "gbif_5136034",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "telomantis_lamperti",
+  "sci": "Telomantis lamperti",
+  "ja": "Telomantis lamperti",
+  "seedId": "gbif_1405192",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "parectatosoma_cervinum",
+  "sci": "Parectatosoma cervinum",
+  "ja": "Parectatosoma cervinum",
+  "seedId": "gbif_1416153",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "petrothrincus_scottae",
+  "sci": "Petrothrincus scottae",
+  "ja": "Petrothrincus scottae",
+  "seedId": "gbif_8148540",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nanos_vadoni",
+  "sci": "Nanos vadoni",
+  "ja": "Nanos vadoni",
+  "seedId": "gbif_1088057",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "hemipyrellia_germana",
+  "sci": "Hemipyrellia germana",
+  "ja": "Hemipyrellia germana",
+  "seedId": "gbif_1502750",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "zanna_tenebrosa",
+  "sci": "Zanna tenebrosa",
+  "ja": "Zanna tenebrosa",
+  "seedId": "gbif_2065388",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "prionopelta_subtilis",
+  "sci": "Prionopelta subtilis",
+  "ja": "Prionopelta subtilis",
+  "seedId": "gbif_8920464",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "trilophidia_cinnabarina",
+  "sci": "Trilophidia cinnabarina",
+  "ja": "Trilophidia cinnabarina",
+  "seedId": "gbif_1704433",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "chimarra_lehibemavo",
+  "sci": "Chimarra lehibemavo",
+  "ja": "Chimarra lehibemavo",
+  "seedId": "gbif_9485827",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "labarrus_madagassicus",
+  "sci": "Labarrus madagassicus",
+  "ja": "Labarrus madagassicus",
+  "seedId": "gbif_1070378",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "phumosia_parincerta",
+  "sci": "Phumosia parincerta",
+  "ja": "Phumosia parincerta",
+  "seedId": "gbif_1504789",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "cataulacus_porcatus",
+  "sci": "Cataulacus porcatus",
+  "ja": "Cataulacus porcatus",
+  "seedId": "gbif_1325308",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "majanga_basilaris",
+  "sci": "Majanga basilaris",
+  "ja": "Majanga basilaris",
+  "seedId": "gbif_1406920",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "calephorus_ornatus",
+  "sci": "Calephorus ornatus",
+  "ja": "Calephorus ornatus",
+  "seedId": "gbif_1711701",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "epilissus_mantasoae",
+  "sci": "Epilissus mantasoae",
+  "ja": "Epilissus mantasoae",
+  "seedId": "gbif_5875380",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "orgizomyia_zigzag",
+  "sci": "Orgizomyia zigzag",
+  "ja": "Orgizomyia zigzag",
+  "seedId": "gbif_1494092",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "yanga_guttulata",
+  "sci": "Yanga guttulata",
+  "ja": "Yanga guttulata",
+  "seedId": "gbif_8311584",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "bothroponera_wasmannii",
+  "sci": "Bothroponera wasmannii",
+  "ja": "Bothroponera wasmannii",
+  "seedId": "gbif_8425657",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "colotis_mananhari",
+  "sci": "Colotis mananhari",
+  "ja": "Colotis mananhari",
+  "seedId": "gbif_1920388",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "hyalomantis_whitingi",
+  "sci": "Hyalomantis whitingi",
+  "ja": "Hyalomantis whitingi",
+  "seedId": "gbif_4394642",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "heteracris_zolotarevskyi",
+  "sci": "Heteracris zolotarevskyi",
+  "ja": "Heteracris zolotarevskyi",
+  "seedId": "gbif_1701613",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "canthydrus_guttula",
+  "sci": "Canthydrus guttula",
+  "ja": "Canthydrus guttula",
+  "seedId": "gbif_7000565",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "phaonia_errans",
+  "sci": "Phaonia errans",
+  "ja": "Phaonia errans",
+  "seedId": "gbif_5068747",
+  "nameStatus": "standard"
+ },
+ {
+  "id": "toxopus_insignis",
+  "sci": "Toxopus insignis",
+  "ja": "Toxopus insignis",
+  "seedId": "gbif_8893931",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "cataulacus_ebrardi",
+  "sci": "Cataulacus ebrardi",
+  "ja": "Cataulacus ebrardi",
+  "seedId": "gbif_1325317",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "conipoda_calcarata",
+  "sci": "Conipoda calcarata",
+  "ja": "Conipoda calcarata",
+  "seedId": "gbif_1710727",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "coelopa_alluaudi",
+  "sci": "Coelopa alluaudi",
+  "ja": "Coelopa alluaudi",
+  "seedId": "gbif_1562091",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "amberana_sexguttata",
+  "sci": "Amberana sexguttata",
+  "ja": "Amberana sexguttata",
+  "seedId": "gbif_2019240",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "odontomachus_coquereli",
+  "sci": "Odontomachus coquereli",
+  "ja": "Odontomachus coquereli",
+  "seedId": "gbif_5035381",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "heteracris_nigricornis",
+  "sci": "Heteracris nigricornis",
+  "ja": "Heteracris nigricornis",
+  "seedId": "gbif_1701618",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "arachnodes_hanskii",
+  "sci": "Arachnodes hanskii",
+  "ja": "Arachnodes hanskii",
+  "seedId": "gbif_5992502",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "phaonia_pallida",
+  "sci": "Phaonia pallida",
+  "ja": "Phaonia pallida",
+  "seedId": "gbif_5068545",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "spilostethus_pandurus",
+  "sci": "Spilostethus pandurus",
+  "ja": "Spilostethus pandurus",
+  "seedId": "gbif_4486330",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "paratrechina_glabra",
+  "sci": "Paratrechina glabra",
+  "ja": "Paratrechina glabra",
+  "seedId": "gbif_1325538",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "atractomorpha_acutipennis",
+  "sci": "Atractomorpha acutipennis",
+  "ja": "Atractomorpha acutipennis",
+  "seedId": "gbif_5101021",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "helictopleurus_vadoni",
+  "sci": "Helictopleurus vadoni",
+  "ja": "Helictopleurus vadoni",
+  "seedId": "gbif_1094336",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "culicoides_moreli",
+  "sci": "Culicoides moreli",
+  "ja": "Culicoides moreli",
+  "seedId": "gbif_1632293",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "aphis_craccivora",
+  "sci": "Aphis craccivora",
+  "ja": "Aphis craccivora",
+  "seedId": "gbif_2072061",
+  "nameStatus": "english_common_candidate"
+ },
+ {
+  "id": "camponotus_repens",
+  "sci": "Camponotus repens",
+  "ja": "Camponotus repens",
+  "seedId": "gbif_5034213",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "gelastorhinus_edax",
+  "sci": "Gelastorhinus edax",
+  "ja": "Gelastorhinus edax",
+  "seedId": "gbif_1706458",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "rhantus_latus",
+  "sci": "Rhantus latus",
+  "ja": "Rhantus latus",
+  "seedId": "gbif_5874482",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "melanostoma_sylvarum",
+  "sci": "Melanostoma sylvarum",
+  "ja": "Melanostoma sylvarum",
+  "seedId": "gbif_5070309",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "camponotus_quadrimaculatus",
+  "sci": "Camponotus quadrimaculatus",
+  "ja": "Camponotus quadrimaculatus",
+  "seedId": "gbif_5034539",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "euthymia_polychroma",
+  "sci": "Euthymia polychroma",
+  "ja": "Euthymia polychroma",
+  "seedId": "gbif_5098198",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "nanos_occidentalis",
+  "sci": "Nanos occidentalis",
+  "ja": "Nanos occidentalis",
+  "seedId": "gbif_1088065",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "parakiefferiella_bathophila",
+  "sci": "Parakiefferiella bathophila",
+  "ja": "Parakiefferiella bathophila",
+  "seedId": "gbif_1451175",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "locris_vicina",
+  "sci": "Locris vicina",
+  "ja": "Locris vicina",
+  "seedId": "gbif_2017831",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "crematogaster_ranavalonae",
+  "sci": "Crematogaster ranavalonae",
+  "ja": "Crematogaster ranavalonae",
+  "seedId": "gbif_1324846",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "heteroconus_paradoxus",
+  "sci": "Heteroconus paradoxus",
+  "ja": "Heteroconus paradoxus",
+  "seedId": "gbif_1075556",
+  "nameStatus": "provisional"
+ },
+ {
+  "id": "cratyna_perplexa",
+  "sci": "Cratyna perplexa",
+  "ja": "Cratyna perplexa",
+  "seedId": "gbif_1487369",
+  "nameStatus": "provisional"
+ }
+]

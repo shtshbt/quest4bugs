@@ -1,0 +1,213 @@
+[
+ {
+  "id": "tabanocella_longirostris",
+  "jaName": "シロボシナガクチアブ",
+  "scientificName": "Tabanocella longirostris",
+  "order": "Diptera",
+  "family": "Tabanidae",
+  "familyJa": "アブ科",
+  "colors": ["#8A7462", "#E6DAC2"],
+  "featureNote": "灰褐色のまだら模様の翅をもつがっしりしたアブで、頭の下に体長に見合わない長い口吻が垂れ下がり、腹には四角い白斑が並ぶ。",
+  "photoSeen": true
+ },
+ {
+  "id": "orius_laevigatus",
+  "jaName": "シロサキクロカメムシ",
+  "scientificName": "Orius laevigatus",
+  "order": "Hemiptera",
+  "family": "Anthocoridae",
+  "familyJa": "カメムシ目（半翅目）",
+  "colors": ["#1E1A1A", "#F2F0E8"],
+  "featureNote": "葉の上の微小な黒いカメムシで、光沢のある黒褐色の体に対して翅の先端だけが白く抜け、脚は淡い黄褐色。",
+  "photoSeen": true
+ },
+ {
+  "id": "pheidole_spinosa",
+  "jaName": "アカオオガシラアリ",
+  "scientificName": "Pheidole spinosa",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": ["#A54B18", "#5B2A0C"],
+  "featureNote": "正面から見ると赤褐色の頭が四角く大きく張り出し、表面に細かい縦筋が走り、先が太い長い触角をもつ。",
+  "photoSeen": true
+ },
+ {
+  "id": "macrostemum_scriptum",
+  "jaName": "チャスジシマトビケラ",
+  "scientificName": "Macrostemum scriptum",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": ["#DCCBA0", "#7A4A28"],
+  "featureNote": "淡いクリーム色の幅広い翅に茶色の筋と斑が散り、胴体は濃い茶色をしている。",
+  "photoSeen": true
+ },
+ {
+  "id": "anochetus_grandidieri",
+  "jaName": "アメイロナガアゴアリ",
+  "scientificName": "Anochetus grandidieri",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": ["#C07A3A", "#7A4018"],
+  "featureNote": "飴色のアリで、前にまっすぐ伸びる細長いアゴをもち、頭の後ろが深くくぼんでハート形に見える。",
+  "photoSeen": true
+ },
+ {
+  "id": "phymateus_saxosus",
+  "jaName": "アオアシキボシバッタ",
+  "scientificName": "Phymateus saxosus",
+  "order": "Orthoptera",
+  "family": "Pyrgomorphidae",
+  "familyJa": "オンブバッタ科",
+  "colors": ["#2C4E3A", "#F2A410"],
+  "featureNote": "深緑の頭に橙黄色の斑がびっしり広がり、目は赤褐色、太い脚は青灰色をしている。",
+  "photoSeen": true
+ },
+ {
+  "id": "parectatosoma_echinus",
+  "jaName": "シロトゲクロナナフシ",
+  "scientificName": "Parectatosoma echinus",
+  "order": "Phasmatodea",
+  "family": "Anisacanthidae",
+  "familyJa": "ナナフシ目",
+  "colors": ["#171418", "#E4D9BE"],
+  "featureNote": "黒い体の全面に白いトゲが並び、胸の背には一本の白い縦線、触角は黒と白の縞になっている。",
+  "photoSeen": true
+ },
+ {
+  "id": "macrostemum_adpictum",
+  "jaName": "キオビシマトビケラ",
+  "scientificName": "Macrostemum adpictum",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": ["#5A2A1C", "#F0C22A"],
+  "featureNote": "赤褐色の翅に鮮やかな黄色の帯が入り、体長をはるかに超える長い触角を弓なりに伸ばしている。",
+  "photoSeen": true
+ },
+ {
+  "id": "epilissus_splendidus",
+  "jaName": "ルリミドリマルコガネ",
+  "scientificName": "Epilissus splendidus",
+  "order": "Coleoptera",
+  "family": "Scarabaeidae",
+  "familyJa": "コガネムシ科",
+  "colors": ["#0FA340", "#27406E"],
+  "featureNote": "丸みの強い体が金属光沢のある緑に輝き、縁は青紫を帯び、頭の前縁がぎざぎざに尖る。",
+  "photoSeen": true
+ },
+ {
+  "id": "monomorium_termitobium",
+  "jaName": "ウスチャケブカアリ",
+  "scientificName": "Monomorium termitobium",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": ["#B08A5C", "#6A4826"],
+  "featureNote": "0.1 mm スケールの拡大写真で頭部だけが写り、淡い黄褐色で半透明に見える外骨格に長い立毛が密生する。全身像は確認できていない。",
+  "photoSeen": true
+ },
+ {
+  "id": "tisma_freyi",
+  "jaName": "シラホシホソカマキリ",
+  "scientificName": "Tisma freyi",
+  "order": "Mantodea",
+  "family": "Mantidae",
+  "familyJa": "カマキリ科",
+  "colors": ["#6B4A30", "#D8C3A0"],
+  "featureNote": "枯れ枝のように細長い褐色のカマキリで、体全体に白い細かい斑が散り、腹の先が葉状に曲がって垂れる。",
+  "photoSeen": true
+ },
+ {
+  "id": "amphipsyche_senegalensis",
+  "jaName": "ウスキシマトビケラ",
+  "scientificName": "Amphipsyche senegalensis",
+  "order": "Trichoptera",
+  "family": "Hydropsychidae",
+  "familyJa": "シマトビケラ科",
+  "colors": ["#E8DCB4", "#D08A2E"],
+  "featureNote": "翅が模様のない淡い麦わら色で半透明、頭と胸は橙色を帯び、目だけが黒く目立つ小型のトビケラ。",
+  "photoSeen": true
+ },
+ {
+  "id": "catantopsis_sacalava",
+  "jaName": "スナイロクロモンバッタ",
+  "scientificName": "Catantopsis sacalava",
+  "order": "Orthoptera",
+  "family": "Acrididae",
+  "familyJa": "バッタ科",
+  "colors": ["#B49062", "#4A3524"],
+  "featureNote": "砂色の地に濃褐色のまだらが乗り、後脚の腿には黒い斑が二つ並び、背に淡い縦線が通る。",
+  "photoSeen": true
+ },
+ {
+  "id": "anopheles_arabiensis",
+  "jaName": "ブチバネカ",
+  "scientificName": "Anopheles arabiensis",
+  "order": "Diptera",
+  "family": "Culicidae",
+  "familyJa": "カ科",
+  "colors": ["#C6B489", "#4E4634"],
+  "featureNote": "淡い麦わら色の細身の蚊で、翅の脈に沿って濃褐色の斑が点々と並び、脚と口吻がとても長い。",
+  "photoSeen": true
+ },
+ {
+  "id": "bothroponera_cambouei",
+  "jaName": "アカアゴクロアリ",
+  "scientificName": "Bothroponera cambouei",
+  "order": "Hymenoptera",
+  "family": "Formicidae",
+  "familyJa": "アリ科",
+  "colors": ["#2E2632", "#7C3C28"],
+  "featureNote": "頭は艶のない黒紫色で細かい点刻に覆われ、太いアゴと触角、脚だけが赤褐色に見える。",
+  "photoSeen": true
+ },
+ {
+  "id": "liturgusella_malagassa",
+  "jaName": "サビイロヒラタカマキリ",
+  "scientificName": "Liturgusella malagassa",
+  "order": "Mantodea",
+  "family": "Liturgusidae",
+  "familyJa": "カマキリ目",
+  "colors": ["#E7DAC2", "#B0603A"],
+  "featureNote": "平たく細長い体がクリーム色で、錆色のまだらが全身に散り、細い脚には褐色の輪状の斑が入る。",
+  "photoSeen": true
+ },
+ {
+  "id": "parectatosoma_mocquerysi",
+  "jaName": "ベニトゲアシナナフシ",
+  "scientificName": "Parectatosoma mocquerysi",
+  "order": "Phasmatodea",
+  "family": "Anisacanthidae",
+  "familyJa": "ナナフシ目",
+  "colors": ["#8A2F26", "#48281F"],
+  "featureNote": "全身が濃い葡萄酒色で、胸と脚に赤いトゲと葉のような突起が並び、触角は黒と白の縞になっている。",
+  "photoSeen": true
+ },
+ {
+  "id": "achrioptera_impennis",
+  "jaName": "",
+  "scientificName": "Achrioptera impennis",
+  "order": "Phasmatodea",
+  "family": "Phasmatidae",
+  "familyJa": "ナナフシ科",
+  "colors": [],
+  "featureNote": "画像には枯れ枝と草地の風景しか写っておらず、昆虫の体を判別できない。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/iNatobs20496837_L2_grade.webp)、original の resized、_inbox の原寸 (1024x768) を四分割拡大して確認したが、いずれにも昆虫が写っていない。特徴を確認できないため命名しない。"
+ },
+ {
+  "id": "acraea_ranavalona",
+  "jaName": "",
+  "scientificName": "Acraea ranavalona",
+  "order": "Lepidoptera",
+  "family": "Nymphalidae",
+  "familyJa": "タテハチョウ科",
+  "colors": [],
+  "featureNote": "三角紙に包まれた標本と museum ラベルだけが写っており、チョウ本体は見えない。",
+  "photoSeen": false,
+  "reason": "display 画像 (zukan_cards/processed/RMNHINS379448_L2_grade.webp) と _inbox の原寸を確認したが、Museum Leiden の台紙、学名ラベル、折られた三角紙のみで翅の色や模様が一切見えない。命名しない。"
+ }
+]

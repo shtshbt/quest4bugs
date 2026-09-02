@@ -1,0 +1,8417 @@
+{
+  "schemaVersion": 1,
+  "generatedFromCommit": "2aaaeb868cd5e6a551424a66d6e0675d90fbf418",
+  "byId": {
+    "hercules_beetle": "hercules_beetle",
+    "rainbow_stag_beetle": "rainbow_stag_beetle",
+    "queen_alexandras_birdwing": "queen_alexandras_birdwing",
+    "emperor_cicada": "emperor_cicada",
+    "goliath_beetle": "goliath_beetle",
+    "ookuwagata": "ookuwagata",
+    "caucasus_beetle": "caucasus_beetle",
+    "giraffe_stag_beetle": "giraffe_stag_beetle",
+    "morpho_butterfly": "morpho_butterfly",
+    "tagame": "tagame",
+    "oomurasaki": "oomurasaki",
+    "gengorou": "gengorou",
+    "hanmyou": "hanmyou",
+    "kabutomushi": "kabutomushi",
+    "nokogiri_kuwagata": "nokogiri_kuwagata",
+    "miyama_kuwagata": "miyama_kuwagata",
+    "yamato_tamamushi": "yamato_tamamushi",
+    "oniyanma": "oniyanma",
+    "ginyanma": "ginyanma",
+    "genji_botaru": "genji_botaru",
+    "suzumushi": "suzumushi",
+    "ookamakiri": "ookamakiri",
+    "kumazemi": "kumazemi",
+    "kumabachi": "kumabachi",
+    "mizukamakiri": "mizukamakiri",
+    "monshirochou": "monshirochou",
+    "agehachou": "agehachou",
+    "aosuji_ageha": "aosuji_ageha",
+    "monkichou": "monkichou",
+    "benishijimi": "benishijimi",
+    "nanahoshi_tentou": "nanahoshi_tentou",
+    "nami_tentou": "nami_tentou",
+    "kuro_ooari": "kuro_ooari",
+    "nihon_mitsubachi": "nihon_mitsubachi",
+    "aburazemi": "aburazemi",
+    "minminzemi": "minminzemi",
+    "higurashi": "higurashi",
+    "tsukutsukuboushi": "tsukutsukuboushi",
+    "shiokara_tonbo": "shiokara_tonbo",
+    "akiakane": "akiakane",
+    "tonosama_batta": "tonosama_batta",
+    "shouryou_batta": "shouryou_batta",
+    "enma_koorogi": "enma_koorogi",
+    "kirigirisu": "kirigirisu",
+    "kanabun": "kanabun",
+    "amenbo": "amenbo",
+    "ibotaga": "ibotaga",
+    "dangomushi": "dangomushi",
+    "usuba_kamikiri": "usuba_kamikiri",
+    "nokogiri_kamikiri": "nokogiri_kamikiri",
+    "ooao_kamikiri": "ooao_kamikiri",
+    "ao_kamikiri": "ao_kamikiri",
+    "yokoyama_higenaga_kamikiri": "yokoyama_higenaga_kamikiri",
+    "ramie_kamikiri": "ramie_kamikiri",
+    "ruriboshi_kamikiri": "ruriboshi_kamikiri",
+    "kobuyahazu_kamikiri": "kobuyahazu_kamikiri",
+    "gomadara_kamikiri": "gomadara_kamikiri",
+    "shirosuji_kamikiri": "shirosuji_kamikiri",
+    "kiboshi_kamikiri": "kiboshi_kamikiri",
+    "torafu_kamikiri": "torafu_kamikiri",
+    "yotsusuji_hana_kamikiri": "yotsusuji_hana_kamikiri",
+    "beni_kamikiri": "beni_kamikiri",
+    "hannoao_kamikiri": "hannoao_kamikiri",
+    "ootorafu_kogane": "ootorafu_kogane",
+    "hirazu_gensei": "hirazu_gensei",
+    "maimaikaburi": "maimaikaburi",
+    "ao_osamushi": "ao_osamushi",
+    "oo_ruri_osamushi": "oo_ruri_osamushi",
+    "nishiki_hanmyou": "nishiki_hanmyou",
+    "kawara_hanmyou": "kawara_hanmyou",
+    "midorishijimi": "midorishijimi",
+    "aino_midorishijimi": "aino_midorishijimi",
+    "mesuaka_midorishijimi": "mesuaka_midorishijimi",
+    "ezo_midorishijimi": "ezo_midorishijimi",
+    "oo_midorishijimi": "oo_midorishijimi",
+    "jouzan_midorishijimi": "jouzan_midorishijimi",
+    "hayashi_midorishijimi": "hayashi_midorishijimi",
+    "urajiro_midorishijimi": "urajiro_midorishijimi",
+    "hisamatsu_midorishijimi": "hisamatsu_midorishijimi",
+    "kirishima_midorishijimi": "kirishima_midorishijimi",
+    "chousen_akashijimi": "chousen_akashijimi",
+    "akashijimi": "akashijimi",
+    "uranami_akashijimi": "uranami_akashijimi",
+    "kuroshijimi": "kuroshijimi",
+    "uragomadara_shijimi": "uragomadara_shijimi",
+    "goishi_shijimi": "goishi_shijimi",
+    "miyama_shijimi": "miyama_shijimi",
+    "benihikage": "benihikage",
+    "kumoma_benihikage": "kumoma_benihikage",
+    "usubashirochou": "usubashirochou",
+    "tsumakichou": "tsumakichou",
+    "tsumabenichou": "tsumabenichou",
+    "suminagashi": "suminagashi",
+    "komurasaki": "komurasaki",
+    "kurokonomachou": "kurokonomachou",
+    "usuiro_konomachou": "usuiro_konomachou",
+    "ichimonjichou": "ichimonjichou",
+    "oo_ichimonji": "oo_ichimonji",
+    "komisuji": "komisuji",
+    "sakahachichou": "sakahachichou",
+    "mikado_ageha": "mikado_ageha",
+    "ryukyu_asagimadara": "ryukyu_asagimadara",
+    "banana_seseri": "banana_seseri",
+    "aoba_seseri": "aoba_seseri",
+    "ginichimonji_seseri": "ginichimonji_seseri",
+    "mesuaka_murasaki": "mesuaka_murasaki",
+    "midori_hyoumon": "midori_hyoumon",
+    "kumogata_hyoumon": "kumogata_hyoumon",
+    "akaboshi_gomadara": "akaboshi_gomadara",
+    "apollo": "apollo",
+    "bhutan_glory": "bhutan_glory",
+    "namiageha": "namiageha",
+    "kiageha": "kiageha",
+    "kuroageha": "kuroageha",
+    "monkiageha": "monkiageha",
+    "nagasaki_ageha": "nagasaki_ageha",
+    "karasu_ageha": "karasu_ageha",
+    "miyama_karasu_ageha": "miyama_karasu_ageha",
+    "onaga_ageha": "onaga_ageha",
+    "jakou_ageha": "jakou_ageha",
+    "benimon_ageha": "benimon_ageha",
+    "shiroobi_ageha": "shiroobi_ageha",
+    "yaeyama_karasu_ageha": "yaeyama_karasu_ageha",
+    "onki_ageha": "onki_ageha",
+    "gifuchou": "gifuchou",
+    "himegifuchou": "himegifuchou",
+    "himeusuba_shirochou": "himeusuba_shirochou",
+    "usuba_kichou": "usuba_kichou",
+    "tomon_ageha": "tomon_ageha",
+    "uragin_hyoumon": "uragin_hyoumon",
+    "ginboshi_hyoumon": "ginboshi_hyoumon",
+    "oouragin_hyoumon": "oouragin_hyoumon",
+    "uraginsuji_hyoumon": "uraginsuji_hyoumon",
+    "oouraginsuji_hyoumon": "oouraginsuji_hyoumon",
+    "mesuguro_hyoumon": "mesuguro_hyoumon",
+    "tsumaguro_hyoumon": "tsumaguro_hyoumon",
+    "kumoma_hyoumon": "kumoma_hyoumon",
+    "hyoumonchou": "hyoumonchou",
+    "kohyoumon": "kohyoumon",
+    "karafuto_hyoumon": "karafuto_hyoumon",
+    "asahi_hyoumon": "asahi_hyoumon",
+    "hyoumonmodaki": "hyoumonmodaki",
+    "kohyoumonmodoki": "kohyoumonmodoki",
+    "himejanome": "himejanome",
+    "kojanome": "kojanome",
+    "kurohikage": "kurohikage",
+    "hikagechou": "hikagechou",
+    "satokimadara_hikage": "satokimadara_hikage",
+    "yamakimadara_hikage": "yamakimadara_hikage",
+    "janomechou": "janomechou",
+    "himeuranami_janome": "himeuranami_janome",
+    "uranami_janome": "uranami_janome",
+    "hime_kijanome": "hime_kijanome",
+    "kibane_serikajanome": "kibane_serikajanome",
+    "kimadara_modoki": "kimadara_modoki",
+    "tsumajiro_uragoma_janome": "tsumajiro_uragoma_janome",
+    "hikage_janome": "hikage_janome",
+    "kurohikage_modoki": "kurohikage_modoki",
+    "takane_hikage": "takane_hikage",
+    "daisetsu_takane_hikage": "daisetsu_takane_hikage",
+    "kogesujishirochou_janome": "kogesujishirochou_janome",
+    "oohikage_janome": "oohikage_janome",
+    "kokabuto": "kokabuto",
+    "saikabuto": "saikabuto",
+    "tairiku_akadama_kabuto": "tairiku_akadama_kabuto",
+    "aodougane": "aodougane",
+    "douganebuibui": "douganebuibui",
+    "koganemushi": "koganemushi",
+    "mametsuchi_kogane": "mametsuchi_kogane",
+    "hime_kogane": "hime_kogane",
+    "ao_kanabun": "ao_kanabun",
+    "kuro_kanabun": "kuro_kanabun",
+    "shiroten_hanamuguri": "shiroten_hanamuguri",
+    "shiraboshi_hanamuguri": "shiraboshi_hanamuguri",
+    "hanamuguri": "hanamuguri",
+    "koao_hanamuguri": "koao_hanamuguri",
+    "ootora_hanamuguri": "ootora_hanamuguri",
+    "akamadara_hanamuguri": "akamadara_hanamuguri",
+    "senchi_kogane": "senchi_kogane",
+    "oosenchi_kogane": "oosenchi_kogane",
+    "daikoku_kogane": "daikoku_kogane",
+    "kobu_marukogane": "kobu_marukogane",
+    "maguso_kogane": "maguso_kogane",
+    "kuwagata_hanamuguri": "kuwagata_hanamuguri",
+    "miyama_kamikiri": "miyama_kamikiri",
+    "rubeus_kamikiri": "rubeus_kamikiri",
+    "yatsuboshi_kamikiri": "yatsuboshi_kamikiri",
+    "akahana_kamikiri": "akahana_kamikiri",
+    "eguritora_kamikiri": "eguritora_kamikiri",
+    "yotsusuji_tora_kamikiri": "yotsusuji_tora_kamikiri",
+    "kuro_tora_kamikiri": "kuro_tora_kamikiri",
+    "kibatora_kamikiri": "kibatora_kamikiri",
+    "ebiiro_kamikiri": "ebiiro_kamikiri",
+    "shirosujikamikiri_yama": "shirosujikamikiri_yama",
+    "kuroobi_hana_kamikiri": "kuroobi_hana_kamikiri",
+    "ruri_kamikiri": "ruri_kamikiri",
+    "seijaku_kamikiri": "seijaku_kamikiri",
+    "tobiiro_kamikiri": "tobiiro_kamikiri",
+    "yotsusuji_tora_oo": "yotsusuji_tora_oo",
+    "budou_tora_kamikiri": "budou_tora_kamikiri",
+    "kuwasaki_hana_kamikiri": "kuwasaki_hana_kamikiri",
+    "haisuji_kamikiri": "haisuji_kamikiri",
+    "kuwakamikiri": "kuwakamikiri",
+    "sentou_kamikiri": "sentou_kamikiri",
+    "shiraobi_goma_kamikiri": "shiraobi_goma_kamikiri",
+    "ao_suji_kamikiri": "ao_suji_kamikiri",
+    "sennoki_kamikiri": "sennoki_kamikiri",
+    "shirake_tora_kamikiri": "shirake_tora_kamikiri",
+    "himesugi_kamikiri": "himesugi_kamikiri",
+    "yotsukiboshi_kamikiri": "yotsukiboshi_kamikiri",
+    "naga_gomafu_kamikiri": "naga_gomafu_kamikiri",
+    "hoshibeni_kamikiri": "hoshibeni_kamikiri",
+    "yotsuboshi_kamikiri": "yotsuboshi_kamikiri",
+    "kuwagata_no_himekamikiri": "kuwagata_no_himekamikiri",
+    "akagane_saru_hamushi": "akagane_saru_hamushi",
+    "itadori_hamushi": "itadori_hamushi",
+    "kurouri_hamushi": "kurouri_hamushi",
+    "uri_hamushi": "uri_hamushi",
+    "yomogi_hamushi": "yomogi_hamushi",
+    "yanagi_hamushi": "yanagi_hamushi",
+    "ooruri_hamushi": "ooruri_hamushi",
+    "hakka_hamushi": "hakka_hamushi",
+    "jingasa_hamushi": "jingasa_hamushi",
+    "kurumi_hamushi": "kurumi_hamushi",
+    "kashiwaru_ri_hamushi": "kashiwaru_ri_hamushi",
+    "kameno_ko_hamushi": "kameno_ko_hamushi",
+    "hirata_kuwagata": "hirata_kuwagata",
+    "kokuwagata": "kokuwagata",
+    "aka_ashi_kuwagata": "aka_ashi_kuwagata",
+    "suji_kuwagata": "suji_kuwagata",
+    "hime_oo_kuwagata": "hime_oo_kuwagata",
+    "nebuto_kuwagata": "nebuto_kuwagata",
+    "chibi_kuwagata": "chibi_kuwagata",
+    "maguso_kuwagata": "maguso_kuwagata",
+    "ruri_kuwagata": "ruri_kuwagata",
+    "oo_ruri_kuwagata": "oo_ruri_kuwagata",
+    "oni_kuwagata": "oni_kuwagata",
+    "madara_kuwagata": "madara_kuwagata",
+    "tsushima_hirata_kuwagata": "tsushima_hirata_kuwagata",
+    "chosen_hirata_kuwagata": "chosen_hirata_kuwagata",
+    "amami_shika_kuwagata": "amami_shika_kuwagata",
+    "tokara_nokogiri_kuwagata": "tokara_nokogiri_kuwagata",
+    "amami_nokogiri_kuwagata": "amami_nokogiri_kuwagata",
+    "yaeyama_koku_kuwagata": "yaeyama_koku_kuwagata",
+    "sakishima_hirata_kuwagata": "sakishima_hirata_kuwagata",
+    "yaeyama_nokogiri_kuwagata": "yaeyama_nokogiri_kuwagata",
+    "tsuya_hada_kuwagata": "tsuya_hada_kuwagata",
+    "yakushima_noko_kuwagata": "yakushima_noko_kuwagata",
+    "ko_ruri_kuwagata": "ko_ruri_kuwagata",
+    "asagimadara": "asagimadara",
+    "kabamadara": "kabamadara",
+    "sujiguro_kabamadara": "sujiguro_kabamadara",
+    "oogomadara": "oogomadara",
+    "tsumamurasaki_madara": "tsumamurasaki_madara",
+    "marubane_rurimadara": "marubane_rurimadara",
+    "konohachou": "konohachou",
+    "tenguchou": "tenguchou",
+    "ishigakechou": "ishigakechou",
+    "tatehamodoki": "tatehamodoki",
+    "ao_tatehamodoki": "ao_tatehamodoki",
+    "ryukyu_murasaki": "ryukyu_murasaki",
+    "ichimonji_seseri": "ichimonji_seseri",
+    "chabane_seseri": "chabane_seseri",
+    "oochabane_seseri": "oochabane_seseri",
+    "miyama_chabane_seseri": "miyama_chabane_seseri",
+    "kochabane_seseri": "kochabane_seseri",
+    "herigurochabane_seseri": "herigurochabane_seseri",
+    "sujigurochabane_seseri": "sujigurochabane_seseri",
+    "kimadara_seseri": "kimadara_seseri",
+    "himekimadara_seseri": "himekimadara_seseri",
+    "kokimadara_seseri": "kokimadara_seseri",
+    "hosoba_seseri": "hosoba_seseri",
+    "daimyo_seseri": "daimyo_seseri",
+    "miyama_seseri": "miyama_seseri",
+    "takanekimadara_seseri": "takanekimadara_seseri",
+    "kuro_seseri": "kuro_seseri",
+    "hoshichabane_seseri": "hoshichabane_seseri",
+    "chamadara_seseri": "chamadara_seseri",
+    "kuroboshi_seseri": "kuroboshi_seseri",
+    "yuurei_seseri": "yuurei_seseri",
+    "nettaiaka_seseri": "nettaiaka_seseri",
+    "aka_seseri": "aka_seseri",
+    "okinawa_birodo_seseri": "okinawa_birodo_seseri",
+    "tennen_kimadara_seseri": "tennen_kimadara_seseri",
+    "rurishijimi": "rurishijimi",
+    "sugitani_rurishijimi": "sugitani_rurishijimi",
+    "yamatoshijimi": "yamatoshijimi",
+    "tsubameshijimi": "tsubameshijimi",
+    "himeshijimi": "himeshijimi",
+    "asamashijimi": "asamashijimi",
+    "gomashijimi": "gomashijimi",
+    "oogomashijimi": "oogomashijimi",
+    "kurotsubame_shijimi": "kurotsubame_shijimi",
+    "uraginshijimi": "uraginshijimi",
+    "uranamishijimi": "uranamishijimi",
+    "taiwan_kuroboshi_shijimi": "taiwan_kuroboshi_shijimi",
+    "tsubamehazurao_shijimi": "tsubamehazurao_shijimi",
+    "amida_shijimi": "amida_shijimi",
+    "sokorabe_ruri_shijimi": "sokorabe_ruri_shijimi",
+    "yakushima_ruri_shijimi": "yakushima_ruri_shijimi",
+    "ryukyu_uraboshi_shijimi": "ryukyu_uraboshi_shijimi",
+    "iwakawa_shijimi": "iwakawa_shijimi",
+    "ruri_uranami_shijimi": "ruri_uranami_shijimi",
+    "shirouranami_shijimi": "shirouranami_shijimi",
+    "tappi_shijimi": "tappi_shijimi",
+    "sujiguro_shirochou": "sujiguro_shirochou",
+    "ezosujiguro_shirochou": "ezosujiguro_shirochou",
+    "oomon_shirochou": "oomon_shirochou",
+    "ezo_shirochou": "ezo_shirochou",
+    "minami_kichou": "minami_kichou",
+    "kita_kichou": "kita_kichou",
+    "hime_shirochou": "hime_shirochou",
+    "eshima_hime_shirochou": "eshima_hime_shirochou",
+    "kibane_seseri_dummy_replaced_usuki_shirochou": "kibane_seseri_dummy_replaced_usuki_shirochou",
+    "uranami_shirochou": "uranami_shirochou",
+    "namie_shirochou": "namie_shirochou",
+    "taiwan_shirochou": "taiwan_shirochou",
+    "kuroten_shirochou": "kuroten_shirochou",
+    "tsumaaka_shirochou": "tsumaaka_shirochou",
+    "kibasokichou_replaced_kibane_taiwan_kichou": "kibasokichou_replaced_kibane_taiwan_kichou",
+    "hoshiboshi_kichou": "hoshiboshi_kichou",
+    "tsumaguro_kichou": "tsumaguro_kichou",
+    "yamaki_chou": "yamaki_chou",
+    "ubatamamushi": "ubatamamushi",
+    "aotamamushi": "aotamamushi",
+    "kurotamamushi": "kurotamamushi",
+    "aomadara_tamamushi": "aomadara_tamamushi",
+    "kuronaga_tamamushi": "kuronaga_tamamushi",
+    "niwa_hanmyou": "niwa_hanmyou",
+    "ko_hanmyou": "ko_hanmyou",
+    "toukyou_hime_hanmyou": "toukyou_hime_hanmyou",
+    "maimaikaburi_ezo": "maimaikaburi_ezo",
+    "oo_osamushi": "oo_osamushi",
+    "kuronaga_osamushi": "kuronaga_osamushi",
+    "seaka_osamushi": "seaka_osamushi",
+    "kuro_osamushi": "kuro_osamushi",
+    "akagane_osamushi": "akagane_osamushi",
+    "ao_gomimushi": "ao_gomimushi",
+    "oo_gomimushi": "oo_gomimushi",
+    "suji_ao_gomimushi": "suji_ao_gomimushi",
+    "atoboshi_ao_gomimushi": "atoboshi_ao_gomimushi",
+    "kubinaga_gomimushi": "kubinaga_gomimushi",
+    "kitateha": "kitateha",
+    "shitateha": "shitateha",
+    "eltateha": "eltateha",
+    "hiodoshichou": "hiodoshichou",
+    "akatateha": "akatateha",
+    "himeakatateha": "himeakatateha",
+    "ruritateha": "ruritateha",
+    "kujakuchou": "kujakuchou",
+    "gomadarachou": "gomadarachou",
+    "asama_ichimonji": "asama_ichimonji",
+    "misujichou": "misujichou",
+    "hoshimisuji": "hoshimisuji",
+    "futasujichou": "futasujichou",
+    "kobatateha": "kobatateha",
+    "kibatateha": "kibatateha",
+    "akamadara": "akamadara",
+    "sasakia_oomurasaki_ss": "sasakia_oomurasaki_ss",
+    "komurasaki_mesu": "komurasaki_mesu",
+    "araschnia_sakahachi_aki": "araschnia_sakahachi_aki",
+    "hiroobi_midorishijimi": "hiroobi_midorishijimi",
+    "kuro_midorishijimi": "kuro_midorishijimi",
+    "fuji_midorishijimi": "fuji_midorishijimi",
+    "urakuro_shijimi": "urakuro_shijimi",
+    "uramisuji_shijimi": "uramisuji_shijimi",
+    "kashiwa_akashijimi": "kashiwa_akashijimi",
+    "mumon_akashijimi": "mumon_akashijimi",
+    "mizuiro_onaga_shijimi": "mizuiro_onaga_shijimi",
+    "usuiro_onaga_shijimi": "usuiro_onaga_shijimi",
+    "onaga_shijimi": "onaga_shijimi",
+    "torafu_shijimi": "torafu_shijimi",
+    "kotsubame": "kotsubame",
+    "miyama_karasu_shijimi": "miyama_karasu_shijimi",
+    "karasu_shijimi": "karasu_shijimi",
+    "akashijimi_kita": "akashijimi_kita",
+    "murasaki_shijimi": "murasaki_shijimi",
+    "murasaki_tsubame": "murasaki_tsubame",
+    "akashijimi_minami": "akashijimi_minami",
+    "hime_midorishijimi": "hime_midorishijimi",
+    "kurosuji_ginyanma": "kurosuji_ginyanma",
+    "ruriboshi_yanma": "ruriboshi_yanma",
+    "ooruriboshi_yanma": "ooruriboshi_yanma",
+    "koshiboso_yanma": "koshiboso_yanma",
+    "marutan_yanma": "marutan_yanma",
+    "katori_yanma": "katori_yanma",
+    "ko_oniyanma": "ko_oniyanma",
+    "yama_sanae": "yama_sanae",
+    "onaga_sanae": "onaga_sanae",
+    "uchiwa_yanma": "uchiwa_yanma",
+    "taiwan_uchiwa_yanma": "taiwan_uchiwa_yanma",
+    "ezo_tonbo": "ezo_tonbo",
+    "takane_tonbo": "takane_tonbo",
+    "mirun_yanma": "mirun_yanma",
+    "ooshiokara_tonbo": "ooshiokara_tonbo",
+    "shioya_tonbo": "shioya_tonbo",
+    "shoujou_tonbo": "shoujou_tonbo",
+    "natsuakane": "natsuakane",
+    "noshime_tonbo": "noshime_tonbo",
+    "miyama_akane": "miyama_akane",
+    "konoshime_tonbo": "konoshime_tonbo",
+    "usubaki_tonbo": "usubaki_tonbo",
+    "chou_tonbo": "chou_tonbo",
+    "kofuki_tonbo": "kofuki_tonbo",
+    "hatchou_tonbo": "hatchou_tonbo",
+    "aoito_tonbo": "aoito_tonbo",
+    "otsunen_tonbo": "otsunen_tonbo",
+    "kiito_tonbo": "kiito_tonbo",
+    "monosashi_tonbo": "monosashi_tonbo",
+    "kuroito_tonbo": "kuroito_tonbo",
+    "beniito_tonbo": "beniito_tonbo",
+    "nihon_kawatombo": "nihon_kawatombo",
+    "haguro_tonbo": "haguro_tonbo",
+    "miyama_kawatombo": "miyama_kawatombo",
+    "niinii_zemi": "niinii_zemi",
+    "ezo_zemi": "ezo_zemi",
+    "koezo_zemi": "koezo_zemi",
+    "haru_zemi": "haru_zemi",
+    "chicchi_zemi": "chicchi_zemi",
+    "kusagi_kamemushi": "kusagi_kamemushi",
+    "aokusa_kamemushi": "aokusa_kamemushi",
+    "esaki_monki_tsuno_kamemushi": "esaki_monki_tsuno_kamemushi",
+    "kimadara_kamemushi": "kimadara_kamemushi",
+    "ookin_kamemushi": "ookin_kamemushi",
+    "akasuji_kin_kamemushi": "akasuji_kin_kamemushi",
+    "nanahoshi_kin_kamemushi": "nanahoshi_kin_kamemushi",
+    "matsumomushi": "matsumomushi",
+    "onbu_batta": "onbu_batta",
+    "kuruma_batta": "kuruma_batta",
+    "hina_batta": "hina_batta",
+    "ibo_batta": "ibo_batta",
+    "yamato_batta": "yamato_batta",
+    "kobane_inago": "kobane_inago",
+    "hanenaga_inago": "hanenaga_inago",
+    "yabukiri": "yabukiri",
+    "kutsuwamushi": "kutsuwamushi",
+    "umaoi": "umaoi",
+    "tsuyumushi": "tsuyumushi",
+    "sasakiri": "sasakiri",
+    "kantan": "kantan",
+    "matsumushi": "matsumushi",
+    "kanetataki": "kanetataki",
+    "harabiro_kamakiri": "harabiro_kamakiri",
+    "kokamakiri": "kokamakiri",
+    "chosen_kamakiri": "chosen_kamakiri",
+    "hime_kamakiri": "hime_kamakiri",
+    "nanafushi_modoki": "nanafushi_modoki",
+    "toge_nanafushi": "toge_nanafushi",
+    "eda_nanafushi": "eda_nanafushi",
+    "kimune_kumabachi": "kimune_kumabachi",
+    "oo_suzumebachi": "oo_suzumebachi",
+    "kiiro_suzumebachi": "kiiro_suzumebachi",
+    "kogata_suzumebachi": "kogata_suzumebachi",
+    "kiashinaga_bachi": "kiashinaga_bachi",
+    "seguro_ashinaga_bachi": "seguro_ashinaga_bachi",
+    "jigabachi": "jigabachi",
+    "oomonkuro_bekkou": "oomonkuro_bekkou",
+    "kuro_anabachi": "kuro_anabachi",
+    "muneaka_ooari": "muneaka_ooari",
+    "kuroyama_ari": "kuroyama_ari",
+    "tobiiro_keari": "tobiiro_keari",
+    "samurai_ari": "samurai_ari",
+    "shioya_abu": "shioya_abu",
+    "oo_hanaabu": "oo_hanaabu",
+    "hosohirata_abu": "hosohirata_abu",
+    "nami_gengorou": "nami_gengorou",
+    "kuro_gengorou": "kuro_gengorou",
+    "kogatano_gengorou": "kogatano_gengorou",
+    "haiiro_gengorou": "haiiro_gengorou",
+    "gamushi": "gamushi",
+    "mizusumashi": "mizusumashi",
+    "heike_botaru": "heike_botaru",
+    "hime_botaru": "hime_botaru",
+    "kamenoko_tentou": "kamenoko_tentou",
+    "juushihoshi_tentou": "juushihoshi_tentou",
+    "nijuuyahoshi_tentou": "nijuuyahoshi_tentou",
+    "ojiro_ashinaga_zoumushi": "ojiro_ashinaga_zoumushi",
+    "shirokobu_zoumushi": "shirokobu_zoumushi",
+    "oo_zoumushi": "oo_zoumushi",
+    "oosukashiba": "oosukashiba",
+    "hoshihoujaku": "hoshihoujaku",
+    "benisuzume": "benisuzume",
+    "sesujisuzume": "sesujisuzume",
+    "ebigarasuzume": "ebigarasuzume",
+    "momosuzume": "momosuzume",
+    "kurumasuzume": "kurumasuzume",
+    "kosuzume": "kosuzume",
+    "unmonsuzume": "unmonsuzume",
+    "hoshihime_houjaku": "hoshihime_houjaku",
+    "shimofuri_suzume": "shimofuri_suzume",
+    "mengata_suzume": "mengata_suzume",
+    "birodo_suzume": "birodo_suzume",
+    "koebigarasuzume": "koebigarasuzume",
+    "tobiiro_suzume": "tobiiro_suzume",
+    "kurohoujaku": "kurohoujaku",
+    "oshimofuri_suzume": "oshimofuri_suzume",
+    "usuba_suzume": "usuba_suzume",
+    "oomizuao": "oomizuao",
+    "onagamizuao": "onagamizuao",
+    "yamamayu": "yamamayu",
+    "kususan": "kususan",
+    "himeyamamayu": "himeyamamayu",
+    "shinjusan": "shinjusan",
+    "ezoyotsume": "ezoyotsume",
+    "usutabiga": "usutabiga",
+    "yonagunisan": "yonagunisan",
+    "kurousutabiga": "kurousutabiga",
+    "kaiko_moth": "kaiko_moth",
+    "kuwago": "kuwago",
+    "oomizuao_oki": "oomizuao_oki",
+    "agehamodoki": "agehamodoki",
+    "biroudohamaki": "biroudohamaki",
+    "iraga": "iraga",
+    "hiroheriaoiraga": "hiroheriaoiraga",
+    "kanokoga": "kanokoga",
+    "hotaruga": "hotaruga",
+    "minousuba": "minousuba",
+    "kinmonga": "kinmonga",
+    "satsumanishiki": "satsumanishiki",
+    "akebikonoha": "akebikonoha",
+    "yotsumeaoshaku": "yotsumeaoshaku",
+    "sujimon_hitori": "sujimon_hitori",
+    "toraga": "toraga",
+    "shitaba_kibara": "shitaba_kibara",
+    "shitaba_benishitaba": "shitaba_benishitaba",
+    "ino_kosukashiba": "ino_kosukashiba",
+    "ooshitaba": "ooshitaba",
+    "kiboshi_aoshaku": "kiboshi_aoshaku",
+    "akahige_dokuga": "akahige_dokuga",
+    "benisuzume_madara": "benisuzume_madara",
+    "shiroshitaba": "shiroshitaba",
+    "murasakishitaba": "murasakishitaba",
+    "kinuwaba": "kinuwaba",
+    "karasu_yotou": "karasu_yotou",
+    "america_shirohitori": "america_shirohitori",
+    "hitoriga": "hitoriga",
+    "maimaiga": "maimaiga",
+    "chadokuga": "chadokuga",
+    "kidokuga": "kidokuga",
+    "tobimon_ooedashaku": "tobimon_ooedashaku",
+    "yotsume_edashaku": "yotsume_edashaku",
+    "ooaya_shaku": "ooaya_shaku",
+    "chabane_fuyu_eda_shaku": "chabane_fuyu_eda_shaku",
+    "kurosuji_fuyu_eda_shaku": "kurosuji_fuyu_eda_shaku",
+    "kosukashiba": "kosukashiba",
+    "hime_kosukashiba": "hime_kosukashiba",
+    "mukashi_tonbo": "mukashi_tonbo",
+    "mukashi_yanma": "mukashi_yanma",
+    "ao_yanma": "ao_yanma",
+    "yabu_yanma": "yabu_yanma",
+    "sarasa_yanma": "sarasa_yanma",
+    "ryukyu_ginyanma": "ryukyu_ginyanma",
+    "koshiaki_tonbo": "koshiaki_tonbo",
+    "harabiro_tonbo": "harabiro_tonbo",
+    "yotsuboshi_tonbo": "yotsuboshi_tonbo",
+    "beni_tonbo": "beni_tonbo",
+    "hanebiro_tonbo": "hanebiro_tonbo",
+    "ki_tonbo": "ki_tonbo",
+    "mayutate_akane": "mayutate_akane",
+    "hime_akane": "hime_akane",
+    "neki_tonbo": "neki_tonbo",
+    "risu_akane": "risu_akane",
+    "naniwa_tonbo": "naniwa_tonbo",
+    "asahina_kawa_tonbo": "asahina_kawa_tonbo",
+    "aohada_tonbo": "aohada_tonbo",
+    "oo_ao_ito_tonbo": "oo_ao_ito_tonbo",
+    "hosomi_otsunen_tonbo": "hosomi_otsunen_tonbo",
+    "asia_ito_tonbo": "asia_ito_tonbo",
+    "sesuji_ito_tonbo": "sesuji_ito_tonbo",
+    "oo_ito_tonbo": "oo_ito_tonbo",
+    "hosomi_ito_tonbo": "hosomi_ito_tonbo",
+    "ruri_ito_tonbo": "ruri_ito_tonbo",
+    "ezo_akane": "ezo_akane",
+    "tairiku_akane": "tairiku_akane",
+    "koyama_tonbo": "koyama_tonbo",
+    "oo_yama_tonbo": "oo_yama_tonbo",
+    "hanebiro_ezo_tonbo": "hanebiro_ezo_tonbo",
+    "torafu_tonbo": "torafu_tonbo",
+    "davido_sanae": "davido_sanae",
+    "kosanae": "kosanae",
+    "hon_sanae": "hon_sanae",
+    "ao_sanae": "ao_sanae",
+    "kiiro_sanae": "kiiro_sanae",
+    "megane_sanae": "megane_sanae",
+    "ojiro_sanae": "ojiro_sanae",
+    "hira_sanae": "hira_sanae",
+    "ko_ezo_tonbo": "ko_ezo_tonbo",
+    "kuruma_batta_modoki": "kuruma_batta_modoki",
+    "madara_batta": "madara_batta",
+    "shouryou_batta_modoki": "shouryou_batta_modoki",
+    "tsuchi_inago": "tsuchi_inago",
+    "fuki_batta": "fuki_batta",
+    "naki_inago": "naki_inago",
+    "kawara_batta": "kawara_batta",
+    "hishibatta": "hishibatta",
+    "hanenaga_hishibatta": "hanenaga_hishibatta",
+    "hamasuzu": "hamasuzu",
+    "mitsukado_koorogi": "mitsukado_koorogi",
+    "tsuzure_sase_koorogi": "tsuzure_sase_koorogi",
+    "okame_koorogi": "okame_koorogi",
+    "tanbo_koorogi": "tanbo_koorogi",
+    "kuro_suzu": "kuro_suzu",
+    "shiba_suzu": "shiba_suzu",
+    "madara_suzu": "madara_suzu",
+    "aomatsumushi": "aomatsumushi",
+    "taiwan_emma_koorogi": "taiwan_emma_koorogi",
+    "umaoi_haya": "umaoi_haya",
+    "hime_giis": "hime_giis",
+    "kobane_hime_giis": "kobane_hime_giis",
+    "kusakiri": "kusakiri",
+    "kubikiri_gisu": "kubikiri_gisu",
+    "kayakiri": "kayakiri",
+    "hoshi_sasakiri": "hoshi_sasakiri",
+    "sesuji_tsuyumushi": "sesuji_tsuyumushi",
+    "ashiguro_tsuyumushi": "ashiguro_tsuyumushi",
+    "kamado_uma": "kamado_uma",
+    "madara_kamado_uma": "madara_kamado_uma",
+    "kera": "kera",
+    "minami_aokamemushi": "minami_aokamemushi",
+    "shiroten_kamemushi": "shiroten_kamemushi",
+    "oohoshi_kamemushi": "oohoshi_kamemushi",
+    "akasuji_kamemushi": "akasuji_kamemushi",
+    "shimasashigame": "shimasashigame",
+    "yokozuna_sashigame": "yokozuna_sashigame",
+    "akahoshi_kamemushi": "akahoshi_kamemushi",
+    "kunugi_kamemushi": "kunugi_kamemushi",
+    "tochukasou_replaced_marukamemushi": "tochukasou_replaced_marukamemushi",
+    "tsuchi_kamemushi": "tsuchi_kamemushi",
+    "haragurokamemushi": "haragurokamemushi",
+    "homoeocerus_kuro_herikamemushi": "homoeocerus_kuro_herikamemushi",
+    "hosohari_kamemushi": "hosohari_kamemushi",
+    "kin_kamemushi_chabane": "kin_kamemushi_chabane",
+    "tsuya_aokamemushi": "tsuya_aokamemushi",
+    "akasuji_kin_himekinkamemushi": "akasuji_kin_himekinkamemushi",
+    "tsuno_kamemushi_esaki_replaced": "tsuno_kamemushi_esaki_replaced",
+    "seaka_tsuchikamemushi": "seaka_tsuchikamemushi",
+    "tsumaki_herikamemushi": "tsumaki_herikamemushi",
+    "ookurokamemushi": "ookurokamemushi",
+    "tsumaguro_oyokobai": "tsumaguro_oyokobai",
+    "ooyokobai_aobaha": "ooyokobai_aobaha",
+    "betsubekkou_hagoromo": "betsubekkou_hagoromo",
+    "ooshira_awafuki": "ooshira_awafuki",
+    "moriawafuki": "moriawafuki",
+    "tsunozemi_marubane": "tsunozemi_marubane",
+    "togezunozemi": "togezunozemi",
+    "tsukuhoushi_replaced_aotsukutsuku": "tsukuhoushi_replaced_aotsukutsuku",
+    "kuma_zemi_kuro_replaced_iwasaki": "kuma_zemi_kuro_replaced_iwasaki",
+    "ezo_haru_zemi": "ezo_haru_zemi",
+    "kuma_zemi_replaced_tsukutsuku_oushuu": "kuma_zemi_replaced_tsukutsuku_oushuu",
+    "taikouchi": "taikouchi",
+    "hime_taikouchi": "hime_taikouchi",
+    "hime_mizukamakiri": "hime_mizukamakiri",
+    "matsumomushi_replaced_kobane": "matsumomushi_replaced_kobane",
+    "himeamenbo": "himeamenbo",
+    "ooamenbo": "ooamenbo",
+    "shimaamenbo": "shimaamenbo",
+    "umiamenbo": "umiamenbo",
+    "kooimushi": "kooimushi",
+    "kogatano_kooimushi": "kogatano_kooimushi",
+    "miizuamenbo_kemizu": "miizuamenbo_kemizu",
+    "wallace_giant_bee": "wallace_giant_bee",
+    "himesuzumebachi": "himesuzumebachi",
+    "monsuzumebachi": "monsuzumebachi",
+    "chairo_suzumebachi": "chairo_suzumebachi",
+    "kuro_suzumebachi": "kuro_suzumebachi",
+    "ootabu_suzumebachi": "ootabu_suzumebachi",
+    "seiyou_mitsubachi": "seiyou_mitsubachi",
+    "futamon_ashinagabachi": "futamon_ashinagabachi",
+    "koashinaga_bachi": "koashinaga_bachi",
+    "yamato_ashinagabachi": "yamato_ashinagabachi",
+    "nihon_ashinagabachi": "nihon_ashinagabachi",
+    "oomaru_hanabachi": "oomaru_hanabachi",
+    "kuromaru_hanabachi": "kuromaru_hanabachi",
+    "seiyou_oomaru_hanabachi": "seiyou_oomaru_hanabachi",
+    "nihon_himehanabachi": "nihon_himehanabachi",
+    "tsuyahanabachi": "tsuyahanabachi",
+    "ooharikiri_bachi": "ooharikiri_bachi",
+    "tsutsuhanabachi": "tsutsuhanabachi",
+    "rokoku_jigabachi": "rokoku_jigabachi",
+    "kobe_jigabachi": "kobe_jigabachi",
+    "kongou_anabachi": "kongou_anabachi",
+    "beni_bekkoubachi": "beni_bekkoubachi",
+    "ooshiro_bekkou": "ooshiro_bekkou",
+    "umaoi_himebachi": "umaoi_himebachi",
+    "ageha_himebachi": "ageha_himebachi",
+    "ooke_himebachi": "ooke_himebachi",
+    "kuro_tsuchibachi": "kuro_tsuchibachi",
+    "akagashira_aribachi": "akagashira_aribachi",
+    "kuro_yamato_ari": "kuro_yamato_ari",
+    "ito_ari": "ito_ari",
+    "hiari": "hiari",
+    "kurogetsuya_oo_ari": "kurogetsuya_oo_ari",
+    "ooari_kurokushi": "ooari_kurokushi",
+    "hebitonbo": "hebitonbo",
+    "yamato_kuroshijimi_hebitonbo_dummy": "yamato_kuroshijimi_hebitonbo_dummy",
+    "senburi": "senburi",
+    "kamakirimodoki": "kamakirimodoki",
+    "kibara_kamakirimodoki": "kibara_kamakirimodoki",
+    "usuba_kagerou": "usuba_kagerou",
+    "arijigoku": "arijigoku",
+    "kusakagerou": "kusakagerou",
+    "oo_kakagerou_dummy": "oo_kakagerou_dummy",
+    "tsunotonbo": "tsunotonbo",
+    "ki_tsunotonbo": "ki_tsunotonbo",
+    "tobikera_ninfa_dummy": "tobikera_ninfa_dummy",
+    "oo_tobikera": "oo_tobikera",
+    "nanafushi_modoki_seibu_dummy": "nanafushi_modoki_seibu_dummy",
+    "shirabui_nanafushi_dummy": "shirabui_nanafushi_dummy",
+    "amami_nanafushi_dummy": "amami_nanafushi_dummy",
+    "konoha_mushi": "konoha_mushi",
+    "sekai_saichou_nanafushi": "sekai_saichou_nanafushi",
+    "gagambo": "gagambo",
+    "mikado_gagambo": "mikado_gagambo",
+    "oo_hanaabu_oddball_dummy": "oo_hanaabu_oddball_dummy",
+    "nami_hanaabu": "nami_hanaabu",
+    "ao_metsuka_abu_dummy": "ao_metsuka_abu_dummy",
+    "shiokara_abu_oddball_dummy": "shiokara_abu_oddball_dummy",
+    "ni_idolomantis_diabolica": "ni_idolomantis_diabolica",
+    "hana_kamakiri": "hana_kamakiri",
+    "usuba_kamakiri": "usuba_kamakiri",
+    "hime_kamakiri_oddball_dummy": "hime_kamakiri_oddball_dummy",
+    "muna_biro_kamakiri_dummy": "muna_biro_kamakiri_dummy",
+    "ranran_hana_kamakiri_dummy": "ranran_hana_kamakiri_dummy",
+    "orchid_ghost_mantis_dummy": "orchid_ghost_mantis_dummy",
+    "obi_hebitonbo_dummy": "obi_hebitonbo_dummy",
+    "parry_futamata_kuwagata": "parry_futamata_kuwagata",
+    "mandibularis_futamata_kuwagata": "mandibularis_futamata_kuwagata",
+    "buddha_futamata_kuwagata": "buddha_futamata_kuwagata",
+    "antaeus_ookuwagata": "antaeus_ookuwagata",
+    "hopei_ookuwagata": "hopei_ookuwagata",
+    "grandis_ookuwagata": "grandis_ookuwagata",
+    "tarandus_kuwagata": "tarandus_kuwagata",
+    "mengata_kuwagata": "mengata_kuwagata",
+    "alcides_ookuwagata": "alcides_ookuwagata",
+    "elaphus_noko_kuwagata": "elaphus_noko_kuwagata",
+    "metallifer_noko_kuwagata": "metallifer_noko_kuwagata",
+    "feminata_noko_kuwagata": "feminata_noko_kuwagata",
+    "lateralis_noko_kuwagata": "lateralis_noko_kuwagata",
+    "elephas_zou_kabuto": "elephas_zou_kabuto",
+    "actaeon_zou_kabuto": "actaeon_zou_kabuto",
+    "mars_zou_kabuto": "mars_zou_kabuto",
+    "neptunus_oo_kabuto": "neptunus_oo_kabuto",
+    "satanas_oo_kabuto": "satanas_oo_kabuto",
+    "gohon_zuno_kabuto": "gohon_zuno_kabuto",
+    "siamensis_atlas_kabuto": "siamensis_atlas_kabuto",
+    "tityus_oo_kabuto": "tityus_oo_kabuto",
+    "granti_oo_kabuto": "granti_oo_kabuto",
+    "oohirata_shidemushi": "oohirata_shidemushi",
+    "kuro_shidemushi": "kuro_shidemushi",
+    "yotsuboshi_monashidemushi": "yotsuboshi_monashidemushi",
+    "ooki_no_komushi": "ooki_no_komushi",
+    "joukaibon": "joukaibon",
+    "beni_botaru": "beni_botaru",
+    "sabikikori": "sabikikori",
+    "ubatama_kometsuki": "ubatama_kometsuki",
+    "oonaga_kometsuki": "oonaga_kometsuki",
+    "tsuchi_hanmyou": "tsuchi_hanmyou",
+    "mamehan_myou": "mamehan_myou",
+    "gomimushidamashi_kohira": "gomimushidamashi_kohira",
+    "sanagora_gomimushidamashi": "sanagora_gomimushidamashi",
+    "kuro_tsuyamushi": "kuro_tsuyamushi",
+    "akahane_mushi": "akahane_mushi",
+    "ari_suaba_kakushi": "ari_suaba_kakushi",
+    "oo_hanekakushi": "oo_hanekakushi",
+    "enma_mushi": "enma_mushi",
+    "katsuobushi_mushi": "katsuobushi_mushi",
+    "ao_joukai": "ao_joukai",
+    "kibushi_kokinoko": "kibushi_kokinoko",
+    "hime_kabuto_modoki": "hime_kabuto_modoki",
+    "maru_toge_mushi": "maru_toge_mushi",
+    "kiobinaga_kakkoumushi": "kiobinaga_kakkoumushi",
+    "kushihige_yaga": "kushihige_yaga",
+    "ginmon_karibaga": "ginmon_karibaga",
+    "yotsuboshi_kuroke": "yotsuboshi_kuroke",
+    "haska_yotou": "haska_yotou",
+    "yomogi_ediba": "yomogi_ediba",
+    "shirosuji_yotou": "shirosuji_yotou",
+    "mongata_meiga_modoki": "mongata_meiga_modoki",
+    "kin_usuba": "kin_usuba",
+    "kibane_usuba": "kibane_usuba",
+    "ao_yaga": "ao_yaga",
+    "tabako_yaga": "tabako_yaga",
+    "benimon_yaga": "benimon_yaga",
+    "oo_minmon_kiriga": "oo_minmon_kiriga",
+    "fukurou_yaga": "fukurou_yaga",
+    "kin_iro_ediba": "kin_iro_ediba",
+    "futoo_suji_eda_shaku": "futoo_suji_eda_shaku",
+    "usu_kioba_shaku": "usu_kioba_shaku",
+    "naminami_eda_shaku": "naminami_eda_shaku",
+    "yamato_eda_shaku": "yamato_eda_shaku",
+    "kuro_fuchi_shiroeda_shaku": "kuro_fuchi_shiroeda_shaku",
+    "oo_aki_aoshaku": "oo_aki_aoshaku",
+    "kibara_eda_shaku": "kibara_eda_shaku",
+    "yumon_eda_shaku": "yumon_eda_shaku",
+    "oba_kuwa_eda_shaku": "oba_kuwa_eda_shaku",
+    "beni_hitori": "beni_hitori",
+    "shiro_hitori": "shiro_hitori",
+    "aka_obi_ringo": "aka_obi_ringo",
+    "doku_ga": "doku_ga",
+    "kareha_ga": "kareha_ga",
+    "obi_kareha": "obi_kareha",
+    "ezo_suzume": "ezo_suzume",
+    "kuro_mesuji_suzume": "kuro_mesuji_suzume",
+    "ryukyu_misuji": "ryukyu_misuji",
+    "taiwan_kimadara": "taiwan_kimadara",
+    "kuri_no_jiga_zoumushi": "kuri_no_jiga_zoumushi",
+    "hashibami_shigi_zoumushi": "hashibami_shigi_zoumushi",
+    "aono_meiga_zoumushi": "aono_meiga_zoumushi",
+    "hime_kuro_otoshibumi_chigau": "hime_kuro_otoshibumi_chigau",
+    "obo_no_zou": "obo_no_zou",
+    "hime_kazuo_zoumushi": "hime_kazuo_zoumushi",
+    "ina_zou_mushi": "ina_zou_mushi",
+    "yashi_oo_zoumushi": "yashi_oo_zoumushi",
+    "ki_bosh_zoumushi": "ki_bosh_zoumushi",
+    "ine_dorobou_zou": "ine_dorobou_zou",
+    "sakura_kogane_zou_chigau": "sakura_kogane_zou_chigau",
+    "kuwa_no_meiga_zoumushi": "kuwa_no_meiga_zoumushi",
+    "hime_botan_zou": "hime_botan_zou",
+    "hiki_zou_mushi": "hiki_zou_mushi",
+    "oo_kuro_kasa_zoumushi": "oo_kuro_kasa_zoumushi",
+    "matsuno_zou_mushi": "matsuno_zou_mushi",
+    "kuri_oo_zoumushi": "kuri_oo_zoumushi",
+    "ao_buchi_zoumushi": "ao_buchi_zoumushi",
+    "juzu_hige_zou": "juzu_hige_zou",
+    "murasaki_tsuya_zou": "murasaki_tsuya_zou",
+    "tama_oshi_zou": "tama_oshi_zou",
+    "masuda_kuro_tama": "masuda_kuro_tama",
+    "shirobou_himetama": "shirobou_himetama",
+    "kuwa_himetama": "kuwa_himetama",
+    "hime_tamamushi": "hime_tamamushi",
+    "chibi_tamamushi": "chibi_tamamushi",
+    "yotsuboshi_tamamushi": "yotsuboshi_tamamushi",
+    "naga_tamamushi": "naga_tamamushi",
+    "ruri_hosotama": "ruri_hosotama",
+    "ki_obi_himetama": "ki_obi_himetama",
+    "sugi_himetama": "sugi_himetama",
+    "murasaki_hosotama": "murasaki_hosotama",
+    "ao_naga_tamamushi": "ao_naga_tamamushi",
+    "oo_ao_tamamushi": "oo_ao_tamamushi",
+    "kibara_tentou": "kibara_tentou",
+    "hime_kame_no_ko_tentou": "hime_kame_no_ko_tentou",
+    "dandara_tentou": "dandara_tentou",
+    "futahoshi_tentou": "futahoshi_tentou",
+    "kohoshi_tentou": "kohoshi_tentou",
+    "kuro_tentou": "kuro_tentou",
+    "hoshi_tentou": "hoshi_tentou",
+    "shiro_juni_hoshi_tentou": "shiro_juni_hoshi_tentou",
+    "juuroku_hoshi_tentou": "juuroku_hoshi_tentou",
+    "akahoshi_tentou": "akahoshi_tentou",
+    "ooten_tentou": "ooten_tentou",
+    "halmus_tentou": "halmus_tentou",
+    "mikado_osamushi": "mikado_osamushi",
+    "yacon_osamushi": "yacon_osamushi",
+    "hime_osamushi": "hime_osamushi",
+    "oo_kubonaga_gomimushi": "oo_kubonaga_gomimushi",
+    "hokkaido_aooosa": "hokkaido_aooosa",
+    "oki_osamushi": "oki_osamushi",
+    "ki_obi_aogomimushi": "ki_obi_aogomimushi",
+    "kubi_naga_gomimushi": "kubi_naga_gomimushi",
+    "se_aka_kebuka_gomimushi": "se_aka_kebuka_gomimushi",
+    "komme_gomimushi": "komme_gomimushi",
+    "hira_ta_gomimushi": "hira_ta_gomimushi",
+    "oo_hosohira_gomimushi": "oo_hosohira_gomimushi",
+    "hosomi_komori_gomimushi": "hosomi_komori_gomimushi",
+    "miidera_gomimushi": "miidera_gomimushi",
+    "oketsu_oosa": "oketsu_oosa",
+    "aketi_oosa": "aketi_oosa",
+    "ao_hanamuguri": "ao_hanamuguri",
+    "oo_hana_muguri": "oo_hana_muguri",
+    "oo_suji_koganemushi": "oo_suji_koganemushi",
+    "seman_koganemushi": "seman_koganemushi",
+    "hiratata_koganemushi": "hiratata_koganemushi",
+    "sakura_koganemushi": "sakura_koganemushi",
+    "suji_koganemushi": "suji_koganemushi",
+    "tsuya_koganemushi": "tsuya_koganemushi",
+    "ko_furuki_kobune": "ko_furuki_kobune",
+    "kuro_koganemushi": "kuro_koganemushi",
+    "oo_kuro_koganemushi": "oo_kuro_koganemushi",
+    "ruri_hanamuguri": "ruri_hanamuguri",
+    "yamato_tama_mushi_kogane": "yamato_tama_mushi_kogane",
+    "inazuma_hamushi": "inazuma_hamushi",
+    "ichimonji_hamushi": "ichimonji_hamushi",
+    "yotsuboshi_hamushi": "yotsuboshi_hamushi",
+    "ao_iro_hamushi": "ao_iro_hamushi",
+    "hime_kogane_hamushi": "hime_kogane_hamushi",
+    "saru_hamushi_kin": "saru_hamushi_kin",
+    "buchi_hige_hamushi": "buchi_hige_hamushi",
+    "yamaimo_hamushi": "yamaimo_hamushi",
+    "hime_suginma_kamikiri": "hime_suginma_kamikiri",
+    "oni_kuwa_kamikiri": "oni_kuwa_kamikiri",
+    "ko_sennaga_gengoro": "ko_sennaga_gengoro",
+    "chibi_gengoro": "chibi_gengoro",
+    "shimaichi_gengoro": "shimaichi_gengoro",
+    "maruke_gengoro": "maruke_gengoro",
+    "gengorobuto_gengoro": "gengorobuto_gengoro",
+    "fuchi_gengoro_modoki": "fuchi_gengoro_modoki",
+    "namida_gengoro": "namida_gengoro",
+    "fusahige_gengoro": "fusahige_gengoro",
+    "ouba_kometsuki": "ouba_kometsuki",
+    "oo_futa_mon_kometsuki": "oo_futa_mon_kometsuki",
+    "ootomon_kometsuki": "ootomon_kometsuki",
+    "hosagaki_kometsuki": "hosagaki_kometsuki",
+    "hikari_kometsuki": "hikari_kometsuki",
+    "akahada_kometsuki": "akahada_kometsuki",
+    "murasaki_kometsuki": "murasaki_kometsuki",
+    "sakura_kometsuki": "sakura_kometsuki",
+    "hana_kometsuki": "hana_kometsuki",
+    "kuroki_kometsuki": "kuroki_kometsuki",
+    "midori_kometsuki": "midori_kometsuki",
+    "benihimon_kometsuki": "benihimon_kometsuki",
+    "oo_kuwagata_kometsuki": "oo_kuwagata_kometsuki",
+    "kuda_maki": "kuda_maki",
+    "shou_batta": "shou_batta",
+    "semi_batta": "semi_batta",
+    "higashi_kirigirisu": "higashi_kirigirisu",
+    "nishi_kirigirisu": "nishi_kirigirisu",
+    "oo_sasakiri": "oo_sasakiri",
+    "hatakeno_umaoi": "hatakeno_umaoi",
+    "yama_kudamaki": "yama_kudamaki",
+    "taiwan_kutsuwamushi": "taiwan_kutsuwamushi",
+    "hime_nagakamemushi": "hime_nagakamemushi",
+    "tsuma_kuro_yokobai": "tsuma_kuro_yokobai",
+    "akasashi_game": "akasashi_game",
+    "aka_giku_kamemushi": "aka_giku_kamemushi",
+    "akaeboshi_kamemushi": "akaeboshi_kamemushi",
+    "ko_seaka_amenbo": "ko_seaka_amenbo",
+    "ke_kamenbo": "ke_kamenbo",
+    "shidakuro_suzumebachi": "shidakuro_suzumebachi",
+    "kuro_obi_hosonaga_suzumebachi": "kuro_obi_hosonaga_suzumebachi",
+    "kobane_ashinaga_bachi": "kobane_ashinaga_bachi",
+    "murasaki_ashinaga_bachi": "murasaki_ashinaga_bachi",
+    "oo_maru_hanabachi": "oo_maru_hanabachi",
+    "ao_oo_ari": "ao_oo_ari",
+    "tobiiro_shiwa_ari": "tobiiro_shiwa_ari",
+    "kuro_kushige_ari": "kuro_kushige_ari",
+    "harukusa_ari": "harukusa_ari",
+    "kubinaga_ari": "kubinaga_ari",
+    "kebuka_ke_ari": "kebuka_ke_ari",
+    "hana_abu": "hana_abu",
+    "kuro_hira_taabu": "kuro_hira_taabu",
+    "futa_tsuten_hira_taabu": "futa_tsuten_hira_taabu",
+    "kiiro_obi_hana_abu": "kiiro_obi_hana_abu",
+    "tsuya_hira_taabu": "tsuya_hira_taabu",
+    "ki_obi_ke_hira_abu": "ki_obi_ke_hira_abu",
+    "ki_ashi_hosohira_abu": "ki_ashi_hosohira_abu",
+    "kuma_bachi_modoki_abu": "kuma_bachi_modoki_abu",
+    "ushi_abu": "ushi_abu",
+    "ie_bae": "ie_bae",
+    "hito_suji_shima_ka": "hito_suji_shima_ka",
+    "mugiwara_tombo": "mugiwara_tombo",
+    "konaga_aka_tombo": "konaga_aka_tombo",
+    "ruri_madara": "ruri_madara",
+    "ko_osamushi": "ko_osamushi",
+    "kuro_katabiro_osamushi": "kuro_katabiro_osamushi",
+    "oo_kuwa_hanamuguri": "oo_kuwa_hanamuguri",
+    "jumonji_hamushi": "jumonji_hamushi",
+    "ao_hamushi": "ao_hamushi",
+    "kuwa_hamushi": "kuwa_hamushi",
+    "ruri_kuwagata_hamushi": "ruri_kuwagata_hamushi",
+    "akaashi_ooao_kamikiri": "akaashi_ooao_kamikiri",
+    "hime_gengoro": "hime_gengoro",
+    "hara_hishi_batta": "hara_hishi_batta",
+    "semon_batta": "semon_batta",
+    "toge_himo_batta": "toge_himo_batta",
+    "umbe_kuda_maki": "umbe_kuda_maki",
+    "kuma_suzu": "kuma_suzu",
+    "jiyusu_nagakamemushi": "jiyusu_nagakamemushi",
+    "benitsuchikamemushi": "benitsuchikamemushi",
+    "naga_meigane": "naga_meigane",
+    "ruriku_chibuto": "ruriku_chibuto",
+    "oo_yokobai": "oo_yokobai",
+    "nami_amenbo": "nami_amenbo",
+    "esaki_amenbo": "esaki_amenbo",
+    "tsumaguro_suzumebachi": "tsumaguro_suzumebachi",
+    "oo_seibou": "oo_seibou",
+    "oo_zu_ari": "oo_zu_ari",
+    "yamato_ari_jigoku_sasi": "yamato_ari_jigoku_sasi",
+    "aomon_ito_tonbo": "aomon_ito_tonbo",
+    "tabe_sanae": "tabe_sanae",
+    "futasuji_sanae": "futasuji_sanae",
+    "hime_sanae": "hime_sanae",
+    "gunbai_tonbo": "gunbai_tonbo",
+    "karakane_tonbo": "karakane_tonbo",
+    "neaka_yoshi_yanma": "neaka_yoshi_yanma",
+    "madara_yanma": "madara_yanma",
+    "ooki_tonbo": "ooki_tonbo",
+    "suna_akane": "suna_akane",
+    "hime_tonbo": "hime_tonbo",
+    "koudaicho_suzume": "koudaicho_suzume",
+    "kiri_suzume": "kiri_suzume",
+    "kibanena_shijimi": "kibanena_shijimi",
+    "tohoshi_tentou": "tohoshi_tentou",
+    "haraguro_oo_tentou": "haraguro_oo_tentou",
+    "akama_dara_hanamuguri": "akama_dara_hanamuguri",
+    "oo_ryoku_yose_hanamuguri": "oo_ryoku_yose_hanamuguri",
+    "inago_hamushi": "inago_hamushi",
+    "shira_hoshi_kamikiri": "shira_hoshi_kamikiri",
+    "kobane_sasakiri": "kobane_sasakiri",
+    "hime_kusakiri": "hime_kusakiri",
+    "tsuyumushi_sugu": "tsuyumushi_sugu",
+    "kosuji_kirigirisu": "kosuji_kirigirisu",
+    "yama_yabukiri": "yama_yabukiri",
+    "kuchiki_uma_oi": "kuchiki_uma_oi",
+    "hanenaga_kirigirisu": "hanenaga_kirigirisu",
+    "okinawa_kirigirisu": "okinawa_kirigirisu",
+    "kuro_himeyokobai": "kuro_himeyokobai",
+    "shirohoshi_kamemushi": "shirohoshi_kamemushi",
+    "akahane_mukashi_yokobai": "akahane_mukashi_yokobai",
+    "habiroitotonbo_amenbo": "habiroitotonbo_amenbo",
+    "koma_ru_hana_bachi": "koma_ru_hana_bachi",
+    "ruri_monhana_bachi": "ruri_monhana_bachi",
+    "hina_kamakiri": "hina_kamakiri",
+    "aoiraga": "aoiraga",
+    "chabane_sesujimeiga": "chabane_sesujimeiga",
+    "futao_tsutoga": "futao_tsutoga",
+    "kin_uwaba_tsutoga": "kin_uwaba_tsutoga",
+    "azuki_no_iga": "azuki_no_iga",
+    "wata_no_iga": "wata_no_iga",
+    "mado_meiga": "mado_meiga",
+    "shirohoshi_kokemeiga": "shirohoshi_kokemeiga",
+    "kuwa_no_iga": "kuwa_no_iga",
+    "momo_gomemushi": "momo_gomemushi",
+    "chairo_hamaki": "chairo_hamaki",
+    "ringo_komadarahamaki": "ringo_komadarahamaki",
+    "kin_monhamaki": "kin_monhamaki",
+    "sukashibahamaki": "sukashibahamaki",
+    "shironoko_yaga": "shironoko_yaga",
+    "hagata_kenmon": "hagata_kenmon",
+    "akaeguri_dokuga": "akaeguri_dokuga",
+    "hime_shaku": "hime_shaku",
+    "silvia_shijimi": "silvia_shijimi",
+    "hime_silvia_shijimi": "hime_silvia_shijimi",
+    "taiwan_tsubame_shijimi": "taiwan_tsubame_shijimi",
+    "inago_mametsu_hamushi": "inago_mametsu_hamushi",
+    "hannoki_hamushi": "hannoki_hamushi",
+    "murasaki_hamushi": "murasaki_hamushi",
+    "kintsuya_hamushi": "kintsuya_hamushi",
+    "iro_jingasa_hamushi": "iro_jingasa_hamushi",
+    "shii_no_mi_zou": "shii_no_mi_zou",
+    "take_zou_mushi": "take_zou_mushi",
+    "matsu_no_zou": "matsu_no_zou",
+    "escargot_zou": "escargot_zou",
+    "ino_kotsu_zou": "ino_kotsu_zou",
+    "momo_chokki_zou": "momo_chokki_zou",
+    "hime_kuro_otoshi": "hime_kuro_otoshi",
+    "goma_dara_otoshi": "goma_dara_otoshi",
+    "otoshi_bumi": "otoshi_bumi",
+    "ko_zou_mushi": "ko_zou_mushi",
+    "hosokubi_zou": "hosokubi_zou",
+    "keshikiri_kamikiri": "keshikiri_kamikiri",
+    "akagane_kamikiri": "akagane_kamikiri",
+    "goma_fu_kamikiri": "goma_fu_kamikiri",
+    "kuro_gomimushi": "kuro_gomimushi",
+    "ko_fuki_kogane": "ko_fuki_kogane",
+    "tora_hanamuguri": "tora_hanamuguri",
+    "hime_aka_hoshi_tentou": "hime_aka_hoshi_tentou",
+    "obo_tobi_kebai_botaru": "obo_tobi_kebai_botaru",
+    "se_aka_jokai": "se_aka_jokai",
+    "ki_jokai": "ki_jokai",
+    "yotsuboshi_keshikisui": "yotsuboshi_keshikisui",
+    "ko_gamushi": "ko_gamushi",
+    "hime_gamushi": "hime_gamushi",
+    "akahane_obi_keshikisui": "akahane_obi_keshikisui",
+    "futamon_keshikisui": "futamon_keshikisui",
+    "kuro_hanekakushi": "kuro_hanekakushi",
+    "akahara_komenetsuki": "akahara_komenetsuki",
+    "marugata_gamushi": "marugata_gamushi",
+    "tama_keshikisui": "tama_keshikisui",
+    "tonoma_batta": "tonoma_batta",
+    "toge_batta": "toge_batta",
+    "hatake_korogi": "hatake_korogi",
+    "suke_ba_hagoromo": "suke_ba_hagoromo",
+    "yotsubishi_kamemushi": "yotsubishi_kamemushi",
+    "kuro_iwa_zemi": "kuro_iwa_zemi",
+    "hina_maruhanabachi": "hina_maruhanabachi",
+    "ki_obi_tsuchibachi": "ki_obi_tsuchibachi",
+    "oo_kuro_ari": "oo_kuro_ari",
+    "sashi_hari_ari": "sashi_hari_ari",
+    "itoge_ari": "itoge_ari",
+    "murasaki_ari": "murasaki_ari",
+    "sasuraibi_ari": "sasuraibi_ari",
+    "gunki_oo_ari": "gunki_oo_ari",
+    "tsumaguro_hana_abu": "tsumaguro_hana_abu",
+    "kin_bae": "kin_bae",
+    "ao_kin_bae": "ao_kin_bae",
+    "ame_ika_abu": "ame_ika_abu",
+    "kiashi_gagambo": "kiashi_gagambo",
+    "aka_ie_ka": "aka_ie_ka",
+    "mino_ke_buka_abu": "mino_ke_buka_abu",
+    "morton_ito_tonbo": "morton_ito_tonbo",
+    "ezo_ito_tonbo": "ezo_ito_tonbo",
+    "bekko_tonbo": "bekko_tonbo",
+    "kono_maron": "kono_maron",
+    "inumegi_hamushi": "inumegi_hamushi",
+    "hosohari_hamushi": "hosohari_hamushi",
+    "oo_kibahamushi": "oo_kibahamushi",
+    "hagetaka_hamushi": "hagetaka_hamushi",
+    "kofuki_zoumushi": "kofuki_zoumushi",
+    "alfalfa_tako_zoumushi": "alfalfa_tako_zoumushi",
+    "olive_anaaki_zoumushi": "olive_anaaki_zoumushi",
+    "yotsuboshi_hosobakami_kiri": "yotsuboshi_hosobakami_kiri",
+    "yamato_korogi_kamikiri": "yamato_korogi_kamikiri",
+    "kuwa_sabikami_kiri": "kuwa_sabikami_kiri",
+    "kao_jiro_hige_naga": "kao_jiro_hige_naga",
+    "kobu_yahazu_seda_ka": "kobu_yahazu_seda_ka",
+    "hosohana_kamikiri": "hosohana_kamikiri",
+    "oo_aoboshi_kamikiri": "oo_aoboshi_kamikiri",
+    "oao_kataba_gomimushi": "oao_kataba_gomimushi",
+    "kuro_gomimushidamashi_oosuji": "kuro_gomimushidamashi_oosuji",
+    "kotsubu_gomimushi": "kotsubu_gomimushi",
+    "hime_gomimushi": "hime_gomimushi",
+    "marugata_gomimushi": "marugata_gomimushi",
+    "okera_gomimushi_kotetsu": "okera_gomimushi_kotetsu",
+    "naden_tentou": "naden_tentou",
+    "muutsuboshi_tentou": "muutsuboshi_tentou",
+    "yanagi_tamamushi": "yanagi_tamamushi",
+    "aobane_joukai": "aobane_joukai",
+    "gomafu_gamushi": "gomafu_gamushi",
+    "kuriya_keshikisui": "kuriya_keshikisui",
+    "shiroobi_hanabachi": "shiroobi_hanabachi",
+    "miyama_marubanabachi": "miyama_marubanabachi",
+    "naki_kumabachi": "naki_kumabachi",
+    "aoki_kumabachi": "aoki_kumabachi",
+    "oo_marubanabachi": "oo_marubanabachi",
+    "hime_sakuhana_ari": "hime_sakuhana_ari",
+    "mizu_abu": "mizu_abu",
+    "asahina_kimadara_seseri": "asahina_kimadara_seseri",
+    "ko_fuki_hamushi": "ko_fuki_hamushi",
+    "sedo_oo_gomimushi": "sedo_oo_gomimushi",
+    "oo_kibara_gomimushi": "oo_kibara_gomimushi",
+    "hime_aoki_kogane": "hime_aoki_kogane",
+    "kojima_hanamuguri": "kojima_hanamuguri",
+    "akahige_kogane": "akahige_kogane",
+    "yanbaru_tenaga_kogane": "yanbaru_tenaga_kogane",
+    "halmus_aoba_tentou": "halmus_aoba_tentou",
+    "yotsuboshi_ookisui": "yotsuboshi_ookisui",
+    "mitsukado_koorogi_oo": "mitsukado_koorogi_oo",
+    "mori_okame_koorogi": "mori_okame_koorogi",
+    "kuro_koorogi": "kuro_koorogi",
+    "kantan_hime": "kantan_hime",
+    "kintaki_matsumushi": "kintaki_matsumushi",
+    "hime_maru_hanabachi": "hime_maru_hanabachi",
+    "haiiro_maru_hanabachi": "haiiro_maru_hanabachi",
+    "nippon_koshibuto_hanabachi": "nippon_koshibuto_hanabachi",
+    "daimyo_kimadara_hanabachi": "daimyo_kimadara_hanabachi",
+    "ao_tsuya_hanabachi": "ao_tsuya_hanabachi",
+    "kihime_hirata_abu": "kihime_hirata_abu",
+    "konvenoshi_hanaabu": "konvenoshi_hanaabu",
+    "oze_itotonbo": "oze_itotonbo",
+    "master_monarch": "master_monarch",
+    "master_amer_aoichimonji": "master_amer_aoichimonji",
+    "master_claudina": "master_claudina",
+    "master_luna_moth": "master_luna_moth",
+    "master_ruri_janome": "master_ruri_janome",
+    "master_promethea": "master_promethea",
+    "master_urania": "master_urania",
+    "master_niji_daikoku": "master_niji_daikoku",
+    "master_houseki_zoumushi": "master_houseki_zoumushi",
+    "master_ougon_oni": "master_ougon_oni",
+    "master_tenaga_kogane": "master_tenaga_kogane",
+    "master_nishiki_kin_kamemushi": "master_nishiki_kin_kamemushi",
+    "master_habiro_itotombo": "master_habiro_itotombo",
+    "master_giant_weta": "master_giant_weta",
+    "master_sakadachi_konoha": "master_sakadachi_konoha",
+    "master_yoroi_gokiburi": "master_yoroi_gokiburi",
+    "master_jungle_nymph": "master_jungle_nymph",
+    "master_nanbei_tagame": "master_nanbei_tagame",
+    "master_goliath_birdwing": "master_goliath_birdwing",
+    "master_papua_kin_kuwagata": "master_papua_kin_kuwagata",
+    "platinum_kogane": "platinum_kogane",
+    "master_kiniro_osamushi": "master_kiniro_osamushi",
+    "master_jinmen_kamemushi": "master_jinmen_kamemushi",
+    "master_sternocera_tamamushi": "master_sternocera_tamamushi",
+    "agrippa_suzume": "agrippa_suzume",
+    "nishiki_tsubamega": "nishiki_tsubamega",
+    "owl_butterfly": "owl_butterfly",
+    "agrias_tateha": "agrias_tateha",
+    "titan_kamikiri": "titan_kamikiri",
+    "didier_shika_kuwagata": "didier_shika_kuwagata",
+    "eurosternus_noko_kuwagata": "eurosternus_noko_kuwagata",
+    "taiwan_oo_tagame": "taiwan_oo_tagame",
+    "guntai_ari": "guntai_ari",
+    "sashihari_ari": "sashihari_ari",
+    "tobizu_mukade": "tobizu_mukade",
+    "ashidaka_gumo": "ashidaka_gumo",
+    "oo_geji": "oo_geji",
+    "seaka_gokegumo": "seaka_gokegumo",
+    "daiou_sasori": "daiou_sasori",
+    "oo_jorogumo": "oo_jorogumo",
+    "goliath_birdeater": "goliath_birdeater",
+    "nihon_kanahebi": "nihon_kanahebi",
+    "nihon_hikigaeru": "nihon_hikigaeru",
+    "mozu": "mozu",
+    "ooenma_hanmyo": "ooenma_hanmyo",
+    "eupholus_zou": "eupholus_zou",
+    "violin_mushi": "violin_mushi",
+    "scarabe_sacer": "scarabe_sacer",
+    "sakadachi_gomidamashi": "sakadachi_gomidamashi",
+    "niji_gomidamashi": "niji_gomidamashi",
+    "kubinaga_otoshibumi": "kubinaga_otoshibumi",
+    "dalmanni_kuwagata": "dalmanni_kuwagata",
+    "ookiba_usuba_kamikiri": "ookiba_usuba_kamikiri",
+    "oo_gamushi": "oo_gamushi",
+    "fuchitori_gengoro": "fuchitori_gengoro",
+    "oo_mizusumashi": "oo_mizusumashi",
+    "sunburst_gengoro": "sunburst_gengoro",
+    "harabiro_hanmyo": "harabiro_hanmyo",
+    "lewis_hanmyo": "lewis_hanmyo",
+    "eliza_hanmyo": "eliza_hanmyo",
+    "hyoutan_gomimushi": "hyoutan_gomimushi",
+    "sanyou_benibotaru": "sanyou_benibotaru",
+    "tsuya_goliath_tamamushi": "tsuya_goliath_tamamushi",
+    "chrysochroa_tamamushi": "chrysochroa_tamamushi"
+  },
+  "byJaName": {
+    "ヘラクレスオオカブト": [
+      "hercules_beetle"
+    ],
+    "ニジイロクワガタ": [
+      "rainbow_stag_beetle"
+    ],
+    "アレクサンドラトリバネアゲハ": [
+      "queen_alexandras_birdwing"
+    ],
+    "テイオウゼミ": [
+      "emperor_cicada"
+    ],
+    "ゴライアスオオツノハナムグリ": [
+      "goliath_beetle"
+    ],
+    "オオクワガタ": [
+      "ookuwagata"
+    ],
+    "コーカサスオオカブト": [
+      "caucasus_beetle"
+    ],
+    "ギラファノコギリクワガタ": [
+      "giraffe_stag_beetle"
+    ],
+    "モルフォチョウ": [
+      "morpho_butterfly"
+    ],
+    "タガメ": [
+      "tagame"
+    ],
+    "オオムラサキ": [
+      "oomurasaki"
+    ],
+    "ゲンゴロウ": [
+      "gengorou"
+    ],
+    "ハンミョウ": [
+      "hanmyou"
+    ],
+    "カブトムシ": [
+      "kabutomushi"
+    ],
+    "ノコギリクワガタ": [
+      "nokogiri_kuwagata"
+    ],
+    "ミヤマクワガタ": [
+      "miyama_kuwagata"
+    ],
+    "ヤマトタマムシ": [
+      "yamato_tamamushi"
+    ],
+    "オニヤンマ": [
+      "oniyanma"
+    ],
+    "ギンヤンマ": [
+      "ginyanma"
+    ],
+    "ゲンジボタル": [
+      "genji_botaru"
+    ],
+    "スズムシ": [
+      "suzumushi"
+    ],
+    "オオカマキリ": [
+      "ookamakiri"
+    ],
+    "クマゼミ": [
+      "kumazemi"
+    ],
+    "クマバチ": [
+      "kumabachi"
+    ],
+    "ミズカマキリ": [
+      "mizukamakiri"
+    ],
+    "モンシロチョウ": [
+      "monshirochou"
+    ],
+    "アゲハチョウ": [
+      "agehachou"
+    ],
+    "アオスジアゲハ": [
+      "aosuji_ageha"
+    ],
+    "モンキチョウ": [
+      "monkichou"
+    ],
+    "ベニシジミ": [
+      "benishijimi"
+    ],
+    "ナナホシテントウ": [
+      "nanahoshi_tentou"
+    ],
+    "ナミテントウ": [
+      "nami_tentou"
+    ],
+    "クロオオアリ": [
+      "kuro_ooari"
+    ],
+    "ニホンミツバチ": [
+      "nihon_mitsubachi"
+    ],
+    "アブラゼミ": [
+      "aburazemi"
+    ],
+    "ミンミンゼミ": [
+      "minminzemi"
+    ],
+    "ヒグラシ": [
+      "higurashi"
+    ],
+    "ツクツクボウシ": [
+      "tsukutsukuboushi"
+    ],
+    "シオカラトンボ": [
+      "shiokara_tonbo"
+    ],
+    "アキアカネ": [
+      "akiakane"
+    ],
+    "トノサマバッタ": [
+      "tonosama_batta"
+    ],
+    "ショウリョウバッタ": [
+      "shouryou_batta"
+    ],
+    "エンマコオロギ": [
+      "enma_koorogi"
+    ],
+    "キリギリス": [
+      "kirigirisu"
+    ],
+    "カナブン": [
+      "kanabun"
+    ],
+    "アメンボ": [
+      "amenbo"
+    ],
+    "イボタガ": [
+      "ibotaga"
+    ],
+    "ダンゴムシ": [
+      "dangomushi"
+    ],
+    "ウスバカミキリ": [
+      "usuba_kamikiri"
+    ],
+    "ノコギリカミキリ": [
+      "nokogiri_kamikiri"
+    ],
+    "オオアオカミキリ": [
+      "ooao_kamikiri"
+    ],
+    "アオカミキリ": [
+      "ao_kamikiri"
+    ],
+    "ヨコヤマヒゲナガカミキリ": [
+      "yokoyama_higenaga_kamikiri"
+    ],
+    "ラミーカミキリ": [
+      "ramie_kamikiri"
+    ],
+    "ルリボシカミキリ": [
+      "ruriboshi_kamikiri"
+    ],
+    "コブヤハズカミキリ": [
+      "kobuyahazu_kamikiri"
+    ],
+    "ゴマダラカミキリ": [
+      "gomadara_kamikiri"
+    ],
+    "シロスジカミキリ": [
+      "shirosuji_kamikiri"
+    ],
+    "キボシカミキリ": [
+      "kiboshi_kamikiri"
+    ],
+    "トラフカミキリ": [
+      "torafu_kamikiri"
+    ],
+    "ヨツスジハナカミキリ": [
+      "yotsusuji_hana_kamikiri"
+    ],
+    "ベニカミキリ": [
+      "beni_kamikiri"
+    ],
+    "ハンノアオカミキリ": [
+      "hannoao_kamikiri"
+    ],
+    "オオトラフコガネ": [
+      "ootorafu_kogane"
+    ],
+    "ヒラズゲンセイ": [
+      "hirazu_gensei"
+    ],
+    "マイマイカブリ": [
+      "maimaikaburi"
+    ],
+    "アオオサムシ": [
+      "ao_osamushi"
+    ],
+    "オオルリオサムシ": [
+      "oo_ruri_osamushi"
+    ],
+    "ニシキハンミョウ": [
+      "nishiki_hanmyou"
+    ],
+    "カワラハンミョウ": [
+      "kawara_hanmyou"
+    ],
+    "ミドリシジミ": [
+      "midorishijimi"
+    ],
+    "アイノミドリシジミ": [
+      "aino_midorishijimi"
+    ],
+    "メスアカミドリシジミ": [
+      "mesuaka_midorishijimi"
+    ],
+    "エゾミドリシジミ": [
+      "ezo_midorishijimi"
+    ],
+    "オオミドリシジミ": [
+      "oo_midorishijimi"
+    ],
+    "ジョウザンミドリシジミ": [
+      "jouzan_midorishijimi"
+    ],
+    "ハヤシミドリシジミ": [
+      "hayashi_midorishijimi"
+    ],
+    "ウラジロミドリシジミ": [
+      "urajiro_midorishijimi"
+    ],
+    "ヒサマツミドリシジミ": [
+      "hisamatsu_midorishijimi"
+    ],
+    "キリシマミドリシジミ": [
+      "kirishima_midorishijimi"
+    ],
+    "チョウセンアカシジミ": [
+      "chousen_akashijimi"
+    ],
+    "アカシジミ": [
+      "akashijimi"
+    ],
+    "ウラナミアカシジミ": [
+      "uranami_akashijimi"
+    ],
+    "クロシジミ": [
+      "kuroshijimi"
+    ],
+    "ウラゴマダラシジミ": [
+      "uragomadara_shijimi"
+    ],
+    "ゴイシシジミ": [
+      "goishi_shijimi"
+    ],
+    "ミヤマシジミ": [
+      "miyama_shijimi"
+    ],
+    "ベニヒカゲ": [
+      "benihikage"
+    ],
+    "クモマベニヒカゲ": [
+      "kumoma_benihikage"
+    ],
+    "ウスバシロチョウ": [
+      "usubashirochou"
+    ],
+    "ツマキチョウ": [
+      "tsumakichou"
+    ],
+    "ツマベニチョウ": [
+      "tsumabenichou"
+    ],
+    "スミナガシ": [
+      "suminagashi"
+    ],
+    "コムラサキ": [
+      "komurasaki"
+    ],
+    "クロコノマチョウ": [
+      "kurokonomachou"
+    ],
+    "ウスイロコノマチョウ": [
+      "usuiro_konomachou"
+    ],
+    "イチモンジチョウ": [
+      "ichimonjichou"
+    ],
+    "オオイチモンジ": [
+      "oo_ichimonji"
+    ],
+    "コミスジ": [
+      "komisuji"
+    ],
+    "サカハチチョウ": [
+      "sakahachichou"
+    ],
+    "ミカドアゲハ": [
+      "mikado_ageha"
+    ],
+    "リュウキュウアサギマダラ": [
+      "ryukyu_asagimadara"
+    ],
+    "バナナセセリ": [
+      "banana_seseri"
+    ],
+    "アオバセセリ": [
+      "aoba_seseri"
+    ],
+    "ギンイチモンジセセリ": [
+      "ginichimonji_seseri"
+    ],
+    "メスアカムラサキ": [
+      "mesuaka_murasaki"
+    ],
+    "ミドリヒョウモン": [
+      "midori_hyoumon"
+    ],
+    "クモガタヒョウモン": [
+      "kumogata_hyoumon"
+    ],
+    "アカボシゴマダラ": [
+      "akaboshi_gomadara"
+    ],
+    "アポロチョウ": [
+      "apollo"
+    ],
+    "ブータンシボリアゲハ": [
+      "bhutan_glory"
+    ],
+    "ナミアゲハ": [
+      "namiageha"
+    ],
+    "キアゲハ": [
+      "kiageha"
+    ],
+    "クロアゲハ": [
+      "kuroageha"
+    ],
+    "モンキアゲハ": [
+      "monkiageha"
+    ],
+    "ナガサキアゲハ": [
+      "nagasaki_ageha"
+    ],
+    "カラスアゲハ": [
+      "karasu_ageha"
+    ],
+    "ミヤマカラスアゲハ": [
+      "miyama_karasu_ageha"
+    ],
+    "オナガアゲハ": [
+      "onaga_ageha"
+    ],
+    "ジャコウアゲハ": [
+      "jakou_ageha"
+    ],
+    "ベニモンアゲハ": [
+      "benimon_ageha"
+    ],
+    "シロオビアゲハ": [
+      "shiroobi_ageha"
+    ],
+    "ヤエヤマカラスアゲハ": [
+      "yaeyama_karasu_ageha"
+    ],
+    "オキナワカラスアゲハ": [
+      "onki_ageha"
+    ],
+    "ギフチョウ": [
+      "gifuchou"
+    ],
+    "ヒメギフチョウ": [
+      "himegifuchou"
+    ],
+    "ヒメウスバシロチョウ": [
+      "himeusuba_shirochou"
+    ],
+    "ウスバキチョウ": [
+      "usuba_kichou"
+    ],
+    "タイワンモンキアゲハ": [
+      "tomon_ageha"
+    ],
+    "ウラギンヒョウモン": [
+      "uragin_hyoumon"
+    ],
+    "ギンボシヒョウモン": [
+      "ginboshi_hyoumon"
+    ],
+    "オオウラギンヒョウモン": [
+      "oouragin_hyoumon"
+    ],
+    "ウラギンスジヒョウモン": [
+      "uraginsuji_hyoumon"
+    ],
+    "オオウラギンスジヒョウモン": [
+      "oouraginsuji_hyoumon"
+    ],
+    "メスグロヒョウモン": [
+      "mesuguro_hyoumon"
+    ],
+    "ツマグロヒョウモン": [
+      "tsumaguro_hyoumon"
+    ],
+    "クモマヒョウモン": [
+      "kumoma_hyoumon"
+    ],
+    "ヒョウモンチョウ": [
+      "hyoumonchou"
+    ],
+    "コヒョウモン": [
+      "kohyoumon"
+    ],
+    "カラフトヒョウモン": [
+      "karafuto_hyoumon"
+    ],
+    "アサヒヒョウモン": [
+      "asahi_hyoumon"
+    ],
+    "ヒョウモンモドキ": [
+      "hyoumonmodaki"
+    ],
+    "コヒョウモンモドキ": [
+      "kohyoumonmodoki"
+    ],
+    "ヒメジャノメ": [
+      "himejanome"
+    ],
+    "コジャノメ": [
+      "kojanome"
+    ],
+    "クロヒカゲ": [
+      "kurohikage"
+    ],
+    "ヒカゲチョウ": [
+      "hikagechou"
+    ],
+    "サトキマダラヒカゲ": [
+      "satokimadara_hikage"
+    ],
+    "ヤマキマダラヒカゲ": [
+      "yamakimadara_hikage"
+    ],
+    "ジャノメチョウ": [
+      "janomechou"
+    ],
+    "ヒメウラナミジャノメ": [
+      "himeuranami_janome"
+    ],
+    "ウラナミジャノメ": [
+      "uranami_janome"
+    ],
+    "ヒメキマダラヒカゲ": [
+      "hime_kijanome"
+    ],
+    "キバネセセリ": [
+      "kibane_serikajanome"
+    ],
+    "キマダラモドキ": [
+      "kimadara_modoki"
+    ],
+    "ツマジロウラジャノメ": [
+      "tsumajiro_uragoma_janome"
+    ],
+    "ヒメヒカゲ": [
+      "hikage_janome"
+    ],
+    "クロヒカゲモドキ": [
+      "kurohikage_modoki"
+    ],
+    "タカネヒカゲ": [
+      "takane_hikage"
+    ],
+    "ダイセツタカネヒカゲ": [
+      "daisetsu_takane_hikage"
+    ],
+    "シロオビヒメヒカゲ": [
+      "kogesujishirochou_janome"
+    ],
+    "オオヒカゲ": [
+      "oohikage_janome"
+    ],
+    "コカブト": [
+      "kokabuto"
+    ],
+    "サイカブト": [
+      "saikabuto"
+    ],
+    "ヒメカブト": [
+      "tairiku_akadama_kabuto"
+    ],
+    "アオドウガネ": [
+      "aodougane"
+    ],
+    "ドウガネブイブイ": [
+      "douganebuibui"
+    ],
+    "コガネムシ": [
+      "koganemushi"
+    ],
+    "マメコガネ": [
+      "mametsuchi_kogane"
+    ],
+    "ヒメコガネ": [
+      "hime_kogane"
+    ],
+    "アオカナブン": [
+      "ao_kanabun"
+    ],
+    "クロカナブン": [
+      "kuro_kanabun"
+    ],
+    "シロテンハナムグリ": [
+      "shiroten_hanamuguri"
+    ],
+    "シラホシハナムグリ": [
+      "shiraboshi_hanamuguri"
+    ],
+    "ハナムグリ": [
+      "hanamuguri"
+    ],
+    "コアオハナムグリ": [
+      "koao_hanamuguri"
+    ],
+    "オオトラフハナムグリ": [
+      "ootora_hanamuguri"
+    ],
+    "アカマダラハナムグリ": [
+      "akamadara_hanamuguri"
+    ],
+    "センチコガネ": [
+      "senchi_kogane"
+    ],
+    "オオセンチコガネ": [
+      "oosenchi_kogane"
+    ],
+    "ダイコクコガネ": [
+      "daikoku_kogane"
+    ],
+    "ゴホンダイコクコガネ": [
+      "kobu_marukogane"
+    ],
+    "マグソコガネ": [
+      "maguso_kogane"
+    ],
+    "クロハナムグリ": [
+      "kuwagata_hanamuguri"
+    ],
+    "ミヤマカミキリ": [
+      "miyama_kamikiri"
+    ],
+    "ヤツボシハナカミキリ": [
+      "rubeus_kamikiri"
+    ],
+    "ヤツボシカミキリ": [
+      "yatsuboshi_kamikiri"
+    ],
+    "アカハナカミキリ": [
+      "akahana_kamikiri"
+    ],
+    "エグリトラカミキリ": [
+      "eguritora_kamikiri"
+    ],
+    "ヨツスジトラカミキリ": [
+      "yotsusuji_tora_kamikiri"
+    ],
+    "クロトラカミキリ": [
+      "kuro_tora_kamikiri"
+    ],
+    "キイロトラカミキリ": [
+      "kibatora_kamikiri"
+    ],
+    "エビイロカミキリ": [
+      "ebiiro_kamikiri"
+    ],
+    "クロハナカミキリ": [
+      "shirosujikamikiri_yama"
+    ],
+    "ナガバヒメハナカミキリ": [
+      "kuroobi_hana_kamikiri"
+    ],
+    "ルリカミキリ": [
+      "ruri_kamikiri"
+    ],
+    "セスジヒメハナカミキリ": [
+      "seijaku_kamikiri"
+    ],
+    "トビイロカミキリ": [
+      "tobiiro_kamikiri"
+    ],
+    "オオトラカミキリ": [
+      "yotsusuji_tora_oo"
+    ],
+    "ブドウトラカミキリ": [
+      "budou_tora_kamikiri"
+    ],
+    "オオヨツスジハナカミキリ": [
+      "kuwasaki_hana_kamikiri"
+    ],
+    "ハイイロハナカミキリ": [
+      "haisuji_kamikiri"
+    ],
+    "クワカミキリ": [
+      "kuwakamikiri"
+    ],
+    "センノカミキリ": [
+      "sentou_kamikiri"
+    ],
+    "シロオビゴマフカミキリ": [
+      "shiraobi_goma_kamikiri"
+    ],
+    "アオスジカミキリ": [
+      "ao_suji_kamikiri"
+    ],
+    "センノキカミキリ": [
+      "sennoki_kamikiri"
+    ],
+    "シラケトラカミキリ": [
+      "shirake_tora_kamikiri"
+    ],
+    "ヒメスギカミキリ": [
+      "himesugi_kamikiri"
+    ],
+    "ヨツキボシカミキリ": [
+      "yotsukiboshi_kamikiri"
+    ],
+    "ナガゴマフカミキリ": [
+      "naga_gomafu_kamikiri"
+    ],
+    "ホシベニカミキリ": [
+      "hoshibeni_kamikiri"
+    ],
+    "ヨツボシカミキリ": [
+      "yotsuboshi_kamikiri"
+    ],
+    "ヒメヒゲナガカミキリ": [
+      "kuwagata_no_himekamikiri"
+    ],
+    "アカガネサルハムシ": [
+      "akagane_saru_hamushi"
+    ],
+    "イタドリハムシ": [
+      "itadori_hamushi"
+    ],
+    "クロウリハムシ": [
+      "kurouri_hamushi"
+    ],
+    "ウリハムシ": [
+      "uri_hamushi"
+    ],
+    "ヨモギハムシ": [
+      "yomogi_hamushi"
+    ],
+    "ヤナギハムシ": [
+      "yanagi_hamushi"
+    ],
+    "オオルリハムシ": [
+      "ooruri_hamushi"
+    ],
+    "ハッカハムシ": [
+      "hakka_hamushi"
+    ],
+    "ジンガサハムシ": [
+      "jingasa_hamushi"
+    ],
+    "クルミハムシ": [
+      "kurumi_hamushi"
+    ],
+    "カシワルリハムシ": [
+      "kashiwaru_ri_hamushi"
+    ],
+    "カメノコハムシ": [
+      "kameno_ko_hamushi"
+    ],
+    "ヒラタクワガタ": [
+      "hirata_kuwagata"
+    ],
+    "コクワガタ": [
+      "kokuwagata"
+    ],
+    "アカアシクワガタ": [
+      "aka_ashi_kuwagata"
+    ],
+    "スジクワガタ": [
+      "suji_kuwagata"
+    ],
+    "ヒメオオクワガタ": [
+      "hime_oo_kuwagata"
+    ],
+    "ネブトクワガタ": [
+      "nebuto_kuwagata"
+    ],
+    "チビクワガタ": [
+      "chibi_kuwagata"
+    ],
+    "マグソクワガタ": [
+      "maguso_kuwagata"
+    ],
+    "ルリクワガタ": [
+      "ruri_kuwagata"
+    ],
+    "オオルリクワガタ": [
+      "oo_ruri_kuwagata"
+    ],
+    "オニクワガタ": [
+      "oni_kuwagata"
+    ],
+    "マダラクワガタ": [
+      "madara_kuwagata"
+    ],
+    "ツシマヒラタクワガタ": [
+      "tsushima_hirata_kuwagata"
+    ],
+    "チョウセンヒラタクワガタ": [
+      "chosen_hirata_kuwagata"
+    ],
+    "アマミシカクワガタ": [
+      "amami_shika_kuwagata"
+    ],
+    "トカラノコギリクワガタ": [
+      "tokara_nokogiri_kuwagata"
+    ],
+    "アマミノコギリクワガタ": [
+      "amami_nokogiri_kuwagata"
+    ],
+    "ヤエヤマコクワガタ": [
+      "yaeyama_koku_kuwagata"
+    ],
+    "サキシマヒラタクワガタ": [
+      "sakishima_hirata_kuwagata"
+    ],
+    "ヤエヤマノコギリクワガタ": [
+      "yaeyama_nokogiri_kuwagata"
+    ],
+    "ツヤハダクワガタ": [
+      "tsuya_hada_kuwagata"
+    ],
+    "ヤクシマノコギリクワガタ": [
+      "yakushima_noko_kuwagata"
+    ],
+    "コルリクワガタ": [
+      "ko_ruri_kuwagata"
+    ],
+    "アサギマダラ": [
+      "asagimadara"
+    ],
+    "カバマダラ": [
+      "kabamadara"
+    ],
+    "スジグロカバマダラ": [
+      "sujiguro_kabamadara"
+    ],
+    "オオゴマダラ": [
+      "oogomadara"
+    ],
+    "ツマムラサキマダラ": [
+      "tsumamurasaki_madara"
+    ],
+    "マルバネルリマダラ": [
+      "marubane_rurimadara"
+    ],
+    "コノハチョウ": [
+      "konohachou"
+    ],
+    "テングチョウ": [
+      "tenguchou"
+    ],
+    "イシガケチョウ": [
+      "ishigakechou"
+    ],
+    "タテハモドキ": [
+      "tatehamodoki"
+    ],
+    "アオタテハモドキ": [
+      "ao_tatehamodoki"
+    ],
+    "リュウキュウムラサキ": [
+      "ryukyu_murasaki"
+    ],
+    "イチモンジセセリ": [
+      "ichimonji_seseri"
+    ],
+    "チャバネセセリ": [
+      "chabane_seseri"
+    ],
+    "オオチャバネセセリ": [
+      "oochabane_seseri"
+    ],
+    "ミヤマチャバネセセリ": [
+      "miyama_chabane_seseri"
+    ],
+    "コチャバネセセリ": [
+      "kochabane_seseri"
+    ],
+    "ヘリグロチャバネセセリ": [
+      "herigurochabane_seseri"
+    ],
+    "スジグロチャバネセセリ": [
+      "sujigurochabane_seseri"
+    ],
+    "キマダラセセリ": [
+      "kimadara_seseri"
+    ],
+    "ヒメキマダラセセリ": [
+      "himekimadara_seseri"
+    ],
+    "コキマダラセセリ": [
+      "kokimadara_seseri"
+    ],
+    "ホソバセセリ": [
+      "hosoba_seseri"
+    ],
+    "ダイミョウセセリ": [
+      "daimyo_seseri"
+    ],
+    "ミヤマセセリ": [
+      "miyama_seseri"
+    ],
+    "タカネキマダラセセリ": [
+      "takanekimadara_seseri"
+    ],
+    "クロセセリ": [
+      "kuro_seseri"
+    ],
+    "ホシチャバネセセリ": [
+      "hoshichabane_seseri"
+    ],
+    "チャマダラセセリ": [
+      "chamadara_seseri"
+    ],
+    "クロボシセセリ": [
+      "kuroboshi_seseri"
+    ],
+    "ユウレイセセリ": [
+      "yuurei_seseri"
+    ],
+    "ネッタイアカセセリ": [
+      "nettaiaka_seseri"
+    ],
+    "アカセセリ": [
+      "aka_seseri"
+    ],
+    "オキナワビロードセセリ": [
+      "okinawa_birodo_seseri"
+    ],
+    "コキマダラセセリ亜種サギッタ": [
+      "tennen_kimadara_seseri"
+    ],
+    "ルリシジミ": [
+      "rurishijimi"
+    ],
+    "スギタニルリシジミ": [
+      "sugitani_rurishijimi"
+    ],
+    "ヤマトシジミ": [
+      "yamatoshijimi"
+    ],
+    "ツバメシジミ": [
+      "tsubameshijimi"
+    ],
+    "ヒメシジミ": [
+      "himeshijimi"
+    ],
+    "アサマシジミ": [
+      "asamashijimi"
+    ],
+    "ゴマシジミ": [
+      "gomashijimi"
+    ],
+    "オオゴマシジミ": [
+      "oogomashijimi"
+    ],
+    "クロツバメシジミ": [
+      "kurotsubame_shijimi"
+    ],
+    "ウラギンシジミ": [
+      "uraginshijimi"
+    ],
+    "ウラナミシジミ": [
+      "uranamishijimi"
+    ],
+    "タイワンクロボシシジミ": [
+      "taiwan_kuroboshi_shijimi"
+    ],
+    "ホリイコシジミ": [
+      "tsubamehazurao_shijimi"
+    ],
+    "アマミウラナミシジミ": [
+      "amida_shijimi"
+    ],
+    "サツマシジミ": [
+      "sokorabe_ruri_shijimi"
+    ],
+    "ヤクシマルリシジミ": [
+      "yakushima_ruri_shijimi"
+    ],
+    "リュウキュウウラボシシジミ": [
+      "ryukyu_uraboshi_shijimi"
+    ],
+    "クロマダラソテツシジミ": [
+      "iwakawa_shijimi"
+    ],
+    "ルリウラナミシジミ": [
+      "ruri_uranami_shijimi"
+    ],
+    "シロウラナミシジミ": [
+      "shirouranami_shijimi"
+    ],
+    "タッパンルリシジミ": [
+      "tappi_shijimi"
+    ],
+    "スジグロシロチョウ": [
+      "sujiguro_shirochou"
+    ],
+    "エゾスジグロシロチョウ": [
+      "ezosujiguro_shirochou"
+    ],
+    "オオモンシロチョウ": [
+      "oomon_shirochou"
+    ],
+    "エゾシロチョウ": [
+      "ezo_shirochou"
+    ],
+    "ミナミキチョウ": [
+      "minami_kichou"
+    ],
+    "キタキチョウ": [
+      "kita_kichou"
+    ],
+    "ヒメシロチョウ": [
+      "hime_shirochou"
+    ],
+    "エゾヒメシロチョウ": [
+      "eshima_hime_shirochou"
+    ],
+    "ウスキシロチョウ": [
+      "kibane_seseri_dummy_replaced_usuki_shirochou"
+    ],
+    "ウラナミシロチョウ": [
+      "uranami_shirochou"
+    ],
+    "ナミエシロチョウ": [
+      "namie_shirochou"
+    ],
+    "タイワンシロチョウ": [
+      "taiwan_shirochou"
+    ],
+    "クロテンシロチョウ": [
+      "kuroten_shirochou"
+    ],
+    "ツマアカシロチョウ": [
+      "tsumaaka_shirochou"
+    ],
+    "タイワンキチョウ": [
+      "kibasokichou_replaced_kibane_taiwan_kichou"
+    ],
+    "ホシボシキチョウ": [
+      "hoshiboshi_kichou"
+    ],
+    "ツマグロキチョウ": [
+      "tsumaguro_kichou"
+    ],
+    "ヤマキチョウ": [
+      "yamaki_chou"
+    ],
+    "ウバタマムシ": [
+      "ubatamamushi"
+    ],
+    "アオタマムシ": [
+      "aotamamushi"
+    ],
+    "クロタマムシ": [
+      "kurotamamushi"
+    ],
+    "アオマダラタマムシ": [
+      "aomadara_tamamushi"
+    ],
+    "クロナガタマムシ": [
+      "kuronaga_tamamushi"
+    ],
+    "ニワハンミョウ": [
+      "niwa_hanmyou"
+    ],
+    "コハンミョウ": [
+      "ko_hanmyou"
+    ],
+    "トウキョウヒメハンミョウ": [
+      "toukyou_hime_hanmyou"
+    ],
+    "エゾマイマイカブリ": [
+      "maimaikaburi_ezo"
+    ],
+    "オオオサムシ": [
+      "oo_osamushi"
+    ],
+    "クロナガオサムシ": [
+      "kuronaga_osamushi"
+    ],
+    "セアカオサムシ": [
+      "seaka_osamushi"
+    ],
+    "クロオサムシ": [
+      "kuro_osamushi"
+    ],
+    "アカガネオサムシ": [
+      "akagane_osamushi"
+    ],
+    "アオゴミムシ": [
+      "ao_gomimushi"
+    ],
+    "オオゴミムシ": [
+      "oo_gomimushi"
+    ],
+    "スジアオゴミムシ": [
+      "suji_ao_gomimushi"
+    ],
+    "アトボシアオゴミムシ": [
+      "atoboshi_ao_gomimushi"
+    ],
+    "チャバネクビナガゴミムシ": [
+      "kubinaga_gomimushi"
+    ],
+    "キタテハ": [
+      "kitateha"
+    ],
+    "シータテハ": [
+      "shitateha"
+    ],
+    "エルタテハ": [
+      "eltateha"
+    ],
+    "ヒオドシチョウ": [
+      "hiodoshichou"
+    ],
+    "アカタテハ": [
+      "akatateha"
+    ],
+    "ヒメアカタテハ": [
+      "himeakatateha"
+    ],
+    "ルリタテハ": [
+      "ruritateha"
+    ],
+    "クジャクチョウ": [
+      "kujakuchou"
+    ],
+    "ゴマダラチョウ": [
+      "gomadarachou"
+    ],
+    "アサマイチモンジ": [
+      "asama_ichimonji"
+    ],
+    "ミスジチョウ": [
+      "misujichou"
+    ],
+    "ホシミスジ": [
+      "hoshimisuji"
+    ],
+    "フタスジチョウ": [
+      "futasujichou"
+    ],
+    "コヒオドシ": [
+      "kobatateha"
+    ],
+    "キベリタテハ": [
+      "kibatateha"
+    ],
+    "アカマダラ": [
+      "akamadara"
+    ],
+    "オオムラサキ（雄）": [
+      "sasakia_oomurasaki_ss"
+    ],
+    "コムラサキ（雌）": [
+      "komurasaki_mesu"
+    ],
+    "サカハチチョウ（夏型）": [
+      "araschnia_sakahachi_aki"
+    ],
+    "ヒロオビミドリシジミ": [
+      "hiroobi_midorishijimi"
+    ],
+    "クロミドリシジミ": [
+      "kuro_midorishijimi"
+    ],
+    "フジミドリシジミ": [
+      "fuji_midorishijimi"
+    ],
+    "ウラクロシジミ": [
+      "urakuro_shijimi"
+    ],
+    "ウラミスジシジミ": [
+      "uramisuji_shijimi"
+    ],
+    "カシワアカシジミ": [
+      "kashiwa_akashijimi"
+    ],
+    "ムモンアカシジミ": [
+      "mumon_akashijimi"
+    ],
+    "ミズイロオナガシジミ": [
+      "mizuiro_onaga_shijimi"
+    ],
+    "ウスイロオナガシジミ": [
+      "usuiro_onaga_shijimi"
+    ],
+    "オナガシジミ": [
+      "onaga_shijimi"
+    ],
+    "トラフシジミ": [
+      "torafu_shijimi"
+    ],
+    "コツバメ": [
+      "kotsubame"
+    ],
+    "ミヤマカラスシジミ": [
+      "miyama_karasu_shijimi"
+    ],
+    "カラスシジミ": [
+      "karasu_shijimi"
+    ],
+    "キタアカシジミ": [
+      "akashijimi_kita"
+    ],
+    "ムラサキシジミ": [
+      "murasaki_shijimi"
+    ],
+    "ムラサキツバメ": [
+      "murasaki_tsubame"
+    ],
+    "ミナミアカシジミ": [
+      "akashijimi_minami"
+    ],
+    "ヒメミドリシジミ": [
+      "hime_midorishijimi"
+    ],
+    "クロスジギンヤンマ": [
+      "kurosuji_ginyanma"
+    ],
+    "ルリボシヤンマ": [
+      "ruriboshi_yanma"
+    ],
+    "オオルリボシヤンマ": [
+      "ooruriboshi_yanma"
+    ],
+    "コシボソヤンマ": [
+      "koshiboso_yanma"
+    ],
+    "マルタンヤンマ": [
+      "marutan_yanma"
+    ],
+    "カトリヤンマ": [
+      "katori_yanma"
+    ],
+    "コオニヤンマ": [
+      "ko_oniyanma"
+    ],
+    "ヤマサナエ": [
+      "yama_sanae"
+    ],
+    "オナガサナエ": [
+      "onaga_sanae"
+    ],
+    "ウチワヤンマ": [
+      "uchiwa_yanma"
+    ],
+    "タイワンウチワヤンマ": [
+      "taiwan_uchiwa_yanma"
+    ],
+    "エゾトンボ": [
+      "ezo_tonbo"
+    ],
+    "タカネトンボ": [
+      "takane_tonbo"
+    ],
+    "ミルンヤンマ": [
+      "mirun_yanma"
+    ],
+    "オオシオカラトンボ": [
+      "ooshiokara_tonbo"
+    ],
+    "シオヤトンボ": [
+      "shioya_tonbo"
+    ],
+    "ショウジョウトンボ": [
+      "shoujou_tonbo"
+    ],
+    "ナツアカネ": [
+      "natsuakane"
+    ],
+    "ノシメトンボ": [
+      "noshime_tonbo"
+    ],
+    "ミヤマアカネ": [
+      "miyama_akane"
+    ],
+    "コノシメトンボ": [
+      "konoshime_tonbo"
+    ],
+    "ウスバキトンボ": [
+      "usubaki_tonbo"
+    ],
+    "チョウトンボ": [
+      "chou_tonbo"
+    ],
+    "コフキトンボ": [
+      "kofuki_tonbo"
+    ],
+    "ハッチョウトンボ": [
+      "hatchou_tonbo"
+    ],
+    "アオイトトンボ": [
+      "aoito_tonbo"
+    ],
+    "オツネントンボ": [
+      "otsunen_tonbo"
+    ],
+    "キイトトンボ": [
+      "kiito_tonbo"
+    ],
+    "モノサシトンボ": [
+      "monosashi_tonbo"
+    ],
+    "クロイトトンボ": [
+      "kuroito_tonbo"
+    ],
+    "ベニイトトンボ": [
+      "beniito_tonbo"
+    ],
+    "ニホンカワトンボ": [
+      "nihon_kawatombo"
+    ],
+    "ハグロトンボ": [
+      "haguro_tonbo"
+    ],
+    "ミヤマカワトンボ": [
+      "miyama_kawatombo"
+    ],
+    "ニイニイゼミ": [
+      "niinii_zemi"
+    ],
+    "エゾゼミ": [
+      "ezo_zemi"
+    ],
+    "コエゾゼミ": [
+      "koezo_zemi"
+    ],
+    "ハルゼミ": [
+      "haru_zemi"
+    ],
+    "チッチゼミ": [
+      "chicchi_zemi"
+    ],
+    "クサギカメムシ": [
+      "kusagi_kamemushi"
+    ],
+    "アオクサカメムシ": [
+      "aokusa_kamemushi"
+    ],
+    "エサキモンキツノカメムシ": [
+      "esaki_monki_tsuno_kamemushi"
+    ],
+    "キマダラカメムシ": [
+      "kimadara_kamemushi"
+    ],
+    "オオキンカメムシ": [
+      "ookin_kamemushi"
+    ],
+    "アカスジキンカメムシ": [
+      "akasuji_kin_kamemushi"
+    ],
+    "ナナホシキンカメムシ": [
+      "nanahoshi_kin_kamemushi"
+    ],
+    "マツモムシ": [
+      "matsumomushi"
+    ],
+    "オンブバッタ": [
+      "onbu_batta"
+    ],
+    "クルマバッタ": [
+      "kuruma_batta"
+    ],
+    "ヒナバッタ": [
+      "hina_batta"
+    ],
+    "イボバッタ": [
+      "ibo_batta"
+    ],
+    "ヤマトバッタ": [
+      "yamato_batta"
+    ],
+    "コバネイナゴ": [
+      "kobane_inago"
+    ],
+    "ハネナガイナゴ": [
+      "hanenaga_inago"
+    ],
+    "ヤブキリ": [
+      "yabukiri"
+    ],
+    "クツワムシ": [
+      "kutsuwamushi"
+    ],
+    "ウマオイ": [
+      "umaoi"
+    ],
+    "ツユムシ": [
+      "tsuyumushi"
+    ],
+    "ササキリ": [
+      "sasakiri"
+    ],
+    "カンタン": [
+      "kantan"
+    ],
+    "マツムシ": [
+      "matsumushi"
+    ],
+    "カネタタキ": [
+      "kanetataki"
+    ],
+    "ハラビロカマキリ": [
+      "harabiro_kamakiri"
+    ],
+    "コカマキリ": [
+      "kokamakiri"
+    ],
+    "チョウセンカマキリ": [
+      "chosen_kamakiri"
+    ],
+    "ヒメカマキリ": [
+      "hime_kamakiri"
+    ],
+    "ナナフシモドキ": [
+      "nanafushi_modoki"
+    ],
+    "トゲナナフシ": [
+      "toge_nanafushi"
+    ],
+    "エダナナフシ": [
+      "eda_nanafushi"
+    ],
+    "キムネクマバチ": [
+      "kimune_kumabachi"
+    ],
+    "オオスズメバチ": [
+      "oo_suzumebachi"
+    ],
+    "キイロスズメバチ": [
+      "kiiro_suzumebachi"
+    ],
+    "コガタスズメバチ": [
+      "kogata_suzumebachi"
+    ],
+    "キアシナガバチ": [
+      "kiashinaga_bachi"
+    ],
+    "セグロアシナガバチ": [
+      "seguro_ashinaga_bachi"
+    ],
+    "ジガバチ": [
+      "jigabachi"
+    ],
+    "オオモンクロベッコウ": [
+      "oomonkuro_bekkou"
+    ],
+    "クロアナバチ": [
+      "kuro_anabachi"
+    ],
+    "ムネアカオオアリ": [
+      "muneaka_ooari"
+    ],
+    "クロヤマアリ": [
+      "kuroyama_ari"
+    ],
+    "トビイロケアリ": [
+      "tobiiro_keari"
+    ],
+    "サムライアリ": [
+      "samurai_ari"
+    ],
+    "シオヤアブ": [
+      "shioya_abu"
+    ],
+    "オオハナアブ": [
+      "oo_hanaabu"
+    ],
+    "ホソヒラタアブ": [
+      "hosohirata_abu"
+    ],
+    "ナミゲンゴロウ": [
+      "nami_gengorou"
+    ],
+    "クロゲンゴロウ": [
+      "kuro_gengorou"
+    ],
+    "コガタノゲンゴロウ": [
+      "kogatano_gengorou"
+    ],
+    "ハイイロゲンゴロウ": [
+      "haiiro_gengorou"
+    ],
+    "ガムシ": [
+      "gamushi"
+    ],
+    "ミズスマシ": [
+      "mizusumashi"
+    ],
+    "ヘイケボタル": [
+      "heike_botaru"
+    ],
+    "ヒメボタル": [
+      "hime_botaru"
+    ],
+    "カメノコテントウ": [
+      "kamenoko_tentou"
+    ],
+    "ジュウシホシテントウ": [
+      "juushihoshi_tentou"
+    ],
+    "ニジュウヤホシテントウ": [
+      "nijuuyahoshi_tentou"
+    ],
+    "オジロアシナガゾウムシ": [
+      "ojiro_ashinaga_zoumushi"
+    ],
+    "シロコブゾウムシ": [
+      "shirokobu_zoumushi"
+    ],
+    "オオゾウムシ": [
+      "oo_zoumushi"
+    ],
+    "オオスカシバ": [
+      "oosukashiba"
+    ],
+    "ホシホウジャク": [
+      "hoshihoujaku"
+    ],
+    "ベニスズメ": [
+      "benisuzume"
+    ],
+    "セスジスズメ": [
+      "sesujisuzume"
+    ],
+    "エビガラスズメ": [
+      "ebigarasuzume"
+    ],
+    "モモスズメ": [
+      "momosuzume"
+    ],
+    "クルマスズメ": [
+      "kurumasuzume"
+    ],
+    "コスズメ": [
+      "kosuzume"
+    ],
+    "ウンモンスズメ": [
+      "unmonsuzume"
+    ],
+    "ホシヒメホウジャク": [
+      "hoshihime_houjaku"
+    ],
+    "シモフリスズメ": [
+      "shimofuri_suzume"
+    ],
+    "メンガタスズメ": [
+      "mengata_suzume"
+    ],
+    "ビロードスズメ": [
+      "birodo_suzume"
+    ],
+    "コエビガラスズメ": [
+      "koebigarasuzume"
+    ],
+    "トビイロスズメ": [
+      "tobiiro_suzume"
+    ],
+    "クロホウジャク": [
+      "kurohoujaku"
+    ],
+    "オオシモフリスズメ": [
+      "oshimofuri_suzume"
+    ],
+    "ウチスズメ": [
+      "usuba_suzume"
+    ],
+    "オオミズアオ": [
+      "oomizuao"
+    ],
+    "オナガミズアオ": [
+      "onagamizuao"
+    ],
+    "ヤママユ": [
+      "yamamayu"
+    ],
+    "クスサン": [
+      "kususan"
+    ],
+    "ヒメヤママユ": [
+      "himeyamamayu"
+    ],
+    "シンジュサン": [
+      "shinjusan"
+    ],
+    "エゾヨツメ": [
+      "ezoyotsume"
+    ],
+    "ウスタビガ": [
+      "usutabiga"
+    ],
+    "ヨナグニサン": [
+      "yonagunisan"
+    ],
+    "クロウスタビガ": [
+      "kurousutabiga"
+    ],
+    "カイコガ": [
+      "kaiko_moth"
+    ],
+    "クワコ": [
+      "kuwago"
+    ],
+    "オキナワオオミズアオ": [
+      "oomizuao_oki"
+    ],
+    "アゲハモドキ": [
+      "agehamodoki"
+    ],
+    "ビロウドハマキ": [
+      "biroudohamaki"
+    ],
+    "イラガ": [
+      "iraga"
+    ],
+    "ヒロヘリアオイラガ": [
+      "hiroheriaoiraga"
+    ],
+    "カノコガ": [
+      "kanokoga"
+    ],
+    "ホタルガ": [
+      "hotaruga"
+    ],
+    "ミノウスバ": [
+      "minousuba"
+    ],
+    "キンモンガ": [
+      "kinmonga"
+    ],
+    "サツマニシキ": [
+      "satsumanishiki"
+    ],
+    "アケビコノハ": [
+      "akebikonoha"
+    ],
+    "ヨツメアオシャク": [
+      "yotsumeaoshaku"
+    ],
+    "スジモンヒトリ": [
+      "sujimon_hitori"
+    ],
+    "トラガ": [
+      "toraga"
+    ],
+    "キシタバ": [
+      "shitaba_kibara"
+    ],
+    "ベニシタバ": [
+      "shitaba_benishitaba"
+    ],
+    "キハダカノコ": [
+      "ino_kosukashiba"
+    ],
+    "オニベニシタバ": [
+      "ooshitaba"
+    ],
+    "ヒメウスアオシャク": [
+      "kiboshi_aoshaku"
+    ],
+    "クワゴマダラヒトリ": [
+      "akahige_dokuga"
+    ],
+    "シロモンヤガ": [
+      "benisuzume_madara"
+    ],
+    "シロシタバ": [
+      "shiroshitaba"
+    ],
+    "ムラサキシタバ": [
+      "murasakishitaba"
+    ],
+    "キクキンウワバ": [
+      "kinuwaba"
+    ],
+    "カラスヨトウ": [
+      "karasu_yotou"
+    ],
+    "アメリカシロヒトリ": [
+      "america_shirohitori"
+    ],
+    "ヒトリガ": [
+      "hitoriga"
+    ],
+    "マイマイガ": [
+      "maimaiga"
+    ],
+    "チャドクガ": [
+      "chadokuga"
+    ],
+    "キドクガ": [
+      "kidokuga"
+    ],
+    "トビモンオオエダシャク": [
+      "tobimon_ooedashaku"
+    ],
+    "ヨツメエダシャク": [
+      "yotsume_edashaku"
+    ],
+    "オオアヤシャク": [
+      "ooaya_shaku"
+    ],
+    "チャバネフユエダシャク": [
+      "chabane_fuyu_eda_shaku"
+    ],
+    "クロスジフユエダシャク": [
+      "kurosuji_fuyu_eda_shaku"
+    ],
+    "コスカシバ": [
+      "kosukashiba"
+    ],
+    "ヒメコスカシバ": [
+      "hime_kosukashiba"
+    ],
+    "ムカシトンボ": [
+      "mukashi_tonbo"
+    ],
+    "ムカシヤンマ": [
+      "mukashi_yanma"
+    ],
+    "アオヤンマ": [
+      "ao_yanma"
+    ],
+    "ヤブヤンマ": [
+      "yabu_yanma"
+    ],
+    "サラサヤンマ": [
+      "sarasa_yanma"
+    ],
+    "リュウキュウギンヤンマ": [
+      "ryukyu_ginyanma"
+    ],
+    "コシアキトンボ": [
+      "koshiaki_tonbo"
+    ],
+    "ハラビロトンボ": [
+      "harabiro_tonbo"
+    ],
+    "ヨツボシトンボ": [
+      "yotsuboshi_tonbo"
+    ],
+    "ベニトンボ": [
+      "beni_tonbo"
+    ],
+    "ハネビロトンボ": [
+      "hanebiro_tonbo"
+    ],
+    "キトンボ": [
+      "ki_tonbo"
+    ],
+    "マユタテアカネ": [
+      "mayutate_akane"
+    ],
+    "ヒメアカネ": [
+      "hime_akane"
+    ],
+    "ネキトンボ": [
+      "neki_tonbo"
+    ],
+    "リスアカネ": [
+      "risu_akane"
+    ],
+    "ナニワトンボ": [
+      "naniwa_tonbo"
+    ],
+    "アサヒナカワトンボ": [
+      "asahina_kawa_tonbo"
+    ],
+    "アオハダトンボ": [
+      "aohada_tonbo"
+    ],
+    "オオアオイトトンボ": [
+      "oo_ao_ito_tonbo"
+    ],
+    "ホソミオツネントンボ": [
+      "hosomi_otsunen_tonbo"
+    ],
+    "アジアイトトンボ": [
+      "asia_ito_tonbo"
+    ],
+    "セスジイトトンボ": [
+      "sesuji_ito_tonbo"
+    ],
+    "オオイトトンボ": [
+      "oo_ito_tonbo"
+    ],
+    "ホソミイトトンボ": [
+      "hosomi_ito_tonbo"
+    ],
+    "ルリイトトンボ": [
+      "ruri_ito_tonbo"
+    ],
+    "エゾアカネ": [
+      "ezo_akane"
+    ],
+    "タイリクアカネ": [
+      "tairiku_akane"
+    ],
+    "コヤマトンボ": [
+      "koyama_tonbo"
+    ],
+    "オオヤマトンボ": [
+      "oo_yama_tonbo"
+    ],
+    "ハネビロエゾトンボ": [
+      "hanebiro_ezo_tonbo"
+    ],
+    "トラフトンボ": [
+      "torafu_tonbo"
+    ],
+    "ダビドサナエ": [
+      "davido_sanae"
+    ],
+    "コサナエ": [
+      "kosanae"
+    ],
+    "ホンサナエ": [
+      "hon_sanae"
+    ],
+    "アオサナエ": [
+      "ao_sanae"
+    ],
+    "キイロサナエ": [
+      "kiiro_sanae"
+    ],
+    "メガネサナエ": [
+      "megane_sanae"
+    ],
+    "オジロサナエ": [
+      "ojiro_sanae"
+    ],
+    "ヒラサナエ": [
+      "hira_sanae"
+    ],
+    "コエゾトンボ": [
+      "ko_ezo_tonbo"
+    ],
+    "クルマバッタモドキ": [
+      "kuruma_batta_modoki"
+    ],
+    "マダラバッタ": [
+      "madara_batta"
+    ],
+    "ショウリョウバッタモドキ": [
+      "shouryou_batta_modoki"
+    ],
+    "ツチイナゴ": [
+      "tsuchi_inago"
+    ],
+    "フキバッタ": [
+      "fuki_batta"
+    ],
+    "ナキイナゴ": [
+      "naki_inago"
+    ],
+    "カワラバッタ": [
+      "kawara_batta"
+    ],
+    "ヒシバッタ": [
+      "hishibatta"
+    ],
+    "ハネナガヒシバッタ": [
+      "hanenaga_hishibatta"
+    ],
+    "ハマスズ": [
+      "hamasuzu"
+    ],
+    "ミツカドコオロギ": [
+      "mitsukado_koorogi"
+    ],
+    "ツヅレサセコオロギ": [
+      "tsuzure_sase_koorogi"
+    ],
+    "オカメコオロギ": [
+      "okame_koorogi"
+    ],
+    "タンボコオロギ": [
+      "tanbo_koorogi"
+    ],
+    "クロスズ": [
+      "kuro_suzu"
+    ],
+    "シバスズ": [
+      "shiba_suzu"
+    ],
+    "マダラスズ": [
+      "madara_suzu"
+    ],
+    "アオマツムシ": [
+      "aomatsumushi"
+    ],
+    "タイワンエンマコオロギ": [
+      "taiwan_emma_koorogi"
+    ],
+    "ハヤシノウマオイ": [
+      "umaoi_haya"
+    ],
+    "ヒメギス": [
+      "hime_giis"
+    ],
+    "コバネヒメギス": [
+      "kobane_hime_giis"
+    ],
+    "クサキリ": [
+      "kusakiri"
+    ],
+    "クビキリギス": [
+      "kubikiri_gisu"
+    ],
+    "カヤキリ": [
+      "kayakiri"
+    ],
+    "ホシササキリ": [
+      "hoshi_sasakiri"
+    ],
+    "セスジツユムシ": [
+      "sesuji_tsuyumushi"
+    ],
+    "アシグロツユムシ": [
+      "ashiguro_tsuyumushi"
+    ],
+    "カマドウマ": [
+      "kamado_uma"
+    ],
+    "マダラカマドウマ": [
+      "madara_kamado_uma"
+    ],
+    "ケラ": [
+      "kera"
+    ],
+    "ミナミアオカメムシ": [
+      "minami_aokamemushi"
+    ],
+    "ヒメホシカメムシ": [
+      "shiroten_kamemushi"
+    ],
+    "オオホシカメムシ": [
+      "oohoshi_kamemushi"
+    ],
+    "アカスジカメムシ": [
+      "akasuji_kamemushi"
+    ],
+    "シマサシガメ": [
+      "shimasashigame"
+    ],
+    "ヨコヅナサシガメ": [
+      "yokozuna_sashigame"
+    ],
+    "アカホシカメムシ": [
+      "akahoshi_kamemushi"
+    ],
+    "クヌギカメムシ": [
+      "kunugi_kamemushi"
+    ],
+    "マルカメムシ": [
+      "tochukasou_replaced_marukamemushi"
+    ],
+    "ツチカメムシ": [
+      "tsuchi_kamemushi"
+    ],
+    "ハラビロヘリカメムシ": [
+      "haragurokamemushi"
+    ],
+    "ホオズキカメムシ": [
+      "homoeocerus_kuro_herikamemushi"
+    ],
+    "ホソハリカメムシ": [
+      "hosohari_kamemushi"
+    ],
+    "チャバネアオカメムシ": [
+      "kin_kamemushi_chabane"
+    ],
+    "ツヤアオカメムシ": [
+      "tsuya_aokamemushi"
+    ],
+    "ニシキキンカメムシ": [
+      "akasuji_kin_himekinkamemushi",
+      "master_nishiki_kin_kamemushi"
+    ],
+    "ハサミツノカメムシ": [
+      "tsuno_kamemushi_esaki_replaced"
+    ],
+    "セアカツノカメムシ": [
+      "seaka_tsuchikamemushi"
+    ],
+    "ホシハラビロヘリカメムシ": [
+      "tsumaki_herikamemushi"
+    ],
+    "オオクロカメムシ": [
+      "ookurokamemushi"
+    ],
+    "ツマグロオオヨコバイ": [
+      "tsumaguro_oyokobai"
+    ],
+    "アオバハゴロモ": [
+      "ooyokobai_aobaha"
+    ],
+    "ベッコウハゴロモ": [
+      "betsubekkou_hagoromo"
+    ],
+    "シロオビアワフキ": [
+      "ooshira_awafuki"
+    ],
+    "モンキアワフキ": [
+      "moriawafuki"
+    ],
+    "マルツノゼミ": [
+      "tsunozemi_marubane"
+    ],
+    "トビイロツノゼミ": [
+      "togezunozemi"
+    ],
+    "オオシマゼミ": [
+      "tsukuhoushi_replaced_aotsukutsuku"
+    ],
+    "イワサキクサゼミ": [
+      "kuma_zemi_kuro_replaced_iwasaki"
+    ],
+    "エゾハルゼミ": [
+      "ezo_haru_zemi"
+    ],
+    "ヒメハルゼミ": [
+      "kuma_zemi_replaced_tsukutsuku_oushuu"
+    ],
+    "タイコウチ": [
+      "taikouchi"
+    ],
+    "ヒメタイコウチ": [
+      "hime_taikouchi"
+    ],
+    "ヒメミズカマキリ": [
+      "hime_mizukamakiri"
+    ],
+    "コバネアメンボ": [
+      "matsumomushi_replaced_kobane"
+    ],
+    "ヒメアメンボ": [
+      "himeamenbo"
+    ],
+    "オオアメンボ": [
+      "ooamenbo"
+    ],
+    "シマアメンボ": [
+      "shimaamenbo"
+    ],
+    "ウミアメンボ": [
+      "umiamenbo"
+    ],
+    "コオイムシ": [
+      "kooimushi"
+    ],
+    "オオコオイムシ": [
+      "kogatano_kooimushi"
+    ],
+    "ケシミズカメムシ": [
+      "miizuamenbo_kemizu"
+    ],
+    "ウォーレスオオハキリバチ": [
+      "wallace_giant_bee"
+    ],
+    "ヒメスズメバチ": [
+      "himesuzumebachi"
+    ],
+    "モンスズメバチ": [
+      "monsuzumebachi"
+    ],
+    "チャイロスズメバチ": [
+      "chairo_suzumebachi"
+    ],
+    "クロスズメバチ": [
+      "kuro_suzumebachi"
+    ],
+    "ツマアカスズメバチ": [
+      "ootabu_suzumebachi"
+    ],
+    "セイヨウミツバチ": [
+      "seiyou_mitsubachi"
+    ],
+    "フタモンアシナガバチ": [
+      "futamon_ashinagabachi"
+    ],
+    "コアシナガバチ": [
+      "koashinaga_bachi"
+    ],
+    "ヤマトアシナガバチ": [
+      "yamato_ashinagabachi"
+    ],
+    "ニホンアシナガバチ": [
+      "nihon_ashinagabachi"
+    ],
+    "トラマルハナバチ": [
+      "oomaru_hanabachi"
+    ],
+    "クロマルハナバチ": [
+      "kuromaru_hanabachi"
+    ],
+    "セイヨウオオマルハナバチ": [
+      "seiyou_oomaru_hanabachi"
+    ],
+    "ニッポンヒゲナガハナバチ": [
+      "nihon_himehanabachi"
+    ],
+    "アオスジハナバチ": [
+      "tsuyahanabachi"
+    ],
+    "オオハキリバチ": [
+      "ooharikiri_bachi"
+    ],
+    "マメコバチ": [
+      "tsutsuhanabachi"
+    ],
+    "ルリジガバチ": [
+      "rokoku_jigabachi"
+    ],
+    "サトジガバチ": [
+      "kobe_jigabachi"
+    ],
+    "エサキコンボウハナバチ": [
+      "kongou_anabachi"
+    ],
+    "ベッコウクモバチ": [
+      "beni_bekkoubachi"
+    ],
+    "オオシロフベッコウ": [
+      "ooshiro_bekkou"
+    ],
+    "ウマノオバチ": [
+      "umaoi_himebachi"
+    ],
+    "アゲハヒメバチ": [
+      "ageha_himebachi"
+    ],
+    "オオホシオナガバチ": [
+      "ooke_himebachi"
+    ],
+    "キンケハラナガツチバチ": [
+      "kuro_tsuchibachi"
+    ],
+    "ムネアカアリバチ": [
+      "akagashira_aribachi"
+    ],
+    "ヤマトアシナガアリ": [
+      "kuro_yamato_ari"
+    ],
+    "アシナガキアリ": [
+      "ito_ari"
+    ],
+    "ヒアリ": [
+      "hiari"
+    ],
+    "クロナガアリ": [
+      "kurogetsuya_oo_ari"
+    ],
+    "アメイロアリ": [
+      "ooari_kurokushi"
+    ],
+    "ヘビトンボ": [
+      "hebitonbo"
+    ],
+    "ヤマトクロスジヘビトンボ": [
+      "yamato_kuroshijimi_hebitonbo_dummy"
+    ],
+    "センブリ": [
+      "senburi"
+    ],
+    "カマキリモドキ": [
+      "kamakirimodoki"
+    ],
+    "キカマキリモドキ": [
+      "kibara_kamakirimodoki"
+    ],
+    "ウスバカゲロウ": [
+      "usuba_kagerou"
+    ],
+    "アリジゴク": [
+      "arijigoku"
+    ],
+    "クサカゲロウ": [
+      "kusakagerou"
+    ],
+    "ヤマトクサカゲロウ": [
+      "oo_kakagerou_dummy"
+    ],
+    "ツノトンボ": [
+      "tsunotonbo"
+    ],
+    "キバネツノトンボ": [
+      "ki_tsunotonbo"
+    ],
+    "ニンギョウトビケラ": [
+      "tobikera_ninfa_dummy"
+    ],
+    "ヒゲナガカワトビケラ": [
+      "oo_tobikera"
+    ],
+    "ヤスマツトビナナフシ": [
+      "nanafushi_modoki_seibu_dummy"
+    ],
+    "シラキトビナナフシ": [
+      "shirabui_nanafushi_dummy"
+    ],
+    "アマミナナフシ": [
+      "amami_nanafushi_dummy"
+    ],
+    "コノハムシ": [
+      "konoha_mushi"
+    ],
+    "セカイサイチョウナナフシ": [
+      "sekai_saichou_nanafushi"
+    ],
+    "ガガンボ": [
+      "gagambo"
+    ],
+    "ミカドガガンボ": [
+      "mikado_gagambo"
+    ],
+    "シマハナアブ": [
+      "oo_hanaabu_oddball_dummy"
+    ],
+    "ナミハナアブ": [
+      "nami_hanaabu"
+    ],
+    "アオメアブ": [
+      "ao_metsuka_abu_dummy"
+    ],
+    "オオイシアブ": [
+      "shiokara_abu_oddball_dummy"
+    ],
+    "ニセハナマオウカマキリ": [
+      "ni_idolomantis_diabolica"
+    ],
+    "ハナカマキリ": [
+      "hana_kamakiri"
+    ],
+    "ウスバカマキリ": [
+      "usuba_kamakiri"
+    ],
+    "サツマヒメカマキリ": [
+      "hime_kamakiri_oddball_dummy"
+    ],
+    "ムネアカハラビロカマキリ": [
+      "muna_biro_kamakiri_dummy"
+    ],
+    "ニセハナカマキリ": [
+      "ranran_hana_kamakiri_dummy"
+    ],
+    "カレハカマキリ": [
+      "orchid_ghost_mantis_dummy"
+    ],
+    "タイリクヘビトンボ": [
+      "obi_hebitonbo_dummy"
+    ],
+    "パリーフタマタクワガタ": [
+      "parry_futamata_kuwagata"
+    ],
+    "マンディブラリスフタマタクワガタ": [
+      "mandibularis_futamata_kuwagata"
+    ],
+    "ブッダフタマタクワガタ": [
+      "buddha_futamata_kuwagata"
+    ],
+    "アンタエウスオオクワガタ": [
+      "antaeus_ookuwagata"
+    ],
+    "ホペイオオクワガタ": [
+      "hopei_ookuwagata"
+    ],
+    "グランディスオオクワガタ": [
+      "grandis_ookuwagata"
+    ],
+    "タランドゥスオオツヤクワガタ": [
+      "tarandus_kuwagata"
+    ],
+    "メンガタクワガタ": [
+      "mengata_kuwagata"
+    ],
+    "アルキデスヒラタクワガタ": [
+      "alcides_ookuwagata"
+    ],
+    "エラフスホソアカクワガタ": [
+      "elaphus_noko_kuwagata"
+    ],
+    "メタリフェルホソアカクワガタ": [
+      "metallifer_noko_kuwagata"
+    ],
+    "ファブリースノコギリクワガタ": [
+      "feminata_noko_kuwagata"
+    ],
+    "ゼブラノコギリクワガタ": [
+      "lateralis_noko_kuwagata"
+    ],
+    "エレファスゾウカブト": [
+      "elephas_zou_kabuto"
+    ],
+    "アクタエオンゾウカブト": [
+      "actaeon_zou_kabuto"
+    ],
+    "マルスゾウカブト": [
+      "mars_zou_kabuto"
+    ],
+    "ネプチューンオオカブト": [
+      "neptunus_oo_kabuto"
+    ],
+    "サタンオオカブト": [
+      "satanas_oo_kabuto"
+    ],
+    "ゴホンヅノカブト": [
+      "gohon_zuno_kabuto"
+    ],
+    "アトラスオオカブト": [
+      "siamensis_atlas_kabuto"
+    ],
+    "ヒルスシロカブト": [
+      "tityus_oo_kabuto"
+    ],
+    "グラントシロカブト": [
+      "granti_oo_kabuto"
+    ],
+    "オオヒラタシデムシ": [
+      "oohirata_shidemushi"
+    ],
+    "クロシデムシ": [
+      "kuro_shidemushi"
+    ],
+    "ヨツボシモンシデムシ": [
+      "yotsuboshi_monashidemushi"
+    ],
+    "オオキノコムシ": [
+      "ooki_no_komushi"
+    ],
+    "ジョウカイボン": [
+      "joukaibon"
+    ],
+    "ベニボタル": [
+      "beni_botaru"
+    ],
+    "サビキコリ": [
+      "sabikikori"
+    ],
+    "ウバタマコメツキ": [
+      "ubatama_kometsuki"
+    ],
+    "オオナガコメツキ": [
+      "oonaga_kometsuki"
+    ],
+    "ヒメツチハンミョウ": [
+      "tsuchi_hanmyou"
+    ],
+    "マメハンミョウ": [
+      "mamehan_myou"
+    ],
+    "コクヌストモドキ": [
+      "gomimushidamashi_kohira"
+    ],
+    "ユミアシゴミムシダマシ": [
+      "sanagora_gomimushidamashi"
+    ],
+    "クロツヤムシ": [
+      "kuro_tsuyamushi"
+    ],
+    "アカハネムシ": [
+      "akahane_mushi"
+    ],
+    "アオバアリガタハネカクシ": [
+      "ari_suaba_kakushi"
+    ],
+    "キンボシマルズオオハネカクシ": [
+      "oo_hanekakushi"
+    ],
+    "オオヒラタエンマムシ": [
+      "enma_mushi"
+    ],
+    "ヒメマルカツオブシムシ": [
+      "katsuobushi_mushi"
+    ],
+    "アオジョウカイ": [
+      "ao_joukai"
+    ],
+    "ヨツボシオオキノコ": [
+      "kibushi_kokinoko"
+    ],
+    "コブスジコガネ": [
+      "hime_kabuto_modoki"
+    ],
+    "マダラケシキスイ": [
+      "maru_toge_mushi"
+    ],
+    "キオビナガカッコウムシ": [
+      "kiobinaga_kakkoumushi"
+    ],
+    "オオシロシタバ": [
+      "kushihige_yaga"
+    ],
+    "ギンモンスズメモドキ": [
+      "ginmon_karibaga"
+    ],
+    "ヨトウガ": [
+      "yotsuboshi_kuroke"
+    ],
+    "ハスモンヨトウ": [
+      "haska_yotou"
+    ],
+    "ヨモギエダシャク": [
+      "yomogi_ediba"
+    ],
+    "シロイチモジヨトウ": [
+      "shirosuji_yotou"
+    ],
+    "オオタバコガ": [
+      "mongata_meiga_modoki"
+    ],
+    "ガマキンウワバ": [
+      "kin_usuba"
+    ],
+    "キンウワバ": [
+      "kibane_usuba"
+    ],
+    "アオバヤガ": [
+      "ao_yaga"
+    ],
+    "タマナヤガ": [
+      "tabako_yaga"
+    ],
+    "ベニモンヨトウ": [
+      "benimon_yaga"
+    ],
+    "カバキリガ": [
+      "oo_minmon_kiriga"
+    ],
+    "フクラスズメ": [
+      "fukurou_yaga"
+    ],
+    "クロシタアオイラガ": [
+      "kin_iro_ediba"
+    ],
+    "フトオビエダシャク": [
+      "futoo_suji_eda_shaku"
+    ],
+    "ウスキオエダシャク": [
+      "usu_kioba_shaku"
+    ],
+    "ナミスジエダシャク": [
+      "naminami_eda_shaku"
+    ],
+    "ヤマトエダシャク": [
+      "yamato_eda_shaku"
+    ],
+    "クロフシロエダシャク": [
+      "kuro_fuchi_shiroeda_shaku"
+    ],
+    "オオアオシャク": [
+      "oo_aki_aoshaku"
+    ],
+    "キバラエダシャク": [
+      "kibara_eda_shaku"
+    ],
+    "ユウマダラエダシャク": [
+      "yumon_eda_shaku"
+    ],
+    "オオバナミガタエダシャク": [
+      "oba_kuwa_eda_shaku"
+    ],
+    "ベニヒトリ": [
+      "beni_hitori"
+    ],
+    "シロヒトリ": [
+      "shiro_hitori"
+    ],
+    "アカハラゴマダラヒトリ": [
+      "aka_obi_ringo"
+    ],
+    "ドクガ": [
+      "doku_ga"
+    ],
+    "カレハガ": [
+      "kareha_ga"
+    ],
+    "オビカレハ": [
+      "obi_kareha"
+    ],
+    "エゾスズメ": [
+      "ezo_suzume"
+    ],
+    "クロメンガタスズメ": [
+      "kuro_mesuji_suzume"
+    ],
+    "リュウキュウミスジ": [
+      "ryukyu_misuji"
+    ],
+    "タイワンキマダラ": [
+      "taiwan_kimadara"
+    ],
+    "クリシギゾウムシ": [
+      "kuri_no_jiga_zoumushi"
+    ],
+    "コナラシギゾウムシ": [
+      "hashibami_shigi_zoumushi"
+    ],
+    "アオゾウムシ": [
+      "aono_meiga_zoumushi"
+    ],
+    "カシワクチブトゾウムシ": [
+      "hime_kuro_otoshibumi_chigau"
+    ],
+    "カツオゾウムシ": [
+      "obo_no_zou"
+    ],
+    "ヒメカツオゾウムシ": [
+      "hime_kazuo_zoumushi"
+    ],
+    "イネゾウムシ": [
+      "ina_zou_mushi"
+    ],
+    "ヤシオオオサゾウムシ": [
+      "yashi_oo_zoumushi"
+    ],
+    "キボシゾウムシ": [
+      "ki_bosh_zoumushi"
+    ],
+    "イネミズゾウムシ": [
+      "ine_dorobou_zou"
+    ],
+    "アシナガオニゾウムシ": [
+      "sakura_kogane_zou_chigau"
+    ],
+    "クワヒョウタンゾウムシ": [
+      "kuwa_no_meiga_zoumushi"
+    ],
+    "ヒメシロコブゾウムシ": [
+      "hime_botan_zou"
+    ],
+    "ヒゲナガゾウムシ": [
+      "hiki_zou_mushi"
+    ],
+    "オオクチブトゾウムシ": [
+      "oo_kuro_kasa_zoumushi"
+    ],
+    "マツノシラホシゾウムシ": [
+      "matsuno_zou_mushi"
+    ],
+    "ハイイロチョッキリ": [
+      "kuri_oo_zoumushi"
+    ],
+    "アオバネサルゾウムシ": [
+      "ao_buchi_zoumushi"
+    ],
+    "ジュズヒゲゾウムシ": [
+      "juzu_hige_zou"
+    ],
+    "ヒレルクチブトゾウムシ": [
+      "murasaki_tsuya_zou"
+    ],
+    "ヤサイゾウムシ": [
+      "tama_oshi_zou"
+    ],
+    "マスダクロホシタマムシ": [
+      "masuda_kuro_tama"
+    ],
+    "シロオビナカボソタマムシ": [
+      "shirobou_himetama"
+    ],
+    "クワノミタマムシ": [
+      "kuwa_himetama"
+    ],
+    "ヒメヒラタタマムシ": [
+      "hime_tamamushi"
+    ],
+    "チビタマムシ": [
+      "chibi_tamamushi"
+    ],
+    "ヨツボシタマムシ": [
+      "yotsuboshi_tamamushi"
+    ],
+    "ナガタマムシ": [
+      "naga_tamamushi"
+    ],
+    "ルリナカボソタマムシ": [
+      "ruri_hosotama"
+    ],
+    "キンヘリタマムシ": [
+      "ki_obi_himetama"
+    ],
+    "スギタマムシ": [
+      "sugi_himetama"
+    ],
+    "ムツボシタマムシ": [
+      "murasaki_hosotama"
+    ],
+    "アオナガタマムシ": [
+      "ao_naga_tamamushi"
+    ],
+    "フタモンウバタマムシ": [
+      "oo_ao_tamamushi"
+    ],
+    "キイロテントウ": [
+      "kibara_tentou"
+    ],
+    "ヒメカメノコテントウ": [
+      "hime_kame_no_ko_tentou"
+    ],
+    "ダンダラテントウ": [
+      "dandara_tentou"
+    ],
+    "フタホシテントウ": [
+      "futahoshi_tentou"
+    ],
+    "ココノホシテントウ": [
+      "kohoshi_tentou"
+    ],
+    "クロテントウ": [
+      "kuro_tentou"
+    ],
+    "ムーアシロホシテントウ": [
+      "hoshi_tentou"
+    ],
+    "シロジュウシホシテントウ": [
+      "shiro_juni_hoshi_tentou"
+    ],
+    "ジュウロクホシテントウ": [
+      "juuroku_hoshi_tentou"
+    ],
+    "アカホシテントウ": [
+      "akahoshi_tentou"
+    ],
+    "オオテントウ": [
+      "ooten_tentou"
+    ],
+    "ベダリアテントウ": [
+      "halmus_tentou"
+    ],
+    "ミカドオサムシ": [
+      "mikado_osamushi"
+    ],
+    "ヤコンオサムシ": [
+      "yacon_osamushi"
+    ],
+    "ヒメオサムシ": [
+      "hime_osamushi"
+    ],
+    "オオクロナガオサムシ": [
+      "oo_kubonaga_gomimushi"
+    ],
+    "キタクロナガオサムシ": [
+      "hokkaido_aooosa"
+    ],
+    "オキナワオサムシ": [
+      "oki_osamushi"
+    ],
+    "キボシアオゴミムシ": [
+      "ki_obi_aogomimushi"
+    ],
+    "クビナガゴミムシ": [
+      "kubi_naga_gomimushi"
+    ],
+    "セアカヒラタゴミムシ": [
+      "se_aka_kebuka_gomimushi"
+    ],
+    "コゴミムシ": [
+      "komme_gomimushi"
+    ],
+    "ヒラタゴミムシ": [
+      "hira_ta_gomimushi"
+    ],
+    "オオヒラタゴミムシ": [
+      "oo_hosohira_gomimushi"
+    ],
+    "ホソクビゴミムシ": [
+      "hosomi_komori_gomimushi"
+    ],
+    "ミイデラゴミムシ": [
+      "miidera_gomimushi"
+    ],
+    "イワワキオサムシ": [
+      "oketsu_oosa"
+    ],
+    "アキタクロナガオサムシ": [
+      "aketi_oosa"
+    ],
+    "アオハナムグリ": [
+      "ao_hanamuguri"
+    ],
+    "オオハナムグリ": [
+      "oo_hana_muguri"
+    ],
+    "オオスジコガネ": [
+      "oo_suji_koganemushi"
+    ],
+    "セマダラコガネ": [
+      "seman_koganemushi"
+    ],
+    "ヒラタアオコガネ": [
+      "hiratata_koganemushi"
+    ],
+    "サクラコガネ": [
+      "sakura_koganemushi"
+    ],
+    "スジコガネ": [
+      "suji_koganemushi"
+    ],
+    "ツヤコガネ": [
+      "tsuya_koganemushi"
+    ],
+    "ナガチャコガネ": [
+      "ko_furuki_kobune"
+    ],
+    "クロコガネ": [
+      "kuro_koganemushi"
+    ],
+    "オオクロコガネ": [
+      "oo_kuro_koganemushi"
+    ],
+    "ルリハナムグリ": [
+      "ruri_hanamuguri"
+    ],
+    "タマムシハナムグリ": [
+      "yamato_tama_mushi_kogane"
+    ],
+    "イナズマハムシ": [
+      "inazuma_hamushi"
+    ],
+    "イチモンジハムシ": [
+      "ichimonji_hamushi"
+    ],
+    "ヨツボシハムシ": [
+      "yotsuboshi_hamushi"
+    ],
+    "アオバネサルハムシ": [
+      "ao_iro_hamushi"
+    ],
+    "ヒメキバネサルハムシ": [
+      "hime_kogane_hamushi"
+    ],
+    "ドウガネサルハムシ": [
+      "saru_hamushi_kin"
+    ],
+    "フジハムシ": [
+      "buchi_hige_hamushi"
+    ],
+    "ヤマイモハムシ": [
+      "yamaimo_hamushi"
+    ],
+    "スギカミキリ": [
+      "hime_suginma_kamikiri"
+    ],
+    "オオウスバカミキリ": [
+      "oni_kuwa_kamikiri"
+    ],
+    "コセスジゲンゴロウ": [
+      "ko_sennaga_gengoro"
+    ],
+    "チビゲンゴロウ": [
+      "chibi_gengoro"
+    ],
+    "シマゲンゴロウ": [
+      "shimaichi_gengoro"
+    ],
+    "マルガタゲンゴロウ": [
+      "maruke_gengoro"
+    ],
+    "シャープゲンゴロウモドキ": [
+      "gengorobuto_gengoro"
+    ],
+    "ゲンゴロウモドキ": [
+      "fuchi_gengoro_modoki"
+    ],
+    "オオイチモンジシマゲンゴロウ": [
+      "namida_gengoro"
+    ],
+    "ヒメフチトリゲンゴロウ": [
+      "fusahige_gengoro"
+    ],
+    "オオウバタマコメツキ": [
+      "ouba_kometsuki"
+    ],
+    "オオフタモンウバタマコメツキ": [
+      "oo_futa_mon_kometsuki"
+    ],
+    "オオトモンコメツキ": [
+      "ootomon_kometsuki"
+    ],
+    "クロツヤハダコメツキ": [
+      "hosagaki_kometsuki"
+    ],
+    "ヒゲコメツキ": [
+      "hikari_kometsuki"
+    ],
+    "アカハダコメツキ": [
+      "akahada_kometsuki"
+    ],
+    "ムラサキコメツキ": [
+      "murasaki_kometsuki"
+    ],
+    "サクラコメツキ": [
+      "sakura_kometsuki"
+    ],
+    "クシコメツキ": [
+      "hana_kometsuki"
+    ],
+    "クロクシコメツキ": [
+      "kuroki_kometsuki"
+    ],
+    "アオグロツヤハダコメツキ": [
+      "midori_kometsuki"
+    ],
+    "ベニコメツキ": [
+      "benihimon_kometsuki"
+    ],
+    "ホソサビキコリ": [
+      "oo_kuwagata_kometsuki"
+    ],
+    "クダマキモドキ": [
+      "kuda_maki"
+    ],
+    "ヤマトフキバッタ": [
+      "shou_batta"
+    ],
+    "セグロイナゴ": [
+      "semi_batta"
+    ],
+    "ヒガシキリギリス": [
+      "higashi_kirigirisu"
+    ],
+    "ニシキリギリス": [
+      "nishi_kirigirisu"
+    ],
+    "オナガササキリ": [
+      "oo_sasakiri"
+    ],
+    "ハタケノウマオイ": [
+      "hatakeno_umaoi"
+    ],
+    "ヤマクダマキモドキ": [
+      "yama_kudamaki"
+    ],
+    "タイワンクツワムシ": [
+      "taiwan_kutsuwamushi"
+    ],
+    "ヒメナガカメムシ": [
+      "hime_nagakamemushi"
+    ],
+    "ツマグロヨコバイ": [
+      "tsuma_kuro_yokobai"
+    ],
+    "アカサシガメ": [
+      "akasashi_game"
+    ],
+    "アカギカメムシ": [
+      "aka_giku_kamemushi"
+    ],
+    "アカエボシツノカメムシ": [
+      "akaeboshi_kamemushi"
+    ],
+    "コセアカアメンボ": [
+      "ko_seaka_amenbo"
+    ],
+    "ケシカタビロアメンボ": [
+      "ke_kamenbo"
+    ],
+    "シダクロスズメバチ": [
+      "shidakuro_suzumebachi"
+    ],
+    "ツヤクロスズメバチ": [
+      "kuro_obi_hosonaga_suzumebachi"
+    ],
+    "コバネアシナガバチ": [
+      "kobane_ashinaga_bachi"
+    ],
+    "ムモンホソアシナガバチ": [
+      "murasaki_ashinaga_bachi"
+    ],
+    "オオマルハナバチ": [
+      "oo_maru_hanabachi"
+    ],
+    "アミメアリ": [
+      "ao_oo_ari"
+    ],
+    "トビイロシワアリ": [
+      "tobiiro_shiwa_ari"
+    ],
+    "クロクサアリ": [
+      "kuro_kushige_ari"
+    ],
+    "ハヤシクロヤマアリ": [
+      "harukusa_ari"
+    ],
+    "クビレハリアリ": [
+      "kubinaga_ari"
+    ],
+    "ケブカハリアリ": [
+      "kebuka_ke_ari"
+    ],
+    "ハナアブ": [
+      "hana_abu"
+    ],
+    "クロヒラタアブ": [
+      "kuro_hira_taabu"
+    ],
+    "フタホシヒラタアブ": [
+      "futa_tsuten_hira_taabu"
+    ],
+    "キゴシハナアブ": [
+      "kiiro_obi_hana_abu"
+    ],
+    "オオフタホシヒラタアブ": [
+      "tsuya_hira_taabu"
+    ],
+    "キアシマメヒラタアブ": [
+      "ki_obi_ke_hira_abu"
+    ],
+    "アシブトハナアブ": [
+      "ki_ashi_hosohira_abu"
+    ],
+    "ハチモドキハナアブ": [
+      "kuma_bachi_modoki_abu"
+    ],
+    "アカウシアブ": [
+      "ushi_abu"
+    ],
+    "イエバエ": [
+      "ie_bae"
+    ],
+    "ヒトスジシマカ": [
+      "hito_suji_shima_ka"
+    ],
+    "ムギワラトンボ": [
+      "mugiwara_tombo"
+    ],
+    "マイコアカネ": [
+      "konaga_aka_tombo"
+    ],
+    "ルリマダラ": [
+      "ruri_madara"
+    ],
+    "コオサムシ": [
+      "ko_osamushi"
+    ],
+    "クロカタビロオサムシ": [
+      "kuro_katabiro_osamushi"
+    ],
+    "オオチャイロハナムグリ": [
+      "oo_kuwa_hanamuguri"
+    ],
+    "ジュウシホシクビナガハムシ": [
+      "jumonji_hamushi"
+    ],
+    "アオハムシダマシ": [
+      "ao_hamushi"
+    ],
+    "クワハムシ": [
+      "kuwa_hamushi"
+    ],
+    "ルリクビボソハムシ": [
+      "ruri_kuwagata_hamushi"
+    ],
+    "アカアシオオアオカミキリ": [
+      "akaashi_ooao_kamikiri"
+    ],
+    "ヒメゲンゴロウ": [
+      "hime_gengoro"
+    ],
+    "ハラヒシバッタ": [
+      "hara_hishi_batta"
+    ],
+    "セグロバッタ": [
+      "semon_batta"
+    ],
+    "タイワンツチイナゴ": [
+      "toge_himo_batta"
+    ],
+    "ウスイロササキリ": [
+      "umbe_kuda_maki"
+    ],
+    "クマスズムシ": [
+      "kuma_suzu"
+    ],
+    "ジュウジナガカメムシ": [
+      "jiyusu_nagakamemushi"
+    ],
+    "ベニツチカメムシ": [
+      "benitsuchikamemushi"
+    ],
+    "ナガメ": [
+      "naga_meigane"
+    ],
+    "ルリクチブトカメムシ": [
+      "ruriku_chibuto"
+    ],
+    "オオヨコバイ": [
+      "oo_yokobai"
+    ],
+    "ナミアメンボ": [
+      "nami_amenbo"
+    ],
+    "エサキアメンボ": [
+      "esaki_amenbo"
+    ],
+    "ツマグロスズメバチ": [
+      "tsumaguro_suzumebachi"
+    ],
+    "オオセイボウ": [
+      "oo_seibou"
+    ],
+    "オオズアリ": [
+      "oo_zu_ari"
+    ],
+    "アシナガアリ": [
+      "yamato_ari_jigoku_sasi"
+    ],
+    "アオモンイトトンボ": [
+      "aomon_ito_tonbo"
+    ],
+    "タベサナエ": [
+      "tabe_sanae"
+    ],
+    "フタスジサナエ": [
+      "futasuji_sanae"
+    ],
+    "ヒメサナエ": [
+      "hime_sanae"
+    ],
+    "グンバイトンボ": [
+      "gunbai_tonbo"
+    ],
+    "カラカネトンボ": [
+      "karakane_tonbo"
+    ],
+    "ネアカヨシヤンマ": [
+      "neaka_yoshi_yanma"
+    ],
+    "マダラヤンマ": [
+      "madara_yanma"
+    ],
+    "オオキトンボ": [
+      "ooki_tonbo"
+    ],
+    "スナアカネ": [
+      "suna_akane"
+    ],
+    "ヒメトンボ": [
+      "hime_tonbo"
+    ],
+    "コウチスズメ": [
+      "koudaicho_suzume"
+    ],
+    "キイロスズメ": [
+      "kiri_suzume"
+    ],
+    "キマダラルリツバメ": [
+      "kibanena_shijimi"
+    ],
+    "トホシテントウ": [
+      "tohoshi_tentou"
+    ],
+    "ハラグロオオテントウ": [
+      "haraguro_oo_tentou"
+    ],
+    "ムラサキツヤハナムグリ": [
+      "akama_dara_hanamuguri"
+    ],
+    "オオシマハナムグリ": [
+      "oo_ryoku_yose_hanamuguri"
+    ],
+    "イネネクイハムシ": [
+      "inago_hamushi"
+    ],
+    "シラホシカミキリ": [
+      "shira_hoshi_kamikiri"
+    ],
+    "コバネササキリ": [
+      "kobane_sasakiri"
+    ],
+    "ヒメクサキリ": [
+      "hime_kusakiri"
+    ],
+    "ヒメツユムシ": [
+      "tsuyumushi_sugu"
+    ],
+    "コバネキリギリス": [
+      "kosuji_kirigirisu"
+    ],
+    "ヤマヤブキリ": [
+      "yama_yabukiri"
+    ],
+    "クチキウマ": [
+      "kuchiki_uma_oi"
+    ],
+    "ハネナガキリギリス": [
+      "hanenaga_kirigirisu"
+    ],
+    "オキナワキリギリス": [
+      "okinawa_kirigirisu"
+    ],
+    "クロヒラタヨコバイ": [
+      "kuro_himeyokobai"
+    ],
+    "シロヘリカメムシ": [
+      "shirohoshi_kamemushi"
+    ],
+    "ミミズク": [
+      "akahane_mukashi_yokobai"
+    ],
+    "ヒメイトアメンボ": [
+      "habiroitotonbo_amenbo"
+    ],
+    "コマルハナバチ": [
+      "koma_ru_hana_bachi"
+    ],
+    "ルリモンハナバチ": [
+      "ruri_monhana_bachi"
+    ],
+    "ヒナカマキリ": [
+      "hina_kamakiri"
+    ],
+    "アオイラガ": [
+      "aoiraga"
+    ],
+    "チャバネセスジメイガ": [
+      "chabane_sesujimeiga"
+    ],
+    "フタオビツトガ": [
+      "futao_tsutoga"
+    ],
+    "キバラケンモン": [
+      "kin_uwaba_tsutoga"
+    ],
+    "アズキノメイガ": [
+      "azuki_no_iga"
+    ],
+    "ワタノメイガ": [
+      "wata_no_iga"
+    ],
+    "マドガ": [
+      "mado_meiga"
+    ],
+    "シロホシコヤガ": [
+      "shirohoshi_kokemeiga"
+    ],
+    "クワノメイガ": [
+      "kuwa_no_iga"
+    ],
+    "モモノゴマダラノメイガ": [
+      "momo_gomemushi"
+    ],
+    "チャハマキ": [
+      "chairo_hamaki"
+    ],
+    "リンゴコカクモンハマキ": [
+      "ringo_komadarahamaki"
+    ],
+    "キンモンハマキ": [
+      "kin_monhamaki"
+    ],
+    "アトボシハマキ": [
+      "sukashibahamaki"
+    ],
+    "シロシタヨトウ": [
+      "shironoko_yaga"
+    ],
+    "ハガタキコケガ": [
+      "hagata_kenmon"
+    ],
+    "アカエグリバ": [
+      "akaeguri_dokuga"
+    ],
+    "ウメエダシャク": [
+      "hime_shaku"
+    ],
+    "シルビアシジミ": [
+      "silvia_shijimi"
+    ],
+    "ヒメシルビアシジミ": [
+      "hime_silvia_shijimi"
+    ],
+    "タイワンツバメシジミ": [
+      "taiwan_tsubame_shijimi"
+    ],
+    "イネクビボソハムシ": [
+      "inago_mametsu_hamushi"
+    ],
+    "ハンノキハムシ": [
+      "hannoki_hamushi"
+    ],
+    "ムラサキハムシ": [
+      "murasaki_hamushi"
+    ],
+    "キンイロネクイハムシ": [
+      "kintsuya_hamushi"
+    ],
+    "アカガネジンガサハムシ": [
+      "iro_jingasa_hamushi"
+    ],
+    "シイノミゾウムシ": [
+      "shii_no_mi_zou"
+    ],
+    "タケゾウムシ": [
+      "take_zou_mushi"
+    ],
+    "マツアナアキゾウムシ": [
+      "matsu_no_zou"
+    ],
+    "カタゾウムシ": [
+      "escargot_zou"
+    ],
+    "イノコヅチカメノコゾウムシ": [
+      "ino_kotsu_zou"
+    ],
+    "モモチョッキリ": [
+      "momo_chokki_zou"
+    ],
+    "ヒメクロオトシブミ": [
+      "hime_kuro_otoshi"
+    ],
+    "ゴマダラオトシブミ": [
+      "goma_dara_otoshi"
+    ],
+    "オトシブミ": [
+      "otoshi_bumi"
+    ],
+    "コクゾウムシ": [
+      "ko_zou_mushi"
+    ],
+    "ホソクビゾウムシ": [
+      "hosokubi_zou"
+    ],
+    "ケシカミキリ": [
+      "keshikiri_kamikiri"
+    ],
+    "アカガネカミキリ": [
+      "akagane_kamikiri"
+    ],
+    "ゴマフカミキリ": [
+      "goma_fu_kamikiri"
+    ],
+    "クロゴミムシ": [
+      "kuro_gomimushi"
+    ],
+    "コフキコガネ": [
+      "ko_fuki_kogane"
+    ],
+    "トラハナムグリ": [
+      "tora_hanamuguri"
+    ],
+    "ヒメアカホシテントウ": [
+      "hime_aka_hoshi_tentou"
+    ],
+    "オバボタル": [
+      "obo_tobi_kebai_botaru"
+    ],
+    "セアカハネナガジョウカイ": [
+      "se_aka_jokai"
+    ],
+    "キンイロジョウカイ": [
+      "ki_jokai"
+    ],
+    "ヨツボシケシキスイ": [
+      "yotsuboshi_keshikisui"
+    ],
+    "コガムシ": [
+      "ko_gamushi"
+    ],
+    "ヒメガムシ": [
+      "hime_gamushi"
+    ],
+    "クロハナケシキスイ": [
+      "akahane_obi_keshikisui"
+    ],
+    "ヒラタケシキスイ": [
+      "futamon_keshikisui"
+    ],
+    "クロハネカクシ": [
+      "kuro_hanekakushi"
+    ],
+    "アカハラクロコメツキ": [
+      "akahara_komenetsuki"
+    ],
+    "マルガムシ": [
+      "marugata_gamushi"
+    ],
+    "オオキイロケシキスイ": [
+      "tama_keshikisui"
+    ],
+    "トゲヒシバッタ": [
+      "tonoma_batta"
+    ],
+    "トノサマバッタモドキ": [
+      "toge_batta"
+    ],
+    "ハタケコオロギ": [
+      "hatake_korogi"
+    ],
+    "スケバハゴロモ": [
+      "suke_ba_hagoromo"
+    ],
+    "ヨツボシカメムシ": [
+      "yotsubishi_kamemushi"
+    ],
+    "クロイワゼミ": [
+      "kuro_iwa_zemi"
+    ],
+    "ヒナマルハナバチ": [
+      "hina_maruhanabachi"
+    ],
+    "キオビツチバチ": [
+      "ki_obi_tsuchibachi"
+    ],
+    "オオクロアリ": [
+      "oo_kuro_ari"
+    ],
+    "オオハリアリ": [
+      "sashi_hari_ari"
+    ],
+    "トゲアリ": [
+      "itoge_ari"
+    ],
+    "ムネボソアリ": [
+      "murasaki_ari"
+    ],
+    "サスライアリ": [
+      "sasuraibi_ari"
+    ],
+    "アギトアリ": [
+      "gunki_oo_ari"
+    ],
+    "ツマグロキンバエ": [
+      "tsumaguro_hana_abu"
+    ],
+    "キンバエ": [
+      "kin_bae"
+    ],
+    "オオクロバエ": [
+      "ao_kin_bae"
+    ],
+    "アメリカミズアブ": [
+      "ame_ika_abu"
+    ],
+    "キアシガガンボ": [
+      "kiashi_gagambo"
+    ],
+    "アカイエカ": [
+      "aka_ie_ka"
+    ],
+    "ビロウドツリアブ": [
+      "mino_ke_buka_abu"
+    ],
+    "モートンイトトンボ": [
+      "morton_ito_tonbo"
+    ],
+    "エゾイトトンボ": [
+      "ezo_ito_tonbo"
+    ],
+    "ベッコウトンボ": [
+      "bekko_tonbo"
+    ],
+    "コノマチョウ": [
+      "kono_maron"
+    ],
+    "イモサルハムシ": [
+      "inumegi_hamushi"
+    ],
+    "トゲハムシ": [
+      "hosohari_hamushi"
+    ],
+    "オオキバハムシ": [
+      "oo_kibahamushi"
+    ],
+    "バラルリツツハムシ": [
+      "hagetaka_hamushi"
+    ],
+    "コフキゾウムシ": [
+      "kofuki_zoumushi"
+    ],
+    "アルファルファタコゾウムシ": [
+      "alfalfa_tako_zoumushi"
+    ],
+    "オリーブアナアキゾウムシ": [
+      "olive_anaaki_zoumushi"
+    ],
+    "ヨツボシヒラタカミキリ": [
+      "yotsuboshi_hosobakami_kiri"
+    ],
+    "ヤマトキモンハナカミキリ": [
+      "yamato_korogi_kamikiri"
+    ],
+    "クワサビカミキリ": [
+      "kuwa_sabikami_kiri"
+    ],
+    "カオジロヒゲナガゾウムシ": [
+      "kao_jiro_hige_naga"
+    ],
+    "セダカコブヤハズカミキリ": [
+      "kobu_yahazu_seda_ka"
+    ],
+    "ヤツメカミキリ": [
+      "hosohana_kamikiri"
+    ],
+    "アオバホソハナカミキリ": [
+      "oo_aoboshi_kamikiri"
+    ],
+    "アオカタビロオサムシ": [
+      "oao_kataba_gomimushi"
+    ],
+    "オオスナハラゴミムシ": [
+      "kuro_gomimushidamashi_oosuji"
+    ],
+    "コガシラナガゴミムシ": [
+      "kotsubu_gomimushi"
+    ],
+    "ヒメゴミムシ": [
+      "hime_gomimushi"
+    ],
+    "マルガタゴミムシ": [
+      "marugata_gomimushi"
+    ],
+    "コアオマイマイカブリ": [
+      "okera_gomimushi_kotetsu"
+    ],
+    "ナミテントウ黒型": [
+      "naden_tentou"
+    ],
+    "ムツボシテントウ": [
+      "muutsuboshi_tentou"
+    ],
+    "ヤナギタマムシ": [
+      "yanagi_tamamushi"
+    ],
+    "アオバネジョウカイ": [
+      "aobane_joukai"
+    ],
+    "ゴマフガムシ": [
+      "gomafu_gamushi"
+    ],
+    "クリヤケシキスイ": [
+      "kuriya_keshikisui"
+    ],
+    "シロスジヒゲナガハナバチ": [
+      "shiroobi_hanabachi"
+    ],
+    "ミヤママルハナバチ": [
+      "miyama_marubanabachi"
+    ],
+    "オキナワキンケハラナガツチバチ": [
+      "naki_kumabachi"
+    ],
+    "アオスジコシブトハナバチ": [
+      "aoki_kumabachi"
+    ],
+    "エゾトラマルハナバチ": [
+      "oo_marubanabachi"
+    ],
+    "ヒメサスライアリ": [
+      "hime_sakuhana_ari"
+    ],
+    "コウカアブ": [
+      "mizu_abu"
+    ],
+    "アサヒナキマダラセセリ": [
+      "asahina_kimadara_seseri"
+    ],
+    "コフキサルハムシ": [
+      "ko_fuki_hamushi"
+    ],
+    "セダカオサムシ": [
+      "sedo_oo_gomimushi"
+    ],
+    "オオキバゴミムシ": [
+      "oo_kibara_gomimushi"
+    ],
+    "ヒメアシナガコガネ": [
+      "hime_aoki_kogane"
+    ],
+    "コジマヒゲコガネ": [
+      "kojima_hanamuguri"
+    ],
+    "アカマダラコガネ": [
+      "akahige_kogane"
+    ],
+    "ヤンバルテナガコガネ": [
+      "yanbaru_tenaga_kogane"
+    ],
+    "アオバテントウ": [
+      "halmus_aoba_tentou"
+    ],
+    "ヨツボシオオキスイ": [
+      "yotsuboshi_ookisui"
+    ],
+    "ハラオカメコオロギ": [
+      "mitsukado_koorogi_oo"
+    ],
+    "モリオカメコオロギ": [
+      "mori_okame_koorogi"
+    ],
+    "クロコオロギ": [
+      "kuro_koorogi"
+    ],
+    "ヒロバネカンタン": [
+      "kantan_hime"
+    ],
+    "コガタコオロギ": [
+      "kintaki_matsumushi"
+    ],
+    "ヒメマルハナバチ": [
+      "hime_maru_hanabachi"
+    ],
+    "ハイイロマルハナバチ": [
+      "haiiro_maru_hanabachi"
+    ],
+    "ニッポンコシブトハナバチ": [
+      "nippon_koshibuto_hanabachi"
+    ],
+    "ダイミョウキマダラハナバチ": [
+      "daimyo_kimadara_hanabachi"
+    ],
+    "アオツヤハナバチ": [
+      "ao_tsuya_hanabachi"
+    ],
+    "キタヒメヒラタアブ": [
+      "kihime_hirata_abu"
+    ],
+    "スズキナガハナアブ": [
+      "konvenoshi_hanaabu"
+    ],
+    "オゼイトトンボ": [
+      "oze_itotonbo"
+    ],
+    "オオカバマダラ": [
+      "master_monarch"
+    ],
+    "アメリカアオイチモンジ": [
+      "master_amer_aoichimonji"
+    ],
+    "クラウディナタテハ": [
+      "master_claudina"
+    ],
+    "アメリカオオミズアオ": [
+      "master_luna_moth"
+    ],
+    "ルリモンジャノメ": [
+      "master_ruri_janome"
+    ],
+    "プロメテアサン": [
+      "master_promethea"
+    ],
+    "ウラニアガ": [
+      "master_urania"
+    ],
+    "ニジダイコクコガネ": [
+      "master_niji_daikoku"
+    ],
+    "ホウセキゾウムシ": [
+      "master_houseki_zoumushi"
+    ],
+    "オウゴンオニクワガタ": [
+      "master_ougon_oni"
+    ],
+    "テナガコガネ": [
+      "master_tenaga_kogane"
+    ],
+    "ハビロイトトンボ": [
+      "master_habiro_itotombo"
+    ],
+    "ジャイアントウェタ": [
+      "master_giant_weta"
+    ],
+    "サカダチコノハナナフシ": [
+      "master_sakadachi_konoha"
+    ],
+    "ヨロイモグラゴキブリ": [
+      "master_yoroi_gokiburi"
+    ],
+    "ジャングルニンフ": [
+      "master_jungle_nymph"
+    ],
+    "ナンベイオオタガメ": [
+      "master_nanbei_tagame"
+    ],
+    "ゴライアストリバネアゲハ": [
+      "master_goliath_birdwing"
+    ],
+    "パプアキンイロクワガタ": [
+      "master_papua_kin_kuwagata"
+    ],
+    "プラチナコガネ": [
+      "platinum_kogane"
+    ],
+    "キンイロオサムシ": [
+      "master_kiniro_osamushi"
+    ],
+    "ジンメンカメムシ": [
+      "master_jinmen_kamemushi"
+    ],
+    "スターンセラタマムシ": [
+      "master_sternocera_tamamushi"
+    ],
+    "アグリッパスズメ": [
+      "agrippa_suzume"
+    ],
+    "ニシキオオツバメガ": [
+      "nishiki_tsubamega"
+    ],
+    "フクロウチョウ": [
+      "owl_butterfly"
+    ],
+    "ミイロタテハ": [
+      "agrias_tateha"
+    ],
+    "タイタンオオウスバカミキリ": [
+      "titan_kamikiri"
+    ],
+    "ディディエールシカクワガタ": [
+      "didier_shika_kuwagata"
+    ],
+    "ユーロステルノコギリクワガタ": [
+      "eurosternus_noko_kuwagata"
+    ],
+    "タイワンオオタガメ": [
+      "taiwan_oo_tagame"
+    ],
+    "グンタイアリ": [
+      "guntai_ari"
+    ],
+    "サシハリアリ": [
+      "sashihari_ari"
+    ],
+    "トビズムカデ": [
+      "tobizu_mukade"
+    ],
+    "アシダカグモ": [
+      "ashidaka_gumo"
+    ],
+    "オオゲジ": [
+      "oo_geji"
+    ],
+    "セアカゴケグモ": [
+      "seaka_gokegumo"
+    ],
+    "ダイオウサソリ": [
+      "daiou_sasori"
+    ],
+    "オオジョロウグモ": [
+      "oo_jorogumo"
+    ],
+    "ゴライアスバードイーター": [
+      "goliath_birdeater"
+    ],
+    "ニホンカナヘビ": [
+      "nihon_kanahebi"
+    ],
+    "ニホンヒキガエル": [
+      "nihon_hikigaeru"
+    ],
+    "モズ": [
+      "mozu"
+    ],
+    "オオエンマハンミョウ": [
+      "ooenma_hanmyo"
+    ],
+    "ユーフォルス": [
+      "eupholus_zou"
+    ],
+    "バイオリンムシ": [
+      "violin_mushi"
+    ],
+    "スカラベ": [
+      "scarabe_sacer"
+    ],
+    "サカダチゴミムシダマシ": [
+      "sakadachi_gomidamashi"
+    ],
+    "ニジゴミムシダマシ": [
+      "niji_gomidamashi"
+    ],
+    "クビナガオトシブミ": [
+      "kubinaga_otoshibumi"
+    ],
+    "ダールマンツヤクワガタ": [
+      "dalmanni_kuwagata"
+    ],
+    "オオキバウスバカミキリ": [
+      "ookiba_usuba_kamikiri"
+    ],
+    "オオガムシ": [
+      "oo_gamushi"
+    ],
+    "フチトリゲンゴロウ": [
+      "fuchitori_gengoro"
+    ],
+    "オオミズスマシ": [
+      "oo_mizusumashi"
+    ],
+    "サンバーストゲンゴロウ": [
+      "sunburst_gengoro"
+    ],
+    "ハラビロハンミョウ": [
+      "harabiro_hanmyo"
+    ],
+    "ルイスハンミョウ": [
+      "lewis_hanmyo"
+    ],
+    "エリザハンミョウ": [
+      "eliza_hanmyo"
+    ],
+    "ヒョウタンゴミムシ": [
+      "hyoutan_gomimushi"
+    ],
+    "サンヨウベニボタル": [
+      "sanyou_benibotaru"
+    ],
+    "ツヤゴライアスタマムシ": [
+      "tsuya_goliath_tamamushi"
+    ],
+    "クリソクロア": [
+      "chrysochroa_tamamushi"
+    ]
+  },
+  "byScientificName": {
+    "Dynastes hercules": [
+      "hercules_beetle"
+    ],
+    "Phalacrognathus muelleri": [
+      "rainbow_stag_beetle"
+    ],
+    "Ornithoptera alexandrae": [
+      "queen_alexandras_birdwing"
+    ],
+    "Megapomponia imperatoria": [
+      "emperor_cicada"
+    ],
+    "Goliathus goliatus": [
+      "goliath_beetle"
+    ],
+    "Dorcus hopei binodulosus": [
+      "ookuwagata"
+    ],
+    "Chalcosoma chiron": [
+      "caucasus_beetle"
+    ],
+    "Prosopocoilus giraffa": [
+      "giraffe_stag_beetle"
+    ],
+    "Morpho spp.": [
+      "morpho_butterfly"
+    ],
+    "Kirkaldyia deyrolli": [
+      "tagame"
+    ],
+    "Sasakia charonda": [
+      "oomurasaki",
+      "sasakia_oomurasaki_ss"
+    ],
+    "Cybister chinensis": [
+      "gengorou",
+      "nami_gengorou"
+    ],
+    "Cicindela japonica": [
+      "hanmyou"
+    ],
+    "Trypoxylus dichotomus": [
+      "kabutomushi"
+    ],
+    "Prosopocoilus inclinatus": [
+      "nokogiri_kuwagata"
+    ],
+    "Lucanus maculifemoratus": [
+      "miyama_kuwagata"
+    ],
+    "Chrysochroa fulgidissima": [
+      "yamato_tamamushi"
+    ],
+    "Anotogaster sieboldii": [
+      "oniyanma"
+    ],
+    "Anax parthenope": [
+      "ginyanma"
+    ],
+    "Luciola cruciata": [
+      "genji_botaru"
+    ],
+    "Meloimorpha japonica": [
+      "suzumushi"
+    ],
+    "Tenodera aridifolia": [
+      "ookamakiri"
+    ],
+    "Cryptotympana facialis": [
+      "kumazemi"
+    ],
+    "Xylocopa appendiculata": [
+      "kumabachi"
+    ],
+    "Ranatra chinensis": [
+      "mizukamakiri"
+    ],
+    "Pieris rapae": [
+      "monshirochou"
+    ],
+    "Papilio xuthus": [
+      "agehachou",
+      "namiageha"
+    ],
+    "Graphium sarpedon": [
+      "aosuji_ageha"
+    ],
+    "Colias erate": [
+      "monkichou"
+    ],
+    "Lycaena phlaeas": [
+      "benishijimi"
+    ],
+    "Coccinella septempunctata": [
+      "nanahoshi_tentou"
+    ],
+    "Harmonia axyridis": [
+      "nami_tentou",
+      "naden_tentou"
+    ],
+    "Camponotus japonicus": [
+      "kuro_ooari",
+      "oo_kuro_ari"
+    ],
+    "Apis cerana japonica": [
+      "nihon_mitsubachi"
+    ],
+    "Graptopsaltria nigrofuscata": [
+      "aburazemi"
+    ],
+    "Hyalessa maculaticollis": [
+      "minminzemi"
+    ],
+    "Tanna japonensis": [
+      "higurashi"
+    ],
+    "Meimuna opalifera": [
+      "tsukutsukuboushi"
+    ],
+    "Orthetrum albistylum": [
+      "shiokara_tonbo",
+      "mugiwara_tombo"
+    ],
+    "Sympetrum frequens": [
+      "akiakane"
+    ],
+    "Locusta migratoria": [
+      "tonosama_batta"
+    ],
+    "Acrida cinerea": [
+      "shouryou_batta"
+    ],
+    "Teleogryllus emma": [
+      "enma_koorogi"
+    ],
+    "Gampsocleis buergeri": [
+      "kirigirisu",
+      "nishi_kirigirisu"
+    ],
+    "Pseudotorynorrhina japonica": [
+      "kanabun"
+    ],
+    "Aquarius paludum": [
+      "amenbo",
+      "nami_amenbo"
+    ],
+    "Brahmaea japonica": [
+      "ibotaga"
+    ],
+    "Armadillidium vulgare": [
+      "dangomushi"
+    ],
+    "Aegosoma sinicum sinicum": [
+      "usuba_kamikiri"
+    ],
+    "Prionus insularis": [
+      "nokogiri_kamikiri"
+    ],
+    "Chloridolum thaliodes": [
+      "ooao_kamikiri"
+    ],
+    "Schwarzerium quadricolle": [
+      "ao_kamikiri"
+    ],
+    "Dolichoprosopus yokoyamai": [
+      "yokoyama_higenaga_kamikiri"
+    ],
+    "Paraglenea fortunei": [
+      "ramie_kamikiri"
+    ],
+    "Rosalia batesi": [
+      "ruriboshi_kamikiri"
+    ],
+    "Mesechthistatus binodosus": [
+      "kobuyahazu_kamikiri"
+    ],
+    "Anoplophora malasiaca": [
+      "gomadara_kamikiri"
+    ],
+    "Batocera lineolata": [
+      "shirosuji_kamikiri"
+    ],
+    "Psacothea hilaris": [
+      "kiboshi_kamikiri"
+    ],
+    "Xylotrechus chinensis": [
+      "torafu_kamikiri"
+    ],
+    "Leptura ochraceofasciata": [
+      "yotsusuji_hana_kamikiri",
+      "kuwasaki_hana_kamikiri"
+    ],
+    "Purpuricenus temminckii": [
+      "beni_kamikiri"
+    ],
+    "Eutetrapha chrysochloris chrysochloris": [
+      "hannoao_kamikiri"
+    ],
+    "Paratrichius doenitzi": [
+      "ootorafu_kogane",
+      "ootora_hanamuguri"
+    ],
+    "Cissites cephalotes": [
+      "hirazu_gensei"
+    ],
+    "Damaster blaptoides": [
+      "maimaikaburi"
+    ],
+    "Carabus insulicola": [
+      "ao_osamushi"
+    ],
+    "Carabus gehinii": [
+      "oo_ruri_osamushi"
+    ],
+    "Sophiodela japonica": [
+      "nishiki_hanmyou"
+    ],
+    "Chaetodera laetescripta": [
+      "kawara_hanmyou"
+    ],
+    "Neozephyrus japonicus": [
+      "midorishijimi",
+      "hime_midorishijimi"
+    ],
+    "Chrysozephyrus brillantinus": [
+      "aino_midorishijimi"
+    ],
+    "Chrysozephyrus smaragdinus": [
+      "mesuaka_midorishijimi"
+    ],
+    "Favonius jezoensis": [
+      "ezo_midorishijimi"
+    ],
+    "Favonius orientalis": [
+      "oo_midorishijimi"
+    ],
+    "Favonius taxila": [
+      "jouzan_midorishijimi"
+    ],
+    "Favonius ultramarinus": [
+      "hayashi_midorishijimi"
+    ],
+    "Favonius saphirinus": [
+      "urajiro_midorishijimi"
+    ],
+    "Chrysozephyrus hisamatsusanus": [
+      "hisamatsu_midorishijimi"
+    ],
+    "Chrysozephyrus ataxus": [
+      "kirishima_midorishijimi"
+    ],
+    "Coreana raphaelis": [
+      "chousen_akashijimi"
+    ],
+    "Japonica lutea": [
+      "akashijimi"
+    ],
+    "Japonica saepestriata": [
+      "uranami_akashijimi"
+    ],
+    "Niphanda fusca": [
+      "kuroshijimi"
+    ],
+    "Artopoetes pryeri": [
+      "uragomadara_shijimi"
+    ],
+    "Taraka hamada": [
+      "goishi_shijimi"
+    ],
+    "Plebejus argyrognomon": [
+      "miyama_shijimi"
+    ],
+    "Erebia niphonica": [
+      "benihikage"
+    ],
+    "Erebia ligea": [
+      "kumoma_benihikage"
+    ],
+    "Parnassius citrinarius": [
+      "usubashirochou"
+    ],
+    "Anthocharis scolymus": [
+      "tsumakichou"
+    ],
+    "Hebomoia glaucippe": [
+      "tsumabenichou"
+    ],
+    "Dichorragia nesimachus": [
+      "suminagashi"
+    ],
+    "Apatura metis": [
+      "komurasaki",
+      "komurasaki_mesu"
+    ],
+    "Melanitis phedima": [
+      "kurokonomachou",
+      "kono_maron"
+    ],
+    "Melanitis leda": [
+      "usuiro_konomachou"
+    ],
+    "Limenitis camilla": [
+      "ichimonjichou"
+    ],
+    "Limenitis populi": [
+      "oo_ichimonji"
+    ],
+    "Neptis sappho": [
+      "komisuji"
+    ],
+    "Araschnia burejana": [
+      "sakahachichou",
+      "araschnia_sakahachi_aki"
+    ],
+    "Graphium doson": [
+      "mikado_ageha"
+    ],
+    "Ideopsis similis": [
+      "ryukyu_asagimadara"
+    ],
+    "Erionota torus": [
+      "banana_seseri"
+    ],
+    "Choaspes benjaminii": [
+      "aoba_seseri"
+    ],
+    "Leptalina unicolor": [
+      "ginichimonji_seseri"
+    ],
+    "Hypolimnas misippus": [
+      "mesuaka_murasaki"
+    ],
+    "Argynnis paphia": [
+      "midori_hyoumon"
+    ],
+    "Nephargynnis anadyomene": [
+      "kumogata_hyoumon"
+    ],
+    "Hestina assimilis": [
+      "akaboshi_gomadara"
+    ],
+    "Parnassius apollo": [
+      "apollo"
+    ],
+    "Bhutanitis lidderdalii": [
+      "bhutan_glory"
+    ],
+    "Papilio machaon": [
+      "kiageha"
+    ],
+    "Papilio protenor": [
+      "kuroageha"
+    ],
+    "Papilio helenus": [
+      "monkiageha"
+    ],
+    "Papilio memnon": [
+      "nagasaki_ageha"
+    ],
+    "Papilio dehaanii": [
+      "karasu_ageha"
+    ],
+    "Papilio maackii": [
+      "miyama_karasu_ageha"
+    ],
+    "Papilio macilentus": [
+      "onaga_ageha"
+    ],
+    "Byasa alcinous": [
+      "jakou_ageha"
+    ],
+    "Pachliopta aristolochiae": [
+      "benimon_ageha"
+    ],
+    "Papilio polytes": [
+      "shiroobi_ageha"
+    ],
+    "Papilio bianor": [
+      "yaeyama_karasu_ageha"
+    ],
+    "Papilio ryukyuensis": [
+      "onki_ageha"
+    ],
+    "Luehdorfia japonica": [
+      "gifuchou"
+    ],
+    "Luehdorfia puziloi": [
+      "himegifuchou"
+    ],
+    "Parnassius stubbendorfii": [
+      "himeusuba_shirochou"
+    ],
+    "Parnassius eversmanni": [
+      "usuba_kichou"
+    ],
+    "Papilio nephelus": [
+      "tomon_ageha"
+    ],
+    "Fabriciana adippe": [
+      "uragin_hyoumon"
+    ],
+    "Speyeria aglaja": [
+      "ginboshi_hyoumon"
+    ],
+    "Fabriciana nerippe": [
+      "oouragin_hyoumon"
+    ],
+    "Argyronome laodice": [
+      "uraginsuji_hyoumon"
+    ],
+    "Argyronome ruslana": [
+      "oouraginsuji_hyoumon"
+    ],
+    "Damora sagana": [
+      "mesuguro_hyoumon"
+    ],
+    "Argyreus hyperbius": [
+      "tsumaguro_hyoumon"
+    ],
+    "Fabriciana niobe": [
+      "kumoma_hyoumon"
+    ],
+    "Brenthis daphne": [
+      "hyoumonchou"
+    ],
+    "Brenthis ino": [
+      "kohyoumon"
+    ],
+    "Boloria iphigenia": [
+      "karafuto_hyoumon"
+    ],
+    "Clossiana freija": [
+      "asahi_hyoumon"
+    ],
+    "Melitaea scotosia": [
+      "hyoumonmodaki"
+    ],
+    "Melitaea ambigua": [
+      "kohyoumonmodoki"
+    ],
+    "Mycalesis gotama": [
+      "himejanome"
+    ],
+    "Mycalesis francisca": [
+      "kojanome"
+    ],
+    "Lethe diana": [
+      "kurohikage"
+    ],
+    "Lethe sicelis": [
+      "hikagechou"
+    ],
+    "Neope goschkevitschii": [
+      "satokimadara_hikage"
+    ],
+    "Neope niphonica": [
+      "yamakimadara_hikage"
+    ],
+    "Minois dryas": [
+      "janomechou"
+    ],
+    "Ypthima argus": [
+      "himeuranami_janome"
+    ],
+    "Ypthima multistriata": [
+      "uranami_janome"
+    ],
+    "Zophoessa callipteris": [
+      "hime_kijanome"
+    ],
+    "Burara aquilina": [
+      "kibane_serikajanome"
+    ],
+    "Kirinia epaminondas": [
+      "kimadara_modoki"
+    ],
+    "Lasiommata deidamia": [
+      "tsumajiro_uragoma_janome"
+    ],
+    "Coenonympha oedippus": [
+      "hikage_janome"
+    ],
+    "Lethe marginalis": [
+      "kurohikage_modoki"
+    ],
+    "Oeneis norna": [
+      "takane_hikage"
+    ],
+    "Oeneis melissa": [
+      "daisetsu_takane_hikage"
+    ],
+    "Coenonympha hero": [
+      "kogesujishirochou_janome"
+    ],
+    "Ninguta schrenckii": [
+      "oohikage_janome"
+    ],
+    "Eophileurus chinensis": [
+      "kokabuto"
+    ],
+    "Oryctes rhinoceros": [
+      "saikabuto"
+    ],
+    "Xylotrupes gideon": [
+      "tairiku_akadama_kabuto"
+    ],
+    "Anomala albopilosa": [
+      "aodougane"
+    ],
+    "Anomala cuprea": [
+      "douganebuibui"
+    ],
+    "Mimela splendens": [
+      "koganemushi"
+    ],
+    "Popillia japonica": [
+      "mametsuchi_kogane"
+    ],
+    "Anomala rufocuprea": [
+      "hime_kogane"
+    ],
+    "Rhomborrhina unicolor": [
+      "ao_kanabun"
+    ],
+    "Rhomborrhina polita": [
+      "kuro_kanabun"
+    ],
+    "Protaetia orientalis": [
+      "shiroten_hanamuguri",
+      "oo_hana_muguri"
+    ],
+    "Protaetia brevitarsis": [
+      "shiraboshi_hanamuguri"
+    ],
+    "Cetonia pilifera": [
+      "hanamuguri",
+      "ao_hanamuguri"
+    ],
+    "Gametis jucunda": [
+      "koao_hanamuguri"
+    ],
+    "Anthracophora rusticola": [
+      "akamadara_hanamuguri"
+    ],
+    "Phelotrupes laevistriatus": [
+      "senchi_kogane"
+    ],
+    "Phelotrupes auratus": [
+      "oosenchi_kogane"
+    ],
+    "Copris ochus": [
+      "daikoku_kogane"
+    ],
+    "Copris acutidens": [
+      "kobu_marukogane"
+    ],
+    "Aphodius rectus": [
+      "maguso_kogane"
+    ],
+    "Glycyphana fulvistemma": [
+      "kuwagata_hanamuguri"
+    ],
+    "Massicus raddei": [
+      "miyama_kamikiri"
+    ],
+    "Leptura mimica": [
+      "rubeus_kamikiri"
+    ],
+    "Eutetrapha ocelota": [
+      "yatsuboshi_kamikiri"
+    ],
+    "Stictoleptura succedanea": [
+      "akahana_kamikiri"
+    ],
+    "Chlorophorus japonicus": [
+      "eguritora_kamikiri"
+    ],
+    "Chlorophorus quinquefasciatus": [
+      "yotsusuji_tora_kamikiri"
+    ],
+    "Chlorophorus diadema": [
+      "kuro_tora_kamikiri"
+    ],
+    "Grammographus notabilis": [
+      "kibatora_kamikiri"
+    ],
+    "Distenia gracilis": [
+      "ebiiro_kamikiri"
+    ],
+    "Leptura aethiops": [
+      "shirosujikamikiri_yama"
+    ],
+    "Pidonia signifera": [
+      "kuroobi_hana_kamikiri"
+    ],
+    "Bacchisa fortunei": [
+      "ruri_kamikiri"
+    ],
+    "Pidonia amentata": [
+      "seijaku_kamikiri"
+    ],
+    "Allotraeus sphaerioninus": [
+      "tobiiro_kamikiri"
+    ],
+    "Xylotrechus villioni": [
+      "yotsusuji_tora_oo"
+    ],
+    "Xylotrechus pyrrhoderus": [
+      "budou_tora_kamikiri"
+    ],
+    "Rhagium japonicum": [
+      "haisuji_kamikiri"
+    ],
+    "Apriona japonica": [
+      "kuwakamikiri"
+    ],
+    "Acalolepta luxuriosa": [
+      "sentou_kamikiri",
+      "sennoki_kamikiri"
+    ],
+    "Falsomesosella gracilior": [
+      "shiraobi_goma_kamikiri"
+    ],
+    "Xystrocera globosa": [
+      "ao_suji_kamikiri"
+    ],
+    "Clytus melaenus": [
+      "shirake_tora_kamikiri"
+    ],
+    "Callidiellum rufipenne": [
+      "himesugi_kamikiri"
+    ],
+    "Epiglenea comes": [
+      "yotsukiboshi_kamikiri"
+    ],
+    "Mesosa longipennis": [
+      "naga_gomafu_kamikiri"
+    ],
+    "Eupromus ruber": [
+      "hoshibeni_kamikiri"
+    ],
+    "Stenygrinum quadrinotatum": [
+      "yotsuboshi_kamikiri"
+    ],
+    "Monochamus subfasciatus": [
+      "kuwagata_no_himekamikiri"
+    ],
+    "Acrothinium gaschkevitchii": [
+      "akagane_saru_hamushi"
+    ],
+    "Gallerucida bifasciata": [
+      "itadori_hamushi"
+    ],
+    "Aulacophora nigripennis": [
+      "kurouri_hamushi"
+    ],
+    "Aulacophora indica": [
+      "uri_hamushi"
+    ],
+    "Chrysolina aurichalcea": [
+      "yomogi_hamushi"
+    ],
+    "Chrysomela vigintipunctata": [
+      "yanagi_hamushi"
+    ],
+    "Chrysolina virgata": [
+      "ooruri_hamushi"
+    ],
+    "Chrysolina exanthematica": [
+      "hakka_hamushi"
+    ],
+    "Aspidomorpha indica": [
+      "jingasa_hamushi"
+    ],
+    "Gastrolina depressa": [
+      "kurumi_hamushi"
+    ],
+    "Plagiosterna adamsii": [
+      "kashiwaru_ri_hamushi"
+    ],
+    "Cassida nebulosa": [
+      "kameno_ko_hamushi"
+    ],
+    "Dorcus titanus": [
+      "hirata_kuwagata"
+    ],
+    "Dorcus rectus": [
+      "kokuwagata"
+    ],
+    "Dorcus rubrofemoratus": [
+      "aka_ashi_kuwagata"
+    ],
+    "Dorcus striatipennis": [
+      "suji_kuwagata"
+    ],
+    "Dorcus montivagus": [
+      "hime_oo_kuwagata"
+    ],
+    "Aegus subnitidus": [
+      "nebuto_kuwagata"
+    ],
+    "Figulus binodulus": [
+      "chibi_kuwagata"
+    ],
+    "Nicagus japonicus": [
+      "maguso_kuwagata"
+    ],
+    "Platycerus delicatulus": [
+      "ruri_kuwagata",
+      "oo_ruri_kuwagata"
+    ],
+    "Prismognathus angularis": [
+      "oni_kuwagata"
+    ],
+    "Aesalus asiaticus": [
+      "madara_kuwagata"
+    ],
+    "Dorcus titanus castanicolor": [
+      "tsushima_hirata_kuwagata"
+    ],
+    "Dorcus consentaneus": [
+      "chosen_hirata_kuwagata"
+    ],
+    "Rhaetulus recticornis": [
+      "amami_shika_kuwagata"
+    ],
+    "Prosopocoilus dissimilis elegans": [
+      "tokara_nokogiri_kuwagata"
+    ],
+    "Prosopocoilus dissimilis": [
+      "amami_nokogiri_kuwagata"
+    ],
+    "Dorcus amamianus yaeyamaensis": [
+      "yaeyama_koku_kuwagata"
+    ],
+    "Dorcus titanus sakishimanus": [
+      "sakishima_hirata_kuwagata"
+    ],
+    "Prosopocoilus pseudodissimilis": [
+      "yaeyama_nokogiri_kuwagata"
+    ],
+    "Ceruchus lignarius": [
+      "tsuya_hada_kuwagata"
+    ],
+    "Prosopocoilus inclinatus yakushimaensis": [
+      "yakushima_noko_kuwagata"
+    ],
+    "Platycerus acuticollis": [
+      "ko_ruri_kuwagata"
+    ],
+    "Parantica sita": [
+      "asagimadara"
+    ],
+    "Danaus chrysippus": [
+      "kabamadara"
+    ],
+    "Salatura genutia": [
+      "sujiguro_kabamadara"
+    ],
+    "Idea leuconoe": [
+      "oogomadara"
+    ],
+    "Euploea mulciber": [
+      "tsumamurasaki_madara"
+    ],
+    "Euploea eunice": [
+      "marubane_rurimadara"
+    ],
+    "Kallima inachus": [
+      "konohachou"
+    ],
+    "Libythea celtis": [
+      "tenguchou"
+    ],
+    "Cyrestis thyodamas": [
+      "ishigakechou"
+    ],
+    "Junonia almana": [
+      "tatehamodoki"
+    ],
+    "Junonia orithya": [
+      "ao_tatehamodoki"
+    ],
+    "Hypolimnas bolina": [
+      "ryukyu_murasaki"
+    ],
+    "Parnara guttata": [
+      "ichimonji_seseri"
+    ],
+    "Pelopidas mathias": [
+      "chabane_seseri"
+    ],
+    "Polytremis pellucida": [
+      "oochabane_seseri"
+    ],
+    "Pelopidas jansonis": [
+      "miyama_chabane_seseri"
+    ],
+    "Thoressa varia": [
+      "kochabane_seseri"
+    ],
+    "Thymelicus sylvaticus": [
+      "herigurochabane_seseri"
+    ],
+    "Thymelicus leoninus": [
+      "sujigurochabane_seseri"
+    ],
+    "Potanthus flavus": [
+      "kimadara_seseri"
+    ],
+    "Ochlodes ochracea": [
+      "himekimadara_seseri"
+    ],
+    "Ochlodes venata": [
+      "kokimadara_seseri"
+    ],
+    "Isoteinon lamprospilus": [
+      "hosoba_seseri"
+    ],
+    "Daimio tethys": [
+      "daimyo_seseri"
+    ],
+    "Erynnis montanus": [
+      "miyama_seseri"
+    ],
+    "Carterocephalus palaemon": [
+      "takanekimadara_seseri"
+    ],
+    "Notocrypta curvifascia": [
+      "kuro_seseri"
+    ],
+    "Aeromachus inachus": [
+      "hoshichabane_seseri"
+    ],
+    "Pyrgus maculatus": [
+      "chamadara_seseri"
+    ],
+    "Suastus gremius": [
+      "kuroboshi_seseri"
+    ],
+    "Borbo cinnara": [
+      "yuurei_seseri"
+    ],
+    "Telicota colon": [
+      "nettaiaka_seseri"
+    ],
+    "Hesperia florinda": [
+      "aka_seseri"
+    ],
+    "Hasora chromus": [
+      "okinawa_birodo_seseri"
+    ],
+    "Ochlodes venata sagitta": [
+      "tennen_kimadara_seseri"
+    ],
+    "Celastrina argiolus": [
+      "rurishijimi"
+    ],
+    "Celastrina sugitanii": [
+      "sugitani_rurishijimi"
+    ],
+    "Zizeeria maha": [
+      "yamatoshijimi"
+    ],
+    "Everes argiades": [
+      "tsubameshijimi"
+    ],
+    "Plebejus argus": [
+      "himeshijimi"
+    ],
+    "Plebejus subsolanus": [
+      "asamashijimi"
+    ],
+    "Phengaris teleius": [
+      "gomashijimi"
+    ],
+    "Phengaris arionides": [
+      "oogomashijimi"
+    ],
+    "Tongeia fischeri": [
+      "kurotsubame_shijimi"
+    ],
+    "Curetis acuta": [
+      "uraginshijimi"
+    ],
+    "Lampides boeticus": [
+      "uranamishijimi"
+    ],
+    "Megisba malaya": [
+      "taiwan_kuroboshi_shijimi"
+    ],
+    "Zizula hylax": [
+      "tsubamehazurao_shijimi"
+    ],
+    "Nacaduba kurava": [
+      "amida_shijimi"
+    ],
+    "Celastrina albocaerulea": [
+      "sokorabe_ruri_shijimi"
+    ],
+    "Acytolepis puspa": [
+      "yakushima_ruri_shijimi"
+    ],
+    "Pithecops fulgens": [
+      "ryukyu_uraboshi_shijimi"
+    ],
+    "Chilades pandava": [
+      "iwakawa_shijimi"
+    ],
+    "Jamides bochus": [
+      "ruri_uranami_shijimi"
+    ],
+    "Jamides alecto": [
+      "shirouranami_shijimi"
+    ],
+    "Udara dilecta": [
+      "tappi_shijimi"
+    ],
+    "Pieris melete": [
+      "sujiguro_shirochou"
+    ],
+    "Pieris napi": [
+      "ezosujiguro_shirochou"
+    ],
+    "Pieris brassicae": [
+      "oomon_shirochou"
+    ],
+    "Aporia crataegi": [
+      "ezo_shirochou"
+    ],
+    "Eurema hecabe": [
+      "minami_kichou"
+    ],
+    "Eurema mandarina": [
+      "kita_kichou"
+    ],
+    "Leptidea amurensis": [
+      "hime_shirochou"
+    ],
+    "Leptidea morsei": [
+      "eshima_hime_shirochou"
+    ],
+    "Catopsilia pomona": [
+      "kibane_seseri_dummy_replaced_usuki_shirochou"
+    ],
+    "Catopsilia pyranthe": [
+      "uranami_shirochou"
+    ],
+    "Appias paulina": [
+      "namie_shirochou"
+    ],
+    "Appias albina": [
+      "taiwan_shirochou"
+    ],
+    "Leptosia nina": [
+      "kuroten_shirochou"
+    ],
+    "Ixias pyrene": [
+      "tsumaaka_shirochou"
+    ],
+    "Eurema blanda": [
+      "kibasokichou_replaced_kibane_taiwan_kichou"
+    ],
+    "Eurema brigitta": [
+      "hoshiboshi_kichou"
+    ],
+    "Eurema laeta": [
+      "tsumaguro_kichou"
+    ],
+    "Gonepteryx maxima": [
+      "yamaki_chou"
+    ],
+    "Chalcophora japonica": [
+      "ubatamamushi"
+    ],
+    "Eurythyrea tenuistriata": [
+      "aotamamushi"
+    ],
+    "Buprestis haemorrhoidalis": [
+      "kurotamamushi"
+    ],
+    "Nipponobuprestis amabilis": [
+      "aomadara_tamamushi"
+    ],
+    "Agrilus cyaneoniger": [
+      "kuronaga_tamamushi",
+      "ao_naga_tamamushi"
+    ],
+    "Cicindela japana": [
+      "niwa_hanmyou"
+    ],
+    "Myriochila speculifera": [
+      "ko_hanmyou"
+    ],
+    "Cylindera kaleea yedoensis": [
+      "toukyou_hime_hanmyou"
+    ],
+    "Damaster blaptoides rugipennis": [
+      "maimaikaburi_ezo"
+    ],
+    "Carabus dehaanii": [
+      "oo_osamushi"
+    ],
+    "Carabus procerulus": [
+      "kuronaga_osamushi"
+    ],
+    "Carabus tuberculosus": [
+      "seaka_osamushi"
+    ],
+    "Carabus albrechti": [
+      "kuro_osamushi",
+      "oo_kubonaga_gomimushi"
+    ],
+    "Carabus granulatus": [
+      "akagane_osamushi"
+    ],
+    "Chlaenius pallipes": [
+      "ao_gomimushi"
+    ],
+    "Lesticus magnus": [
+      "oo_gomimushi"
+    ],
+    "Chlaenius costiger": [
+      "suji_ao_gomimushi"
+    ],
+    "Chlaenius naeviger": [
+      "atoboshi_ao_gomimushi",
+      "ki_obi_aogomimushi"
+    ],
+    "Odacantha aegrota": [
+      "kubinaga_gomimushi",
+      "kubi_naga_gomimushi"
+    ],
+    "Polygonia c-aureum": [
+      "kitateha"
+    ],
+    "Polygonia c-album": [
+      "shitateha"
+    ],
+    "Nymphalis vaualbum": [
+      "eltateha"
+    ],
+    "Nymphalis xanthomelas": [
+      "hiodoshichou"
+    ],
+    "Vanessa indica": [
+      "akatateha"
+    ],
+    "Vanessa cardui": [
+      "himeakatateha"
+    ],
+    "Kaniska canace": [
+      "ruritateha"
+    ],
+    "Aglais io": [
+      "kujakuchou"
+    ],
+    "Hestina persimilis": [
+      "gomadarachou"
+    ],
+    "Limenitis glorifica": [
+      "asama_ichimonji"
+    ],
+    "Neptis philyra": [
+      "misujichou"
+    ],
+    "Neptis pryeri": [
+      "hoshimisuji"
+    ],
+    "Neptis rivularis": [
+      "futasujichou"
+    ],
+    "Aglais urticae": [
+      "kobatateha"
+    ],
+    "Nymphalis antiopa": [
+      "kibatateha"
+    ],
+    "Araschnia levana": [
+      "akamadara"
+    ],
+    "Favonius cognatus": [
+      "hiroobi_midorishijimi"
+    ],
+    "Favonius yuasai": [
+      "kuro_midorishijimi"
+    ],
+    "Sibataniozephyrus fujisanus": [
+      "fuji_midorishijimi"
+    ],
+    "Iratsume orsedice": [
+      "urakuro_shijimi"
+    ],
+    "Wagimo signatus": [
+      "uramisuji_shijimi"
+    ],
+    "Japonica onoi": [
+      "kashiwa_akashijimi",
+      "akashijimi_kita"
+    ],
+    "Shirozua jonasi": [
+      "mumon_akashijimi"
+    ],
+    "Antigius attilia": [
+      "mizuiro_onaga_shijimi"
+    ],
+    "Antigius butleri": [
+      "usuiro_onaga_shijimi"
+    ],
+    "Araragi enthea": [
+      "onaga_shijimi"
+    ],
+    "Rapala arata": [
+      "torafu_shijimi"
+    ],
+    "Callophrys ferrea": [
+      "kotsubame"
+    ],
+    "Fixsenia mera": [
+      "miyama_karasu_shijimi"
+    ],
+    "Fixsenia w-album": [
+      "karasu_shijimi"
+    ],
+    "Arhopala japonica": [
+      "murasaki_shijimi"
+    ],
+    "Narathura bazalus": [
+      "murasaki_tsubame"
+    ],
+    "Japonica onoi mizobei": [
+      "akashijimi_minami"
+    ],
+    "Anax nigrofasciatus": [
+      "kurosuji_ginyanma"
+    ],
+    "Aeshna juncea": [
+      "ruriboshi_yanma"
+    ],
+    "Aeshna crenata": [
+      "ooruriboshi_yanma"
+    ],
+    "Boyeria maclachlani": [
+      "koshiboso_yanma"
+    ],
+    "Anaciaeschna martini": [
+      "marutan_yanma"
+    ],
+    "Gynacantha japonica": [
+      "katori_yanma"
+    ],
+    "Sieboldius albardae": [
+      "ko_oniyanma"
+    ],
+    "Asiagomphus melaenops": [
+      "yama_sanae"
+    ],
+    "Onychogomphus viridicostus": [
+      "onaga_sanae"
+    ],
+    "Sinictinogomphus clavatus": [
+      "uchiwa_yanma"
+    ],
+    "Ictinogomphus pertinax": [
+      "taiwan_uchiwa_yanma"
+    ],
+    "Somatochlora viridiaenea": [
+      "ezo_tonbo"
+    ],
+    "Somatochlora uchidai": [
+      "takane_tonbo"
+    ],
+    "Planaeschna milnei": [
+      "mirun_yanma"
+    ],
+    "Orthetrum melania": [
+      "ooshiokara_tonbo"
+    ],
+    "Orthetrum japonicum": [
+      "shioya_tonbo"
+    ],
+    "Crocothemis servilia": [
+      "shoujou_tonbo"
+    ],
+    "Sympetrum darwinianum": [
+      "natsuakane"
+    ],
+    "Sympetrum infuscatum": [
+      "noshime_tonbo"
+    ],
+    "Sympetrum pedemontanum elatum": [
+      "miyama_akane"
+    ],
+    "Sympetrum baccha matutinum": [
+      "konoshime_tonbo"
+    ],
+    "Pantala flavescens": [
+      "usubaki_tonbo"
+    ],
+    "Rhyothemis fuliginosa": [
+      "chou_tonbo"
+    ],
+    "Deielia phaon": [
+      "kofuki_tonbo"
+    ],
+    "Nannophya pygmaea": [
+      "hatchou_tonbo"
+    ],
+    "Lestes sponsa": [
+      "aoito_tonbo"
+    ],
+    "Sympecma paedisca": [
+      "otsunen_tonbo"
+    ],
+    "Ceriagrion melanurum": [
+      "kiito_tonbo"
+    ],
+    "Copera annulata": [
+      "monosashi_tonbo"
+    ],
+    "Paracercion calamorum": [
+      "kuroito_tonbo"
+    ],
+    "Ceriagrion nipponicum": [
+      "beniito_tonbo"
+    ],
+    "Mnais costalis": [
+      "nihon_kawatombo"
+    ],
+    "Calopteryx atrata": [
+      "haguro_tonbo"
+    ],
+    "Calopteryx cornelia": [
+      "miyama_kawatombo"
+    ],
+    "Platypleura kaempferi": [
+      "niinii_zemi"
+    ],
+    "Lyristes japonicus": [
+      "ezo_zemi"
+    ],
+    "Lyristes bihamatus": [
+      "koezo_zemi"
+    ],
+    "Terpnosia vacua": [
+      "haru_zemi"
+    ],
+    "Kosemia radiator": [
+      "chicchi_zemi"
+    ],
+    "Halyomorpha halys": [
+      "kusagi_kamemushi"
+    ],
+    "Nezara antennata": [
+      "aokusa_kamemushi"
+    ],
+    "Sastragala esakii": [
+      "esaki_monki_tsuno_kamemushi"
+    ],
+    "Erthesina fullo": [
+      "kimadara_kamemushi"
+    ],
+    "Eucorysses grandis": [
+      "ookin_kamemushi"
+    ],
+    "Poecilocoris lewisi": [
+      "akasuji_kin_kamemushi",
+      "master_nishiki_kin_kamemushi"
+    ],
+    "Calliphara excellens": [
+      "nanahoshi_kin_kamemushi"
+    ],
+    "Notonecta triguttata": [
+      "matsumomushi"
+    ],
+    "Atractomorpha lata": [
+      "onbu_batta"
+    ],
+    "Gastrimargus marmoratus": [
+      "kuruma_batta"
+    ],
+    "Glyptobothrus maritimus": [
+      "hina_batta"
+    ],
+    "Trilophidia japonica": [
+      "ibo_batta"
+    ],
+    "Epacromius japonicus": [
+      "yamato_batta"
+    ],
+    "Oxya yezoensis": [
+      "kobane_inago"
+    ],
+    "Oxya japonica": [
+      "hanenaga_inago"
+    ],
+    "Tettigonia orientalis": [
+      "yabukiri"
+    ],
+    "Mecopoda nipponensis": [
+      "kutsuwamushi"
+    ],
+    "Hexacentrus japonicus": [
+      "umaoi",
+      "hatakeno_umaoi"
+    ],
+    "Phaneroptera falcata": [
+      "tsuyumushi"
+    ],
+    "Conocephalus melaenus": [
+      "sasakiri"
+    ],
+    "Oecanthus longicauda": [
+      "kantan"
+    ],
+    "Xenogryllus marmoratus": [
+      "matsumushi"
+    ],
+    "Ornebius kanetataki": [
+      "kanetataki"
+    ],
+    "Hierodula patellifera": [
+      "harabiro_kamakiri"
+    ],
+    "Statilia maculata": [
+      "kokamakiri"
+    ],
+    "Tenodera angustipennis": [
+      "chosen_kamakiri"
+    ],
+    "Acromantis japonica": [
+      "hime_kamakiri"
+    ],
+    "Ramulus mikado": [
+      "nanafushi_modoki"
+    ],
+    "Neohirasea japonica": [
+      "toge_nanafushi"
+    ],
+    "Phraortes elongatus": [
+      "eda_nanafushi"
+    ],
+    "Xylocopa appendiculata circumvolans": [
+      "kimune_kumabachi"
+    ],
+    "Vespa mandarinia": [
+      "oo_suzumebachi"
+    ],
+    "Vespa simillima xanthoptera": [
+      "kiiro_suzumebachi"
+    ],
+    "Vespa analis": [
+      "kogata_suzumebachi"
+    ],
+    "Polistes rothneyi": [
+      "kiashinaga_bachi"
+    ],
+    "Polistes jokahamae": [
+      "seguro_ashinaga_bachi"
+    ],
+    "Ammophila sabulosa": [
+      "jigabachi"
+    ],
+    "Anoplius samariensis": [
+      "oomonkuro_bekkou"
+    ],
+    "Sphex argentatus fumosus": [
+      "kuro_anabachi"
+    ],
+    "Camponotus obscuripes": [
+      "muneaka_ooari"
+    ],
+    "Formica japonica": [
+      "kuroyama_ari"
+    ],
+    "Lasius japonicus": [
+      "tobiiro_keari"
+    ],
+    "Polyergus samurai": [
+      "samurai_ari"
+    ],
+    "Promachus yesonicus": [
+      "shioya_abu"
+    ],
+    "Phytomia zonata": [
+      "oo_hanaabu"
+    ],
+    "Episyrphus balteatus": [
+      "hosohirata_abu"
+    ],
+    "Cybister brevis": [
+      "kuro_gengorou"
+    ],
+    "Cybister tripunctatus lateralis": [
+      "kogatano_gengorou"
+    ],
+    "Eretes griseus": [
+      "haiiro_gengorou"
+    ],
+    "Hydrophilus acuminatus": [
+      "gamushi",
+      "oo_gamushi"
+    ],
+    "Gyrinus japonicus": [
+      "mizusumashi"
+    ],
+    "Aquatica lateralis": [
+      "heike_botaru"
+    ],
+    "Luciola parvula": [
+      "hime_botaru"
+    ],
+    "Aiolocaria hexaspilota": [
+      "kamenoko_tentou"
+    ],
+    "Calvia quatuordecimguttata": [
+      "juushihoshi_tentou",
+      "shiro_juni_hoshi_tentou"
+    ],
+    "Henosepilachna vigintioctopunctata": [
+      "nijuuyahoshi_tentou"
+    ],
+    "Mesalcidodes trifidus": [
+      "ojiro_ashinaga_zoumushi"
+    ],
+    "Episomus turritus": [
+      "shirokobu_zoumushi",
+      "hime_botan_zou"
+    ],
+    "Sipalinus gigas": [
+      "oo_zoumushi"
+    ],
+    "Cephonodes hylas": [
+      "oosukashiba"
+    ],
+    "Macroglossum pyrrhosticta": [
+      "hoshihoujaku"
+    ],
+    "Deilephila elpenor": [
+      "benisuzume"
+    ],
+    "Theretra oldenlandiae": [
+      "sesujisuzume"
+    ],
+    "Agrius convolvuli": [
+      "ebigarasuzume"
+    ],
+    "Marumba gaschkewitschii": [
+      "momosuzume"
+    ],
+    "Ampelophaga rubiginosa": [
+      "kurumasuzume"
+    ],
+    "Theretra japonica": [
+      "kosuzume"
+    ],
+    "Callambulyx tatarinovii": [
+      "unmonsuzume"
+    ],
+    "Neogurelca himachala": [
+      "hoshihime_houjaku"
+    ],
+    "Psilogramma increta": [
+      "shimofuri_suzume"
+    ],
+    "Acherontia styx": [
+      "mengata_suzume"
+    ],
+    "Rhagastis mongoliana": [
+      "birodo_suzume"
+    ],
+    "Sphinx constricta": [
+      "koebigarasuzume"
+    ],
+    "Clanis bilineata": [
+      "tobiiro_suzume"
+    ],
+    "Macroglossum saga": [
+      "kurohoujaku"
+    ],
+    "Langia zenzeroides": [
+      "oshimofuri_suzume"
+    ],
+    "Smerinthus planus": [
+      "usuba_suzume"
+    ],
+    "Actias aliena": [
+      "oomizuao"
+    ],
+    "Actias gnoma": [
+      "onagamizuao"
+    ],
+    "Antheraea yamamai": [
+      "yamamayu"
+    ],
+    "Caligula japonica": [
+      "kususan"
+    ],
+    "Saturnia jonasii": [
+      "himeyamamayu"
+    ],
+    "Samia cynthia": [
+      "shinjusan"
+    ],
+    "Aglia japonica": [
+      "ezoyotsume"
+    ],
+    "Rhodinia fugax": [
+      "usutabiga"
+    ],
+    "Attacus atlas ryukyuensis": [
+      "yonagunisan"
+    ],
+    "Rhodinia jankowskii": [
+      "kurousutabiga"
+    ],
+    "Bombyx mori": [
+      "kaiko_moth"
+    ],
+    "Bombyx mandarina": [
+      "kuwago"
+    ],
+    "Actias aliena xenia": [
+      "oomizuao_oki"
+    ],
+    "Epicopeia hainesii": [
+      "agehamodoki"
+    ],
+    "Cerace xanthocosma": [
+      "biroudohamaki"
+    ],
+    "Monema flavescens": [
+      "iraga"
+    ],
+    "Parasa lepida": [
+      "hiroheriaoiraga"
+    ],
+    "Amata fortunei": [
+      "kanokoga"
+    ],
+    "Pidorus atratus": [
+      "hotaruga"
+    ],
+    "Pryeria sinica": [
+      "minousuba"
+    ],
+    "Psychostrophia melanargia": [
+      "kinmonga"
+    ],
+    "Erasmia pulchella": [
+      "satsumanishiki"
+    ],
+    "Eudocima tyrannus": [
+      "akebikonoha"
+    ],
+    "Comostola subtiliaria": [
+      "yotsumeaoshaku"
+    ],
+    "Spilarctia seriatopunctata": [
+      "sujimon_hitori"
+    ],
+    "Chelonomorpha japona": [
+      "toraga"
+    ],
+    "Catocala patala": [
+      "shitaba_kibara"
+    ],
+    "Catocala electa": [
+      "shitaba_benishitaba"
+    ],
+    "Amata germana": [
+      "ino_kosukashiba"
+    ],
+    "Catocala dula": [
+      "ooshitaba"
+    ],
+    "Jodis putata": [
+      "kiboshi_aoshaku"
+    ],
+    "Lemyra imparilis": [
+      "akahige_dokuga"
+    ],
+    "Xestia c-nigrum": [
+      "benisuzume_madara"
+    ],
+    "Catocala nivea": [
+      "shiroshitaba"
+    ],
+    "Catocala fraxini": [
+      "murasakishitaba"
+    ],
+    "Macdunnoughia confusa": [
+      "kinuwaba"
+    ],
+    "Amphipyra livida": [
+      "karasu_yotou"
+    ],
+    "Hyphantria cunea": [
+      "america_shirohitori"
+    ],
+    "Arctia caja": [
+      "hitoriga"
+    ],
+    "Lymantria dispar": [
+      "maimaiga"
+    ],
+    "Euproctis pseudoconspersa": [
+      "chadokuga"
+    ],
+    "Euproctis piperita": [
+      "kidokuga"
+    ],
+    "Biston robustum": [
+      "tobimon_ooedashaku"
+    ],
+    "Ophthalmitis albosignaria": [
+      "yotsume_edashaku"
+    ],
+    "Pachista superans": [
+      "ooaya_shaku"
+    ],
+    "Erannis golda": [
+      "chabane_fuyu_eda_shaku"
+    ],
+    "Pachyerannis obliquaria": [
+      "kurosuji_fuyu_eda_shaku"
+    ],
+    "Synanthedon hector": [
+      "kosukashiba"
+    ],
+    "Synanthedon tenuis": [
+      "hime_kosukashiba"
+    ],
+    "Epiophlebia superstes": [
+      "mukashi_tonbo"
+    ],
+    "Tanypteryx pryeri": [
+      "mukashi_yanma"
+    ],
+    "Aeschnophlebia longistigma": [
+      "ao_yanma"
+    ],
+    "Polycanthagyna melanictera": [
+      "yabu_yanma"
+    ],
+    "Sarasaeschna pryeri": [
+      "sarasa_yanma"
+    ],
+    "Anax guttatus": [
+      "ryukyu_ginyanma"
+    ],
+    "Pseudothemis zonata": [
+      "koshiaki_tonbo"
+    ],
+    "Lyriothemis pachygastra": [
+      "harabiro_tonbo"
+    ],
+    "Libellula quadrimaculata": [
+      "yotsuboshi_tonbo"
+    ],
+    "Trithemis aurora": [
+      "beni_tonbo"
+    ],
+    "Tramea virginia": [
+      "hanebiro_tonbo"
+    ],
+    "Sympetrum croceolum": [
+      "ki_tonbo"
+    ],
+    "Sympetrum eroticum": [
+      "mayutate_akane"
+    ],
+    "Sympetrum parvulum": [
+      "hime_akane"
+    ],
+    "Sympetrum speciosum": [
+      "neki_tonbo"
+    ],
+    "Sympetrum risi": [
+      "risu_akane"
+    ],
+    "Sympetrum gracile": [
+      "naniwa_tonbo"
+    ],
+    "Mnais pruinosa": [
+      "asahina_kawa_tonbo"
+    ],
+    "Calopteryx japonica": [
+      "aohada_tonbo"
+    ],
+    "Lestes temporalis": [
+      "oo_ao_ito_tonbo"
+    ],
+    "Indolestes peregrinus": [
+      "hosomi_otsunen_tonbo"
+    ],
+    "Ischnura asiatica": [
+      "asia_ito_tonbo"
+    ],
+    "Paracercion hieroglyphicum": [
+      "sesuji_ito_tonbo"
+    ],
+    "Paracercion sieboldii": [
+      "oo_ito_tonbo"
+    ],
+    "Aciagrion migratum": [
+      "hosomi_ito_tonbo"
+    ],
+    "Enallagma circulatum": [
+      "ruri_ito_tonbo"
+    ],
+    "Sympetrum flaveolum": [
+      "ezo_akane"
+    ],
+    "Sympetrum striolatum": [
+      "tairiku_akane"
+    ],
+    "Macromia amphigena": [
+      "koyama_tonbo"
+    ],
+    "Epophthalmia elegans": [
+      "oo_yama_tonbo"
+    ],
+    "Somatochlora clavata": [
+      "hanebiro_ezo_tonbo"
+    ],
+    "Epitheca marginata": [
+      "torafu_tonbo"
+    ],
+    "Davidius nanus": [
+      "davido_sanae"
+    ],
+    "Trigomphus melampus": [
+      "kosanae"
+    ],
+    "Shaogomphus postocularis": [
+      "hon_sanae"
+    ],
+    "Nihonogomphus viridis": [
+      "ao_sanae"
+    ],
+    "Asiagomphus pryeri": [
+      "kiiro_sanae"
+    ],
+    "Stylurus oculatus": [
+      "megane_sanae"
+    ],
+    "Stylogomphus suzukii": [
+      "ojiro_sanae"
+    ],
+    "Davidius moiwanus": [
+      "hira_sanae"
+    ],
+    "Somatochlora exuberata": [
+      "ko_ezo_tonbo"
+    ],
+    "Oedaleus infernalis": [
+      "kuruma_batta_modoki"
+    ],
+    "Aiolopus thalassinus tamulus": [
+      "madara_batta"
+    ],
+    "Gonista bicolor": [
+      "shouryou_batta_modoki"
+    ],
+    "Patanga japonica": [
+      "tsuchi_inago"
+    ],
+    "Parapodisma": [
+      "fuki_batta"
+    ],
+    "Mongolotettix japonicus": [
+      "naki_inago"
+    ],
+    "Eusphingonotus japonicus": [
+      "kawara_batta"
+    ],
+    "Tetrix japonica": [
+      "hishibatta",
+      "hara_hishi_batta"
+    ],
+    "Euparatettix insularis": [
+      "hanenaga_hishibatta"
+    ],
+    "Dianemobius csikii": [
+      "hamasuzu"
+    ],
+    "Loxoblemmus doenitzi": [
+      "mitsukado_koorogi"
+    ],
+    "Velarifictorus micado": [
+      "tsuzure_sase_koorogi"
+    ],
+    "Loxoblemmus": [
+      "okame_koorogi"
+    ],
+    "Modicogryllus siamensis": [
+      "tanbo_koorogi",
+      "hatake_korogi"
+    ],
+    "Dianemobius furumagiensis": [
+      "kuro_suzu"
+    ],
+    "Polionemobius mikado": [
+      "shiba_suzu"
+    ],
+    "Dianemobius nigrofasciatus": [
+      "madara_suzu"
+    ],
+    "Truljalia hibinonis": [
+      "aomatsumushi"
+    ],
+    "Teleogryllus occipitalis": [
+      "taiwan_emma_koorogi"
+    ],
+    "Hexacentrus hareyamai": [
+      "umaoi_haya"
+    ],
+    "Eobiana engelhardti subtropica": [
+      "hime_giis"
+    ],
+    "Chizuella bonneti": [
+      "kobane_hime_giis"
+    ],
+    "Ruspolia lineosa": [
+      "kusakiri"
+    ],
+    "Euconocephalus thunbergi": [
+      "kubikiri_gisu"
+    ],
+    "Pseudorhynchus japonicus": [
+      "kayakiri"
+    ],
+    "Conocephalus maculatus": [
+      "hoshi_sasakiri"
+    ],
+    "Ducetia japonica": [
+      "sesuji_tsuyumushi"
+    ],
+    "Phaneroptera nigroantennata": [
+      "ashiguro_tsuyumushi"
+    ],
+    "Diestrammena apicalis": [
+      "kamado_uma",
+      "kuchiki_uma_oi"
+    ],
+    "Diestrammena japanica": [
+      "madara_kamado_uma"
+    ],
+    "Gryllotalpa orientalis": [
+      "kera"
+    ],
+    "Nezara viridula": [
+      "minami_aokamemushi"
+    ],
+    "Physopelta parviceps": [
+      "shiroten_kamemushi"
+    ],
+    "Physopelta gutta": [
+      "oohoshi_kamemushi"
+    ],
+    "Graphosoma rubrolineatum": [
+      "akasuji_kamemushi"
+    ],
+    "Sphedanolestes impressicollis": [
+      "shimasashigame"
+    ],
+    "Agriosphodrus dohrni": [
+      "yokozuna_sashigame"
+    ],
+    "Dysdercus cingulatus": [
+      "akahoshi_kamemushi"
+    ],
+    "Urostylis westwoodii": [
+      "kunugi_kamemushi"
+    ],
+    "Megacopta punctatissima": [
+      "tochukasou_replaced_marukamemushi"
+    ],
+    "Macroscytus japonensis": [
+      "tsuchi_kamemushi"
+    ],
+    "Homoeocerus dilatatus": [
+      "haragurokamemushi"
+    ],
+    "Acanthocoris sordidus": [
+      "homoeocerus_kuro_herikamemushi"
+    ],
+    "Cletus punctiger": [
+      "hosohari_kamemushi"
+    ],
+    "Plautia stali": [
+      "kin_kamemushi_chabane"
+    ],
+    "Glaucias subpunctatus": [
+      "tsuya_aokamemushi"
+    ],
+    "Poecilocoris splendidulus": [
+      "akasuji_kin_himekinkamemushi"
+    ],
+    "Acanthosoma labiduroides": [
+      "tsuno_kamemushi_esaki_replaced"
+    ],
+    "Acanthosoma denticaudum": [
+      "seaka_tsuchikamemushi"
+    ],
+    "Homoeocerus unipunctatus": [
+      "tsumaki_herikamemushi"
+    ],
+    "Scotinophara horvathi": [
+      "ookurokamemushi"
+    ],
+    "Bothrogonia ferruginea": [
+      "tsumaguro_oyokobai"
+    ],
+    "Geisha distinctissima": [
+      "ooyokobai_aobaha"
+    ],
+    "Orosanga japonicus": [
+      "betsubekkou_hagoromo"
+    ],
+    "Aphrophora intermedia": [
+      "ooshira_awafuki"
+    ],
+    "Aphrophora major": [
+      "moriawafuki"
+    ],
+    "Gargara genistae": [
+      "tsunozemi_marubane"
+    ],
+    "Machaerotypus sibiricus": [
+      "togezunozemi"
+    ],
+    "Meimuna oshimensis": [
+      "tsukuhoushi_replaced_aotsukutsuku"
+    ],
+    "Mogannia minuta": [
+      "kuma_zemi_kuro_replaced_iwasaki"
+    ],
+    "Terpnosia nigricosta": [
+      "ezo_haru_zemi"
+    ],
+    "Euterpnosia chibensis": [
+      "kuma_zemi_replaced_tsukutsuku_oushuu"
+    ],
+    "Laccotrephes japonensis": [
+      "taikouchi"
+    ],
+    "Nepa hoffmanni": [
+      "hime_taikouchi"
+    ],
+    "Ranatra unicolor": [
+      "hime_mizukamakiri"
+    ],
+    "Gerris nepalensis": [
+      "matsumomushi_replaced_kobane"
+    ],
+    "Gerris latiabdominis": [
+      "himeamenbo"
+    ],
+    "Aquarius elongatus": [
+      "ooamenbo"
+    ],
+    "Metrocoris histrio": [
+      "shimaamenbo"
+    ],
+    "Halobates japonicus": [
+      "umiamenbo"
+    ],
+    "Appasus japonicus": [
+      "kooimushi"
+    ],
+    "Appasus major": [
+      "kogatano_kooimushi"
+    ],
+    "Hydrometra albolineata": [
+      "miizuamenbo_kemizu"
+    ],
+    "Megachile pluto": [
+      "wallace_giant_bee"
+    ],
+    "Vespa ducalis": [
+      "himesuzumebachi"
+    ],
+    "Vespa crabro": [
+      "monsuzumebachi"
+    ],
+    "Vespa dybowskii": [
+      "chairo_suzumebachi"
+    ],
+    "Vespula flaviceps": [
+      "kuro_suzumebachi",
+      "kuro_obi_hosonaga_suzumebachi"
+    ],
+    "Vespa velutina": [
+      "ootabu_suzumebachi"
+    ],
+    "Apis mellifera": [
+      "seiyou_mitsubachi"
+    ],
+    "Polistes chinensis antennalis": [
+      "futamon_ashinagabachi"
+    ],
+    "Polistes snelleni": [
+      "koashinaga_bachi"
+    ],
+    "Polistes japonicus": [
+      "yamato_ashinagabachi"
+    ],
+    "Polistes jadwigae": [
+      "nihon_ashinagabachi"
+    ],
+    "Bombus diversus": [
+      "oomaru_hanabachi"
+    ],
+    "Bombus ignitus": [
+      "kuromaru_hanabachi"
+    ],
+    "Bombus terrestris": [
+      "seiyou_oomaru_hanabachi"
+    ],
+    "Eucera nipponensis": [
+      "nihon_himehanabachi"
+    ],
+    "Nomia punctulata": [
+      "tsuyahanabachi"
+    ],
+    "Megachile sculpturalis": [
+      "ooharikiri_bachi"
+    ],
+    "Osmia cornifrons": [
+      "tsutsuhanabachi"
+    ],
+    "Chalybion japonicum": [
+      "rokoku_jigabachi"
+    ],
+    "Ammophila sabulosa nipponica": [
+      "kobe_jigabachi"
+    ],
+    "Lipotriches ceratina": [
+      "kongou_anabachi"
+    ],
+    "Cyphononyx confluens": [
+      "beni_bekkoubachi"
+    ],
+    "Episyron arrogans": [
+      "ooshiro_bekkou"
+    ],
+    "Euurobracon yokahamae": [
+      "umaoi_himebachi"
+    ],
+    "Trogus mactator": [
+      "ageha_himebachi"
+    ],
+    "Megarhyssa praecellens": [
+      "ooke_himebachi"
+    ],
+    "Megacampsomeris prismatica": [
+      "kuro_tsuchibachi",
+      "naki_kumabachi"
+    ],
+    "Bischoffitilla pungens": [
+      "akagashira_aribachi"
+    ],
+    "Aphaenogaster japonica": [
+      "kuro_yamato_ari"
+    ],
+    "Anoplolepis gracilipes": [
+      "ito_ari"
+    ],
+    "Solenopsis invicta": [
+      "hiari"
+    ],
+    "Messor aciculatus": [
+      "kurogetsuya_oo_ari"
+    ],
+    "Nylanderia flavipes": [
+      "ooari_kurokushi"
+    ],
+    "Protohermes grandis": [
+      "hebitonbo"
+    ],
+    "Parachauliodes japonicus": [
+      "yamato_kuroshijimi_hebitonbo_dummy"
+    ],
+    "Sialis japonica": [
+      "senburi"
+    ],
+    "Mantispa japonica": [
+      "kamakirimodoki"
+    ],
+    "Eumantispa harmandi": [
+      "kibara_kamakirimodoki"
+    ],
+    "Hagenomyia micans": [
+      "usuba_kagerou",
+      "arijigoku"
+    ],
+    "Chrysoperla nipponensis": [
+      "kusakagerou",
+      "oo_kakagerou_dummy"
+    ],
+    "Hybris subjacens": [
+      "tsunotonbo"
+    ],
+    "Libelloides ramburi": [
+      "ki_tsunotonbo"
+    ],
+    "Goera japonica": [
+      "tobikera_ninfa_dummy"
+    ],
+    "Stenopsyche marmorata": [
+      "oo_tobikera"
+    ],
+    "Micadina yasumatsui": [
+      "nanafushi_modoki_seibu_dummy"
+    ],
+    "Micadina phluctainoides": [
+      "shirabui_nanafushi_dummy"
+    ],
+    "Phraortes amamiensis": [
+      "amami_nanafushi_dummy"
+    ],
+    "Phyllium pulchrifolium": [
+      "konoha_mushi"
+    ],
+    "Phryganistria chinensis zhaoi": [
+      "sekai_saichou_nanafushi"
+    ],
+    "Tipula aino": [
+      "gagambo"
+    ],
+    "Holorusia mikado": [
+      "mikado_gagambo"
+    ],
+    "Eristalis cerealis": [
+      "oo_hanaabu_oddball_dummy"
+    ],
+    "Eristalis tenax": [
+      "nami_hanaabu",
+      "hana_abu"
+    ],
+    "Cophinopoda chinensis": [
+      "ao_metsuka_abu_dummy"
+    ],
+    "Laphria mitsukurii": [
+      "shiokara_abu_oddball_dummy"
+    ],
+    "Idolomantis diabolica": [
+      "ni_idolomantis_diabolica"
+    ],
+    "Hymenopus coronatus": [
+      "hana_kamakiri"
+    ],
+    "Mantis religiosa": [
+      "usuba_kamakiri"
+    ],
+    "Acromantis satsumensis": [
+      "hime_kamakiri_oddball_dummy"
+    ],
+    "Hierodula chinensis": [
+      "muna_biro_kamakiri_dummy"
+    ],
+    "Phyllothelys werneri": [
+      "ranran_hana_kamakiri_dummy"
+    ],
+    "Deroplatys desiccata": [
+      "orchid_ghost_mantis_dummy"
+    ],
+    "Protohermes xanthodes": [
+      "obi_hebitonbo_dummy"
+    ],
+    "Hexarthrius parryi": [
+      "parry_futamata_kuwagata"
+    ],
+    "Hexarthrius mandibularis": [
+      "mandibularis_futamata_kuwagata"
+    ],
+    "Hexarthrius buddha": [
+      "buddha_futamata_kuwagata"
+    ],
+    "Dorcus antaeus": [
+      "antaeus_ookuwagata"
+    ],
+    "Dorcus hopei": [
+      "hopei_ookuwagata"
+    ],
+    "Dorcus grandis": [
+      "grandis_ookuwagata"
+    ],
+    "Mesotopus tarandus": [
+      "tarandus_kuwagata"
+    ],
+    "Homoderus mellyi": [
+      "mengata_kuwagata"
+    ],
+    "Dorcus alcides": [
+      "alcides_ookuwagata"
+    ],
+    "Cyclommatus elaphus": [
+      "elaphus_noko_kuwagata"
+    ],
+    "Cyclommatus metallifer": [
+      "metallifer_noko_kuwagata"
+    ],
+    "Prosopocoilus fabricei": [
+      "feminata_noko_kuwagata"
+    ],
+    "Prosopocoilus zebra": [
+      "lateralis_noko_kuwagata",
+      "eurosternus_noko_kuwagata"
+    ],
+    "Megasoma elephas": [
+      "elephas_zou_kabuto"
+    ],
+    "Megasoma actaeon": [
+      "actaeon_zou_kabuto"
+    ],
+    "Megasoma mars": [
+      "mars_zou_kabuto"
+    ],
+    "Dynastes neptunus": [
+      "neptunus_oo_kabuto"
+    ],
+    "Dynastes satanas": [
+      "satanas_oo_kabuto"
+    ],
+    "Eupatorus gracilicornis": [
+      "gohon_zuno_kabuto"
+    ],
+    "Chalcosoma atlas": [
+      "siamensis_atlas_kabuto"
+    ],
+    "Dynastes hyllus": [
+      "tityus_oo_kabuto"
+    ],
+    "Dynastes granti": [
+      "granti_oo_kabuto"
+    ],
+    "Necrophila japonica": [
+      "oohirata_shidemushi"
+    ],
+    "Nicrophorus concolor": [
+      "kuro_shidemushi"
+    ],
+    "Nicrophorus quadripunctatus": [
+      "yotsuboshi_monashidemushi"
+    ],
+    "Encaustes praenobilis": [
+      "ooki_no_komushi"
+    ],
+    "Lycocerus suturellus": [
+      "joukaibon"
+    ],
+    "Lycostomus modestus": [
+      "beni_botaru"
+    ],
+    "Agrypnus binodulus": [
+      "sabikikori"
+    ],
+    "Cryptalaus berus": [
+      "ubatama_kometsuki",
+      "oo_futa_mon_kometsuki"
+    ],
+    "Nipponoelater sieboldi": [
+      "oonaga_kometsuki"
+    ],
+    "Meloe coarctatus": [
+      "tsuchi_hanmyou"
+    ],
+    "Epicauta gorhami": [
+      "mamehan_myou"
+    ],
+    "Tribolium castaneum": [
+      "gomimushidamashi_kohira"
+    ],
+    "Promethis valgipes": [
+      "sanagora_gomimushidamashi"
+    ],
+    "Cylindrocaulus patalis": [
+      "kuro_tsuyamushi"
+    ],
+    "Pseudopyrochroa rufula": [
+      "akahane_mushi"
+    ],
+    "Paederus fuscipes": [
+      "ari_suaba_kakushi"
+    ],
+    "Ocypus weisei": [
+      "oo_hanekakushi"
+    ],
+    "Hololepta amurensis": [
+      "enma_mushi"
+    ],
+    "Anthrenus verbasci": [
+      "katsuobushi_mushi"
+    ],
+    "Themus cyanipennis": [
+      "ao_joukai",
+      "aobane_joukai"
+    ],
+    "Episcapha fortunii": [
+      "kibushi_kokinoko"
+    ],
+    "Trox setifer": [
+      "hime_kabuto_modoki"
+    ],
+    "Librodor japonicus": [
+      "maru_toge_mushi",
+      "yotsuboshi_keshikisui"
+    ],
+    "Opilo mollis": [
+      "kiobinaga_kakkoumushi"
+    ],
+    "Catocala lara": [
+      "kushihige_yaga"
+    ],
+    "Tarsolepis japonica": [
+      "ginmon_karibaga"
+    ],
+    "Mamestra brassicae": [
+      "yotsuboshi_kuroke"
+    ],
+    "Spodoptera litura": [
+      "haska_yotou"
+    ],
+    "Ascotis selenaria": [
+      "yomogi_ediba"
+    ],
+    "Spodoptera exigua": [
+      "shirosuji_yotou"
+    ],
+    "Helicoverpa armigera": [
+      "mongata_meiga_modoki"
+    ],
+    "Plusia festucae": [
+      "kin_usuba"
+    ],
+    "Autographa nigrisigna": [
+      "kibane_usuba"
+    ],
+    "Anaplectoides prasina": [
+      "ao_yaga"
+    ],
+    "Agrotis ipsilon": [
+      "tabako_yaga"
+    ],
+    "Sesamia inferens": [
+      "benimon_yaga"
+    ],
+    "Orthosia carnipennis": [
+      "oo_minmon_kiriga"
+    ],
+    "Arcte coerula": [
+      "fukurou_yaga"
+    ],
+    "Parasa sinica": [
+      "kin_iro_ediba"
+    ],
+    "Plagodis pulveraria": [
+      "futoo_suji_eda_shaku"
+    ],
+    "Auaxa sulphurea": [
+      "usu_kioba_shaku"
+    ],
+    "Hypomecis punctinalis": [
+      "naminami_eda_shaku"
+    ],
+    "Peratophyga grata": [
+      "yamato_eda_shaku"
+    ],
+    "Dilophodes elegans": [
+      "kuro_fuchi_shiroeda_shaku"
+    ],
+    "Geometra papilionaria": [
+      "oo_aki_aoshaku"
+    ],
+    "Arichanna gaschkevitchii": [
+      "kibara_eda_shaku"
+    ],
+    "Abraxas miranda": [
+      "yumon_eda_shaku"
+    ],
+    "Menophra senex": [
+      "oba_kuwa_eda_shaku"
+    ],
+    "Diacrisia sannio": [
+      "beni_hitori"
+    ],
+    "Chionarctia nivea": [
+      "shiro_hitori"
+    ],
+    "Spilarctia subcarnea": [
+      "aka_obi_ringo"
+    ],
+    "Artaxa subflava": [
+      "doku_ga"
+    ],
+    "Gastropacha orientalis": [
+      "kareha_ga"
+    ],
+    "Malacosoma neustria": [
+      "obi_kareha"
+    ],
+    "Phyllosphingia dissimilis": [
+      "ezo_suzume"
+    ],
+    "Acherontia lachesis": [
+      "kuro_mesuji_suzume"
+    ],
+    "Neptis hylas": [
+      "ryukyu_misuji"
+    ],
+    "Cupha erymanthis": [
+      "taiwan_kimadara"
+    ],
+    "Curculio sikkimensis": [
+      "kuri_no_jiga_zoumushi"
+    ],
+    "Curculio dentipes": [
+      "hashibami_shigi_zoumushi"
+    ],
+    "Chlorophanus grandis": [
+      "aono_meiga_zoumushi"
+    ],
+    "Myllocerus nigromaculatus": [
+      "hime_kuro_otoshibumi_chigau"
+    ],
+    "Lixus impressiventris": [
+      "obo_no_zou"
+    ],
+    "Lixus acutipennis": [
+      "hime_kazuo_zoumushi"
+    ],
+    "Echinocnemus squameus": [
+      "ina_zou_mushi"
+    ],
+    "Rhynchophorus ferrugineus": [
+      "yashi_oo_zoumushi"
+    ],
+    "Sphenophorus venatus": [
+      "ki_bosh_zoumushi"
+    ],
+    "Lissorhoptrus oryzophilus": [
+      "ine_dorobou_zou"
+    ],
+    "Acicnemis palliata": [
+      "sakura_kogane_zou_chigau"
+    ],
+    "Scepticus griseus": [
+      "kuwa_no_meiga_zoumushi"
+    ],
+    "Exechesops leucopis": [
+      "hiki_zou_mushi"
+    ],
+    "Sympiezomias lewisi": [
+      "oo_kuro_kasa_zoumushi"
+    ],
+    "Shirahoshizo patruelis": [
+      "matsuno_zou_mushi"
+    ],
+    "Mechoris ursulus": [
+      "kuri_oo_zoumushi"
+    ],
+    "Ceutorhynchus albosuturalis": [
+      "ao_buchi_zoumushi"
+    ],
+    "Cionus latefasciatus": [
+      "juzu_hige_zou"
+    ],
+    "Myllocerus hilleri": [
+      "murasaki_tsuya_zou"
+    ],
+    "Listroderes costirostris": [
+      "tama_oshi_zou"
+    ],
+    "Ovalisia vivata": [
+      "masuda_kuro_tama"
+    ],
+    "Coraebus quadriundulatus": [
+      "shirobou_himetama"
+    ],
+    "Agrilus adelphinus": [
+      "kuwa_himetama"
+    ],
+    "Anthaxia reticulata": [
+      "hime_tamamushi"
+    ],
+    "Trachys minutus": [
+      "chibi_tamamushi"
+    ],
+    "Belionota succincta": [
+      "yotsuboshi_tamamushi"
+    ],
+    "Agrilus chujoi": [
+      "naga_tamamushi"
+    ],
+    "Coraebus rubi": [
+      "ruri_hosotama"
+    ],
+    "Lamprodila pretiosa": [
+      "ki_obi_himetama"
+    ],
+    "Anthaxia rugosipennis": [
+      "sugi_himetama"
+    ],
+    "Chrysobothris succedanea": [
+      "murasaki_hosotama"
+    ],
+    "Chalcophora yunnana": [
+      "oo_ao_tamamushi"
+    ],
+    "Illeis koebelei": [
+      "kibara_tentou"
+    ],
+    "Propylea japonica": [
+      "hime_kame_no_ko_tentou"
+    ],
+    "Cheilomenes sexmaculata": [
+      "dandara_tentou"
+    ],
+    "Adalia bipunctata": [
+      "futahoshi_tentou"
+    ],
+    "Coccinella explanata": [
+      "kohoshi_tentou"
+    ],
+    "Phymatosternus lewisii": [
+      "kuro_tentou"
+    ],
+    "Vibidia duodecimguttata": [
+      "hoshi_tentou"
+    ],
+    "Halyzia sedecimguttata": [
+      "juuroku_hoshi_tentou"
+    ],
+    "Chilocorus rubidus": [
+      "akahoshi_tentou"
+    ],
+    "Megalocaria dilatata": [
+      "ooten_tentou"
+    ],
+    "Rodolia cardinalis": [
+      "halmus_tentou"
+    ],
+    "Carabus kimurai": [
+      "mikado_osamushi"
+    ],
+    "Carabus yaconinus": [
+      "yacon_osamushi"
+    ],
+    "Carabus japonicus": [
+      "hime_osamushi"
+    ],
+    "Carabus arboreus": [
+      "hokkaido_aooosa"
+    ],
+    "Carabus kobayashii": [
+      "oki_osamushi"
+    ],
+    "Dolichus halensis": [
+      "se_aka_kebuka_gomimushi"
+    ],
+    "Synuchus cycloderus": [
+      "komme_gomimushi"
+    ],
+    "Platynus magnus": [
+      "hira_ta_gomimushi"
+    ],
+    "Trigonognatha cupripennis": [
+      "oo_hosohira_gomimushi"
+    ],
+    "Brachinus stenoderus": [
+      "hosomi_komori_gomimushi"
+    ],
+    "Pheropsophus jessoensis": [
+      "miidera_gomimushi"
+    ],
+    "Carabus iwawakianus": [
+      "oketsu_oosa"
+    ],
+    "Carabus esakii": [
+      "aketi_oosa"
+    ],
+    "Anomala costata": [
+      "oo_suji_koganemushi"
+    ],
+    "Blitopertha orientalis": [
+      "seman_koganemushi"
+    ],
+    "Anomala chamaeleon": [
+      "hiratata_koganemushi"
+    ],
+    "Anomala daimiana": [
+      "sakura_koganemushi"
+    ],
+    "Anomala testaceipes": [
+      "suji_koganemushi"
+    ],
+    "Mimela testaceoviridis": [
+      "tsuya_koganemushi"
+    ],
+    "Heptophylla picea": [
+      "ko_furuki_kobune"
+    ],
+    "Holotrichia kiotonensis": [
+      "kuro_koganemushi"
+    ],
+    "Holotrichia parallela": [
+      "oo_kuro_koganemushi"
+    ],
+    "Cyriopertha arcuata": [
+      "ruri_hanamuguri"
+    ],
+    "Protaetia muscosa": [
+      "yamato_tama_mushi_kogane"
+    ],
+    "Cryptocephalus signaticeps": [
+      "inazuma_hamushi"
+    ],
+    "Morphosphaera japonica": [
+      "ichimonji_hamushi"
+    ],
+    "Paridea quadriplagiata": [
+      "yotsuboshi_hamushi"
+    ],
+    "Basilepta fulvipes": [
+      "ao_iro_hamushi"
+    ],
+    "Pagria signata": [
+      "hime_kogane_hamushi"
+    ],
+    "Scelodonta lewisii": [
+      "saru_hamushi_kin"
+    ],
+    "Galerucella vittaticollis": [
+      "buchi_hige_hamushi"
+    ],
+    "Lema diversa": [
+      "yamaimo_hamushi"
+    ],
+    "Semanotus japonicus": [
+      "hime_suginma_kamikiri"
+    ],
+    "Megopis sinica": [
+      "oni_kuwa_kamikiri"
+    ],
+    "Copelatus weymarni": [
+      "ko_sennaga_gengoro"
+    ],
+    "Hydroglyphus japonicus": [
+      "chibi_gengoro"
+    ],
+    "Hydaticus bowringii": [
+      "shimaichi_gengoro"
+    ],
+    "Graphoderus adamsii": [
+      "maruke_gengoro"
+    ],
+    "Dytiscus sharpi": [
+      "gengorobuto_gengoro"
+    ],
+    "Dytiscus dauricus": [
+      "fuchi_gengoro_modoki"
+    ],
+    "Hydaticus conspersus": [
+      "namida_gengoro"
+    ],
+    "Cybister rugosus": [
+      "fusahige_gengoro"
+    ],
+    "Cryptalaus larvatus": [
+      "ouba_kometsuki"
+    ],
+    "Actenicerus pruinosus": [
+      "ootomon_kometsuki"
+    ],
+    "Hemicrepidius secessus": [
+      "hosagaki_kometsuki"
+    ],
+    "Pectocera fortunei": [
+      "hikari_kometsuki"
+    ],
+    "Ampedus puniceus": [
+      "akahada_kometsuki"
+    ],
+    "Cardiophorus rufithorax": [
+      "murasaki_kometsuki"
+    ],
+    "Paracardiophorus aino": [
+      "sakura_kometsuki"
+    ],
+    "Melanotus legatus": [
+      "hana_kometsuki"
+    ],
+    "Melanotus correctus": [
+      "kuroki_kometsuki"
+    ],
+    "Selatosomus puncticollis": [
+      "midori_kometsuki"
+    ],
+    "Denticollis nigricollis": [
+      "benihimon_kometsuki"
+    ],
+    "Agrypnus scrofa": [
+      "oo_kuwagata_kometsuki"
+    ],
+    "Holochlora japonica": [
+      "kuda_maki"
+    ],
+    "Parapodisma setouchiensis": [
+      "shou_batta"
+    ],
+    "Shirakiacris shirakii": [
+      "semi_batta"
+    ],
+    "Gampsocleis mikado": [
+      "higashi_kirigirisu"
+    ],
+    "Conocephalus exemptus": [
+      "oo_sasakiri"
+    ],
+    "Holochlora longifissa": [
+      "yama_kudamaki"
+    ],
+    "Mecopoda elongata": [
+      "taiwan_kutsuwamushi"
+    ],
+    "Nysius plebeius": [
+      "hime_nagakamemushi"
+    ],
+    "Nephotettix cincticeps": [
+      "tsuma_kuro_yokobai"
+    ],
+    "Cydnocoris russatus": [
+      "akasashi_game"
+    ],
+    "Cantao ocellatus": [
+      "aka_giku_kamemushi"
+    ],
+    "Acanthosoma haemorrhoidale": [
+      "akaeboshi_kamemushi"
+    ],
+    "Gerris gracilicornis": [
+      "ko_seaka_amenbo"
+    ],
+    "Microvelia douglasi": [
+      "ke_kamenbo"
+    ],
+    "Vespula shidai": [
+      "shidakuro_suzumebachi"
+    ],
+    "Polistes sagittarius": [
+      "kobane_ashinaga_bachi"
+    ],
+    "Parapolybia indica": [
+      "murasaki_ashinaga_bachi"
+    ],
+    "Bombus hypocrita": [
+      "oo_maru_hanabachi"
+    ],
+    "Pristomyrmex punctatus": [
+      "ao_oo_ari"
+    ],
+    "Tetramorium tsushimae": [
+      "tobiiro_shiwa_ari"
+    ],
+    "Lasius fuji": [
+      "kuro_kushige_ari"
+    ],
+    "Formica hayashi": [
+      "harukusa_ari"
+    ],
+    "Cryptopone sauteri": [
+      "kubinaga_ari"
+    ],
+    "Pachycondyla pilosior": [
+      "kebuka_ke_ari"
+    ],
+    "Betasyrphus serarius": [
+      "kuro_hira_taabu"
+    ],
+    "Eupeodes corollae": [
+      "futa_tsuten_hira_taabu"
+    ],
+    "Eristalinus quinquestriatus": [
+      "kiiro_obi_hana_abu"
+    ],
+    "Syrphus ribesii": [
+      "tsuya_hira_taabu"
+    ],
+    "Sphaerophoria scripta": [
+      "ki_obi_ke_hira_abu"
+    ],
+    "Mesembrius flaviceps": [
+      "ki_ashi_hosohira_abu"
+    ],
+    "Spilomyia suzukii": [
+      "kuma_bachi_modoki_abu"
+    ],
+    "Tabanus chrysurus": [
+      "ushi_abu"
+    ],
+    "Musca domestica": [
+      "ie_bae"
+    ],
+    "Aedes albopictus": [
+      "hito_suji_shima_ka"
+    ],
+    "Sympetrum kunckeli": [
+      "konaga_aka_tombo"
+    ],
+    "Euploea tulliolus": [
+      "ruri_madara"
+    ],
+    "Carabus lewisianus": [
+      "ko_osamushi"
+    ],
+    "Campalita chinense": [
+      "kuro_katabiro_osamushi"
+    ],
+    "Osmoderma opicum": [
+      "oo_kuwa_hanamuguri"
+    ],
+    "Crioceris quatuordecimpunctata": [
+      "jumonji_hamushi"
+    ],
+    "Arthromacra sumptuosa": [
+      "ao_hamushi"
+    ],
+    "Fleutiauxia armata": [
+      "kuwa_hamushi"
+    ],
+    "Lema concinnipennis": [
+      "ruri_kuwagata_hamushi"
+    ],
+    "Chloridolum japonicum": [
+      "akaashi_ooao_kamikiri"
+    ],
+    "Rhantus suturalis": [
+      "hime_gengoro"
+    ],
+    "Stethophyma magister": [
+      "semon_batta"
+    ],
+    "Patanga succincta": [
+      "toge_himo_batta"
+    ],
+    "Conocephalus chinensis": [
+      "umbe_kuda_maki"
+    ],
+    "Sclerogryllus punctatus": [
+      "kuma_suzu"
+    ],
+    "Tropidothorax cruciger": [
+      "jiyusu_nagakamemushi"
+    ],
+    "Parastrachia japonensis": [
+      "benitsuchikamemushi"
+    ],
+    "Eurydema rugosa": [
+      "naga_meigane"
+    ],
+    "Zicrona caerulea": [
+      "ruriku_chibuto"
+    ],
+    "Cicadella viridis": [
+      "oo_yokobai"
+    ],
+    "Limnoporus esakii": [
+      "esaki_amenbo"
+    ],
+    "Vespa affinis": [
+      "tsumaguro_suzumebachi"
+    ],
+    "Stilbum cyanurum": [
+      "oo_seibou"
+    ],
+    "Pheidole noda": [
+      "oo_zu_ari"
+    ],
+    "Aphaenogaster famelica": [
+      "yamato_ari_jigoku_sasi"
+    ],
+    "Ischnura senegalensis": [
+      "aomon_ito_tonbo"
+    ],
+    "Trigomphus citimus": [
+      "tabe_sanae"
+    ],
+    "Trigomphus interruptus": [
+      "futasuji_sanae"
+    ],
+    "Sinogomphus flavolimbatus": [
+      "hime_sanae"
+    ],
+    "Platycnemis foliacea": [
+      "gunbai_tonbo"
+    ],
+    "Cordulia aenea amurensis": [
+      "karakane_tonbo"
+    ],
+    "Aeschnophlebia anisoptera": [
+      "neaka_yoshi_yanma"
+    ],
+    "Aeshna mixta": [
+      "madara_yanma"
+    ],
+    "Sympetrum uniforme": [
+      "ooki_tonbo"
+    ],
+    "Sympetrum fonscolombii": [
+      "suna_akane"
+    ],
+    "Diplacodes trivialis": [
+      "hime_tonbo"
+    ],
+    "Ambulyx ochracea": [
+      "koudaicho_suzume"
+    ],
+    "Theretra nessus": [
+      "kiri_suzume"
+    ],
+    "Spindasis takanonis": [
+      "kibanena_shijimi"
+    ],
+    "Epilachna admirabilis": [
+      "tohoshi_tentou"
+    ],
+    "Synonycha grandis": [
+      "haraguro_oo_tentou"
+    ],
+    "Protaetia cuprea": [
+      "akama_dara_hanamuguri"
+    ],
+    "Protaetia pryeri": [
+      "oo_ryoku_yose_hanamuguri"
+    ],
+    "Donacia provostii": [
+      "inago_hamushi"
+    ],
+    "Glenea relicta": [
+      "shira_hoshi_kamikiri"
+    ],
+    "Conocephalus japonicus": [
+      "kobane_sasakiri"
+    ],
+    "Ruspolia dubia": [
+      "hime_kusakiri"
+    ],
+    "Leptophyes japonica": [
+      "tsuyumushi_sugu"
+    ],
+    "Gampsocleis sedakovii": [
+      "kosuji_kirigirisu"
+    ],
+    "Tettigonia ussuriana": [
+      "yama_yabukiri"
+    ],
+    "Gampsocleis ussuriensis": [
+      "hanenaga_kirigirisu"
+    ],
+    "Gampsocleis ryukyuensis": [
+      "okinawa_kirigirisu"
+    ],
+    "Penthimia nitida": [
+      "kuro_himeyokobai"
+    ],
+    "Aenaria lewisi": [
+      "shirohoshi_kamemushi"
+    ],
+    "Ledra auditura": [
+      "akahane_mukashi_yokobai"
+    ],
+    "Hydrometra procera": [
+      "habiroitotonbo_amenbo"
+    ],
+    "Bombus ardens": [
+      "koma_ru_hana_bachi"
+    ],
+    "Thyreus decorus": [
+      "ruri_monhana_bachi"
+    ],
+    "Amantis nawai": [
+      "hina_kamakiri"
+    ],
+    "Parasa consocia": [
+      "aoiraga"
+    ],
+    "Herculia ignealis": [
+      "chabane_sesujimeiga"
+    ],
+    "Crambus perlella": [
+      "futao_tsutoga"
+    ],
+    "Acronicta vulpina": [
+      "kin_uwaba_tsutoga"
+    ],
+    "Ostrinia scapulalis": [
+      "azuki_no_iga"
+    ],
+    "Notarcha derogata": [
+      "wata_no_iga"
+    ],
+    "Thyris usitata": [
+      "mado_meiga"
+    ],
+    "Maliattha signifera": [
+      "shirohoshi_kokemeiga"
+    ],
+    "Glyphodes pyloalis": [
+      "kuwa_no_iga"
+    ],
+    "Conogethes punctiferalis": [
+      "momo_gomemushi"
+    ],
+    "Homona magnanima": [
+      "chairo_hamaki"
+    ],
+    "Adoxophyes orana": [
+      "ringo_komadarahamaki"
+    ],
+    "Archips xylosteanus": [
+      "kin_monhamaki"
+    ],
+    "Acleris enitescens": [
+      "sukashibahamaki"
+    ],
+    "Sarcopolia illoba": [
+      "shironoko_yaga"
+    ],
+    "Lithosia quadra": [
+      "hagata_kenmon"
+    ],
+    "Oraesia excavata": [
+      "akaeguri_dokuga"
+    ],
+    "Cystidia couaggaria": [
+      "hime_shaku"
+    ],
+    "Zizina emelina": [
+      "silvia_shijimi"
+    ],
+    "Zizina otis": [
+      "hime_silvia_shijimi"
+    ],
+    "Everes lacturnus": [
+      "taiwan_tsubame_shijimi"
+    ],
+    "Oulema oryzae": [
+      "inago_mametsu_hamushi"
+    ],
+    "Agelastica coerulea": [
+      "hannoki_hamushi"
+    ],
+    "Linaeidea aenea": [
+      "murasaki_hamushi"
+    ],
+    "Donacia japana": [
+      "kintsuya_hamushi"
+    ],
+    "Cassida fuscorufa": [
+      "iro_jingasa_hamushi"
+    ],
+    "Curculio hilgendorfi": [
+      "shii_no_mi_zou"
+    ],
+    "Otidognathus davidis": [
+      "take_zou_mushi"
+    ],
+    "Hylobius haroldi": [
+      "matsu_no_zou"
+    ],
+    "Pachyrhynchus infernalis": [
+      "escargot_zou"
+    ],
+    "Cassida japana": [
+      "ino_kotsu_zou"
+    ],
+    "Rhynchites heros": [
+      "momo_chokki_zou"
+    ],
+    "Apoderus erythrogaster": [
+      "hime_kuro_otoshi"
+    ],
+    "Paroplapoderus pardalis": [
+      "goma_dara_otoshi"
+    ],
+    "Apoderus jekelii": [
+      "otoshi_bumi"
+    ],
+    "Sitophilus zeamais": [
+      "ko_zou_mushi"
+    ],
+    "Cylas formicarius": [
+      "hosokubi_zou"
+    ],
+    "Sciades fasciatus": [
+      "keshikiri_kamikiri"
+    ],
+    "Plectrura metallica": [
+      "akagane_kamikiri"
+    ],
+    "Mesosa myops": [
+      "goma_fu_kamikiri"
+    ],
+    "Amara congrua": [
+      "kuro_gomimushi"
+    ],
+    "Melolontha japonica": [
+      "ko_fuki_kogane"
+    ],
+    "Lasiotrichius succinctus": [
+      "tora_hanamuguri"
+    ],
+    "Chilocorus kuwanae": [
+      "hime_aka_hoshi_tentou"
+    ],
+    "Lucidina biplagiata": [
+      "obo_tobi_kebai_botaru"
+    ],
+    "Lycocerus vitellinus": [
+      "se_aka_jokai"
+    ],
+    "Themus episcopalis": [
+      "ki_jokai"
+    ],
+    "Hydrochara affinis": [
+      "ko_gamushi"
+    ],
+    "Sternolophus rufipes": [
+      "hime_gamushi"
+    ],
+    "Meligethes flavicollis": [
+      "akahane_obi_keshikisui"
+    ],
+    "Soronia fracta": [
+      "futamon_keshikisui"
+    ],
+    "Philonthus japonicus": [
+      "kuro_hanekakushi"
+    ],
+    "Ampedus hypogastricus": [
+      "akahara_komenetsuki"
+    ],
+    "Hydrocassis lacustris": [
+      "marugata_gamushi"
+    ],
+    "Cyllodes ater": [
+      "tama_keshikisui"
+    ],
+    "Criotettix japonicus": [
+      "tonoma_batta"
+    ],
+    "Trilophidia annulata": [
+      "toge_batta"
+    ],
+    "Euricania facialis": [
+      "suke_ba_hagoromo"
+    ],
+    "Homalogonia obtusa": [
+      "yotsubishi_kamemushi"
+    ],
+    "Muda kuroiwae": [
+      "kuro_iwa_zemi"
+    ],
+    "Bombus pseudobaicalensis": [
+      "hina_maruhanabachi"
+    ],
+    "Scolia oculata": [
+      "ki_obi_tsuchibachi"
+    ],
+    "Brachyponera chinensis": [
+      "sashi_hari_ari"
+    ],
+    "Polyrhachis lamellidens": [
+      "itoge_ari"
+    ],
+    "Temnothorax congruus": [
+      "murasaki_ari"
+    ],
+    "Aenictus laeviceps": [
+      "sasuraibi_ari"
+    ],
+    "Odontomachus monticola": [
+      "gunki_oo_ari"
+    ],
+    "Stomorhina obsoleta": [
+      "tsumaguro_hana_abu"
+    ],
+    "Lucilia caesar": [
+      "kin_bae"
+    ],
+    "Calliphora nigribarbis": [
+      "ao_kin_bae"
+    ],
+    "Hermetia illucens": [
+      "ame_ika_abu"
+    ],
+    "Nephrotoma virgata": [
+      "kiashi_gagambo"
+    ],
+    "Culex pipiens pallens": [
+      "aka_ie_ka"
+    ],
+    "Bombylius major": [
+      "mino_ke_buka_abu"
+    ],
+    "Mortonagrion selenion": [
+      "morton_ito_tonbo"
+    ],
+    "Coenagrion lanceolatum": [
+      "ezo_ito_tonbo"
+    ],
+    "Libellula angelina": [
+      "bekko_tonbo"
+    ],
+    "Colasposoma dauricum": [
+      "inumegi_hamushi"
+    ],
+    "Dactylispa subquadrata": [
+      "hosohari_hamushi"
+    ],
+    "Sagra femorata": [
+      "oo_kibahamushi"
+    ],
+    "Cryptocephalus approximatus": [
+      "hagetaka_hamushi"
+    ],
+    "Eugnathus distinctus": [
+      "kofuki_zoumushi"
+    ],
+    "Hypera postica": [
+      "alfalfa_tako_zoumushi"
+    ],
+    "Dyscerus perforatus": [
+      "olive_anaaki_zoumushi"
+    ],
+    "Stenhomalus taprobanicus": [
+      "yotsuboshi_hosobakami_kiri"
+    ],
+    "Pidonia debilis": [
+      "yamato_korogi_kamikiri"
+    ],
+    "Pterolophia annulata": [
+      "kuwa_sabikami_kiri"
+    ],
+    "Ptychoderes nigricollis": [
+      "kao_jiro_hige_naga"
+    ],
+    "Parechthistatus gibber": [
+      "kobu_yahazu_seda_ka"
+    ],
+    "Eutetrapha sedecimpunctata": [
+      "hosohana_kamikiri"
+    ],
+    "Anastrangalia scotodes": [
+      "oo_aoboshi_kamikiri"
+    ],
+    "Calosoma inquisitor": [
+      "oao_kataba_gomimushi"
+    ],
+    "Diplocheila zeelandica": [
+      "kuro_gomimushidamashi_oosuji"
+    ],
+    "Pterostichus microcephalus": [
+      "kotsubu_gomimushi"
+    ],
+    "Anisodactylus signatus": [
+      "hime_gomimushi"
+    ],
+    "Amara chalcites": [
+      "marugata_gomimushi"
+    ],
+    "Damaster blaptoides babaianus": [
+      "okera_gomimushi_kotetsu"
+    ],
+    "Sospita oblongoguttata": [
+      "muutsuboshi_tentou"
+    ],
+    "Poecilonota variolosa": [
+      "yanagi_tamamushi"
+    ],
+    "Berosus punctipennis": [
+      "gomafu_gamushi"
+    ],
+    "Carpophilus hemipterus": [
+      "kuriya_keshikisui"
+    ],
+    "Eucera spurcatipes": [
+      "shiroobi_hanabachi"
+    ],
+    "Bombus honshuensis": [
+      "miyama_marubanabachi"
+    ],
+    "Amegilla dulcifera": [
+      "aoki_kumabachi"
+    ],
+    "Bombus diversus tersatus": [
+      "oo_marubanabachi"
+    ],
+    "Aenictus lifuiae": [
+      "hime_sakuhana_ari"
+    ],
+    "Ptecticus tenebrifer": [
+      "mizu_abu"
+    ],
+    "Ochlodes asahinai": [
+      "asahina_kimadara_seseri"
+    ],
+    "Lypesthes ater": [
+      "ko_fuki_hamushi"
+    ],
+    "Cychrus morawitzi": [
+      "sedo_oo_gomimushi"
+    ],
+    "Galerita orientalis": [
+      "oo_kibara_gomimushi"
+    ],
+    "Hoplia communis": [
+      "hime_aoki_kogane"
+    ],
+    "Polyphylla kojimai": [
+      "kojima_hanamuguri"
+    ],
+    "Poecilophilides rusticola": [
+      "akahige_kogane"
+    ],
+    "Cheirotonus jambar": [
+      "yanbaru_tenaga_kogane"
+    ],
+    "Halmus chalybeus": [
+      "halmus_aoba_tentou"
+    ],
+    "Helota gemmata": [
+      "yotsuboshi_ookisui"
+    ],
+    "Loxoblemmus campestris": [
+      "mitsukado_koorogi_oo"
+    ],
+    "Loxoblemmus sylvestris": [
+      "mori_okame_koorogi"
+    ],
+    "Teleogryllus mitratus": [
+      "kuro_koorogi"
+    ],
+    "Oecanthus euryelytra": [
+      "kantan_hime"
+    ],
+    "Comidoblemmus nipponensis": [
+      "kintaki_matsumushi"
+    ],
+    "Bombus beaticola": [
+      "hime_maru_hanabachi"
+    ],
+    "Bombus deuteronymus": [
+      "haiiro_maru_hanabachi"
+    ],
+    "Amegilla florea": [
+      "nippon_koshibuto_hanabachi"
+    ],
+    "Nomada japonica": [
+      "daimyo_kimadara_hanabachi"
+    ],
+    "Ceratina japonica": [
+      "ao_tsuya_hanabachi"
+    ],
+    "Sphaerophoria menthastri": [
+      "kihime_hirata_abu"
+    ],
+    "Milesia undulata": [
+      "konvenoshi_hanaabu"
+    ],
+    "Coenagrion terue": [
+      "oze_itotonbo"
+    ],
+    "Danaus plexippus": [
+      "master_monarch"
+    ],
+    "Limenitis arthemis": [
+      "master_amer_aoichimonji"
+    ],
+    "Diaethria clymena": [
+      "master_claudina"
+    ],
+    "Actias luna": [
+      "master_luna_moth"
+    ],
+    "Asterocampa celtis": [
+      "master_ruri_janome"
+    ],
+    "Callosamia promethea": [
+      "master_promethea"
+    ],
+    "Chrysiridia rhipheus": [
+      "master_urania",
+      "nishiki_tsubamega"
+    ],
+    "Phanaeus vindex": [
+      "master_niji_daikoku"
+    ],
+    "Eupholus spp.": [
+      "master_houseki_zoumushi"
+    ],
+    "Allotopus rosenbergi": [
+      "master_ougon_oni"
+    ],
+    "Cheirotonus jansoni": [
+      "master_tenaga_kogane"
+    ],
+    "Megaloprepus caerulatus": [
+      "master_habiro_itotombo"
+    ],
+    "Deinacrida heteracantha": [
+      "master_giant_weta"
+    ],
+    "Phyllium spp.": [
+      "master_sakadachi_konoha"
+    ],
+    "Macropanesthia rhinoceros": [
+      "master_yoroi_gokiburi"
+    ],
+    "Heteropteryx dilatata": [
+      "master_jungle_nymph"
+    ],
+    "Lethocerus grandis": [
+      "master_nanbei_tagame"
+    ],
+    "Ornithoptera goliath": [
+      "master_goliath_birdwing"
+    ],
+    "Lamprima adolphinae": [
+      "master_papua_kin_kuwagata"
+    ],
+    "Chrysina spp.": [
+      "platinum_kogane"
+    ],
+    "Carabus auronitens": [
+      "master_kiniro_osamushi"
+    ],
+    "Catacanthus incarnatus": [
+      "master_jinmen_kamemushi"
+    ],
+    "Sternocera aequisignata": [
+      "master_sternocera_tamamushi"
+    ],
+    "Thysania agrippina": [
+      "agrippa_suzume"
+    ],
+    "Caligo memnon": [
+      "owl_butterfly"
+    ],
+    "Agrias claudina": [
+      "agrias_tateha"
+    ],
+    "Titanus giganteus": [
+      "titan_kamikiri"
+    ],
+    "Hexarthrius didieri": [
+      "didier_shika_kuwagata"
+    ],
+    "Lethocerus indicus": [
+      "taiwan_oo_tagame"
+    ],
+    "Eciton burchellii": [
+      "guntai_ari"
+    ],
+    "Paraponera clavata": [
+      "sashihari_ari"
+    ],
+    "Scolopendra subspinipes": [
+      "tobizu_mukade"
+    ],
+    "Heteropoda venatoria": [
+      "ashidaka_gumo"
+    ],
+    "Thereuopoda clunifera": [
+      "oo_geji"
+    ],
+    "Latrodectus hasselti": [
+      "seaka_gokegumo"
+    ],
+    "Pandinus imperator": [
+      "daiou_sasori"
+    ],
+    "Nephila pilipes": [
+      "oo_jorogumo"
+    ],
+    "Theraphosa blondi": [
+      "goliath_birdeater"
+    ],
+    "Takydromus tachydromoides": [
+      "nihon_kanahebi"
+    ],
+    "Bufo japonicus": [
+      "nihon_hikigaeru"
+    ],
+    "Lanius bucephalus": [
+      "mozu"
+    ],
+    "Manticora latipennis": [
+      "ooenma_hanmyo"
+    ],
+    "Eupholus schoenherri": [
+      "eupholus_zou"
+    ],
+    "Mormolyce phyllodes": [
+      "violin_mushi"
+    ],
+    "Scarabaeus sacer": [
+      "scarabe_sacer"
+    ],
+    "Onymacris unguicularis": [
+      "sakadachi_gomidamashi"
+    ],
+    "Tetraphyllus paykullii": [
+      "niji_gomidamashi"
+    ],
+    "Trachelophorus giraffa": [
+      "kubinaga_otoshibumi"
+    ],
+    "Odontolabis dalmanni": [
+      "dalmanni_kuwagata"
+    ],
+    "Macrodontia cervicornis": [
+      "ookiba_usuba_kamikiri"
+    ],
+    "Cybister limbatus": [
+      "fuchitori_gengoro"
+    ],
+    "Dineutus orientalis": [
+      "oo_mizusumashi"
+    ],
+    "Thermonectus marmoratus": [
+      "sunburst_gengoro"
+    ],
+    "Cosmodela sp.": [
+      "harabiro_hanmyo"
+    ],
+    "Cicindela lewisi": [
+      "lewis_hanmyo"
+    ],
+    "Cylindera elisae": [
+      "eliza_hanmyo"
+    ],
+    "Scarites sp.": [
+      "hyoutan_gomimushi"
+    ],
+    "Platerodrilus sp.": [
+      "sanyou_benibotaru"
+    ],
+    "Euchroma gigantea": [
+      "tsuya_goliath_tamamushi"
+    ],
+    "Chrysochroa buqueti": [
+      "chrysochroa_tamamushi"
+    ]
+  }
+}

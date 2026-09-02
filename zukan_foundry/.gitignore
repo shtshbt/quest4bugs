@@ -1,4 +1,15 @@
 __pycache__/
 *.egg-info/
-data/
+
+# harvest 成果は追跡する。1 地域の seeds を作るのに GBIF へ数百リクエスト、
+# 2-3 秒間隔で 30-60 分かかり、7 地域で半日仕事になる。加えてこの repo は
+# Dropbox 配下にあり、再同期が untracked file を消した実績がある
+# (2026-09-02 に図鑑カード 190 種ぶんの画像が消失)。
+# 中間 backup と reject だけ除外する。
+data/*
+!data/catalog/
+!data/species_reserve/
+data/species_reserve/*.bak_*
+data/species_reserve/*.rejected
+
 staging/
