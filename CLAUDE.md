@@ -161,6 +161,37 @@ au 5 章の差し替え候補 8 種。名前はレポートの表から機械的
 - batch 後の `_inbox/` `_archive/` `_pipeline/` を `git add` しない
 - 配信成果物 (`original/_resized.jpg` `processed/*_L2_grade.webp` `thumb/*` `metadata/*.json` `zukan_config/zukan_catalog.js`) のみ commit
 
+### 🚨 batch 直後に commit する (巻の収録を待たない)
+
+**取得した画像は、その batch が終わったその場で commit する。** 巻へ収録するときに
+まとめて commit する運用は禁止。
+
+この repo は Dropbox 配下 (`/mnt/c/Users/shota/Dropbox/...`) にあり、Dropbox の
+再同期はローカルを一度空にしてから配り直すことがある。tracked file は git から
+戻るが、**未 commit の file は戻らない**。
+
+2026-09-02 に実害が出た。8/18 に取得したコスタリカ遠征 I の 84 種は、巻が未収録
+だったため画像を commit しておらず、9/1 の再同期で `processed/*_L2_grade.webp` と
+`original/*_resized.jpg` と `thumb/*` が消えた。metadata だけ (60b0106 で commit
+済みだったため) が残り、孤児 190 件になった。
+
+復旧できたのは `_inbox/` に raw が残っていて、metadata に `processing.cropBox` /
+`rotationDegrees` / `padding` / `canvas` が全件記録されていたからで、raw から
+再 build すると SHA256 まで一致する。ただしこれは幸運であって前提にしない。
+
+commit しそこねた分は次で検出できる。
+
+```bash
+# metadata が指す display の実体が無いもの (= 孤児) を数える
+python3 - <<'PY'
+import json,glob,os
+ZC="zukan_cards"
+n=sum(1 for p in glob.glob(f"{ZC}/metadata/*.json")
+      if not os.path.exists(os.path.join(ZC,(json.load(open(p,encoding="utf-8")).get("files") or {}).get("display") or "")))
+print("orphan:", n)
+PY
+```
+
 ## Campaign 3 unattended sessions
 
 ### 目的と構成
