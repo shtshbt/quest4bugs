@@ -1,0 +1,80 @@
+{
+  "species_id": "akamadara_hanamuguri",
+  "species_ja": "アカマダラハナムグリ",
+  "scientific_name": "Anthracophora rusticola",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "wangmu (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_227230831",
+    "occurrenceId": "https://www.inaturalist.org/observations/227230831",
+    "persistentId": "https://www.inaturalist.org/observations/227230831",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "wangmu",
+    "eventDate": "2024-07-04",
+    "eventYear": 2024,
+    "country": "山东省泰安市东平县接山镇后口头",
+    "localityVerbatim": null,
+    "localityNormalized": "山东省泰安市东平县接山镇后口头, 山东省泰安市东平县接山镇后口头",
+    "preparations": null,
+    "decimalLatitude": 35.9190177917,
+    "decimalLongitude": 116.5888290403,
+    "coordinatesObscured": false,
+    "iNatObservationId": "227230831",
+    "iNatPhotoId": "403089081",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/227230831",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/403089081/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs227230831_resized.jpg",
+    "display": "processed/iNatobs227230831_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs227230831_54.webp",
+      "108": "thumb/iNatobs227230831_108.webp",
+      "216": "thumb/iNatobs227230831_216.webp"
+    }
+  },
+  "original_sha256": "7796f1122198e9c5411ee211137595728616d4e97fa2088f41df05fc2ac4621b",
+  "processing": {
+    "cropBox": [
+      328,
+      26,
+      1833,
+      1077
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs227230831_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.38), rotate 0 CCW"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "tsuya_oozu_ari",
+  "species_ja": "ツヤオオズアリ",
+  "scientific_name": "Pheidole megacephala",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "buggybuddy (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_103328371",
+    "occurrenceId": "https://www.inaturalist.org/observations/103328371",
+    "persistentId": "https://www.inaturalist.org/observations/103328371",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "buggybuddy",
+    "eventDate": "2021-12-18",
+    "eventYear": 2021,
+    "country": "US",
+    "localityVerbatim": null,
+    "localityNormalized": "NW Fifth St, Pembroke Pines, FL, US, US",
+    "preparations": null,
+    "decimalLatitude": 26.0125138833,
+    "decimalLongitude": -80.2753,
+    "coordinatesObscured": false,
+    "iNatObservationId": "103328371",
+    "iNatPhotoId": "172907536",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/103328371",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/172907536/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs103328371_resized.jpg",
+    "display": "processed/iNatobs103328371_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs103328371_54.webp",
+      "108": "thumb/iNatobs103328371_108.webp",
+      "216": "thumb/iNatobs103328371_216.webp"
+    }
+  },
+  "original_sha256": "4db141e780fc1cd1a1bd9814c2e8c2ca05f8774fa6fcc3ffb8ca42b3d4c4bb33",
+  "processing": {
+    "cropBox": [
+      393,
+      844,
+      1216,
+      1357
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs103328371_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

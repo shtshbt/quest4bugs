@@ -1,0 +1,74 @@
+{
+  "species_id": "oohikage_janome",
+  "species_ja": "オオヒカゲ",
+  "scientific_name": "Ninguta schrenckii",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:オオヒカゲ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%AA%E3%83%92%E3%82%AB%E3%82%B2",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%AA%E3%83%92%E3%82%AB%E3%82%B2",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 11:04:22",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "​オオヒカゲ",
+    "localityNormalized": "​オオヒカゲ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%AA%E3%83%92%E3%82%AB%E3%82%B2",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/408-Ninguta_schrenckii.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_352e4bd1_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_352e4bd1_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_352e4bd1_54.webp",
+      "108": "thumb/WIKIPEDIAWP_352e4bd1_108.webp",
+      "216": "thumb/WIKIPEDIAWP_352e4bd1_216.webp"
+    }
+  },
+  "original_sha256": "704013b7042bc0e8d26ec080aa43ccf8bdead10835d5251459a105f379d8e6a0",
+  "processing": {
+    "cropBox": [
+      276,
+      154,
+      3654,
+      3168
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_352e4bd1_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

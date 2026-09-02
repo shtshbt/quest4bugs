@@ -1,0 +1,317 @@
+[
+ {
+  "id": "fuchitori_gengoro",
+  "ja": "フチトリゲンゴロウ",
+  "sci": "Cybister limbatus"
+ },
+ {
+  "id": "gohon_zuno_kabuto",
+  "ja": "ゴホンヅノカブト",
+  "sci": "Eupatorus gracilicornis"
+ },
+ {
+  "id": "actaeon_zou_kabuto",
+  "ja": "アクタエオンゾウカブト",
+  "sci": "Megasoma actaeon"
+ },
+ {
+  "id": "agrippa_suzume",
+  "ja": "アグリッパスズメ",
+  "sci": "Thysania agrippina"
+ },
+ {
+  "id": "aka_iraga",
+  "ja": "アカイラガ",
+  "sci": "Phrixolepia sericea"
+ },
+ {
+  "id": "aka_seseri",
+  "ja": "アカセセリ",
+  "sci": "Hesperia florinda"
+ },
+ {
+  "id": "akahane_onbubatta",
+  "ja": "アカハネオンブバッタ",
+  "sci": "Atractomorpha sinensis"
+ },
+ {
+  "id": "aka_sukashiba",
+  "ja": "アカスカシバ",
+  "sci": "Nokona rubra"
+ },
+ {
+  "id": "akaashi_hoso_batta",
+  "ja": "アカアシホソバッタ",
+  "sci": "Stenocatantops mistshenkoi"
+ },
+ {
+  "id": "akagane_kamikiri",
+  "ja": "アカガネカミキリ",
+  "sci": "Plectrura metallica"
+ },
+ {
+  "id": "akagane_saru_hamushi",
+  "ja": "アカガネサルハムシ",
+  "sci": "Acrothinium gaschkevitchii"
+ },
+ {
+  "id": "akagashira_aribachi",
+  "ja": "ムネアカアリバチ",
+  "sci": "Bischoffitilla pungens"
+ },
+ {
+  "id": "akahane_mukashi_yokobai",
+  "ja": "ミミズク",
+  "sci": "Ledra auditura"
+ },
+ {
+  "id": "akahoshi_tentou",
+  "ja": "アカホシテントウ",
+  "sci": "Chilocorus rubidus"
+ },
+ {
+  "id": "akashijimi_kita",
+  "ja": "キタアカシジミ",
+  "sci": "Japonica onoi"
+ },
+ {
+  "id": "akebikonoha",
+  "ja": "アケビコノハ",
+  "sci": "Eudocima tyrannus"
+ },
+ {
+  "id": "amami_nanafushi_dummy",
+  "ja": "アマミナナフシ",
+  "sci": "Phraortes amamiensis"
+ },
+ {
+  "id": "amime_ringa",
+  "ja": "アミメリンガ",
+  "sci": "Sinna extrema"
+ },
+ {
+  "id": "ao_hamushi",
+  "ja": "アオハムシダマシ",
+  "sci": "Arthromacra sumptuosa"
+ },
+ {
+  "id": "ao_kanabun",
+  "ja": "アオカナブン",
+  "sci": "Rhomborrhina unicolor"
+ },
+ {
+  "id": "aomune_suji_tamamushi",
+  "ja": "アオムネスジタマムシ",
+  "sci": "Chrysodema dalmanni"
+ },
+ {
+  "id": "akaashi_nomi_zoumushi",
+  "ja": "アカアシノミゾウムシ",
+  "sci": "Orchestes sanguinipes"
+ },
+ {
+  "id": "akagane_kohanabachi",
+  "ja": "アカガネコハナバチ",
+  "sci": "Halictus aerarius"
+ },
+ {
+  "id": "akahada_kometsuki",
+  "ja": "アカハダコメツキ",
+  "sci": "Ampedus puniceus"
+ },
+ {
+  "id": "akahara_komenetsuki",
+  "ja": "アカハラクロコメツキ",
+  "sci": "Ampedus hypogastricus"
+ },
+ {
+  "id": "ao_higenaga_tobikera",
+  "ja": "アオヒゲナガトビケラ",
+  "sci": "Mystacides azureus"
+ },
+ {
+  "id": "ao_joukai",
+  "ja": "アオジョウカイ",
+  "sci": "Themus cyanipennis"
+ },
+ {
+  "id": "ao_kin_bae",
+  "ja": "オオクロバエ",
+  "sci": "Calliphora nigribarbis"
+ },
+ {
+  "id": "aobane_joukai",
+  "ja": "アオバネジョウカイ",
+  "sci": "Themus cyanipennis"
+ },
+ {
+  "id": "aono_meiga_zoumushi",
+  "ja": "アオゾウムシ",
+  "sci": "Chlorophanus grandis"
+ },
+ {
+  "id": "arijigoku",
+  "ja": "アリジゴク",
+  "sci": "Hagenomyia micans"
+ },
+ {
+  "id": "baibara_shiro_shachihoko",
+  "ja": "バイバラシロシャチホコ",
+  "sci": "Cnethodonta grisescens"
+ },
+ {
+  "id": "beni_kamikiri",
+  "ja": "ベニカミキリ",
+  "sci": "Purpuricenus temminckii"
+ },
+ {
+  "id": "benihimon_kometsuki",
+  "ja": "ベニコメツキ",
+  "sci": "Denticollis nigricollis"
+ },
+ {
+  "id": "benimon_aoringa",
+  "ja": "ベニモンアオリンガ",
+  "sci": "Earias roseifera"
+ },
+ {
+  "id": "benimon_kinoko_gomimushidamashi",
+  "ja": "ベニモンキノコゴミムシダマシ",
+  "sci": "Platydema subfascia"
+ },
+ {
+  "id": "birodo_suzume",
+  "ja": "ビロードスズメ",
+  "sci": "Rhagastis mongoliana"
+ },
+ {
+  "id": "biroudo_hirata_shidemushi",
+  "ja": "ビロウドヒラタシデムシ",
+  "sci": "Oiceoptoma thoracicum"
+ },
+ {
+  "id": "chairo_hamaki",
+  "ja": "チャハマキ",
+  "sci": "Homona magnanima"
+ },
+ {
+  "id": "chairo_shima_chibi_gengorou",
+  "ja": "チャイロシマチビゲンゴロウ",
+  "sci": "Nebrioporus anchoralis"
+ },
+ {
+  "id": "chosen_hirata_kuwagata",
+  "ja": "チョウセンヒラタクワガタ",
+  "sci": "Dorcus consentaneus"
+ },
+ {
+  "id": "daikon_saru_hamushi",
+  "ja": "ダイコンサルハムシ",
+  "sci": "Phaedon brassicae"
+ },
+ {
+  "id": "daimyou_hanekakushi",
+  "ja": "ダイミョウハネカクシ",
+  "sci": "Staphylinus daimio"
+ },
+ {
+  "id": "daito_kudamaki_modoki",
+  "ja": "ダイトウクダマキモドキ",
+  "sci": "Phaulula daitoensis"
+ },
+ {
+  "id": "aka_ie_ka",
+  "ja": "アカイエカ",
+  "sci": "Culex pipiens pallens"
+ },
+ {
+  "id": "akahane_obi_keshikisui",
+  "ja": "クロハナケシキスイ",
+  "sci": "Meligethes flavicollis"
+ },
+ {
+  "id": "akasuji_shirokokega",
+  "ja": "アカスジシロコケガ",
+  "sci": "Cyana hamata"
+ },
+ {
+  "id": "america_kakusui_tobikera",
+  "ja": "アメリカカクスイトビケラ",
+  "sci": "Brachycentrus americanus"
+ },
+ {
+  "id": "ao_buchi_zoumushi",
+  "ja": "アオバネサルゾウムシ",
+  "sci": "Ceutorhynchus albosuturalis"
+ },
+ {
+  "id": "ao_gomimushi",
+  "ja": "アオゴミムシ",
+  "sci": "Chlaenius pallipes"
+ },
+ {
+  "id": "ao_naga_tamamushi",
+  "ja": "アオナガタマムシ",
+  "sci": "Agrilus cyaneoniger"
+ },
+ {
+  "id": "ao_oo_ari",
+  "ja": "アミメアリ",
+  "sci": "Pristomyrmex punctatus"
+ },
+ {
+  "id": "ao_tsuya_hanabachi",
+  "ja": "アオツヤハナバチ",
+  "sci": "Ceratina japonica"
+ },
+ {
+  "id": "aoiraga",
+  "ja": "アオイラガ",
+  "sci": "Parasa consocia"
+ },
+ {
+  "id": "aokusa_kamemushi",
+  "ja": "アオクサカメムシ",
+  "sci": "Nezara antennata"
+ },
+ {
+  "id": "atoboshi_ao_gomimushi",
+  "ja": "アトボシアオゴミムシ",
+  "sci": "Chlaenius naeviger"
+ },
+ {
+  "id": "atowa_ao_gomimushi",
+  "ja": "アトワアオゴミムシ",
+  "sci": "Chlaenius virgulifer"
+ },
+ {
+  "id": "azuki_no_iga",
+  "ja": "アズキノメイガ",
+  "sci": "Ostrinia scapulalis"
+ },
+ {
+  "id": "beni_botaru",
+  "ja": "ベニボタル",
+  "sci": "Lycostomus modestus"
+ },
+ {
+  "id": "biroudo_kogane",
+  "ja": "ビロウドコガネ",
+  "sci": "Maladera japonica"
+ },
+ {
+  "id": "buchi_hige_hamushi",
+  "ja": "フジハムシ",
+  "sci": "Galerucella vittaticollis"
+ },
+ {
+  "id": "chabane_sesujimeiga",
+  "ja": "チャバネセスジメイガ",
+  "sci": "Herculia ignealis"
+ },
+ {
+  "id": "chadokuga",
+  "ja": "チャドクガ",
+  "sci": "Euproctis pseudoconspersa"
+ }
+]

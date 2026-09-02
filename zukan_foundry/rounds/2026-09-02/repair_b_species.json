@@ -1,0 +1,242 @@
+[
+ {
+  "id": "afurika_yamato_shijimi",
+  "ja": "アフリカヤマトシジミ",
+  "sci": "Zizeeria knysna"
+ },
+ {
+  "id": "ageha_himebachi",
+  "ja": "アゲハヒメバチ",
+  "sci": "Trogus mactator"
+ },
+ {
+  "id": "aka_tobibatta",
+  "ja": "アカトビバッタ",
+  "sci": "Nomadacris septemfasciata"
+ },
+ {
+  "id": "akahane_mushi",
+  "ja": "アカハネムシ",
+  "sci": "Pseudopyrochroa rufula"
+ },
+ {
+  "id": "akamadara_hanamuguri",
+  "ja": "アカマダラハナムグリ",
+  "sci": "Anthracophora rusticola"
+ },
+ {
+  "id": "akamarubane_monki_tateha",
+  "ja": "アカマルバネモンキタテハ",
+  "sci": "Aterica rabena"
+ },
+ {
+  "id": "amami_shika_kuwagata",
+  "ja": "アマミシカクワガタ",
+  "sci": "Rhaetulus recticornis"
+ },
+ {
+  "id": "ao_kamikiri",
+  "ja": "アオカミキリ",
+  "sci": "Schwarzerium quadricolle"
+ },
+ {
+  "id": "beni_bekkoubachi",
+  "ja": "ベッコウクモバチ",
+  "sci": "Cyphononyx confluens"
+ },
+ {
+  "id": "chamadara_tobibatta",
+  "ja": "チャマダラトビバッタ",
+  "sci": "Cyrtacanthacris tatarica"
+ },
+ {
+  "id": "coccinella_transversalis",
+  "ja": "ヤマイチテントウ",
+  "sci": "Coccinella transversalis"
+ },
+ {
+  "id": "coelophora_inaequalis",
+  "ja": "カタボシテントウ",
+  "sci": "Coelophora inaequalis"
+ },
+ {
+  "id": "gin_haneguro_tonbo",
+  "ja": "ギンハネグロトンボ",
+  "sci": "Palpopleura vestita"
+ },
+ {
+  "id": "ginichimonji_seseri",
+  "ja": "ギンイチモンジセセリ",
+  "sci": "Leptalina unicolor"
+ },
+ {
+  "id": "hagata_murasaki",
+  "ja": "ハガタムラサキ",
+  "sci": "Hypolimnas dexithea"
+ },
+ {
+  "id": "hamasuzu",
+  "ja": "ハマスズ",
+  "sci": "Dianemobius csikii"
+ },
+ {
+  "id": "haneashi_ito_tonbo",
+  "ja": "ハネアシイトトンボ",
+  "sci": "Proplatycnemis malgassica"
+ },
+ {
+  "id": "hime_kijanome",
+  "ja": "ヒメキマダラヒカゲ",
+  "sci": "Zophoessa callipteris"
+ },
+ {
+  "id": "himekimadara_seseri",
+  "ja": "ヒメキマダラセセリ",
+  "sci": "Ochlodes ochracea"
+ },
+ {
+  "id": "hiroobi_midorishijimi",
+  "ja": "ヒロオビミドリシジミ",
+  "sci": "Favonius cognatus"
+ },
+ {
+  "id": "kanmuri_kareha_kamakiri",
+  "ja": "カンムリカレハカマキリ",
+  "sci": "Phyllocrania illudens"
+ },
+ {
+  "id": "kiboshi_kuro_hishibatta",
+  "ja": "キボシクロヒシバッタ",
+  "sci": "Oxytettix arius"
+ },
+ {
+  "id": "kinoko_kikuimushi",
+  "ja": "キノコキクイムシ",
+  "sci": "Xyleborus affinis"
+ },
+ {
+  "id": "kuro_suzu",
+  "ja": "クロスズ",
+  "sci": "Dianemobius furumagiensis"
+ },
+ {
+  "id": "kuroboshi_maru_kaigaramushi",
+  "ja": "クロボシマルカイガラムシ",
+  "sci": "Morganella conspicua"
+ },
+ {
+  "id": "madagasukaru_gin_yanma",
+  "ja": "マダガスカルギンヤンマ",
+  "sci": "Anax tumorifer"
+ },
+ {
+  "id": "madagasukaru_oo_gokiburi",
+  "ja": "マダガスカルオオゴキブリ",
+  "sci": "Gromphadorhina portentosa"
+ },
+ {
+  "id": "neomantis_australis",
+  "ja": "マルバネカマキリ",
+  "sci": "Neomantis australis"
+ },
+ {
+  "id": "ohishiba_kuro_aburamushi",
+  "ja": "オヒシバクロアブラムシ",
+  "sci": "Hysteroneura setariae"
+ },
+ {
+  "id": "oni_kuwa_kamikiri",
+  "ja": "オオウスバカミキリ",
+  "sci": "Megopis sinica"
+ },
+ {
+  "id": "oo_beni_hagoromo",
+  "ja": "オオベニハゴロモ",
+  "sci": "Flatida rosea"
+ },
+ {
+  "id": "oohikage_janome",
+  "ja": "オオヒカゲ",
+  "sci": "Ninguta schrenckii"
+ },
+ {
+  "id": "ooki_no_komushi",
+  "ja": "オオキノコムシ",
+  "sci": "Encaustes praenobilis"
+ },
+ {
+  "id": "oomizuao_oki",
+  "ja": "オキナワオオミズアオ",
+  "sci": "Actias aliena xenia"
+ },
+ {
+  "id": "ranran_hana_kamakiri_dummy",
+  "ja": "ニセハナカマキリ",
+  "sci": "Phyllothelys werneri"
+ },
+ {
+  "id": "scutiphora_pedicellata",
+  "ja": "ホシミドリキンカメムシ",
+  "sci": "Scutiphora pedicellata"
+ },
+ {
+  "id": "sekai_saichou_nanafushi",
+  "ja": "セカイサイチョウナナフシ",
+  "sci": "Phryganistria chinensis zhaoi"
+ },
+ {
+  "id": "suji_kuwagata",
+  "ja": "スジクワガタ",
+  "sci": "Dorcus striatipennis"
+ },
+ {
+  "id": "suji_mori_tonbo",
+  "ja": "スジモリトンボ",
+  "sci": "Neodythemis hildebrandti"
+ },
+ {
+  "id": "suzukuri_konajirami",
+  "ja": "スヅクリコナジラミ",
+  "sci": "Paraleyrodes bondari"
+ },
+ {
+  "id": "tennen_kimadara_seseri",
+  "ja": "コキマダラセセリ亜種サギッタ",
+  "sci": "Ochlodes venata sagitta"
+ },
+ {
+  "id": "tokara_nokogiri_kuwagata",
+  "ja": "トカラノコギリクワガタ",
+  "sci": "Prosopocoilus dissimilis elegans"
+ },
+ {
+  "id": "tsuchiiro_ito_tonbo",
+  "ja": "ツチイロイトトンボ",
+  "sci": "Lestes ochraceus"
+ },
+ {
+  "id": "tsuya_oozu_ari",
+  "ja": "ツヤオオズアリ",
+  "sci": "Pheidole megacephala"
+ },
+ {
+  "id": "yaeyama_koku_kuwagata",
+  "ja": "ヤエヤマコクワガタ",
+  "sci": "Dorcus amamianus yaeyamaensis"
+ },
+ {
+  "id": "yaeyama_nokogiri_kuwagata",
+  "ja": "ヤエヤマノコギリクワガタ",
+  "sci": "Prosopocoilus pseudodissimilis"
+ },
+ {
+  "id": "yakushima_noko_kuwagata",
+  "ja": "ヤクシマノコギリクワガタ",
+  "sci": "Prosopocoilus inclinatus yakushimaensis"
+ },
+ {
+  "id": "yamato_batta",
+  "ja": "ヤマトバッタ",
+  "sci": "Epacromius japonicus"
+ }
+]

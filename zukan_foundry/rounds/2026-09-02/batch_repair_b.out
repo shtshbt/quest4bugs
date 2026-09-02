@@ -1,0 +1,273 @@
+[batch] skip-sources: wikimedia を discover から外す
+[batch] refetch-ids: 48 id(s) loaded from /mnt/c/Users/shota/Dropbox/Private/tools/quest4bugs/zukan_foundry/rounds/2026-09-02/repair_b_ids.txt
+[batch] resume: 0 skipped (already emitted), 48 to process (48 forced via --refetch-ids)
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 48 species
+[batch]   -> cpu afurika_yamato_shijimi (アフリカヤマトシジミ)
+[batch]   ok io afurika_yamato_shijimi: tier=3 RMNH
+[batch]   ok io ageha_himebachi: tier=8 WIKIPEDIA
+[batch]     ok RMNHINS1416690
+[batch]   -> cpu ageha_himebachi (アゲハヒメバチ)
+[batch]   ok io aka_tobibatta: tier=7 iNat
+[batch]     reject [label_rectangle] tier=8 WIKIPEDIA: 前景が bbox を 85% 埋める直線的な矩形 (row_cv=0.33 col_cv=0.08)。ラベルカードか標本箱とみなす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu aka_tobibatta (アカトビバッタ)
+[batch]   ok io akahane_mushi: tier=8 WIKIPEDIA
+[batch]   ok io akamarubane_monki_tateha: tier=3 RMNH
+[batch]   ok io akamadara_hanamuguri: tier=7 iNat
+[batch]     refetch: aka_tobibatta 旧カード (WMCFileRedlocustwithMetarhiziumjpg) を 6 ファイル退避
+[batch]     ok iNatobs254791891
+[batch]   -> cpu akahane_mushi (アカハネムシ)
+[batch]   ok io ao_kamikiri: tier=8 WIKIPEDIA
+[batch]     reject [multiple_subjects] tier=8 WIKIPEDIA: 同程度の大きさの被写体が 4 個ある (2 番目の成分は最大の 81%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu akamarubane_monki_tateha (アカマルバネモンキタテハ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 90% 埋める直線的な矩形 (row_cv=0.31 col_cv=0.06)。ラベルカードか標本箱とみなす
+[batch]   ok io beni_bekkoubachi: tier=8 WIKIPEDIA
+[batch]   ok io coccinella_transversalis: tier=4 AM
+[batch]   ok io chamadara_tobibatta: tier=7 iNat
+[batch]   ok io gin_haneguro_tonbo: tier=1 USNM
+[batch]   ok io coelophora_inaequalis: tier=4 AM
+[batch]   ok io hagata_murasaki: tier=3 RMNH
+[batch]     refetch: akamarubane_monki_tateha 旧カード (WMCFileSeitzFaunaAfricanaXIIITaf48jpg) を 6 ファイル退避
+[batch]     ok iNatobs19968094 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu akamadara_hanamuguri (アカマダラハナムグリ)
+[batch]   ok io ginichimonji_seseri: tier=7 iNat
+[batch]   ok io haneashi_ito_tonbo: tier=1 USNM
+[batch]   ok io hime_kijanome: tier=7 iNat
+[batch]   ok io himekimadara_seseri: tier=7 iNat
+[batch]   ok io hiroobi_midorishijimi: tier=8 WIKIPEDIA
+[batch]     refetch: akamadara_hanamuguri 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate32jpg_87fd4b67) を 6 ファイル退避
+[batch]     ok iNatobs227230831
+[batch]   ng io amami_shika_kuwagata: [discover] no tier matched
+[batch]   -> cpu ao_kamikiri (アオカミキリ)
+[batch]   ok io kinoko_kikuimushi: tier=4 AM
+[batch]   ok io kiboshi_kuro_hishibatta: tier=8 WIKIPEDIA
+[batch]     ok WIKIPEDIAWP_b99d34d9
+[batch]   -> cpu beni_bekkoubachi (ベッコウクモバチ)
+[batch]   ok io kuroboshi_maru_kaigaramushi: tier=2 NHMUK
+[batch]   ok io madagasukaru_gin_yanma: tier=1 USNM
+[batch]   ok io madagasukaru_oo_gokiburi: tier=7 iNat
+[batch]     ok WIKIPEDIAWP_f24add6d
+[batch]   -> cpu coccinella_transversalis (ヤマイチテントウ)
+[batch]   ok io ohishiba_kuro_aburamushi: tier=2 NHMUK
+[batch]   ok io neomantis_australis: tier=7 iNat
+[batch]   ok io oo_beni_hagoromo: tier=2 NHMUK
+[batch]     ok AMK135602
+[batch]   -> cpu chamadara_tobibatta (チャマダラトビバッタ)
+[batch]   ok io oni_kuwa_kamikiri: tier=7 iNat
+[batch]   ok io ooki_no_komushi: tier=8 WIKIPEDIA
+[batch]   ok io oohikage_janome: tier=8 WIKIPEDIA
+[batch]   ok io ranran_hana_kamakiri_dummy: tier=7 iNat
+[batch]     refetch: chamadara_tobibatta 旧カード (WMCFileDruryV1P049AAjpg) を 6 ファイル退避
+[batch]     ok iNatobs268994037
+[batch]   -> cpu gin_haneguro_tonbo (ギンハネグロトンボ)
+[batch]   ok io scutiphora_pedicellata: tier=7 iNat
+[batch]   ok io suji_mori_tonbo: tier=1 USNM
+[batch]   ok io suzukuri_konajirami: tier=2 NHMUK
+[batch]     ok USNMENT00278005
+[batch]   -> cpu coelophora_inaequalis (カタボシテントウ)
+[batch]   ok io suji_kuwagata: tier=7 iNat
+[batch]   ok io tsuchiiro_ito_tonbo: tier=1 USNM
+[batch]   ok io tokara_nokogiri_kuwagata: tier=8 WIKIPEDIA
+[batch]     ok AMK255710
+[batch]   -> cpu hagata_murasaki (ハガタムラサキ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 97% 埋める直線的な矩形 (row_cv=0.14 col_cv=0.03)。ラベルカードか標本箱とみなす
+[batch]   ok io tsuya_oozu_ari: tier=7 iNat
+[batch]   ok io yaeyama_koku_kuwagata: tier=8 WIKIPEDIA
+[batch]   ok io yaeyama_nokogiri_kuwagata: tier=8 WIKIPEDIA
+[batch]   ok io yakushima_noko_kuwagata: tier=8 WIKIPEDIA
+[batch]   ok io yamato_batta: tier=8 WIKIPEDIA
+[batch]     refetch: hagata_murasaki 旧カード (WMCFileSeitzFaunaAfricanaXIIITaf47jpg) を 6 ファイル退避
+[batch]     ok iNatobs217931214 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu ginichimonji_seseri (ギンイチモンジセセリ)
+[batch]     refetch: ginichimonji_seseri 旧カード (WMCFileRhopaloceranihonicaBHL22784764jpg) を 6 ファイル退避
+[batch]     ok iNatobs231978903
+[batch]   -> cpu haneashi_ito_tonbo (ハネアシイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 92% 埋める直線的な矩形 (row_cv=0.20 col_cv=0.11)。ラベルカードか標本箱とみなす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   ng io hamasuzu: [discover] no tier matched
+[batch]   -> cpu hime_kijanome (ヒメキマダラヒカゲ)
+[batch]     ok iNatobs229684793
+[batch]   -> cpu himekimadara_seseri (ヒメキマダラセセリ)
+[batch]     ok iNatobs167353952
+[batch]   -> cpu hiroobi_midorishijimi (ヒロオビミドリシジミ)
+[batch]     reject [multiple_subjects] tier=8 WIKIPEDIA: 同程度の大きさの被写体が 4 個ある (2 番目の成分は最大の 98%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   ng io kanmuri_kareha_kamakiri: [discover] no tier matched
+[batch]   -> cpu kinoko_kikuimushi (キノコキクイムシ)
+[batch]     ok AMK618096
+[batch]   -> cpu kiboshi_kuro_hishibatta (キボシクロヒシバッタ)
+[batch]     reject [multiple_subjects] tier=8 WIKIPEDIA: 同程度の大きさの被写体が 7 個ある (2 番目の成分は最大の 99%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu kuroboshi_maru_kaigaramushi (クロボシマルカイガラムシ)
+[batch]     ok NHMUK014273276
+[batch]   -> cpu madagasukaru_gin_yanma (マダガスカルギンヤンマ)
+[batch]     ok USNMENT00328292
+[batch]   ng io kuro_suzu: [discover] no tier matched
+[batch]   -> cpu madagasukaru_oo_gokiburi (マダガスカルオオゴキブリ)
+[batch]     refetch: madagasukaru_oo_gokiburi 旧カード (WMCFileGromphadorhinaportentosa2jpg) を 6 ファイル退避
+[batch]     ok iNatobs216627809
+[batch]   -> cpu ohishiba_kuro_aburamushi (オヒシバクロアブラムシ)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 88% 埋める直線的な矩形 (row_cv=0.15 col_cv=0.18)。ラベルカードか標本箱とみなす
+[batch]     refetch: ohishiba_kuro_aburamushi 旧カード (WMCFileHysteroneurasetariaeJanuary2019jpg) を 6 ファイル退避
+[batch]     ok iNatobs17013284 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu neomantis_australis (マルバネカマキリ)
+[batch]     ok iNatobs197573116
+[batch]   -> cpu oo_beni_hagoromo (オオベニハゴロモ)
+[batch]     reject [multiple_subjects] tier=2 NHMUK: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 84%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     refetch: oo_beni_hagoromo 旧カード (NHMUK010634825) を 6 ファイル退避
+[batch]     ok iNatobs64809914 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu oni_kuwa_kamikiri (オオウスバカミキリ)
+[batch]     refetch: oni_kuwa_kamikiri 旧カード (WMCFileDeadbodyofsawyerbeetle2jpg_d2682e73) を 6 ファイル退避
+[batch]     ok iNatobs381624663
+[batch]   -> cpu ooki_no_komushi (オオキノコムシ)
+[batch]     refetch: ooki_no_komushi 旧カード (WIKIPEDIAWP_69cecdc4) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_69cecdc4_c2c6228e
+[batch]   -> cpu oohikage_janome (オオヒカゲ)
+[batch]     refetch: oohikage_janome 旧カード (WMCFileRhopaloceranihonicaBHL22784764jpg_270daf2b) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_352e4bd1
+[batch]   ng io oomizuao_oki: [discover] no tier matched
+[batch]   -> cpu ranran_hana_kamakiri_dummy (ニセハナカマキリ)
+[batch]     reject [foreground_negligible] tier=7 iNat: 前景がフレームの 0.09% しかない (下限 0.20%)
+[batch]     ok WIKIPEDIAWP_90cb0af7 (品質ゲートで 1 source 差し替え)
+[batch]   ng io sekai_saichou_nanafushi: [discover] no tier matched
+[batch]   -> cpu scutiphora_pedicellata (ホシミドリキンカメムシ)
+[batch]     reject [multiple_subjects] tier=7 iNat: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 59%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     refetch: scutiphora_pedicellata 旧カード (WMCFileMetallicShieldBugScutiphorapedicellataatvariouslifestagesjpg) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_ea7d98b3_c0f4d3c6 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu suji_mori_tonbo (スジモリトンボ)
+[batch]     ok USNMENT00277591
+[batch]   -> cpu suzukuri_konajirami (スヅクリコナジラミ)
+[batch]     reject [multiple_subjects] tier=2 NHMUK: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 97%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu suji_kuwagata (スジクワガタ)
+[batch]     refetch: suji_kuwagata 旧カード (WMCFilejpg_1a8d6d8b) を 6 ファイル退避
+[batch]     ok iNatobs225266808
+[batch]   ng io tennen_kimadara_seseri: [discover] no tier matched
+[batch]   -> cpu tsuchiiro_ito_tonbo (ツチイロイトトンボ)
+[batch]     ok USNMENT00391718
+[batch]   -> cpu tokara_nokogiri_kuwagata (トカラノコギリクワガタ)
+[batch]     ok WIKIPEDIAWP_397da139
+[batch]   -> cpu tsuya_oozu_ari (ツヤオオズアリ)
+[batch]     refetch: tsuya_oozu_ari 旧カード (WMCFilePheidolemegacephala333840401jpg) を 6 ファイル退避
+[batch]     ok iNatobs103328371
+[batch]   -> cpu yaeyama_koku_kuwagata (ヤエヤマコクワガタ)
+[batch]     refetch: yaeyama_koku_kuwagata 旧カード (WIKIPEDIAWP_43565d14) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_43565d14_3cacab88
+[batch]   -> cpu yaeyama_nokogiri_kuwagata (ヤエヤマノコギリクワガタ)
+[batch]     ok WIKIPEDIAWP_cd9a977a
+[batch]   -> cpu yakushima_noko_kuwagata (ヤクシマノコギリクワガタ)
+[batch]     refetch: yakushima_noko_kuwagata 旧カード (WIKIPEDIAWP_397da139) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_397da139_3d3c1f01
+[batch]   -> cpu yamato_batta (ヤマトバッタ)
+[batch]     refetch: yamato_batta 旧カード (WIKIPEDIAWP_1cee960c) を 6 ファイル退避
+[batch]     ok WIKIPEDIAWP_2280a8ce
+[batch] Streaming done in 4325.3s: io 41/48 ok, cpu 35/48 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (35 entries staged in _pipeline/)
+[batch] === SUMMARY: 35/48 species completed ===
+[batch] 品質ゲート: 12 source を reject (6 種は代替が見つからず失敗)
+[batch] refetch: 35 種を新カードに置き換え、13 種は全 source reject で旧カードを維持
+[batch] FAILURES:
+[batch]   ageha_himebachi [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   akahane_mushi [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   amami_shika_kuwagata [discover] no tier matched
+[batch]   haneashi_ito_tonbo [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   hamasuzu [discover] no tier matched
+[batch]   hiroobi_midorishijimi [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   kanmuri_kareha_kamakiri [discover] no tier matched
+[batch]   kiboshi_kuro_hishibatta [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   kuro_suzu [discover] no tier matched
+[batch]   oomizuao_oki [discover] no tier matched
+[batch]   sekai_saichou_nanafushi [discover] no tier matched
+[batch]   suzukuri_konajirami [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   tennen_kimadara_seseri [discover] no tier matched
+{
+  "total": 48,
+  "ok": 35,
+  "quality_rejected_sources": 12,
+  "quality_gate_failures": 6,
+  "refetch_requested": 48,
+  "refetch_replaced": 35,
+  "refetch_kept_previous": 13,
+  "failures": [
+    {
+      "id": "ageha_himebachi",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "akahane_mushi",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "amami_shika_kuwagata",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "haneashi_ito_tonbo",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "hamasuzu",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "hiroobi_midorishijimi",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kanmuri_kareha_kamakiri",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kiboshi_kuro_hishibatta",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kuro_suzu",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oomizuao_oki",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "sekai_saichou_nanafushi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "suzukuri_konajirami",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "tennen_kimadara_seseri",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    }
+  ]
+}

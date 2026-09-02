@@ -1,0 +1,80 @@
+{
+  "species_id": "akamarubane_monki_tateha",
+  "species_ja": "アカマルバネモンキタテハ",
+  "scientific_name": "Aterica rabena",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "simontonge (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_19968094",
+    "occurrenceId": "https://www.inaturalist.org/observations/19968094",
+    "persistentId": "https://www.inaturalist.org/observations/19968094",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "simontonge",
+    "eventDate": "1989-11-17",
+    "eventYear": 1989,
+    "country": "Madagascar",
+    "localityVerbatim": null,
+    "localityNormalized": "Réserve de Berenty, Amboasary, Madagascar, Madagascar",
+    "preparations": null,
+    "decimalLatitude": -25.0045076,
+    "decimalLongitude": 46.3005078,
+    "coordinatesObscured": false,
+    "iNatObservationId": "19968094",
+    "iNatPhotoId": "30813526",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/19968094",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/30813526/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs19968094_resized.jpg",
+    "display": "processed/iNatobs19968094_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs19968094_54.webp",
+      "108": "thumb/iNatobs19968094_108.webp",
+      "216": "thumb/iNatobs19968094_216.webp"
+    }
+  },
+  "original_sha256": "d2b45872301b114e0c9854911e00e2cb76b877eb6e4b42e828b0350c4db535c2",
+  "processing": {
+    "cropBox": [
+      318,
+      76,
+      1533,
+      964
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs19968094_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

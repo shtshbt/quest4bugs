@@ -1,0 +1,80 @@
+{
+  "species_id": "chamadara_tobibatta",
+  "species_ja": "チャマダラトビバッタ",
+  "scientific_name": "Cyrtacanthacris tatarica",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "rianafourie (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_268994037",
+    "occurrenceId": "https://www.inaturalist.org/observations/268994037",
+    "persistentId": "https://www.inaturalist.org/observations/268994037",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "rianafourie",
+    "eventDate": "2025-04-06",
+    "eventYear": 2025,
+    "country": "BW",
+    "localityVerbatim": null,
+    "localityNormalized": "North West, BW, BW",
+    "preparations": null,
+    "decimalLatitude": -20.892995,
+    "decimalLongitude": 23.366925,
+    "coordinatesObscured": false,
+    "iNatObservationId": "268994037",
+    "iNatPhotoId": "483585428",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/268994037",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/483585428/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs268994037_resized.jpg",
+    "display": "processed/iNatobs268994037_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs268994037_54.webp",
+      "108": "thumb/iNatobs268994037_108.webp",
+      "216": "thumb/iNatobs268994037_216.webp"
+    }
+  },
+  "original_sha256": "46c58092a7f77d8abde6b58e5d754250fbb3b6e88be866e5b155be14c9019867",
+  "processing": {
+    "cropBox": [
+      0,
+      912,
+      2048,
+      1838
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs268994037_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

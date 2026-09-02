@@ -1,0 +1,74 @@
+{
+  "species_id": "yamato_batta",
+  "species_ja": "ヤマトバッタ",
+  "scientific_name": "Epacromius japonicus",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Cory",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:フキバッタ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%AD%E3%83%90%E3%83%83%E3%82%BF",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%AD%E3%83%90%E3%83%83%E3%82%BF",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Cory",
+    "eventDate": "2006-10-11 10:29:36",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%AD%E3%83%90%E3%83%83%E3%82%BF",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Fukibatta_06c8408s.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_2280a8ce_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_2280a8ce_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_2280a8ce_54.webp",
+      "108": "thumb/WIKIPEDIAWP_2280a8ce_108.webp",
+      "216": "thumb/WIKIPEDIAWP_2280a8ce_216.webp"
+    }
+  },
+  "original_sha256": "40feb4d67293c6b477c2ce01f9c9fcc318ec37719ecc6b42392d33e5c3d13d28",
+  "processing": {
+    "cropBox": [
+      115,
+      12,
+      313,
+      455
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_2280a8ce_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

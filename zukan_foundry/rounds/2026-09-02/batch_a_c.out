@@ -1,0 +1,94 @@
+[batch] resume: 0 skipped (already emitted), 14 to process
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 14 species
+[batch]   ng io usucha_hekusodon: [discover] no tier matched
+[batch]   .. tatesuji_yaga: tier=2 の取得に失敗。次の tier を試す
+[batch]   -> cpu tatesuji_yaga (タテスジヤガ)
+[batch]   ok io tatesuji_yaga: tier=6 WMC
+[batch]   ok io saku_kikuimushi: tier=6 WMC
+[batch]     ok WMCFileMelipotisperpendicularisjpg
+[batch]   -> cpu saku_kikuimushi (サクキクイムシ)
+[batch]   ok io toge_hiza_inago: tier=6 WMC
+[batch]     ok WMCFileXyleborini103897zookeys98352630Figure93jpg
+[batch]   -> cpu toge_hiza_inago (トゲヒザイナゴ)
+[batch]   ok io hosonaga_kamakiri: tier=6 WMC
+[batch]     ok WMCFileOxyahylafemalejpg_93c909d0
+[batch]   ng io futasuji_tsuyumushi: [discover] no tier matched
+[batch]   -> cpu hosonaga_kamakiri (ホソナガカマキリ)
+[batch]   .. midori_suji_ageha: tier=4 の取得に失敗。次の tier を試す
+[batch]   ok io midori_suji_ageha: tier=6 WMC
+[batch]   ok io onaji_shoujoubae: tier=6 WMC
+[batch]     ok WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg
+[batch]   -> cpu midori_suji_ageha (ミドリスジアゲハ)
+[batch]     ok WMCFileSeitzFaunaAfricanaXIIITaf3jpg
+[batch]   -> cpu onaji_shoujoubae (オナジショウジョウバエ)
+[batch]     ok WMCFileDrosophilaSophophorasimulansSturtevant1919jpg
+[batch]   ng io copiphora_cultricornis: [discover] no tier matched
+[batch]   ng io chlorogonalia_coeruleovittata: [discover] no tier matched
+[batch]   ng io canthidium_aurifex: [discover] no tier matched
+[batch]   ng io pterinoxylus_speciosus: [discover] no tier matched
+[batch]   ng io atopsyche_majada: [discover] no tier matched
+[batch]   ng io helicopsyche_incisa: [discover] no tier matched
+[batch] Streaming done in 506.7s: io 6/14 ok, cpu 6/14 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (6 entries staged in _pipeline/)
+[batch] === SUMMARY: 6/14 species completed ===
+[batch] FAILURES:
+[batch]   usucha_hekusodon [discover] no tier matched
+[batch]   futasuji_tsuyumushi [discover] no tier matched
+[batch]   copiphora_cultricornis [discover] no tier matched
+[batch]   chlorogonalia_coeruleovittata [discover] no tier matched
+[batch]   canthidium_aurifex [discover] no tier matched
+[batch]   pterinoxylus_speciosus [discover] no tier matched
+[batch]   atopsyche_majada [discover] no tier matched
+[batch]   helicopsyche_incisa [discover] no tier matched
+{
+  "total": 14,
+  "ok": 6,
+  "quality_rejected_sources": 0,
+  "quality_gate_failures": 0,
+  "refetch_requested": 0,
+  "refetch_replaced": 0,
+  "refetch_kept_previous": 0,
+  "failures": [
+    {
+      "id": "usucha_hekusodon",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "futasuji_tsuyumushi",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "copiphora_cultricornis",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "chlorogonalia_coeruleovittata",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "canthidium_aurifex",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "pterinoxylus_speciosus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "atopsyche_majada",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "helicopsyche_incisa",
+      "stage": "discover",
+      "error": "no tier matched"
+    }
+  ]
+}

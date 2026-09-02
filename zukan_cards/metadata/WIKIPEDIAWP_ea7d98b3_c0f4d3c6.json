@@ -1,0 +1,74 @@
+{
+  "species_id": "scutiphora_pedicellata",
+  "species_ja": "ホシミドリキンカメムシ",
+  "scientific_name": "Scutiphora pedicellata",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Batholith",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:スギ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AE",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AE",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Batholith",
+    "eventDate": "2011-10-02",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "Taro-sugi is a famous Cryptomeria japonica tree in Izu, Shizuoka Prefecture, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AE",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Taro-sugi_20111002.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_54.webp",
+      "108": "thumb/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_108.webp",
+      "216": "thumb/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_216.webp"
+    }
+  },
+  "original_sha256": "30922cc040cde85efaf03fc09881d17c34be563d192a9723e42806ce101915d7",
+  "processing": {
+    "cropBox": [
+      586,
+      0,
+      1006,
+      1112
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_ea7d98b3_c0f4d3c6_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

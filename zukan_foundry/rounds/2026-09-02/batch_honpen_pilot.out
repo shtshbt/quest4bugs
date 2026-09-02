@@ -1,0 +1,251 @@
+[batch] resume: 0 skipped (already emitted), 63 to process
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 63 species
+[batch]   -> cpu fuchitori_gengoro (フチトリゲンゴロウ)
+[batch]   ok io fuchitori_gengoro: tier=6 WMC
+[batch]   ok io gohon_zuno_kabuto: tier=6 WMC
+[batch]   .. agrippa_suzume: tier=2 の取得に失敗。次の tier を試す
+[batch]   ok io agrippa_suzume: tier=6 WMC
+[batch]     ok WMCFileCybisterlimbatusFabricius1775male8160965402png
+[batch]   -> cpu gohon_zuno_kabuto (ゴホンヅノカブト)
+[batch]   ok io actaeon_zou_kabuto: tier=6 WMC
+[batch]   ok io aka_iraga: tier=6 WMC
+[batch]   ok io akahane_onbubatta: tier=2 NHMUK
+[batch]     ok WMCFileEupatorusgracilicornisglobaljpg
+[batch]   -> cpu agrippa_suzume (アグリッパスズメ)
+[batch]   ok io aka_seseri: tier=6 WMC
+[batch]   ok io akaashi_hoso_batta: tier=6 WMC
+[batch]     ok WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342
+[batch]   -> cpu actaeon_zou_kabuto (アクタエオンゾウカブト)
+[batch]   ok io akagane_saru_hamushi: tier=6 WMC
+[batch]     ok WMCFileMegasomaactaeonMHNTmalevoljpg
+[batch]   -> cpu aka_iraga (アカイラガ)
+[batch]     ok WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg
+[batch]   -> cpu akahane_onbubatta (アカハネオンブバッタ)
+[batch]   ok io akahane_mukashi_yokobai: tier=6 WMC
+[batch]     ok NHMUK012498599
+[batch]   -> cpu aka_seseri (アカセセリ)
+[batch]   ok io akahoshi_tentou: tier=6 WMC
+[batch]   .. akebikonoha: tier=2 の取得に失敗。次の tier を試す
+[batch]   ok io akebikonoha: tier=6 WMC
+[batch]   .. akashijimi_kita: tier=6 の取得に失敗。次の tier を試す
+[batch]   ok io akashijimi_kita: tier=8 WIKIPEDIA
+[batch]     ok WMCFile472HesperiaflorindaJPG
+[batch]   ng io aka_sukashiba: [discover] no tier matched
+[batch]   -> cpu akaashi_hoso_batta (アカアシホソバッタ)
+[batch]     ok WMCFileStenocatantopsmistshenkoijpg
+[batch]   ng io akagane_kamikiri: [discover] no tier matched
+[batch]   -> cpu akagane_saru_hamushi (アカガネサルハムシ)
+[batch]   ok io amime_ringa: tier=4 ETHZ
+[batch]     ok WMCFileAcrothiniumonMulberryleafjpg
+[batch]   ng io akagashira_aribachi: [discover] no tier matched
+[batch]   -> cpu akahane_mukashi_yokobai (ミミズク)
+[batch]   ok io ao_hamushi: tier=8 WIKIPEDIA
+[batch]   ok io ao_kanabun: tier=6 WMC
+[batch]     ok WMCFileLedraauditura1jpg
+[batch]   -> cpu akahoshi_tentou (アカホシテントウ)
+[batch]   ok io aomune_suji_tamamushi: tier=6 WMC
+[batch]   ok io akagane_kohanabachi: tier=2 NHMUK
+[batch]   ok io akaashi_nomi_zoumushi: tier=8 WIKIPEDIA
+[batch]     ok WMCFileChilocorusrubidusjpg
+[batch]   -> cpu akebikonoha (アケビコノハ)
+[batch]   ok io akahada_kometsuki: tier=8 WIKIPEDIA
+[batch]   ok io akahara_komenetsuki: tier=8 WIKIPEDIA
+[batch]   ok io ao_higenaga_tobikera: tier=2 NHMUK
+[batch]     ok WMCFileEudocimatyrannusjpg_dd5e1cbb
+[batch]   -> cpu akashijimi_kita (キタアカシジミ)
+[batch]     ok WIKIPEDIAWPJaponicabutterfly
+[batch]   ng io amami_nanafushi_dummy: [discover] no tier matched
+[batch]   -> cpu amime_ringa (アミメリンガ)
+[batch]   ok io ao_joukai: tier=6 WMC
+[batch]   ok io ao_kin_bae: tier=8 WIKIPEDIA
+[batch]     ok ETHZENT0105018
+[batch]   -> cpu ao_hamushi (アオハムシダマシ)
+[batch]   ok io aobane_joukai: tier=6 WMC
+[batch]     ok WIKIPEDIAWP_6feca9a7
+[batch]   -> cpu ao_kanabun (アオカナブン)
+[batch]   ok io aono_meiga_zoumushi: tier=7 iNat
+[batch]   .. arijigoku: tier=6 の取得に失敗。次の tier を試す
+[batch]     ok WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg
+[batch]   -> cpu aomune_suji_tamamushi (アオムネスジタマムシ)
+[batch]   ok io baibara_shiro_shachihoko: tier=7 iNat
+[batch]   ok io beni_kamikiri: tier=6 WMC
+[batch]   ok io benimon_aoringa: tier=2 NHMUK
+[batch]     ok WMCFilejpg_313dc1e4
+[batch]   -> cpu akagane_kohanabachi (アカガネコハナバチ)
+[batch]     ok NHMUK014029950
+[batch]   -> cpu akaashi_nomi_zoumushi (アカアシノミゾウムシ)
+[batch]   ok io benihimon_kometsuki: tier=8 WIKIPEDIA
+[batch]   ok io benimon_kinoko_gomimushidamashi: tier=8 WIKIPEDIA
+[batch]   ok io biroudo_hirata_shidemushi: tier=2 NHMUK
+[batch]   .. birodo_suzume: tier=2 の取得に失敗。次の tier を試す
+[batch]   ok io birodo_suzume: tier=6 WMC
+[batch]   ok io chairo_hamaki: tier=6 WMC
+[batch]     ok WIKIPEDIAWP_6ed3aef8
+[batch]   -> cpu akahada_kometsuki (アカハダコメツキ)
+[batch]     ok WIKIPEDIAWP_2620522b
+[batch]   -> cpu akahara_komenetsuki (アカハラクロコメツキ)
+[batch]   ok io chairo_shima_chibi_gengorou: tier=8 WIKIPEDIA
+[batch]   ok io chosen_hirata_kuwagata: tier=8 WIKIPEDIA
+[batch]     ok WIKIPEDIAWP_2620522b
+[batch]   -> cpu ao_higenaga_tobikera (アオヒゲナガトビケラ)
+[batch]     ok NHMUK014451618
+[batch]   -> cpu ao_joukai (アオジョウカイ)
+[batch]   ok io daikon_saru_hamushi: tier=8 WIKIPEDIA
+[batch]   ok io daimyou_hanekakushi: tier=8 WIKIPEDIA
+[batch]     ok WMCFileThemuscyanipennis20250523283364218jpg
+[batch]   -> cpu ao_kin_bae (オオクロバエ)
+[batch]   .. aka_ie_ka: tier=6 の取得に失敗。次の tier を試す
+[batch]   ok io aka_ie_ka: tier=8 WIKIPEDIA
+[batch]     ok WIKIPEDIAWPCalliphora
+[batch]   -> cpu aobane_joukai (アオバネジョウカイ)
+[batch]   ok io akahane_obi_keshikisui: tier=8 WIKIPEDIA
+[batch]     ok WMCFileThemuscyanipennis20250523283364218jpg_b6156c18
+[batch]   -> cpu aono_meiga_zoumushi (アオゾウムシ)
+[batch]   ok io akasuji_shirokokega: tier=6 WMC
+[batch]   ok io america_kakusui_tobikera: tier=2 NHMUK
+[batch]   .. ao_gomimushi: tier=2 の取得に失敗。次の tier を試す
+[batch]   ok io ao_buchi_zoumushi: tier=8 WIKIPEDIA
+[batch]   ok io ao_gomimushi: tier=6 WMC
+[batch]     ok iNatobs291451390
+[batch]   ng io arijigoku: [fetch] download failed on all 1 tier(s)
+[batch]   -> cpu baibara_shiro_shachihoko (バイバラシロシャチホコ)
+[batch]     ok iNatobs17677922
+[batch]   -> cpu beni_kamikiri (ベニカミキリ)
+[batch]   ok io ao_naga_tamamushi: tier=7 iNat
+[batch]   ok io ao_oo_ari: tier=6 WMC
+[batch]     ok WMCFilePurpuricenustemminckiiJPG
+[batch]   -> cpu benimon_aoringa (ベニモンアオリンガ)
+[batch]     ok NHMUK015666299
+[batch]   -> cpu benihimon_kometsuki (ベニコメツキ)
+[batch]   .. aoiraga: tier=6 の取得に失敗。次の tier を試す
+[batch]   ok io aoiraga: tier=7 iNat
+[batch]     ok WIKIPEDIAWPListofbeetlesofIreland
+[batch]   -> cpu benimon_kinoko_gomimushidamashi (ベニモンキノコゴミムシダマシ)
+[batch]   ok io aokusa_kamemushi: tier=6 WMC
+[batch]   ok io atoboshi_ao_gomimushi: tier=6 WMC
+[batch]     ok WIKIPEDIAWP_69cecdc4
+[batch]   -> cpu biroudo_hirata_shidemushi (ビロウドヒラタシデムシ)
+[batch]     ok NHMUK015050669
+[batch]   -> cpu birodo_suzume (ビロードスズメ)
+[batch]   ok io atowa_ao_gomimushi: tier=6 WMC
+[batch]   ok io biroudo_kogane: tier=6 WMC
+[batch]     ok WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg
+[batch]   -> cpu chairo_hamaki (チャハマキ)
+[batch]   ok io buchi_hige_hamushi: tier=8 WIKIPEDIA
+[batch]     ok WMCFileHomonamothonwalljpg
+[batch]   -> cpu chairo_shima_chibi_gengorou (チャイロシマチビゲンゴロウ)
+[batch]   ok io chabane_sesujimeiga: tier=8 WIKIPEDIA
+[batch]   ok io chadokuga: tier=6 WMC
+[batch]     ok WIKIPEDIAWP_5e1589db
+[batch]   -> cpu chosen_hirata_kuwagata (チョウセンヒラタクワガタ)
+[batch]     ok WIKIPEDIAWP_43565d14
+[batch]   -> cpu daikon_saru_hamushi (ダイコンサルハムシ)
+[batch]     ok WIKIPEDIAWP_5eede521
+[batch]   -> cpu daimyou_hanekakushi (ダイミョウハネカクシ)
+[batch]     ok WIKIPEDIAWPStaphylinus
+[batch]   ng io daito_kudamaki_modoki: [discover] no tier matched
+[batch]   -> cpu aka_ie_ka (アカイエカ)
+[batch]     ok WIKIPEDIAWP_ea8fe2cc
+[batch]   -> cpu akahane_obi_keshikisui (クロハナケシキスイ)
+[batch]     ok WIKIPEDIAWPMeligethes
+[batch]   -> cpu akasuji_shirokokega (アカスジシロコケガ)
+[batch]     ok WMCFileCyanahamatajpg
+[batch]   -> cpu america_kakusui_tobikera (アメリカカクスイトビケラ)
+[batch]     ok NHMUK014509297
+[batch]   -> cpu ao_buchi_zoumushi (アオバネサルゾウムシ)
+[batch]     ok WIKIPEDIAWP_ea7d98b3
+[batch]   -> cpu ao_gomimushi (アオゴミムシ)
+[batch]     ok WMCFileChlaeniellusnigricornisfrontJPG
+[batch]   -> cpu ao_naga_tamamushi (アオナガタマムシ)
+[batch]     ok iNatobs216468935
+[batch]   -> cpu ao_oo_ari (アミメアリ)
+[batch]     ok WMCFilePristomyrmexpunctatuscasent0178863head1jpg
+[batch]   -> cpu aoiraga (アオイラガ)
+[batch]     ok iNatobs86138316
+[batch]   ng io ao_tsuya_hanabachi: [discover] no tier matched
+[batch]   -> cpu aokusa_kamemushi (アオクサカメムシ)
+[batch]     ok WMCFilePentatomidaejpg
+[batch]   -> cpu atoboshi_ao_gomimushi (アトボシアオゴミムシ)
+[batch]     ok WMCFileChlaeniusnaevigerjpg
+[batch]   -> cpu atowa_ao_gomimushi (アトワアオゴミムシ)
+[batch]     ok WMCFileChlaeniusvirguliferinOchiaiParkjpg
+[batch]   ng io azuki_no_iga: [discover] no tier matched
+[batch]   ng io beni_botaru: [discover] no tier matched
+[batch]   -> cpu biroudo_kogane (ビロウドコガネ)
+[batch]     ok WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg
+[batch]   -> cpu buchi_hige_hamushi (フジハムシ)
+[batch]     ok WIKIPEDIAWP_4506a15f
+[batch]   -> cpu chabane_sesujimeiga (チャバネセスジメイガ)
+[batch]     ok WIKIPEDIAWP_1499349d
+[batch]   -> cpu chadokuga (チャドクガ)
+[batch]     ok WMCFileChadokugaJPG
+[batch] Streaming done in 3363.3s: io 54/63 ok, cpu 54/63 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (54 entries staged in _pipeline/)
+[batch] === SUMMARY: 54/63 species completed ===
+[batch] FAILURES:
+[batch]   aka_sukashiba [discover] no tier matched
+[batch]   akagane_kamikiri [discover] no tier matched
+[batch]   akagashira_aribachi [discover] no tier matched
+[batch]   amami_nanafushi_dummy [discover] no tier matched
+[batch]   arijigoku [fetch] download failed on all 1 tier(s)
+[batch]   daito_kudamaki_modoki [discover] no tier matched
+[batch]   ao_tsuya_hanabachi [discover] no tier matched
+[batch]   azuki_no_iga [discover] no tier matched
+[batch]   beni_botaru [discover] no tier matched
+{
+  "total": 63,
+  "ok": 54,
+  "quality_rejected_sources": 0,
+  "quality_gate_failures": 0,
+  "refetch_requested": 0,
+  "refetch_replaced": 0,
+  "refetch_kept_previous": 0,
+  "failures": [
+    {
+      "id": "aka_sukashiba",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "akagane_kamikiri",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "akagashira_aribachi",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "amami_nanafushi_dummy",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "arijigoku",
+      "stage": "fetch",
+      "error": "download failed on all 1 tier(s)"
+    },
+    {
+      "id": "daito_kudamaki_modoki",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "ao_tsuya_hanabachi",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "azuki_no_iga",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "beni_botaru",
+      "stage": "discover",
+      "error": "no tier matched"
+    }
+  ]
+}
