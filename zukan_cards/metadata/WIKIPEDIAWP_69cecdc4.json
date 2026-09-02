@@ -1,10 +1,10 @@
 {
-  "species_id": "ooki_no_komushi",
-  "species_ja": "オオキノコムシ",
-  "scientific_name": "Encaustes praenobilis",
+  "species_id": "benimon_kinoko_gomimushidamashi",
+  "species_ja": "ベニモンキノコゴミムシダマシ",
+  "scientific_name": "Platydema subfascia",
   "credit_line": "Wikipedia (ja article infobox)",
   "creator": "Udo Schmidt from Deutschland",
-  "fetched_date": "2026-08-18",
+  "fetched_date": "2026-09-02",
   "specimen": {
     "institution": "Wikipedia (ja article infobox)",
     "institutionCode": "WIKIPEDIA",
@@ -50,7 +50,7 @@
       806,
       576
     ],
-    "rotationDegrees": 0,
+    "rotationDegrees": 90,
     "padding": 0.1,
     "canvas": 512,
     "minSize": 20,
@@ -62,6 +62,7 @@
   },
   "modifications": [
     "cropped",
+    "rotated",
     "background removed",
     "color adjusted"
   ],
@@ -70,5 +71,5 @@
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "unknown taxon — no rotation"
+  "notes": "beetle head=right (heuristic conf=0.63), rotate 90 CCW"
 }

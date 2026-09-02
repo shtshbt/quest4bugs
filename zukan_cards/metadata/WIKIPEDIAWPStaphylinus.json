@@ -1,0 +1,74 @@
+{
+  "species_id": "daimyou_hanekakushi",
+  "species_ja": "ダイミョウハネカクシ",
+  "scientific_name": "Staphylinus daimio",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Tiia Monto",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Staphylinus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Staphylinus",
+    "persistentId": "https://en.wikipedia.org/wiki/Staphylinus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Tiia Monto",
+    "eventDate": "2016-05-20 10:20:46",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Staphylinus caesareus outerior of Busteni railway station, Romania.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Staphylinus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Busteni_-_insect_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPStaphylinus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPStaphylinus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPStaphylinus_54.webp",
+      "108": "thumb/WIKIPEDIAWPStaphylinus_108.webp",
+      "216": "thumb/WIKIPEDIAWPStaphylinus_216.webp"
+    }
+  },
+  "original_sha256": "6c3245d3941e51fabed524b03f39523c5d8084ad4c6f4254a8f033f3c1d2949d",
+  "processing": {
+    "cropBox": [
+      17,
+      0,
+      488,
+      696
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPStaphylinus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "beni_kamikiri",
+  "species_ja": "ベニカミキリ",
+  "scientific_name": "Purpuricenus temminckii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Alpsdake",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Purpuricenus temminckii.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Purpuricenus_temminckii.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Purpuricenus_temminckii.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alpsdake",
+    "eventDate": "2015-05-08 13:22:29",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "Purpuricenus temminckii, in Kuwana, Mie prefecture, Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Purpuricenus_temminckii.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Purpuricenus_temminckii.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePurpuricenustemminckiiJPG_resized.jpg",
+    "display": "processed/WMCFilePurpuricenustemminckiiJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePurpuricenustemminckiiJPG_54.webp",
+      "108": "thumb/WMCFilePurpuricenustemminckiiJPG_108.webp",
+      "216": "thumb/WMCFilePurpuricenustemminckiiJPG_216.webp"
+    }
+  },
+  "original_sha256": "f34d0a440b6e5804b2824a8a3c3545d8e65f0466010743de6950c351e4945e70",
+  "processing": {
+    "cropBox": [
+      238,
+      0,
+      2201,
+      2872
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePurpuricenustemminckiiJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.41), rotate 0 CCW"
+}

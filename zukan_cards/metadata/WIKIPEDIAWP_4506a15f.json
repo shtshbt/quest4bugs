@@ -1,0 +1,74 @@
+{
+  "species_id": "buchi_hige_hamushi",
+  "species_ja": "フジハムシ",
+  "scientific_name": "Galerucella vittaticollis",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Keisotyo",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:クロウリハムシ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%A6%E3%83%AA%E3%83%8F%E3%83%A0%E3%82%B7",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%A6%E3%83%AA%E3%83%8F%E3%83%A0%E3%82%B7",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Keisotyo",
+    "eventDate": "2019-06-06",
+    "eventYear": 2019,
+    "country": null,
+    "localityVerbatim": "2008/08/04 和歌山県田辺市：Tanabe City. Wakayama Pref. Japan",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%A6%E3%83%AA%E3%83%8F%E3%83%A0%E3%82%B7",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Aulacophora_nigripennis_kurourihms01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_4506a15f_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_4506a15f_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_4506a15f_54.webp",
+      "108": "thumb/WIKIPEDIAWP_4506a15f_108.webp",
+      "216": "thumb/WIKIPEDIAWP_4506a15f_216.webp"
+    }
+  },
+  "original_sha256": "d28f93e994cc2268b43c3fd6b5f80a486caf9672f136e9b8d0ae0f9eef464598",
+  "processing": {
+    "cropBox": [
+      213,
+      128,
+      705,
+      634
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_4506a15f_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

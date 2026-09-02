@@ -1,0 +1,74 @@
+{
+  "species_id": "gohon_zuno_kabuto",
+  "species_ja": "ゴホンヅノカブト",
+  "scientific_name": "Eupatorus gracilicornis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Eupatorus gracilicornis global.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Eupatorus_gracilicornis_global.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Eupatorus_gracilicornis_global.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "2011-12-06",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "♂ - Dorsal in flight. Locality: Chiang Rai, Thailand.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Eupatorus_gracilicornis_global.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Eupatorus_gracilicornis_global.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileEupatorusgracilicornisglobaljpg_resized.jpg",
+    "display": "processed/WMCFileEupatorusgracilicornisglobaljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileEupatorusgracilicornisglobaljpg_54.webp",
+      "108": "thumb/WMCFileEupatorusgracilicornisglobaljpg_108.webp",
+      "216": "thumb/WMCFileEupatorusgracilicornisglobaljpg_216.webp"
+    }
+  },
+  "original_sha256": "22d50a1fbf4036f49f9a0e48392633c6fd28a0f5cec3ac3fa6f761295a61e30b",
+  "processing": {
+    "cropBox": [
+      550,
+      140,
+      7470,
+      5848
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileEupatorusgracilicornisglobaljpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.41), rotate 0 CCW"
+}

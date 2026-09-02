@@ -1,0 +1,74 @@
+{
+  "species_id": "daikon_saru_hamushi",
+  "species_ja": "ダイコンサルハムシ",
+  "scientific_name": "Phaedon brassicae",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Chris 73",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:ダイコン",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%83%80%E3%82%A4%E3%82%B3%E3%83%B3",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%83%80%E3%82%A4%E3%82%B3%E3%83%B3",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Chris 73",
+    "eventDate": "2004-03-13",
+    "eventYear": 2004,
+    "country": null,
+    "localityVerbatim": "Picture of a pile of Daikon (giant white radish) in a supermarket in Japan.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%83%80%E3%82%A4%E3%82%B3%E3%83%B3",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Daikon.Japan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_5eede521_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_5eede521_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_5eede521_54.webp",
+      "108": "thumb/WIKIPEDIAWP_5eede521_108.webp",
+      "216": "thumb/WIKIPEDIAWP_5eede521_216.webp"
+    }
+  },
+  "original_sha256": "79e3cd019217c1a6e093935ce1ffbc880aa8528acd0e348eff44af083d010bdc",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      576,
+      305
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_5eede521_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

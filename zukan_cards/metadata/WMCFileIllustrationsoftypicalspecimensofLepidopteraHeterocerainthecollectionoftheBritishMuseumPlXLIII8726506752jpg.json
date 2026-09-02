@@ -1,0 +1,74 @@
+{
+  "species_id": "aka_iraga",
+  "species_ja": "アカイラガ",
+  "scientific_name": "Phrixolepia sericea",
+  "credit_line": "Wikimedia Commons",
+  "creator": "British Museum (Natural History).; Butler, Arthur G.; Hampson, George Francis",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Illustrations of typical specimens of Lepidoptera Heterocera in the collection of the British Museum (Pl. XLIII) (8726506752).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Illustrations_of_typical_specimens_of_Lepidoptera_Heterocera_in_the_collection_of_the_British_Museum_(Pl._XLIII)_(8726506752).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Illustrations_of_typical_specimens_of_Lepidoptera_Heterocera_in_the_collection_of_the_British_Museum_(Pl._XLIII)_(8726506752).jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "British Museum (Natural History).; Butler, Arthur G.; Hampson, George Francis",
+    "eventDate": "1879",
+    "eventYear": 1879,
+    "country": null,
+    "localityVerbatim": "LEP. HET. Pl.XLIII. R.Mintern &amp; A.H.Searle del. Mintern Bros imp. 1. Tatargyna formosa. 2. Nola fumosa. 3. Nola candida. 4. Datanoides fasciata. 5. Attacus pryeri. 6. Phrixolepia sericea. 7. Retina costata. 8. Laelia sinensis. 9. Pantana ampla. 10. Hylophila sylpha. 11. Cerura lanigera.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Illustrations_of_typical_specimens_of_Lepidoptera_Heterocera_in_the_collection_of_the_British_Museum_(Pl._XLIII)_(8726506752).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Illustrations_of_typical_specimens_of_Lepidoptera_Heterocera_in_the_collection_of_the_British_Museum_%28Pl._XLIII%29_%288726506752%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_resized.jpg",
+    "display": "processed/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_54.webp",
+      "108": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_108.webp",
+      "216": "thumb/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_216.webp"
+    }
+  },
+  "original_sha256": "90aa889cb7240cf36343d8d4460c9545990f3c6202f60b6adbd8d74cb0f9aeaa",
+  "processing": {
+    "cropBox": [
+      36,
+      134,
+      1163,
+      1443
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlXLIII8726506752jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "fuchitori_gengoro",
+  "species_ja": "フチトリゲンゴロウ",
+  "scientific_name": "Cybister limbatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cybister limbatus (Fabricius, 1775) male (8160965402).png",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cybister_limbatus_(Fabricius,_1775)_male_(8160965402).png",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cybister_limbatus_(Fabricius,_1775)_male_(8160965402).png",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2012-11-06 14:09",
+    "eventYear": 2012,
+    "country": null,
+    "localityVerbatim": "Dorsal view of Cybister limbatus",
+    "localityNormalized": "Dorsal view of Cybister limbatus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cybister_limbatus_(Fabricius,_1775)_male_(8160965402).png",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Cybister_limbatus_%28Fabricius%2C_1775%29_male_%288160965402%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCybisterlimbatusFabricius1775male8160965402png_resized.jpg",
+    "display": "processed/WMCFileCybisterlimbatusFabricius1775male8160965402png_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCybisterlimbatusFabricius1775male8160965402png_54.webp",
+      "108": "thumb/WMCFileCybisterlimbatusFabricius1775male8160965402png_108.webp",
+      "216": "thumb/WMCFileCybisterlimbatusFabricius1775male8160965402png_216.webp"
+    }
+  },
+  "original_sha256": "af646c071d2a1a78f662297b8ac9035296413926f386ac0701e4c1361a800b72",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      4925,
+      3113
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCybisterlimbatusFabricius1775male8160965402png_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

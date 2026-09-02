@@ -1,0 +1,74 @@
+{
+  "species_id": "birodo_suzume",
+  "species_ja": "ビロードスズメ",
+  "scientific_name": "Rhagastis mongoliana",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhagastis mongoliana MHNT CUT 2010 0 502 Ohsugidani Honguh, Wakayama Prefecture,Japan - male.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhagastis_mongoliana_MHNT_CUT_2010_0_502_Ohsugidani_Honguh,_Wakayama_Prefecture,Japan_-_male.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhagastis_mongoliana_MHNT_CUT_2010_0_502_Ohsugidani_Honguh,_Wakayama_Prefecture,Japan_-_male.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "Taken on 16 February 2022",
+    "eventYear": 2022,
+    "country": null,
+    "localityVerbatim": "Rhagastis mongoliana - Two views of same specimen Collection of the Mathematician Laurent Schwartz",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhagastis_mongoliana_MHNT_CUT_2010_0_502_Ohsugidani_Honguh,_Wakayama_Prefecture,Japan_-_male.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/59/Rhagastis_mongoliana_MHNT_CUT_2010_0_502_Ohsugidani_Honguh%2C_Wakayama_Prefecture%2CJapan_-_male.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_resized.jpg",
+    "display": "processed/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_54.webp",
+      "108": "thumb/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_108.webp",
+      "216": "thumb/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_216.webp"
+    }
+  },
+  "original_sha256": "1ec90d2dfb4db7f107870444dba309ecd99c2061d6da6744248dab3761b4e937",
+  "processing": {
+    "cropBox": [
+      91,
+      115,
+      10521,
+      14244
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhagastismongolianaMHNTCUT20100502OhsugidaniHonguhWakayamaPrefectureJapanmalejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

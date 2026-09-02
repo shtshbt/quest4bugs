@@ -1,0 +1,74 @@
+{
+  "species_id": "ao_kanabun",
+  "species_ja": "アオカナブン",
+  "scientific_name": "Rhomborrhina unicolor",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Noël Mal",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhomborrhina unicolor (from projects.biodiversity.be) ID-2963.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_unicolor_(from_projects.biodiversity.be)_ID-2963.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_unicolor_(from_projects.biodiversity.be)_ID-2963.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Noël Mal",
+    "eventDate": "2025-04-30 11:57:25",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhomborrhina_unicolor_(from_projects.biodiversity.be)_ID-2963.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Rhomborrhina_unicolor_%28from_projects.biodiversity.be%29_ID-2963.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_resized.jpg",
+    "display": "processed/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_54.webp",
+      "108": "thumb/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_108.webp",
+      "216": "thumb/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_216.webp"
+    }
+  },
+  "original_sha256": "62fe5c95b297daaa89995d5c9ae771e3597b76a8db17da5f423fc4e694442824",
+  "processing": {
+    "cropBox": [
+      102,
+      80,
+      348,
+      539
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhomborrhinaunicolorfromprojectsbiodiversitybeID2963jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.39), rotate 0 CCW"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "ao_oo_ari",
+  "species_ja": "アミメアリ",
+  "scientific_name": "Pristomyrmex punctatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Erin Prado",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pristomyrmex punctatus casent0178863 head 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pristomyrmex_punctatus_casent0178863_head_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pristomyrmex_punctatus_casent0178863_head_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Erin Prado",
+    "eventDate": "2009-10-07 12:45:42",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Head view of ant Pristomyrmex punctatus specimen casent0178863.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pristomyrmex_punctatus_casent0178863_head_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Pristomyrmex_punctatus_casent0178863_head_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_resized.jpg",
+    "display": "processed/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_54.webp",
+      "108": "thumb/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_108.webp",
+      "216": "thumb/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_216.webp"
+    }
+  },
+  "original_sha256": "2d3849ad53be3a50ce7f55abb46b9cc95dbdc65a1fbb68058cd2545088484b0d",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1073,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePristomyrmexpunctatuscasent0178863head1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

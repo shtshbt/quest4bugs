@@ -1,0 +1,74 @@
+{
+  "species_id": "onaji_shoujoubae",
+  "species_ja": "オナジショウジョウバエ",
+  "scientific_name": "Drosophila simulans",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Elena Regina",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Drosophila (Sophophora) simulans Sturtevant 1919 ♀.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Drosophila_(Sophophora)_simulans_Sturtevant_1919_%E2%99%80.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Drosophila_(Sophophora)_simulans_Sturtevant_1919_%E2%99%80.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Elena Regina",
+    "eventDate": "2025",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Drosophila (Sophophora) simulans .mw-parser-output .smallcaps{font-variant:small-caps}Sturtevant 1919 ♀ (Diptera Ephydroidea Drosophilidae Drosophilinae Drosophilini Drosophilina Drosophiliti). Drosophila Fallén 1823: 1,688 (IT: 23) spp. Cfr. notes¹ over the above image. NOTES: 1. TBL 2 mm.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Drosophila_(Sophophora)_simulans_Sturtevant_1919_%E2%99%80.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Drosophila_%28Sophophora%29_simulans_Sturtevant_1919_%E2%99%80.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_resized.jpg",
+    "display": "processed/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_54.webp",
+      "108": "thumb/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_108.webp",
+      "216": "thumb/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_216.webp"
+    }
+  },
+  "original_sha256": "d9e0f34a640d4a3439e13659fe7fffa4aad760c7d57a8e3967d2b7658e649dbe",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2129,
+      1338
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDrosophilaSophophorasimulansSturtevant1919jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,75 @@
+{
+  "species_id": "atowa_ao_gomimushi",
+  "species_ja": "アトワアオゴミムシ",
+  "scientific_name": "Chlaenius virgulifer",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chlaenius virgulifer in Ochiai Park.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chlaenius_virgulifer_in_Ochiai_Park.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chlaenius_virgulifer_in_Ochiai_Park.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "2024-07-13 21:21:56",
+    "eventYear": 2024,
+    "country": null,
+    "localityVerbatim": "アトワアオゴミムシ。愛知県春日井市にある落合公園で撮影。",
+    "localityNormalized": "アトワアオゴミムシ。愛知県春日井市にある落合公園で撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chlaenius_virgulifer_in_Ochiai_Park.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/9/98/Chlaenius_virgulifer_in_Ochiai_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileChlaeniusvirguliferinOchiaiParkjpg_resized.jpg",
+    "display": "processed/WMCFileChlaeniusvirguliferinOchiaiParkjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChlaeniusvirguliferinOchiaiParkjpg_54.webp",
+      "108": "thumb/WMCFileChlaeniusvirguliferinOchiaiParkjpg_108.webp",
+      "216": "thumb/WMCFileChlaeniusvirguliferinOchiaiParkjpg_216.webp"
+    }
+  },
+  "original_sha256": "bbd63f9a23640690621b495f00308dd62656aa3770bc76a999a35f36674841b6",
+  "processing": {
+    "cropBox": [
+      678,
+      721,
+      2342,
+      1702
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChlaeniusvirguliferinOchiaiParkjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.90), rotate 180 CCW"
+}

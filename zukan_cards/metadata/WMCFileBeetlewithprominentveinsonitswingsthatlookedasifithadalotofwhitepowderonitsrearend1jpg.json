@@ -1,0 +1,75 @@
+{
+  "species_id": "biroudo_kogane",
+  "species_ja": "ビロウドコガネ",
+  "scientific_name": "Maladera japonica",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Kyu3a",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Beetle with prominent veins on its wings that looked as if it had a lot of white powder on its rear end - 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Beetle_with_prominent_veins_on_its_wings_that_looked_as_if_it_had_a_lot_of_white_powder_on_its_rear_end_-_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Beetle_with_prominent_veins_on_its_wings_that_looked_as_if_it_had_a_lot_of_white_powder_on_its_rear_end_-_1.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Kyu3a",
+    "eventDate": "12 August 2026, 20:19:40",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "ビロウドコガネではと思われます。愛知県春日井市を流れる八田川沿いで撮影。",
+    "localityNormalized": "ビロウドコガネではと思われます。愛知県春日井市を流れる八田川沿いで撮影。",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Beetle_with_prominent_veins_on_its_wings_that_looked_as_if_it_had_a_lot_of_white_powder_on_its_rear_end_-_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Beetle_with_prominent_veins_on_its_wings_that_looked_as_if_it_had_a_lot_of_white_powder_on_its_rear_end_-_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_resized.jpg",
+    "display": "processed/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_54.webp",
+      "108": "thumb/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_108.webp",
+      "216": "thumb/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_216.webp"
+    }
+  },
+  "original_sha256": "a8b58da0d6b9c82eb2020994716006de321fb3e958dd0f45149e92e792423c78",
+  "processing": {
+    "cropBox": [
+      586,
+      322,
+      1631,
+      1469
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBeetlewithprominentveinsonitswingsthatlookedasifithadalotofwhitepowderonitsrearend1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.94), rotate 180 CCW"
+}

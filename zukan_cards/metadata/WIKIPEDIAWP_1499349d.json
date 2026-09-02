@@ -1,0 +1,74 @@
+{
+  "species_id": "chabane_sesujimeiga",
+  "species_ja": "チャバネセスジメイガ",
+  "scientific_name": "Herculia ignealis",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Malene Thyssen (User:Malene)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:キジ科",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%AD%E3%82%B8%E7%A7%91",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%AD%E3%82%B8%E7%A7%91",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Malene Thyssen (User:Malene)",
+    "eventDate": "Photograph taken 15th of july 2002",
+    "eventYear": 2002,
+    "country": null,
+    "localityVerbatim": "Pheasant cock (Phasianus colchicus), Rindby strand, Fanø, Denmark.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%AD%E3%82%B8%E7%A7%91",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Fasan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_1499349d_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_1499349d_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_1499349d_54.webp",
+      "108": "thumb/WIKIPEDIAWP_1499349d_108.webp",
+      "216": "thumb/WIKIPEDIAWP_1499349d_216.webp"
+    }
+  },
+  "original_sha256": "ccdf9825d2a2ff87cd185e2b8412fcc7021e3d1ffad539b8ddcbbe558b6c1dfd",
+  "processing": {
+    "cropBox": [
+      109,
+      155,
+      947,
+      565
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_1499349d_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

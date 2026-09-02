@@ -1,0 +1,74 @@
+{
+  "species_id": "hosonaga_kamakiri",
+  "species_ja": "ホソナガカマキリ",
+  "scientific_name": "Tenodera superstitiosa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bernard DUPONT from FRANCE",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Day 87 Stick Mantis (Tenodera superstitiosa) (53400847427).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Day_87_Stick_Mantis_(Tenodera_superstitiosa)_(53400847427).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Day_87_Stick_Mantis_(Tenodera_superstitiosa)_(53400847427).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bernard DUPONT from FRANCE",
+    "eventDate": "2023-12-16 13:38",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": "Skukuza Camp, Kruger NP, Mpumalanga, SOUTH AFRICA",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Day_87_Stick_Mantis_(Tenodera_superstitiosa)_(53400847427).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Day_87_Stick_Mantis_%28Tenodera_superstitiosa%29_%2853400847427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_resized.jpg",
+    "display": "processed/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_54.webp",
+      "108": "thumb/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_108.webp",
+      "216": "thumb/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_216.webp"
+    }
+  },
+  "original_sha256": "70dccd84c74f71ad897e2cacb724b971d6c0af1596e6392c2ccdaaaeb803d4bc",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      5356,
+      3467
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileDay87StickMantisTenoderasuperstitiosa53400847427jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

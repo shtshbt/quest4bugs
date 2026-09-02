@@ -1,0 +1,74 @@
+{
+  "species_id": "akaashi_nomi_zoumushi",
+  "species_ja": "アカアシノミゾウムシ",
+  "scientific_name": "Orchestes sanguinipes",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Gondahara",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:エゴノキ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B4%E3%83%8E%E3%82%AD",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B4%E3%83%8E%E3%82%AD",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Gondahara",
+    "eventDate": "2006-05-26 22:33:44",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B4%E3%83%8E%E3%82%AD",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Styrax_japonica2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_6ed3aef8_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_6ed3aef8_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_6ed3aef8_54.webp",
+      "108": "thumb/WIKIPEDIAWP_6ed3aef8_108.webp",
+      "216": "thumb/WIKIPEDIAWP_6ed3aef8_216.webp"
+    }
+  },
+  "original_sha256": "30c095cd5513ba37a7f865c4f7da62791fd1b2b1899ba827b66495d59249eb6d",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2560,
+      1920
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_6ed3aef8_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.56), rotate 0 CCW"
+}

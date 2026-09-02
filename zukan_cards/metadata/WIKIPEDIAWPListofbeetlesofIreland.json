@@ -1,0 +1,74 @@
+{
+  "species_id": "benihimon_kometsuki",
+  "species_ja": "ベニコメツキ",
+  "scientific_name": "Denticollis nigricollis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Udo Schmidt from Deutschland",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:List of beetles of Ireland",
+    "occurrenceId": "https://en.wikipedia.org/wiki/List_of_beetles_of_Ireland",
+    "persistentId": "https://en.wikipedia.org/wiki/List_of_beetles_of_Ireland",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Udo Schmidt from Deutschland",
+    "eventDate": "2014-09-30 16:02",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Family: Curculionidae Size: 8,7 mm (5,0 to 9,0 mm) Distribution: West Europe, England Ecology: lives on Ilex aquifolium Location: Ireland, Killarney Data under mount, P.Harwood coll., Pres. 1957 by Mrs. P.Harwood, 5-1958 Coll. Oxford University Museum of Natural History Photo: U.Schmidt, 2014",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/List_of_beetles_of_Ireland",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Rhopalomesites_tardyi_%28Curtis%2C_1825%29_%2815215023799%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPListofbeetlesofIreland_resized.jpg",
+    "display": "processed/WIKIPEDIAWPListofbeetlesofIreland_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPListofbeetlesofIreland_54.webp",
+      "108": "thumb/WIKIPEDIAWPListofbeetlesofIreland_108.webp",
+      "216": "thumb/WIKIPEDIAWPListofbeetlesofIreland_216.webp"
+    }
+  },
+  "original_sha256": "b5340aa900e5f2a42a1efb87e00237630b26d6d57b1022b07a9751bb609f6d66",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2416,
+      1222
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPListofbeetlesofIreland_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "ao_kin_bae",
+  "species_ja": "オオクロバエ",
+  "scientific_name": "Calliphora nigribarbis",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "JJ Harrison (https://www.jjharrison.com.au/)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Calliphora",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Calliphora",
+    "persistentId": "https://en.wikipedia.org/wiki/Calliphora",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "eventDate": "2009-08-27",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Calliphora hilli Portrait, Austin's Ferry, Tasmania, Australia.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Calliphora",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Calliphora_sp_Portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPCalliphora_resized.jpg",
+    "display": "processed/WIKIPEDIAWPCalliphora_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPCalliphora_54.webp",
+      "108": "thumb/WIKIPEDIAWPCalliphora_108.webp",
+      "216": "thumb/WIKIPEDIAWPCalliphora_216.webp"
+    }
+  },
+  "original_sha256": "eb98e34d25509a5a42ef8d9216f176824fc7a8e8e58c184ee3cf27c1fc1cfe7a",
+  "processing": {
+    "cropBox": [
+      0,
+      35,
+      1294,
+      1818
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPCalliphora_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

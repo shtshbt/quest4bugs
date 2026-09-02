@@ -1,0 +1,74 @@
+{
+  "species_id": "akasuji_shirokokega",
+  "species_ja": "アカスジシロコケガ",
+  "scientific_name": "Cyana hamata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Hsu Hong Lin",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Cyana hamata.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Cyana_hamata.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Cyana_hamata.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Hsu Hong Lin",
+    "eventDate": "2009-11-18 09:19:17",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Cyana hamata (Walker,1854) 二斑叉紋苔蛾 認識台灣的昆蟲 7 :P.110 優雪苔蛾 鞍2::P.134,Pl.54-23 male",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Cyana_hamata.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Cyana_hamata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileCyanahamatajpg_resized.jpg",
+    "display": "processed/WMCFileCyanahamatajpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileCyanahamatajpg_54.webp",
+      "108": "thumb/WMCFileCyanahamatajpg_108.webp",
+      "216": "thumb/WMCFileCyanahamatajpg_216.webp"
+    }
+  },
+  "original_sha256": "cd99d3642c2674bcc339a73681406b1480a18714bd665acc23896a96e9ac0186",
+  "processing": {
+    "cropBox": [
+      383,
+      255,
+      904,
+      638
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileCyanahamatajpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

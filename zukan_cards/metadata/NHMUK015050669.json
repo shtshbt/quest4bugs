@@ -1,0 +1,76 @@
+{
+  "species_id": "biroudo_hirata_shidemushi",
+  "species_ja": "ビロウドヒラタシデムシ",
+  "scientific_name": "Oiceoptoma thoracicum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK015050669",
+    "occurrenceId": "9e45cfeb-96f3-4a3a-bcd9-33c93e87c6b0",
+    "persistentId": "9e45cfeb-96f3-4a3a-bcd9-33c93e87c6b0",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Indeterminate",
+    "lifeStage": "Adult",
+    "recordedBy": "Ashleigh Whiffin",
+    "eventDate": "2022-04-27",
+    "eventYear": 2022,
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "localityVerbatim": null,
+    "localityNormalized": "Nearest Named Place: Loch Maree, United Kingdom of Great Britain and Northern Ireland",
+    "preparations": null,
+    "decimalLatitude": 57.7105,
+    "decimalLongitude": -5.5306
+  },
+  "source": {
+    "gbifOccurrenceKey": "3891787319",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/9e45cfeb-96f3-4a3a-bcd9-33c93e87c6b0",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/c643acc7-3db1-4e43-8290-ffa2cd69c22b",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK015050669_resized.jpg",
+    "display": "processed/NHMUK015050669_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK015050669_54.webp",
+      "108": "thumb/NHMUK015050669_108.webp",
+      "216": "thumb/NHMUK015050669_216.webp"
+    }
+  },
+  "original_sha256": "f365d64eb8d81c70097dd78068945b643fb1863fc80944d0a1827bed6c6e9352",
+  "processing": {
+    "cropBox": [
+      330,
+      110,
+      1102,
+      465
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK015050669_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

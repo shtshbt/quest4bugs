@@ -1,0 +1,75 @@
+{
+  "species_id": "aomune_suji_tamamushi",
+  "species_ja": "アオムネスジタマムシ",
+  "scientific_name": "Chrysodema dalmanni",
+  "credit_line": "Wikimedia Commons",
+  "creator": "ポニョ実",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:アオムネスジタマムシ.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%83%A0%E3%83%8D%E3%82%B9%E3%82%B8%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%83%A0%E3%83%8D%E3%82%B9%E3%82%B8%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ポニョ実",
+    "eventDate": "2026-05-26 10:41:53",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "アオムネスジタマムシ。豊見城市",
+    "localityNormalized": "アオムネスジタマムシ。豊見城市",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%83%A0%E3%83%8D%E3%82%B9%E3%82%B8%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bb/%E3%82%A2%E3%82%AA%E3%83%A0%E3%83%8D%E3%82%B9%E3%82%B8%E3%82%BF%E3%83%9E%E3%83%A0%E3%82%B7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFilejpg_313dc1e4_resized.jpg",
+    "display": "processed/WMCFilejpg_313dc1e4_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilejpg_313dc1e4_54.webp",
+      "108": "thumb/WMCFilejpg_313dc1e4_108.webp",
+      "216": "thumb/WMCFilejpg_313dc1e4_216.webp"
+    }
+  },
+  "original_sha256": "e0ea7ef9ceff1ba7ffd703b72a187f647ab1a808ed63e62403bc52094ec3d915",
+  "processing": {
+    "cropBox": [
+      234,
+      620,
+      3919,
+      2498
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilejpg_313dc1e4_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.81), rotate 180 CCW"
+}

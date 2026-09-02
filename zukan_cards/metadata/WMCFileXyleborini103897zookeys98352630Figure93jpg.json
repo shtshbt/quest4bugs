@@ -1,0 +1,74 @@
+{
+  "species_id": "saku_kikuimushi",
+  "species_ja": "サクキクイムシ",
+  "scientific_name": "Xylosandrus crassiusculus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Smith SM, Beaver RA, Cognato AI (2020) A monograph of the Xyleborini (Coleoptera, Curculionidae, Scolytinae) of the Indochinese Peninsula (except Malaysia) and China. ZooKeys 983: 1-442.",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Xyleborini (10.3897-zookeys.983.52630) Figure 93.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Xyleborini_(10.3897-zookeys.983.52630)_Figure_93.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Xyleborini_(10.3897-zookeys.983.52630)_Figure_93.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Smith SM, Beaver RA, Cognato AI (2020) A monograph of the Xyleborini (Coleoptera, Curculionidae, Scolytinae) of the Indochinese Peninsula (except Malaysia) and China. ZooKeys 983: 1-442.",
+    "eventDate": "2020-11-03",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Figure 93; Dorsal, lateral and declivital view of Xylosandrus borealis, 2.0–2.2 mm (A, B, I), X. brevis, 2.75–2.9 mm (C, D, J), X. compactus, 1.5–1.9 mm (E, F, K), and X. crassiusculus, 2.3–2.9 mm (G, H, L).",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Xyleborini_(10.3897-zookeys.983.52630)_Figure_93.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Xyleborini_%2810.3897-zookeys.983.52630%29_Figure_93.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileXyleborini103897zookeys98352630Figure93jpg_resized.jpg",
+    "display": "processed/WMCFileXyleborini103897zookeys98352630Figure93jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileXyleborini103897zookeys98352630Figure93jpg_54.webp",
+      "108": "thumb/WMCFileXyleborini103897zookeys98352630Figure93jpg_108.webp",
+      "216": "thumb/WMCFileXyleborini103897zookeys98352630Figure93jpg_216.webp"
+    }
+  },
+  "original_sha256": "62021e75a703169172023905f52d065cab376174e34a4354878e11406ca7718b",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1512,
+      2113
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileXyleborini103897zookeys98352630Figure93jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

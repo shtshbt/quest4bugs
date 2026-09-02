@@ -1,0 +1,74 @@
+{
+  "species_id": "akashijimi_kita",
+  "species_ja": "キタアカシジミ",
+  "scientific_name": "Japonica onoi",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Japonica (butterfly)",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Japonica_%28butterfly%29",
+    "persistentId": "https://en.wikipedia.org/wiki/Japonica_%28butterfly%29",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "2011-12-14",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "♂ - Dorsal side Locality: Route de Kaw PK36, Cayenne, French Guianna.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Japonica_%28butterfly%29",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Ostrinotes_tarena_MHNT_dos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPJaponicabutterfly_resized.jpg",
+    "display": "processed/WIKIPEDIAWPJaponicabutterfly_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPJaponicabutterfly_54.webp",
+      "108": "thumb/WIKIPEDIAWPJaponicabutterfly_108.webp",
+      "216": "thumb/WIKIPEDIAWPJaponicabutterfly_216.webp"
+    }
+  },
+  "original_sha256": "1c1aa962a12fb007651e96afe75ab2da65832c0a20183c2f840b6d10659347a8",
+  "processing": {
+    "cropBox": [
+      492,
+      594,
+      3534,
+      3259
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPJaponicabutterfly_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

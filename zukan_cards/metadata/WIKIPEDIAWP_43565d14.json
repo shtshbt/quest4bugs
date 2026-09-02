@@ -1,10 +1,10 @@
 {
-  "species_id": "yaeyama_koku_kuwagata",
-  "species_ja": "ヤエヤマコクワガタ",
-  "scientific_name": "Dorcus amamianus yaeyamaensis",
+  "species_id": "chosen_hirata_kuwagata",
+  "species_ja": "チョウセンヒラタクワガタ",
+  "scientific_name": "Dorcus consentaneus",
   "credit_line": "Wikipedia (ja article infobox)",
   "creator": "keusju",
-  "fetched_date": "2026-08-18",
+  "fetched_date": "2026-09-02",
   "specimen": {
     "institution": "Wikipedia (ja article infobox)",
     "institutionCode": "WIKIPEDIA",

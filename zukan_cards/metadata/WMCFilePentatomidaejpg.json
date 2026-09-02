@@ -1,0 +1,74 @@
+{
+  "species_id": "aokusa_kamemushi",
+  "species_ja": "アオクサカメムシ",
+  "scientific_name": "Nezara antennata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Matsumomushi",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pentatomidae.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pentatomidae.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pentatomidae.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Matsumomushi",
+    "eventDate": "Tue, 22 Aug 2006",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "ja:クサギカメムシ (scientific name:Halyomorpha halys)、ja:チャバネアオカメムシ (scientific name:Plautia stali)、ja:アオクサカメムシ (scientific name:Nezara antennata)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pentatomidae.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Pentatomidae.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFilePentatomidaejpg_resized.jpg",
+    "display": "processed/WMCFilePentatomidaejpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePentatomidaejpg_54.webp",
+      "108": "thumb/WMCFilePentatomidaejpg_108.webp",
+      "216": "thumb/WMCFilePentatomidaejpg_216.webp"
+    }
+  },
+  "original_sha256": "8b1f3bef67b965ab7c251a739a35709542510be65045fb41810d858b5ade8e72",
+  "processing": {
+    "cropBox": [
+      136,
+      118,
+      390,
+      419
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePentatomidaejpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "akagane_saru_hamushi",
+  "species_ja": "アカガネサルハムシ",
+  "scientific_name": "Acrothinium gaschkevitchii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Noroi",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Acrothinium on Mulberry leaf.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Acrothinium_on_Mulberry_leaf.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Acrothinium_on_Mulberry_leaf.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Noroi",
+    "eventDate": "2020-07-24 14:00:03",
+    "eventYear": 2020,
+    "country": null,
+    "localityVerbatim": "Possibly Acrothinium sp.",
+    "localityNormalized": "Possibly Acrothinium sp.",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Acrothinium_on_Mulberry_leaf.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Acrothinium_on_Mulberry_leaf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileAcrothiniumonMulberryleafjpg_resized.jpg",
+    "display": "processed/WMCFileAcrothiniumonMulberryleafjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileAcrothiniumonMulberryleafjpg_54.webp",
+      "108": "thumb/WMCFileAcrothiniumonMulberryleafjpg_108.webp",
+      "216": "thumb/WMCFileAcrothiniumonMulberryleafjpg_216.webp"
+    }
+  },
+  "original_sha256": "5663eab39afb7d5f03f02c372e926128ec385aebf2d7fcfb40b8ce8b4baed48e",
+  "processing": {
+    "cropBox": [
+      678,
+      773,
+      946,
+      1128
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileAcrothiniumonMulberryleafjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

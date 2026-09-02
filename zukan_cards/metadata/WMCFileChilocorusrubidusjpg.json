@@ -1,0 +1,75 @@
+{
+  "species_id": "akahoshi_tentou",
+  "species_ja": "アカホシテントウ",
+  "scientific_name": "Chilocorus rubidus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "timur_kalininsky",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chilocorus rubidus.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chilocorus_rubidus.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chilocorus_rubidus.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "timur_kalininsky",
+    "eventDate": "2026-07-11",
+    "eventYear": 2026,
+    "country": null,
+    "localityVerbatim": "Chilocorus rubidus",
+    "localityNormalized": "Chilocorus rubidus",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chilocorus_rubidus.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Chilocorus_rubidus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileChilocorusrubidusjpg_resized.jpg",
+    "display": "processed/WMCFileChilocorusrubidusjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChilocorusrubidusjpg_54.webp",
+      "108": "thumb/WMCFileChilocorusrubidusjpg_108.webp",
+      "216": "thumb/WMCFileChilocorusrubidusjpg_216.webp"
+    }
+  },
+  "original_sha256": "21fc6f2ba827e29843ca044326e7f25dac0897e46953db54555cdf9b00e5d73c",
+  "processing": {
+    "cropBox": [
+      316,
+      177,
+      693,
+      548
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChilocorusrubidusjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.17), rotate 270 CCW"
+}

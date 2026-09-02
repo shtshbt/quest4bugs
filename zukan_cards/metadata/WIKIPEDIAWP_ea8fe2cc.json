@@ -1,0 +1,74 @@
+{
+  "species_id": "aka_ie_ka",
+  "species_ja": "アカイエカ",
+  "scientific_name": "Culex pipiens pallens",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "Alvesgaspar",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:アカイエカ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%AB%E3%82%A4%E3%82%A8%E3%82%AB",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%AB%E3%82%A4%E3%82%A8%E3%82%AB",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Alvesgaspar",
+    "eventDate": "2007-09",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "Mosquito (Culex pipiens)",
+    "localityNormalized": "Mosquito (Culex pipiens)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%AB%E3%82%A4%E3%82%A8%E3%82%AB",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Culex_pipiens_2007-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_ea8fe2cc_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_ea8fe2cc_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_ea8fe2cc_54.webp",
+      "108": "thumb/WIKIPEDIAWP_ea8fe2cc_108.webp",
+      "216": "thumb/WIKIPEDIAWP_ea8fe2cc_216.webp"
+    }
+  },
+  "original_sha256": "fd9977d4f223d5e97e6976742345aa7929c607300dc124e2f1b19ec4508e4508",
+  "processing": {
+    "cropBox": [
+      4,
+      29,
+      515,
+      389
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_ea8fe2cc_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

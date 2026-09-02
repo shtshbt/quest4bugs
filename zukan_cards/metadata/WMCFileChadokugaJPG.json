@@ -1,0 +1,74 @@
+{
+  "species_id": "chadokuga",
+  "species_ja": "チャドクガ",
+  "scientific_name": "Euproctis pseudoconspersa",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Easyman at Japanese Wikipedia",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chadokuga.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chadokuga.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chadokuga.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Easyman at Japanese Wikipedia",
+    "eventDate": "2007-06",
+    "eventYear": 2007,
+    "country": null,
+    "localityVerbatim": "チャドクガの若齢幼虫がサザンカの葉を食害しているところ。平成19年6月千葉県千葉市の公園にて投稿者撮影。",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chadokuga.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Chadokuga.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileChadokugaJPG_resized.jpg",
+    "display": "processed/WMCFileChadokugaJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChadokugaJPG_54.webp",
+      "108": "thumb/WMCFileChadokugaJPG_108.webp",
+      "216": "thumb/WMCFileChadokugaJPG_216.webp"
+    }
+  },
+  "original_sha256": "bb51f16bce3a9fcdf84097a28cf94d26fa3e8293de78eec20035deb797c07ae1",
+  "processing": {
+    "cropBox": [
+      453,
+      165,
+      859,
+      752
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChadokugaJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,81 @@
+{
+  "species_id": "ao_naga_tamamushi",
+  "species_ja": "アオナガタマムシ",
+  "scientific_name": "Agrilus cyaneoniger",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_216468935",
+    "occurrenceId": "https://www.inaturalist.org/observations/216468935",
+    "persistentId": "https://www.inaturalist.org/observations/216468935",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-05-21",
+    "eventYear": 2023,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.0520077994,
+    "decimalLongitude": 139.1384745619,
+    "coordinatesObscured": true,
+    "iNatObservationId": "216468935",
+    "iNatPhotoId": "382844759",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/216468935",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/382844759/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs216468935_resized.jpg",
+    "display": "processed/iNatobs216468935_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs216468935_54.webp",
+      "108": "thumb/iNatobs216468935_108.webp",
+      "216": "thumb/iNatobs216468935_216.webp"
+    }
+  },
+  "original_sha256": "d370af1de204b394451c8d9172aace0cedf0938a2d6d4c20e30a4ab5da9b05d5",
+  "processing": {
+    "cropBox": [
+      752,
+      399,
+      1096,
+      1103
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs216468935_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.96), rotate 270 CCW"
+}

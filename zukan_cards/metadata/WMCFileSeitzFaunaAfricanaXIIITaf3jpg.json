@@ -1,0 +1,74 @@
+{
+  "species_id": "midori_suji_ageha",
+  "species_ja": "ミドリスジアゲハ",
+  "scientific_name": "Graphium cyrnus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Adalbert Seitz",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:SeitzFaunaAfricanaXIIITaf3.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf3.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf3.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Adalbert Seitz",
+    "eventDate": "circa 1925<div style=\"display: none;\">date QS:P,+1925-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "eventYear": 1925,
+    "country": null,
+    "localityVerbatim": "d.1., d.3.: Coppery Swordtails, upperwings; d.2.: Coppery Swordtail, underwing",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:SeitzFaunaAfricanaXIIITaf3.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/SeitzFaunaAfricanaXIIITaf3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_resized.jpg",
+    "display": "processed/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_54.webp",
+      "108": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_108.webp",
+      "216": "thumb/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_216.webp"
+    }
+  },
+  "original_sha256": "fc25c52317deddc13348f353e793d52fabd455e894761652daf5f2a7a2707f55",
+  "processing": {
+    "cropBox": [
+      167,
+      0,
+      5100,
+      6643
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSeitzFaunaAfricanaXIIITaf3jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

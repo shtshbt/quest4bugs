@@ -1,0 +1,80 @@
+{
+  "species_id": "baibara_shiro_shachihoko",
+  "species_ja": "バイバラシロシャチホコ",
+  "scientific_name": "Cnethodonta grisescens",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "amzamz (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_17677922",
+    "occurrenceId": "https://www.inaturalist.org/observations/17677922",
+    "persistentId": "https://www.inaturalist.org/observations/17677922",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "amzamz",
+    "eventDate": "1987-08-19",
+    "eventYear": 1987,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Hitachi, Präfektur Ibaraki, Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.5991289,
+    "decimalLongitude": 140.6504583,
+    "coordinatesObscured": false,
+    "iNatObservationId": "17677922",
+    "iNatPhotoId": "26939430",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/17677922",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/26939430/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs17677922_resized.jpg",
+    "display": "processed/iNatobs17677922_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs17677922_54.webp",
+      "108": "thumb/iNatobs17677922_108.webp",
+      "216": "thumb/iNatobs17677922_216.webp"
+    }
+  },
+  "original_sha256": "3802bd328215f9f9b5133e279123709fec222b699af85932bca8f3fc209e191d",
+  "processing": {
+    "cropBox": [
+      435,
+      0,
+      1828,
+      1152
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs17677922_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

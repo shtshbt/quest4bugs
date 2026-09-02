@@ -1,0 +1,74 @@
+{
+  "species_id": "ao_joukai",
+  "species_ja": "アオジョウカイ",
+  "scientific_name": "Themus cyanipennis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "karliatje",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Themus-cyanipennis-2025-05-23-283364218.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Themus-cyanipennis-2025-05-23-283364218.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Themus-cyanipennis-2025-05-23-283364218.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "karliatje",
+    "eventDate": "2025-05-23",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Themus cyanipennis (Kyoto, Japan)",
+    "localityNormalized": "Themus cyanipennis (Kyoto, Japan)",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Themus-cyanipennis-2025-05-23-283364218.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Themus-cyanipennis-2025-05-23-283364218.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileThemuscyanipennis20250523283364218jpg_resized.jpg",
+    "display": "processed/WMCFileThemuscyanipennis20250523283364218jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileThemuscyanipennis20250523283364218jpg_54.webp",
+      "108": "thumb/WMCFileThemuscyanipennis20250523283364218jpg_108.webp",
+      "216": "thumb/WMCFileThemuscyanipennis20250523283364218jpg_216.webp"
+    }
+  },
+  "original_sha256": "eac4fbff47d1bf0e3aa8a2654143e18ddb0c43b756b86a1ac1430e8049235789",
+  "processing": {
+    "cropBox": [
+      104,
+      123,
+      456,
+      419
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileThemuscyanipennis20250523283364218jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.87), rotate 0 CCW"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "tatesuji_yaga",
+  "species_ja": "タテスジヤガ",
+  "scientific_name": "Melipotis perpendicularis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Laura Gaudette",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Melipotis perpendicularis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Melipotis_perpendicularis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Melipotis_perpendicularis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Laura Gaudette",
+    "eventDate": "2017-02-01",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": "Perpendicular Graphic (Melipotis perpendicularis)",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Melipotis_perpendicularis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Melipotis_perpendicularis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMelipotisperpendicularisjpg_resized.jpg",
+    "display": "processed/WMCFileMelipotisperpendicularisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMelipotisperpendicularisjpg_54.webp",
+      "108": "thumb/WMCFileMelipotisperpendicularisjpg_108.webp",
+      "216": "thumb/WMCFileMelipotisperpendicularisjpg_216.webp"
+    }
+  },
+  "original_sha256": "76ed403a2ada195392d4aac70e2f1ecc29075112c27028c14cfac8709ca142e8",
+  "processing": {
+    "cropBox": [
+      105,
+      270,
+      1301,
+      1760
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMelipotisperpendicularisjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

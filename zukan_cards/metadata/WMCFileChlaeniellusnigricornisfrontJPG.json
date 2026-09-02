@@ -1,0 +1,75 @@
+{
+  "species_id": "ao_gomimushi",
+  "species_ja": "アオゴミムシ",
+  "scientific_name": "Chlaenius pallipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Siga",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Chlaeniellus nigricornis front.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Chlaeniellus_nigricornis_front.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Chlaeniellus_nigricornis_front.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Siga",
+    "eventDate": "2010-08-16",
+    "eventYear": 2010,
+    "country": null,
+    "localityVerbatim": "Chlaeniellus nigricornis from Hungary at 2010-05-30 near Mezötur",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Chlaeniellus_nigricornis_front.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Chlaeniellus_nigricornis_front.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "files": {
+    "resized": "original/WMCFileChlaeniellusnigricornisfrontJPG_resized.jpg",
+    "display": "processed/WMCFileChlaeniellusnigricornisfrontJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileChlaeniellusnigricornisfrontJPG_54.webp",
+      "108": "thumb/WMCFileChlaeniellusnigricornisfrontJPG_108.webp",
+      "216": "thumb/WMCFileChlaeniellusnigricornisfrontJPG_216.webp"
+    }
+  },
+  "original_sha256": "a7c6cb70397c48cf694c3bf2f45122639ede0fc413b082ce4584e3884615673a",
+  "processing": {
+    "cropBox": [
+      113,
+      28,
+      1760,
+      1499
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileChlaeniellusnigricornisfrontJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.35), rotate 90 CCW"
+}

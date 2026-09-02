@@ -1,0 +1,74 @@
+{
+  "species_id": "akahara_komenetsuki",
+  "species_ja": "アカハラクロコメツキ",
+  "scientific_name": "Ampedus hypogastricus",
+  "credit_line": "Wikipedia (ja article infobox)",
+  "creator": "B kimmel at nl.wikipedia",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikipedia (ja article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:コメツキムシ",
+    "occurrenceId": "https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%A1%E3%83%84%E3%82%AD%E3%83%A0%E3%82%B7",
+    "persistentId": "https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%A1%E3%83%84%E3%82%AD%E3%83%A0%E3%82%B7",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "B kimmel at nl.wikipedia",
+    "eventDate": "5 May 2005 (original upload date)",
+    "eventYear": 2005,
+    "country": null,
+    "localityVerbatim": "Kniptor (Agrypnus) Eigen foto B kimmel",
+    "localityNormalized": "Kniptor (Agrypnus) Eigen foto B kimmel",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%A1%E3%83%84%E3%82%AD%E3%83%A0%E3%82%B7",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Kniptor_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-3.0",
+    "mediaLicense": "CC-BY-SA-3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWP_2620522b_resized.jpg",
+    "display": "processed/WIKIPEDIAWP_2620522b_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWP_2620522b_54.webp",
+      "108": "thumb/WIKIPEDIAWP_2620522b_108.webp",
+      "216": "thumb/WIKIPEDIAWP_2620522b_216.webp"
+    }
+  },
+  "original_sha256": "2e5dbd553184f7b1dfc6077b9cbed99050cdfb796bdc20b422359f1236b0ee85",
+  "processing": {
+    "cropBox": [
+      82,
+      24,
+      226,
+      301
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWP_2620522b_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

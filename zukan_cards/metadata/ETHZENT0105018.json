@@ -1,0 +1,76 @@
+{
+  "species_id": "amime_ringa",
+  "species_ja": "アミメリンガ",
+  "scientific_name": "Sinna extrema",
+  "credit_line": "Entomological Collection, ETH Zürich",
+  "creator": "Entomological Collection, ETH Zürich",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Entomological Collection, ETH Zürich",
+    "institutionCode": "ETHZ",
+    "collectionCode": "ETHZ-ENT",
+    "catalogNumber": "ETHZ-ENT0105018",
+    "occurrenceId": "ETHZ-ENT0105018",
+    "persistentId": "ETHZ-ENT0105018",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "NotAType",
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1921-05-21",
+    "eventYear": 1921,
+    "country": "China",
+    "localityVerbatim": "Berg Pao-hwa b. : Lungtan b. Nanking : China",
+    "localityNormalized": "Baohua Mountain, Zhenjiang, China",
+    "preparations": "pinned",
+    "decimalLatitude": 32.131936,
+    "decimalLongitude": 119.078137
+  },
+  "source": {
+    "gbifOccurrenceKey": "5761582313",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/5761582313",
+    "sourceMediaUrl": "https://nahima.ethz.ch/api/v1/eas/download/639137/5550945e473df8e631e678b17f2dfe9dfc2cc6defbdf5d60a01a05fd0243473a/original.jpg",
+    "datasetKey": "fb9863f4-68cf-4e90-bc4d-2b15bdebf889",
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/ETHZENT0105018_resized.jpg",
+    "display": "processed/ETHZENT0105018_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/ETHZENT0105018_54.webp",
+      "108": "thumb/ETHZENT0105018_108.webp",
+      "216": "thumb/ETHZENT0105018_216.webp"
+    }
+  },
+  "original_sha256": "5550945e473df8e631e678b17f2dfe9dfc2cc6defbdf5d60a01a05fd0243473a",
+  "processing": {
+    "cropBox": [
+      1575,
+      4173,
+      2566,
+      4751
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/ETHZENT0105018_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

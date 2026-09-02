@@ -1,0 +1,80 @@
+{
+  "species_id": "aoiraga",
+  "species_ja": "アオイラガ",
+  "scientific_name": "Parasa consocia",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "agnestrekker (iNaturalist)",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_86138316",
+    "occurrenceId": "https://www.inaturalist.org/observations/86138316",
+    "persistentId": "https://www.inaturalist.org/observations/86138316",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "agnestrekker",
+    "eventDate": "2021-07-07",
+    "eventYear": 2021,
+    "country": "Hong Kong Wetland Park 濕地公園",
+    "localityVerbatim": null,
+    "localityNormalized": "Hong Kong Wetland Park 濕地公園, Hong Kong Wetland Park 濕地公園",
+    "preparations": null,
+    "decimalLatitude": 22.4698725184,
+    "decimalLongitude": 114.0088176727,
+    "coordinatesObscured": false,
+    "iNatObservationId": "86138316",
+    "iNatPhotoId": "141852901",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/86138316",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/141852901/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs86138316_resized.jpg",
+    "display": "processed/iNatobs86138316_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs86138316_54.webp",
+      "108": "thumb/iNatobs86138316_108.webp",
+      "216": "thumb/iNatobs86138316_216.webp"
+    }
+  },
+  "original_sha256": "a4b37dad2dc34ceb9175625ddca6f4ce9fe25f66a0a785d83a853e6e470b0bc2",
+  "processing": {
+    "cropBox": [
+      763,
+      663,
+      1733,
+      1281
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs86138316_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

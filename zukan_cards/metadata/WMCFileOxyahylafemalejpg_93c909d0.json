@@ -1,0 +1,74 @@
+{
+  "species_id": "toge_hiza_inago",
+  "species_ja": "トゲヒザイナゴ",
+  "scientific_name": "Oxya hyla",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Christiaan Kooyman",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Oxya hyla female.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Oxya_hyla_female.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Oxya_hyla_female.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Christiaan Kooyman",
+    "eventDate": "2006-03-19",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Photograph taken by Christiaan Kooyman on 19 March 2006 in the Lama Forest of Benin.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Oxya_hyla_female.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Oxya_hyla_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileOxyahylafemalejpg_93c909d0_resized.jpg",
+    "display": "processed/WMCFileOxyahylafemalejpg_93c909d0_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileOxyahylafemalejpg_93c909d0_54.webp",
+      "108": "thumb/WMCFileOxyahylafemalejpg_93c909d0_108.webp",
+      "216": "thumb/WMCFileOxyahylafemalejpg_93c909d0_216.webp"
+    }
+  },
+  "original_sha256": "8d157f02cf589178fdf59c5626141009af9bb732afdcc3c5fb6295c21dd5cd9a",
+  "processing": {
+    "cropBox": [
+      192,
+      207,
+      804,
+      561
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileOxyahylafemalejpg_93c909d0_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

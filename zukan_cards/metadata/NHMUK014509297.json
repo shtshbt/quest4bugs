@@ -1,0 +1,74 @@
+{
+  "species_id": "america_kakusui_tobikera",
+  "species_ja": "アメリカカクスイトビケラ",
+  "scientific_name": "Brachycentrus americanus",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014509297",
+    "occurrenceId": "2e7c5767-239d-47e0-8d54-fcfcffc72511",
+    "persistentId": "2e7c5767-239d-47e0-8d54-fcfcffc72511",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1977-08-19",
+    "eventYear": 1977,
+    "country": "United States of America",
+    "localityVerbatim": null,
+    "localityNormalized": "United States of America",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3387323338",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/2e7c5767-239d-47e0-8d54-fcfcffc72511",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/0b98997b-06e7-473b-84af-659b901be23c",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014509297_resized.jpg",
+    "display": "processed/NHMUK014509297_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014509297_54.webp",
+      "108": "thumb/NHMUK014509297_108.webp",
+      "216": "thumb/NHMUK014509297_216.webp"
+    }
+  },
+  "original_sha256": "4d9c370c4cc63219f153a05f0619485354057aa117662562f97c41afecc89b21",
+  "processing": {
+    "cropBox": [
+      611,
+      480,
+      965,
+      980
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014509297_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

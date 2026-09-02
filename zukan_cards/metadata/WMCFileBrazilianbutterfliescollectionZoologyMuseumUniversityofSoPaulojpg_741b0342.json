@@ -1,0 +1,74 @@
+{
+  "species_id": "agrippa_suzume",
+  "species_ja": "アグリッパスズメ",
+  "scientific_name": "Thysania agrippina",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Wilfredor",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Brazilian butterflies collection, Zoology Museum, University of São Paulo.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Brazilian_butterflies_collection,_Zoology_Museum,_University_of_S%C3%A3o_Paulo.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Brazilian_butterflies_collection,_Zoology_Museum,_University_of_S%C3%A3o_Paulo.jpg",
+    "basisOfRecord": "MachineObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Wilfredor",
+    "eventDate": "2016-04-16",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "Brazilian butterflies collection: 1. Rothschildia aurota (Cramer, 1775) 2. Morpho didius 3. Phoebis philea (Linnaeus, 1763) 4. Cocytius antaeus (Drury, 1773) 5. Thysania agrippina (Cramer, 1776) 6. Manduca r. rustica (Fabricius, 1775) 7. 8. Adhemarius gannascus (Stoll, 1790) 9. Xylophanes isaon (Boisduval, 1875) 10. Erinnyis e. ello (Linnaeus, 1758) Institution: Museum of Zoology of the University of São Paulo..",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Brazilian_butterflies_collection,_Zoology_Museum,_University_of_S%C3%A3o_Paulo.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/5/59/Brazilian_butterflies_collection%2C_Zoology_Museum%2C_University_of_S%C3%A3o_Paulo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_resized.jpg",
+    "display": "processed/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_54.webp",
+      "108": "thumb/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_108.webp",
+      "216": "thumb/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_216.webp"
+    }
+  },
+  "original_sha256": "7ceb287902bef235d5f849c4aa6bf026e2f284c2d684ec2a4e7dd6e696837683",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      10821,
+      8807
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileBrazilianbutterfliescollectionZoologyMuseumUniversityofSoPaulojpg_741b0342_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

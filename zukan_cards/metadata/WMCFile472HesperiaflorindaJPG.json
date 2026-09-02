@@ -1,0 +1,74 @@
+{
+  "species_id": "aka_seseri",
+  "species_ja": "アカセセリ",
+  "scientific_name": "Hesperia florinda",
+  "credit_line": "Wikimedia Commons",
+  "creator": "コミスジ空港",
+  "fetched_date": "2026-09-02",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:472-Hesperia florinda.JPG",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:472-Hesperia_florinda.JPG",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:472-Hesperia_florinda.JPG",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "コミスジ空港",
+    "eventDate": "2015-11-18 11:11:01",
+    "eventYear": 2015,
+    "country": null,
+    "localityVerbatim": "アカセセリ",
+    "localityNormalized": "アカセセリ",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:472-Hesperia_florinda.JPG",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/472-Hesperia_florinda.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFile472HesperiaflorindaJPG_resized.jpg",
+    "display": "processed/WMCFile472HesperiaflorindaJPG_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFile472HesperiaflorindaJPG_54.webp",
+      "108": "thumb/WMCFile472HesperiaflorindaJPG_108.webp",
+      "216": "thumb/WMCFile472HesperiaflorindaJPG_216.webp"
+    }
+  },
+  "original_sha256": "4503846ba666ae8dbb9d7d77808f730ffc430e7dac2be51d66b458503eda8cc5",
+  "processing": {
+    "cropBox": [
+      243,
+      230,
+      2109,
+      1420
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFile472HesperiaflorindaJPG_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}
