@@ -5,8 +5,12 @@
      「どの虫か」と「新顔か」の 2 つだけ。8 問 1 匹のレートとレアリティ表には触れない。
 
      matcher は実在の採集法に対応させる。色分けのような恣意的な対応を採ると、
-     図鑑で覚えた分類の知識が道具選びに効かなくなる。判定は種データの既存フィールド
-     ({order, family, familyJa, groupJa, tags, habitat, sizeMm}) だけを読む。 */
+     図鑑で覚えた分類の知識が道具選びに効かなくなる。
+
+     どの種がどの採集法で採れるかの判定そのものは、この file には無い。
+     `shared/species_guilds.js` (Q4B_GUILDS) が 11 のギルドを分類から導き、道具は
+     `guild` key で 1 つを指すだけにしてある (2026-09-06 分離)。道具を増やす作業と、
+     図鑑の種をギルドへ割り当てる作業を別々にレビューできるようにするため。 */
 
   /* 耐久は全図鑑ぶんの合計。8 問 1 匹なので 100 回 = 正解 800 問ぶんで、3 教科
      90 問/日なら 9 日前後もつ。小道だけに効いていた頃の 30 では、本編にも効かせた
@@ -15,48 +19,24 @@
 
   function isObject(value){return value!==null&&typeof value==="object"&&!Array.isArray(value);}
 
-  function toSet(values){
-    var set=Object.create(null);
-    values.forEach(function(value){set[value]=true;});
-    return set;
+  /* ギルド層への橋。判定の中身は shared/species_guilds.js が持つ。
+     ここが持つのは「読めなかったときにどうするか」だけ。
+
+     ギルド層が読み込まれていないときは false に倒す (どの種にも当たらない)。
+     true に倒すと、抽選の重みが全種 3 倍になって「重みを掛けていない」のと
+     同じ結果になり、道具が効いているのか層が落ちているのか見分けが付かなくなる。
+     false なら worksIn が下限割れを返し、装備が「未装備」へ倒れて表に出る。 */
+  function guilds(){return global.Q4B_GUILDS||null;}
+  function inGuild(key,sp){
+    var layer=guilds();
+    return !!(layer&&layer.has(key,sp));
   }
-
-  function inSet(value,set){return typeof value==="string"&&!!set[value];}
-
-  function anyOf(values,set){
-    return Array.isArray(values)&&values.some(function(value){return inSet(value,set);});
-  }
-
-  /* データの実語彙に合わせる。aquatic / wetland のような設計書の総称語は
-     komorebi/data の種データにはほとんど無く、実際に付いているのは水域の具体名。 */
-  var WATER_HABITAT=toSet(["pond","marsh","stream","river","paddy","lake","water","wetland","bog",
-    "ricefield","rice_field","mountain_stream","waterside","riverside","riverbank","seepage"]);
-  var GRASS_HABITAT=toSet(["grassland","field","farmland","farm","paddy","ricefield","rice_field","forest_edge"]);
-  var GROUND_HABITAT=toSet(["ground","bareground","sand"]);
-  var HIGH_HABITAT=toSet(["canopy","treetop","tree"]);
-  var HIGH_TAGS=toSet(["canopy","treetop","arboreal"]);
-
-  var BUTTERFLY_FAMILY=toSet(["Nymphalidae","Papilionidae","Pieridae","Lycaenidae","Hesperiidae","Riodinidae"]);
-  var BUTTERFLY_GROUP=toSet(["タテハ","アゲハ","シロチョウ","シジミ","セセリ","マダラチョウ","ジャノメ"]);
-  var MOTH_FAMILY=toSet(["Saturniidae","Sphingidae","Erebidae","Noctuidae","Geometridae","Lasiocampidae","Uraniidae"]);
-  var MOTH_GROUP=toSet(["ガ","スズメガ","ヤガ"]);
-  var MOTH_TAGS=toSet(["moth","nocturnal","dusk"]);
-  var SWEEP_ORDER=toSet(["Orthoptera","Hemiptera"]);
-  var BEATING_FAMILY=toSet(["Curculionidae","Chrysomelidae","Cerambycidae","Pentatomidae","Coreidae","Scutelleridae","Lonchodidae","Phasmatidae"]);
-  var BEATING_GROUP=toSet(["ナナフシ","ゾウムシ","カミキリ","ハムシ"]);
-  var SAP_FAMILY=toSet(["Lucanidae","Scarabaeidae","Cetoniidae","Dynastidae","Passalidae","Nymphalidae"]);
-  var SAP_GROUP=toSet(["クワガタムシ","カブトムシ","コガネ","タテハ"]);
-  var GROUND_FAMILY=toSet(["Carabidae","Tenebrionidae","Staphylinidae","Silphidae"]);
-  var GROUND_GROUP=toSet(["オサムシ","ゴミムシ"]);
-  var DUNG_TAGS=toSet(["dung","dung_beetle","coprophagous"]);
-  var DUNG_FAMILY=toSet(["Geotrupidae"]);
-  var SMALL_MAX_MM=15;
-
-  function habitatOf(sp){return sp&&Array.isArray(sp.habitat)?sp.habitat:[];}
-  function tagsOf(sp){return sp&&Array.isArray(sp.tags)?sp.tags:[];}
-  function hasTag(sp,tag){return tagsOf(sp).indexOf(tag)>=0;}
-  function upperSizeMm(sp){
-    return sp&&Array.isArray(sp.sizeMm)&&Number.isFinite(sp.sizeMm[1])?sp.sizeMm[1]:null;
+  /* 対象 guild の説明文。ギルド層に 1 本だけ置いて、道具側では複製しない
+     (フントラップの対象を「フンチュウ」から「ふんや しがい」へ広げたときに、
+     交換画面とどうぐばこで表記がずれた、という壊れ方を作らないため)。 */
+  function guildLabel(key){
+    var layer=guilds();
+    return layer?layer.label(key):"";
   }
 
   /* release は「どの更新で交換できるようになるか」。CATEGORIES と同じ番号体系で、
@@ -71,101 +51,86 @@
   var TOOLS=[
     {
       id:"cho_net",name:"ちょうネット",emoji:"🥅",release:2,
-      guild:"ひるに とぶ チョウ",
+      guildKey:"butterfly",
       blurb:"ふわりと まいあがる チョウを そっと つつむ、やわらかい あみ。",
-      breakText:"あみが やぶれた!",
-      match:function(sp){
-        return hasTag(sp,"butterfly")||inSet(sp.family,BUTTERFLY_FAMILY)||inSet(sp.groupJa,BUTTERFLY_GROUP);
-      }
+      breakText:"あみが やぶれた!"
     },
     {
       id:"tonbo_net",name:"トンボ用メッシュネット",yomi:"トンボようメッシュネット",emoji:"🕸",release:2,
-      guild:"トンボ",
+      guildKey:"dragonfly",
       blurb:"めの こまかい あみ。すばやい トンボの はねを いためない。",
-      breakText:"あみが やぶれた!",
-      match:function(sp){return sp.order==="Odonata";}
+      breakText:"あみが やぶれた!"
     },
     {
       id:"light_trap",name:"灯火採集セット",yomi:"とうかさいしゅうセット",emoji:"🔦",release:2,
-      guild:"よるに とぶ 虫",
+      guildKey:"nocturnal",
       blurb:"よるに 白い ぬのを てらす あかり。ガたちが つぎつぎ やってくる。",
-      breakText:"ライトが きえた!",
-      match:function(sp){
-        return anyOf(tagsOf(sp),MOTH_TAGS)||inSet(sp.family,MOTH_FAMILY)||inSet(sp.groupJa,MOTH_GROUP);
-      }
+      breakText:"ライトが きえた!"
     },
     {
       id:"banana_trap",name:"バナナトラップ",emoji:"🍌",release:2,
-      guild:"きの しるに あつまる 虫",
+      guildKey:"sap",
       blurb:"あまく じゅくした バナナ。きの しるが すきな 虫が あつまる。",
-      breakText:"バナナが なくなった!",
-      match:function(sp){return inSet(sp.family,SAP_FAMILY)||inSet(sp.groupJa,SAP_GROUP);}
+      breakText:"バナナが なくなった!"
     },
     /* ここから下は定義だけ先に置く未公開分 (implementation_plan Phase 2)。
        release が CURRENT_RELEASE を超える間は交換画面にも道具箱にも出ない。 */
     {
       id:"sweep_net",name:"スイーピングネット",emoji:"🌾",release:3,
-      guild:"くさはらの バッタや カメムシ",
+      guildKey:"grassland",
       blurb:"くさむらを さっと なでる あみ。かくれた バッタが とびだす。",
-      breakText:"あみが やぶれた!",
-      match:function(sp){return inSet(sp.order,SWEEP_ORDER)&&anyOf(habitatOf(sp),GRASS_HABITAT);}
+      breakText:"あみが やぶれた!"
     },
     {
       id:"water_net",name:"さかなとりあみ",emoji:"🐟",release:3,
-      guild:"みずべの 虫",
+      guildKey:"aquatic",
       blurb:"みずの 中を すくう あみ。いけや かわに すむ 虫が あみに のる。",
-      breakText:"あみが やぶれた!",
-      match:function(sp){return anyOf(habitatOf(sp),WATER_HABITAT);}
+      breakText:"あみが やぶれた!"
     },
     {
       id:"beating_set",name:"ビーティングセット",emoji:"🪵",release:4,
-      guild:"えだに かくれる 虫",
+      guildKey:"hidden",
       blurb:"えだを たたいて 白い ぬのに おとす。かくれんぼの めいじんが おちてくる。",
-      breakText:"ぬのが やぶれた!",
-      match:function(sp){
-        return sp.order==="Phasmatodea"||inSet(sp.family,BEATING_FAMILY)||inSet(sp.groupJa,BEATING_GROUP);
-      }
+      breakText:"ぬのが やぶれた!"
     },
     {
       id:"aspirator",name:"吸虫管",yomi:"きゅうちゅうかん",emoji:"🧪",release:4,
-      guild:"とても ちいさい 虫",
+      guildKey:"tiny",
       blurb:"ちいさな 虫を すいこむ ほそい くだ。つまめない 虫も つかまえられる。",
-      breakText:"くだが つまった!",
-      match:function(sp){
-        var upper=upperSizeMm(sp);
-        return upper!==null&&upper<SMALL_MAX_MM;
-      }
+      breakText:"くだが つまった!"
     },
     {
       id:"long_pole",name:"高所用長竿",yomi:"こうしょようながざお",emoji:"🎣",release:5,
-      guild:"たかい ところの 虫",
+      guildKey:"canopy",
       blurb:"たかい えだまで とどく ながい さお。こずえの 虫に てが とどく。",
-      breakText:"さおが おれた!",
-      match:function(sp){return anyOf(habitatOf(sp),HIGH_HABITAT)||anyOf(tagsOf(sp),HIGH_TAGS);}
+      breakText:"さおが おれた!"
     },
     {
       id:"pitfall_trap",name:"落とし穴トラップ",yomi:"おとしあなトラップ",emoji:"🕳",release:5,
-      guild:"じめんを あるく 虫",
+      guildKey:"ground",
       blurb:"じめんに うめた コップ。あるく 虫が ぽとりと おちる。",
-      breakText:"コップが われた!",
-      match:function(sp){
-        if(inSet(sp.family,GROUND_FAMILY)||inSet(sp.groupJa,GROUND_GROUP))return true;
-        return sp.order==="Coleoptera"&&anyOf(habitatOf(sp),GROUND_HABITAT);
-      }
+      breakText:"コップが われた!"
     },
     {
       id:"dung_trap",name:"フントラップ",emoji:"💩",release:5,
-      guild:"フンチュウ",
-      blurb:"けものの ふんを つかう わな。ふんが すきな 虫だけが やってくる。",
-      breakText:"わなが つかえなくなった!",
-      match:function(sp){
-        return anyOf(tagsOf(sp),DUNG_TAGS)||inSet(sp.family,DUNG_FAMILY);
-      }
+      guildKey:"dung",
+      blurb:"けものの ふんや しがいを つかう わな。そこに あつまる 虫が やってくる。",
+      breakText:"わなが つかえなくなった!"
     }
   ];
 
   var BY_ID=Object.create(null);
   TOOLS.forEach(function(tool){BY_ID[tool.id]=tool;});
+
+  /* 対象 guild の説明を tool.guild で読めるようにしておく (交換画面・どうぐばこ・
+     装備の注意書きが既にこの名前で読んでいる)。値は持たずギルド層へ訊きにいくので、
+     ギルド層の文言を直せば全画面が同時に変わる。 */
+  TOOLS.forEach(function(tool){
+    Object.defineProperty(tool,"guild",{
+      enumerable:true, configurable:false,
+      get:function(){return guildLabel(tool.guildKey);}
+    });
+  });
 
   function list(){return TOOLS.slice();}
   function byId(id){return BY_ID[id]||null;}
@@ -184,7 +149,7 @@
   function matches(toolId,sp){
     var tool=byId(toolId);
     if(!tool||!isObject(sp))return false;
-    return !!tool.match(sp);
+    return inGuild(tool.guildKey,sp);
   }
 
   /* その場所でその道具が働くと言える下限。捕獲プールに占める対象 guild の割合で

@@ -36,9 +36,10 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
   while((m = re.exec(indexHtml))) srcs.push(m[1]);
   const at = srcs.indexOf("../shared/k5_devs_data.js?v=0.1.0");
   assert.ok(at >= 0, "k5_devs_data.js が見つからない");
-  assert.deepEqual(srcs.slice(at + 1, at + 8), [
+  assert.deepEqual(srcs.slice(at + 1, at + 9), [
     "../shared/economy_flag.js?v=0.3.0",
-    "../shared/tools.js?v=0.2.4",
+    "../shared/species_guilds.js?v=0.1.0",
+    "../shared/tools.js?v=0.2.5",
     "../shared/tool_icons.js?v=0.2.0",
     "../shared/tool_scenes.js?v=0.2.0",
     "../shared/tools_ui.js?v=0.1.5",
@@ -139,7 +140,7 @@ function load(context, file){
 /* けいさんのページと同じ読み込み順 (道具系は app.js より先)。 */
 const KEISAN_TOOL_FILES = [
   "shared/bugs.js", "shared/render.js", "shared/bug_archetypes.js", "shared/reward.js",
-  "shared/economy_flag.js", "shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js",
+  "shared/economy_flag.js", "shared/species_guilds.js", "shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js",
   "shared/tools_ui.js", "shared/capture_card.js"
 ];
 
@@ -175,13 +176,15 @@ test("装備パネルは経済 off で空、on でパネルと data-equip が出
   ctx.Q4B_ECONOMY.setOn(false);
 });
 
-/* けいさんの捕獲プールは甲虫だけなので、チョウ・ガの道具はここでは対象がゼロ。
-   選べない札にして理由を出す (装備そのものは全ゲーム共通なので書き換えない)。 */
+/* けいさんの捕獲プールは甲虫だけなので、チョウの道具はここでは対象がゼロ。
+   選べない札にして理由を出す (装備そのものは全ゲーム共通なので書き換えない)。
+   灯火採集セットは 2026-09-06 のギルド層で甲虫にも当たるようになった (クワガタ・
+   カブト・ゲンゴロウは灯火の主役で、実際にここで採れる) ので、ここでは死札に
+   ならない。死札の検査はチョウの道具で見る。 */
 test("対象 guild がゼロの道具は札が選べず、理由が出る", () => {
   ctx.Q4B_ECONOMY.setOn(true);
   const html = ctx.keisanToolPanelSection({ type: "k10" });
   assert.doesNotMatch(html, /data-equip="cho_net"/, "対象ゼロの道具が選べる");
-  assert.doesNotMatch(html, /data-equip="light_trap"/, "対象ゼロの道具が選べる");
   assert.match(html, /q4b-tool-chip is-dead/, "つかえない札の目印が無い");
   assert.match(html, /ここでは つかえない/, "理由の 1 行が無い");
   ctx.Q4B_ECONOMY.setOn(false);

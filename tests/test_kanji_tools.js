@@ -27,12 +27,14 @@ function sliceOf(startMark, endMark) {
 
 test("the shared tool scripts load in order, after yomi.js and before the inline script", () => {
   /* 版は test_script_versions.js が全ページ横断で見るが、順序はここで固定する。
-     economy_flag → tools → icons → scenes → tools_ui → capture_card の順。
-     UI 部品は tools.js に乗るので、この順が崩れると読み込み時に落ちる。 */
+     economy_flag → species_guilds → tools → icons → scenes → tools_ui → capture_card の順。
+     UI 部品は tools.js に乗るので、この順が崩れると読み込み時に落ちる。matcher の中身は
+     species_guilds.js が持つので、tools.js より先に読まないと道具が何にも当たらない。 */
   const expected = [
     '<script src="../shared/yomi.js?v=0.3.0"></script>',
     '<script src="../shared/economy_flag.js?v=0.3.0"></script>',
-    '<script src="../shared/tools.js?v=0.2.4"></script>',
+    '<script src="../shared/species_guilds.js?v=0.1.0"></script>',
+    '<script src="../shared/tools.js?v=0.2.5"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',
     '<script src="../shared/tools_ui.js?v=0.1.5"></script>',

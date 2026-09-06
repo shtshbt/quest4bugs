@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v171";  /* v171: 昇降帯とメダル合格線の緩和、段暗唱タイムバーの緩和、リセットロックの可視化。seisu_generator.js の precache もここで入る。 */
+var CACHE = "q4b-cache-v172";  /* v172: 採集ギルド層 (shared/species_guilds.js) の新設。11 道具の matcher が分類ベースになり、未公開 5 種にも対象種が付く。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -39,7 +39,7 @@ var CORE = [
   "./shared/economy_flag.js", "./shared/tool_icons.js",
   "./shared/tool_scenes.js",
   "./shared/tools_ui.js", "./shared/capture_card.js", "./shared/tools.css",
-  "./komorebi/trophies.js", "./shared/tools.js", "./komorebi/uro.js",
+  "./komorebi/trophies.js", "./shared/species_guilds.js", "./shared/tools.js", "./komorebi/uro.js",
   "./komorebi/volumes/volume_fixture.js",
   "./komorebi/assets/world_paths.json", "./komorebi/assets/ratio_pool.json",
   "./assets/home_map_base_island_v1.webp", "./assets/home_map_module_goshinboku_v1.webp",

@@ -18,6 +18,7 @@ context.Q4B_TEST_HOOKS = true;   /* rollFromPool の直叩き seam (配信ペー
 context.Math = Object.create(Math);
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root, "shared/bugs.js"), "utf8"), context);
+vm.runInContext(fs.readFileSync(path.join(root, "shared/species_guilds.js"), "utf8"), context);
 vm.runInContext(fs.readFileSync(path.join(root, "shared/tools.js"), "utf8"), context);
 vm.runInContext(fs.readFileSync(path.join(root, "shared/reward.js"), "utf8"), context);
 const tools = context.Q4B_TOOLS;
@@ -79,9 +80,10 @@ function trackingStore(instance){
 }
 
 test("guild weight constants and helper accept every tool shape", () => {
-  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。 */
-  assert.equal(tools.guildWeightFor("cho_net", { tags: ["butterfly"] }), 3);
-  assert.equal(tools.guildWeightFor("cho_net", { tags: ["beetle"] }), 1);
+  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。
+     ギルド層へ移してから (2026-09-06)、判定は tag だけでは通らない。 */
+  assert.equal(tools.guildWeightFor("cho_net", { order: "Lepidoptera", family: "Nymphalidae" }), 3);
+  assert.equal(tools.guildWeightFor("cho_net", { order: "Coleoptera", family: "Lucanidae" }), 1);
   assert.equal(tools.FRESH_BOOST, 0.25);
   const dragonfly = {id:"x", order:"Odonata"};
   const butterfly = {id:"y", order:"Lepidoptera", family:"Papilionidae"};

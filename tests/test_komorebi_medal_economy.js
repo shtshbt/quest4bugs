@@ -32,7 +32,7 @@ context.QuestSave = {
 };
 vm.createContext(context);
 for(const file of ["shared/bugs.js", "shared/reward.js", "komorebi/volumes/volume_fixture.js",
-  "komorebi/trophies.js", "shared/tools.js", "komorebi/uro.js", "shared/economy_flag.js", "komorebi/app.js"]){
+  "komorebi/trophies.js", "shared/species_guilds.js", "shared/tools.js", "komorebi/uro.js", "shared/economy_flag.js", "komorebi/app.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 
@@ -116,9 +116,11 @@ test("2. the rarity ladder and the pity table are untouched by tools", () => {
   assert.equal(komorebi.collectionConfig.flagshipWeight, 0.25);
   /* 効果の 2 定数は shared/tools.js の 1 か所が持つ。app.js に重複定義を残さない
      (本編の抽選器と数字がずれるのを構造的に防ぐ)。 */
-  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。 */
-  assert.equal(tools.guildWeightFor("cho_net", { tags: ["butterfly"] }), 3);
-  assert.equal(tools.guildWeightFor("cho_net", { tags: ["beetle"] }), 1);
+  /* 定数の export は落とした (孤児 API 掃除)。重みは挙動で固定する。
+     ギルド層へ移してから (2026-09-06)、判定は tag だけでは通らない。butterfly の
+     tag が付いた甲虫を チョウ扱いしないため、まず order を見る。 */
+  assert.equal(tools.guildWeightFor("cho_net", { order: "Lepidoptera", family: "Nymphalidae" }), 3);
+  assert.equal(tools.guildWeightFor("cho_net", { order: "Coleoptera", family: "Lucanidae" }), 1);
   assert.equal(tools.FRESH_BOOST, 0.25);
   assert.equal("toolGuildWeight" in komorebi.collectionConfig, false, "guild 重みが app.js に重複定義されている");
   assert.equal("toolFreshBoost" in komorebi.collectionConfig, false, "未発見ブーストが app.js に重複定義されている");
@@ -369,23 +371,23 @@ test("a capture spends exactly one durability on both capture routes", () => {
   });
 });
 
-/* 巻に対象 guild が 1 匹もいない道具は、その巻では道具として働かない。抽選の
-   重みが全種 1 倍のまま耐久だけが減って壊れるのを防ぐ。長竿とフントラップは
-   MG I に対象がゼロ (test_komorebi_tools.js が当たり数を固定している)。 */
+/* 巻の対象 guild が下限 (5%) に届かない道具は、その巻では道具として働かない。抽選の
+   重みが全種 1 倍のまま耐久だけが減って壊れるのを防ぐ。フントラップは MG I に 1 種
+   (1.2%) しかいない (test_komorebi_tools.js が当たり数を固定している)。 */
 test("a tool with no target in this volume wears nothing and shifts nothing", () => {
-  withReleasedTool("long_pole", () => {
-    armGear("long_pole");
+  withReleasedTool("dung_trap", () => {
+    armGear("dung_trap");
     const profile = komorebi.createProfile();
     const worn = captureIds(profile, 31, 8 * 5);
     assert.equal(worn.length, 5, "capture cadence must not change");
-    assert.equal(gearOf().tools[0].remaining, D, "a pole with no targets still wore out");
+    assert.equal(gearOf().tools[0].remaining, D, "a trap with no targets still wore out");
     /* 装備そのものは書き換えない。kv は全ゲーム共通の 1 個で、ここで外すと
        本編の装備まで消える。倒れているのは「この巻」だけ。 */
-    assert.equal(gearOf().equippedToolId, "long_pole", "the saved equip was rewritten");
+    assert.equal(gearOf().equippedToolId, "dung_trap", "the saved equip was rewritten");
   });
   /* 同じ種と同じ乱数列で、未装備のときと 1 匹も違わない (乱数の消費本数も同じ)。 */
-  const withPole = withReleasedTool("long_pole", () => {
-    armGear("long_pole");
+  const withPole = withReleasedTool("dung_trap", () => {
+    armGear("dung_trap");
     return captureIds(komorebi.createProfile(), 77, 8 * 6);
   });
   armGear(null);

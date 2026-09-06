@@ -20,6 +20,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 const unit = { console };
 unit.window = unit;
 vm.createContext(unit);
+vm.runInContext(fs.readFileSync(path.join(root, "shared/species_guilds.js"), "utf8"), unit);
 vm.runInContext(fs.readFileSync(path.join(root, "shared/tools.js"), "utf8"), unit);
 const tools = unit.Q4B_TOOLS;
 

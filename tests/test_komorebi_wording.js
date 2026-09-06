@@ -23,7 +23,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
 const unit = { console };
 unit.window = unit;
 vm.createContext(unit);
-for(const file of ["shared/tool_scenes.js", "shared/tools.js", "komorebi/uro.js"]){
+for(const file of ["shared/tool_scenes.js", "shared/species_guilds.js", "shared/tools.js", "komorebi/uro.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), unit);
 }
 const tools = unit.Q4B_TOOLS;

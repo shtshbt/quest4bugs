@@ -20,7 +20,7 @@ const context = { console };
 context.window = context;
 vm.createContext(context);
 for(const file of ["shared/bugs.js", "shared/render.js", "shared/bug_archetypes.js", "shared/reward.js",
-  "shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js",
+  "shared/species_guilds.js", "shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js",
   "shared/tools_ui.js", "shared/capture_card.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }

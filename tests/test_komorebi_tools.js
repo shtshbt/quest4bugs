@@ -15,11 +15,13 @@ const context = { console };
 context.window = context;
 context.global = context;
 vm.createContext(context);
-for(const file of ["shared/bugs.js", "komorebi/volumes/volume_fixture.js", "shared/tools.js"]){
+for(const file of ["shared/bugs.js", "komorebi/volumes/volume_fixture.js",
+  "shared/species_guilds.js", "shared/tools.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 
 const tools = context.Q4B_TOOLS;
+const guilds = context.Q4B_GUILDS;
 /* 耐久は調整値。数字を直に書くと、balance を動かすたびにテストが落ちる。
    定数そのものを固定する検査は 1 か所だけ置き、他はこの D を使う。 */
 const D = tools.durability;
@@ -38,13 +40,17 @@ test("the eleven tools are declared once each with the fields the UI needs", () 
   list.forEach(tool => {
     assert.equal(ids.has(tool.id), false, tool.id + " is declared twice");
     ids.add(tool.id);
-    ["id", "name", "emoji", "guild", "blurb", "breakText"].forEach(key => {
+    ["id", "name", "emoji", "guild", "guildKey", "blurb", "breakText"].forEach(key => {
       assert.equal(typeof tool[key], "string", tool.id + " has no " + key);
       assert.ok(tool[key].length > 0, tool.id + " has an empty " + key);
     });
     assert.equal(Number.isInteger(tool.release), true, tool.id + " has no release number");
     assert.ok(tool.release >= 1, tool.id + " has a nonsensical release number");
-    assert.equal(typeof tool.match, "function", tool.id + " has no matcher");
+    /* 判定の中身は道具ではなくギルド層 (shared/species_guilds.js) が持つ。道具は
+       key を 1 つ指すだけで、その key が実在することだけをここで見る。 */
+    assert.ok(guilds.keys().includes(tool.guildKey), tool.id + " points at an unknown guild");
+    /* 対象 guild の説明はギルド層の 1 本から来る (道具側に複製を置かない)。 */
+    assert.equal(tool.guild, guilds.label(tool.guildKey), tool.id + " の guild 表記がずれた");
     /* ダッシュ記号は子ども向け文言に出さない。 */
     assert.equal(/[—–]/.test(tool.blurb + tool.guild + tool.breakText), false, tool.id + " uses a dash");
   });
@@ -61,19 +67,51 @@ test("the first four purchasable tools all have targets in Madagascar I", () => 
 });
 
 test("each guild matcher lands on the number of Madagascar I species it should", () => {
-  /* habitat の語彙はデータの実語彙 (pond / marsh / stream / river / paddy)。
-     設計書の総称語 (aquatic / wetland) では 1 種も当たらない。 */
+  /* 2026-09-06 にギルド層へ移した後の実測。主キーは order / family / 属名で、
+     この 3 つは全 1950 種に入っている (habitat は 1397 種、sizeMm はマダガスカル
+     遠征 II で 0 件しか無く、巻ごとに埋まり方が違う)。 */
   assert.equal(hits("cho_net"), 16);
   assert.equal(hits("tonbo_net"), 29);
-  assert.equal(hits("light_trap"), 7);
-  assert.equal(hits("banana_trap"), 9);
-  assert.equal(hits("water_net"), 35);
-  assert.equal(hits("sweep_net"), 8);
-  assert.equal(hits("beating_set"), 3);
+  assert.equal(hits("light_trap"), 13);
+  assert.equal(hits("banana_trap"), 10);
+  assert.equal(hits("water_net"), 21);
+  assert.equal(hits("sweep_net"), 14);
+  assert.equal(hits("beating_set"), 9);
   assert.equal(hits("aspirator"), 13);
-  /* 高所とフンは MG I に対象がいない。だから未公開のまま置いてある。 */
-  assert.equal(hits("long_pole"), 0);
-  assert.equal(hits("dung_trap"), 0);
+  assert.equal(hits("long_pole"), 8);
+  assert.equal(hits("pitfall_trap"), 9);
+  /* フンは MG I に 1 種 (ウスチャヘクソドン) しかいない。11 種のうち最も専門的で、
+     出番はマダガスカル遠征 II (更新 5 = この道具の公開回) に来る。 */
+  assert.equal(hits("dung_trap"), 1);
+});
+
+test("the boundary between the water net and the dragonfly net is drawn at still water", () => {
+  /* 以前は habitat に pond や stream があるだけで水網に当たり、トンボ 163 種のうち
+     139 種が両方の道具の対象だった。ヤゴをすくえる止水性に限ると 100 種になる
+     (tools_design 6 章が さかなとりあみ の対象に「ヤゴ」を挙げているので、トンボを
+     まるごと外しはしない)。 */
+  const dragonflies = context.Q4B_BUGS.filter(sp => sp.order === "Odonata");
+  const both = dragonflies.filter(sp => tools.matches("water_net", sp));
+  assert.equal(dragonflies.length, 163);
+  assert.equal(both.length, 100);
+  /* 渓流のトンボは水網では採れない (メッシュネットの領分)。 */
+  const stream = dragonflies.find(sp => (sp.habitat || []).includes("stream")
+    && !(sp.habitat || []).some(h => ["pond", "marsh", "paddy", "lake", "wetland", "bog", "water"].includes(h)));
+  assert.ok(stream, "渓流だけのトンボが 1 種もいない");
+  assert.equal(tools.matches("water_net", stream), false);
+  assert.equal(tools.matches("tonbo_net", stream), true);
+});
+
+test("every species in the catalogue is reachable by at least one tool, insects aside", () => {
+  /* 道具のどれにも当たらない虫が残ると、その種は道具を持つほど出にくくなる
+     (ギルド重み 3 倍の分だけ相対的に薄まる)。2026-09-06 の実測で、無所属は
+     昆虫以外の 4 種 (サソリ・カナヘビ・ヒキガエル・モズ) だけになった。 */
+  const orphans = context.Q4B_BUGS.filter(sp => guilds.keysOf(sp).length === 0);
+  /* 種は vm の別 realm から来るので、配列そのものではなく文字列で突き合わせる
+     (deepStrictEqual は prototype が違うだけで落ちる)。 */
+  assert.equal(orphans.map(sp => sp.id).sort().join(","),
+    ["daiou_sasori", "mozu", "nihon_hikigaeru", "nihon_kanahebi"].sort().join(","),
+    "無所属が昆虫以外の 4 種から動いた: " + orphans.map(sp => sp.jaName).join(", "));
 });
 
 /* 「その場所でその道具が働くか」は当たり数ではなく対象率で測る。母数が場所ごとに
@@ -87,12 +125,13 @@ test("worksIn measures the guild share, not the raw hit count", () => {
     assert.equal(tools.worksIn(tool.id, mgSpecies), hits(tool.id) / mgSpecies.length >= share,
       tool.id + " の worksIn が対象率と食い違う");
   });
-  /* MG I の実データでの境界。公開中の 4 本はすべて残り、ビーティング (3/84 = 3.6%)
-     と長竿・フン (0) は「ここでは道具ではない」に倒れる。 */
-  assert.equal(tools.worksIn("light_trap", mgSpecies), true, "MG I の灯火 (7 種) が死札になった");
-  assert.equal(tools.worksIn("banana_trap", mgSpecies), true, "MG I のバナナ (9 種) が死札になった");
-  assert.equal(tools.worksIn("beating_set", mgSpecies), false, "3 種 (3.6%) で働いた");
-  assert.equal(tools.worksIn("long_pole", mgSpecies), false, "MG I に対象のいない長竿が働いた");
+  /* MG I の実データでの境界。公開中の 6 本はすべて残り、フン (1/84 = 1.2%) だけが
+     「ここでは道具ではない」に倒れる。ギルド層へ移す前は長竿が 0 種、灯火が 7 種
+     だった (2026-09-06)。 */
+  assert.equal(tools.worksIn("light_trap", mgSpecies), true, "MG I の灯火 (13 種) が死札になった");
+  assert.equal(tools.worksIn("banana_trap", mgSpecies), true, "MG I のバナナ (10 種) が死札になった");
+  assert.equal(tools.worksIn("long_pole", mgSpecies), true, "MG I の長竿 (8 種) が死札になった");
+  assert.equal(tools.worksIn("dung_trap", mgSpecies), false, "1 種 (1.2%) で働いた");
   /* プールが分からない文脈では取り上げない (分からないことを理由に外すほうが悪い)。 */
   assert.equal(tools.worksIn("long_pole", null), true);
   assert.equal(tools.worksIn("long_pole", []), true);

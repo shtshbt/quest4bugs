@@ -16,7 +16,7 @@ function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 const context = { console };
 context.window = context;
 vm.createContext(context);
-for(const file of ["shared/tool_icons.js", "shared/tools.js", "komorebi/uro.js"]){
+for(const file of ["shared/tool_icons.js", "shared/species_guilds.js", "shared/tools.js", "komorebi/uro.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 const icons = context.Q4B_TOOL_ICONS;

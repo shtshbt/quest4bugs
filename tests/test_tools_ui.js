@@ -18,7 +18,7 @@ function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 const context = { console };
 context.window = context;
 vm.createContext(context);
-for(const file of ["shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js", "shared/tools_ui.js"]){
+for(const file of ["shared/species_guilds.js", "shared/tools.js", "shared/tool_icons.js", "shared/tool_scenes.js", "shared/tools_ui.js"]){
   vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
 }
 const tools = context.Q4B_TOOLS;
@@ -221,7 +221,10 @@ test("sceneHtml は装備して 対象 guild の虫が 1 匹とれた回だけ�
    対象種が 1 匹もいない。それでも耐久だけが減って壊れるので、プールを渡された文脈では
    「その場所では道具ではない」として倒す。 */
 const MOTHS = [{ id: "ga", order: "Lepidoptera", family: "Saturniidae", groupJa: "ガ", tags: ["moth"] }];
-const BEETLES = [{ id: "kuwagata", order: "Coleoptera", family: "Lucanidae", groupJa: "クワガタムシ", tags: [] }];
+/* 甲虫なら何でもよいわけではない。クワガタとカブトは 2026-09-06 のギルド層で
+   灯火の対象になった (灯火採集の主役なので当然そうなる) ので、灯火が死札になる
+   プールとしては使えない。昼に花へ来るハナムグリは 樹液には来るが 灯火には来ない。 */
+const BEETLES = [{ id: "hanamuguri", order: "Coleoptera", family: "Scarabaeidae", groupJa: "ハナムグリ", tags: [] }];
 
 test("worksIn は対象 guild が 1 匹でもいるかを見て、プール不明では取り上げない", () => {
   assert.equal(tools.worksIn("light_trap", MOTHS), true);

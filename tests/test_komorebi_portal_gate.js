@@ -23,7 +23,7 @@ function portalContext(){
   context.global = context;
   context.Q4B_KOMOREBI_TEST_HOOKS = true;
   vm.createContext(context);
-  for(const file of ["shared/tools.js", "shared/economy_flag.js", "shared/breeding.js"]){
+  for(const file of ["shared/species_guilds.js", "shared/tools.js", "shared/economy_flag.js", "shared/breeding.js"]){
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
   return context;
