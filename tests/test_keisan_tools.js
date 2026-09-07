@@ -38,10 +38,10 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
   assert.ok(at >= 0, "k5_devs_data.js が見つからない");
   assert.deepEqual(srcs.slice(at + 1, at + 9), [
     "../shared/economy_flag.js?v=0.3.0",
-    "../shared/species_guilds.js?v=0.1.0",
-    "../shared/tools.js?v=0.2.5",
-    "../shared/tool_icons.js?v=0.2.0",
-    "../shared/tool_scenes.js?v=0.2.0",
+    "../shared/species_guilds.js?v=0.1.1",
+    "../shared/tools.js?v=0.2.6",
+    "../shared/tool_icons.js?v=0.2.1",
+    "../shared/tool_scenes.js?v=0.2.1",
     "../shared/tools_ui.js?v=0.1.5",
     "../shared/capture_card.js?v=0.1.0",
     "app.js?v=0.4.41"

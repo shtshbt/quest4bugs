@@ -33,10 +33,10 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
   const expected = [
     '<script src="../shared/yomi.js?v=0.3.0"></script>',
     '<script src="../shared/economy_flag.js?v=0.3.0"></script>',
-    '<script src="../shared/species_guilds.js?v=0.1.0"></script>',
-    '<script src="../shared/tools.js?v=0.2.5"></script>',
-    '<script src="../shared/tool_icons.js?v=0.2.0"></script>',
-    '<script src="../shared/tool_scenes.js?v=0.2.0"></script>',
+    '<script src="../shared/species_guilds.js?v=0.1.1"></script>',
+    '<script src="../shared/tools.js?v=0.2.6"></script>',
+    '<script src="../shared/tool_icons.js?v=0.2.1"></script>',
+    '<script src="../shared/tool_scenes.js?v=0.2.1"></script>',
     '<script src="../shared/tools_ui.js?v=0.1.5"></script>',
     '<script src="../shared/capture_card.js?v=0.1.0"></script>'
   ];

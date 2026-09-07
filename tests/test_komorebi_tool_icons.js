@@ -1,4 +1,4 @@
-/* 採集道具のアイコン 11 種 (tools_design 9 章)。交換画面・どうぐばこ・道具図鑑・
+/* 採集道具のアイコン (tools_design 9 章)。交換画面・どうぐばこ・道具図鑑・
    ほうのうの記録が同じ 1 本を使っていること、道具の一覧と 1 対 1 であること、
    そして外部を読みに行かないことを見る (配信は静的ファイルだけで完結する)。
    node tests/test_komorebi_tool_icons.js で実行。 */
@@ -26,7 +26,7 @@ const text = t => t;
 
 test("there is exactly one icon per tool, and no icon without a tool", () => {
   const toolIds = tools.list().map(tool => tool.id).sort();
-  assert.equal(toolIds.length, 11, "道具が 11 種でない");
+  assert.equal(toolIds.length, 15, "道具の数が想定と違う (第 1 波 11 + 第 2 波 4)");
   assert.equal(icons.ids.slice().sort().join(","), toolIds.join(","), "アイコンと道具が 1 対 1 でない");
   toolIds.forEach(id => assert.equal(icons.has(id), true, id + " のアイコンが無い"));
   assert.equal(icons.svg("no_such_tool"), "", "知らない道具に絵が出た");

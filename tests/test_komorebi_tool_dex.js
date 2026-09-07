@@ -1,4 +1,4 @@
-/* 道具図鑑 (tools_design 6 章)。初めて授かった日だけを残す台帳で、11 種すべてを
+/* 道具図鑑 (tools_design 6 章)。初めて授かった日だけを残す台帳で、全種を
    一度は授かる、という第二の完成目標。いま何本あるか (どうぐばこ) とは別で、
    壊れて手元から消えても図鑑からは消えない。
    node tests/test_komorebi_tool_dex.js で実行。 */
@@ -64,9 +64,9 @@ test("a broken dex is refused instead of repaired", () => {
 test("a dex entry for a tool this build does not know yet is carried, not refused", () => {
   /* 図鑑は先の更新で増える台帳。新しい道具を知っている端末が書いた記録を古い端末が
      読むことがあり、そこで throw するとその端末は競合解決ごと動かなくなる。 */
-  const future = { toolDex: { cho_net: "2026-08-17", malaise_trap: "2026-10-01" } };
+  const future = { toolDex: { cho_net: "2026-08-17", future_trap_x: "2026-10-01" } };
   assert.ok(tools.validateDex(future));
-  assert.equal(future.toolDex.malaise_trap, "2026-10-01", "知らない道具の記録が消えた");
+  assert.equal(future.toolDex.future_trap_x, "2026-10-01", "知らない道具の記録が消えた");
 });
 
 /* ---- 画面と保存 (fake DOM) ---- */
@@ -141,12 +141,12 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
   test("an empty dex still shows every slot so the goal has a size", () => {
     const text = plain();
     assert.match(text, /どうぐ ずかん/);
-    assert.match(text, /0／11/, "11 種ぶんの枠が並んでいない");
+    assert.match(text, /0／15/, "道具の数ぶんの枠が並んでいない");
     /* 公開済みは名前が出て「まだ」、未公開は伏せたまま数だけ。 */
     assert.match(text, /ちょうネット/);
     assert.match(text, /まだ/);
     assert.match(text, /？？？/, "未公開の枠が伏せて並んでいない");
-    assert.equal((app.innerHTML.match(/uro-dex-slot/g) || []).length, 11);
+    assert.equal((app.innerHTML.match(/uro-dex-slot/g) || []).length, 15);
     assert.equal((app.innerHTML.match(/is-got/g) || []).length, 0);
   });
 
@@ -165,9 +165,9 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
       assert.match(plainText(lastOverlay().innerHTML), /はじめての どうぐ! どうぐ ずかんに のこったよ/);
     });
 
-    test("the hollow now counts one of eleven", () => {
+    test("the hollow now counts the first of them all", () => {
       const text = plain();
-      assert.match(text, /1／11/);
+      assert.match(text, /1／15/);
       assert.equal((app.innerHTML.match(/is-got/g) || []).length, 1);
     });
   })();
@@ -189,7 +189,7 @@ test("a dex entry for a tool this build does not know yet is carried, not refuse
       assert.equal(live.ownedOf(gearOf(), "cho_net").length, 2);
       assert.equal(Object.keys(gearOf().toolDex).length, 1, "同じ道具で図鑑が 2 行になった");
       assert.doesNotMatch(plainText(lastOverlay().innerHTML), /はじめての どうぐ/);
-      assert.match(plain(), /1／11/);
+      assert.match(plain(), /1／15/);
     });
   })();
 

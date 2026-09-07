@@ -1,5 +1,5 @@
 /* 捕獲ビネット (shared/tool_scenes.js、tools_design 9 章)。道具ごとの
-   採集シーンが 11 種そろっていること、絵が静的ファイルだけで完結すること、そして
+   採集シーンが道具の数だけそろっていること、絵が静的ファイルだけで完結すること、そして
    「表示だけの層」という約束 (装備した回にだけ出る / スイッチが閉じている間は
    1 要素も増えない) を固定する。
    node tests/test_komorebi_tool_scenes.js で実行。 */
@@ -27,7 +27,7 @@ const tools = context.Q4B_TOOLS;
 
 test("there is exactly one scene per tool, and no scene without a tool", () => {
   const toolIds = tools.list().map(tool => tool.id).sort();
-  assert.equal(toolIds.length, 11, "道具が 11 種でない");
+  assert.equal(toolIds.length, 15, "道具の数が想定と違う (第 1 波 11 + 第 2 波 4)");
   assert.equal(scenes.ids.slice().sort().join(","), toolIds.join(","), "ビネットと道具が 1 対 1 でない");
   assert.equal(scenes.svg("no_such_tool"), "", "知らない道具に場面が出た");
   assert.equal(scenes.caption("no_such_tool"), "", "知らない道具に文が出た");

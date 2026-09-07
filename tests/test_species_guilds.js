@@ -2,7 +2,7 @@
 
    ここが見張るのは 3 つ。
 
-     1. 道具 11 種とギルド 11 種が 1 対 1 で、道具側に判定の複製が無いこと
+     1. 道具とギルドが 1 対 1 で、道具側に判定の複製が無いこと
      2. 判定の主キー (order / family / scientificName) が全種に入っていること
      3. どの巻・どの教科で、どの道具が働くか (worksIn の下限を満たすか)
 
@@ -56,9 +56,11 @@ let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 function hits(toolId, pool){ return pool.filter(sp => tools.matches(toolId, sp)).length; }
 
-test("the eleven tools and the eleven guilds are one to one", () => {
+test("the tools and the guilds are one to one", () => {
   const keys = guilds.keys();
-  assert.equal(keys.length, 11, "tools_design 6 章は 11 種で打ち止め");
+  /* 第 1 波 11 + 第 2 波 4 (2026-09-06)。数を固定するのは、ギルドだけ足して道具を
+     足し忘れる (またはその逆) を止めるため。 */
+  assert.equal(keys.length, 15, "ギルドの数が想定と違う");
   assert.equal(new Set(keys).size, keys.length, "ギルド key が重複している");
   const used = tools.list().map(tool => tool.guildKey);
   assert.equal(new Set(used).size, used.length, "2 つの道具が同じギルドを指している");
@@ -99,17 +101,22 @@ test("every tool has somewhere it works by the time it is released", () => {
 test("the guild share per pool holds where it was measured", () => {
   /* 2026-09-06 の実測。行は道具、列は 5 巻 + 本編 3 教科の当たり数。 */
   const EXPECTED = {
-    cho_net:      { MG1: 16, AU1:  8, BO1:  9, AU2:  2, MG2:  6, kanji: 245, keisan:   0, eitango:   0 },
-    tonbo_net:    { MG1: 29, AU1: 12, BO1: 10, AU2: 11, MG2:  1, kanji:   0, keisan:   0, eitango:  98 },
-    light_trap:   { MG1: 13, AU1:  7, BO1: 13, AU2: 18, MG2: 10, kanji: 187, keisan: 131, eitango:  59 },
-    banana_trap:  { MG1: 10, AU1: 13, BO1: 12, AU2:  6, MG2:  5, kanji:  86, keisan: 164, eitango:  48 },
-    sweep_net:    { MG1: 14, AU1: 30, BO1: 20, AU2: 17, MG2: 18, kanji:   0, keisan: 122, eitango: 257 },
-    water_net:    { MG1: 21, AU1: 14, BO1:  9, AU2: 10, MG2: 13, kanji:   0, keisan:  46, eitango: 122 },
-    beating_set:  { MG1:  9, AU1: 29, BO1: 29, AU2: 28, MG2: 16, kanji:   0, keisan: 236, eitango:  83 },
-    aspirator:    { MG1: 13, AU1: 13, BO1: 13, AU2: 19, MG2: 23, kanji:   0, keisan: 263, eitango: 154 },
-    long_pole:    { MG1:  8, AU1:  7, BO1: 17, AU2:  7, MG2:  4, kanji:  31, keisan:   7, eitango:  21 },
-    pitfall_trap: { MG1:  9, AU1:  2, BO1:  7, AU2:  6, MG2: 23, kanji:   0, keisan:  84, eitango:  49 },
-    dung_trap:    { MG1:  1, AU1:  0, BO1:  4, AU2:  4, MG2:  4, kanji:   0, keisan:  37, eitango:   1 }
+    cho_net:       { MG1: 16, AU1:  8, BO1:  9, AU2:  2, MG2:  6, kanji: 245, keisan:   0, eitango:   0 },
+    tonbo_net:     { MG1: 29, AU1: 12, BO1: 10, AU2: 11, MG2:  1, kanji:   0, keisan:   0, eitango:  98 },
+    light_trap:    { MG1: 13, AU1:  7, BO1: 13, AU2: 18, MG2: 10, kanji: 187, keisan: 131, eitango:  59 },
+    banana_trap:   { MG1: 10, AU1: 13, BO1: 12, AU2:  6, MG2:  5, kanji:  86, keisan: 164, eitango:  48 },
+    sweep_net:     { MG1: 14, AU1: 23, BO1: 12, AU2: 15, MG2: 14, kanji:   0, keisan: 122, eitango: 152 },
+    water_net:     { MG1: 21, AU1: 12, BO1:  7, AU2:  9, MG2:  7, kanji:   0, keisan:  38, eitango: 101 },
+    beating_set:   { MG1:  9, AU1: 29, BO1: 29, AU2: 26, MG2: 15, kanji:   0, keisan: 138, eitango:  83 },
+    aspirator:     { MG1: 13, AU1: 13, BO1: 13, AU2: 19, MG2: 23, kanji:   0, keisan: 263, eitango: 154 },
+    long_pole:     { MG1:  8, AU1:  7, BO1: 17, AU2:  7, MG2:  4, kanji:  31, keisan:   7, eitango:  21 },
+    pitfall_trap:  { MG1:  9, AU1:  2, BO1:  7, AU2:  6, MG2: 23, kanji:   0, keisan:  84, eitango:  49 },
+    dung_trap:     { MG1:  1, AU1:  0, BO1:  4, AU2:  4, MG2:  4, kanji:   0, keisan:  37, eitango:   1 },
+    /* 第 2 波 (更新 6 と 7)。 */
+    malaise_trap:  { MG1:  2, AU1:  7, BO1:  8, AU2:  4, MG2:  4, kanji:   0, keisan:   0, eitango: 113 },
+    deadwood_set:  { MG1:  3, AU1:  1, BO1:  0, AU2:  2, MG2:  1, kanji:   0, keisan: 147, eitango:   0 },
+    surber_net:    { MG1: 10, AU1:  3, BO1:  9, AU2:  4, MG2:  6, kanji:   0, keisan:   8, eitango:  42 },
+    window_trap:   { MG1:  3, AU1:  8, BO1:  4, AU2: 10, MG2:  4, kanji:   0, keisan: 213, eitango:   0 }
   };
   const drift = [];
   tools.list().forEach(tool => {

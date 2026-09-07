@@ -246,7 +246,78 @@
       +'<circle class="scene-ball-mark" cx="58" cy="60" r="1.6" fill="#3E2F16"/>'
       +'<circle class="scene-ball-mark" cx="65" cy="66" r="1.9" fill="#3E2F16"/>'
       +'<circle class="scene-ball-mark" cx="60" cy="69" r="1.2" fill="#3E2F16"/>'
-      +crawler(80,68,1.05,"scene-stir")+crawler(120,74,0.7,"")
+      +crawler(80,68,1.05,"scene-stir")+crawler(120,74,0.7,""),
+
+    /* マレーゼトラップ: 林道に はった あみの テント。てっぺんの びんへ のぼる。 */
+    malaise_trap:
+      '<rect class="scene-sky" x="0" y="0" width="160" height="84" fill="#CFE0C0"/>'
+      +'<path class="scene-canopy" d="M0 0 H160 V26 C130 34 108 20 84 28 C58 36 30 22 0 30 Z" fill="#2F5236"/>'
+      +'<path class="scene-ground" d="M0 62 C34 58 62 66 92 62 C120 58 142 65 160 61 L160 84 L0 84 Z" fill="#7E7350"/>'
+      +'<path class="scene-path" d="M52 84 C62 70 74 64 86 60 L104 60 C88 66 76 72 70 84 Z" fill="#A79A72"/>'
+      +'<path class="scene-prop" d="M30 66 V34 M126 66 V34" fill="none" stroke="#6E5A3C" stroke-width="2.2" stroke-linecap="round"/>'
+      +'<path class="scene-sheet" d="M30 34 L78 16 L126 34 L126 62 L30 62 Z" fill="#EFEEDD" opacity="0.92"/>'
+      +'<path class="scene-mesh" d="M30 46 H126 M54 62 L78 16 L102 62"'
+      +' fill="none" stroke="#B9BBA4" stroke-width="1" opacity="0.8"/>'
+      +'<rect class="scene-jar" x="72" y="6" width="12" height="12" rx="2.4" fill="#D6E2EC" stroke="#3E4C55" stroke-width="1.6"/>'
+      +flyer(48,50,0.9,"scene-flit-a","#4A3A1E")
+      +flyer(70,34,0.8,"scene-flit-b","#4A3A1E")
+      +flyer(96,44,0.75,"scene-flit-c","#4A3A1E")
+      +flyer(78,22,0.65,"scene-flit-a","#3E4C55"),
+
+    /* 材割りセット: たおれた くちき を わった ところ。中に いた。 */
+    deadwood_set:
+      '<rect class="scene-sky" x="0" y="0" width="160" height="84" fill="#233A28"/>'
+      +'<path class="scene-canopy" d="M0 0 H160 V22 C132 30 106 16 82 24 C56 32 28 18 0 26 Z" fill="#16281B"/>'
+      +'<path class="scene-ground" d="M0 66 C32 62 60 70 90 66 C118 62 142 69 160 65 L160 84 L0 84 Z" fill="#3B2E1E"/>'
+      +'<path class="scene-log" d="M12 46 H112 A13 13 0 0 1 112 72 H12 Z" fill="#6B4F32"/>'
+      +'<ellipse class="scene-log-end" cx="12" cy="59" rx="8" ry="13" fill="#8A6A45"/>'
+      +'<path class="scene-rot" d="M12 59 m-4 0 a4 8 0 1 0 8 0 a4 8 0 1 0 -8 0" fill="#4A3520"/>'
+      +'<path class="scene-split" d="M52 46 L60 59 L52 72 M76 46 L82 59 L76 72"'
+      +' fill="none" stroke="#3E2C1A" stroke-width="1.8" stroke-linecap="round"/>'
+      +'<path class="scene-prop" d="M138 78 L118 52" fill="none" stroke="#7A6242" stroke-width="3.4" stroke-linecap="round"/>'
+      +'<path class="scene-blade" d="M116 50 L124 40 C131 42 136 47 138 54 L130 64 Z" fill="#C6CBD2" stroke="#4A5158" stroke-width="1.4"/>'
+      +'<path class="scene-chip" d="M96 40 L100 34 M106 44 L112 40 M90 36 L92 30"'
+      +' fill="none" stroke="#C8AE84" stroke-width="1.6" stroke-linecap="round"/>'
+      +crawler(40,59,1.15,"scene-crawl-a","#E4D2A8")
+      +crawler(66,64,0.85,"scene-crawl-b","#E4D2A8")
+      +crawler(92,56,0.7,"scene-crawl-a","#D8C49A"),
+
+    /* サーバーネット: せせらぎの いしを おこして、した の あみで うける。 */
+    surber_net:
+      '<rect class="scene-sky" x="0" y="0" width="160" height="84" fill="#BFD9C6"/>'
+      +'<path class="scene-bank" d="M0 0 H160 V22 C128 28 100 18 72 24 C46 30 24 20 0 26 Z" fill="#3D6B47"/>'
+      +'<rect class="scene-water" x="0" y="26" width="160" height="58" fill="#6FA9C4"/>'
+      +'<path class="scene-flow" d="M0 36 C24 32 40 42 62 38 C84 34 104 44 128 40 C144 37 152 40 160 38"'
+      +' fill="none" stroke="#A8D0E0" stroke-width="2.2"/>'
+      +'<path class="scene-flow" d="M0 52 C22 48 38 58 60 54 C82 50 104 60 126 56 C142 53 152 56 160 54"'
+      +' fill="none" stroke="#A8D0E0" stroke-width="1.8" opacity="0.8"/>'
+      +'<ellipse class="scene-stone" cx="34" cy="62" rx="17" ry="10" fill="#8A8F86"/>'
+      +'<ellipse class="scene-stone" cx="120" cy="70" rx="20" ry="11" fill="#79806F"/>'
+      +'<ellipse class="scene-stone" cx="86" cy="30" rx="13" ry="6" fill="#9AA093"/>'
+      +'<path class="scene-prop" d="M64 20 V70" fill="none" stroke="#6E5A3C" stroke-width="2.4" stroke-linecap="round"/>'
+      +'<path class="scene-net" d="M64 34 H104 L96 66 H64 Z" fill="#EFEEDD" opacity="0.9"/>'
+      +'<path class="scene-mesh" d="M64 44 H101 M64 54 H98 M74 34 V66 M86 34 V66"'
+      +' fill="none" stroke="#9EA48F" stroke-width="0.9"/>'
+      +darter(74,48,0.8,"scene-drift-a","#2C3D2A")
+      +crawler(88,58,0.85,"scene-drift-b","#3A4A32")
+      +crawler(46,52,0.7,"scene-drift-a","#3A4A32"),
+
+    /* 衝突板トラップ: すきとおった いたに ぶつかって、した の うけざらに おちる。 */
+    window_trap:
+      '<rect class="scene-sky" x="0" y="0" width="160" height="84" fill="#B7CBD8"/>'
+      +'<path class="scene-canopy" d="M0 0 H160 V20 C132 28 104 14 78 22 C52 30 26 16 0 24 Z" fill="#2C4A3A"/>'
+      +'<path class="scene-ground" d="M0 66 C32 62 60 70 90 66 C118 62 142 69 160 65 L160 84 L0 84 Z" fill="#4E5B44"/>'
+      +'<path class="scene-prop" d="M40 68 V16 M120 68 V16" fill="none" stroke="#6E5A3C" stroke-width="2.2" stroke-linecap="round"/>'
+      +'<rect class="scene-pane" x="40" y="16" width="80" height="38" fill="#DCEAF2" opacity="0.55" stroke="#8FA8B6" stroke-width="1.4"/>'
+      +'<path class="scene-pane-bar" d="M80 16 V54" fill="none" stroke="#8FA8B6" stroke-width="1.2"/>'
+      +'<path class="scene-tray" d="M36 58 H124 L118 72 H42 Z" fill="#4E6B78"/>'
+      +'<path class="scene-tray-water" d="M40 61 H120 L117 68 H43 Z" fill="#7FB3C4"/>'
+      +'<path class="scene-hit" d="M58 28 L64 34 M100 24 L106 30"'
+      +' fill="none" stroke="#FFF3C8" stroke-width="1.6" stroke-linecap="round"/>'
+      +flyer(58,26,0.85,"scene-flit-a","#33291B")
+      +flyer(102,22,0.7,"scene-flit-b","#33291B")
+      +crawler(70,65,0.75,"scene-crawl-a","#2A3A42")
+      +crawler(96,66,0.65,"scene-crawl-b","#2A3A42")
   };
 
   /* 添える 1 行。子どもが読む文なので、ひらがな多めで、その道具の手つきを言う。 */
@@ -261,7 +332,11 @@
     beating_set:"えだを こつんと たたくと、白い ぬのに ぽとりと おちてきた",
     aspirator:"はっぱの うえの ちいさな 虫を、すうっと くだに すいこんだ",
     long_pole:"たかい えだまで さおを のばすと、こずえの 虫に てが とどいた",
-    dung_trap:"けものの ふんの ちかくで、まるい たまを ころがしていた"
+    dung_trap:"けものの ふんの ちかくで、まるい たまを ころがしていた",
+    malaise_trap:"みちに はった テントの てっぺんで、のぼって きた ところを つかまえた",
+    deadwood_set:"くちた きを こつんと わると、中から ころんと でてきた",
+    surber_net:"いしを おこして あみで うけると、ながれてきた 虫が はいっていた",
+    window_trap:"すきとおった いたに ぶつかって、うけざらに おちて いた"
   };
 
   function escapeAttr(text){

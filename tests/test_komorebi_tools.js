@@ -33,9 +33,9 @@ let passed = 0;
 function test(name, fn){ fn(); passed++; console.log("PASS", name); }
 function hits(toolId){ return mgSpecies.filter(sp => tools.matches(toolId, sp)).length; }
 
-test("the eleven tools are declared once each with the fields the UI needs", () => {
+test("every tool is declared once with the fields the UI needs", () => {
   const list = tools.list();
-  assert.equal(list.length, 11, "tools_design 6 章は 11 種で打ち止め");
+  assert.equal(list.length, 15, "道具の数が想定と違う (第 1 波 11 + 第 2 波 4)");
   const ids = new Set();
   list.forEach(tool => {
     assert.equal(ids.has(tool.id), false, tool.id + " is declared twice");
@@ -80,7 +80,7 @@ test("each guild matcher lands on the number of Madagascar I species it should",
   assert.equal(hits("aspirator"), 13);
   assert.equal(hits("long_pole"), 8);
   assert.equal(hits("pitfall_trap"), 9);
-  /* フンは MG I に 1 種 (ウスチャヘクソドン) しかいない。11 種のうち最も専門的で、
+  /* フンは MG I に 1 種 (ウスチャヘクソドン) しかいない。いちばん専門的な道具で、
      出番はマダガスカル遠征 II (更新 5 = この道具の公開回) に来る。 */
   assert.equal(hits("dung_trap"), 1);
 });
@@ -264,13 +264,13 @@ test("a tool instance for a kind this build does not know yet is carried, not re
   /* 道具箱は先の更新で増える台帳。新しい道具を知っている端末が書いた instance を
      古い端末が読むことがあり、そこで throw するとその端末は競合解決ごと動かなくなる
      (validateDex の「知らない道具の id は素通しする」方針と同じ)。 */
-  const future = [{ type: "cho_net", remaining: 12 }, { type: "malaise_trap", remaining: D }];
+  const future = [{ type: "cho_net", remaining: 12 }, { type: "future_trap_x", remaining: D }];
   const kept = tools.validateTools(future);
   assert.equal(kept.length, 2, "知らない道具の instance が消えた");
-  assert.equal(kept[1].type, "malaise_trap");
+  assert.equal(kept[1].type, "future_trap_x");
   assert.equal(kept[1].remaining, D);
   /* 知らない道具の耐久上限は分からないので、丸めは効かせない (既知の道具にだけ効く)。 */
-  const untouched = tools.validateTools([{ type: "malaise_trap", remaining: 999 }]);
+  const untouched = tools.validateTools([{ type: "future_trap_x", remaining: 999 }]);
   assert.equal(untouched[0].remaining, 999, "知らない道具の残量が丸められた");
   /* 形の誤り (種類が無い、残量が壊れている) は、知らない道具でも通さない。 */
   [{ type: "malaise_trap" }, { type: "malaise_trap", remaining: 0 }, { type: "malaise_trap", remaining: 1.5 }]

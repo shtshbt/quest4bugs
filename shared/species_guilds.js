@@ -234,6 +234,44 @@
      (羽が傷む。ちょうネット / トンボ用メッシュネットの領分)。 */
   var TINY_EXCLUDE_ORDER=toSet(["Lepidoptera","Odonata"]);
 
+  /* --- 第 2 波の道具 (2026-09-06 決定。tools_design 6.3) --------------------
+     マレーゼ / 材割り / サーバーネット / 衝突板の 4 本ぶん。どれも既存のギルドから
+     領分を分けてもらう形なので、削る側の条件も同じ場所に書いておく。 */
+
+  /* 流水。サーバーネットが受け持つ。さかなとりあみ (止水) との境界で、
+     渓流にしかいない種はこちらへ寄せる。 */
+  var STREAM_ORDER=toSet(["Plecoptera","Megaloptera"]);
+  var STREAM_FAMILY=toSet([
+    "Hydropsychidae","Philopotamidae","Rhyacophilidae","Stenopsychidae","Glossosomatidae",
+    "Goeridae","Odontoceridae","Limnocentropodidae","Dipseudopsidae","Atriplectididae",
+    "Calopterygidae","Euphaeidae","Chlorocyphidae","Philosinidae","Devadattidae",
+    "Epiophlebiidae","Corydalidae","Perlidae","Heptageniidae","Ephemeridae",
+    "Elmidae","Psephenidae","Blephariceridae","Simuliidae","Blaesoxiphidae"]);
+  var STREAM_HABITAT=toSet(["stream","river","mountain_stream","seepage"]);
+
+  /* 朽ち木。材割りが受け持つ。幼虫が材を食う家系で、ビーティングから分けてもらう
+     (枝を叩いて落ちてくるのは葉や生きた枝にいるもので、材の中のものは出てこない)。 */
+  var DEADWOOD_FAMILY=toSet([
+    "Lucanidae","Passalidae","Cerambycidae","Buprestidae","Lycidae",
+    "Erotylidae","Ciidae","Zopheridae","Bostrichidae","Anobiidae","Trogossitidae",
+    "Tenebrionidae","Kalotermitidae","Rhinotermitidae","Termitidae"]);
+
+  /* 飛ぶ甲虫。衝突板トラップが受け持つ。材に依存する家系は材割りの領分なので、
+     ここには入れない (同じ虫を朽ち木から出すか、飛んでいるところを落とすかの
+     違いでしかなく、両方に入れると 2 本が同じ道具になる)。 */
+  var FLIGHT_BEETLE_FAMILY=toSet([
+    "Curculionidae","Attelabidae","Anthribidae","Brentidae","Apionidae",
+    "Scarabaeidae","Chrysomelidae","Coccinellidae","Cantharidae","Mordellidae",
+    "Elateridae","Cleridae","Nitidulidae","Oedemeridae","Malachiidae","Endomychidae",
+    "Meloidae","Pyrochroidae","Silphidae","Histeridae"]);
+
+  /* 流水ギルドの判定。さかなとりあみ側の除外条件でも使うので関数にする。 */
+  function isStreamGuild(sp){
+    if(inSet(sp.order,STREAM_ORDER))return true;
+    if(inSet(sp.family,STREAM_FAMILY))return true;
+    return anyOf(habitatOf(sp),STREAM_HABITAT)&&!anyOf(habitatOf(sp),STILL_WATER_HABITAT);
+  }
+
   /* --- ギルド定義 ----------------------------------------------------------
      key は道具側 (shared/tools.js) が参照する識別子。ja は交換画面と道具箱に
      出す対象 guild の説明で、5 歳コースでも読めるかなに寄せる。 */
@@ -284,6 +322,10 @@
       match:function(sp){
         /* 水生の家系は草地では採れない。先に外す。 */
         if(inSet(sp.family,AQUATIC_FAMILY))return false;
+        /* 飛ぶハチとハエはマレーゼの領分 (2026-09-06)。網でなでて花の上のハナアブや
+           ハナバチが入るのは事実だが、スイーピングに残したままだと 497 種と 11 本中
+           最も太くなり、えいたんごの半分 (50.6%) を 1 本で占めていた。 */
+        if(sp.order==="Hymenoptera"||sp.order==="Diptera")return false;
         if(inSet(sp.order,SWEEP_ORDER))return true;
         return inSet(sp.family,SWEEP_FAMILY)||inSet(sp.family,FLOWER_FAMILY);
       }
@@ -296,6 +338,9 @@
            トンボ 163 種のうち 139 種 = 85% が水網とも重なっていた。止水に限ると
            100 種 = 61% になり、両方の道具に固有の領分が残る)。 */
         if(sp.order==="Odonata")return anyOf(habitatOf(sp),STILL_WATER_HABITAT);
+        /* 渓流にしかいないものはサーバーネットの領分 (2026-09-06)。水網は
+           たまり水をすくう道具で、ながれの石をおこす道具ではない。 */
+        if(isStreamGuild(sp)&&!anyOf(habitatOf(sp),STILL_WATER_HABITAT))return false;
         if(inSet(sp.order,AQUATIC_ORDER))return true;
         if(inSet(sp.family,AQUATIC_FAMILY))return true;
         if(inSet(sp.order,AQUATIC_HABITAT_ORDER)&&anyOf(habitatOf(sp),AQUATIC_HABITAT))return true;
@@ -306,6 +351,9 @@
       key:"hidden", ja:"えだに かくれる 虫",
       match:function(sp){
         if(inSet(sp.family,AQUATIC_FAMILY))return false;
+        /* 材の中で育つ家系は材割りの領分 (2026-09-06)。枝を叩いて落ちてくるのは
+           葉や生きた枝にいるもので、朽ち木の中のものは出てこない。 */
+        if(inSet(sp.family,DEADWOOD_FAMILY))return false;
         return inSet(sp.order,BEATING_ORDER)||inSet(sp.family,BEATING_FAMILY);
       }
     },
@@ -349,6 +397,32 @@
     {
       key:"dung", ja:"ふんや しがいに あつまる 虫",
       match:isDungGuild
+    },
+    {
+      key:"malaise", ja:"とんでいる ハチや ハエ",
+      match:function(sp){
+        if(sp.order!=="Hymenoptera"&&sp.order!=="Diptera")return false;
+        /* アリは歩く虫で、飛行路のテントには入らない (吸虫管と落とし穴の領分)。 */
+        if(sp.family==="Formicidae")return false;
+        /* 幼虫が水中のカ・ユスリカ類は さかなとりあみ の領分。 */
+        return !inSet(sp.family,AQUATIC_FAMILY);
+      }
+    },
+    {
+      key:"deadwood", ja:"くちた きの 中の 虫",
+      match:function(sp){
+        return inSet(sp.family,DEADWOOD_FAMILY)||/kikuimushi/.test(sp.id||"");
+      }
+    },
+    {
+      key:"stream", ja:"せせらぎの 虫",
+      match:isStreamGuild
+    },
+    {
+      key:"flight_beetle", ja:"そらを とぶ かたい 虫",
+      match:function(sp){
+        return sp.order==="Coleoptera"&&inSet(sp.family,FLIGHT_BEETLE_FAMILY);
+      }
     }
   ];
 
