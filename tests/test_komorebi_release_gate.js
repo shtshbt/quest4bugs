@@ -96,11 +96,14 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   });
 
   /* 更新カレンダー (docs/komorebi_release_linkage.md 2 章) の 1 行を読む。
-     行頭の更新番号は "1 (初回)" のように注記が付くことがある。 */
+     行頭の更新番号は "1 (初回)" のように注記が付くことがある。
+     カテゴリの列は 2026-09-07 に k10 と k5 の 2 本へ割った (第 4 列と第 5 列)。
+     どちらも同じ更新で出るので、読むときは連結して 1 つの集合として扱う。 */
   function calendarRow(calendar, update){
-    const row = new RegExp("\\|\\s*" + update + "(?:\\s*\\([^)]*\\))?\\s*\\|[^|]*\\|[^|]*\\|([^|]*)\\|").exec(calendar);
+    const row = new RegExp("\\|\\s*" + update + "(?:\\s*\\([^)]*\\))?\\s*\\|[^|]*\\|[^|]*\\|([^|]*)\\|([^|]*)\\|").exec(calendar);
     assert.ok(row, "the calendar no longer has a row for update " + update);
-    return row[1].split("+").map(text => text.trim()).filter(text => text && text.indexOf("なし") < 0);
+    return (row[1] + "+" + row[2]).split("+")
+      .map(text => text.trim()).filter(text => text && text.indexOf("なし") < 0);
   }
 
   test("the released set matches the update calendar up to the current release", () => {
