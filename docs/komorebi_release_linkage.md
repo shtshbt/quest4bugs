@@ -43,19 +43,28 @@
 第 4 列が機械可読の正本である (`tests/test_komorebi_release_gate.js` が読み、実装の
 `CATEGORIES` と突き合わせる)。cat id を `+` で連ねる。カテゴリ未定の枠は「なし」と書く。
 
-| 更新 | 地域 volume | 種数 | 学習カテゴリ (k10 2 + k5 2) | 写真 | 状態 |
-|---|---|---:|---|---:|---|
-| 1 | マダガスカル遠征 I | 84 | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | 68% | deploy 済 |
-| 2 | オーストラリア遠征 I | 84 | kom_unit_convert + kom_diagram_model + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | 95% | deploy 済 |
-| 3 | ボルネオ遠征 I | 84 | kom_frac_flow + kom_ratio_forms + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | 100% | deploy 済 |
-| 4 | オーストラリア遠征 II | 84 | kom_hayasa + kom_johou_seiri + kom_equation_select + kom_kuku_dan8 | 100% | 準備済 |
-| 5 | マダガスカル遠征 II | 80 | kom_seisu + kom_kisokusei + kom_kuku_bridge + kom_kuku_dan9 | 100% | 整数の性質の実装待ち |
-| 6 | 未定 | | なし | | 枠のみ |
-| 7 | 未定 | | なし | | 枠のみ |
-| 8 | 未定 | | なし | | 枠のみ |
+| 更新 | 地域 volume | 種数 | 学習カテゴリ (k10 2 + k5 2) | 新 採集道具 | 写真 | 状態 |
+|---|---|---:|---|---|---:|---|
+| 1 | マダガスカル遠征 I | 84 | kom_ratio + kom_pi314 + kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | (なし) | 68% | deploy 済 |
+| 2 | オーストラリア遠征 I | 84 | kom_unit_convert + kom_diagram_model + kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | ちょうネット / トンボ用メッシュネット / 灯火採集セット / バナナトラップ | 95% | deploy 済 |
+| 3 | ボルネオ遠征 I | 84 | kom_frac_flow + kom_ratio_forms + kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | スイーピングネット / さかなとりあみ | 100% | deploy 済 |
+| 4 | オーストラリア遠征 II | 84 | kom_hayasa + kom_johou_seiri + kom_equation_select + kom_kuku_dan8 | ビーティングセット / 吸虫管 | 100% | 準備済 |
+| 5 | マダガスカル遠征 II | 80 | kom_seisu + kom_kisokusei + kom_kuku_bridge + kom_kuku_dan9 | 高所用長竿 / 落とし穴トラップ / フントラップ | 100% | 整数の性質の実装待ち |
+| 6 | 未定 | | なし | マレーゼトラップ / 材割りセット | | 枠のみ |
+| 7 | 未定 | | なし | サーバーネット / 衝突板トラップ | | 枠のみ |
+| 8 | 未定 | | なし | (なし) | | 枠のみ |
 
 読み方の補足。更新 1 から 3 は k5 が 3 本で、これは再編前の配分である。更新 4 以降が
 k10 2 + k5 2 の新しい規則に従う。
+
+道具列の読み方 (2026-08-17 決定、2026-09-06 に第 2 波ぶんを追記)。道具の release 番号は
+更新番号と同じ体系だが、公開は更新番号だけでは開かない。`shared/economy_flag.js` の
+`MEDAL_ECONOMY_ON` が独立したスイッチとして前段にあり、これが false の間はメダル経済
+一式が丸ごと出ない (2026-08-21 に点火済み)。正本は `shared/tools.js` の各道具の
+`release` で、この列はその写しである。
+
+更新 6 と 7 の 4 本は 2026-09-06 に実装済みで、`CURRENT_RELEASE` を上げれば開く。
+更新 6 の巻には制約が 1 つあり、2.2.1 に書いた。
 
 ### 2.2 枠が未割り当ての巻
 
