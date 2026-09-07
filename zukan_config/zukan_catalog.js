@@ -43406,7 +43406,7 @@
     "simosyrphus_grandicornis": {
       speciesId: "simosyrphus_grandicornis",
       scientificName: "Simosyrphus grandicornis",
-      jaName: "Simosyrphus grandicornis",
+      jaName: "キハラヒラタアブ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Talitta Simoes",
       sexCovered: "m",
@@ -43454,7 +43454,7 @@
     "pristhesancus_plagipennis": {
       speciesId: "pristhesancus_plagipennis",
       scientificName: "Pristhesancus plagipennis",
-      jaName: "Pristhesancus plagipennis",
+      jaName: "キアシオオサシガメ",
       creditLine: "Australian Museum",
       creator: "Chantelle Sammut",
       sexCovered: "m",
@@ -43502,7 +43502,7 @@
     "synemon_plana": {
       speciesId: "synemon_plana",
       scientificName: "Synemon plana",
-      jaName: "Synemon plana",
+      jaName: "キモンセセリモドキガ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "m",
@@ -43548,7 +43548,7 @@
     "orthetrum_caledonicum": {
       speciesId: "orthetrum_caledonicum",
       scientificName: "Orthetrum caledonicum",
-      jaName: "Orthetrum caledonicum",
+      jaName: "クロオビシオカラトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "f",
@@ -43596,7 +43596,7 @@
     "valanga_irregularis": {
       speciesId: "valanga_irregularis",
       scientificName: "Valanga irregularis",
-      jaName: "Valanga irregularis",
+      jaName: "アカメオオバッタ",
       creditLine: "Australian Museum",
       creator: "Andrew Trevor-Jones",
       sexCovered: "m",
@@ -43644,7 +43644,7 @@
     "ctenomorpha_marginipennis": {
       speciesId: "ctenomorpha_marginipennis",
       scientificName: "Ctenomorpha marginipennis",
-      jaName: "Ctenomorpha marginipennis",
+      jaName: "ハイイロナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Fir0002",
       sexCovered: "m",
@@ -43690,7 +43690,7 @@
     "polypedilum_nubifer": {
       speciesId: "polypedilum_nubifer",
       scientificName: "Polypedilum nubifer",
-      jaName: "Polypedilum nubifer",
+      jaName: "ホシバネユスリカ",
       creditLine: "Wikimedia Commons",
       creator: "Pieter Prins Depicted place: Canyamel Costa, Balearic Islands, Spain (39°38′45″N 3°25′49″E﻿ / ﻿39.6458601999°N 3.4302100593°E﻿ / 39.6458601999; 3.4302100593)",
       sexCovered: "m",
@@ -43736,7 +43736,7 @@
     "tectocoris_diophthalmus": {
       speciesId: "tectocoris_diophthalmus",
       scientificName: "Tectocoris diophthalmus",
-      jaName: "Tectocoris diophthalmus",
+      jaName: "ダイダイキンカメムシ",
       creditLine: "Wikimedia Commons",
       creator: "Norbert Fischer",
       sexCovered: "m",
@@ -43782,7 +43782,7 @@
     "teleogryllus_commodus": {
       speciesId: "teleogryllus_commodus",
       scientificName: "Teleogryllus commodus",
-      jaName: "Teleogryllus commodus",
+      jaName: "キモンクロコオロギ",
       creditLine: "Australian Museum",
       creator: "Ria Follett",
       sexCovered: "m",
@@ -43828,7 +43828,7 @@
     "anchiale_austrotessulata": {
       speciesId: "anchiale_austrotessulata",
       scientificName: "Anchiale austrotessulata",
-      jaName: "Anchiale austrotessulata",
+      jaName: "マダラナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Samuel Frankel",
       sexCovered: "m",
@@ -43874,7 +43874,7 @@
     "archimantis_latistyla": {
       speciesId: "archimantis_latistyla",
       scientificName: "Archimantis latistyla",
-      jaName: "Archimantis latistyla",
+      jaName: "ホソミドリカマキリ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "quinquenervia (iNaturalist)",
       sexCovered: "m",
@@ -43926,7 +43926,7 @@
     "acrida_conica": {
       speciesId: "acrida_conica",
       scientificName: "Acrida conica",
-      jaName: "Acrida conica",
+      jaName: "トガリアタマバッタ",
       creditLine: "Australian Museum",
       creator: "Nicole Sutton",
       sexCovered: "m",
@@ -43974,7 +43974,7 @@
     "tenodera_australasiae": {
       speciesId: "tenodera_australasiae",
       scientificName: "Tenodera australasiae",
-      jaName: "Tenodera australasiae",
+      jaName: "アミバネカマキリ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "m",
@@ -44020,7 +44020,7 @@
     "austroargiolestes_icteromelas": {
       speciesId: "austroargiolestes_icteromelas",
       scientificName: "Austroargiolestes icteromelas",
-      jaName: "Austroargiolestes icteromelas",
+      jaName: "ハバビロイトトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "f",
@@ -44068,7 +44068,7 @@
     "phaulacridium_vittatum": {
       speciesId: "phaulacridium_vittatum",
       scientificName: "Phaulacridium vittatum",
-      jaName: "Phaulacridium vittatum",
+      jaName: "アカチャコバネバッタ",
       creditLine: "Australian Museum",
       creator: "Frank Cannata",
       sexCovered: "m",
@@ -44114,7 +44114,7 @@
     "acrophylla_titan": {
       speciesId: "acrophylla_titan",
       scientificName: "Acrophylla titan",
-      jaName: "Acrophylla titan",
+      jaName: "ムギワラオオナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Scott W. Gavins",
       sexCovered: "m",
@@ -44160,7 +44160,7 @@
     "junonia_villida": {
       speciesId: "junonia_villida",
       scientificName: "Junonia villida",
-      jaName: "Junonia villida",
+      jaName: "メダマタテハモドキ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "m",
@@ -44206,7 +44206,7 @@
     "archimantis_sobrina": {
       speciesId: "archimantis_sobrina",
       scientificName: "Archimantis sobrina",
-      jaName: "Archimantis sobrina",
+      jaName: "カレエダホソカマキリ",
       creditLine: "Wikimedia Commons",
       creator: "Jean and Fred Hort from Perth, Australia",
       sexCovered: "m",
@@ -44252,7 +44252,7 @@
     "diplacodes_haematodes": {
       speciesId: "diplacodes_haematodes",
       scientificName: "Diplacodes haematodes",
-      jaName: "Diplacodes haematodes",
+      jaName: "コハクバネヒメトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "m",
@@ -44300,7 +44300,7 @@
     "gastrimargus_musicus": {
       speciesId: "gastrimargus_musicus",
       scientificName: "Gastrimargus musicus",
-      jaName: "Gastrimargus musicus",
+      jaName: "セスジチャイロバッタ",
       creditLine: "Australian Museum",
       creator: "Jan Robertson",
       sexCovered: "m",
@@ -44346,7 +44346,7 @@
     "anchiale_briareus": {
       speciesId: "anchiale_briareus",
       scientificName: "Anchiale briareus",
-      jaName: "Anchiale briareus",
+      jaName: "アオバネナナフシ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "djtfmartin (iNaturalist)",
       sexCovered: "m",
@@ -44398,7 +44398,7 @@
     "exaireta_spinigera": {
       speciesId: "exaireta_spinigera",
       scientificName: "Exaireta spinigera",
-      jaName: "Exaireta spinigera",
+      jaName: "シロバネクロミズアブ",
       creditLine: "Australian Museum",
       creator: "Karen Li",
       sexCovered: "m",
@@ -44446,7 +44446,7 @@
     "chortoicetes_terminifera": {
       speciesId: "chortoicetes_terminifera",
       scientificName: "Chortoicetes terminifera",
-      jaName: "Chortoicetes terminifera",
+      jaName: "サビイロカスリバッタ",
       creditLine: "Australian Museum",
       creator: "Donna Grech",
       sexCovered: "m",
@@ -44492,7 +44492,7 @@
     "eristalinus_punctulatus": {
       speciesId: "eristalinus_punctulatus",
       scientificName: "Eristalinus punctulatus",
-      jaName: "Eristalinus punctulatus",
+      jaName: "ホシメダイダイハナアブ",
       creditLine: "Australian Museum",
       creator: "Tony Power",
       sexCovered: "m",
@@ -44540,7 +44540,7 @@
     "cyclochila_australasiae": {
       speciesId: "cyclochila_australasiae",
       scientificName: "Cyclochila australasiae",
-      jaName: "Cyclochila australasiae",
+      jaName: "ウスキバネオオゼミ",
       creditLine: "Australian Museum",
       creator: "Chris Robertson",
       sexCovered: "m",
@@ -45434,7 +45434,7 @@
     "euploea_corinna": {
       speciesId: "euploea_corinna",
       scientificName: "Euploea corinna",
-      jaName: "Euploea corinna",
+      jaName: "シロテンマダラ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "f",
@@ -45480,7 +45480,7 @@
     "goniaea_australasiae": {
       speciesId: "goniaea_australasiae",
       scientificName: "Goniaea australasiae",
-      jaName: "Goniaea australasiae",
+      jaName: "トサカバッタ",
       creditLine: "Australian Museum",
       creator: "Suzanne van Megen",
       sexCovered: "m",
@@ -45526,7 +45526,7 @@
     "podacanthus_viridiroseus": {
       speciesId: "podacanthus_viridiroseus",
       scientificName: "Podacanthus viridiroseus",
-      jaName: "Podacanthus viridiroseus",
+      jaName: "ベニバネナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Benjamin a jacob bjaco18",
       sexCovered: "m",
@@ -45572,7 +45572,7 @@
     "asmicridea_edwardsii": {
       speciesId: "asmicridea_edwardsii",
       scientificName: "Asmicridea edwardsii",
-      jaName: "Asmicridea edwardsii",
+      jaName: "カスリシマトビケラ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "m",
@@ -45618,7 +45618,7 @@
     "creontiades_dilutus": {
       speciesId: "creontiades_dilutus",
       scientificName: "Creontiades dilutus",
-      jaName: "Creontiades dilutus",
+      jaName: "アシナガミドリカスミカメ",
       creditLine: "Wikimedia Commons",
       creator: "Jhereward",
       sexCovered: "m",
@@ -45664,7 +45664,7 @@
     "agrotis_munda": {
       speciesId: "agrotis_munda",
       scientificName: "Agrotis munda",
-      jaName: "Agrotis munda",
+      jaName: "クロモンヤガ",
       creditLine: "Wikimedia Commons",
       creator: "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
       sexCovered: "m",
@@ -45710,7 +45710,7 @@
     "austrolestes_leda": {
       speciesId: "austrolestes_leda",
       scientificName: "Austrolestes leda",
-      jaName: "Austrolestes leda",
+      jaName: "ワモンアオイトトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "f",
@@ -45758,7 +45758,7 @@
     "coryphistes_ruricola": {
       speciesId: "coryphistes_ruricola",
       scientificName: "Coryphistes ruricola",
-      jaName: "Coryphistes ruricola",
+      jaName: "キノカワバッタ",
       creditLine: "Australian Museum",
       creator: "Louise Smith",
       sexCovered: "m",
@@ -45806,7 +45806,7 @@
     "tropidoderus_childrenii": {
       speciesId: "tropidoderus_childrenii",
       scientificName: "Tropidoderus childrenii",
-      jaName: "Tropidoderus childrenii",
+      jaName: "ワカクサナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "B jacob (talk)",
       sexCovered: "m",
@@ -45852,7 +45852,7 @@
     "cyclocephala_signaticollis": {
       speciesId: "cyclocephala_signaticollis",
       scientificName: "Cyclocephala signaticollis",
-      jaName: "Cyclocephala signaticollis",
+      jaName: "キイロブチコガネ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "sandyp09 (iNaturalist)",
       sexCovered: "m",
@@ -45904,7 +45904,7 @@
     "mantis_octospilota": {
       speciesId: "mantis_octospilota",
       scientificName: "Mantis octospilota",
-      jaName: "Mantis octospilota",
+      jaName: "クロボシカマキリ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "timothy_perrett (iNaturalist)",
       sexCovered: "m",
@@ -45956,7 +45956,7 @@
     "hemicordulia_australiae": {
       speciesId: "hemicordulia_australiae",
       scientificName: "Hemicordulia australiae",
-      jaName: "Hemicordulia australiae",
+      jaName: "キボシエゾトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "m",
@@ -46004,7 +46004,7 @@
     "austracris_guttulosa": {
       speciesId: "austracris_guttulosa",
       scientificName: "Austracris guttulosa",
-      jaName: "Austracris guttulosa",
+      jaName: "シロスジオオバッタ",
       creditLine: "Australian Museum",
       creator: "Maret Vesk",
       sexCovered: "m",
@@ -46052,7 +46052,7 @@
     "megacrania_batesii": {
       speciesId: "megacrania_batesii",
       scientificName: "Megacrania batesii",
-      jaName: "Megacrania batesii",
+      jaName: "シロバネナナフシ",
       creditLine: "Natural History Museum, London",
       creator: "Natural History Museum, London",
       sexCovered: "m",
@@ -46098,7 +46098,7 @@
     "mictis_profana": {
       speciesId: "mictis_profana",
       scientificName: "Mictis profana",
-      jaName: "Mictis profana",
+      jaName: "ジュウジヘリカメムシ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "CBG Photography Group",
       sexCovered: "m",
@@ -46146,7 +46146,7 @@
     "myrmecia_forficata": {
       speciesId: "myrmecia_forficata",
       scientificName: "Myrmecia forficata",
-      jaName: "Myrmecia forficata",
+      jaName: "ハラグロキバハリアリ",
       creditLine: "Wikimedia Commons",
       creator: "Zach Lieberman",
       sexCovered: "m",
@@ -46192,7 +46192,7 @@
     "acripeza_reticulata": {
       speciesId: "acripeza_reticulata",
       scientificName: "Acripeza reticulata",
-      jaName: "Acripeza reticulata",
+      jaName: "アミメキリギリス",
       creditLine: "Australian Museum",
       creator: "Cam Ly",
       sexCovered: "m",
@@ -46240,7 +46240,7 @@
     "chrysolopus_spectabilis": {
       speciesId: "chrysolopus_spectabilis",
       scientificName: "Chrysolopus spectabilis",
-      jaName: "Chrysolopus spectabilis",
+      jaName: "ホシゾラゾウムシ",
       creditLine: "National Museum of Natural History, Luxembourg",
       creator: "National Museum of Natural History, Luxembourg",
       sexCovered: "m",
@@ -46288,7 +46288,7 @@
     "amegilla_chlorocyanea": {
       speciesId: "amegilla_chlorocyanea",
       scientificName: "Amegilla chlorocyanea",
-      jaName: "Amegilla chlorocyanea",
+      jaName: "キンムネシマハナバチ",
       creditLine: "Australian Museum",
       creator: "Linda Lockett",
       sexCovered: "m",
@@ -46336,7 +46336,7 @@
     "ocybadistes_walkeri": {
       speciesId: "ocybadistes_walkeri",
       scientificName: "Ocybadistes walkeri",
-      jaName: "Ocybadistes walkeri",
+      jaName: "イシダタミセセリ",
       creditLine: "Australian Museum",
       creator: "Liz Niggley",
       sexCovered: "m",
@@ -46384,7 +46384,7 @@
     "anax_papuensis": {
       speciesId: "anax_papuensis",
       scientificName: "Anax papuensis",
-      jaName: "Anax papuensis",
+      jaName: "セボシヤンマ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "f",
@@ -46432,7 +46432,7 @@
     "cryptobothrus_chrysophorus": {
       speciesId: "cryptobothrus_chrysophorus",
       scientificName: "Cryptobothrus chrysophorus",
-      jaName: "Cryptobothrus chrysophorus",
+      jaName: "アカスネバッタ",
       creditLine: "Australian Museum",
       creator: "Louise Smith",
       sexCovered: "m",
@@ -46478,7 +46478,7 @@
     "candovia_strumosa": {
       speciesId: "candovia_strumosa",
       scientificName: "Candovia strumosa",
-      jaName: "Candovia strumosa",
+      jaName: "イボアタマナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Jeremy Jones",
       sexCovered: "m",
@@ -46524,7 +46524,7 @@
     "henicopsaltria_eydouxii": {
       speciesId: "henicopsaltria_eydouxii",
       scientificName: "Henicopsaltria eydouxii",
-      jaName: "Henicopsaltria eydouxii",
+      jaName: "ダイダイオビゼミ",
       creditLine: "Australian Museum",
       creator: "Nicole O'Donnell",
       sexCovered: "m",
@@ -46572,7 +46572,7 @@
     "agrotis_infusa": {
       speciesId: "agrotis_infusa",
       scientificName: "Agrotis infusa",
-      jaName: "Agrotis infusa",
+      jaName: "ハイイロモンヤガ",
       creditLine: "Wikimedia Commons",
       creator: "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
       sexCovered: "m",
@@ -46618,7 +46618,7 @@
     "miomantis_caffra": {
       speciesId: "miomantis_caffra",
       scientificName: "Miomantis caffra",
-      jaName: "Miomantis caffra",
+      jaName: "クビナガカマキリ",
       creditLine: "Wikimedia Commons",
       creator: "Tyler McBeth",
       sexCovered: "m",
@@ -46664,7 +46664,7 @@
     "aeshna_brevistyla": {
       speciesId: "aeshna_brevistyla",
       scientificName: "Aeshna brevistyla",
-      jaName: "Aeshna brevistyla",
+      jaName: "ムネスジヤンマ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "m",
@@ -46712,7 +46712,7 @@
     "oedaleus_australis": {
       speciesId: "oedaleus_australis",
       scientificName: "Oedaleus australis",
-      jaName: "Oedaleus australis",
+      jaName: "ミドリガシラバッタ",
       creditLine: "Australian Museum",
       creator: "Paul Ibbetson",
       sexCovered: "m",
@@ -46760,7 +46760,7 @@
     "sipyloidea_larryi": {
       speciesId: "sipyloidea_larryi",
       scientificName: "Sipyloidea larryi",
-      jaName: "Sipyloidea larryi",
+      jaName: "イトアシナナフシ",
       creditLine: "Wikimedia Commons",
       creator: "Tim",
       sexCovered: "m",
@@ -46806,7 +46806,7 @@
     "anoplognathus_porosus": {
       speciesId: "anoplognathus_porosus",
       scientificName: "Anoplognathus porosus",
-      jaName: "Anoplognathus porosus",
+      jaName: "ホシアメイロコガネ",
       creditLine: "Australian Museum",
       creator: "Linda Lockett",
       sexCovered: "m",
@@ -46852,7 +46852,7 @@
     "neoaratus_hercules": {
       speciesId: "neoaratus_hercules",
       scientificName: "Neoaratus hercules",
-      jaName: "Neoaratus hercules",
+      jaName: "アカアシムシヒキアブ",
       creditLine: "Australian Museum",
       creator: "Marian Simpson",
       sexCovered: "m",
@@ -46900,7 +46900,7 @@
     "gminatus_australis": {
       speciesId: "gminatus_australis",
       scientificName: "Gminatus australis",
-      jaName: "Gminatus australis",
+      jaName: "ダイダイサシガメ",
       creditLine: "Australian Museum",
       creator: "Nick Anning",
       sexCovered: "m",
@@ -46948,7 +46948,7 @@
     "dasypodia_selenophora": {
       speciesId: "dasypodia_selenophora",
       scientificName: "Dasypodia selenophora",
-      jaName: "Dasypodia selenophora",
+      jaName: "ミカヅキトモエ",
       creditLine: "Wikimedia Commons",
       creator: "Birgit E. Rhode, Landcare Research New Zealand Ltd.",
       sexCovered: "m",
@@ -46994,7 +46994,7 @@
     "sphodropoda_quinquedens": {
       speciesId: "sphodropoda_quinquedens",
       scientificName: "Sphodropoda quinquedens",
-      jaName: "Sphodropoda quinquedens",
+      jaName: "チャバネカマキリ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "sturuss (iNaturalist)",
       sexCovered: "m",
@@ -47046,7 +47046,7 @@
     "austrolestes_analis": {
       speciesId: "austrolestes_analis",
       scientificName: "Austrolestes analis",
-      jaName: "Austrolestes analis",
+      jaName: "ハラナガアオイトトンボ",
       creditLine: "National Museum of Natural History, Smithsonian Institution",
       creator: "Picturae",
       sexCovered: "m",
@@ -47094,7 +47094,7 @@
     "eurycnema_osiris": {
       speciesId: "eurycnema_osiris",
       scientificName: "Eurycnema osiris",
-      jaName: "Eurycnema osiris",
+      jaName: "トゲアシミドリナナフシ",
       creditLine: "iNaturalist (Research grade CC0 exception)",
       creator: "max_tibby (iNaturalist)",
       sexCovered: "m",
@@ -47146,7 +47146,7 @@
     "psaltoda_plaga": {
       speciesId: "psaltoda_plaga",
       scientificName: "Psaltoda plaga",
-      jaName: "Psaltoda plaga",
+      jaName: "スミイロゼミ",
       creditLine: "Australian Museum",
       creator: "Rhiannon Stephens",
       sexCovered: "m",

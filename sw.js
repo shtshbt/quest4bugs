@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v173";  /* v173: 採集道具の第 2 波 4 種 (マレーゼ / 材割り / サーバーネット / 衝突板)。ギルドは 15 へ。 */
+var CACHE = "q4b-cache-v174";  /* v174: オーストラリア遠征 I の catalog jaName 62 件を仮称 (学名) から和名へ是正。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
