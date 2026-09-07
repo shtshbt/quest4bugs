@@ -37,7 +37,7 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
     '<script src="../shared/tools.js?v=0.2.6"></script>',
     '<script src="../shared/tool_icons.js?v=0.2.1"></script>',
     '<script src="../shared/tool_scenes.js?v=0.2.1"></script>',
-    '<script src="../shared/tools_ui.js?v=0.1.5"></script>',
+    '<script src="../shared/tools_ui.js?v=0.1.6"></script>',
     '<script src="../shared/capture_card.js?v=0.1.0"></script>'
   ];
   let cursor = -1;
@@ -52,7 +52,7 @@ test("the shared tool scripts load in order, after yomi.js and before the inline
 });
 
 test("tools.css is linked next to the existing stylesheet", () => {
-  assert.match(source, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.3">/);
+  assert.match(source, /<link rel="stylesheet" href="\.\.\/shared\/tools\.css\?v=0\.1\.4">/);
 });
 
 test("the shared tool wallet is wired into the reward draw, with the amber pid getter", () => {

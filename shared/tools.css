@@ -24,6 +24,9 @@
 .q4b-tool-head{margin:0 0 4px;font-size:15px;font-weight:800;color:var(--q4b-green-d)}
 .q4b-tool-now{margin:0 0 8px;font-size:13px;font-weight:800;color:var(--q4b-sub)}
 .q4b-tool-now strong{color:var(--q4b-amber-d);font-size:14.5px}
+/* 持っているのに未装備のときだけ出る 1 行。責める色 (赤) は使わない。
+   誘いなので、装備の色 (あめ色) と同じ系統で少しだけ目を引く程度にする。 */
+.q4b-tool-hint{margin:0 0 8px;padding:4px 8px;border-radius:8px;background:var(--q4b-amber-l,#FDF3DC);color:var(--q4b-amber-d,#8A6A1E);font-size:12.5px;font-weight:700}
 .q4b-tool-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .q4b-tool-chip{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:5px 11px;
   border:2px solid var(--q4b-line);border-radius:999px;background:var(--q4b-panel);

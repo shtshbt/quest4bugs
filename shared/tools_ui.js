@@ -129,10 +129,29 @@
         +'<span class="q4b-tool-chip-left">'+item.remaining+'／'+tools.durability+'</span>'
         +(item.spares>0?'<span class="q4b-tool-chip-spare">'+text("よび "+item.spares)+'</span>':"")+'</button>';
     });
+    /* 持っているのに 1 本も装備していない状態の 1 行 (2026-09-07 追加)。
+
+       9/07 の save で二人とも 所持 4 本と 6 本、装備ゼロ、壊れた道具ゼロだった。
+       授与は「何も装備していないときだけ自動で装備する」ので、授かった直後は必ず
+       何かが装備されているはずで、あとから「なし」の札で外れたまま戻っていない。
+       道具は装備していなければ耐久も減らないが効果もゼロなので、外したままにする
+       理由が無い。うろでメダルを道具に換えた意味がそこで消える。
+
+       出すのは「本当に何も装備していない」ときだけにする。装備はしているが
+       未公開 release か対象 guild 下限割れで倒れている場合 (now が null でも
+       gear.equippedToolId は残る) は別の知らせ (noticeHtml) の担当で、そちらと
+       二重に鳴らさない。ここでは選べる札が 1 枚もない画面でも出さない。 */
+    var nothingEquipped=!gear.equippedToolId;
+    var hasSelectable=owned.some(function(item){return !item.dead;});
+    var hint=(nothingEquipped&&hasSelectable)
+      ?'<p class="q4b-tool-hint">'+text("どうぐを そうびすると、とれる 虫が かわるよ")+'</p>'
+      :"";
+
     return '<section class="q4b-tool-panel" role="group" aria-label="'+attrText("そうびする どうぐ")+'">'
       +'<h2 class="q4b-tool-head">'+text("どうぐ")+'</h2>'
       +'<p class="q4b-tool-now">'+text("いまの そうび")+'　<strong>'
       +(now?faceHtml(now)+" "+text(toolName(now,course)):text("なし"))+'</strong></p>'
+      +hint
       +'<div class="q4b-tool-chips">'+chips+'</div></section>';
   }
 

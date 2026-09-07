@@ -242,6 +242,42 @@ test("worksIn は対象 guild が 1 匹でもいるかを見て、プール不�
   assert.equal(tools.worksIn("no_such_tool", MOTHS), false);
 });
 
+/* --- 持っているのに未装備 ------------------------------------------------
+   2026-09-07 の実 save で、二人とも 所持 4 本と 6 本、装備ゼロ、壊れた道具ゼロ
+   だった。授与は未装備のときだけ自動装備するので、あとから「なし」で外れたまま
+   戻っていない。装備しなければ耐久は減らないが効果もゼロなので、うろでメダルを
+   道具に換えた意味がそこで消える。1 行だけ出して気づけるようにする。 */
+test("道具を持っていて 1 本も装備していないとき、そのことを 1 行で知らせる", () => {
+  const html = panel({ gear: { tools: [{ type: "cho_net", remaining: 40 }], equippedToolId: null },
+    text: plainText });
+  assert.match(html, /q4b-tool-hint/, "未装備の知らせが出ていない");
+  assert.match(html, /どうぐを そうびすると/, "文面が違う");
+});
+
+test("装備しているときは知らせを出さない", () => {
+  const html = panel({ gear: { tools: [{ type: "cho_net", remaining: 40 }], equippedToolId: "cho_net" },
+    text: plainText });
+  assert.doesNotMatch(html, /q4b-tool-hint/, "装備しているのに未装備の知らせが出た");
+});
+
+test("装備が倒れているだけのときは知らせを出さない (別の知らせの担当)", () => {
+  /* 装備はしているが対象 guild が下限割れで効いていない場合、いまの そうび の欄は
+     「なし」になるが equippedToolId は残る。ここで未装備の知らせも鳴らすと、
+     noticeHtml (ここでは つかえない) と 2 つが同じことを言う。 */
+  const html = panel({ gear: { tools: [{ type: "cho_net", remaining: 40 }], equippedToolId: "cho_net" },
+    pool: BEETLES, text: plainText });
+  assert.match(html, /q4b-tool-chip is-dead/, "下限割れの札になっていない");
+  assert.doesNotMatch(html, /q4b-tool-hint/, "倒れているだけなのに未装備の知らせが出た");
+});
+
+test("選べる札が 1 枚も無い画面では知らせを出さない", () => {
+  /* 持っている道具がその場所で全部 下限割れなら、装備しても何も変わらない。
+     そこで「そうびすると 虫が かわる」と言うのは嘘になる。 */
+  const html = panel({ gear: { tools: [{ type: "cho_net", remaining: 40 }], equippedToolId: null },
+    pool: BEETLES, text: plainText });
+  assert.doesNotMatch(html, /q4b-tool-hint/, "選べる札が無いのに知らせが出た");
+});
+
 test("パネルは対象ゼロの道具を選べなくし、いまの そうび を なし に倒す", () => {
   const html = panel({ pool: BEETLES, text: plainText });
   assert.match(html, /q4b-tool-chip is-dead/, "つかえない札の目印が無い");
