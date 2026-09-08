@@ -1099,7 +1099,7 @@
 
   /* ---------------- 卵育成 (breeding namespace shared kv) -----------
      coll.eggs / coll.pendingEggs / coll.stats.breeding を per-game coll から外し、
-     fossilFragments と同様に shared kv (breeding <pid>) に置く。
+     fossilFragments と同様に shared kv (breeding\0<pid>) に置く。
      mergeStore が自動で per-kv LWW を適用する。 */
   function breedingKey(pid){ return "breeding"+SEP+pid; }
   function blankBreeding(){ return {eggs:[],pendingEggs:[],stats:{totalAbandoned:0}}; }
