@@ -91,7 +91,10 @@ Phase 1 で入れた `lv10ClearAt` は周回ごとに上書きするよう変え
    読むこと (`test_komorebi_portal_gate.js` が見張る)
 3. volume freeze チェック: 公開する各道具に対象種が 1 種以上いること
 4. 全テストを 4 状態 (CURRENT_RELEASE 1/2 × MEDAL_ECONOMY_ON on/off) で通す
-5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。sw.js は
+5. 配信ファイルの `?v=` と `sw.js` の CACHE 名を deploy 時に一括で上げる。
+   漏れの検査は `tools/check_version_bumps.sh` (既定で `origin/main` と比べ、中身が
+   変わったのに版が据え置きの配信ファイルを挙げる。`tests/test_script_versions.js` は
+   ページ間の版の一致しか見ないので、この 2 つで別のことを見張る)。sw.js は
    query を含む URL で一致を見るため、`?v=` を据え置くと復帰した端末が古い実装を
    使い続ける (点火日に御神木のうろ入口が出ない、という形で表に出る)。
    Phase 2 で中身が変わったのは次の通り。
