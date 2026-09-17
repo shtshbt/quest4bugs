@@ -1,0 +1,53 @@
+name: Cloudflare artifact check
+
+on:
+  pull_request:
+    paths:
+      - "cloudflare/**"
+      - "index.html"
+      - "battle.html"
+      - "manifest.webmanifest"
+      - "sw.js"
+      - "assets/**"
+      - "shared/**"
+      - "kanji/**"
+      - "keisan/**"
+      - "eitango/**"
+      - "komorebi/**"
+      - "zukan_cards/**"
+      - "zukan_config/zukan_catalog.js"
+
+permissions:
+  contents: read
+
+jobs:
+  build-runtime-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build runtime artifact
+        run: node cloudflare/build-static.mjs
+
+      - name: Verify required entry points
+        run: |
+          test -f dist-pages/index.html
+          test -f dist-pages/battle.html
+          test -f dist-pages/sw.js
+          test -f dist-pages/manifest.webmanifest
+          test -f dist-pages/shared/storage.js
+          test -f dist-pages/zukan_config/zukan_catalog.js
+
+      - name: Verify repository internals are absent
+        run: |
+          test ! -e dist-pages/.github
+          test ! -e dist-pages/.claude
+          test ! -e dist-pages/.claude_plan
+          test ! -e dist-pages/docs
+          test ! -e dist-pages/contracts
+          test ! -e dist-pages/tests
+          test ! -e dist-pages/tools
+          test ! -e dist-pages/zukan_foundry
+          test ! -e dist-pages/CLAUDE.md
+          test ! -e dist-pages/BLOCKED_DECISIONS.md
