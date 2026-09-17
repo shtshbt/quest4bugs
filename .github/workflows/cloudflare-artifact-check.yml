@@ -1,9 +1,6 @@
 name: Cloudflare artifact check
 
 on:
-  push:
-    branches:
-      - feat/cloudflare-pages-runtime-artifact-20260917
   pull_request:
     paths:
       - "cloudflare/**"
