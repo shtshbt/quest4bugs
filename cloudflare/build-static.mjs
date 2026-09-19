@@ -1,5 +1,5 @@
 import { access, cp, mkdir, rm } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
@@ -65,7 +65,11 @@ for (const entry of runtimeEntries) {
     throw new Error(`Required runtime path is missing: ${entry}`);
   }
   await mkdir(dirname(dst), { recursive: true });
-  await cp(src, dst, { recursive: true });
+  await cp(src, dst, {
+    recursive: true,
+    // Apply the same hygiene rules at every depth of each runtime subtree.
+    filter: (path) => basename(path) !== "README.md" && !basename(path).includes(".tmp."),
+  });
 }
 
 for (const entry of forbiddenTopLevel) {

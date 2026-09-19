@@ -30,7 +30,8 @@ done
 for entry in .git .github .claude .claude_plan docs contracts tests tools scripts cloudflare zukan_foundry photo_audit CLAUDE.md BLOCKED_DECISIONS.md README.md; do
   test ! -e "$OUT/$entry" || { echo "Internal path leaked: $entry" >&2; exit 1; }
 done
-leaks="$(find "$OUT" \( -name '*.md' -o -name '*.tmp.*' -o -name '_inbox' -o -name '_archive' -o -name '_pipeline' -o -name '*_L1_segmented.png' -o -name '*_original.*' \) -print)"
+# Match nested documentation and temporary residue, not just root exclusions.
+leaks="$(find "$OUT" \( -name 'README.md' -o -name '*.tmp.*' -o -name '_inbox' -o -name '_archive' -o -name '_pipeline' -o -name '*_L1_segmented.png' -o -name '*_original.*' \) -print)"
 if [[ -n "$leaks" ]]; then
   printf 'Internal material leaked:\n%s\n' "$leaks" >&2
   exit 1
