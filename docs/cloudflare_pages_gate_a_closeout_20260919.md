@@ -114,7 +114,12 @@ This was a check-ordering issue, not a stable artifact failure.
 
 `shared/storage.js` is unchanged. The Fieldnote repository was neither accessed
 nor mutated; no live synchronization, PAT changes, or household writes occurred.
-No unrelated baseline failure was found. No gameplay or storage fix was made.
+No baseline test failure was found. The checkpoint push hook reported
+`trajectory: registry_missing` in observe mode and allowed the push. A
+`git ls-tree` comparison confirmed `.trajectory/registry.json` is absent in both
+the required base and integration HEAD. This is pre-existing local guard
+configuration debt; no Trajectory initialization or scope-out repair was made.
+No gameplay or storage fix was made.
 Cloudflare-origin browser/service-worker and Fieldnote round trips remain Gate B
 work; local checks do not establish those results.
 
