@@ -1,8 +1,10 @@
 # Quest4Bugs minimal Cloudflare Pages migration
 
-Status: READY_FOR_IMPLEMENTATION
-Branch: `plan/cloudflare-pages-private-repo-20260916`
-Date: 2026-09-17
+Status: INTEGRATED_GATE_A_STOP (nested internal material in artifact)
+Branch: `claude/cloudflare_gate_a_20260919`
+Date: 2026-09-19
+
+Repository-side evidence: [Gate A closeout](cloudflare_pages_gate_a_closeout_20260919.md).
 
 ## 1. Goal
 
