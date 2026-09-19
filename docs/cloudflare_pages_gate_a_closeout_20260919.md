@@ -8,6 +8,16 @@ clean deterministic packaging and all existing JavaScript regressions pass.
 Proceed with the PR against `main`, without merging. Stop before Gate B:
 Cloudflare Pages project creation / Git integration / preview configuration.
 
+PR creation was attempted after Gate A passed, but is blocked by GitHub API
+permissions: both existing CLI credentials returned `CreatePullRequest`
+permission errors; the GitHub connector returned HTTP 403 `Resource not
+accessible by integration`. No PR number was issued. The branch is pushed;
+Gate A remains PASS. A human with PR creation permission can open
+`https://github.com/shtshbt/quest4bugs/compare/main...claude/cloudflare_gate_a_20260919?expand=1`.
+The prepared title/body are locally available in
+`/tmp/quest4bugs_cloudflare_gate_a_pr_body.md`. No credentials or permission
+settings were changed, and no merge or Cloudflare action was attempted.
+
 ## Ownership and preflight
 
 - Session: `20260919-cloudflare-gate-a-integration` (single writer).
