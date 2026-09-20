@@ -57,6 +57,10 @@
   }
   function _markSyncSuccess(){
     var m=_readLastSync(); m.lastSuccessAt = now();
+    /* A later success resolves the prior error. Keep no stale timestamp whose
+       kind/message have already been cleared; otherwise the UI renders
+       "last error (null)" after a healthy sync. */
+    m.lastErrorAt = 0;
     m.lastErrorKind = null; m.lastErrorMessage = null;
     _writeLastSync(m);
   }
@@ -188,7 +192,12 @@
      画面上は正常でも、 リロード後にすべて消える状態が起きる。 ok を返し、 連続失敗時
      には degraded フラグを立てて上位 UI から警告できるようにする (新追加#1)。 */
   var __saveDegraded = false;
-  function persist(){
+  function persist(options){
+    options=options||{};
+    /* Cloud pull/push may rewrite localStorage after merging remote state.
+       That write is persistence of already-accounted state, not a new local
+       user mutation. Only ordinary caller writes advance localGeneration. */
+    var trackLocalMutation = options.trackLocalMutation !== false;
     if(!mem) return true;
     var ok = safeSet(STORE_KEY, JSON.stringify(mem));
     if(ok){
@@ -205,11 +214,13 @@
       __saveDegraded = false;
       try{ window.dispatchEvent(new CustomEvent("q4b-storage-recovered")); }catch(_){}
     }
-    /* PA-1/T4: ローカル書き込みごとに localGeneration を進める。 同期 ON でなければ
-       status は "local"、 ON なら未送信を示す "dirty" にする (UI で「☁️ 未保存」
-       バッジを出すため)。 */
-    _bumpLocalGen();
-    if(getConfig().enabled && status !== "syncing") setStatus("dirty");
+    /* PA-1/T4: caller-owned local mutations advance localGeneration. Sync-internal
+       persistence must not do so: otherwise a successful push creates a new
+       "unsynced" generation and recursively schedules another push forever. */
+    if(trackLocalMutation){
+      _bumpLocalGen();
+      if(getConfig().enabled && status !== "syncing") setStatus("dirty");
+    }
     return ok;
   }
   function isDegraded(){ return __saveDegraded; }
@@ -398,7 +409,7 @@
       remote=await githubGet(cfg,savePath(cfg));
       store=loadStore();
       if(remote&&remote.content){ try{ mergeStore(store,JSON.parse(base64ToString(remote.content))); }catch(_){ } }
-      persist();
+      persist({trackLocalMutation:false});
       snapshot=snapshotDoc(store);
       if(!snapshotSizeWarned&&new TextEncoder().encode(snapshot).length>500*1024){
         snapshotSizeWarned=true;
@@ -1384,7 +1395,7 @@
       }else{
         n+=await pullLegacy(cfg,store);  // 旧フォーマットからの移行
       }
-      persist();
+      persist({trackLocalMutation:false});
       _notifyStoreReloaded();
       setStatus("synced");
       return n;
