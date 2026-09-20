@@ -32,6 +32,9 @@ jobs:
       - name: Verify clean deterministic runtime artifact and recursive exclusions
         run: bash tests/test_cloudflare_artifact.sh
 
+      - name: Verify Fieldnote sync-generation regression
+        run: node tests/test_storage_sync_generation.js
+
       - name: Verify required entry points
         run: |
           test -f dist-pages/index.html
