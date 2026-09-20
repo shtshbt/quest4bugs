@@ -35,6 +35,11 @@ jobs:
       - name: Verify Fieldnote sync-generation regression
         run: node tests/test_storage_sync_generation.js
 
+      - name: Run JavaScript regression suite
+        run: |
+          set -o pipefail
+          for f in tests/test_*.js; do node "$f" || exit 1; done
+
       - name: Verify required entry points
         run: |
           test -f dist-pages/index.html
