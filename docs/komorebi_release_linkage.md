@@ -49,7 +49,7 @@
 | 1 | マダガスカル遠征 I | 84 | kom_ratio + kom_pi314 | kom_kuku_dan2 + kom_kuku_dan5 + kom_kuku_run | (なし) | 68% | deploy 済 |
 | 2 | オーストラリア遠征 I | 84 | kom_unit_convert + kom_diagram_model | kom_kuku_ura + kom_kuku_dan3 + kom_kuku_dan4 | ちょうネット / トンボ用メッシュネット / 灯火採集セット / バナナトラップ | 95% | deploy 済 |
 | 3 | ボルネオ遠征 I | 84 | kom_frac_flow + kom_ratio_forms | kom_kuku_inverse + kom_kuku_dan6 + kom_kuku_dan7 | スイーピングネット / さかなとりあみ | 100% | deploy 済 |
-| 4 | オーストラリア遠征 II | 84 | kom_hayasa + kom_johou_seiri | kom_equation_select + kom_kuku_dan8 | ビーティングセット / 吸虫管 | 100% | 準備済 (点火待ち) |
+| 4 | オーストラリア遠征 II | 84 | kom_hayasa + kom_johou_seiri | kom_equation_select + kom_kuku_dan8 | ビーティングセット / 吸虫管 | 100% | deploy 済 (2026-09-26) |
 | 5 | マダガスカル遠征 II | 80 | kom_seisu + kom_kisokusei | kom_kuku_bridge + kom_kuku_dan9 | 高所用長竿 / 落とし穴トラップ / フントラップ | 100% | 整数の性質の実装待ち |
 | 6 | 未定 | | なし | なし | マレーゼトラップ / 材割りセット | | 枠のみ (2.2.1 の制約あり) |
 | 7 | 未定 | | なし | なし | サーバーネット / 衝突板トラップ | | 枠のみ |
