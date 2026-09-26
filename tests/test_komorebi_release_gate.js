@@ -257,6 +257,25 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
+  test("the unassigned Costa Rica slot is held back by its release number, not only by placeholder", () => {
+    /* 合成 fixture を作る volume() が release を落としていたため、99 を書いても undefined に
+       なり、isVolumeReleased は公開済みへ倒していた。画面に出なかったのは placeholder の
+       おかげだけで、実データ化で placeholder を外すと番号と無関係に公開される状態だった
+       (2026-09-26 に発見)。placeholder を外しても地図に出ないことで番号の効きを見る。 */
+    const costa = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_costa_rica;
+    assert.ok(costa, "Costa Rica manifest entry is missing");
+    assert.equal(costa.release, 99, "the volume helper dropped the release number");
+    costa.placeholder = false;
+    try {
+      app.querySelector('[data-action="back"]').click();
+      assert.equal(app.querySelector('[data-region-id="costa_rica"]'), null, "Costa Rica leaked to the map without its placeholder flag");
+      assert.equal(plain().indexOf("コスタリカ"), -1, "Costa Rica is named on the map before its release");
+    } finally {
+      costa.placeholder = true;
+      app.querySelector('[data-action="trophies"]').click();
+    }
+  });
+
   test("an unreleased trophy does not sit on the goal board", () => {
     /* 目標ボードに出るのは「公開済み × いまのコース (k5)」のメダルだけ。枚数は
        CURRENT_RELEASE で動くので、期待値も同じ規則から作る (kom_future_demo は

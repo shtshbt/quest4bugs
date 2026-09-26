@@ -24,6 +24,9 @@
       id:config.id, regionId:config.regionId, regionName:config.regionName,
       current:!!config.current, expedition:config.expedition||1,
       placeholder:!!config.placeholder,
+      /* release を落とすと isVolumeReleased が公開済みへ倒し、placeholder だけが
+         画面から隠す状態になる (2026-09-26 に発見。99 を書いても効いていなかった)。 */
+      release:config.release,
       categories:config.categories, blurb:config.blurb,
       frozen:true, denominator:species.length, species:species
     };
