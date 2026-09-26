@@ -3,6 +3,9 @@
 実装を止めずに進めるため、可逆で保守的なデフォルトを選んだ判断点の記録。
 各エントリは人間の確認によって解決する。
 
+2026-09-26 に 3 件とも発案者が確認し、解決した。各節の末尾に「解決」を置く。
+現行の判断は `.trajectory/registry.json` が正本で、本文は当時の経緯として残す。
+
 ## 1. ALLOWED_MEDIA_LICENSES の正本がコメントと実コードで食い違う
 
 判断点:
@@ -39,6 +42,12 @@ CC-BY-SA 系 4 種を図鑑カードの media license として許可する方�
 正しい場合はカタログ冒頭コメントを実コードに合わせて更新する。許可しない場合は
 `var` 側を修正し、該当 148 件の差し替え方針を決める。
 
+解決 (2026-09-26): CC-BY-SA 系 4 種を許可する。`var ALLOWED_MEDIA_LICENSES` の 7 種が
+正本で、カタログ冒頭コメントをこれに合わせた。解決時点の CC-BY-SA は 173 件で、全件が
+提供者 (creditLine)、ライセンス名とリンク、加工内容、原レコードのリンクを持ち、図鑑の
+詳細欄 (`shared/zukan_detail.js`) に表示される。改変したカードは同じライセンスで配る
+ことになり、詳細欄のライセンス表示がそれを示す。
+
 ## 2. SPEC が参照する `specimen.scientificName` がカタログに存在しない
 
 判断点:
@@ -74,6 +83,11 @@ SPEC は本 lane の唯一の実行権威であるため、その文言から外
 将来 `specimen.scientificName` を Darwin Core 準拠でカタログに追加する予定が
 あるかどうか。
 
+解決 (2026-09-26): 読み替えを確定する。比較元はトップレベル `scientificName` で、
+`specimen.scientificName` があればそちらを優先する現行実装のままとする。
+`specimen.scientificName` を追加するかは決めていないが、追加されれば実装がそちらを
+優先するので、この判断は追加の有無に左右されない。
+
 ## 3. MediaGapRecord の正本スキーマがリポジトリ内に存在しない
 
 判断点:
@@ -108,3 +122,9 @@ SPEC は `photo_audit/missing_or_replacement_species.json` を「zukan-fetch 側
 zukan-fetch 側の `MediaGapRecord` の正本フィールド定義。特に `gapId` の生成規則が
 `<speciesId>::<variant>::<intent>` と互換かどうか。互換でない場合は
 `outputs.py` の `build_gap_records` の該当部分のみ差し替えれば足りる。
+
+解決 (2026-09-26): 近似を正式な形式として採用する。2026-09-26 に zukan-fetch skill を
+検索したところ `MediaGapRecord` も `gapId` も定義が存在せず、合わせるべき別の正本は
+なかった。形式の正本は `scripts/photo_audit/outputs.py` とし、`gapId` は
+`<speciesId>::<variant>::<intent>` のまま。読み手は `zukan_foundry/tests/test_candidates.py`。
+`schemaNote` は次回の監査実行から新しい文言で出る (8/28 実行の出力は当時のまま残す)。

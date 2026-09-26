@@ -96,7 +96,7 @@ def _gap_output(results: list[dict]) -> dict:
     gap_ids = [record["gapId"] for record in records]
     assert len(gap_ids) == len(set(gap_ids)), "duplicate gapId"
     return {
-        "schemaNote": "MediaGapRecord-shaped; zukan-fetch's canonical schema is not present in this repository, so this is a conservative approximation. gapId is the idempotent key.",
+        "schemaNote": "MediaGapRecord v1. This function is the canonical definition (adopted 2026-09-26, BLOCKED_DECISIONS.md 3). gapId is the idempotent key <speciesId>::<variant>::<intent>.",
         "records": records,
     }
 

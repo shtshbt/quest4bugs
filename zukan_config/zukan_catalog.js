@@ -14,9 +14,13 @@
    (the JPEG itself). NHMUK occurrence records are CC0 while the photos are
    CC-BY 4.0; both are recorded separately.
 
-   ALLOWED_MEDIA_LICENSES = {"CC0-1.0", "PDM-1.0", "CC-BY-4.0"}. For CC-BY,
-   creditLine + source.institutionRecordUrl + source.licenseUrl + modifications
-   are required. Paths in image{} are relative to the project root. */
+   ALLOWED_MEDIA_LICENSES = {"CC0-1.0", "PDM-1.0", "CC-BY-4.0", "CC-BY-SA-2.0",
+   "CC-BY-SA-2.5", "CC-BY-SA-3.0", "CC-BY-SA-4.0"} (the var below is canonical;
+   CC-BY-SA confirmed 2026-09-26, BLOCKED_DECISIONS.md 1). For CC-BY and
+   CC-BY-SA, creditLine + source.institutionRecordUrl + source.licenseUrl +
+   modifications are required; a modified CC-BY-SA card is shared under the
+   same license, which the zukan detail panel states. Paths in image{} are
+   relative to the project root. */
 (function(global){
   "use strict";
 
