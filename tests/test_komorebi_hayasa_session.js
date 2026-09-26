@@ -87,12 +87,12 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.match(plain(), /正解！/, "画面の文面から作った答えが通らない: " + plain().slice(0, 260));
   }
 
-  test("the category is implemented behind release 9", () => {
+  test("the category is implemented behind release 4", () => {
     assert.equal(komorebi.categories.kom_hayasa.course, "k10");
     assert.equal(komorebi.categories.kom_hayasa.name, "速さ");
     assert.equal(komorebi.categories.kom_hayasa.maxLv, 10);
     assert.equal(komorebi.categories.kom_hayasa.release, 4);
-    assert.equal(komorebi.isReleased("kom_hayasa"), false /* CURRENT_RELEASE=3 < 4 */);
+    assert.equal(komorebi.isReleased("kom_hayasa"), komorebi.currentRelease() >= 4);
     assert.ok(komorebi.sessionStarters.kom_hayasa);
   });
 

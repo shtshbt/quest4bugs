@@ -104,9 +104,9 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   vm.runInContext(fs.readFileSync(path.join(root, "komorebi/volumes/volume_fixture.js"), "utf8"), context);
   const vols = context.Q4B_KOMOREBI_VOLUMES;
   const au2 = vols.volume_fixture_australia_2;
-  assert.ok(au2, "AU II volume is staged in the manifest");
-  assert.ok(Number.isInteger(au2.release) && au2.release > context.Q4B_ECONOMY.currentRelease(),
-    "AU II is expected to be staged; update this test's fixtures when it ships");
+  assert.ok(au2, "AU II volume is in the manifest");
+  assert.ok(Number.isInteger(au2.release) && au2.release <= context.Q4B_ECONOMY.currentRelease(),
+    "AU II shipped with update 4; it must count as released now");
   const borneo = vols.volume_fixture_borneo;
   assert.ok(borneo, "Borneo I volume is in the manifest");
   assert.ok(Number.isInteger(borneo.release) && borneo.release <= context.Q4B_ECONOMY.currentRelease(),
@@ -132,12 +132,12 @@ test("portal komorebi denominator excludes volumes staged for a future release",
     return set;
   }
   const now = portalKomSpecies(context.Q4B_ECONOMY.currentRelease());
-  assert.equal(now.anoplognathus_viridiaeneus, undefined, "an unreleased volume leaked into the portal denominator");
+  assert.equal(now.anoplognathus_viridiaeneus, 1, "the released AU II volume must join the portal denominator");
   assert.equal(now.trogonoptera_brookiana, 1, "the released Borneo I volume must join the portal denominator");
   assert.equal(now.phyllocrania_paradoxa, undefined, "the staged Madagascar II volume leaked into the portal denominator");
   assert.ok(now.oo_onaga_yamamayu && now.papilio_ulysses, "released volumes must stay in the denominator");
-  /* CURRENT_RELEASE=3 時点の公開分母: MG I 84 + AU I 84 + ボルネオ I 84。 */
-  assert.equal(Object.keys(now).length, 252);
+  /* CURRENT_RELEASE=4 時点の公開分母: MG I 84 + AU I 84 + ボルネオ I 84 + AU II 84。 */
+  assert.equal(Object.keys(now).length, 336);
   /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。
      2026-08-28 の再編で AU II が更新 6 から 4 へ繰り上がり、MG II は 5 のまま。
      更新 3 でボルネオ I の 84 が乗り (168 + 84)、AU II も MG II もまだ乗らない。

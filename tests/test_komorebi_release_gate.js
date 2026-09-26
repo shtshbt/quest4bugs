@@ -177,11 +177,11 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
-  test("the real Australia II volume (release 4) stays staged and off every surface", () => {
+  test("the real Australia II volume (release 4) is live on the map since update 4", () => {
     /* 事前準備方式の実データ版。オーストラリア遠征 II は 2026-08-28 の再編で更新 6 から
-       4 へ繰り上がった (写真 84/84 と manifest 凍結が済んでおり、写真ゼロのコスタリカ I
-       を先に置くとチェーンが止まるため)。CURRENT_RELEASE が 4 に届くまで
-       地図 (ピンの分母)・地域図鑑・抽選 (いずれも regionList 経由) に出ないこと。 */
+       4 へ繰り上がり (写真 84/84 と manifest 凍結が済んでおり、写真ゼロのコスタリカ I
+       を先に置くとチェーンが止まるため)、更新 4 で公開した。freeze した中身が公開で
+       動いていないことと、オーストラリアのピンが AU I + AU II の分母 168 を名乗ることを見る。 */
     const au2 = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia_2;
     assert.ok(au2, "AU II manifest entry is missing");
     assert.equal(au2.release, 4);
@@ -193,15 +193,13 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(flagships.length, 1, "AU II must have exactly one flagship");
     assert.equal(flagships[0].id, "anoplognathus_viridiaeneus");
     assert.equal(flagships[0].rarity, "SSR");
-    assert.ok(au2.release > komorebi.currentRelease(),
-      "AU II is expected to be staged; update the release-gate fixtures when it ships");
-    /* 地図へ戻って再描画し、巻もその分母も現れないことを見る。 */
+    assert.ok(au2.release <= komorebi.currentRelease(),
+      "AU II shipped with update 4; it must count as released now");
+    /* 地図へ戻って再描画し、ピンの分母が 2 巻ぶんになることを見る。 */
     app.querySelector('[data-action="back"]').click();
-    assert.equal(app.innerHTML.indexOf("volume_fixture_australia_2"), -1, "AU II leaked into the map");
-    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "AU II is visible before its release");
     const pin = app.querySelector('[data-region-id="australia"]');
     assert.ok(pin, "the australia pin disappeared");
-    assert.match(pin.getAttribute("aria-label"), /／84、/, "the australia denominator counted the staged volume");
+    assert.match(pin.getAttribute("aria-label"), /／168、/, "the australia denominator must cover AU I and AU II");
     app.querySelector('[data-action="trophies"]').click();
   });
 
