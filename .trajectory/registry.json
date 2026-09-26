@@ -1,0 +1,140 @@
+{
+  "baseline_commit": "25acb2ed997cf0ebfcc23d7c995bd525254b2691",
+  "entries": {
+    "trj-20260828-licenses-provisional": {
+      "authority": [
+        {
+          "blob_sha": "17e6bb3769fd69be8c1fedc1d76d3396ab458700",
+          "path": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "disposition": "NEUTRAL",
+      "event_date": "2026-08-28",
+      "final_interpretation": "Provisionally, the evaluated var ALLOWED_MEDIA_LICENSES in zukan_catalog.js is treated as canonical over the file's own header comment, so the four CC-BY-SA variants are allowed. The audit tool parses that object literal at run time rather than hardcoding a list, so audit results match runtime behaviour. CC-BY-SA entries carry the same attribution requirements as CC-BY.",
+      "kind": "public_contract",
+      "limitations": [
+        "choosing the header comment instead would drop 148 CC-BY-SA catalog entries to machine_reject",
+        "the comment was judged to be a stale edit, which is a judgement and not a confirmed fact"
+      ],
+      "recorded_at": "2026-09-01T10:30:00-04:00",
+      "reuse_rule": "Do not cite as settled. This is the reversible default in force until a human confirms which of the two is canonical.",
+      "scope": {
+        "constraints": [
+          "provisional; chosen to avoid blocking implementation"
+        ],
+        "summary": "Which media licenses the catalog accepts"
+      },
+      "source_refs": [
+        {
+          "kind": "path",
+          "ref": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "superseded_by": [],
+      "supersedes": [],
+      "topic": "allowed-media-licenses",
+      "transition_reason": "Recorded as a blocked decision with a conservative reversible default.",
+      "validity": "ACTIVE"
+    },
+    "trj-20260828-mediagap-provisional": {
+      "authority": [
+        {
+          "blob_sha": "17e6bb3769fd69be8c1fedc1d76d3396ab458700",
+          "path": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "disposition": "NEUTRAL",
+      "event_date": "2026-08-28",
+      "final_interpretation": "Provisionally, the missing-or-replacement output uses an approximate schema satisfying the elements the SPEC names, with a schemaNote field in the file declaring that it is an approximation because the canonical schema is not present in this repository. gapId is the idempotent key speciesId::variant::intent, verified non-duplicating at run time. new_species is not emitted by this lane.",
+      "kind": "public_contract",
+      "limitations": [
+        "the canonical MediaGapRecord and gapId definitions live in the zukan-fetch skill outside this repository, which this lane may not read",
+        "a downstream lane will need a remapping if the approximation differs from the canonical schema"
+      ],
+      "recorded_at": "2026-09-01T10:30:00-04:00",
+      "reuse_rule": "Do not cite as the canonical MediaGapRecord schema. It is an approximation that declares itself as one, pending access to the real definition.",
+      "scope": {
+        "constraints": [
+          "provisional; approximate by declaration"
+        ],
+        "summary": "The shape of the media gap output consumed by later zukan-fetch lanes"
+      },
+      "source_refs": [
+        {
+          "kind": "path",
+          "ref": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "superseded_by": [],
+      "supersedes": [],
+      "topic": "media-gap-record-schema",
+      "transition_reason": "Recorded as a blocked decision with a conservative reversible default.",
+      "validity": "ACTIVE"
+    },
+    "trj-20260828-scientificname-provisional": {
+      "authority": [
+        {
+          "blob_sha": "17e6bb3769fd69be8c1fedc1d76d3396ab458700",
+          "path": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "disposition": "NEUTRAL",
+      "event_date": "2026-08-28",
+      "final_interpretation": "Provisionally, identification reads specimen.scientificName first and falls back to the entry's top-level scientificName, with the same pattern for the female variant. No catalog entry currently carries specimen.scientificName, so in practice the fallback is what runs. If the field is added later it takes precedence automatically.",
+      "kind": "public_contract",
+      "limitations": [
+        "reading the SPEC strictly would send all 894 fixtures to review_required and make the axis useless",
+        "the SPEC is the only execution authority for this lane, so departing from its wording is recorded rather than done silently"
+      ],
+      "recorded_at": "2026-09-01T10:30:00-04:00",
+      "reuse_rule": "Do not cite as settled. The SPEC wording and the catalog disagree, and which one is corrected is a human decision.",
+      "scope": {
+        "constraints": [
+          "provisional; departs from the literal SPEC wording"
+        ],
+        "summary": "Which field the identification axis reads"
+      },
+      "source_refs": [
+        {
+          "kind": "path",
+          "ref": "BLOCKED_DECISIONS.md"
+        }
+      ],
+      "superseded_by": [],
+      "supersedes": [],
+      "topic": "identification-name-field",
+      "transition_reason": "Recorded as a blocked decision with a conservative reversible default.",
+      "validity": "ACTIVE"
+    }
+  },
+  "project": "quest4bugs",
+  "projection_profile": "compact",
+  "schema_version": 1,
+  "topics": {
+    "allowed-media-licenses": {
+      "authority_entry_id": null,
+      "conflict_entry_ids": [
+        "trj-20260828-licenses-provisional"
+      ],
+      "resolution": "review_required",
+      "review_reason": "The catalog comment names three allowed licenses and the evaluated var names seven. A provisional reading was adopted to keep implementation moving; it is not confirmed."
+    },
+    "identification-name-field": {
+      "authority_entry_id": null,
+      "conflict_entry_ids": [
+        "trj-20260828-scientificname-provisional"
+      ],
+      "resolution": "review_required",
+      "review_reason": "The SPEC names specimen.scientificName, which no catalog entry carries. A fallback reading was adopted provisionally rather than silently."
+    },
+    "media-gap-record-schema": {
+      "authority_entry_id": null,
+      "conflict_entry_ids": [
+        "trj-20260828-mediagap-provisional"
+      ],
+      "resolution": "review_required",
+      "review_reason": "The canonical MediaGapRecord schema does not exist in this repository and the owning skill is outside it. An approximation was emitted and marked as one."
+    }
+  },
+  "updated_at": "2026-09-01T10:30:00-04:00"
+}
