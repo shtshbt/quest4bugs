@@ -2,7 +2,7 @@
 
 版: v0.1 draft (2026-08-13)
 親文書: `docs/komorebi_categories.md` 3.8 章 (確定 Lv 表)
-公開: 更新 7 (`docs/komorebi_release_linkage.md` 2 章)
+公開: 更新 5 (実装済み、点火待ち。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 ## 1. ねらい
 

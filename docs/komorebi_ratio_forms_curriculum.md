@@ -3,7 +3,7 @@
 版: v0.3 (2026-08-14。組合せ破綻の解消と実在証明の新設。同日に v0.1 draft と v0.2 機械化可能性監査反映)
 親文書: `docs/komorebi_categories.md` 2 章 (予備在庫) と検証記録 3、`docs/komorebi_ratio_curriculum.md` (v0.2)、`docs/komorebi_item_examples.md` (品質 6 原則)
 監査: `docs/komorebi_mechanization_audit_2026_08_14.md` (§2.3、§3.1、横断修正 C2 と C4、補足所見 4)
-公開: 未定。予備在庫であり、投入枠は更新 9 以降 (`docs/komorebi_release_linkage.md` 2 章)
+公開: 更新 3 (2026-08-27 公開済み。2026-08-28 決定で予備在庫から前倒し。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 本書は投入が決まってから書くのでは間に合わない部分 (kom_ratio との境界の引き方) を先に固定するための設計初版である。投入判定そのものは roster 原則 5 に従い、実測を見てから行う。
 

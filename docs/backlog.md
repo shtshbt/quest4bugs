@@ -3,6 +3,46 @@
 最終更新: 2026-09-26 (更新 4 の公開のあと)。この文書は「いま何が残っていて、何を判断
 すれば動くか」を 1 か所に集める台帳。完了した項目は消し、日付つきで下の完了記録へ移す。
 
+## 0. deploy の準備状況 (2026-09-26 時点、本番は CURRENT_RELEASE = 4)
+
+### 0.1 すぐ出せる: 更新 5 (マダガスカル遠征 II)
+
+| 項目 | 状態 |
+|---|---|
+| 巻 | 80 種、写真 80/80 (実ファイルあり)、manifest 凍結済み、看板ネジレカンムリカマキリ (SSR) |
+| k10 | 整数の性質 (kom_seisu)、きまりと数えかた (kom_kisokusei)。実装済み |
+| k5 | 九九の外へ (kom_kuku_bridge)、9の段暗唱 (kom_kuku_dan9)。実装済み |
+| 道具 | 高所用長竿、落とし穴トラップ、フントラップ。MG II で下限を超える (`tests/test_species_guilds.js`) |
+| トロフィー | 4 本登録済み (`komorebi/trophies.js`) |
+
+出す日の作業は `komorebi_release_runbook.md` 3 章のとおり (`CURRENT_RELEASE` 1 行、全ページの
+`economy_flag.js` の `?v=`、sw CACHE)。加えて、release 4 の値を焼き込んだ test が 6 本落ちるので
+公開後の期待値へ直す。2026-09-26 に release 5 で全テストを流して確かめた一覧:
+
+- `test_komorebi_amber_ui.js`: マダガスカルの分母 84 が 164 になる
+- `test_komorebi_kisokusei_session.js` / `test_komorebi_seisu_session.js`: 未公開前提の isReleased。`currentRelease() >= 5` の形へ
+- `test_komorebi_region_grouping.js`: 実データの MG II を delete していない
+- `test_komorebi_release_gate.js`: MG II の staged assert と、地図に「遠征 Ⅱ」が出ない assert
+- `test_zukan_progress_count.js`: ポータル分母 336 が 416 になる
+
+`economy_flag.js` の `?v=` を上げると、さらに `test_eitango_tools.js` / `test_kanji_tools.js` /
+`test_keisan_tools.js` がその固定値で落ちる (更新 4 でも同じく直した)。
+
+### 0.2 まだ出せない
+
+| 対象 | 足りないもの | 律速 |
+|---|---|---|
+| 更新 6 | 巻と、k10 2 本 + k5 2 本の新カテゴリ。道具 (マレーゼトラップ / 材割りセット) は仕込み済み | 新カテゴリの起案 (1 章 2) と、巻と材割りの判断 (1 章 3) |
+| 更新 7 | 巻と学習カテゴリ。道具 (サーバーネット / 衝突板トラップ) は仕込み済み | 更新 6 と同じ |
+| コスタリカ遠征 I | 種選抜の承認、命名、bugs.js 登録、manifest 実データ化。写真は 78/84 | 選抜の承認。manifest は release 99 (未割り当て) の placeholder |
+| ボルネオ II / コスタリカ II | 種選抜から全工程 | 未着手 |
+| 第 3 波の道具 | 設計の未決 3 点 (2 章 1) | 第 2 波の公開後に着手 |
+
+### 0.3 公開と別に進んでいる基盤作業
+
+- Cloudflare Pages 移行: Gate A (repo 側) は 2026-09-19 に通過。次は Gate B (Cloudflare preview)。
+  手順は `cloudflare_pages_private_repo_migration.md` 6 章。本番検証が済むまで GitHub Pages を残す
+
 ## 1. 発案者の判断待ち (これが決まれば即動く)
 
 | # | 項目 | 決めること | 備考 |

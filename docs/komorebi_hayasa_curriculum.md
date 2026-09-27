@@ -2,7 +2,7 @@
 
 版: v0.2.2 (2026-08-18、診断の答案の値を式から出す規定と検証 29 の追加)
 親文書: `docs/komorebi_categories.md` 1 章 記載原則 6 (機械化耐性) と 2 章 (roster、予約ゲート)、`docs/komorebi_mechanization_audit_2026_08_14.md` (§1.3 横断穴、§2.1 判定表、§3.1 から 3.3 修正案)、`docs/komorebi_design.md` 5 章 (5 問セット、ゲージ 8) と 7 章 (形式)、`docs/komorebi_item_examples.md` 1 章 (品質 6 原則)
-公開: 未定。2026-09 LOGOS のゲート判定待ち (roster 2 章)
+公開: 更新 4 (2026-09-26 公開済み。LOGOS ゲートは 2026-08-28 に撤廃。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 ## 0. 草案の継承と改版の経緯
 

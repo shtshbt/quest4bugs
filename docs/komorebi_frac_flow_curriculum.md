@@ -2,7 +2,7 @@
 
 版: v0.1 draft (2026-08-13)
 親文書: `docs/komorebi_categories.md` 3.9 章 (確定 Lv 表)、`docs/komorebi_design.md` 7.2 章 (診断の設計原則)
-公開: 更新 6 (`docs/komorebi_release_linkage.md` 2 章)
+公開: 更新 3 (2026-08-27 公開済み。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 ## 1. カテゴリのねらい
 

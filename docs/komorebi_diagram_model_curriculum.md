@@ -4,7 +4,7 @@
 親文書: `docs/komorebi_categories.md` 2 章 (後期枠) と 3.12 章 (前身 kom_johou_seiri)、`docs/komorebi_design.md` 7 章 (形式と品質保証)
 関連: `docs/komorebi_ratio_curriculum.md` (v0.2、境界の相手)、`docs/komorebi_johou_seiri_curriculum.md` (前段の層)、`docs/komorebi_item_examples.md` (品質 6 原則)、`docs/komorebi_ui_design.md` (画面の制約)、`docs/komorebi_mechanization_audit_2026_08_14.md` (機械化可能性監査。4.2 章で対応)
 対象: k10 コース、実装 cat `kom_diagram_model`、Lv 1 から 10
-公開: 未定。更新 9 以降の枠 (`docs/komorebi_release_linkage.md` 2 章)。投入は kom_johou_seiri より後 (23 章)
+公開: 更新 2 (公開済み。2026-08-17 に更新 9 以降の枠から前倒し。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 本書は 2 部構成である。第 1 部 (1 章から 11 章) が教材設計、第 2 部 (12 章から 21 章) が前提となる誤図生成エンジンの要件仕様である。22 章に v0.1 からの差分を置く。
 

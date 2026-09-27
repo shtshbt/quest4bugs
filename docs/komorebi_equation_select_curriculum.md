@@ -2,7 +2,7 @@
 
 版: v0.2 (2026-08-18。負になる肢と九九の外に出る不要情報の肢を塞ぎ、4 章と 5 章に規定、8 章に検証 12 と 13 を足した)
 親文書: `docs/komorebi_categories.md` 3.6 章 (確定 Lv 表)、`docs/komorebi_sample_items.md` 6 章 (基準例 10 問)
-公開: 更新 8 (`docs/komorebi_release_linkage.md` 2 章)
+公開: 更新 4 (2026-09-26 公開済み。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 ## 1. ねらい
 

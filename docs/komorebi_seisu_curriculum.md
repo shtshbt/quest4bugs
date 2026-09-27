@@ -6,7 +6,7 @@
 
 監査: `docs/komorebi_mechanization_audit_2026_08_14.md` (T1 と T2 の 2 層ソルバー、閾値 0.75、横断穴 C1 から C4)、および `docs/komorebi_seisu_audit.md` (2026-08-28。1 章から 4 章が v0.1 への監査、5 章が v0.2 への再監査。本改版の修正指示の正本であり、敵ソルバーの攻撃集合の保持先でもある)
 
-公開ゲート: 未定。投入は完成順とする (`docs/komorebi_release_linkage.md` 2 章の 2026-08-28 決定、roster 検証記録 13)。実装は未公開のまま先行させ、release ゲート内で寝かせる
+公開ゲート: 更新 5 (実装済み、点火待ち。投入は完成順とする 2026-08-28 決定による。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 版の履歴:
 

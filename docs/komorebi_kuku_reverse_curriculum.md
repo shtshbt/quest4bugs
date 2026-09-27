@@ -2,7 +2,7 @@
 
 版: v0.1 draft (2026-08-13)
 親文書: `docs/komorebi_categories.md` 3.3 章 (inverse) と 3.11 章 (ura)、`docs/komorebi_item_examples.md` 4 章
-公開: kom_kuku_ura は更新 4、kom_kuku_inverse は更新 5 (`docs/komorebi_release_linkage.md` 2 章)
+公開: kom_kuku_ura は更新 2、kom_kuku_inverse は更新 3 (どちらも公開済み。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 2 カテゴリを 1 文書で扱う。同じ九九の事実空間を使い、境界の引き方が設計の中身そのものだからである。
 

@@ -4,7 +4,7 @@
 親文書: `docs/komorebi_categories.md` 3.12 章 (2026-08-13 起案)、`docs/komorebi_item_examples.md` 1 章 (品質 6 原則)、`docs/komorebi_design.md` (5 問セット、ゲージ 8、Lv1 から 10)
 監査: `docs/komorebi_mechanization_audit_2026_08_14.md` 2.4 章、3.1 章、横断修正 C2 と C4。本書 15 章に反映結果を置く
 隣接カテゴリ: `docs/komorebi_equation_select_curriculum.md` (境界は本書 2 章)
-公開: 未定。投入判定は 9 月の模試結果を見てから (`docs/komorebi_release_linkage.md` 2 章の更新 9 以降の枠)
+公開: 更新 4 (2026-09-26 公開済み。模試ゲートは 2026-08-28 に撤廃。正本は `docs/komorebi_release_linkage.md` 2.1 と `komorebi/app.js` の CATEGORIES)
 
 版の履歴
 
