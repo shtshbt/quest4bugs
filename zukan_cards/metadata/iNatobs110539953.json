@@ -1,0 +1,80 @@
+{
+  "species_id": "oxydia_trychiata",
+  "species_ja": "Oxydia trychiata",
+  "scientific_name": "Oxydia trychiata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "benkeen (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_110539953",
+    "occurrenceId": "https://www.inaturalist.org/observations/110539953",
+    "persistentId": "https://www.inaturalist.org/observations/110539953",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "benkeen",
+    "eventDate": "2022-04-02",
+    "eventYear": 2022,
+    "country": "EC",
+    "localityVerbatim": null,
+    "localityNormalized": "San Miguel de los Bancos, EC-PI, EC, EC",
+    "preparations": null,
+    "decimalLatitude": -0.0156416667,
+    "decimalLongitude": -78.6806222222,
+    "coordinatesObscured": false,
+    "iNatObservationId": "110539953",
+    "iNatPhotoId": "186487844",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/110539953",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/186487844/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs110539953_resized.jpg",
+    "display": "processed/iNatobs110539953_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs110539953_54.webp",
+      "108": "thumb/iNatobs110539953_108.webp",
+      "216": "thumb/iNatobs110539953_216.webp"
+    }
+  },
+  "original_sha256": "ca33c265cb875b37c88e5b44da81e027b8b3c3cec5f141b4c187bc14749b3739",
+  "processing": {
+    "cropBox": [
+      76,
+      647,
+      1774,
+      1444
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs110539953_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

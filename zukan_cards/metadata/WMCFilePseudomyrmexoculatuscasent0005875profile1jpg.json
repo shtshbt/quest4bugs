@@ -1,0 +1,74 @@
+{
+  "species_id": "pseudomyrmex_oculatus",
+  "species_ja": "Pseudomyrmex oculatus",
+  "scientific_name": "Pseudomyrmex oculatus",
+  "credit_line": "Wikimedia Commons",
+  "creator": "File Upload Bot (AntWeb)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Pseudomyrmex oculatus casent0005875 profile 1.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Pseudomyrmex_oculatus_casent0005875_profile_1.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Pseudomyrmex_oculatus_casent0005875_profile_1.jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "File Upload Bot (AntWeb)",
+    "eventDate": "2009-10-20 20:33:07",
+    "eventYear": 2009,
+    "country": null,
+    "localityVerbatim": "Profile view of ant Pseudomyrmex oculatus specimen casent0005875.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Pseudomyrmex_oculatus_casent0005875_profile_1.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Pseudomyrmex_oculatus_casent0005875_profile_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_resized.jpg",
+    "display": "processed/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_54.webp",
+      "108": "thumb/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_108.webp",
+      "216": "thumb/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_216.webp"
+    }
+  },
+  "original_sha256": "430b875fff06e03b835c0656d657d51efc87312398c6d8239803f2c5ca694643",
+  "processing": {
+    "cropBox": [
+      0,
+      11,
+      1206,
+      808
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

@@ -1,0 +1,74 @@
+{
+  "species_id": "mocis_latipes",
+  "species_ja": "Mocis latipes",
+  "scientific_name": "Mocis latipes",
+  "credit_line": "Wikimedia Commons",
+  "creator": "NSG group from Lund, Sweden",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:MZLU-00115481 (50984755258).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:MZLU-00115481_(50984755258).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:MZLU-00115481_(50984755258).jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "NSG group from Lund, Sweden",
+    "eventDate": "2021-02-27 09:19",
+    "eventYear": 2021,
+    "country": null,
+    "localityVerbatim": "MZLU-00115481 Noctuoidea RZ20 Erebidae Erebinae Euclidiini Mocis latipes",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:MZLU-00115481_(50984755258).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/MZLU-00115481_%2850984755258%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileMZLU0011548150984755258jpg_resized.jpg",
+    "display": "processed/WMCFileMZLU0011548150984755258jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMZLU0011548150984755258jpg_54.webp",
+      "108": "thumb/WMCFileMZLU0011548150984755258jpg_108.webp",
+      "216": "thumb/WMCFileMZLU0011548150984755258jpg_216.webp"
+    }
+  },
+  "original_sha256": "896444d0ed9f7cb5798dbe35b80be53e0feb1498ede429fcd3a1ff60d05346c0",
+  "processing": {
+    "cropBox": [
+      529,
+      77,
+      3856,
+      1768
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMZLU0011548150984755258jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

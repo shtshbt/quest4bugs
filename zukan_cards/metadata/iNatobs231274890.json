@@ -1,0 +1,80 @@
+{
+  "species_id": "phidotricha_erigens",
+  "species_ja": "Phidotricha erigens",
+  "scientific_name": "Phidotricha erigens",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "msbotham (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_231274890",
+    "occurrenceId": "https://www.inaturalist.org/observations/231274890",
+    "persistentId": "https://www.inaturalist.org/observations/231274890",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "msbotham",
+    "eventDate": "2024-06-23",
+    "eventYear": 2024,
+    "country": "Montserrat",
+    "localityVerbatim": null,
+    "localityNormalized": "Woodlands, Montserrat, Montserrat",
+    "preparations": null,
+    "decimalLatitude": 16.7618769386,
+    "decimalLongitude": -62.2211593059,
+    "coordinatesObscured": false,
+    "iNatObservationId": "231274890",
+    "iNatPhotoId": "410738996",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/231274890",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/410738996/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs231274890_resized.jpg",
+    "display": "processed/iNatobs231274890_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs231274890_54.webp",
+      "108": "thumb/iNatobs231274890_108.webp",
+      "216": "thumb/iNatobs231274890_216.webp"
+    }
+  },
+  "original_sha256": "7c853c8d779fd1e758bf9d3aefb01e77041d9fa9b6328084738277880fd35896",
+  "processing": {
+    "cropBox": [
+      490,
+      916,
+      1049,
+      1307
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs231274890_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
