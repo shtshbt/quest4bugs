@@ -171,7 +171,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     };
     app.querySelector('[data-action="back"]').click();
     assert.equal(app.innerHTML.indexOf("volume_future_stage"), -1, "the staged volume leaked to the map");
-    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "the staged expedition is visible before its release");
+    /* 仕込んだ巻は遠征 Ⅸ。公開済みの 2 冊目 (遠征 Ⅱ) は正当に出うるので、Ⅸ で見る。 */
+    assert.equal(plain().indexOf("遠征 Ⅸ"), -1, "the staged expedition is visible before its release");
     delete context.Q4B_KOMOREBI_VOLUMES.volume_future_stage;
     /* 次のテストはトロフィーページ前提なので戻しておく。 */
     app.querySelector('[data-action="trophies"]').click();
@@ -230,10 +231,11 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     app.querySelector('[data-action="trophies"]').click();
   });
 
-  test("the real Madagascar II volume (release 5) stays staged and off every surface", () => {
+  test("the real Madagascar II volume (release 5) follows the release switch", () => {
     /* 事前準備方式の実データ版その 3。マダガスカル遠征 II は release:5 で manifest に
-       仕込み済みで、種 id は bugs.js に実在する。AU II と同じく地域には公開済みの
-       巻 (MG I) があるので、ピンは出るが分母は MG I の 84 のまま動かないこと。 */
+       仕込み済みで、種 id は bugs.js に実在する。地域には公開済みの巻 (MG I) がある
+       ので、更新 5 の前はピンの分母が MG I の 84 のまま、後は MG I + MG II の 164。
+       公開番号でどちらかを見るので、点火のときにこのテストを書き換える必要はない。 */
     const mg2 = context.Q4B_KOMOREBI_VOLUMES.volume_fixture_madagascar_2;
     assert.ok(mg2, "MG II manifest entry is missing");
     assert.equal(mg2.release, 5);
@@ -245,15 +247,16 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
     assert.equal(flagships.length, 1, "MG II must have exactly one flagship");
     assert.equal(flagships[0].id, "phyllocrania_paradoxa");
     assert.equal(flagships[0].rarity, "SSR");
-    assert.ok(mg2.release > komorebi.currentRelease(),
-      "MG II is expected to be staged; update the release-gate fixtures when it ships");
-    /* 地図へ戻って再描画し、巻もその分母も現れないことを見る。 */
+    const shipped = mg2.release <= komorebi.currentRelease();
     app.querySelector('[data-action="back"]').click();
-    assert.equal(app.innerHTML.indexOf("volume_fixture_madagascar_2"), -1, "MG II leaked into the map");
-    assert.equal(plain().indexOf("遠征 Ⅱ"), -1, "MG II is visible before its release");
     const pin = app.querySelector('[data-region-id="madagascar"]');
     assert.ok(pin, "the madagascar pin disappeared");
-    assert.match(pin.getAttribute("aria-label"), /／84、/, "the madagascar denominator counted the staged volume");
+    if(shipped){
+      assert.match(pin.getAttribute("aria-label"), /／164、/, "the madagascar denominator must cover MG I and MG II");
+    }else{
+      assert.equal(app.innerHTML.indexOf("volume_fixture_madagascar_2"), -1, "MG II leaked into the map");
+      assert.match(pin.getAttribute("aria-label"), /／84、/, "the madagascar denominator counted the staged volume");
+    }
     app.querySelector('[data-action="trophies"]').click();
   });
 

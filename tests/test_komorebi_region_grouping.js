@@ -30,6 +30,7 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 20));
   delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia;
   delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_borneo;
   delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_australia_2;
+  delete context.Q4B_KOMOREBI_VOLUMES.volume_fixture_madagascar_2;
   rerender();
 
   test("the map draws one pin per opened region and none per volume", () => {

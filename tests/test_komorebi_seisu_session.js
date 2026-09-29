@@ -164,12 +164,12 @@ function divisors(n){
     }
   }
 
-  test("release 5 の裏で実装され、画面には出ない", () => {
+  test("release 5 で公開される (それより前は画面に出ない)", () => {
     assert.equal(komorebi.categories.kom_seisu.course, "k10");
     assert.equal(komorebi.categories.kom_seisu.name, "整数の性質");
     assert.equal(komorebi.categories.kom_seisu.maxLv, 10);
     assert.equal(komorebi.categories.kom_seisu.release, 5);
-    assert.equal(komorebi.isReleased("kom_seisu"), false /* CURRENT_RELEASE=3 < 5 */);
+    assert.equal(komorebi.isReleased("kom_seisu"), komorebi.currentRelease() >= 5);
     assert.ok(komorebi.sessionStarters.kom_seisu);
   });
 

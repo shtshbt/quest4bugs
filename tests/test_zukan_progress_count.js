@@ -112,9 +112,9 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   assert.ok(Number.isInteger(borneo.release) && borneo.release <= context.Q4B_ECONOMY.currentRelease(),
     "Borneo I shipped with update 3; it must count as released now");
   const mg2 = vols.volume_fixture_madagascar_2;
-  assert.ok(mg2, "Madagascar II volume is staged in the manifest");
-  assert.ok(Number.isInteger(mg2.release) && mg2.release > context.Q4B_ECONOMY.currentRelease(),
-    "Madagascar II is expected to be staged; update this test's fixtures when it ships");
+  assert.ok(mg2, "Madagascar II volume is in the manifest");
+  assert.equal(mg2.release, 5);
+  const mg2Shipped = mg2.release <= context.Q4B_ECONOMY.currentRelease();
   const have = {};
   for(const sp of context.Q4B_BUGS) have[sp.id] = 1;
   /* 罠が有効なこと: 未公開巻の種は bugs.js に実在する (架空 id 除外では防げない)。 */
@@ -134,10 +134,15 @@ test("portal komorebi denominator excludes volumes staged for a future release",
   const now = portalKomSpecies(context.Q4B_ECONOMY.currentRelease());
   assert.equal(now.anoplognathus_viridiaeneus, 1, "the released AU II volume must join the portal denominator");
   assert.equal(now.trogonoptera_brookiana, 1, "the released Borneo I volume must join the portal denominator");
-  assert.equal(now.phyllocrania_paradoxa, undefined, "the staged Madagascar II volume leaked into the portal denominator");
+  assert.equal(now.phyllocrania_paradoxa, mg2Shipped ? 1 : undefined,
+    "Madagascar II joins the portal denominator exactly when update 5 ships");
   assert.ok(now.oo_onaga_yamamayu && now.papilio_ulysses, "released volumes must stay in the denominator");
-  /* CURRENT_RELEASE=4 時点の公開分母: MG I 84 + AU I 84 + ボルネオ I 84 + AU II 84。 */
-  assert.equal(Object.keys(now).length, 336);
+  /* 公開分母: 更新 4 は MG I 84 + AU I 84 + ボルネオ I 84 + AU II 84、更新 5 で MG II の 80 が乗る。
+     公開番号から期待値を引くので、点火のときにこのテストを書き換える必要はない。 */
+  const expectedByRelease = { 4: 336, 5: 416 };
+  assert.ok(expectedByRelease[context.Q4B_ECONOMY.currentRelease()],
+    "add the portal denominator for update " + context.Q4B_ECONOMY.currentRelease() + " to this table");
+  assert.equal(Object.keys(now).length, expectedByRelease[context.Q4B_ECONOMY.currentRelease()]);
   /* 公開に届けば自動で数に入る (デプロイ = 番号を上げるだけ、の事前準備方式)。
      2026-08-28 の再編で AU II が更新 6 から 4 へ繰り上がり、MG II は 5 のまま。
      更新 3 でボルネオ I の 84 が乗り (168 + 84)、AU II も MG II もまだ乗らない。
