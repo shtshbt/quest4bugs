@@ -1,0 +1,76 @@
+{
+  "species_id": "suminagashi",
+  "species_ja": "スミナガシ",
+  "scientific_name": "Dichorragia nesimachus",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.1472692",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1472692",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.1472692",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Male",
+    "lifeStage": "Imago",
+    "recordedBy": "Bergh van den",
+    "eventDate": "1912-01-01/1912-12-31",
+    "eventYear": 1912,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Minahassa, Indonesia",
+    "preparations": "WholeOrganism (pinned specimen)",
+    "decimalLatitude": 1.216884,
+    "decimalLongitude": 124.818259
+  },
+  "source": {
+    "gbifOccurrenceKey": "4921326856",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/4921326856",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.1472692_2/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS1472692_resized.jpg",
+    "display": "processed/RMNHINS1472692_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS1472692_54.webp",
+      "108": "thumb/RMNHINS1472692_108.webp",
+      "216": "thumb/RMNHINS1472692_216.webp"
+    }
+  },
+  "original_sha256": "efdbc7d1ec895e6929ada02e4f5c5124fe724a52afa0c88c9001cabb15219a2d",
+  "processing": {
+    "cropBox": [
+      598,
+      342,
+      1569,
+      1093
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS1472692_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

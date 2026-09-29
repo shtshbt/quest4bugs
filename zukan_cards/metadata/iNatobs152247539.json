@@ -1,0 +1,80 @@
+{
+  "species_id": "midorishijimi",
+  "species_ja": "ミドリシジミ",
+  "scientific_name": "Neozephyrus japonicus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_152247539",
+    "occurrenceId": "https://www.inaturalist.org/observations/152247539",
+    "persistentId": "https://www.inaturalist.org/observations/152247539",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-06-05",
+    "eventYear": 2021,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.9886925788,
+    "decimalLongitude": 139.5410576437,
+    "coordinatesObscured": true,
+    "iNatObservationId": "152247539",
+    "iNatPhotoId": "262796282",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/152247539",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/262796282/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs152247539_resized.jpg",
+    "display": "processed/iNatobs152247539_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs152247539_54.webp",
+      "108": "thumb/iNatobs152247539_108.webp",
+      "216": "thumb/iNatobs152247539_216.webp"
+    }
+  },
+  "original_sha256": "6b83f6a1a7f6e586df88f2c5384487b89311764d3eb12eb10633fdc8c96b42e4",
+  "processing": {
+    "cropBox": [
+      538,
+      240,
+      1588,
+      1069
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs152247539_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

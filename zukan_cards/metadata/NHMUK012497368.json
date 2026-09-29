@@ -1,7 +1,7 @@
 {
-  "species_id": "tonosama_batta",
-  "species_ja": "トノサマバッタ",
-  "scientific_name": "Locusta migratoria",
+  "species_id": "ookamakiri",
+  "species_ja": "オオカマキリ",
+  "scientific_name": "Tenodera aridifolia",
   "credit_line": "Natural History Museum, London",
   "creator": "Natural History Museum, London",
   "fetched_date": "2026-09-29",
@@ -9,9 +9,9 @@
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",
     "collectionCode": "BMNH(E)",
-    "catalogNumber": "NHMUK012498685",
-    "occurrenceId": "49f98bf9-7b8e-4121-83d2-73af8d46ec57",
-    "persistentId": "49f98bf9-7b8e-4121-83d2-73af8d46ec57",
+    "catalogNumber": "NHMUK012497368",
+    "occurrenceId": "376fe0b8-ba59-4a4e-b560-1bfb34f049c9",
+    "persistentId": "376fe0b8-ba59-4a4e-b560-1bfb34f049c9",
     "basisOfRecord": "PRESERVED_SPECIMEN",
     "typeStatus": null,
     "sex": null,
@@ -19,36 +19,36 @@
     "recordedBy": null,
     "eventDate": null,
     "eventYear": null,
-    "country": "Indonesia",
+    "country": "Malaysia",
     "localityVerbatim": null,
-    "localityNormalized": "Indonesia",
+    "localityNormalized": "Malaysia",
     "preparations": null
   },
   "source": {
-    "gbifOccurrenceKey": "1826419954",
-    "institutionRecordUrl": "https://data.nhm.ac.uk/object/49f98bf9-7b8e-4121-83d2-73af8d46ec57",
-    "sourceMediaUrl": "https://data.nhm.ac.uk/media/63cfcd2e-6584-4793-8fbb-713e20fe918c",
+    "gbifOccurrenceKey": "1826403642",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/376fe0b8-ba59-4a4e-b560-1bfb34f049c9",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/37a7b5d2-853e-4366-9adc-b6fc47d10f67",
     "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
     "metadataLicense": "CC0-1.0",
     "mediaLicense": "CC-BY-4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
-    "resized": "original/NHMUK012498685_resized.jpg",
-    "display": "processed/NHMUK012498685_L2_grade.webp",
+    "resized": "original/NHMUK012497368_resized.jpg",
+    "display": "processed/NHMUK012497368_L2_grade.webp",
     "thumbnails": {
-      "54": "thumb/NHMUK012498685_54.webp",
-      "108": "thumb/NHMUK012498685_108.webp",
-      "216": "thumb/NHMUK012498685_216.webp"
+      "54": "thumb/NHMUK012497368_54.webp",
+      "108": "thumb/NHMUK012497368_108.webp",
+      "216": "thumb/NHMUK012497368_216.webp"
     }
   },
-  "original_sha256": "6b34643b1d66c2b48a95e21c24acd534f2b850d9362ca9242849fa49d0e0d649",
+  "original_sha256": "0bcf3cb38565b102aab4f00638efb8f711b8aa211c1d7033bcbadaaff200fb39",
   "processing": {
     "cropBox": [
-      586,
-      235,
-      710,
-      873
+      36,
+      0,
+      1099,
+      1137
     ],
     "rotationDegrees": 0,
     "padding": 0.1,
@@ -66,7 +66,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/NHMUK012498685_resized.jpg",
+    "originalImage": "original/NHMUK012497368_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

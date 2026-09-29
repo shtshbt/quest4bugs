@@ -1,0 +1,41 @@
+{
+  "catalogNumber": "iNatobs31085530",
+  "speciesId": "minminzemi",
+  "speciesJa": "ミンミンゼミ",
+  "scientificName": "Hyalessa maculaticollis",
+  "source": {
+    "institutionCode": "iNat",
+    "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/48615811/original.jpeg",
+    "license": "CC0_1_0",
+    "fetchedDate": "2026-09-29",
+    "originalSha256": "8ea4bab1de5cc2d01763573c2a125a63a26e5feea8423d332219a032921d9d05"
+  },
+  "files": {
+    "resized": "original/iNatobs31085530_resized.jpg",
+    "segmented": null,
+    "display": "processed/iNatobs31085530_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs31085530_54.webp",
+      "108": "thumb/iNatobs31085530_108.webp",
+      "216": "thumb/iNatobs31085530_216.webp"
+    }
+  },
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1536,
+      2048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "notes": "unknown taxon — no rotation"
+}
