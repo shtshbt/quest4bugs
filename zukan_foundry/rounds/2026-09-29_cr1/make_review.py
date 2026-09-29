@@ -68,6 +68,19 @@ def prior_flags() -> dict[str, list[str]]:
     return flags
 
 
+def round_verdicts() -> dict[str, tuple[str, str]]:
+    """この round の目視検品 (inspection.md) から species_id -> (判定, 根拠)。"""
+    path = HERE / "inspection.md"
+    verdicts = {}
+    if not path.exists():
+        return verdicts
+    for line in path.read_text(encoding="utf-8").splitlines():
+        m = re.match(r"\|\s*([a-z0-9_]+)\s*\|\s*(OK|要確認|不可)\s*\|\s*([^|]+)\|", line)
+        if m:
+            verdicts[m.group(1)] = (m.group(2), m.group(3).strip())
+    return verdicts
+
+
 def cards() -> dict[str, dict]:
     out = {}
     for path in glob.glob(str(ROOT / "zukan_cards/metadata/*.json")):
@@ -90,7 +103,7 @@ def main() -> int:
     if len(rows) != 84:
         print(f"expected 84 species in the draft, found {len(rows)}", file=sys.stderr)
         return 1
-    names, flags, meta = proposed_names(), prior_flags(), cards()
+    names, flags, meta, verdicts = proposed_names(), prior_flags(), cards(), round_verdicts()
     counts = {"ok": 0, "refetched": 0, "flagged": 0, "missing": 0}
     sections = []
     for rarity in ["SSR", "SR", "R", "N"]:
@@ -110,8 +123,16 @@ def main() -> int:
                 src = spec.get("institutionCode") or (card.get("source") or {}).get("provider") or ""
                 fetched = str(card.get("fetched_date") or "")
                 if fetched > INSPECTED_ON:
-                    counts["refetched"] += 1
-                    state, note = "refetched", f"取り直し ({fetched})。仮称が新しい写真と合うかも見る"
+                    verdict = verdicts.get(card.get("species_id"))
+                    if verdict and verdict[0] == "OK":
+                        counts["refetched"] += 1
+                        state, note = "refetched", f"取り直し OK ({verdict[1]})。仮称が新しい写真と合うかも見る"
+                    elif verdict:
+                        counts["flagged"] += 1
+                        state, note = "flagged", f"取り直し後も {verdict[0]}: {verdict[1]}"
+                    else:
+                        counts["refetched"] += 1
+                        state, note = "refetched", f"取り直し ({fetched})。未検品。仮称が新しい写真と合うかも見る"
                 elif flags.get(card.get("species_id")):
                     counts["flagged"] += 1
                     state, note = "flagged", "8/18 の指摘: " + "; ".join(flags[card["species_id"]])
