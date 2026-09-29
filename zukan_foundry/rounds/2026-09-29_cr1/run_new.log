@@ -1,0 +1,68 @@
+[batch] resume: 0 skipped (already emitted), 6 to process
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 6 species
+[inat_search] Copiphora cultricornis (taxon_id=154648): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[inat_search] Chlorogonalia coeruleovittata (taxon_id=416473): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Copiphora': 属記事 (Copiphora)
+[batch]   ng io copiphora_cultricornis: [discover] no tier matched
+[batch]   ng io chlorogonalia_coeruleovittata: [discover] no tier matched
+[inat_search] Canthidium aurifex (taxon_id=306859): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Canthidium species': リスト記事 (list of)
+[batch]   ng io canthidium_aurifex: [discover] no tier matched
+[inat_search] Pterinoxylus speciosus (taxon_id=1544656): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[batch]   ng io pterinoxylus_speciosus: [discover] no tier matched
+[inat_search] Atopsyche majada (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[batch]   ng io atopsyche_majada: [discover] no tier matched
+[inat_search] Helicopsyche incisa (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[batch]   ng io helicopsyche_incisa: [discover] no tier matched
+[batch] Streaming done in 210.7s: io 0/6 ok, cpu 0/6 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (0 entries staged in _pipeline/)
+[batch] === SUMMARY: 0/6 species completed ===
+[batch] FAILURES:
+[batch]   copiphora_cultricornis [discover] no tier matched
+[batch]   chlorogonalia_coeruleovittata [discover] no tier matched
+[batch]   canthidium_aurifex [discover] no tier matched
+[batch]   pterinoxylus_speciosus [discover] no tier matched
+[batch]   atopsyche_majada [discover] no tier matched
+[batch]   helicopsyche_incisa [discover] no tier matched
+{
+  "total": 6,
+  "ok": 0,
+  "quality_rejected_sources": 0,
+  "quality_gate_failures": 0,
+  "refetch_requested": 0,
+  "refetch_replaced": 0,
+  "refetch_kept_previous": 0,
+  "failures": [
+    {
+      "id": "copiphora_cultricornis",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "chlorogonalia_coeruleovittata",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "canthidium_aurifex",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "pterinoxylus_speciosus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "atopsyche_majada",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "helicopsyche_incisa",
+      "stage": "discover",
+      "error": "no tier matched"
+    }
+  ]
+}

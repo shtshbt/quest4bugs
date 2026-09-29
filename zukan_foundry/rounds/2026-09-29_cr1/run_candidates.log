@@ -1,0 +1,388 @@
+[batch] resume: 0 skipped (already emitted), 40 to process
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 40 species
+[batch]   -> cpu acontista_cordillerae (Acontista cordillerae)
+[batch]   ok io acontista_cordillerae: tier=6 WMC
+[batch]   ok io metilia_brunnerii: tier=6 WMC
+[zukan_card] resized archived: WMCFileAcontistacordilleraeTaxonomicdescriptionsofmantisfromAtlnticoColombia2page7cropjpg_resized.jpg src_sha=f6cd63f5d42c
+[zukan_card] L1 segmentation (birefnet-general)
+/home/shota/.claude/skills/zukan-svg/build_zukan_card.py:149: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+  cleaned = morphology.remove_small_objects(alpha > 20, min_size=min_size)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[inat_search] Xestocephalus luridus (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Xestocephalus species': リスト記事 (list of)
+[wikipedia] skip 'List of hemipterans of Sri Lanka': リスト記事 (list of)
+[inat_search] Ileopeltus tethys (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileAcontistacordilleraeTaxonomicdescriptionsofmantisfromAtlnticoColombia2page7cropjpg.json
+[batch]     ok WMCFileAcontistacordilleraeTaxonomicdescriptionsofmantisfromAtlnticoColombia2page7cropjpg
+[batch]   -> cpu metilia_brunnerii (Metilia brunnerii)
+[zukan_card] resized archived: WMCFileMetiliabrunneriiMHNTmalevoljpg_resized.jpg src_sha=7f9a559b7dcd
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io stagmomantis_theophila: tier=6 WMC
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileMetiliabrunneriiMHNTmalevoljpg.json
+[batch]     ok WMCFileMetiliabrunneriiMHNTmalevoljpg
+[batch]   ng io xestocephalus_luridus: [discover] no tier matched
+[batch]   ng io ileopeltus_tethys: [discover] no tier matched
+[batch]   -> cpu stagmomantis_theophila (Stagmomantis theophila)
+[inat_search] Stagmomantis heterogamia (taxon_id=975079): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io stagmomantis_heterogamia: tier=7 iNat
+[batch]   ok io tauromantis_championi: tier=2 NHMUK
+[inat_search] Acontista fraterna (taxon_id=748783): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Acontista': 属記事 (Acontista)
+[batch]   ok io acontista_fraterna: tier=8 WIKIPEDIA
+[zukan_card] resized archived: WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_resized.jpg src_sha=fa981c2e02a4
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Oncotophasma coxatum (taxon_id=555314): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Oncotophasma': 属記事 (Oncotophasma)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg.json
+[batch]     ok WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg
+[batch]   -> cpu stagmomantis_heterogamia (Stagmomantis heterogamia)
+[inat_search] Phanocles costaricensis (taxon_id=744452): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[inat_search] Damasippus striatus (taxon_id=743155): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] resized archived: iNatobs298557000_resized.jpg src_sha=9db1dffda7ff
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Prisopus cepus (taxon_id=744033): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Prisopus': 属記事 (Prisopus)
+[inat_search] Rachispoda fuscinevris (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[image_fetch] transient HTTP 500 for leptonema_complexum, retry 1/4 after 2.6s
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs298557000.json
+[batch]     ok iNatobs298557000
+[batch]   -> cpu tauromantis_championi (Tauromantis championi)
+[batch]   ok io leptonema_complexum: tier=2 NHMUK
+[zukan_card] resized archived: NHMUK015929355_resized.jpg src_sha=1d8e36e1ae69
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Schizonyxhelea thomsenae (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK015929355.json
+[batch]     ok NHMUK015929355
+[batch]   -> cpu acontista_fraterna (Acontista fraterna)
+[inat_search] Smicridea talamanca (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Smicridea species': リスト記事 (list of)
+[batch]   ok io leptonema_salvini: tier=2 NHMUK
+[zukan_card] resized archived: WIKIPEDIAWPAcontistafraterna_resized.jpg src_sha=fc254483c5aa
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Oecetis metlacensis (taxon_id=226234): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Oecetis species': リスト記事 (list of)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WIKIPEDIAWPAcontistafraterna.json
+[batch]     ok WIKIPEDIAWPAcontistafraterna
+[batch]   ng io oncotophasma_coxatum: [discover] no tier matched
+[batch]   ng io phanocles_costaricensis: [discover] no tier matched
+[batch]   ng io damasippus_striatus: [discover] no tier matched
+[batch]   ng io prisopus_cepus: [discover] no tier matched
+[batch]   ng io rachispoda_fuscinevris: [discover] no tier matched
+[batch]   -> cpu leptonema_complexum (Leptonema complexum)
+[inat_search] Xestocephalus desertorum (taxon_id=330053): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Xestocephalus species': リスト記事 (list of)
+[zukan_card] resized archived: NHMUK014538665_resized.jpg src_sha=783c22a28dc7
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Agallia panamensis (taxon_id=974115): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Agallia': 属記事 (Agallia)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014538665.json
+[batch]     ok NHMUK014538665
+[batch]   ng io schizonyxhelea_thomsenae: [discover] no tier matched
+[batch]   ng io smicridea_talamanca: [discover] no tier matched
+[batch]   -> cpu leptonema_salvini (Leptonema salvini)
+[inat_search] Ischnomela pulchripennis (taxon_id=324387): scanned 1 page(s), 15 obs total, hit
+[batch]   ok io ischnomela_pulchripennis: tier=7 iNat
+[zukan_card] resized archived: NHMUK010114407_resized.jpg src_sha=53d83c37b199
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io copiphora_hastata: tier=6 WMC
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010114407.json
+[batch]     ok NHMUK010114407
+[batch]   ng io oecetis_metlacensis: [discover] no tier matched
+[batch]   ng io xestocephalus_desertorum: [discover] no tier matched
+[batch]   ng io agallia_panamensis: [discover] no tier matched
+[batch]   -> cpu ischnomela_pulchripennis (Ischnomela pulchripennis)
+[inat_search] Tylozygus geometricus (taxon_id=67374): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io tylozygus_geometricus: tier=7 iNat
+[zukan_card] resized archived: iNatobs127799200_resized.jpg src_sha=570574db8e09
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io macunolla_ventralis: tier=6 WMC
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs127799200.json
+[batch]     ok iNatobs127799200
+[batch]   -> cpu copiphora_hastata (Copiphora hastata)
+[zukan_card] resized archived: WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_resized.jpg src_sha=24ed7b207543
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Onthophagus acuminatus (taxon_id=306868): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Onthophagus species': リスト記事 (list of)
+[batch]   ok io onthophagus_acuminatus: tier=8 WIKIPEDIA
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg.json
+[batch]     ok WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg
+[batch]   -> cpu tylozygus_geometricus (Tylozygus geometricus)
+[batch]   ok io sylvicanthon_aequinoctialis: tier=6 WMC
+[zukan_card] resized archived: iNatobs297697786_resized.jpg src_sha=35de759b4ca4
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs297697786.json
+[batch]     ok iNatobs297697786
+[batch]   -> cpu macunolla_ventralis (Macunolla ventralis)
+[batch]   ok io rhynchacris_ornata: tier=6 WMC
+[inat_search] Pterinoxylus cocoense (taxon_id=1544657): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] resized archived: WMCFileMacunollaventralis13978936jpg_resized.jpg src_sha=3e6d6dd46b70
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileMacunollaventralis13978936jpg.json
+[batch]     ok WMCFileMacunollaventralis13978936jpg
+[batch]   -> cpu onthophagus_acuminatus (Onthophagus acuminatus)
+[inat_search] Atopsyche callosa (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[inat_search] Atopsyche implexa (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[zukan_card] resized archived: WIKIPEDIAWPBolitotherus_resized.jpg src_sha=8b652718631f
+[zukan_card] L1 segmentation (birefnet-general)
+[image_fetch] transient HTTP 500 for leptonema_crassum, retry 1/4 after 2.6s
+[image_fetch] transient HTTP 500 for leptonema_crassum, retry 2/4 after 4.5s
+[image_fetch] transient HTTP 500 for leptonema_crassum, retry 3/4 after 10.2s
+[batch]   ok io leptonema_crassum: tier=2 NHMUK
+[batch]   ok io dichomeris_santarosensis: tier=1 USNM
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WIKIPEDIAWPBolitotherus.json
+[batch]     ok WIKIPEDIAWPBolitotherus
+[batch]   -> cpu sylvicanthon_aequinoctialis (Sylvicanthon aequinoctialis)
+[inat_search] Culoptila hamata (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Culoptila': 属記事 (Culoptila)
+[zukan_card] resized archived: WMCFileSylvicanthonaequinoctialisjpg_resized.jpg src_sha=10026545848a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[inat_search] Sphacelodes vulneraria (taxon_id=324108): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io sphacelodes_vulneraria: tier=7 iNat
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileSylvicanthonaequinoctialisjpg.json
+[batch]     ok WMCFileSylvicanthonaequinoctialisjpg
+[batch]   -> cpu rhynchacris_ornata (Rhynchacris ornata)
+[inat_search] Eufriesea mussitans (taxon_id=270716): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Eufriesea': 属記事 (Eufriesea)
+[zukan_card] resized archived: WMCFileRhynchacrisornataPSG171jpg_resized.jpg src_sha=758ef17995f1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileRhynchacrisornataPSG171jpg.json
+[batch]     ok WMCFileRhynchacrisornataPSG171jpg
+[batch]   ng io pterinoxylus_cocoense: [discover] no tier matched
+[batch]   ng io atopsyche_callosa: [discover] no tier matched
+[batch]   ng io atopsyche_implexa: [discover] no tier matched
+[batch]   -> cpu leptonema_crassum (Leptonema crassum)
+[batch]   ok io partamona_orizabaensis: tier=6 WMC
+[batch]   ok io euglossa_tridentata: tier=1 USNM
+[batch]   ok io trigona_silvestriana: tier=6 WMC
+[zukan_card] resized archived: NHMUK014423837_resized.jpg src_sha=01f6147678e4
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014423837.json
+[batch]     ok NHMUK014423837
+[batch]   -> cpu dichomeris_santarosensis (Dichomeris santarosensis)
+[inat_search] Phylloptera dimidiata (taxon_id=983512): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io phylloptera_dimidiata: tier=7 iNat
+[zukan_card] resized archived: USNMENT00835678_resized.jpg src_sha=df0d76429b43
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Neoconocephalus affinis (taxon_id=293515): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Neoconocephalus': 属記事 (Neoconocephalus)
+[wikipedia] skip 'List of fauna of Michigan': リスト記事 (list of)
+[wikipedia] skip 'List of threatened fauna of Michigan': リスト記事 (list of)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00835678.json
+[batch]     ok USNMENT00835678
+[batch]   ng io culoptila_hamata: [discover] no tier matched
+[batch]   -> cpu sphacelodes_vulneraria (Sphacelodes vulneraria)
+[zukan_card] resized archived: iNatobs332245288_resized.jpg src_sha=10e207d23f9a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs332245288.json
+[batch]     ok iNatobs332245288
+[batch]   ng io eufriesea_mussitans: [discover] no tier matched
+[batch]   -> cpu partamona_orizabaensis (Partamona orizabaensis)
+[zukan_card] resized archived: WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_resized.jpg src_sha=efcbd79ec27a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg.json
+[batch]     ok WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg
+[batch]   -> cpu euglossa_tridentata (Euglossa tridentata)
+[zukan_card] resized archived: USNMENT00534455_resized.jpg src_sha=22244991937e
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00534455.json
+[batch]     ok USNMENT00534455
+[batch]   -> cpu trigona_silvestriana (Trigona silvestriana)
+[zukan_card] resized archived: WMCFileSanharemflordeurucum21793jpg_aa77344f_resized.jpg src_sha=2780601da5bc
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileSanharemflordeurucum21793jpg_aa77344f.json
+[batch]     ok WMCFileSanharemflordeurucum21793jpg_aa77344f
+[batch]   -> cpu phylloptera_dimidiata (Phylloptera dimidiata)
+[zukan_card] resized archived: iNatobs192219452_resized.jpg src_sha=5b67c412ba04
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs192219452.json
+[batch]     ok iNatobs192219452
+[batch]   ng io neoconocephalus_affinis: [discover] no tier matched
+[batch] Streaming done in 1411.0s: io 22/40 ok, cpu 22/40 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (22 entries staged in _pipeline/)
+[batch] === SUMMARY: 22/40 species completed ===
+[batch] FAILURES:
+[batch]   xestocephalus_luridus [discover] no tier matched
+[batch]   ileopeltus_tethys [discover] no tier matched
+[batch]   oncotophasma_coxatum [discover] no tier matched
+[batch]   phanocles_costaricensis [discover] no tier matched
+[batch]   damasippus_striatus [discover] no tier matched
+[batch]   prisopus_cepus [discover] no tier matched
+[batch]   rachispoda_fuscinevris [discover] no tier matched
+[batch]   schizonyxhelea_thomsenae [discover] no tier matched
+[batch]   smicridea_talamanca [discover] no tier matched
+[batch]   oecetis_metlacensis [discover] no tier matched
+[batch]   xestocephalus_desertorum [discover] no tier matched
+[batch]   agallia_panamensis [discover] no tier matched
+[batch]   pterinoxylus_cocoense [discover] no tier matched
+[batch]   atopsyche_callosa [discover] no tier matched
+[batch]   atopsyche_implexa [discover] no tier matched
+[batch]   culoptila_hamata [discover] no tier matched
+[batch]   eufriesea_mussitans [discover] no tier matched
+[batch]   neoconocephalus_affinis [discover] no tier matched
+{
+  "total": 40,
+  "ok": 22,
+  "quality_rejected_sources": 0,
+  "quality_gate_failures": 0,
+  "refetch_requested": 0,
+  "refetch_replaced": 0,
+  "refetch_kept_previous": 0,
+  "failures": [
+    {
+      "id": "xestocephalus_luridus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "ileopeltus_tethys",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "oncotophasma_coxatum",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "phanocles_costaricensis",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "damasippus_striatus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "prisopus_cepus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "rachispoda_fuscinevris",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "schizonyxhelea_thomsenae",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "smicridea_talamanca",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "oecetis_metlacensis",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "xestocephalus_desertorum",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "agallia_panamensis",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "pterinoxylus_cocoense",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "atopsyche_callosa",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "atopsyche_implexa",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "culoptila_hamata",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "eufriesea_mussitans",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "neoconocephalus_affinis",
+      "stage": "discover",
+      "error": "no tier matched"
+    }
+  ]
+}

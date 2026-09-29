@@ -1,0 +1,161 @@
+[batch] resume: 0 skipped (already emitted), 14 to process
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 14 species
+[inat_search] Paromenia isabellina (taxon_id=541363): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[batch]   ng io paromenia_isabellina: [discover] no tier matched
+[batch]   -> cpu stephanolla_rufoapicata (Stephanolla rufoapicata)
+[batch]   ok io stephanolla_rufoapicata: tier=6 WMC
+[zukan_card] resized archived: WMCFileStephanollacfrufoapicata9519564696jpg_resized.jpg src_sha=d7e76398386e
+[zukan_card] L1 segmentation (birefnet-general)
+[inat_search] Mortoniella tapanti (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[inat_search] Smicridea gemina (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Smicridea species': リスト記事 (list of)
+/home/shota/.claude/skills/zukan-svg/build_zukan_card.py:149: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+  cleaned = morphology.remove_small_objects(alpha > 20, min_size=min_size)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileStephanollacfrufoapicata9519564696jpg.json
+[batch]     ok WMCFileStephanollacfrufoapicata9519564696jpg
+[batch]   ng io mortoniella_tapanti: [discover] no tier matched
+[batch]   ng io smicridea_gemina: [discover] no tier matched
+[batch]   -> cpu pseudomyrmex_oculatus (Pseudomyrmex oculatus)
+[batch]   ok io pseudomyrmex_oculatus: tier=6 WMC
+[inat_search] Procryptocerus scabriusculus (taxon_id=300463): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Procryptocerus': 属記事 (Procryptocerus)
+[zukan_card] resized archived: WMCFilePseudomyrmexoculatuscasent0005875profile1jpg_resized.jpg src_sha=430b875fff06
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFilePseudomyrmexoculatuscasent0005875profile1jpg.json
+[batch]     ok WMCFilePseudomyrmexoculatuscasent0005875profile1jpg
+[batch]   ng io procryptocerus_scabriusculus: [discover] no tier matched
+[inat_search] Phidotricha erigens (taxon_id=330451): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io phidotricha_erigens: tier=7 iNat
+[batch]   -> cpu phidotricha_erigens (Phidotricha erigens)
+[inat_search] Oxydia trychiata (taxon_id=460661): scanned 1 page(s), 16 obs total, hit
+[batch]   ok io oxydia_trychiata: tier=7 iNat
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 4 media entries match label markers; falling back to media[0] as safety net
+[batch]   ok io anticla_antica: tier=2 NHMUK
+[image_fetch] mocis_latipes HTTP 403: Forbidden
+[batch]   .. mocis_latipes: tier=2 の取得に失敗。次の tier を試す
+[batch]   ok io mocis_latipes: tier=6 WMC
+[zukan_card] resized archived: iNatobs231274890_resized.jpg src_sha=7c853c8d779f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs231274890.json
+[batch]     ok iNatobs231274890
+[batch]   -> cpu oxydia_trychiata (Oxydia trychiata)
+[inat_search] Canthidium ardens (taxon_id=306858): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Canthidium species': リスト記事 (list of)
+[wikipedia] skip 'List of least concern insects': リスト記事 (list of)
+[wikipedia] skip 'List of least concern arthropods': リスト記事 (list of)
+[batch]   ok io eurysternus_plebejus: tier=6 WMC
+[zukan_card] resized archived: iNatobs110539953_resized.jpg src_sha=ca33c265cb87
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs110539953.json
+[batch]     ok iNatobs110539953
+[batch]   -> cpu anticla_antica (Anticla antica)
+[inat_search] Ontherus pseudodidymus (taxon_id=548342): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'Ontherus': 属記事 (Ontherus)
+[inat_search] Onthophagus incensus (taxon_id=270266): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[wikipedia] skip 'List of Onthophagus species': リスト記事 (list of)
+[zukan_card] resized archived: NHMUK014200194_resized.jpg src_sha=3dd064be9865
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014200194.json
+[batch]     ok NHMUK014200194
+[batch]   -> cpu mocis_latipes (Mocis latipes)
+[zukan_card] resized archived: WMCFileMZLU0011548150984755258jpg_resized.jpg src_sha=896444d0ed9f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: WMCFileMZLU0011548150984755258jpg.json
+[batch]     ok WMCFileMZLU0011548150984755258jpg
+[batch]   ng io canthidium_ardens: [discover] no tier matched
+[batch]   -> cpu eurysternus_plebejus (Eurysternus plebejus)
+[batch]     reject [multiple_subjects] tier=6 WMC: 同程度の大きさの被写体が 16 個ある (2 番目の成分は最大の 91%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[inat_search] Eurysternus plebejus (taxon_id=301595): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   ng io ontherus_pseudodidymus: [discover] no tier matched
+[batch]   ng io onthophagus_incensus: [discover] no tier matched
+[batch] Streaming done in 550.2s: io 7/14 ok, cpu 6/14 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (6 entries staged in _pipeline/)
+[batch] === SUMMARY: 6/14 species completed ===
+[batch] 品質ゲート: 1 source を reject (1 種は代替が見つからず失敗)
+[batch] FAILURES:
+[batch]   paromenia_isabellina [discover] no tier matched
+[batch]   mortoniella_tapanti [discover] no tier matched
+[batch]   smicridea_gemina [discover] no tier matched
+[batch]   procryptocerus_scabriusculus [discover] no tier matched
+[batch]   canthidium_ardens [discover] no tier matched
+[batch]   eurysternus_plebejus [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   ontherus_pseudodidymus [discover] no tier matched
+[batch]   onthophagus_incensus [discover] no tier matched
+{
+  "total": 14,
+  "ok": 6,
+  "quality_rejected_sources": 1,
+  "quality_gate_failures": 1,
+  "refetch_requested": 0,
+  "refetch_replaced": 0,
+  "refetch_kept_previous": 0,
+  "failures": [
+    {
+      "id": "paromenia_isabellina",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "mortoniella_tapanti",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "smicridea_gemina",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "procryptocerus_scabriusculus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "canthidium_ardens",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "eurysternus_plebejus",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)"
+    },
+    {
+      "id": "ontherus_pseudodidymus",
+      "stage": "discover",
+      "error": "no tier matched"
+    },
+    {
+      "id": "onthophagus_incensus",
+      "stage": "discover",
+      "error": "no tier matched"
+    }
+  ]
+}

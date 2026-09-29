@@ -1,0 +1,359 @@
+[batch] skip-sources: wikimedia, wikipedia を discover から外す
+[batch] refetch-ids: 28 id(s) loaded from zukan_foundry/rounds/2026-09-29_cr1/refetch_ids.txt
+[batch] resume: 0 skipped (already emitted), 28 to process (28 forced via --refetch-ids)
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 28 species
+[batch]   -> cpu mecistogaster_ornata (Mecistogaster ornata)
+[batch]   ok io mecistogaster_ornata: tier=1 USNM
+[batch]   ok io caligo_atreus: tier=4 YPM
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[image_fetch] transient HTTP 500 for eacles_imperialis, retry 1/4 after 2.4s
+[image_fetch] transient HTTP 500 for eacles_imperialis, retry 2/4 after 5.2s
+[image_fetch] transient HTTP 500 for eacles_imperialis, retry 3/4 after 8.5s
+[source_discovery] umbonia_crassicornis: wikimedia を skip 指定で飛ばす
+[inat_search] Umbonia crassicornis (taxon_id=205657): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io umbonia_crassicornis: tier=7 iNat
+[image_fetch] transient HTTP 500 for eacles_imperialis, retry 4/4 after 18.0s
+[zukan_card] resized archived: USNMENT00389017_resized.jpg src_sha=28f2183510b9
+[zukan_card] L1 segmentation (birefnet-general)
+[image_fetch] eacles_imperialis fetch failed after 4 retries (last: HTTP 500)
+[batch]   .. eacles_imperialis: tier=2 の取得に失敗。次の tier を試す
+[source_discovery] eacles_imperialis: wikimedia を skip 指定で飛ばす
+[inat_search] Eacles imperialis (taxon_id=81590): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io siproeta_stelenes: tier=4 YPM
+[batch]   ok io eacles_imperialis: tier=7 iNat
+[batch]   ok io euglossa_imperialis: tier=1 USNM
+[batch]   ok io hetaerina_titia: tier=1 USNM
+/home/shota/.claude/skills/zukan-svg/build_zukan_card.py:149: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+  cleaned = morphology.remove_small_objects(alpha > 20, min_size=min_size)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00389017.json
+[batch]     ok USNMENT00389017
+[batch]   -> cpu caligo_atreus (Caligo atreus)
+[source_discovery] acanthops_godmani: wikimedia を skip 指定で飛ばす
+[inat_search] Acanthops godmani (taxon_id=748743): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] acanthops_godmani: wikipedia を skip 指定で飛ばす
+[source_discovery] lirometopum_coronatum: wikimedia を skip 指定で飛ばす
+[inat_search] Lirometopum coronatum (taxon_id=699167): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io lirometopum_coronatum: tier=7 iNat
+[zukan_card] resized archived: YPMENT416547_resized.jpg src_sha=efb6e3761dcd
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io anartia_jatrophae: tier=3 RMNH
+[batch]   ok io urbanus_proteus: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io trigona_fulviventris: tier=2 NHMUK
+[batch]   ok io astraptes_fulgerator: tier=3 RMNH
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: YPMENT416547.json
+[batch]     ok YPMENT416547
+[batch]   -> cpu umbonia_crassicornis (Umbonia crassicornis)
+[zukan_card] resized archived: iNatobs108342284_resized.jpg src_sha=fd076be6127d
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] orsilochides_variabilis: wikimedia を skip 指定で飛ばす
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[inat_search] Orsilochides variabilis (taxon_id=553689): scanned 1 page(s), 3 obs total, hit
+[batch]   ok io orsilochides_variabilis: tier=7 iNat
+[source_discovery] augocoris_gomesii: wikimedia を skip 指定で飛ばす
+[inat_search] Augocoris gomesii (taxon_id=501163): scanned 1 page(s), 6 obs total, hit
+[batch]   ok io augocoris_gomesii: tier=7 iNat
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs108342284.json
+[source_discovery] graphocephala_albomaculata: wikimedia を skip 指定で飛ばす
+[batch]     refetch: umbonia_crassicornis 旧カード (WMCFileAmyotCJB1843HistoirenaturelledesinsectesHemipteresPlancheXjpg) を 6 ファイル退避
+[batch]     ok iNatobs108342284
+[batch]   -> cpu siproeta_stelenes (ミドリタテハ)
+[inat_search] Graphocephala albomaculata (taxon_id=461014): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io graphocephala_albomaculata: tier=7 iNat
+[source_discovery] cyclocephala_lunulata: wikimedia を skip 指定で飛ばす
+[inat_search] Cyclocephala lunulata (taxon_id=301455): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io cyclocephala_lunulata: tier=7 iNat
+[batch]   ok io argia_oenea: tier=1 USNM
+[zukan_card] resized archived: YPMENT410449_resized.jpg src_sha=d48a81627d99
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[source_discovery] eurysternus_caribaeus: wikimedia を skip 指定で飛ばす
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: YPMENT410449.json
+[batch]     ok YPMENT410449
+[batch]   -> cpu eacles_imperialis (Eacles imperialis)
+[inat_search] Eurysternus caribaeus (taxon_id=1244818): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io eurysternus_caribaeus: tier=7 iNat
+[source_discovery] vates_pectinicornis: wikimedia を skip 指定で飛ばす
+[inat_search] Vates pectinicornis (taxon_id=480100): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] vates_pectinicornis: wikipedia を skip 指定で飛ばす
+[zukan_card] resized archived: iNatobs128451206_resized.jpg src_sha=251cbd2c9c8f
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] tithrone_roseipennis: wikimedia を skip 指定で飛ばす
+[inat_search] Tithrone roseipennis (taxon_id=701183): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] tithrone_roseipennis: wikipedia を skip 指定で飛ばす
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs128451206.json
+[source_discovery] oncotophasma_martini: wikimedia を skip 指定で飛ばす
+[inat_search] Oncotophasma martini (taxon_id=511493): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] oncotophasma_martini: wikipedia を skip 指定で飛ばす
+[batch]     refetch: eacles_imperialis 旧カード (WMCFileEaclesimperialisfrontaljpg) を 6 ファイル退避
+[batch]     ok iNatobs128451206
+[batch]   -> cpu euglossa_imperialis (Euglossa imperialis)
+[source_discovery] prisopus_biolleyi: wikimedia を skip 指定で飛ばす
+[inat_search] Prisopus biolleyi (taxon_id=744032): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] prisopus_biolleyi: wikipedia を skip 指定で飛ばす
+[source_discovery] metriophasma_diocles: wikimedia を skip 指定で飛ばす
+[inat_search] Metriophasma diocles (taxon_id=565990): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io metriophasma_diocles: tier=7 iNat
+[zukan_card] resized archived: USNMENT00534428_resized.jpg src_sha=0b1c42303060
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00534428.json
+[batch]     ok USNMENT00534428
+[batch]   -> cpu hetaerina_titia (Hetaerina titia)
+[source_discovery] sargus_fasciatus: wikimedia を skip 指定で飛ばす
+[inat_search] Sargus fasciatus (taxon_id=230429): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io sargus_fasciatus: tier=7 iNat
+[image_fetch] transient HTTP 500 for leptonema_albovirens, retry 1/4 after 2.1s
+[batch]   ok io leptonema_albovirens: tier=2 NHMUK
+[source_discovery] scione_maculipennis: wikimedia を skip 指定で飛ばす
+[inat_search] Scione maculipennis (taxon_id=1048830): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] scione_maculipennis: wikipedia を skip 指定で飛ばす
+[zukan_card] resized archived: USNMENT00351100_resized.jpg src_sha=bf8942f6a6dd
+[zukan_card] L1 segmentation (birefnet-general)
+[image_fetch] transient HTTP 500 for nectopsyche_punctata, retry 1/4 after 2.2s
+[batch]   ok io nectopsyche_punctata: tier=2 NHMUK
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00351100.json
+[batch]     ok USNMENT00351100
+[batch]   ng io acanthops_godmani: [discover] no tier matched
+[batch]   -> cpu lirometopum_coronatum (Lirometopum coronatum)
+[zukan_card] resized archived: iNatobs145509640_resized.jpg src_sha=e00e3bf35129
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs145509640.json
+[batch]     ok iNatobs145509640
+[batch]   -> cpu anartia_jatrophae (ウスベニタテハ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] anartia_jatrophae: wikimedia を skip 指定で飛ばす
+[inat_search] Anartia jatrophae (taxon_id=49761): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs194948597_resized.jpg src_sha=18f07804125b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs194948597.json
+[batch]     refetch: anartia_jatrophae 旧カード (WMCFileAnartiajatrophaeMHNTGuadeloupefemalejpg) を 6 ファイル退避
+[batch]     ok iNatobs194948597 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu urbanus_proteus (オナガセセリ)
+[zukan_card] resized archived: RMNHINS843897_resized.jpg src_sha=3688fb2d7860
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS843897.json
+[batch]     ok RMNHINS843897
+[batch]   -> cpu trigona_fulviventris (Trigona fulviventris)
+[zukan_card] resized archived: NHMUKBMNHE970281_resized.jpg src_sha=208ddbbccdd3
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUKBMNHE970281.json
+[batch]     ok NHMUKBMNHE970281
+[batch]   -> cpu astraptes_fulgerator (Astraptes fulgerator)
+[zukan_card] resized archived: RMNHINS870189_resized.jpg src_sha=fd0f08c4ee89
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS870189.json
+[batch]     ok RMNHINS870189
+[batch]   -> cpu orsilochides_variabilis (Orsilochides variabilis)
+[zukan_card] resized archived: iNatobs185220568_resized.jpg src_sha=e85e39a82610
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs185220568.json
+[batch]     refetch: orsilochides_variabilis 旧カード (WMCFileOrsilochidesvariabilis88478963jpg) を 6 ファイル退避
+[batch]     ok iNatobs185220568
+[batch]   -> cpu augocoris_gomesii (Augocoris gomesii)
+[zukan_card] resized archived: iNatobs71755047_resized.jpg src_sha=4ff977a2867b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71755047.json
+[batch]     refetch: augocoris_gomesii 旧カード (WMCFileDiewanzenartigenInsectenTabCXXXVIII6096573954jpg) を 6 ファイル退避
+[batch]     ok iNatobs71755047
+[batch]   -> cpu graphocephala_albomaculata (Graphocephala albomaculata)
+[batch]     reject [subject_too_small] tier=7 iNat: 前景 bbox がフレームの 0.74% しかない (下限 1.00%)
+[source_discovery] graphocephala_albomaculata: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] subject_too_small: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu cyclocephala_lunulata (Cyclocephala lunulata)
+[zukan_card] resized archived: iNatobs256366203_resized.jpg src_sha=36ee074ec36f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs256366203.json
+[batch]     refetch: cyclocephala_lunulata 旧カード (iNatobs192595347) を 6 ファイル退避
+[batch]     ok iNatobs256366203
+[batch]   -> cpu argia_oenea (Argia oenea)
+[zukan_card] resized archived: USNMENT01350690_resized.jpg src_sha=982f4e5a4c1f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT01350690.json
+[batch]     ok USNMENT01350690
+[batch]   -> cpu eurysternus_caribaeus (Eurysternus caribaeus)
+[zukan_card] resized archived: iNatobs103000751_resized.jpg src_sha=d4385a9b7f64
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs103000751.json
+[batch]     refetch: eurysternus_caribaeus 旧カード (WMCFileDungbeetles103897BDJ11e96101Figure4jpg) を 6 ファイル退避
+[batch]     ok iNatobs103000751
+[batch]   ng io vates_pectinicornis: [discover] no tier matched
+[batch]   ng io tithrone_roseipennis: [discover] no tier matched
+[batch]   ng io oncotophasma_martini: [discover] no tier matched
+[batch]   ng io prisopus_biolleyi: [discover] no tier matched
+[batch]   -> cpu metriophasma_diocles (Metriophasma diocles)
+[zukan_card] resized archived: iNatobs152532555_resized.jpg src_sha=335f99d5813b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs152532555.json
+[batch]     refetch: metriophasma_diocles 旧カード (WMCFileMetriophasmadioclesjpg) を 6 ファイル退避
+[batch]     ok iNatobs152532555
+[batch]   -> cpu sargus_fasciatus (Sargus fasciatus)
+[zukan_card] resized archived: iNatobs171209278_resized.jpg src_sha=1c8c4beb3093
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs171209278.json
+[batch]     refetch: sargus_fasciatus 旧カード (WMCFileFishesofIndiaAtlasPlateXXXIIjpg) を 6 ファイル退避
+[batch]     ok iNatobs171209278
+[batch]   -> cpu leptonema_albovirens (Leptonema albovirens)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 90% 埋める直線的な矩形 (row_cv=0.11 col_cv=0.14)。ラベルカードか標本箱とみなす
+[source_discovery] leptonema_albovirens: wikimedia を skip 指定で飛ばす
+[inat_search] Leptonema albovirens (taxon_id=223491): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] leptonema_albovirens: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   ng io scione_maculipennis: [discover] no tier matched
+[batch]   -> cpu nectopsyche_punctata (Nectopsyche punctata)
+[zukan_card] resized archived: NHMUK014413180_resized.jpg src_sha=c42ac34f33f4
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014413180.json
+[batch]     ok NHMUK014413180
+[batch] Streaming done in 3019.8s: io 22/28 ok, cpu 20/28 ok
+[batch] Phase 3: appending 20 entries to /mnt/c/Users/shota/Dropbox/Private/tools/quest4bugs/zukan_config/zukan_catalog.js (dedup=skip)
+[batch]   added=20 skipped=0 overwritten=0
+[batch] === SUMMARY: 20/28 species completed ===
+[batch] 品質ゲート: 3 source を reject (2 種は代替が見つからず失敗)
+[batch] refetch: 20 種を新カードに置き換え、8 種は全 source reject で旧カードを維持
+[batch] FAILURES:
+[batch]   acanthops_godmani [discover] no tier matched
+[batch]   graphocephala_albomaculata [quality_gate] subject_too_small: 使える source が尽きた (1 件 reject)
+[batch]   vates_pectinicornis [discover] no tier matched
+[batch]   tithrone_roseipennis [discover] no tier matched
+[batch]   oncotophasma_martini [discover] no tier matched
+[batch]   prisopus_biolleyi [discover] no tier matched
+[batch]   leptonema_albovirens [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   scione_maculipennis [discover] no tier matched
+{
+  "total": 28,
+  "ok": 20,
+  "quality_rejected_sources": 3,
+  "quality_gate_failures": 2,
+  "refetch_requested": 28,
+  "refetch_replaced": 20,
+  "refetch_kept_previous": 8,
+  "failures": [
+    {
+      "id": "acanthops_godmani",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "graphocephala_albomaculata",
+      "stage": "quality_gate",
+      "error": "subject_too_small: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "vates_pectinicornis",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "tithrone_roseipennis",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oncotophasma_martini",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "prisopus_biolleyi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "leptonema_albovirens",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "scione_maculipennis",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    }
+  ]
+}

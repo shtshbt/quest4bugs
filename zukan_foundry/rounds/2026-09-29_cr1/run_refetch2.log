@@ -1,0 +1,110 @@
+[batch] skip-sources: wikimedia, wikipedia を discover から外す
+[batch] refetch-ids: 8 id(s) loaded from zukan_foundry/rounds/2026-09-29_cr1/refetch2_ids.txt
+[batch] resume: 0 skipped (already emitted), 8 to process (8 forced via --refetch-ids)
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 8 species
+[batch]   -> cpu euglossa_imperialis (Euglossa imperialis)
+[batch]   ok io euglossa_imperialis: tier=1 USNM
+[zukan_card] resized archived: USNMENT00534428_resized.jpg src_sha=0b1c42303060
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] umbonia_crassicornis: wikimedia を skip 指定で飛ばす
+[inat_search] Umbonia crassicornis (taxon_id=205657): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io umbonia_crassicornis: tier=7 iNat
+[source_discovery] lirometopum_coronatum: wikimedia を skip 指定で飛ばす
+[inat_search] Lirometopum coronatum (taxon_id=699167): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io lirometopum_coronatum: tier=7 iNat
+/home/shota/.claude/skills/zukan-svg/build_zukan_card.py:149: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+  cleaned = morphology.remove_small_objects(alpha > 20, min_size=min_size)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00534428.json
+[batch]     ok USNMENT00534428
+[batch]   -> cpu umbonia_crassicornis (Umbonia crassicornis)
+[batch]   ok io urbanus_proteus: tier=3 RMNH
+[batch]   ok io astraptes_fulgerator: tier=3 RMNH
+[batch]   ok io trigona_fulviventris: tier=2 NHMUK
+[batch]   ok io argia_oenea: tier=1 USNM
+[batch]   ok io nectopsyche_punctata: tier=2 NHMUK
+[zukan_card] resized archived: iNatobs108342284_resized.jpg src_sha=fd076be6127d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs108342284.json
+[batch]     ok iNatobs108342284
+[batch]   -> cpu lirometopum_coronatum (Lirometopum coronatum)
+[zukan_card] resized archived: iNatobs145509640_resized.jpg src_sha=e00e3bf35129
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs145509640.json
+[batch]     ok iNatobs145509640
+[batch]   -> cpu urbanus_proteus (オナガセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 87% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] urbanus_proteus: wikimedia を skip 指定で飛ばす
+[inat_search] Urbanus proteus (taxon_id=67435): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs104783629_resized.jpg src_sha=a39cba730ecf
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs104783629.json
+[batch]     refetch: urbanus_proteus 旧カード (RMNHINS843897) を 6 ファイル退避
+[batch]     ok iNatobs104783629 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu astraptes_fulgerator (Astraptes fulgerator)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] astraptes_fulgerator: wikimedia を skip 指定で飛ばす
+[inat_search] Astraptes fulgerator (taxon_name (fallback)): scanned 1 page(s), 3 obs total, hit
+[zukan_card] resized archived: iNatobs266650485_resized.jpg src_sha=a84853bee823
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs266650485.json
+[batch]     refetch: astraptes_fulgerator 旧カード (RMNHINS870189) を 6 ファイル退避
+[batch]     ok iNatobs266650485 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu trigona_fulviventris (Trigona fulviventris)
+[zukan_card] resized archived: NHMUKBMNHE970281_resized.jpg src_sha=208ddbbccdd3
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUKBMNHE970281.json
+[batch]     ok NHMUKBMNHE970281
+[batch]   -> cpu argia_oenea (Argia oenea)
+[batch]     reject [label_dominant] tier=1 USNM: 前景の 95% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] argia_oenea: wikimedia を skip 指定で飛ばす
+[inat_search] Argia oenea (taxon_id=94562): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs336280240_resized.jpg src_sha=b205771873ac
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs336280240.json
+[batch]     refetch: argia_oenea 旧カード (USNMENT01350690) を 6 ファイル退避
+[batch]     ok iNatobs336280240 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu nectopsyche_punctata (Nectopsyche punctata)
+[zukan_card] resized archived: NHMUK014413180_resized.jpg src_sha=c42ac34f33f4
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014413180.json
+[batch]     ok NHMUK014413180
+[batch] Streaming done in 779.0s: io 8/8 ok, cpu 8/8 ok
+[batch] Phase 3: --no-merge specified, skip catalog.js append (8 entries staged in _pipeline/)
+[batch] === SUMMARY: 8/8 species completed ===
+[batch] 品質ゲート: 3 source を reject (0 種は代替が見つからず失敗)
+[batch] refetch: 8 種を新カードに置き換え、0 種は全 source reject で旧カードを維持
+{
+  "total": 8,
+  "ok": 8,
+  "quality_rejected_sources": 3,
+  "quality_gate_failures": 0,
+  "refetch_requested": 8,
+  "refetch_replaced": 8,
+  "refetch_kept_previous": 0,
+  "failures": []
+}
