@@ -24,3 +24,55 @@
 | euglossa_imperialis | R | Hymenoptera / Apidae | Eufriesea mussitans (Apidae, 2114) | Partamona orizabaensis (Apidae, 1799, Orizaba Partamona) |
 | trigona_fulviventris | N | Hymenoptera / Apidae | Trigona silvestriana (Apidae, 1572) | Euglossa tridentata (Apidae, 1494) |
 | lirometopum_coronatum | R | Orthoptera / Tettigoniidae | Phylloptera dimidiata (Tettigoniidae, 240) | Neoconocephalus affinis (Tettigoniidae, 236, Grasshopper) |
+
+## 候補写真の検品 (2026-09-29)
+
+40 種のうち 22 種の写真が取れた (`run_candidates.log`)。18 種はどの取得元にも無かった。
+
+| 候補 | 判定 | 根拠 |
+|---|---|---|
+| Acontista cordillerae | OK | 前脚と翅を広げた全身。花に似た見た目で見栄えがよい (WMC) |
+| Metilia brunnerii | OK | 翅を広げた全身 (WMC) |
+| Stagmomantis theophila | 要確認 | 2 個体が並ぶ。雌雄の並びか同種 2 個体か不明 (WMC) |
+| Stagmomantis heterogamia | OK | 全身 (iNat) |
+| Acontista fraterna | 要確認 | 図版のような描画に見える (Wikipedia) |
+| Tauromantis championi | OK | 標本の全身 (NHMUK) |
+| Leptonema complexum | OK | 翅を広げた全身 (NHMUK) |
+| Leptonema salvini | 不可 | ラベルと小瓶が主体 (NHMUK) |
+| Ischnomela pulchripennis | OK | 全身 (iNat) |
+| Copiphora hastata | OK | 全身 (WMC) |
+| Tylozygus geometricus | 要確認 | 解像度が低くぼやける (iNat) |
+| Macunolla ventralis | OK | 青と橙の全身。見栄えがよい (WMC) |
+| Onthophagus acuminatus | OK | 全身 (Wikipedia) |
+| Sylvicanthon aequinoctialis | OK | 背面と腹面の並び (WMC)。2026-09-29 の決定で使える |
+| Rhynchacris ornata | OK | 全身 (WMC) |
+| Leptonema crassum | OK | 全身 (NHMUK) |
+| Dichomeris santarosensis | OK | 全身 (USNM) |
+| Sphacelodes vulneraria | OK | 全身 (iNat) |
+| Partamona orizabaensis | 不可 | 虫が写らない塊 (WMC) |
+| Trigona silvestriana | 不可 | 花の写真で虫が写らない (WMC) |
+| Euglossa tridentata | OK | 緑に光るハナバチの全身。R 枠に向く (USNM) |
+| Phylloptera dimidiata | OK | 葉に似たキリギリスの全身 (iNat) |
+
+## 枠ごとのおすすめ (発案者の承認待ち)
+
+同じ目で埋まる枠 (12 枠):
+
+| 入れ替える種 | 段 | おすすめ |
+|---|---|---|
+| acanthops_godmani | R | Acontista cordillerae |
+| vates_pectinicornis | N | Stagmomantis heterogamia |
+| tithrone_roseipennis | N | Tauromantis championi |
+| leptonema_albovirens | N | Leptonema complexum |
+| copiphora_cultricornis | N | Copiphora hastata |
+| chlorogonalia_coeruleovittata | N | Macunolla ventralis |
+| canthidium_aurifex | N | Onthophagus acuminatus |
+| pterinoxylus_speciosus | N | Rhynchacris ornata |
+| helicopsyche_incisa | N | Leptonema crassum |
+| astraptes_fulgerator | N | Dichomeris santarosensis |
+| euglossa_imperialis | R | Euglossa tridentata (trigona 枠の候補から回す) |
+| lirometopum_coronatum | R | Phylloptera dimidiata |
+
+同じ目では埋まらない枠 (7 枠): graphocephala_albomaculata (カメムシ目)、oncotophasma_martini と prisopus_biolleyi (ナナフシ目)、scione_maculipennis (ハエ目)、nectopsyche_punctata と atopsyche_majada (トビケラ目)、trigona_fulviventris (ハチ目)。余った使える候補は 4 種 (Metilia brunnerii、Ischnomela pulchripennis、Sylvicanthon aequinoctialis、Sphacelodes vulneraria) で、目をまたいで 4 枠を埋められる。そうするとナナフシ、トビケラ、ハエが減り、カマキリ、キリギリス、甲虫、ガが増える (甲虫は 5 章で弱点とされていた目)。残る 3 枠は追加の harvest か、目の予備をさらに探す。
+
+SR の umbonia_crassicornis 枠は候補が取れなかった。既存の R から見栄えのよい 1 種を SR に上げ、空いた R 枠を上の余りで埋める案を推す。
