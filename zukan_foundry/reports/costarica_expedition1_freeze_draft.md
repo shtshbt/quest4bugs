@@ -127,7 +127,7 @@ R 帯の選定理由 (各 2 行)。
 - Ascalapha odorata。開張 15cm を超える大型ヤガで、中南米で最も名の通ったガ。標準和名オドラジゴクオオヤガがある。
 - Heliconius hecale。黒地に橙と黄の帯というドクチョウ類の警告色。擬態環 (ミュラー型擬態) の説明素材として価値がある。
 - Automeris zugana。後翅に大きな眼状紋を持つヤママユガ。驚かせると眼状紋を見せる行動が話になる。命名は未。
-- Euglossa imperialis。金属光沢の緑に輝くランのハチで、コスタリカ seeds のハチで occurrence 最大 (6432)。ランの香りを集める生態が独特。
+- Euglossa imperialis (2026-09-29 に Euglossa tridentata へ差し替え済み。8 章)。金属光沢の緑に輝くランのハチで、コスタリカ seeds のハチで occurrence 最大 (6432)。ランの香りを集める生態が独特。
 - Camponotus sericeiventris。腹部が金色の絹のような毛で覆われる大型オオアリ。アリの中では見た目の華やかさが突出している。
 - Synoeca septentrionalis。巣を叩いて集団で威嚇音を出すカリバチ。生態的スペクタクルは SR 級だが、体そのものの色は黒藍一色のため R とした。
 - Apoica pallens。夜に活動する珍しいカリバチで、巣に整列してぶら下がる姿が絵になる。淡黄色の体色も他のカリバチと差別化できる。
@@ -136,8 +136,8 @@ R 帯の選定理由 (各 2 行)。
 - Hetaerina titia。翅の付け根が赤く染まるカワトンボ。トンボ 10 種の中で色の主張が最も強い。
 - Libellula herculea。腹部が銀白色になる大型トンボ。属名と英名の hercules と Silver-sided が語りになる。
 - Pseudovates chlorophaea。頭部に角状の突起を持つカマキリ。Choeradodis に次ぐ形の面白さだが occurrence 39 と少なく写真確保は難しい。
-- Acanthops godmani。翅を丸めて枯葉になりきるカマキリ。擬態の質は高いが occurrence 25 と少なく、写真が取れなければ 5 章の代替へ回す。
-- Lirometopum coronatum。頭部が冠状に張り出すキリギリス。英名 Pitbull katydid が示すとおり顎が発達しており、形で押せる。
+- Acanthops godmani (2026-09-29 に Acontista cordillerae へ差し替え済み。8 章)。翅を丸めて枯葉になりきるカマキリ。擬態の質は高いが occurrence 25 と少なく、写真が取れなければ 5 章の代替へ回す。
+- Lirometopum coronatum (2026-09-29 に Phylloptera dimidiata へ差し替え済み。8 章)。頭部が冠状に張り出すキリギリス。英名 Pitbull katydid が示すとおり顎が発達しており、形で押せる。
 
 ### 2.5 N 57 種
 
