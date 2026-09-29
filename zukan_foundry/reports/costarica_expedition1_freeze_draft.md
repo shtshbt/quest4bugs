@@ -91,7 +91,7 @@ Morpho helenor については確認が 1 点ある。本編カタログにモ�
 | 2 | Choeradodis rhombicollis | (命名未) | Mantidae | english_common_candidate | 胸部が木の葉状に大きく張り出すカマキリ。輪郭が唯一無二で thumb でも判別できる。コスタリカ産カマキリ 30 種の頂点 |
 | 3 | Mecistogaster ornata | (命名未) | Coenagrionidae | english_common_candidate | 翅端に色帯を持つ超大型イトトンボ。クモの巣からクモを摘み取る生態が話になる。本編のハビロイトトンボと近縁のため SSR には上げない |
 | 4 | Copiphora rhinoceros | (命名未) | Tettigoniidae | english_common_candidate | 頭部に前向きの角を持つキリギリス。緑色の体に角という組み合わせが強く、英名 Rhinoceros Katydid が説明の足がかりになる |
-| 5 | Umbonia crassicornis | (命名未) | Membracidae | provisional | 背に棘状の突起を持つツノゼミ。植物の棘に擬態する生態的スペクタクル。occurrence 1060 で写真確保の見込みが高い |
+| 5 | Acontista cordillerae | (命名未) | Acanthopidae | provisional | 前脚と翅を広げると花のように見えるカマキリ。写真の見栄えが本巻のカマキリで最も強い。2026-09-29 に Umbonia crassicornis (使える写真なし) の SR 枠へ上げた (8 章) |
 | 6 | Eacles imperialis | (命名未) | Saturniidae | english_common_candidate | 開張 15cm 級のヤママユガ。黄色地に紫褐色の斑という配色で、大型ガの枠を担う |
 | 7 | Trychopeplus laciniatus | (命名未) | Diapheromeridae | english_common_candidate | 全身がコケに覆われたように見えるナナフシ。擬態の完成度が高く、コスタリカ雲霧林の象徴になる。occurrence 31 と少なく写真確保は難度が高い |
 
@@ -116,7 +116,7 @@ SR は 7 種で、更新 4 に投入するカテゴリ 4 本 (kom_kuku_bridge / 
 | 13 | Hetaerina titia | (命名未) | Calopterygidae | english_common_candidate | 431 |
 | 14 | Libellula herculea | (命名未) | Libellulidae | english_common_candidate | 348 |
 | 15 | Pseudovates chlorophaea | (命名未) | Mantidae | english_common_candidate | 39 |
-| 16 | Acontista cordillerae | (命名未) | Acanthopidae | provisional | 60 |
+| 16 | Metilia brunnerii | (命名未) | Acanthopidae | provisional | 51 |
 | 17 | Phylloptera dimidiata | (命名未) | Tettigoniidae | provisional | 240 |
 
 R 帯の選定理由 (各 2 行)。
@@ -224,8 +224,8 @@ Phasmida (5)
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
 | Pseudophasma unicolor | Pseudophasmatidae | provisional | 220 |
-| Oncotophasma martini | Diapheromeridae | provisional | 89 |
-| Prisopus biolleyi | Prisopodidae | provisional | 79 |
+| Ischnomela pulchripennis | Tettigoniidae | provisional | 669 |
+| Sylvicanthon aequinoctialis | Scarabaeidae | provisional | 4871 |
 | Metriophasma diocles | Pseudophasmatidae | english_common_candidate | 35 |
 | Rhynchacris ornata | Phasmatidae | provisional | 28 |
 
@@ -236,7 +236,7 @@ Diptera (5)
 | Ornidia obesa | Syrphidae | english_common_candidate | 2668 |
 | Sargus fasciatus | Stratiomyidae | provisional | 1729 |
 | Cochliomyia macellaria | Calliphoridae | english_common_candidate | 1661 |
-| Scione maculipennis | Tabanidae | provisional | 1124 |
+| Sphacelodes vulneraria | Geometridae | provisional | 2474 |
 | Palpada agrorum | Syrphidae | english_common_candidate | 1081 |
 
 Trichoptera (4)
@@ -387,6 +387,18 @@ Smithsonian (USNM) は中米標本の被覆が厚く、museum tier の第一候�
 | Euglossa imperialis | R | Euglossa tridentata | 取り直しても頭部の拡大のみ |
 | Lirometopum coronatum | R | Phylloptera dimidiata | 取り直しても幼虫の疑い |
 
-未決 (発案者と相談中): SR の Umbonia crassicornis 枠 (候補の写真なし)、同じ目で埋まらない 7 枠 (Graphocephala albomaculata、Oncotophasma martini、Prisopus biolleyi、Scione maculipennis、Nectopsyche punctata、Atopsyche majada、Trigona fulviventris)。
+続けて承認した差し替え (2026-09-29):
+
+| 入れ替えた種 | 段 | 入れた種 | 理由 |
+|---|---|---|---|
+| Umbonia crassicornis | SR | Acontista cordillerae | 使える写真なし。Acanthops godmani の後継として R に入れた種を SR に上げた |
+| (R の Acontista cordillerae) | R | Metilia brunnerii | SR へ上げた分の R 枠を埋める |
+| Oncotophasma martini | N | Ischnomela pulchripennis | 目をまたぐ (ナナフシ目 → バッタ目) |
+| Prisopus biolleyi | N | Sylvicanthon aequinoctialis | 目をまたぐ (ナナフシ目 → 甲虫目) |
+| Scione maculipennis | N | Sphacelodes vulneraria | 目をまたぐ (ハエ目 → チョウ目) |
+
+目の配分は 2.1 の表から次のとおり動いた: ナナフシ目 6 → 4、ハエ目 5 → 4、カメムシ目 9 → 8、バッタ目 +1、甲虫目 +1、チョウ目 +1、カマキリ目 +1。2.1 の表は選抜時の記録として残す。
+
+未決: 同じ目でも目をまたいでも埋まらない 4 枠 (Graphocephala albomaculata、Nectopsyche punctata、Atopsyche majada、Trigona fulviventris)。追加の探索に回す。
 
 背面と腹面を並べた写真は使えるとする (2026-09-29 発案者決定)。Caligo atreus と Siproeta stelenes はこの扱いで残す。
