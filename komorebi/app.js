@@ -1244,6 +1244,14 @@
      なので毎回は 1 にならず、フィードバックの獲得表示はこの値だけを信じる。 */
   function feedSideRewards(cat,result,masteredAtAnswer){
     if(!result||!result.counted)return 0;
+    /* れんぞく ともしび の 1 日の正解数 (本編 3 教科は QuestSave.recordCorrect の中で
+       数える。小道はそこを通らないのでここで数える)。Q4BReward の有無と無関係に
+       数えるため、その判定より前に置く。TOMOSHIBI_MODE が "off" の間は storage 側で
+       何もしない。 */
+    var save=global.QuestSave;
+    if(save&&typeof save.tomoshibiRecord==="function"){
+      try{ save.tomoshibiRecord(gearProfileId(),1); }catch(_){}
+    }
     var reward=global.Q4BReward;
     if(!reward)return 0;
     var mastered=masteredAtAnswer!=null?masteredAtAnswer:profile.maxLv&&profile.maxLv[cat]>=CATEGORIES[cat].maxLv;
@@ -1265,13 +1273,6 @@
         var fed=reward.feedEgg("komorebi",value,{});
         if(fed&&typeof fed.catch==="function")fed.catch(function(){});
       }catch(_){}
-    }
-    /* れんぞく ともしび の 1 日の正解数 (本編 3 教科は QuestSave.recordCorrect の中で
-       数える。小道はそこを通らないのでここで数える)。TOMOSHIBI_MODE が "off" の間は
-       storage 側で何もしない。 */
-    var save=global.QuestSave;
-    if(save&&typeof save.tomoshibiRecord==="function"){
-      try{ save.tomoshibiRecord(gearProfileId(),1); }catch(_){}
     }
     return granted;
   }

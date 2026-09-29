@@ -1059,16 +1059,28 @@
     try{ if(eco&&typeof eco.tomoshibiMode==="function")mode=eco.tomoshibiMode(); }catch(_){ mode="off"; }
     return (mode==="count"||mode==="on")?mode:"off";
   }
-  var TOMOSHIBI_DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
+  var TOMOSHIBI_DATE_RE=/^(\d{4})-(\d{2})-(\d{2})$/;
+  /* 実在する 2020 年以降の日付だけを通す。壊れたキー (0001-01-01 など) が 1 つでも
+     入ると、和集合の統合でどの端末からも消えなくなり、日数の計算が大昔から回る。 */
+  function isTomoshibiDate(key){
+    var m=TOMOSHIBI_DATE_RE.exec(key);
+    if(!m||+m[1]<2020)return false;
+    var t=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));
+    return t.getUTCFullYear()===+m[1]&&t.getUTCMonth()===+m[2]-1&&t.getUTCDate()===+m[3];
+  }
+  /* 端末 id は同期ファイルから来る外部入力なので、Object.prototype の名前と
+     __proto__ を持ち物として読まない。 */
+  function ownCount(map,key){ return Object.prototype.hasOwnProperty.call(map,key)?map[key]:0; }
   function normalizeTomoshibiData(data){
     var out={v:1,days:{},awarded:{}}, d, dev, n, src, a;
     data=data&&typeof data==="object"?data:{};
     if(data.days&&typeof data.days==="object"){
       for(d in data.days){
-        if(!TOMOSHIBI_DATE_RE.test(d))continue;
+        if(!isTomoshibiDate(d))continue;
         src=data.days[d]&&data.days[d].dev;
         if(!src||typeof src!=="object")continue;
         for(dev in src){
+          if(!Object.prototype.hasOwnProperty.call(src,dev)||dev==="__proto__")continue;
           n=Math.floor(src[dev]);
           if(n>0){ if(!out.days[d])out.days[d]={dev:{}}; out.days[d].dev[String(dev)]=n; }
         }
@@ -1076,7 +1088,7 @@
     }
     if(data.awarded&&typeof data.awarded==="object"){
       for(d in data.awarded){
-        if(!TOMOSHIBI_DATE_RE.test(d))continue;
+        if(!isTomoshibiDate(d))continue;
         a=data.awarded[d];
         if(!a||typeof a!=="object")continue;
         out.awarded[d]={base:Math.max(0,Math.floor(a.base)||0),top:Math.max(0,Math.floor(a.top)||0)};
@@ -1088,7 +1100,7 @@
     var out=normalizeTomoshibiData(a), inc=normalizeTomoshibiData(b), d, dev, cur;
     for(d in inc.days){
       if(!out.days[d])out.days[d]={dev:{}};
-      for(dev in inc.days[d].dev)out.days[d].dev[dev]=Math.max(out.days[d].dev[dev]||0,inc.days[d].dev[dev]);
+      for(dev in inc.days[d].dev)out.days[d].dev[dev]=Math.max(ownCount(out.days[d].dev,dev),inc.days[d].dev[dev]);
     }
     for(d in inc.awarded){
       cur=out.awarded[d]||{base:0,top:0};
@@ -1129,7 +1141,7 @@
   /* 今日のボーナスを払ったことを記録する (field は "base" か "top")。支払いより先に
      呼ぶ: 途中で落ちたら 1 回払い損ねる側に倒し、二重払いを避ける。 */
   function tomoshibiMarkAwarded(pid,date,field,amount){
-    if(!pid||!TOMOSHIBI_DATE_RE.test(date)||(field!=="base"&&field!=="top"))return false;
+    if(!pid||!isTomoshibiDate(date)||(field!=="base"&&field!=="top"))return false;
     var data=tomoshibiOf(pid), cur=data.awarded[date]||{base:0,top:0};
     if(cur[field]>0)return false;
     cur[field]=Math.max(1,Math.floor(amount)||0);

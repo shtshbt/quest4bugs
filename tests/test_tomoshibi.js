@@ -347,6 +347,38 @@ function solve(save, pid, n) {
     assert.equal(ctx.QuestSave.tomoshibiOf("p1").days["2026-02-01"].dev.devA, 9);
   });
 
+  await test("broken dates and prototype-named device ids do not poison the merge", async () => {
+    const local = storageContext({ mode: "count", device: "devA" });
+    solve(local.QuestSave, "p1", 3);
+    const today = local.QuestSave.todayKey();
+    const doc = storeDoc(local);
+    const remoteData = JSON.parse(`{"v":1,"days":{
+      "${today}":{"dev":{"constructor":4,"toString":2,"__proto__":9}},
+      "0001-01-01":{"dev":{"devB":5}},
+      "2026-02-30":{"dev":{"devB":5}}},
+      "awarded":{"0001-01-01":{"base":5,"top":0}}}`);
+    const remote = { schema: 1, kind: "snapshot", v: 2, profiles: doc.profiles || [], current: doc.current || null,
+      tombstones: {}, kv: { [tomoKey("p1")]: { v: 1, updated: Date.now() + 60000, data: remoteData } } };
+    const ctx = storageContext({ backing: local.__backing, remote, mode: "count", device: "devA" });
+    await ctx.QuestSave.pullAll();
+    const merged = plain(ctx.QuestSave.tomoshibiOf("p1"));
+    assert.deepEqual(merged.days[today].dev, { devA: 3, constructor: 4, toString: 2 });
+    assert.equal(merged.days["0001-01-01"], undefined);
+    assert.equal(merged.days["2026-02-30"], undefined);
+    assert.deepEqual(merged.awarded, {});
+  });
+
+  await test("computeState ignores impossible dates and looks back at most 400 days", () => {
+    const data = daysOf({ "0001-01-01": 5, "2026-02-30": 5, "2026-09-01": 3 });
+    const s = T.computeState(data, "2026-09-01");
+    assert.equal(s.streakDays, 1);
+    const long = run(T, "2025-01-01", Array(700).fill(4));
+    const end = T.addDays("2025-01-01", 699);
+    const state = T.computeState(long, end);
+    assert.equal(state.tier.id, "niji");
+    assert.ok(state.streakDays <= 401, "the walk starts at most 400 days back");
+  });
+
   await test("other namespaces keep last-write-wins", async () => {
     const local = storageContext({ device: "devA" });
     local.QuestSave.amberAdd("p1", 7);

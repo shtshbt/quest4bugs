@@ -22,6 +22,10 @@
   ];
 
   var DATE_RE=/^(\d{4})-(\d{2})-(\d{2})$/;
+  /* 状態を導くときに遡る日数の上限。これより長い連続でも段は にじ で頭打ちなので、
+     変わるのは表示の日数だけ。壊れた古い日付や時計のずれた端末で、正解のたびに
+     何万日も回すのを防ぐ。 */
+  var LOOKBACK_DAYS=400;
 
   function pad2(n){return (n<10?"0":"")+n;}
 
@@ -68,7 +72,10 @@
   function computeState(data,today){
     today=today||localToday();
     if(!DATE_RE.test(today))throw new Error("日付の形式が正しくありません: "+today);
-    var keys=Object.keys((data&&data.days)||{}).filter(function(k){return DATE_RE.test(k)&&k<=today;}).sort();
+    var floor=addDays(today,-LOOKBACK_DAYS);
+    var keys=Object.keys((data&&data.days)||{}).filter(function(k){
+      return DATE_RE.test(k)&&k>=floor&&k<=today&&addDays(k,0)===k;
+    }).sort();
     var streak=0, pending=null, lastQualified=null, lastDrop=null;
     var restartedToday=false, tierUpToday=false;
     if(keys.length){
