@@ -108,7 +108,7 @@
 | 1 | 数える・段を導く・精算・端末間の統合 (`shared/tomoshibi.js`、`shared/storage.js` の tomoshibi namespace、小道の配線) | 実装済み (`tests/test_tomoshibi.js`)。スイッチは "off" |
 | 2 | 表示と演出 (5 章。`shared/tomoshibi_ui.js`、見た目の確認は `tests/tomoshibi_visual/`) | 実装済み。スイッチは "off" |
 | 3 | 既存の 🔥 の統一 (6 章) | 実装済み。スイッチは "off" |
-| 公開 | `TOMOSHIBI_MODE` を "on" (または先に "count") にする | 未 |
+| 公開 | `TOMOSHIBI_MODE` を "count" にし、本番の同期データで統合と履歴の取り込みを確かめてから "on" にする | 2026-09-28 から "count" |
 
 段 1 で決めた実装上の事項:
 

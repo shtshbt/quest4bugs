@@ -106,7 +106,8 @@ function storageContext(options) {
   for (const file of files) {
     vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
   }
-  if (options.mode) context.Q4B_ECONOMY.setTomoshibiMode(options.mode);
+  /* 本番の既定値に左右されないよう、指定が無ければ "off" を明示する。 */
+  context.Q4B_ECONOMY.setTomoshibiMode(options.mode || "off");
   return context;
 }
 
@@ -253,9 +254,9 @@ function solve(save, pid, n) {
     assert.deepEqual(plain(r.tomoshibi), { ok: false, mode: "off" });
   });
 
-  await test("the production switch ships as off", () => {
+  await test("the production switch ships as count (counting only, nothing shown or paid)", () => {
     const src = fs.readFileSync(path.join(root, "shared/economy_flag.js"), "utf8");
-    assert.match(src, /var TOMOSHIBI_MODE="off";/);
+    assert.match(src, /var TOMOSHIBI_MODE="count";/);
   });
 
   await test("mode count records per device but pays nothing", () => {
