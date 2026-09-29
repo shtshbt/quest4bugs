@@ -76,3 +76,18 @@
 同じ目では埋まらない枠 (7 枠): graphocephala_albomaculata (カメムシ目)、oncotophasma_martini と prisopus_biolleyi (ナナフシ目)、scione_maculipennis (ハエ目)、nectopsyche_punctata と atopsyche_majada (トビケラ目)、trigona_fulviventris (ハチ目)。余った使える候補は 4 種 (Metilia brunnerii、Ischnomela pulchripennis、Sylvicanthon aequinoctialis、Sphacelodes vulneraria) で、目をまたいで 4 枠を埋められる。そうするとナナフシ、トビケラ、ハエが減り、カマキリ、キリギリス、甲虫、ガが増える (甲虫は 5 章で弱点とされていた目)。残る 3 枠は追加の harvest か、目の予備をさらに探す。
 
 SR の umbonia_crassicornis 枠は候補が取れなかった。既存の R から見栄えのよい 1 種を SR に上げ、空いた R 枠を上の余りで埋める案を推す。
+
+## 残り 4 枠の追加候補 (2026-09-29)
+
+同じ目の次の予備 6 種と、写真の取れやすいチョウ目と甲虫目 8 種の計 14 種を取得し (`run_candidates2.log`)、6 種の写真が取れた。トビケラ目と甲虫目 (糞虫) は 1 枚も取れなかった。
+
+| 候補 | 判定 | 根拠 |
+|---|---|---|
+| Stephanolla rufoapicata | OK | 緑と橙のヨコバイの全身 (WMC) |
+| Pseudomyrmex oculatus | OK | アリの全身 (WMC) |
+| Phidotricha erigens | OK | 翅を閉じたガの全身 (iNat) |
+| Oxydia trychiata | OK | 枯葉色のガの全身 (iNat) |
+| Anticla antica | OK | 淡黄色のガの全身。隅にピンと小さなラベル (NHMUK) |
+| Mocis latipes | 画質不良 | 翅が裂けてぼろぼろに見える (WMC) |
+
+おすすめ (発案者の承認待ち): Graphocephala albomaculata → Stephanolla rufoapicata (同じ科)、Trigona fulviventris → Pseudomyrmex oculatus (同じ目)、Nectopsyche punctata → Oxydia trychiata、Atopsyche majada → Anticla antica (トビケラ目は写真が取れないため目をまたぐ)。
