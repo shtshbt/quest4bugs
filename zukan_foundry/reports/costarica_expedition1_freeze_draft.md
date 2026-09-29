@@ -1,6 +1,6 @@
 # コスタリカ遠征 I volume 凍結設計ドラフト
 
-status: draft、user 承認待ち。コード・カタログへの反映は freeze 承認後。
+status: draft、user 承認待ち。2026-09-29 に写真の揃わない種の差し替えを発案者が承認し、2 章の表へ反映した (8 章)。コード・カタログへの反映は freeze 承認後。
 
 作成日: 2026-08-17。対象: 更新 4 (`docs/komorebi_release_linkage.md` 2 章)。最終決定は発案者が行う。
 
@@ -107,7 +107,7 @@ SR は 7 種で、更新 4 に投入するカテゴリ 4 本 (kom_kuku_bridge / 
 | 4 | Ascalapha odorata | オドラジゴクオオヤガ | Erebidae | standard | 1472 |
 | 5 | Heliconius hecale | (命名未) | Nymphalidae | english_common_candidate | 1086 |
 | 6 | Automeris zugana | (命名未) | Saturniidae | provisional | 1089 |
-| 7 | Euglossa imperialis | (命名未) | Apidae | english_common_candidate | 6432 |
+| 7 | Euglossa tridentata | (命名未) | Apidae | provisional | 1494 |
 | 8 | Camponotus sericeiventris | (命名未) | Formicidae | english_common_candidate | 1898 |
 | 9 | Synoeca septentrionalis | (命名未) | Vespidae | english_common_candidate | 1520 |
 | 10 | Apoica pallens | (命名未) | Vespidae | english_common_candidate | 1490 |
@@ -116,8 +116,8 @@ SR は 7 種で、更新 4 に投入するカテゴリ 4 本 (kom_kuku_bridge / 
 | 13 | Hetaerina titia | (命名未) | Calopterygidae | english_common_candidate | 431 |
 | 14 | Libellula herculea | (命名未) | Libellulidae | english_common_candidate | 348 |
 | 15 | Pseudovates chlorophaea | (命名未) | Mantidae | english_common_candidate | 39 |
-| 16 | Acanthops godmani | (命名未) | Acanthopidae | provisional | 25 |
-| 17 | Lirometopum coronatum | (命名未) | Tettigoniidae | english_common_candidate | 155 |
+| 16 | Acontista cordillerae | (命名未) | Acanthopidae | provisional | 60 |
+| 17 | Phylloptera dimidiata | (命名未) | Tettigoniidae | provisional | 240 |
 
 R 帯の選定理由 (各 2 行)。
 
@@ -147,7 +147,7 @@ Lepidoptera (3)
 |---|---|---|---|
 | Anartia jatrophae | ウスベニタテハ | Nymphalidae | standard |
 | Urbanus proteus | オナガセセリ | Hesperiidae | standard |
-| Astraptes fulgerator | (命名未) | Hesperiidae | english_common_candidate |
+| Dichomeris santarosensis | (命名未) | Gelechiidae | provisional |
 
 Hymenoptera (5)
 
@@ -167,7 +167,7 @@ Orthoptera (7)
 | Neoconocephalus triops | Tettigoniidae | english_common_candidate | 466 |
 | Mimetica incisa | Tettigoniidae | provisional | 303 |
 | Chromacris trogon | Romaleidae | provisional | 276 |
-| Copiphora cultricornis | Tettigoniidae | english_common_candidate | 261 |
+| Copiphora hastata | Tettigoniidae | provisional | 253 |
 | Philophyllia guttulata | Tettigoniidae | provisional | 200 |
 | Pycnopalpa bicordata | Tettigoniidae | provisional | 187 |
 
@@ -176,7 +176,7 @@ Hemiptera (8)
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
 | Hortensia similis | Cicadellidae | english_common_candidate | 2249 |
-| Chlorogonalia coeruleovittata | Cicadellidae | provisional | 1405 |
+| Macunolla ventralis | Cicadellidae | provisional | 1491 |
 | Mahanarva costaricensis | Cercopidae | provisional | 1123 |
 | Prosapia simulans | Cercopidae | provisional | 839 |
 | Orsilochides variabilis | Scutelleridae | provisional | 764 |
@@ -188,7 +188,7 @@ Coleoptera (7)
 
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
-| Canthidium aurifex | Scarabaeidae | provisional | 3646 |
+| Onthophagus acuminatus | Scarabaeidae | provisional | 8567 |
 | Cyclocephala lunulata | Scarabaeidae | provisional | 3370 |
 | Copris lugubris | Scarabaeidae | provisional | 2702 |
 | Cephaloleia belti | Chrysomelidae | provisional | 2586 |
@@ -212,12 +212,12 @@ Mantodea (6)
 
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
-| Vates pectinicornis | Mantidae | provisional | 181 |
+| Stagmomantis heterogamia | Mantidae | provisional | 151 |
 | Liturgusa maya | Liturgusidae | english_common_candidate | 88 |
 | Stagmomantis carolina | Mantidae | english_common_candidate | 76 |
 | Macromantis hyalina | Photinaidae | provisional | 39 |
 | Stagmatoptera biocellata | Mantidae | provisional | 22 |
-| Tithrone roseipennis | Acanthopidae | provisional | 8 |
+| Tauromantis championi | Mantidae | provisional | 124 |
 
 Phasmida (5)
 
@@ -227,7 +227,7 @@ Phasmida (5)
 | Oncotophasma martini | Diapheromeridae | provisional | 89 |
 | Prisopus biolleyi | Prisopodidae | provisional | 79 |
 | Metriophasma diocles | Pseudophasmatidae | english_common_candidate | 35 |
-| Pterinoxylus speciosus | Phasmatidae | provisional | 15 |
+| Rhynchacris ornata | Phasmatidae | provisional | 28 |
 
 Diptera (5)
 
@@ -244,8 +244,8 @@ Trichoptera (4)
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
 | Atopsyche majada | Hydrobiosidae | provisional | 1136 |
-| Leptonema albovirens | Hydropsychidae | provisional | 1130 |
-| Helicopsyche incisa | Helicopsychidae | provisional | 283 |
+| Leptonema complexum | Hydropsychidae | provisional | 924 |
+| Leptonema crassum | Hydropsychidae | provisional | 547 |
 | Nectopsyche punctata | Leptoceridae | provisional | 261 |
 
 N の合計は Lepidoptera 3 + Hymenoptera 5 + Orthoptera 7 + Hemiptera 8 + Coleoptera 7 + Odonata 7 + Mantodea 6 + Phasmida 5 + Diptera 5 + Trichoptera 4 = 57 種。
@@ -367,3 +367,26 @@ Smithsonian (USNM) は中米標本の被覆が厚く、museum tier の第一候�
 4. 種小名が spec の 8 件を除外した判断 (1.3)。
 5. 甲虫の追加 harvest 提案 (5.2)。本巻に間に合わせるか、遠征 II 以降に回すか。
 6. 地域 blurb の第 1 案と対案 (4 章)。
+
+## 8. 写真の揃わない種の差し替え (2026-09-29 発案者承認)
+
+写真の検品と取り直し (`zukan_foundry/rounds/2026-09-29_cr1/`) のあと、取り直しでは使える写真が揃わない種を、同じ目の未選抜の種と入れ替えた。候補の写真と検品は同フォルダの `substitution_plan.md`。2 章の表はこの差し替えを反映済み。
+
+| 入れ替えた種 | 段 | 入れた種 | 理由 |
+|---|---|---|---|
+| Acanthops godmani | R | Acontista cordillerae | 旧写真は指摘あり、他の取得元に候補なし |
+| Vates pectinicornis | N | Stagmomantis heterogamia | 同上 |
+| Tithrone roseipennis | N | Tauromantis championi | 同上 |
+| Leptonema albovirens | N | Leptonema complexum | 同上 |
+| Copiphora cultricornis | N | Copiphora hastata | 写真なし |
+| Chlorogonalia coeruleovittata | N | Macunolla ventralis | 写真なし |
+| Canthidium aurifex | N | Onthophagus acuminatus | 写真なし |
+| Pterinoxylus speciosus | N | Rhynchacris ornata | 写真なし |
+| Helicopsyche incisa | N | Leptonema crassum | 写真なし |
+| Astraptes fulgerator | N | Dichomeris santarosensis | 取り直しても別種の疑い |
+| Euglossa imperialis | R | Euglossa tridentata | 取り直しても頭部の拡大のみ |
+| Lirometopum coronatum | R | Phylloptera dimidiata | 取り直しても幼虫の疑い |
+
+未決 (発案者と相談中): SR の Umbonia crassicornis 枠 (候補の写真なし)、同じ目で埋まらない 7 枠 (Graphocephala albomaculata、Oncotophasma martini、Prisopus biolleyi、Scione maculipennis、Nectopsyche punctata、Atopsyche majada、Trigona fulviventris)。
+
+背面と腹面を並べた写真は使えるとする (2026-09-29 発案者決定)。Caligo atreus と Siproeta stelenes はこの扱いで残す。
