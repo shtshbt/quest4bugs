@@ -98,6 +98,45 @@ def cards() -> dict[str, dict]:
     return out
 
 
+def figure(card: dict | None, title: str, sci: str, note: str, state: str) -> str:
+    if card:
+        thumb = ((card.get("files") or {}).get("thumbnails") or {}).get("216") or card["files"]["display"]
+        img = os.path.relpath(ROOT / "zukan_cards" / thumb, HERE)
+        src = (card.get("specimen") or {}).get("institutionCode") or ""
+        pic = f'<img src="{html.escape(img)}" alt="">'
+    else:
+        src, pic = "", '<div class="noimg">写真なし</div>'
+    return (f'<figure class="{state}">{pic}<figcaption><b>{html.escape(title)}</b>'
+            f'<i>{html.escape(sci)}</i><span>{html.escape(src)}</span>'
+            f'<em>{html.escape(note)}</em></figcaption></figure>')
+
+
+def candidate_section(rows: list[tuple[str, str, str]], meta: dict[str, dict]) -> str:
+    """substitution_plan.md の枠ごとに、今のカードと候補 2 種を横に並べる。"""
+    plan = HERE / "substitution_plan.md"
+    if not plan.exists():
+        return ""
+    by_id = {sci.lower().replace(" ", "_"): (rar, sci) for rar, sci, _ in rows}
+    lines = []
+    for line in plan.read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 5 or cells[0] not in by_id:
+            continue
+        rar, sci = by_id[cells[0]]
+        figs = [figure(meta.get(sci), f"入れ替える種 ({rar})", sci, cells[2], "flagged")]
+        for cell in cells[3:5]:
+            cand = re.match(r"([A-Z][a-z]+ [a-z\-]+)", cell)
+            if not cand:
+                continue
+            csci = cand.group(1)
+            card = meta.get(csci)
+            figs.append(figure(card, "候補", csci, cell[len(csci):].strip(" ()"),
+                               "ok" if card else "missing"))
+        lines.append(f'<div class="row">{"".join(figs)}</div>')
+    return ("<h2>差し替え候補</h2><p>左が入れ替える種、右の 2 つが候補 (同じ目、同じ科を優先)。"
+            "写真の無い候補は取得できなかったもの。</p>" + "".join(lines))
+
+
 def main() -> int:
     rows = selection()
     if len(rows) != 84:
@@ -146,6 +185,7 @@ def main() -> int:
         sections.append(f"<h2>{rarity}</h2><div class=\"grid\">{''.join(items)}</div>")
     summary = (f"問題なし {counts['ok']}、取り直し {counts['refetched']}、8/18 の指摘あり {counts['flagged']}、"
                f"写真なし {counts['missing']} (計 84)")
+    sections.append(candidate_section(rows, meta))
     page = f"""<!doctype html><html lang="ja"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>コスタリカ遠征 I 確認</title>
 <style>
@@ -159,6 +199,7 @@ img{{width:100%;aspect-ratio:1;object-fit:contain;background:#fafafa}}
 .noimg{{aspect-ratio:1;display:flex;align-items:center;justify-content:center;color:#999}}
 figcaption{{display:flex;flex-direction:column;gap:2px;font-size:12px}}
 figcaption i{{color:#555}} figcaption span{{color:#888}} figcaption em{{font-style:normal;color:#8a4b00}}
+.row{{display:grid;grid-template-columns:repeat(3,minmax(0,200px));gap:10px;margin-bottom:12px}}
 </style>
 <h1>コスタリカ遠征 I 凍結前の確認</h1><p>{summary}。枠の色: 緑 問題なし / 青 取り直し / 橙 8/18 の指摘あり / 赤 写真なし。</p>
 {''.join(sections)}</html>"""
