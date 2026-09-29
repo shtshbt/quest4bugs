@@ -54,7 +54,7 @@ komorebi/app.js、shared/reward.js、shared/breeding.js、shared/bugs.js、index
 | 小道の正答で本編種の卵が進まない | 満たす | 小道は feedEgg を一切呼ばない。keisan/app.js の feedEgg("keisan") は keisan 自身の判定関数内のみで、小道の applyAnswer 経路からは呼ばれない (小道ページが keisan/app.js を読み込んでいても発火しない。混線なし) |
 | かけらと雫は小道のプレイで増えない | 満たす | komorebi/app.js は fossilFragments にも雫 (equipment rank 5) にも触れる経路を持たない |
 | こはくは小道でも増える (決定 3) | 未実装 | 小道の applyAnswer は独自ゲージのみで earnAmber を通らない。共有ウォレット自体は keisan/app.js 先頭の setAmberStore 経由で小道ページにも配線済みなので、小道の有効正答時に加算を呼ぶ実装だけが欠けている |
-| 6-8 時の小道捕獲で色違い率上昇 (決定 5) | 実装済み | recordCapture が reward.record を source:"wild" で呼び、shinyChanceFor が 6:00-7:59 に 0.045 (通常 0.015) を適用する。本編の野生捕獲と同一経路・同率 |
+| 6-8 時の小道捕獲で色違い率上昇 (決定 5) | 実装済み | recordCapture が reward.record を source:"wild" で呼び、shinyChanceFor が 6:00-7:59 に 0.045 (通常 0.015) を適用する。本編の野生捕獲と同一経路・同率。こはく呼び出しは本編と同じく対象外 (source:"amber"。2026-09-28 発案者決定。それまでは呼び出しも "wild" で渡していて対象になっていた) |
 
 補足:
 

@@ -265,9 +265,12 @@
   function recordCapture(collection,draw,random,recordSource){
     var id=draw.species.id;
     var rewardCollection={catches:collection.catches,total:collection.totalCatches};
-    /* recordSource はこはく呼び出しのとき "amber"。捕獲記録に入手経路を残すだけで、
-       色違いの判定 (source:"wild") は変えない。 */
-    var recorded=rewardEngine().record(rewardCollection,draw.species,{source:"wild",recordSource:recordSource,random:random,game:"komorebi",mode:"volume"});
+    /* recordSource はこはく呼び出しのとき "amber"。本編の呼び出し (spendForCatch) と
+       同じく source も "amber" にして、朝 6-8 時の色違い 3 倍 (野生の捕獲だけの特典)
+       から外す (2026-09-28 発案者決定。それまでは "wild" で渡していて対象になっていた)。
+       捕獲記録には src:"amber" が残る。 */
+    var source=recordSource==="amber"?"amber":"wild";
+    var recorded=rewardEngine().record(rewardCollection,draw.species,{source:source,recordSource:recordSource,random:random,game:"komorebi",mode:"volume"});
     collection.catches=rewardCollection.catches;
     collection.totalCatches=rewardCollection.total;
     if(draw.pityDuplicates)collection.pityDuplicates=draw.pityDuplicates;

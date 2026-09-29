@@ -120,6 +120,9 @@ test("feedbackHtml stays silent for zero, missing, or incorrect amber results", 
       assert.equal(context.__saved.komorebi.collection.totalCatches, 1, "the capture must be persisted");
       const called = Object.values(komorebi.profile().collection.catches)[0].records;
       assert.equal(called[called.length - 1].src, "amber", "an amber call leaves its source on the record");
+      /* 呼び出しは朝の色違い 3 倍の対象外 (本編の呼び出しと同じ)。 */
+      assert.match(fs.readFileSync(path.join(root, "komorebi/app.js"), "utf8"),
+        /var source=recordSource==="amber"\?"amber":"wild";/);
       /* 地域図鑑の分母は、公開済みのマダガスカルの巻の合計 (更新 5 で MG II の 80 が乗る)。 */
       const released = v => !Number.isInteger(v.release) || v.release <= komorebi.currentRelease();
       const mgDenom = Object.values(context.Q4B_KOMOREBI_VOLUMES)
