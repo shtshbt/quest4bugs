@@ -44,3 +44,16 @@
 ## 取り直し 2 回目
 
 新しいゲートで、ラベル型 4 種、umbonia_crassicornis、要確認 3 種の計 8 種を `--skip-sources wikimedia,wikipedia` で取り直した (`run_refetch2.log`)。1 回目で候補が無かった 8 種は、Wikimedia と Wikipedia を除くと取得元が残らないので対象から外し、差し替えに回す。
+
+ゲートはラベル主体の 3 source (RMNH 2、USNM 1) を落として次の候補へ進み、8 種とも置き換わった。ただし 5 種は 1 回目と同じ写真に戻った (discovery の最上位が変わらないため)。判定は 2 回目の結果で上書きする (下の表が 1 回目の表より優先する)。
+
+| species_id | 判定 | 根拠 |
+|---|---|---|
+| urbanus_proteus | OK | 翅を開いた生体の全身 (iNat)。1 回目のラベルのみから改善 |
+| astraptes_fulgerator | 要確認 | 緑色の塊に脚が付いた形で、青黒いセセリの特徴が見えない。別種の疑い (iNat) |
+| argia_oenea | OK | 全身 (iNat)。1 回目のラベル主体から改善 |
+| nectopsyche_punctata | 不可 | ラベルと標本が接して 1 成分になる型。ゲートでは拾えない (NHMUK) |
+| umbonia_crassicornis | 不可 | 1 回目と同じ植物の茎の写真 (iNat) |
+| euglossa_imperialis | 要確認 | 1 回目と同じ頭部の拡大 (USNM) |
+| trigona_fulviventris | 要確認 | 1 回目と同じ (NHMUK) |
+| lirometopum_coronatum | 要確認 | 1 回目と同じ。幼虫の疑い (iNat) |
