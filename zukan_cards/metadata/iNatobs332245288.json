@@ -1,0 +1,80 @@
+{
+  "species_id": "sphacelodes_vulneraria",
+  "species_ja": "Sphacelodes vulneraria",
+  "scientific_name": "Sphacelodes vulneraria",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "zygy (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_332245288",
+    "occurrenceId": "https://www.inaturalist.org/observations/332245288",
+    "persistentId": "https://www.inaturalist.org/observations/332245288",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "zygy",
+    "eventDate": "2025-12-26",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null,
+    "decimalLatitude": 17.0275703009,
+    "decimalLongitude": -89.0343889085,
+    "coordinatesObscured": true,
+    "iNatObservationId": "332245288",
+    "iNatPhotoId": "602917504",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/332245288",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/602917504/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs332245288_resized.jpg",
+    "display": "processed/iNatobs332245288_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs332245288_54.webp",
+      "108": "thumb/iNatobs332245288_108.webp",
+      "216": "thumb/iNatobs332245288_216.webp"
+    }
+  },
+  "original_sha256": "10e207d23f9a7293a3550ca10e3b711c7ddd9740f87a310dbeb6af5ce1d8c04c",
+  "processing": {
+    "cropBox": [
+      0,
+      376,
+      2048,
+      1226
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs332245288_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

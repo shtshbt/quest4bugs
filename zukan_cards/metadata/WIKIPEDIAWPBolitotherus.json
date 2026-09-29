@@ -1,0 +1,74 @@
+{
+  "species_id": "onthophagus_acuminatus",
+  "species_ja": "Onthophagus acuminatus",
+  "scientific_name": "Onthophagus acuminatus",
+  "credit_line": "Wikipedia (en article infobox)",
+  "creator": "Ken-ichi Ueda",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikipedia (en article infobox)",
+    "institutionCode": "WIKIPEDIA",
+    "collectionCode": null,
+    "catalogNumber": "WP:Bolitotherus",
+    "occurrenceId": "https://en.wikipedia.org/wiki/Bolitotherus",
+    "persistentId": "https://en.wikipedia.org/wiki/Bolitotherus",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Ken-ichi Ueda",
+    "eventDate": "2016-08-27",
+    "eventYear": 2016,
+    "country": null,
+    "localityVerbatim": "https://www.inaturalist.org/observations/4007237",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://en.wikipedia.org/wiki/Bolitotherus",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Bolitotherus_cornutus_horned_fungus_beetle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WIKIPEDIAWPBolitotherus_resized.jpg",
+    "display": "processed/WIKIPEDIAWPBolitotherus_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WIKIPEDIAWPBolitotherus_54.webp",
+      "108": "thumb/WIKIPEDIAWPBolitotherus_108.webp",
+      "216": "thumb/WIKIPEDIAWPBolitotherus_216.webp"
+    }
+  },
+  "original_sha256": "8b652718631fa09e75cc87ada681d03a02f9c73aaff768546ddcb41ec77a3416",
+  "processing": {
+    "cropBox": [
+      8,
+      236,
+      1705,
+      1036
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WIKIPEDIAWPBolitotherus_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

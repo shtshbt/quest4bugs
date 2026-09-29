@@ -1,0 +1,74 @@
+{
+  "species_id": "macunolla_ventralis",
+  "species_ja": "Macunolla ventralis",
+  "scientific_name": "Macunolla ventralis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Annika Lindqvist",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Macunolla ventralis 13978936.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Macunolla_ventralis_13978936.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Macunolla_ventralis_13978936.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Annika Lindqvist",
+    "eventDate": "2018-02-27",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Macunolla ventralis",
+    "localityNormalized": "Macunolla ventralis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Macunolla_ventralis_13978936.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Macunolla_ventralis_13978936.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMacunollaventralis13978936jpg_resized.jpg",
+    "display": "processed/WMCFileMacunollaventralis13978936jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMacunollaventralis13978936jpg_54.webp",
+      "108": "thumb/WMCFileMacunollaventralis13978936jpg_108.webp",
+      "216": "thumb/WMCFileMacunollaventralis13978936jpg_216.webp"
+    }
+  },
+  "original_sha256": "3e6d6dd46b707be1e10265d8b6179a1b801ffb22d2190f5f6c29141acee9a9c4",
+  "processing": {
+    "cropBox": [
+      150,
+      262,
+      751,
+      555
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMacunollaventralis13978936jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

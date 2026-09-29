@@ -1,0 +1,74 @@
+{
+  "species_id": "sylvicanthon_aequinoctialis",
+  "species_ja": "Sylvicanthon aequinoctialis",
+  "scientific_name": "Sylvicanthon aequinoctialis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Cupello, M., &amp; Vaz-de-Mello, F. Z.",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sylvicanthon aequinoctialis.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sylvicanthon_aequinoctialis.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sylvicanthon_aequinoctialis.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Cupello, M., &amp; Vaz-de-Mello, F. Z.",
+    "eventDate": "2018",
+    "eventYear": 2018,
+    "country": null,
+    "localityVerbatim": "Sylvicanthon aequinoctialis",
+    "localityNormalized": "Sylvicanthon aequinoctialis",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sylvicanthon_aequinoctialis.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Sylvicanthon_aequinoctialis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileSylvicanthonaequinoctialisjpg_resized.jpg",
+    "display": "processed/WMCFileSylvicanthonaequinoctialisjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSylvicanthonaequinoctialisjpg_54.webp",
+      "108": "thumb/WMCFileSylvicanthonaequinoctialisjpg_108.webp",
+      "216": "thumb/WMCFileSylvicanthonaequinoctialisjpg_216.webp"
+    }
+  },
+  "original_sha256": "10026545848ad653da6489b5f90acbc5262f3c6f81bf06c4b50ebec982f54b93",
+  "processing": {
+    "cropBox": [
+      2,
+      0,
+      824,
+      578
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSylvicanthonaequinoctialisjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

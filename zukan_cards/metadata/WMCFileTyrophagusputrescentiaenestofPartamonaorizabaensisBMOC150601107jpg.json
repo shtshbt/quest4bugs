@@ -1,0 +1,74 @@
+{
+  "species_id": "partamona_orizabaensis",
+  "species_ja": "Partamona orizabaensis",
+  "scientific_name": "Partamona orizabaensis",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Photo by Pavel Klimov, Bee Mite ID (idtools.org/id/mites/beemites) unless otherwise stated in description.",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Tyrophagus putrescentiae nest of Partamona orizabaensis BMOC-15-0601-107.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Tyrophagus_putrescentiae_nest_of_Partamona_orizabaensis_BMOC-15-0601-107.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Tyrophagus_putrescentiae_nest_of_Partamona_orizabaensis_BMOC-15-0601-107.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Photo by Pavel Klimov, Bee Mite ID (idtools.org/id/mites/beemites) unless otherwise stated in description.",
+    "eventDate": "2017-05-01 14:04:35",
+    "eventYear": 2017,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Tyrophagus_putrescentiae_nest_of_Partamona_orizabaensis_BMOC-15-0601-107.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Tyrophagus_putrescentiae_nest_of_Partamona_orizabaensis_BMOC-15-0601-107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "PDM-1.0",
+    "mediaLicense": "PDM-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "files": {
+    "resized": "original/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_resized.jpg",
+    "display": "processed/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_54.webp",
+      "108": "thumb/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_108.webp",
+      "216": "thumb/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_216.webp"
+    }
+  },
+  "original_sha256": "efcbd79ec27af2dc44f3ac99f33460ff3a63c280d37ee62883054029ddc2eaab",
+  "processing": {
+    "cropBox": [
+      604,
+      279,
+      1185,
+      975
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileTyrophagusputrescentiaenestofPartamonaorizabaensisBMOC150601107jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

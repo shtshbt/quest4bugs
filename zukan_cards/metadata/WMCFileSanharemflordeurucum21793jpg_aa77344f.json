@@ -1,0 +1,74 @@
+{
+  "species_id": "trigona_silvestriana",
+  "species_ja": "Trigona silvestriana",
+  "scientific_name": "Trigona silvestriana",
+  "credit_line": "Wikimedia Commons",
+  "creator": "André Koehne",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Sanharó em flor de urucum (21793).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Sanhar%C3%B3_em_flor_de_urucum_(21793).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Sanhar%C3%B3_em_flor_de_urucum_(21793).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "André Koehne",
+    "eventDate": "30 April 2025 (according to <span lang=\"en\" dir=\"ltr\"><a href=\"https://en.wikipedia.org/wiki/Exif\" class=\"extiw\" title=\"en:Exif\">Exif</a></span> data)",
+    "eventYear": 2025,
+    "country": null,
+    "localityVerbatim": "Abelha sanharó (Trigona silvestriana) em flor de urucum (Bixa orellana), sítio Sicupira,Caetité Bahia",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Sanhar%C3%B3_em_flor_de_urucum_(21793).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Sanhar%C3%B3_em_flor_de_urucum_%2821793%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileSanharemflordeurucum21793jpg_aa77344f_resized.jpg",
+    "display": "processed/WMCFileSanharemflordeurucum21793jpg_aa77344f_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileSanharemflordeurucum21793jpg_aa77344f_54.webp",
+      "108": "thumb/WMCFileSanharemflordeurucum21793jpg_aa77344f_108.webp",
+      "216": "thumb/WMCFileSanharemflordeurucum21793jpg_aa77344f_216.webp"
+    }
+  },
+  "original_sha256": "2780601da5bc8301c75b2eba2cd4171ce1f0c0d23951a8f371176e06bea0875d",
+  "processing": {
+    "cropBox": [
+      189,
+      150,
+      2200,
+      2252
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileSanharemflordeurucum21793jpg_aa77344f_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

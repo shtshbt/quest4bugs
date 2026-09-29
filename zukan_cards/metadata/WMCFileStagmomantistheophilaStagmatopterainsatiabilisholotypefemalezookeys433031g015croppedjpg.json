@@ -1,0 +1,74 @@
+{
+  "species_id": "stagmomantis_theophila",
+  "species_ja": "Stagmomantis theophila",
+  "scientific_name": "Stagmomantis theophila",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Svenson G",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Stagmomantis theophila (Stagmatoptera insatiabilis holotype female) zookeys-433-031-g015 (cropped).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Stagmomantis_theophila_(Stagmatoptera_insatiabilis_holotype_female)_zookeys-433-031-g015_(cropped).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Stagmomantis_theophila_(Stagmatoptera_insatiabilis_holotype_female)_zookeys-433-031-g015_(cropped).jpg",
+    "basisOfRecord": "PreservedSpecimen",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Svenson G",
+    "eventDate": "2014",
+    "eventYear": 2014,
+    "country": null,
+    "localityVerbatim": "Types (scale bars = 1 cm). Stagmatoptera insatiabilis Rehn, 1904 holotype female (USNM ENT 00873972): A dorsal habitus B ventral habitus C labels. Stagmomantis hoorie Caudell, 1910 lectotype male (USNM ENT 00873973): D dorsal habitus E ventral habitus F labels.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Stagmomantis_theophila_(Stagmatoptera_insatiabilis_holotype_female)_zookeys-433-031-g015_(cropped).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Stagmomantis_theophila_%28Stagmatoptera_insatiabilis_holotype_female%29_zookeys-433-031-g015_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-4.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_resized.jpg",
+    "display": "processed/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_54.webp",
+      "108": "thumb/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_108.webp",
+      "216": "thumb/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_216.webp"
+    }
+  },
+  "original_sha256": "fa981c2e02a4ea090bce1185f4d73993774a9da24274be6c5e361394995e079e",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      520,
+      377
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileStagmomantistheophilaStagmatopterainsatiabilisholotypefemalezookeys433031g015croppedjpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.57), rotate 0 CCW"
+}

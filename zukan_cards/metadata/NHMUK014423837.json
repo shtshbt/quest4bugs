@@ -1,0 +1,74 @@
+{
+  "species_id": "leptonema_crassum",
+  "species_ja": "Leptonema crassum",
+  "scientific_name": "Leptonema crassum",
+  "credit_line": "Natural History Museum, London",
+  "creator": "Natural History Museum, London",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Natural History Museum, London",
+    "institutionCode": "NHMUK",
+    "collectionCode": "BMNH(E)",
+    "catalogNumber": "NHMUK014423837",
+    "occurrenceId": "6215d3be-9e18-4139-8b5c-96b369d97012",
+    "persistentId": "6215d3be-9e18-4139-8b5c-96b369d97012",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": "Adult",
+    "recordedBy": null,
+    "eventDate": "1873-11",
+    "eventYear": 1873,
+    "country": "Brazil",
+    "localityVerbatim": null,
+    "localityNormalized": "Brazil",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": "3330237048",
+    "institutionRecordUrl": "https://data.nhm.ac.uk/object/6215d3be-9e18-4139-8b5c-96b369d97012",
+    "sourceMediaUrl": "https://data.nhm.ac.uk/media/7141366d-87c8-411b-b19c-070a6598e465",
+    "datasetKey": "7e380070-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "files": {
+    "resized": "original/NHMUK014423837_resized.jpg",
+    "display": "processed/NHMUK014423837_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/NHMUK014423837_54.webp",
+      "108": "thumb/NHMUK014423837_108.webp",
+      "216": "thumb/NHMUK014423837_216.webp"
+    }
+  },
+  "original_sha256": "01f6147678e4f012243cfac044e20a833551dae6caa625596ae3332e08315d76",
+  "processing": {
+    "cropBox": [
+      569,
+      559,
+      1064,
+      1048
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/NHMUK014423837_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

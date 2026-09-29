@@ -1,0 +1,74 @@
+{
+  "species_id": "metilia_brunnerii",
+  "species_ja": "Metilia brunnerii",
+  "scientific_name": "Metilia brunnerii",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Didier Descouens",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Metilia brunnerii MHNT male vol.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Metilia_brunnerii_MHNT_male_vol.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Metilia_brunnerii_MHNT_male_vol.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Didier Descouens",
+    "eventDate": "Taken on 26 December 2011",
+    "eventYear": 2011,
+    "country": null,
+    "localityVerbatim": "♂ Flying position Locality : Montsinéry, Crique Balata, French Guiana.",
+    "localityNormalized": null,
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Metilia_brunnerii_MHNT_male_vol.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Metilia_brunnerii_MHNT_male_vol.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-4.0",
+    "mediaLicense": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "files": {
+    "resized": "original/WMCFileMetiliabrunneriiMHNTmalevoljpg_resized.jpg",
+    "display": "processed/WMCFileMetiliabrunneriiMHNTmalevoljpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileMetiliabrunneriiMHNTmalevoljpg_54.webp",
+      "108": "thumb/WMCFileMetiliabrunneriiMHNTmalevoljpg_108.webp",
+      "216": "thumb/WMCFileMetiliabrunneriiMHNTmalevoljpg_216.webp"
+    }
+  },
+  "original_sha256": "7f9a559b7dcd0c982e89715a49fa32eb56f12fefc88912d828e5684f507c0c0b",
+  "processing": {
+    "cropBox": [
+      261,
+      176,
+      3659,
+      2117
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileMetiliabrunneriiMHNTmalevoljpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

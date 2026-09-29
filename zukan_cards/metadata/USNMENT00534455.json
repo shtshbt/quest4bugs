@@ -1,0 +1,74 @@
+{
+  "species_id": "euglossa_tridentata",
+  "species_ja": "Euglossa tridentata",
+  "scientific_name": "Euglossa tridentata",
+  "credit_line": "National Museum of Natural History, Smithsonian Institution",
+  "creator": "Matthew Kweskin",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "National Museum of Natural History, Smithsonian Institution",
+    "institutionCode": "USNM",
+    "collectionCode": "ENT",
+    "catalogNumber": "USNMENT00534455",
+    "occurrenceId": "http://n2t.net/ark:/65665/39efd5f68-f8cb-432d-b11b-14531377f667",
+    "persistentId": "http://n2t.net/ark:/65665/39efd5f68-f8cb-432d-b11b-14531377f667",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": "Type",
+    "sex": "Male",
+    "lifeStage": null,
+    "recordedBy": "R. Dressler",
+    "eventDate": "1965-06-27",
+    "eventYear": 1965,
+    "country": "Panama",
+    "localityVerbatim": null,
+    "localityNormalized": "Panama, summit gardens, C.Z, Panama",
+    "preparations": "Pinned"
+  },
+  "source": {
+    "gbifOccurrenceKey": "1320796836",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/1320796836",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=9121972&h=1023",
+    "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/USNMENT00534455_resized.jpg",
+    "display": "processed/USNMENT00534455_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/USNMENT00534455_54.webp",
+      "108": "thumb/USNMENT00534455_108.webp",
+      "216": "thumb/USNMENT00534455_216.webp"
+    }
+  },
+  "original_sha256": "22244991937e90b6a5327afeb89122a40b96b3dd7f1b22c17f31367f05d9acac",
+  "processing": {
+    "cropBox": [
+      25,
+      103,
+      1022,
+      656
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/USNMENT00534455_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

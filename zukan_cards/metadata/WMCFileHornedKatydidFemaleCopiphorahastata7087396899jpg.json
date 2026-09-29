@@ -1,0 +1,74 @@
+{
+  "species_id": "copiphora_hastata",
+  "species_ja": "Copiphora hastata",
+  "scientific_name": "Copiphora hastata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Bernard DUPONT from FRANCE",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Horned Katydid Female (Copiphora hastata) (7087396899).jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Horned_Katydid_Female_(Copiphora_hastata)_(7087396899).jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Horned_Katydid_Female_(Copiphora_hastata)_(7087396899).jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Bernard DUPONT from FRANCE",
+    "eventDate": "2006-10-05 02:28",
+    "eventYear": 2006,
+    "country": null,
+    "localityVerbatim": "Tortuguero NP, COSTA RICA",
+    "localityNormalized": "Tortuguero NP, COSTA RICA",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Horned_Katydid_Female_(Copiphora_hastata)_(7087396899).jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Horned_Katydid_Female_%28Copiphora_hastata%29_%287087396899%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC-BY-SA-2.0",
+    "mediaLicense": "CC-BY-SA-2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "files": {
+    "resized": "original/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_resized.jpg",
+    "display": "processed/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_54.webp",
+      "108": "thumb/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_108.webp",
+      "216": "thumb/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_216.webp"
+    }
+  },
+  "original_sha256": "24ed7b207543f85fa67162727f1382a7cc3339627f19449aa765bf970b275cbc",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      1559,
+      1200
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileHornedKatydidFemaleCopiphorahastata7087396899jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

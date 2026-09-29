@@ -1,0 +1,74 @@
+{
+  "species_id": "rhynchacris_ornata",
+  "species_ja": "Rhynchacris ornata",
+  "scientific_name": "Rhynchacris ornata",
+  "credit_line": "Wikimedia Commons",
+  "creator": "Drägüs",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Wikimedia Commons",
+    "institutionCode": "WMC",
+    "collectionCode": null,
+    "catalogNumber": "File:Rhynchacris ornata - PSG 171.jpg",
+    "occurrenceId": "https://commons.wikimedia.org/wiki/File:Rhynchacris_ornata_-_PSG_171.jpg",
+    "persistentId": "https://commons.wikimedia.org/wiki/File:Rhynchacris_ornata_-_PSG_171.jpg",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Drägüs",
+    "eventDate": "2001-03-24",
+    "eventYear": 2001,
+    "country": null,
+    "localityVerbatim": "female of Rhynchacris ornata - PSG 171",
+    "localityNormalized": "female of Rhynchacris ornata - PSG 171",
+    "preparations": null
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://commons.wikimedia.org/wiki/File:Rhynchacris_ornata_-_PSG_171.jpg",
+    "sourceMediaUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Rhynchacris_ornata_-_PSG_171.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  "files": {
+    "resized": "original/WMCFileRhynchacrisornataPSG171jpg_resized.jpg",
+    "display": "processed/WMCFileRhynchacrisornataPSG171jpg_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/WMCFileRhynchacrisornataPSG171jpg_54.webp",
+      "108": "thumb/WMCFileRhynchacrisornataPSG171jpg_108.webp",
+      "216": "thumb/WMCFileRhynchacrisornataPSG171jpg_216.webp"
+    }
+  },
+  "original_sha256": "758ef17995f1d3a49380e7b509878e2665def842346e4331a07945824a23dc30",
+  "processing": {
+    "cropBox": [
+      43,
+      107,
+      675,
+      362
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/WMCFileRhynchacrisornataPSG171jpg_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
