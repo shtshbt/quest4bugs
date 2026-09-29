@@ -1071,8 +1071,10 @@
   /* 端末 id は同期ファイルから来る外部入力なので、Object.prototype の名前と
      __proto__ を持ち物として読まない。 */
   function ownCount(map,key){ return Object.prototype.hasOwnProperty.call(map,key)?map[key]:0; }
+  /* 演出を見せた記録の種類。段が下がった知らせは、どの端末で見ても 1 回で済ませる。 */
+  var TOMOSHIBI_SEEN_KINDS={drop:1};
   function normalizeTomoshibiData(data){
-    var out={v:1,days:{},awarded:{}}, d, dev, n, src, a;
+    var out={v:1,days:{},awarded:{},seen:{}}, d, dev, n, src, a, kind;
     data=data&&typeof data==="object"?data:{};
     if(data.days&&typeof data.days==="object"){
       for(d in data.days){
@@ -1094,10 +1096,24 @@
         out.awarded[d]={base:Math.max(0,Math.floor(a.base)||0),top:Math.max(0,Math.floor(a.top)||0)};
       }
     }
+    if(data.seen&&typeof data.seen==="object"){
+      for(d in data.seen){
+        if(!isTomoshibiDate(d))continue;
+        a=data.seen[d];
+        if(!a||typeof a!=="object")continue;
+        for(kind in TOMOSHIBI_SEEN_KINDS){
+          if(a[kind]){ if(!out.seen[d])out.seen[d]={}; out.seen[d][kind]=1; }
+        }
+      }
+    }
     return out;
   }
   function mergeTomoshibiData(a,b){
-    var out=normalizeTomoshibiData(a), inc=normalizeTomoshibiData(b), d, dev, cur;
+    var out=normalizeTomoshibiData(a), inc=normalizeTomoshibiData(b), d, dev, cur, kind;
+    for(d in inc.seen){
+      if(!out.seen[d])out.seen[d]={};
+      for(kind in inc.seen[d])out.seen[d][kind]=1;
+    }
     for(d in inc.days){
       if(!out.days[d])out.days[d]={dev:{}};
       for(dev in inc.days[d].dev)out.days[d].dev[dev]=Math.max(ownCount(out.days[d].dev,dev),inc.days[d].dev[dev]);
@@ -1146,6 +1162,18 @@
     if(cur[field]>0)return false;
     cur[field]=Math.max(1,Math.floor(amount)||0);
     data.awarded[date]=cur;
+    writeTomoshibi(pid,data);
+    return true;
+  }
+  /* 演出を見せたことを記録する。date はその出来事の日 (段が下がった日など)。
+     "off" では書かない。すでに記録済みなら false。 */
+  function tomoshibiMarkSeen(pid,date,kind){
+    if(tomoshibiModeNow()==="off")return false;
+    if(!pid||!isTomoshibiDate(date)||!TOMOSHIBI_SEEN_KINDS[kind])return false;
+    var data=tomoshibiOf(pid);
+    if(data.seen[date]&&data.seen[date][kind])return false;
+    if(!data.seen[date])data.seen[date]={};
+    data.seen[date][kind]=1;
     writeTomoshibi(pid,data);
     return true;
   }
@@ -1641,6 +1669,7 @@
     toolGearOf:toolGearOf, toolGearSet:toolGearSet, toolGearMigrateFromProfile:toolGearMigrateFromProfile,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     tomoshibiOf:tomoshibiOf, tomoshibiRecord:tomoshibiRecord, tomoshibiMarkAwarded:tomoshibiMarkAwarded,
+    tomoshibiMarkSeen:tomoshibiMarkSeen,
     todayKey:todayKey,
     chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,

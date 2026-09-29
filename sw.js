@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v181";  /* v181: れんぞく ともしび の段 1 (TOMOSHIBI_MODE="off" のまま配線だけ入れる)。 */
+var CACHE = "q4b-cache-v182";  /* v182: れんぞく ともしび の段 2 (表示と演出。TOMOSHIBI_MODE="off" のまま)。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -36,7 +36,7 @@ var CORE = [
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
   "./komorebi/seisu_generator.js",
   "./komorebi/diagram_engine.js", "./komorebi/diagram_model_generator.js",
-  "./shared/economy_flag.js", "./shared/tomoshibi.js", "./shared/tool_icons.js",
+  "./shared/economy_flag.js", "./shared/tomoshibi.js", "./shared/tomoshibi_ui.js","./shared/tool_icons.js",
   "./shared/tool_scenes.js",
   "./shared/tools_ui.js", "./shared/capture_card.js", "./shared/tools.css",
   "./komorebi/trophies.js", "./shared/species_guilds.js", "./shared/tools.js", "./komorebi/uro.js",

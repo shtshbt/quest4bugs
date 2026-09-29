@@ -693,12 +693,19 @@
   function statusHTML(v){
     v = v || {};
     function chip(t){ return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.9);border:1.5px solid #CFDDB2;border-radius:999px;padding:2px 9px;font-size:13px;font-weight:800;color:#2A3D2C;white-space:nowrap">'+t+'</span>'; }
+    /* れんぞく ともしび が公開 (TOMOSHIBI_MODE="on") されていれば、🔥 の日数を
+       ともしびのカウンターに置き換える。公開前は空文字が返り、従来どおり 🔥 を出す。 */
+    var tomo = "";
+    try{
+      if(global.Q4BTomoshibiUI && typeof global.Q4BTomoshibiUI.badgeHTML === "function") tomo = global.Q4BTomoshibiUI.badgeHTML() || "";
+    }catch(_){ tomo = ""; }
     return '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px">'
       + chip('📖 '+(v.caught||0)+'/'+(v.pool||0))
       + chip('🔶 '+(v.amber||0))
-      + chip('🔥 '+(v.streak||0)+'日')
+      + (tomo ? '' : chip('🔥 '+(v.streak||0)+'日'))
       + chip('🏅 '+rank(v.total||0))
-      + '</div>';
+      + '</div>'
+      + tomo;
   }
 
   /* =========================================================================

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tomoshibi preview</title>
+<style>
+  body{margin:0;padding:12px;font-family:"Hiragino Maru Gothic ProN","Noto Sans JP",sans-serif;background:#f3f7ea}
+  h2{font-size:13px;margin:10px 0 4px;color:#5a6b4a}
+</style>
+<!-- れんぞく ともしび の見た目の確認用 (tests/tomoshibi_visual/capture.py が開く)。
+     本物の保存層の代わりに、決まった日の履歴を返す最小の QuestSave を置く。
+     ?fx=bonus|up|drop|help でその演出を出す。 -->
+<script>
+  window.Q4B_KOMOREBI_TEST_HOOKS = true;
+</script>
+<script src="../../shared/economy_flag.js"></script>
+<script src="../../shared/tomoshibi.js"></script>
+<script>
+  Q4B_ECONOMY.setTomoshibiMode("on");
+  var TODAY = "2026-09-28";
+  var T = Q4BTomoshibi;
+  function history(counts){
+    var days = {};
+    counts.forEach(function(n, i){ if(n > 0) days[T.addDays(TODAY, i - counts.length + 1)] = {dev:{d:n}}; });
+    return {v:1, days:days, awarded:{}, seen:{}};
+  }
+  function fill(n, v){ return Array(n).fill(v); }
+  var DATA = {
+    aka: history([].concat(fill(2, 5), [1])),
+    ao: history(fill(7, 5)),
+    gin: history(fill(12, 5)),
+    kin: history(fill(21, 5)),
+    niji: history([].concat(fill(35, 5), [4])),
+    drop: history([].concat(fill(31, 5), [0, 0]))
+  };
+  var current = "gin";
+  window.QuestSave = {
+    currentProfile: function(){ return current; },
+    todayKey: function(){ return TODAY; },
+    tomoshibiOf: function(pid){ return JSON.parse(JSON.stringify(DATA[pid] || {v:1, days:{}, awarded:{}, seen:{}})); },
+    tomoshibiMarkAwarded: function(){ return false; },
+    tomoshibiMarkSeen: function(){ return true; },
+    amberAdd: function(){ return 0; }
+  };
+</script>
+<script src="../../shared/tomoshibi_ui.js"></script>
+</head>
+<body>
+<div id="badges"></div>
+<script>
+  var box = document.getElementById("badges");
+  ["aka", "ao", "gin", "kin", "niji", "drop"].forEach(function(pid){
+    box.insertAdjacentHTML("beforeend", "<h2>" + pid + "</h2>" + Q4BTomoshibiUI.badgeHTML(pid));
+  });
+  var fx = (location.search.match(/fx=([a-z]+)/) || [])[1];
+  function state(pid){ return T.computeState(DATA[pid], TODAY); }
+  if(fx === "bonus"){
+    var s = state("gin");
+    dispatchEvent(new CustomEvent("q4b-tomoshibi", {detail:{state:s, basePaid:20, topPaid:0}}));
+  }else if(fx === "up"){
+    var u = state("kin");
+    u.tierUpToday = true;
+    /* 毎日のボーナスの演出を飛ばして、段が上がる演出を直接見る。 */
+    window.__tomoUp = u;
+    dispatchEvent(new CustomEvent("q4b-tomoshibi", {detail:{state:u, basePaid:40, topPaid:0}}));
+  }else if(fx === "drop"){
+    current = "drop";
+    Q4BTomoshibiUI.checkNow();
+  }else if(fx === "help"){
+    Q4BTomoshibiUI.showHelp();
+  }
+</script>
+</body>
+</html>

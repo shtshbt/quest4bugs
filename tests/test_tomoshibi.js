@@ -392,6 +392,74 @@ function solve(save, pid, n) {
     assert.equal(ctx.QuestSave.amberOf("p1"), 3);
   });
 
+  /* ---- 5. 表示 (段 2) ---- */
+
+  function uiContext(mode) {
+    const ctx = storageContext({ mode });
+    for (const file of ["shared/reward.js", "shared/tomoshibi_ui.js"]) {
+      vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), ctx);
+    }
+    ctx.QuestSave.currentProfile = () => "p1";
+    return ctx;
+  }
+
+  await test("mode off keeps the old fire chip and shows no badge", () => {
+    const ctx = uiContext(undefined);
+    assert.equal(ctx.Q4BTomoshibiUI.badgeHTML("p1"), "");
+    const html = ctx.Q4BReward.statusHTML({ caught: 1, pool: 2, amber: 3, streak: 4, total: 5 });
+    assert.match(html, /🔥 4日/);
+    assert.doesNotMatch(html, /q4b-tomo-badge/);
+  });
+
+  await test("mode on replaces the fire chip with the tomoshibi badge", () => {
+    const ctx = uiContext("on");
+    solve(ctx.QuestSave, "p1", 1);
+    const html = ctx.Q4BReward.statusHTML({ caught: 1, pool: 2, amber: 3, streak: 4, total: 5 });
+    assert.doesNotMatch(html, /🔥 4日/);
+    assert.match(html, /q4b-tomo-badge q4b-tomo-aka/);
+    assert.match(html, /あかの ともしび/);
+    assert.match(html, /あと 2 もんで きょうの ボーナス \+5/);
+  });
+
+  await test("the view model words the counter for each situation", () => {
+    const ctx = uiContext("on");
+    const UI = ctx.Q4BTomoshibiUI;
+    const T2 = ctx.Q4BTomoshibi;
+    const gin = plain(UI.viewModel(T2.computeState(run(T, "2026-09-01", Array(12).fill(5)), "2026-09-12")));
+    assert.equal(gin.name, "ぎんの ともしび");
+    assert.equal(gin.days, "12 にち れんぞく");
+    assert.equal(gin.today, "きょうの ボーナス +20 こはく ✓");
+    assert.equal(gin.next, "あと 9 にちで きんの ともしび (まいにち +40)");
+    assert.deepEqual(gin.ticks, { filled: 2, total: 10 });
+    const eve = plain(UI.viewModel(T2.computeState(run(T, "2026-09-01", Array(20).fill(5)), "2026-09-20")));
+    assert.equal(eve.next, "あした 3 もんで きんの ともしび！");
+    const drop = plain(UI.viewModel(T2.computeState(run(T, "2026-08-01", Array(31).fill(5)), "2026-09-02")));
+    assert.equal(drop.name, "ぎんの ともしび");
+    assert.equal(drop.days, "11 にちめ から さいかい");
+    assert.equal(drop.today, "あと 3 もんで きょうの ボーナス +20");
+    assert.equal(drop.ticks, null);
+    const niji = plain(UI.viewModel(T2.computeState(run(T, "2026-08-01", [...Array(30).fill(5), 4]), "2026-08-31")));
+    assert.equal(niji.today, "きょうの ボーナス +40 こはく ✓　あと 6 もんで +80");
+    assert.equal(niji.next, "いちばん つよい ともしび！ 10 もんの 日は +80");
+  });
+
+  await test("seen marks merge as a union and are never written in mode off", async () => {
+    const off = storageContext();
+    assert.equal(off.QuestSave.tomoshibiMarkSeen("p1", "2026-09-01", "drop"), false);
+    assert.equal(Object.keys(storeDoc(off).kv || {}).some(k => k.indexOf("tomoshibi") === 0), false);
+    const local = storageContext({ mode: "on", device: "devA" });
+    assert.equal(local.QuestSave.tomoshibiMarkSeen("p1", "2026-09-01", "drop"), true);
+    assert.equal(local.QuestSave.tomoshibiMarkSeen("p1", "2026-09-01", "drop"), false);
+    assert.equal(local.QuestSave.tomoshibiMarkSeen("p1", "2026-09-01", "bogus"), false);
+    const doc = storeDoc(local);
+    const remote = { schema: 1, kind: "snapshot", v: 2, profiles: doc.profiles || [], current: doc.current || null,
+      tombstones: {}, kv: { [tomoKey("p1")]: { v: 1, updated: Date.now() + 60000,
+        data: { v: 1, days: {}, awarded: {}, seen: { "2026-09-05": { drop: 1 } } } } } };
+    const ctx = storageContext({ backing: local.__backing, remote, mode: "on", device: "devA" });
+    await ctx.QuestSave.pullAll();
+    assert.deepEqual(plain(ctx.QuestSave.tomoshibiOf("p1").seen), { "2026-09-01": { drop: 1 }, "2026-09-05": { drop: 1 } });
+  });
+
   /* ---- 4. 小道の配線 ---- */
 
   await test("komorebi forwards each counted correct answer to tomoshibiRecord", async () => {
