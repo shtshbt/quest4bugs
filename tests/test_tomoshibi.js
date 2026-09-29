@@ -497,6 +497,13 @@ function solve(save, pid, n) {
     assert.match(read("index.html"), /streak=Q4BTomoshibiUI\.streakDays\(pid,streak\)/);
   });
 
+  await test("keisan holds the effects back during the 60-second time attack", () => {
+    const keisan = fs.readFileSync(path.join(root, "keisan/app.js"), "utf8");
+    assert.match(keisan, /Q4BTomoshibiUI\.setQuietWhen\(function\(\)\{return !!\(Q&&Q\.timed&&!Q\.fin\);\}\);/);
+    const ui = fs.readFileSync(path.join(root, "shared/tomoshibi_ui.js"), "utf8");
+    assert.match(ui, /if\(isQuiet\(\)\)\{\s*waiting\.push\(detail\);/, "effects that arrive while quiet wait instead of playing");
+  });
+
   await test("the portal and the komorebi map carry the counter, and nothing when it is empty", () => {
     const read = file => fs.readFileSync(path.join(root, file), "utf8");
     const portal = read("index.html");
@@ -594,7 +601,11 @@ function solve(save, pid, n) {
         ["goshin" + SEP + "p1"]: { data: { log: {
           "2026-09-29": { correct: { keisan: 10, kanji: 0, eitango: 0 } },
           "2026-09-30": { correct: { keisan: 2, kanji: 0, eitango: 0 } }
-        } } }
+        } } },
+        ["keisan" + SEP + "p1"]: { data: { coll: { catches: { a: { records: [
+          { d: "2026-09-20" }, { d: "2026-09-29" }, { d: "2026-09-29", src: "amber" } ] } } } } },
+        ["komorebi" + SEP + "p1"]: { data: { collection: { catches: { b: { records: [
+          { d: "2026-09-30", src: "amber" } ] } } } } }
       }
     };
     const out = report(save, "2026-09-30", loadEngine());
@@ -604,6 +615,7 @@ function solve(save, pid, n) {
     assert.doesNotMatch(out, /2026-09-29: ともしび/, "matching days are not reported");
     assert.match(out, /2 台以上で数えた日: 2026-09-29 \(devA, devB\)/);
     assert.match(out, /支払った こはく: 20 \(2 日\)/);
+    assert.match(out, /取り込み日以降の捕獲: 3 件、うち こはく呼び出し 2 件 \(67%\)/, "captures before seeding are not counted");
     assert.match(out, /## まだ[\s\S]*ともしびの記録なし/);
   });
 

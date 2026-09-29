@@ -5848,6 +5848,9 @@ function kukuChallenge(dan){
   Q={mode:"kuku",dan:dan,list:list,i:0,ok:0,ms:0};
   nextQ();
 }
+/* タイムアタックの 60 秒の間は、れんぞく ともしび の演出を待たせる (問題が数秒隠れると
+   結果が変わるため)。終わって結果画面になったところで出る。 */
+if(window.Q4BTomoshibiUI&&Q4BTomoshibiUI.setQuietWhen)Q4BTomoshibiUI.setQuietWhen(function(){return !!(Q&&Q.timed&&!Q.fin);});
 function startTimed(cat){
   Q={mode:"timed",timed:true,cat:cat,ok:0,n:0,ms:0,end:Date.now()+60000,fin:false};
   Q.tInt=setInterval(function(){

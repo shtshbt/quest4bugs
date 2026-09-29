@@ -202,10 +202,36 @@
       "q4b-tomo-drop",0);
   }
 
+  /* 演出を今は出さないでほしいかを答える関数 (ゲームが登録する)。けいさんのタイム
+     アタックのように、数秒でも問題を隠すと結果が変わる場面で true を返す。静かな
+     間に来た演出は待たせ、静けさが明けたところで出す。 */
+  var quietWhen=null, waiting=[], waitTimer=null;
+  function setQuietWhen(fn){ quietWhen=typeof fn==="function"?fn:null; }
+  function isQuiet(){
+    try{ return !!(quietWhen&&quietWhen()); }catch(_){ return false; }
+  }
+  function flushWaiting(){
+    if(isQuiet())return;
+    global.clearInterval(waitTimer);
+    waitTimer=null;
+    var queued=waiting;
+    waiting=[];
+    queued.forEach(play);
+  }
+
   function onPaid(event){
     if(!modeOn())return;
     var detail=event&&event.detail;
     if(!detail||!detail.state)return;
+    if(isQuiet()){
+      waiting.push(detail);
+      if(!waitTimer)waitTimer=global.setInterval(flushWaiting,500);
+      return;
+    }
+    play(detail);
+  }
+
+  function play(detail){
     if(detail.basePaid&&detail.state.tierUpToday){
       playBonus(detail);
       global.setTimeout(function(){ playTierUp(detail); },reducedMotion()?0:FX_MS.bonus-400);
@@ -325,6 +351,7 @@
   global.Q4BTomoshibiUI={
     badgeHTML:badgeHTML,
     streakDays:streakDays,
+    setQuietWhen:setQuietWhen,
     viewModel:viewModel,
     showHelp:showHelp,
     checkNow:checkNow,
