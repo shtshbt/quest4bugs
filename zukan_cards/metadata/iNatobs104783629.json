@@ -1,0 +1,80 @@
+{
+  "species_id": "urbanus_proteus",
+  "species_ja": "オナガセセリ",
+  "scientific_name": "Urbanus proteus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "mbelitz (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_104783629",
+    "occurrenceId": "https://www.inaturalist.org/observations/104783629",
+    "persistentId": "https://www.inaturalist.org/observations/104783629",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "mbelitz",
+    "eventDate": "2021-10-10",
+    "eventYear": 2021,
+    "country": "USA",
+    "localityVerbatim": null,
+    "localityNormalized": "Alachua County, FL, USA, USA",
+    "preparations": null,
+    "decimalLatitude": 29.56488,
+    "decimalLongitude": -82.1904430556,
+    "coordinatesObscured": false,
+    "iNatObservationId": "104783629",
+    "iNatPhotoId": "175653549",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/104783629",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/175653549/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs104783629_resized.jpg",
+    "display": "processed/iNatobs104783629_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs104783629_54.webp",
+      "108": "thumb/iNatobs104783629_108.webp",
+      "216": "thumb/iNatobs104783629_216.webp"
+    }
+  },
+  "original_sha256": "a39cba730ecffd943f27671c7cb9daab3e00bf733d9403c0ea60751782748899",
+  "processing": {
+    "cropBox": [
+      661,
+      629,
+      1154,
+      1171
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs104783629_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
