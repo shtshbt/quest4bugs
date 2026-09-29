@@ -1,7 +1,7 @@
 {
-  "species_id": "lirometopum_coronatum",
-  "species_ja": "Lirometopum coronatum",
-  "scientific_name": "Lirometopum coronatum",
+  "species_id": "metriophasma_diocles",
+  "species_ja": "Metriophasma diocles",
+  "scientific_name": "Metriophasma diocles",
   "credit_line": "iNaturalist (Research grade CC0 exception)",
   "creator": "loarie (iNaturalist)",
   "fetched_date": "2026-09-29",
@@ -9,52 +9,52 @@
     "institution": "iNaturalist (Research grade CC0 exception)",
     "institutionCode": "iNat",
     "collectionCode": null,
-    "catalogNumber": "iNat_obs_145509640",
-    "occurrenceId": "https://www.inaturalist.org/observations/145509640",
-    "persistentId": "https://www.inaturalist.org/observations/145509640",
+    "catalogNumber": "iNat_obs_152532555",
+    "occurrenceId": "https://www.inaturalist.org/observations/152532555",
+    "persistentId": "https://www.inaturalist.org/observations/152532555",
     "basisOfRecord": "HumanObservation",
     "typeStatus": null,
     "sex": null,
     "lifeStage": null,
     "recordedBy": "loarie",
-    "eventDate": "2022-12-20",
-    "eventYear": 2022,
-    "country": "Costa Rica",
+    "eventDate": "2023-03-25",
+    "eventYear": 2023,
+    "country": "CR",
     "localityVerbatim": null,
-    "localityNormalized": "Alajuela Province, San Carlos, Costa Rica, Costa Rica",
+    "localityNormalized": "Sarapiquí, CR-HE, CR, CR",
     "preparations": null,
-    "decimalLatitude": 10.4460041622,
-    "decimalLongitude": -84.6675541187,
+    "decimalLatitude": 10.430491,
+    "decimalLongitude": -84.00656,
     "coordinatesObscured": false,
-    "iNatObservationId": "145509640",
-    "iNatPhotoId": "249953294",
+    "iNatObservationId": "152532555",
+    "iNatPhotoId": "263325025",
     "qualityGrade": "research"
   },
   "source": {
     "gbifOccurrenceKey": null,
-    "institutionRecordUrl": "https://www.inaturalist.org/observations/145509640",
-    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/249953294/original.jpg",
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/152532555",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/263325025/original.jpg",
     "datasetKey": null,
     "metadataLicense": "CC0-1.0",
     "mediaLicense": "CC0-1.0",
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
-    "resized": "original/iNatobs145509640_resized.jpg",
-    "display": "processed/iNatobs145509640_L2_grade.webp",
+    "resized": "original/iNatobs152532555_resized.jpg",
+    "display": "processed/iNatobs152532555_L2_grade.webp",
     "thumbnails": {
-      "54": "thumb/iNatobs145509640_54.webp",
-      "108": "thumb/iNatobs145509640_108.webp",
-      "216": "thumb/iNatobs145509640_216.webp"
+      "54": "thumb/iNatobs152532555_54.webp",
+      "108": "thumb/iNatobs152532555_108.webp",
+      "216": "thumb/iNatobs152532555_216.webp"
     }
   },
-  "original_sha256": "e00e3bf351294fd70555adfef3d22843efa9d5a660ba6d2a62b875274bd82c94",
+  "original_sha256": "335f99d5813b15d668579c8b50843cecffd3a91f9127f928b96a53bab82ba7b0",
   "processing": {
     "cropBox": [
-      158,
-      368,
-      1271,
-      1976
+      231,
+      0,
+      873,
+      1963
     ],
     "rotationDegrees": 0,
     "padding": 0.1,
@@ -72,7 +72,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/iNatobs145509640_resized.jpg",
+    "originalImage": "original/iNatobs152532555_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

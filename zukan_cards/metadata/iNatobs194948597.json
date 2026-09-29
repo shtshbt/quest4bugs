@@ -1,0 +1,80 @@
+{
+  "species_id": "anartia_jatrophae",
+  "species_ja": "ウスベニタテハ",
+  "scientific_name": "Anartia jatrophae",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "stariplativky (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_194948597",
+    "occurrenceId": "https://www.inaturalist.org/observations/194948597",
+    "persistentId": "https://www.inaturalist.org/observations/194948597",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "stariplativky",
+    "eventDate": "2023-12-21",
+    "eventYear": 2023,
+    "country": "Dominican Republic",
+    "localityVerbatim": null,
+    "localityNormalized": "Salvaleón de Higüey, La Altagracia, Dominican Republic, Dominican Republic",
+    "preparations": null,
+    "decimalLatitude": 18.6429422,
+    "decimalLongitude": -68.3498033,
+    "coordinatesObscured": false,
+    "iNatObservationId": "194948597",
+    "iNatPhotoId": "342827552",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/194948597",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/342827552/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs194948597_resized.jpg",
+    "display": "processed/iNatobs194948597_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs194948597_54.webp",
+      "108": "thumb/iNatobs194948597_108.webp",
+      "216": "thumb/iNatobs194948597_216.webp"
+    }
+  },
+  "original_sha256": "18f07804125b91065bcdb61d956bdc039d65375a30b31eb3688e6fd9c62f6761",
+  "processing": {
+    "cropBox": [
+      245,
+      184,
+      1337,
+      1076
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs194948597_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

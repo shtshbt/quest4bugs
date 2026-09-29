@@ -1,0 +1,80 @@
+{
+  "species_id": "eurysternus_caribaeus",
+  "species_ja": "Eurysternus caribaeus",
+  "scientific_name": "Eurysternus caribaeus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "calum12 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_103000751",
+    "occurrenceId": "https://www.inaturalist.org/observations/103000751",
+    "persistentId": "https://www.inaturalist.org/observations/103000751",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "calum12",
+    "eventDate": "2021-12-11",
+    "eventYear": 2021,
+    "country": "Peru",
+    "localityVerbatim": null,
+    "localityNormalized": "Tambopata, Peru, Peru",
+    "preparations": null,
+    "decimalLatitude": -12.226133187,
+    "decimalLongitude": -69.1147996085,
+    "coordinatesObscured": false,
+    "iNatObservationId": "103000751",
+    "iNatPhotoId": "172286021",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/103000751",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/172286021/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs103000751_resized.jpg",
+    "display": "processed/iNatobs103000751_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs103000751_54.webp",
+      "108": "thumb/iNatobs103000751_108.webp",
+      "216": "thumb/iNatobs103000751_216.webp"
+    }
+  },
+  "original_sha256": "d4385a9b7f64ce9a761635633eb7d5ac2d02a89bcac57dafefc36f345dd4201b",
+  "processing": {
+    "cropBox": [
+      0,
+      21,
+      654,
+      667
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs103000751_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

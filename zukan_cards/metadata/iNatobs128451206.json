@@ -1,0 +1,80 @@
+{
+  "species_id": "eacles_imperialis",
+  "species_ja": "Eacles imperialis",
+  "scientific_name": "Eacles imperialis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "benjamis (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_128451206",
+    "occurrenceId": "https://www.inaturalist.org/observations/128451206",
+    "persistentId": "https://www.inaturalist.org/observations/128451206",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "benjamis",
+    "eventDate": "2022-07-29",
+    "eventYear": 2022,
+    "country": "USA",
+    "localityVerbatim": null,
+    "localityNormalized": "Hunt Valley, Cockeysville, MD, USA, USA",
+    "preparations": null,
+    "decimalLatitude": 39.4897373889,
+    "decimalLongitude": -76.6478074722,
+    "coordinatesObscured": false,
+    "iNatObservationId": "128451206",
+    "iNatPhotoId": "218186762",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/128451206",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/218186762/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs128451206_resized.jpg",
+    "display": "processed/iNatobs128451206_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs128451206_54.webp",
+      "108": "thumb/iNatobs128451206_108.webp",
+      "216": "thumb/iNatobs128451206_216.webp"
+    }
+  },
+  "original_sha256": "251cbd2c9c8f414ac291c61ee01b8629133c655f9bd4cccfac49470db2b73687",
+  "processing": {
+    "cropBox": [
+      247,
+      311,
+      1754,
+      1160
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs128451206_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

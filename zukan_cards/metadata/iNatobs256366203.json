@@ -1,0 +1,80 @@
+{
+  "species_id": "cyclocephala_lunulata",
+  "species_ja": "Cyclocephala lunulata",
+  "scientific_name": "Cyclocephala lunulata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "amzamz (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_256366203",
+    "occurrenceId": "https://www.inaturalist.org/observations/256366203",
+    "persistentId": "https://www.inaturalist.org/observations/256366203",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "amzamz",
+    "eventDate": "2024-12-15",
+    "eventYear": 2024,
+    "country": "Costa Rica",
+    "localityVerbatim": null,
+    "localityNormalized": "F6XR+M3, Provincia de Alajuela, Tabacon, Costa Rica, Costa Rica",
+    "preparations": null,
+    "decimalLatitude": 10.4991755,
+    "decimalLongitude": -84.7598653,
+    "coordinatesObscured": false,
+    "iNatObservationId": "256366203",
+    "iNatPhotoId": "459629454",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/256366203",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/459629454/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs256366203_resized.jpg",
+    "display": "processed/iNatobs256366203_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs256366203_54.webp",
+      "108": "thumb/iNatobs256366203_108.webp",
+      "216": "thumb/iNatobs256366203_216.webp"
+    }
+  },
+  "original_sha256": "36ee074ec36f73e9e2482ca6cef5fe9d25dedf6ff3dad023e49e0b81b964adb8",
+  "processing": {
+    "cropBox": [
+      442,
+      218,
+      1657,
+      1387
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs256366203_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
