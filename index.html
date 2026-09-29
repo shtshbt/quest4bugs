@@ -1447,10 +1447,13 @@ function renderDashboard(pid,name){
         }, 800);
       }
     }catch(_){ window.__q4bLegacyMasterCount=0; window.__q4bLegacyByGame={}; window.__q4bLegacyEntries=[]; }
+    /* れんぞく ともしび のカウンター (公開前は空文字)。出ているときは下の 🔥 の日数と重ねない。 */
+    var tomoBadge=window.Q4BTomoshibiUI&&Q4BTomoshibiUI.badgeHTML?Q4BTomoshibiUI.badgeHTML(pid):"";
     var h='<h3>🏆 '+esc(name||"")+' の きろく</h3>'
       +'<div style="display:flex;align-items:center;gap:10px;margin:4px 0 8px">'
       +'<div style="font-size:30px">📖</div><div><div style="font-size:22px;font-weight:800">'+total+' <span style="font-size:14px;color:var(--sub)">/ '+pool+' しゅるい（'+pct+'%）</span></div>'
-      +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+'　🔥れんぞく '+streak+'にち</div></div></div>'
+      +'<div class="note">かんじ '+kanjiN+'・けいさん '+keisanN+'・えいたんご '+eitangoN+(battleN?'・ボス '+battleN:'')+(tomoBadge?'':'　🔥れんぞく '+streak+'にち')+'</div></div></div>'
+      +tomoBadge
       +homeMapHTML(taniOpen)
       +goshinHTML(pid,amber,bt,{gRank:gRank, gCaught:gCaught, gNext:gNext, komorebi:komorebi})
       +'<div class="note" style="margin-bottom:2px">📅 まいにちの がくしゅう（'+rangeLabel+'・'+totalQ+'もん）</div>'

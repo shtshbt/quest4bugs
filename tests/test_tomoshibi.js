@@ -497,6 +497,16 @@ function solve(save, pid, n) {
     assert.match(read("index.html"), /streak=Q4BTomoshibiUI\.streakDays\(pid,streak\)/);
   });
 
+  await test("the portal and the komorebi map carry the counter, and nothing when it is empty", () => {
+    const read = file => fs.readFileSync(path.join(root, file), "utf8");
+    const portal = read("index.html");
+    assert.match(portal, /var tomoBadge=window\.Q4BTomoshibiUI&&Q4BTomoshibiUI\.badgeHTML\?Q4BTomoshibiUI\.badgeHTML\(pid\):"";/);
+    assert.match(portal, /\(tomoBadge\?'':'　🔥れんぞく '\+streak\+'にち'\)/, "the old fire note stays until the counter shows");
+    const komorebi = read("komorebi/app.js");
+    assert.match(komorebi, /\+tomoshibiBadgeHtml\(\)\s*\n\s*\+'<section class="map-panel"/);
+    assert.match(komorebi, /return html\?'<div class="kom-tomoshibi"/, "no empty wrapper before the switch is on");
+  });
+
   /* ---- 7. 公開前の履歴の取り込み ---- */
 
   /* goshin の log と komorebi の daily を持つ保存を作る (過去 n 日、毎日 per 問)。 */

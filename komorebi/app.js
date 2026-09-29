@@ -3164,6 +3164,17 @@
     });
   }
 
+  /* れんぞく ともしび のカウンター (shared/tomoshibi_ui.js)。公開前や、そのモジュールを
+     読まない文脈 (単体テスト) では空文字。 */
+  function tomoshibiBadgeHtml(){
+    var ui=global.Q4BTomoshibiUI;
+    if(!ui||typeof ui.badgeHTML!=="function")return "";
+    try{
+      var html=ui.badgeHTML(gearProfileId())||"";
+      return html?'<div class="kom-tomoshibi" style="max-width:560px;margin:6px auto 0;padding:0 16px">'+html+'</div>':"";
+    }catch(_){ return ""; }
+  }
+
   function renderMap(selectedId){
     /* ずかん以外の画面では切替ボタンを出さない。セッション終了の着地点でもあるので、
        body のセッション属性の解除もここで行う (keisan showHome と同じ役割)。 */
@@ -3184,6 +3195,7 @@
        地図はカテゴリを選ぶための文脈であって、地域選択を挟む関門にはしない。 */
     document.getElementById("app").innerHTML='<main class="kom-page kom-map-page"><header class="kom-top"><a class="kom-back" href="../keisan/index.html">← けいさん</a></header>'
       +'<div class="kom-title"><h1>'+displayText("木漏れ日の小道")+'</h1><p>'+displayText("あるく小道を えらぼう")+'</p></div>'
+      +tomoshibiBadgeHtml()
       +'<section class="map-panel" aria-label="'+attrText("世界の地図")+'">'+mapArtworkHtml(regions,currentRegion.regionId,selected.regionId)+'</section>'
       +'<section class="path-panel" id="pathPanel" aria-live="polite">'+pathPanelHtml(selected)+'</section>'
       +pathZukanEntranceHtml()
