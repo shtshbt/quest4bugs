@@ -7,8 +7,7 @@
      (取り込み日以降。食い違いは配線の漏れか統合の欠落の手がかり)
    - 2 台以上で数えた日 (二重払いが起こりうる日)
    - 支払った こはく の合計
-
-   呼び出し経由の捕獲の割合は、捕獲記録に入手経路が残っていないので測れない。
+   - 取り込み日以降の捕獲のうち、こはく呼び出しの割合 (捕獲記録の src:"amber")
 
    node tools/tomoshibi_report.js <save.json> [today]
    (tools/tomoshibi_report.sh が save.json の取得から通しで回す) */
@@ -87,10 +86,36 @@ function report(save, today, T) {
     lines.push("  2 台以上で数えた日: " + (multi.length ? multi.join("; ") : "なし"));
     const paid = Object.values(data.awarded || {}).reduce((sum, a) => sum + (a.base || 0) + (a.top || 0), 0);
     lines.push("  支払った こはく: " + paid + " (" + Object.keys(data.awarded || {}).length + " 日)");
+    const caught = captureCounts(save, profile.id, since);
+    lines.push("  取り込み日以降の捕獲: " + caught.total + " 件、うち こはく呼び出し " + caught.amber + " 件" +
+      (caught.total ? " (" + Math.round(caught.amber * 100 / caught.total) + "%)" : ""));
   }
   lines.push("");
-  lines.push("注: 呼び出し経由の捕獲の割合は、捕獲記録に入手経路が残っていないので測れない。");
+  lines.push("注: 捕獲記録に入手経路 (src) が残るのは、その印を入れた配信より後の捕獲だけ。");
   return lines.join("\n");
+}
+
+/* 本編 3 教科 (coll.catches) と小道 (collection.catches) の捕獲記録を、since 以降について
+   数える。こはく呼び出しの記録には src:"amber" が付く。 */
+function captureCounts(save, pid, since) {
+  const out = { total: 0, amber: 0 };
+  const collections = [];
+  for (const game of SUBJECTS) {
+    const data = (save.kv[game + SEP + pid] || {}).data;
+    if (data && data.coll && data.coll.catches) collections.push(data.coll.catches);
+  }
+  const komorebi = (save.kv["komorebi" + SEP + pid] || {}).data;
+  if (komorebi && komorebi.collection && komorebi.collection.catches) collections.push(komorebi.collection.catches);
+  for (const catches of collections) {
+    for (const id of Object.keys(catches)) {
+      for (const rec of (catches[id] && catches[id].records) || []) {
+        if (!rec || !rec.d || rec.d < since) continue;
+        out.total++;
+        if (rec.src === "amber") out.amber++;
+      }
+    }
+  }
+  return out;
 }
 
 function main() {

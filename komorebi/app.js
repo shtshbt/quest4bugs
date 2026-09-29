@@ -262,10 +262,12 @@
     };
   }
 
-  function recordCapture(collection,draw,random){
+  function recordCapture(collection,draw,random,recordSource){
     var id=draw.species.id;
     var rewardCollection={catches:collection.catches,total:collection.totalCatches};
-    var recorded=rewardEngine().record(rewardCollection,draw.species,{source:"wild",random:random,game:"komorebi",mode:"volume"});
+    /* recordSource はこはく呼び出しのとき "amber"。捕獲記録に入手経路を残すだけで、
+       色違いの判定 (source:"wild") は変えない。 */
+    var recorded=rewardEngine().record(rewardCollection,draw.species,{source:"wild",recordSource:recordSource,random:random,game:"komorebi",mode:"volume"});
     collection.catches=rewardCollection.catches;
     collection.totalCatches=rewardCollection.total;
     if(draw.pityDuplicates)collection.pityDuplicates=draw.pityDuplicates;
@@ -1336,7 +1338,7 @@
          道具はゲージ捕獲と同じに扱う (装備中は 1 回ぶん減る)。 */
       var keptPity=profile.collection.pityDuplicates;
       var gear=loadToolGear(),pool=volumeToolPool(volume);
-      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(gear,pool)),Math.random);
+      capture=recordCapture(profile.collection,drawCapture(volume,profile.collection.catches,0,Math.random,equippedToolOf(gear,pool)),Math.random,"amber");
       if(keptPity!=null)profile.collection.pityDuplicates=keptPity;
       else delete profile.collection.pityDuplicates;
       toolUse=consumeToolDurability(gear,pool);

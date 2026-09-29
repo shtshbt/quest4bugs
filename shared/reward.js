@@ -465,6 +465,11 @@
     /* records[i] に reared/bornAt を含めて push。reared:false の record には field を追加しない (LWW 安全)。 */
     var rec = {d:todayStr(), s:size, sex:sex, shiny:!!shiny, cid:newRecordId()};
     if(reared){ rec.reared=true; if(bornAt) rec.bornAt=bornAt; }
+    /* こはく呼び出しの捕獲だけ入手経路を残す (監視: 学習を経ない捕獲の割合を測る)。
+       色違いの判定に使う source とは分けて受ける: 小道の呼び出しは source を "wild"
+       のまま渡しているので、記録用の印は opts.recordSource で来る。 */
+    var recSrc = opts.recordSource || (source==="amber" ? "amber" : null);
+    if(recSrc==="amber") rec.src="amber";
     if(!coll.catches[sp.id].records) coll.catches[sp.id].records=[];
     coll.catches[sp.id].records.push(rec);
     coll.total = (coll.total||0) + 1;
