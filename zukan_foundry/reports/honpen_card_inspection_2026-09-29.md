@@ -276,3 +276,27 @@ display 画像が同じカードが 28 組ある。多くは同じ種の別 ID (
 | scarabe_sacer | sheet18:44 | 不可 | NOT_SPECIMEN 線画イラストで写真でない / gate: multiple_subjects |
 | ookiba_usuba_kamikiri | sheet18:48 | 不可 | NOT_SPECIMEN ラベルカードのみで虫がいない / gate: label_dominant |
 | eliza_hanmyo | sheet19:2 | 不可 | NOT_SPECIMEN 顎の線画イラストで写真でない / gate: multiple_subjects |
+
+
+## 取り直しの結果 (2026-09-29)
+
+不可 185 種、4 個体の並び 5 種、種の取り違えの疑い 3 種の計 193 種を、Wikimedia と Wikipedia を除いて取り直した (`zukan_foundry/rounds/2026-09-29_honpen/`)。途中で 1 回中断し、残り 180 種を再開した。品質ゲートを通って置き換わったのは 159 種、写真が実際に変わったのは 129 種 (残りは同じ写真に戻った)。変わった 129 種は旧写真と新写真を並べて見直した。
+
+| 区分 | 種数 |
+|---|---:|
+| 置き換えで使えるようになった | 99 |
+| 新写真のほうが悪く、旧カードに戻した | 2 |
+| 置き換えても不可のまま | 17 |
+| 要確認 | 11 |
+| 写真が変わらず不可のまま | 63 |
+| 4 個体の並びのまま (他に写真が無いため使う) | 1 |
+
+旧カードに戻した種: kita_kichou (柵に小さく写るだけ)、ookamakiri (別の虫の疑い。旧カードは体の一部だが種は正しい)。
+
+置き換えても不可のまま: banana_seseri (葉のみ)、jakou_ageha、tenguchou、akahige_dokuga (幼虫)、yakushima_ruri_shijimi (蛹)、shiroobi_ageha (翅の断片)、kurohikage (桃色の別種)、kuwagata_hanamuguri (花の写真)、kuroboshi_seseri (卵の拡大)、ruritateha (ラベル)、kogata_suzumebachi (色が崩れた別物)、kuro_gengorou (植物)、ojiro_ashinaga_zoumushi (手袋の上)、monsuzumebachi (巣)、katsuobushi_mushi (鱗片の拡大)、oo_kakagerou_dummy と oo_futa_mon_kometsuki (別種と同じ写真のまま)。
+
+要確認: shiokara_tonbo (褐色の個体に文字が重なる)、douganebuibui、kobatateha、haiiro_gengorou、ao_sanae、tsunozemi_marubane、ni_idolomantis_diabolica、hime_shaku、oo_geji (種の見た目と合うか)、naden_tentou (nami_tentou と同じ写真)、hime_midorishijimi (カタログの学名が midorishijimi と同じ Neozephyrus japonicus で、同じ写真が入った。和名と学名の対応を直す必要がある)。
+
+写真が変わらず不可のまま: oo_aoboshi_kamikiri、kumazemi、tonosama_batta、ruriboshi_kamikiri、ao_osamushi、kawara_hanmyou、benihikage、oo_ichimonji、tomon_ageha、oouragin_hyoumon、hyoumonmodaki、kimadara_modoki、kurohikage_modoki、budou_tora_kamikiri、kameno_ko_hamushi、tsuya_hada_kuwagata、tatehamodoki、ichimonji_seseri、sujigurochabane_seseri、hoshichabane_seseri、chamadara_seseri、oogomashijimi、kurotsubame_shijimi、sokorabe_ruri_shijimi、shirouranami_shijimi、urakuro_shijimi、uramisuji_shijimi、usuiro_onaga_shijimi、akashijimi_minami、marutan_yanma、kuroito_tonbo、oo_suzumebachi、shinjusan、kaiko_moth、maimaiga、kosanae、futamon_ashinagabachi、yamato_kuroshijimi_hebitonbo_dummy、kusakagerou、ubatama_kometsuki、gomimushidamashi_kohira、kiobinaga_kakkoumushi、oba_kuwa_eda_shaku、tama_oshi_zou、dandara_tentou、hime_nagakamemushi、kubinaga_ari、oo_zu_ari、gunbai_tonbo、suna_akane、akama_dara_hanamuguri、inago_hamushi、morton_ito_tonbo、ezo_ito_tonbo、kuriya_keshikisui、sedo_oo_gomimushi、oo_kibara_gomimushi、halmus_aoba_tentou、eurosternus_noko_kuwagata、mozu、eupholus_zou、ookiba_usuba_kamikiri、lateralis_noko_kuwagata。
+
+これらは今回の取得元では候補が尽きたか、同じ写真に戻った。次の手は、Wikimedia を含めた取り直し (図版を拾いやすいので検品が要る)、取得元の上限本数を増やした取り直し、本編からの差し替えのいずれか。
