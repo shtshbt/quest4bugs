@@ -16,13 +16,19 @@
        1 ビットも変わらない: 金の虫が増えるだけで、交換ポップアップもうろの入口も
        リセットボタンも出ず、抽選も乱数の消費本数も動かない。
 
-     点火はこの 2 行だけを動かす。 */
+     - TOMOSHIBI_MODE: れんぞく ともしび (docs/tomoshibi_streak_design.md) の段階スイッチ。
+       "off" は数えもせず画面も 1 ビットも変わらない。"count" は裏で日ごとの正解数を
+       数えるだけ (こはくも表示も出さない)。"on" で ボーナスと表示を出す。
+
+     点火はこの 3 行だけを動かす。 */
 
   var CURRENT_RELEASE=4;   /* 2026-09-26 更新 4: オーストラリア Ⅱ (84 種) + カテゴリ 4 本 + 道具 2 本 */
   var MEDAL_ECONOMY_ON=true;   /* 2026-08-21 点火。全図鑑化 (reconcile 通過) と同時に公開 */
+  var TOMOSHIBI_MODE="off";   /* 実装中。"off" / "count" / "on" */
 
   function currentRelease(){return CURRENT_RELEASE;}
   function on(){return MEDAL_ECONOMY_ON;}
+  function tomoshibiMode(){return TOMOSHIBI_MODE;}
 
   /* ゲートは 2 段。まず経済ごと開いているか、次に道具 1 本ずつの release。
      tools.js が無い文脈では、道具を公開済みとして扱わない。 */
@@ -36,7 +42,8 @@
   global.Q4B_ECONOMY={
     currentRelease:currentRelease,
     on:on,
-    toolsReleased:toolsReleased
+    toolsReleased:toolsReleased,
+    tomoshibiMode:tomoshibiMode
   };
 
   /* 公開前後の両方を 1 回の実行で確かめるための切替 (テスト専用の seam)。
@@ -47,6 +54,10 @@
     global.Q4B_ECONOMY.setCurrentRelease=function(value){
       if(!Number.isInteger(value)||value<1)throw new Error("更新番号の指定が正しくありません");
       CURRENT_RELEASE=value;
+    };
+    global.Q4B_ECONOMY.setTomoshibiMode=function(value){
+      if(value!=="off"&&value!=="count"&&value!=="on")throw new Error("ともしびのモードの指定が正しくありません");
+      TOMOSHIBI_MODE=value;
     };
   }
 })(typeof window!=="undefined"?window:globalThis);

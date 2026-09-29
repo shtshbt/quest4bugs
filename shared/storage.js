@@ -379,6 +379,13 @@
          PB-2: 同 revision で内容が違うのは「CAS 実装漏れ」 の兆候。 console.warn
          + diagnostic event を発火して見逃しを防ぐ。 */
       var ns = k.split(SEP)[0];
+      /* れんぞく ともしび は丸ごと LWW にしない。日付と端末の和集合を取る
+         (理由は tomoshibiKey の注記)。 */
+      if(ns==="tomoshibi"){
+        store.kv[k]={v:1,updated:Math.max(inc.updated||0,ex.updated||0),updatedBy:ex.updatedBy,
+          data:mergeTomoshibiData(ex.data,inc.data)};
+        continue;
+      }
       if(isCASNamespace(ns) && (typeof inc.revision==='number') && (typeof ex.revision==='number')){
         if(inc.revision > ex.revision){ store.kv[k]=inc; continue; }
         if(inc.revision < ex.revision) continue;
@@ -1033,7 +1040,102 @@
     r.entry.data=data;
     persist();
     schedulePush();
-    return {ok:true,subject:subject,awards:awards,state:clone(data)};
+    var tomoshibi=null;
+    try{ tomoshibi=tomoshibiRecord(pid,n); }catch(_){ tomoshibi=null; }
+    return {ok:true,subject:subject,awards:awards,state:clone(data),tomoshibi:tomoshibi};
+  }
+
+  /* ---------------- れんぞく ともしび (docs/tomoshibi_streak_design.md) ----------------
+     日ごとの正解数を端末ごとに持つ (days[date].dev[deviceId] = n)。kv の既定の統合は
+     エントリ丸ごとの LWW なので、そのままだと 2 台で同じ日に解いた数の片方が消え、
+     しばらく同期していなかった端末の push が過去の日を巻き戻して連続を切ることまで
+     起きる。この namespace だけは mergeStore で日付と端末の和集合 (同じ端末は多い方)
+     を取る。統合を storage.js の中で完結させているのは、shared/tomoshibi.js を読まない
+     ページが同期しても他の端末の数を落とさないため。段と報酬の計算は tomoshibi.js。
+     TOMOSHIBI_MODE が "off" の間は、ここは kv に 1 バイトも書かない。 */
+  function tomoshibiKey(pid){ return "tomoshibi"+SEP+pid; }
+  function tomoshibiModeNow(){
+    var eco=global.Q4B_ECONOMY, mode="off";
+    try{ if(eco&&typeof eco.tomoshibiMode==="function")mode=eco.tomoshibiMode(); }catch(_){ mode="off"; }
+    return (mode==="count"||mode==="on")?mode:"off";
+  }
+  var TOMOSHIBI_DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
+  function normalizeTomoshibiData(data){
+    var out={v:1,days:{},awarded:{}}, d, dev, n, src, a;
+    data=data&&typeof data==="object"?data:{};
+    if(data.days&&typeof data.days==="object"){
+      for(d in data.days){
+        if(!TOMOSHIBI_DATE_RE.test(d))continue;
+        src=data.days[d]&&data.days[d].dev;
+        if(!src||typeof src!=="object")continue;
+        for(dev in src){
+          n=Math.floor(src[dev]);
+          if(n>0){ if(!out.days[d])out.days[d]={dev:{}}; out.days[d].dev[String(dev)]=n; }
+        }
+      }
+    }
+    if(data.awarded&&typeof data.awarded==="object"){
+      for(d in data.awarded){
+        if(!TOMOSHIBI_DATE_RE.test(d))continue;
+        a=data.awarded[d];
+        if(!a||typeof a!=="object")continue;
+        out.awarded[d]={base:Math.max(0,Math.floor(a.base)||0),top:Math.max(0,Math.floor(a.top)||0)};
+      }
+    }
+    return out;
+  }
+  function mergeTomoshibiData(a,b){
+    var out=normalizeTomoshibiData(a), inc=normalizeTomoshibiData(b), d, dev, cur;
+    for(d in inc.days){
+      if(!out.days[d])out.days[d]={dev:{}};
+      for(dev in inc.days[d].dev)out.days[d].dev[dev]=Math.max(out.days[d].dev[dev]||0,inc.days[d].dev[dev]);
+    }
+    for(d in inc.awarded){
+      cur=out.awarded[d]||{base:0,top:0};
+      out.awarded[d]={base:Math.max(cur.base,inc.awarded[d].base),top:Math.max(cur.top,inc.awarded[d].top)};
+    }
+    return out;
+  }
+  function tomoshibiOf(pid){
+    if(!pid)return normalizeTomoshibiData({});
+    var e=loadStore().kv[tomoshibiKey(pid)];
+    return normalizeTomoshibiData(e&&e.data);
+  }
+  function writeTomoshibi(pid,data){
+    var store=loadStore(), key=tomoshibiKey(pid), prev=store.kv[key];
+    store.kv[key]={v:1,updated:now(),revision:_entryRevision(prev)+1,updatedBy:__deviceId,
+      data:normalizeTomoshibiData(data)};
+    persist();
+    schedulePush();
+  }
+  /* 正解 n 問を今日の自端末の数に足す。"off" では何もしない。"on" のときは
+     shared/tomoshibi.js が読まれていれば、その場で今日のボーナスを精算する。 */
+  function tomoshibiRecord(pid,n){
+    var mode=tomoshibiModeNow(), date, data, day, total=0, dev, settled=null;
+    if(mode==="off")return {ok:false,mode:mode};
+    if(!pid)return {ok:false,mode:mode,error:"missing profile"};
+    n=Math.max(1,Math.floor(n)||1);
+    date=todayKey();
+    data=tomoshibiOf(pid);
+    day=data.days[date]||(data.days[date]={dev:{}});
+    day.dev[__deviceId]=(day.dev[__deviceId]||0)+n;
+    for(dev in day.dev)total+=day.dev[dev];
+    writeTomoshibi(pid,data);
+    if(mode==="on"&&global.Q4BTomoshibi&&typeof global.Q4BTomoshibi.settle==="function"){
+      try{ settled=global.Q4BTomoshibi.settle(pid,date); }catch(_){ settled=null; }
+    }
+    return {ok:true,mode:mode,date:date,total:total,settled:settled};
+  }
+  /* 今日のボーナスを払ったことを記録する (field は "base" か "top")。支払いより先に
+     呼ぶ: 途中で落ちたら 1 回払い損ねる側に倒し、二重払いを避ける。 */
+  function tomoshibiMarkAwarded(pid,date,field,amount){
+    if(!pid||!TOMOSHIBI_DATE_RE.test(date)||(field!=="base"&&field!=="top"))return false;
+    var data=tomoshibiOf(pid), cur=data.awarded[date]||{base:0,top:0};
+    if(cur[field]>0)return false;
+    cur[field]=Math.max(1,Math.floor(amount)||0);
+    data.awarded[date]=cur;
+    writeTomoshibi(pid,data);
+    return true;
   }
   function equipmentOf(pid){
     if(!pid)return blankEquipmentData();
@@ -1526,6 +1628,8 @@
     amberOf:amberOf, amberAdd:amberAdd, amberSpend:amberSpend,
     toolGearOf:toolGearOf, toolGearSet:toolGearSet, toolGearMigrateFromProfile:toolGearMigrateFromProfile,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
+    tomoshibiOf:tomoshibiOf, tomoshibiRecord:tomoshibiRecord, tomoshibiMarkAwarded:tomoshibiMarkAwarded,
+    todayKey:todayKey,
     chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,
     spendAwakeningDrops:spendAwakeningDrops, addFossil:addFossilFragments,

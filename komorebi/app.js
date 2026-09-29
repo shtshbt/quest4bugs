@@ -1266,6 +1266,13 @@
         if(fed&&typeof fed.catch==="function")fed.catch(function(){});
       }catch(_){}
     }
+    /* れんぞく ともしび の 1 日の正解数 (本編 3 教科は QuestSave.recordCorrect の中で
+       数える。小道はそこを通らないのでここで数える)。TOMOSHIBI_MODE が "off" の間は
+       storage 側で何もしない。 */
+    var save=global.QuestSave;
+    if(save&&typeof save.tomoshibiRecord==="function"){
+      try{ save.tomoshibiRecord(gearProfileId(),1); }catch(_){}
+    }
     return granted;
   }
 
