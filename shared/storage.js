@@ -1074,8 +1074,11 @@
   /* 演出を見せた記録の種類。段が下がった知らせは、どの端末で見ても 1 回で済ませる。 */
   var TOMOSHIBI_SEEN_KINDS={drop:1};
   function normalizeTomoshibiData(data){
-    var out={v:1,days:{},awarded:{},seen:{}}, d, dev, n, src, a, kind;
+    var out={v:1,days:{},awarded:{},seen:{},seeded:0}, d, dev, n, src, a, kind;
     data=data&&typeof data==="object"?data:{};
+    out.seeded=data.seeded?1:0;
+    /* 取り込んだ日。これより前に起きた途切れは、公開前の出来事なので知らせない。 */
+    out.seededAt=(typeof data.seededAt==="string"&&isTomoshibiDate(data.seededAt))?data.seededAt:"";
     if(data.days&&typeof data.days==="object"){
       for(d in data.days){
         if(!isTomoshibiDate(d))continue;
@@ -1110,6 +1113,8 @@
   }
   function mergeTomoshibiData(a,b){
     var out=normalizeTomoshibiData(a), inc=normalizeTomoshibiData(b), d, dev, cur, kind;
+    out.seeded=(out.seeded||inc.seeded)?1:0;
+    if(inc.seededAt&&(!out.seededAt||inc.seededAt<out.seededAt))out.seededAt=inc.seededAt;
     for(d in inc.seen){
       if(!out.seen[d])out.seen[d]={};
       for(kind in inc.seen[d])out.seen[d][kind]=1;
@@ -1136,12 +1141,52 @@
     persist();
     schedulePush();
   }
+  /* 公開前の履歴の取り込み (プロフィールごとに 1 回だけ)。ともしびの記録はスイッチを
+     入れた日からしか溜まらないので、そのままでは公開日に全員の連続が 0 に戻る。
+     本編 3 教科の日ごとの正解数 (goshin の log、刈り込みなし) と小道の日ごとの正解数
+     (komorebi の daily) を、昨日までの日について端末 id "legacy" の数として入れる。
+     今日は入れない (今日の分はここから数える分と二重になるため)。取り込んだ印
+     (seeded) は和集合で統合されるので、他の端末が取り込み済みなら何もしない。 */
+  var TOMOSHIBI_LEGACY_DEV="legacy";
+  function tomoshibiSeed(pid){
+    if(tomoshibiModeNow()==="off"||!pid)return false;
+    var data=tomoshibiOf(pid);
+    if(data.seeded)return false;
+    var store=loadStore(), today=todayKey(), totals={}, d, i, e, log, c, daily, ok;
+    e=store.kv[rewardKey(pid)];
+    log=e&&e.data&&e.data.log;
+    if(log&&typeof log==="object"){
+      for(d in log){
+        c=log[d]&&log[d].correct;
+        if(!c||typeof c!=="object")continue;
+        for(i=0;i<REWARD_SUBJECTS.length;i++)totals[d]=(totals[d]||0)+Math.max(0,Math.floor(c[REWARD_SUBJECTS[i]])||0);
+      }
+    }
+    e=store.kv["komorebi"+SEP+pid];
+    daily=e&&e.data&&e.data.daily;
+    if(daily&&typeof daily==="object"){
+      for(d in daily){
+        ok=daily[d]&&Math.floor(daily[d].ok);
+        if(ok>0)totals[d]=(totals[d]||0)+ok;
+      }
+    }
+    for(d in totals){
+      if(!(d<today)||!isTomoshibiDate(d)||!(totals[d]>0))continue;
+      if(!data.days[d])data.days[d]={dev:{}};
+      data.days[d].dev[TOMOSHIBI_LEGACY_DEV]=Math.max(ownCount(data.days[d].dev,TOMOSHIBI_LEGACY_DEV),totals[d]);
+    }
+    data.seeded=1;
+    data.seededAt=today;
+    writeTomoshibi(pid,data);
+    return true;
+  }
   /* 正解 n 問を今日の自端末の数に足す。"off" では何もしない。"on" のときは
      shared/tomoshibi.js が読まれていれば、その場で今日のボーナスを精算する。 */
   function tomoshibiRecord(pid,n){
     var mode=tomoshibiModeNow(), date, data, day, total=0, dev, settled=null;
     if(mode==="off")return {ok:false,mode:mode};
     if(!pid)return {ok:false,mode:mode,error:"missing profile"};
+    try{ tomoshibiSeed(pid); }catch(_){}
     n=Math.max(1,Math.floor(n)||1);
     date=todayKey();
     data=tomoshibiOf(pid);
@@ -1669,7 +1714,7 @@
     toolGearOf:toolGearOf, toolGearSet:toolGearSet, toolGearMigrateFromProfile:toolGearMigrateFromProfile,
     goshinOf:goshinOf, recordCorrect:recordCorrect,
     tomoshibiOf:tomoshibiOf, tomoshibiRecord:tomoshibiRecord, tomoshibiMarkAwarded:tomoshibiMarkAwarded,
-    tomoshibiMarkSeen:tomoshibiMarkSeen,
+    tomoshibiMarkSeen:tomoshibiMarkSeen, tomoshibiSeed:tomoshibiSeed,
     todayKey:todayKey,
     chameleonOf:chameleonOf, unlockChameleon:unlockChameleon, recordChameleonClear:recordChameleonClear,
     equipmentOf:equipmentOf, restoreEquipment:restoreEquipment, equipItem:equipItem, unequipItem:unequipItem,

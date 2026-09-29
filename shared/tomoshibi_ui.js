@@ -83,6 +83,8 @@
   function stateFor(pid){
     var s=store(), T=engine();
     if(!pid||!s||typeof s.tomoshibiOf!=="function"||!T)return null;
+    /* 公開前の履歴の取り込み (1 回だけ。済んでいれば何もしない)。 */
+    try{ if(typeof s.tomoshibiSeed==="function")s.tomoshibiSeed(pid); }catch(_){}
     return T.computeState(s.tomoshibiOf(pid),typeof s.todayKey==="function"?s.todayKey():undefined);
   }
 
@@ -223,6 +225,9 @@
     if(!state||!state.dropPending||!state.lastDrop)return;
     var data=s.tomoshibiOf(pid), seen=data.seen&&data.seen[state.lastDrop.date];
     if(seen&&seen.drop)return;
+    /* 公開前 (履歴を取り込む前) の途切れは知らせない。公開日の最初の画面が
+       「ざんねん」にならないように。 */
+    if(!data.seededAt||state.lastDrop.date<data.seededAt)return;
     showDrop(pid,state);
   }
 

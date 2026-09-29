@@ -95,6 +95,9 @@
           var from=pending!=null?pending:(streak>0?tierIndexOf(streak):null);
           if(from==null)continue;
           if(pending===0)continue;
+          /* あか の段で途切れても下がる先が無いので、救済ではなくただのやり直し
+             (0 日から)。知らせも出さない。 */
+          if(pending==null&&from===0){ streak=0; continue; }
           var to=Math.max(0,from-DROP_STEPS);
           lastDrop={date:d,fromIndex:from,toIndex:to};
           pending=to;

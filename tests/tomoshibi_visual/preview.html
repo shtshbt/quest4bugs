@@ -34,6 +34,8 @@
     niji: history([].concat(fill(35, 5), [4])),
     drop: history([].concat(fill(31, 5), [0, 0]))
   };
+  /* 公開 (履歴の取り込み) より後に起きた途切れだけが知らせの対象。 */
+  DATA.drop.seededAt = "2026-08-01";
   var current = "gin";
   window.QuestSave = {
     currentProfile: function(){ return current; },

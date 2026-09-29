@@ -211,6 +211,17 @@ function solve(save, pid, n) {
     assert.equal(many.restartDay, 1);
   });
 
+  await test("a break while still in aka is a plain restart with no drop notice", () => {
+    const s = T.computeState(run(T, "2026-09-01", [5, 5, 5, 0, 0]), "2026-09-05");
+    assert.equal(s.streakDays, 0);
+    assert.equal(s.tier.id, "aka");
+    assert.equal(s.dropPending, false);
+    assert.equal(s.lastDrop, null);
+    const back = T.computeState(run(T, "2026-09-01", [5, 5, 5, 0, 4]), "2026-09-05");
+    assert.equal(back.streakDays, 1);
+    assert.equal(back.restartedToday, false);
+  });
+
   await test("an empty history starts at aka with six days to ao", () => {
     const s = T.computeState({ days: {} }, "2026-09-03");
     assert.equal(s.streakDays, 0);
@@ -483,6 +494,73 @@ function solve(save, pid, n) {
       /\$\{P\.streak\.n\}/, "eitango displays go through eStreak()");
     assert.match(read("kanji/index.html"), /Q4BTomoshibiUI\.streakDays\(CUR\.id,n\)/);
     assert.match(read("index.html"), /streak=Q4BTomoshibiUI\.streakDays\(pid,streak\)/);
+  });
+
+  /* ---- 7. 公開前の履歴の取り込み ---- */
+
+  /* goshin の log と komorebi の daily を持つ保存を作る (過去 n 日、毎日 per 問)。 */
+  function seededBacking(days, perDay, komorebiDays) {
+    const base = storageContext();
+    const today = base.QuestSave.todayKey();
+    const doc = storeDoc(base);
+    doc.kv = doc.kv || {};
+    const log = {};
+    for (let i = days; i >= 1; i--) log[T.addDays(today, -i)] = { correct: { keisan: perDay, kanji: 0, eitango: 0 } };
+    log[today] = { correct: { keisan: 50, kanji: 0, eitango: 0 } };
+    doc.kv["goshin" + SEP + "p1"] = { v: 1, updated: 1, data: { v: 1, log } };
+    const daily = {};
+    for (const [offset, ok] of komorebiDays || []) daily[T.addDays(today, -offset)] = { n: ok, ok };
+    doc.kv["komorebi" + SEP + "p1"] = { v: 1, updated: 1, revision: 1, data: { daily } };
+    base.__backing.set(STORE_KEY, JSON.stringify(doc));
+    return { backing: base.__backing, today };
+  }
+
+  await test("the first count seeds past days from goshin and komorebi, but not today", () => {
+    const { backing, today } = seededBacking(12, 5, [[13, 4]]);
+    const ctx = storageContext({ backing, mode: "count" });
+    ctx.QuestSave.recordCorrect("p1", "keisan", 1);
+    const data = plain(ctx.QuestSave.tomoshibiOf("p1"));
+    assert.equal(data.seeded, 1);
+    assert.equal(data.seededAt, today, "the seeding date gates drop notices");
+    assert.equal(data.days[T.addDays(today, -1)].dev.legacy, 5);
+    assert.equal(data.days[T.addDays(today, -13)].dev.legacy, 4, "komorebi-only days count too");
+    assert.equal(data.days[today].dev.legacy, undefined, "today is counted live, not seeded");
+    assert.deepEqual(data.days[today].dev, { devA: 1 });
+    const state = ctx.Q4BTomoshibi.computeState(data, today);
+    assert.equal(state.streakDays, 13, "the running streak carries over");
+    assert.equal(state.tier.id, "gin");
+  });
+
+  await test("seeding happens once and never in mode off", () => {
+    const { backing } = seededBacking(3, 5);
+    const off = storageContext({ backing });
+    assert.equal(off.QuestSave.tomoshibiSeed("p1"), false);
+    assert.equal(Object.keys(storeDoc(off).kv).some(k => k.indexOf("tomoshibi") === 0), false);
+    const on = storageContext({ backing, mode: "on" });
+    assert.equal(on.QuestSave.tomoshibiSeed("p1"), true);
+    assert.equal(on.QuestSave.tomoshibiSeed("p1"), false);
+  });
+
+  await test("a day under three answers in the old log does not count", () => {
+    const { backing, today } = seededBacking(5, 2);
+    const ctx = storageContext({ backing, mode: "count" });
+    ctx.QuestSave.tomoshibiSeed("p1");
+    const state = ctx.Q4BTomoshibi.computeState(ctx.QuestSave.tomoshibiOf("p1"), today);
+    assert.equal(state.streakDays, 0);
+    assert.equal(state.dropPending, false, "days that never qualified are not a break");
+  });
+
+  await test("the seeded mark merges as a union", async () => {
+    const local = storageContext({ mode: "count", device: "devA" });
+    solve(local.QuestSave, "p1", 1);
+    const doc = storeDoc(local);
+    doc.kv[tomoKey("p1")].data.seeded = 0;
+    local.__backing.set(STORE_KEY, JSON.stringify(doc));
+    const remote = { schema: 1, kind: "snapshot", v: 2, profiles: doc.profiles || [], current: doc.current || null,
+      tombstones: {}, kv: { [tomoKey("p1")]: { v: 1, updated: Date.now() + 60000, data: { v: 1, days: {}, awarded: {}, seeded: 1 } } } };
+    const ctx = storageContext({ backing: local.__backing, remote, mode: "count", device: "devA" });
+    await ctx.QuestSave.pullAll();
+    assert.equal(ctx.QuestSave.tomoshibiOf("p1").seeded, 1);
   });
 
   /* ---- 4. 小道の配線 ---- */
