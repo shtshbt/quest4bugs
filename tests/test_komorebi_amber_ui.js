@@ -123,7 +123,8 @@ test("feedbackHtml stays silent for zero, missing, or incorrect amber results", 
       const mgDenom = Object.values(context.Q4B_KOMOREBI_VOLUMES)
         .filter(v => v && v.regionId === "madagascar" && !v.placeholder && released(v))
         .reduce((sum, v) => sum + v.denominator, 0);
-      assert.match(plain(), new RegExp("あつめた虫\\s+1／" + mgDenom));
+      /* 1 冊なら「あつめた虫 1／84」、2 冊なら「あつめた虫 Ⅰ 1／84 Ⅱ 0／80 合計 1／164」。 */
+      assert.match(plain(), new RegExp("あつめた虫\\s+(1|[^合]*合計 1)／" + mgDenom));
     });
   })();
 
