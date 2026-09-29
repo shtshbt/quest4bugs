@@ -4,7 +4,7 @@ kom_ratio_forms → kom_kisokusei → kom_hayasa → kom_johou_seiri → kom_dia
 
 ## 共通要件
 
-1. リリースゲート: CATEGORIES に `release: 9` で登録する (未公開。CURRENT_RELEASE=1 のまま画面に出ない)。公開時期は release_linkage のカレンダー改訂で別途決める
+1. リリースゲート: CATEGORIES に、公開予定の更新番号で登録する (`docs/komorebi_release_linkage.md` 2.1 の枠)。`CURRENT_RELEASE` がその番号に届くまで画面に出ない。枠が未定なら公開済みより大きい番号を置き、枠が決まった時点で書き換える (2026-08-28 に「release 9 で寝かせる」運用から切り替えた)
 2. 表示名・course・maxLv は curriculum doc の指定に従う (course は全て k10、maxLv 10)
 3. 生成器は komorebi/ 配下の独立ファイル (既存の ratio_generator.js 等と同じ IIFE 形式・文体)。静的プールを持つカテゴリは doc の指定に従う
 4. セッション開始関数を SESSION_STARTERS に登録し、既存カテゴリと同じ画面部品 (normal / formulation / ordering / diagnosis / find_all) を使う。新形式が必要な場合は FORMAT_KINDS への登録を忘れない (登録漏れはゲージが進まず例外になる)
