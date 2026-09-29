@@ -16,17 +16,10 @@
 | トロフィー | 4 本登録済み (`komorebi/trophies.js`) |
 
 出す日の作業は `komorebi_release_runbook.md` 3 章のとおり (`CURRENT_RELEASE` 1 行、全ページの
-`economy_flag.js` の `?v=`、sw CACHE)。加えて、release 4 の値を焼き込んだ test が 6 本落ちるので
-公開後の期待値へ直す。2026-09-26 に release 5 で全テストを流して確かめた一覧:
-
-- `test_komorebi_amber_ui.js`: マダガスカルの分母 84 が 164 になる
-- `test_komorebi_kisokusei_session.js` / `test_komorebi_seisu_session.js`: 未公開前提の isReleased。`currentRelease() >= 5` の形へ
-- `test_komorebi_region_grouping.js`: 実データの MG II を delete していない
-- `test_komorebi_release_gate.js`: MG II の staged assert と、地図に「遠征 Ⅱ」が出ない assert
-- `test_zukan_progress_count.js`: ポータル分母 336 が 416 になる
-
-`economy_flag.js` の `?v=` を上げると、さらに `test_eitango_tools.js` / `test_kanji_tools.js` /
-`test_keisan_tools.js` がその固定値で落ちる (更新 4 でも同じく直した)。
+`economy_flag.js` の `?v=`、sw CACHE)。release 4 の値を焼き込んでいた test 6 本は、2026-09-28 に
+公開番号から期待値を引く形へ直した (release 4 と 5 の両方で全件 green を確認)。残る手作業は、
+`economy_flag.js` の `?v=` を固定値で持つ `test_eitango_tools.js` / `test_kanji_tools.js` /
+`test_keisan_tools.js` の 3 本をそろえることだけ。
 
 ### 0.2 まだ出せない
 

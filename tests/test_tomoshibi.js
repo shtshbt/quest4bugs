@@ -574,6 +574,39 @@ function solve(save, pid, n) {
     assert.equal(ctx.QuestSave.tomoshibiOf("p1").seeded, 1);
   });
 
+  /* ---- 8. 監視レポート ---- */
+
+  await test("the monitoring report flags mismatches, multi-device days and the count distribution", () => {
+    const { report, loadEngine } = require(path.join(root, "tools/tomoshibi_report.js"));
+    const save = {
+      profiles: [{ id: "p1", name: "ゆず" }, { id: "p2", name: "まだ" }],
+      kv: {
+        ["tomoshibi" + SEP + "p1"]: { data: {
+          seeded: 1, seededAt: "2026-09-28",
+          days: {
+            "2026-09-27": { dev: { legacy: 12 } },
+            "2026-09-28": { dev: { devA: 3 } },
+            "2026-09-29": { dev: { devA: 7, devB: 3 } },
+            "2026-09-30": { dev: { devA: 3 } }
+          },
+          awarded: { "2026-09-28": { base: 10, top: 0 }, "2026-09-29": { base: 10, top: 0 } }
+        } },
+        ["goshin" + SEP + "p1"]: { data: { log: {
+          "2026-09-29": { correct: { keisan: 10, kanji: 0, eitango: 0 } },
+          "2026-09-30": { correct: { keisan: 2, kanji: 0, eitango: 0 } }
+        } } }
+      }
+    };
+    const out = report(save, "2026-09-30", loadEngine());
+    assert.match(out, /取り込み: 済 \(2026-09-28\)/);
+    assert.match(out, /1 日の正解数の分布: 1-2 もん 0 日、3 もん 2 日、4-9 もん 0 日、10 もん 1 日、11\+ もん 0 日/);
+    assert.match(out, /既存記録との食い違い: 2026-09-30: ともしび 3 \/ 既存 2/);
+    assert.doesNotMatch(out, /2026-09-29: ともしび/, "matching days are not reported");
+    assert.match(out, /2 台以上で数えた日: 2026-09-29 \(devA, devB\)/);
+    assert.match(out, /支払った こはく: 20 \(2 日\)/);
+    assert.match(out, /## まだ[\s\S]*ともしびの記録なし/);
+  });
+
   /* ---- 4. 小道の配線 ---- */
 
   await test("komorebi forwards each counted correct answer to tomoshibiRecord", async () => {
