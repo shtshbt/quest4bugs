@@ -1,0 +1,80 @@
+{
+  "species_id": "konohachou",
+  "species_ja": "コノハチョウ",
+  "scientific_name": "Kallima inachus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "vijaybarve (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_2301759",
+    "occurrenceId": "https://www.inaturalist.org/observations/2301759",
+    "persistentId": "https://www.inaturalist.org/observations/2301759",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "vijaybarve",
+    "eventDate": "2008-03-19",
+    "eventYear": 2008,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "Suntaleykhola, Samsing, West Bengal, India, India",
+    "preparations": null,
+    "decimalLatitude": 27.01087,
+    "decimalLongitude": 88.786302,
+    "coordinatesObscured": false,
+    "iNatObservationId": "2301759",
+    "iNatPhotoId": "2560545",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/2301759",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/2560545/original.JPG",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs2301759_resized.jpg",
+    "display": "processed/iNatobs2301759_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs2301759_54.webp",
+      "108": "thumb/iNatobs2301759_108.webp",
+      "216": "thumb/iNatobs2301759_216.webp"
+    }
+  },
+  "original_sha256": "bd135bed9a3c07a6e81283f2dec6d8558505bdb74b52d76e21f969b956091396",
+  "processing": {
+    "cropBox": [
+      386,
+      129,
+      762,
+      642
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs2301759_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

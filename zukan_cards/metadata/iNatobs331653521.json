@@ -1,0 +1,80 @@
+{
+  "species_id": "chabane_seseri",
+  "species_ja": "チャバネセセリ",
+  "scientific_name": "Pelopidas mathias",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "arneholgersson (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_331653521",
+    "occurrenceId": "https://www.inaturalist.org/observations/331653521",
+    "persistentId": "https://www.inaturalist.org/observations/331653521",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "arneholgersson",
+    "eventDate": "2025-12-06",
+    "eventYear": 2025,
+    "country": "The Gambia",
+    "localityVerbatim": null,
+    "localityNormalized": "Batelling, The Gambia, The Gambia",
+    "preparations": null,
+    "decimalLatitude": 13.4087756,
+    "decimalLongitude": -15.842974,
+    "coordinatesObscured": false,
+    "iNatObservationId": "331653521",
+    "iNatPhotoId": "601699917",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/331653521",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/601699917/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs331653521_resized.jpg",
+    "display": "processed/iNatobs331653521_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs331653521_54.webp",
+      "108": "thumb/iNatobs331653521_108.webp",
+      "216": "thumb/iNatobs331653521_216.webp"
+    }
+  },
+  "original_sha256": "bca5b439a1510c12b3b09e43120fcd6ad8b88f851a82cedc24136cf652a99bdf",
+  "processing": {
+    "cropBox": [
+      369,
+      735,
+      1279,
+      1514
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs331653521_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

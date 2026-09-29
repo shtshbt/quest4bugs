@@ -1,0 +1,80 @@
+{
+  "species_id": "hatchou_tonbo",
+  "species_ja": "ハッチョウトンボ",
+  "scientific_name": "Nannophya pygmaea",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "james_birdtourasia (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_322543174",
+    "occurrenceId": "https://www.inaturalist.org/observations/322543174",
+    "persistentId": "https://www.inaturalist.org/observations/322543174",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "james_birdtourasia",
+    "eventDate": "2025-10-18",
+    "eventYear": 2025,
+    "country": "Indonesia",
+    "localityVerbatim": null,
+    "localityNormalized": "Taliabu Island Regency, North Maluku, Indonesia, Indonesia",
+    "preparations": null,
+    "decimalLatitude": -1.8268344,
+    "decimalLongitude": 124.7740793,
+    "coordinatesObscured": false,
+    "iNatObservationId": "322543174",
+    "iNatPhotoId": "583509606",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/322543174",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/583509606/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs322543174_resized.jpg",
+    "display": "processed/iNatobs322543174_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs322543174_54.webp",
+      "108": "thumb/iNatobs322543174_108.webp",
+      "216": "thumb/iNatobs322543174_216.webp"
+    }
+  },
+  "original_sha256": "49ecb7b81e47f53c0bee420830636670a6a25c1541c6108a45a6b55f7c60d605",
+  "processing": {
+    "cropBox": [
+      68,
+      365,
+      1271,
+      956
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs322543174_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

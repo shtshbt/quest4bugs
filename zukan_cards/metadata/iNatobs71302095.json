@@ -1,0 +1,80 @@
+{
+  "species_id": "sugitani_rurishijimi",
+  "species_ja": "スギタニルリシジミ",
+  "scientific_name": "Celastrina sugitanii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_71302095",
+    "occurrenceId": "https://www.inaturalist.org/observations/71302095",
+    "persistentId": "https://www.inaturalist.org/observations/71302095",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2014-04-09",
+    "eventYear": 2014,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 33.7277733146,
+    "decimalLongitude": 134.1348872533,
+    "coordinatesObscured": true,
+    "iNatObservationId": "71302095",
+    "iNatPhotoId": "116040853",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/71302095",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/116040853/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs71302095_resized.jpg",
+    "display": "processed/iNatobs71302095_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs71302095_54.webp",
+      "108": "thumb/iNatobs71302095_108.webp",
+      "216": "thumb/iNatobs71302095_216.webp"
+    }
+  },
+  "original_sha256": "12acce502dec6cf0d5ac478c1c495d8e9a46df41cc017c46d8d2d7bd4fc26a1b",
+  "processing": {
+    "cropBox": [
+      163,
+      183,
+      1936,
+      1411
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs71302095_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

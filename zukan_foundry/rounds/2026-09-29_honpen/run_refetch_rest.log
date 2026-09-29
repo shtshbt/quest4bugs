@@ -1,0 +1,2231 @@
+[batch] skip-sources: wikimedia, wikipedia を discover から外す
+[batch] refetch-ids: 180 id(s) loaded from zukan_foundry/rounds/2026-09-29_honpen/refetch_ids_rest.txt
+[batch] resume: 0 skipped (already emitted), 180 to process (180 forced via --refetch-ids)
+[batch] Loading rembg session (birefnet-general) before streaming start
+[batch] Streaming: Phase 1 (producer ThreadPool, max_workers=2) + Phase 2 (consumer serial) concurrent for 180 species
+[source_discovery] ryukyu_uraboshi_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Pithecops fulgens (taxon_id=358769): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] ryukyu_uraboshi_shijimi: wikipedia を skip 指定で飛ばす
+[batch]   ng io ryukyu_uraboshi_shijimi: [discover] no tier matched
+[source_discovery] kumazemi: wikimedia を skip 指定で飛ばす
+[inat_search] Cryptotympana facialis (taxon_id=85409): scanned 1 page(s), 10 obs total, hit
+[batch]   ok io kumazemi: tier=7 iNat
+[batch]   -> cpu kumazemi (クマゼミ)
+[batch]     reject [label_border] tier=7 iNat: 前景が bbox 外周の 64% を覆う。昆虫は脚と触角が数点触れるだけで、この値にならない
+[source_discovery] kumazemi: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_border: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[source_discovery] minminzemi: wikimedia を skip 指定で飛ばす
+[inat_search] Hyalessa maculaticollis (taxon_id=359390): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io minminzemi: tier=7 iNat
+[batch]   -> cpu minminzemi (ミンミンゼミ)
+[source_discovery] ramie_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Paraglenea fortunei (taxon_id=714213): scanned 1 page(s), 10 obs total, hit
+[batch]   ok io ramie_kamikiri: tier=7 iNat
+[batch]   ok io ruriboshi_kamikiri: tier=1 USNM
+[batch]   ok io ao_osamushi: tier=1 USNM
+[zukan_card] resized archived: iNatobs31085530_resized.jpg src_sha=8ea4bab1de5c
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] kawara_hanmyou: wikimedia を skip 指定で飛ばす
+[inat_search] Chaetodera laetescripta (taxon_id=606729): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] kawara_hanmyou: wikipedia を skip 指定で飛ばす
+[source_discovery] aino_midorishijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Chrysozephyrus brillantinus (taxon_id=358732): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io aino_midorishijimi: tier=7 iNat
+[batch]   ok io benihikage: tier=3 RMNH
+/home/shota/.claude/skills/zukan-svg/build_zukan_card.py:149: FutureWarning: Parameter `min_size` is deprecated since version 0.26.0 and will be removed in 2.0.0 (or later). To avoid this warning, please use the parameter `max_size` instead. For more details, see the documentation of `remove_small_objects`. Note that the new threshold removes objects smaller than **or equal to** its value, while the previous parameter only removed smaller ones.
+  cleaned = morphology.remove_small_objects(alpha > 20, min_size=min_size)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs31085530.json
+[batch]   ok io oo_ichimonji: tier=3 RMNH
+[batch]   ok io banana_seseri: tier=3 RMNH
+[source_discovery] usubashirochou: wikimedia を skip 指定で飛ばす
+[inat_search] Parnassius citrinarius (taxon_id=371390): scanned 1 page(s), 8 obs total, hit
+[batch]   ok io usubashirochou: tier=7 iNat
+[batch]   ok io akaboshi_gomadara: tier=3 RMNH
+[batch]     refetch: minminzemi 旧カード (WMCFileHyalessamaculaticollisdistributionpng) を 6 ファイル退避
+[batch]     ok iNatobs31085530
+[batch]   -> cpu ramie_kamikiri (ラミーカミキリ)
+[batch]   ok io onaga_ageha: tier=3 RMNH
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[batch]   ok io shiroobi_ageha: tier=1 USNM
+[batch]   ok io jakou_ageha: tier=3 RMNH
+[batch]   ok io yaeyama_karasu_ageha: tier=3 RMNH
+[batch]   ok io tomon_ageha: tier=3 RMNH
+[batch]   ok io oouragin_hyoumon: tier=3 RMNH
+[batch]   ok io uraginsuji_hyoumon: tier=3 RMNH
+[batch]   ok io oouraginsuji_hyoumon: tier=3 RMNH
+[batch]   ok io mesuguro_hyoumon: tier=3 RMNH
+[zukan_card] resized archived: iNatobs171199669_resized.jpg src_sha=5e611fbb9cec
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io hyoumonmodaki: tier=3 RMNH
+[batch]   ok io himejanome: tier=3 RMNH
+[batch]   ok io kojanome: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io kurohikage: tier=3 RMNH
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs171199669.json
+[batch]   ok io hikagechou: tier=3 RMNH
+[batch]   ok io satokimadara_hikage: tier=3 RMNH
+[batch]   ok io himeuranami_janome: tier=3 RMNH
+[batch]   ok io uranami_janome: tier=3 RMNH
+[batch]   ok io kimadara_modoki: tier=3 RMNH
+[batch]   ok io tsumajiro_uragoma_janome: tier=3 RMNH
+[batch]   ok io hikage_janome: tier=3 RMNH
+[batch]   ok io kurohikage_modoki: tier=3 RMNH
+[batch]   ok io saikabuto: tier=2 NHMUK
+[batch]     refetch: ramie_kamikiri 旧カード (WMCFileParagleneafortuneilarvaejpeg) を 6 ファイル退避
+[batch]     ok iNatobs171199669
+[batch]   -> cpu ruriboshi_kamikiri (ルリボシカミキリ)
+[source_discovery] douganebuibui: wikimedia を skip 指定で飛ばす
+[inat_search] Anomala cuprea (taxon_id=471154): scanned 1 page(s), 8 obs total, hit
+[batch]   ok io douganebuibui: tier=7 iNat
+[source_discovery] koganemushi: wikimedia を skip 指定で飛ばす
+[inat_search] Mimela splendens (taxon_id=361722): scanned 1 page(s), 7 obs total, hit
+[batch]   ok io koganemushi: tier=7 iNat
+[zukan_card] resized archived: USNMruriboshikamikiri_resized.jpg src_sha=4424c8bdbc05
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] maguso_kogane: wikimedia を skip 指定で飛ばす
+[inat_search] Aphodius rectus (taxon_id=957541): scanned 1 page(s), 6 obs total, hit
+[batch]   ok io maguso_kogane: tier=7 iNat
+[source_discovery] kuwagata_hanamuguri: wikimedia を skip 指定で飛ばす
+[inat_search] Glycyphana fulvistemma (taxon_id=471167): scanned 1 page(s), 6 obs total, hit
+[batch]   ok io kuwagata_hanamuguri: tier=7 iNat
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[source_discovery] miyama_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Massicus raddei (taxon_id=865911): scanned 1 page(s), 14 obs total, hit
+[batch]   ok io miyama_kamikiri: tier=7 iNat
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMruriboshikamikiri.json
+[batch]     ok USNMruriboshikamikiri
+[batch]   -> cpu ao_osamushi (アオオサムシ)
+[source_discovery] ebiiro_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Distenia gracilis (taxon_id=333768): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io ebiiro_kamikiri: tier=7 iNat
+[source_discovery] budou_tora_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Xylotrechus pyrrhoderus (taxon_id=1127413): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] budou_tora_kamikiri: wikipedia を skip 指定で飛ばす
+[source_discovery] kuwakamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Apriona japonica (taxon_id=711995): scanned 1 page(s), 7 obs total, hit
+[batch]   ok io kuwakamikiri: tier=7 iNat
+[image_fetch] transient HTTP 500 for kameno_ko_hamushi, retry 1/4 after 2.5s
+[zukan_card] resized archived: USNMENT01452681_resized.jpg src_sha=66182ca55d14
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io kameno_ko_hamushi: tier=2 NHMUK
+[source_discovery] hoshibeni_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Eupromus ruber (taxon_id=466584): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io hoshibeni_kamikiri: tier=7 iNat
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT01452681.json
+[batch]     ok USNMENT01452681
+[batch]   ng io kawara_hanmyou: [discover] no tier matched
+[batch]   -> cpu aino_midorishijimi (アイノミドリシジミ)
+[batch]   ok io konohachou: tier=3 RMNH
+[source_discovery] tsuya_hada_kuwagata: wikimedia を skip 指定で飛ばす
+[inat_search] Ceruchus lignarius (taxon_id=1079178): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] tsuya_hada_kuwagata: wikipedia を skip 指定で飛ばす
+[zukan_card] resized archived: iNatobs229230224_resized.jpg src_sha=de933e27228f
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io tenguchou: tier=3 RMNH
+[batch]   ok io ishigakechou: tier=3 RMNH
+[batch]   ok io tatehamodoki: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io ichimonji_seseri: tier=3 RMNH
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs229230224.json
+[batch]   ok io chabane_seseri: tier=3 RMNH
+[batch]   ok io miyama_chabane_seseri: tier=3 RMNH
+[batch]   ok io sujigurochabane_seseri: tier=3 RMNH
+[batch]   ok io kimadara_seseri: tier=3 RMNH
+[batch]   ok io miyama_seseri: tier=3 RMNH
+[batch]   ok io kuro_seseri: tier=3 RMNH
+[batch]   ok io chamadara_seseri: tier=3 RMNH
+[batch]   ok io kuroboshi_seseri: tier=3 RMNH
+[source_discovery] hoshichabane_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Aeromachus inachus (taxon_id=358617): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] hoshichabane_seseri: wikipedia を skip 指定で飛ばす
+[batch]   ok io yuurei_seseri: tier=3 RMNH
+[batch]   ok io okinawa_birodo_seseri: tier=3 RMNH
+[batch]   ok io sugitani_rurishijimi: tier=3 RMNH
+[batch]     refetch: aino_midorishijimi 旧カード (WMCFileMacrolepidoptera01seitz0153jpg) を 6 ファイル退避
+[batch]     ok iNatobs229230224
+[batch]   -> cpu benihikage (ベニヒカゲ)
+[batch]   ok io kurotsubame_shijimi: tier=3 RMNH
+[batch]   ok io taiwan_kuroboshi_shijimi: tier=3 RMNH
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.05 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] benihikage: wikimedia を skip 指定で飛ばす
+[inat_search] Erebia niphonica (taxon_id=1193458): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] benihikage: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu oo_ichimonji (オオイチモンジ)
+[source_discovery] oogomashijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Phengaris arionides (taxon_id=109282): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] oogomashijimi: wikipedia を skip 指定で飛ばす
+[batch]   ok io tsubamehazurao_shijimi: tier=3 RMNH
+[batch]   ok io amida_shijimi: tier=3 RMNH
+[batch]   ok io yakushima_ruri_shijimi: tier=3 RMNH
+[zukan_card] resized archived: RMNHINS1006303_resized.jpg src_sha=d27c0d78874f
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] sokorabe_ruri_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Celastrina albocaerulea (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] sokorabe_ruri_shijimi: wikipedia を skip 指定で飛ばす
+[batch]   ok io iwakawa_shijimi: tier=3 RMNH
+[batch]   ok io ruri_uranami_shijimi: tier=3 RMNH
+[batch]   ok io shirouranami_shijimi: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io tappi_shijimi: tier=3 RMNH
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS1006303.json
+[batch]     ok RMNHINS1006303
+[batch]   -> cpu banana_seseri (バナナセセリ)
+[batch]   ok io kuronaga_osamushi: tier=4 ETHZ
+[batch]   ok io eltateha: tier=3 RMNH
+[source_discovery] oo_gomimushi: wikimedia を skip 指定で飛ばす
+[inat_search] Lesticus magnus (taxon_id=855327): scanned 1 page(s), 8 obs total, hit
+[batch]   ok io oo_gomimushi: tier=7 iNat
+[batch]   ok io ruritateha: tier=3 RMNH
+[image_fetch] transient HTTP 500 for kobatateha, retry 1/4 after 2.5s
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.06 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] banana_seseri: wikimedia を skip 指定で飛ばす
+[batch]   ok io kobatateha: tier=2 NHMUK
+[batch]   ok io gomadarachou: tier=3 RMNH
+[inat_search] Erionota torus (taxon_id=219475): scanned 1 page(s), 9 obs total, hit
+[batch]   ok io sasakia_oomurasaki_ss: tier=3 RMNH
+[batch]   ok io araschnia_sakahachi_aki: tier=3 RMNH
+[zukan_card] resized archived: iNatobs67196759_resized.jpg src_sha=7d69b2b70ac2
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] fuji_midorishijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Sibataniozephyrus fujisanus (taxon_id=358785): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io fuji_midorishijimi: tier=7 iNat
+[source_discovery] urakuro_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Iratsume orsedice (taxon_id=358758): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] urakuro_shijimi: wikipedia を skip 指定で飛ばす
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs67196759.json
+[source_discovery] uramisuji_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Wagimo signatus (taxon_id=508585): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] uramisuji_shijimi: wikipedia を skip 指定で飛ばす
+[source_discovery] usuiro_onaga_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Antigius butleri (taxon_id=358711): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] usuiro_onaga_shijimi: wikipedia を skip 指定で飛ばす
+[batch]   ok io onaga_shijimi: tier=4 YPM
+[batch]     refetch: banana_seseri 旧カード (RMNHINS307303) を 6 ファイル退避
+[batch]     ok iNatobs67196759 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu usubashirochou (ウスバシロチョウ)
+[source_discovery] kotsubame: wikimedia を skip 指定で飛ばす
+[inat_search] Callophrys ferrea (taxon_id=633853): scanned 1 page(s), 8 obs total, hit
+[batch]   ok io kotsubame: tier=7 iNat
+[batch]   ok io marutan_yanma: tier=1 USNM
+[batch]   ok io hatchou_tonbo: tier=1 USNM
+[batch]   ok io kiito_tonbo: tier=1 USNM
+[source_discovery] akashijimi_minami: wikimedia を skip 指定で飛ばす
+[inat_search] Japonica onoi (taxon_id=358766): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] akashijimi_minami: wikipedia を skip 指定で飛ばす
+[zukan_card] resized archived: iNatobs219307950_resized.jpg src_sha=652837074bbc
+[zukan_card] L1 segmentation (birefnet-general)
+[image_fetch] transient HTTP 500 for kuroito_tonbo, retry 1/4 after 2.1s
+[image_fetch] transient HTTP 500 for kuroito_tonbo, retry 2/4 after 4.6s
+[batch]   ok io kuroito_tonbo: tier=2 NHMUK
+[batch]   ok io oo_suzumebachi: tier=1 USNM
+[batch]   ok io kogata_suzumebachi: tier=1 USNM
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs219307950.json
+[source_discovery] tsuyumushi: wikimedia を skip 指定で飛ばす
+[inat_search] Phaneroptera falcata (taxon_id=141737): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io tsuyumushi: tier=7 iNat
+[source_discovery] kuroyama_ari: wikimedia を skip 指定で飛ばす
+[inat_search] Formica japonica (taxon_id=322421): scanned 1 page(s), 14 obs total, hit
+[batch]   ok io kuroyama_ari: tier=7 iNat
+[batch]     refetch: usubashirochou 旧カード (WMCFileButterfliesfromChinaJapanandCorea19329882875jpg) を 6 ファイル退避
+[batch]     ok iNatobs219307950
+[batch]   -> cpu akaboshi_gomadara (アカボシゴマダラ)
+[source_discovery] kuro_gengorou: wikimedia を skip 指定で飛ばす
+[inat_search] Cybister brevis (taxon_id=792757): scanned 1 page(s), 8 obs total, hit
+[batch]   ok io kuro_gengorou: tier=7 iNat
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] akaboshi_gomadara: wikimedia を skip 指定で飛ばす
+[inat_search] Hestina assimilis (taxon_id=324771): scanned 1 page(s), 20 obs total, hit
+[source_discovery] haiiro_gengorou: wikimedia を skip 指定で飛ばす
+[inat_search] Eretes griseus (taxon_id=415503): scanned 1 page(s), 10 obs total, hit
+[batch]   ok io haiiro_gengorou: tier=7 iNat
+[zukan_card] resized archived: iNatobs218877504_resized.jpg src_sha=cc0899eb533f
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] ojiro_ashinaga_zoumushi: wikimedia を skip 指定で飛ばす
+[inat_search] Mesalcidodes trifidus (taxon_id=550373): scanned 1 page(s), 16 obs total, hit
+[batch]   ok io ojiro_ashinaga_zoumushi: tier=7 iNat
+[batch]   ok io shinjusan: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[source_discovery] kususan: wikimedia を skip 指定で飛ばす
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs218877504.json
+[inat_search] Caligula japonica (taxon_id=1627531): scanned 1 page(s), 20 obs total, hit
+[batch]   ok io kususan: tier=7 iNat
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 2 media entries match label markers; falling back to media[0] as safety net
+[image_fetch] transient HTTP 500 for kaiko_moth, retry 1/4 after 2.4s
+[batch]   ok io kaiko_moth: tier=2 NHMUK
+[batch]     refetch: akaboshi_gomadara 旧カード (RMNHINS377504) を 6 ファイル退避
+[batch]     ok iNatobs218877504 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu onaga_ageha (オナガアゲハ)
+[source_discovery] kurousutabiga: wikimedia を skip 指定で飛ばす
+[inat_search] Rhodinia jankowskii (taxon_id=955013): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io kurousutabiga: tier=7 iNat
+[image_fetch] transient HTTP 500 for yotsumeaoshaku, retry 1/4 after 2.2s
+[batch]   ok io yotsumeaoshaku: tier=2 NHMUK
+[source_discovery] agehamodoki: wikimedia を skip 指定で飛ばす
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 97% 埋める直線的な矩形 (row_cv=0.10 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] onaga_ageha: wikimedia を skip 指定で飛ばす
+[inat_search] Epicopeia hainesii (taxon_id=361685): scanned 1 page(s), 6 obs total, hit
+[batch]   ok io agehamodoki: tier=7 iNat
+[inat_search] Papilio macilentus (taxon_id=324234): scanned 1 page(s), 5 obs total, hit
+[image_fetch] transient HTTP 500 for maimaiga, retry 1/4 after 2.5s
+[batch]   ok io maimaiga: tier=2 NHMUK
+[zukan_card] resized archived: iNatobs216733747_resized.jpg src_sha=000b9a314b75
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] akahige_dokuga: wikimedia を skip 指定で飛ばす
+[inat_search] Lemyra imparilis (taxon_id=357326): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io akahige_dokuga: tier=7 iNat
+[batch]   ok io asia_ito_tonbo: tier=1 USNM
+[batch]   ok io oo_ito_tonbo: tier=1 USNM
+[source_discovery] tobimon_ooedashaku: wikimedia を skip 指定で飛ばす
+[batch]   ok io hosomi_ito_tonbo: tier=1 USNM
+[inat_search] Biston robustum (taxon_id=633162): scanned 1 page(s), 9 obs total, hit
+[batch]   ok io kosanae: tier=1 USNM
+[batch]   ok io tobimon_ooedashaku: tier=7 iNat
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs216733747.json
+[source_discovery] ao_sanae: wikimedia を skip 指定で飛ばす
+[source_discovery] mitsukado_koorogi: wikimedia を skip 指定で飛ばす
+[inat_search] Nihonogomphus viridis (taxon_id=107035): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io ao_sanae: tier=7 iNat
+[inat_search] Loxoblemmus doenitzi (taxon_id=555006): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io mitsukado_koorogi: tier=7 iNat
+[source_discovery] tsuno_kamemushi_esaki_replaced: wikimedia を skip 指定で飛ばす
+[inat_search] Acanthosoma labiduroides (taxon_id=552118): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io tsuno_kamemushi_esaki_replaced: tier=7 iNat
+[source_discovery] tsunozemi_marubane: wikimedia を skip 指定で飛ばす
+[inat_search] Gargara genistae (taxon_id=553215): scanned 1 page(s), 9 obs total, hit
+[batch]     refetch: onaga_ageha 旧カード (RMNHINS333324) を 6 ファイル退避
+[batch]     ok iNatobs216733747 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu shiroobi_ageha (シロオビアゲハ)
+[batch]   ok io tsunozemi_marubane: tier=7 iNat
+[batch]   ok io monsuzumebachi: tier=1 USNM
+[batch]   ok io futamon_ashinagabachi: tier=4 AM
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 89% 埋める直線的な矩形 (row_cv=0.22 col_cv=0.20)。ラベルカードか標本箱とみなす
+[source_discovery] shiroobi_ageha: wikimedia を skip 指定で飛ばす
+[inat_search] Papilio polytes (taxon_id=51588): scanned 1 page(s), 20 obs total, hit
+[source_discovery] kuro_suzumebachi: wikimedia を skip 指定で飛ばす
+[inat_search] Vespula flaviceps (taxon_id=358143): scanned 1 page(s), 10 obs total, hit
+[batch]   ok io kuro_suzumebachi: tier=7 iNat
+[image_fetch] transient HTTP 500 for yamato_kuroshijimi_hebitonbo_dummy, retry 1/4 after 2.4s
+[image_fetch] transient HTTP 500 for yamato_kuroshijimi_hebitonbo_dummy, retry 2/4 after 4.1s
+[source_discovery] nihon_ashinagabachi: wikimedia を skip 指定で飛ばす
+[batch]   ok io yamato_kuroshijimi_hebitonbo_dummy: tier=2 NHMUK
+[inat_search] Polistes jadwigae (taxon_id=354879): scanned 1 page(s), 18 obs total, hit
+[batch]   ok io nihon_ashinagabachi: tier=7 iNat
+[zukan_card] resized archived: iNatobs9293756_resized.jpg src_sha=6b4208d93cd2
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io kusakagerou: tier=2 NHMUK
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs9293756.json
+[source_discovery] kibara_kamakirimodoki: wikimedia を skip 指定で飛ばす
+[inat_search] Eumantispa harmandi (taxon_id=471132): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io kibara_kamakirimodoki: tier=7 iNat
+[source_discovery] mikado_gagambo: wikimedia を skip 指定で飛ばす
+[inat_search] Holorusia mikado (taxon_id=1227022): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io mikado_gagambo: tier=7 iNat
+[source_discovery] oo_hanaabu_oddball_dummy: wikimedia を skip 指定で飛ばす
+[inat_search] Eristalis cerealis (taxon_id=481824): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io oo_hanaabu_oddball_dummy: tier=7 iNat
+[batch]     refetch: shiroobi_ageha 旧カード (USNMENT01978201) を 6 ファイル退避
+[batch]     ok iNatobs9293756 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu jakou_ageha (ジャコウアゲハ)
+[source_discovery] ni_idolomantis_diabolica: wikimedia を skip 指定で飛ばす
+[inat_search] Idolomantis diabolica (taxon_id=490228): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io ni_idolomantis_diabolica: tier=7 iNat
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[batch]   ok io siamensis_atlas_kabuto: tier=2 NHMUK
+[source_discovery] muna_biro_kamakiri_dummy: wikimedia を skip 指定で飛ばす
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.10 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] jakou_ageha: wikimedia を skip 指定で飛ばす
+[inat_search] Byasa alcinous (taxon_id=356410): scanned 1 page(s), 17 obs total, hit
+[inat_search] Hierodula chinensis (taxon_id=749869): scanned 1 page(s), 10 obs total, hit
+[batch]   ok io muna_biro_kamakiri_dummy: tier=7 iNat
+[batch]   ok io gomimushidamashi_kohira: tier=2 NHMUK
+[batch]   ok io katsuobushi_mushi: tier=2 NHMUK
+[source_discovery] ubatama_kometsuki: wikimedia を skip 指定で飛ばす
+[inat_search] Cryptalaus berus (taxon_id=551382): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io ubatama_kometsuki: tier=7 iNat
+[batch]   ok io kiobinaga_kakkoumushi: tier=2 NHMUK
+[zukan_card] resized archived: iNatobs96054592_resized.jpg src_sha=9ee0cee0a87d
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io yomogi_ediba: tier=3 RMNH
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs96054592.json
+[source_discovery] yumon_eda_shaku: wikimedia を skip 指定で飛ばす
+[inat_search] Abraxas miranda (taxon_id=320700): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io yumon_eda_shaku: tier=7 iNat
+[image_fetch] transient HTTP 500 for tama_oshi_zou, retry 1/4 after 2.1s
+[source_discovery] oba_kuwa_eda_shaku: wikimedia を skip 指定で飛ばす
+[image_fetch] transient HTTP 500 for tama_oshi_zou, retry 2/4 after 4.6s
+[inat_search] Menophra senex (taxon_name (fallback)): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] oba_kuwa_eda_shaku: wikipedia を skip 指定で飛ばす
+[image_fetch] transient HTTP 500 for tama_oshi_zou, retry 3/4 after 9.7s
+[batch]     refetch: jakou_ageha 旧カード (RMNHINS324597) を 6 ファイル退避
+[batch]     ok iNatobs96054592 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu yaeyama_karasu_ageha (ヤエヤマカラスアゲハ)
+[batch]   ok io tama_oshi_zou: tier=2 NHMUK
+[batch]   ok io dandara_tentou: tier=4 AM
+[source_discovery] kibara_tentou: wikimedia を skip 指定で飛ばす
+[inat_search] Illeis koebelei (taxon_id=498267): scanned 1 page(s), 20 obs total, hit
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[batch]   ok io kibara_tentou: tier=7 iNat
+[image_fetch] transient HTTP 500 for hime_nagakamemushi, retry 1/4 after 2.2s
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 87% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] yaeyama_karasu_ageha: wikimedia を skip 指定で飛ばす
+[image_fetch] transient HTTP 500 for hime_nagakamemushi, retry 2/4 after 4.2s
+[inat_search] Papilio bianor (taxon_id=68352): scanned 1 page(s), 5 obs total, hit
+[batch]   ok io kobane_ashinaga_bachi: tier=2 NHMUK
+[batch]   ok io hime_nagakamemushi: tier=2 NHMUK
+[batch]   ok io kuro_hira_taabu: tier=4 AM
+[batch]   ok io hito_suji_shima_ka: tier=1 USNM
+[zukan_card] resized archived: iNatobs301772066_resized.jpg src_sha=c84a320d5ba3
+[batch]   ok io oo_yokobai: tier=2 NHMUK
+[zukan_card] L1 segmentation (birefnet-general)
+[batch]   ok io tsumaguro_suzumebachi: tier=1 USNM
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] kubinaga_ari: wikimedia を skip 指定で飛ばす
+[inat_search] Cryptopone sauteri (taxon_id=1232358): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io kubinaga_ari: tier=7 iNat
+[batch]   ok io gunbai_tonbo: tier=1 USNM
+[batch]   ok io suna_akane: tier=1 USNM
+[batch]   ok io akama_dara_hanamuguri: tier=2 NHMUK
+[batch]   ok io inago_hamushi: tier=2 NHMUK
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs301772066.json
+[source_discovery] oo_zu_ari: wikimedia を skip 指定で飛ばす
+[inat_search] Pheidole noda (taxon_id=1120421): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io oo_zu_ari: tier=7 iNat
+[batch]   ok io hime_silvia_shijimi: tier=3 RMNH
+[source_discovery] hime_shaku: wikimedia を skip 指定で飛ばす
+[inat_search] Cystidia couaggaria (taxon_id=356426): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io hime_shaku: tier=7 iNat
+[batch]   ok io taiwan_tsubame_shijimi: tier=3 RMNH
+[batch]     refetch: yaeyama_karasu_ageha 旧カード (RMNHINS1302598) を 6 ファイル退避
+[batch]     ok iNatobs301772066 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu tomon_ageha (タイワンモンキアゲハ)
+[source_discovery] goma_fu_kamikiri: wikimedia を skip 指定で飛ばす
+[source_discovery] ko_fuki_kogane: wikimedia を skip 指定で飛ばす
+[inat_search] Mesosa myops (taxon_id=493501): scanned 1 page(s), 6 obs total, hit
+[inat_search] Melolontha japonica (taxon_id=470752): scanned 1 page(s), 3 obs total, hit
+[batch]   ok io goma_fu_kamikiri: tier=7 iNat
+[batch]   ok io ko_fuki_kogane: tier=7 iNat
+[batch]   ok io morton_ito_tonbo: tier=1 USNM
+[batch]   ok io ezo_ito_tonbo: tier=1 USNM
+[zukan_card] resized archived: RMNHZMAINS1332982_resized.jpg src_sha=902520117f9c
+[zukan_card] L1 segmentation (birefnet-general)
+[image_fetch] transient HTTP 500 for naden_tentou, retry 1/4 after 2.1s
+[batch]   ok io naden_tentou: tier=2 NHMUK
+[image_fetch] transient HTTP 500 for kuriya_keshikisui, retry 1/4 after 2.3s
+[image_fetch] transient HTTP 500 for kuriya_keshikisui, retry 2/4 after 4.3s
+[image_fetch] transient HTTP 500 for kuriya_keshikisui, retry 3/4 after 10.1s
+[source_discovery] tama_keshikisui: wikimedia を skip 指定で飛ばす
+[inat_search] Cyllodes ater (taxon_id=174064): scanned 1 page(s), 1 obs total, hit
+[batch]   ok io tama_keshikisui: tier=7 iNat
+[batch]   ok io kuriya_keshikisui: tier=2 NHMUK
+[image_fetch] transient HTTP 500 for oo_kibara_gomimushi, retry 1/4 after 2.2s
+[image_fetch] transient HTTP 500 for oo_kibara_gomimushi, retry 2/4 after 4.3s
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[batch]   ok io oo_kibara_gomimushi: tier=2 NHMUK
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHZMAINS1332982.json
+[batch]     ok RMNHZMAINS1332982
+[batch]   -> cpu oouragin_hyoumon (オオウラギンヒョウモン)
+[batch]   ok io halmus_aoba_tentou: tier=4 AM
+[source_discovery] sedo_oo_gomimushi: wikimedia を skip 指定で飛ばす
+[inat_search] Cychrus morawitzi (taxon_id=1398250): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] sedo_oo_gomimushi: wikipedia を skip 指定で飛ばす
+[batch]   ok io haiiro_maru_hanabachi: tier=1 USNM
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (5 個)。標本はその脇に小さく写るだけ
+[source_discovery] oouragin_hyoumon: wikimedia を skip 指定で飛ばす
+[inat_search] Fabriciana nerippe (taxon_id=625194): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] oouragin_hyoumon: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu uraginsuji_hyoumon (ウラギンスジヒョウモン)
+[batch]   ok io master_amer_aoichimonji: tier=3 RMNH
+[batch]   ok io master_claudina: tier=3 RMNH
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.07 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] uraginsuji_hyoumon: wikimedia を skip 指定で飛ばす
+[inat_search] Argyronome laodice (taxon_id=484082): scanned 1 page(s), 9 obs total, hit
+[source_discovery] yotsuboshi_ookisui: wikimedia を skip 指定で飛ばす
+[inat_search] Helota gemmata (taxon_id=359528): scanned 1 page(s), 3 obs total, hit
+[batch]   ok io yotsuboshi_ookisui: tier=7 iNat
+[batch]   ok io master_luna_moth: tier=3 RMNH
+[zukan_card] resized archived: iNatobs300239740_resized.jpg src_sha=80f37e4c82e1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs300239740.json
+[source_discovery] eurosternus_noko_kuwagata: wikimedia を skip 指定で飛ばす
+[inat_search] Prosopocoilus zebra (taxon_id=549073): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] eurosternus_noko_kuwagata: wikipedia を skip 指定で飛ばす
+[source_discovery] oo_geji: wikimedia を skip 指定で飛ばす
+[inat_search] Thereuopoda clunifera (taxon_id=359306): scanned 1 page(s), 6 obs total, hit
+[batch]   ok io mozu: tier=1 USNM
+[batch]   ok io oo_geji: tier=7 iNat
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[source_discovery] WARNING: all 1 media entries match label markers; falling back to media[0] as safety net
+[batch]   ok io eupholus_zou: tier=2 NHMUK
+[batch]   ok io ookiba_usuba_kamikiri: tier=1 USNM
+[batch]     refetch: uraginsuji_hyoumon 旧カード (RMNHINS387948) を 6 ファイル退避
+[batch]     ok iNatobs300239740 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu oouraginsuji_hyoumon (オオウラギンスジヒョウモン)
+[source_discovery] scarabe_sacer: wikimedia を skip 指定で飛ばす
+[inat_search] Scarabaeus sacer (taxon_id=538528): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io scarabe_sacer: tier=7 iNat
+[source_discovery] eliza_hanmyo: wikimedia を skip 指定で飛ばす
+[inat_search] Cylindera elisae (taxon_id=333200): scanned 1 page(s), 5 obs total, hit
+[batch]   ok io eliza_hanmyo: tier=7 iNat
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] oouraginsuji_hyoumon: wikimedia を skip 指定で飛ばす
+[inat_search] Argyronome ruslana (taxon_id=1137832): scanned 1 page(s), 4 obs total, hit
+[batch]   ok io oo_kakagerou_dummy: tier=2 NHMUK
+[batch]   ok io sakahachichou: tier=3 RMNH
+[zukan_card] resized archived: iNatobs252472119_resized.jpg src_sha=98d97cba4d8a
+[zukan_card] L1 segmentation (birefnet-general)
+[source_discovery] lateralis_noko_kuwagata: wikimedia を skip 指定で飛ばす
+[inat_search] Prosopocoilus zebra (taxon_id=549073): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] lateralis_noko_kuwagata: wikipedia を skip 指定で飛ばす
+[source_discovery] oo_futa_mon_kometsuki: wikimedia を skip 指定で飛ばす
+[inat_search] Cryptalaus berus (taxon_id=551382): scanned 1 page(s), 2 obs total, hit
+[batch]   ok io oo_futa_mon_kometsuki: tier=7 iNat
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs252472119.json
+[batch]     refetch: oouraginsuji_hyoumon 旧カード (RMNHINS388160) を 6 ファイル退避
+[batch]     ok iNatobs252472119 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu mesuguro_hyoumon (メスグロヒョウモン)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 74% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] mesuguro_hyoumon: wikimedia を skip 指定で飛ばす
+[inat_search] Damora sagana (taxon_id=803584): scanned 1 page(s), 12 obs total, hit
+[zukan_card] resized archived: iNatobs221287860_resized.jpg src_sha=fe9b8fd80749
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs221287860.json
+[batch]     refetch: mesuguro_hyoumon 旧カード (RMNHINS587579) を 6 ファイル退避
+[batch]     ok iNatobs221287860 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hyoumonmodaki (ヒョウモンモドキ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] hyoumonmodaki: wikimedia を skip 指定で飛ばす
+[inat_search] Melitaea scotosia (taxon_id=358915): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] hyoumonmodaki: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu himejanome (ヒメジャノメ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] himejanome: wikimedia を skip 指定で飛ばす
+[inat_search] Mycalesis gotama (taxon_id=155230): scanned 1 page(s), 4 obs total, hit
+[zukan_card] resized archived: iNatobs283855312_resized.jpg src_sha=8ea5eb41a63b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs283855312.json
+[batch]     refetch: himejanome 旧カード (RMNHINS333753) を 6 ファイル退避
+[batch]     ok iNatobs283855312 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kojanome (コジャノメ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] kojanome: wikimedia を skip 指定で飛ばす
+[inat_search] Mycalesis francisca (taxon_id=320534): scanned 1 page(s), 9 obs total, hit
+[zukan_card] resized archived: iNatobs166997620_resized.jpg src_sha=54c53c7f2f00
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs166997620.json
+[batch]     refetch: kojanome 旧カード (RMNHINS334450) を 6 ファイル退避
+[batch]     ok iNatobs166997620 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kurohikage (クロヒカゲ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.07 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] kurohikage: wikimedia を skip 指定で飛ばす
+[inat_search] Lethe diana (taxon_id=356280): scanned 1 page(s), 3 obs total, hit
+[zukan_card] resized archived: iNatobs37437077_resized.jpg src_sha=a4f676f29d24
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs37437077.json
+[batch]     refetch: kurohikage 旧カード (RMNHINS356443) を 6 ファイル退避
+[batch]     ok iNatobs37437077 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hikagechou (ヒカゲチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] hikagechou: wikimedia を skip 指定で飛ばす
+[inat_search] Lethe sicelis (taxon_id=356295): scanned 1 page(s), 6 obs total, hit
+[zukan_card] resized archived: iNatobs77508276_resized.jpg src_sha=5dd4990392e9
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs77508276.json
+[batch]     refetch: hikagechou 旧カード (RMNHINS356453) を 6 ファイル退避
+[batch]     ok iNatobs77508276 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu satokimadara_hikage (サトキマダラヒカゲ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] satokimadara_hikage: wikimedia を skip 指定で飛ばす
+[inat_search] Neope goschkevitschii (taxon_id=356405): scanned 1 page(s), 5 obs total, hit
+[zukan_card] resized archived: iNatobs281988807_resized.jpg src_sha=c7a161261a7d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs281988807.json
+[batch]     refetch: satokimadara_hikage 旧カード (RMNHINS356219) を 6 ファイル退避
+[batch]     ok iNatobs281988807 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu himeuranami_janome (ヒメウラナミジャノメ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] himeuranami_janome: wikimedia を skip 指定で飛ばす
+[inat_search] Ypthima argus (taxon_id=320701): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs297544310_resized.jpg src_sha=529e52362916
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs297544310.json
+[batch]     refetch: himeuranami_janome 旧カード (RMNHINS328685) を 6 ファイル退避
+[batch]     ok iNatobs297544310 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu uranami_janome (ウラナミジャノメ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] uranami_janome: wikimedia を skip 指定で飛ばす
+[inat_search] Ypthima multistriata (taxon_id=358958): scanned 1 page(s), 9 obs total, hit
+[zukan_card] resized archived: iNatobs393790646_resized.jpg src_sha=55ab52e5d0bb
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs393790646.json
+[batch]     refetch: uranami_janome 旧カード (RMNHINS356345) を 6 ファイル退避
+[batch]     ok iNatobs393790646 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kimadara_modoki (キマダラモドキ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.07 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] kimadara_modoki: wikimedia を skip 指定で飛ばす
+[inat_search] Kirinia epaminondas (taxon_id=358902): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] kimadara_modoki: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu tsumajiro_uragoma_janome (ツマジロウラジャノメ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.05 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] tsumajiro_uragoma_janome: wikimedia を skip 指定で飛ばす
+[inat_search] Lasiommata deidamia (taxon_id=358919): scanned 1 page(s), 10 obs total, hit
+[zukan_card] resized archived: iNatobs127772892_resized.jpg src_sha=ec42627d8628
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs127772892.json
+[batch]     refetch: tsumajiro_uragoma_janome 旧カード (RMNHINS356970) を 6 ファイル退避
+[batch]     ok iNatobs127772892 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hikage_janome (ヒメヒカゲ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.06 col_cv=0.03)。ラベルカードか標本箱とみなす
+[source_discovery] hikage_janome: wikimedia を skip 指定で飛ばす
+[inat_search] Coenonympha oedippus (taxon_id=98287): scanned 1 page(s), 5 obs total, hit
+[zukan_card] resized archived: iNatobs367393565_resized.jpg src_sha=e058ce1441b0
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs367393565.json
+[batch]     refetch: hikage_janome 旧カード (RMNHINS358003) を 6 ファイル退避
+[batch]     ok iNatobs367393565 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kurohikage_modoki (クロヒカゲモドキ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] kurohikage_modoki: wikimedia を skip 指定で飛ばす
+[inat_search] Lethe marginalis (taxon_id=358904): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] kurohikage_modoki: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu saikabuto (サイカブト)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 86% 埋める直線的な矩形 (row_cv=0.17 col_cv=0.11)。ラベルカードか標本箱とみなす
+[source_discovery] saikabuto: wikimedia を skip 指定で飛ばす
+[inat_search] Oryctes rhinoceros (taxon_id=320058): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs151742113_resized.jpg src_sha=a9ac6fa77b40
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs151742113.json
+[batch]     refetch: saikabuto 旧カード (NHMUK010133238) を 6 ファイル退避
+[batch]     ok iNatobs151742113 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu douganebuibui (ドウガネブイブイ)
+[zukan_card] resized archived: iNatobs154413329_resized.jpg src_sha=c1be8872f29b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs154413329.json
+[batch]     refetch: douganebuibui 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate31jpg) を 6 ファイル退避
+[batch]     ok iNatobs154413329
+[batch]   -> cpu koganemushi (コガネムシ)
+[zukan_card] resized archived: iNatobs180384867_resized.jpg src_sha=497862f3d801
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs180384867.json
+[batch]     refetch: koganemushi 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate34jpg) を 6 ファイル退避
+[batch]     ok iNatobs180384867
+[batch]   -> cpu maguso_kogane (マグソコガネ)
+[zukan_card] resized archived: iNatobs250988936_resized.jpg src_sha=139078207cff
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs250988936.json
+[batch]     refetch: maguso_kogane 旧カード (WMCFileAphodiussolskyiJacobsonpng) を 6 ファイル退避
+[batch]     ok iNatobs250988936
+[batch]   -> cpu kuwagata_hanamuguri (クロハナムグリ)
+[zukan_card] resized archived: iNatobs281988812_resized.jpg src_sha=866aa5fb01b7
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs281988812.json
+[batch]     refetch: kuwagata_hanamuguri 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate32jpg) を 6 ファイル退避
+[batch]     ok iNatobs281988812
+[batch]   -> cpu miyama_kamikiri (ミヤマカミキリ)
+[zukan_card] resized archived: iNatobs382883864_resized.jpg src_sha=0a5a105c5209
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs382883864.json
+[batch]     refetch: miyama_kamikiri 旧カード (WMCFileNeocerambyxraddeipng) を 6 ファイル退避
+[batch]     ok iNatobs382883864
+[batch]   -> cpu ebiiro_kamikiri (エビイロカミキリ)
+[zukan_card] resized archived: iNatobs171199673_resized.jpg src_sha=a72435f9aa84
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs171199673.json
+[batch]     refetch: ebiiro_kamikiri 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate67jpg) を 6 ファイル退避
+[batch]     ok iNatobs171199673
+[batch]   ng io budou_tora_kamikiri: [discover] no tier matched
+[batch]   -> cpu kuwakamikiri (クワカミキリ)
+[zukan_card] resized archived: iNatobs235067877_resized.jpg src_sha=4ff0f88fd7ad
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs235067877.json
+[batch]     refetch: kuwakamikiri 旧カード (WMCFileShiraki1910Injuriousinsectsplate19jpg) を 6 ファイル退避
+[batch]     ok iNatobs235067877
+[batch]   -> cpu kameno_ko_hamushi (カメノコハムシ)
+[zukan_card] resized archived: NHMUK010134208_resized.jpg src_sha=4137e8cccf3c
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010134208.json
+[batch]     ok NHMUK010134208
+[batch]   -> cpu hoshibeni_kamikiri (ホシベニカミキリ)
+[zukan_card] resized archived: iNatobs71125591_resized.jpg src_sha=0a039b25e986
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71125591.json
+[batch]     refetch: hoshibeni_kamikiri 旧カード (WMCFileCerambycidaePZSL1858jpg) を 6 ファイル退避
+[batch]     ok iNatobs71125591
+[batch]   -> cpu konohachou (コノハチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 88% 埋める直線的な矩形 (row_cv=0.20 col_cv=0.12)。ラベルカードか標本箱とみなす
+[source_discovery] konohachou: wikimedia を skip 指定で飛ばす
+[inat_search] Kallima inachus (taxon_id=67980): scanned 1 page(s), 9 obs total, hit
+[zukan_card] resized archived: iNatobs2301759_resized.jpg src_sha=bd135bed9a3c
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs2301759.json
+[batch]     refetch: konohachou 旧カード (RMNHINS314460) を 6 ファイル退避
+[batch]     ok iNatobs2301759 (品質ゲートで 1 source 差し替え)
+[batch]   ng io tsuya_hada_kuwagata: [discover] no tier matched
+[batch]   -> cpu tenguchou (テングチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 90% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.25)。ラベルカードか標本箱とみなす
+[source_discovery] tenguchou: wikimedia を skip 指定で飛ばす
+[inat_search] Libythea celtis (taxon_id=321526): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs79807941_resized.jpg src_sha=866d5b72f947
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs79807941.json
+[batch]     refetch: tenguchou 旧カード (RMNHZMAINS909142) を 6 ファイル退避
+[batch]     ok iNatobs79807941 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu ishigakechou (イシガケチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.08 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] ishigakechou: wikimedia を skip 指定で飛ばす
+[inat_search] Cyrestis thyodamas (taxon_id=125555): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs143145596_resized.jpg src_sha=7be411318d1a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs143145596.json
+[batch]     refetch: ishigakechou 旧カード (RMNHINS314870) を 6 ファイル退避
+[batch]     ok iNatobs143145596 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu tatehamodoki (タテハモドキ)
+[zukan_card] resized archived: RMNHINS996985_resized.jpg src_sha=5f051315ee01
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS996985.json
+[batch]     ok RMNHINS996985
+[batch]   -> cpu ichimonji_seseri (イチモンジセセリ)
+[zukan_card] resized archived: RMNHINS1342234_resized.jpg src_sha=1e8098f564c8
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS1342234.json
+[batch]     ok RMNHINS1342234
+[batch]   -> cpu chabane_seseri (チャバネセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 97% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] chabane_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Pelopidas mathias (taxon_id=322520): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs331653521_resized.jpg src_sha=bca5b439a151
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs331653521.json
+[batch]     refetch: chabane_seseri 旧カード (RMNHINS1154670) を 6 ファイル退避
+[batch]     ok iNatobs331653521 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu miyama_chabane_seseri (ミヤマチャバネセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 99% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] miyama_chabane_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Pelopidas jansonis (taxon_id=358626): scanned 1 page(s), 3 obs total, hit
+[zukan_card] resized archived: iNatobs390799246_resized.jpg src_sha=19fc7bb78a37
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs390799246.json
+[batch]     refetch: miyama_chabane_seseri 旧カード (RMNHINS986663) を 6 ファイル退避
+[batch]     ok iNatobs390799246 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu sujigurochabane_seseri (スジグロチャバネセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] sujigurochabane_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Thymelicus leoninus (taxon_id=324192): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] sujigurochabane_seseri: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu kimadara_seseri (キマダラセセリ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 89% 埋める直線的な矩形 (row_cv=0.21 col_cv=0.13)。ラベルカードか標本箱とみなす
+[source_discovery] kimadara_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Potanthus flavus (taxon_id=358361): scanned 1 page(s), 8 obs total, hit
+[zukan_card] resized archived: iNatobs237587200_resized.jpg src_sha=29e072af1ae9
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs237587200.json
+[batch]     refetch: kimadara_seseri 旧カード (RMNHINS310545) を 6 ファイル退避
+[batch]     ok iNatobs237587200 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu miyama_seseri (ミヤマセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] miyama_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Erynnis montanus (taxon_id=354391): scanned 1 page(s), 7 obs total, hit
+[zukan_card] resized archived: iNatobs154905333_resized.jpg src_sha=5126e10bc460
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs154905333.json
+[batch]     refetch: miyama_seseri 旧カード (RMNHINS869927) を 6 ファイル退避
+[batch]     ok iNatobs154905333 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kuro_seseri (クロセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 73% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] kuro_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Notocrypta curvifascia (taxon_id=154363): scanned 1 page(s), 15 obs total, hit
+[zukan_card] resized archived: iNatobs40984013_resized.jpg src_sha=76dfd3602168
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs40984013.json
+[batch]     refetch: kuro_seseri 旧カード (RMNHINS1397794) を 6 ファイル退避
+[batch]     ok iNatobs40984013 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu chamadara_seseri (チャマダラセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] chamadara_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Pyrgus maculatus (taxon_id=358627): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] chamadara_seseri: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu kuroboshi_seseri (クロボシセセリ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.06 col_cv=0.07)。ラベルカードか標本箱とみなす
+[source_discovery] kuroboshi_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Suastus gremius (taxon_id=154731): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs374863981_resized.jpg src_sha=faeeea485aae
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs374863981.json
+[batch]     refetch: kuroboshi_seseri 旧カード (RMNHINS306768) を 6 ファイル退避
+[batch]     ok iNatobs374863981 (品質ゲートで 1 source 差し替え)
+[batch]   ng io hoshichabane_seseri: [discover] no tier matched
+[batch]   -> cpu yuurei_seseri (ユウレイセセリ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 97% 埋める直線的な矩形 (row_cv=0.13 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] yuurei_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Borbo cinnara (taxon_id=326007): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs34621958_resized.jpg src_sha=f6013df2d299
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs34621958.json
+[batch]     refetch: yuurei_seseri 旧カード (RMNHINS308411) を 6 ファイル退避
+[batch]     ok iNatobs34621958 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu okinawa_birodo_seseri (オキナワビロードセセリ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] okinawa_birodo_seseri: wikimedia を skip 指定で飛ばす
+[inat_search] Hasora chromus (taxon_id=306860): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs229477256_resized.jpg src_sha=60343868402f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs229477256.json
+[batch]     refetch: okinawa_birodo_seseri 旧カード (RMNHINS300472) を 6 ファイル退避
+[batch]     ok iNatobs229477256 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu sugitani_rurishijimi (スギタニルリシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 99% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] sugitani_rurishijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Celastrina sugitanii (taxon_id=358725): scanned 1 page(s), 5 obs total, hit
+[zukan_card] resized archived: iNatobs71302095_resized.jpg src_sha=12acce502dec
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71302095.json
+[batch]     refetch: sugitani_rurishijimi 旧カード (RMNHINS986739) を 6 ファイル退避
+[batch]     ok iNatobs71302095 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kurotsubame_shijimi (クロツバメシジミ)
+[zukan_card] resized archived: RMNHINS870045_resized.jpg src_sha=de17597a52a5
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS870045.json
+[batch]     ok RMNHINS870045
+[batch]   -> cpu taiwan_kuroboshi_shijimi (タイワンクロボシシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 90% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] taiwan_kuroboshi_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Megisba malaya (taxon_id=324750): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs152848781_resized.jpg src_sha=90d25ea1de8d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs152848781.json
+[batch]     refetch: taiwan_kuroboshi_shijimi 旧カード (RMNHINS1038241) を 6 ファイル退避
+[batch]     ok iNatobs152848781 (品質ゲートで 1 source 差し替え)
+[batch]   ng io oogomashijimi: [discover] no tier matched
+[batch]   -> cpu tsubamehazurao_shijimi (ホリイコシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 87% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] tsubamehazurao_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Zizula hylax (taxon_id=198828): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs151447962_resized.jpg src_sha=e31f66e78a8e
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs151447962.json
+[batch]     refetch: tsubamehazurao_shijimi 旧カード (RMNHINS987172) を 6 ファイル退避
+[batch]     ok iNatobs151447962 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu amida_shijimi (アマミウラナミシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 85% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] amida_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Nacaduba kurava (taxon_id=179385): scanned 1 page(s), 14 obs total, hit
+[zukan_card] resized archived: iNatobs252688888_resized.jpg src_sha=a9725e6fac6d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs252688888.json
+[batch]     refetch: amida_shijimi 旧カード (RMNHINS1037091) を 6 ファイル退避
+[batch]     ok iNatobs252688888 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu yakushima_ruri_shijimi (ヤクシマルリシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 98% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] yakushima_ruri_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Acytolepis puspa (taxon_id=320002): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs107112626_resized.jpg src_sha=b96a36a8a7fa
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs107112626.json
+[batch]     refetch: yakushima_ruri_shijimi 旧カード (RMNHZMAINS1342163) を 6 ファイル退避
+[batch]     ok iNatobs107112626 (品質ゲートで 1 source 差し替え)
+[batch]   ng io sokorabe_ruri_shijimi: [discover] no tier matched
+[batch]   -> cpu iwakawa_shijimi (クロマダラソテツシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 76% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] iwakawa_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Chilades pandava (taxon_id=1097646): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs19700347_resized.jpg src_sha=439d2df9ad32
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs19700347.json
+[batch]     refetch: iwakawa_shijimi 旧カード (RMNHZMAINS1334176) を 6 ファイル退避
+[batch]     ok iNatobs19700347 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu ruri_uranami_shijimi (ルリウラナミシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 72% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] ruri_uranami_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Jamides bochus (taxon_id=146669): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs189335188_resized.jpg src_sha=019112bbcb86
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs189335188.json
+[batch]     refetch: ruri_uranami_shijimi 旧カード (RMNHZMAINS1334635) を 6 ファイル退避
+[batch]     ok iNatobs189335188 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu shirouranami_shijimi (シロウラナミシジミ)
+[zukan_card] resized archived: RMNHINS1346876_resized.jpg src_sha=9794ed75a919
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS1346876.json
+[batch]     ok RMNHINS1346876
+[batch]   -> cpu tappi_shijimi (タッパンルリシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 77% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] tappi_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Udara dilecta (taxon_id=926956): scanned 1 page(s), 2 obs total, hit
+[zukan_card] resized archived: iNatobs145119956_resized.jpg src_sha=4ae5f38e5f07
+[zukan_card] L1 segmentation (birefnet-general)
+/home/shota/.cache/zukan_venv/lib/python3.13/site-packages/rembg/sessions/birefnet_general.py:18: RuntimeWarning: overflow encountered in exp
+  return 1 / (1 + np.exp(-mat))
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs145119956.json
+[batch]     refetch: tappi_shijimi 旧カード (RMNHZMAINS1338085) を 6 ファイル退避
+[batch]     ok iNatobs145119956 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kuronaga_osamushi (クロナガオサムシ)
+[batch]     reject [label_rectangle] tier=4 ETHZ: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.03 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] kuronaga_osamushi: wikimedia を skip 指定で飛ばす
+[inat_search] Carabus procerulus (taxon_id=859938): scanned 1 page(s), 12 obs total, hit
+[zukan_card] resized archived: iNatobs258638284_resized.jpg src_sha=061e2aa3d600
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs258638284.json
+[batch]     refetch: kuronaga_osamushi 旧カード (ETHZENT0318843) を 6 ファイル退避
+[batch]     ok iNatobs258638284 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu eltateha (エルタテハ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.03)。ラベルカードか標本箱とみなす
+[source_discovery] eltateha: wikimedia を skip 指定で飛ばす
+[inat_search] Nymphalis vaualbum (taxon_id=198813): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs185934117_resized.jpg src_sha=b44d71e7ccaa
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs185934117.json
+[batch]     refetch: eltateha 旧カード (RMNHINS364633) を 6 ファイル退避
+[batch]     ok iNatobs185934117 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu oo_gomimushi (オオゴミムシ)
+[zukan_card] resized archived: iNatobs323590948_resized.jpg src_sha=f0a99c43e42c
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs323590948.json
+[batch]     refetch: oo_gomimushi 旧カード (WMCFileEndophallusofspeciesrepresentatives103897zookeys78227187Figures2428jpg) を 6 ファイル退避
+[batch]     ok iNatobs323590948
+[batch]   -> cpu ruritateha (ルリタテハ)
+[zukan_card] resized archived: RMNHINS366567_resized.jpg src_sha=ad1e68f816a1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS366567.json
+[batch]     refetch: ruritateha 旧カード (RMNHINS366532) を 6 ファイル退避
+[batch]     ok RMNHINS366567
+[batch]   -> cpu kobatateha (コヒオドシ)
+[zukan_card] resized archived: NHMUKBMNHE1058611_resized.jpg src_sha=24d42ed485a1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUKBMNHE1058611.json
+[batch]     refetch: kobatateha 旧カード (RMNHZMAINS1415718) を 6 ファイル退避
+[batch]     ok NHMUKBMNHE1058611
+[batch]   -> cpu gomadarachou (ゴマダラチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] gomadarachou: wikimedia を skip 指定で飛ばす
+[inat_search] Hestina persimilis (taxon_id=129160): scanned 1 page(s), 10 obs total, hit
+[zukan_card] resized archived: iNatobs232942463_resized.jpg src_sha=622b7bc810ce
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs232942463.json
+[batch]     refetch: gomadarachou 旧カード (RMNHINS377630) を 6 ファイル退避
+[batch]     ok iNatobs232942463 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu sasakia_oomurasaki_ss (オオムラサキ（雄）)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 98% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] sasakia_oomurasaki_ss: wikimedia を skip 指定で飛ばす
+[inat_search] Sasakia charonda (taxon_id=325362): scanned 1 page(s), 7 obs total, hit
+[build_card] stem 'iNatobs229016135' is already owned by 'oomurasaki'; using identity suffix for sasakia_oomurasaki_ss
+[zukan_card] resized archived: iNatobs229016135_4c9b79bf_resized.jpg src_sha=c2b4792fa757
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs229016135_4c9b79bf.json
+[batch]     refetch: sasakia_oomurasaki_ss 旧カード (RMNHINS375499) を 6 ファイル退避
+[batch]     ok iNatobs229016135_4c9b79bf (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu araschnia_sakahachi_aki (サカハチチョウ（夏型）)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.07 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] araschnia_sakahachi_aki: wikimedia を skip 指定で飛ばす
+[inat_search] Araschnia burejana (taxon_id=325366): scanned 1 page(s), 4 obs total, hit
+[zukan_card] resized archived: iNatobs71489773_resized.jpg src_sha=c68b262b8417
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71489773.json
+[batch]     refetch: araschnia_sakahachi_aki 旧カード (RMNHINS360640) を 6 ファイル退避
+[batch]     ok iNatobs71489773 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu fuji_midorishijimi (フジミドリシジミ)
+[zukan_card] resized archived: iNatobs188900696_resized.jpg src_sha=78ef7b79355b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs188900696.json
+[batch]     refetch: fuji_midorishijimi 旧カード (WMCFileFavoniusP1020551jpg) を 6 ファイル退避
+[batch]     ok iNatobs188900696
+[batch]   ng io urakuro_shijimi: [discover] no tier matched
+[batch]   ng io uramisuji_shijimi: [discover] no tier matched
+[batch]   ng io usuiro_onaga_shijimi: [discover] no tier matched
+[batch]   -> cpu onaga_shijimi (オナガシジミ)
+[zukan_card] resized archived: YPMENT757410_resized.jpg src_sha=d1189e4d48ca
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: YPMENT757410.json
+[batch]     refetch: onaga_shijimi 旧カード (WMCFileMacrolepidoptera01seitz0155jpg) を 6 ファイル退避
+[batch]     ok YPMENT757410
+[batch]   -> cpu kotsubame (コツバメ)
+[zukan_card] resized archived: iNatobs67179984_resized.jpg src_sha=6b5e80109700
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs67179984.json
+[batch]     refetch: kotsubame 旧カード (WMCFileMacrolepidoptera01seitz0151jpg) を 6 ファイル退避
+[batch]     ok iNatobs67179984
+[batch]   -> cpu marutan_yanma (マルタンヤンマ)
+[zukan_card] resized archived: USNMENT00359800_resized.jpg src_sha=3b354e793e96
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00359800.json
+[batch]     ok USNMENT00359800
+[batch]   -> cpu hatchou_tonbo (ハッチョウトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 90% 埋める直線的な矩形 (row_cv=0.23 col_cv=0.09)。ラベルカードか標本箱とみなす
+[source_discovery] hatchou_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Nannophya pygmaea (taxon_id=106513): scanned 1 page(s), 4 obs total, hit
+[zukan_card] resized archived: iNatobs322543174_resized.jpg src_sha=49ecb7b81e47
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs322543174.json
+[batch]     refetch: hatchou_tonbo 旧カード (USNMENT00274846) を 6 ファイル退避
+[batch]     ok iNatobs322543174 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kiito_tonbo (キイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 95% 埋める直線的な矩形 (row_cv=0.17 col_cv=0.08)。ラベルカードか標本箱とみなす
+[source_discovery] kiito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Ceriagrion melanurum (taxon_id=325391): scanned 1 page(s), 2 obs total, hit
+[zukan_card] resized archived: iNatobs71149172_resized.jpg src_sha=669a105c08c5
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71149172.json
+[batch]     refetch: kiito_tonbo 旧カード (USNMENT00330942) を 6 ファイル退避
+[batch]     ok iNatobs71149172 (品質ゲートで 1 source 差し替え)
+[batch]   ng io akashijimi_minami: [discover] no tier matched
+[batch]   -> cpu kuroito_tonbo (クロイトトンボ)
+[zukan_card] resized archived: NHMUK013324188_resized.jpg src_sha=5993f1131223
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK013324188.json
+[batch]     ok NHMUK013324188
+[batch]   -> cpu oo_suzumebachi (オオスズメバチ)
+[zukan_card] resized archived: USNMoosuzumebachi_resized.jpg src_sha=8d4afe8e2dfe
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMoosuzumebachi.json
+[batch]     ok USNMoosuzumebachi
+[batch]   -> cpu kogata_suzumebachi (コガタスズメバチ)
+[batch]     reject [multiple_subjects] tier=1 USNM: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 84%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] kogata_suzumebachi: wikimedia を skip 指定で飛ばす
+[inat_search] Vespa analis (taxon_id=502851): scanned 1 page(s), 17 obs total, hit
+[zukan_card] resized archived: iNatobs361656272_resized.jpg src_sha=71d05045f21b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs361656272.json
+[batch]     refetch: kogata_suzumebachi 旧カード (USNMkogatasuzumebachi) を 6 ファイル退避
+[batch]     ok iNatobs361656272 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu tsuyumushi (ツユムシ)
+[zukan_card] resized archived: iNatobs48539592_resized.jpg src_sha=b4489e9285de
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs48539592.json
+[batch]     refetch: tsuyumushi 旧カード (WMCFileMHNTNymphedePhaneropterafalcatasurCalendulaofficinalisjpg) を 6 ファイル退避
+[batch]     ok iNatobs48539592
+[batch]   -> cpu kuroyama_ari (クロヤマアリ)
+[zukan_card] resized archived: iNatobs108650878_resized.jpg src_sha=59710144800d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs108650878.json
+[batch]     refetch: kuroyama_ari 旧カード (WMCFileFormicajaponica103897zookeys97855767Figure32jpg) を 6 ファイル退避
+[batch]     ok iNatobs108650878
+[batch]   -> cpu kuro_gengorou (クロゲンゴロウ)
+[zukan_card] resized archived: iNatobs22268253_resized.jpg src_sha=fd05998c7732
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs22268253.json
+[batch]     refetch: kuro_gengorou 旧カード (WMCFileEdwardssbotanicalregisterPlate338387214684jpg) を 6 ファイル退避
+[batch]     ok iNatobs22268253
+[batch]   -> cpu haiiro_gengorou (ハイイロゲンゴロウ)
+[zukan_card] resized archived: iNatobs71302083_resized.jpg src_sha=972e261e4179
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71302083.json
+[batch]     refetch: haiiro_gengorou 旧カード (WMCFileHydrachna103897zookeys86534532Figures310jpg) を 6 ファイル退避
+[batch]     ok iNatobs71302083
+[batch]   -> cpu ojiro_ashinaga_zoumushi (オジロアシナガゾウムシ)
+[zukan_card] resized archived: iNatobs202155333_resized.jpg src_sha=e51e89b388f2
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs202155333.json
+[batch]     refetch: ojiro_ashinaga_zoumushi 旧カード (WMCFileMesalcidodestrifidusonstemofthegrass7jpg) を 6 ファイル退避
+[batch]     ok iNatobs202155333
+[batch]   -> cpu shinjusan (シンジュサン)
+[zukan_card] resized archived: RMNHINS1300455_resized.jpg src_sha=640c16ffd99c
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: RMNHINS1300455.json
+[batch]     ok RMNHINS1300455
+[batch]   -> cpu kususan (クスサン)
+[zukan_card] resized archived: iNatobs225479459_resized.jpg src_sha=8faf36cf4afb
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs225479459.json
+[batch]     refetch: kususan 旧カード (WMCFileCaligulajaponicavariationsjhjpg) を 6 ファイル退避
+[batch]     ok iNatobs225479459
+[batch]   -> cpu kaiko_moth (カイコガ)
+[zukan_card] resized archived: NHMUK014205143_resized.jpg src_sha=05b2706b4fd1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014205143.json
+[batch]     ok NHMUK014205143
+[batch]   -> cpu kurousutabiga (クロウスタビガ)
+[zukan_card] resized archived: iNatobs225689320_resized.jpg src_sha=3d13cddb971a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs225689320.json
+[batch]     refetch: kurousutabiga 旧カード (WMCFileDiegrossschmette02seit0075jpg) を 6 ファイル退避
+[batch]     ok iNatobs225689320
+[batch]   -> cpu yotsumeaoshaku (ヨツメアオシャク)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 79% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] yotsumeaoshaku: wikimedia を skip 指定で飛ばす
+[inat_search] Comostola subtiliaria (taxon_id=354884): scanned 1 page(s), 5 obs total, hit
+[zukan_card] resized archived: iNatobs133744140_resized.jpg src_sha=a78f58bef273
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs133744140.json
+[batch]     refetch: yotsumeaoshaku 旧カード (NHMUK013320901) を 6 ファイル退避
+[batch]     ok iNatobs133744140 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu agehamodoki (アゲハモドキ)
+[zukan_card] resized archived: iNatobs388601284_resized.jpg src_sha=05e485ab8120
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs388601284.json
+[batch]     refetch: agehamodoki 旧カード (WMCFileDiegrossschmette02seit0027jpg) を 6 ファイル退避
+[batch]     ok iNatobs388601284
+[batch]   -> cpu maimaiga (マイマイガ)
+[zukan_card] resized archived: NHMUK014440486_resized.jpg src_sha=f718b6ae1fab
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK014440486.json
+[batch]     ok NHMUK014440486
+[batch]   -> cpu akahige_dokuga (クワゴマダラヒトリ)
+[zukan_card] resized archived: iNatobs69906568_resized.jpg src_sha=479f04f48290
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs69906568.json
+[batch]     refetch: akahige_dokuga 旧カード (WMCFileLemyraimparilislarvajpg) を 6 ファイル退避
+[batch]     ok iNatobs69906568
+[batch]   -> cpu asia_ito_tonbo (アジアイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 95% 埋める直線的な矩形 (row_cv=0.09 col_cv=0.06)。ラベルカードか標本箱とみなす
+[source_discovery] asia_ito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Ischnura asiatica (taxon_id=325405): scanned 1 page(s), 8 obs total, hit
+[zukan_card] resized archived: iNatobs113200728_resized.jpg src_sha=33d7320487bf
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs113200728.json
+[batch]     refetch: asia_ito_tonbo 旧カード (USNMENT00394063) を 6 ファイル退避
+[batch]     ok iNatobs113200728 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu oo_ito_tonbo (オオイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 84% 埋める直線的な矩形 (row_cv=0.34 col_cv=0.14)。ラベルカードか標本箱とみなす
+[source_discovery] oo_ito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Paracercion sieboldii (taxon_id=358455): scanned 1 page(s), 1 obs total, hit
+[zukan_card] resized archived: iNatobs215654379_resized.jpg src_sha=4f3d0bb299cc
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs215654379.json
+[batch]     refetch: oo_ito_tonbo 旧カード (USNMENT00331215) を 6 ファイル退避
+[batch]     ok iNatobs215654379 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hosomi_ito_tonbo (ホソミイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 92% 埋める直線的な矩形 (row_cv=0.19 col_cv=0.15)。ラベルカードか標本箱とみなす
+[source_discovery] hosomi_ito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Aciagrion migratum (taxon_id=93154): scanned 1 page(s), 6 obs total, hit
+[zukan_card] resized archived: iNatobs387492220_resized.jpg src_sha=00dff173e335
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs387492220.json
+[batch]     refetch: hosomi_ito_tonbo 旧カード (USNMENT00329380) を 6 ファイル退避
+[batch]     ok iNatobs387492220 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kosanae (コサナエ)
+[zukan_card] resized archived: USNMENT00386351_resized.jpg src_sha=0365f8f2e013
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00386351.json
+[batch]     ok USNMENT00386351
+[batch]   -> cpu tobimon_ooedashaku (トビモンオオエダシャク)
+[zukan_card] resized archived: iNatobs73634481_resized.jpg src_sha=75441758fc44
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs73634481.json
+[batch]     refetch: tobimon_ooedashaku 旧カード (WMCFileCaterpillarwiththebodypartslookslikerabbitearsonmyhand3jpg) を 6 ファイル退避
+[batch]     ok iNatobs73634481
+[batch]   -> cpu ao_sanae (アオサナエ)
+[zukan_card] resized archived: iNatobs167004371_resized.jpg src_sha=4c5514c14534
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs167004371.json
+[batch]     refetch: ao_sanae 旧カード (WMCFileNihonogomphusviridis198093413jpg) を 6 ファイル退避
+[batch]     ok iNatobs167004371
+[batch]   -> cpu mitsukado_koorogi (ミツカドコオロギ)
+[zukan_card] resized archived: iNatobs183451827_resized.jpg src_sha=9d87e7708dff
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs183451827.json
+[batch]     refetch: mitsukado_koorogi 旧カード (WMCFileLoxoblemmusdoenitzi241778332jpg) を 6 ファイル退避
+[batch]     ok iNatobs183451827
+[batch]   -> cpu tsuno_kamemushi_esaki_replaced (ハサミツノカメムシ)
+[zukan_card] resized archived: iNatobs171697428_resized.jpg src_sha=355fff174c10
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs171697428.json
+[batch]     refetch: tsuno_kamemushi_esaki_replaced 旧カード (WMCFileHemipterasubordersjpg) を 6 ファイル退避
+[batch]     ok iNatobs171697428
+[batch]   -> cpu tsunozemi_marubane (マルツノゼミ)
+[zukan_card] resized archived: iNatobs326214011_resized.jpg src_sha=1200a6ec2783
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs326214011.json
+[batch]     refetch: tsunozemi_marubane 旧カード (WMCFileBritishEntomologyVolume7JohnCurtisPlate313jpg) を 6 ファイル退避
+[batch]     ok iNatobs326214011
+[batch]   -> cpu monsuzumebachi (モンスズメバチ)
+[batch]     reject [multiple_subjects] tier=1 USNM: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 69%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] monsuzumebachi: wikimedia を skip 指定で飛ばす
+[inat_search] Vespa crabro (taxon_id=54327): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs30373401_resized.jpg src_sha=446461be5651
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs30373401.json
+[batch]     refetch: monsuzumebachi 旧カード (USNMmonsuzumebachi) を 6 ファイル退避
+[batch]     ok iNatobs30373401 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu futamon_ashinagabachi (フタモンアシナガバチ)
+[zukan_card] resized archived: AMK655633_resized.jpg src_sha=75ba86ebda2b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: AMK655633.json
+[batch]     ok AMK655633
+[batch]   -> cpu kuro_suzumebachi (クロスズメバチ)
+[zukan_card] resized archived: iNatobs99684258_resized.jpg src_sha=445ce03d5b4b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs99684258.json
+[batch]     refetch: kuro_suzumebachi 旧カード (WMCFileVespulaflavicepstsukudanijpg) を 6 ファイル退避
+[batch]     ok iNatobs99684258
+[batch]   -> cpu yamato_kuroshijimi_hebitonbo_dummy (ヤマトクロスジヘビトンボ)
+[batch]     reject [label_border] tier=2 NHMUK: 前景が bbox 外周の 40% を覆う。昆虫は脚と触角が数点触れるだけで、この値にならない
+[source_discovery] yamato_kuroshijimi_hebitonbo_dummy: wikimedia を skip 指定で飛ばす
+[inat_search] Parachauliodes japonicus (taxon_id=470241): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] yamato_kuroshijimi_hebitonbo_dummy: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_border: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu nihon_ashinagabachi (ニホンアシナガバチ)
+[zukan_card] resized archived: iNatobs370176089_resized.jpg src_sha=26d266397293
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs370176089.json
+[batch]     refetch: nihon_ashinagabachi 旧カード (WMCFilePolistesjadwigaesBeehiveJPG) を 6 ファイル退避
+[batch]     ok iNatobs370176089
+[batch]   -> cpu kusakagerou (クサカゲロウ)
+[zukan_card] resized archived: NHMUK010596014_resized.jpg src_sha=bbad2b4a7670
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010596014.json
+[batch]     ok NHMUK010596014
+[batch]   -> cpu kibara_kamakirimodoki (キカマキリモドキ)
+[zukan_card] resized archived: iNatobs167353949_resized.jpg src_sha=147be053d89d
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs167353949.json
+[batch]     refetch: kibara_kamakirimodoki 旧カード (WMCFileMantispidae1012782specdiv29209Figure1png) を 6 ファイル退避
+[batch]     ok iNatobs167353949
+[batch]   -> cpu mikado_gagambo (ミカドガガンボ)
+[zukan_card] resized archived: iNatobs71681822_resized.jpg src_sha=e51978738105
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71681822.json
+[batch]     refetch: mikado_gagambo 旧カード (WMCFileHolorusiamikado103897BDJ9e58009Figure12jpg) を 6 ファイル退避
+[batch]     ok iNatobs71681822
+[batch]   -> cpu oo_hanaabu_oddball_dummy (シマハナアブ)
+[zukan_card] resized archived: iNatobs217432370_resized.jpg src_sha=adc2e2fc01ca
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs217432370.json
+[batch]     refetch: oo_hanaabu_oddball_dummy 旧カード (WMCFileVegetalibacchesemiolioextravergineecerealijpeg) を 6 ファイル退避
+[batch]     ok iNatobs217432370
+[batch]   -> cpu ni_idolomantis_diabolica (ニセハナマオウカマキリ)
+[zukan_card] resized archived: iNatobs98173976_resized.jpg src_sha=ab5be2e5144a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs98173976.json
+[batch]     refetch: ni_idolomantis_diabolica 旧カード (WMCFileIdolomantisdiabolicasubadultfemaleJPG) を 6 ファイル退避
+[batch]     ok iNatobs98173976
+[batch]   -> cpu siamensis_atlas_kabuto (アトラスオオカブト)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 100% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] siamensis_atlas_kabuto: wikimedia を skip 指定で飛ばす
+[inat_search] Chalcosoma atlas (taxon_id=334413): scanned 1 page(s), 3 obs total, hit
+[zukan_card] resized archived: iNatobs334823021_resized.jpg src_sha=e391dd0c5c1a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs334823021.json
+[batch]     refetch: siamensis_atlas_kabuto 旧カード (NHMUK010634812) を 6 ファイル退避
+[batch]     ok iNatobs334823021 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu muna_biro_kamakiri_dummy (ムネアカハラビロカマキリ)
+[zukan_card] resized archived: iNatobs328494046_resized.jpg src_sha=8f89ffaed0f0
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs328494046.json
+[batch]     refetch: muna_biro_kamakiri_dummy 旧カード (WMCFileHierodulachinensiseatenbyGibbaraneaabscissajpg) を 6 ファイル退避
+[batch]     ok iNatobs328494046
+[batch]   -> cpu gomimushidamashi_kohira (コクヌストモドキ)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 75% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] gomimushidamashi_kohira: wikimedia を skip 指定で飛ばす
+[inat_search] Tribolium castaneum (taxon_id=232865): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] gomimushidamashi_kohira: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu katsuobushi_mushi (ヒメマルカツオブシムシ)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 97% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] katsuobushi_mushi: wikimedia を skip 指定で飛ばす
+[inat_search] Anthrenus verbasci (taxon_id=120113): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs72617366_resized.jpg src_sha=86a9604aa50a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs72617366.json
+[batch]     refetch: katsuobushi_mushi 旧カード (NHMUK014400210) を 6 ファイル退避
+[batch]     ok iNatobs72617366 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu ubatama_kometsuki (ウバタマコメツキ)
+[zukan_card] resized archived: iNatobs183451719_resized.jpg src_sha=7e8a462fdfda
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs183451719.json
+[batch]     ok iNatobs183451719
+[batch]   -> cpu kiobinaga_kakkoumushi (キオビナガカッコウムシ)
+[zukan_card] resized archived: NHMUK010133346_resized.jpg src_sha=af13a791437a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010133346.json
+[batch]     ok NHMUK010133346
+[batch]   -> cpu yomogi_ediba (ヨモギエダシャク)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] yomogi_ediba: wikimedia を skip 指定で飛ばす
+[inat_search] Ascotis selenaria (taxon_id=243770): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs319067477_resized.jpg src_sha=c7fcb6abd7aa
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs319067477.json
+[batch]     refetch: yomogi_ediba 旧カード (RMNHZMAINS903056) を 6 ファイル退避
+[batch]     ok iNatobs319067477 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu yumon_eda_shaku (ユウマダラエダシャク)
+[zukan_card] resized archived: iNatobs71123420_resized.jpg src_sha=79ac291d66e8
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71123420.json
+[batch]     refetch: yumon_eda_shaku 旧カード (WMCFileIllustrationsoftypicalspecimensofLepidopteraHeterocerainthecollectionoftheBritishMuseumPlLII8725390887jpg) を 6 ファイル退避
+[batch]     ok iNatobs71123420
+[batch]   ng io oba_kuwa_eda_shaku: [discover] no tier matched
+[batch]   -> cpu tama_oshi_zou (ヤサイゾウムシ)
+[zukan_card] resized archived: NHMUK010134100_resized.jpg src_sha=179b24193eae
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010134100.json
+[batch]     ok NHMUK010134100
+[batch]   -> cpu dandara_tentou (ダンダラテントウ)
+[zukan_card] resized archived: AMK606837_resized.jpg src_sha=997bf7fd075a
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: AMK606837.json
+[batch]     ok AMK606837
+[batch]   -> cpu kibara_tentou (キイロテントウ)
+[zukan_card] resized archived: iNatobs133397022_resized.jpg src_sha=d71d3e607738
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs133397022.json
+[batch]     refetch: kibara_tentou 旧カード (WMCFileIlleiskoebeleikoebelei00520130806Japanjpg) を 6 ファイル退避
+[batch]     ok iNatobs133397022
+[batch]   -> cpu kobane_ashinaga_bachi (コバネアシナガバチ)
+[batch]     reject [multiple_subjects] tier=2 NHMUK: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 39%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] kobane_ashinaga_bachi: wikimedia を skip 指定で飛ばす
+[inat_search] Polistes sagittarius (taxon_id=143082): scanned 1 page(s), 8 obs total, hit
+[zukan_card] resized archived: iNatobs97134512_resized.jpg src_sha=604bb369e20e
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs97134512.json
+[batch]     refetch: kobane_ashinaga_bachi 旧カード (NHMUKBMNHE650240) を 6 ファイル退避
+[batch]     ok iNatobs97134512 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hime_nagakamemushi (ヒメナガカメムシ)
+[zukan_card] resized archived: NHMUKBMNHE1340092_resized.jpg src_sha=03bfe67a28ef
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUKBMNHE1340092.json
+[batch]     ok NHMUKBMNHE1340092
+[batch]   -> cpu kuro_hira_taabu (クロヒラタアブ)
+[batch]     reject [multiple_subjects] tier=4 AM: 同程度の大きさの被写体が 4 個ある (2 番目の成分は最大の 80%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] kuro_hira_taabu: wikimedia を skip 指定で飛ばす
+[inat_search] Betasyrphus serarius (taxon_id=339937): scanned 1 page(s), 4 obs total, hit
+[zukan_card] resized archived: iNatobs186515050_resized.jpg src_sha=5b10cd94ec7b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs186515050.json
+[batch]     refetch: kuro_hira_taabu 旧カード (AMK408439) を 6 ファイル退避
+[batch]     ok iNatobs186515050 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hito_suji_shima_ka (ヒトスジシマカ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 89% 埋める直線的な矩形 (row_cv=0.10 col_cv=0.27)。ラベルカードか標本箱とみなす
+[source_discovery] hito_suji_shima_ka: wikimedia を skip 指定で飛ばす
+[inat_search] Aedes albopictus (taxon_id=62984): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs122109366_resized.jpg src_sha=c6b38f8666e1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs122109366.json
+[batch]     refetch: hito_suji_shima_ka 旧カード (USNMENT01240070) を 6 ファイル退避
+[batch]     ok iNatobs122109366 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu oo_yokobai (オオヨコバイ)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 82% 埋める直線的な矩形 (row_cv=0.19 col_cv=0.26)。ラベルカードか標本箱とみなす
+[source_discovery] oo_yokobai: wikimedia を skip 指定で飛ばす
+[inat_search] Cicadella viridis (taxon_id=52447): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs294394234_resized.jpg src_sha=23c1fd2ffda4
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs294394234.json
+[batch]     refetch: oo_yokobai 旧カード (NHMUK014439775) を 6 ファイル退避
+[batch]     ok iNatobs294394234 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu tsumaguro_suzumebachi (ツマグロスズメバチ)
+[batch]     reject [multiple_subjects] tier=1 USNM: 同程度の大きさの被写体が 14 個ある (2 番目の成分は最大の 54%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] tsumaguro_suzumebachi: wikimedia を skip 指定で飛ばす
+[inat_search] Vespa affinis (taxon_id=342689): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs183638337_resized.jpg src_sha=6c4f83667c5b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs183638337.json
+[batch]     refetch: tsumaguro_suzumebachi 旧カード (USNMtsumagurosuzumebachi) を 6 ファイル退避
+[batch]     ok iNatobs183638337 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu kubinaga_ari (クビレハリアリ)
+[zukan_card] resized archived: iNatobs252692227_resized.jpg src_sha=935b4d29e52c
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs252692227.json
+[batch]     ok iNatobs252692227
+[batch]   -> cpu gunbai_tonbo (グンバイトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 95% 埋める直線的な矩形 (row_cv=0.17 col_cv=0.08)。ラベルカードか標本箱とみなす
+[source_discovery] gunbai_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Platycnemis foliacea (taxon_id=358445): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] gunbai_tonbo: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu suna_akane (スナアカネ)
+[zukan_card] resized archived: USNMENT00279004_resized.jpg src_sha=dd3eb85c026b
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNMENT00279004.json
+[batch]     ok USNMENT00279004
+[batch]   -> cpu akama_dara_hanamuguri (ムラサキツヤハナムグリ)
+[zukan_card] resized archived: NHMUKBMNHE989620_resized.jpg src_sha=5729c3cb4859
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUKBMNHE989620.json
+[batch]     ok NHMUKBMNHE989620
+[batch]   -> cpu inago_hamushi (イネネクイハムシ)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 87% 埋める直線的な矩形 (row_cv=0.11 col_cv=0.27)。ラベルカードか標本箱とみなす
+[source_discovery] inago_hamushi: wikimedia を skip 指定で飛ばす
+[inat_search] Donacia provostii (taxon_id=1613070): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] inago_hamushi: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu oo_zu_ari (オオズアリ)
+[batch]     reject [multiple_subjects] tier=7 iNat: 同程度の大きさの被写体が 3 個ある (2 番目の成分は最大の 32%)。標本箱の一覧、歴史的な彩色プレート、論文 Figure のいずれかとみなす
+[source_discovery] oo_zu_ari: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu hime_silvia_shijimi (ヒメシルビアシジミ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 99% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] hime_silvia_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Zizina otis (taxon_id=125537): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs158463255_resized.jpg src_sha=bfa607f783d6
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs158463255.json
+[batch]     refetch: hime_silvia_shijimi 旧カード (RMNHZMAINS1338138) を 6 ファイル退避
+[batch]     ok iNatobs158463255 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu hime_shaku (ウメエダシャク)
+[zukan_card] resized archived: iNatobs74553149_resized.jpg src_sha=36f95297a19e
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs74553149.json
+[batch]     refetch: hime_shaku 旧カード (WMCFileYellowandblackspottedcaterpillaronthegrassjpg) を 6 ファイル退避
+[batch]     ok iNatobs74553149
+[batch]   -> cpu taiwan_tsubame_shijimi (タイワンツバメシジミ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 88% 埋める直線的な矩形 (row_cv=0.14 col_cv=0.22)。ラベルカードか標本箱とみなす
+[source_discovery] taiwan_tsubame_shijimi: wikimedia を skip 指定で飛ばす
+[inat_search] Everes lacturnus (taxon_id=1700885): scanned 1 page(s), 7 obs total, hit
+[zukan_card] resized archived: iNatobs191665795_resized.jpg src_sha=37864932ccb3
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs191665795.json
+[batch]     refetch: taiwan_tsubame_shijimi 旧カード (RMNHZMAINS1334132) を 6 ファイル退避
+[batch]     ok iNatobs191665795 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu goma_fu_kamikiri (ゴマフカミキリ)
+[zukan_card] resized archived: iNatobs163797111_resized.jpg src_sha=19c0d76935e2
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs163797111.json
+[batch]     refetch: goma_fu_kamikiri 旧カード (WMCFileLonghornbeetles103897zookeys73923675Figure16jpg) を 6 ファイル退避
+[batch]     ok iNatobs163797111
+[batch]   -> cpu ko_fuki_kogane (コフキコガネ)
+[zukan_card] resized archived: iNatobs53914185_resized.jpg src_sha=12f4148ae84f
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs53914185.json
+[batch]     refetch: ko_fuki_kogane 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate29jpg) を 6 ファイル退避
+[batch]     ok iNatobs53914185
+[batch]   -> cpu morton_ito_tonbo (モートンイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 93% 埋める直線的な矩形 (row_cv=0.18 col_cv=0.13)。ラベルカードか標本箱とみなす
+[source_discovery] morton_ito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Mortonagrion selenion (taxon_id=325331): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] morton_ito_tonbo: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu ezo_ito_tonbo (エゾイトトンボ)
+[batch]     reject [label_rectangle] tier=1 USNM: 前景が bbox を 93% 埋める直線的な矩形 (row_cv=0.19 col_cv=0.11)。ラベルカードか標本箱とみなす
+[source_discovery] ezo_ito_tonbo: wikimedia を skip 指定で飛ばす
+[inat_search] Coenagrion lanceolatum (taxon_id=325404): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] ezo_ito_tonbo: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu naden_tentou (ナミテントウ黒型)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 76% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] naden_tentou: wikimedia を skip 指定で飛ばす
+[inat_search] Harmonia axyridis (taxon_id=48484): scanned 1 page(s), 20 obs total, hit
+[build_card] stem 'iNatobs170424058' is already owned by 'nami_tentou'; using identity suffix for naden_tentou
+[zukan_card] resized archived: iNatobs170424058_ba3cb3a1_resized.jpg src_sha=7c8461b4b116
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs170424058_ba3cb3a1.json
+[batch]     refetch: naden_tentou 旧カード (NHMUK015058558) を 6 ファイル退避
+[batch]     ok iNatobs170424058_ba3cb3a1 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu tama_keshikisui (オオキイロケシキスイ)
+[zukan_card] resized archived: iNatobs161962594_resized.jpg src_sha=d827303e4281
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs161962594.json
+[batch]     refetch: tama_keshikisui 旧カード (WMCFileGeorgiyJacobsonBeetlesRussiaandWesternEuropeplate19jpg) を 6 ファイル退避
+[batch]     ok iNatobs161962594
+[batch]   -> cpu kuriya_keshikisui (クリヤケシキスイ)
+[zukan_card] resized archived: NHMUK010130424_resized.jpg src_sha=cc9d8f861a61
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010130424.json
+[batch]     ok NHMUK010130424
+[batch]   -> cpu oo_kibara_gomimushi (オオキバゴミムシ)
+[batch]     reject [label_rectangle] tier=2 NHMUK: 前景が bbox を 97% 埋める直線的な矩形 (row_cv=0.11 col_cv=0.09)。ラベルカードか標本箱とみなす
+[source_discovery] oo_kibara_gomimushi: wikimedia を skip 指定で飛ばす
+[inat_search] Galerita orientalis (taxon_id=895927): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] oo_kibara_gomimushi: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu halmus_aoba_tentou (アオバテントウ)
+[zukan_card] resized archived: AMK362787_resized.jpg src_sha=298e07eb9893
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: AMK362787.json
+[batch]     ok AMK362787
+[batch]   ng io sedo_oo_gomimushi: [discover] no tier matched
+[batch]   -> cpu haiiro_maru_hanabachi (ハイイロマルハナバチ)
+[batch]     reject [label_dominant] tier=1 USNM: 前景の 85% がラベルらしい矩形成分 (2 個)。標本はその脇に小さく写るだけ
+[source_discovery] haiiro_maru_hanabachi: wikimedia を skip 指定で飛ばす
+[inat_search] Bombus deuteronymus (taxon_id=923955): scanned 1 page(s), 2 obs total, hit
+[zukan_card] resized archived: iNatobs84448544_resized.jpg src_sha=39c4636d1d02
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs84448544.json
+[batch]     refetch: haiiro_maru_hanabachi 旧カード (USNMENT00997548) を 6 ファイル退避
+[batch]     ok iNatobs84448544 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu master_amer_aoichimonji (アメリカアオイチモンジ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (1 個)。標本はその脇に小さく写るだけ
+[source_discovery] master_amer_aoichimonji: wikimedia を skip 指定で飛ばす
+[inat_search] Limenitis arthemis (taxon_id=60607): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs90554092_resized.jpg src_sha=f89701615084
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs90554092.json
+[batch]     refetch: master_amer_aoichimonji 旧カード (RMNHINS383212) を 6 ファイル退避
+[batch]     ok iNatobs90554092 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu master_claudina (クラウディナタテハ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 89% 埋める直線的な矩形 (row_cv=0.32 col_cv=0.05)。ラベルカードか標本箱とみなす
+[source_discovery] master_claudina: wikimedia を skip 指定で飛ばす
+[inat_search] Diaethria clymena (taxon_id=245957): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs193160961_resized.jpg src_sha=29f5e335cdb1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs193160961.json
+[batch]     refetch: master_claudina 旧カード (RMNHINS383092) を 6 ファイル退避
+[batch]     ok iNatobs193160961 (品質ゲートで 1 source 差し替え)
+[batch]   -> cpu yotsuboshi_ookisui (ヨツボシオオキスイ)
+[zukan_card] resized archived: iNatobs214139787_resized.jpg src_sha=f6268142c496
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs214139787.json
+[batch]     refetch: yotsuboshi_ookisui 旧カード (WMCFileAidtotheidentificationofinsectsPlate1337796349036jpg) を 6 ファイル退避
+[batch]     ok iNatobs214139787
+[batch]   -> cpu master_luna_moth (アメリカオオミズアオ)
+[batch]     reject [label_dominant] tier=3 RMNH: 前景の 100% がラベルらしい矩形成分 (3 個)。標本はその脇に小さく写るだけ
+[source_discovery] master_luna_moth: wikimedia を skip 指定で飛ばす
+[inat_search] Actias luna (taxon_id=47916): scanned 1 page(s), 20 obs total, hit
+[zukan_card] resized archived: iNatobs202179929_resized.jpg src_sha=08388c33207e
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs202179929.json
+[batch]     refetch: master_luna_moth 旧カード (RMNHINS870361) を 6 ファイル退避
+[batch]     ok iNatobs202179929 (品質ゲートで 1 source 差し替え)
+[batch]   ng io eurosternus_noko_kuwagata: [discover] no tier matched
+[batch]   -> cpu mozu (モズ)
+[zukan_card] resized archived: USNM429437_resized.jpg src_sha=fdbcfa3967d6
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: USNM429437.json
+[batch]     ok USNM429437
+[batch]   -> cpu oo_geji (オオゲジ)
+[zukan_card] resized archived: iNatobs346766743_resized.jpg src_sha=0fef8983de57
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs346766743.json
+[batch]     refetch: oo_geji 旧カード (WMCFileThereuopodaclunifera118290435jpg) を 6 ファイル退避
+[batch]     ok iNatobs346766743
+[batch]   -> cpu eupholus_zou (ユーフォルス)
+[batch]     reject [label_dominant] tier=2 NHMUK: 前景の 100% がラベルらしい矩形成分 (4 個)。標本はその脇に小さく写るだけ
+[source_discovery] eupholus_zou: wikimedia を skip 指定で飛ばす
+[inat_search] Eupholus schoenherri (taxon_id=1107250): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] eupholus_zou: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu ookiba_usuba_kamikiri (オオキバウスバカミキリ)
+[batch]     reject [label_dominant] tier=1 USNM: 前景の 100% がラベルらしい矩形成分 (4 個)。標本はその脇に小さく写るだけ
+[source_discovery] ookiba_usuba_kamikiri: wikimedia を skip 指定で飛ばす
+[inat_search] Macrodontia cervicornis (taxon_id=104996): scanned 1 page(s), 0 obs total, no qualifying CC0 photo
+[source_discovery] ookiba_usuba_kamikiri: wikipedia を skip 指定で飛ばす
+[batch]     ng [quality_gate] label_dominant: 使える source が尽きた (1 件 reject) (refetch: 旧カードを維持)
+[batch]   -> cpu scarabe_sacer (スカラベ)
+[zukan_card] resized archived: iNatobs329109619_resized.jpg src_sha=07350414afa1
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs329109619.json
+[batch]     refetch: scarabe_sacer 旧カード (WMCFileScarabaeussacerFromGJArrowJPG) を 6 ファイル退避
+[batch]     ok iNatobs329109619
+[batch]   -> cpu eliza_hanmyo (エリザハンミョウ)
+[zukan_card] resized archived: iNatobs225479438_resized.jpg src_sha=04da21076b30
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs225479438.json
+[batch]     refetch: eliza_hanmyo 旧カード (WMCFileCylindera103897zookeys87537856Figures3739jpg) を 6 ファイル退避
+[batch]     ok iNatobs225479438
+[batch]   -> cpu oo_kakagerou_dummy (ヤマトクサカゲロウ)
+[build_card] stem 'NHMUK010596014' is already owned by 'kusakagerou'; using identity suffix for oo_kakagerou_dummy
+[zukan_card] resized archived: NHMUK010596014_9e1461ed_resized.jpg src_sha=bbad2b4a7670
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: NHMUK010596014_9e1461ed.json
+[batch]     refetch: oo_kakagerou_dummy 旧カード (NHMUK010596014) を 6 ファイル退避
+[batch]     ok NHMUK010596014_9e1461ed
+[batch]   -> cpu sakahachichou (サカハチチョウ)
+[batch]     reject [label_rectangle] tier=3 RMNH: 前景が bbox を 99% 埋める直線的な矩形 (row_cv=0.07 col_cv=0.04)。ラベルカードか標本箱とみなす
+[source_discovery] sakahachichou: wikimedia を skip 指定で飛ばす
+[inat_search] Araschnia burejana (taxon_id=325366): scanned 1 page(s), 4 obs total, hit
+[zukan_card] resized archived: iNatobs71504091_resized.jpg src_sha=951674cf69c3
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs71504091.json
+[batch]     ok iNatobs71504091 (品質ゲートで 1 source 差し替え)
+[batch]   ng io lateralis_noko_kuwagata: [discover] no tier matched
+[batch]   -> cpu oo_futa_mon_kometsuki (オオフタモンウバタマコメツキ)
+[build_card] stem 'iNatobs183451719' is already owned by 'ubatama_kometsuki'; using identity suffix for oo_futa_mon_kometsuki
+[zukan_card] resized archived: iNatobs183451719_976a0c1d_resized.jpg src_sha=7e8a462fdfda
+[zukan_card] L1 segmentation (birefnet-general)
+[zukan_card] L1 PNG write skipped (save_l1=False)
+[zukan_card] L2 color grade
+[zukan_card] thumbnails [54, 108, 216]
+[zukan_card] metadata: iNatobs183451719_976a0c1d.json
+[batch]     refetch: oo_futa_mon_kometsuki 旧カード (iNatobs183451719) を 6 ファイル退避
+[batch]     ok iNatobs183451719_976a0c1d
+[batch] Streaming done in 21976.9s: io 165/180 ok, cpu 147/180 ok
+[batch] Phase 3: appending 147 entries to /mnt/c/Users/shota/Dropbox/Private/tools/quest4bugs/zukan_config/zukan_catalog.js (dedup=skip)
+[batch]   added=0 skipped=147 overwritten=0
+[batch] === SUMMARY: 147/180 species completed ===
+[batch] 品質ゲート: 85 source を reject (18 種は代替が見つからず失敗)
+[batch] refetch: 146 種を新カードに置き換え、33 種は全 source reject で旧カードを維持
+[batch] FAILURES:
+[batch]   ryukyu_uraboshi_shijimi [discover] no tier matched
+[batch]   kumazemi [quality_gate] label_border: 使える source が尽きた (1 件 reject)
+[batch]   kawara_hanmyou [discover] no tier matched
+[batch]   benihikage [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   oouragin_hyoumon [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   hyoumonmodaki [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   kimadara_modoki [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   kurohikage_modoki [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   budou_tora_kamikiri [discover] no tier matched
+[batch]   tsuya_hada_kuwagata [discover] no tier matched
+[batch]   sujigurochabane_seseri [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   chamadara_seseri [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   hoshichabane_seseri [discover] no tier matched
+[batch]   oogomashijimi [discover] no tier matched
+[batch]   sokorabe_ruri_shijimi [discover] no tier matched
+[batch]   urakuro_shijimi [discover] no tier matched
+[batch]   uramisuji_shijimi [discover] no tier matched
+[batch]   usuiro_onaga_shijimi [discover] no tier matched
+[batch]   akashijimi_minami [discover] no tier matched
+[batch]   yamato_kuroshijimi_hebitonbo_dummy [quality_gate] label_border: 使える source が尽きた (1 件 reject)
+[batch]   gomimushidamashi_kohira [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   oba_kuwa_eda_shaku [discover] no tier matched
+[batch]   gunbai_tonbo [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   inago_hamushi [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   oo_zu_ari [quality_gate] multiple_subjects: 使える source が尽きた (1 件 reject)
+[batch]   morton_ito_tonbo [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   ezo_ito_tonbo [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   oo_kibara_gomimushi [quality_gate] label_rectangle: 使える source が尽きた (1 件 reject)
+[batch]   sedo_oo_gomimushi [discover] no tier matched
+[batch]   eurosternus_noko_kuwagata [discover] no tier matched
+[batch]   eupholus_zou [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   ookiba_usuba_kamikiri [quality_gate] label_dominant: 使える source が尽きた (1 件 reject)
+[batch]   lateralis_noko_kuwagata [discover] no tier matched
+{
+  "total": 180,
+  "ok": 147,
+  "quality_rejected_sources": 85,
+  "quality_gate_failures": 18,
+  "refetch_requested": 180,
+  "refetch_replaced": 146,
+  "refetch_kept_previous": 33,
+  "failures": [
+    {
+      "id": "ryukyu_uraboshi_shijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kumazemi",
+      "stage": "quality_gate",
+      "error": "label_border: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kawara_hanmyou",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "benihikage",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oouragin_hyoumon",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "hyoumonmodaki",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kimadara_modoki",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "kurohikage_modoki",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "budou_tora_kamikiri",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "tsuya_hada_kuwagata",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "sujigurochabane_seseri",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "chamadara_seseri",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "hoshichabane_seseri",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oogomashijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "sokorabe_ruri_shijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "urakuro_shijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "uramisuji_shijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "usuiro_onaga_shijimi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "akashijimi_minami",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "yamato_kuroshijimi_hebitonbo_dummy",
+      "stage": "quality_gate",
+      "error": "label_border: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "gomimushidamashi_kohira",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oba_kuwa_eda_shaku",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "gunbai_tonbo",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "inago_hamushi",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oo_zu_ari",
+      "stage": "quality_gate",
+      "error": "multiple_subjects: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "morton_ito_tonbo",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "ezo_ito_tonbo",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "oo_kibara_gomimushi",
+      "stage": "quality_gate",
+      "error": "label_rectangle: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "sedo_oo_gomimushi",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "eurosternus_noko_kuwagata",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "eupholus_zou",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "ookiba_usuba_kamikiri",
+      "stage": "quality_gate",
+      "error": "label_dominant: 使える source が尽きた (1 件 reject)",
+      "refetch_kept_previous": true
+    },
+    {
+      "id": "lateralis_noko_kuwagata",
+      "stage": "discover",
+      "error": "no tier matched",
+      "refetch_kept_previous": true
+    }
+  ]
+}

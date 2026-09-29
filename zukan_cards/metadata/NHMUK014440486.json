@@ -4,7 +4,7 @@
   "scientific_name": "Lymantria dispar",
   "credit_line": "Natural History Museum, London",
   "creator": "Natural History Museum, London",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",
@@ -36,13 +36,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
+    "resized": "original/NHMUK014440486_resized.jpg",
     "display": "processed/NHMUK014440486_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUK014440486_54.webp",
       "108": "thumb/NHMUK014440486_108.webp",
       "216": "thumb/NHMUK014440486_216.webp"
-    },
-    "resized": "original/NHMUK014440486_resized.jpg"
+    }
   },
   "original_sha256": "f718b6ae1fab2c5eb61cdd36645c7a45ea2bad4ed0974cab25742981fdb53e7d",
   "processing": {
@@ -68,7 +68,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/NHMUK014440486_original.jpg",
+    "originalImage": "original/NHMUK014440486_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

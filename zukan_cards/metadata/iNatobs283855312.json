@@ -1,0 +1,80 @@
+{
+  "species_id": "himejanome",
+  "species_ja": "ヒメジャノメ",
+  "scientific_name": "Mycalesis gotama",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_283855312",
+    "occurrenceId": "https://www.inaturalist.org/observations/283855312",
+    "persistentId": "https://www.inaturalist.org/observations/283855312",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2025-05-25",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8022245194,
+    "decimalLongitude": 139.4706505987,
+    "coordinatesObscured": true,
+    "iNatObservationId": "283855312",
+    "iNatPhotoId": "510081838",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/283855312",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/510081838/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs283855312_resized.jpg",
+    "display": "processed/iNatobs283855312_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs283855312_54.webp",
+      "108": "thumb/iNatobs283855312_108.webp",
+      "216": "thumb/iNatobs283855312_216.webp"
+    }
+  },
+  "original_sha256": "8ea5eb41a63b39d6441ff8947c446eb90745417f08fcf806647fb16b1d08faa4",
+  "processing": {
+    "cropBox": [
+      695,
+      607,
+      1036,
+      971
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs283855312_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

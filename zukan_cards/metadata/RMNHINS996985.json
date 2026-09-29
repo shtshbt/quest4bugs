@@ -4,7 +4,7 @@
   "scientific_name": "Junonia almana",
   "credit_line": "Naturalis Biodiversity Center",
   "creator": "Naturalis Biodiversity Center",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "Naturalis Biodiversity Center",
     "institutionCode": "RMNH",
@@ -36,13 +36,13 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
+    "resized": "original/RMNHINS996985_resized.jpg",
     "display": "processed/RMNHINS996985_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/RMNHINS996985_54.webp",
       "108": "thumb/RMNHINS996985_108.webp",
       "216": "thumb/RMNHINS996985_216.webp"
-    },
-    "resized": "original/RMNHINS996985_resized.jpg"
+    }
   },
   "original_sha256": "5f051315ee01c033538c28399fffcc61d94d6498a9cccc1bec7779ce362a6daf",
   "processing": {
@@ -68,7 +68,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/RMNHINS996985_original.jpg",
+    "originalImage": "original/RMNHINS996985_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

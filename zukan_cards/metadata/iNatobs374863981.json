@@ -1,0 +1,80 @@
+{
+  "species_id": "kuroboshi_seseri",
+  "species_ja": "クロボシセセリ",
+  "scientific_name": "Suastus gremius",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "wildchandu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_374863981",
+    "occurrenceId": "https://www.inaturalist.org/observations/374863981",
+    "persistentId": "https://www.inaturalist.org/observations/374863981",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "wildchandu",
+    "eventDate": "2026-06-24",
+    "eventYear": 2026,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "2JW8+8MQ, Mathirappilly, Kothamangalam, Kerala 686691, India, India",
+    "preparations": null,
+    "decimalLatitude": 10.0458428042,
+    "decimalLongitude": 76.6167211533,
+    "coordinatesObscured": false,
+    "iNatObservationId": "374863981",
+    "iNatPhotoId": "685229404",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/374863981",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/685229404/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs374863981_resized.jpg",
+    "display": "processed/iNatobs374863981_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs374863981_54.webp",
+      "108": "thumb/iNatobs374863981_108.webp",
+      "216": "thumb/iNatobs374863981_216.webp"
+    }
+  },
+  "original_sha256": "faeeea485aae1d6723e2ebc7f2f05a21d8108ab9d481232b100726d4e79027a0",
+  "processing": {
+    "cropBox": [
+      983,
+      241,
+      1258,
+      519
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs374863981_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

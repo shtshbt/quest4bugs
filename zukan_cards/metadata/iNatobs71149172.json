@@ -1,0 +1,80 @@
+{
+  "species_id": "kiito_tonbo",
+  "species_ja": "キイトトンボ",
+  "scientific_name": "Ceriagrion melanurum",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_71149172",
+    "occurrenceId": "https://www.inaturalist.org/observations/71149172",
+    "persistentId": "https://www.inaturalist.org/observations/71149172",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2013-07-13",
+    "eventYear": 2013,
+    "country": "日本、〒781-8125 高知県高知市五台山 牧野植物園温室内",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒781-8125 高知県高知市五台山 牧野植物園温室内, 日本、〒781-8125 高知県高知市五台山 牧野植物園温室内",
+    "preparations": null,
+    "decimalLatitude": 33.5465354399,
+    "decimalLongitude": 133.5783675087,
+    "coordinatesObscured": false,
+    "iNatObservationId": "71149172",
+    "iNatPhotoId": "115788117",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/71149172",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/115788117/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs71149172_resized.jpg",
+    "display": "processed/iNatobs71149172_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs71149172_54.webp",
+      "108": "thumb/iNatobs71149172_108.webp",
+      "216": "thumb/iNatobs71149172_216.webp"
+    }
+  },
+  "original_sha256": "669a105c08c51de3950f1e053dba5d64f07c2f97ab52f07917b7c90f174172a9",
+  "processing": {
+    "cropBox": [
+      840,
+      669,
+      1240,
+      988
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs71149172_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

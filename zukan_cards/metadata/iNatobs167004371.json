@@ -1,0 +1,80 @@
+{
+  "species_id": "ao_sanae",
+  "species_ja": "アオサナエ",
+  "scientific_name": "Nihonogomphus viridis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_167004371",
+    "occurrenceId": "https://www.inaturalist.org/observations/167004371",
+    "persistentId": "https://www.inaturalist.org/observations/167004371",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2017-06-20",
+    "eventYear": 2017,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.3028249389,
+    "decimalLongitude": 137.9478290001,
+    "coordinatesObscured": true,
+    "iNatObservationId": "167004371",
+    "iNatPhotoId": "289254910",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/167004371",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/289254910/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs167004371_resized.jpg",
+    "display": "processed/iNatobs167004371_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs167004371_54.webp",
+      "108": "thumb/iNatobs167004371_108.webp",
+      "216": "thumb/iNatobs167004371_216.webp"
+    }
+  },
+  "original_sha256": "4c5514c14534340d1aed360be24ee8fbb8784fa3d821a5ad3e2af1942d9e4262",
+  "processing": {
+    "cropBox": [
+      190,
+      71,
+      1991,
+      1321
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs167004371_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

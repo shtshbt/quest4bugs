@@ -1,0 +1,80 @@
+{
+  "species_id": "shiroobi_ageha",
+  "species_ja": "シロオビアゲハ",
+  "scientific_name": "Papilio polytes",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "sivakumar (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_9293756",
+    "occurrenceId": "https://www.inaturalist.org/observations/9293756",
+    "persistentId": "https://www.inaturalist.org/observations/9293756",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "sivakumar",
+    "eventDate": "2017-12-29",
+    "eventYear": 2017,
+    "country": "IN",
+    "localityVerbatim": null,
+    "localityNormalized": "Tamil Nadu, IN, IN",
+    "preparations": null,
+    "decimalLatitude": 13.0394845715,
+    "decimalLongitude": 80.1989943534,
+    "coordinatesObscured": false,
+    "iNatObservationId": "9293756",
+    "iNatPhotoId": "12599987",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/9293756",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/12599987/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs9293756_resized.jpg",
+    "display": "processed/iNatobs9293756_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs9293756_54.webp",
+      "108": "thumb/iNatobs9293756_108.webp",
+      "216": "thumb/iNatobs9293756_216.webp"
+    }
+  },
+  "original_sha256": "6b4208d93cd2f329ea4b0dfbf1670525d870505df1ab588d908e2a4cbb97ecbe",
+  "processing": {
+    "cropBox": [
+      667,
+      552,
+      869,
+      809
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs9293756_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

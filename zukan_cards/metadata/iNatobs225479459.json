@@ -1,0 +1,80 @@
+{
+  "species_id": "kususan",
+  "species_ja": "クスサン",
+  "scientific_name": "Caligula japonica",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_225479459",
+    "occurrenceId": "https://www.inaturalist.org/observations/225479459",
+    "persistentId": "https://www.inaturalist.org/observations/225479459",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-09-12",
+    "eventYear": 2018,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9557580657,
+    "decimalLongitude": 137.8290319226,
+    "coordinatesObscured": true,
+    "iNatObservationId": "225479459",
+    "iNatPhotoId": "399775829",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/225479459",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/399775829/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs225479459_resized.jpg",
+    "display": "processed/iNatobs225479459_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs225479459_54.webp",
+      "108": "thumb/iNatobs225479459_108.webp",
+      "216": "thumb/iNatobs225479459_216.webp"
+    }
+  },
+  "original_sha256": "8faf36cf4afb20cebb1b6fb363b19b1a74cfb74a7258e85ecdeedd5aef27c0b1",
+  "processing": {
+    "cropBox": [
+      76,
+      395,
+      2048,
+      1214
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs225479459_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

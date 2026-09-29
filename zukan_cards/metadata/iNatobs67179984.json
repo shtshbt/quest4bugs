@@ -1,0 +1,80 @@
+{
+  "species_id": "kotsubame",
+  "species_ja": "コツバメ",
+  "scientific_name": "Callophrys ferrea",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_67179984",
+    "occurrenceId": "https://www.inaturalist.org/observations/67179984",
+    "persistentId": "https://www.inaturalist.org/observations/67179984",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2015-04-02",
+    "eventYear": 2015,
+    "country": "高知県香南市野市町大谷 三宝山(金剛山)",
+    "localityVerbatim": null,
+    "localityNormalized": "高知県香南市野市町大谷 三宝山(金剛山), 高知県香南市野市町大谷 三宝山(金剛山)",
+    "preparations": null,
+    "decimalLatitude": 33.568233,
+    "decimalLongitude": 133.705324,
+    "coordinatesObscured": false,
+    "iNatObservationId": "67179984",
+    "iNatPhotoId": "108473875",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/67179984",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/108473875/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs67179984_resized.jpg",
+    "display": "processed/iNatobs67179984_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs67179984_54.webp",
+      "108": "thumb/iNatobs67179984_108.webp",
+      "216": "thumb/iNatobs67179984_216.webp"
+    }
+  },
+  "original_sha256": "6b5e801097004a7e36c3e5dd356642d6cfdd8c713003b3b2dab0cb9d3ce70c0a",
+  "processing": {
+    "cropBox": [
+      845,
+      586,
+      1672,
+      1255
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs67179984_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

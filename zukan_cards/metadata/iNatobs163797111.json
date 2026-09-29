@@ -1,0 +1,80 @@
+{
+  "species_id": "goma_fu_kamikiri",
+  "species_ja": "ゴマフカミキリ",
+  "scientific_name": "Mesosa myops",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "egor_filippov (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_163797111",
+    "occurrenceId": "https://www.inaturalist.org/observations/163797111",
+    "persistentId": "https://www.inaturalist.org/observations/163797111",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "egor_filippov",
+    "eventDate": "2023-05-26",
+    "eventYear": 2023,
+    "country": "119234",
+    "localityVerbatim": null,
+    "localityNormalized": "Москва, Россия, 119234, 119234",
+    "preparations": null,
+    "decimalLatitude": 55.7057138544,
+    "decimalLongitude": 37.5264161825,
+    "coordinatesObscured": false,
+    "iNatObservationId": "163797111",
+    "iNatPhotoId": "283345935",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/163797111",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/283345935/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs163797111_resized.jpg",
+    "display": "processed/iNatobs163797111_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs163797111_54.webp",
+      "108": "thumb/iNatobs163797111_108.webp",
+      "216": "thumb/iNatobs163797111_216.webp"
+    }
+  },
+  "original_sha256": "19c0d76935e23e318b10842eae2353feebe71a7771935c5ffbf3c88e119bc46f",
+  "processing": {
+    "cropBox": [
+      626,
+      116,
+      1537,
+      1305
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs163797111_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.12), rotate 0 CCW"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "himeuranami_janome",
+  "species_ja": "ヒメウラナミジャノメ",
+  "scientific_name": "Ypthima argus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_297544310",
+    "occurrenceId": "https://www.inaturalist.org/observations/297544310",
+    "persistentId": "https://www.inaturalist.org/observations/297544310",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2025-07-12",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8481489829,
+    "decimalLongitude": 139.5119677195,
+    "coordinatesObscured": true,
+    "iNatObservationId": "297544310",
+    "iNatPhotoId": "535870972",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/297544310",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/535870972/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs297544310_resized.jpg",
+    "display": "processed/iNatobs297544310_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs297544310_54.webp",
+      "108": "thumb/iNatobs297544310_108.webp",
+      "216": "thumb/iNatobs297544310_216.webp"
+    }
+  },
+  "original_sha256": "529e52362916f94221cb64086909074c2817547b3968ec7870c4985bc4cc1fe8",
+  "processing": {
+    "cropBox": [
+      849,
+      451,
+      1407,
+      1054
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs297544310_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

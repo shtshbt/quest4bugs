@@ -1,0 +1,80 @@
+{
+  "species_id": "tenguchou",
+  "species_ja": "テングチョウ",
+  "scientific_name": "Libythea celtis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "puffi_thebikingnaturalist (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_79807941",
+    "occurrenceId": "https://www.inaturalist.org/observations/79807941",
+    "persistentId": "https://www.inaturalist.org/observations/79807941",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "puffi_thebikingnaturalist",
+    "eventDate": "2021-05-22",
+    "eventYear": 2021,
+    "country": "Italy",
+    "localityVerbatim": null,
+    "localityNormalized": "South Tyrol, Italy, Italy",
+    "preparations": null,
+    "decimalLatitude": 46.4385333908,
+    "decimalLongitude": 11.3498473242,
+    "coordinatesObscured": false,
+    "iNatObservationId": "79807941",
+    "iNatPhotoId": "130739411",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/79807941",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/130739411/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs79807941_resized.jpg",
+    "display": "processed/iNatobs79807941_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs79807941_54.webp",
+      "108": "thumb/iNatobs79807941_108.webp",
+      "216": "thumb/iNatobs79807941_216.webp"
+    }
+  },
+  "original_sha256": "866d5b72f94786253bc6f363265b3398176f1262dbf4bd05af956490089d860b",
+  "processing": {
+    "cropBox": [
+      524,
+      460,
+      1173,
+      978
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs79807941_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

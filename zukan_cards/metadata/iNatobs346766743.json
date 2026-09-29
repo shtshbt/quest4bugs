@@ -1,0 +1,80 @@
+{
+  "species_id": "oo_geji",
+  "species_ja": "オオゲジ",
+  "scientific_name": "Thereuopoda clunifera",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "konoda (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_346766743",
+    "occurrenceId": "https://www.inaturalist.org/observations/346766743",
+    "persistentId": "https://www.inaturalist.org/observations/346766743",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "konoda",
+    "eventDate": "2026-04-02",
+    "eventYear": 2026,
+    "country": "日本、神奈川県横浜市金沢区",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、神奈川県横浜市金沢区, 日本、神奈川県横浜市金沢区",
+    "preparations": null,
+    "decimalLatitude": 35.3361177312,
+    "decimalLongitude": 139.6117598745,
+    "coordinatesObscured": false,
+    "iNatObservationId": "346766743",
+    "iNatPhotoId": "632156610",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/346766743",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/632156610/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs346766743_resized.jpg",
+    "display": "processed/iNatobs346766743_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs346766743_54.webp",
+      "108": "thumb/iNatobs346766743_108.webp",
+      "216": "thumb/iNatobs346766743_216.webp"
+    }
+  },
+  "original_sha256": "0fef8983de57c472b44de633f16a603fa8c764e0910f3d789110c0f421b0afb3",
+  "processing": {
+    "cropBox": [
+      0,
+      0,
+      2048,
+      1160
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs346766743_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

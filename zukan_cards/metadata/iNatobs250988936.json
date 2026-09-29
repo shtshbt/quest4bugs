@@ -1,0 +1,81 @@
+{
+  "species_id": "maguso_kogane",
+  "species_ja": "マグソコガネ",
+  "scientific_name": "Aphodius rectus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "cosmopterix (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_250988936",
+    "occurrenceId": "https://www.inaturalist.org/observations/250988936",
+    "persistentId": "https://www.inaturalist.org/observations/250988936",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "cosmopterix",
+    "eventDate": "2024-11-08",
+    "eventYear": 2024,
+    "country": "USA",
+    "localityVerbatim": null,
+    "localityNormalized": "Lane County, OR, USA, USA",
+    "preparations": null,
+    "decimalLatitude": 44.1519113792,
+    "decimalLongitude": -122.3243213364,
+    "coordinatesObscured": false,
+    "iNatObservationId": "250988936",
+    "iNatPhotoId": "449000570",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/250988936",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/449000570/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs250988936_resized.jpg",
+    "display": "processed/iNatobs250988936_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs250988936_54.webp",
+      "108": "thumb/iNatobs250988936_108.webp",
+      "216": "thumb/iNatobs250988936_216.webp"
+    }
+  },
+  "original_sha256": "139078207cffe52e49f376f3e74a89b3a5307801391ff413b477c74e01dff6b6",
+  "processing": {
+    "cropBox": [
+      38,
+      96,
+      1495,
+      1970
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs250988936_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.17), rotate 270 CCW"
+}

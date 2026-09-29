@@ -1,0 +1,81 @@
+{
+  "species_id": "scarabe_sacer",
+  "species_ja": "スカラベ",
+  "scientific_name": "Scarabaeus sacer",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "joelb73 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_329109619",
+    "occurrenceId": "https://www.inaturalist.org/observations/329109619",
+    "persistentId": "https://www.inaturalist.org/observations/329109619",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "joelb73",
+    "eventDate": "2025-11-23",
+    "eventYear": 2025,
+    "country": "Maroc",
+    "localityVerbatim": null,
+    "localityNormalized": "Targante, Maroc, Maroc",
+    "preparations": null,
+    "decimalLatitude": 31.0739541733,
+    "decimalLongitude": -9.7684831917,
+    "coordinatesObscured": false,
+    "iNatObservationId": "329109619",
+    "iNatPhotoId": "596504915",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/329109619",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/596504915/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs329109619_resized.jpg",
+    "display": "processed/iNatobs329109619_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs329109619_54.webp",
+      "108": "thumb/iNatobs329109619_108.webp",
+      "216": "thumb/iNatobs329109619_216.webp"
+    }
+  },
+  "original_sha256": "07350414afa1e2722a1c433870cdc72b30fd441f23f100cf7bb5ef8d66a8c688",
+  "processing": {
+    "cropBox": [
+      595,
+      79,
+      1658,
+      1049
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs329109619_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.68), rotate 180 CCW"
+}

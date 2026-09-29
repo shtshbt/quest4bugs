@@ -1,0 +1,81 @@
+{
+  "species_id": "saikabuto",
+  "species_ja": "サイカブト",
+  "scientific_name": "Oryctes rhinoceros",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "ananuno (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_151742113",
+    "occurrenceId": "https://www.inaturalist.org/observations/151742113",
+    "persistentId": "https://www.inaturalist.org/observations/151742113",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ananuno",
+    "eventDate": "2023-03-18",
+    "eventYear": 2023,
+    "country": "México",
+    "localityVerbatim": null,
+    "localityNormalized": "63735 Las Jarretaderas, Nay., México, México",
+    "preparations": null,
+    "decimalLatitude": 20.6954621174,
+    "decimalLongitude": -105.2789924294,
+    "coordinatesObscured": false,
+    "iNatObservationId": "151742113",
+    "iNatPhotoId": "261864719",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/151742113",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/261864719/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs151742113_resized.jpg",
+    "display": "processed/iNatobs151742113_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs151742113_54.webp",
+      "108": "thumb/iNatobs151742113_108.webp",
+      "216": "thumb/iNatobs151742113_216.webp"
+    }
+  },
+  "original_sha256": "a9ac6fa77b40ebbcf18dd12f3d5fb46fb876cb749cab8e83d208e1e0fb74263b",
+  "processing": {
+    "cropBox": [
+      119,
+      713,
+      905,
+      1075
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs151742113_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.32), rotate 180 CCW"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "tsumaguro_suzumebachi",
+  "species_ja": "ツマグロスズメバチ",
+  "scientific_name": "Vespa affinis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "nmnmnm (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_183638337",
+    "occurrenceId": "https://www.inaturalist.org/observations/183638337",
+    "persistentId": "https://www.inaturalist.org/observations/183638337",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "nmnmnm",
+    "eventDate": "2023-09-17",
+    "eventYear": 2023,
+    "country": null,
+    "localityVerbatim": null,
+    "localityNormalized": null,
+    "preparations": null,
+    "decimalLatitude": 4.9438182836,
+    "decimalLongitude": 114.9739952916,
+    "coordinatesObscured": true,
+    "iNatObservationId": "183638337",
+    "iNatPhotoId": "320414872",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/183638337",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/320414872/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs183638337_resized.jpg",
+    "display": "processed/iNatobs183638337_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs183638337_54.webp",
+      "108": "thumb/iNatobs183638337_108.webp",
+      "216": "thumb/iNatobs183638337_216.webp"
+    }
+  },
+  "original_sha256": "6c4f83667c5b2aaf8aa27df15f2cc6e11cb5ec543de8e2292189223f2a014575",
+  "processing": {
+    "cropBox": [
+      62,
+      79,
+      1206,
+      1174
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs183638337_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

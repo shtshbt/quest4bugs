@@ -1,0 +1,81 @@
+{
+  "species_id": "kuro_gengorou",
+  "species_ja": "クロゲンゴロウ",
+  "scientific_name": "Cybister brevis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "alfredo_f_fuentes (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_22268253",
+    "occurrenceId": "https://www.inaturalist.org/observations/22268253",
+    "persistentId": "https://www.inaturalist.org/observations/22268253",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "alfredo_f_fuentes",
+    "eventDate": "2004-12-04",
+    "eventYear": 2004,
+    "country": "Bolivia",
+    "localityVerbatim": null,
+    "localityNormalized": "Muela del Diablo,La Paz, Bolivia, Bolivia",
+    "preparations": null,
+    "decimalLatitude": -16.5621248785,
+    "decimalLongitude": -68.0564510186,
+    "coordinatesObscured": false,
+    "iNatObservationId": "22268253",
+    "iNatPhotoId": "34484693",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/22268253",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/34484693/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs22268253_resized.jpg",
+    "display": "processed/iNatobs22268253_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs22268253_54.webp",
+      "108": "thumb/iNatobs22268253_108.webp",
+      "216": "thumb/iNatobs22268253_216.webp"
+    }
+  },
+  "original_sha256": "fd05998c773215eb7f381f5fe5c881df1b15b48911066d5e3920c26911e9fc57",
+  "processing": {
+    "cropBox": [
+      0,
+      134,
+      1485,
+      2048
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs22268253_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.59), rotate 270 CCW"
+}

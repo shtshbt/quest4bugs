@@ -1,0 +1,80 @@
+{
+  "species_id": "jakou_ageha",
+  "species_ja": "ジャコウアゲハ",
+  "scientific_name": "Byasa alcinous",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "bsmouse (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_96054592",
+    "occurrenceId": "https://www.inaturalist.org/observations/96054592",
+    "persistentId": "https://www.inaturalist.org/observations/96054592",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "bsmouse",
+    "eventDate": "2021-09-11",
+    "eventYear": 2021,
+    "country": "South Korea",
+    "localityVerbatim": null,
+    "localityNormalized": "Dongan-gu, Anyang, Gyeonggi-do, South Korea, South Korea",
+    "preparations": null,
+    "decimalLatitude": 37.3990833437,
+    "decimalLongitude": 126.9691478114,
+    "coordinatesObscured": false,
+    "iNatObservationId": "96054592",
+    "iNatPhotoId": "159534206",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/96054592",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/159534206/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs96054592_resized.jpg",
+    "display": "processed/iNatobs96054592_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs96054592_54.webp",
+      "108": "thumb/iNatobs96054592_108.webp",
+      "216": "thumb/iNatobs96054592_216.webp"
+    }
+  },
+  "original_sha256": "9ee0cee0a87ddb30d40fa2431c08cfb4cd69b7a8bd6419a8a134c5332e2c88f7",
+  "processing": {
+    "cropBox": [
+      429,
+      56,
+      863,
+      962
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs96054592_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

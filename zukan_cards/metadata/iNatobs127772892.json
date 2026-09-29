@@ -1,0 +1,80 @@
+{
+  "species_id": "tsumajiro_uragoma_janome",
+  "species_ja": "ツマジロウラジャノメ",
+  "scientific_name": "Lasiommata deidamia",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "svetlanarussia (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_127772892",
+    "occurrenceId": "https://www.inaturalist.org/observations/127772892",
+    "persistentId": "https://www.inaturalist.org/observations/127772892",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "svetlanarussia",
+    "eventDate": "2022-07-22",
+    "eventYear": 2022,
+    "country": "Россия",
+    "localityVerbatim": null,
+    "localityNormalized": "Солнечный р-н, Хабаровский край, Россия, Россия",
+    "preparations": null,
+    "decimalLatitude": 51.2959046716,
+    "decimalLongitude": 135.8190653423,
+    "coordinatesObscured": false,
+    "iNatObservationId": "127772892",
+    "iNatPhotoId": "216952852",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/127772892",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/216952852/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs127772892_resized.jpg",
+    "display": "processed/iNatobs127772892_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs127772892_54.webp",
+      "108": "thumb/iNatobs127772892_108.webp",
+      "216": "thumb/iNatobs127772892_216.webp"
+    }
+  },
+  "original_sha256": "ec42627d862823fc195ebf8675a73ef984f8f067403777c225ffb6783fb6f0e9",
+  "processing": {
+    "cropBox": [
+      650,
+      42,
+      1168,
+      727
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs127772892_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

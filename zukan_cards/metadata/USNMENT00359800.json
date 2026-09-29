@@ -4,7 +4,7 @@
   "scientific_name": "Anaciaeschna martini",
   "credit_line": "National Museum of Natural History, Smithsonian Institution",
   "creator": "Picturae",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "National Museum of Natural History, Smithsonian Institution",
     "institutionCode": "USNM",
@@ -34,20 +34,20 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
+    "resized": "original/USNMENT00359800_resized.jpg",
     "display": "processed/USNMENT00359800_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMENT00359800_54.webp",
       "108": "thumb/USNMENT00359800_108.webp",
       "216": "thumb/USNMENT00359800_216.webp"
-    },
-    "resized": "original/USNMENT00359800_resized.jpg"
+    }
   },
-  "original_sha256": "fbd3ac6f238306d97fea3ce7bfa4b060d22bdd9d5dc558dca98a0504fd0d0090",
+  "original_sha256": "3b354e793e96dc32b1be68ec419a3f43e0ebef823a5e83d9e6c3e60be7867ecf",
   "processing": {
     "cropBox": [
       520,
       102,
-      1616,
+      1615,
       999
     ],
     "rotationDegrees": 0,
@@ -66,7 +66,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/USNMENT00359800_original.jpg",
+    "originalImage": "original/USNMENT00359800_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

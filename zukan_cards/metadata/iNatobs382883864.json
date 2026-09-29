@@ -1,0 +1,80 @@
+{
+  "species_id": "miyama_kamikiri",
+  "species_ja": "ミヤマカミキリ",
+  "scientific_name": "Massicus raddei",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_382883864",
+    "occurrenceId": "https://www.inaturalist.org/observations/382883864",
+    "persistentId": "https://www.inaturalist.org/observations/382883864",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2026-07-12",
+    "eventYear": 2026,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9102363238,
+    "decimalLongitude": 139.44157511,
+    "coordinatesObscured": true,
+    "iNatObservationId": "382883864",
+    "iNatPhotoId": "700729804",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/382883864",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/700729804/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs382883864_resized.jpg",
+    "display": "processed/iNatobs382883864_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs382883864_54.webp",
+      "108": "thumb/iNatobs382883864_108.webp",
+      "216": "thumb/iNatobs382883864_216.webp"
+    }
+  },
+  "original_sha256": "0a5a105c520950278449c6753d64ff6d50503cd1acbbed53a25d7f35d7fde152",
+  "processing": {
+    "cropBox": [
+      0,
+      83,
+      1833,
+      1478
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs382883864_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.25), rotate 0 CCW"
+}

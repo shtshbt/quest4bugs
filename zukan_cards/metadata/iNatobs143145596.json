@@ -1,0 +1,80 @@
+{
+  "species_id": "ishigakechou",
+  "species_ja": "イシガケチョウ",
+  "scientific_name": "Cyrestis thyodamas",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "vijaybarve (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_143145596",
+    "occurrenceId": "https://www.inaturalist.org/observations/143145596",
+    "persistentId": "https://www.inaturalist.org/observations/143145596",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "vijaybarve",
+    "eventDate": "2022-11-20",
+    "eventYear": 2022,
+    "country": "Thailand",
+    "localityVerbatim": null,
+    "localityNormalized": "Na Hin Lat, Pak Phli District, Nakhon Nayok, Thailand, Thailand",
+    "preparations": null,
+    "decimalLatitude": 14.2890763723,
+    "decimalLongitude": 101.3948265022,
+    "coordinatesObscured": false,
+    "iNatObservationId": "143145596",
+    "iNatPhotoId": "245465269",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/143145596",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/245465269/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs143145596_resized.jpg",
+    "display": "processed/iNatobs143145596_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs143145596_54.webp",
+      "108": "thumb/iNatobs143145596_108.webp",
+      "216": "thumb/iNatobs143145596_216.webp"
+    }
+  },
+  "original_sha256": "7be411318d1a7a9ab45215fd344c3b729832d6fd5ab17fad0f9996b17ec23d4b",
+  "processing": {
+    "cropBox": [
+      248,
+      152,
+      1147,
+      1189
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs143145596_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

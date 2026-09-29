@@ -1,0 +1,74 @@
+{
+  "species_id": "ruritateha",
+  "species_ja": "ルリタテハ",
+  "scientific_name": "Kaniska canace",
+  "credit_line": "Naturalis Biodiversity Center",
+  "creator": "Naturalis Biodiversity Center",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Naturalis Biodiversity Center",
+    "institutionCode": "RMNH",
+    "collectionCode": "Lepidoptera",
+    "catalogNumber": "RMNH.INS.366567",
+    "occurrenceId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.366567",
+    "persistentId": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.INS.366567",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "Murayama",
+    "eventDate": "1948-11-12",
+    "eventYear": 1948,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Yamazaki, Japan",
+    "preparations": "WholeOrganism (Air dried)"
+  },
+  "source": {
+    "gbifOccurrenceKey": "2443639017",
+    "institutionRecordUrl": "https://www.gbif.org/occurrence/2443639017",
+    "sourceMediaUrl": "https://medialib.naturalis.nl/file/id/RMNH.INS.366567_0001/format/large",
+    "datasetKey": "f3130a8a-4508-42b4-9737-fbda77748438",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/RMNHINS366567_resized.jpg",
+    "display": "processed/RMNHINS366567_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/RMNHINS366567_54.webp",
+      "108": "thumb/RMNHINS366567_108.webp",
+      "216": "thumb/RMNHINS366567_216.webp"
+    }
+  },
+  "original_sha256": "ad1e68f816a10bfaf5bc8a02a4c86a0d3c64b7242e2ec177a7ebfabd7a564433",
+  "processing": {
+    "cropBox": [
+      0,
+      142,
+      1920,
+      1275
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/RMNHINS366567_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

@@ -1,0 +1,80 @@
+{
+  "species_id": "oouraginsuji_hyoumon",
+  "species_ja": "オオウラギンスジヒョウモン",
+  "scientific_name": "Argyronome ruslana",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "stephenmatthews (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_252472119",
+    "occurrenceId": "https://www.inaturalist.org/observations/252472119",
+    "persistentId": "https://www.inaturalist.org/observations/252472119",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "stephenmatthews",
+    "eventDate": "2024-08-11",
+    "eventYear": 2024,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Akancho Akankoonsen, Kushiro, Hokkaido 085-0467, Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 43.4352860719,
+    "decimalLongitude": 144.1006117789,
+    "coordinatesObscured": false,
+    "iNatObservationId": "252472119",
+    "iNatPhotoId": "451963959",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/252472119",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/451963959/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs252472119_resized.jpg",
+    "display": "processed/iNatobs252472119_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs252472119_54.webp",
+      "108": "thumb/iNatobs252472119_108.webp",
+      "216": "thumb/iNatobs252472119_216.webp"
+    }
+  },
+  "original_sha256": "98d97cba4d8adeed219dccc2cc3271bba243614654a0f6bcb9c09e9304f2f0e4",
+  "processing": {
+    "cropBox": [
+      709,
+      506,
+      1360,
+      1005
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs252472119_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

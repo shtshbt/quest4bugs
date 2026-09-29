@@ -1,0 +1,81 @@
+{
+  "species_id": "ramie_kamikiri",
+  "species_ja": "ラミーカミキリ",
+  "scientific_name": "Paraglenea fortunei",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_171199669",
+    "occurrenceId": "https://www.inaturalist.org/observations/171199669",
+    "persistentId": "https://www.inaturalist.org/observations/171199669",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-06-24",
+    "eventYear": 2023,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Shizuoka, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 34.7330230574,
+    "decimalLongitude": 138.8849873178,
+    "coordinatesObscured": true,
+    "iNatObservationId": "171199669",
+    "iNatPhotoId": "297045622",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/171199669",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/297045622/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs171199669_resized.jpg",
+    "display": "processed/iNatobs171199669_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs171199669_54.webp",
+      "108": "thumb/iNatobs171199669_108.webp",
+      "216": "thumb/iNatobs171199669_216.webp"
+    }
+  },
+  "original_sha256": "5e611fbb9cec15860a4af46874b482225681252096c8df71d474ba3a01c6d206",
+  "processing": {
+    "cropBox": [
+      610,
+      256,
+      1427,
+      1103
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs171199669_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.89), rotate 270 CCW"
+}

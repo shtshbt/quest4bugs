@@ -1,0 +1,80 @@
+{
+  "species_id": "hito_suji_shima_ka",
+  "species_ja": "ヒトスジシマカ",
+  "scientific_name": "Aedes albopictus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "marinolinic (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_122109366",
+    "occurrenceId": "https://www.inaturalist.org/observations/122109366",
+    "persistentId": "https://www.inaturalist.org/observations/122109366",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "marinolinic",
+    "eventDate": "2022-06-15",
+    "eventYear": 2022,
+    "country": "HR",
+    "localityVerbatim": null,
+    "localityNormalized": "Primorsko-Goranska, HR, HR",
+    "preparations": null,
+    "decimalLatitude": 45.252474172,
+    "decimalLongitude": 14.4044297789,
+    "coordinatesObscured": true,
+    "iNatObservationId": "122109366",
+    "iNatPhotoId": "206707683",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/122109366",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/206707683/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs122109366_resized.jpg",
+    "display": "processed/iNatobs122109366_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs122109366_54.webp",
+      "108": "thumb/iNatobs122109366_108.webp",
+      "216": "thumb/iNatobs122109366_216.webp"
+    }
+  },
+  "original_sha256": "c6b38f8666e1819cd160ba39e83f6434c840995404b44f2522e63f5efd70addb",
+  "processing": {
+    "cropBox": [
+      296,
+      185,
+      1019,
+      675
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs122109366_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

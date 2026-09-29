@@ -1,0 +1,80 @@
+{
+  "species_id": "satokimadara_hikage",
+  "species_ja": "サトキマダラヒカゲ",
+  "scientific_name": "Neope goschkevitschii",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_281988807",
+    "occurrenceId": "https://www.inaturalist.org/observations/281988807",
+    "persistentId": "https://www.inaturalist.org/observations/281988807",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2025-05-18",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9825070992,
+    "decimalLongitude": 139.5741041771,
+    "coordinatesObscured": true,
+    "iNatObservationId": "281988807",
+    "iNatPhotoId": "506595908",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/281988807",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/506595908/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs281988807_resized.jpg",
+    "display": "processed/iNatobs281988807_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs281988807_54.webp",
+      "108": "thumb/iNatobs281988807_108.webp",
+      "216": "thumb/iNatobs281988807_216.webp"
+    }
+  },
+  "original_sha256": "c7a161261a7d02f9742c288ef1222f706a25aacd1d70c89d2845453ba1a0f669",
+  "processing": {
+    "cropBox": [
+      708,
+      644,
+      1188,
+      1226
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs281988807_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

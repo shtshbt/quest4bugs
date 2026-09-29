@@ -4,7 +4,7 @@
   "scientific_name": "Rosalia batesi",
   "credit_line": "National Museum of Natural History, Smithsonian Institution",
   "creator": "Eugenio Nearns",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "National Museum of Natural History, Smithsonian Institution",
     "institutionCode": "USNM",
@@ -27,30 +27,30 @@
   "source": {
     "gbifOccurrenceKey": "1320804713",
     "institutionRecordUrl": "https://www.gbif.org/occurrence/1320804713",
-    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10507848&h=2000",
+    "sourceMediaUrl": "https://collections.nmnh.si.edu/media/?i=10507847&h=2000",
     "datasetKey": "821cc27a-e3bb-4bc5-ac34-89ada245069d",
     "metadataLicense": "CC0-1.0",
     "mediaLicense": "CC0-1.0",
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
+    "resized": "original/USNMruriboshikamikiri_resized.jpg",
     "display": "processed/USNMruriboshikamikiri_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMruriboshikamikiri_54.webp",
       "108": "thumb/USNMruriboshikamikiri_108.webp",
       "216": "thumb/USNMruriboshikamikiri_216.webp"
-    },
-    "resized": "original/USNMruriboshikamikiri_resized.jpg"
+    }
   },
-  "original_sha256": "b5508fb707f2e3d17bf12f93587268b4a7b6a02bc4cada3ba750ed9f269c4eef",
+  "original_sha256": "4424c8bdbc05ef433249f51741a0f91aab495b3671fb18ff093034ee85c847e2",
   "processing": {
     "cropBox": [
-      312,
-      18,
-      1774,
-      1281
+      105,
+      40,
+      1052,
+      1880
     ],
-    "rotationDegrees": 0,
+    "rotationDegrees": 270,
     "padding": 0.1,
     "canvas": 512,
     "minSize": 20,
@@ -62,13 +62,14 @@
   },
   "modifications": [
     "cropped",
+    "rotated",
     "background removed",
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/USNMruriboshikamikiri_original.jpg",
+    "originalImage": "original/USNMruriboshikamikiri_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },
-  "notes": "beetle head=up (heuristic conf=0.22), rotate 0 CCW"
+  "notes": "beetle head=left (heuristic conf=0.02), rotate 270 CCW"
 }

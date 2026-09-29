@@ -1,0 +1,80 @@
+{
+  "species_id": "yakushima_ruri_shijimi",
+  "species_ja": "ヤクシマルリシジミ",
+  "scientific_name": "Acytolepis puspa",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "haneesh (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_107112626",
+    "occurrenceId": "https://www.inaturalist.org/observations/107112626",
+    "persistentId": "https://www.inaturalist.org/observations/107112626",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "haneesh",
+    "eventDate": "2022-02-19",
+    "eventYear": 2022,
+    "country": "India",
+    "localityVerbatim": null,
+    "localityNormalized": "184,, 182, Main Rd, Arekere MICO Layout 2nd stage, Manjunatha Layout, Sahyadri Layout, Arekere, Sahyadri Layout, Panduranga Nagar, Bengaluru, Karnataka 560076, India, India",
+    "preparations": null,
+    "decimalLatitude": 12.8934072,
+    "decimalLongitude": 77.5945238,
+    "coordinatesObscured": false,
+    "iNatObservationId": "107112626",
+    "iNatPhotoId": "180085879",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/107112626",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/180085879/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs107112626_resized.jpg",
+    "display": "processed/iNatobs107112626_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs107112626_54.webp",
+      "108": "thumb/iNatobs107112626_108.webp",
+      "216": "thumb/iNatobs107112626_216.webp"
+    }
+  },
+  "original_sha256": "b96a36a8a7fac7239fac5d08a5889bbf7d0f0479706c4650150df2b5b8286640",
+  "processing": {
+    "cropBox": [
+      744,
+      503,
+      1259,
+      764
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs107112626_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

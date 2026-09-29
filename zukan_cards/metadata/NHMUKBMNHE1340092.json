@@ -4,7 +4,7 @@
   "scientific_name": "Nysius plebeius",
   "credit_line": "Natural History Museum, London",
   "creator": "Roberto Teixeira",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "Natural History Museum, London",
     "institutionCode": "NHMUK",
@@ -34,13 +34,13 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
   },
   "files": {
+    "resized": "original/NHMUKBMNHE1340092_resized.jpg",
     "display": "processed/NHMUKBMNHE1340092_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/NHMUKBMNHE1340092_54.webp",
       "108": "thumb/NHMUKBMNHE1340092_108.webp",
       "216": "thumb/NHMUKBMNHE1340092_216.webp"
-    },
-    "resized": "original/NHMUKBMNHE1340092_resized.jpg"
+    }
   },
   "original_sha256": "03bfe67a28efe1f97dfc70411de607ed96836d908044de6487437595f5736bf3",
   "processing": {
@@ -66,7 +66,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/NHMUKBMNHE1340092_original.jpg",
+    "originalImage": "original/NHMUKBMNHE1340092_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

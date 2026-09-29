@@ -1,0 +1,80 @@
+{
+  "species_id": "sasakia_oomurasaki_ss",
+  "species_ja": "オオムラサキ（雄）",
+  "scientific_name": "Sasakia charonda",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "konoda (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_229016135",
+    "occurrenceId": "https://www.inaturalist.org/observations/229016135",
+    "persistentId": "https://www.inaturalist.org/observations/229016135",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "konoda",
+    "eventDate": "2024-07-13",
+    "eventYear": 2024,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.3543372593,
+    "decimalLongitude": 138.2789260174,
+    "coordinatesObscured": true,
+    "iNatObservationId": "229016135",
+    "iNatPhotoId": "406474461",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/229016135",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/406474461/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs229016135_4c9b79bf_resized.jpg",
+    "display": "processed/iNatobs229016135_4c9b79bf_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs229016135_4c9b79bf_54.webp",
+      "108": "thumb/iNatobs229016135_4c9b79bf_108.webp",
+      "216": "thumb/iNatobs229016135_4c9b79bf_216.webp"
+    }
+  },
+  "original_sha256": "c2b4792fa7573dc7a0d97188693ff8e22583c4f0059de2fa26617674a0c33407",
+  "processing": {
+    "cropBox": [
+      41,
+      0,
+      1482,
+      1243
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs229016135_4c9b79bf_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

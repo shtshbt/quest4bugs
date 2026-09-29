@@ -1,0 +1,76 @@
+{
+  "species_id": "onaga_shijimi",
+  "species_ja": "オナガシジミ",
+  "scientific_name": "Araragi enthea",
+  "credit_line": "Yale Peabody Museum",
+  "creator": "Ava Socik",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "Yale Peabody Museum",
+    "institutionCode": "YPM",
+    "collectionCode": "ENT",
+    "catalogNumber": "YPM ENT 757410",
+    "occurrenceId": "urn:uuid:7c64df90-62e7-4db1-9f32-84f325cd20ce",
+    "persistentId": "urn:uuid:7c64df90-62e7-4db1-9f32-84f325cd20ce",
+    "basisOfRecord": "PRESERVED_SPECIMEN",
+    "typeStatus": null,
+    "sex": "Female",
+    "lifeStage": null,
+    "recordedBy": null,
+    "eventDate": "1956-08-03",
+    "eventYear": 1956,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Mt. Yatsu, Nagano, Japan",
+    "preparations": null,
+    "decimalLatitude": 34.882844,
+    "decimalLongitude": 136.052948
+  },
+  "source": {
+    "gbifOccurrenceKey": "1039113560",
+    "institutionRecordUrl": "http://collections.peabody.yale.edu/search/Record/YPM-ENT-757410",
+    "sourceMediaUrl": "https://images.collections.yale.edu/iiif/2/ypm:e6f4cdcd-f01b-4d75-b230-a8da94ce019f/full/!1920,1920/0/default.jpg",
+    "datasetKey": "96404cc2-f762-11e1-a439-00145eb45e9a",
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/YPMENT757410_resized.jpg",
+    "display": "processed/YPMENT757410_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/YPMENT757410_54.webp",
+      "108": "thumb/YPMENT757410_108.webp",
+      "216": "thumb/YPMENT757410_216.webp"
+    }
+  },
+  "original_sha256": "d1189e4d48caf3a4285197f613ebf488207c5b679a3b8859d69596282288f2d5",
+  "processing": {
+    "cropBox": [
+      262,
+      52,
+      966,
+      1423
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/YPMENT757410_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

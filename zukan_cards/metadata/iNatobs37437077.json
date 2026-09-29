@@ -1,0 +1,80 @@
+{
+  "species_id": "kurohikage",
+  "species_ja": "クロヒカゲ",
+  "scientific_name": "Lethe diana",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "amzamz (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_37437077",
+    "occurrenceId": "https://www.inaturalist.org/observations/37437077",
+    "persistentId": "https://www.inaturalist.org/observations/37437077",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "amzamz",
+    "eventDate": "1987-07-10",
+    "eventYear": 1987,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Sōunkyō, Kamikawa, Kamikawa District, Hokkaido 078-1701, Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 43.6845889165,
+    "decimalLongitude": 142.9292120562,
+    "coordinatesObscured": false,
+    "iNatObservationId": "37437077",
+    "iNatPhotoId": "59348297",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/37437077",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/59348297/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs37437077_resized.jpg",
+    "display": "processed/iNatobs37437077_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs37437077_54.webp",
+      "108": "thumb/iNatobs37437077_108.webp",
+      "216": "thumb/iNatobs37437077_216.webp"
+    }
+  },
+  "original_sha256": "a4f676f29d24ecd1f66f7d365f4cd5c49b568921ce004050f8c48c599692c7d3",
+  "processing": {
+    "cropBox": [
+      542,
+      530,
+      1011,
+      894
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs37437077_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

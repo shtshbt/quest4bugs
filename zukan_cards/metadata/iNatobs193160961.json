@@ -1,0 +1,80 @@
+{
+  "species_id": "master_claudina",
+  "species_ja": "クラウディナタテハ",
+  "scientific_name": "Diaethria clymena",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "ftsautter (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_193160961",
+    "occurrenceId": "https://www.inaturalist.org/observations/193160961",
+    "persistentId": "https://www.inaturalist.org/observations/193160961",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "ftsautter",
+    "eventDate": "2023-12-05",
+    "eventYear": 2023,
+    "country": "Brasil",
+    "localityVerbatim": null,
+    "localityNormalized": "Itaara - RS, Brasil, Brasil",
+    "preparations": null,
+    "decimalLatitude": -29.633547385,
+    "decimalLongitude": -53.7430115312,
+    "coordinatesObscured": false,
+    "iNatObservationId": "193160961",
+    "iNatPhotoId": "339274673",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/193160961",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/339274673/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs193160961_resized.jpg",
+    "display": "processed/iNatobs193160961_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs193160961_54.webp",
+      "108": "thumb/iNatobs193160961_108.webp",
+      "216": "thumb/iNatobs193160961_216.webp"
+    }
+  },
+  "original_sha256": "29f5e335cdb1ea7eef4086399f055cc145493485adaf5b5e73e8e41999ce5955",
+  "processing": {
+    "cropBox": [
+      316,
+      113,
+      747,
+      528
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs193160961_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

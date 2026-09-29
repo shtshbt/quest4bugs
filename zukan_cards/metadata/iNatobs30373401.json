@@ -1,0 +1,80 @@
+{
+  "species_id": "monsuzumebachi",
+  "species_ja": "モンスズメバチ",
+  "scientific_name": "Vespa crabro",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "vespawatch (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_30373401",
+    "occurrenceId": "https://www.inaturalist.org/observations/30373401",
+    "persistentId": "https://www.inaturalist.org/observations/30373401",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "vespawatch",
+    "eventDate": "2019-08-04",
+    "eventYear": 2019,
+    "country": "BE",
+    "localityVerbatim": null,
+    "localityNormalized": "Antwerpen, Vlaanderen, BE, BE",
+    "preparations": null,
+    "decimalLatitude": 51.2608943608,
+    "decimalLongitude": 4.9659061432,
+    "coordinatesObscured": false,
+    "iNatObservationId": "30373401",
+    "iNatPhotoId": "47451092",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/30373401",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/47451092/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs30373401_resized.jpg",
+    "display": "processed/iNatobs30373401_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs30373401_54.webp",
+      "108": "thumb/iNatobs30373401_108.webp",
+      "216": "thumb/iNatobs30373401_216.webp"
+    }
+  },
+  "original_sha256": "446461be56514fb2bda747965341c3dcda94ebfcefe5a6aa2992579b84441dec",
+  "processing": {
+    "cropBox": [
+      39,
+      24,
+      1442,
+      2016
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs30373401_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

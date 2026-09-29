@@ -1,0 +1,80 @@
+{
+  "species_id": "kibara_tentou",
+  "species_ja": "キイロテントウ",
+  "scientific_name": "Illeis koebelei",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "amzamz (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_133397022",
+    "occurrenceId": "https://www.inaturalist.org/observations/133397022",
+    "persistentId": "https://www.inaturalist.org/observations/133397022",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "amzamz",
+    "eventDate": "2022-09-02",
+    "eventYear": 2022,
+    "country": "Südkorea",
+    "localityVerbatim": null,
+    "localityNormalized": "Seongbuk-gu, Seoul, Südkorea, Südkorea",
+    "preparations": null,
+    "decimalLatitude": 37.6030379972,
+    "decimalLongitude": 127.0448259312,
+    "coordinatesObscured": false,
+    "iNatObservationId": "133397022",
+    "iNatPhotoId": "227212247",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/133397022",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/227212247/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs133397022_resized.jpg",
+    "display": "processed/iNatobs133397022_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs133397022_54.webp",
+      "108": "thumb/iNatobs133397022_108.webp",
+      "216": "thumb/iNatobs133397022_216.webp"
+    }
+  },
+  "original_sha256": "d71d3e6077384595e8494d78e322d31188762a29fce5fff38787542a2c82e1ee",
+  "processing": {
+    "cropBox": [
+      402,
+      531,
+      1321,
+      1046
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs133397022_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=up (heuristic conf=0.77), rotate 0 CCW"
+}

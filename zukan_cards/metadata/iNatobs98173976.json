@@ -1,0 +1,80 @@
+{
+  "species_id": "ni_idolomantis_diabolica",
+  "species_ja": "ニセハナマオウカマキリ",
+  "scientific_name": "Idolomantis diabolica",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "martintlustos (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_98173976",
+    "occurrenceId": "https://www.inaturalist.org/observations/98173976",
+    "persistentId": "https://www.inaturalist.org/observations/98173976",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "martintlustos",
+    "eventDate": "2018-02-14",
+    "eventYear": 2018,
+    "country": "Tanzania",
+    "localityVerbatim": null,
+    "localityNormalized": "Dodoma Urban, Tanzania, Tanzania",
+    "preparations": null,
+    "decimalLatitude": -6.1300309745,
+    "decimalLongitude": 35.9573241912,
+    "coordinatesObscured": false,
+    "iNatObservationId": "98173976",
+    "iNatPhotoId": "163403120",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/98173976",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/163403120/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs98173976_resized.jpg",
+    "display": "processed/iNatobs98173976_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs98173976_54.webp",
+      "108": "thumb/iNatobs98173976_108.webp",
+      "216": "thumb/iNatobs98173976_216.webp"
+    }
+  },
+  "original_sha256": "ab5be2e5144a6905b106ed51e6a3dad74358b85f251b2db9f1c8d0ada2d15d40",
+  "processing": {
+    "cropBox": [
+      253,
+      4,
+      1451,
+      1046
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs98173976_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

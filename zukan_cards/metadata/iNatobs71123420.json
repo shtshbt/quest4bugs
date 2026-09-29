@@ -1,0 +1,80 @@
+{
+  "species_id": "yumon_eda_shaku",
+  "species_ja": "ユウマダラエダシャク",
+  "scientific_name": "Abraxas miranda",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "heikindai_87 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_71123420",
+    "occurrenceId": "https://www.inaturalist.org/observations/71123420",
+    "persistentId": "https://www.inaturalist.org/observations/71123420",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "heikindai_87",
+    "eventDate": "2013-05-12",
+    "eventYear": 2013,
+    "country": "日本、〒780-8072 高知県高知市曙町",
+    "localityVerbatim": null,
+    "localityNormalized": "日本、〒780-8072 高知県高知市曙町, 日本、〒780-8072 高知県高知市曙町",
+    "preparations": null,
+    "decimalLatitude": 33.5488509112,
+    "decimalLongitude": 133.486891244,
+    "coordinatesObscured": false,
+    "iNatObservationId": "71123420",
+    "iNatPhotoId": "115742993",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/71123420",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/115742993/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs71123420_resized.jpg",
+    "display": "processed/iNatobs71123420_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs71123420_54.webp",
+      "108": "thumb/iNatobs71123420_108.webp",
+      "216": "thumb/iNatobs71123420_216.webp"
+    }
+  },
+  "original_sha256": "79ac291d66e892c9868c2bcf1693b59323dfc9a00dbd580784343d3380b8a338",
+  "processing": {
+    "cropBox": [
+      136,
+      197,
+      1914,
+      1398
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs71123420_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

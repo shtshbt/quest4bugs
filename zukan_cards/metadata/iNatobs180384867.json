@@ -1,0 +1,81 @@
+{
+  "species_id": "koganemushi",
+  "species_ja": "コガネムシ",
+  "scientific_name": "Mimela splendens",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_180384867",
+    "occurrenceId": "https://www.inaturalist.org/observations/180384867",
+    "persistentId": "https://www.inaturalist.org/observations/180384867",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2021-06-05",
+    "eventYear": 2021,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.8060309266,
+    "decimalLongitude": 139.5533451727,
+    "coordinatesObscured": true,
+    "iNatObservationId": "180384867",
+    "iNatPhotoId": "314201041",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/180384867",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/314201041/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs180384867_resized.jpg",
+    "display": "processed/iNatobs180384867_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs180384867_54.webp",
+      "108": "thumb/iNatobs180384867_108.webp",
+      "216": "thumb/iNatobs180384867_216.webp"
+    }
+  },
+  "original_sha256": "497862f3d8010553152ae2e0e43391614ac94db1bc2a77d61c0126e479284b3a",
+  "processing": {
+    "cropBox": [
+      342,
+      392,
+      1600,
+      1334
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs180384867_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.83), rotate 180 CCW"
+}

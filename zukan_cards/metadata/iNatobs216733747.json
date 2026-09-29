@@ -1,0 +1,80 @@
+{
+  "species_id": "onaga_ageha",
+  "species_ja": "オナガアゲハ",
+  "scientific_name": "Papilio macilentus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_216733747",
+    "occurrenceId": "https://www.inaturalist.org/observations/216733747",
+    "persistentId": "https://www.inaturalist.org/observations/216733747",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2023-07-30",
+    "eventYear": 2023,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 36.1039168975,
+    "decimalLongitude": 138.622761363,
+    "coordinatesObscured": true,
+    "iNatObservationId": "216733747",
+    "iNatPhotoId": "383338656",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/216733747",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/383338656/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs216733747_resized.jpg",
+    "display": "processed/iNatobs216733747_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs216733747_54.webp",
+      "108": "thumb/iNatobs216733747_108.webp",
+      "216": "thumb/iNatobs216733747_216.webp"
+    }
+  },
+  "original_sha256": "000b9a314b753ab78b8044155c6931f0d1620e8f07228591000624d9ce14bb43",
+  "processing": {
+    "cropBox": [
+      886,
+      425,
+      1219,
+      848
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs216733747_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

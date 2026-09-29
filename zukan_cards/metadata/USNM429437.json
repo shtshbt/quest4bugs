@@ -4,7 +4,7 @@
   "scientific_name": "Lanius bucephalus",
   "credit_line": "National Museum of Natural History, Smithsonian Institution",
   "creator": "Division of Birds",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "National Museum of Natural History, Smithsonian Institution",
     "institutionCode": "USNM",
@@ -34,20 +34,20 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
+    "resized": "original/USNM429437_resized.jpg",
     "display": "processed/USNM429437_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNM429437_54.webp",
       "108": "thumb/USNM429437_108.webp",
       "216": "thumb/USNM429437_216.webp"
-    },
-    "resized": "original/USNM429437_resized.jpg"
+    }
   },
-  "original_sha256": "2483bfcd8e497500ee1171663b8ffced6a3b3bc9ed267f79793027072498dd68",
+  "original_sha256": "fdbcfa3967d6c073b6ba3d97fae19ca1c1f378a862a5a31d21f1c77f1c2c0a3e",
   "processing": {
     "cropBox": [
       0,
       0,
-      1999,
+      2000,
       1603
     ],
     "rotationDegrees": 0,
@@ -66,7 +66,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/USNM429437_original.jpg",
+    "originalImage": "original/USNM429437_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

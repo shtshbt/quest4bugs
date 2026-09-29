@@ -1,0 +1,80 @@
+{
+  "species_id": "kuro_suzumebachi",
+  "species_ja": "クロスズメバチ",
+  "scientific_name": "Vespula flaviceps",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "agnestrekker (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_99684258",
+    "occurrenceId": "https://www.inaturalist.org/observations/99684258",
+    "persistentId": "https://www.inaturalist.org/observations/99684258",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "agnestrekker",
+    "eventDate": "2021-10-28",
+    "eventYear": 2021,
+    "country": "Tai Mo Shan Peak Area 跟党走 听党话",
+    "localityVerbatim": null,
+    "localityNormalized": "Tai Mo Shan Peak Area 跟党走 听党话, Tai Mo Shan Peak Area 跟党走 听党话",
+    "preparations": null,
+    "decimalLatitude": 22.4108913465,
+    "decimalLongitude": 114.1242511597,
+    "coordinatesObscured": false,
+    "iNatObservationId": "99684258",
+    "iNatPhotoId": "166228606",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/99684258",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/166228606/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs99684258_resized.jpg",
+    "display": "processed/iNatobs99684258_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs99684258_54.webp",
+      "108": "thumb/iNatobs99684258_108.webp",
+      "216": "thumb/iNatobs99684258_216.webp"
+    }
+  },
+  "original_sha256": "445ce03d5b4bde0032bb6bede240163c7ec7f72ad72fef3e0c398a7fc848aab7",
+  "processing": {
+    "cropBox": [
+      761,
+      560,
+      1223,
+      1085
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs99684258_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

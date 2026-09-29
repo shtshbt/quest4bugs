@@ -1,0 +1,80 @@
+{
+  "species_id": "akaboshi_gomadara",
+  "species_ja": "アカボシゴマダラ",
+  "scientific_name": "Hestina assimilis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_218877504",
+    "occurrenceId": "https://www.inaturalist.org/observations/218877504",
+    "persistentId": "https://www.inaturalist.org/observations/218877504",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-05-03",
+    "eventYear": 2018,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9922568983,
+    "decimalLongitude": 139.4260652349,
+    "coordinatesObscured": true,
+    "iNatObservationId": "218877504",
+    "iNatPhotoId": "387358813",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/218877504",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/387358813/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs218877504_resized.jpg",
+    "display": "processed/iNatobs218877504_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs218877504_54.webp",
+      "108": "thumb/iNatobs218877504_108.webp",
+      "216": "thumb/iNatobs218877504_216.webp"
+    }
+  },
+  "original_sha256": "cc0899eb533fff14779407032cfc61d706aa55b4c9ee1ea97c694037b86f0139",
+  "processing": {
+    "cropBox": [
+      308,
+      39,
+      1749,
+      1412
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs218877504_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

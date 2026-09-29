@@ -1,0 +1,81 @@
+{
+  "species_id": "oo_hanaabu_oddball_dummy",
+  "species_ja": "シマハナアブ",
+  "scientific_name": "Eristalis cerealis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_217432370",
+    "occurrenceId": "https://www.inaturalist.org/observations/217432370",
+    "persistentId": "https://www.inaturalist.org/observations/217432370",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2024-05-22",
+    "eventYear": 2024,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8811264561,
+    "decimalLongitude": 139.5770499681,
+    "coordinatesObscured": true,
+    "iNatObservationId": "217432370",
+    "iNatPhotoId": "384657260",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/217432370",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/384657260/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs217432370_resized.jpg",
+    "display": "processed/iNatobs217432370_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs217432370_54.webp",
+      "108": "thumb/iNatobs217432370_108.webp",
+      "216": "thumb/iNatobs217432370_216.webp"
+    }
+  },
+  "original_sha256": "adc2e2fc01ca320cf57ac537a797056daa5b8a0dc447fdf19d7b9833cabb42f0",
+  "processing": {
+    "cropBox": [
+      695,
+      425,
+      1293,
+      1166
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs217432370_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.68), rotate 270 CCW"
+}

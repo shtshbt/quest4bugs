@@ -1,0 +1,80 @@
+{
+  "species_id": "tappi_shijimi",
+  "species_ja": "タッパンルリシジミ",
+  "scientific_name": "Udara dilecta",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "mkn123 (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_145119956",
+    "occurrenceId": "https://www.inaturalist.org/observations/145119956",
+    "persistentId": "https://www.inaturalist.org/observations/145119956",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "mkn123",
+    "eventDate": "2022-10-07",
+    "eventYear": 2022,
+    "country": "Kawkareik",
+    "localityVerbatim": null,
+    "localityNormalized": "Kawkareik, Kawkareik",
+    "preparations": null,
+    "decimalLatitude": 16.557376626,
+    "decimalLongitude": 98.2404397801,
+    "coordinatesObscured": false,
+    "iNatObservationId": "145119956",
+    "iNatPhotoId": "249226764",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/145119956",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/249226764/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs145119956_resized.jpg",
+    "display": "processed/iNatobs145119956_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs145119956_54.webp",
+      "108": "thumb/iNatobs145119956_108.webp",
+      "216": "thumb/iNatobs145119956_216.webp"
+    }
+  },
+  "original_sha256": "4ae5f38e5f07a95a875124d6884b9fda88f9600f87f1b3ef6758bd51e6bba2b4",
+  "processing": {
+    "cropBox": [
+      89,
+      81,
+      614,
+      520
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs145119956_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

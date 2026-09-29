@@ -1,0 +1,80 @@
+{
+  "species_id": "miyama_chabane_seseri",
+  "species_ja": "ミヤマチャバネセセリ",
+  "scientific_name": "Pelopidas jansonis",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_390799246",
+    "occurrenceId": "https://www.inaturalist.org/observations/390799246",
+    "persistentId": "https://www.inaturalist.org/observations/390799246",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2026-08-11",
+    "eventYear": 2026,
+    "country": "Japan",
+    "localityVerbatim": null,
+    "localityNormalized": "Japan, Japan",
+    "preparations": null,
+    "decimalLatitude": 35.9226469228,
+    "decimalLongitude": 139.5016170561,
+    "coordinatesObscured": true,
+    "iNatObservationId": "390799246",
+    "iNatPhotoId": "716004947",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/390799246",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/716004947/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs390799246_resized.jpg",
+    "display": "processed/iNatobs390799246_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs390799246_54.webp",
+      "108": "thumb/iNatobs390799246_108.webp",
+      "216": "thumb/iNatobs390799246_216.webp"
+    }
+  },
+  "original_sha256": "19fc7bb78a37f01604f8a9b2c7345dfd4c39c5bfe88044b01ac81491f1939dd1",
+  "processing": {
+    "cropBox": [
+      699,
+      375,
+      1507,
+      1148
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs390799246_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

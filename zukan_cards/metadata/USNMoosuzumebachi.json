@@ -4,7 +4,7 @@
   "scientific_name": "Vespa mandarinia",
   "credit_line": "National Museum of Natural History, Smithsonian Institution",
   "creator": "Brigitte Gallagher and Catrina Conran",
-  "fetched_date": "2026-06-22",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "National Museum of Natural History, Smithsonian Institution",
     "institutionCode": "USNM",
@@ -42,13 +42,13 @@
       "216": "thumb/USNMoosuzumebachi_216.webp"
     }
   },
-  "original_sha256": "15024d881a169ec7d00b621b95d4b4f468c2fa16ee67fe2b6aecdaf040a4aa01",
+  "original_sha256": "8d4afe8e2dfea99cef94b7fab2502afd7de1f37ebc8cd241737bcfb5baa31ca1",
   "processing": {
     "cropBox": [
       25,
       22,
       2000,
-      1851
+      1850
     ],
     "rotationDegrees": 0,
     "padding": 0.1,

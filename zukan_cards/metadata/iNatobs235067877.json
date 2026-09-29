@@ -1,0 +1,81 @@
+{
+  "species_id": "kuwakamikiri",
+  "species_ja": "クワカミキリ",
+  "scientific_name": "Apriona japonica",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_235067877",
+    "occurrenceId": "https://www.inaturalist.org/observations/235067877",
+    "persistentId": "https://www.inaturalist.org/observations/235067877",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2024-08-10",
+    "eventYear": 2024,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Gunma, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.2943244617,
+    "decimalLongitude": 138.7822540991,
+    "coordinatesObscured": true,
+    "iNatObservationId": "235067877",
+    "iNatPhotoId": "417993273",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/235067877",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/417993273/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs235067877_resized.jpg",
+    "display": "processed/iNatobs235067877_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs235067877_54.webp",
+      "108": "thumb/iNatobs235067877_108.webp",
+      "216": "thumb/iNatobs235067877_216.webp"
+    }
+  },
+  "original_sha256": "4ff0f88fd7adab46e36849e428083de5762ceebe0039c2d5702011849cd82ee1",
+  "processing": {
+    "cropBox": [
+      477,
+      4,
+      1621,
+      1536
+    ],
+    "rotationDegrees": 90,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs235067877_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=right (heuristic conf=0.84), rotate 90 CCW"
+}

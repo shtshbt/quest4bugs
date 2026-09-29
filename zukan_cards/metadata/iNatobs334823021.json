@@ -1,0 +1,81 @@
+{
+  "species_id": "siamensis_atlas_kabuto",
+  "species_ja": "アトラスオオカブト",
+  "scientific_name": "Chalcosoma atlas",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "amzamz (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_334823021",
+    "occurrenceId": "https://www.inaturalist.org/observations/334823021",
+    "persistentId": "https://www.inaturalist.org/observations/334823021",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "amzamz",
+    "eventDate": "2026-01-10",
+    "eventYear": 2026,
+    "country": "Philippinen",
+    "localityVerbatim": null,
+    "localityNormalized": "Atremaru Jungle Retreat, Buenavista, Puerto Princesa City, Palawan, Philippinen, Philippinen",
+    "preparations": null,
+    "decimalLatitude": 10.0805373561,
+    "decimalLongitude": 118.8299289304,
+    "coordinatesObscured": false,
+    "iNatObservationId": "334823021",
+    "iNatPhotoId": "608111500",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/334823021",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/608111500/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs334823021_resized.jpg",
+    "display": "processed/iNatobs334823021_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs334823021_54.webp",
+      "108": "thumb/iNatobs334823021_108.webp",
+      "216": "thumb/iNatobs334823021_216.webp"
+    }
+  },
+  "original_sha256": "e391dd0c5c1a9ab251db4f14dbb45f80b5784fbddf2bee1467e7117029102dd4",
+  "processing": {
+    "cropBox": [
+      243,
+      272,
+      1753,
+      1236
+    ],
+    "rotationDegrees": 180,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs334823021_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=down (heuristic conf=0.84), rotate 180 CCW"
+}

@@ -1,0 +1,81 @@
+{
+  "species_id": "kuwagata_hanamuguri",
+  "species_ja": "クロハナムグリ",
+  "scientific_name": "Glycyphana fulvistemma",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_281988812",
+    "occurrenceId": "https://www.inaturalist.org/observations/281988812",
+    "persistentId": "https://www.inaturalist.org/observations/281988812",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2025-05-18",
+    "eventYear": 2025,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Saitama, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.9205369181,
+    "decimalLongitude": 139.5931108719,
+    "coordinatesObscured": true,
+    "iNatObservationId": "281988812",
+    "iNatPhotoId": "506596089",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/281988812",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/506596089/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs281988812_resized.jpg",
+    "display": "processed/iNatobs281988812_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs281988812_54.webp",
+      "108": "thumb/iNatobs281988812_108.webp",
+      "216": "thumb/iNatobs281988812_216.webp"
+    }
+  },
+  "original_sha256": "866aa5fb01b7addc16763c56e1672c306731bf9ba0289ca63ebb7dd212c76e9a",
+  "processing": {
+    "cropBox": [
+      0,
+      51,
+      1844,
+      1536
+    ],
+    "rotationDegrees": 270,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "rotated",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs281988812_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "beetle head=left (heuristic conf=0.61), rotate 270 CCW"
+}

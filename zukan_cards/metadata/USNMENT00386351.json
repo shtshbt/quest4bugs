@@ -4,7 +4,7 @@
   "scientific_name": "Trigomphus melampus",
   "credit_line": "National Museum of Natural History, Smithsonian Institution",
   "creator": "Picturae",
-  "fetched_date": "2026-06-21",
+  "fetched_date": "2026-09-29",
   "specimen": {
     "institution": "National Museum of Natural History, Smithsonian Institution",
     "institutionCode": "USNM",
@@ -36,21 +36,21 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "files": {
+    "resized": "original/USNMENT00386351_resized.jpg",
     "display": "processed/USNMENT00386351_L2_grade.webp",
     "thumbnails": {
       "54": "thumb/USNMENT00386351_54.webp",
       "108": "thumb/USNMENT00386351_108.webp",
       "216": "thumb/USNMENT00386351_216.webp"
-    },
-    "resized": "original/USNMENT00386351_resized.jpg"
+    }
   },
-  "original_sha256": "e691900b79b6706c0d55853eba04e37170465a3cd5a03f1de1a3dcbf10345c5b",
+  "original_sha256": "0365f8f2e0131454ca8e1348bd87b712b955ab4ebba93c4fae960b12af81dae8",
   "processing": {
     "cropBox": [
-      761,
-      582,
-      1409,
-      1176
+      764,
+      583,
+      1406,
+      1165
     ],
     "rotationDegrees": 0,
     "padding": 0.1,
@@ -68,7 +68,7 @@
     "color adjusted"
   ],
   "raw": {
-    "originalImage": "original/USNMENT00386351_original.jpg",
+    "originalImage": "original/USNMENT00386351_resized.jpg",
     "verbatimLabelText": null,
     "sourceRecordSnapshot": null
   },

@@ -1,0 +1,80 @@
+{
+  "species_id": "tsuyumushi",
+  "species_ja": "ツユムシ",
+  "scientific_name": "Phaneroptera falcata",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "wilpercy (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_48539592",
+    "occurrenceId": "https://www.inaturalist.org/observations/48539592",
+    "persistentId": "https://www.inaturalist.org/observations/48539592",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "wilpercy",
+    "eventDate": "2020-05-24",
+    "eventYear": 2020,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Sembacho, Mito-Shi, Ibaraki, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 36.3533783569,
+    "decimalLongitude": 140.4625999374,
+    "coordinatesObscured": false,
+    "iNatObservationId": "48539592",
+    "iNatPhotoId": "77027338",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/48539592",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/77027338/original.jpg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs48539592_resized.jpg",
+    "display": "processed/iNatobs48539592_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs48539592_54.webp",
+      "108": "thumb/iNatobs48539592_108.webp",
+      "216": "thumb/iNatobs48539592_216.webp"
+    }
+  },
+  "original_sha256": "b4489e9285de2e78a2bdfd2edc40a62eaf2773d43104beed5b161f30bdd08ae4",
+  "processing": {
+    "cropBox": [
+      591,
+      236,
+      1947,
+      679
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs48539592_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}

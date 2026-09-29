@@ -1,0 +1,80 @@
+{
+  "species_id": "usubashirochou",
+  "species_ja": "ウスバシロチョウ",
+  "scientific_name": "Parnassius citrinarius",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "renshuchu (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_219307950",
+    "occurrenceId": "https://www.inaturalist.org/observations/219307950",
+    "persistentId": "https://www.inaturalist.org/observations/219307950",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "renshuchu",
+    "eventDate": "2018-05-12",
+    "eventYear": 2018,
+    "country": "JP",
+    "localityVerbatim": null,
+    "localityNormalized": "Nagano, JP, JP",
+    "preparations": null,
+    "decimalLatitude": 35.8789212621,
+    "decimalLongitude": 137.8445772391,
+    "coordinatesObscured": true,
+    "iNatObservationId": "219307950",
+    "iNatPhotoId": "388164355",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/219307950",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/388164355/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs219307950_resized.jpg",
+    "display": "processed/iNatobs219307950_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs219307950_54.webp",
+      "108": "thumb/iNatobs219307950_108.webp",
+      "216": "thumb/iNatobs219307950_216.webp"
+    }
+  },
+  "original_sha256": "652837074bbc8ccdbcd5603539434296dceef1e9cc5c1cc6a50318963bc7e346",
+  "processing": {
+    "cropBox": [
+      371,
+      257,
+      1522,
+      1250
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs219307950_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "butterfly dorsal — head up by convention, no rotation"
+}

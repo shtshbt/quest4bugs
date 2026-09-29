@@ -1,0 +1,80 @@
+{
+  "species_id": "haiiro_maru_hanabachi",
+  "species_ja": "ハイイロマルハナバチ",
+  "scientific_name": "Bombus deuteronymus",
+  "credit_line": "iNaturalist (Research grade CC0 exception)",
+  "creator": "liubov_ilminska (iNaturalist)",
+  "fetched_date": "2026-09-29",
+  "specimen": {
+    "institution": "iNaturalist (Research grade CC0 exception)",
+    "institutionCode": "iNat",
+    "collectionCode": null,
+    "catalogNumber": "iNat_obs_84448544",
+    "occurrenceId": "https://www.inaturalist.org/observations/84448544",
+    "persistentId": "https://www.inaturalist.org/observations/84448544",
+    "basisOfRecord": "HumanObservation",
+    "typeStatus": null,
+    "sex": null,
+    "lifeStage": null,
+    "recordedBy": "liubov_ilminska",
+    "eventDate": "2021-06-24",
+    "eventYear": 2021,
+    "country": "Україна",
+    "localityVerbatim": null,
+    "localityNormalized": "Жашківський район, Черкаська область, Україна, Україна",
+    "preparations": null,
+    "decimalLatitude": 49.1458746773,
+    "decimalLongitude": 30.2479938087,
+    "coordinatesObscured": false,
+    "iNatObservationId": "84448544",
+    "iNatPhotoId": "138796121",
+    "qualityGrade": "research"
+  },
+  "source": {
+    "gbifOccurrenceKey": null,
+    "institutionRecordUrl": "https://www.inaturalist.org/observations/84448544",
+    "sourceMediaUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/138796121/original.jpeg",
+    "datasetKey": null,
+    "metadataLicense": "CC0-1.0",
+    "mediaLicense": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "files": {
+    "resized": "original/iNatobs84448544_resized.jpg",
+    "display": "processed/iNatobs84448544_L2_grade.webp",
+    "thumbnails": {
+      "54": "thumb/iNatobs84448544_54.webp",
+      "108": "thumb/iNatobs84448544_108.webp",
+      "216": "thumb/iNatobs84448544_216.webp"
+    }
+  },
+  "original_sha256": "39c4636d1d022496cdecacd87152411daf6a134feaf97725abe4bc01e4c66f56",
+  "processing": {
+    "cropBox": [
+      799,
+      213,
+      1562,
+      1084
+    ],
+    "rotationDegrees": 0,
+    "padding": 0.1,
+    "canvas": 512,
+    "minSize": 20,
+    "bgMethod": "birefnet-general",
+    "segmentationModel": "BiRefNet",
+    "modelVersion": "rembg-2.0.67",
+    "colorGradeVersion": "q4b-l2-v1",
+    "manualMaskCorrection": false
+  },
+  "modifications": [
+    "cropped",
+    "background removed",
+    "color adjusted"
+  ],
+  "raw": {
+    "originalImage": "original/iNatobs84448544_resized.jpg",
+    "verbatimLabelText": null,
+    "sourceRecordSnapshot": null
+  },
+  "notes": "unknown taxon — no rotation"
+}
