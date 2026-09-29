@@ -519,7 +519,10 @@ function kagoChip(){
   var tot=(window.Q4BReward?(Q4BReward.zukanDenomCount?Q4BReward.zukanDenomCount('keisan'):Q4BReward.poolCount('keisan')):BUGS.length);
   return '<button class="chip kago" onclick="showZukan()">📖 '+cnt+'/'+tot+'</button>';
 }
-function fireChip(){var p=P(); if(!p)return ''; return '<span class="chip fire">🔥 '+p.streak.n+'日</span>';}
+/* 🔥 の日数とレア率の後押しが読む連続日数。れんぞく ともしび の公開前は従来の
+   ミッション連続 (p.streak.n) そのもの、公開後は全ゲーム共通の ともしび の日数。 */
+function streakN(p){ return (window.Q4BTomoshibiUI&&Q4BTomoshibiUI.streakDays)?Q4BTomoshibiUI.streakDays(p.id,p.streak.n):p.streak.n; }
+function fireChip(){var p=P(); if(!p)return ''; return '<span class="chip fire">🔥 '+streakN(p)+'日</span>';}
 function capCount(p){var c=0; for(var k in p.caps) c++; return c;}
 
 /* ---------- profile screens ---------- */
@@ -532,7 +535,7 @@ function showProfiles(){
   DB.profiles.forEach(function(p){
     h+='<button class="btn big ghost" style="display:flex;align-items:center;gap:14px;text-align:left" onclick="selProfile(\''+p.id+'\')">'
       +'<span style="width:52px;height:52px;flex:none">'+bugSVG(av(p))+'</span>'
-      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+p.streak.n+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(q.coll,'keisan'):Q4BReward.collectedCount(q.coll)):capCount(q);})(p)+'匹</span></span></button>';
+      +'<span>'+esc(p.name)+'<br><span class="note">'+(!p.type?"コースを えらぶ":(p.type==="k5"?"ビギナーコース":"受験チャレンジコース"))+'　🔥'+streakN(p)+'日　📖'+(function(q){ensureColl(q);return window.Q4BReward?(Q4BReward.zukanCaughtCount?Q4BReward.zukanCaughtCount(q.coll,'keisan'):Q4BReward.collectedCount(q.coll)):capCount(q);})(p)+'匹</span></span></button>';
   });
   if(DB.profiles.length<4) h+='<button class="btn sm ghost" onclick="showNewProfile()">＋ あたらしいハンターをとうろく</button>';
   h+='</div>';
@@ -1124,7 +1127,7 @@ function closeMd(ev){ if(ev&&ev.target.id!=="md"&&ev.type==="click"&&ev.currentT
 
 /* ---------- gacha ---------- */
 function gachaPull(p){
-  var s=Math.min(p.streak.n,7);
+  var s=Math.min(streakN(p),7);
   var r4=0.006+0.001*s, r3=0.025+0.004*s, r2=0.10+0.01*s, r1=0.27+0.005*s;
   var x=Math.random(), r;
   if(x<r4)r=4; else if(x<r4+r3)r=3; else if(x<r4+r3+r2)r=2; else if(x<r4+r3+r2+r1)r=1; else r=0;
@@ -1234,7 +1237,7 @@ function lvTrendSection(p){
 }
 function showStats(){
   var p=P(), h='<div class="scr">'+topBar("showHome()");
-  h+='<div class="card center"><h3>🔥 れんぞく '+p.streak.n+'日</h3>'
+  h+='<div class="card center"><h3>🔥 れんぞく '+streakN(p)+'日</h3>'
     +'<p class="note">にがした虫の再ちょうせん待ち：'+p.missed.length+'匹　／　とりもどした数：'+p.recapture+'匹</p></div>';
   /* 総括 */
   h+='<div class="card"><h3>🌱 いまの ちから</h3>'
@@ -6668,8 +6671,8 @@ function finishSet(){
      updateProgressSummary(p);
      save();
      /* Q3: 連続日数に応じて軽い boost を渡す (7 日で REVIEW_BOOST 相当の半分) */
-     var _streakBoost = 1 + Math.min(p.streak.n, 14) * 0.05;
-     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+p.streak.n+"日　"+scoreLine+(best5Line?"　"+best5Line:""), null, _streakBoost);
+     var _streakBoost = 1 + Math.min(streakN(p), 14) * 0.05;
+     showCapture(gachaPull(p),"ミッションクリア！ 🔥れんぞく"+streakN(p)+"日　"+scoreLine+(best5Line?"　"+best5Line:""), null, _streakBoost);
     } else {
      updateProgressSummary(p);
      save();

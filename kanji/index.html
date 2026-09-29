@@ -171,7 +171,7 @@ input[type=range]{width:100%}
 <div class="modal" id="modal"><div class="inner" id="modalIn"></div></div>
 <script src="../shared/storage.js?v=0.4.28"></script>
 <script src="../shared/tomoshibi.js?v=0.1.0"></script>
-<script src="../shared/tomoshibi_ui.js?v=0.1.0"></script>
+<script src="../shared/tomoshibi_ui.js?v=0.1.1"></script>
 <script src="../shared/bugs.js?v=0.4.20"></script>
 <script src="../shared/kanji_data.js?v=0.5.0"></script>
 <script src="../shared/render.js?v=0.5.1"></script>
@@ -501,8 +501,10 @@ function dueCounts(){
  return {due:p.dueInQueue, hun:p.hun, fresh:p.freshInQueue, newCap:p.newCap,
          dueBacklog:p.dueBacklog, freshBacklog:p.freshBacklog, queueN:p.queueN};
 }
+/* 🔥 の日数。れんぞく ともしび の公開前は従来のかんじだけの連続日数、公開後は全ゲーム共通の ともしび の日数。 */
 function streak(){ var n=0,d=todayStr(); if(!(ST.log[d]&&ST.log[d].a))d=addDays(d,-1);
- while(ST.log[d]&&ST.log[d].a>0){n++;d=addDays(d,-1)} return n }
+ while(ST.log[d]&&ST.log[d].a>0){n++;d=addDays(d,-1)}
+ return (window.Q4BTomoshibiUI&&Q4BTomoshibiUI.streakDays&&CUR)?Q4BTomoshibiUI.streakDays(CUR.id,n):n }
 
 /* ================= 音声 ================= */
 var T={v:null,ready:0,

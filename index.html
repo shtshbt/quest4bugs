@@ -317,7 +317,7 @@ html.q4b-in #q4bGate{display:none!important}
 </div>
 <script src="./shared/storage.js?v=0.4.28"></script>
 <script src="./shared/tomoshibi.js?v=0.1.0"></script>
-<script src="./shared/tomoshibi_ui.js?v=0.1.0"></script>
+<script src="./shared/tomoshibi_ui.js?v=0.1.1"></script>
 <script src="./shared/equipment_data.js?v=0.3.1"></script>
 <script src="./shared/bugs.js?v=0.4.20"></script>
 <script src="./shared/render.js?v=0.5.1"></script>
@@ -1310,6 +1310,8 @@ function renderDashboard(pid,name){
     /* combined streak: consecutive days up to today with any activity */
     var t=new Date(),streak=0,probe=new Date(t.getFullYear(),t.getMonth(),t.getDate());
     while(day[ymd(probe)]){streak++;probe.setDate(probe.getDate()-1);}
+    /* れんぞく ともしび の公開後は、全ゲーム共通の ともしび の日数にそろえる (公開前は上の値のまま)。 */
+    if(window.Q4BTomoshibiUI&&Q4BTomoshibiUI.streakDays)streak=Q4BTomoshibiUI.streakDays(pid,streak);
     /* daily stacked bars: 期間切替対応＋累計サマリ。データは全期間保存済み、表示だけ切り替える。 */
     var COL={k:"#3E7C3F",j:"#E8902E",e:"#4F9DD6",m:"#8C6BB1"};
     /* 累計（全期間） */

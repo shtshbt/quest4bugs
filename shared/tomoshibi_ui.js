@@ -86,6 +86,17 @@
     return T.computeState(s.tomoshibiOf(pid),typeof s.todayKey==="function"?s.todayKey():undefined);
   }
 
+  /* 各ゲームが 🔥 の日数を出している箇所と、けいさんのレア率の後押しが読む日数。
+     公開 ("on") 前は各ゲームの従来の値 (fallback) をそのまま返すので、振る舞いは
+     変わらない。公開後は ともしびの連続日数 1 本にそろう。段が下がって再開を待つ間は、
+     再開する段の手前までの日数を返す (0 と出して途切れを強調しないため)。 */
+  function streakDays(pid,fallback){
+    if(!modeOn())return fallback;
+    var state=stateFor(pid||currentPid());
+    if(!state)return fallback;
+    return state.dropPending?Math.max(0,state.restartDay-1):state.streakDays;
+  }
+
   function badgeHTML(pid){
     if(!modeOn())return "";
     pid=pid||currentPid();
@@ -308,6 +319,7 @@
 
   global.Q4BTomoshibiUI={
     badgeHTML:badgeHTML,
+    streakDays:streakDays,
     viewModel:viewModel,
     showHelp:showHelp,
     checkNow:checkNow,

@@ -235,7 +235,7 @@ summary{font-weight:800;font-size:14px;color:var(--sub);cursor:pointer;padding:4
 </div>
 <script src="../shared/storage.js?v=0.4.28"></script>
 <script src="../shared/tomoshibi.js?v=0.1.0"></script>
-<script src="../shared/tomoshibi_ui.js?v=0.1.0"></script>
+<script src="../shared/tomoshibi_ui.js?v=0.1.1"></script>
 <script src="../shared/bugs.js?v=0.4.20"></script>
 <script src="../shared/eitango_data.js?v=0.5.1"></script>
 <script src="../shared/render.js?v=0.5.1"></script>
@@ -944,6 +944,8 @@ async function boot(){
 /* 共有ウォレット: 琥珀はプロフィール単位で全ゲーム共通（現在pidを動的参照）＋旧P.amber移行 */
 function ePid(){ return CURID||(window.QuestSave&&QuestSave.currentProfile()); }
 function eAmber(){ return window.QuestSave?QuestSave.amberOf(ePid()):(P?P.amber||0:0); }
+/* 🔥 の日数。れんぞく ともしび の公開前は従来の P.streak.n、公開後は全ゲーム共通の ともしび の日数。 */
+function eStreak(){ return (window.Q4BTomoshibiUI&&Q4BTomoshibiUI.streakDays)?Q4BTomoshibiUI.streakDays(ePid(),P.streak.n):P.streak.n; }
 function setupWalletE(){
   if(window.Q4BReward&&window.QuestSave&&Q4BReward.setAmberStore){
     Q4BReward.setAmberStore({
@@ -1745,7 +1747,7 @@ function scrStats(){
 
   return `<div class="topbar"><span class="ttl">📊 ${Engine.esc(meta.name)}の きろく</span></div>
   <div class="statgrid">
-    <div class="stat"><div class="sv">🔥 ${P.streak.n}日</div><div class="sl">れんぞく学習 (さいこう ${P.streak.best}日)</div></div>
+    <div class="stat"><div class="sv">🔥 ${eStreak()}日</div><div class="sl">れんぞく学習 (さいこう ${Math.max(P.streak.best,eStreak())}日)</div></div>
     <div class="stat"><div class="sv">${q?Math.round(c/q*100):0}%</div><div class="sl">せいかいりつ (${c}/${q}問)</div></div>
     <div class="stat"><div class="sv">📖 ${caught}/${ALLSP.length}</div><div class="sl">ずかん かんせいど</div></div>
     <div class="stat"><div class="sv">🔶 ${P.amberTotal}</div><div class="sl">るいけい こはく</div></div>
@@ -1965,7 +1967,7 @@ function renderStart(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
+    <span class="chip">🔥${eStreak()}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="field ${GFIELD.cls}" style="pointer-events:none">
     <div class="fn">${GFIELD.emoji} ${GFIELD.name}</div><div class="fs">${GFIELD.sub}</div>
@@ -2131,7 +2133,7 @@ function startReview(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
+    <span class="chip">🔥${eStreak()}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="card center" style="background:#fff8dc;border:2px solid var(--amber)">
     <div style="font-size:32px">🔁</div>
@@ -2162,7 +2164,7 @@ function startStale(){
   <div class="topbar">
     <button class="chip" onclick="exitToMap()">← マップ</button>
     <span class="sp"></span>
-    <span class="chip">🔥${P.streak.n}</span><span class="chip">🔶${eAmber()}</span>
+    <span class="chip">🔥${eStreak()}</span><span class="chip">🔶${eAmber()}</span>
   </div>
   <div class="card center" style="background:#eef6ff;border:2px solid #5b8fd6">
     <div style="font-size:32px">⏰</div>
@@ -2629,7 +2631,7 @@ function endSession(){
   <div class="card center">
     <div style="font-size:36px">${stars}</div>
     <div style="font-weight:800;font-size:22px;margin-top:4px">せいかい ${S.correct} / ${S.answered}</div>
-    <div class="small" style="margin-top:6px">🟡 +${S.correct+bonus} (クリアボーナス+${bonus}) ／ 🔥れんぞく ${P.streak.n}日</div>
+    <div class="small" style="margin-top:6px">🟡 +${S.correct+bonus} (クリアボーナス+${bonus}) ／ 🔥れんぞく ${eStreak()}日</div>
   </div>
   ${nushiHtml}
   ${S.caught.length?`<div class="h2">きょうの せいか</div><div class="zgrid">${S.caught.map(r=>`

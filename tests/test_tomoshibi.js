@@ -460,6 +460,31 @@ function solve(save, pid, n) {
     assert.deepEqual(plain(ctx.QuestSave.tomoshibiOf("p1").seen), { "2026-09-01": { drop: 1 }, "2026-09-05": { drop: 1 } });
   });
 
+  /* ---- 6. 🔥 の日数の統一 (段 3) ---- */
+
+  await test("streakDays returns each game's own value until the switch is on", () => {
+    const off = uiContext(undefined);
+    assert.equal(off.Q4BTomoshibiUI.streakDays("p1", 7), 7);
+    const on = uiContext("on");
+    solve(on.QuestSave, "p1", 3);
+    assert.equal(on.Q4BTomoshibiUI.streakDays("p1", 7), 1, "on: the shared tomoshibi streak replaces the game's own");
+  });
+
+  await test("every fire display and the keisan rarity boost read the shared streak", () => {
+    const read = file => fs.readFileSync(path.join(root, file), "utf8");
+    const keisan = read("keisan/app.js");
+    assert.match(keisan, /function streakN\(p\)\{ return \(window\.Q4BTomoshibiUI&&Q4BTomoshibiUI\.streakDays\)/);
+    assert.match(keisan, /var s=Math\.min\(streakN\(p\),7\);/, "gachaPull uses the shared streak");
+    assert.match(keisan, /Math\.min\(streakN\(p\), 14\)/, "the mission capture boost uses the shared streak");
+    assert.doesNotMatch(keisan.replace(/p\.streak\.n\+\+|p\.streak\.n=1|streakDays\(p\.id,p\.streak\.n\):p\.streak\.n|streak:p\.streak\.n|\(p\.streak\.n\) そのもの/g, ""),
+      /p\.streak\.n/, "no other keisan display reads the mission streak directly");
+    const eitango = read("eitango/index.html");
+    assert.doesNotMatch(eitango.replace(/streakDays\(ePid\(\),P\.streak\.n\):P\.streak\.n|従来の P\.streak\.n|streak:P\.streak\.n/g, ""),
+      /\$\{P\.streak\.n\}/, "eitango displays go through eStreak()");
+    assert.match(read("kanji/index.html"), /Q4BTomoshibiUI\.streakDays\(CUR\.id,n\)/);
+    assert.match(read("index.html"), /streak=Q4BTomoshibiUI\.streakDays\(pid,streak\)/);
+  });
+
   /* ---- 4. 小道の配線 ---- */
 
   await test("komorebi forwards each counted correct answer to tomoshibiRecord", async () => {
