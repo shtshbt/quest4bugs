@@ -154,7 +154,7 @@ Hymenoptera (5)
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
 | Wasmannia auropunctata | Formicidae | english_common_candidate | 4253 |
-| Trigona fulviventris | Apidae | english_common_candidate | 2010 |
+| Pseudomyrmex oculatus | Formicidae | provisional | 8817 |
 | Ectatomma ruidum | Formicidae | provisional | 1861 |
 | Bombus ephippiatus | Apidae | english_common_candidate | 1716 |
 | Polistes instabilis | Eumenidae | english_common_candidate | 1477 |
@@ -182,7 +182,7 @@ Hemiptera (8)
 | Orsilochides variabilis | Scutelleridae | provisional | 764 |
 | Augocoris gomesii | Scutelleridae | provisional | 754 |
 | Dysdercus bimaculatus | Pyrrhocoridae | english_common_candidate | 732 |
-| Graphocephala albomaculata | Cicadellidae | provisional | 682 |
+| Stephanolla rufoapicata | Cicadellidae | provisional | 1284 |
 
 Coleoptera (7)
 
@@ -243,10 +243,10 @@ Trichoptera (4)
 
 | 学名 | 科 | 名前の状態 | occurrence |
 |---|---|---|---:|
-| Atopsyche majada | Hydrobiosidae | provisional | 1136 |
+| Anticla antica | Bombycidae | provisional | 1767 |
 | Leptonema complexum | Hydropsychidae | provisional | 924 |
 | Leptonema crassum | Hydropsychidae | provisional | 547 |
-| Nectopsyche punctata | Leptoceridae | provisional | 261 |
+| Oxydia trychiata | Geometridae | provisional | 2044 |
 
 N の合計は Lepidoptera 3 + Hymenoptera 5 + Orthoptera 7 + Hemiptera 8 + Coleoptera 7 + Odonata 7 + Mantodea 6 + Phasmida 5 + Diptera 5 + Trichoptera 4 = 57 種。
 
@@ -397,8 +397,15 @@ Smithsonian (USNM) は中米標本の被覆が厚く、museum tier の第一候�
 | Prisopus biolleyi | N | Sylvicanthon aequinoctialis | 目をまたぐ (ナナフシ目 → 甲虫目) |
 | Scione maculipennis | N | Sphacelodes vulneraria | 目をまたぐ (ハエ目 → チョウ目) |
 
-目の配分は 2.1 の表から次のとおり動いた: ナナフシ目 6 → 4、ハエ目 5 → 4、カメムシ目 9 → 8、バッタ目 +1、甲虫目 +1、チョウ目 +1、カマキリ目 +1。2.1 の表は選抜時の記録として残す。
+残り 4 枠の差し替え (2026-09-29 承認)。候補は追加で取得した 14 種から選んだ (`substitution_plan.md` の「残り 4 枠の追加候補」)。
 
-未決: 同じ目でも目をまたいでも埋まらない 4 枠 (Graphocephala albomaculata、Nectopsyche punctata、Atopsyche majada、Trigona fulviventris)。追加の探索に回す。
+| 入れ替えた種 | 段 | 入れた種 | 理由 |
+|---|---|---|---|
+| Graphocephala albomaculata | N | Stephanolla rufoapicata | 旧写真は指摘あり、他の取得元に候補なし。同じ科 |
+| Trigona fulviventris | N | Pseudomyrmex oculatus | 取り直しても姿勢が崩れて判別しにくい。同じ目 |
+| Nectopsyche punctata | N | Oxydia trychiata | ラベルと標本が接した写真しかない。目をまたぐ (トビケラ目 → チョウ目) |
+| Atopsyche majada | N | Anticla antica | 写真なし。目をまたぐ (トビケラ目 → チョウ目) |
+
+目の配分は 2.1 の表から次のとおり動いた: ナナフシ目 6 → 4、ハエ目 5 → 4、カメムシ目 9 → 8、トビケラ目 4 → 2、バッタ目 +1、甲虫目 +1、チョウ目 +3、カマキリ目 +1。トビケラ目は写真の取れる種が乏しく、残りは Leptonema の 2 種になった。2.1 の表は選抜時の記録として残す。2.5 の表は、目をまたいで入れた種も入れ替えた種の目の見出しの下に置いている。
 
 背面と腹面を並べた写真は使えるとする (2026-09-29 発案者決定)。Caligo atreus と Siproeta stelenes はこの扱いで残す。
