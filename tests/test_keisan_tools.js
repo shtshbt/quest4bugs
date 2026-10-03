@@ -44,7 +44,7 @@ test("index.html が道具系 6 script を k5_devs_data と app.js の間に順�
     "../shared/tool_scenes.js?v=0.2.1",
     "../shared/tools_ui.js?v=0.1.6",
     "../shared/capture_card.js?v=0.1.0",
-    "app.js?v=0.4.43"
+    "app.js?v=0.4.44"
   ], "道具系 script の並びか版か app.js の版が想定と違う");
 });
 
