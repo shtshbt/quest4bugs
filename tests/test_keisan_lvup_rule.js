@@ -66,4 +66,59 @@ test("ミッション側の九九は目標の段の 10 問ブロックで 8 問�
     "ブロックが 10 問で区切られていない");
 });
 
+test("afterJudge とカウンター表示が同じ「数える出題か」の条件を見る", () => {
+  const body = sliceBetween(appSrc, "function afterJudge(", "/* 正解時に採集エンジンを進める");
+  assert.match(body, /var _lvUpdateAllowed = lvCountsHere\(q\);/);
+  assert.match(appSrc, /lvDotsHTML\(p,q\.cat,q\)/, "出題画面がカウンターに問題を渡していない");
+});
+
+/* ---------- vm 上でカウンターを描かせる ---------- */
+
+const vm = require("node:vm");
+const ctx = { console };
+ctx.window = ctx;
+ctx.QuestSave = { currentProfile: () => "p1" };
+ctx.Q4B_KEISAN_NO_BOOT = true;
+vm.createContext(ctx);
+/* けいさんのページと同じ読み込み順 (tests/test_keisan_tools.js と同じ並び) */
+for(const file of ["shared/bugs.js", "shared/render.js", "shared/bug_archetypes.js", "shared/reward.js",
+  "shared/economy_flag.js", "shared/species_guilds.js", "shared/tools.js", "shared/tool_icons.js",
+  "shared/tool_scenes.js", "shared/tools_ui.js", "shared/capture_card.js", "keisan/app.js"]){
+  vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), ctx, { filename: file });
+}
+function dots(p, cat, q, Q){
+  ctx.Q = Q;
+  return vm.runInContext("lvDotsHTML", ctx)(p, cat, q);
+}
+
+test("カウンターは適応バッファの 10 問ブロックの位置を描く", () => {
+  const p = { lv: { anzan: 3 }, adapt: { anzan: { n: 13, recent: [1,1,1,1,1,1,1,1,1,1,1,0,1] } } };
+  const html = dots(p, "anzan", { cat: "anzan" }, { mode: "mission" });
+  assert.match(html, /Lv3　●✗●○○○○○○○/, "13 問目は 2 ブロック目の 3 問目");
+});
+
+test("バッファが無いうちは 0 問として描く (p.stats を数えない)", () => {
+  const p = { lv: {}, stats: { anzan: { n: 7 } }, recent: { anzan: [1,1,1,1,1,1,1] } };
+  assert.match(dots(p, "anzan", { cat: "anzan" }, { mode: "practice" }), /○{10}/);
+});
+
+test("判定に数えない出題ではカウンターを出さない", () => {
+  const p = { lv: { hissan: 2 }, adapt: { hissan: { n: 4, recent: [1,1,1,1] } } };
+  const q = { cat: "hissan" };
+  assert.equal(dots(p, "hissan", q, { mode: "practice", lv: 2 }), "", "レベル選択練習");
+  assert.equal(dots(p, "hissan", q, { mode: "review" }), "", "復習");
+  assert.equal(dots(p, "hissan", q, { mode: "practice", timed: true }), "", "タイムアタック");
+  assert.equal(dots(p, "hissan", { cat: "hissan", _mid: 1 }, { mode: "mission" }), "", "取りこぼし");
+  assert.notEqual(dots(p, "hissan", q, { mode: "mission" }), "", "ミッションでは出す");
+});
+
+test("九九のカウンターは目標の段のブロック (kukuBlk) を描き、他の段では出さない", () => {
+  const p = { type: "k5", kukuIdx: 1, kukuBlk: [1,0,1],
+    adapt: { kuku: { n: 9, recent: [1,1,1,1,1,1,1,1,1] } } };
+  const html = dots(p, "kuku", { cat: "kuku", dan: 5 }, { mode: "mission" });
+  assert.match(html, /5の段　●✗●○○○○○○○/, "目標の段 (ORDER[1]=5) のブロックを描いていない");
+  assert.equal(dots(p, "kuku", { cat: "kuku", dan: 2 }, { mode: "mission" }), "", "目標外の段");
+  assert.equal(dots(p, "kuku", { cat: "kuku", dan: 5 }, { mode: "kuku", dan: 5 }), "", "九九チャレンジ");
+});
+
 console.log(passed + " passed");

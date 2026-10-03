@@ -5914,18 +5914,35 @@ function padHTML(dot,okCall,fn){
   h+='<button class="ok" onclick="'+okCall+'">こたえあわせ</button></div>';
   return h;
 }
-/* K10適応レベルの可視化: 現在Lv＋この10問の進み（●正解/✗ミス/○未）。次の判定までを体感できる。 */
-function lvDotsHTML(p,cat){
-  if(!LVL_CATS[cat])return"";
+/* この回答が昇格判定のカウンター (適応バッファ / 九九の段ブロック) に入るか。
+   ミッション / おまかせ練習のみ。復習・タイムアタック・九九チャレンジ・取りこぼし
+   再挑戦・レベル選択練習 (Q.lv) は数えない。afterJudge とドット表示が同じ条件を
+   見ないと、画面のカウンターと実際の判定がずれる。 */
+function lvCountsHere(q){
+  return !(Q&&Q.lv) && !(Q&&Q.mode==='review') && !(Q&&Q.timed)
+      && !(Q&&Q.mode==='kuku') && !(q&&q._mid);
+}
+function blockDots(rec){
+  var dots=""; for(var i=0;i<10;i++){ dots+=(i<rec.length)?(rec[i]?"●":"✗"):"○"; }
+  return dots;
+}
+/* K10適応レベルの可視化: 現在Lv＋この10問の進み（●正解/✗ミス/○未）。次の判定までを体感できる。
+   判定に数えない出題ではカウンターが止まって見えるので出さない。 */
+function lvDotsHTML(p,cat,q){
+  if(!LVL_CATS[cat] || !lvCountsHere(q))return"";
+  /* 九九は Lv ではなく「目標の段」の 10 問ブロック (p.kukuBlk) で進む */
+  if(cat==="kuku"){
+    if(p.type!=="k5" || !(p.kukuIdx<ORDER.length) || !q || q.dan!==ORDER[p.kukuIdx]) return "";
+    var kb = Array.isArray(p.kukuBlk) ? p.kukuBlk : [];
+    return '<span class="note">　'+ORDER[p.kukuIdx]+'の段　'+blockDots(kb)+'</span>';
+  }
   /* M4: 適応 Lv 判定は p.adapt[cat] に分離済 (K-add #4)。 ドット表示も同じバッファ
-     を見ないと「画面では あと 1 問なのに 実際は 7 問」 のような乖離が起きる。 */
+     を見ないと「画面では あと 1 問なのに 実際は 7 問」 のような乖離が起きる。
+     バッファが無いうちは判定も走らないので 0 問として描く (p.stats は数えない出題も含む)。 */
   var aBuf = (p.adapt && p.adapt[cat]);
-  var n = aBuf ? aBuf.n : ((p.stats[cat]&&p.stats[cat].n)||0);
-  var inblk = n % 10;
-  var src = aBuf ? aBuf.recent : (p.recent[cat]||[]);
-  var rec = inblk > 0 ? src.slice(-inblk) : [];
-  var dots=""; for(var i=0;i<10;i++){ dots+=(i<inblk)?(rec[i]?"●":"✗"):"○"; }
-  return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+dots+'</span>';
+  var inblk = aBuf ? aBuf.n % 10 : 0;
+  var rec = inblk > 0 ? aBuf.recent.slice(-inblk) : [];
+  return '<span class="note">　Lv'+((p.lv&&p.lv[cat])||1)+'　'+blockDots(rec)+'</span>';
 }
 /* 5歳向け発展(K5DEV)の文章題に ふりがな(ruby) を付ける。表示テキストの漢字のみ対象。
    ⚠ 順番重要: 長い熟語を先に置換しないと「正三角形→正三角+形」のように分割される。 */
@@ -6056,7 +6073,7 @@ function renderQ(q){
   else h+='<span class="chip">'+(Q.i+1)+' / '+Q.list.length+'</span>';
   h+='</div>';
   var nowLv=(Q&&Q.lv)?Q.lv:((p.lv&&p.lv[q.cat])||1), stage=lvLabel(q.cat,nowLv);
-  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(stage?'　Lv'+clampLv(nowLv)+'：'+esc(stage):'')+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat)+'</span>'
+  h+='<div class="qmeta"><span>'+(CATL[q.cat]||"")+(stage?'　Lv'+clampLv(nowLv)+'：'+esc(stage):'')+(q._mid?"　🦋にがした虫！":"")+lvDotsHTML(p,q.cat,q)+'</span>'
     +(q.say?'<button class="spk" onclick="saySafe()">🔊 よむ</button>':"")+'</div>';
   if(q.kind==="num"){
     var isWord=(K5DEV.indexOf(q.cat)>=0||K10DEV.indexOf(q.cat)>=0);  /* 文章題は「こたえ」表示。ふりがなは5歳発展のみ */
@@ -6466,8 +6483,7 @@ function afterJudge(ok,q,o){
      / 九九チャレンジ / 取りこぼし再挑戦 (_mid) / レベル選択練習 (Q.lv) は除外 (K4)。
      旧コードは「!Q.lv」 だけで判定し、 復習からも進級していたためコメントと実装が
      乖離していた。 */
-  var _lvUpdateAllowed = !(Q&&Q.lv) && !(Q&&Q.mode==='review') && !(Q&&Q.timed)
-                       && !(Q&&Q.mode==='kuku') && !q._mid;
+  var _lvUpdateAllowed = lvCountsHere(q);
   if(_lvUpdateAllowed) recordAdaptStat(q.cat, ok);   /* 適応用バッファに分離記録 (K-add #4) */
   /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習・復習・タイム・取りこぼしは除外）。
      ひっさん 2 種も旧「5 連続正解で昇格 / 3 連続ミスで降格」をやめ、他カテゴリと同じ
