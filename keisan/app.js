@@ -1245,20 +1245,22 @@ function showStats(){
   /* ひっさんレベル・九九バー（k5のみ） */
   if(p.type==="k5"){
     var hsMx=(p.lv&&p.lv.hissan)||legacyHsToLv(p.hsMax||p.hsLevel||1), hkMx=(p.lv&&p.lv.hikizan)||legacyHsToLv(p.hkMax||p.hkLevel||1);
-    function lvBar(lv,run){ if(lv>=10)return 100; return Math.round(((lv-1)*5+Math.max(0,Math.min(5,run||0)))/45*100); }
+    /* バーは Lv に加えて、いまの 10 問ブロックの進み (適応バッファ) を足して描く */
+    function lvBar(lv,cat){ if(lv>=10)return 100; var a=p.adapt&&p.adapt[cat], blk=a?(a.n%10)/10:0; return Math.round(((lv-1)+blk)/9*100); }
     h+='<div class="card"><h3>✏️ ひっさんレベル</h3>'
-      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+lvBar(hsMx,p.hsRun)+'%"></span></span>'
+      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+lvBar(hsMx,"hissan")+'%"></span></span>'
       +'<span class="bv">Lv'+hsMx+' / 10</span></div>'
-      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+lvBar(hkMx,p.hkRun)+'%"></span></span>'
+      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+lvBar(hkMx,"hikizan")+'%"></span></span>'
       +'<span class="bv">Lv'+hkMx+' / 10</span></div>'
-      +'<p class="note">ミッション/おまかせ練習で 5問せいかいするごとに Lvアップ！</p></div>';
-    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length, kukuHits=p.kukuHits||0;
-    var kukuPct=Math.round((kukuN+(kukuN<kukuTotal?Math.min(8,kukuHits)/8:0))/kukuTotal*100);
+      +'<p class="note">ミッション/おまかせ練習で 10問ごとに 8問せいかいで Lvアップ！</p></div>';
+    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length, kukuBlk=Array.isArray(p.kukuBlk)?p.kukuBlk:[];
+    var kukuDone=kukuBlk.length, kukuHits=kukuBlk.reduce(function(x,y){return x+y;},0);
+    var kukuPct=Math.round((kukuN+(kukuN<kukuTotal?kukuDone/10:0))/kukuTotal*100);
     h+='<div class="card"><h3>🔢 九九マスター</h3>'
       +'<div class="brow"><span class="bl">マスター段数</span><span class="bt"><span class="bf" style="width:'+kukuPct+'%"></span></span>'
       +'<span class="bv">Lv'+((p.lv&&p.lv.kuku)||legacyKukuToLv(p))+' / 10</span></div>'
       +(kukuN>=kukuTotal?'<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>'
-        :'<p class="note">いまの目標：<b>'+ORDER[kukuN]+'の段</b>　ミッションで あと<b>'+Math.max(0,8-kukuHits)+'</b>回せいかいで すすむ（九九チャレンジでも）</p>')
+        :'<p class="note">いまの目標：<b>'+ORDER[kukuN]+'の段</b>　ミッションで この段を 10問中8問せいかいで すすむ（いま '+kukuDone+'問中 '+kukuHits+'問）（九九チャレンジでも）</p>')
       +'</div>';
   }
   /* heatmap: last 10 weeks */
@@ -1353,22 +1355,24 @@ function showProgress(){
   // 筆算バー（k5のみ）
   if(p.type==="k5"){
     var hsMx=(p.lv&&p.lv.hissan)||legacyHsToLv(p.hsMax||p.hsLevel||1), hkMx=(p.lv&&p.lv.hikizan)||legacyHsToLv(p.hkMax||p.hkLevel||1);
-    function lvBar(lv,run){ if(lv>=10)return 100; return Math.round(((lv-1)*5+Math.max(0,Math.min(5,run||0)))/45*100); }
+    /* バーは Lv に加えて、いまの 10 問ブロックの進み (適応バッファ) を足して描く */
+    function lvBar(lv,cat){ if(lv>=10)return 100; var a=p.adapt&&p.adapt[cat], blk=a?(a.n%10)/10:0; return Math.round(((lv-1)+blk)/9*100); }
     h+='<div class="card"><h3>✏️ ひっさんレベル</h3>'
-      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+lvBar(hsMx,p.hsRun)+'%"></span></span>'
+      +'<div class="brow"><span class="bl">たし算</span><span class="bt"><span class="bf" style="width:'+lvBar(hsMx,"hissan")+'%"></span></span>'
       +'<span class="bv">Lv'+hsMx+' / 10</span></div>'
-      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+lvBar(hkMx,p.hkRun)+'%"></span></span>'
+      +'<div class="brow"><span class="bl">ひき算</span><span class="bt"><span class="bf" style="width:'+lvBar(hkMx,"hikizan")+'%"></span></span>'
       +'<span class="bv">Lv'+hkMx+' / 10</span></div>'
-      +'<p class="note">ミッション/おまかせ練習で 5問せいかいするごとに Lvアップ！</p></div>';
+      +'<p class="note">ミッション/おまかせ練習で 10問ごとに 8問せいかいで Lvアップ！</p></div>';
     // 九九バー
-    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length, kukuHits=p.kukuHits||0;
-    /* バーは「マスター段数＋いまの段の進み(hits/8)」で1問ごとに動く */
-    var kukuPct=Math.round((kukuN+(kukuN<kukuTotal?Math.min(8,kukuHits)/8:0))/kukuTotal*100);
+    var kukuN=p.kukuIdx||0, kukuTotal=ORDER.length, kukuBlk=Array.isArray(p.kukuBlk)?p.kukuBlk:[];
+    var kukuDone=kukuBlk.length, kukuHits=kukuBlk.reduce(function(x,y){return x+y;},0);
+    /* バーは「マスター段数＋いまの段の 10 問ブロックの進み」で1問ごとに動く */
+    var kukuPct=Math.round((kukuN+(kukuN<kukuTotal?kukuDone/10:0))/kukuTotal*100);
     h+='<div class="card"><h3>🔢 九九マスター</h3>'
       +'<div class="brow"><span class="bl">マスター段数</span><span class="bt"><span class="bf" style="width:'+kukuPct+'%"></span></span>'
       +'<span class="bv">Lv'+((p.lv&&p.lv.kuku)||legacyKukuToLv(p))+' / 10</span></div>'
       +(kukuN>=kukuTotal?'<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>'
-        :'<p class="note">いまの目標：<b>'+ORDER[kukuN]+'の段</b>　ミッションで あと<b>'+Math.max(0,8-kukuHits)+'</b>回せいかいで すすむ（九九チャレンジでも）</p>')
+        :'<p class="note">いまの目標：<b>'+ORDER[kukuN]+'の段</b>　ミッションで この段を 10問中8問せいかいで すすむ（いま '+kukuDone+'問中 '+kukuHits+'問）（九九チャレンジでも）</p>')
       +'</div>';
   }
   // 各カテゴリせいかいりつバー
@@ -5679,7 +5683,8 @@ function buildMission(p){
   return list;
 }
 function buildPractice(cat,p,lv){
-  var n=5, list=[], i;
+  /* ひっさんのレベル選択練習は「10 問中 8 問で次の Lv」を判定するので 10 問組む */
+  var n=(lv&&(cat==="hissan"||cat==="hikizan"))?10:5, list=[], i;
   /* K5DEV カテゴリは pool が固定サイズ (多くは 5 問) なので、 独立抽出を 5 回繰り返すと
      重複が高頻度で発生する (N7)。 same set 内で出題済 idx を除外する形で gK5Dev を呼ぶ。 */
   if(window.Q4B_K5DEVS && Q4B_K5DEVS[cat]){
@@ -5824,7 +5829,7 @@ function showLevels(cat){
     var cls="dan"+(L<=mx?" cl":(locked?" lk":""));
     h+='<button class="'+cls+'" '+(locked?"disabled":"")+' onclick="startPractice(\''+cat+'\','+L+')">Lv'+L+(next?" ✨":"")+'<br><span style="font-size:11px;font-weight:600">'+(desc[L]||"")+'</span></button>';
   }
-  h+='</div><p class="note">✨ ＝ つぎの ちょうせん。5問中4問で つぎが ひらくよ</p></div></div>';
+  h+='</div><p class="note">✨ ＝ つぎの ちょうせん。10問中8問で つぎが ひらくよ</p></div></div>';
   render(h);
 }
 function showKuku(){
@@ -5836,13 +5841,14 @@ function showKuku(){
   });
   h+='</div>';
   if(p.kukuIdx>=ORDER.length)h+='<p style="font-weight:800;color:var(--amber-d)">🏆 ぜんだんマスター！</p>';
-  else h+='<p>いまの目標：<b>'+ORDER[p.kukuIdx]+'の段</b>（9問中8問せいかいで つぎの段へ！）</p>';
+  else h+='<p>いまの目標：<b>'+ORDER[p.kukuIdx]+'の段</b>（10問中8問せいかいで つぎの段へ！）</p>';
   if(p.kukuIdx>=3)h+='<button class="btn sm amber" onclick="startPractice(\'kuku\')">ミックスれんしゅう（5問）</button>';
-  h+='<p class="note">段のボタンをおすと 9問チャレンジが はじまるよ</p></div></div>';
+  h+='<p class="note">段のボタンをおすと 10問チャレンジが はじまるよ</p></div></div>';
   render(h);
 }
 function kukuChallenge(dan){
-  var list=shuffle([1,2,3,4,5,6,7,8,9]).map(function(b){
+  /* 合格線を全体の「10 問中 8 問」に揃えるため、1〜9 に 1 問足して 10 問にする */
+  var list=shuffle([1,2,3,4,5,6,7,8,9,1+Math.floor(Math.random()*9)]).map(function(b){
     return {cat:"kuku",kind:"num",dan:dan,b:b,text:dan+"×"+b,say:dan+" かける "+b+" は？",ans:dan*b};
   });
   Q={mode:"kuku",dan:dan,list:list,i:0,ok:0,ms:0};
@@ -6463,43 +6469,41 @@ function afterJudge(ok,q,o){
   var _lvUpdateAllowed = !(Q&&Q.lv) && !(Q&&Q.mode==='review') && !(Q&&Q.timed)
                        && !(Q&&Q.mode==='kuku') && !q._mid;
   if(_lvUpdateAllowed) recordAdaptStat(q.cat, ok);   /* 適応用バッファに分離記録 (K-add #4) */
-  if(LVL_CATS[q.cat] && q.cat!=="hissan" && q.cat!=="hikizan" && q.cat!=="kuku" && _lvUpdateAllowed){
+  /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習・復習・タイム・取りこぼしは除外）。
+     ひっさん 2 種も旧「5 連続正解で昇格 / 3 連続ミスで降格」をやめ、他カテゴリと同じ
+     10 問ブロック判定に揃えた。九九は Lv ではなく段で進むので下の別ロジックのまま。 */
+  if(LVL_CATS[q.cat] && q.cat!=="kuku" && _lvUpdateAllowed){
     if(!p.lv)p.lv={}; if(p.lv[q.cat]==null)p.lv[q.cat]=1;
     /* 判定は適応バッファ (timed/review/kuku/取りこぼし を除外) を見る。 これがないと
        タイムアタックが p.stats.n を消費して 10 問目を飛ばす + 直近 10 問に timed
        結果が混入する。 */
+    /* 昇格 8 以上 / 維持 5-7 / 降格 4 以下 (帯幅 3)。木漏れ日の小道 (komorebi/app.js
+       applyPerformance) と同じ物差しに揃えてある。2026-06-22 に 9 以上 / 5 以下へ
+       厳格化していたが、p≈0.7 の子が Lv10 に届かない設計だったため戻した。 */
     var aBuf=(p.adapt && p.adapt[q.cat]);
     if(aBuf && aBuf.n>0 && aBuf.n%10===0){
       var ok10=aBuf.recent.slice(-10).reduce(function(x,y){return x+y;},0);
-      if(ok10>=9 && p.lv[q.cat]<10){ p.lv[q.cat]++; bumpMaxLv(p,q.cat,p.lv[q.cat]); o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
-      else if(ok10<=5 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
+      var lvBefore=p.lv[q.cat];
+      if(ok10>=8 && p.lv[q.cat]<10){ p.lv[q.cat]++; bumpMaxLv(p,q.cat,p.lv[q.cat]); o.lvup="📈 "+(CATL[q.cat]||q.cat)+" レベル"+p.lv[q.cat]+"に アップ！"; }
+      else if(ok10<=4 && p.lv[q.cat]>1){ p.lv[q.cat]--; }
+      /* ひっさんは出題が旧 hsLevel/hkLevel も読むので、Lv が動いたら同期する */
+      if(p.lv[q.cat]!==lvBefore && (q.cat==="hissan"||q.cat==="hikizan")) syncLegacyFromLv(p);
     }
   }
-  /* 自動進級はミッション/おまかせ練習のみ（レベル選択練習・復習・タイム・取りこぼしは除外） */
-  if(q.cat==="hissan"&&p.type==="k5"&&_lvUpdateAllowed){
-    if(!p.lv)p.lv={}; if(p.lv.hissan==null)p.lv.hissan=1;
-    if(ok){p.hsRun=(p.hsRun>=0)?p.hsRun+1:1;
-      if(p.hsRun>=5&&p.lv.hissan<10){p.lv.hissan++;p.hsRun=0;syncLegacyFromLv(p);bumpMaxLv(p,"hissan",p.lv.hissan);o.lvup="📈 たし算ひっさん Lv"+p.lv.hissan+"に アップ！";}}
-    else{p.hsRun=(p.hsRun<=0)?p.hsRun-1:-1;
-      if(p.hsRun<=-3&&p.lv.hissan>1){p.lv.hissan--;p.hsRun=0;syncLegacyFromLv(p);}}
-  }
-  if(q.cat==="hikizan"&&p.type==="k5"&&_lvUpdateAllowed){
-    if(!p.lv)p.lv={}; if(p.lv.hikizan==null)p.lv.hikizan=1;
-    if(p.hkLevel==null){p.hkLevel=1;} if(p.hkRun==null){p.hkRun=0;}
-    if(ok){p.hkRun=(p.hkRun>=0)?p.hkRun+1:1;
-      if(p.hkRun>=5&&p.lv.hikizan<10){p.lv.hikizan++;p.hkRun=0;syncLegacyFromLv(p);bumpMaxLv(p,"hikizan",p.lv.hikizan);o.lvup="📈 ひき算ひっさん Lv"+p.lv.hikizan+"に アップ！";}}
-    else{p.hkRun=(p.hkRun<=0)?p.hkRun-1:-1;
-      if(p.hkRun<=-3&&p.lv.hikizan>1){p.lv.hikizan--;p.hkRun=0;syncLegacyFromLv(p);}}
-  }
-  /* 九九: ミッション/おまかせ練習の周回で「いまの目標の段」を8回正解したら次の段へ進級（5歳）。
+  /* 九九: ミッション/おまかせ練習の周回で「いまの目標の段」を 10 問解くごとに判定し、
+     8 問以上正解なら次の段へ進級（5歳）。ミスも数える 10 問ブロックで、他カテゴリの
+     Lv 判定と同じ物差し。段は下げない。旧ルールは通算 8 回正解 (ミスを数えない)。
      専用の九九チャレンジ(Q.mode==='kuku')は別ロジックで進級するため除外し二重進級を防ぐ。 */
   if(q.cat==="kuku"&&p.type==="k5"&&_lvUpdateAllowed&&!(Q&&Q.mode==='kuku')&&p.kukuIdx<ORDER.length){
-    if(p.kukuHits==null)p.kukuHits=0;
+    if(!Array.isArray(p.kukuBlk))p.kukuBlk=[];
     var ktarget=ORDER[Math.min(p.kukuIdx,ORDER.length-1)];
-    if(ok && q.dan===ktarget){
-      p.kukuHits++;
-      if(p.kukuHits>=8){
-        p.kukuClear[ktarget]=1; p.kukuIdx++; p.kukuHits=0;
+    if(q.dan===ktarget){
+      p.kukuBlk.push(ok?1:0);
+      p.kukuHits=p.kukuBlk.reduce(function(x,y){return x+y;},0);   /* 表示用: このブロックの正解数 */
+      var kukuPass=(p.kukuBlk.length>=10 && p.kukuHits>=8);
+      if(p.kukuBlk.length>=10){ p.kukuBlk=[]; p.kukuHits=0; }
+      if(kukuPass){
+        p.kukuClear[ktarget]=1; p.kukuIdx++;
         if(!p.lv)p.lv={}; p.lv.kuku=legacyKukuToLv(p);
         bumpMaxLv(p,"kuku",p.lv.kuku);   /* M3: 最高到達 Lv も追従 */
         o.lvup="🎉 "+ktarget+"の段 マスター！"+(p.kukuIdx<ORDER.length?"つぎは "+ORDER[p.kukuIdx]+"の段！":"九九 ぜんぶ クリア！🏆");
@@ -6637,7 +6641,7 @@ function finishSet(){
     if(pass){
       if(p.kukuIdx<ORDER.length&&ORDER[p.kukuIdx]===dan){
         p.kukuClear[dan]=1; p.kukuIdx++;
-        p.kukuHits=0;                       /* 通常学習の途中カウントを次段へ持ち越さない (K5) */
+        p.kukuHits=0; p.kukuBlk=[];         /* 通常学習の途中カウントを次段へ持ち越さない (K5) */
         if(!p.lv)p.lv={}; p.lv.kuku=legacyKukuToLv(p);
         bumpMaxLv(p,"kuku",p.lv.kuku);     /* M3 */
         msg=dan+"の段 クリア！"+(p.kukuIdx<ORDER.length?" つぎは "+ORDER[p.kukuIdx]+"の段！":" 🏆ぜんだんマスター！");
@@ -6649,7 +6653,7 @@ function finishSet(){
     }else{
       updateProgressSummary(p);
       save();
-      showSetResult("もうすこし！",[dan+"の段　"+scoreLine,"9問中8問で クリアだよ"],"kukuChallenge("+dan+")");
+      showSetResult("もうすこし！",[dan+"の段　"+scoreLine,"10問中8問で クリアだよ"],"kukuChallenge("+dan+")");
     }
     return;
   }
@@ -6683,12 +6687,13 @@ function finishSet(){
     }
     return;
   }
-  /* レベル選択練習: クリア(4/5以上)で つぎのレベルを解放。再挑戦は同レベル。
+  /* レベル選択練習: クリア(8/10以上)で つぎのレベルを解放。再挑戦は同レベル。
+     合格線は適応 Lv の昇格 (10 問中 8 問) と同じ物差し。旧 4/5 から揃えた。
      P4: 旧版は `Q.lv < 10` ガードがあり、 Lv10 クリアが p.lv / p.maxLv に
      反映されなかった (画面では「Lv10 クリア！」 と出るのに マスター未達)。
      Lv10 でも reached=10 を bumpMaxLv で記録、 unlocked 表示は Lv<10 のときだけ。 */
   if(Q.mode==="practice"&&Q.lv&&(Q.cat==="hissan"||Q.cat==="hikizan")){
-    var cleared=(Q.ok>=4), key=Q.cat, unlocked=false, allLvCleared=false;
+    var cleared=(Q.ok>=8), key=Q.cat, unlocked=false, allLvCleared=false;
     if(!p.lv)p.lv={};
     var curLvHere = (p.lv&&p.lv[key])||1;
     if(cleared && Q.lv>=curLvHere){
@@ -6709,7 +6714,7 @@ function finishSet(){
     var msgs=[scoreLine];
     if(unlocked) msgs.push("🎉 Lv"+(Q.lv+1)+"が ひらいたよ！");
     else if(allLvCleared) msgs.push("🏆 ぜんレベル クリア！ マスターを めざそう！");
-    else if(!cleared) msgs.push("5問中4問で つぎが ひらくよ。もういちど！");
+    else if(!cleared) msgs.push("10問中8問で つぎが ひらくよ。もういちど！");
     showSetResult(cleared?("Lv"+Q.lv+" クリア！"):"もうすこし！",msgs,"showLevels('"+Q.cat+"')");
     return;
   }
