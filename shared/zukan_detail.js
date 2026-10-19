@@ -18,6 +18,23 @@
   }); }
   function pct(n,d){ return d>0 ? Math.round(n/d*100) : 0; }
 
+  /* 外部 link (出典レコード・ライセンス) の href は絶対 http/https のみ。
+     catalog 生成側 (zukan-fetch lib/url_policy.py) と同じ規則で、javascript: /
+     data: / 他 scheme / 相対 URL、空白・制御文字・backslash を含む値は null。
+     null のときは link を出さない (文言は呼び出し側で残す)。 */
+  var UNSAFE_URL_CHARS = /[\u0000-\u0020\u007f-\u009f\u00a0\u1680\u2000-\u200d\u2028\u2029\u202f\u205f\u3000\ufeff\\]/;
+  function safeHttpUrl(u){
+    if(typeof u !== "string" || !u || u.length > 2048 || UNSAFE_URL_CHARS.test(u)) return null;
+    if(!/^https?:\/\/[^\/?#]+/i.test(u)) return null;
+    if(typeof global.URL === "function"){
+      try{
+        var p = new global.URL(u);
+        if((p.protocol !== "http:" && p.protocol !== "https:") || !p.hostname) return null;
+      }catch(e){ return null; }
+    }
+    return u;
+  }
+
   /* 夜モード対応 CSS を 1 回だけ inject。
      [data-q4b-zd] でラップした detailHTML 内の inline grey 系色を body.night 時に
      明色で強制上書きする (inline style に勝つため !important)。♂♀ の色相 (青/桜) は
@@ -279,15 +296,17 @@
     }
 
     if(src.mediaLicense){
-      var lic = src.licenseUrl
-        ? '<a href="'+esc(src.licenseUrl)+'" target="_blank" rel="noopener">'+esc(src.mediaLicense)+'</a>'
+      var licenseUrl = safeHttpUrl(src.licenseUrl);
+      var lic = licenseUrl
+        ? '<a href="'+esc(licenseUrl)+'" target="_blank" rel="noopener">'+esc(src.mediaLicense)+'</a>'
         : esc(src.mediaLicense);
       add("ライセンス", lic, {raw: true});
     }
     if((entry.modifications||[]).length) add("加工", entry.modifications.join("、"));
-    if(src.institutionRecordUrl){
+    var recordUrl = safeHttpUrl(src.institutionRecordUrl);
+    if(recordUrl){
       var recordLabel = isObservation ? "観察ページ" : "原レコード";
-      add(recordLabel, '<a href="'+esc(src.institutionRecordUrl)+'" target="_blank" rel="noopener">📖 開く</a>', {raw: true});
+      add(recordLabel, '<a href="'+esc(recordUrl)+'" target="_blank" rel="noopener">📖 開く</a>', {raw: true});
     }
     if(rows.length === 0) return "";
     var rowsHTML = rows.map(function(r){
@@ -555,5 +574,6 @@
     recentListHTML: recentListHTML,
     favoriteToggleHTML: favoriteToggleHTML,
     specimenInfoHTML: specimenInfoHTML,
+    safeHttpUrl: safeHttpUrl,
   };
 })(window);
