@@ -209,4 +209,4 @@ function buildSet(lv, rng, opt = {}) {
     return seq.map(p => finish(rng, p));
   }
 }
-module.exports = { buildSet, judge, mulberry32, B, terms };
+module.exports = { buildSet, judge, mulberry32, B, terms, lrOK, storyProb, bothProb, bothValid, setOpt: o => { OPT = o; } };
