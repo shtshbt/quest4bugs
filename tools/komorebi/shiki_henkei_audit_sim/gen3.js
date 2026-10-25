@@ -1,6 +1,7 @@
 // Generator for kom_shiki_henkei (assemble format): the independent re-audit generator for v0.3,
-// modified to the v0.3.1 rules (variant 'v031' in run3.js: common sum cap, common a and d bands,
-// T_SF traps with a > b + c, P1 a redrawn every time). Original header follows.
+// modified to the v0.3.1 and v0.3.2 rules (variant 'v031' in run3.js: common sum cap, common a and d bands,
+// T_SF traps with a > b + c, P1 and P2 types drawn first and only numbers redrawn, no shared {b, c}
+// between adjacent non-pair problems). Original header follows.
 // Independent generator for kom_shiki_henkei v0.3 (assemble format),
 // written only from docs/komorebi_shiki_henkei_curriculum.md v0.3 rule text.
 // Ambiguities are tagged V3AMB-n and resolved in the adversary's favor where it matters.
@@ -69,8 +70,13 @@ function bothProb(type, orient, a, b, c) {
   const ans = type === 'T_SB' ? [[a, 1], [b, -1], [c, -1]] : type === 'T_SF' ? [[b, 1], [c, 1], [a, 1]] : [[b, 1], [c, 1], [a, -1]];
   return { fam: 'both', type, orient, patternId: BPID[type] + (orient === 'reversed' ? '_rev' : ''), text: orient === 'normal' ? `${side}=${R}` : `${R}=${side}`, answerTerms: ans, nums: [a, b, c], abc: { a, b, c }, box: ans.reduce((s, [n, g]) => s + n * g, 0) };
 }
-function drawBoth(rng, type, orient, fixedBC) {
-  const sfBig = type === 'T_SF' && rng() < (OPT.sfp === undefined ? 0 : OPT.sfp); // v0.3.1: T_SF with a > b+c (trap) with probability sfp
+function drawBoth(rng, type, orient, fixedBC, sfBigFixed) {
+  const sfBig = sfBigFixed !== undefined ? sfBigFixed : (type === 'T_SF' && rng() < (OPT.sfp === undefined ? 0 : OPT.sfp)); // v0.3.1: T_SF with a > b+c (trap) with probability sfp
+  if (fixedBC && OPT.near) { // b, c fixed: a is drawn uniformly from the values that satisfy 3.10 (none: null)
+    const ok = [];
+    for (let a = 20; a <= 45; a++) if (bothValid(type, a, fixedBC[0], fixedBC[1], sfBig)) ok.push(a);
+    return ok.length ? bothProb(type, orient, ok[Math.floor(rng() * ok.length)], fixedBC[0], fixedBC[1]) : null;
+  }
   for (let t = 0; t < 200000; t++) {
     let a, b, c;
     if (OPT.near) { // v0.3.1: a from 20..45, d = |a - (b+c)| from 2..10, the same for every type
@@ -103,24 +109,20 @@ function oneProblem(rng, lv, opt) {
   if (fam === '2num') return twoNum(rng, wpick(rng, TWO_T, RATIO.two[lv]), orient, lv === 2 ? 20 : 100);
   return drawBoth(rng, wpick(rng, BOTH_T, opt.bothRatio || RATIO.both), orient);
 }
-// P1 (3.6): same b,c; second type drawn independently; same a if allowed, else redraw a;
-// if type and a are both the same, flip orientation.
+// P1 (3.6, v0.3.2): types, traps and orientations of both items are drawn first (4.2 ratios);
+// only numbers are redrawn: the first item's numbers, then a for the second item with the same b, c.
 function pairP1(rng, lv, opt) {
+  const ratio = opt.bothRatio || RATIO.both;
+  const t1 = wpick(rng, BOTH_T, ratio), t2 = wpick(rng, BOTH_T, ratio);
+  const sp = OPT.sfp === undefined ? 0 : OPT.sfp;
+  const big1 = t1 === 'T_SF' && rng() < sp, big2 = t2 === 'T_SF' && rng() < sp;
+  const o1 = rng() < revProb(lv, 'both') ? 'reversed' : 'normal', o2 = rng() < revProb(lv, 'both') ? 'reversed' : 'normal';
   for (;;) {
-    const t1 = wpick(rng, BOTH_T, opt.bothRatio || RATIO.both);
-    const p1 = drawBoth(rng, t1, rng() < revProb(lv, 'both') ? 'reversed' : 'normal');
-    const { a, b, c } = p1.abc;
-    const t2 = wpick(rng, BOTH_T, opt.bothRatio || RATIO.both);
-    let o2 = rng() < revProb(lv, 'both') ? 'reversed' : 'normal';
-    let p2;
-    if (!OPT.p1redraw && bothValid(t2, a, b, c)) {
-      if (t2 === t1) o2 = p1.orient === 'normal' ? 'reversed' : 'normal';
-      p2 = bothProb(t2, o2, a, b, c);
-    } else {
-      p2 = drawBoth(rng, t2, o2, [b, c]); // V3AMB-4: a redrawn uniformly among valid values
-      if (!p2) continue;
-    }
-    if (p2.text === p1.text) continue;
+    const p1 = drawBoth(rng, t1, o1, null, big1);
+    if (!p1) continue;
+    const { b, c } = p1.abc;
+    const p2 = drawBoth(rng, t2, o2, [b, c], big2);
+    if (!p2 || p2.text === p1.text) continue;
     p1.pairType = p2.pairType = 'P1'; p1.pairId = p2.pairId = 1;
     return [p1, p2];
   }
@@ -143,14 +145,19 @@ function storyProb(role, dir, K1, K2, ctx) {
   return ok ? { fam: 'story', role, dir, ctx, text, box, K: [K1, K2], answerSlots: ans, patternId: `story_${dir}_${role}` } : null;
 }
 function drawStory(rng, role, dir, ctx) { for (;;) { const p = storyProb(role, dir, ri(rng, 2, 30), ri(rng, 2, 30), ctx); if (p) return p; } }
+// P2 (3.6, v0.3.2): role, direction and context of both items are drawn first; only the two
+// visible numbers are redrawn until both items satisfy 3.10. Item 2 keeps the story order of the two
+// numbers when it can hold, and uses them in the other order otherwise.
 function pairP2(rng) {
+  const role = pick(rng, ['start', 'change', 'result']), dir = rng() < 0.5 ? 'inc' : 'dec', ctx = pick(rng, Object.keys(CTX));
+  let role2 = role, dir2 = dir;
+  if (rng() < 0.5) dir2 = dir === 'inc' ? 'dec' : 'inc'; else role2 = pick(rng, ['start', 'change', 'result'].filter(r => r !== role));
   for (;;) {
-    const role = pick(rng, ['start', 'change', 'result']), dir = rng() < 0.5 ? 'inc' : 'dec', ctx = pick(rng, Object.keys(CTX));
-    const p1 = drawStory(rng, role, dir, ctx);
-    let role2 = role, dir2 = dir;
-    if (rng() < 0.5) dir2 = dir === 'inc' ? 'dec' : 'inc'; else role2 = pick(rng, ['start', 'change', 'result'].filter(r => r !== role));
-    // V3AMB-6: "2 数が同じ" read as the same two visible numbers in the same story order
-    const p2 = storyProb(role2, dir2, p1.K[0], p1.K[1], ctx);
+    const K1 = ri(rng, 2, 30), K2 = ri(rng, 2, 30);
+    const p1 = storyProb(role, dir, K1, K2, ctx);
+    if (!p1) continue;
+    // keep the story order of the two numbers; swap them only when that order cannot hold for item 2
+    const p2 = storyProb(role2, dir2, K1, K2, ctx) || storyProb(role2, dir2, K2, K1, ctx);
     if (!p2) continue;
     p1.pairType = p2.pairType = 'P2'; p1.pairId = p2.pairId = 1;
     return [p1, p2];
@@ -192,6 +199,13 @@ function buildSet(lv, rng, opt = {}) {
       seq = rest.slice(0, pos).concat(pr, rest.slice(pos));
     } else seq = Array.from({ length: 5 }, () => oneProblem(rng, lv, opt));
     if (new Set(seq.map(p => p.text)).size !== 5) continue; // 4.2 / check 9
+    // 4.2 (v0.3.2): two adjacent both-sides problems share the set {b, c} only when they are the P1 pair
+    let clash = false;
+    for (let k = 1; k < seq.length; k++) {
+      const u = seq[k - 1], v = seq[k];
+      if (u.fam === 'both' && v.fam === 'both' && !(u.pairId && v.pairId) && [u.abc.b, u.abc.c].sort().join() === [v.abc.b, v.abc.c].sort().join()) clash = true;
+    }
+    if (clash) continue;
     return seq.map(p => finish(rng, p));
   }
 }

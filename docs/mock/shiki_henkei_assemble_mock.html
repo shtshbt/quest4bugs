@@ -56,9 +56,9 @@ const ITEMS = [
   { tag: 'Lv2 sub_front', scaffold: 'いちばん おおきい かず (ぜんぶ) は どれかな', stem: '□-3=15', kind: 'two', nums: [15, 3], ans: [[15, 1], [3, 1]] },
   { tag: 'Lv3 sub_back', stem: '25-□=6', kind: 'two', nums: [6, 25], ans: [[25, 1], [6, -1]] },
   { tag: 'Lv3 both_add_front', scaffold: '= の むこうの しきは そのまま。うごかすのは □ の となりの かずだけ', stem: '□+33=20+22', kind: 'both', nums: [22, 33, 20], ans: [[20, 1], [22, 1], [33, -1]] },
-  { tag: 'Lv5 both_sub_back', stem: '50-□=14+27', kind: 'both', nums: [50, 27, 14], ans: [[50, 1], [14, -1], [27, -1]] },
+  { tag: 'Lv5 both_sub_back', stem: '45-□=14+27', kind: 'both', nums: [45, 27, 14], ans: [[45, 1], [14, -1], [27, -1]] },
   { tag: 'Lv6 both_sub_front_rev', stem: '19+17=□-34', kind: 'both', nums: [17, 34, 19], ans: [[19, 1], [17, 1], [34, 1]] },
-  { tag: 'Lv8 both_sub_front (対比ペアの 1 問目)', stem: '□-43=17+38', kind: 'both', nums: [38, 17, 43], ans: [[17, 1], [38, 1], [43, 1]] },
+  { tag: 'Lv8 both_sub_front (罠: a > b + c)', stem: '□-30=10+17', kind: 'both', nums: [17, 30, 10], ans: [[10, 1], [17, 1], [30, 1]] },
   { tag: 'Lv10 story_dec_start', story: 'あめが □ こ ありました。18 こ たべて、5 こに なりました。', kind: 'story', nums: [5, 18], ansEq: [B, '-', '18', '5'] },
 ];
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }

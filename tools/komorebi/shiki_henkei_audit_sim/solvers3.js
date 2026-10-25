@@ -120,7 +120,7 @@ function feat10(p, prev, which) {
     if (w === 'kmag') f.push(K1 < K2 ? 'K<' : 'K>');
     if (w === 'ksize') f.push('ks' + (K1 + K2 > 30 ? 'H' : 'L'));
     if (w === 'card') f.push('c0' + (p.numberCards[0] === B ? 'box' : 'n'));
-    if (w === 'pair' && prev) { const [P1, P2] = visK(prev); if (P1 === K1 && P2 === K2 && prev.ctx === p.ctx) f.push('PR', INC.test(prev.text) === inc ? 'vsame' : 'vflip'); }
+    if (w === 'pair' && prev) { const [P1, P2] = visK(prev); if (((P1 === K1 && P2 === K2) || (P1 === K2 && P2 === K1)) && prev.ctx === p.ctx) f.push('PR', INC.test(prev.text) === inc ? 'vsame' : 'vflip', P1 === K1 ? 'osame' : 'oswap'); }
   }
   return f.join(',');
 }

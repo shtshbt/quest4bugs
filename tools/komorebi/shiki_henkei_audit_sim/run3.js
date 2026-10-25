@@ -21,6 +21,14 @@ for (let lv = LO; lv <= HI; lv++) {
   if (lv === 1) {
     const L = { L1_sum: p => p.nums[0] + p.nums[1], L2_bigminus: p => Math.max(...p.nums) - Math.min(...p.nums), L3_first: p => p.nums[0] };
     for (const k in L) res['A:' + k] = test.reduce((a, s) => a + s.filter(p => L[k](p) === p.ans).length, 0) / N;
+    // LB (curriculum 11.2, check 22): choose sum or difference from a table keyed by position and the
+    // history of earlier answers (sum/difference); fall back to the position-free majority
+    const tr1 = Array.from({ length: NTRAIN }, () => G.buildSet(lv, rS, opt));
+    const cls1 = p => (p.ans === p.nums[0] + p.nums[1] ? 'add' : 'sub');
+    const tab1 = new Map(); const add1 = (k, c) => { let m = tab1.get(k); if (!m) { m = {}; tab1.set(k, m); } m[c] = (m[c] || 0) + 1; };
+    for (const set of tr1) { let h = ''; set.forEach((p, k) => { add1(`${k}|${h}`, cls1(p)); add1('F', cls1(p)); h += cls1(p)[0]; }); }
+    const amax1 = m => Object.keys(m).reduce((u, v) => (m[u] >= m[v] ? u : v));
+    res['B:LB_history'] = test.reduce((acc, set) => { let h = '', ok = 0; set.forEach((p, k) => { let m = tab1.get(`${k}|${h}`); if (!m || Object.values(m).reduce((u, v) => u + v, 0) < 10) m = tab1.get('F'); const c = amax1(m); const v = c === 'add' ? p.nums[0] + p.nums[1] : Math.max(...p.nums) - Math.min(...p.nums); if (v === p.ans) ok++; h += cls1(p)[0]; }); return acc + ok; }, 0) / N;
   } else if (lv === 10) {
     for (const k in S.STAGE_A10) res['A:' + k] = test.reduce((a, s) => a + s.filter(p => S.judge(p, S.STAGE_A10[k](p))).length, 0) / N;
     const tr = Array.from({ length: NTRAIN }, () => G.buildSet(lv, rS, opt));
