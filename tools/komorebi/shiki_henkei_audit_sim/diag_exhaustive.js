@@ -4,6 +4,8 @@
 // v0.3.4: negative_step is its own cell. Every assembly falls into exactly one of correct,
 // negative_step and the error rows, and for negative_step the numbers X and Y of the explanation
 // (the running value and the subtracted number at the first step that goes below 0) are recorded.
+// v0.3.7: Lv1 (number input) is diagnosed by the ordered rules of 3.5.0, and every cell of every
+// table resolves to exactly one explanation sentence of chapter 8 (keyed by error type and problem type).
 // Usage: node diag_exhaustive.js   (exit 1 on any violation)
 'use strict';
 const G = require('./gen3.js');
@@ -135,6 +137,69 @@ for (const role of ['start', 'change', 'result']) for (const dir of ['inc', 'dec
       const t = `${p.patternId} ${cells[0]}`; tally[t] = (tally[t] || 0) + 1;
     }
   }
+// ---- Lv1 (3.5.0, v0.3.7): ordered rules, first match wins; overlaps are counted ----
+const LV1_RULES = [
+  ['correct', (a, b, add, v) => v === (add ? a + b : a - b)],
+  ['copy_visible', (a, b, add, v) => v === a || v === b],
+  ['ignore_op', (a, b, add, v) => v === (add ? Math.abs(a - b) : a + b)],
+  ['place_value', (a, b, add, v) => b <= 9 && v === (add ? a + 10 * b : a - 10 * b)],
+  ['digit_slip', (a, b, add, v) => { const t = add ? a + b : a - b; if (v > 99 || v === t) return false; const dt = Math.floor(v / 10) !== Math.floor(t / 10), d1 = v % 10 !== t % 10; return dt !== d1; }],
+  ['calc_other', () => true],
+];
+let n1 = 0; const lv1Tally = {}, lv1Overlap = {};
+for (const add of [true, false]) for (let a = 11; a <= 89; a++) for (let b = 2; b <= 89; b++) {
+  if (b === 10) continue;
+  const ad = [Math.floor(a / 10), a % 10], bd = [Math.floor(b / 10), b % 10];
+  if (add && !(ad[0] + bd[0] <= 9 && ad[1] + bd[1] <= 9)) continue;
+  if (!add && !(ad[0] >= bd[0] && ad[1] >= bd[1])) continue;
+  const t = add ? a + b : a - b; if (t < 2 || t > 99) continue;
+  for (let v = 0; v <= 999; v++) {
+    n1++;
+    const hits = LV1_RULES.filter(([, f]) => f(a, b, add, v)).map(([k]) => k);
+    const cell = hits[0];
+    if ((cell === 'correct') !== (v === t)) fail(`lv1 ${a}${add ? '+' : '-'}${b} v=${v} correct mismatch`);
+    lv1Tally[cell] = (lv1Tally[cell] || 0) + 1;
+    const real = hits.filter(k => k !== 'calc_other');
+    if (real.length > 1) { const k = real.join('>'); lv1Overlap[k] = (lv1Overlap[k] || 0) + 1; }
+  }
+}
+
+// ---- explanations (chapter 8, v0.3.7): every cell resolves to exactly one sentence key ----
+const EXPL = new Set([
+  'ignore_op|add', 'ignore_op|sub', 'copy_visible|*', 'place_value|add', 'place_value|sub', 'digit_slip|*', 'calc_other|*',
+  'keep_op|2num:T_AF', 'keep_op|2num:T_SF', 'invert_overapply|2num:T_SB', 'minuend_swap|2num:T_SF', 'order_reversal|2num:T_AF,T_SB',
+  'keep_op|both:T_AB,T_AF', 'keep_op|both:T_SF', 'invert_overapply|both:T_SB', 'minuend_swap|both:T_AB,T_AF', 'minuend_swap|both:T_SF',
+  'order_reversal|both:T_SB', 'flip_other_side|both:*', 'negative_step|both:T_AB,T_AF',
+  'op_flip|inc', 'op_flip|dec', 'unknown_misplaced|*', 'known_swap|*', 'true_commuted|*', 'true_solved|*', 'true_reordered|*',
+]);
+const PRIORITY = ['flip_other_side', 'op_flip', 'unknown_misplaced', 'known_swap', 'keep_op', 'order_reversal', 'invert_overapply', 'minuend_swap'];
+const lead = tags => PRIORITY.find(t => tags.includes(t)) || tags[0];
+function keyFor(fam, type, tag) {
+  const cands = [...EXPL].filter(k => { const [t, ctx] = k.split('|'); if (t !== tag) return false; if (ctx === '*') return true;
+    const [f, ts] = ctx.includes(':') ? ctx.split(':') : [ctx, null]; if (ts === null) return f === type; return f === fam && (ts === '*' || ts.split(',').includes(type)); });
+  return cands;
+}
+const used = new Set();
+function checkKey(fam, type, tags, what) {
+  const k = keyFor(fam, type, lead(tags));
+  if (k.length !== 1) fail(`explanation ${what}: ${k.length} keys for ${lead(tags)} (${fam} ${type})`); else used.add(k[0]);
+}
+for (const [variant, table] of Object.entries(TWO)) for (const cell of Object.values(table)) if (cell !== 'correct') checkKey('2num', variant.startsWith('T_SF') ? 'T_SF' : variant, [cell], `2num ${variant}`);
+const BOTH_TABLE = { // 3.5.2: row -> type -> tags
+  'bc-a': { T_AB: [], T_AF: [], T_SF: ['keep_op'], T_SB: ['order_reversal'] },
+  'bc+a': { T_AB: ['keep_op'], T_AF: ['keep_op'], T_SF: [], T_SB: ['invert_overapply'] },
+  'a-b-c': { T_AB: ['minuend_swap'], T_AF: ['minuend_swap'], T_SF: ['minuend_swap'], T_SB: [] },
+  'b-c-a': { T_AB: ['flip_other_side'], T_AF: ['flip_other_side'], T_SF: ['flip_other_side', 'keep_op'], T_SB: ['flip_other_side', 'order_reversal'] },
+  'b-c+a': { T_AB: ['flip_other_side', 'keep_op'], T_AF: ['flip_other_side', 'keep_op'], T_SF: ['flip_other_side'], T_SB: ['flip_other_side'] },
+};
+for (const row of Object.values(BOTH_TABLE)) for (const [type, tags] of Object.entries(row)) if (tags.length) checkKey('both', type, tags, `both ${type}`);
+checkKey('both', 'T_AB', ['negative_step'], 'both negative_step'); checkKey('both', 'T_AF', ['negative_step'], 'both negative_step');
+for (const t of Object.keys(tally)) { const [pid, cell] = t.split(' '); if (cell === 'correct') continue; checkKey('story', pid.includes('_inc_') ? 'inc' : 'dec', cell.split('+'), `story ${pid}`); }
+for (const cell of Object.keys(lv1Tally)) if (cell !== 'correct') { for (const op of ['add', 'sub']) checkKey('lv1', op, [cell], `lv1 ${cell}`); }
+for (const k of EXPL) if (!used.has(k)) fail(`explanation key never used: ${k}`);
+
+console.log(`Lv1 inputs ${n1}`, JSON.stringify(lv1Tally), 'overlaps (first match wins)', JSON.stringify(lv1Overlap));
+console.log(`explanation keys used ${used.size} / ${EXPL.size}`);
 console.log(`2num assemblies ${n2}, both assemblies ${nb}, story assemblies ${ns}, violations ${bad}`);
 console.log(`negative_step ${nNeg} (X is the first card: ${negXfirst}, Y is a: ${negYa})`, JSON.stringify(negForms));
 const per = {};
