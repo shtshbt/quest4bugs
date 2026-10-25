@@ -34,7 +34,7 @@ function tabs() {
     n: new Tab(), w: new Tab(), o: new Tab(), full: [new Tab(), new Tab(), new Tab(), new Tab(), new Tab()],
     f2full: [new Tab(), new Tab(), new Tab()], f2named: new Tab(), f2type: new Tab(),
     f3pos: new Tab(), f3full: new Tab(), f4acc: new Tab(), f4w: new Tab(), f6lex: new Tab(),
-    ns: [new Tab(), new Tab(), new Tab(), new Tab()], f2sh0: new Tab(), surf: new Tab(), rel: new Tab(), f2shape: new Tab(), f4s: new Tab(),
+    ns: [new Tab(), new Tab(), new Tab(), new Tab()], nm: new Tab(), f2sh0: new Tab(), surf: new Tab(), rel: new Tab(), f2shape: new Tab(), f4s: new Tab(),
   };
 }
 const f1keys = p => [`${p.sc}|${wset(p)}|${p.nums.length}|${oset(p)}`, `${p.sc}|${wset(p)}|${oset(p)}`, `${wset(p)}|${oset(p)}`, `${p.sc}|${oset(p)}`, `${oset(p)}`];
@@ -42,6 +42,8 @@ const f2keys = p => [`${p.sc}|${wset(p)}|${fsetF2(p)}`, `${wset(p)}|${fsetF2(p)}
 const REL = new Set(['W5', 'W6', 'W7', 'W10', 'W11', 'W12']);
 const SURF = new Set(['W1', 'W2', 'W3', 'W4', 'W8', 'W9']);
 const wsub = (p, S0) => [...new Set(p.words.map(x => x.w).filter(w => S0.has(w)))].sort().join(',');
+// v0.4.2: the enemy Bname reads only the person names (the multiset of names in order of the slots)
+const nameKey = p => (p.names || []).join('+');
 const decoyT = p => firstWordType(p) || '-';
 const nskeys = p => [`${p.sc}|${p.nums.length}|${decoyT(p)}|${oset(p)}`, `${p.sc}|${decoyT(p)}|${oset(p)}`, `${decoyT(p)}|${oset(p)}`, `${oset(p)}`];
 function nspost(tb, p) { const ks = nskeys(p); for (let i = 0; i < ks.length; i++) { const v = tb.ns[i].vec(ks[i], p.opts); if (v) return v; } return p.opts.map(() => 1); }
@@ -54,7 +56,7 @@ function train(tb, set) {
     if (p.fmt === 'F1') {
       tb.n.add(String(p.nums.length), p.t); tb.w.add(`${wset(p)}|${p.sc}`, p.t); tb.o.add(oset(p), p.t);
       f1keys(p).forEach((k, i) => tb.full[i].add(k, p.t));
-      nskeys(p).forEach((k, i) => tb.ns[i].add(k, p.t)); tb.surf.add(`${wsub(p, SURF)}|${p.sc}`, p.t); tb.rel.add(`${wsub(p, REL)}|${p.sc.replace(/B[^4]/, 'Bx')}`, p.t);
+      nskeys(p).forEach((k, i) => tb.ns[i].add(k, p.t)); tb.nm.add(nameKey(p), p.t); tb.surf.add(`${wsub(p, SURF)}|${p.sc}`, p.t); tb.rel.add(`${wsub(p, REL)}|${p.sc.replace(/B[^4]/, 'Bx')}`, p.t);
     }
     if (p.fmt === 'F2') {
       const lab = featF2(p, p.opts[p.ans]);
@@ -95,6 +97,7 @@ const SOL = {
     B2surf: tb => p => { const v = tb.surf.vec(`${wsub(p, SURF)}|${p.sc}`, p.opts); return v ? argmaxRand(v) : rIdx(4); },
     R1lex: tb => p => { const v = tb.rel.vec(`${wsub(p, REL)}|${p.sc.replace(/B[^4]/, 'Bx')}`, p.opts); return v ? argmaxRand(v) : rIdx(4); },
     Bns: tb => p => argmaxRand(nspost(tb, p)),
+    Bname: tb => p => { const v = tb.nm.vec(nameKey(p), p.opts); return v ? argmaxRand(v) : rIdx(4); },
     Bkin: () => p => {
       const d = firstWordType(p); let c = p.opts.filter(t => G.SCENE_TYPES[p.sc].includes(t) || p.t === 'nr' && false);
       if (!c.length) c = p.opts.slice();
@@ -281,9 +284,14 @@ function run() {
         h.push(p);
       }
     }
+    // v0.4.2 (検証 39): every problem has a family name; P(type | family name) against the type marginal
+    const nmStat = {}; let famOK = 0, nNm = 0; const marg = {};
+    for (const p of pool) { if (!p.names) continue; nNm++; if (p.names.some(x => G.FAMILY.includes(x))) famOK++; marg[p.t] = (marg[p.t] || 0) + 1; for (const nmv of p.names) { nmStat[nmv] = nmStat[nmv] || {}; nmStat[nmv][p.t] = (nmStat[nmv][p.t] || 0) + 1; } }
+    let ratioLo = 9, ratioHi = 0; for (const nmv of G.FAMILY) { const e = nmStat[nmv] || {}; const tot = Object.values(e).reduce((a, b) => a + b, 0); for (const t of Object.keys(marg)) { if ((marg[t] / nNm) < 0.03) continue; const r = ((e[t] || 0) / tot) / (marg[t] / nNm); ratioLo = Math.min(ratioLo, r); ratioHi = Math.max(ratioHi, r); } }
+    const nameCheck = { famShare: nNm ? +(famOK / nNm).toFixed(3) : null, ratioLo: +ratioLo.toFixed(2), ratioHi: +ratioHi.toFixed(2) };
     // rule 6 check on this Lv's pool: P(table type | word)
-    const r6 = {};
-    for (const w of Object.keys(TABLE)) { const ps = pool.filter(p => p.words && p.words.some(x => x.w === w) && p.fmt !== 'F5' && p.fmt !== 'F6'); if (ps.length < 30) continue; r6[w] = +(ps.filter(p => p.t === TABLE[w]).length / ps.length).toFixed(2); }
+    const r6 = {}; const r6n = {};
+    for (const w of Object.keys(TABLE)) { const ps = pool.filter(p => p.words && p.words.some(x => x.w === w) && p.fmt !== 'F5' && p.fmt !== 'F6'); if (ps.length < 30) continue; r6[w] = +(ps.filter(p => p.t === TABLE[w]).length / ps.length).toFixed(2); r6n[w] = ps.length; }
     const res = {};
     for (const k of Object.keys(acc)) res[k] = +(acc[k][0] / acc[k][1]).toFixed(3);
     // composites
@@ -299,7 +307,7 @@ function run() {
     out.lv[lv] = {
       acc: res, cntF, bestA, bestAB, bestABL, compA: +(cA / tot).toFixed(3), compAB: +(cAB / tot).toFixed(3), compABL: +(cABL / tot).toFixed(3), rule6: r6,
       sig: { n: sig.n, uniq8: sig.n ? +(sig.uniq8 / sig.n).toFixed(3) : null, uniqOpt: sig.n ? +(sig.uniqOpt / sig.n).toFixed(3) : null, uniqStrict: sig.n ? +(sig.uniqStrict / sig.n).toFixed(3) : null, broken: sig.broken, fail: Object.fromEntries(Object.entries(sig.fail).sort((a, b) => b[1] - a[1]).slice(0, 12)) },
-      errTypes: mc, variants: vc, fixedShareF2: (S.BAL['F2:' + lv] || {}).fixedShare, f3nonKeyCue: val.f3cue[1] ? +(val.f3cue[0] / val.f3cue[1]).toFixed(3) : null, q5share: +(val.q5 / Math.max(1, val.npool)).toFixed(3), f2share2x2: val.f2n ? +(val.g2 / val.f2n).toFixed(3) : null, f2swap: val.f2n ? +(val.swap / val.f2n).toFixed(3) : null,
+      nameCheck, rule6n: r6n, errTypes: mc, variants: vc, fixedShareF2: (S.BAL['F2:' + lv] || {}).fixedShare, f3nonKeyCue: val.f3cue[1] ? +(val.f3cue[0] / val.f3cue[1]).toFixed(3) : null, q5share: +(val.q5 / Math.max(1, val.npool)).toFixed(3), f2share2x2: val.f2n ? +(val.g2 / val.f2n).toFixed(3) : null, f2swap: val.f2n ? +(val.swap / val.f2n).toFixed(3) : null,
       val: { ansPos4: val.pos.map(x => +(x / Math.max(1, val.posN)).toFixed(3)), f2max: val.f2max.c[1] ? [+(val.f2max.c[0] / val.f2max.c[1]).toFixed(2), +(val.f2max.w[0] / val.f2max.w[1]).toFixed(2)] : null, f2first2: val.f2f2.c[1] ? [+(val.f2f2.c[0] / val.f2f2.c[1]).toFixed(2), +(val.f2f2.w[0] / val.f2f2.w[1]).toFixed(2)] : null, f3keyRole: val.f3role, pairCPshare: val.pairN ? +(val.pairCP / val.pairN).toFixed(2) : null },
     };
     process.stderr.write(`lv${lv} compA=${out.lv[lv].compA} compAB=${out.lv[lv].compAB} compABL=${out.lv[lv].compABL}\n`);

@@ -145,11 +145,15 @@ function makeF1(lv, opts = {}) {
   }
   return null;
 }
+// V042: person names. A skeleton whose text names two people (兄、姉、父) has two name slots, the others one.
+// One slot, uniformly chosen, gets a family name, the other a name from the pool (付表 B の人名の差し込み).
+const FAMILY = ['さいと', 'ゆうと', 'しょうた', 'ゆきこ'], NAME_POOL = ['はな', 'あおい'];
+function names(id) { const two = /兄|姉|父/.test(SK[id].s1 + SK[id].s2); const f = pick(FAMILY); if (!two) return [f]; const o = pick(NAME_POOL); return R() < 0.5 ? [f, o] : [o, f]; }
 function mkProb(fmt, lv, id, scene, ans, options, ws, n, pair) {
   const wset = ws.map(x => x.w);
   const first = ws.length ? TABLE[ws[0].w] : 'none';
   const ns = NON_SIG.filter(w => wset.includes(w)).join('+');
-  return { fmt, lv, id, scene, ans, options: options ? options.slice().sort() : null, words: wset, first, n, pair,
+  return { fmt, lv, id, scene, ans, names: names(id), options: options ? options.slice().sort() : null, words: wset, first, n, pair,
     key1: `${scene}|${n}|${first}|${options ? options.slice().sort().join(',') : ''}`, key2: `${ns}|${scene}` };
 }
 
@@ -345,5 +349,5 @@ const TEXT_FAMILIES = [
   { key: () => 'all', ans: c => c.ans },
 ];
 
-module.exports = { SCENE_TYPES, R: () => R(), setSeed, ri, pick, shuffle, SK, SK_IDS, TYPES, GA, GB, TABLE, NON_SIG, WIDS, SCENE_TYPICAL, POOL,
+module.exports = { FAMILY, SCENE_TYPES, R: () => R(), setSeed, ri, pick, shuffle, SK, SK_IDS, TYPES, GA, GB, TABLE, NON_SIG, WIDS, SCENE_TYPICAL, POOL,
   makeF1, makeTextProb, buildF2, balance, sampler, F1_FAMILIES, TEXT_FAMILIES, mkProb, realize, wordsAt, countNums };

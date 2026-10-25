@@ -145,9 +145,20 @@ function inst(skid, lv = 5, force = {}) {
     words: [], qwords: ws[2].map(w => ({ w, s: 2, o: 2.5, role: 'q' })), sent: ord.map(o => o.map(k => (k[0] === '#' ? +k.slice(1) : v[k]))),
     seq, nums, correct: sk.hand(v), errs: sk.err(v), forbF: sk.forb(v), q: sk.qOf ? sk.qOf(v) : sk.q, tok: sigTok(sk, v) };
   if (skid === 'nr:B4a') p.q = rnd() < 1 / 3 ? 'Q5' : 'Q4';
+  p.names = drawNames(skid);
   ws[0].forEach((w, i) => p.words.push({ w, s: 0, o: 0.1 + 0.2 * i, role: 'main' }));
   ws[1].forEach((w, i) => p.words.push({ w, s: 1, o: 1.1 + 0.2 * i, role: 'main' }));
   return p;
+}
+// v0.4.2 person names (付表 B の人名の差し込み): 2-person skeletons get {P1} and {P2}, the others {P1}.
+// One slot, chosen uniformly, gets a family name; the other slot gets a name from the pool. Independent of type.
+const FAMILY = ['さいと', 'ゆうと', 'しょうた', 'ゆきこ'];
+const NAME_POOL = ['はな', 'あおい'];
+const TWO_PERSON = ['ws:B3', 'ws:B4', 'ws:B7', 'bp:B3', 'bp:B4', 'bp:B7', 'nr:B4a', 'nr:B4b', 'br:B3w', 'br:B3d', 'br:B7w', 'br:B7d', 'hk:B4'];
+function drawNames(skid) {
+  const n = TWO_PERSON.includes(skid) ? 2 : 1; const fam = pick(FAMILY);
+  if (n === 1) return [fam];
+  const other = pick(NAME_POOL); return rnd() < 0.5 ? [fam, other] : [other, fam];
 }
 // signature tokens for the signature reader (検証 37)
 function sigTok(sk, v) {
@@ -286,4 +297,4 @@ function buildF2Options(p) {
   return false;
 }
 
-module.exports = { setSeed, rnd, ri, pick, shuffle, TYPES, GA, GB, KIN, isKin, kinOf, TABLE, STRENGTH, SCENE_TYPES, SCENE_TYPICAL, DECO, NUMW, SK, SKEL, inst, attachDeco, addDeco, decoCands, fitCount, wordsInOrder, tableWordSet, showQuestion, sceneAllowed, buildF1OptionsS, labelF1, buildF2Options, look, TSHAPE, tkey, excluded, F, OPS };
+module.exports = { FAMILY, NAME_POOL, TWO_PERSON, drawNames, setSeed, rnd, ri, pick, shuffle, TYPES, GA, GB, KIN, isKin, kinOf, TABLE, STRENGTH, SCENE_TYPES, SCENE_TYPICAL, DECO, NUMW, SK, SKEL, inst, attachDeco, addDeco, decoCands, fitCount, wordsInOrder, tableWordSet, showQuestion, sceneAllowed, buildF1OptionsS, labelF1, buildF2Options, look, TSHAPE, tkey, excluded, F, OPS };

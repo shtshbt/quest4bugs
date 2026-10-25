@@ -116,6 +116,8 @@ function measureLv(lv) {
   const STR = ['W10', 'W8', 'W1', 'W2', 'W4', 'W11', 'W12', 'W7', 'W6', 'W9', 'W3', 'W5'];
   const tN = new Map(), tO = new Map(), tK = [new Map(), new Map(), new Map(), new Map()];
   const nsKeys = p => { const o = p.options.join(','); return [p.key1, `${p.scene}|${p.first}|${o}`, `${p.first}|${o}`, o]; };
+  const tNm = new Map(); let bname = 0;
+  train.flat().filter(p => p.fmt === 'F1').forEach(p => { inc(tNm, p.names.join('+'), p.ans); });
   train.flat().filter(p => p.fmt === 'F1').forEach(p => { inc(tN, String(p.n), p.ans); inc(tO, p.options.join(','), p.ans); nsKeys(p).forEach((k, i) => inc(tK[i], k, p.ans)); });
   for (const p of test.flat().filter(p => p.fmt === 'F1')) {
     n++;
@@ -126,6 +128,7 @@ function measureLv(lv) {
     const f = p.first !== 'none' && p.options.includes(p.first) ? p.first : G.pick(p.options); a2 += f === p.ans;
     const t = G.SCENE_TYPICAL[p.scene]; a4 += (p.options.includes(t) ? t : G.pick(p.options)) === p.ans;
     const sw = STR.find(w => p.words.includes(w)); const st = sw ? (sw === 'W7' ? 'bp' : G.TABLE[sw]) : null; a3 += (st && p.options.includes(st) ? st : G.pick(p.options)) === p.ans;
+    bname += argmax(tNm.get(p.names.join('+')), p.options) === p.ans;
     b1 += argmax(tN.get(String(p.n)), p.options) === p.ans; bopt += argmax(tO.get(p.options.join(',')), p.options) === p.ans;
     const ks = nsKeys(p); let cn = null; for (let i = 0; i < 4; i++) { const e = tK[i].get(ks[i]); if (e && Object.values(e).reduce((a, b) => a + b, 0) >= 3) { cn = e; break; } } bns += argmax(cn, p.options) === p.ans;
   }
@@ -136,7 +139,10 @@ function measureLv(lv) {
   for (const p of test.flat().filter(p => !p.pair)) for (const w of p.words) { wcn[w] = wcn[w] || [0, 0]; wcn[w][0]++; wcn[w][1] += p.ans === G.TABLE[w] ? 1 : 0; }
   const wrNoPair = Object.entries(wcn).filter(([, v]) => v[0] >= 50).map(([w, v]) => [w, +(v[1] / v[0]).toFixed(3), v[0]]).sort((a, b) => b[1] - a[1]).slice(0, 3);
   const wr = Object.entries(wc).filter(([, v]) => v[0] >= 50).map(([w, v]) => [w, v[1] / v[0], v[0]]).sort((a, b) => b[1] - a[1]);
-  return { lv, nF1: n, A3: a3 / n, B1: b1 / n, Bopt: bopt / n, Bns: bns / n, B2surf: b2 / n, B2surf_single: nsingle ? b2single / nsingle : null, B2surf_pair: npair ? b2pair / npair : null, A2: a2 / n, A4: a4 / n, wordMax: wr[0], wordTop3: wr.slice(0, 3).map(x => [x[0], +x[1].toFixed(3), x[2]]), wordNoPairTop3: wrNoPair, words: wr };
+  // V042 (検証 39): family name in every problem, P(type | family name) / P(type)
+  const all = test.flat(); const marg = {}; let fam = 0; all.forEach(p => { marg[p.ans] = (marg[p.ans] || 0) + 1; if (p.names.some(x => G.FAMILY.includes(x))) fam++; });
+  let lo = 9, hi = 0; for (const f of G.FAMILY) { const ps = all.filter(p => p.names.includes(f)); for (const t of Object.keys(marg)) { if (marg[t] / all.length < 0.03) continue; const r = (ps.filter(p => p.ans === t).length / ps.length) / (marg[t] / all.length); lo = Math.min(lo, r); hi = Math.max(hi, r); } }
+  return { lv, nF1: n, Bname: bname / n, famShare: fam / all.length, nameRatio: [+lo.toFixed(2), +hi.toFixed(2)], A3: a3 / n, B1: b1 / n, Bopt: bopt / n, Bns: bns / n, B2surf: b2 / n, B2surf_single: nsingle ? b2single / nsingle : null, B2surf_pair: npair ? b2pair / npair : null, A2: a2 / n, A4: a4 / n, wordMax: wr[0], wordTop3: wr.slice(0, 3).map(x => [x[0], +x[1].toFixed(3), x[2]]), wordNoPairTop3: wrNoPair, words: wr };
 }
 
 // ---------------- Lv1-2: Bshape on F2 with type names
