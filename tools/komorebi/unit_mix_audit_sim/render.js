@@ -71,10 +71,16 @@ function sheet(dg) {
     if (dg.raw) return `${num(s.vb)} と ${num(s.vs)} を そのまま くらべて、こたえ ${side(dg.value)}`;
     return `しき ${num(p.v)} ${dg.shownOp} ${num(dg.shownF)} = ${num(G.rd(G.opApply(p.v, dg.shownOp, dg.shownF)))}、こたえ ${side(dg.value)}`;
   }
-  if (dg.raw) return `しき ${s.pattern === 'speed_apply' && s.sa === 'kmph_min' ? `${s.v} × ${s.m}` : s.pattern === 'speed_apply' && s.sa.startsWith('mix') ? `${s.sa === 'mix_persec' ? s.v : s.a} + ${num(s.sa === 'mix_persec' ? s.b : s.v)}` : s.pattern === 'align_calc' ? `${num(s.vb)} ${s.plus ? '+' : '−'} ${s.s}` : num(s.raw)} = ${num(dg.value)}、こたえ ${num(dg.value)}`;
+  // v0.2.4 (4.9 の 1、U12): the answer carries its unit, and a second step is written as its own formula
+  const unitOf = q => (q.pattern === 'convert' ? (q.to === '秒速m' ? '(秒速 m)' : q.to === '分速m' ? '(分速 m)' : q.to === '時速km' ? '(時速 km)' : lab(q.to))
+    : q.pattern === 'align_calc' ? unitAskShort(q) : q.pattern === 'speed_apply' ? (q.sa === 'kmph_min' ? 'km' : q.sa === 'mpm_km' ? '分' : 'm') : '');
+  const u = unitOf(s);
+  if (dg.raw) return `しき ${s.pattern === 'speed_apply' && s.sa === 'kmph_min' ? `${s.v} × ${s.m}` : s.pattern === 'speed_apply' && s.sa === 'mpm_km' ? `${num(s.d)} ÷ ${s.v}` : s.pattern === 'speed_apply' && s.sa === 'sps_min' ? `${s.v} × ${s.m}` : s.pattern === 'speed_apply' && s.sa.startsWith('mix') ? `${s.sa === 'mix_persec' ? s.v : s.a} + ${num(s.sa === 'mix_persec' ? s.b : s.v)}` : s.pattern === 'align_calc' ? `${num(s.vb)} ${s.plus ? '+' : '−'} ${s.s}` : num(s.raw)} = ${num(dg.value)}、こたえ ${num(dg.value)}${u}`;
   const y = G.rd(G.opApply(p.v, dg.shownOp, dg.shownF));
-  const u = s.pattern === 'convert' ? (s.to === '秒速m' ? ' (秒速 m)' : s.to === '分速m' ? ' (分速 m)' : s.to === '時速km' ? ' (時速 km)' : lab(s.to)) : '';
-  const rest = G.rd(dg.value) === y ? '' : `、そのあと ${num(dg.value)}`;
+  let second = '';
+  if (s.pattern === 'align_calc') second = s.dir === 'up' ? `${num(s.vb)} ${s.plus ? '+' : '−'} ${num(y)}` : `${num(y)} ${s.plus ? '+' : '−'} ${num(s.s)}`;
+  else if (s.pattern === 'speed_apply') second = s.sa === 'kmph_min' || s.sa === 'sps_min' ? `${s.v} × ${num(y)}` : s.sa === 'mpm_km' ? `${num(y)} ÷ ${s.v}` : s.sa === 'mix_persec' ? `${num(y)} + ${num(s.b)}` : `${num(s.a)} + ${num(y)}`;
+  const rest = second && G.rd(dg.value) !== y ? `、そのあと ${second} = ${num(dg.value)}` : '';
   return `しき ${num(p.v)} ${dg.shownOp} ${num(dg.shownF)} = ${num(y)}${rest}、こたえ ${num(dg.value)}${u}`;
 }
 

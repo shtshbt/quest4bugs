@@ -46,6 +46,25 @@ const SPD_INT = [5, 10, 15, 20, 25];
 const DEC_DOWN = [0.5, 1.5, 2.5, 1.2, 0.8, 2.4, 0.25, 0.75, 3.5];
 const DEC_UP = [0.5, 1.5, 2.5, 1.2, 0.8, 0.25, 0.75, 3.5, 4.5];
 const FRAC = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [1, 6], [5, 6], [1, 10]];
+// v0.2.4: every value list that the generator draws from, by name. 9.2 章 of the curriculum lists the same names and
+// values, and check_tables.js compares the two (検証 34). Do not put a value list anywhere else.
+const M5 = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+const VALUES = {
+  B_INT, B_DEC, UP_SMALL_10: UP_SMALL[10], UP_SMALL_100: UP_SMALL[100], UP_SMALL_60: UP_SMALL[60],
+  SPD_R16: SPD_B, SPD_R17: SPD_INT, FRAC_HOURS: FRAC.map(f => f[0] + '/' + f[1]),
+  TEXP_HOURS: [0.5, 1.5, 2.5, 1.2, 0.8, 2.4, 0.25, 0.75, 3.5, 1.25, 4.5, 0.1, 0.15], TEXP_COMP_H: [1, 2, 3], TEXP_COMP_M: M5,
+  COMP_TIME_HI: [1, 2, 3, 12, 15], COMP_TIME_LO: M5, COMP_C3_HI: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 15], COMP_C3_LO: [3, 5, 8, 15, 25, 40, 75], COMP_C3_SHORT: [3, 5, 8],
+  COMP_C45_HI: [1, 2, 3, 4, 5, 12, 15], COMP_C45_LO: [50, 80, 250, 400, 600], COMP_C45_SHORT: [50, 80],
+  ALIGN_TIME_BIG: [0.5, 1.5, 2.5, 1.2, 0.8, 2.4, 0.25, 0.75, 3.5, 1.25, 4.5], ALIGN_TIME_S_DOWN: M5, ALIGN_TIME_S_UP: [15, 30, 45, 6, 9], ALIGN_K: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  SA_KMPH_V: [12, 15, 18, 24, 30, 36, 42, 48, 54, 60], SA_KMPH_T_BIG: [10, 15, 20, 25, 30, 35, 40, 45, 50], SA_KMPH_T_SMALL: [3, 5, 6],
+  SA_MPM_V: [50, 60, 75, 80, 100, 120, 150], SA_MPM_D_BIG: [10, 12, 15, 18, 20],
+  SA_MPM_D_SMALL: [0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3],
+  SA_SPS_V: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], SA_SPS_T_BIG: [10, 15, 20], SA_SPS_T_SMALL: [1, 2, 3, 4, 5],
+  SA_MIX_A: [60, 90, 120, 150, 180, 240], SA_MIX_B: [10, 12, 15, 20, 25],
+  LV4_CP1_DOWN: B_DEC, LV4_CP1_UP: [90, 45, 15, 30, 72, 75, 150, 270, 6, 9], LV5_CP1_HI: [1, 2, 3, 12, 15], LV5_CP1_LO_C3: [5, 15, 25, 40], LV5_CP1_LO_C45: [50],
+  LV8_N: [18, 36, 54, 72, 90, 180], CP2_GIVEN: [...B_INT, 30, 50, 60, 90, 300, 500, 600],
+};
+const V = VALUES;
 const kdOf = d => (DEC_DOMAINS.includes(d) ? 'dec' : d);
 const opApply = (v, op, f) => (op === '×' ? v * f : v / f);
 const rev = op => (op === '×' ? '÷' : '×');
@@ -69,7 +88,8 @@ const LABELS6 = [...LABELS4, 'not_aligned'];
 function convQ(r, dir, gv, form, frac) {
   const ans = rd(dir === 'down' ? gv * r.f : gv / r.f);
   if (!validNum(gv) || !validNum(ans)) return null;
-  if (form === 'int' && !isInt(gv)) return null;
+  // v0.2.4 (3.5、U10): int and dec are decided by the quantity on the big-unit side (秒速 for speed)
+  if (form === 'int' || form === 'dec') { const big = dir === 'down' ? gv : ans; if ((form === 'int') !== isInt(big)) return null; }
   return { pattern: 'convert', kind: 'num_unit', domain: r.domain, dir, form, rel: r.id, f: r.f, gv, frac,
     from: dir === 'down' ? r.big : r.small, to: dir === 'down' ? r.small : r.big, ans, raw: gv,
     paths: [{ v: gv, f: r.f, op: dir === 'down' ? '×' : '÷', kd: kdOf(r.domain), relId: r.id, asm: x => x }] };
@@ -120,6 +140,7 @@ function makeRateSelect(R, o) {
     const vv = valueFor(R, r, dir, form, band); if (!vv) continue; const { gv } = vv;
     const ansV = rd(dir === 'down' ? gv * r.f : gv / r.f);
     if (!validNum(gv) || !validNum(ansV)) continue;
+    if ((form === 'int') !== isInt(dir === 'down' ? gv : ansV)) continue; // v0.2.4 (3.5、U10)
     const g = pick(R, gCands(r));
     const opts = shuffle(R, [{ op: '×', n: r.f }, { op: '÷', n: r.f }, { op: '×', n: g }, { op: '÷', n: g }]);
     const op = dir === 'down' ? '×' : '÷';
@@ -140,7 +161,7 @@ function makeTimeExpress(R, form) {
   for (let t = 0; t < 500; t++) {
     let X, opts;
     if (form === 'comp') {
-      const h = pick(R, [1, 2, 3]); const m = pick(R, [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]); X = 60 * h + m;
+      const h = pick(R, V.TEXP_COMP_H); const m = pick(R, V.TEXP_COMP_M); X = 60 * h + m;
       if (X < 100) continue;
       let m2 = R() < 0.5 ? m + 10 : m - 10; if (m2 < 0 || m2 >= 60) m2 = m2 < 0 ? m + 10 : m - 10;
       opts = [{ t: 'correct', h, m }, { t: 'sixty', h: Math.floor(X / 100), m: X % 100 }, { t: 'calc', h, m: m2 },
@@ -148,7 +169,7 @@ function makeTimeExpress(R, form) {
       const keys = opts.map(o => o.h + ':' + o.m); if (new Set(keys).size < 4) continue;
     } else {
       let v;
-      if (form === 'frac') { const fr = pick(R, FRAC); v = fr[0] / fr[1]; } else v = pick(R, [...B_DEC.filter(x => x < 10), 0.1, 0.15]);
+      if (form === 'frac') { const fr = pick(R, FRAC); v = fr[0] / fr[1]; } else v = pick(R, V.TEXP_HOURS);
       X = rd(60 * v); if (!isInt(X)) continue;
       // v0.2 (4.8): the calc option is v + 0.5, v - 0.5, v x 10 or v / 10, chosen at random among valid ones.
       // v0.2.1 (C5): the step error is built from the minutes (X / 6 or X / 600), not from the correct option; frac drops X / 600
@@ -166,9 +187,9 @@ function makeTimeExpress(R, form) {
   throw new Error('texp');
 }
 const CPAIRS = { C1: ['time', '時間', '分', 60], C2: ['time', '分', '秒', 60], C3: ['length', 'm', 'cm', 100], C4: ['length', 'km', 'm', 1000], C5: ['weight', 'kg', 'g', 1000] };
-const COMP_VALS = { time: { hi: [1, 2, 3, 12, 15], lo: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], small: [5] },
-  C3: { hi: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 15], lo: [3, 5, 8, 15, 25, 40, 75], small: [3, 5, 8] },
-  C45: { hi: [1, 2, 3, 4, 5, 12, 15], lo: [50, 80, 250, 400, 600], small: [50, 80] } };
+const COMP_VALS = { time: { hi: V.COMP_TIME_HI, lo: V.COMP_TIME_LO },
+  C3: { hi: V.COMP_C3_HI, lo: V.COMP_C3_LO, small: V.COMP_C3_SHORT },
+  C45: { hi: V.COMP_C45_HI, lo: V.COMP_C45_LO, small: V.COMP_C45_SHORT } };
 function concatNum(hi, lo) { return Number(String(hi) + String(lo)); }
 function compoundQ(c, hi, lo) {
   const [domain, uh, ul, f] = CPAIRS[c];
@@ -193,8 +214,8 @@ function makeCompare(R, o) {
     const r = pick(R, pool);
     let form = Array.isArray(o.form) ? pick(R, o.form) : o.form;
     let vb;
-    if (domain === 'speed') { vb = pick(R, [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]); form = 'int'; } // AMB: speed compare has no dec values
-    else vb = pick(R, form === 'int' ? B_INT : B_DEC);
+    if (domain === 'speed') throw new Error('compare: speed is not a compare domain (v0.2.4)');
+    vb = pick(R, form === 'int' ? B_INT : B_DEC);
     if (vb < 10) continue; // v0.2.3: the number to convert is 10 or more in both directions, so the band says nothing about the direction
     const conv = rd(vb * r.f);
     const concl = concl0;
@@ -234,15 +255,15 @@ function makeAlign(R, o) {
     const plus = R() < 0.5;
     if (adir === 'up') { // v0.2.1: the answer is asked in the bigger unit, so the small-unit addend goes up
       let r, f, vb, s, kd, cpair = null;
-      if (domain === 'time') { cpair = pick(R, ['C1', 'C2']); f = 60; vb = pick(R, B_DEC.filter(x => x < 10)); s = pick(R, [15, 30, 45, 6, 9]); kd = 'time'; }
-      else { r = pick(R, POOL1.filter(x => x.domain === domain)); f = r.f; vb = pick(R, R() < 0.5 ? B_INT : B_DEC); s = rd(pick(R, [1, 2, 3, 4, 5, 6, 7, 8, 9]) * Math.max(1, f / 10)); kd = 'dec'; }
+      if (domain === 'time') { cpair = pick(R, ['C1', 'C2']); f = 60; vb = pick(R, V.ALIGN_TIME_BIG); s = pick(R, V.ALIGN_TIME_S_UP); kd = 'time'; }
+      else { r = pick(R, POOL1.filter(x => x.domain === domain)); f = r.f; vb = pick(R, R() < 0.5 ? B_INT : B_DEC); s = rd(pick(R, V.ALIGN_K) * Math.max(1, f / 10)); kd = 'dec'; }
       const ans = rd(vb + (plus ? 1 : -1) * s / f); if (!validNum(ans) || !validNum(s) || !okBand(s)) continue;
       return { pattern: 'align_calc', kind: 'num_unit', domain, dir: 'up', form: isInt(vb) ? 'int' : 'dec', rel: r ? r.id : null, f, vb, s, plus, ans, cpair,
         raw: rd(vb + (plus ? s : -s)), gv: s, paths: [{ v: s, f, op: '÷', kd, relId: r ? r.id : null, asm: x => vb + (plus ? x : -x) }] };
     }
     if (domain === 'time') {
       const c = pick(R, ['C1', 'C2']); const form = 'dec'; // v0.2: time align is dec only (4.11)
-      const s = pick(R, [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]);
+      const s = pick(R, V.ALIGN_TIME_S_DOWN);
       if (form === 'comp') {
         const hi = pick(R, [1, 2, 3]), lo = pick(R, COMP_VALS.time.lo);
         const ans = 60 * hi + lo + (plus ? s : -s); if (ans <= 0) continue;
@@ -250,7 +271,7 @@ function makeAlign(R, o) {
           raw: concatNum(hi, lo) + (plus ? s : -s), gv: hi, cpair: c,
           paths: [{ v: hi, f: 60, op: '×', kd: 'time', comp: true, asm: x => x + lo + (plus ? s : -s) }] };
       }
-      const vb = pick(R, B_DEC.filter(x => x < 10)); const ans = rd(60 * vb + (plus ? s : -s)); if (ans <= 0 || !okBand(vb)) continue;
+      const vb = pick(R, V.ALIGN_TIME_BIG); const ans = rd(60 * vb + (plus ? s : -s)); if (ans <= 0 || !okBand(vb)) continue;
       return { pattern: 'align_calc', kind: 'num_unit', domain, dir: 'down', form, f: 60, vb, s, plus, ans, raw: rd(vb + (plus ? s : -s)), gv: vb, cpair: c,
         paths: [{ v: vb, f: 60, op: '×', kd: 'time', asm: x => x + (plus ? s : -s) }] };
     }
@@ -258,7 +279,7 @@ function makeAlign(R, o) {
     const form = pick(R, ['int', 'dec']);
     const vb = form === 'int' ? pick(R, B_INT) : pick(R, B_DEC); if (!okBand(vb)) continue;
     // AMB: small-unit addend values are not specified; use k * f/10 (k 1..9).
-    const s = rd(pick(R, [1, 2, 3, 4, 5, 6, 7, 8, 9]) * Math.max(1, r.f / 10));
+    const s = rd(pick(R, V.ALIGN_K) * Math.max(1, r.f / 10));
     const ans = rd(vb * r.f + (plus ? s : -s)); if (!validNum(ans)) continue;
     return { pattern: 'align_calc', kind: 'num_unit', domain, dir: 'down', form, rel: r.id, f: r.f, vb, s, plus, ans,
       raw: rd(vb + (plus ? s : -s)), gv: vb,
@@ -268,31 +289,31 @@ function makeAlign(R, o) {
 }
 // v0.2.3: 'apply' plans the direction (up: kmph_min, down: sps_min or mpm_km) and the band of the number to convert,
 // and 'mix' plans the direction (up: 1 秒で, down: 1 分で), so both go into the mirror of the plan (4.13)
-function makeSpeedApply(R, type0) {
-  let type = type0, band = null;
+function makeSpeedApply(R, type0, bandIn) {
+  let type = type0, band = bandIn || null; // v0.2.4: a chain passes its planned band
   if (type0 === 'apply') { const d = planDir(R, ['down', 'up']); band = planBand(R); type = d === 'up' ? 'kmph_min' : pick(R, ['sps_min', 'mpm_km']); }
   if (type0 === 'mix') type = planDir(R, ['down', 'up']) === 'up' ? 'mix_persec' : 'mix_permin';
   for (let t = 0; t < 500; t++) {
     if (type === 'kmph_min') {
-      const v = pick(R, [12, 15, 18, 24, 30, 36, 42, 48, 54, 60]); const m = pick(R, band === 'small' ? [3, 5, 6] : [10, 15, 20, 25, 30, 35, 40, 45, 50]);
+      const v = pick(R, V.SA_KMPH_V); const m = pick(R, band === 'small' ? V.SA_KMPH_T_SMALL : V.SA_KMPH_T_BIG);
       const ans = rd(v * m / 60); if (!isInt(ans * 10)) continue;
       return { pattern: 'speed_apply', sa: type, kind: 'num_unit', domain: 'speed', dir: 'up', form: 'int', v, m, ans, raw: v * m, gv: m,
         paths: [{ v: m, f: 60, op: '÷', kd: 'time', asm: x => v * x }] };
     }
     if (type === 'mpm_km') {
-      const v = pick(R, [50, 60, 75, 80, 100, 120, 150]); const d = band === 'big' ? pick(R, [10, 12, 15, 18, 20]) : rd((6 + Math.floor(R() * 25)) / 10);
+      const v = pick(R, V.SA_MPM_V); const d = pick(R, band === 'big' ? V.SA_MPM_D_BIG : V.SA_MPM_D_SMALL);
       const ans = rd(d * 1000 / v); if (!isInt(ans)) continue;
       return { pattern: 'speed_apply', sa: type, kind: 'num_unit', domain: 'speed', dir: 'down', form: 'int', v, d, ans, raw: rd(d / v), gv: d,
         paths: [{ v: d, f: 1000, op: '×', kd: 'dec', asm: x => x / v }] };
     }
     if (type === 'sps_min') {
-      const v = 5 + Math.floor(R() * 21); const m = pick(R, band === 'big' ? [10, 15, 20] : [1, 2, 3, 4, 5]); const ans = v * 60 * m; if (!validNum(ans)) continue;
+      const v = pick(R, V.SA_SPS_V); const m = pick(R, band === 'big' ? V.SA_SPS_T_BIG : V.SA_SPS_T_SMALL); const ans = v * 60 * m; if (!validNum(ans)) continue;
       return { pattern: 'speed_apply', sa: type, kind: 'num_unit', domain: 'speed', dir: 'down', form: 'int', v, m, ans, raw: v * m, gv: m,
         paths: [{ v: m, f: 60, op: '×', kd: 'time', asm: x => v * x }] };
     }
     // v0.2: mix_persec. "分速 a m と 秒速 b m。1 秒で 進む 道のりの 合計は 何 m" (up, a / 60 + b) or
     // "1 分で 進む 道のりの 合計" (down, a + 60 b). Every route needs a speed conversion; no time is given.
-    const a = pick(R, [60, 90, 120, 150, 180, 240]); const b = pick(R, [10, 12, 15, 20, 25]); // v0.2.3: 秒速 is 10 m or more, so both directions convert a number of 10 or more // v0.2.1: 秒速 10 m 以上も入れる (帯と向きの独立)
+    const a = pick(R, V.SA_MIX_A); const b = pick(R, V.SA_MIX_B); // v0.2.3: 秒速 is 10 m or more, so both directions convert a number of 10 or more // v0.2.1: 秒速 10 m 以上も入れる (帯と向きの独立)
     const perSec = type === 'mix_persec' ? true : type === 'mix_permin' ? false : R() < 0.5;
     if (perSec) { const ans = rd(a / 60 + b); if (!validNum(ans)) continue;
       return { pattern: 'speed_apply', sa: 'mix_persec', kind: 'num_unit', domain: 'speed', dir: 'up', form: isInt(a / 60) ? 'int' : 'dec', v: a, b, ans, raw: rd(a + b), gv: a,
@@ -326,6 +347,7 @@ function errorCandidates(q) {
   } else if (P === 'compare') {
     c.push('not_aligned'); if (kd === 'dec') c.push('steps'); if ((kd === 'time' && !isInt(q.vb)) || q.rel === 'R16') c.push('sixty');
   } else if (P === 'align_calc') {
+    c.push('direction'); // v0.2.4 (U26): the reverse operation on the converted quantity
     if (kd === 'dec') c.push('steps'); if (kd === 'time') c.push('sixty');
     if (!(kd === 'time' && q.form === 'comp')) c.push('not_aligned');
   } else if (P === 'speed_apply') {
@@ -371,4 +393,4 @@ function makeDiagnosis(R, src, labels) {
 
 module.exports = { PLAN, planDir, planPick, planBand, B_INT, B_DEC, UP_SMALL, rng, pick, shuffle, rd, eq, isInt, validNum, REL1, REL2, POOL1, DEC_DOMAINS, DOM5, INT_DOWN, SPD_INT, DEC_DOWN, DEC_UP, FRAC,
   LABELS4, LABELS6, kdOf, opApply, rev, convQ, makeConvert, makeRateSelect, makeRecall, makeTimeExpress, makeCompound, compoundQ,
-  makeCompare, makeAlign, makeSpeedApply, makeDiagnosis, conclOf, cmpConcl, errorCandidates, CPAIRS, COMP_VALS, sixtyF, isTimeNonIntSrc };
+  makeCompare, makeAlign, makeSpeedApply, makeDiagnosis, conclOf, cmpConcl, errorCandidates, CPAIRS, COMP_VALS, VALUES, sixtyF, isTimeNonIntSrc };

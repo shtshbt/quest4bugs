@@ -14,9 +14,17 @@ function is60(q0) {
 }
 function isUp(q0) { const q = base(q0); return q.dir === 'up'; }
 // v0.2 (4.2 の 5): no two items of a set ask about the same quantity (same given and same unit)
-function qkey(q0) { const q = base(q0); if (q.pattern === 'time_express') return 'min|' + q.X; if (q.pattern === 'compare') return q.bigU + '|' + q.vb; return (q.from || q.domain) + '|' + q.gv; }
+// v0.2.4 (4.2 の 5): compare and align_calc count both of their quantities (U12)
+function qkeys(q0) {
+  const q = base(q0);
+  if (q.pattern === 'time_express') return ['分|' + q.X];
+  if (q.pattern === 'compare') return [q.bigU + '|' + q.vb, q.smallU + '|' + q.vs];
+  if (q.pattern === 'align_calc') { const [bu, su] = q.domain === 'time' ? CPAIRS_U[q.cpair] : [G.REL1.find(r => r.id === q.rel).big, G.REL1.find(r => r.id === q.rel).small]; return [bu + '|' + q.vb, su + '|' + q.s]; }
+  return [(q.from || q.domain) + '|' + q.gv];
+}
+const CPAIRS_U = { C1: ['時間', '分'], C2: ['分', '秒'] };
 function pidOK(set) { const c = {}; for (const q of set) { const p = pidOf(q); c[p] = (c[p] || 0) + 1; if (c[p] > 2) return false; }
-  const ks = set.filter(q => q.pattern !== 'recall').map(qkey); return new Set(ks).size === ks.length; }
+  const ks = set.filter(q => q.pattern !== 'recall').flatMap(qkeys); return new Set(ks).size === ks.length; }
 const domains = set => new Set(set.map(q => base(q).domain));
 function flatten(R, blocks) { return shuffle(R, blocks).flat(); }
 
@@ -27,22 +35,26 @@ function chainOf(R, src) {
   // the chain normal takes the reverse direction, so that carrying over the previous operation does not pay (A4)
   const sameF = (src.pattern === 'convert' || src.pattern === 'align_calc') && G.POOL1.filter(x => x.domain === src.domain).every(x => G.eq(x.f, src.f));
   const s2 = sameF ? Object.assign({}, src, { dir: src.dir === 'down' ? 'up' : 'down' }) : src;
+  // v0.2.4 (4.5 の 3): the chain band is planned once. Before, every retry below drew a new band, so the chain took
+  // whichever band worked for its direction and the band and direction of chains were correlated (E7 Lv7 0.18)
+  const cb = G.planBand(R);
   for (let t = 0; t < 300; t++) {
-    const q = regen(R, s2);
+    const q = regen(R, s2, cb);
     if (!q || pidOf(q) !== pidOf(s2)) continue;
-    const sameRel = (q.rel && q.rel === src.rel) || (q.sa && q.sa === src.sa && q.pattern === 'speed_apply' && false);
+    const relOf = x => x.rel || x.cpair || null; // v0.2.4 (U11): time align_calc uses the pair (C1 or C2) as its relation
+    const sameRel = relOf(q) !== null && relOf(q) === relOf(src);
     if (!sameRel) return q;
     fallback = fallback || q;
   }
   if (fallback) return fallback;
   throw new Error('chain');
 }
-function regen(R, s) {
+function regen(R, s, band) {
   switch (s.pattern) {
-    case 'convert': return G.makeConvert(R, { domains: [s.domain], dir: s.dir, form: s.form, steps: s.steps });
+    case 'convert': return G.makeConvert(R, { domains: [s.domain], dir: s.dir, form: s.form, steps: s.steps, _band: band });
     case 'compare': return G.makeCompare(R, { domains: [s.domain], form: s.form, _dir: s.dir }); // v0.2.3: compare has a direction
-    case 'align_calc': return G.makeAlign(R, { domains: [s.domain], dir: s.dir });
-    case 'speed_apply': return G.makeSpeedApply(R, s.sa);
+    case 'align_calc': return G.makeAlign(R, { domains: [s.domain], dir: s.dir, _band: band });
+    case 'speed_apply': return G.makeSpeedApply(R, s.sa, band);
   }
 }
 
@@ -77,7 +89,7 @@ function lv3(R) {
   const variant = G.planDir(R, ['rev', 'same']);
   const pool = G.POOL1.filter(x => DOM5.includes(x.domain) && (variant === 'rev' || G.POOL1.some(y => y.domain === x.domain && !G.eq(y.f, x.f))));
   const r = pick(R, pool);
-  const k = pick(R, [...G.B_INT, 30, 50, 60, 90, 300, 500, 600]);
+  const k = pick(R, G.VALUES.CP2_GIVEN);
   const d1 = G.planDir(R, ['down', 'up']);
   const first = G.convQ(r, d1, k, isInt(d1 === 'down' ? k : k / r.f) ? 'int' : 'dec');
   let second;
@@ -97,7 +109,10 @@ function ok3(set) {
 // v0.2 Lv4: the diagnosis source and its chain are up items.
 function lv4(R) {
   const pd = G.planDir(R, ['down', 'up']);
-  const v = pd === 'down' ? pick(R, G.B_DEC) : pick(R, [90, 45, 15, 30, 72, 75, 150, 270, 6, 9]); // v0.2.1: the CP1 pair goes up or down
+  // v0.2.4: the band of the CP1 pair is planned too. Before, the up list was mostly 10 or more and the down list mostly under 10,
+  // so the band of the pair told its direction (E7 Lv4 0.19)
+  const cpBand = G.planBand(R); const inB = x => (cpBand === 'big' ? x >= 10 : x < 10);
+  const v = pick(R, (pd === 'down' ? G.VALUES.LV4_CP1_DOWN : G.VALUES.LV4_CP1_UP).filter(inB)); // v0.2.1: the CP1 pair goes up or down
   const t = G.makeConvert(R, { domains: ['time'], dir: pd, form: 'dec', gv: v });
   const d = G.makeConvert(R, { domains: DEC_DOMAINS, dir: pd, form: 'dec', gv: v });
   const pair = shuffle(R, [t, d]); pair[1].pairWithPrev = true;
@@ -109,8 +124,8 @@ function lv4(R) {
 }
 function lv5(R) {
   const partner = pick(R, ['C3', 'C4', 'C5']); const tc = pick(R, ['C1', 'C2']);
-  const hi = pick(R, [1, 2, 3, 12, 15]); // v0.2: the upper part is 10 or more in part of the pairs
-  const lo = partner === 'C3' ? pick(R, [5, 15, 25, 40]) : 50;
+  const hi = pick(R, G.VALUES.LV5_CP1_HI); // v0.2: the upper part is 10 or more in part of the pairs
+  const lo = pick(R, partner === 'C3' ? G.VALUES.LV5_CP1_LO_C3 : G.VALUES.LV5_CP1_LO_C45);
   const pair = shuffle(R, [G.compoundQ(tc, hi, lo), G.compoundQ(partner, hi, lo)]); pair[1].pairWithPrev = true;
   const te = G.makeTimeExpress(R, 'comp');
   const cv = G.makeConvert(R, { domains: DOM5, dir: ['down', 'up'], form: ['int', 'dec'], steps: 2 });
@@ -147,7 +162,7 @@ function lv7(R) {
 function lv8(R) {
   // v0.2.1 (C6): the first item goes down (n分 は 何秒) or up (n秒 は 何分); the second is 分速 n m -> 秒速 or 時速 n km -> 秒速.
   // When the first goes up, the second is 時速 (分速 would repeat the same ÷60 and the same answer).
-  const n = pick(R, [18, 36, 54, 72, 90, 180]);
+  const n = pick(R, G.VALUES.LV8_N);
   const tdir = G.planDir(R, ['down', 'up']);
   const t = G.convQ(G.REL1.find(r => r.id === 'R14'), tdir, n, tdir === 'down' ? 'int' : 'dec');
   // v0.2.3: the second item always takes the direction opposite to the first, so the mirror flips both
@@ -171,11 +186,12 @@ function lv9(R) {
   const c1 = chainOf(R, src1); c1.chainOf = true;
   // v0.2.1 (C7): the domain of the second diagnosis is drawn in the plan, so the rejection does not keep picking time
   const dom2 = G.PLAN.doms && G.PLAN.doms.length ? G.PLAN.doms[0] : pick(R, DOM5);
-  const src2 = tc(R) ? G.makeConvert(R, { domains: [dom2], dir: ['down', 'up'], form: ['int', 'dec'] }) : G.makeAlign(R, { domains: [dom2], dir: ['down', 'up'] });
-  const d2 = G.makeDiagnosis(R, src2, G.LABELS6); if (!d2) return null;
-  const c2 = chainOf(R, src2); c2.chainOf = true;
+  // v0.2.4 (U24, 統括者の方針 (b)): Lv9 has one diagnosis. The second diagnosis and its chain become two direction items:
+  // a convert or align_calc of a 10 進 domain or time, and a speed convert
+  const x2 = tc(R) ? G.makeConvert(R, { domains: [dom2], dir: ['down', 'up'], form: ['int', 'dec'] }) : G.makeAlign(R, { domains: [dom2], dir: ['down', 'up'] });
+  const x3 = G.makeConvert(R, { domains: ['speed'], dir: ['down', 'up'], form: ['int', 'dec'] });
   const sa = G.makeSpeedApply(R, 'mix');
-  return flatten(R, [[d1, c1], [d2, c2], [sa]]);
+  return flatten(R, [[d1, c1], [x2], [x3], [sa]]);
 }
 function randomQ(R, type) {
   const DOM6 = [...DOM5, 'speed'];
@@ -194,7 +210,7 @@ function randomQ(R, type) {
 }
 function lv10(R) {
   const src = tc(R) ? (tc(R) ? G.makeConvert(R, { domains: ['speed'], dir: ['down', 'up'], form: ['int', 'dec'] }) : G.makeSpeedApply(R, tp(R, ['apply', 'apply', 'apply', 'mix'])))
-    : randomQ(R, tp(R, ['convert', 'compare', 'align_calc']));
+    : randomQ(R, tp(R, ['convert', 'align_calc'])); // v0.2.4 (U27): compare is not a diagnosis source
   const dg = G.makeDiagnosis(R, src, G.LABELS6); if (!dg) return null;
   const ch = chainOf(R, src); ch.chainOf = true;
   // v0.2 Lv10: one speed slot, one time slot, one free slot (5 章)
@@ -256,4 +272,4 @@ function buildSet(lv, R) {
   }
   throw new Error('buildSet fail lv' + lv);
 }
-module.exports = { buildSet, pidOf, base, is60, isUp, trapCount, TRAP_SCOPE, TRAP_NEED, needOf, STATS };
+module.exports = { BUILD, buildSet, pidOf, base, is60, isUp, trapCount, TRAP_SCOPE, TRAP_NEED, needOf, STATS };

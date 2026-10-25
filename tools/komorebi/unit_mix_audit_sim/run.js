@@ -22,7 +22,7 @@ function trainDir() {
   const tab = {};
   for (let lv = 1; lv <= 10; lv++) { const R = G.rng(9500 + lv);
     for (let i = 0; i < 300; i++) for (const q0 of S.buildSet(lv, R)) { const q = q0.pattern === 'diagnosis' ? q0.src : q0; if (!q.paths) continue;
-      const k = [lv, q.pattern, q.domain, q.paths[0].v >= 10 ? 'big' : 'small'].join('|'); tab[k] = tab[k] || { up: 0, down: 0 }; tab[k][q.paths[0].op === '÷' ? 'up' : 'down']++; } }
+      const k = [lv, (q0.pattern === 'diagnosis' ? 'diagnosis.' : '') + q.pattern, q.domain, q.paths[0].v >= 10 ? 'big' : 'small'].join('|'); tab[k] = tab[k] || { up: 0, down: 0 }; tab[k][q.paths[0].op === '÷' ? 'up' : 'down']++; } }
   return tab;
 }
 const dirTab = trainDir();
@@ -70,7 +70,8 @@ for (let lv = 1; lv <= 10; lv++) {
     const scores = sets.map((set, si) => set.reduce((a, q, qi) => a + res[best[keyOf(q)].k][si][qi], 0));
     return { best, scores };
   };
-  const windows = scores => { let p8 = 0, p4 = 0, n = 0; for (let i = 0; i + 1 < scores.length; i += 2) { const w = scores[i] + scores[i + 1]; n++; if (w >= 8) p8++; if (w <= 4) p4++; } return { p8: p8 / n, p4: p4 / n }; };
+  // v0.2.4 (10.2 章): a window is 2 consecutive sets (10 items), sliding by 1 set, as in the independent check
+  const windows = scores => { let p8 = 0, p4 = 0, n = 0; for (let i = 0; i + 1 < scores.length; i += 1) { const w = scores[i] + scores[i + 1]; n++; if (w >= 8) p8++; if (w <= 4) p4++; } return { p8: p8 / n, p4: p4 / n }; };
   const row = { lv, strat: {}, pats };
   STRATS.forEach((s, k) => {
     const scores = res[k].map(a => a.reduce((x, y) => x + y, 0));
@@ -95,7 +96,7 @@ for (let lv = 1; lv <= 10; lv++) {
     sets.forEach((set, si) => set.forEach((q, qi) => { const b = q.pattern === 'diagnosis' ? q.src : q; if (!FREE.includes(b.pattern) || q.pairWithPrev) return; n++; c7 += res[k7][si][qi]; cd += res[kd][si][qi]; c1 += res[k1][si][qi]; }));
     row.free = { n, E7: n ? c7 / n : null, M1d: n ? cd / n : null, M1: n ? c1 / n : null }; }
   // v0.2.3: windows of 10 items (2 sets) restricted to an item filter; p8 = the share of windows whose correct share is 0.8 or more
-  const winSub = (k, keep) => { let p8 = 0, n = 0, c = 0, m = 0; for (let i = 0; i + 1 < sets.length; i += 2) { let cc = 0, nn = 0;
+  const winSub = (k, keep) => { let p8 = 0, n = 0, c = 0, m = 0; for (let i = 0; i + 1 < sets.length; i += 1) { let cc = 0, nn = 0;
       for (const si of [i, i + 1]) sets[si].forEach((q, qi) => { if (!keep(q)) return; nn++; cc += Array.isArray(k) ? k[si][qi] : res[k][si][qi]; });
       if (!nn) continue; n++; if (cc / nn >= 0.8 - 1e-9) p8++; c += cc; m += nn; } return { n, p8: n ? p8 / n : null, acc: m ? c / m : null, perWin: n ? m / n : null }; };
   const FIXED = ['compound_in', 'time_express', 'recall']; // 3 章の (ii): the direction is part of the form of the item

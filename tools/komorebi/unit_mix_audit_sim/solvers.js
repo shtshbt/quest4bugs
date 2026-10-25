@@ -189,7 +189,7 @@ function B5(cDown, diagDefault, know60 = true, order = 'p10') {
       else if (p.kd === 'time' && q.shownF === 1000) l = 'other_domain';
       else if (p.kd === 'dec' && q.shownF === 60) l = 'other_domain';
       else {
-        const exp = s.pattern === 'convert' ? decide(s) : { op: p.op, f: known(p) };
+        const exp = (s.pattern === 'convert' || s.pattern === 'align_calc') ? decide(s) : { op: p.op, f: known(p) }; // v0.2.4: align_calc has both directions, so B7 infers it as for its own items
         if (q.shownOp !== exp.op) l = 'direction';
         else {
           let f = known(p);
@@ -283,8 +283,8 @@ function E7(table) {
   return (q, hist, R, lv) => {
     const b = q.pattern === 'diagnosis' ? q.src : q;
     if (!b.paths) return probe('TRUE')(q, hist, R, lv);
-    const p = b.paths[0]; const key = [lv, b.pattern, b.domain, p.v >= 10 ? 'big' : 'small'].join('|');
-    const t = table[key]; const dir = t ? (t.up >= t.down ? 'up' : 'down') : (p.op === '÷' ? 'up' : 'down');
+    const p = b.paths[0]; const key = [lv, (q.pattern === 'diagnosis' ? 'diagnosis.' : '') + b.pattern, b.domain, p.v >= 10 ? 'big' : 'small'].join('|');
+    const t = table[key]; const dir = t ? (t.up >= t.down ? 'up' : 'down') : 'down'; // v0.2.4 (10.2 章): a cell not seen in training is read as down
     const op = dir === 'up' ? '÷' : '×';
     const belief = pp => ({ op: pp === p ? op : pp.op, f: pp.f });
     if (q.pattern === 'diagnosis') { const own = probeOwn(b, belief); return own.correct ? true : q.label === 'correct' ? false : R() < 1 / 3; }
