@@ -1,12 +1,26 @@
 // Exhaustive check that the error diagnosis tables (3.4 and 3.5, v0.3.3) are deterministic:
 // every assembly that the cards and frame can make, for every problem allowed by 3.10, falls into
 // exactly one cell of the table, and the cell is 'correct' exactly when judge() accepts it.
+// v0.3.4: negative_step is its own cell. Every assembly falls into exactly one of correct,
+// negative_step and the error rows, and for negative_step the numbers X and Y of the explanation
+// (the running value and the subtracted number at the first step that goes below 0) are recorded.
 // Usage: node diag_exhaustive.js   (exit 1 on any violation)
 'use strict';
 const G = require('./gen3.js');
 const B = G.B;
 let bad = 0;
 const fail = (msg) => { if (bad < 20) console.error('VIOLATION', msg); bad++; };
+// first subtraction that goes below 0, read left to right: [X, Y] (X is the running value)
+function firstNegative(slots) {
+  let v = null, op = '+';
+  for (const s of slots) {
+    if (s === '+' || s === '-') { op = s; continue; }
+    const n = Number(s);
+    if (v !== null && op === '-' && v - n < 0) return [v, n];
+    v = v === null ? n : (op === '+' ? v + n : v - n);
+  }
+  return null;
+}
 function perms(arr) { if (arr.length <= 1) return [arr]; const out = []; arr.forEach((x, i) => { for (const r of perms(arr.slice(0, i).concat(arr.slice(i + 1)))) out.push([x].concat(r)); }); return out; }
 
 // ---- 2-number (3.5.1): cells are the columns y-x, x-y, y+x / x+y ----
@@ -38,6 +52,7 @@ for (let x = 2; x <= 100; x++) for (let y = x + 2; y <= 100; y++) {
       const cells = twoNumCells(type, x, y, slots); n2++;
       if (cells.length !== 1) { fail(`2num ${type} ${slots.join('')} cells=${cells}`); continue; }
       const ok = G.judge(p, slots);
+      if (table[cells[0]] === 'correct' && !G.lrOK(slots)) fail(`2num ${type} ${slots.join('')} correct cell goes below 0`);
       if ((table[cells[0]] === 'correct') !== ok) fail(`2num ${type} ${slots.join('')} judge=${ok} cell=${table[cells[0]]}`);
     }
   }
@@ -52,7 +67,7 @@ const ROWS = (a, b, c) => [
 const key = ts => ts.map(([n, s]) => `${s > 0 ? '+' : '-'}${n}`).sort().join(',');
 const CORRECT_ROW = { T_AB: 'bc-a', T_AF: 'bc-a', T_SF: 'bc+a', T_SB: 'a-b-c' };
 G.setOpt({ sumcap: true, near: true, p1redraw: true, sfp: 0.5 });
-let nb = 0;
+let nb = 0, nNeg = 0, negXfirst = 0, negYa = 0; const negForms = {};
 for (const type of ['T_AB', 'T_AF', 'T_SB', 'T_SF']) for (const sfBig of (type === 'T_SF' ? [false, true] : [false]))
   for (let a = 20; a <= 45; a++) for (let b = 2; b < a; b++) for (let c = 2; c < a; c++) {
     if (!G.bothValid(type, a, b, c, sfBig)) continue;
@@ -63,8 +78,20 @@ for (const type of ['T_AB', 'T_AF', 'T_SB', 'T_SF']) for (const sfBig of (type =
       const rows = ROWS(a, b, c).filter(([, ts]) => key(ts) === k).map(([r]) => r);
       if (rows.length !== 1) { fail(`both ${type} ${slots.join('')} rows=${rows}`); continue; }
       const isCorrectSet = rows[0] === CORRECT_ROW[type];
-      const cell = isCorrectSet ? (G.lrOK(slots) ? 'correct' : 'negative_step') : 'error_row';
+      // cells are mutually exclusive by construction; count how many conditions hold to confirm
+      const conds = [isCorrectSet && G.lrOK(slots), isCorrectSet && !G.lrOK(slots), !isCorrectSet];
+      if (conds.filter(Boolean).length !== 1) { fail(`both ${type} ${slots.join('')} conds=${conds}`); continue; }
+      const cell = conds[0] ? 'correct' : conds[1] ? 'negative_step' : 'error_row';
       if ((cell === 'correct') !== G.judge(p, slots)) fail(`both ${type} ${slots.join('')} judge mismatch`);
+      if (cell === 'negative_step') {
+        nNeg++;
+        const xy = firstNegative(slots);
+        if (!xy) { fail(`both ${type} ${slots.join('')} negative_step without a negative step`); continue; }
+        if (xy[0] === Number(slots[0])) negXfirst++;
+        if (xy[1] === a) negYa++;
+        const form = slots.map(t => t === String(a) ? 'a' : (t === '+' || t === '-') ? t : 'x').join('');
+        negForms[`${type} ${form}`] = (negForms[`${type} ${form}`] || 0) + 1;
+      }
     }
   }
 
@@ -109,6 +136,7 @@ for (const role of ['start', 'change', 'result']) for (const dir of ['inc', 'dec
     }
   }
 console.log(`2num assemblies ${n2}, both assemblies ${nb}, story assemblies ${ns}, violations ${bad}`);
+console.log(`negative_step ${nNeg} (X is the first card: ${negXfirst}, Y is a: ${negYa})`, JSON.stringify(negForms));
 const per = {};
 for (const [t, n] of Object.entries(tally)) { const [pid, cell] = t.split(' '); if (cell.startsWith('true_') || cell === 'correct') (per[pid] = per[pid] || []).push(`${cell} ${n}`); }
 for (const pid of Object.keys(per).sort()) console.log(pid, per[pid].join(', '));
