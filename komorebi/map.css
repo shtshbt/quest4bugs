@@ -555,3 +555,25 @@ body{margin:0;background:linear-gradient(180deg,#0A1F1B,#06171A 60%,#041215);col
   .uro-granted.is-first .uro-granted-dex{animation:none}
   .uro-mote-a,.uro-mote-b,.uro-mote-c{animation:none}
 }
+
+.shiki-page{padding:8px;font-size:17px}
+.shiki-page .ratio-panel{padding:4px}
+.shiki-page .ratio-gauge{font-size:12px}
+.ratio-panel .shiki-stem{font-size:30px;text-align:center;letter-spacing:0;white-space:nowrap}
+.shiki-page .shiki-story{font-size:20px;white-space:normal}
+.shiki-prompt{text-align:center;font-size:17px}
+.assemble-frame{display:flex;align-items:center;justify-content:center;gap:4px;margin:8px 0 14px}
+.assemble-label{width:36px;text-align:center;flex:0 0 auto;font-size:28px;font-weight:700;white-space:nowrap}
+.assemble-slot{box-sizing:border-box;flex:0 0 auto;width:52px;min-width:52px;height:64px;min-height:64px;padding:0;border:3px dashed #c9b27a;border-radius:10px;background:#fffbea;color:#2b2b2b;font-size:28px;font-weight:700}
+.assemble-slot.assemble-op{width:40px;min-width:40px}
+.assemble-slot.filled{border-style:solid}
+.assemble-tray{display:flex;flex-direction:column;align-items:center;gap:12px}
+.assemble-row{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.assemble-card{box-sizing:border-box;flex:0 0 76px;width:76px;min-width:76px;height:76px;min-height:76px;padding:0;border:3px solid #9c8a64;border-radius:14px;background:white;color:#2b2b2b;font-size:32px;font-weight:700;touch-action:manipulation;cursor:pointer}
+.assemble-box{background:#fff0f0;border-color:#c98080}
+.assemble-operator{background:#e8f1ff;border-color:#6f8fbf}
+.assemble-card.used{opacity:.35}
+.assemble-actions{display:flex;justify-content:center;gap:12px;margin-top:14px}
+.assemble-actions button{min-height:64px;min-width:120px;padding:8px;border:0;border-radius:14px;font-size:22px;font-weight:700;cursor:pointer}
+.assemble-actions [data-action="submit-assemble"]{background:#ffcf5c}
+.assemble-actions button:disabled{opacity:.45;cursor:default}

@@ -32,6 +32,7 @@ var CORE = [
   "./komorebi/pi314_generator.js", "./komorebi/unit_convert_generator.js",
   "./komorebi/kuku_reverse_generator.js", "./komorebi/frac_flow_generator.js",
   "./komorebi/kuku_bridge_generator.js", "./komorebi/equation_select_generator.js",
+  "./komorebi/shiki_henkei_generator.js",
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
   "./komorebi/seisu_generator.js",
