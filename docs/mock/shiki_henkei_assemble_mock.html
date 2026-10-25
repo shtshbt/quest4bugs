@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>しきの かたちを かえる 組み立てモック</title>
+<style>
+  :root {
+    --bg: #f7f3e8; --ink: #2b2b2b; --card: #ffffff; --card-edge: #9c8a64;
+    --slot: #fffbea; --slot-edge: #c9b27a; --op: #e8f1ff; --op-edge: #6f8fbf;
+    --box: #fff0f0; --box-edge: #c98080; --ok: #2e7d32; --ng: #c62828;
+    --card-size: 76px; --card-gap: 12px; --slot-w: 52px; --slot-h: 64px; --slot-gap: 6px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif; font-size: 17px; }
+  main { max-width: 420px; margin: 0 auto; padding: 8px; }
+  h1 { font-size: 20px; margin: 8px 0 12px; }
+  .q { background: #fff; border-radius: 16px; padding: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .tag { font-size: 12px; color: #6b6b6b; }
+  .scaffold { font-size: 17px; color: #5b4a1f; margin: 6px 0; }
+  .stem { font-size: 30px; font-weight: 700; letter-spacing: 1px; margin: 8px 0 4px; text-align: center; }
+  .story { font-size: 20px; line-height: 1.6; margin: 8px 0; }
+  .prompt { font-size: 17px; margin: 4px 0 10px; text-align: center; }
+  .frame { display: flex; align-items: center; justify-content: center; gap: var(--slot-gap); margin: 8px 0 14px; }
+  .lbl { font-size: 28px; font-weight: 700; flex: 0 0 auto; text-align: center; white-space: nowrap; }
+  .slot { flex: 0 0 auto; width: var(--slot-w); height: var(--slot-h); border: 3px dashed var(--slot-edge); border-radius: 10px; background: var(--slot); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; }
+  .slot.op { width: 40px; }
+  .slot.filled { border-style: solid; }
+  .tray { display: flex; flex-direction: column; gap: var(--card-gap); align-items: center; }
+  .row { display: flex; gap: var(--card-gap); justify-content: center; flex-wrap: wrap; }
+  .card { width: var(--card-size); height: var(--card-size); border: 3px solid var(--card-edge); border-radius: 14px; background: var(--card); font-size: 32px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; touch-action: manipulation; }
+  .card.opc { background: var(--op); border-color: var(--op-edge); }
+  .card.boxc { background: var(--box); border-color: var(--box-edge); }
+  .card.used { opacity: .35; }
+  .btns { display: flex; gap: 12px; justify-content: center; margin-top: 14px; }
+  button { min-height: 64px; min-width: 120px; font-size: 22px; font-weight: 700; border-radius: 14px; border: 0; }
+  .clear { background: #e0e0e0; }
+  .done { background: #ffcf5c; }
+  .result { min-height: 24px; font-size: 18px; text-align: center; margin-top: 8px; }
+  #measure { font-size: 13px; background: #fff; padding: 8px; border-radius: 8px; }
+  #measure table { border-collapse: collapse; width: 100%; }
+  #measure td, #measure th { border: 1px solid #ccc; padding: 2px 4px; text-align: left; }
+</style>
+</head>
+<body>
+<main>
+<h1>しきの かたちを かえる (組み立てモック v0.3)</h1>
+<div id="qs"></div>
+<section id="measure"><b>実寸の測定</b><div id="mt">測定中</div></section>
+</main>
+<script>
+// Representative items for kom_shiki_henkei v0.3 (curriculum 6 章と付録 A から転記)
+const B = '□';
+const ITEMS = [
+  { tag: 'Lv2 add_front', scaffold: 'れい: 3+□=5 なら、ぜんぶは 5。□=5-3', stem: '□+5=8', kind: 'two', nums: [8, 5], ans: [[8, 1], [5, -1]] },
+  { tag: 'Lv2 sub_front', scaffold: 'いちばん おおきい かず (ぜんぶ) は どれかな', stem: '□-3=15', kind: 'two', nums: [15, 3], ans: [[15, 1], [3, 1]] },
+  { tag: 'Lv3 sub_back', stem: '25-□=6', kind: 'two', nums: [6, 25], ans: [[25, 1], [6, -1]] },
+  { tag: 'Lv3 both_add_front', scaffold: '= の むこうの しきは そのまま。うごかすのは □ の となりの かずだけ', stem: '□+33=20+22', kind: 'both', nums: [22, 33, 20], ans: [[20, 1], [22, 1], [33, -1]] },
+  { tag: 'Lv5 both_sub_back', stem: '45-□=14+27', kind: 'both', nums: [45, 27, 14], ans: [[45, 1], [14, -1], [27, -1]] },
+  { tag: 'Lv6 both_sub_front_rev', stem: '19+17=□-34', kind: 'both', nums: [17, 34, 19], ans: [[19, 1], [17, 1], [34, 1]] },
+  { tag: 'Lv8 both_sub_front (罠: a > b + c)', stem: '□-30=10+17', kind: 'both', nums: [17, 30, 10], ans: [[10, 1], [17, 1], [30, 1]] },
+  { tag: 'Lv10 story_dec_start', story: 'あめが □ こ ありました。18 こ たべて、5 こに なりました。', kind: 'story', nums: [5, 18], ansEq: [B, '-', '18', '5'] },
+];
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function render(it, idx) {
+  const q = el('section', 'q'); q.dataset.idx = idx;
+  q.appendChild(el('div', 'tag', it.tag + (it.note ? ' / ' + it.note : '')));
+  if (it.scaffold) q.appendChild(el('div', 'scaffold', it.scaffold));
+  if (it.kind === 'story') { q.appendChild(el('div', 'story', it.story)); q.appendChild(el('div', 'prompt', 'おはなしの じゅんに □ を つかって しきを つくろう')); }
+  else { q.appendChild(el('div', 'stem', it.stem.replace(/-/g, '−'))); q.appendChild(el('div', 'prompt', '□ を もとめる しきを つくろう')); }
+  const frame = el('div', 'frame');
+  const slots = [];
+  const kinds = it.kind === 'two' ? ['n', 'o', 'n'] : it.kind === 'both' ? ['n', 'o', 'n', 'o', 'n'] : ['n', 'o', 'n', '=', 'n'];
+  if (it.kind !== 'story') frame.appendChild(el('span', 'lbl', B + '='));
+  for (const k of kinds) {
+    if (k === '=') { frame.appendChild(el('span', 'lbl', '=')); continue; }
+    const s = el('div', 'slot' + (k === 'o' ? ' op' : '')); s.dataset.kind = k; frame.appendChild(s); slots.push(s);
+    s.addEventListener('click', () => { if (!s.dataset.v) return; const c = s._card; if (c) c.classList.remove('used'); s.textContent = ''; delete s.dataset.v; s.classList.remove('filled'); s._card = null; });
+  }
+  q.appendChild(frame);
+  const tray = el('div', 'tray');
+  const numRow = el('div', 'row'), opRow = el('div', 'row');
+  const numCards = it.nums.map(String).concat(it.kind === 'story' ? [B] : []);
+  for (const v of numCards) {
+    const c = el('div', 'card' + (v === B ? ' boxc' : ''), v);
+    c.addEventListener('click', () => { if (c.classList.contains('used')) return; const s = slots.find(x => x.dataset.kind === 'n' && !x.dataset.v); if (!s) return; s.textContent = v; s.dataset.v = v; s.classList.add('filled'); s._card = c; c.classList.add('used'); });
+    numRow.appendChild(c);
+  }
+  for (const v of ['+', '-']) {
+    const c = el('div', 'card opc', v === '-' ? '−' : '+');
+    c.addEventListener('click', () => { const s = slots.find(x => x.dataset.kind === 'o' && !x.dataset.v); if (!s) return; s.textContent = c.textContent; s.dataset.v = v; s.classList.add('filled'); });
+    opRow.appendChild(c);
+  }
+  tray.appendChild(numRow); tray.appendChild(opRow); q.appendChild(tray);
+  const res = el('div', 'result');
+  const btns = el('div', 'btns');
+  const clr = el('button', 'clear', 'けす'); const done = el('button', 'done', 'できた');
+  clr.addEventListener('click', () => { slots.forEach(s => { s.textContent = ''; delete s.dataset.v; s.classList.remove('filled'); }); q.querySelectorAll('.card').forEach(c => c.classList.remove('used')); res.textContent = ''; });
+  done.addEventListener('click', () => {
+    if (slots.some(s => !s.dataset.v)) { res.textContent = 'まだ あいて いるよ'; return; }
+    const v = slots.map(s => s.dataset.v);
+    let ok;
+    if (it.kind === 'story') ok = v.join('|') === it.ansEq.join('|');
+    else {
+      const terms = []; for (let i = 0; i < v.length; i += 2) terms.push([Number(v[i]), i === 0 ? 1 : (v[i - 1] === '+' ? 1 : -1)]);
+      const key = t => t.map(([n, s]) => (s > 0 ? '+' : '-') + n).sort().join(',');
+      let run = 0, neg = false; terms.forEach(([n, s], i) => { run += s * n; if (i && run < 0) neg = true; });
+      ok = key(terms) === key(it.ans) && !neg;
+    }
+    res.textContent = ok ? 'せいかい' : 'ちがうよ'; res.style.color = ok ? 'var(--ok)' : 'var(--ng)';
+  });
+  btns.appendChild(clr); btns.appendChild(done); q.appendChild(btns); q.appendChild(res);
+  return q;
+}
+// ?w=360 で、画面の幅を 360 CSS px に固定して描く (実機の最小幅の確認用)
+const W = Number(new URLSearchParams(location.search).get('w')) || 0;
+if (W) { const m = document.querySelector('main'); m.style.width = W + 'px'; m.style.maxWidth = W + 'px'; m.style.margin = '0'; }
+const qs = document.getElementById('qs');
+ITEMS.forEach((it, i) => qs.appendChild(render(it, i)));
+
+// measurement (doc 3.11 の規則と照合)
+function measure() {
+  const R = (e) => e.getBoundingClientRect();
+  const fs = (e) => parseFloat(getComputedStyle(e).fontSize);
+  const cards = [...document.querySelectorAll('.card')], slots = [...document.querySelectorAll('.slot')];
+  const btns = [...document.querySelectorAll('button')];
+  const minW = a => Math.min(...a.map(e => R(e).width)), minH = a => Math.min(...a.map(e => R(e).height));
+  let minGap = Infinity;
+  document.querySelectorAll('.row').forEach(r => { const cs = [...r.children]; for (let i = 1; i < cs.length; i++) minGap = Math.min(minGap, R(cs[i]).left - R(cs[i - 1]).right); });
+  const texts = [...document.querySelectorAll('main *')].filter(e => e.childNodes.length && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()) && !e.closest('#measure'));
+  const minText = Math.min(...texts.map(fs));
+  const mainR = R(document.querySelector('main'));
+  const limit = W ? mainR.right : window.innerWidth;
+  const overflow = !W && document.documentElement.scrollWidth > window.innerWidth;
+  const frameOver = [...document.querySelectorAll('.frame, .row, .btns, .stem')].some(f => [...f.children].concat([f]).some(c => R(c).right > limit + 0.5 || R(c).left < mainR.left - 0.5));
+  const rows = [
+    ['画面の幅 (CSS px)', W || window.innerWidth, W ? '?w= で固定' : ''],
+    ['カードの最小の幅 x 高さ', minW(cards).toFixed(0) + ' x ' + minH(cards).toFixed(0), minW(cards) >= 76 && minH(cards) >= 76 ? '76 以上: 可' : '不可'],
+    ['カードの間の最小のすきま', minGap.toFixed(0), minGap >= 12 ? '12 以上: 可' : '不可'],
+    ['数の枠の最小の幅 x 高さ', minW(slots.filter(s => !s.classList.contains('op'))).toFixed(0) + ' x ' + minH(slots).toFixed(0), minW(slots.filter(s => !s.classList.contains('op'))) >= 52 && minH(slots) >= 64 ? '52 x 64 以上: 可' : '不可'],
+    ['演算子の枠の最小の幅', minW(slots.filter(s => s.classList.contains('op'))).toFixed(0), minW(slots.filter(s => s.classList.contains('op'))) >= 40 ? '40 以上: 可' : '不可'],
+    ['ボタンの最小の高さ', minH(btns).toFixed(0), minH(btns) >= 64 ? '64 以上: 可' : '不可'],
+    ['カードの数字の文字', Math.min(...cards.map(fs)).toFixed(0), Math.min(...cards.map(fs)) >= 32 ? '32 以上: 可' : '不可'],
+    ['式 (本文) の文字', Math.min(...[...document.querySelectorAll('.stem')].map(fs)).toFixed(0), '28 以上: ' + (Math.min(...[...document.querySelectorAll('.stem')].map(fs)) >= 28 ? '可' : '不可')],
+    ['いちばん小さい文字', minText.toFixed(0), minText >= 12 ? '12 以上: 可' : '不可'],
+    ['横のはみ出し', overflow || frameOver ? 'あり' : 'なし', overflow || frameOver ? '不可' : '可'],
+  ];
+  const t = document.createElement('table');
+  t.innerHTML = '<tr><th>項目</th><th>値</th><th>判定</th></tr>' + rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  const mt = document.getElementById('mt'); mt.textContent = ''; mt.appendChild(t);
+}
+window.addEventListener('load', measure);
+</script>
+</body>
+</html>
