@@ -22,7 +22,7 @@
 
      点火はこの 3 行だけを動かす。 */
 
-  var CURRENT_RELEASE=4;   /* 2026-09-26 更新 4: オーストラリア Ⅱ (84 種) + カテゴリ 4 本 + 道具 2 本 */
+  var CURRENT_RELEASE=5;   /* 2026-10-25 更新 5: マダガスカル Ⅱ (80 種) + カテゴリ 4 本 + 道具 3 本 */
   var MEDAL_ECONOMY_ON=true;   /* 2026-08-21 点火。全図鑑化 (reconcile 通過) と同時に公開 */
   var TOMOSHIBI_MODE="count";   /* 2026-09-28 "count": 裏で数えるだけ。本番の同期データで統合を確かめてから "on" */
 
