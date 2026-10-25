@@ -204,7 +204,7 @@ def type_template(rng):
 
 
 LV_SPEC = {
-    2: dict(fam="mix", M=20, orients="normal", right_ops="+", sides="normal"),
+    2: dict(fam=["two"] * 5, M=20, orients="normal", right_ops="+", sides="normal"),
     3: dict(fam="mix", M=100, orients="normal", right_ops="+", sides="normal"),
     4: dict(fam="mix", M=100, orients="mixed2", right_ops="+", sides="normal"),
     5: dict(fam=["both"] * 5, right_ops="+", sides="normal"),
@@ -226,7 +226,10 @@ def make_two(rng, t, M, orient):
 
 def composition(lv, rng):
     """returns list of (family, type) for 5 items, and allowed pair types."""
-    if lv in (2, 3, 4):
+    if lv == 2:
+        ts = ["AF", "SB", "SF"] + rng.sample(["AF", "SB", "SF"], 2)
+        return [("two", t) for t in ts], []
+    if lv in (3, 4):
         r = rng.random()
         two = ["AF", "SB", "SF"] if r < 0.4 else (["AF", "SB", "SB"] if r < 0.7 else ["SF", "SB", "SB"])
         return [("two", t) for t in two] + [("both", "AF"), ("both", "SF")], []
