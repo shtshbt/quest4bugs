@@ -259,11 +259,15 @@ function transferScene(k, lv, opts = {}) {
     const g0 = vals[gi], r0 = vals[rI];
     if (g0 - n < 1 || r0 + n > 20 || n === Math.abs(g0 - r0) || r0 - n < 1 || g0 + n > 20) continue; // v0.5.1 U15
     const subjGiver = coin();
-    const form = subjGiver ? pick(['t1', 't2', 't5']) : (coin(0.8) ? 't4' : 't3');
+    // v0.5.3: an item carrying the word_swap modifier gets an eligible form (t1 / t3 / t4) so the swap is realised
+    const form = subjGiver ? (opts.wordSwap ? 't1' : pick(['t1', 't2', 't5'])) : (coin(0.8) ? 't4' : 't3');
     const bysts = ps.filter((_, i) => i !== gi && i !== rI);
+    // v0.5.3 (4.4.8, 4.12 A3): at Lv7 and Lv10 the swap is drawn per sentence first; the t6 frame is drawn
+    // only for sentences without the swap, at 2/3 of them (check 39 counts t6 among those sentences)
+    const eligible = ['t1', 't3', 't4'].includes(form);
+    const wordSwap = !LEGACY && eligible && (!!opts.wordSwap || ((lv === 7 || lv === 10) && coin(0.6)));
     let frameZ = null, framePos = null;
-    if (k >= 3 && coin(2 / 3) && !opts.wordSwap) { frameZ = pick(bysts); framePos = coin() ? 'before' : 'after'; }
-    const wordSwap = !!opts.wordSwap && ['t1', 't3', 't4'].includes(form) && !frameZ;
+    if (k >= 3 && !wordSwap && coin(2 / 3)) { frameZ = pick(bysts); framePos = coin() ? 'before' : 'after'; }
     let holdS, forms;
     if (coin(0.3)) { // v0.5.1 h0: one summary sentence listing every start number, 3 割 of transfer starts at any head count
       const ord = shuffle(ps.map((_, i) => i));
@@ -279,9 +283,10 @@ function transferScene(k, lv, opts = {}) {
     const ev = tSentence(G, Rr, n, { u: o[1] }, null, form, frameZ, framePos, wordSwap);
     if (k >= 3 && !wordSwap) { STATS.tSent3++; if (frameZ) STATS.t6++; }
     const swap = !!opts.clauseSwap;
-    const sents = swap ? ev.concat(holdS) : holdS.concat(ev);
+    const pre = !LEGACY && coin(0.6) ? intro(ps) : []; // v0.5.3: intro on transfer scenes too (3.5, check 14)
+    const sents = pre.concat(swap ? ev.concat(holdS) : holdS.concat(ev));
     const after = vals.slice(); after[gi] -= n; after[rI] += n;
-    return { ps, o, vals, after, n, gi, rI, G, Rr, form, frameZ, framePos, wordSwap, sents, evIdx: swap ? 0 : holdS.length, forms, subjGiver };
+    return { ps, o, vals, after, n, gi, rI, G, Rr, form, frameZ, framePos, wordSwap, sents, evIdx: pre.length + (swap ? 0 : holdS.length), forms, subjGiver };
   }
 }
 function askRole(k, ratio) { // ratio: [giver, receiver, bystander]
@@ -355,7 +360,8 @@ function relScene(lv, numbered, opts = {}) {
     if (numbered) baseS = renderBindings([B], [b], ps, 3, ctxHave(o)).sents;
     let relS = [rel(P1, B, d1, s1), rel(P2, P1, d2, s2)]; relS.forEach(r => { r.ev = true; });
     if (coin()) relS = [relS[1], relS[0]];
-    const sents = opts.clauseSwap ? relS.concat(baseS) : baseS.concat(relS);
+    const pre = !LEGACY && coin(0.6) ? intro(ps) : []; // v0.5.3: intro on relation scenes too (3.5, check 14)
+    const sents = pre.concat(opts.clauseSwap ? relS.concat(baseS) : baseS.concat(relS));
     return { ps, o, B, P1, P2, b, v1, v2, d1, d2, s1, s2, vals: [b, v1, v2], sents };
   }
 }
@@ -400,11 +406,12 @@ function genStepSplitTransfer(lv, k, mode, pol) {
     const w4 = S.vals.slice(); w4[gi] += n; w4[rI] -= n; if (w4.some(v => v < 1)) continue;
     const subjGiver = coin(); const form = subjGiver ? pick(['t1', 't2', 't5']) : (coin(0.8) ? 't4' : 't3');
     let frameZ = null, framePos = null; const bys = S.ps.filter((_, i) => i !== gi && i !== rI);
-    if (coin(2 / 3)) { frameZ = pick(bys); framePos = coin() ? 'before' : 'after'; }
-    const ev = tSentence(S.ps[gi], S.ps[rI], n, { u: S.o[1] }, null, form, frameZ, framePos, false);
+    const wordSwap = !LEGACY && ['t1', 't3', 't4'].includes(form) && coin(0.6); // v0.5.3: Lv10 word_swap (4.4.8)
+    if (!wordSwap && coin(2 / 3)) { frameZ = pick(bys); framePos = coin() ? 'before' : 'after'; }
+    const ev = tSentence(S.ps[gi], S.ps[rI], n, { u: S.o[1] }, null, form, frameZ, framePos, wordSwap);
     ev[0] = ['そのあと、'].concat(ev[0]); ev[0].ev = true;
     const sents = S.sents.concat(ev);
-    const scene = Object.assign({}, S, { gi, rI, n, after, form, frameZ, framePos, G: S.ps[gi], Rr: S.ps[rI], step: true });
+    const scene = Object.assign({}, S, { gi, rI, n, after, form, frameZ, framePos, wordSwap, G: S.ps[gi], Rr: S.ps[rI], step: true });
     if (mode === 'card') {
       const order = shuffle(S.ps.map((_, i) => i));
       const it = item({ pattern: 'step_split_transfer_card', kind: 'card', k, sents, q: ['いまの', 'ようすに', 'あう', 'カードは', 'どれですか'], scene });
