@@ -180,7 +180,8 @@ function makeTimeExpress(R, form) {
       if (new Set(opts.map(o => o.val)).size < 4) continue;
     }
     const sh = shuffle(R, opts);
-    return { pattern: 'time_express', kind: 'choice', domain: 'time', dir: 'up', form: form === 'comp' ? 'comp' : form, X, opts: sh,
+    // v0.2.8 (3.5 章、4.8 章): the form follows how the answer is shown (a finite decimal is dec, otherwise frac), not the list it came from
+    return { pattern: 'time_express', kind: 'choice', domain: 'time', dir: 'up', form: form === 'comp' ? 'comp' : (form === 'frac' && isInt(X / 60 * 100) ? 'dec' : form), X, opts: sh,
       ansIdx: sh.findIndex(o => o.t === 'correct'), raw: X, rel: 'R15', f: 60,
       paths: [{ v: X, f: 60, op: '÷', kd: 'time', comp: form === 'comp', asm: x => x }] };
   }

@@ -24,6 +24,7 @@
     kom_kuku_run:{course:"k5",name:"連続九九",maxLv:10,release:1},
     kom_pi314:{course:"k10",name:"3.14の段",maxLv:10,release:1},
     kom_unit_convert:{course:"k10",name:"単位換算",maxLv:10,release:2},
+    kom_unit_mix:{course:"k10",name:"単位のまぜ練習",maxLv:10,release:6},
     kom_kuku_ura:{course:"k5",name:"九九のうら読み",maxLv:10,release:2},
     kom_kuku_inverse:{course:"k5",name:"九九の逆引き",maxLv:10,release:3},
     kom_frac_flow:{course:"k10",name:"分数の解き方",maxLv:10,release:3},
@@ -468,6 +469,13 @@
   }
 
   function displayText(text){return formatCourseText(escapeHtml(text),profileType,global.furi5);}
+  function unitMixText(question,text){
+    var parts=[String(text)];
+    question.fractions.forEach(function(fraction){
+      parts=parts.flatMap(function(part){return typeof part!=="string"?[part]:part.split(fraction.text+fraction.unit).flatMap(function(piece,i){return i?[fraction,piece]:[piece];});});
+    });
+    return parts.map(function(part){return typeof part==="string"?displayText(part):'<span class="fr" aria-label="'+part.num+'/'+part.den+'"><i>'+part.num+'</i><i>'+part.den+'</i></span>'+displayText(part.unit);}).join("");
+  }
   /* 属性値にはふりがなを通さない。ruby の markup がそのまま読み上げられ、
      placeholder ではタグが文字として表示されてしまう。 */
   function attrText(text){return escapeHtml(text);}
@@ -1519,7 +1527,7 @@
     /* 数字だけの選択肢は 2 列で出す。式を選ぶまちがいさがしは横幅がいるので 1 列のまま。 */
     var numeric=question.cat==="kom_kuku_run"&&question.format!=="error_find";
     return '<div class="ratio-choices'+(numeric?" kuku-choices":"")+'">'+choiceLabels(question).map(function(label,index){
-      return '<button type="button" class="ratio-choice'+(numeric?" kuku-num":"")+'" data-choice-index="'+index+'">'+displayText(label)+'</button>';
+      return '<button type="button" class="ratio-choice'+(numeric?" kuku-num":"")+'" data-choice-index="'+index+'">'+(question.cat==="kom_unit_mix"?unitMixText(question,label):displayText(label))+'</button>';
     }).join("")+'</div>';
   }
 
@@ -1571,6 +1579,10 @@
   }
 
   function numUnitEngine(question){
+    if(question&&question.answerEngine){
+      if(!global[question.answerEngine])throw new Error(CATEGORIES[question.cat].name+"を読み込めません");
+      return global[question.answerEngine];
+    }
     if(question&&question.cat==="kom_hayasa"){
       if(!global.Q4B_KOMOREBI_HAYASA)throw new Error("速さを読み込めません");
       return global.Q4B_KOMOREBI_HAYASA;
@@ -1653,7 +1665,7 @@
     else if(question.kind==="frac")controls=fracInputHtml();
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
     if(question.cat==="kom_johou_seiri")return scaffold+johouPassageHtml(question)+'<h2>'+displayText(question.prompt)+'</h2>'+work+controls;
-    return scaffold+'<h2'+(question.prompt?' class="shiki-stem"':'')+'>'+displayText(question.prompt?question.text.replace(/-/g,"−"):question.text)+'</h2>'+(question.prompt?'<p class="shiki-prompt">'+displayText(question.prompt)+'</p>':"")+figuresHtml(question)+work+controls;
+    return scaffold+'<h2'+(question.prompt?' class="shiki-stem"':'')+'>'+(question.cat==="kom_unit_mix"?unitMixText(question,question.text):displayText(question.prompt?question.text.replace(/-/g,"−"):question.text))+'</h2>'+(question.prompt?'<p class="shiki-prompt">'+displayText(question.prompt)+'</p>':"")+figuresHtml(question)+work+controls;
   }
 
   function ratioAnswerText(question){
@@ -1875,7 +1887,7 @@
     }
     if(question.cat==="kom_kuku_run")return kukuAnswerText(question);
     if(isDanCat(question.cat))return dan2AnswerText(question);
-    if(question.kind==="num_unit")return String(question.ans)+numUnitEngine(question).unitLabel(question.ansUnit);
+    if(question.kind==="num_unit")return question.cat==="kom_unit_mix"?numUnitEngine(question).quantityText(question.ans,question.ansUnit):String(question.ans)+numUnitEngine(question).unitLabel(question.ansUnit);
     return ratioAnswerText(question);
   }
 
@@ -2036,6 +2048,11 @@
      段暗唱も単位換算も同じで、直す先が違うだけ。 */
   function reasonHtml(question,correct){
     var verdict=session&&session.verdict;
+    if(!correct&&question.cat==="kom_unit_mix"){
+      var message=global.Q4B_KOMOREBI_UNIT_MIX.feedback(question,question.kind==="choice"?session.choiceAnswer:session.numberAnswer,session.unitSelection).text;
+      if(!message&&verdict&&verdict.state==="other_unit")message=verdict.note;
+      return message?'<p class="dan2-reason">'+displayText(message)+'</p>':"";
+    }
     if(!correct&&question.cat==="kom_bamen_yomitori"){
       var feedback=question.feedback,selection=session.multiSelection||[],first=question.kind==="find_all"?feedback.findIndex(function(text,i){return text&&selection.indexOf(i)>=0;}):-1;
       var message=question.kind==="find_all"?(first>=0?feedback[first]:question.feedbackMissed):feedback[session.choiceAnswer];
@@ -2491,9 +2508,11 @@
     var activeSession=session,question=activeSession.questions[activeSession.index],correct;
     try{correct=judgeAnswer(question,answer);}catch(error){renderQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
     if(question.kind==="choice")activeSession.choiceAnswer=answer;
+    if(question.kind==="num"||question.kind==="num_unit")activeSession.numberAnswer=question.kind==="num_unit"?answer.value:answer;
     activeSession.pending=true;
     var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
     var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
+    if(question.cat==="kom_unit_mix"){event.types=global.Q4B_KOMOREBI_UNIT_MIX.feedback(question,question.kind==="choice"?answer:session.numberAnswer,session.unitSelection).types;event.traps=question.traps;}
     if(question.cat==="kom_shiki_henkei"){event.slots=session.verdict.slots;event.diagnose=session.verdict.diagnose;event.unknownPosition=session.verdict.unknownPosition;question.answerData={slots:event.slots,correct:correct,diagnose:event.diagnose,unknownPosition:event.unknownPosition};}
     var answerTiming=KOMOREBI_ANSWER_TIMER?KOMOREBI_ANSWER_TIMER.stop():{interrupted:false};
     var elapsed=Math.max(0,Date.now()-activeSession.startedAt),volume=volumeById(activeSession.volumeId);
@@ -2683,6 +2702,7 @@
     kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません"),
     kom_shiki_henkei:startGeneratedSession("kom_shiki_henkei","Q4B_KOMOREBI_SHIKI_HENKEI","式のかたちをかえるを読み込めません"),
     kom_bamen_yomitori:startGeneratedSession("kom_bamen_yomitori","Q4B_KOMOREBI_BAMEN_YOMITORI","場面の読みとりを読み込めません"),
+    kom_unit_mix:startGeneratedSession("kom_unit_mix","Q4B_KOMOREBI_UNIT_MIX","単位のまぜ練習を読み込めません"),
     kom_kisokusei:startGeneratedSession("kom_kisokusei","Q4B_KOMOREBI_KISOKUSEI","きまりと数えかたを読み込めません"),
     kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません"),
     kom_ratio_forms:startRatioFormsSession,

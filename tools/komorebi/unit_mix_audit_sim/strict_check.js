@@ -15,7 +15,7 @@ const { execFileSync, spawn } = require('child_process');
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 const strip = q => { const o = {}; for (const [k, v] of Object.entries(q)) if (typeof v !== 'function') o[k] = (v && typeof v === 'object' && v.pattern) ? strip(v) : v; return o; };
 
-if (process.argv[2] === '--gen') {
+if (require.main === module && process.argv[2] === '--gen') {
   const G = require('./strict_gen.js');
   const [lv, n, seed, out] = [+process.argv[3], +process.argv[4], +process.argv[5], process.argv[6]];
   const r = mulberry32(seed * 100 + lv), st = G.newState(), sets = [];
@@ -30,7 +30,7 @@ if (!Number.isInteger(N) || N < 10) { console.error('sets-per-Lv must be an inte
 const DOC = process.env.UMIX_DOC || path.join(__dirname, '../../../docs/komorebi_unit_mix_curriculum.md');
 const MD = fs.readFileSync(DOC, 'utf8');
 const LVS = process.env.STRICT_LVS ? process.env.STRICT_LVS.split(',').map(Number) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // a partial run for debugging
-const OUT = process.env.STRICT_OUT || fs.mkdtempSync(path.join(os.tmpdir(), 'umix_strict_'));
+const OUT = require.main === module ? (process.env.STRICT_OUT || fs.mkdtempSync(path.join(os.tmpdir(), 'umix_strict_'))) : null;
 
 // ---------- generate (parallel jobs) ----------
 async function generate() {
@@ -168,13 +168,13 @@ function labelAllowed(src, label) {
   return true;
 }
 
-(async () => {
-  const data = await generate();
+async function runChecks(data, implementation) {
+  results.length = 0;
   const SETS = {}; for (const d of data) (SETS[d.lv] = SETS[d.lv] || []).push(...d.sets.map(s => s.items)); // seeds concatenated per Lv; windows below stay inside one seed
   const BYSEED = {}; for (const d of data) (BYSEED[d.lv] = BYSEED[d.lv] || []).push(d.sets.map(s => s.items));
   for (let lv = 1; lv <= 10; lv++) { SETS[lv] = SETS[lv] || []; BYSEED[lv] = BYSEED[lv] || []; }
   const ALL = []; for (let lv = 1; lv <= 10; lv++) for (const s of SETS[lv]) for (const q of s) ALL.push({ q, lv });
-  console.error(`checking ${N} sets per Lv and seed, seeds ${SEEDS.join(',')} (${ALL.length} items)`);
+  console.error(`checking ${data.map(d => 'Lv' + d.lv + ':' + d.sets.length).join(', ')} (${ALL.length} items)`);
 
   check(1, '答えの一致', fail => { for (const { q, lv } of ALL) { const b = q; if (b.pattern === 'diagnosis') continue; if (b.kind === 'num' ? !near(b.ans, truth(b)) : b.ansOpt !== truthOpt(b)) { fail(`Lv${lv} ${pidOf(b)} ans ${b.ans} / ${truth(b)}`); } } });
   check(2, '関係の範囲', fail => { for (const { q, lv } of ALL) { const b = base(q); const g = given(b); if (!g) continue; const id = relOfUnits(g.from, g.to); if (!id) fail(`Lv${lv} ${g.from}->${g.to} no relation`); else if (id.startsWith('D') && lv < 5) fail(`Lv${lv} 2 段 ${id}`); else if (id === 'R13' && b.pattern !== 'recall') fail(`R13 outside recall`); else if (b.pattern === 'recall' && !['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R12', 'R13', 'R14', 'R15'].includes(id)) fail(`recall ${id}`); } });
@@ -234,7 +234,7 @@ function labelAllowed(src, label) {
   check(20, '同一 patternId の上限', fail => { for (let lv = 1; lv <= 10; lv++) for (const s of SETS[lv]) { const c = {}; for (const q of s) { const k = pidOf(q); c[k] = (c[k] || 0) + 1; if (c[k] > 2) fail(`Lv${lv} ${k}`); } } });
   check(21, '複名数の下の位', (fail, note) => { let n = 0, short = 0; for (const s of SETS[10]) for (const q of s) if (q.pattern === 'compound_in' && q.domain !== 'time') { n++; if ((q.cid === 'C3' && q.lo < 10) || (q.cid !== 'C3' && q.lo < 100)) short++; } if (n && short / n < 0.5) fail(`Lv10 short ${fmt(short / n)}`); note(`Lv10 の長さと重さの複名数のうち桁の少ない下の位 ${fmt(short / n)} (n ${n})`); });
   check(22, '浮動小数を経由しない', (fail, note) => note('実装の表現 (仮数と指数、有理数) の検査。監査の生成器は浮動小数で書いているので対象外'));
-  check(23, '乱数', fail => { const src = fs.readFileSync(path.join(__dirname, 'strict_gen.js'), 'utf8'); if (/Math\.random|Date\.now/.test(src)) fail('Math.random or Date.now in strict_gen.js'); const G = require('./strict_gen.js'); for (const lv of [3, 6]) { const a = G.buildSet(lv, mulberry32(77), G.newState()).map(pidOf).join(), b = G.buildSet(lv, mulberry32(77), G.newState()).map(pidOf).join(); if (a !== b) fail(`Lv${lv} not reproducible`); } });
+  check(23, '乱数', fail => { const src = fs.readFileSync(implementation ? implementation.source : path.join(__dirname, 'strict_gen.js'), 'utf8'); if (/Math\.random|Date\.now/.test(src)) fail('Math.random or Date.now'); const G = implementation || require('./strict_gen.js'); for (const lv of [3, 6]) { const a = G.buildSet(lv, mulberry32(77), G.newState()).map(pidOf).join(), b = G.buildSet(lv, mulberry32(77), G.newState()).map(pidOf).join(); if (a !== b) fail(`Lv${lv} not reproducible`); } });
   check(24, '1 問の長さ', fail => { const optTxt = (q, o) => (q.pattern === 'rate_select' ? (o.op === 'x' ? '×' : '÷') + o.f : q.pattern === 'time_express' ? (o.H !== undefined ? `${o.H}時間${o.M}分` : `${o.val}時間`) : '');
     for (const { q } of ALL) { if (q.pattern === 'rate_select' || (q.pattern === 'time_express' && q.form === 'comp')) for (const o of q.options) if (optTxt(q, o).length > 10) fail(`option ${optTxt(q, o)}`); } });
   check(25, '敵ソルバー (段 A、段 B、誤り 1 つ型)', (fail, note) => note('strict_enemies.js で測る (11.0 章)'));
@@ -243,7 +243,7 @@ function labelAllowed(src, label) {
     if (Object.keys(DOMU).length !== 6 || Object.values(DOMU).flat().length !== 23) fail('model units'); });
   check(27, '値の帯 (Lv3 から Lv10 の累計)', (fail, note) => { let dn = 0, dh = 0, up = 0, ul = 0; for (let lv = 3; lv <= 10; lv++) for (const s of SETS[lv]) for (const q of s) { const b = base(q); if (!['convert', 'rate_select', 'align_calc'].includes(b.pattern)) continue; const st = convStep(b); if (b.dir === 'down') { dn++; if (st.x >= 10) dh++; } else { up++; if (st.x < 10) ul++; } }
     if (dh / dn < 0.2 || ul / up < 0.2) fail(`down>=10 ${fmt(dh / dn)} up<10 ${fmt(ul / up)}`); note(`下りの 10 以上 ${fmt(dh / dn)}、上りの 10 未満 ${fmt(ul / up)}`); });
-  check(28, '付録 A の golden case', (fail, note) => { const app = MD.slice(MD.indexOf('## 付録 A. セット実在証明'), MD.indexOf('## 付録 A の v0.2.3 版')); let lv = 0, n = 0; for (const l of app.split('\n')) { const h = l.match(/^### A\.(\d+)/); if (h) lv = h[1]; const m = l.match(/^\d+\. \[([^\]、]+)/); if (m) { n++; if (!SPACE[lv] || !SPACE[lv].has(m[1])) fail(`A.${lv} ${m[1]} outside 9.4`); } } if (n !== 50) fail(`appendix items ${n}`); note('付録 A の patternId を 9.4 章の空間で照合 (値と規則の全項目は render.js の出力で検査する)'); });
+  check(28, '付録 A の golden case と 6 章の例題', fail => { try { if (implementation) require('./check_appendix.js').checkAppendix(DOC, ALL, implementation).forEach(fail); else execFileSync(process.execPath, [path.join(__dirname, 'check_appendix.js'), DOC], { stdio: 'pipe' }); } catch (e) { fail(String(e.stdout || e.stderr || e.message).slice(0, 1000)); } }); // v0.2.8: values, not only the patternId
   check(29, '肢の形 (C5)', (fail, note) => note('B8 は strict_enemies.js で測る。倍率の組の対称は検査 13 の g の候補で確かめた'));
   check(30, '対比の組 (C6)', (fail, note) => note('B9 と A10 は strict_enemies.js で測る'));
   check(31, '同時分布 (4.13 の 1 と 2)', (fail, note) => {
@@ -251,14 +251,16 @@ function labelAllowed(src, label) {
       for (const [k, [u, n]] of Object.entries(dd)) if (n >= 30 && (u / n < 0.3 || u / n > 0.7)) fail(`Lv${lv} ${k} up ${fmt(u / n)} (n ${n})`);
       for (const [k, [u, n]] of Object.entries(bd)) if (n >= 30 && (u / n < 0.3 || u / n > 0.7)) fail(`Lv${lv} band ${k} up ${fmt(u / n)} (n ${n})`); }
     note('E7、M1magR、M1d は strict_enemies.js で測る'); });
-  check(32, '解説の文', fail => { try { execFileSync(process.execPath, [path.join(__dirname, 'check_explanations.js')], { stdio: 'pipe' }); } catch (e) { fail(String(e.stdout || e.message).slice(0, 300)); } });
+  check(32, '解説の文', fail => { try { if (implementation) { if (require('./check_explanations.js').checkExplanations(ALL.map(x => x.q), implementation, () => {})) fail('explanations differ'); } else execFileSync(process.execPath, [path.join(__dirname, 'check_explanations.js')], { stdio: 'pipe' }); } catch (e) { fail(String(e.stdout || e.stderr || e.message).slice(0, 300)); } });
   check(33, '敵の正本', (fail, note) => note('10.2 章の表の行は solvers.js と strict_enemies.js にある'));
-  check(34, '表と生成器の 1 対 1', fail => { try { execFileSync(process.execPath, [path.join(__dirname, 'check_tables.js'), DOC], { stdio: 'pipe' }); } catch (e) { fail(String(e.stderr || e.message).slice(0, 300)); }
+  check(34, '表と生成器の 1 対 1', fail => { try { if (implementation) { if (require('./check_tables.js').checkTables(MD, implementation.VALUES, implementation.spaces)) fail('implementation tables differ'); } else execFileSync(process.execPath, [path.join(__dirname, 'check_tables.js'), DOC], { stdio: 'pipe' }); } catch (e) { fail(String(e.stderr || e.message).slice(0, 300)); }
     for (const { q, lv } of ALL) if (!SPACE[lv].has(pidOf(q))) { fail(`Lv${lv} strict_gen makes ${pidOf(q)}, not in 9.4`); break; } });
   check(35, '短期の重複回避', fail => { const G = require('./strict_gen.js'); for (let lv = 1; lv <= 10; lv++) { if (lv === 8) continue; for (const runs of BYSEED[lv]) for (let i = 1; i < runs.length; i++) { const prev = new Set(runs.slice(Math.max(0, i - 3), i).flatMap(G.questions)); if (G.questions(runs[i]).some(k => prev.has(k))) { fail(`Lv${lv} set ${i} repeats`); break; } } } });
 
   let bad = 0;
   for (const r of results) { const st = r.fails.length ? 'FAIL' : 'PASS'; if (r.fails.length) bad++; console.log(`${st} ${String(r.no).padStart(2)} ${r.title}${r.note.length ? '  (' + r.note.join('; ') + ')' : ''}`); for (const f of r.fails) console.log('     ' + f); }
   console.log(`${results.length - bad} / ${results.length} pass. sets: ${OUT}`);
-  process.exit(bad ? 1 : 0);
-})().catch(e => { console.error(e); process.exit(2); });
+  return results;
+}
+if (require.main === module) generate().then(runChecks).then(r => { process.exitCode = r.some(x => x.fails.length) ? 1 : 0; }).catch(e => { console.error(e); process.exitCode = 2; });
+module.exports = { runChecks, truth, truthOpt, pidOf, trapsOf, mulberry32, SPACE };

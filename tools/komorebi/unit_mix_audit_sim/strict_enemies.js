@@ -339,4 +339,52 @@ if (require.main === module) {
       console.log(`Lv${lv} seed ${sd}: Amax ${r.Amax.name} ${f(r.Amax.acc)} | M1mag ${f(r.M1mag.acc)} p8 ${f(r.M1mag.p8)} | B(excl) ${f(r.Bexcl)} B(raw) ${f(r.Braw)} | M1 p8 ${f(r.M1.p8)} M2 p8 ${f(r.M2.p8)} M3 p8 ${f(r.M3.p8)} | E7 ${f(r.E7.acc)} p8 ${f(r.E7.p8)} | M1magR ${f(r.M1magR.acc)} M1d ${f(r.M1d.acc)} | B8 ${f(r.B8)} B9 ${f(r.B9)}`); } }
   fs.writeFileSync(path.join(dir, 'enemies.json'), JSON.stringify(out, null, 1));
 }
-module.exports = { measure, load };
+function auditItem(q) {
+  if (q.pattern === 'diagnosis') return { ...q, src: auditItem(q.src), opts: q.options, ansIdx: q.ansOpt, value: q.shown, shownF: q.sheet.f, shownOp: q.sheet.op === 'x' ? '×' : '÷', raw: q.sheet.raw, arithOK: true };
+  const st = q.step;
+  const asm = q.pattern === 'compound_in' ? x => x + q.lo : q.pattern === 'align_calc' ? x => q.plus ? x + q.keep : q.dir === 'down' ? x - q.keep : q.keep - x : q.pattern === 'speed_apply' ? q.combine : x => x;
+  return { ...q, from: st.from, to: st.to, gv: st.x, f: st.f, ansIdx: q.ansOpt,
+    opts: q.pattern === 'rate_select' ? q.options.map(o => ({ op: o.op === 'x' ? '×' : '÷', n: o.f })) : q.pattern === 'time_express' ? q.options.map(o => ({ ...o, h: o.H, m: o.M })) : q.options,
+    raw: rawNum(q), X: st.x, bigIdx: q.big === 'L' ? 0 : 1, smallIdx: q.big === 'L' ? 1 : 0,
+    bigU: q.L && (q.big === 'L' ? q.L.u : q.R.u), smallU: q.L && (q.big === 'L' ? q.R.u : q.L.u),
+    pairWithPrev: q.role === 'cpB', paths: [{ v: st.x, f: st.f, op: st.dir === 'down' ? '×' : '÷', kd: st.dom === 'time' ? 'time' : st.dom === 'speed' ? 'speed' : 'dec', comp: st.comp || q.pattern === 'compound_in', relId: q.rel, asm }] };
+}
+function measureCanonical(sets, train, lv, seed) {
+  const V = require('./solvers.js'), S = sets.map(s => s.map(auditItem)), T = train.map(s => s.map(auditItem));
+  const prior = {}, dirs = {};
+  for (const s of T) for (const q of s) {
+    const b = q.pattern === 'diagnosis' ? q.src : q, p = b.paths[0];
+    const key = [lv, (q.pattern === 'diagnosis' ? 'diagnosis.' : '') + b.pattern, b.domain, p.v >= 10 ? 'big' : 'small'].join('|');
+    const d = dirs[key] = dirs[key] || { up: 0, down: 0 }; d[p.op === '÷' ? 'up' : 'down']++;
+    if (q.pattern === 'diagnosis') { const k = lv + '|' + b.pattern + '|' + b.domain, a = prior[k] = prior[k] || {}; a[q.label] = (a[q.label] || 0) + 1; }
+  }
+  const A = { A1: V.A1, A3: V.A1, A4: V.A4, A6: V.A6, A7: V.A7, A9: V.A9, A10: V.A10, A12: V.A12, A13: V.A13, A14: V.A14 };
+  for (const c of [10, 60, 100, 1000]) A['A2_' + c] = V.A2(c);
+  for (const k of [1, 2, 3, 4]) A['A5_' + k] = V.A5(k);
+  const B = { B1: V.B1, B2: V.B2, B3: V.B3(prior), B4: V.B4, B4s: V.B4s, B8: V.B8, B9: V.B9 };
+  for (const c of [10, 60, 100, 1000]) B['B6_' + c] = V.B6(c);
+  for (const c of [10, 60, 100, 1000, 10000]) for (const d of ['correct', 'steps']) for (const o of ['p10', 's60']) B['B7_' + c + d + o] = V.B5(c, d, false, o);
+  const probes = Object.fromEntries(['M1', 'M1d', 'M2', 'M3', 'M1mag', 'M1magR'].map(p => [p, V.probe(p)]));
+  const R = mulberry32(5000 + lv + seed * 100), scores = {}, solvers = { ...A, ...B, ...probes, E7: V.E7(dirs) };
+  for (const [name, fn] of Object.entries(solvers)) scores[name] = S.map(s => s.map((q, i) => +fn(q, s.slice(0, i), R, lv)));
+  const summary = (name, keep = () => true) => {
+    const per = S.map((s, si) => s.reduce((a, q, i) => keep(q) ? [a[0] + scores[name][si][i], a[1] + 1] : a, [0, 0]));
+    const total = per.reduce((a, b) => [a[0] + b[0], a[1] + b[1]], [0, 0]);
+    return { acc: total[0] / total[1], p8: p8(per) };
+  };
+  const res = Object.fromEntries(Object.keys(probes).map(p => [p, summary(p)]));
+  res.E7 = { acc: summary('E7', q => ['convert', 'rate_select', 'align_calc'].includes((q.src || q).pattern) && !q.pairWithPrev).acc, p8: summary('E7', q => !FIXED.has(q.pattern)).p8 };
+  res.Amax = Object.entries(A).map(([name]) => ({ name, acc: summary(name).acc })).sort((a, b) => b.acc - a.acc)[0];
+  let total = 0, correct = 0;
+  for (const pattern of new Set(S.flat().map(q => q.pattern))) {
+    if (pattern === 'diagnosis' || pattern === 'speed_apply') continue;
+    const best = Math.max(...Object.keys({ ...A, ...B }).map(name => summary(name, q => q.pattern === pattern).acc));
+    const n = S.flat().filter(q => q.pattern === pattern).length; total += n; correct += best * n;
+  }
+  res.Bexcl = correct / total;
+  res.B8 = S.flat().some(q => q.pattern === 'time_express') ? summary('B8', q => q.pattern === 'time_express').acc : null;
+  res.B9 = S.flat().some(q => q.pairWithPrev) ? summary('B9', q => q.pairWithPrev).acc : null;
+  res.A10pair = S.flat().some(q => q.pairWithPrev) ? summary('A10', q => q.pairWithPrev).acc : null;
+  return res;
+}
+module.exports = { measure, measureCanonical, load, revive };

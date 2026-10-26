@@ -45,13 +45,13 @@ function section(md, head) { const i = md.indexOf('\n' + head); if (i < 0) throw
 const parseVal = x => (/^-?[0-9.]+$/.test(x) ? Number(x) : x);
 
 const SAMPLES = { 10: 40000 };
-if (process.argv[2] === '--dump') {
+if (require.main === module && process.argv[2] === '--dump') {
   const n = Number(process.argv[3] || 20000);
   for (const [k, v] of Object.entries(G.VALUES)) console.log(`| \`${k}\` | ${v.join('、')} |`);
   for (let lv = 1; lv <= 10; lv++) { const ids = spaceOf(lv, SAMPLES[lv] || n); console.log(`| ${lv} | ${compact(ids).map(x => '`' + x + '`').join('、')} | ${ids.size} |`); }
   process.exit(0);
 }
-const md = fs.readFileSync(process.argv[2], 'utf8');
+function checkTables(md, values = G.VALUES, spaces) {
 let bad = 0;
 const fail = m => { bad++; console.error('MISMATCH ' + m); };
 // 9.2: rows "| `NAME` | (使うところ) | v1、v2、... |"
@@ -59,19 +59,22 @@ const docVals = {};
 for (const line of section(md, '### 9.2').split('\n')) {
   const m = line.match(/^\| `([A-Z0-9_]+)` \|.*\| ([^|]+) \|$/); if (m) docVals[m[1]] = m[2].split('、').map(x => parseVal(x.trim()));
 }
-for (const [k, v] of Object.entries(G.VALUES)) {
+for (const [k, v] of Object.entries(values)) {
   if (!docVals[k]) { fail(`9.2 has no row for ${k}`); continue; }
   if (JSON.stringify(docVals[k]) !== JSON.stringify(v)) fail(`9.2 ${k}: doc ${docVals[k].join(',')} / generator ${v.join(',')}`);
 }
-for (const k of Object.keys(docVals)) if (!G.VALUES[k]) fail(`9.2 row ${k} is not a generator constant`);
+for (const k of Object.keys(docVals)) if (!values[k]) fail(`9.2 row ${k} is not a generator constant`);
 // 9.4: rows "| Lv | `expr`、`expr` | size |"
 for (const line of section(md, '### 9.4').split('\n')) {
   const m = line.match(/^\| (\d+) \| (.*) \| (\d+) \|$/); if (!m) continue;
   const lv = Number(m[1]); const docIds = new Set([...m[2].matchAll(/`([^`]+)`/g)].flatMap(x => expand(x[1])));
-  const gen = spaceOf(lv, SAMPLES[lv] || 20000);
+  const gen = spaces ? spaces[lv] : spaceOf(lv, SAMPLES[lv] || 20000);
   for (const id of gen) if (!docIds.has(id)) fail(`9.4 Lv${lv}: generator makes ${id}, not in the table`);
   for (const id of docIds) if (!gen.has(id)) fail(`9.4 Lv${lv}: table has ${id}, the generator does not make it`);
   if (docIds.size !== Number(m[3])) fail(`9.4 Lv${lv}: size column ${m[3]}, the listed ids are ${docIds.size}`);
 }
 console.error(bad ? `${bad} mismatches` : 'check_tables: 9.2 and 9.4 match the generator');
-process.exit(bad ? 1 : 0);
+return bad;
+}
+if (require.main === module) process.exit(checkTables(fs.readFileSync(process.argv[2], 'utf8')) ? 1 : 0);
+module.exports = { checkTables, expand, section, compact };
