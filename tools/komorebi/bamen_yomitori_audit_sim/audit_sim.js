@@ -826,7 +826,10 @@ function correctOf(it, ans) {
 }
 function evalLv(lv, nSets) {
   const res = {}; // layer -> solver -> {slotAcc: {slot:[c,n]}, total:[c,n]}
-  const sets = []; for (let i = 0; i < nSets; i++) sets.push(buildSet(lv));
+  // STRICT=1: sets from strict_gen.js (the doc-literal generator, v0.5.4) instead of this file's generator
+  let build = buildSet;
+  if (process.env.STRICT) { const sg = require('./strict_gen.js'); const st = sg.newState(); build = l => sg.buildSet(l, rnd, st); }
+  const sets = []; for (let i = 0; i < nSets; i++) sets.push(build(lv));
   // C7: family share among answers / asked persons vs appearance share
   for (const set of sets) for (const it of set) {
     const v = view(it); const ps = personsInText(v); const famIn = n => FAMILY.some(f => n === f[0] + f[1]);
