@@ -4,7 +4,7 @@
    オンライン復帰時に storage.js が自動 push する（GitHub API はキャッシュ対象外）。
    方針: cache-first ＋ バックグラウンド更新(stale-while-revalidate)。
    ?v= のクエリ差はキャッシュヒット時に無視(ignoreSearch)してオフライン継続性を確保。 */
-var CACHE = "q4b-cache-v194";  /* v194: 式のかたちをかえる (更新 6 のゲートの内側) と組み立て部品を配信した。 */
+var CACHE = "q4b-cache-v195";  /* v195: 場面の読みとり (更新 6 のゲートの内側) を配信した。 */
 var CORE = [
   "./", "./index.html", "./battle.html",
   "./kanji/index.html", "./eitango/index.html",
@@ -33,6 +33,7 @@ var CORE = [
   "./komorebi/kuku_reverse_generator.js", "./komorebi/frac_flow_generator.js",
   "./komorebi/kuku_bridge_generator.js", "./komorebi/equation_select_generator.js",
   "./komorebi/shiki_henkei_generator.js",
+  "./komorebi/bamen_yomitori_generator.js",
   "./komorebi/kisokusei_generator.js", "./komorebi/hayasa_generator.js",
   "./komorebi/ratio_forms_generator.js", "./komorebi/johou_seiri_generator.js",
   "./komorebi/seisu_generator.js",

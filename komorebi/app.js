@@ -51,6 +51,7 @@
     kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:5},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
     kom_shiki_henkei:{course:"k5",name:"式のかたちをかえる",maxLv:10,release:6},
+    kom_bamen_yomitori:{course:"k5",name:"場面の読みとり",maxLv:10,release:6},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
        (release_linkage 2 章の倍速カレンダー)。エンジンは段番号駆動なので
        実装はこの行だけ。同 release 内の指導順は宣言順で保たれる。 */
@@ -655,6 +656,7 @@
       return question.ans.every(function(value,index){return answer[index]===value;});
     }
     if(question.kind==="choice")return Number.isInteger(answer)&&answer===expectedChoiceIndex(question);
+    if(question.kind==="find_all"&&Array.isArray(question.ansSet))return judgeDiagramFindAll(question,answer);
     var numeric=typeof answer==="number"?answer:Number(String(answer).trim());
     return Number.isFinite(numeric)&&Number.isFinite(question.ans)&&Math.abs(numeric-question.ans)<1e-9;
   }
@@ -2034,6 +2036,11 @@
      段暗唱も単位換算も同じで、直す先が違うだけ。 */
   function reasonHtml(question,correct){
     var verdict=session&&session.verdict;
+    if(!correct&&question.cat==="kom_bamen_yomitori"){
+      var feedback=question.feedback,selection=session.multiSelection||[],first=question.kind==="find_all"?feedback.findIndex(function(text,i){return text&&selection.indexOf(i)>=0;}):-1;
+      var message=question.kind==="find_all"?(first>=0?feedback[first]:question.feedbackMissed):feedback[session.choiceAnswer];
+      return message?'<p class="dan2-reason">'+displayText(message)+'</p>':"";
+    }
     if(correct||!verdict)return "";
     var reason="";
     if(isDanCat(question.cat))reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
@@ -2483,6 +2490,7 @@
     if(!session||session.pending)return;
     var activeSession=session,question=activeSession.questions[activeSession.index],correct;
     try{correct=judgeAnswer(question,answer);}catch(error){renderQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
+    if(question.kind==="choice")activeSession.choiceAnswer=answer;
     activeSession.pending=true;
     var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
     var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
@@ -2674,6 +2682,7 @@
     kom_kuku_bridge:startGeneratedSession("kom_kuku_bridge","Q4B_KOMOREBI_KUKU_BRIDGE","九九の外へを読み込めません"),
     kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません"),
     kom_shiki_henkei:startGeneratedSession("kom_shiki_henkei","Q4B_KOMOREBI_SHIKI_HENKEI","式のかたちをかえるを読み込めません"),
+    kom_bamen_yomitori:startGeneratedSession("kom_bamen_yomitori","Q4B_KOMOREBI_BAMEN_YOMITORI","場面の読みとりを読み込めません"),
     kom_kisokusei:startGeneratedSession("kom_kisokusei","Q4B_KOMOREBI_KISOKUSEI","きまりと数えかたを読み込めません"),
     kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません"),
     kom_ratio_forms:startRatioFormsSession,
