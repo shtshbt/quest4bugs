@@ -1,10 +1,11 @@
 'use strict';
 // Summarise audit.js output (11 章). usage: node summary.js out.json
 // Stage A and stage B composites follow 10.1: for each format, the best enemy of the stage on that format,
-// weighted by the number of problems of the format. Lv1 and 2 leave out the type-name enemies (R3, Bnamed, Bsetns).
+// weighted by the number of problems of the format. Lv1 and 2 leave out the type-name enemies (R3, Bnamed, Bsetns)
+// and, from v0.4.5, the look enemies Bshape and Bshape0 (the shape tells the type, which the screen shows).
 const fs = require('fs');
 const o = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
-const NAMED = new Set(['R3', 'Bnamed', 'Bsetns']);
+const NAMED = new Set(['R3', 'Bnamed', 'Bsetns', 'Bshape', 'Bshape0']);
 const stageOf = (n, lv) => { if (n.startsWith('L') || n.startsWith('R')) return 'R'; if (lv <= 2 && NAMED.has(n)) return 'R'; return n[0] === 'A' ? 'A' : 'B'; };
 const rows = [];
 for (const [lv, r] of Object.entries(o.lv)) {
