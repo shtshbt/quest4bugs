@@ -239,7 +239,32 @@ const tp = (R, arr) => arr[Math.floor((TS.i < TS.u.length ? TS.u[TS.i++] : R()) 
 const tc = R => tp(R, [true, false]);
 const CONCL_W6 = [['big', 0.24], ['same', 0.21], ['small', 0.55]];
 const wpick = (R, w) => { let u = R(); for (const [k, p] of w) { if (u < p) return k; u -= p; } return w[w.length - 1][0]; };
-function buildSet(lv, R) {
+// v0.2.6 (4.2 の 6、12 章の 18): a set does not ask a quantity (4.2 の 5 の数え方、recall を除く) that one of the previous
+// RECENT_SETS sets of the same Lv asked. `recent` is the set of those keys; makeStream keeps it.
+const RECENT_SETS = Number(process.env.UMIX_RECENT === undefined ? 3 : process.env.UMIX_RECENT);
+// a question is the quantity given together with the unit asked for (6分 は 何時間 and 6分 は 何秒 are different questions)
+const askedUnit = q0 => { const q = base(q0); return q.to || (q.pattern === 'time_express' ? '時間' : q.pattern === 'compare' ? (q.dir === 'up' ? q.bigU : q.smallU) : q.pattern === 'align_calc' ? q.dir : q.sa || ''); };
+// recall and the speed domain are left out: the speed questions are few (秒速 5 値から 12 値) and meet the trap minimums only
+// with a handful of values, so with them in the window Lv8 to Lv10 could not be built (v0.2.6)
+const setKeys = set => set.filter(q => q.pattern !== 'recall' && base(q).domain !== 'speed').flatMap(q => qkeys(q).map(k => k + '>' + askedUnit(q)));
+const recentOK = (set, recent) => !recent || !setKeys(set).some(k => recent.has(k));
+// Lv8 is exempt: its question space is small (9.4 章の 8 patternId) and the values that meet the trap minimums in both a plan
+// and its mirror are few, so even a window of 1 set took 560 000 tries for one set (v0.2.6)
+const recentWindow = lv => RECENT_SETS;
+function makeStream(lv, R, k = recentWindow(lv)) {
+  const hist = [];
+  return () => {
+    const recent = new Set(hist.flat());
+    const s = buildSet(lv, R, k > 0 ? recent : null);
+    hist.push(setKeys(s)); while (hist.length > k) hist.shift();
+    return s;
+  };
+}
+function buildSet(lv, R, recent) {
+  G.PLAN.recent = recent && recent.size ? (q => setKeys([q]).some(k => recent.has(k))) : null; // v0.2.6
+  try { return buildSetInner(lv, R, recent); } finally { G.PLAN.recent = null; }
+}
+function buildSetInner(lv, R, recent) {
   const [mk, ok] = BUILD[lv];
   let t = 0;
   // v0.2.2: stratified plan with its mirror. A plan fixes, slot by slot, the direction and the band (and the domain,
@@ -251,7 +276,7 @@ function buildSet(lv, R) {
     for (let k = 0; k < TRIES; k++) {
       t++; TS.i = 0; G.PLAN.ci = 0; G.PLAN.di = 0; G.PLAN.ri = 0; G.PLAN.vi = 0; G.PLAN.ui = 0; G.PLAN.bi = 0;
       let s; try { s = mk(R); } catch (e) { continue; }
-      if (s && ok(s) && trapsOK(lv, s)) return s;
+      if (s && ok(s) && recentOK(s, recent) && trapsOK(lv, s)) return s;
     }
     return null;
   };
@@ -272,4 +297,4 @@ function buildSet(lv, R) {
   }
   throw new Error('buildSet fail lv' + lv);
 }
-module.exports = { BUILD, buildSet, pidOf, base, is60, isUp, trapCount, TRAP_SCOPE, TRAP_NEED, needOf, STATS };
+module.exports = { BUILD, buildSet, makeStream, setKeys, RECENT_SETS, recentWindow, pidOf, base, is60, isUp, trapCount, TRAP_SCOPE, TRAP_NEED, needOf, STATS };

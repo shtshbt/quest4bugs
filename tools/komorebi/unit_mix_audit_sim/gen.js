@@ -391,6 +391,16 @@ function makeDiagnosis(R, src, labels) {
   return null;
 }
 
+// v0.2.6 (4.2 の 6): while a set is built, PLAN.recent tells whether a question was asked by one of the previous sets.
+// The makers below re-draw the values (the planned direction, band and domain stay) until the question is new; the set
+// check in sets.js stays as the guarantee.
+function withRecent(fn) {
+  return function (R, ...args) {
+    let q = null; const at = [PLAN.ri, PLAN.bi, PLAN.ui, PLAN.ci, PLAN.vi]; // redraws read the same planned entries
+    for (let k = 0; k < 40; k++) { [PLAN.ri, PLAN.bi, PLAN.ui, PLAN.ci, PLAN.vi] = at; q = fn(R, ...args); if (!q || !PLAN.recent || !PLAN.recent(q)) return q; }
+    return q;
+  };
+}
 module.exports = { PLAN, planDir, planPick, planBand, B_INT, B_DEC, UP_SMALL, rng, pick, shuffle, rd, eq, isInt, validNum, REL1, REL2, POOL1, DEC_DOMAINS, DOM5, INT_DOWN, SPD_INT, DEC_DOWN, DEC_UP, FRAC,
-  LABELS4, LABELS6, kdOf, opApply, rev, convQ, makeConvert, makeRateSelect, makeRecall, makeTimeExpress, makeCompound, compoundQ,
-  makeCompare, makeAlign, makeSpeedApply, makeDiagnosis, conclOf, cmpConcl, errorCandidates, CPAIRS, COMP_VALS, VALUES, sixtyF, isTimeNonIntSrc };
+  LABELS4, LABELS6, kdOf, opApply, rev, convQ, makeConvert: withRecent(makeConvert), makeRateSelect: withRecent(makeRateSelect), makeRecall, makeTimeExpress: withRecent(makeTimeExpress), makeCompound, compoundQ,
+  makeCompare: withRecent(makeCompare), makeAlign: withRecent(makeAlign), makeSpeedApply: withRecent(makeSpeedApply), makeDiagnosis, conclOf, cmpConcl, errorCandidates, CPAIRS, COMP_VALS, VALUES, sixtyF, isTimeNonIntSrc };

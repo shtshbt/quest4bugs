@@ -18,7 +18,7 @@ function qty(v, u) {
 const fracTxt = fr => `${fr[0]}/${fr[1]}`;
 const unitAsk = u => (u === '秒速m' ? '秒速 何 m ' : u === '分速m' ? '分速 何 m ' : u === '時速km' ? '時速 何 km ' : u === '時間' ? '何時間' : u === '分' ? '何分' : u === '秒' ? '何秒' : `何 ${lab(u)} `);
 const ADJ = { length: '長い', time: '長い', weight: '重い', area: '広い', volume: '多い', speed: '速い' };
-const LABEL_TXT = { correct: '正しい', direction: '上りと下りが逆', steps: '10倍のかいだんの数がちがう', sixty: '時間の 60 を 100 にしている',
+const LABEL_TXT = { correct: '正しい', direction: '上りと下りが逆', steps: '10倍のかいだんの数がちがう', sixty: '60 を 100 に している',
   other_domain: 'ほかの 単位の 倍率を つかっている', not_aligned: '単位を そろえて いない' };
 const near = x => Math.abs(x - Math.round(x)) < 1e-4;
 function hourTxt(v) { if (near(v * 1000)) return num(v) + '時間'; for (const d of [3, 6, 12, 30, 60, 120]) if (near(v * d)) return `${Math.round(v * d)}/${d}時間`; return num(v) + '時間'; }

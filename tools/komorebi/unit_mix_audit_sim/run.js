@@ -10,7 +10,8 @@ function trainPrior() {
   const prior = {};
   for (let lv = 1; lv <= 10; lv++) {
     const R = G.rng(9000 + lv);
-    for (let i = 0; i < 300; i++) for (const q of S.buildSet(lv, R)) if (q.pattern === 'diagnosis') {
+    const st = S.makeStream(lv, R); // v0.2.6: consecutive sets, with the short-term repetition rule
+    for (let i = 0; i < 300; i++) for (const q of st()) if (q.pattern === 'diagnosis') {
       const k = lv + '|' + q.src.pattern + '|' + q.src.domain; prior[k] = prior[k] || {}; prior[k][q.label] = (prior[k][q.label] || 0) + 1;
     }
   }
@@ -21,7 +22,8 @@ const prior = trainPrior();
 function trainDir() {
   const tab = {};
   for (let lv = 1; lv <= 10; lv++) { const R = G.rng(9500 + lv);
-    for (let i = 0; i < 300; i++) for (const q0 of S.buildSet(lv, R)) { const q = q0.pattern === 'diagnosis' ? q0.src : q0; if (!q.paths) continue;
+    const st = S.makeStream(lv, R);
+    for (let i = 0; i < 300; i++) for (const q0 of st()) { const q = q0.pattern === 'diagnosis' ? q0.src : q0; if (!q.paths) continue;
       const k = [lv, (q0.pattern === 'diagnosis' ? 'diagnosis.' : '') + q.pattern, q.domain, q.paths[0].v >= 10 ? 'big' : 'small'].join('|'); tab[k] = tab[k] || { up: 0, down: 0 }; tab[k][q.paths[0].op === '÷' ? 'up' : 'down']++; } }
   return tab;
 }
@@ -55,7 +57,9 @@ const keyOf = q => q.pattern;
 const out = {};
 for (let lv = 1; lv <= 10; lv++) {
   const R = G.rng(1000 + lv); const RS = G.rng(5000 + lv);
-  const sets = []; for (let i = 0; i < N; i++) sets.push(S.buildSet(lv, R));
+  const st = S.makeStream(lv, R); const sets = []; for (let i = 0; i < N; i++) sets.push(st());
+  // v0.2.6 (検証 35): no set repeats a quantity of the previous RECENT_SETS sets
+  { let rep = 0; for (let i = 0; i < sets.length; i++) { const w = S.recentWindow(lv); const prev = new Set(w ? sets.slice(Math.max(0, i - w), i).flatMap(S.setKeys) : []); if (S.setKeys(sets[i]).some(k => prev.has(k))) rep++; } console.log(`   recent-repeat sets ${rep} (window ${S.recentWindow(lv)})`); }
   const res = STRATS.map(() => sets.map(() => []));
   sets.forEach((set, si) => {
     STRATS.forEach((s, k) => { set.forEach((q, qi) => { res[k][si].push(s.fn(q, set.slice(0, qi), RS, lv) ? 1 : 0); }); });
