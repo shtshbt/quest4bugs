@@ -18,6 +18,7 @@ function isUp(q0) { const q = base(q0); return q.dir === 'up'; }
 function qkeys(q0) {
   const q = base(q0);
   if (q.pattern === 'time_express') return ['分|' + q.X];
+  if (q.pattern === 'compound_in') return [q.from + '|' + q.hi + '+' + q.lo]; // v0.2.6: a compound quantity is both of its parts
   if (q.pattern === 'compare') return [q.bigU + '|' + q.vb, q.smallU + '|' + q.vs];
   if (q.pattern === 'align_calc') { const [bu, su] = q.domain === 'time' ? CPAIRS_U[q.cpair] : [G.REL1.find(r => r.id === q.rel).big, G.REL1.find(r => r.id === q.rel).small]; return [bu + '|' + q.vb, su + '|' + q.s]; }
   return [(q.from || q.domain) + '|' + q.gv];
@@ -250,7 +251,7 @@ const setKeys = set => set.filter(q => q.pattern !== 'recall' && base(q).domain 
 const recentOK = (set, recent) => !recent || !setKeys(set).some(k => recent.has(k));
 // Lv8 is exempt: its question space is small (9.4 章の 8 patternId) and the values that meet the trap minimums in both a plan
 // and its mirror are few, so even a window of 1 set took 560 000 tries for one set (v0.2.6)
-const recentWindow = lv => RECENT_SETS;
+const recentWindow = lv => (lv === 8 ? 0 : RECENT_SETS); // Lv8: see the comment above (time items are only the CP1 n, and the trap minimums need particular n)
 function makeStream(lv, R, k = recentWindow(lv)) {
   const hist = [];
   return () => {
