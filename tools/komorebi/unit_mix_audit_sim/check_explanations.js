@@ -47,6 +47,8 @@ function explain(type, c) {
     case 'km_m': return r.id === 'R17' && d === 'down' ? '時速は km で 数える。1000m で 1km' : null;
     case 'cmp_bigunit': return `${c.side}${lab(c.su)} を ${lab(c.to)}に そろえて くらべる`;
     case 'cmp_same': return `${c.vb}${lab(r.big)} は ${c.conv}${lab(r.small)}。だから 同じ`;
+    case 'cmp_notsame': return `${c.y}${lab(c.to)} と ${c.z}${lab(c.to)} は ちがう`; // v0.2.10: 正答が同じでないのに「同じ」
+    case 'diag_missed': return `しきは 正しい。だから ${c.ans}`; // v0.2.10: 正しい答案に誤りのラベル
   }
   return undefined; // a type that table B does not have at all
 }
@@ -80,7 +82,10 @@ for (const r of G.POOL1.filter(x => G.DOM5.includes(x.domain))) for (const d of 
   C('not_aligned', 'compare', { r, dir: d, u1: uz[0], u2: uz[1] });
   for (const vb of [...V.B_INT, ...V.B_DEC].filter(x => x >= 10)) { const conv = G.rd(vb * r.f); if (conv >= 1e6) continue;
     C('cmp_bigunit', 'compare', { r, dir: d, side: d === 'down' ? vb : conv, su: d === 'down' ? r.big : r.small, to: d === 'down' ? r.small : r.big });
-    C('cmp_same', 'compare', { r, dir: d, vb, conv }); }
+    C('cmp_same', 'compare', { r, dir: d, vb, conv });
+    for (const k of [0.5, 0.9, 0.08, 0.12, 1.1, 1.5, 8, 12]) { const vs = sig2(conv * k); if (!(vs >= 1) || vs >= 1e6) continue; // 9.2 章の vs の幅の両端
+      if (d === 'down') C('cmp_notsame', 'compare', { r, dir: d, y: conv, z: vs, to: r.small });
+      else { const y = G.rd(vs / r.f); if (G.isInt(y * 100)) C('cmp_notsame', 'compare', { r, dir: d, y, z: vb, to: r.big }); } } }
 }
 const SA = { kmph_min: ['R15', 'up', '時速 km', '分'], mpm_km: ['R3', 'down', '分速 m', 'km'], sps_min: ['R14', 'down', '秒速 m', '分'], mix_persec: ['R16', 'up', '分速 m', '秒速 m'], mix_permin: ['R16', 'down', '分速 m', '秒速 m'] };
 for (const [type, [id, d, u1, u2]] of Object.entries(SA)) { const r = R(id); // speed_apply の 5 小型
@@ -97,6 +102,15 @@ for (const h of V.TEXP_COMP_H) for (const m of V.TEXP_COMP_M) { const X = 60 * h
 const hours = [...V.TEXP_HOURS.map(v => [v, G.rd(v)]), ...V.FRAC_HOURS.map(f => { const [a, b] = f.split('/').map(Number); return [a / b, f]; })];
 for (const [v, shown] of hours) { const X = Math.round(60 * v); // time_express (小数か分数)
   C('sixty', 'time_express', { r: R15, dir: 'up' }); C('direction', 'time_express', { r: R15, dir: 'up' }); C('texp_calc', 'time_express', { X, ans: G.isInt(v * 100) ? fx(v) : shown }); }
+
+// the fixed options (compare の「同じ」、診断の「正しい」) when they are wrong, and when they are the answer and another option
+// is chosen: 9.7 章の 4 と 5 decide one type for each
+const FIXED_OPT = [['compare', 'truth big or small, chosen 同じ', 'cmp_notsame'], ['compare', 'truth 同じ, chosen a side', 'cmp_same'], ['diagnosis', 'sheet wrong, chosen 正しい', 'sheet type'], ['diagnosis', 'sheet right, chosen an error label', 'diag_missed']];
+for (const [p, when, t] of FIXED_OPT) if (t !== 'sheet type' && explain(t, { r: R('R4'), dir: 'down', y: 1, z: 2, to: 'kg', vb: 1, conv: 1000, ans: '1kg' }) == null) { console.error(`MISSING fixed option ${p} ${when}`); }
+// diag_missed: the answer of a source of a diagnosis is 6 桁以内、小数第 2 位まで (3 章) and its unit; the longest display is
+// 「時速 999999.99km」 (速さは「時速 X km」の形)、10 進は 999999.99cm² など
+for (const ans of ['999999.99cm²', '999999.99時間', '時速 999999.99km', '秒速 999999.99m', '999999.99m']) C('diag_missed', 'diagnosis', { ans });
+function sig2(x) { if (x < 10) return Math.round(x); const p = 10 ** (Math.floor(Math.log10(x)) - 1); return G.rd(Math.round(x / p) * p); }
 
 // ---------- check ----------
 const len = s => [...s.replace(/\s/g, '')].length;
