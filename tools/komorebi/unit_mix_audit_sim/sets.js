@@ -116,6 +116,10 @@ function lv4(R) {
   const v = pick(R, (pd === 'down' ? G.VALUES.LV4_CP1_DOWN : G.VALUES.LV4_CP1_UP).filter(inB)); // v0.2.1: the CP1 pair goes up or down
   const t = G.makeConvert(R, { domains: ['time'], dir: pd, form: 'dec', gv: v });
   const d = G.makeConvert(R, { domains: DEC_DOMAINS, dir: pd, form: 'dec', gv: v });
+  // v0.2.8 (4.4 章、9.2 章): both items of the pair keep the value band of 9.2 章. The big-unit side is in B_DEC, or an up item
+  // gives a small number of UP_SMALL. v0.2.7 let 150m は 何 km (0.15) through, outside both
+  const inBand = q => { const big = q.dir === 'down' ? q.gv : q.ans; return G.B_DEC.some(b => G.eq(b, big)) || (q.dir === 'up' && (G.UP_SMALL[q.f] || []).some(b => G.eq(b, q.gv))); };
+  if (!inBand(t) || !inBand(d)) return null;
   const pair = shuffle(R, [t, d]); pair[1].pairWithPrev = true;
   const src = G.makeConvert(R, { domains: tc(R) ? ['time'] : DEC_DOMAINS, dir: ['down', 'up'], form: 'dec' });
   const dg = G.makeDiagnosis(R, src, G.LABELS4); if (!dg) return null;

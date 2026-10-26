@@ -243,7 +243,7 @@ function labelAllowed(src, label) {
     if (Object.keys(DOMU).length !== 6 || Object.values(DOMU).flat().length !== 23) fail('model units'); });
   check(27, '値の帯 (Lv3 から Lv10 の累計)', (fail, note) => { let dn = 0, dh = 0, up = 0, ul = 0; for (let lv = 3; lv <= 10; lv++) for (const s of SETS[lv]) for (const q of s) { const b = base(q); if (!['convert', 'rate_select', 'align_calc'].includes(b.pattern)) continue; const st = convStep(b); if (b.dir === 'down') { dn++; if (st.x >= 10) dh++; } else { up++; if (st.x < 10) ul++; } }
     if (dh / dn < 0.2 || ul / up < 0.2) fail(`down>=10 ${fmt(dh / dn)} up<10 ${fmt(ul / up)}`); note(`下りの 10 以上 ${fmt(dh / dn)}、上りの 10 未満 ${fmt(ul / up)}`); });
-  check(28, '付録 A の golden case', (fail, note) => { const app = MD.slice(MD.indexOf('## 付録 A. セット実在証明'), MD.indexOf('## 付録 A の v0.2.3 版')); let lv = 0, n = 0; for (const l of app.split('\n')) { const h = l.match(/^### A\.(\d+)/); if (h) lv = h[1]; const m = l.match(/^\d+\. \[([^\]、]+)/); if (m) { n++; if (!SPACE[lv] || !SPACE[lv].has(m[1])) fail(`A.${lv} ${m[1]} outside 9.4`); } } if (n !== 50) fail(`appendix items ${n}`); note('付録 A の patternId を 9.4 章の空間で照合 (値と規則の全項目は render.js の出力で検査する)'); });
+  check(28, '付録 A の golden case と 6 章の例題', fail => { try { execFileSync(process.execPath, [path.join(__dirname, 'check_appendix.js'), DOC], { stdio: 'pipe' }); } catch (e) { fail(String(e.stdout || e.message).split('\n').filter(x => x.startsWith('FAIL')).slice(0, 6).join(' / ')); } }); // v0.2.8: values, not only the patternId
   check(29, '肢の形 (C5)', (fail, note) => note('B8 は strict_enemies.js で測る。倍率の組の対称は検査 13 の g の候補で確かめた'));
   check(30, '対比の組 (C6)', (fail, note) => note('B9 と A10 は strict_enemies.js で測る'));
   check(31, '同時分布 (4.13 の 1 と 2)', (fail, note) => {
