@@ -10,8 +10,6 @@
 const G = require('./gen3.js');
 const OPT = { sumcap: true, near: true, p1redraw: true, sfp: 0.5 };
 G.setOpt(OPT);
-const SETS = Number(process.argv[2] || 2000);
-const SEED = Number(process.argv[4] || 9000);
 const TYPES = ['T_AB', 'T_AF', 'T_SB', 'T_SF'], RATIO = [0.03, 0.26, 0.43, 0.28];
 const SFP = 0.5;
 const bandA = a => (a <= 29 ? 0 : a <= 39 ? 1 : 2);
@@ -82,8 +80,8 @@ function merge(parts) { // parts: [acc, weight]
 const norm = e => ({ A: e.A.map(x => x / e.n), D: e.D.map(x => x / e.n), S: e.S.map(x => x / e.n) });
 const f3 = v => v.map(x => x.toFixed(4)).join('/');
 
+function run(SETS = 2000, lvs = [3, 4, 5, 6, 7, 8, 9], SEED = 9000) {
 let failed = 0;
-const lvs = process.argv[3] ? process.argv[3].split(',').map(Number) : [3, 4, 5, 6, 7, 8, 9];
 for (const lv of lvs) {
   const ts = theorySingle();
   let thAll = ts, thNo2 = ts;
@@ -123,4 +121,7 @@ for (const lv of lvs) {
     console.log(`Lv${lv} ${g}: n=${meas.all[g].all.n} aBand meas ${f3(M.A)} theoryP1 ${f3(T.A)} theory3.10 ${f3(Ts.A)} | sum meas ${f3(M.S)} theoryP1 ${f3(T.S)} | (3) dev vs P1-incl ${d3all.toFixed(3)} vs 3.10-only ${d3single.toFixed(3)}; drop 2nd: vs P1-incl ${d3no2.toFixed(3)} vs 3.10-only ${d3no2single.toFixed(3)} | (2) theory type diff ${t2max.toFixed(3)} meas vs type theory ${d2.toFixed(3)} [${typesIn.join(',')}] ${ok2 && ok3 ? 'OK' : 'FAIL'}`);
   }
 }
-process.exit(failed ? 1 : 0);
+return failed;
+}
+module.exports = { run, emptyAcc, add, theorySingle, theoryP1, merge, norm };
+if (require.main === module) process.exitCode = run(Number(process.argv[2] || 2000), process.argv[3] ? process.argv[3].split(',').map(Number) : undefined, Number(process.argv[4] || 9000)) ? 1 : 0;

@@ -34,7 +34,7 @@ function rng(random) {
 }
 class Redraw extends Error {}
 const need = c => { if (!c) throw new Redraw(); };
-function retry(f, n = 5000) { for (let i = 0; i < n; i++) { try { return f(); } catch (e) { if (!(e instanceof Redraw)) throw e; } } throw new Error('generation failed after retries'); }
+function retry(f, n = 5000) { for (let i = 0; i < n; i++) { try { return f(); } catch (e) { if (!(e instanceof Redraw)) throw e; } } throw new Redraw(); }
 
 // ---------- persons (3.6) ----------
 function drawPersons(R, k, lv) {
@@ -263,9 +263,9 @@ function relScene(R, lv, numbered) {
 // ---------- error types (4.7, 4.9, 8.1) ----------
 const argext = (vals, keys, pol) => { let best = null; for (const k of keys) if (best === null || (pol === 'up' ? vals[k] > vals[best] : vals[k] < vals[best])) best = k; const ties = keys.filter(k => vals[k] === vals[best]); return ties.length > 1 ? null : best; };
 // person-option types by the 8.1 order; cf: list of [type, person-or-null]
-function personTypes(persons, ans, cf, k) {
+function personTypes(persons, ans, cf, k, boundPersons = {}) {
   const out = {};
-  for (const p of persons) if (p !== ans) { const hit = cf.find(c => c[1] === p); out[p] = hit ? hit[0] : (k === 2 ? 'W1' : 'W18'); }
+  for (const p of persons) if (p !== ans) { const hit = cf.find(c => c[1] === p); out[p] = hit ? hit[0] : (k === 2 ? 'W1' : 'W18'); if (hit && hit[0] === 'W17') boundPersons[p] = hit[2]; }
   return out;
 }
 
@@ -289,6 +289,7 @@ function finalize(R, it) {
   } else {
     const idx = R.shuffle(it.optList.map((_, i) => i));
     it.options = idx.map(i => it.optList[i].label); it.optionTypes = idx.map(i => it.optList[i].t);
+    it.optionBoundPersons = idx.map(i => it.optList[i].boundPerson || null);
     it.ans = it.optionTypes.indexOf('correct');
   }
   return it;
@@ -363,16 +364,16 @@ function genHaveMost(R, lv, k, pol) {
   const it = baseItem(k === 2 ? 'have_more' : 'have_most', lv, sc, { kind: 'person', polarity: pol, qToks: qPol(R, ask, pol, sc), optList: keys.map(p => ({ label: p, t: p === ans ? 'correct' : types[p] })), answerName: ans, valsByName: V });
   return finalize(R, it);
 }
-function splitTypesPerson(sc, V, pol, ans, extraCf = []) {
+function splitTypesPerson(sc, V, pol, ans, extraCf = [], boundPersons = {}) {
   const keys = Object.keys(V);
   const cf = [];
   // W17: total bound to the unknown person or to the s5/s5b person
-  for (const p of [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : [])) { const w = Object.assign({}, V); w[p] = sc.T; cf.push(['W17', argext(w, keys, pol)]); }
+  for (const p of [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : [])) { const w = Object.assign({}, V); w[p] = sc.T; cf.push(['W17', argext(w, keys, pol), p]); }
   // W10: compare the known persons only
   cf.push(['W10', argext(V, sc.known.map(i => sc.ps[i].full), pol)]);
   cf.push(['W7', argext(V, keys, pol === 'up' ? 'down' : 'up')]);
   cf.push(...extraCf);
-  return personTypes(keys, ans, cf, keys.length);
+  return personTypes(keys, ans, cf, keys.length, boundPersons);
 }
 function genSplitWhoMost(R, lv, k, pol) {
   const unkAns = R.coin(); // 9.2: the unknown person is the answer in 40-60%
@@ -381,10 +382,10 @@ function genSplitWhoMost(R, lv, k, pol) {
     const V = Object.fromEntries(sc.ps.map((p, i) => [p.full, sc.vals[i]]));
     const ans = argext(V, Object.keys(V), pol); need(ans !== null);
     need((ans === sc.ps[sc.unk].full) === unkAns);
-    const types = splitTypesPerson(sc, V, pol, ans);
+    const boundPersons = {}, types = splitTypesPerson(sc, V, pol, ans, [], boundPersons);
     need(Object.values(types).some(t => t !== 'W18')); // 4.9
     const ask = k === 2 ? 'more2' : 'most';
-    return finalize(R, baseItem(k === 2 ? 'split_who' : 'split_most', lv, sc, { kind: 'person', polarity: pol, qToks: qPol(R, ask, pol, sc), optList: Object.keys(V).map(p => ({ label: p, t: p === ans ? 'correct' : types[p] })), answerName: ans, valsByName: V, unknownIsAnswer: ans === sc.ps[sc.unk].full }));
+    return finalize(R, baseItem(k === 2 ? 'split_who' : 'split_most', lv, sc, { kind: 'person', polarity: pol, qToks: qPol(R, ask, pol, sc), optList: Object.keys(V).map(p => ({ label: p, t: p === ans ? 'correct' : types[p], boundPerson: boundPersons[p] })), answerName: ans, valsByName: V, unknownIsAnswer: ans === sc.ps[sc.unk].full }));
   });
 }
 function genSplitNum(R, lv, k, part, opts = {}) {
@@ -542,11 +543,11 @@ function genStepSplit(R, lv, k, mode, pol) {
     const ans = argext(V, keys, pol);
     const B = Object.fromEntries(sc.ps.map((p, i) => [p.full, sc.vals[i]])), W4 = Object.fromEntries(sc.ps.map((p, i) => [p.full, w4[i]]));
     const cf = [['W16', argext(B, keys, pol)], ['W4', argext(W4, keys, pol)]];
-    for (const p of [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : [])) { const w = Object.assign({}, V); w[p] = sc.T; cf.push(['W17', argext(w, keys, pol)]); }
+    for (const p of [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : [])) { const w = Object.assign({}, V); w[p] = sc.T; cf.push(['W17', argext(w, keys, pol), p]); }
     cf.push(['W7', argext(V, keys, pol === 'up' ? 'down' : 'up')]);
-    const types = personTypes(keys, ans, cf, k);
+    const boundPersons = {}, types = personTypes(keys, ans, cf, k, boundPersons);
     need(Object.values(types).some(t => t !== 'W18'));
-    return finalize(R, baseItem('step_split_transfer_most', lv, sc, { kind: 'person', step: true, polarity: pol, time: 'after', qToks: qPol(R, 'most', pol, sc, 'after'), optList: keys.map(p => ({ label: p, t: p === ans ? 'correct' : types[p] })), answerName: ans, valsByName: V }));
+    return finalize(R, baseItem('step_split_transfer_most', lv, sc, { kind: 'person', step: true, polarity: pol, time: 'after', qToks: qPol(R, 'most', pol, sc, 'after'), optList: keys.map(p => ({ label: p, t: p === ans ? 'correct' : types[p], boundPerson: boundPersons[p] })), answerName: ans, valsByName: V }));
   });
 }
 function genStepTransferMost(R, lv, k, pol) {
@@ -735,7 +736,7 @@ function feedbackFor(it, t, label, idx) {
     case 'W14': return `${it.noise ? it.noise.v : ''}は ${o}の かずじゃ ないよ`;
     case 'W15': return `「その子」は ${it.noise ? it.noise.ref : ''}の ことだよ`;
     case 'W16': return it.time === 'before' ? 'はじめの ばめんで くらべよう' : 'うけわたしの あとの ばめんまで すすめよう';
-    case 'W17': return `ぜんぶの かずは ${it.kind === 'person' ? label : ''}の かずじゃ ないよ`;
+    case 'W17': return `ぜんぶの かずは ${it.optionBoundPersons[idx]}の かずじゃ ないよ`;
     case 'W18': return 'ひとりずつ「だれが いくつ」か たしかめよう';
     case 'W19': return it.pattern === 'split_part' ? `${it.askedName}の かずは ぶんに かいて あるよ` : 'ほかの ひとの ぶんも ひこう';
     case 'W21': return '「より」の ぶんを もう ひとつ よもう';
@@ -743,8 +744,8 @@ function feedbackFor(it, t, label, idx) {
   return null;
 }
 function feedback(it) {
-  if (it.kind === 'find_all') it.feedback = it.cands.map((v, i) => it.candTypes[i] === 'correct' ? null : feedbackFor(it, it.candTypes[i], v, i));
-  else { it.feedback = {}; it.options.forEach((l, i) => { if (it.optionTypes[i] !== 'correct') it.feedback[i] = feedbackFor(it, it.optionTypes[i], l, i); }); }
+  if (it.kind === 'find_all') { it.feedback = it.cands.map((v, i) => it.candTypes[i] === 'correct' ? null : feedbackFor(it, it.candTypes[i], v, i)); it.feedbackMissed = feedbackFor(it, 'W18'); }
+  else it.feedback = it.options.map((l, i) => it.optionTypes[i] === 'correct' ? null : feedbackFor(it, it.optionTypes[i], l, i));
 }
 
 // ---------- set composition (4.2, 4.2.1, 4.6, 4.7, 4.11) ----------
@@ -808,16 +809,17 @@ function modOpts(R, lv, it) {
 function buildSet(lv, random, st) {
   const R = rng(random);
   st = st || newState();
-  for (let tries = 0; tries < 2000; tries++) {
+  let best, bestChoice;
+  for (let tries = 0; tries < 2000 || !best; tries++) {
     try {
-      const choice = {};
+      const choice = {}, violations = [];
       const items = buildItems(R, lv, st, choice);
       for (const it of items) assemble(R, it, lv, modOpts(R, lv, it));
       // Lv9 noise: every item at least one, the set all three (4.2)
       if (lv === 9) { const ns = R.shuffle(['attr_noise', 'object_noise', 'pronoun', R.pick(['attr_noise', 'object_noise', 'pronoun']), R.pick(['attr_noise', 'object_noise', 'pronoun'])]); items.forEach((it, i) => { ({ attr_noise: addAttr, object_noise: addObject, pronoun: addPronoun })[ns[i]](R, it); }); }
       if (lv === 10) { const it = items[3]; ({ attr_noise: addAttr, object_noise: addObject, pronoun: addPronoun })[R.pick(['attr_noise', 'object_noise', 'pronoun'])](R, it); }
-      if (lv === 9) need(['attr_noise', 'object_noise', 'pronoun'].every(m => items.some(it => it.modifiers.includes(m))));
-      if (lv === 7) need(['q_first', 'clause_swap', 'word_swap'].every(m => items.some(it => it.modifiers.includes(m))) && items.every(it => it.modifiers.some(m => ['q_first', 'clause_swap', 'word_swap'].includes(m))));
+      if (lv === 9 && !['attr_noise', 'object_noise', 'pronoun'].every(m => items.some(it => it.modifiers.includes(m)))) violations.push('4.2: Lv9 modifiers');
+      if (lv === 7 && !(['q_first', 'clause_swap', 'word_swap'].every(m => items.some(it => it.modifiers.includes(m))) && items.every(it => it.modifiers.some(m => ['q_first', 'clause_swap', 'word_swap'].includes(m))))) violations.push('4.2: Lv7 modifiers');
       // object_noise questions name the object: re-ask (v0.5.4)
       for (const it of items) if (it.scene.objNoise) reAsk(R, it);
       for (const it of items) if (it.kind === 'find_all') {
@@ -826,25 +828,27 @@ function buildSet(lv, random, st) {
         finalize(R, it);
       }
       for (const it of items) { applyNoiseTypes(it); render(it); waza(it); feedback(it); it.format = FORMAT[it.kind]; it.answerKind = ANSKIND[it.kind]; it.ask = ASK[it.pattern]; it.polarity = it.polarity || null; }
+      need(items.every(it => it.kind === 'find_all' || new Set(it.options).size === it.options.length));
       // 4.3: no two items share person set and number multiset
       const sig = it => it.persons.map(p => p.full).sort().join(',') + '|' + it.S.flatMap(s => s.toks.join(' ').match(/\d+/g) || []).map(Number).sort((a, b) => a - b).join(',');
-      need(new Set(items.map(sig)).size === items.length);
-      setLevelRules(items);
+      if (new Set(items.map(sig)).size !== items.length) violations.push('4.3: repeated scene');
+      setLevelRules(items, violations);
       // chain persons and numbers differ (4.6)
       const ci = items.findIndex(it => it.kind === 'card');
-      if (ci >= 0) { const a = items[ci], b = items[ci + 1]; need(a.persons.map(p => p.full).sort().join() !== b.persons.map(p => p.full).sort().join() && sig(a).split('|')[1] !== sig(b).split('|')[1]); }
+      if (ci >= 0) { const a = items[ci], b = items[ci + 1]; if (!(a.persons.map(p => p.full).sort().join() !== b.persons.map(p => p.full).sort().join() && sig(a).split('|')[1] !== sig(b).split('|')[1])) violations.push('4.3: chain scene overlap'); }
       // wording caps (4.5)
-      capCheck(lv, items);
-      const seq = order(R, items);
-      seq.forEach((it, i) => { it.slot = it.slotIndex; it.position = i; it.lv = lv; it.chainId = null; });
-      if (ci >= 0) { items[ci].chainId = 'ch'; items[ci + 1].chainId = 'ch'; }
-      // scaffold on the first two positions, Lv1-9 (4.1)
-      seq.forEach((it, i) => { it.scaffold = lv <= 9 && i < 2 ? scaffoldFor(R, it.scene, it.scene.step ? 'transfer' : it.scene.structure) : null; });
-      Object.assign(st.prev, Object.fromEntries(Object.entries(choice).map(([k, v]) => [lv + ':' + k, v])));
-      return seq;
+      capCheck(lv, items, violations);
+      if (!best || violations.length < best.violations.length) { best = items; best.violations = violations; bestChoice = choice; }
+      if (!violations.length) break;
     } catch (e) { if (!(e instanceof Redraw)) throw e; }
   }
-  throw new Error('set generation failed at Lv' + lv);
+  const ci = best.findIndex(it => it.kind === 'card'), seq = order(R, best, best.violations);
+  seq.forEach((it, i) => { it.slot = it.slotIndex; it.position = i; it.lv = lv; it.chainId = null; });
+  if (ci >= 0) { best[ci].chainId = 'ch'; best[ci + 1].chainId = 'ch'; }
+  seq.forEach((it, i) => { it.scaffold = lv <= 9 && i < 2 ? scaffoldFor(R, it.scene, it.scene.step ? 'transfer' : it.scene.structure) : null; });
+  Object.assign(st.prev, Object.fromEntries(Object.entries(bestChoice).map(([k, v]) => [lv + ':' + k, v])));
+  seq.violations = best.violations;
+  return seq;
 }
 function reAsk(R, it) {
   const sc = it.scene;
@@ -854,27 +858,27 @@ function reAsk(R, it) {
   if (it.kind === 'card' && it.pattern === 'rel_card') it.qToks = [sc.obj.name + 'の', 'ようすに', 'あう', 'カードは', 'どれですか'];
   if (it.kind === 'number' && it.pattern === 'transfer_num') it.qToks = [it.askedName + 'の', sc.obj.name + 'は', 'いま', 'いくつですか'];
 }
-function setLevelRules(items) {
+function setLevelRules(items, violations) {
   const ev = items.flatMap(it => it.S.filter(s => s.ev && s.giver));
-  if (ev.length >= 2) need(ev.some(s => ['t1', 't2', 't5'].includes(s.baseForm)) && ev.some(s => ['t3', 't4'].includes(s.baseForm))); // 4.11
+  if (ev.length >= 2 && !(ev.some(s => ['t1', 't2', 't5'].includes(s.baseForm)) && ev.some(s => ['t3', 't4'].includes(s.baseForm)))) violations.push('4.11: transfer subject roles');
   const tn = items.filter(it => it.pattern === 'transfer_num' || it.pattern === 'transfer_change');
-  if (tn.length >= 2) need(new Set(tn.map(it => it.askedRole)).size >= 2);
+  if (tn.length >= 2 && new Set(tn.map(it => it.askedRole)).size < 2) violations.push('4.11: asked roles');
   // v0.5.4: the per-set t6 / non-t6 mix rule of 4.11 was removed (it contradicted the 2/3 share of 4.4.9)
 }
 const CAPS = { h8: [9, 7, 7, 5, 7, 8, 6, 9, 8, 9], h10: [9, 7, 7, 5, 7, 8, 6, 9, 8, 9], h0: [3, 3, 3, 3, 3, 4, 3, 3, 3, 3], t6: [3, 3, 3, 3, 3, 7, 4, 5, 3, 6], c5: [3, 3, 3, 4, 3, 3, 3, 3, 3, 3] };
 function wordingIds(it) { const ids = []; for (const s of (it.S || it.sents)) { if (!s.id || s.id === 'intro' || s.id === 'pron' || s.h6tail) continue; if (/^s/.test(s.id) && s.role === 'total' && s.num === null) continue; if (s.id === 's6' && s.num === null) continue; ids.push(s.id); } return ids; }
-function capCheck(lv, items) {
+function capCheck(lv, items, violations) {
   const c = {}; for (const it of items) for (const id of wordingIds(it)) c[id] = (c[id] || 0) + 1;
-  for (const [id, n] of Object.entries(c)) need(n <= (CAPS[id] ? CAPS[id][lv - 1] : 3));
+  for (const [id, n] of Object.entries(c)) if (n > (CAPS[id] ? CAPS[id][lv - 1] : 3)) violations.push('4.5: wording cap ' + id);
 }
-function order(R, items) {
+function order(R, items, violations) {
   const perms = []; const idx = items.map((_, i) => i);
   const permute = (a, l) => { if (l === a.length) { perms.push(a.slice()); return; } for (let i = l; i < a.length; i++) { [a[l], a[i]] = [a[i], a[l]]; permute(a, l + 1); [a[l], a[i]] = [a[i], a[l]]; } };
   permute(idx, 0);
   const ci = items.findIndex(it => it.kind === 'card');
   const ok = perms.filter(p => p.every((x, i) => i === 0 || items[x].pattern !== items[p[i - 1]].pattern) && (ci < 0 || p.indexOf(ci + 1) === p.indexOf(ci) + 1));
-  need(ok.length > 0);
-  return R.pick(ok).map(i => items[i]);
+  if (!ok.length) violations.push('4.7: question order');
+  return R.pick(ok.length ? ok : perms).map(i => items[i]);
 }
 
 module.exports = { buildSet, newState, wordingIds, CAPS, FAMILY, POOL, SIMILAR, OBJS, OTHER, INS, INS_T, REL_N, REL_K, REL_S, WAZA, argext, ONE_HAVE, ONE_SPLIT };

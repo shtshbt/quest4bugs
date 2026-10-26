@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Asserts the checks of 10 章 (docs/komorebi_bamen_yomitori_curriculum.md, v0.5.4) on the output of
+// Asserts the checks of 10 章 (docs/komorebi_bamen_yomitori_curriculum.md, v0.5.5) on the output of
 // strict_gen.js. Each check prints PASS / FAIL with the offending values. Answers and error types
 // are recomputed here from the scene model, independently of the generator's own bookkeeping.
 //   node strict_check.js [sets-per-Lv] [seed]      (exit 1 when any check fails)
@@ -7,22 +7,24 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
-const G = require('./strict_gen.js');
+const { checkAppendix } = require('./check_appendix.js');
 const { mulberry32 } = require('./audit_sim.js');
 
-const N = +(process.argv[2] || 2000), SEED = +(process.argv[3] || 4242);
-if (!Number.isInteger(N) || N < 10) { console.error('sets-per-Lv must be an integer >= 10'); process.exit(2); }
+function runChecks(G, N = 2000, SEED = 4242, sourcePath = path.join(__dirname, 'strict_gen.js'), biasCounts = {}) {
+const counts = Array.from({ length: 10 }, (_, i) => typeof N === 'number' ? N : N[i + 1]);
+if (counts.some(n => !Number.isInteger(n) || n < 10)) throw new Error('sets-per-Lv must be an integer >= 10');
 const DOC = path.join(__dirname, '../../../docs/komorebi_bamen_yomitori_curriculum.md');
 
 // ---------- generate ----------
 const SETS = {}; // lv -> [sets]
+const streams = {};
 for (let lv = 1; lv <= 10; lv++) {
   const r = mulberry32(SEED + lv), st = G.newState(); SETS[lv] = [];
-  for (let i = 0; i < N; i++) SETS[lv].push(G.buildSet(lv, r, st));
+  streams[lv] = { r, st };
+  for (let i = 0; i < counts[lv - 1]; i++) SETS[lv].push(G.buildSet(lv, r, st));
 }
 const ALL = []; for (let lv = 1; lv <= 10; lv++) for (const set of SETS[lv]) for (const it of set) ALL.push(it);
-console.error(`generated ${N} sets per Lv (${ALL.length} items)`);
+console.error(`generated ${typeof N === 'number' ? N : counts.join('/')} sets per Lv (${ALL.length} items)`);
 
 // ---------- reporting ----------
 const results = [];
@@ -88,7 +90,7 @@ function expectedPersonTypes(it) {
   const hits = {}; // type -> person
   const add = (t, v) => { if (v && hits[t] === undefined) hits[t] = []; if (v) hits[t].push(v); };
   if (sc.step) add('W16', argext(stateOf(it, time === 'before' ? 'after' : 'before'), keys, pol));
-  if (sc.step && time !== 'before') { const rv = sc.vals.slice(); rv[sc.gi] += sc.n; rv[sc.ri] -= sc.n; add('W4', argext(Object.fromEntries(keys.map((q, i) => [q, rv[i]])), keys, pol)); }
+  if (sc.step && time !== 'before') { const rv = sc.vals.slice(); rv[sc.gi] += sc.n; rv[sc.ri] -= sc.n; add('W4', argext(Object.fromEntries(sc.ps.map((q, i) => [q.full, rv[i]])), keys, pol)); }
   if (sc.structure === 'split') {
     for (const q of [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : [])) { const w = Object.assign({}, cur); w[q] = sc.T; add('W17', argext(w, keys, pol)); }
     if (!sc.step) add('W10', argext(cur, sc.known.map(i => sc.ps[i].full), pol));
@@ -447,7 +449,7 @@ check(31, '出題順', fail => {
 check(32, 'わざと一言', fail => {
   for (const p of Object.keys(PATTERNS)) { const fake = { pattern: p, k: 3, modifiers: [] }; const rows = G.WAZA.filter(r => r[2](p, fake)); if (rows.length < 2) fail(`${p}: ${rows.length} rows (primary and 別の道 need 2)`); }
   for (const it of ALL) { if (!it.waza || !it.waza.primary || !it.waza.alternate) { fail(`${it.pattern} waza ${JSON.stringify(it.waza)}`); return; } if (!G.WAZA.some(r => r[1] === it.waza.primary)) { fail('waza text'); return; } }
-  for (const it of ALL) { const fb = it.feedback; const vals = it.kind === 'find_all' ? fb.filter(x => x !== null) : Object.values(fb); if (vals.some(x => !x || /undefined|null|NaN/.test(x))) { fail(`${it.pattern} feedback ${JSON.stringify(fb)}`); return; } }
+  for (const it of ALL) { const fb = it.feedback; const vals = fb.filter(x => x !== null); if (vals.some(x => !x || /undefined|null|NaN/.test(x))) { fail(`${it.pattern} feedback ${JSON.stringify(fb)}`); return; } }
 });
 check(33, '除外語', fail => {
   const bad = ['円', 'おつり', 'あわせて', 'ちがいは', 'おおいほうは', 'すくないほうは', 'ずつ', 'ばい', 'ばんめ', 'まえから', 'うしろから', 'あいだ'];
@@ -459,11 +461,11 @@ check(34, '本編 gWasa との非重複', fail => {
 });
 check(35, '再現性', fail => {
   for (const lv of [1, 5, 10]) { const a = G.buildSet(lv, mulberry32(99), G.newState()), b = G.buildSet(lv, mulberry32(99), G.newState()); const j = s => JSON.stringify(s.map(it => [it.text, it.options, it.optionTypes, it.cands])); if (j(a) !== j(b)) fail(`Lv${lv} differs`); }
-  const src = fs.readFileSync(path.join(__dirname, 'strict_gen.js'), 'utf8'); if (/Math\.random|Date\.now/.test(src.replace(/\/\/.*$/gm, ''))) fail('Math.random or Date.now in strict_gen.js');
+  const src = fs.readFileSync(sourcePath, 'utf8'); if (/Math\.random|Date\.now/.test(src.replace(/\/\/.*$/gm, ''))) fail('Math.random or Date.now in ' + path.basename(sourcePath));
 });
 check(36, '敵ソルバー回帰テスト', (fail, note) => { note('run: STRICT=1 SEED=<seed> node audit_sim.js 400 --stage (stage A < 0.60, stage A+B < 0.75)'); });
 check(37, '敵ソルバーの更新規約', (fail, note) => note('process rule, not a property of the output'));
-check(38, '実在証明 (付録 A)', fail => { try { const out = execFileSync('node', [path.join(__dirname, 'check_appendix.js'), DOC], { encoding: 'utf8' }); if (!/no violations/.test(out)) fail(out.split('\n').slice(-4).join(' ')); } catch (e) { fail((e.stdout || e.message).toString().split('\n').slice(-6).join(' ')); } });
+check(38, '実在証明 (付録 A)', fail => { const { errors, itemCount } = checkAppendix(fs.readFileSync(DOC, 'utf8')); if (itemCount !== 50) fail(`expected 50 items, found ${itemCount}`); errors.forEach(fail); });
 check(39, 'かかわらない人の枠', fail => {
   for (let lv = 1; lv <= 10; lv++) { const ev = SETS[lv].flat().filter(it => it.k >= 3).flatMap(it => it.S.filter(s => s.ev && s.giver && !s.wordSwap)); if (ev.length < 200) continue; const s = share(ev.filter(x => x.frame).length, ev.length); if (!band(s, 0.6, 0.73)) fail(`Lv${lv} t6 ${fmt(s)}`); }
   const fr = ALL.flatMap(it => it.S.filter(s => s.frame)); const b = share(fr.filter(s => s.frame.pos === 'before').length, fr.length); if (!band(b, 0.4, 0.6)) fail(`frame before ${fmt(b)}`);
@@ -490,6 +492,11 @@ check(43, '規則の文の確定 (4.12 章)', fail => {
     if (it.pattern === 'rel_most' || it.pattern === 'rel_num' || it.pattern === 'rel_card') { const sc = it.scene; if (!(sc.rels.some(r => r.subj === sc.P1.full && r.other === sc.B.full) && sc.rels.some(r => r.subj === sc.P2.full && r.other === sc.P1.full))) { fail('A6'); return; } }
   }
 });
+for (const [level, n] of Object.entries(biasCounts)) {
+  const lv = Number(level);
+  if (!Number.isInteger(lv) || lv < 1 || lv > 10 || !Number.isInteger(n) || n < counts[lv - 1]) throw new Error('invalid bias sample count');
+  while (SETS[lv].length < n) { const set = G.buildSet(lv, streams[lv].r, streams[lv].st); SETS[lv].push(set); ALL.push(...set); }
+}
 check(44, '名前と役の対応', fail => {
   const famShare = it => it.persons.filter(p => p.fam).length / it.persons.length;
   const isFam = (it, n) => it.persons.find(p => p.full === n).fam;
@@ -519,12 +526,38 @@ check(45, '関係の語', fail => {
   if (h10.some(x => (G.REL_K.includes(x.s.rel) && !x.s.owner.endsWith('くん')) || (G.REL_S.includes(x.s.rel) && !x.s.owner.endsWith('さん')))) fail('gender');
 });
 
-// ---------- report ----------
-let nf = 0;
-for (const r of results.sort((a, b) => a.no - b.no)) {
-  const st = r.fails.length ? 'FAIL' : (r.note.length ? 'NOTE' : 'PASS');
-  if (r.fails.length) nf++;
-  console.log(`${String(r.no).padStart(2)} ${st} ${r.title}${r.fails.length ? '\n     ' + r.fails.slice(0, 6).join('\n     ') : ''}${r.note.length ? '  (' + r.note.join('; ') + ')' : ''}`);
+check(46, '型と一言の差し込みの一致', fail => {
+  let downW17 = 0;
+  for (const it of ALL) {
+    const choices = it.kind === 'find_all' ? it.cands : it.options;
+    const types = it.kind === 'find_all' ? it.candTypes : it.optionTypes;
+    if (!Array.isArray(it.feedback) || it.feedback.length !== choices.length || it.feedback.some((text, i) => types[i] === 'correct' ? text !== null : !text)) { fail(`${it.pattern} feedback shape`); return; }
+    if (it.kind === 'find_all' && it.feedbackMissed !== 'ひとりずつ「だれが いくつ」か たしかめよう') { fail(`${it.pattern} feedbackMissed`); return; }
+    if (it.kind !== 'person') continue;
+    for (let i = 0; i < choices.length; i++) if (types[i] === 'W17') {
+      const sc = it.scene, cur = stateOf(it, it.time || 'after'), keys = Object.keys(cur);
+      const bound = [sc.ps[sc.unk].full].concat(sc.s5X ? [sc.s5X] : []).find(p => argext(Object.assign({}, cur, { [p]: sc.T }), keys, it.polarity) === choices[i]);
+      if (!bound || it.optionBoundPersons[i] !== bound || it.feedback[i] !== `ぜんぶの かずは ${bound}の かずじゃ ないよ`) { fail(`${it.pattern} W17 ${choices[i]} bound ${bound}: ${it.feedback[i]}`); return; }
+      if (it.polarity === 'down') { downW17++; if (bound === choices[i]) { fail('down W17 bound equals choice'); return; } }
+    }
+  }
+  if (!downW17) fail('no down W17');
+});
+
+return { results, SETS };
 }
-console.log(`${results.length} checks, ${nf} failed`);
-process.exit(nf ? 1 : 0);
+
+if (require.main === module) {
+  let results;
+  try { ({ results } = runChecks(require('./strict_gen.js'), +(process.argv[2] || 2000), +(process.argv[3] || 4242))); }
+  catch (e) { console.error(e.message); process.exit(2); }
+  let nf = 0;
+  for (const r of results.sort((a, b) => a.no - b.no)) {
+    const st = r.fails.length ? 'FAIL' : (r.note.length ? 'NOTE' : 'PASS');
+    if (r.fails.length) nf++;
+    console.log(`${String(r.no).padStart(2)} ${st} ${r.title}${r.fails.length ? '\n     ' + r.fails.slice(0, 6).join('\n     ') : ''}${r.note.length ? '  (' + r.note.join('; ') + ')' : ''}`);
+  }
+  console.log(`${results.length} checks, ${nf} failed`);
+  process.exit(nf ? 1 : 0);
+}
+module.exports = { runChecks };

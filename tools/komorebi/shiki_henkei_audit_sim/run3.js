@@ -1,10 +1,6 @@
 'use strict';
 // usage: node run3.js [testSets] [trainSets] [lvLo] [lvHi] [variant]
-const G = require('./gen3.js');
-const S = require('./solvers3.js');
-const NTEST = Number(process.argv[2] || 2000), NTRAIN = Number(process.argv[3] || 30000);
-const LO = Number(process.argv[4] || 1), HI = Number(process.argv[5] || 10);
-const variant = process.argv[6] || 'base';
+function run(G, S, NTEST, NTRAIN, LO, HI, variant) {
 const m = variant.match(/sfp([0-9.]+)/);
 const opt = variant === 'v031' ? { sumcap: true, near: true, p1redraw: true, sfp: 0.5 } // the v0.3.1 rules (curriculum 3.6, 3.10)
   : { sumcap: variant.includes('sumcap'), sfp: m ? Number(m[1]) : 0, acommon: variant.includes('acommon'), p1redraw: variant.includes('p1redraw'), near: variant.includes('near') };
@@ -42,4 +38,11 @@ for (let lv = LO; lv <= HI; lv++) {
   out[lv] = res;
   console.log(`Lv${lv}: ` + Object.entries(res).map(([k, v]) => `${k}=${v.toFixed(3)}`).join('  '));
 }
-require('fs').writeFileSync(require('path').join(process.cwd(), `results3_${variant}_${LO}_${HI}.json`), JSON.stringify(out, null, 1));
+return out;
+}
+module.exports = { run };
+if (require.main === module) {
+  const LO = Number(process.argv[4] || 1), HI = Number(process.argv[5] || 10), variant = process.argv[6] || 'base';
+  const out = run(require('./gen3.js'), require('./solvers3.js'), Number(process.argv[2] || 2000), Number(process.argv[3] || 30000), LO, HI, variant);
+  require('fs').writeFileSync(require('path').join(process.cwd(), `results3_${variant}_${LO}_${HI}.json`), JSON.stringify(out, null, 1));
+}

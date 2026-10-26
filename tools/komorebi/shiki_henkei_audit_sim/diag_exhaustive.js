@@ -8,7 +8,7 @@
 // table resolves to exactly one explanation sentence of chapter 8 (keyed by error type and problem type).
 // Usage: node diag_exhaustive.js   (exit 1 on any violation)
 'use strict';
-const G = require('./gen3.js');
+function run(G = require('./gen3.js'), check = () => {}) {
 const B = G.B;
 let bad = 0;
 const fail = (msg) => { if (bad < 20) console.error('VIOLATION', msg); bad++; };
@@ -48,12 +48,14 @@ for (let x = 2; x <= 100; x++) for (let y = x + 2; y <= 100; y++) {
     ['T_SF', [[x, 1], [y, 1]], TWO.T_SF_dbig], ['T_SF', [[y, 1], [x, 1]], TWO.T_SF_abig],
   ];
   for (const [type, ans, table] of probs) {
-    const p = { fam: '2num', answerTerms: ans };
+    const a = type === 'T_SF' ? ans[0][0] : type === 'T_AF' ? x : y;
+    const p = { fam: '2num', type, nums: [x, y], answerTerms: ans, box: ans.reduce((v, [n, s]) => v + n * s, 0), abc: { a, d: a === x ? y : x, x, y } };
     for (const [u, v] of [[x, y], [y, x]]) for (const op of ['+', '-']) {
       const slots = [String(u), op, String(v)];
       const cells = twoNumCells(type, x, y, slots); n2++;
       if (cells.length !== 1) { fail(`2num ${type} ${slots.join('')} cells=${cells}`); continue; }
       const ok = G.judge(p, slots);
+      check(p, slots, table[cells[0]] === 'correct' ? [] : [table[cells[0]]]);
       if (table[cells[0]] === 'correct' && !G.lrOK(slots)) fail(`2num ${type} ${slots.join('')} correct cell goes below 0`);
       if ((table[cells[0]] === 'correct') !== ok) fail(`2num ${type} ${slots.join('')} judge=${ok} cell=${table[cells[0]]}`);
     }
@@ -85,6 +87,7 @@ for (const type of ['T_AB', 'T_AF', 'T_SB', 'T_SF']) for (const sfBig of (type =
       if (conds.filter(Boolean).length !== 1) { fail(`both ${type} ${slots.join('')} conds=${conds}`); continue; }
       const cell = conds[0] ? 'correct' : conds[1] ? 'negative_step' : 'error_row';
       if ((cell === 'correct') !== G.judge(p, slots)) fail(`both ${type} ${slots.join('')} judge mismatch`);
+      check(p, slots, cell === 'correct' ? [] : cell === 'negative_step' ? ['negative_step'] : BOTH_TABLE[rows[0]][type], cell === 'negative_step' ? firstNegative(slots) : null);
       if (cell === 'negative_step') {
         nNeg++;
         const xy = firstNegative(slots);
@@ -134,6 +137,7 @@ for (const role of ['start', 'change', 'result']) for (const dir of ['inc', 'dec
       const cells = storyCells(p, slots);
       if (cells.length !== 1) { fail(`story ${p.patternId} ${slots.join('')} cells=${cells}`); continue; }
       if ((cells[0] === 'correct') !== G.judge(p, slots)) fail(`story ${p.patternId} ${slots.join('')} judge mismatch`);
+      check(p, slots, cells[0] === 'correct' ? [] : cells[0].split('+'));
       const t = `${p.patternId} ${cells[0]}`; tally[t] = (tally[t] || 0) + 1;
     }
   }
@@ -153,10 +157,12 @@ for (const add of [true, false]) for (let a = 11; a <= 89; a++) for (let b = 2; 
   if (add && !(ad[0] + bd[0] <= 9 && ad[1] + bd[1] <= 9)) continue;
   if (!add && !(ad[0] >= bd[0] && ad[1] >= bd[1])) continue;
   const t = add ? a + b : a - b; if (t < 2 || t > 99) continue;
+  const p = { fam: 'intro', nums: [a, b], ans: t, patternId: add ? 'solve_add_r' : 'solve_sub_r' };
   for (let v = 0; v <= 999; v++) {
     n1++;
     const hits = LV1_RULES.filter(([, f]) => f(a, b, add, v)).map(([k]) => k);
     const cell = hits[0];
+    check(p, v, cell === 'correct' ? [] : [cell]);
     if ((cell === 'correct') !== (v === t)) fail(`lv1 ${a}${add ? '+' : '-'}${b} v=${v} correct mismatch`);
     lv1Tally[cell] = (lv1Tally[cell] || 0) + 1;
     const real = hits.filter(k => k !== 'calc_other');
@@ -185,13 +191,6 @@ function checkKey(fam, type, tags, what) {
   if (k.length !== 1) fail(`explanation ${what}: ${k.length} keys for ${lead(tags)} (${fam} ${type})`); else used.add(k[0]);
 }
 for (const [variant, table] of Object.entries(TWO)) for (const cell of Object.values(table)) if (cell !== 'correct') checkKey('2num', variant.startsWith('T_SF') ? 'T_SF' : variant, [cell], `2num ${variant}`);
-const BOTH_TABLE = { // 3.5.2: row -> type -> tags
-  'bc-a': { T_AB: [], T_AF: [], T_SF: ['keep_op'], T_SB: ['order_reversal'] },
-  'bc+a': { T_AB: ['keep_op'], T_AF: ['keep_op'], T_SF: [], T_SB: ['invert_overapply'] },
-  'a-b-c': { T_AB: ['minuend_swap'], T_AF: ['minuend_swap'], T_SF: ['minuend_swap'], T_SB: [] },
-  'b-c-a': { T_AB: ['flip_other_side'], T_AF: ['flip_other_side'], T_SF: ['flip_other_side', 'keep_op'], T_SB: ['flip_other_side', 'order_reversal'] },
-  'b-c+a': { T_AB: ['flip_other_side', 'keep_op'], T_AF: ['flip_other_side', 'keep_op'], T_SF: ['flip_other_side'], T_SB: ['flip_other_side'] },
-};
 for (const row of Object.values(BOTH_TABLE)) for (const [type, tags] of Object.entries(row)) if (tags.length) checkKey('both', type, tags, `both ${type}`);
 checkKey('both', 'T_AB', ['negative_step'], 'both negative_step'); checkKey('both', 'T_AF', ['negative_step'], 'both negative_step');
 for (const t of Object.keys(tally)) { const [pid, cell] = t.split(' '); if (cell === 'correct') continue; checkKey('story', pid.includes('_inc_') ? 'inc' : 'dec', cell.split('+'), `story ${pid}`); }
@@ -205,4 +204,14 @@ console.log(`negative_step ${nNeg} (X is the first card: ${negXfirst}, Y is a: $
 const per = {};
 for (const [t, n] of Object.entries(tally)) { const [pid, cell] = t.split(' '); if (cell.startsWith('true_') || cell === 'correct') (per[pid] = per[pid] || []).push(`${cell} ${n}`); }
 for (const pid of Object.keys(per).sort()) console.log(pid, per[pid].join(', '));
-process.exit(bad ? 1 : 0);
+return { bad, n1, n2, nb, ns, nNeg };
+}
+const BOTH_TABLE = {
+  'bc-a': { T_AB: [], T_AF: [], T_SF: ['keep_op'], T_SB: ['order_reversal'] },
+  'bc+a': { T_AB: ['keep_op'], T_AF: ['keep_op'], T_SF: [], T_SB: ['invert_overapply'] },
+  'a-b-c': { T_AB: ['minuend_swap'], T_AF: ['minuend_swap'], T_SF: ['minuend_swap'], T_SB: [] },
+  'b-c-a': { T_AB: ['flip_other_side'], T_AF: ['flip_other_side'], T_SF: ['flip_other_side', 'keep_op'], T_SB: ['flip_other_side', 'order_reversal'] },
+  'b-c+a': { T_AB: ['flip_other_side', 'keep_op'], T_AF: ['flip_other_side', 'keep_op'], T_SF: ['flip_other_side'], T_SB: ['flip_other_side'] },
+};
+module.exports = { run };
+if (require.main === module) process.exitCode = run().bad ? 1 : 0;

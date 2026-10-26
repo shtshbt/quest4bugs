@@ -50,6 +50,8 @@
     kom_diagram_model:{course:"k10",name:"数量関係の図化",maxLv:10,release:2},
     kom_kuku_bridge:{course:"k5",name:"九九の外へ",maxLv:10,release:5},
     kom_equation_select:{course:"k5",name:"文章題の式えらび",maxLv:10,release:4},
+    kom_shiki_henkei:{course:"k5",name:"式のかたちをかえる",maxLv:10,release:6},
+    kom_bamen_yomitori:{course:"k5",name:"場面の読みとり",maxLv:10,release:6},
     /* 段暗唱は指導順 (2, 5, 3, 4, 6, 7, 8, 9) に 1 更新 2 本ずつ解禁する
        (release_linkage 2 章の倍速カレンダー)。エンジンは段番号駆動なので
        実装はこの行だけ。同 release 内の指導順は宣言順で保たれる。 */
@@ -87,6 +89,7 @@
   /* ゲージに数える回答の形式。ここに無い形式は例外になる (黙って加算されないより、
      登録漏れが即わかるほうがよい)。れんぞく九九はだんラン 1 本で 1 正答。 */
   var FORMAT_KINDS={
+    assemble:{assemble:true},
     normal:{num:true,frac:true,choice:true,num_unit:true},
     formulation:{choice:true},
     ordering:{order:true},
@@ -653,6 +656,7 @@
       return question.ans.every(function(value,index){return answer[index]===value;});
     }
     if(question.kind==="choice")return Number.isInteger(answer)&&answer===expectedChoiceIndex(question);
+    if(question.kind==="find_all"&&Array.isArray(question.ansSet))return judgeDiagramFindAll(question,answer);
     var numeric=typeof answer==="number"?answer:Number(String(answer).trim());
     return Number.isFinite(numeric)&&Number.isFinite(question.ans)&&Math.abs(numeric-question.ans)<1e-9;
   }
@@ -1612,8 +1616,34 @@
     }).join("")+'</div>';
   }
 
+  function shikiAnswerSlots(question){
+    if(question.lv===10)return question.answerSlots;
+    var slots=[];question.answerTerms.forEach(function(t,i){if(i)slots.push(t[1]===1?"+":"-");slots.push(String(t[0]));});return slots;
+  }
+
+  function shikiQuestionHtml(question){
+    var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold.text.replace(/-/g,"−"))+'</p>':"";
+    var stem='<h2 class="shiki-stem'+(question.lv===10?' shiki-story':'')+'">'+displayText(question.text.replace(/-/g,"−"))+'</h2><p class="shiki-prompt">'+displayText(question.prompt)+'</p>';
+    var slots=session.assembleSlots;
+    var frame=question.frame.map(function(kind,i){return kind==="eq"?'<span class="assemble-label">=</span>':'<button type="button" class="assemble-slot'+(kind==="op"?' assemble-op':'')+(slots[i]!==null?' filled':'')+'" data-assemble-slot="'+i+'" aria-label="'+attrText((i+1)+"ばんめの わく")+'">'+(slots[i]===null?"":displayText(slots[i].replace(/-/g,"−")))+'</button>';}).join("");
+    var cards=question.numberCards.map(function(card,i){var used=slots.indexOf(card)>=0;return '<button type="button" class="assemble-card'+(card==="□"?' assemble-box':'')+(used?' used':'')+'" data-assemble-number="'+i+'"'+(used?' disabled':'')+'>'+displayText(card)+'</button>';}).join("");
+    var operators=question.operatorCards.map(function(op){return '<button type="button" class="assemble-card assemble-operator" data-assemble-op="'+op+'">'+displayText(op.replace(/-/g,"−"))+'</button>';}).join("");
+    return scaffold+stem+'<div class="assemble-frame">'+(question.frame.indexOf("eq")>=0?"":'<span class="assemble-label">□=</span>')+frame+'</div><div class="assemble-tray"><div class="assemble-row">'+cards+'</div><div class="assemble-row">'+operators+'</div></div><div class="assemble-actions"><button type="button" data-action="clear-assemble">'+displayText("けす")+'</button><button type="button" data-action="submit-assemble"'+(slots.indexOf(null)>=0?' disabled':'')+'>'+displayText("できた")+'</button></div>';
+  }
+
+  function bindAssemble(question){
+    if(question.kind!=="assemble")return;
+    function place(kind,card){var slots=session.assembleSlots;if(kind==="num"&&slots.indexOf(card)>=0)return;for(var i=0;i<slots.length;i++)if(question.frame[i]===kind&&slots[i]===null){slots[i]=card;renderCurrent();return;}}
+    Array.prototype.forEach.call(document.querySelectorAll("[data-assemble-number]"),function(button){button.addEventListener("click",function(){place("num",question.numberCards[Number(button.getAttribute("data-assemble-number"))]);});});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-assemble-op]"),function(button){button.addEventListener("click",function(){place("op",button.getAttribute("data-assemble-op"));});});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-assemble-slot]"),function(button){button.addEventListener("click",function(){session.assembleSlots[Number(button.getAttribute("data-assemble-slot"))]=null;renderCurrent();});});
+    document.querySelector('[data-action="clear-assemble"]').addEventListener("click",function(){session.assembleSlots=question.frame.map(function(kind){return kind==="eq"?"=":null;});renderCurrent();});
+    document.querySelector('[data-action="submit-assemble"]').addEventListener("click",function(){if(session.assembleSlots.indexOf(null)<0)submitAnswer(session.assembleSlots.slice());});
+  }
+
   function standardQuestionBodyHtml(question){
-    var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold)+'</p>':"";
+    if(question.kind==="assemble")return shikiQuestionHtml(question);
+    var scaffold=question.scaffold?'<p class="ratio-scaffold">'+displayText(question.scaffold.text?question.scaffold.text.replace(/-/g,"−"):question.scaffold)+'</p>':"";
     var work=question.work?'<div class="ratio-work">'+question.work.map(function(line){return '<p>'+displayText(line)+'</p>';}).join("")+'</div>':"";
     var controls;
     if(question.kind==="choice")controls=ratioChoiceHtml(question);
@@ -1623,7 +1653,7 @@
     else if(question.kind==="frac")controls=fracInputHtml();
     else controls='<form class="ratio-number-form" data-answer-form><input name="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="'+attrText("答え")+'"><button type="submit" class="ratio-submit">'+displayText("答える")+'</button></form>';
     if(question.cat==="kom_johou_seiri")return scaffold+johouPassageHtml(question)+'<h2>'+displayText(question.prompt)+'</h2>'+work+controls;
-    return scaffold+'<h2>'+displayText(question.text)+'</h2>'+figuresHtml(question)+work+controls;
+    return scaffold+'<h2'+(question.prompt?' class="shiki-stem"':'')+'>'+displayText(question.prompt?question.text.replace(/-/g,"−"):question.text)+'</h2>'+(question.prompt?'<p class="shiki-prompt">'+displayText(question.prompt)+'</p>':"")+figuresHtml(question)+work+controls;
   }
 
   function ratioAnswerText(question){
@@ -1835,6 +1865,7 @@
   }
 
   function answerText(question){
+    if(question.kind==="assemble")return shikiAnswerSlots(question).join("").replace(/-/g,"−");
     /* 図化と整数の性質の find_all は正解集合が ansSet (生成器の契約)。他カテゴリは ans。 */
     if(question.kind==="find_all")return (Array.isArray(question.ans)?question.ans:question.ansSet).map(function(index){return question.choices[index];}).join("　");
     if(question.kind==="frac"){
@@ -1901,6 +1932,11 @@
   }
 
   function judgeAnswer(question,answer){
+    if(question.cat==="kom_shiki_henkei"){
+      var engine=global.Q4B_KOMOREBI_SHIKI_HENKEI,correct=engine.judge(question,answer);
+      session.verdict={correct:correct,diagnose:engine.diagnose(question,answer),slots:Array.isArray(answer)?answer.slice():answer,unknownPosition:Array.isArray(answer)?answer.indexOf("□"):null};
+      return correct;
+    }
     if(question.cat==="kom_kuku_run")return kukuEngine().judge(question,answer);
     if(question.cat==="kom_kuku_ura"||question.cat==="kom_kuku_inverse")return reverseEngine().judge(question,answer);
     if(question.kind==="frac"){
@@ -1932,6 +1968,7 @@
 
   function wazaCardHtml(question){
     var waza=question.waza||{primary:question.explanation||"",alternate:""};
+    if(question.cat==="kom_shiki_henkei")waza={primary:global.Q4B_KOMOREBI_SHIKI_HENKEI.waza[waza.primary],alternate:global.Q4B_KOMOREBI_SHIKI_HENKEI.waza[waza.alternate]};
     if(!waza.primary)return "";
     var alternate=waza.alternate?'<p><strong>'+displayText("別の道")+'</strong><span>'+displayText(waza.alternate)+'</span></p>':"";
     return '<aside class="ratio-waza"><h3>'+displayText("わざ")+'</h3><p><strong>'+displayText("主な道")+'</strong><span>'+displayText(waza.primary)+'</span></p>'+alternate+'</aside>';
@@ -1999,9 +2036,25 @@
      段暗唱も単位換算も同じで、直す先が違うだけ。 */
   function reasonHtml(question,correct){
     var verdict=session&&session.verdict;
+    if(!correct&&question.cat==="kom_bamen_yomitori"){
+      var feedback=question.feedback,selection=session.multiSelection||[],first=question.kind==="find_all"?feedback.findIndex(function(text,i){return text&&selection.indexOf(i)>=0;}):-1;
+      var message=question.kind==="find_all"?(first>=0?feedback[first]:question.feedbackMissed):feedback[session.choiceAnswer];
+      return message?'<p class="dan2-reason">'+displayText(message)+'</p>':"";
+    }
     if(correct||!verdict)return "";
     var reason="";
     if(isDanCat(question.cat))reason=verdict.timedOut?"タイムバーが 切れたよ":(DAN2_REASONS[verdict.state]||"");
+    else if(question.cat==="kom_shiki_henkei"){
+      var priority=["flip_other_side","op_flip","unknown_misplaced","known_swap","keep_op","order_reversal","invert_overapply","minuend_swap"];
+      var id=priority.find(function(tag){return verdict.diagnose.indexOf(tag)>=0;})||verdict.diagnose[0];
+      var n=question.numbers,a=n.a,b=n.b,c=n.c,d=n.d,x=n.x,y=n.y,add=question.patternId.indexOf("solve_add")===0;
+      if(question.kind==="num")reason={ignore_op:add?"+ は たす しるし。"+a+" と "+b+" を たそう":"− は ひく しるし。"+a+" から "+b+" を ひこう",copy_visible:"かずを うつさずに、けいさん しよう",place_value:b+(add?" は いちの くらいに たそう":" は いちの くらいから ひこう"),digit_slip:"おしい。くらいごとに たしかめよう",calc_other:"= の むこうの しきを けいさん しよう"}[id];
+      else if(question.lv===10)reason={op_flip:question.direction==="inc"?"ふえる おはなしは +。たす しきに しよう":"へる おはなしは −。ひく しきに しよう",unknown_misplaced:"わからない かずの ところに □ を おこう",known_swap:"かずを おはなしに でてくる じゅんに ならべよう",true_commuted:"ただしい しき だけど、おはなしの じゅんに ならべてみよう",true_solved:"ただしい しき だけど、おはなしの じゅんに ならべてみよう",true_reordered:"ただしい しき だけど、おはなしの じゅんに ならべてみよう"}[id];
+      else if(question.frame.length===3)reason={keep_op:question.type==="T_SF"?"□ が ぜんぶ。"+a+" と "+d+" を たそう":"□ は かたほう。ぜんぶの "+y+" から "+x+" を ひこう",invert_overapply:"□ は かたほう。ぜんぶの "+y+" から "+x+" を ひこう",minuend_swap:"□ が ぜんぶ。いちばん おおきい かずは □ だよ",order_reversal:"おおきい "+y+" から ちいさい "+x+" を ひこう"}[id];
+      else if(id==="negative_step"){var xy=global.Q4B_KOMOREBI_SHIKI_HENKEI.firstNegative(verdict.slots);reason="ただしい しき だけど、"+xy[0]+" から "+xy[1]+" は ひけないね。たす かずを さきに ならべよう";}
+      else reason={keep_op:question.type==="T_SF"?"□ が ぜんぶ。"+b+"+"+c+" と "+a+" を たそう":"□ は かたほう。"+b+"+"+c+" から "+a+" を ひこう",invert_overapply:"□ は かたほう。"+a+" から "+b+" と "+c+" を ひこう",minuend_swap:question.type==="T_SF"?"□ が ぜんぶ。いちばん おおきい かずは □ だよ":"□ は かたほう。ぜんぶは "+b+"+"+c+" だよ",order_reversal:"ぜんぶの "+a+" から、"+b+" と "+c+" を ひこう",flip_other_side:"= の むこうの "+b+"+"+c+" は そのまま うつそう"}[id];
+      if(question.kind==="assemble"&&id.indexOf("true_")===0)reason=verdict.slots.join("").replace(/-/g,"−")+"　"+reason;
+    }
     else if(question.kind==="num_unit"||question.kind==="frac")reason=verdict.note||"";
     return reason?'<p class="dan2-reason">'+displayText(reason)+'</p>':"";
   }
@@ -2076,7 +2129,7 @@
 
   function sessionShell(body){
     var cat=session.cat;
-    return '<main class="kom-page ratio-page"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
+    return '<main class="kom-page ratio-page'+(session.questions[session.index].kind==="assemble"?' shiki-page':'')+'"><header class="kom-top"><button type="button" class="kom-back" data-action="back-map">← '+displayText("小道")+'</button></header>'
       +'<div class="ratio-session-head"><div><h1>'+displayText(CATEGORIES[cat].name)+'</h1><p>'+displayText("第"+(session.index+1)+"／"+session.questions.length+"問")+'</p>'+lvDotsHtml(cat)+medalProgressHtml(cat)+'</div>'+gaugeHtml()+'</div>'
       +'<section class="ratio-panel">'+body+'</section></main>';
   }
@@ -2297,6 +2350,7 @@
   }
 
   function bindQuestion(question){
+    bindAssemble(question);
     document.querySelector('[data-action="back-map"]').addEventListener("click",function(){stopDan2Voice();stopDan2Tap();session=null;renderMap(question.volumeId);});
     var listen=document.querySelector('[data-action="dan2-listen"]');
     if(listen)listen.addEventListener("click",function(){startDan2Voice(question);});
@@ -2381,6 +2435,7 @@
     session.tap=null;
     session.orderSelection=[];
     session.multiSelection=[];
+    session.assembleSlots=question.kind==="assemble"?question.frame.map(function(kind){return kind==="eq"?"=":null;}):[];
     session.unitSelection=null;
     session.startedAt=Date.now();
     if(KOMOREBI_ANSWER_TIMER)KOMOREBI_ANSWER_TIMER.start();
@@ -2435,9 +2490,11 @@
     if(!session||session.pending)return;
     var activeSession=session,question=activeSession.questions[activeSession.index],correct;
     try{correct=judgeAnswer(question,answer);}catch(error){renderQuestion("答えを確かめられませんでした。もう一度試してください。");return;}
+    if(question.kind==="choice")activeSession.choiceAnswer=answer;
     activeSession.pending=true;
     var submissionId=activeSession.id+":"+activeSession.index+":"+(activeSession.attempts++);
     var event={sessionId:activeSession.id,submissionId:submissionId,format:question.format,kind:question.kind,correct:correct,final:true,retry:false};
+    if(question.cat==="kom_shiki_henkei"){event.slots=session.verdict.slots;event.diagnose=session.verdict.diagnose;event.unknownPosition=session.verdict.unknownPosition;question.answerData={slots:event.slots,correct:correct,diagnose:event.diagnose,unknownPosition:event.unknownPosition};}
     var answerTiming=KOMOREBI_ANSWER_TIMER?KOMOREBI_ANSWER_TIMER.stop():{interrupted:false};
     var elapsed=Math.max(0,Date.now()-activeSession.startedAt),volume=volumeById(activeSession.volumeId);
     /* SRS は単一の句を想起させる形式だけに効かせる。まちがいさがし・たりないさがしは
@@ -2624,6 +2681,8 @@
     kom_kuku_inverse:startKukuReverseSession("kom_kuku_inverse"),
     kom_kuku_bridge:startGeneratedSession("kom_kuku_bridge","Q4B_KOMOREBI_KUKU_BRIDGE","九九の外へを読み込めません"),
     kom_equation_select:startGeneratedSession("kom_equation_select","Q4B_KOMOREBI_EQUATION_SELECT","文章題の式えらびを読み込めません"),
+    kom_shiki_henkei:startGeneratedSession("kom_shiki_henkei","Q4B_KOMOREBI_SHIKI_HENKEI","式のかたちをかえるを読み込めません"),
+    kom_bamen_yomitori:startGeneratedSession("kom_bamen_yomitori","Q4B_KOMOREBI_BAMEN_YOMITORI","場面の読みとりを読み込めません"),
     kom_kisokusei:startGeneratedSession("kom_kisokusei","Q4B_KOMOREBI_KISOKUSEI","きまりと数えかたを読み込めません"),
     kom_hayasa:startGeneratedSession("kom_hayasa","Q4B_KOMOREBI_HAYASA","速さを読み込めません"),
     kom_ratio_forms:startRatioFormsSession,

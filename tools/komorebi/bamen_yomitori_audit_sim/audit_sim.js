@@ -824,12 +824,12 @@ function correctOf(it, ans) {
   if (it.kind === 'find_all') { const a = new Set(ans), b = new Set(it.ansSet); return a.size === b.size && [...a].every(x => b.has(x)); }
   return ans === it.ans;
 }
-function evalLv(lv, nSets) {
+function evalLv(lv, nSets, generatedSets) {
   const res = {}; // layer -> solver -> {slotAcc: {slot:[c,n]}, total:[c,n]}
   // STRICT=1: sets from strict_gen.js (the doc-literal generator, v0.5.4) instead of this file's generator
   let build = buildSet;
   if (process.env.STRICT) { const sg = require('./strict_gen.js'); const st = sg.newState(); build = l => sg.buildSet(l, rnd, st); }
-  const sets = []; for (let i = 0; i < nSets; i++) sets.push(build(lv));
+  const sets = generatedSets || []; if (!generatedSets) for (let i = 0; i < nSets; i++) sets.push(build(lv));
   // C7: family share among answers / asked persons vs appearance share
   for (const set of sets) for (const it of set) {
     const v = view(it); const ps = personsInText(v); const famIn = n => FAMILY.some(f => n === f[0] + f[1]);
@@ -887,4 +887,4 @@ if (require.main === module) {
   if (process.argv.includes('--json')) console.log(JSON.stringify(out, null, 1));
   else for (const o of out) console.log(`Lv${o.lv}\tT1 ${o.T1}/${o.T1_slot}\tT1B ${o.T1B}/${o.T1B_slot} (${o.T1B_best}, noFb ${o.T1B_noFeedback})\tT2 ${o.T2}/${o.T2_slot}\tlearn ${o.learnF1rP6}`);
 }
-module.exports = { buildSet, view, bind, readEvent, mulberry32, setR: f => { R = f; }, FC };
+module.exports = { buildSet, view, bind, readEvent, mulberry32, setR: f => { R = f; }, FC, evalLv, composite, STAGEA_T1 };

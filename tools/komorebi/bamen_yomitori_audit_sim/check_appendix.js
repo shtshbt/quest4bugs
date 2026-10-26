@@ -10,10 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const docPath = process.argv[2] || path.join(__dirname, '../../../docs/komorebi_bamen_yomitori_curriculum.md');
-let doc;
-try { doc = fs.readFileSync(docPath, 'utf8'); } catch (e) { console.error(`cannot read ${docPath}: ${e.message}`); process.exit(2); }
-
+function checkAppendix(doc, report = () => {}) {
 const FAMILY = ['さいと', 'ゆうと', 'しょうた', 'ゆきこ'];
 const POOL = ['たろう', 'じろう', 'けんた', 'そうた', 'こうき', 'はなこ', 'さくら', 'みお', 'めい', 'あおい', 'りこ'];
 const HON = { さいと: 'くん', ゆうと: 'くん', しょうた: 'くん', ゆきこ: 'さん', たろう: 'くん', じろう: 'くん', けんた: 'くん', そうた: 'くん', こうき: 'くん', はなこ: 'さん', さくら: 'さん', みお: 'さん', めい: 'さん', あおい: 'さん', りこ: 'さん' };
@@ -25,10 +22,10 @@ const NAMES = FAMILY.concat(POOL);
 const NAME_RE = new RegExp(`(${NAMES.join('|')})(くん|さん)`, 'g');
 
 const start = doc.indexOf('## 付録 A.');
-if (start < 0) { console.error('appendix A not found'); process.exit(2); }
+if (start < 0) throw new Error('appendix A not found');
 const appx = doc.slice(start);
 const sections = [...appx.matchAll(/### A\.(\d+) Lv(\d+)\n\n```text\n([\s\S]*?)```/g)];
-if (sections.length !== 10) { console.error(`expected 10 Lv blocks, found ${sections.length}`); process.exit(2); }
+if (sections.length !== 10) throw new Error(`expected 10 Lv blocks, found ${sections.length}`);
 
 const errors = [];
 let itemCount = 0;
@@ -88,8 +85,16 @@ for (const [, , lvStr, block] of sections) {
   if (h8 > CAP_H8[lv - 1]) errors.push(`Lv${lv}: h8 ${h8} over cap ${CAP_H8[lv - 1]}`);
   if (h10 > CAP_H8[lv - 1]) errors.push(`Lv${lv}: h10 ${h10} over cap ${CAP_H8[lv - 1]}`);
   if (h0 > CAP_H0[lv - 1]) errors.push(`Lv${lv}: h0 ${h0} over cap ${CAP_H0[lv - 1]}`);
-  console.log(`Lv${lv}: h8 ${h8}, h10 ${h10}, h0 ${h0}`);
+  report(`Lv${lv}: h8 ${h8}, h10 ${h10}, h0 ${h0}`);
 }
-console.log(`${itemCount} items checked`);
-if (errors.length) { console.log(`${errors.length} violations:`); errors.forEach(e => console.log('  ' + e)); process.exit(1); }
-console.log('no violations');
+report(`${itemCount} items checked`);
+if (errors.length) { report(`${errors.length} violations:`); errors.forEach(e => report('  ' + e)); }
+else report('no violations');
+return { errors, itemCount };
+}
+if (require.main === module) {
+  const docPath = process.argv[2] || path.join(__dirname, '../../../docs/komorebi_bamen_yomitori_curriculum.md');
+  try { const { errors } = checkAppendix(fs.readFileSync(docPath, 'utf8'), console.log); process.exitCode = errors.length ? 1 : 0; }
+  catch (e) { console.error(e.message); process.exitCode = 2; }
+}
+module.exports = { checkAppendix };
