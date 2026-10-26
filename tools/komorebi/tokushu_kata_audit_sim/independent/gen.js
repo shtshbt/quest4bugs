@@ -19,7 +19,9 @@ const L = loadDoc();
 const tB = tableIn(L, section(L, '付表 B'));
 // V04: the deco pool (9.2 の 1 つ目の表) and the scene types (3.2) are read from the doc
 const POOL = {}; const SCENE_TYPES = {};
-tableIn(L, section(L, '9.2'), 1).rows.forEach(r => { POOL[r[0]] = [...r[1].matchAll(/(W\d+) [^()、]*\(([a-z ]+)\)/g)].map(m => ({ w: m[1], tys: m[2].trim().split(/\s+/) })); });
+// V044: the pool lists skeletons; whether a (word, skeleton) form adds a number comes from the 付表 B 差し込み table
+tableIn(L, section(L, '9.2'), 1).rows.forEach(r => { POOL[r[0]] = [...r[1].matchAll(/(W\d+) [^()、]*\(([A-Za-z0-9: ]+)\)/g)].map(m => ({ w: m[1], sks: m[2].trim().split(/\s+/) })); });
+const DECO_DN = {}; tableIn(L, section(L, '付表 B'), 1).rows.forEach(r => { const w = r[0].split(' ')[0]; r[1].split('、').forEach(k => { DECO_DN[w + '|' + k.trim().replace(/〔和〕$/, '')] = r[5] === '+1' ? 1 : 0; }); });
 tableIn(L, section(L, '3.2')).rows.forEach(r => { SCENE_TYPES[r[0]] = r[2].trim().split(/\s+/); });
 const TYPES = ['tk', 'kb', 'ws', 'sk', 'bp', 'hk', 'nr', 'br'];
 const GA = ['tk', 'kb', 'ws', 'sk'], GB = ['bp', 'hk', 'nr', 'br'];
@@ -31,7 +33,7 @@ const SK_IDS = Object.keys(SK);
 const WORDS = {
   W1: /あま(る|り|ります|りました|った)/, W2: /たりな|たりず|たりませ/, W3: /ずつ/, W4: /足/,
   W5: /あわせて|和/, W6: /ちがい|ちがう|ちがいま|差|より/, W7: /倍/, W8: /(\}|\d) 年後|(\}|\d) 年前|か月後/, // V04: 何年後 is a question form (3.3)
-  W9: /(\}|\d) さい|年れい/, W10: /平均/, W11: /あげ|もらう|もらい|もらっ/, W12: /(こ|つ)と [^。]*(こ|つ)で/,
+  W9: /(\}|\d) さい|年れい/, W10: /平均/, W11: /あげ|もらう|もらい|もらっ/, W12: /\S+と [^。]*?\S+で[、 ]/, // V044: 「{名詞}と {名詞}で」
 };
 const WIDS = Object.keys(WORDS);
 const TABLE = { W1: 'kb', W2: 'kb', W3: 'kb', W4: 'tk', W5: 'ws', W6: 'ws', W7: 'bp', W8: 'nr', W9: 'nr', W10: 'hk', W11: 'br', W12: 'sk' };
@@ -80,12 +82,14 @@ function wordsAt(text) {
 
 // deco: 4.3 規則 1 (0.7, draw from the scene pool, skip if the type cannot carry it)
 // V04 (4.3 規則 1): one word drawn uniformly from the pool words the type can carry and that the text lacks
-function drawDeco(scene, ty, onlyNonNumeric, text) {
-  const have = new Set(text ? wordsAt(text).map(x => x.w) : []);
-  const p = (POOL[scene] || []).filter(d => d.tys.includes(ty) && !have.has(d.w) && !(onlyNonNumeric && NUMERIC_DECO.has(d.w)));
-  if (!p.length) return null;
-  return pick(p).w;
+// V044 (4.3 規則 1): a word drawn uniformly from the scene's pool words; attached only when the skeleton can carry it
+function drawDeco(id, text, form) {
+  const sc = SK[id].scene; const words = [...new Set((POOL[sc] || []).map(d => d.w))]; if (!words.length) return null;
+  const w = pick(words); const have = new Set(text ? wordsAt(text).map(x => x.w) : []);
+  const ok = (POOL[sc] || []).some(d => d.w === w && d.sks.includes(id)) && !have.has(w) && !(id === 'br:B3w' && form === '両方');
+  return ok ? { w, dn: DECO_DN[w + '|' + id] || 0 } : null;
 }
+const KB_ONE = { 'kb:B1': 1 / 6, 'kb:B3': 1 / 6, 'kb:B6': 1 / 6, 'kb:B2m': 1 / 6, 'kb:B2s': 1 / 3 }; // V044: p (m) = 1 is not counted
 
 // ---------------- F1 candidate (single problem)
 function f1Options(lv, scene, ans) {
@@ -96,7 +100,7 @@ function f1Options(lv, scene, ans) {
   const off = TYPES.filter(t => !on.includes(t));
   return on.concat([pick(off)]);
 }
-function scenesFor(lv) { if (lv === 3) return ['B1', 'B2', 'B3', 'B5', 'B6']; if (lv === 4) return ['B2', 'B3', 'B4', 'B7']; return ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7']; }
+function scenesFor(lv) { if (lv === 3) return ['B2', 'B3']; if (lv === 4) return ['B3', 'B4', 'B7']; return ['B2', 'B3', 'B4', 'B5', 'B7']; } // V044: F1 does not use B1 and B6, nor B5 at Lv3
 function typesOn(lv, scene) { let t = SCENE_TYPES[scene]; if (lv === 3) t = t.filter(x => GA.includes(x)); if (lv === 4) t = t.filter(x => GB.includes(x)); return t; }
 
 function buildText(id, lv, r, deco, decoSent) {
@@ -127,14 +131,16 @@ function makeF1(lv, opts = {}) {
     }
     const r = realize(id, lv, { pair: opts.pair, form: opts.form });
     let n = countNums(r.s1 + ' ' + r.s2);
-    let deco = R() < 0.7 ? drawDeco(scene, ans, opts.pair, r.s1 + ' ' + r.s2) : null;
+    if (KB_ONE[id] && R() < KB_ONE[id]) n -= 1;
+    let d = !opts.pair && R() < 0.7 ? drawDeco(id, r.s1 + ' ' + r.s2, r.form) : null; // V044: pairs carry no deco (4.4 の 6)
+    let deco = d ? d.w : null;
     if (!opts.pair) {
-      if (deco && NUMERIC_DECO.has(deco)) n += 1;
-      if (n < 3) { // 4.3 規則 9: top up with a numeric deco
+      if (d) n += d.dn;
+      if (n < 3) { // 4.3 規則 9: the one deco becomes a +1 form
         const have = new Set(wordsAt(r.s1 + ' ' + r.s2).map(x => x.w));
-        const numeric = (POOL[scene] || []).filter(p => NUMERIC_DECO.has(p.w) && p.tys.includes(ans) && !have.has(p.w));
+        const numeric = (POOL[scene] || []).filter(p => p.sks.includes(id) && DECO_DN[p.w + '|' + id] === 1 && !have.has(p.w));
         if (!numeric.length) continue;
-        if (deco && NUMERIC_DECO.has(deco)) n -= 1;
+        if (d) n -= d.dn;
         deco = pick(numeric).w; n += 1;
       }
       if (n < 3 || n > 4) continue;
@@ -161,7 +167,7 @@ function mkProb(fmt, lv, id, scene, ans, options, ws, n, pair) {
 function makeTextProb(fmt, lv, id, pair, form) {
   const sk = SK[id];
   const r = realize(id, lv, { pair, form });
-  const deco = lv >= 3 && R() < 0.7 ? drawDeco(sk.scene, sk.type, !!pair, r.s1 + ' ' + r.s2) : null;
+  const dd = lv >= 3 && !pair && R() < 0.7 ? drawDeco(id, r.s1 + ' ' + r.s2, r.form) : null; const deco = dd ? dd.w : null;
   const decoSent = R() < 0.5 ? 0 : 1;
   const text = r.s1 + ' ' + r.s2 + ' ' + r.q;
   const ws = wordsAt(text);
@@ -318,11 +324,19 @@ function buildF2(id, lv) {
 }
 
 // ---------------- reweighting (4.3 規則 10)
+// V044 (4.3 規則 10): word families are caps (the table type's share brought down to 0.5 when above it); after the
+// joint iterations the caps are made exact at 0.55
+// V044: families with mx are caps on the largest answer's share; families with single keep 0.1 of the weight of a key
+// whose candidates show one answer only
 function balance(cands, families, iters, finalFamilies, finalIters) {
   for (const c of cands) c.w = 1;
   const groups = families.map(f => { const g = new Map(); cands.forEach((c, i) => { const k = f.key(c); if (k === null) return; if (!g.has(k)) g.set(k, []); g.get(k).push(i); }); return g; });
+  families.forEach((f, fi) => { if (f.single) for (const idx of groups[fi].values()) if (new Set(idx.map(i => f.ans(cands[i]))).size === 1) for (const i of idx) cands[i].w *= 0.1; });
+  const capStep = (fi, cap, pw) => { const f = families[fi]; for (const idx of groups[fi].values()) { let tot = 0, own = 0; for (const i of idx) { tot += cands[i].w; if (f.ans(cands[i]) === 'T') own += cands[i].w; } if (own <= cap * tot || own === tot) continue; const fct = Math.pow((cap / (1 - cap)) * (tot - own) / own, pw); for (const i of idx) if (f.ans(cands[i]) === 'T') cands[i].w *= fct; } };
   const step = (fi) => {
     const f = families[fi];
+    if (f.word) return capStep(fi, 0.5, 0.8);
+    if (f.mx) { for (const idx of groups[fi].values()) { const sum = new Map(); let tot = 0; for (const i of idx) { const a = f.ans(cands[i]); sum.set(a, (sum.get(a) || 0) + cands[i].w); tot += cands[i].w; } for (const [a, v] of sum) if (v > f.mx * tot && v < tot) { const fct = (f.mx / (1 - f.mx)) * (tot - v) / v; for (const i of idx) if (f.ans(cands[i]) === a) cands[i].w *= fct; } } return; }
     for (const idx of groups[fi].values()) {
       const sum = new Map(); let tot = 0;
       for (const i of idx) { const a = f.ans(cands[i]); sum.set(a, (sum.get(a) || 0) + cands[i].w); tot += cands[i].w; }
@@ -332,22 +346,25 @@ function balance(cands, families, iters, finalFamilies, finalIters) {
     }
   };
   for (let it = 0; it < iters; it++) for (let fi = 0; fi < families.length; fi++) step(fi);
-  for (let it = 0; it < finalIters; it++) for (const fi of finalFamilies) step(fi);
+  for (let it = 0; it < finalIters; it++) for (const fi of finalFamilies) { if (families[fi].word) capStep(fi, 0.55, 1); else step(fi); }
 }
 function sampler(cands) {
   const cum = []; let s = 0; for (const c of cands) { s += c.w; cum.push(s); }
   return () => { const x = R() * s; let lo = 0, hi = cum.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < x) lo = m + 1; else hi = m; } return cands[lo]; };
 }
-const F1_FAMILIES = [
-  { key: c => c.key1, ans: c => c.ans },
-  { key: c => c.key2, ans: c => c.ans },
-  ...WIDS.map(w => ({ key: c => c.words.includes(w) ? w : null, ans: c => c.ans === TABLE[w] ? 'T' : 'O' })),
+// V044: (1), (2) and (5) to (7) are caps at 0.5 except at Lv4, where they are made even; one-answer keys keep 0.1
+const F1_FAMILIES_LV = lv => { const mx = lv === 4 ? undefined : 0.5; return [
+  { key: c => c.key1, ans: c => c.ans, mx, single: true },
+  { key: c => c.key2, ans: c => c.ans, mx, single: true },
+  ...WIDS.map(w => ({ key: c => c.words.includes(w) ? w : null, ans: c => c.ans === TABLE[w] ? 'T' : 'O', word: true })),
   { key: () => 'all', ans: c => c.ans },
-];
+  { key: c => c.scene, ans: c => c.ans, mx, single: true }, { key: c => String(c.n), ans: c => c.ans, mx, single: true }, { key: c => c.first, ans: c => c.ans, mx, single: true },
+]; };
+const F1_FAMILIES = F1_FAMILIES_LV(5);
 const TEXT_FAMILIES = [
-  ...WIDS.map(w => ({ key: c => c.words.includes(w) ? w : null, ans: c => c.ans === TABLE[w] ? 'T' : 'O' })),
+  ...WIDS.map(w => ({ key: c => c.words.includes(w) ? w : null, ans: c => c.ans === TABLE[w] ? 'T' : 'O', word: true })),
   { key: () => 'all', ans: c => c.ans },
 ];
 
 module.exports = { FAMILY, SCENE_TYPES, R: () => R(), setSeed, ri, pick, shuffle, SK, SK_IDS, TYPES, GA, GB, TABLE, NON_SIG, WIDS, SCENE_TYPICAL, POOL,
-  makeF1, makeTextProb, buildF2, balance, sampler, F1_FAMILIES, TEXT_FAMILIES, mkProb, realize, wordsAt, countNums };
+  makeF1, makeTextProb, buildF2, balance, sampler, F1_FAMILIES, F1_FAMILIES_LV, TEXT_FAMILIES, mkProb, realize, wordsAt, countNums };

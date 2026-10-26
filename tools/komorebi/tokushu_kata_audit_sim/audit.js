@@ -6,6 +6,8 @@ const S = require('./sets');
 const { TABLE, STRENGTH, TYPES, GA, GB, isKin, kinOf } = G;
 
 const SEED = +(process.argv[2] || 7), NTEST = +(process.argv[3] || 3000), NTRAIN = +(process.argv[4] || 20000);
+// STRICT=1: the sets come from strict_gen.js (v0.4.4, the doc implemented as written); the enemies are unchanged
+if (process.env.STRICT) { const SG = require('./strict_gen'); const st = {}; S.makeSet = lv => { st[lv] = st[lv] || SG.newState(); return SG.buildSet(lv, G.rnd, st[lv]); }; }
 const LVS = (process.env.LVS || '1,2,3,4,5,6,7,8,9,10').split(',').map(Number);
 
 // ---------- lookup tables (stage B "full knowledge of the generator") ----------
@@ -266,13 +268,13 @@ function run() {
         if (p.fmt === 'F2') { const mx = Math.max(...p.nums), f2 = first2(p); p.opts.forEach((o, i) => { const g = i === p.ans ? 'c' : 'w'; val.f2max[g][0] += o.f.v.includes(mx) ? 1 : 0; val.f2max[g][1]++; val.f2f2[g][0] += o.f.v.every(v => f2.has(v)) ? 1 : 0; val.f2f2[g][1]++; }); }
         if (p.fmt === 'F3') { val.f3role[p.keyRole]++; val.f3cue[0] += p.nonKeyCue ? 1 : 0; val.f3cue[1]++; }
         if (p.fmt === 'F2') { val.f2n++; p.opts.forEach(o => { if (o.m) mc[o.m] = (mc[o.m] || 0) + 1; }); if (p.gridKind === '2x2') val.g2++; if (p.swapped) val.swap++; }
-        if (p.fmt === 'F1') { G.labelF1(p, p.pairPrev ? h[h.length - 1].t : null); p.optLab.forEach(l => { if (l) { const m = l.split(':')[0]; mc[m] = (mc[m] || 0) + 1; } }); }
+        if (p.fmt === 'F1') { if (!process.env.STRICT) { G.labelF1(p, p.pairPrev ? h[h.length - 1].t : null); p.optionTypes = p.optLab; } p.optionTypes.forEach(l => { if (l) { const m = l.split(':')[0]; mc[m] = (mc[m] || 0) + 1; } }); }
         if (p.fmt === 'F4') mc[p.propCorrect ? 'M15' : 'M14'] = (mc[p.propCorrect ? 'M15' : 'M14'] || 0) + 1;
         if (p.fmt === 'F3') mc.M13 = (mc.M13 || 0) + 2;
-        if (p.sk && !p.pairPrev && !p.pairFirst) { const key = p.sk.split(':')[0] === 'br' ? p.sk : p.sk.split(':')[0]; const vk = key + ':' + (p.fm === 'both' ? 'both:' : '') + p.vi; vc[vk] = (vc[vk] || 0) + 1; }
+        if (p.sk && !process.env.STRICT && !p.pairPrev && !p.pairFirst) { const key = p.sk.split(':')[0] === 'br' ? p.sk : p.sk.split(':')[0]; const vk = key + ':' + (p.fm === 'both' ? 'both:' : '') + p.vi; vc[vk] = (vc[vk] || 0) + 1; }
         if (p.q === 'Q5') val.q5++; if (p.fmt !== 'F5' && p.fmt !== 'F6') val.npool++;
         if (p.pairPrev) { val.pairN++; if (p.pairKind === 'CP') val.pairCP++; }
-        if (p.fmt === 'F1') {
+        if (p.fmt === 'F1' && p.tok) {
           sig.n++; const m8 = sigTypes(p.tok, false), ms = sigTypes(p.tok, true);
           const u8 = m8.length === 1 && m8[0] === p.t;
           const mo = m8.filter(t => p.opts.includes(t));

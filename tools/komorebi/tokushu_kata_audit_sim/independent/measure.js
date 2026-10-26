@@ -42,7 +42,7 @@ function makePairF2Text(lv) {
 function poolF1(lv) {
   const c = []; let guard = 0;
   while (c.length < NCAND && guard++ < NCAND * 3) { const p = G.makeF1(lv); if (p) c.push(p); }
-  G.balance(c, G.F1_FAMILIES, ITERS, [1, ...G.WIDS.map((_, i) => 2 + i)], 300);
+  G.balance(c, G.F1_FAMILIES_LV(lv), 400, G.WIDS.map((_, i) => 2 + i), 20); // V044 (4.3 規則 10)
   return { cands: c, draw: G.sampler(c) };
 }
 function poolText(lv, fmt) {
@@ -69,7 +69,7 @@ function poolText(lv, fmt) {
     }
     c.push(p);
   }
-  if (fmt === 'F2') G.balance(c, G.TEXT_FAMILIES, ITERS, G.WIDS.map((_, i) => i), 300);
+  if (fmt === 'F2') G.balance(c, G.TEXT_FAMILIES, ITERS, G.WIDS.map((_, i) => i), 20);
   else if (fmt === 'F3') c.forEach(x => x.w = 1);
   else {
     // F4: keep keys where all 3 answers occur, then equalise (4.3 規則 10, 4.5 の 7)
