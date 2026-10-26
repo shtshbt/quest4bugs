@@ -1,65 +1,118 @@
 'use strict';
-// 検証 32 (v0.2.4): every explanation of 8 章 (one template per error type, 8 章の表 B) is 25 characters or fewer
-// (spaces not counted) for every value the generator can put in it. usage: node check_explanations.js [--all]
+// 検証 32 (v0.2.9): for every combination the generator can make of (誤りの型 × 問題型 × 関係と領域 × 向き × 誤りの倍率), the
+// table B of 8 章 gives exactly one explanation. explain() below is table B written as code: a combination for which it
+// returns null has no sentence in the doc and is reported as MISSING. Every sentence, with every value the generator can
+// put in it, is 25 characters or fewer (spaces not counted), and no two error types share a sentence.
+//   node check_explanations.js [--all]          (--all prints every sentence; exit 1 on a missing, long or shared sentence)
 const G = require('./gen.js');
 const V = G.VALUES;
 const lab = u => ({ m2: 'm²', cm2: 'cm²', km2: 'km²', cm3: 'cm³', m3: 'm³' }[u] || u);
+const sp = u => ({ '秒速m': '秒速', '分速m': '分速', '時速km': '時速' }[u] || lab(u));
 const fx = f => String(G.rd(f));
 const DOMNAME = { length: '長さ', weight: '重さ', area: '面積', volume: '体積とかさ' };
-const ALL = [...G.POOL1, ...G.REL2];
-const rel1 = r => (r.domain === 'speed' ? null : `1${lab(r.big)} は ${fx(r.f)}${lab(r.small)}`);
-const T = {};
-const add = (type, s) => (T[type] = T[type] || []).push(s);
-for (const r of ALL) {
-  const op = d => (d === 'down' ? '×' : '÷');
-  for (const d of ['down', 'up']) {
-    if (r.id === 'R16') add('direction', d === 'up' ? '1 秒は 1 分の 60 分の 1。だから ÷60' : '1 分は 60 秒。だから ×60');
-    else if (r.id === 'R17') add('direction', `秒速 1m は 時速 3.6km。だから ${op(d)}3.6`);
-    else add('direction', `${rel1(r)}。だから ${op(d)}${fx(r.f)}`);
-    // M1mag: down with a number of 10 or more, or up with a number under 10
-    const from = d === 'down' ? r.big : r.small, to = d === 'down' ? r.small : r.big;
-    const sp = u => ({ '秒速m': '秒速', '分速m': '分速', '時速km': '時速' }[u] || lab(u));
-    add('M1mag', `数が ${d === 'down' ? '大きくても' : '小さくても'} ${sp(from)} を ${sp(to)} に するのは ${op(d)}${fx(r.f)}`);
-    if (G.POOL1.includes(r)) add('rate_both', r.id === 'R17' ? `秒速 1m は 時速 3.6km。${d === 'down' ? '下り' : '上り'}だから ${op(d)}3.6`
-      : r.id === 'R16' ? `秒速 1m は 分速 60m。${d === 'down' ? '下り' : '上り'}だから ${op(d)}60` : `${rel1(r)}。${d === 'down' ? '下り' : '上り'}だから ${op(d)}${fx(r.f)}`);
+const op = d => (d === 'down' ? '×' : '÷');
+const rel1 = r => `1${lab(r.big)} は ${fx(r.f)}${lab(r.small)}`;
+const R = id => [...G.REL1, ...G.REL2].find(r => r.id === id);
+const SPEED_NAME = { 60: '分速', 3.6: '時速' };
+
+// table B (8 章), one sentence per (type, combination)
+function explain(type, c) {
+  const r = c.r, d = c.dir, from = r && (d === 'down' ? r.big : r.small), to = r && (d === 'down' ? r.small : r.big);
+  switch (type) {
+    case 'direction':
+      if (r.id === 'R16') return d === 'up' ? '1 秒は 1 分の 60 分の 1。だから ÷60' : '1 分は 60 秒。だから ×60';
+      if (r.id === 'R17') return `秒速 1m は 時速 3.6km。だから ${op(d)}3.6`;
+      return `${rel1(r)}。だから ${op(d)}${fx(r.f)}`;
+    case 'M1mag': return `数が ${d === 'down' ? '大きくても' : '小さくても'} ${sp(from)} を ${sp(to)} に するのは ${op(d)}${fx(r.f)}`;
+    case 'rate_both':
+      if (r.id === 'R17') return `秒速 1m は 時速 3.6km。${d === 'down' ? '下り' : '上り'}だから ${op(d)}3.6`;
+      if (r.id === 'R16') return `秒速 1m は 分速 60m。${d === 'down' ? '下り' : '上り'}だから ${op(d)}60`;
+      return `${rel1(r)}。${d === 'down' ? '下り' : '上り'}だから ${op(d)}${fx(r.f)}`;
+    case 'steps': return G.DEC_DOMAINS.includes(r.domain) ? `${rel1(r)}。0 は ${Math.round(Math.log10(r.f))} こ` : null;
+    case 'time_steps': return r.domain === 'time' && r.f === 60 ? `${rel1(r)}。3600 は 時間と 秒` : null;
+    case 'sixty':
+      if (r.id === 'R16') return '1分 は 60秒。100 で なく 60 で 直す';
+      if (r.domain === 'time') return `${rel1(r)}。${r.f === 3600 ? '10000' : '100'} で なく ${fx(r.f)} で 直す`;
+      return null;
+    case 'other_domain':
+      if (G.DEC_DOMAINS.includes(r.domain)) return `${DOMNAME[r.domain]}は ×${fx(r.f)} の 階段。60 は 時間だけ`;
+      if (r.domain === 'time') return '時間は 60 で くり上がる。1000 は 使わない';
+      if (r.domain === 'speed') return `${sp(from)} を ${sp(to)} に するのは ${fx(r.f)}。${fx(c.g)} は ${SPEED_NAME[c.g]}`; // v0.2.9
+      return null;
+    case 'not_aligned': return `${c.u1} と ${c.u2} は ちがう 単位。先に そろえる`;
+    case 'concat': return `${c.h}${c.uh} は ${c.h * c.f}${c.ul}。それに ${c.lo} を たす`;
+    case 'zero_drop': return c.uh === '時間' || c.uh === '分' ? null : `${c.h}${c.uh} ${c.lo}${c.ul} は ${c.h * c.f}${c.ul} と ${c.lo}${c.ul}`;
+    case 'texp_place': return `${c.X}分 は 60分 が ${Math.floor(c.X / 60)} こ と ${c.X % 60}分`;
+    case 'texp_calc': return c.comp ? `${c.X}分 は ${Math.floor(c.X / 60) * 60}分 と ${c.X % 60}分。だから ${Math.floor(c.X / 60)}時間${c.X % 60}分` : `${c.X}分 は 60分 の ${c.X}/60。だから ${c.ans}時間`;
+    case 'km_m': return r.id === 'R17' && d === 'down' ? '時速は km で 数える。1000m で 1km' : null;
+    case 'cmp_bigunit': return `${c.side}${lab(c.su)} を ${lab(c.to)}に そろえて くらべる`;
+    case 'cmp_same': return `${c.vb}${lab(r.big)} は ${c.conv}${lab(r.small)}。だから 同じ`;
   }
-  if (G.DEC_DOMAINS.includes(r.domain)) {
-    add('steps', `${rel1(r)}。0 は ${Math.round(Math.log10(r.f))} こ`);
-    add('other_domain', `${DOMNAME[r.domain]}は ×${fx(r.f)} の 階段。60 は 時間だけ`);
-    add('not_aligned', `${lab(r.big)} と ${lab(r.small)} は ちがう 単位。先に そろえる`);
-  }
-  if (r.domain === 'time') {
-    add('sixty', `${rel1(r)}。${r.f === 3600 ? '10000' : '100'} で なく ${fx(r.f)} で 直す`);
-    add('other_domain', '時間は 60 で くり上がる。1000 は 使わない');
-    if (r.f === 60) add('time_steps', `${rel1(r)}。3600 は 時間と 秒`);
-  }
+  return undefined; // a type that table B does not have at all
 }
-add('sixty', '1 分は 60 秒。100 で なく 60 で 直す'); // R16 (分速と秒速) uses the 分と秒 sentence
-add('not_aligned', '分速 m と 秒速 m は ちがう 単位。先に そろえる');
-add('not_aligned', '時速 km と 分 は ちがう 単位。先に そろえる');
-for (const h of V.COMP_TIME_HI) for (const m of V.COMP_TIME_LO) add('concat', `${h}時間 は ${h * 60}分。それに ${m} を たす`);
-for (const c of [['C3', 'm', 'cm', 100, V.COMP_C3_HI, V.COMP_C3_LO], ['C4', 'km', 'm', 1000, V.COMP_C45_HI, V.COMP_C45_LO], ['C5', 'kg', 'g', 1000, V.COMP_C45_HI, V.COMP_C45_LO]])
-  for (const h of c[4]) for (const lo of c[5]) { add('concat', `${h}${c[1]} は ${h * c[3]}${c[2]}。それに ${lo} を たす`); add('zero_drop', `${h}${c[1]} ${lo}${c[2]} は ${h * c[3]}${c[2]} と ${lo}${c[2]}`); }
-for (const h of V.TEXP_COMP_H) for (const m of V.TEXP_COMP_M) { const X = 60 * h + m; if (X < 100) continue;
-  add('texp_place', `${X}分 は 60分 が ${h} こ と ${m}分`); add('texp_calc', `${X}分 は ${h * 60}分 と ${m}分。だから ${h}時間${m}分`); }
-const hours = [...V.TEXP_HOURS, ...V.FRAC_HOURS.map(f => { const [a, b] = f.split('/').map(Number); return a / b; })];
-for (const v of hours) { const X = Math.round(60 * v); const ans = Number.isInteger(Math.round(v * 1e6) / 1e4) ? fx(v) : V.FRAC_HOURS.find(f => { const [a, b] = f.split('/').map(Number); return Math.abs(a / b - v) < 1e-9; });
-  add('texp_calc', `${X}分 は 60分 の ${X}/60。だから ${ans}時間`); }
-add('km_m', '時速は km で 数える。1000m で 1km');
-for (const r of G.POOL1.filter(x => G.DOM5.includes(x.domain))) for (const vb of [...V.B_INT, ...V.B_DEC].filter(x => x >= 10)) {
-  const conv = G.rd(vb * r.f); if (conv >= 1e6) continue;
-  add('cmp_bigunit', `${vb}${lab(r.big)} を ${lab(r.small)}に そろえて くらべる`); add('cmp_bigunit', `${conv}${lab(r.small)} を ${lab(r.big)}に そろえて くらべる`);
-  add('cmp_same', `${vb}${lab(r.big)} は ${conv}${lab(r.small)}。だから 同じ`);
+
+// ---------- every combination the generator can make (gen.js の関係、小型、値の表) ----------
+const combos = []; const C = (type, pattern, c) => combos.push({ type, pattern, c });
+const DIRS = ['down', 'up'];
+const gType = (r, g) => (G.DEC_DOMAINS.includes(r.domain) ? (g === 60 ? 'other_domain' : 'steps') : r.domain === 'time' ? (g === 100 ? 'sixty' : 'time_steps') : (g === 100 ? 'sixty' : 'other_domain'));
+const gCands = r => (G.DEC_DOMAINS.includes(r.domain) ? [...(r.f !== 10000 ? [r.f * 10] : []), ...(r.f >= 100 ? [r.f / 10] : []), 60] : r.domain === 'time' ? (r.f === 60 ? [100, 3600] : [60, 100]) : (r.f === 60 ? [100, 3.6] : [60]));
+const otherSpeedF = r => (r.id === 'R16' ? 3.6 : 60);
+for (const r of G.REL1.filter(x => x.id !== 'R13')) for (const d of DIRS) { // rate_select (1 段) と convert
+  C('direction', 'rate_select', { r, dir: d }); C('M1mag', 'rate_select', { r, dir: d });
+  for (const g of gCands(r)) { C(gType(r, g), 'rate_select', { r, dir: d, g }); C('rate_both', 'rate_select', { r, dir: d, g }); }
+  for (const t of ['direction', 'M1mag']) C(t, 'convert', { r, dir: d });
+  if (G.DEC_DOMAINS.includes(r.domain)) { C('steps', 'convert', { r, dir: d }); C('other_domain', 'convert', { r, dir: d }); }
+  if (r.domain === 'time') { C('sixty', 'convert', { r, dir: d }); C('other_domain', 'convert', { r, dir: d }); }
+  if (r.domain === 'speed') { if (r.id === 'R16') C('sixty', 'convert', { r, dir: d }); C('other_domain', 'convert', { r, dir: d, g: otherSpeedF(r) }); if (r.id === 'R17' && d === 'down') C('km_m', 'convert', { r, dir: d }); } // 表 B: 正答の 1000 倍 (時速 54000km)
 }
+for (const r of G.REL2) for (const d of DIRS) { // 2 段の convert (Lv5、Lv10)
+  for (const t of ['direction', 'M1mag']) C(t, 'convert', { r, dir: d });
+  if (G.DEC_DOMAINS.includes(r.domain)) { C('steps', 'convert', { r, dir: d }); C('other_domain', 'convert', { r, dir: d }); } else { C('sixty', 'convert', { r, dir: d }); C('other_domain', 'convert', { r, dir: d }); }
+}
+for (const id of ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R12', 'R14', 'R15']) { const r = R(id); // recall (R13 は倍率 1 で誤りの型が立たない)
+  C('direction', 'recall', { r, dir: 'down' }); if (G.DEC_DOMAINS.includes(r.domain)) { C('steps', 'recall', { r, dir: 'down' }); C('other_domain', 'recall', { r, dir: 'down' }); } else { C('sixty', 'recall', { r, dir: 'down' }); C('other_domain', 'recall', { r, dir: 'down' }); } }
+for (const r of G.POOL1.filter(x => G.DOM5.includes(x.domain))) for (const d of DIRS) { // align_calc と compare
+  const uz = [lab(r.big), lab(r.small)];
+  for (const t of ['direction', 'M1mag']) C(t, 'align_calc', { r, dir: d });
+  if (G.DEC_DOMAINS.includes(r.domain)) C('steps', 'align_calc', { r, dir: d }); else C('sixty', 'align_calc', { r, dir: d });
+  C('not_aligned', 'align_calc', { r, dir: d, u1: uz[0], u2: uz[1] });
+  C('direction', 'compare', { r, dir: d }); if (G.DEC_DOMAINS.includes(r.domain)) C('steps', 'compare', { r, dir: d }); else C('sixty', 'compare', { r, dir: d });
+  C('not_aligned', 'compare', { r, dir: d, u1: uz[0], u2: uz[1] });
+  for (const vb of [...V.B_INT, ...V.B_DEC].filter(x => x >= 10)) { const conv = G.rd(vb * r.f); if (conv >= 1e6) continue;
+    C('cmp_bigunit', 'compare', { r, dir: d, side: d === 'down' ? vb : conv, su: d === 'down' ? r.big : r.small, to: d === 'down' ? r.small : r.big });
+    C('cmp_same', 'compare', { r, dir: d, vb, conv }); }
+}
+const SA = { kmph_min: ['R15', 'up', '時速 km', '分'], mpm_km: ['R3', 'down', '分速 m', 'km'], sps_min: ['R14', 'down', '秒速 m', '分'], mix_persec: ['R16', 'up', '分速 m', '秒速 m'], mix_permin: ['R16', 'down', '分速 m', '秒速 m'] };
+for (const [type, [id, d, u1, u2]] of Object.entries(SA)) { const r = R(id); // speed_apply の 5 小型
+  for (const t of ['direction', 'M1mag']) C(t, 'speed_apply', { r, dir: d });
+  if (type === 'kmph_min' || type === 'mix_persec') C('sixty', 'speed_apply', { r, dir: d });
+  C('not_aligned', 'speed_apply', { r, dir: d, u1, u2 });
+}
+const CP = { C1: ['時間', '分', 60, V.COMP_TIME_HI, V.COMP_TIME_LO], C2: ['分', '秒', 60, V.COMP_TIME_HI, V.COMP_TIME_LO], C3: ['m', 'cm', 100, V.COMP_C3_HI, V.COMP_C3_LO], C4: ['km', 'm', 1000, V.COMP_C45_HI, V.COMP_C45_LO], C5: ['kg', 'g', 1000, V.COMP_C45_HI, V.COMP_C45_LO] };
+for (const [cid, [uh, ul, f, his, los]] of Object.entries(CP)) for (const h of his) for (const lo of los) { // compound_in
+  C('concat', 'compound_in', { uh, ul, f, h, lo }); if (cid !== 'C1' && cid !== 'C2') C('zero_drop', 'compound_in', { uh, ul, f, h, lo }); }
+const R15 = R('R15');
+for (const h of V.TEXP_COMP_H) for (const m of V.TEXP_COMP_M) { const X = 60 * h + m; if (X < 100) continue; // time_express (複名数)
+  C('sixty', 'time_express', { r: R15, dir: 'up' }); C('texp_calc', 'time_express', { X, comp: true }); C('texp_place', 'time_express', { X }); }
+const hours = [...V.TEXP_HOURS.map(v => [v, G.rd(v)]), ...V.FRAC_HOURS.map(f => { const [a, b] = f.split('/').map(Number); return [a / b, f]; })];
+for (const [v, shown] of hours) { const X = Math.round(60 * v); // time_express (小数か分数)
+  C('sixty', 'time_express', { r: R15, dir: 'up' }); C('direction', 'time_express', { r: R15, dir: 'up' }); C('texp_calc', 'time_express', { X, ans: G.isInt(v * 100) ? fx(v) : shown }); }
+
+// ---------- check ----------
 const len = s => [...s.replace(/\s/g, '')].length;
-let bad = 0;
-for (const [k, list] of Object.entries(T)) {
-  const u = [...new Set(list)]; const mx = u.reduce((a, s) => (len(s) > len(a) ? s : a), '');
+const T = {}; let bad = 0; const missing = new Set();
+for (const { type, pattern, c } of combos) {
+  const s = explain(type, c);
+  if (s === undefined || s === null) { const key = `${type} / ${pattern} / ${c.r ? c.r.id + ' ' + c.r.domain : ''} / ${c.dir || ''}${c.g ? ' / g ' + c.g : ''}`; if (!missing.has(key)) { missing.add(key); bad++; console.error('MISSING ' + key); } continue; }
+  (T[type] = T[type] || new Set()).add(s);
+}
+for (const [k, set] of Object.entries(T)) {
+  const u = [...set]; const mx = u.reduce((a, s) => (len(s) > len(a) ? s : a), '');
   console.log(`${k}\t${u.length} 文\t最長 ${len(mx)} 字\t${mx}`);
   if (process.argv[2] === '--all') u.forEach(s => console.log('   ' + len(s) + ' ' + s));
   for (const s of u) if (len(s) > 25) { bad++; console.error('OVER 25: ' + s); }
 }
-// the templates of different types must differ (8 章の表 B is a bijection between types and templates)
-const firsts = Object.entries(T).map(([k, l]) => [k, new Set(l)]);
-for (let i = 0; i < firsts.length; i++) for (let j = i + 1; j < firsts.length; j++) for (const s of firsts[i][1]) if (firsts[j][1].has(s) && firsts[i][0] !== firsts[j][0]) { bad++; console.error(`SHARED by ${firsts[i][0]} and ${firsts[j][0]}: ${s}`); }
+const types = Object.entries(T); // the templates of different types must differ (表 B is a bijection between types and templates)
+for (let i = 0; i < types.length; i++) for (let j = i + 1; j < types.length; j++) for (const s of types[i][1]) if (types[j][1].has(s)) { bad++; console.error(`SHARED by ${types[i][0]} and ${types[j][0]}: ${s}`); }
+console.log(`${combos.length} 組み合わせ、型 ${types.length}。${bad ? bad + ' 件の不足か超過' : 'すべての組み合わせで表 B の文が 1 つに決まり、25 字以内で、型の間で共有しない'}`);
 process.exit(bad ? 1 : 0);
